@@ -90,7 +90,7 @@ class ApiUtility {
             var challenges: [HigiChallenge] = [];
             var serverChallenges = ((responseObject as NSDictionary)["response"] as NSDictionary)["data"] as NSArray;
             for challenge: AnyObject in serverChallenges {
-                challenges.append(HigiChallenge(dictionary: (challenge as NSDictionary)["challenge"] as NSDictionary));
+                challenges.append(HigiChallenge(dictionary: (challenge as NSDictionary)["challenge"] as NSDictionary, userStatus: (challenge as NSDictionary)["status"] as NSString));
             }
             SessionController.Instance.challenges = challenges;
             success?();
