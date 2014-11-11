@@ -70,9 +70,10 @@ class ChangePasswordViewController: UIViewController, UITextFieldDelegate {
             var encodedEmail = CFURLCreateStringByAddingPercentEscapes(nil, user.email, nil, "!*'();:@&=+$,/?%#[]", CFStringBuiltInEncodings.UTF8.rawValue);
             var encodedCurrentPassword = CFURLCreateStringByAddingPercentEscapes(nil, currentPassword.text, nil, "!*'();:@&=+$,/?%#[]", CFStringBuiltInEncodings.UTF8.rawValue);
             var encodedNewPassword = CFURLCreateStringByAddingPercentEscapes(nil, newPassword.text, nil, "!*'();:@&=+$,/?%#[]", CFStringBuiltInEncodings.UTF8.rawValue);
-            HigiApi().sendGet("/login/login?email=\(encodedEmail)&password=\(encodedCurrentPassword)&getphoto=false&ttl=157852800", success: {request,responseObject in
+            
+            HigiApi().sendGet("\(HigiApi.higiApiUrl)/login/login?email=\(encodedEmail)&password=\(encodedCurrentPassword)&getphoto=false&ttl=157852800", success: {request,responseObject in
                 
-                HigiApi().sendGet("/login/setPassword?id=\(user.userId)&token=\(SessionData.Instance.token)&password=\(encodedNewPassword)", success: {operation, responseObject in
+                HigiApi().sendGet("\(HigiApi.higiApiUrl)/login/setPassword?id=\(user.userId)&token=\(SessionData.Instance.token)&password=\(encodedNewPassword)", success: {operation, responseObject in
                     
                     UIAlertView(title: "Success!", message: "Your password has been changed", delegate: nil, cancelButtonTitle: "OK").show();
                     self.navigationController!.popViewControllerAnimated(true);

@@ -121,12 +121,15 @@ class DashboardViewController: BaseViewController, UITableViewDelegate, UITableV
         var tag = sender.tag;
         bodyStatsViewController.currentPage = sender.tag;
         self.navigationController!.pushViewController(bodyStatsViewController, animated: true);
-        (self.navigationController as MainNavigationController).drawerController?.tableView.selectRowAtIndexPath(NSIndexPath(forItem: 1, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None);
+        (self.navigationController as MainNavigationController).drawerController?.tableView.reloadData();
+        (self.navigationController as MainNavigationController).drawerController?.tableView.selectRowAtIndexPath(NSIndexPath(forItem: 3, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None);
     }
     
     @IBAction func higiPulseClicked(sender: AnyObject) {
         Flurry.logEvent("HigiPulse_Pressed");
+        (self.navigationController as MainNavigationController).drawerController?.tableView.reloadData();
         self.navigationController!.pushViewController(PulseHomeViewController(nibName: "PulseHomeView", bundle: nil), animated: true);
+        (self.navigationController as MainNavigationController).drawerController?.tableView.selectRowAtIndexPath(NSIndexPath(forItem: 5, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None);
     }
     
     func updateTiles() {
@@ -492,7 +495,7 @@ class DashboardViewController: BaseViewController, UITableViewDelegate, UITableV
             
         });
         
-        HigiApi().sendGet("/data/qdata/\(SessionData.Instance.user.userId)?newSession=true", success: { operation, responseObject in
+        HigiApi().sendGet("\(HigiApi.higiApiUrl)/data/qdata/\(SessionData.Instance.user.userId)?newSession=true", success: { operation, responseObject in
             
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                 var login = HigiLogin(dictionary: responseObject as NSDictionary);

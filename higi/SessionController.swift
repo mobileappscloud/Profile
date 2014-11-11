@@ -15,7 +15,11 @@ class SessionController {
         return SessionControllerSharedInstance;
     }
     
-    var checkins: [HigiCheckin] = [];
+    var checkins: [HigiCheckin]!;
+    
+    var activities: [HigiActivity]!;
+    
+    var challenges: [HigiChallenge]!;
     
     var pulseArticles: [PulseArticle] = [];
     
