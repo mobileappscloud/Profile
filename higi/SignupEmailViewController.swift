@@ -85,13 +85,13 @@ class SignupEmailViewController: UIViewController, UITextFieldDelegate {
         termsView.hidden = true;
         var encodedEmail = CFURLCreateStringByAddingPercentEscapes(nil, email.text, nil, "!*'();:@&=+$,/?%#[]", CFStringBuiltInEncodings.UTF8.rawValue);
         var encodedPassword = CFURLCreateStringByAddingPercentEscapes(nil, password.text, nil, "!*'();:@&=+$,/?%#[]", CFStringBuiltInEncodings.UTF8.rawValue);
-        HigiApi().sendGet("/data/emailUsed/\(encodedEmail)", success: {operation, responseObject in
+        HigiApi().sendGet("\(HigiApi.higiApiUrl)/data/emailUsed/\(encodedEmail)", success: {operation, responseObject in
             
             if (responseObject as Bool) {
                 UIAlertView(title: "I knew you looked familiar...", message: "There is already a higi account with this email.", delegate: nil, cancelButtonTitle: "OK").show();
                 self.reset(false);
             } else {
-                HigiApi().sendRawGet("\(HigiApi.webUrl)/termsinfo", success: {operation, responseObject in
+                HigiApi().sendGet("\(HigiApi.webUrl)/termsinfo", success: {operation, responseObject in
                     
                     var termsInfo = responseObject as NSDictionary;
                     
@@ -112,7 +112,7 @@ class SignupEmailViewController: UIViewController, UITextFieldDelegate {
                     privacy["privacyAgreedDate"] = agreedDate;
                     contents["terms"] = terms;
                     contents["privacyAgreed"] = privacy;
-                    HigiApi().sendPut("/data/user?password=\(encodedPassword)", parameters: contents, success: {operation, responseObject in
+                    HigiApi().sendPut("\(HigiApi.higiApiUrl)/data/user?password=\(encodedPassword)", parameters: contents, success: {operation, responseObject in
                         
                         var userInfo = responseObject as NSDictionary;
                         
@@ -123,6 +123,9 @@ class SignupEmailViewController: UIViewController, UITextFieldDelegate {
                         SessionData.Instance.user = user;
                         SessionData.Instance.token = userInfo["token"] as NSString;
                         SessionData.Instance.save();
+                        SessionController.Instance.checkins = [];
+                        SessionController.Instance.activities = [];
+                        SessionController.Instance.challenges = [];
                         
                         self.navigationController!.pushViewController(SignupNameViewController(nibName: "SignupNameView", bundle: nil), animated: true);
                         

@@ -11,8 +11,8 @@ import HealthKit
 
 class ApiUtility {
     
-    class func checkTermsAndPrivacy(viewController: UIViewController, success: (() -> Void)?) {
-        HigiApi().sendRawGet("\(HigiApi.webUrl)/termsinfo", success: {operation, responseObject in
+    class func checkTermsAndPrivacy(viewController: UIViewController, success: (() -> Void)?, failure: (() -> Void)?) {
+        HigiApi().sendGet("\(HigiApi.webUrl)/termsinfo", success: {operation, responseObject in
             var user = SessionData.Instance.user;
             var termsInfo = responseObject as NSDictionary;
             var termsFile = termsInfo["termsFilename"] as NSString;
@@ -27,21 +27,25 @@ class ApiUtility {
                 termsController.privacyFile = privacyFile;
                 viewController.presentViewController(termsController, animated: true, completion: nil);
             } else {
-                self.retrieveCheckins(success);
+                ApiUtility.retrieveCheckins(success);
+                ApiUtility.retrieveActivities(success);
+                ApiUtility.retrieveChallenges(success);
             }
+            
             }, failure: {operation, error in
-                // TODO
+                var i = 0;
+                failure?();
         });
     }
     
     class func retrieveCheckins(success: (() -> Void)?) {
         grabNextPulseArticles(nil);
-        HigiApi().sendGet( "/data/user/\(SessionData.Instance.user.userId)/checkIn", success:
+        HigiApi().sendGet( "\(HigiApi.higiApiUrl)/data/user/\(SessionData.Instance.user.userId)/checkIn", success:
             { operation, responseObject in
                 
                 var serverCheckins = responseObject as NSArray;
                 var checkins: [HigiCheckin] = [];
-                var lastBpCheckin, lastBmiCheckin: HigiCheckin!;
+                var lastBpCheckin, lastBmiCheckin: HigiCheckin?;
                 for checkin: AnyObject in serverCheckins {
                     if let checkinData = checkin as? NSDictionary {
                         var checkin = HigiCheckin(dictionary: checkinData);
@@ -56,11 +60,7 @@ class ApiUtility {
                         checkins.append(checkin);
                     }
                 }
-                
                 SessionController.Instance.checkins = checkins;
-                
-                //ApiUtility.updateHealthKit();
-                
                 if (SessionData.Instance.kioskList.count > 0) {
                     ApiUtility.retrieveKioskList(nil);
                     success?();
@@ -70,8 +70,76 @@ class ApiUtility {
                 
             },
             failure: { operation, error in
-                    // TODO
+                SessionController.Instance.checkins = [];
+                if (SessionData.Instance.kioskList.count > 0) {
+                    ApiUtility.retrieveKioskList(nil);
+                    success?();
+                } else {
+                    ApiUtility.retrieveKioskList(success);
+                }
             });
+    }
+    
+    class func retrieveActivities(success: (() -> Void)?) {
+        SessionController.Instance.activities = [];
+        success?();
+    }
+    
+    class func retrieveChallenges(success: (() -> Void)?) {
+        HigiApi().sendGet("\(HigiApi.earnditApiUrl)/user/rQIpgKhmd0qObDSr5SkHbw/challenges?include=&limit=&page=&filter=", success: {operation, responseObject in
+            var challenges: [HigiChallenge] = [];
+            var serverChallenges = ((responseObject as NSDictionary)["response"] as NSDictionary)["data"] as NSArray;
+            for challenge: AnyObject in serverChallenges {
+                challenges.append(HigiChallenge(dictionary: (challenge as NSDictionary)["challenge"] as NSDictionary, userStatus: (challenge as NSDictionary)["status"] as NSString));
+            }
+            SessionController.Instance.challenges = challenges;
+            success?();
+            }, failure: { operation, error in
+                SessionController.Instance.challenges = [];
+                success?();
+        });
+        
+    }
+    
+    class func retrieveKioskList(success: (() -> Void)?) {
+        
+        HigiApi().sendGet("\(HigiApi.higiApiUrl)/data/KioskList", success:
+            { operation, responseObject in
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                    
+                    
+                    var serverKiosks = responseObject as NSArray;
+                    var kiosks: [KioskInfo] = [];
+                    for kiosk: AnyObject in serverKiosks {
+                        if let kioskData = kiosk as? NSDictionary {
+                            var newKiosk = KioskInfo(dictionary: kioskData);
+                            if (newKiosk.position != nil) {
+                                if (newKiosk.isMapVisible) {
+                                    kiosks.append(newKiosk);
+                                } else {
+                                    for checkin in SessionController.Instance.checkins {
+                                        if (checkin.kioskInfo != nil && newKiosk.kioskId == checkin.kioskInfo!.kioskId) {
+                                            kiosks.append(newKiosk);
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                    SessionData.Instance.kioskList = kiosks;
+                    dispatch_async(dispatch_get_main_queue(), {
+                        if (success != nil) {
+                            success!();
+                        }
+                    });
+                });
+                
+            },
+            failure: { operation, error in
+                
+        });
     }
     
     class func updateHealthKit() {
@@ -184,51 +252,10 @@ class ApiUtility {
         return NSSet(array: []);
     }
     
-    class func retrieveKioskList(success: (() -> Void)?) {
-        
-        HigiApi().sendGet( "/data/KioskList", success:
-            { operation, responseObject in
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                    
-                    
-                    var serverKiosks = responseObject as NSArray;
-                    var kiosks: [KioskInfo] = [];
-                    for kiosk: AnyObject in serverKiosks {
-                        if let kioskData = kiosk as? NSDictionary {
-                            var newKiosk = KioskInfo(dictionary: kioskData);
-                            if (newKiosk.position != nil) {
-                                if (newKiosk.isMapVisible) {
-                                    kiosks.append(newKiosk);
-                                } else {
-                                    for checkin in SessionController.Instance.checkins {
-                                        if (checkin.kioskInfo != nil && newKiosk.kioskId == checkin.kioskInfo!.kioskId) {
-                                            kiosks.append(newKiosk);
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    
-                    SessionData.Instance.kioskList = kiosks;
-                    dispatch_async(dispatch_get_main_queue(), {
-                        if (success != nil) {
-                            success!();
-                        }
-                    });
-                });
-                
-            },
-            failure: { operation, error in
-                
-        });
-    }
-    
     class func grabNextPulseArticles(callback: (() -> Void)?) {
         var paged = Int(SessionController.Instance.pulseArticles.count / 15) + 1;
         var url = "\(HigiApi.webUrl)/pulse/?feed=json&posts_per_rss=15&paged=\(paged)";
-        HigiApi().sendRawGet(url, success: { operation, responseObject in
+        HigiApi().sendGet(url, success: { operation, responseObject in
             
             var serverArticles = (responseObject as NSDictionary)["posts"] as NSArray;
             var articles: [PulseArticle] = [];

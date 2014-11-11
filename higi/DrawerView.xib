@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DrawerViewController" customModule="higi" customModuleProvider="target">
             <connections>
+                <outlet property="blurryBackground" destination="Yyk-Yo-3Yy" id="oM0-EA-xCV"/>
+                <outlet property="higiScore" destination="wOm-Qm-yXW" id="dnG-NJ-Pkd"/>
+                <outlet property="name" destination="GmU-Wg-xga" id="KdJ-rT-MJL"/>
+                <outlet property="profileImage" destination="BLS-R7-Qna" id="zqt-ba-Rsy"/>
+                <outlet property="scoreRing" destination="RIh-Zm-011" id="jA3-Hk-GOJ"/>
+                <outlet property="scoreRingMask" destination="fTq-mM-VSG" id="u4f-Kv-Wci"/>
                 <outlet property="tableView" destination="00r-Wt-SFM" id="vkY-mV-4Zz"/>
                 <outlet property="view" destination="iN0-l3-epB" id="C5g-e7-u4v"/>
             </connections>
@@ -16,24 +21,95 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" scrollEnabled="NO" style="plain" separatorStyle="none" rowHeight="40" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="00r-Wt-SFM">
-                    <rect key="frame" x="0.0" y="94" width="320" height="474"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                <imageView userInteractionEnabled="NO" alpha="0.40000000000000002" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Yyk-Yo-3Yy">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                </imageView>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="40" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="00r-Wt-SFM">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <view key="tableHeaderView" contentMode="scaleToFill" id="AkS-KD-cYZ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="246"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="higilogo_ocmenu.png" translatesAutoresizingMaskIntoConstraints="NO" id="wcZ-Ci-GtS">
+                                <rect key="frame" x="62" y="23" width="139" height="59"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sKh-Mp-YOY">
+                                <rect key="frame" x="81" y="90" width="100" height="100"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zas-AA-HaO">
+                                        <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="50"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RIh-Zm-011">
+                                        <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                    </view>
+                                    <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fTq-mM-VSG">
+                                        <rect key="frame" x="43" y="86" width="14" height="14"/>
+                                        <color key="backgroundColor" red="0.46274509800000002" green="0.75294117650000003" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="7"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BLS-R7-Qna">
+                                        <rect key="frame" x="13" y="13" width="74" height="74"/>
+                                    </imageView>
+                                </subviews>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="higi Score" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pE3-Rm-nbG">
+                                <rect key="frame" x="189" y="113" width="84" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="999" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wOm-Qm-yXW">
+                                <rect key="frame" x="189" y="133" width="84" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GmU-Wg-xga">
+                                <rect key="frame" x="15" y="205" width="232" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="jU4-nz-Dld"/>
                         <outlet property="delegate" destination="-1" id="yAk-mY-RkQ"/>
                     </connections>
                 </tableView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="higilogo_ocmenu.png" translatesAutoresizingMaskIntoConstraints="NO" id="wcZ-Ci-GtS">
-                    <rect key="frame" x="62" y="27" width="139" height="59"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="higi_guy.png" translatesAutoresizingMaskIntoConstraints="NO" id="9hi-hE-oqX">
+                    <rect key="frame" x="132" y="374" width="223" height="272"/>
                 </imageView>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="00r-Wt-SFM" secondAttribute="bottom" id="2h7-sI-0Eq"/>
+                <constraint firstItem="00r-Wt-SFM" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="3gd-EF-olf"/>
+                <constraint firstAttribute="trailing" secondItem="00r-Wt-SFM" secondAttribute="trailing" id="9qC-Tf-IN7"/>
+                <constraint firstItem="Yyk-Yo-3Yy" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="cmk-P7-t1H"/>
+                <constraint firstItem="Yyk-Yo-3Yy" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="edc-vT-MMn"/>
+                <constraint firstAttribute="trailing" secondItem="Yyk-Yo-3Yy" secondAttribute="trailing" id="jNU-qa-e4N"/>
+                <constraint firstAttribute="bottom" secondItem="Yyk-Yo-3Yy" secondAttribute="bottom" id="sg7-9u-uH7"/>
+                <constraint firstItem="00r-Wt-SFM" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="smi-9y-aME"/>
+            </constraints>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
     </objects>
     <resources>
+        <image name="higi_guy.png" width="600" height="770"/>
         <image name="higilogo_ocmenu.png" width="380" height="160"/>
     </resources>
 </document>

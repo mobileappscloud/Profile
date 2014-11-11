@@ -78,6 +78,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         var listBarItem = UIBarButtonItem();
         listBarItem.customView = listButton;
         self.navigationItem.rightBarButtonItem = listBarItem;
+        self.revealController.panGestureRecognizer().enabled = false;
         
         searchField = UITextField(frame: CGRect(x: 0, y: 0, width: 95, height: 40));
         searchField.font = UIFont.systemFontOfSize(12);
@@ -168,8 +169,6 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated);
-        self.revealController.panGestureRecognizer().enabled = false;
-
         if (!reminderMode) {
             populateMarkers();
         }

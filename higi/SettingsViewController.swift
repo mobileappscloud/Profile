@@ -93,7 +93,7 @@ class SettingsViewController: BaseViewController, UIScrollViewDelegate {
         notifications.setObject(isOn ? "True" : "False", forKey: "EmailCheckins");
         contents.setObject(notifications, forKey: "Notifications");
         user.emailCheckins = isOn;
-        HigiApi().sendPost("/data/user/\(user.userId)", parameters: contents, success: nil, failure: { operation, error in
+        HigiApi().sendPost("\(HigiApi.higiApiUrl)/data/user/\(user.userId)", parameters: contents, success: nil, failure: { operation, error in
             
             (sender as UISwitch).on = !isOn;
             self.user.emailCheckins = !isOn;
@@ -108,7 +108,7 @@ class SettingsViewController: BaseViewController, UIScrollViewDelegate {
         notifications.setObject(isOn ? "True" : "False", forKey: "EmailHigiNews");
         contents.setObject(notifications, forKey: "Notifications");
         user.emailHigiNews = isOn;
-        HigiApi().sendPost("/data/user/\(user.userId)", parameters: contents, success: nil, failure: { operation, error in
+        HigiApi().sendPost("\(HigiApi.higiApiUrl)/data/user/\(user.userId)", parameters: contents, success: nil, failure: { operation, error in
                 
                 (sender as UISwitch).on = !isOn;
                 self.user.emailHigiNews = !isOn;
