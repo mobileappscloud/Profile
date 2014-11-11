@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="PullRefresh" customModule="higi" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="113"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UPk-JK-tkZ">
+                    <rect key="frame" x="149" y="33" width="22" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="22" id="0VY-5F-mXk"/>
+                        <constraint firstAttribute="width" constant="22" id="bZt-kt-Axt"/>
+                    </constraints>
+                </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="higi_logo_innercircle.png" translatesAutoresizingMaskIntoConstraints="NO" id="E1Z-6L-cXR">
+                    <rect key="frame" x="150" y="34" width="20" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="20" id="JfS-Va-gTb"/>
+                        <constraint firstAttribute="height" constant="20" id="ehl-Qe-64o"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="circleContainer" destination="UPk-JK-tkZ" id="1M3-rA-WTv"/>
+                <outlet property="icon" destination="E1Z-6L-cXR" id="JP5-0n-O2C"/>
+            </connections>
+            <point key="canvasLocation" x="538" y="-108.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="higi_logo_innercircle.png" width="24" height="24"/>
+    </resources>
+</document>

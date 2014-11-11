@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment defaultVersion="1808" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="2Th-GZ-Jh5" customClass="BodyStatsLandView" customModule="higi" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T6x-Eb-jyz">
+                    <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                </scrollView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LTd-93-EZK">
+                    <rect key="frame" x="198" y="13" width="171" height="21"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sDS-Ai-isM">
+                    <rect key="frame" x="5" y="13" width="45" height="30"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                    <state key="normal" title="1m">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ypR-6g-uwP">
+                    <rect key="frame" x="47" y="13" width="45" height="30"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                    <state key="normal" title="3m">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Yl-35-lAF">
+                    <rect key="frame" x="89" y="13" width="45" height="30"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                    <state key="normal" title="6m">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9ZN-hM-Smc">
+                    <rect key="frame" x="131" y="13" width="45" height="30"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                    <state key="normal" title="All" backgroundImage="graph_timespan_bg.png">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+                <pageControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="5" translatesAutoresizingMaskIntoConstraints="NO" id="R2f-hA-0rQ">
+                    <rect key="frame" x="237" y="26" width="95" height="37"/>
+                </pageControl>
+            </subviews>
+            <constraints>
+                <constraint firstItem="T6x-Eb-jyz" firstAttribute="leading" secondItem="2Th-GZ-Jh5" secondAttribute="leading" id="4TH-NX-JYz"/>
+                <constraint firstAttribute="bottom" secondItem="T6x-Eb-jyz" secondAttribute="bottom" id="SFX-YH-Rp4"/>
+                <constraint firstItem="T6x-Eb-jyz" firstAttribute="top" secondItem="2Th-GZ-Jh5" secondAttribute="top" id="TQf-s2-UiZ"/>
+                <constraint firstAttribute="trailing" secondItem="T6x-Eb-jyz" secondAttribute="trailing" id="UVp-Jv-g8a"/>
+                <constraint firstAttribute="centerX" secondItem="R2f-hA-0rQ" secondAttribute="centerX" id="b71-yf-7Ue"/>
+                <constraint firstItem="LTd-93-EZK" firstAttribute="top" secondItem="2Th-GZ-Jh5" secondAttribute="top" constant="13" id="spf-jN-H34"/>
+                <constraint firstItem="R2f-hA-0rQ" firstAttribute="top" secondItem="2Th-GZ-Jh5" secondAttribute="top" constant="26" id="srC-af-ZFE"/>
+                <constraint firstAttribute="centerX" secondItem="LTd-93-EZK" secondAttribute="centerX" id="vlD-69-doR"/>
+            </constraints>
+            <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+            <connections>
+                <outlet property="button1m" destination="sDS-Ai-isM" id="ZXU-Xk-hMV"/>
+                <outlet property="button3m" destination="ypR-6g-uwP" id="HZQ-6O-thn"/>
+                <outlet property="button6m" destination="3Yl-35-lAF" id="PNa-JT-bG1"/>
+                <outlet property="buttonAll" destination="9ZN-hM-Smc" id="Fqz-N0-acR"/>
+                <outlet property="pager" destination="R2f-hA-0rQ" id="mec-w3-pqW"/>
+                <outlet property="scrollView" destination="T6x-Eb-jyz" id="0Sd-ap-Cy0"/>
+                <outlet property="titleLabel" destination="LTd-93-EZK" id="izB-SS-gkz"/>
+            </connections>
+        </view>
+    </objects>
+    <resources>
+        <image name="graph_timespan_bg.png" width="98" height="60"/>
+    </resources>
+</document>

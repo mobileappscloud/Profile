@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProfileImageViewController" customModule="higi" customModuleProvider="target">
+            <connections>
+                <outlet property="chooseLibraryButton" destination="CvM-eS-eBK" id="2xa-VU-27C"/>
+                <outlet property="skipButton" destination="jRm-Gf-5n7" id="gAz-dk-M4b"/>
+                <outlet property="spinner" destination="7aR-Ek-zUu" id="bAt-Kt-27X"/>
+                <outlet property="takePhotoButton" destination="yGX-rj-FVy" id="piq-uE-Jzg"/>
+                <outlet property="view" destination="iN0-l3-epB" id="mnB-UT-eTe"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="onboarding_avatar.png" translatesAutoresizingMaskIntoConstraints="NO" id="3F6-jC-idw">
+                    <rect key="frame" x="82" y="84" width="156" height="156"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="156" id="hXI-Xa-7Yj"/>
+                        <constraint firstAttribute="width" constant="156" id="qmH-nV-v0y"/>
+                    </constraints>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CvM-eS-eBK">
+                    <rect key="frame" x="20" y="270" width="280" height="40"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                    <state key="normal" title="Choose from library">
+                        <color key="titleColor" red="0.46274509800000002" green="0.75294117650000003" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="chooseFromLibrary:" destination="-1" eventType="touchUpInside" id="BoQ-We-hKd"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yGX-rj-FVy">
+                    <rect key="frame" x="20" y="330" width="280" height="40"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                    <state key="normal" title="Take photo">
+                        <color key="titleColor" red="0.46274509800000002" green="0.75294117650000003" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="takePhoto:" destination="-1" eventType="touchUpInside" id="W47-bk-YcS"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jRm-Gf-5n7">
+                    <rect key="frame" x="114" y="501" width="93" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <state key="normal" title="Not right now">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="skip:" destination="-1" eventType="touchUpInside" id="A4J-Uy-eGZ"/>
+                    </connections>
+                </button>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="7aR-Ek-zUu">
+                    <rect key="frame" x="150" y="506" width="20" height="20"/>
+                </activityIndicatorView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="jRm-Gf-5n7" secondAttribute="bottom" constant="37" id="3B4-xS-wcP"/>
+            </constraints>
+            <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="onboarding_avatar.png" width="432" height="432"/>
+    </resources>
+</document>

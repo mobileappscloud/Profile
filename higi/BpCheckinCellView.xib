@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6205" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6198"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="111" id="jJU-7Q-pIw" customClass="BpCheckinCell" customModule="higi" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="280" height="111"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jJU-7Q-pIw" id="qLF-13-peS">
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AWN-ct-SrD">
+                        <rect key="frame" x="182" y="13" width="90" height="90"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RiG-7X-2oR">
+                        <rect key="frame" x="193" y="36" width="69" height="21"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0aT-Bq-98w">
+                        <rect key="frame" x="193" y="61" width="69" height="21"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jk1-YY-B6F">
+                        <rect key="frame" x="182" y="81" width="90" height="21"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Blood Pressure" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b9U-gv-IuG">
+                        <rect key="frame" x="10" y="15" width="166" height="25"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="vital_bp_icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="mj4-CQ-zq5">
+                        <rect key="frame" x="8" y="49" width="20" height="20"/>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MJV-Nc-PY2">
+                        <rect key="frame" x="31" y="51" width="15" height="15"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hCV-W6-WRH">
+                        <rect key="frame" x="53" y="49" width="121" height="21"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="umN-8b-o54">
+                        <rect key="frame" x="31" y="66" width="15" height="15"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="since last check-in" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dH4-4J-EOF">
+                        <rect key="frame" x="53" y="77" width="91" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aab-mk-d7H">
+                        <rect key="frame" x="209" y="59" width="40" height="1"/>
+                        <color key="backgroundColor" red="0.86599170920000001" green="0.86599170920000001" blue="0.86599170920000001" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uo9-Ha-NTk">
+                        <rect key="frame" x="53" y="64" width="123" height="21"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="bpClass" destination="Jk1-YY-B6F" id="C48-H3-zWO"/>
+                <outlet property="diastolic" destination="0aT-Bq-98w" id="qES-11-Ogn"/>
+                <outlet property="diastolicArrow" destination="umN-8b-o54" id="PPf-kd-5qA"/>
+                <outlet property="diastolicChange" destination="uo9-Ha-NTk" id="x91-Fs-80n"/>
+                <outlet property="gauge" destination="AWN-ct-SrD" id="EDb-M3-hiH"/>
+                <outlet property="systolic" destination="RiG-7X-2oR" id="U5C-W4-uOF"/>
+                <outlet property="systolicArrow" destination="MJV-Nc-PY2" id="Ln5-UR-gA9"/>
+                <outlet property="systolicChange" destination="hCV-W6-WRH" id="542-ko-rCI"/>
+            </connections>
+            <point key="canvasLocation" x="203" y="162.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="vital_bp_icon.png" width="46" height="46"/>
+    </resources>
+</document>

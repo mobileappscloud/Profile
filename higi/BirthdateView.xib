@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment defaultVersion="1808" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BirthdateViewController" customModule="higi" customModuleProvider="target">
+            <connections>
+                <outlet property="datePicker" destination="loP-oR-ySu" id="KQn-sT-rUg"/>
+                <outlet property="nextButton" destination="NOd-ze-Fdg" id="IU8-U0-IMl"/>
+                <outlet property="spinner" destination="99D-BY-ymp" id="2eZ-1e-oBI"/>
+                <outlet property="view" destination="iN0-l3-epB" id="5no-fE-6Xu"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NOd-ze-Fdg">
+                    <rect key="frame" x="20" y="235" width="280" height="40"/>
+                    <color key="backgroundColor" red="0.46274509800000002" green="0.75294117650000003" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                    <state key="normal" title="Next">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="gotoNext:" destination="-1" eventType="touchUpInside" id="ipx-Fl-9BB"/>
+                    </connections>
+                </button>
+                <datePicker contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="loP-oR-ySu">
+                    <rect key="frame" x="0.0" y="65" width="320" height="162"/>
+                    <date key="date" timeIntervalSinceReferenceDate="429034079.964288">
+                        <!--2014-08-06 16:07:59 +0000-->
+                    </date>
+                </datePicker>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="99D-BY-ymp">
+                    <rect key="frame" x="150" y="510" width="20" height="20"/>
+                </activityIndicatorView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="99D-BY-ymp" secondAttribute="bottom" constant="38" id="bHv-Q3-nI5"/>
+                <constraint firstItem="NOd-ze-Fdg" firstAttribute="top" secondItem="loP-oR-ySu" secondAttribute="bottom" constant="8" id="lUg-jH-V9c"/>
+            </constraints>
+            <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+        </view>
+    </objects>
+</document>
