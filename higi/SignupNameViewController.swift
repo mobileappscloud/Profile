@@ -50,7 +50,7 @@ class SignupNameViewController: UIViewController, UITextFieldDelegate {
             contents["firstName"] = firstName.text;
             contents["lastName"] = lastName.text;
             contents["Notifications"] = notifications;
-            HigiApi().sendPost("\(HigiApi.higiApiUrl)/data/user/\(user.userId)", parameters: contents, success: {operation, responseObject in
+            HigiApi().sendPost("/data/user/\(user.userId)", parameters: contents, success: {operation, responseObject in
                 
                 self.navigationController!.pushViewController(BirthdateViewController(nibName: "BirthdateView", bundle: nil), animated: true);
                 

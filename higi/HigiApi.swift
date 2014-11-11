@@ -13,12 +13,8 @@ class HigiApi {
     
     var manager: AFHTTPRequestOperationManager;
     
-    class var higiApiUrl: String {
+    class var baseUrl: String {
         return BASE_URL;
-    }
-    
-    class var earnditApiUrl: String {
-        return EARNDIT_URL;
     }
     
     class var webUrl: String {
@@ -36,34 +32,32 @@ class HigiApi {
         manager.requestSerializer.setValue(API_KEY, forHTTPHeaderField: "ApiToken");
         manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Content-Type");
         manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept");
-        manager.requestSerializer.setValue("application/vnd.higi.earndit;version=2", forHTTPHeaderField: "Accept");
-        
-        manager.requestSerializer.setValue("rQIpgKhmd0qObDSr5SkHbw", forHTTPHeaderField: "Dev-Token");  // Grant
-        //manager.requestSerializer.setValue("XibU2q0gN0eB5NxdflUQ0w", forHTTPHeaderField: "Dev-Token");  // Harry
-        
         if (!SessionData.Instance.token.isEmpty) {
             manager.requestSerializer.setValue(SessionData.Instance.token, forHTTPHeaderField: "Token");
         }
     }
     
     func sendPost(url: String, parameters: NSDictionary?, success: ((AFHTTPRequestOperation!, AnyObject!) -> Void)?, failure: ((AFHTTPRequestOperation!, NSError!) -> Void)?) {
-        manager.POST(url, parameters: parameters, success: success, failure: failure);
+        manager.POST(BASE_URL + url, parameters: parameters, success: success, failure: failure);
     }
     
     func sendGet(url: String, success: ((AFHTTPRequestOperation!, AnyObject!) -> Void)?, failure: ((AFHTTPRequestOperation!, NSError!) -> Void)?) {
+        manager.GET(BASE_URL + url, parameters: NSDictionary(), success: success, failure: failure);
+    }
+    
+    func sendRawGet(url: String, success: ((AFHTTPRequestOperation!, AnyObject!) -> Void)?, failure: ((AFHTTPRequestOperation!, NSError!) -> Void)?) {
         manager.GET(url, parameters: NSDictionary(), success: success, failure: failure);
     }
     
     func sendPut(url: String, parameters: NSDictionary?, success: ((AFHTTPRequestOperation!, AnyObject!) -> Void)?, failure: ((AFHTTPRequestOperation!, NSError!) -> Void)?) {
-        manager.PUT(url, parameters: parameters, success: success, failure: failure);
+        manager.PUT(BASE_URL + url, parameters: parameters, success: success, failure: failure);
     }
     
     func sendBytePost(url: String, contentType: String, body: NSData, parameters: NSDictionary?, success: ((AFHTTPRequestOperation!, AnyObject!) -> Void)?, failure: ((AFHTTPRequestOperation!, NSError!) -> Void)?) {
-        var request = NSMutableURLRequest(URL: NSURL(string: url)!);
+        var request = NSMutableURLRequest(URL: NSURL(string: BASE_URL + url)!);
         request.HTTPMethod = "POST";
         request.setValue(contentType, forHTTPHeaderField: "Content-Type");
         request.setValue(HigiApi.apiKey, forHTTPHeaderField: "ApiToken");
-        request.setValue("application/vnd.higi.earndit;version=2", forHTTPHeaderField: "Accept");
         if (!SessionData.Instance.token.isEmpty) {
             request.setValue(SessionData.Instance.token, forHTTPHeaderField: "Token");
         }
@@ -78,9 +72,6 @@ class HigiApi {
 
 let BASE_URL = "https://api.higi.com";
 //let BASE_URL = "http://higiapi2.cloudapp.net";
-
-//let EARNDIT_URL = "https://higi.com/higiApi";
-let EARNDIT_URL = "http://earndit-web-qa2.cloudapp.net/higiApi";
 
 let WEB_URL = "https://higi.com";
 //let WEB_URL = "https://webqa.superbuddytime.com";

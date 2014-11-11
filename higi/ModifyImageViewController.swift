@@ -87,7 +87,7 @@ class ModifyImageViewController: UIViewController {
                 compressionQuality -= 0.1;
             }
             var user = SessionData.Instance.user;
-            HigiApi().sendBytePost("\(HigiApi.higiApiUrl)/data/user/\(user.userId)/photo", contentType: "image/jpg", body: imageData, parameters: nil, success: {operation, responseObject in
+            HigiApi().sendBytePost("/data/user/\(user.userId)/photo", contentType: "image/jpg", body: imageData, parameters: nil, success: {operation, responseObject in
                 user.fullProfileImage = UIImage(data: imageData);
                 user.hasPhoto = true;
                 user.createBlurredImage();
@@ -114,13 +114,13 @@ class ModifyImageViewController: UIViewController {
         contents.setObject(centerY, forKey: "centerY");
         contents.setObject(serverScale, forKey: "scale");
         
-        HigiApi().sendPost("\(HigiApi.higiApiUrl)/data/user/\(user.userId)/photoPosition", parameters: contents, success: {operation, responseObject in
+        HigiApi().sendPost("/data/user/\(user.userId)/photoPosition", parameters: contents, success: {operation, responseObject in
             if (responseObject != nil) {
                 user.photoTime = ((responseObject as NSDictionary)["photoTime"] ?? Int(NSDate().timeIntervalSince1970)) as Int;
             } else {
                 user.photoTime = Int(NSDate().timeIntervalSince1970);
             }
-            user.profileImage = UIImage(data: NSData(contentsOfURL: NSURL(string: "\(HigiApi.higiApiUrl)/view/\(user.userId)/profile,400.png?t=\(user.photoTime)")!)!);
+            user.profileImage = UIImage(data: NSData(contentsOfURL: NSURL(string: "\(HigiApi.baseUrl)/view/\(user.userId)/profile,400.png?t=\(user.photoTime)")!)!);
             if (self.fromSettings) {
                 for viewController in self.navigationController!.viewControllers as [UIViewController] {
                     if (viewController.isKindOfClass(SettingsViewController)) {

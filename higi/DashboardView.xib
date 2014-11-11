@@ -286,12 +286,16 @@
                         <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CAt-rc-yqO">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         </view>
-                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vIA-gt-d3b">
-                            <rect key="frame" x="20" y="17" width="280" height="535"/>
+                        <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vIA-gt-d3b">
+                            <rect key="frame" x="20" y="36" width="280" height="535"/>
                         </view>
                     </subviews>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="CAt-rc-yqO" secondAttribute="bottom" id="7fQ-eY-9T1"/>
+                        <constraint firstItem="vIA-gt-d3b" firstAttribute="leading" secondItem="ygq-As-9tH" secondAttribute="leading" constant="20" id="LfC-BA-9pA"/>
+                        <constraint firstAttribute="bottom" secondItem="vIA-gt-d3b" secondAttribute="bottom" constant="-3" id="Ta6-kz-OXc"/>
+                        <constraint firstAttribute="trailing" secondItem="vIA-gt-d3b" secondAttribute="trailing" constant="20" id="WWI-nD-MS4"/>
+                        <constraint firstItem="vIA-gt-d3b" firstAttribute="top" secondItem="ygq-As-9tH" secondAttribute="top" constant="36" id="iyR-nY-8Ne"/>
                         <constraint firstItem="CAt-rc-yqO" firstAttribute="top" secondItem="ygq-As-9tH" secondAttribute="top" id="kCF-hX-Kqf"/>
                     </constraints>
                 </view>
