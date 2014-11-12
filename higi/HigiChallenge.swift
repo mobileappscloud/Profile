@@ -10,7 +10,7 @@ import Foundation
 
 class HigiChallenge {
     
-    var name, description, shortDescription, imageUrl, metric, status, terms: NSString!;
+    var name, description, shortDescription, imageUrl, metric, status, userStatus, terms: NSString!;
     
     var startDate, endDate: NSDate!;
     
@@ -22,7 +22,8 @@ class HigiChallenge {
     
     var winConditions: [ChallengeWinCondition]! = [];
     
-    init(dictionary: NSDictionary) {
+    init(dictionary: NSDictionary, userStatus: NSString) {
+        self.userStatus = userStatus;
         name = (dictionary["name"] ?? "") as NSString;
         description = "";   // Deal with this later
         shortDescription = (dictionary["shortDescription"] ?? "") as NSString;
