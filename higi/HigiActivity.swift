@@ -18,4 +18,14 @@ class HigiActivity {
     
     var startTime: NSDate!;
     
+    init(dictionary: NSDictionary) {
+        points = dictionary["points"] as Int;
+        description = dictionary["description"] as NSString;
+        var serverDevice = dictionary["device"] as NSDictionary?;
+        if (serverDevice != nil) {
+            device = ActivityDevice(dictionary: serverDevice!);
+        }
+        
+    }
+    
 }
