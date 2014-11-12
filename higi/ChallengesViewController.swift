@@ -20,7 +20,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     var currentPage  = 0;
     
     let pageTitles:[String] = ["Active Challenges","Upcoming Challenges","Available Challenges","Invitations"]
-    let activeChallengeTypes:Dictionary<Int,String> = [:]
+    //var challengeTables:Dictionary<String,String> = ["Active":activeChallengesTable]
     var activeChallenges:[HigiChallenge] = []
     var upcomingChallenges:[HigiChallenge] = []
     var availableChallenges:[HigiChallenge] = []
@@ -34,14 +34,9 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         var session = SessionController.Instance
         
         for challenge:HigiChallenge in session.challenges {
-            println("status \(challenge.status)")
             
             switch(challenge.status) {
                 case "running":
-                fallthrough
-                case "calculating":
-                fallthrough
-                case "finished":
                     activeChallenges.append(challenge)
                 case "public":
                     availableChallenges.append(challenge)
@@ -79,7 +74,6 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         }
         
         return 0
-        
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -97,54 +91,22 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
             subview.removeFromSuperview()
         }
 
+        let challenges = activeChallenges
         if (activeChallengesTable == tableView) {
-            if (activeChallenges[indexPath.row].description == "Competitive") {
+            if (challenges[indexPath.row].description == "Competitive") {
                 var view = UINib(nibName: "CompetitiveChallengeView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as CompetitiveChallengeView
                 cell.scrollView.addSubview(view)
             } else {
-                //@todo CGFloat(activeChallenges[indexPath.row].winConditions.count)
-                cell.scrollView.contentSize = CGSize(width: cell.frame.size.width * 2, height: cell.frame.size.height);
+                //@todo CGFloat(challenges[indexPath.row].winConditions.count)
+                cell.scrollView.contentSize = CGSize(width: cell.frame.size.width * CGFloat(challenges[indexPath.row].winConditions.count), height: cell.frame.size.height);
                 var view = UINib(nibName: "GoalChallengeView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as GoalChallengeView
+                cell.title.text = challenges[indexPath.row].name
+                //cell.daysLeft.text = challenges[indexPath.row].endDate
+                //headerImage.setImageWithURL(NSURL(string: article!.imageUrl));
                 cell.scrollView.addSubview(view)
             }
         }
-        
-        if upcomingChallengesTable == tableView {
-            if upcomingChallenges[indexPath.row].description == "Competitive" {
-                var view = UINib(nibName: "CompetitiveChallengeView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as CompetitiveChallengeView
-                cell.scrollView.addSubview(view)
-            } else {
-                //@todo CGFloat(activeChallenges[indexPath.row].winConditions.count
-                cell.scrollView.contentSize = CGSize(width: cell.frame.size.width * 2, height: cell.frame.size.height);
-                var view = UINib(nibName: "GoalChallengeView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as GoalChallengeView
-                cell.scrollView.addSubview(view)
-            }
-        }
-        
-        if availableChallengesTable == tableView {
-            if availableChallenges[indexPath.row].description == "Competitive" {
-                var view = UINib(nibName: "CompetitiveChallengeView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as CompetitiveChallengeView
-                cell.scrollView.addSubview(view)
-            } else {
-                //@todo CGFloat(activeChallenges[indexPath.row].winConditions.count
-                cell.scrollView.contentSize = CGSize(width: cell.frame.size.width * 2, height: cell.frame.size.height);
-                var view = UINib(nibName: "GoalChallengeView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as GoalChallengeView
-                cell.scrollView.addSubview(view)
-            }
-        }
-        
-        if invitationsTable == tableView {
-            if availableChallenges[indexPath.row].description == "Competitive" {
-                var view = UINib(nibName: "CompetitiveChallengeView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as CompetitiveChallengeView
-                cell.scrollView.addSubview(view)
-            } else {
-                //@todo CGFloat(activeChallenges[indexPath.row].winConditions.count
-                cell.scrollView.contentSize = CGSize(width: cell.frame.size.width * 2, height: cell.frame.size.height);
-                var view = UINib(nibName: "GoalChallengeView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as GoalChallengeView
-                cell.scrollView.addSubview(view)
-            }
-        }
-        
+
         //tableView.sectionIndexBackgroundColor = UIColor.blueColor()
         //cell.backgroundColor = UIColor.greenColor()
         return cell

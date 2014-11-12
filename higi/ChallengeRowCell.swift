@@ -10,7 +10,6 @@ import Foundation
 
 class ChallengeRowCell: UITableViewCell {
     
-    @IBOutlet var testView: UIView!
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var daysLeft: UILabel!
     @IBOutlet var title: UILabel!
