@@ -10,13 +10,15 @@ import Foundation
 
 class HigiUser {
     
-    var userId, firstName, lastName, email, termsFile, privacyFile: NSString!;
+    var userId, firstName, lastName, email, termsFile, privacyFile, gender: NSString!;
     
     var currentHigiScore, photoTime: Int!;
     
     var hasPhoto, emailCheckins, emailHigiNews: Bool!;
     
     var profileImage, fullProfileImage, blurredImage: UIImage!;
+    
+    var dateOfBirth: NSDate!;
     
     init() {
         hasPhoto = false;
@@ -34,8 +36,8 @@ class HigiUser {
         currentHigiScore = (dictionary["currentHigiScore"] ?? 0) as Int;
         photoTime = (dictionary["photoTime"] ?? 0) as Int;
         
-        profileImage = UIImage(data: NSData(contentsOfURL: NSURL(string: "\(HigiApi.higiApiUrl)/view/\(userId)/profile,400.png?t=\(photoTime)")!)!);
-        fullProfileImage = UIImage(data: NSData(contentsOfURL: NSURL(string: "\(HigiApi.higiApiUrl)/view/\(userId)/profileoriginal.png?t=\(photoTime)")!)!);
+        profileImage = UIImage(data: NSData(contentsOfURL: NSURL(string: "\(HigiApi.baseUrl)/view/\(userId)/profile,400.png?t=\(photoTime)")!)!);
+        fullProfileImage = UIImage(data: NSData(contentsOfURL: NSURL(string: "\(HigiApi.baseUrl)/view/\(userId)/profileoriginal.png?t=\(photoTime)")!)!);
         
         var notifications = dictionary["Notifications"] as NSDictionary;
         emailCheckins = (notifications["EmailCheckins"] as NSString) == "True";
@@ -54,6 +56,15 @@ class HigiUser {
         } else {
             privacyFile = "";
         }
+        
+        var birthday = dictionary["dateOfBirth"] as NSString?;
+        if (birthday != nil) {
+            var dateFormatter = NSDateFormatter();
+            dateFormatter.dateFormat = "mm/dd/yyyy";
+            dateOfBirth = dateFormatter.dateFromString(birthday!);
+        }
+        
+        gender = dictionary["gender"] as? NSString;
         
         createBlurredImage();
     }
@@ -75,8 +86,8 @@ class HigiUser {
     }
     
     func retrieveProfileImages() {
-        profileImage = UIImage(data: NSData(contentsOfURL: NSURL(string: "\(HigiApi.higiApiUrl)/view/\(userId)/profile,400.png?t=\(photoTime)")!)!);
-        fullProfileImage = UIImage(data: NSData(contentsOfURL: NSURL(string: "\(HigiApi.higiApiUrl)/view/\(userId)/profileoriginal.png?t=\(photoTime)")!)!);
+        profileImage = UIImage(data: NSData(contentsOfURL: NSURL(string: "\(HigiApi.baseUrl)/view/\(userId)/profile,400.png?t=\(photoTime)")!)!);
+        fullProfileImage = UIImage(data: NSData(contentsOfURL: NSURL(string: "\(HigiApi.baseUrl)/view/\(userId)/profileoriginal.png?t=\(photoTime)")!)!);
         createBlurredImage();
     }
     

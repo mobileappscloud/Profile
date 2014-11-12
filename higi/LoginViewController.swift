@@ -69,7 +69,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         } else {
             var encodedEmail = CFURLCreateStringByAddingPercentEscapes(nil, email.text, nil, "!*'();:@&=+$,/?%#[]", CFStringBuiltInEncodings.UTF8.rawValue);
             var encodedPassword = CFURLCreateStringByAddingPercentEscapes(nil, password.text, nil, "!*'();:@&=+$,/?%#[]", CFStringBuiltInEncodings.UTF8.rawValue);
-            var url = "\(HigiApi.higiApiUrl)/login/qlogin?email=\(encodedEmail)&password=\(encodedPassword)&getphoto=false&ttl=157852800";
+            var url = "/login/qlogin?email=\(encodedEmail)&password=\(encodedPassword)&getphoto=false&ttl=157852800";
             HigiApi().sendGet(url, success: {request, object in self.signInSuccess(request, responseObject: object)}, failure: {request, object in self.signInFailure(request, error: object)});
         }
     }
@@ -82,10 +82,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             SessionData.Instance.user = login.user;
             SessionData.Instance.save();
             if (login.user != nil) {
-                ApiUtility.checkTermsAndPrivacy(self, success: gotoDashboard, failure: {
-                    UIAlertView(title: "Unable to connect to server", message: "Please check your network connection and try again.", delegate: nil, cancelButtonTitle: "OK").show();
-                    self.reset();
-                });
+                ApiUtility.checkTermsAndPrivacy(self, success: checkinsComplete);
             }
         } else {
             UIAlertView(title: "Invalid credentials", message: "Please check your email and password and try again.", delegate: nil, cancelButtonTitle: "OK").show();
@@ -116,10 +113,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         self.navigationItem.leftBarButtonItem!.customView!.hidden = false;
     }
     
-    func gotoDashboard() {
-        if (SessionController.Instance.checkins != nil && SessionController.Instance.activities != nil && SessionController.Instance.challenges != nil) {
-            Utility.gotoDashboard(self);
-        }
+    func checkinsComplete() {
+        Utility.gotoDashboard(self);
     }
     
     @IBAction func forgotPasswordClicked(sender: AnyObject) {

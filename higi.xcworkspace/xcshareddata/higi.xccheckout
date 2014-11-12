@@ -5,41 +5,41 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>EDD28634-8AD7-4684-BFD2-3ADAF676CCED</string>
+	<string>42618B53-9767-4E95-BC57-240042091880</string>
 	<key>IDESourceControlProjectName</key>
 	<string>higi</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>fa0a242f-2d1e-462e-b211-b8d3e790d203++6676</key>
-		<string>https://higi.svn.beanstalkapp.com/higi-ios-main/branches/2.1.0%252525252525252525252525252525252520Release</string>
+		<key>fa0a242f-2d1e-462e-b211-b8d3e790d203++3907</key>
+		<string>https://higi.svn.beanstalkapp.com/higi-ios-main/branches/2.0.0%2525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252520Release</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>higi/higi.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>fa0a242f-2d1e-462e-b211-b8d3e790d203++6676</key>
+		<key>fa0a242f-2d1e-462e-b211-b8d3e790d203++3907</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectRepositoryRootDictionary</key>
 	<dict>
-		<key>fa0a242f-2d1e-462e-b211-b8d3e790d203++6676</key>
+		<key>fa0a242f-2d1e-462e-b211-b8d3e790d203++3907</key>
 		<string>https://higi.svn.beanstalkapp.com/higi-ios-main</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://higi.svn.beanstalkapp.com/higi-ios-main/branches/2.1.0%252525252525252525252525252525252520Release/higi/higi.xcworkspace</string>
+	<string>https://higi.svn.beanstalkapp.com/higi-ios-main/branches/2.0.0%2525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252525252520Release/higi/higi.xcworkspace</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>fa0a242f-2d1e-462e-b211-b8d3e790d203++6676</string>
+	<string>fa0a242f-2d1e-462e-b211-b8d3e790d203++3907</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.subversion</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>fa0a242f-2d1e-462e-b211-b8d3e790d203++6676</string>
+			<string>fa0a242f-2d1e-462e-b211-b8d3e790d203++3907</string>
 			<key>IDESourceControlWCCName</key>
-			<string>iOS%202.1.0%20Release</string>
+			<string>2.0.0%20Release</string>
 		</dict>
 	</array>
 </dict>

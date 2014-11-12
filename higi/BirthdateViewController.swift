@@ -50,7 +50,7 @@ class BirthdateViewController: UIViewController {
             dateFormatter.dateFormat = "MM/dd/yyyy";
             var contents = NSMutableDictionary();
             contents["dateOfBirth"] = dateFormatter.stringFromDate(birthday);
-            HigiApi().sendPost("\(HigiApi.higiApiUrl)/data/user/\(user.userId)", parameters: contents, success: {operation, responseObject in
+            HigiApi().sendPost("/data/user/\(user.userId)", parameters: contents, success: {operation, responseObject in
                 
                 self.navigationController!.pushViewController(ProfileImageViewController(nibName: "ProfileImageView", bundle: nil), animated: true);
                 
@@ -73,7 +73,7 @@ class BirthdateViewController: UIViewController {
         var user = SessionData.Instance.user;
         var dateFormatter = NSDateFormatter();
         dateFormatter.dateFormat = "MM/dd/yyyy";
-        HigiApi().sendGet("\(HigiApi.higiApiUrl)/data/deleteAccountAge13?userId=\(user.userId)&dob=\(dateFormatter.stringFromDate(datePicker.date))", success: nil, failure: nil);
+        HigiApi().sendGet("/data/deleteAccountAge13?userId=\(user.userId)&dob=\(dateFormatter.stringFromDate(datePicker.date))", success: nil, failure: nil);
         SessionController.Instance.reset();
         SessionData.Instance.reset();
         var splashViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SplashViewController") as UIViewController;

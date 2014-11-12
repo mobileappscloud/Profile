@@ -24,30 +24,20 @@ class SplashViewController: UIViewController {
             var navigationController = MainNavigationController(rootViewController: WelcomeViewController(nibName: "Welcome", bundle: nil));
             self.presentViewController(navigationController, animated: false, completion: nil);
         } else {
-            HigiApi().sendGet("\(HigiApi.higiApiUrl)/data/qdata/\(SessionData.Instance.user.userId)?newSession=true", success: { operation, responseObject in
+            HigiApi().sendGet("/data/qdata/\(SessionData.Instance.user.userId)?newSession=true", success: { operation, responseObject in
                 
                 var login = HigiLogin(dictionary: responseObject as NSDictionary);
                 SessionData.Instance.user = login.user;
-                ApiUtility.checkTermsAndPrivacy(self, success: self.gotoDashboard, failure: self.errorToWelcome);
+                ApiUtility.checkTermsAndPrivacy(self, success: { Utility.gotoDashboard(self) });
                 
                 }, failure: {operation, error in
                     
-                    self.errorToWelcome();
+                    SessionData.Instance.reset();
+                    SessionData.Instance.save();
+                    var navigationController = MainNavigationController(rootViewController: WelcomeViewController(nibName: "Welcome", bundle: nil));
+                    self.presentViewController(navigationController, animated: false, completion: nil);
             });
         }
-    }
-    
-    func gotoDashboard() {
-        if (SessionController.Instance.checkins != nil && SessionController.Instance.activities != nil && SessionController.Instance.challenges != nil) {
-            Utility.gotoDashboard(self);
-        }
-    }
-    
-    func errorToWelcome() {
-        SessionData.Instance.reset();
-        SessionData.Instance.save();
-        var navigationController = MainNavigationController(rootViewController: WelcomeViewController(nibName: "Welcome", bundle: nil));
-        self.presentViewController(navigationController, animated: false, completion: nil);
     }
     
     override func shouldAutorotate() -> Bool {
