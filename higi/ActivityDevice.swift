@@ -22,7 +22,7 @@ class ActivityDevice {
         partnerHomepage = dictionary["partnerHomepage"] as? NSString;
         colorCode = dictionary["colorCode"] as NSString;
         enabled = dictionary["enabled"] as Bool;
-        var imageUrls = dictionary["imageUrls"] as NSDictionary;
+        var imageUrls = dictionary["imageUrl"] as NSDictionary;
         iconUrl = imageUrls["icon"] as? NSString;
     }
     

@@ -89,9 +89,13 @@ class ApiUtility {
         HigiApi().sendGet("\(HigiApi.earnditApiUrl)/user/rQIpgKhmd0qObDSr5SkHbw/challenges", success: {operation, responseObject in
             var challenges: [HigiChallenge] = [];
             var serverChallenges = ((responseObject as NSDictionary)["response"] as NSDictionary)["data"] as NSArray;
-            
             for challenge: AnyObject in serverChallenges {
-                challenges.append(HigiChallenge(dictionary: (challenge as NSDictionary)["challenge"] as NSDictionary, userStatus: (challenge as NSDictionary)["status"] as NSString));
+                var serverParticipant = (challenge as NSDictionary)["participant"] as? NSDictionary;
+                var participant: ChallengeParticipant!;
+                if (serverParticipant != nil) {
+                    participant = ChallengeParticipant(dictionary: serverParticipant!);
+                }
+                challenges.append(HigiChallenge(dictionary: (challenge as NSDictionary)["challenge"] as NSDictionary, userStatus: (challenge as NSDictionary)["status"] as NSString, participant: participant));
             }
             
             SessionController.Instance.challenges = challenges;
