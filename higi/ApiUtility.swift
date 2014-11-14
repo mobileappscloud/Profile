@@ -81,7 +81,6 @@ class ApiUtility {
     }
     
     class func retrieveActivities(success: (() -> Void)?) {
-        // TODO
         SessionController.Instance.activities = [];
         success?();
     }

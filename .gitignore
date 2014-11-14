@@ -6,3 +6,4 @@ build/
 **/*.perspectivev*
 *.xcworkspace
 *.xcworkspace/*
+higi.xcworkspace/xcuserdata/dharms.xcuserdatad/UserInterfaceState.xcuserstate
