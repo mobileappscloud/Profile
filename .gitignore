@@ -4,10 +4,4 @@ build/
 *.mode2v3
 *.mode1v3
 **/*.perspectivev*
-*.xcworkspace
-*.xcworkspace/*
-higi.xcworkspace/xcshareddata/higi.xccheckout
-
-higi.xcworkspace/xcuserdata/dharms.xcuserdatad/UserInterfaceState.xcuserstate
-
-higi.xcworkspace/xcuserdata/dharms.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
+*.xcworkspace/xcuserdata*
