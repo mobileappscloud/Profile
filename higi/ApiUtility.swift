@@ -86,7 +86,7 @@ class ApiUtility {
     }
     
     class func retrieveChallenges(success: (() -> Void)?) {
-        HigiApi().sendGet("\(HigiApi.earnditApiUrl)/user/rQIpgKhmd0qObDSr5SkHbw/challenges?include=&limit=&page=&filter=", success: {operation, responseObject in
+        HigiApi().sendGet("\(HigiApi.earnditApiUrl)/user/rQIpgKhmd0qObDSr5SkHbw/challenges", success: {operation, responseObject in
             var challenges: [HigiChallenge] = [];
             var serverChallenges = ((responseObject as NSDictionary)["response"] as NSDictionary)["data"] as NSArray;
             

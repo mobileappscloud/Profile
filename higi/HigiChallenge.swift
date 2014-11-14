@@ -27,7 +27,8 @@ class HigiChallenge {
         name = (dictionary["name"] ?? "") as NSString;
         description = "";   // Deal with this later
         shortDescription = (dictionary["shortDescription"] ?? "") as NSString;
-        imageUrl = dictionary["imageUrl"] as? NSString;
+        var imageUrls =  dictionary["imageUrl"] as NSDictionary;
+        imageUrl = imageUrls["default"] as? NSString;
         status = dictionary["status"] as NSString!;
         var formatter = NSDateFormatter();
         formatter.dateFormat = "yyyy-mm-dd";
