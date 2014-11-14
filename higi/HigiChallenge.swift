@@ -34,7 +34,7 @@ class HigiChallenge {
         imageUrl = imageUrls["default"] as? NSString;
         status = dictionary["status"] as NSString!;
         var formatter = NSDateFormatter();
-        formatter.dateFormat = "yyyy-mm-dd";
+        formatter.dateFormat = "yyyy-MM-dd";
         var startDateString = dictionary["startDate"] as NSString;
         startDate = formatter.dateFromString(startDateString);
         var endDateString = dictionary["endDate"] as NSString?;
