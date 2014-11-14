@@ -14,8 +14,9 @@
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fhS-10-ORM" id="ggG-Ox-512">
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lGb-gk-1XT">
+                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lGb-gk-1XT">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="216"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </scrollView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sweeping the Nation Challenge" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rWV-YR-WqJ">
                         <rect key="frame" x="55" y="23" width="257" height="21"/>
@@ -30,12 +31,12 @@
                         <color key="textColor" red="0.39786537247474751" green="0.39786537247474751" blue="0.39786537247474751" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="2" translatesAutoresizingMaskIntoConstraints="NO" id="Xdd-7h-crl">
-                        <rect key="frame" x="141" y="170" width="39" height="37"/>
-                    </pageControl>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="higi_logo_innercircle.png" translatesAutoresizingMaskIntoConstraints="NO" id="U7Y-O7-h3b">
                         <rect key="frame" x="17" y="19" width="30" height="30"/>
                     </imageView>
+                    <pageControl contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" hidesForSinglePage="YES" numberOfPages="2" translatesAutoresizingMaskIntoConstraints="NO" id="Xdd-7h-crl">
+                        <rect key="frame" x="141" y="170" width="39" height="37"/>
+                    </pageControl>
                 </subviews>
                 <constraints>
                     <constraint firstItem="lGb-gk-1XT" firstAttribute="top" secondItem="ggG-Ox-512" secondAttribute="topMargin" constant="-8" id="Dd5-at-ePj"/>

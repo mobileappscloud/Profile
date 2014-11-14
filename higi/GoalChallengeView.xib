@@ -8,7 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="bms-Pq-cVl" customClass="GoalChallengeView" customModule="higi" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="183"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="216"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="higi_logo_innercircle.png" translatesAutoresizingMaskIntoConstraints="NO" id="TaJ-fi-xFR">
