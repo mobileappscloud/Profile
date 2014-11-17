@@ -25,7 +25,11 @@ class HigiActivity {
         if (serverDevice != nil) {
             device = ActivityDevice(dictionary: serverDevice!);
         }
-        
+        var formatter = NSDateFormatter();
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss";
+        var dateString = dictionary["startTime"] as NSString;
+        var time = formatter.dateFromString(dateString);
+        startTime = formatter.dateFromString(dictionary["startTime"] as NSString);
     }
     
 }

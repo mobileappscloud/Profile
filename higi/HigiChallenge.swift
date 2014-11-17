@@ -22,7 +22,10 @@ class HigiChallenge {
     
     var winConditions: [ChallengeWinCondition]! = [];
     
-    init(dictionary: NSDictionary, userStatus: NSString) {
+    var participant: ChallengeParticipant!;
+    
+    init(dictionary: NSDictionary, userStatus: NSString, participant: ChallengeParticipant!) {
+        self.participant = participant;
         self.userStatus = userStatus;
         name = (dictionary["name"] ?? "") as NSString;
         description = "";   // Deal with this later
@@ -31,7 +34,7 @@ class HigiChallenge {
         imageUrl = imageUrls["default"] as? NSString;
         status = dictionary["status"] as NSString!;
         var formatter = NSDateFormatter();
-        formatter.dateFormat = "yyyy-mm-dd";
+        formatter.dateFormat = "yyyy-MM-dd";
         var startDateString = dictionary["startDate"] as NSString;
         startDate = formatter.dateFromString(startDateString);
         var endDateString = dictionary["endDate"] as NSString?;
@@ -51,8 +54,12 @@ class HigiChallenge {
         
         var serverDevices = dictionary["devices"] as NSArray?;
         if (serverDevices != nil) {
-            
+            for device: AnyObject in serverDevices! {
+                devices.append(ActivityDevice(dictionary: device as NSDictionary));
+            }
         }
+        
+
     }
     
 }
