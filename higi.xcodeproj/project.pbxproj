@@ -15,6 +15,8 @@
 		2BBDBA571A12AC2C005A6815 /* CompetitiveChallengeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BBDBA4F1A12AC2C005A6815 /* CompetitiveChallengeView.xib */; };
 		2BBDBA581A12AC2C005A6815 /* GoalChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBDBA501A12AC2C005A6815 /* GoalChallengeView.swift */; };
 		2BBDBA591A12AC2C005A6815 /* GoalChallengeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BBDBA511A12AC2C005A6815 /* GoalChallengeView.xib */; };
+		2BC5865C1A16C63B005A7983 /* ChallengeInvitation.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BC5865B1A16C63B005A7983 /* ChallengeInvitation.xib */; };
+		2BC5865E1A16D0AF005A7983 /* ChallengeInvitationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC5865D1A16D0AF005A7983 /* ChallengeInvitationView.swift */; };
 		8F02A11F19AE2BF6002FF73E /* btn_back_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A11719AE2BF6002FF73E /* btn_back_black.png */; };
 		8F02A12019AE2BF6002FF73E /* btn_back_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A11819AE2BF6002FF73E /* btn_back_black@2x.png */; };
 		8F02A12119AE2BF6002FF73E /* btn_back_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A11919AE2BF6002FF73E /* btn_back_white.png */; };
@@ -297,6 +299,8 @@
 		2BBDBA4F1A12AC2C005A6815 /* CompetitiveChallengeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompetitiveChallengeView.xib; sourceTree = "<group>"; };
 		2BBDBA501A12AC2C005A6815 /* GoalChallengeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalChallengeView.swift; sourceTree = "<group>"; };
 		2BBDBA511A12AC2C005A6815 /* GoalChallengeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoalChallengeView.xib; sourceTree = "<group>"; };
+		2BC5865B1A16C63B005A7983 /* ChallengeInvitation.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeInvitation.xib; sourceTree = "<group>"; };
+		2BC5865D1A16D0AF005A7983 /* ChallengeInvitationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeInvitationView.swift; sourceTree = "<group>"; };
 		500FF7A379474030959012D0 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		8F02A11719AE2BF6002FF73E /* btn_back_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_back_black.png; sourceTree = "<group>"; };
 		8F02A11819AE2BF6002FF73E /* btn_back_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_back_black@2x.png"; sourceTree = "<group>"; };
@@ -617,14 +621,16 @@
 		2BBDBA491A12AB73005A6815 /* Challenges */ = {
 			isa = PBXGroup;
 			children = (
-				2BBDBA4A1A12AC2C005A6815 /* ChallengeRowCell.swift */,
 				2BBDBA4B1A12AC2C005A6815 /* ChallengeRowCell.xib */,
 				2BBDBA4C1A12AC2C005A6815 /* ChallengesView.xib */,
-				2BBDBA4D1A12AC2C005A6815 /* ChallengesViewController.swift */,
-				2BBDBA4E1A12AC2C005A6815 /* CompetitiveChallengeView.swift */,
 				2BBDBA4F1A12AC2C005A6815 /* CompetitiveChallengeView.xib */,
-				2BBDBA501A12AC2C005A6815 /* GoalChallengeView.swift */,
+				2BC5865B1A16C63B005A7983 /* ChallengeInvitation.xib */,
 				2BBDBA511A12AC2C005A6815 /* GoalChallengeView.xib */,
+				2BC5865D1A16D0AF005A7983 /* ChallengeInvitationView.swift */,
+				2BBDBA4A1A12AC2C005A6815 /* ChallengeRowCell.swift */,
+				2BBDBA4E1A12AC2C005A6815 /* CompetitiveChallengeView.swift */,
+				2BBDBA4D1A12AC2C005A6815 /* ChallengesViewController.swift */,
+				2BBDBA501A12AC2C005A6815 /* GoalChallengeView.swift */,
 			);
 			name = Challenges;
 			sourceTree = "<group>";
@@ -1359,6 +1365,7 @@
 				8FE056E7198FDC9800C81208 /* FindStationView.xib in Resources */,
 				8F337B53198AA661001E4AD8 /* cell_selected_light.png in Resources */,
 				8FFB034A19FEA2440036228C /* oc_activity.png in Resources */,
+				2BC5865C1A16C63B005A7983 /* ChallengeInvitation.xib in Resources */,
 				8F5C38E01981901600F51543 /* checkincheckmark.png in Resources */,
 				8F58D98519C0F4BD00C0EC72 /* welcome_05_text@2x.png in Resources */,
 				8FFF43BF19B798380056F412 /* bmi_overlay@2x.png in Resources */,
@@ -1585,6 +1592,7 @@
 				8F6D510E1947B2E700F7C769 /* Utility.swift in Sources */,
 				8F296309194B8DE700E787FD /* SplashViewController.swift in Sources */,
 				8F6A243C1958EA730094B73C /* NewCPTScatterPlot.m in Sources */,
+				2BC5865E1A16D0AF005A7983 /* ChallengeInvitationView.swift in Sources */,
 				2BBDBA551A12AC2C005A6815 /* ChallengesViewController.swift in Sources */,
 				8FA5925F19ABBD3A00622266 /* TourViewController.swift in Sources */,
 				8FF294101979D28F00C4FC1A /* GraphView.swift in Sources */,
