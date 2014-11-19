@@ -97,11 +97,14 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         var challenges:[HigiChallenge] = []
         if( tableView == activeChallengesTable) {
             challenges = activeChallenges
+            println("user status \(challenges[indexPath.row].userStatus)")
+            println("user name \(challenges[indexPath.row].participant.displayName)")
             cell = self.buildChallengeCell(cell, challenges: challenges, indexPath: indexPath)
         } else if ( tableView == upcomingChallengesTable ) {
             //@todo public userStatus to see if challenge is joined or started
-            //println("user status \(challenges[indexPath.row].userStatus)")
             challenges = upcomingChallenges
+            println("user status \(challenges[indexPath.row].userStatus)")
+            println("user name \(challenges[indexPath.row].participant.displayName)")
             cell = self.buildChallengeCell(cell, challenges: challenges, indexPath: indexPath)
         } else if ( tableView == availableChallengesTable ) {
             challenges = availableChallenges
