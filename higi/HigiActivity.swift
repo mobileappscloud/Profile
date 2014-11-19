@@ -12,7 +12,7 @@ class HigiActivity {
     
     var points: Int!;
     
-    var description: NSString!;
+    var description, errorDescription: NSString!;
     
     var device: ActivityDevice!;
     
@@ -30,6 +30,10 @@ class HigiActivity {
         var dateString = dictionary["startTime"] as NSString;
         var time = formatter.dateFromString(dateString);
         startTime = formatter.dateFromString(dictionary["startTime"] as NSString);
+        var error = dictionary["error"] as? NSDictionary;
+        if (error != nil) {
+            errorDescription = error!["description"] as NSString;
+        }
     }
     
 }
