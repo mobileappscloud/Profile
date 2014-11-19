@@ -24,9 +24,12 @@ class HigiChallenge {
     
     var participant: ChallengeParticipant!;
     
-    init(dictionary: NSDictionary, userStatus: NSString, participant: ChallengeParticipant!) {
-        self.participant = participant;
+    var gravityBoard: [GravityParticipant]!;
+    
+    init(dictionary: NSDictionary, userStatus: NSString, participant: ChallengeParticipant!, gravityBoard: [GravityParticipant]!) {
         self.userStatus = userStatus;
+        self.participant = participant;
+        self.gravityBoard = gravityBoard;
         name = (dictionary["name"] ?? "") as NSString;
         description = "";   // Deal with this later
         shortDescription = (dictionary["shortDescription"] ?? "") as NSString;
@@ -62,4 +65,9 @@ class HigiChallenge {
 
     }
     
+}
+
+struct GravityParticipant {
+    var place: NSString!;
+    var participant: ChallengeParticipant!;
 }
