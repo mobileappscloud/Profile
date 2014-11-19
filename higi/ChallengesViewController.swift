@@ -2,7 +2,7 @@
 //  ChallengesViewController.swift
 //  higi
 //
-//  Created by Dan Harms on 10/27/14.
+//  Created by Joe Sangervasi on 10/31/14.
 //  Copyright (c) 2014 higi, LLC. All rights reserved.
 //
 
@@ -121,8 +121,6 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         cell.scrollView.contentSize = CGSize(width: cell.frame.size.width * CGFloat(challenges[indexPath.row].winConditions.count), height: cell.frame.size.height - 45);
         
         println("participants \(challenges[indexPath.row].participantsCount)")
-        //println("participant: \(challenges[indexPath.row].participant.team)")
-        //@todo figure out why some win conditions are empty
         //build win conditions
         for( var i=0; i < challenges[indexPath.row].winConditions.count;++i ) {
             var competitiveView = UINib(nibName: "CompetitiveChallengeView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as CompetitiveChallengeView;
