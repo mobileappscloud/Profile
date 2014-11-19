@@ -46,7 +46,9 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="avatar" destination="U7Y-O7-h3b" id="nM8-mI-QNX"/>
                 <outlet property="daysLeft" destination="do3-VF-y8L" id="gtj-xu-Rjj"/>
+                <outlet property="pager" destination="Xdd-7h-crl" id="0wY-40-stK"/>
                 <outlet property="scrollView" destination="lGb-gk-1XT" id="ngl-fW-lxb"/>
                 <outlet property="title" destination="rWV-YR-WqJ" id="nog-xu-7M6"/>
             </connections>

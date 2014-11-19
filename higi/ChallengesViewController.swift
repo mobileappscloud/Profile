@@ -100,6 +100,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
             cell = self.buildChallengeCell(cell, challenges: challenges, indexPath: indexPath)
         } else if ( tableView == upcomingChallengesTable ) {
             //@todo public userStatus to see if challenge is joined or started
+            //println("user status \(challenges[indexPath.row].userStatus)")
             challenges = upcomingChallenges
             cell = self.buildChallengeCell(cell, challenges: challenges, indexPath: indexPath)
         } else if ( tableView == availableChallengesTable ) {
@@ -116,54 +117,62 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     func buildChallengeCell(cell: ChallengeRowCell, challenges: [HigiChallenge], indexPath: NSIndexPath) ->  ChallengeRowCell {
         var nib:UIView!
         var nibOriginX:CGFloat = 0.0
-        var competitiveView = UINib(nibName: "CompetitiveChallengeView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as CompetitiveChallengeView;
-        var goalView = UINib(nibName: "GoalChallengeView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as GoalChallengeView;
         
-        cell.scrollView.contentSize = CGSize(width: cell.frame.size.width * CGFloat(challenges[indexPath.row].winConditions.count), height: cell.frame.size.height - 16);
+        cell.scrollView.contentSize = CGSize(width: cell.frame.size.width * CGFloat(challenges[indexPath.row].winConditions.count), height: cell.frame.size.height - 45);
         
+        println("participants \(challenges[indexPath.row].participantsCount)")
+        //println("participant: \(challenges[indexPath.row].participant.team)")
         //@todo figure out why some win conditions are empty
         //build win conditions
         for( var i=0; i < challenges[indexPath.row].winConditions.count;++i ) {
+            var competitiveView = UINib(nibName: "CompetitiveChallengeView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as CompetitiveChallengeView;
+            var goalView = UINib(nibName: "GoalChallengeView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as GoalChallengeView;
             var wincondition = challenges[indexPath.row].winConditions[i].name
             var goalType = challenges[indexPath.row].winConditions[i].goal.type
-            
-            switch(goalType) {
-            case "most_points":
-                nib = competitiveView
-            case "threshold_reached":
-                nib = goalView
-            case "unit_goal_reached":
-                nib = goalView
-            default:
-                nib = goalView
+
+            if ( wincondition != nil ) {
+                switch(goalType) {
+                case "most_points":
+                    nib = competitiveView
+                case "threshold_reached":
+                    nib = goalView
+                case "unit_goal_reached":
+                    nib = goalView
+                default:
+                    nib = goalView
+                }
+                
+                if( i >= 1) {
+                    nib.frame.origin.x = nibOriginX
+                }
+                cell.scrollView.addSubview(nib)
+                nibOriginX += nib.frame.width
             }
-            
-            if( i >= 1) {
-                nib.frame.origin.x = nibOriginX
-            }
-            cell.scrollView.addSubview(nib)
-            println("content height \(cell.frame.size.height)")
-            println("scroll view height \(cell.scrollView.frame.height)")
-            nibOriginX += nib.frame.width
         }
         
         //populate cell contents
         cell.title.text = challenges[indexPath.row].name
         
-        //@todo days left could be nil
         var daysLeft:Int = 0
-        var endDate:NSDate = challenges[indexPath.row].endDate
-        var compare:NSTimeInterval = endDate.timeIntervalSinceNow
+        var endDate:NSDate? = challenges[indexPath.row].endDate?
+        if ( endDate != nil ) {
+            var compare:NSTimeInterval = endDate!.timeIntervalSinceNow
         
-        if ( Int(compare) > 0) {
-            daysLeft = Int(compare) / 60 / 60 / 24
+            if ( Int(compare) > 0) {
+                daysLeft = Int(compare) / 60 / 60 / 24
+            }
         }
-        
         cell.daysLeft.text = "\(daysLeft)d left"
         
-        println("image url: \(challenges[indexPath.row].imageUrl)");
-        //@todo see if url is valid and loading
-        //cell.avatar.setImageWithURL(NSURL(string: challenges[indexPath.row].imageUrl));
+        var imageUrlString = challenges[indexPath.row].imageUrl;
+        if (imageUrlString != nil) {
+            let imageUrl = NSURL(string: imageUrlString)?;
+            if let imageError = imageUrl?.checkResourceIsReachableAndReturnError(NSErrorPointer()) {
+                if( !imageError ) {
+                    cell.avatar.setImageWithURL(imageUrl);
+                }
+            }
+        }
 
         return cell
     }
@@ -194,8 +203,6 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         frame.origin.x = frame.size.width * CGFloat(page);
         frame.origin.y = 0;
         self.scrollView.setContentOffset(frame.origin, animated: true);
-        println("current page \(self.currentPage)")
-        println(" page \(page)")
     }
     
     func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
