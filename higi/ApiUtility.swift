@@ -112,7 +112,15 @@ class ApiUtility {
                 if (serverParticipant != nil) {
                     participant = ChallengeParticipant(dictionary: serverParticipant!);
                 }
-                challenges.append(HigiChallenge(dictionary: (challenge as NSDictionary)["challenge"] as NSDictionary, userStatus: (challenge as NSDictionary)["status"] as NSString, participant: participant));
+                var serverGravityBoard = (challenge as NSDictionary)["gravityboard"] as? NSArray;
+                var gravityBoard: [GravityParticipant] = [];
+                if (serverGravityBoard != nil) {
+                    for boardParticipant: AnyObject in serverGravityBoard! {
+                        var dict = boardParticipant as NSDictionary;
+                        gravityBoard.append(GravityParticipant(place: (boardParticipant as NSDictionary)["position"] as NSString, participant: ChallengeParticipant(dictionary: (boardParticipant as NSDictionary)["participant"] as NSDictionary)));
+                    }
+                }
+                challenges.append(HigiChallenge(dictionary: (challenge as NSDictionary)["challenge"] as NSDictionary, userStatus: (challenge as NSDictionary)["status"] as NSString, participant: participant, gravityBoard: gravityBoard));
             }
             
             SessionController.Instance.challenges = challenges;
