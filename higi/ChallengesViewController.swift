@@ -38,6 +38,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
                 case "current":
                     activeChallenges.append(challenge)
                 case "public":
+                    //@todo check challenge status
                     availableChallenges.append(challenge)
                 case "upcoming":
                     upcomingChallenges.append(challenge)
@@ -45,6 +46,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
                     invitations.append(challenge)
                 default:
                     println("No challenges")
+                    println("challenge \(challenge.status)")
             }
         }
     }
@@ -97,18 +99,17 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         var challenges:[HigiChallenge] = []
         if( tableView == activeChallengesTable) {
             challenges = activeChallenges
-            println("user status \(challenges[indexPath.row].userStatus)")
-            println("user name \(challenges[indexPath.row].participant.displayName)")
             cell = self.buildChallengeCell(cell, challenges: challenges, indexPath: indexPath)
         } else if ( tableView == upcomingChallengesTable ) {
-            //@todo public userStatus to see if challenge is joined or started
             challenges = upcomingChallenges
-            println("user status \(challenges[indexPath.row].userStatus)")
-            println("user name \(challenges[indexPath.row].participant.displayName)")
-            cell = self.buildChallengeCell(cell, challenges: challenges, indexPath: indexPath)
+            cell = self.buildInvitationCell(cell, challenges: challenges, indexPath: indexPath)
         } else if ( tableView == availableChallengesTable ) {
             challenges = availableChallenges
-            cell = self.buildChallengeCell(cell, challenges: challenges, indexPath: indexPath)
+            if ( challenges[indexPath.row].status == "running" ) {
+                cell = self.buildChallengeCell(cell, challenges: challenges, indexPath: indexPath)
+            } else {
+                cell = self.buildInvitationCell(cell, challenges: challenges, indexPath: indexPath)
+            }
         } else {
             challenges = invitations
             cell = self.buildInvitationCell(cell, challenges: challenges, indexPath: indexPath)
@@ -121,6 +122,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         var nib:UIView!
         var nibOriginX:CGFloat = 0.0
         
+        //@todo fix sizing issue
         cell.scrollView.contentSize = CGSize(width: cell.frame.size.width * CGFloat(challenges[indexPath.row].winConditions.count), height: cell.frame.size.height - 45);
         
         println("participants \(challenges[indexPath.row].participantsCount)")
@@ -131,6 +133,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
             var wincondition = challenges[indexPath.row].winConditions[i].name
             var goalType = challenges[indexPath.row].winConditions[i].goal.type
 
+            //@todo check winnertype
             if ( wincondition != nil ) {
                 switch(goalType) {
                 case "most_points":
@@ -165,14 +168,12 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         }
         cell.daysLeft.text = "\(daysLeft)d left"
         
-        var imageUrlString = challenges[indexPath.row].imageUrl;
-        if (imageUrlString != nil) {
-            let imageUrl = NSURL(string: imageUrlString)?;
-            if let imageError = imageUrl?.checkResourceIsReachableAndReturnError(NSErrorPointer()) {
-                if( !imageError ) {
-                    cell.avatar.setImageWithURL(imageUrl);
-                }
-            }
+        cell.avatar.setImageWithURL(self.loadImageFromUrl(challenges[indexPath.row].imageUrl))
+        
+        if ( nib is CompetitiveChallengeView ) {
+            var gb = challenges[indexPath.row].gravityBoard
+            //var place = gb.place
+            //var participant = gb.participant
         }
 
         return cell
@@ -181,10 +182,58 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     func buildInvitationCell(cell: ChallengeRowCell, challenges: [HigiChallenge], indexPath: NSIndexPath) ->  ChallengeRowCell {
         var invitationView = UINib(nibName: "ChallengeInvitation", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeInvitationView;
         
+        invitationView.title.text = challenges[indexPath.row].name
+        invitationView.avatar.setImageWithURL(self.loadImageFromUrl(challenges[indexPath.row].imageUrl))
+        invitationView.goal.text = challenges[indexPath.row].winConditions[indexPath.row].goal.type
+        invitationView.type.text = challenges[indexPath.row].winConditions[indexPath.row].winnerType
+        invitationView.participantCount.text = String(challenges[indexPath.row].participantsCount)
+        //invitationView.inviter.text = challenges[indexPath.row].participant.displayName
+        var days:Int = 0
+        var message:String!
+        var startDate:NSDate? = challenges[indexPath.row].startDate?
+        var endDate:NSDate? = challenges[indexPath.row].endDate?
+        if ( startDate != nil ) {
+            var compare:NSTimeInterval = startDate!.timeIntervalSinceNow
+            
+            if ( Int(compare) > 0) {
+                days = Int(compare) / 60 / 60 / 24
+                message = "Starts in \(days) days!"
+            } else if ( Int(compare) < 0 ) {
+                days = abs(Int(compare)) / 60 / 60 / 24
+                message = "Started \(days) days ago!"
+            } else {
+                message = "Starting today!"
+            }
+        }
+        invitationView.starting.text = message
+        
+        let formatter = NSDateFormatter()
+        formatter.dateStyle = .MediumStyle
+        var startDateShort = formatter.stringFromDate(startDate!)
+        var endDateShort = formatter.stringFromDate(endDate!)
+        
+        invitationView.dateRange.text = "\(startDateShort) - \(endDateShort)"
+        
         cell.scrollView.contentSize = CGSize(width: cell.frame.size.width, height: cell.frame.size.height);
         cell.scrollView.addSubview(invitationView)
         
+        cell.title.removeFromSuperview()
+        cell.avatar.removeFromSuperview()
+        cell.daysLeft.removeFromSuperview()
+        
         return cell
+    }
+    
+    func loadImageFromUrl(imageUrlString: String) -> NSURL {
+        if (!imageUrlString.isEmpty) {
+            let imageUrl = NSURL(string: imageUrlString)?;
+            if let imageError = imageUrl?.checkResourceIsReachableAndReturnError(NSErrorPointer()) {
+                if( !imageError ) {
+                    return imageUrl!;
+                }
+            }
+        }
+        return NSURL()
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
