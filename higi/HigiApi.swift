@@ -38,8 +38,8 @@ class HigiApi {
         manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept");
         manager.requestSerializer.setValue("application/vnd.higi.earndit;version=2", forHTTPHeaderField: "Accept");
         
-        //manager.requestSerializer.setValue("rQIpgKhmd0qObDSr5SkHbw", forHTTPHeaderField: "Dev-Token");  // Grant
-        manager.requestSerializer.setValue("XibU2q0gN0eB5NxdflUQ0w", forHTTPHeaderField: "Dev-Token");  // Harry
+        manager.requestSerializer.setValue("rQIpgKhmd0qObDSr5SkHbw", forHTTPHeaderField: "Dev-Token");  // Grant
+        //manager.requestSerializer.setValue("XibU2q0gN0eB5NxdflUQ0w", forHTTPHeaderField: "Dev-Token");  // Harry
         
         if (!SessionData.Instance.token.isEmpty) {
             manager.requestSerializer.setValue(SessionData.Instance.token, forHTTPHeaderField: "Token");

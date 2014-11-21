@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ActivityViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
+class ActivityViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, UIGestureRecognizerDelegate {
     
     @IBOutlet weak var headerImage: UIImageView!
     @IBOutlet weak var tableView: UITableView!
@@ -18,10 +18,13 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var monthButton: UIButton!
     @IBOutlet weak var meterContainer: UIView!
     @IBOutlet weak var points: UILabel!
+    @IBOutlet weak var legendButton: UIImageView!
     
     var activitiesByDay: [[HigiActivity]] = [];
     
     let dateFormatter = NSDateFormatter();
+    
+    var legendIsOpen = false;
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -145,7 +148,6 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
     
     func drawArc() {
         var total = 0;
-        var toPath = UIBezierPath();
         var center = CGPoint(x: 50.0, y: 50.0);
         var radius: CGFloat = 44.0;
         if (activitiesByDay.count > 0 && dateFormatter.stringFromDate(activitiesByDay[0][0].startTime) == dateFormatter.stringFromDate(NSDate())) {
@@ -154,17 +156,19 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
                 total += activity.points;
             }
             
-            //for activity in activitiesByDay[0] {
-            var activity = activitiesByDay[0][1];
+            for activity in activitiesByDay[0] {
+            //var activity = activitiesByDay[0][1];
+                var toPath = UIBezierPath();
                 var arc = CAShapeLayer();
                 arc.lineWidth = 12;
-                arc.fillColor = UIColor.whiteColor().CGColor;
+                arc.fillColor = UIColor.clearColor().CGColor;
                 arc.strokeColor = Utility.colorFromHexString(activity.device.colorCode).CGColor;
                 
                 var increment = Double(activity.points) / Double(total);
-                var startingPoint = CGPoint(x: radius + radius * CGFloat(cos(lastEnd * 2 * M_PI)), y: radius + radius * CGFloat(sin(lastEnd * 2 * M_PI)));
+                var startingPoint = CGPoint(x: center.x + radius * CGFloat(cos(lastEnd * 2 * M_PI)), y: center.y + radius * CGFloat(sin(lastEnd * 2 * M_PI)));
                 toPath.moveToPoint(startingPoint);
-                toPath.addArcWithCenter(center, radius: radius, startAngle: CGFloat(0), endAngle: CGFloat(2 * M_PI), clockwise: true);
+                var startAngle = lastEnd * 2 * M_PI;
+                toPath.addArcWithCenter(center, radius: radius, startAngle: CGFloat(startAngle), endAngle: CGFloat(startAngle + 2 * M_PI), clockwise: true);
                 toPath.closePath();
                 
                 arc.path = toPath.CGPath;
@@ -172,24 +176,25 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
                 
                 CATransaction.begin();
                 CATransaction.setDisableActions(true);
-                arc.strokeStart = CGFloat(lastEnd);
-                arc.strokeEnd = CGFloat(lastEnd);
+                arc.strokeStart = CGFloat(0);
+                arc.strokeEnd = CGFloat(0);
                 CATransaction.setDisableActions(false);
                 CATransaction.commit();
-                //dispatch_async(dispatch_get_main_queue(), {
+                dispatch_async(dispatch_get_main_queue(), {
                     CATransaction.begin();
+                    //CATransaction.setAnimationTimingFunction(CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut));
                     CATransaction.setAnimationDuration(1.0);
-                    arc.strokeEnd = CGFloat(lastEnd + increment);
+                    arc.strokeEnd = CGFloat(increment + 0.01);
                     CATransaction.commit();
-                //});
+                });
                 lastEnd += increment;
-            //}
+            }
         } else {
             var arc = CAShapeLayer();
             arc.lineWidth = 12;
             arc.fillColor = UIColor.whiteColor().CGColor;
             arc.strokeColor = Utility.colorFromHexString("#DDDDDD").CGColor;
-            
+            var toPath = UIBezierPath();
             var startingPoint = CGPoint(x: center.x, y: center.y + radius);
             toPath.moveToPoint(startingPoint);
             toPath.addArcWithCenter(center, radius: radius, startAngle: CGFloat(M_PI_2), endAngle: CGFloat(5 * M_PI_2), clockwise: true);
@@ -207,5 +212,15 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
         
         self.points.text = "\(total)";
     }
+    
+    @IBAction func legendButtonTapped(sender: AnyObject) {
+        if (legendIsOpen) {
+            legendButton.image = UIImage(named: "oc_dropdownmenu_down");
+        } else {
+            legendButton.image = UIImage(named: "oc_dropdownmenu_up");
+        }
+        legendIsOpen = !legendIsOpen;
+    }
+    
     
 }
