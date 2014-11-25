@@ -77,6 +77,73 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         return 0
     }
     
+    func populateView(challenge:HigiChallenge, winConditions:[ChallengeWinCondition]) -> UIView {
+        
+        var competitiveView:CompetitiveChallengeView!
+        var goalView:GoalChallengeView!
+        var nib:UIView!
+        var count = 0
+        
+        //build win conditions
+        for wincondition in winConditions {
+            var winconditionName = wincondition.name
+            var winnerType = wincondition.winnerType
+            var goalMin = wincondition.goal.minThreshold
+            var goalMax = wincondition.goal.maxThreshold
+            var goalType = wincondition.goal.type
+            
+            switch(goalType) {
+                case "most_points":
+                    competitiveView = CompetitiveChallengeView.instanceFromNib()
+                case "threshold_reached":
+                fallthrough
+                case "unit_goal_reached":
+                fallthrough
+                default:
+                    goalView = GoalChallengeView.instanceFromNib()
+            }
+
+            if ( competitiveView != nil ) {
+                if( challenge.userStatus == "current" ) {
+                    var gb = challenge.gravityBoard
+                    
+                    for var i = 0;i < gb.count;i++ {
+                        if ( i == 0 ) {
+                            competitiveView.firstPositionName.text = gb[i].participant.displayName
+                            competitiveView.firstPositionPoints.text = "\(Int(gb[i].participant.units)) pts"
+                            competitiveView.firstPositionRank.text = self.getRankSuffix(gb[i].place)
+                            competitiveView.firstPositionAvatar.setImageWithURL(self.loadImageFromUrl(gb[i].participant.imageUrl))
+                        } else if ( i == 1 ) {
+                            competitiveView.secondPositionName.text = gb[i].participant.displayName
+                            competitiveView.secondPositionPoints.text = "\(Int(gb[i].participant.units)) pts"
+                            competitiveView.secondPositionRank.text = self.getRankSuffix(gb[i].place)
+                            competitiveView.secondPositionAvatar.setImageWithURL(self.loadImageFromUrl(gb[i].participant.imageUrl))
+                        } else {
+                            competitiveView.thirdPositionName.text = gb[i].participant.displayName
+                            competitiveView.thirdPositionPoints.text = "\(Int(gb[i].participant.units)) pts"
+                            competitiveView.thirdPositionRank.text = self.getRankSuffix(gb[i].place)
+                            competitiveView.thirdPositionAvatar.setImageWithURL(self.loadImageFromUrl(gb[i].participant.imageUrl))
+                        }
+                    }
+                }
+                
+                nib = competitiveView
+            }
+            
+            if ( goalView != nil ) {
+                if( challenge.userStatus == "current" ) {
+                    goalView.avatar.setImageWithURL(self.loadImageFromUrl(challenge.participant.imageUrl))
+                    goalView.rank.text = self.getRankSuffix(challenge.gravityBoard[count].place)
+                }
+                
+                nib = goalView
+            }
+            count++
+        }
+        
+        return nib
+    }
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         //@todo fix the scrolling issue maybe an autolayout issue
         var cell = tableView.dequeueReusableCellWithIdentifier("ChallengeRowCell") as ChallengeRowCell!;
@@ -119,39 +186,37 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     }
     
     func buildChallengeCell(cell: ChallengeRowCell, challenges: [HigiChallenge], indexPath: NSIndexPath) ->  ChallengeRowCell {
-        var nib:UIView!
         var nibOriginX:CGFloat = 0.0
         
         //@todo fix sizing issue
         cell.scrollView.contentSize = CGSize(width: cell.frame.size.width * CGFloat(challenges[indexPath.row].winConditions.count), height: cell.frame.size.height - 45);
         
-        println("participants \(challenges[indexPath.row].participantsCount)")
-        //build win conditions
-        for( var i=0; i < challenges[indexPath.row].winConditions.count;++i ) {
-            var competitiveView = UINib(nibName: "CompetitiveChallengeView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as CompetitiveChallengeView;
-            var goalView = UINib(nibName: "GoalChallengeView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as GoalChallengeView;
-            var wincondition = challenges[indexPath.row].winConditions[i].name
-            var goalType = challenges[indexPath.row].winConditions[i].goal.type
-
-            //@todo check winnertype
-            if ( wincondition != nil ) {
-                switch(goalType) {
-                case "most_points":
-                    nib = competitiveView
-                case "threshold_reached":
-                    nib = goalView
-                case "unit_goal_reached":
-                    nib = goalView
-                default:
-                    nib = goalView
-                }
+        var winconditions:[ChallengeWinCondition] = []
+        var lastWinCondition:ChallengeWinCondition!
+        var challenge = challenges[indexPath.row]
+        for wincondition in challenges[indexPath.row].winConditions {
+            var goalType = wincondition.goal.type
+            var winnerType = wincondition.winnerType
+            
+            if lastWinCondition != nil && (goalType != lastWinCondition.goal.type || winnerType != lastWinCondition.winnerType) {
+                var nib = populateView(challenge,winConditions: winconditions)
+                nib.frame.origin.x = nibOriginX
                 
-                if( i >= 1) {
-                    nib.frame.origin.x = nibOriginX
-                }
                 cell.scrollView.addSubview(nib)
+                
                 nibOriginX += nib.frame.width
+                winconditions = []
             }
+            
+            winconditions.append(wincondition)
+            lastWinCondition = wincondition
+        }
+        
+        if winconditions.count > 0 {
+            var nib = populateView(challenge,winConditions: winconditions)
+            nib.frame.origin.x = nibOriginX
+            
+            cell.scrollView.addSubview(nib)
         }
         
         //populate cell contents
@@ -169,12 +234,6 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         cell.daysLeft.text = "\(daysLeft)d left"
         
         cell.avatar.setImageWithURL(self.loadImageFromUrl(challenges[indexPath.row].imageUrl))
-        
-        if ( nib is CompetitiveChallengeView ) {
-            var gb = challenges[indexPath.row].gravityBoard
-            //var place = gb.place
-            //var participant = gb.participant
-        }
 
         return cell
     }
@@ -186,6 +245,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         invitationView.avatar.setImageWithURL(self.loadImageFromUrl(challenges[indexPath.row].imageUrl))
         invitationView.goal.text = challenges[indexPath.row].winConditions[indexPath.row].goal.type
         invitationView.type.text = challenges[indexPath.row].winConditions[indexPath.row].winnerType
+        invitationView.prize.text = challenges[indexPath.row].winConditions[indexPath.row].prizeName
         invitationView.participantCount.text = String(challenges[indexPath.row].participantsCount)
         //invitationView.inviter.text = challenges[indexPath.row].participant.displayName
         var days:Int = 0
@@ -222,6 +282,24 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         cell.daysLeft.removeFromSuperview()
         
         return cell
+    }
+    
+    func getRankSuffix(rank: NSString) -> String {
+        if ( rank == "11" || rank == "12" || rank == "13") {
+            return rank + "th"
+        }
+        
+        let last = rank.substringFromIndex(rank.length - 1)
+        switch(last) {
+            case "1":
+            return rank + "st"
+            case "2":
+            return rank + "nd"
+            case "3":
+            return rank + "rd"
+            default:
+            return rank + "th"
+        }
     }
     
     func loadImageFromUrl(imageUrlString: String) -> NSURL {

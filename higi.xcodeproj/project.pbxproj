@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B8032001A1FEF420029D6DF /* calendar_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B8031FF1A1FEF420029D6DF /* calendar_icon.png */; };
+		2B8032021A1FEF4F0029D6DF /* person_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B8032011A1FEF4F0029D6DF /* person_icon.png */; };
 		2BBDBA521A12AC2C005A6815 /* ChallengeRowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBDBA4A1A12AC2C005A6815 /* ChallengeRowCell.swift */; };
 		2BBDBA531A12AC2C005A6815 /* ChallengeRowCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BBDBA4B1A12AC2C005A6815 /* ChallengeRowCell.xib */; };
 		2BBDBA541A12AC2C005A6815 /* ChallengesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BBDBA4C1A12AC2C005A6815 /* ChallengesView.xib */; };
@@ -293,6 +295,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B8031FF1A1FEF420029D6DF /* calendar_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calendar_icon.png; sourceTree = "<group>"; };
+		2B8032011A1FEF4F0029D6DF /* person_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = person_icon.png; sourceTree = "<group>"; };
 		2BBDBA4A1A12AC2C005A6815 /* ChallengeRowCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeRowCell.swift; sourceTree = "<group>"; };
 		2BBDBA4B1A12AC2C005A6815 /* ChallengeRowCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeRowCell.xib; sourceTree = "<group>"; };
 		2BBDBA4C1A12AC2C005A6815 /* ChallengesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengesView.xib; sourceTree = "<group>"; };
@@ -796,6 +800,8 @@
 		8F2ACD3D19CB857700107D44 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				2B8032011A1FEF4F0029D6DF /* person_icon.png */,
+				2B8031FF1A1FEF420029D6DF /* calendar_icon.png */,
 			);
 			name = Icons;
 			sourceTree = "<group>";
@@ -1461,6 +1467,7 @@
 				8F5C38CF19818BA900F51543 /* gauge2_normal.png in Resources */,
 				8F524BFA195C6DD400BFC49D /* graph_timespan_bg.png in Resources */,
 				8FA5925919A7E5CE00622266 /* nodata_bodystats.png in Resources */,
+				2B8032001A1FEF420029D6DF /* calendar_icon.png in Resources */,
 				8F02A14619AE2CF4002FF73E /* bodystats3@2x.png in Resources */,
 				8F89C25A1A01B0D500A3AD09 /* ActivityCellView.xib in Resources */,
 				8F6ACCC0199D687D00D5E157 /* mapicon_higicard.png in Resources */,
@@ -1473,6 +1480,7 @@
 				8FC7B71119E5E67000D0112F /* dashboard1-568h@2x.png in Resources */,
 				8F5E7FE3199C081F009067E5 /* vital_bmi_icon.png in Resources */,
 				8F5E7FCC199BC976009067E5 /* BpCheckinCellView.xib in Resources */,
+				2B8032021A1FEF4F0029D6DF /* person_icon.png in Resources */,
 				8F6266C3197F12E900145EDB /* graph_info.png in Resources */,
 				8FF9518B1A01AC69005FD632 /* banner_nologo.png in Resources */,
 				8F5C38E71981917100F51543 /* DashboardView.xib in Resources */,
