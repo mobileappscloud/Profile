@@ -26,6 +26,8 @@ class HigiChallenge {
     
     var gravityBoard: [GravityParticipant]!;
     
+    var teams: [ChallengeTeam]!;
+    
     init(dictionary: NSDictionary, userStatus: NSString, participant: ChallengeParticipant!, gravityBoard: [GravityParticipant]!) {
         self.userStatus = userStatus;
         self.participant = participant;
@@ -62,6 +64,13 @@ class HigiChallenge {
             }
         }
         
+        var serverTeams = dictionary["teams"] as? NSArray;
+        if (serverTeams != nil) {
+            teams = [];
+            for team: AnyObject in serverTeams! {
+                teams.append(ChallengeTeam(dictionary: team as NSDictionary));
+            }
+        }
 
     }
     
