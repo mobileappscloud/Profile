@@ -14,7 +14,7 @@ class HigiChallenge {
     
     var startDate, endDate: NSDate!;
     
-    var dailyLimit, participantsCount, teamsCount: Int!;
+    var dailyLimit, participantsCount: Int!;
     
     var entryFee: Float!;
     
@@ -47,7 +47,6 @@ class HigiChallenge {
             endDate = formatter.dateFromString(endDateString!);
         }
         participantsCount = dictionary["participantsCount"] as Int;
-        teamsCount = (dictionary["teamsCount"] ?? 0) as Int;
         terms = (dictionary["terms"] ?? "") as? NSString;
         
         var conditions = dictionary["winConditions"] as NSArray?;
