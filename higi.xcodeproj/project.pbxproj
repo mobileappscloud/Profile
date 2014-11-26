@@ -174,6 +174,7 @@
 		8FA5925B19AB921C00622266 /* create_overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA5925A19AB921C00622266 /* create_overlay.png */; };
 		8FA5925D19ABBCEC00622266 /* TourView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FA5925C19ABBCEC00622266 /* TourView.xib */; };
 		8FA5925F19ABBD3A00622266 /* TourViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA5925E19ABBD3A00622266 /* TourViewController.swift */; };
+		8FC130C71A26464400591C58 /* ActivityGraphHostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC130C61A26464400591C58 /* ActivityGraphHostingView.swift */; };
 		8FC7B6F819E5C1A000D0112F /* welcome_01_bg-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FC7B6F219E5C1A000D0112F /* welcome_01_bg-568h@2x.png */; };
 		8FC7B6F919E5C1A000D0112F /* welcome_02_bg-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FC7B6F319E5C1A000D0112F /* welcome_02_bg-568h@2x.png */; };
 		8FC7B6FA19E5C1A000D0112F /* welcome_03_bg-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FC7B6F419E5C1A000D0112F /* welcome_03_bg-568h@2x.png */; };
@@ -470,6 +471,7 @@
 		8FA5925A19AB921C00622266 /* create_overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = create_overlay.png; path = images/create_overlay.png; sourceTree = "<group>"; };
 		8FA5925C19ABBCEC00622266 /* TourView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TourView.xib; sourceTree = "<group>"; };
 		8FA5925E19ABBD3A00622266 /* TourViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TourViewController.swift; sourceTree = "<group>"; };
+		8FC130C61A26464400591C58 /* ActivityGraphHostingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityGraphHostingView.swift; sourceTree = "<group>"; };
 		8FC7B6F219E5C1A000D0112F /* welcome_01_bg-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "welcome_01_bg-568h@2x.png"; path = "images/welcome_01_bg-568h@2x.png"; sourceTree = "<group>"; };
 		8FC7B6F319E5C1A000D0112F /* welcome_02_bg-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "welcome_02_bg-568h@2x.png"; path = "images/welcome_02_bg-568h@2x.png"; sourceTree = "<group>"; };
 		8FC7B6F419E5C1A000D0112F /* welcome_03_bg-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "welcome_03_bg-568h@2x.png"; path = "images/welcome_03_bg-568h@2x.png"; sourceTree = "<group>"; };
@@ -1106,18 +1108,19 @@
 		8F6A243D195A011F0094B73C /* Graphing */ = {
 			isa = PBXGroup;
 			children = (
+				8FC130C61A26464400591C58 /* ActivityGraphHostingView.swift */,
 				8F6A243E195A01350094B73C /* BaseCustomGraphHostingView.swift */,
 				8F6A2448195A07880094B73C /* BmiGraphDelegate.swift */,
 				8F6266CE19800A5400145EDB /* BpGraphDelegate.swift */,
 				8F6A2440195A05200094B73C /* BpGraphHostingView.swift */,
 				8F5C38BE19813F9F00F51543 /* GraphDelegate.swift */,
+				8F77DF191A0080550056BE27 /* GraphPoint.swift */,
 				8FF2940F1979D28F00C4FC1A /* GraphView.swift */,
 				8F6A2444195A076B0094B73C /* MapGraphDelegate.swift */,
 				8F6A2442195A07620094B73C /* PulseGraphDelegate.swift */,
 				8F6A2446195A07740094B73C /* WeightGraphDelegate.swift */,
 				8F807A751976C9D600EEE019 /* LandscapeGraph.xib */,
 				8F807A771976C9ED00EEE019 /* PortraitGraph.xib */,
-				8F77DF191A0080550056BE27 /* GraphPoint.swift */,
 			);
 			name = Graphing;
 			path = ..;
@@ -1574,6 +1577,7 @@
 				8F7065B41A16B129002FCA10 /* ChallengeParticipant.swift in Sources */,
 				8FFB035519FEAED10036228C /* ActivityViewController.swift in Sources */,
 				8F9C69D91950C8AD00449664 /* KioskInfo.swift in Sources */,
+				8FC130C71A26464400591C58 /* ActivityGraphHostingView.swift in Sources */,
 				8FDB4B661A096ECF00F57B38 /* HigiActivity.swift in Sources */,
 				8F6A2441195A05200094B73C /* BpGraphHostingView.swift in Sources */,
 				8FDA6DA319A2979800244D5F /* ChangePasswordViewController.swift in Sources */,

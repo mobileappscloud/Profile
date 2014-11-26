@@ -26,11 +26,16 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
     
     var legendIsOpen = false;
     
+    var dayBuckets, weekBuckets, monthBuckets: [String: [Int]]!;
+    
+    var dayGraph, weekGraph, monthGraph: ActivityGraphHostingView!;
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         self.title = "Activity";
         dateFormatter.dateFormat = "MM/dd/yyyy";
         populateActivities();
+        createGraphs();
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -103,6 +108,17 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
         dayButton.enabled = true;
         weekButton.enabled = true;
         monthButton.enabled = true;
+        dayGraph.hidden = true;
+        weekGraph.hidden = true;
+        monthGraph.hidden = true;
+        if (sender as UIButton == weekButton) {
+            weekGraph.hidden = false;
+        } else if (sender as UIButton == monthButton) {
+            monthGraph.hidden = false;
+        } else {
+            dayGraph.hidden = false;
+        }
+        
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -135,6 +151,9 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
         var savedDate = "";
         var currentSection = -1;
         var activities = SessionController.Instance.activities.reverse();
+        dayBuckets = [:];
+        weekBuckets = [:];
+        monthBuckets = [:];
         for activity in activities {
             var dateString = dateFormatter.stringFromDate(activity.startTime);
             if (savedDate != dateString) {
@@ -143,7 +162,68 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
                 savedDate = dateString;
             }
             activitiesByDay[currentSection].append(activity);
+            if (activity.errorDescription == nil) {
+                addToBuckets(activity);
+            }
         }
+    }
+    
+    func addToBuckets(activity: HigiActivity) {
+        var calendar = NSCalendar(calendarIdentifier: NSGregorianCalendar)!;
+        let today = dateFormatter.dateFromString(dateFormatter.stringFromDate(NSDate()))!;
+        let activityDate = dateFormatter.dateFromString(dateFormatter.stringFromDate(activity.startTime))!;
+        var dayComponents = calendar.components(NSCalendarUnit.CalendarUnitDay, fromDate: activityDate, toDate: today, options: NSCalendarOptions.allZeros);
+        var weekOffset = calendar.component(NSCalendarUnit.WeekOfYearCalendarUnit, fromDate: today) - calendar.component(NSCalendarUnit.WeekOfYearCalendarUnit, fromDate: activityDate);
+        var monthOffset = calendar.component(NSCalendarUnit.MonthCalendarUnit, fromDate: today) - calendar.component(NSCalendarUnit.MonthCalendarUnit, fromDate: activityDate);
+        
+        let deviceName = activity.device.name;
+        
+        if (dayComponents.day < 7) {
+            var dayArray = dayBuckets[deviceName];
+            if (dayArray == nil) {
+                dayArray = [0, 0, 0, 0, 0, 0, 0];
+            }
+            dayArray![6 - dayComponents.day] += activity.points;
+            dayBuckets[deviceName] = dayArray;
+        }
+        
+        if (weekOffset < 0) {
+            weekOffset += 52;
+        }
+        if (weekOffset < 7) {
+            var weekArray = weekBuckets[deviceName];
+            if (weekArray == nil) {
+                weekArray = [0, 0, 0, 0, 0, 0, 0];
+            }
+            weekArray![6 - weekOffset] += activity.points;
+            weekBuckets[deviceName] = weekArray;
+        }
+        
+        if (monthOffset < 0) {
+            monthOffset += 12;
+        }
+        if (monthOffset < 7) {
+            var monthArray = monthBuckets[deviceName];
+            if (monthArray == nil) {
+                monthArray = [0, 0, 0, 0, 0, 0, 0];
+            }
+            monthArray![ 6 - monthOffset] += activity.points;
+            monthBuckets[deviceName] = monthArray;
+        }
+    }
+    
+    func createGraphs() {
+        dayGraph = ActivityGraphHostingView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: graphContainer.frame.size), points: dayBuckets);
+        weekGraph = ActivityGraphHostingView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: graphContainer.frame.size), points: weekBuckets);
+        monthGraph = ActivityGraphHostingView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: graphContainer.frame.size), points: monthBuckets);
+        weekGraph.hidden = true;
+        monthGraph.hidden = true;
+        graphContainer.addSubview(dayGraph);
+        graphContainer.addSubview(weekGraph);
+        graphContainer.addSubview(monthGraph);
+        dayGraph.setupGraph(ActivityGraphHostingView.Mode.DAY);
+        weekGraph.setupGraph(ActivityGraphHostingView.Mode.WEEK);
+        monthGraph.setupGraph(ActivityGraphHostingView.Mode.MONTH);
     }
     
     func drawArc() {
@@ -157,7 +237,6 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
             }
             
             for activity in activitiesByDay[0] {
-            //var activity = activitiesByDay[0][1];
                 var toPath = UIBezierPath();
                 var arc = CAShapeLayer();
                 arc.lineWidth = 12;
@@ -182,7 +261,6 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
                 CATransaction.commit();
                 dispatch_async(dispatch_get_main_queue(), {
                     CATransaction.begin();
-                    //CATransaction.setAnimationTimingFunction(CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut));
                     CATransaction.setAnimationDuration(1.0);
                     arc.strokeEnd = CGFloat(increment + 0.01);
                     CATransaction.commit();
