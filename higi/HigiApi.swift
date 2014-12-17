@@ -41,6 +41,7 @@ class HigiApi {
         manager.requestSerializer.setValue("rQIpgKhmd0qObDSr5SkHbw", forHTTPHeaderField: "Dev-Token");  // Grant
         //manager.requestSerializer.setValue("XibU2q0gN0eB5NxdflUQ0w", forHTTPHeaderField: "Dev-Token");  // Harry
         
+        manager.requestSerializer.setValue("iOSv\(Utility.appVersion()).\(Utility.appBuild())", forHTTPHeaderField: "X-Consumer-Id");
         if (!SessionData.Instance.token.isEmpty) {
             manager.requestSerializer.setValue(SessionData.Instance.token, forHTTPHeaderField: "Token");
         }

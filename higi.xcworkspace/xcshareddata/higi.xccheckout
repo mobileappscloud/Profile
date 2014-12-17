@@ -5,7 +5,7 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>EDD28634-8AD7-4684-BFD2-3ADAF676CCED</string>
+	<string>42618B53-9767-4E95-BC57-240042091880</string>
 	<key>IDESourceControlProjectName</key>
 	<string>higi</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
@@ -34,7 +34,7 @@
 			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>C10B93B2DB730D7E6109B89A90CA029DC7C68BBC</string>
 			<key>IDESourceControlWCCName</key>
-			<string>higi-ios-main</string>
+			<string>ios-main</string>
 		</dict>
 	</array>
 </dict>

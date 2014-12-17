@@ -10,7 +10,6 @@ import Foundation
 
 class CompetitiveChallengeView: UIView {
 
-
     @IBOutlet var firstPositionAvatar: UIImageView!
     @IBOutlet var secondPositionAvatar: UIImageView!
     @IBOutlet var thirdPositionAvatar: UIImageView!

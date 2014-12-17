@@ -1,42 +1,44 @@
-//
-//  ChallengeRowCell.swift
-//  higi
-//
-//  Created by Joe Sangervasi on 10/31/14.
-//  Copyright (c) 2014 higi, LLC. All rights reserved.
-//
-
 import Foundation
 
-class ChallengeRowCell: UITableViewCell {
+class ChallengeRowCell: UITableViewCell, UIScrollViewDelegate {
     
-    @IBOutlet var scrollView: UIScrollView!
-    @IBOutlet var daysLeft: UILabel!
-    @IBOutlet var title: UILabel!
-    @IBOutlet var avatar: UIImageView!
-    @IBOutlet var pager: UIPageControl!
+    @IBOutlet var scrollView: UIScrollView!;
+    @IBOutlet var daysLeft: UILabel!;
+    @IBOutlet var title: UILabel!;
+    @IBOutlet var avatar: UIImageView!;
+    @IBOutlet var pager: UIPageControl!;
     
-    var currentPage = 1
-
-    class func instanceFromNib() -> ChallengeRowCell {
-        return UINib(nibName: "ChallengeRowCell", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeRowCell
+    var totalPages = 0;
+    var currentPage = 0;
+    
+    class func instanceFromNib(numPages: Int) -> ChallengeRowCell {
+        return UINib(nibName: "ChallengeRowCell", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeRowCell;
+    }
+    
+    override
+    func layoutSubviews() {
+        var page = lround(Double(scrollView.contentOffset.x / scrollView.frame.size.width));
+        currentPage = page;
+        changePage(pager);
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         var page = lround(Double(scrollView.contentOffset.x / scrollView.frame.size.width));
-        self.pager.currentPage = page;
-        changePage(self.pager);
+        pager.currentPage = page;
+        changePage(pager);
     }
     
     @IBAction func changePage(sender: AnyObject) {
         var pager = sender as UIPageControl;
-        var page = self.pager.currentPage;
-        self.currentPage = page
+        var page2 = lround(Double(scrollView.contentOffset.x / scrollView.frame.size.width));
+        var pageNumber = pager.currentPage;
+        currentPage = pageNumber;
         
-        var frame = self.scrollView.frame;
+        var frame = scrollView.frame;
         
-        frame.origin.x = frame.size.width * CGFloat(page);
+        frame.origin.x = frame.size.width * CGFloat(pageNumber);
         frame.origin.y = 0;
-        self.scrollView.setContentOffset(frame.origin, animated: true);
+        scrollView.setContentOffset(frame.origin, animated: true);
     }
+
 }

@@ -282,6 +282,7 @@
 		8FFF43C219B798380056F412 /* pulse_overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFF43BD19B798380056F412 /* pulse_overlay@2x.png */; };
 		8FFF43C319B798380056F412 /* weight_overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFF43BE19B798380056F412 /* weight_overlay@2x.png */; };
 		C05CB27FD2A34A3BA2F46E97 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C0A91AD3D5DE44B7872F95D7 /* libPods.a */; };
+		D19C66C91A3F74A400655218 /* ScrollViewPagerControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19C66C81A3F74A400655218 /* ScrollViewPagerControllerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -587,6 +588,7 @@
 		8FFF43BD19B798380056F412 /* pulse_overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pulse_overlay@2x.png"; path = "images/pulse_overlay@2x.png"; sourceTree = "<group>"; };
 		8FFF43BE19B798380056F412 /* weight_overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "weight_overlay@2x.png"; path = "images/weight_overlay@2x.png"; sourceTree = "<group>"; };
 		C0A91AD3D5DE44B7872F95D7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D19C66C81A3F74A400655218 /* ScrollViewPagerControllerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollViewPagerControllerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -639,6 +641,7 @@
 				2BBDBA4E1A12AC2C005A6815 /* CompetitiveChallengeView.swift */,
 				2BBDBA4D1A12AC2C005A6815 /* ChallengesViewController.swift */,
 				2BBDBA501A12AC2C005A6815 /* GoalChallengeView.swift */,
+				D19C66C81A3F74A400655218 /* ScrollViewPagerControllerViewController.swift */,
 			);
 			name = Challenges;
 			sourceTree = "<group>";
@@ -1624,6 +1627,7 @@
 				8FDB4B6A1A09741400F57B38 /* ChallengeWinCondition.swift in Sources */,
 				8F2B7E41198C2C27009DE89A /* SWRevealViewController.m in Sources */,
 				8F2CB5891993E68C009377A8 /* SessionData.swift in Sources */,
+				D19C66C91A3F74A400655218 /* ScrollViewPagerControllerViewController.swift in Sources */,
 				8F29630F194B8F5D00E787FD /* SignupEmailViewController.swift in Sources */,
 				8F524BF8195B829400BFC49D /* CustomFormatter.swift in Sources */,
 				8F6A243F195A01350094B73C /* BaseCustomGraphHostingView.swift in Sources */,
