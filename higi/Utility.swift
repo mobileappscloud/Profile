@@ -1,11 +1,3 @@
-//
-//  Utility.swift
-//  higi
-//
-//  Created by Dan Harms on 6/10/14.
-//  Copyright (c) 2014 higi, LLC. All rights reserved.
-//
-
 import Foundation
 
 class Utility {
@@ -73,8 +65,42 @@ class Utility {
     }
     
     class func getChallengeViews(challenge: HigiChallenge) -> [UIView] {
-        var nib:UIView!
-        return [];
+        var nib:UIView!;
+        var nibs:[UIView] = [];
+        var winConditions:[ChallengeWinCondition] = [];
+
+        for index in 0...challenge.winConditions.count - 1 {
+            let currentWinCondition = challenge.winConditions[index];
+            let previousWinCondition:ChallengeWinCondition = index == 0 ? challenge.winConditions[index] : challenge.winConditions[index-1];
+            
+            let goalType = currentWinCondition.goal.type;
+            let winnerType = currentWinCondition.winnerType;
+            
+            if (previousWinCondition !== currentWinCondition && (goalType != previousWinCondition.goal.type || winnerType != previousWinCondition.winnerType)) {
+                let winConditionGoalType = winConditions[0].goal.type;
+                if (winConditionGoalType == "most_points" || winConditionGoalType == "unit_goal_reached") {
+                    nib = CompetitiveChallengeView.instanceFromNib(challenge, winConditions: winConditions);
+                }
+                else if (winConditionGoalType == "threshold_reached") {
+                    nib = GoalChallengeView.instanceFromNib(challenge, winConditions: winConditions);
+                }
+                nibs.append(nib);
+                winConditions = [];
+            }
+            winConditions.append(currentWinCondition);
+        }
+        
+        if winConditions.count > 0 {
+            let remainingGoalType = winConditions[0].goal.type;
+            if (remainingGoalType == "most_points" || remainingGoalType == "unit_goal_reached") {
+                nib = CompetitiveChallengeView.instanceFromNib(challenge, winConditions: winConditions);
+            }
+            else if (remainingGoalType == "threshold_reached") {
+                nib = GoalChallengeView.instanceFromNib(challenge, winConditions: winConditions);
+            }
+            nibs.append(nib);
+        }
+        return nibs;
     }
     
     class func loadImageFromUrl(imageUrlString: String) -> NSURL {

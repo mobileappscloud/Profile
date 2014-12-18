@@ -42,7 +42,7 @@ class CompetitiveChallengeView: UIView {
                 }
             }
         } else { // == "team"
-            let gravityBoard = challenge.gravityBoard;
+            let gravityBoard = challenge.teams;
         }
         return competitiveView;
     }

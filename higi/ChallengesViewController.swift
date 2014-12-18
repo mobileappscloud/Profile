@@ -64,35 +64,6 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         return count;
     }
     
-    func populateView(challenge:HigiChallenge, winConditions:[ChallengeWinCondition]) -> UIView {
-        var nib:UIView!
-        
-        //build win conditions
-        for wincondition in winConditions {
-            var winconditionName = wincondition.name;
-            var winnerType = wincondition.winnerType;
-            var goalMin = wincondition.goal.minThreshold;
-            var goalMax = wincondition.goal.maxThreshold;
-            var goalType = wincondition.goal.type;
-            
-            if (goalType == "most_points" || goalType == "unit_goal_reached") {
-                nib = populateCompetitiveView(challenge, winConditions: winConditions);
-            }
-            else if (goalType == "threshold_reached") {
-                nib = populateGoalView(challenge, winConditions: winConditions);
-            }
-        }
-        return nib;
-    }
-    
-    func populateCompetitiveView(challenge : HigiChallenge, winConditions: [ChallengeWinCondition]) -> UIView {
-        return CompetitiveChallengeView.instanceFromNib(challenge, winConditions);
-    }
-    
-    func populateGoalView(challenge: HigiChallenge, winConditions: [ChallengeWinCondition]) -> UIView{
-        return GoalChallengeView.instanceFromNib(challenge, winConditions: [ChallengeWinCondition]);
-    }
-    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         //@todo fix the scrolling issue maybe an autolayout issue
         var cell = tableView.dequeueReusableCellWithIdentifier("ChallengeRowCell") as ChallengeRowCell!;
@@ -137,57 +108,19 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     func buildChallengeCell(cell: ChallengeRowCell, challenge: HigiChallenge) -> ChallengeRowCell {
         var nibOriginX:CGFloat = 0.0;
         
-//        var nibs = Utility.getChallengeViews(challenge);
-//        for nib in nibs {
-//            nib = populateView(challenge,winConditions: winConditions);
-//            nib.frame.origin.x = nibOriginX;
-//        
-//            cell.scrollView.addSubview(nib);
-//            nibOriginX += nib.frame.width;
-//
-//        }
-        var previousWinCondition:ChallengeWinCondition!;
-        var winConditions:[ChallengeWinCondition] = [];
-
-        let screenSize: CGRect = UIScreen.mainScreen().bounds;
-        let screenWidth = screenSize.width;
-
-        var pages = 0;
-        for currentWinCondition in challenge.winConditions {
-            var goalType = currentWinCondition.goal.type;
-            var winnerType = currentWinCondition.winnerType;
-            
-            if (previousWinCondition != nil && (goalType != previousWinCondition.goal.type || winnerType != previousWinCondition.winnerType)) {
-                var nib = populateView(challenge,winConditions: winConditions);
-                nib.frame.origin.x = nibOriginX;
-
-                cell.scrollView.addSubview(nib);
-                nibOriginX += nib.frame.width;
-                
-                winConditions = [];
-                
-                pages++;
-            }
-            
-            winConditions.append(currentWinCondition);
-            previousWinCondition = currentWinCondition;
-        }
-        
-        if winConditions.count > 0 {
-            var nib = populateView(challenge,winConditions: winConditions);
+        var nibs = Utility.getChallengeViews(challenge);
+        for nib in nibs {
             nib.frame.origin.x = nibOriginX;
-            
-            cell.scrollView.addSubview(nib);
-            
-            pages++;
-        }
         
-        //populate cell contents
-        cell.pager.numberOfPages = pages;
+            cell.scrollView.addSubview(nib);
+            nibOriginX += nib.frame.width;
+        }
+
+        cell.pager.numberOfPages = nibs.count;
         cell.pager.currentPage = 0;
         cell.title.text = challenge.name
         
-        cell.scrollView.contentSize = CGSize(width: cell.frame.size.width * CGFloat(pages), height: cell.frame.size.height - 45);
+        cell.scrollView.contentSize = CGSize(width: cell.frame.size.width * CGFloat(nibs.count), height: cell.frame.size.height - 45);
         
         var daysLeft:Int = 0
         var endDate:NSDate? = challenge.endDate?
