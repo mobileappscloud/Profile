@@ -1,11 +1,3 @@
-//
-//  CompetitiveChallengeView.swift
-//  higi
-//
-//  Created by Joe Sangervasi on 10/31/14.
-//  Copyright (c) 2014 higi, LLC. All rights reserved.
-//
-
 import Foundation
 
 class CompetitiveChallengeView: UIView {
@@ -26,7 +18,50 @@ class CompetitiveChallengeView: UIView {
     @IBOutlet var secondPositionPoints: UILabel!
     @IBOutlet var thirdPositionPoints: UILabel!
     
-    class func instanceFromNib() -> CompetitiveChallengeView {
-        return UINib(nibName: "CompetitiveChallengeView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as CompetitiveChallengeView
+    class func instanceFromNib(challenge: HigiChallenge, winConditions: [ChallengeWinCondition]) -> CompetitiveChallengeView {
+        let competitiveView = UINib(nibName: "CompetitiveChallengeView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as CompetitiveChallengeView;
+        
+        if (winConditions[0].winnerType == "individual") {
+            let gravityBoard = challenge.gravityBoard;
+            for (var i = 0; i < gravityBoard.count; i++) {
+                if (i == 0) {
+                    competitiveView.firstPositionName.text = gravityBoard[i].participant.displayName;
+                    competitiveView.firstPositionPoints.text = "\(Int(gravityBoard[i].participant.units)) pts";
+                    competitiveView.firstPositionRank.text = getRankSuffix(gravityBoard[i].place);
+                    competitiveView.firstPositionAvatar.setImageWithURL(Utility.loadImageFromUrl(gravityBoard[i].participant.imageUrl));
+                } else if (i == 1) {
+                    competitiveView.secondPositionName.text = gravityBoard[i].participant.displayName;
+                    competitiveView.secondPositionPoints.text = "\(Int(gravityBoard[i].participant.units)) pts";
+                    competitiveView.secondPositionRank.text = getRankSuffix(gravityBoard[i].place);
+                    competitiveView.secondPositionAvatar.setImageWithURL(Utility.loadImageFromUrl(gravityBoard[i].participant.imageUrl));
+                } else {
+                    competitiveView.thirdPositionName.text = gravityBoard[i].participant.displayName
+                    competitiveView.thirdPositionPoints.text = "\(Int(gravityBoard[i].participant.units)) pts";
+                    competitiveView.thirdPositionRank.text = getRankSuffix(gravityBoard[i].place);
+                    competitiveView.thirdPositionAvatar.setImageWithURL(Utility.loadImageFromUrl(gravityBoard[i].participant.imageUrl));
+                }
+            }
+        } else { // == "team"
+            let gravityBoard = challenge.gravityBoard;
+        }
+        return competitiveView;
+    }
+    
+    class func getRankSuffix(rank: NSString) -> String {
+        if ( rank == "11" || rank == "12" || rank == "13") {
+            return rank + "th"
+        }
+        
+        let last = rank.substringFromIndex(rank.length - 1)
+        switch(last) {
+        case "1":
+            return rank + "st"
+        case "2":
+            return rank + "nd"
+        case "3":
+            return rank + "rd"
+        default:
+            return rank + "th"
+        }
     }
 }

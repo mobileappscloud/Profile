@@ -10,11 +10,6 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     @IBOutlet var scrollView: UIScrollView!
     
     var currentPage  = 0;
-    let circleRadius:CGFloat = 5;
-    let labelMargin:CGFloat = 15;
-    let goalBarOffset:CGFloat = 100;
-    let goalBarHeight:CGFloat = 5;
-    let verticalLineHeight:CGFloat = 15;
     
     let pageTitles:[String] = ["Active Challenges","Upcoming Challenges","Available Challenges","Invitations"]
     var activeChallenges:[HigiChallenge] = []
@@ -81,7 +76,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
             var goalType = wincondition.goal.type;
             
             if (goalType == "most_points" || goalType == "unit_goal_reached") {
-                nib = populateCompetitiveView(challenge);
+                nib = populateCompetitiveView(challenge, winConditions: winConditions);
             }
             else if (goalType == "threshold_reached") {
                 nib = populateGoalView(challenge, winConditions: winConditions);
@@ -90,140 +85,14 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         return nib;
     }
     
-    func populateCompetitiveView(challenge : HigiChallenge) -> UIView {
-        let competitiveView = CompetitiveChallengeView.instanceFromNib();
-        let gravityBoard = challenge.gravityBoard;
-        
-        for (var i = 0; i < gravityBoard.count; i++) {
-            if (i == 0) {
-                competitiveView.firstPositionName.text = gravityBoard[i].participant.displayName;
-                competitiveView.firstPositionPoints.text = "\(Int(gravityBoard[i].participant.units)) pts";
-                competitiveView.firstPositionRank.text = getRankSuffix(gravityBoard[i].place);
-                competitiveView.firstPositionAvatar.setImageWithURL(loadImageFromUrl(gravityBoard[i].participant.imageUrl));
-            } else if (i == 1) {
-                competitiveView.secondPositionName.text = gravityBoard[i].participant.displayName;
-                competitiveView.secondPositionPoints.text = "\(Int(gravityBoard[i].participant.units)) pts";
-                competitiveView.secondPositionRank.text = getRankSuffix(gravityBoard[i].place);
-                competitiveView.secondPositionAvatar.setImageWithURL(loadImageFromUrl(gravityBoard[i].participant.imageUrl));
-            } else {
-                competitiveView.thirdPositionName.text = gravityBoard[i].participant.displayName
-                competitiveView.thirdPositionPoints.text = "\(Int(gravityBoard[i].participant.units)) pts";
-                competitiveView.thirdPositionRank.text = getRankSuffix(gravityBoard[i].place);
-                competitiveView.thirdPositionAvatar.setImageWithURL(loadImageFromUrl(gravityBoard[i].participant.imageUrl));
-            }
-        }
-        return competitiveView;
+    func populateCompetitiveView(challenge : HigiChallenge, winConditions: [ChallengeWinCondition]) -> UIView {
+        return CompetitiveChallengeView.instanceFromNib(challenge, winConditions);
     }
     
     func populateGoalView(challenge: HigiChallenge, winConditions: [ChallengeWinCondition]) -> UIView{
-        let goalView = GoalChallengeView.instanceFromNib();
-        if (challenge.participant != nil) {
-            goalView.avatar.setImageWithURL(loadImageFromUrl(challenge.participant.imageUrl));
-        }
-        
-        let participantPoints = challenge.participant != nil ? Int(challenge.participant.units) : 0;
-        let maxGoalValue = winConditions[0].goal.minThreshold;
-        
-        drawGoals(goalView, participantPoints: participantPoints, winConditions: winConditions);
-        
-        drawParticipantProgress(goalView, participantPoints: participantPoints, maxGoalValue: maxGoalValue);
-        
-        //points label + vertical line pointing
-        if (participantPoints < maxGoalValue) {
-            drawParticipantPoints(goalView, participantPoints: participantPoints, maxGoalValue: maxGoalValue);
-        }
-        
-        return goalView;
+        return GoalChallengeView.instanceFromNib(challenge, winConditions: [ChallengeWinCondition]);
     }
     
-    func drawGoals(goalView: UIView, participantPoints: Int, winConditions: [ChallengeWinCondition]) {
-        var goalWinConditions = winConditions;
-        goalWinConditions.sort { $0.goal.minThreshold! > $1.goal.minThreshold! };
-        let maxGoalThreshold = goalWinConditions[0].goal.minThreshold;
-        
-        let closestPointIndex = findClosestPointIndex(participantPoints, goalWinConditions: goalWinConditions);
-        
-        var counter = 0;
-        for winCondition in winConditions {
-            let displayLabelBottom = (closestPointIndex % 2 == counter % 2);
-            addGoalNode(goalView, winCondition: winCondition, participantPoints: participantPoints, maxGoalValue: maxGoalThreshold, isBottom: displayLabelBottom);
-            counter++;
-        }
-    }
-    
-    func drawParticipantProgress(goalView: UIView, participantPoints: Int, maxGoalValue: Int) {
-        let barWidth = (goalView.frame.width - goalBarOffset) * CGFloat(participantPoints) / CGFloat(maxGoalValue);
-        let bar = UIView(frame: CGRect(x: goalBarOffset, y: goalView.frame.height/2 - goalBarHeight/2, width: barWidth, height: goalBarHeight));
-        bar.backgroundColor = Utility.colorFromHexString("#76C043");
-        bar.layer.cornerRadius = 2;
-        goalView.addSubview(bar);
-
-    }
-    
-    func drawParticipantPoints(goalView: UIView, participantPoints: Int, maxGoalValue: Int) {
-        let progressWidth = goalBarOffset + (goalView.frame.width - goalBarOffset) * (CGFloat(participantPoints) / CGFloat(maxGoalValue));
-        let verticalLinePosY = goalView.frame.height/2 - verticalLineHeight - 10;
-        let verticalLine = UIView(frame: CGRect(x: progressWidth, y: goalView.frame.height/2 - verticalLineHeight - 10, width: 1, height: verticalLineHeight));
-        verticalLine.backgroundColor = UIColor.lightGrayColor();
-        var labelHeight:CGFloat = 20;
-        
-        var text = String(participantPoints);
-
-        let labelPosX = progressWidth - estimateStringWidth(text);
-        let labelPosY = verticalLinePosY - labelHeight;
-        let pointsLabel = UILabel(frame: CGRectMake(labelPosX, labelPosY, goalView.frame.width, 15));
-        pointsLabel.text = text;
-        pointsLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline);
-        
-        goalView.addSubview(pointsLabel);
-        goalView.addSubview(verticalLine);
-    }
-    
-    func addGoalNode(goalView: UIView, winCondition: ChallengeWinCondition, participantPoints: Int!, maxGoalValue: Int!, isBottom: Bool) {
-        
-        let frameWidth = goalView.frame.width - goalBarOffset;
-        let frameHeight = goalView.frame.height / 2 - circleRadius;
-        let thisGoalValue = winCondition.goal.minThreshold;
-        let proportion = CGFloat(thisGoalValue) / CGFloat(maxGoalValue);
-        
-        let posX = proportion * frameWidth + goalBarOffset;
-        let posY = frameHeight;
-        
-        let goalCircle = UIView(frame: CGRect(x: posX, y: posY, width: circleRadius * 2, height: circleRadius * 2));
-        let circleColor:UIColor = (participantPoints > thisGoalValue) ? Utility.colorFromHexString("#76C043") : UIColor.lightGrayColor();
-        goalCircle.backgroundColor = circleColor;
-        goalCircle.layer.cornerRadius = circleRadius;
-        
-        var labelHeight:CGFloat = isBottom ? -1.0 * labelMargin - circleRadius: labelMargin;
-        var text = String(Int(thisGoalValue));
-        let labelPosX = posX - estimateStringWidth(text);
-        let labelPosY = posY + (labelHeight);
-        let goalLabel = UILabel(frame: CGRectMake(labelPosX, labelPosY, goalView.frame.width, 13));
-        goalLabel.text = text;
-        goalLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline);
-        goalView.addSubview(goalLabel);
-        goalView.addSubview(goalCircle);
-    }
-    
-    func estimateStringWidth(text: String) -> CGFloat {
-        return (CGFloat(countElements(text) + 1) * 3);
-    }
-    
-    func findClosestPointIndex(participantPoints: Int, goalWinConditions: [ChallengeWinCondition]) -> Int {
-        let size = goalWinConditions.count;
-        var distance = goalWinConditions[size - 1].goal.minThreshold;
-        
-        for index in 0...size-1 {
-            let thisDistance = abs(goalWinConditions[index].goal.minThreshold - participantPoints);
-            if (thisDistance < distance) {
-                distance = thisDistance;
-            } else {
-                return index;
-            }
-        }
-        return size - 1;
-    }
-
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         //@todo fix the scrolling issue maybe an autolayout issue
         var cell = tableView.dequeueReusableCellWithIdentifier("ChallengeRowCell") as ChallengeRowCell!;
@@ -268,6 +137,15 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     func buildChallengeCell(cell: ChallengeRowCell, challenge: HigiChallenge) -> ChallengeRowCell {
         var nibOriginX:CGFloat = 0.0;
         
+//        var nibs = Utility.getChallengeViews(challenge);
+//        for nib in nibs {
+//            nib = populateView(challenge,winConditions: winConditions);
+//            nib.frame.origin.x = nibOriginX;
+//        
+//            cell.scrollView.addSubview(nib);
+//            nibOriginX += nib.frame.width;
+//
+//        }
         var previousWinCondition:ChallengeWinCondition!;
         var winConditions:[ChallengeWinCondition] = [];
 
@@ -323,7 +201,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         
         cell.daysLeft.text = "\(daysLeft)d left";
         
-        cell.avatar.setImageWithURL(self.loadImageFromUrl(challenge.imageUrl));
+        cell.avatar.setImageWithURL(Utility.loadImageFromUrl(challenge.imageUrl));
         
         return cell;
     }
@@ -335,7 +213,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         var winCondition = challenge.winConditions[0];
         
         invitationView.title.text = challenge.name;
-        invitationView.avatar.setImageWithURL(loadImageFromUrl(challenge.imageUrl))
+        invitationView.avatar.setImageWithURL(Utility.loadImageFromUrl(challenge.imageUrl))
         invitationView.goal.text = winCondition.goal.type == "most_points" ? "Most points" : "Threshold reached";
         invitationView.type.text = goalTypeDisplayHelper(winCondition.goal.type, winnerType: winCondition.winnerType);
         invitationView.prize.text = winCondition.prizeName != nil ? winCondition.prizeName : "Coming soon!";
@@ -382,36 +260,6 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         var secondPart = winnerType == "most_points" ? "Points Challenge" : "Goal Challenge";
         return firstPart + " " + secondPart;
         
-    }
-    
-    func getRankSuffix(rank: NSString) -> String {
-        if ( rank == "11" || rank == "12" || rank == "13") {
-            return rank + "th"
-        }
-        
-        let last = rank.substringFromIndex(rank.length - 1)
-        switch(last) {
-        case "1":
-            return rank + "st"
-        case "2":
-            return rank + "nd"
-        case "3":
-            return rank + "rd"
-        default:
-            return rank + "th"
-        }
-    }
-    
-    func loadImageFromUrl(imageUrlString: String) -> NSURL {
-        if (!imageUrlString.isEmpty) {
-            let imageUrl = NSURL(string: imageUrlString)?;
-            if let imageError = imageUrl?.checkResourceIsReachableAndReturnError(NSErrorPointer()) {
-                if( !imageError ) {
-                    return imageUrl!;
-                }
-            }
-        }
-        return NSURL()
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {

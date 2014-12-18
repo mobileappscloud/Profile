@@ -72,4 +72,17 @@ class Utility {
         return NSBundle.mainBundle().objectForInfoDictionaryKey(kCFBundleVersionKey as NSString) as String
     }
     
+    class func getChallengeViews(challenge: HigiChallenge) -> [UIView] {
+        var nib:UIView!
+        return [];
+    }
+    
+    class func loadImageFromUrl(imageUrlString: String) -> NSURL {
+        let imageUrl = NSURL(string: imageUrlString)?;
+        if let imageError = imageUrl?.checkResourceIsReachableAndReturnError(NSErrorPointer()) {
+            return imageUrl!;
+        }
+        return NSURL()
+    }
+    
 }
