@@ -1,7 +1,7 @@
 import Foundation
 
 class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource {
-    
+
     @IBOutlet var pager: UIPageControl!
     @IBOutlet var activeChallengesTable: UITableView!
     @IBOutlet var upcomingChallengesTable: UITableView!
@@ -10,6 +10,11 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     @IBOutlet var scrollView: UIScrollView!
     
     var currentPage  = 0;
+    let circleRadius:CGFloat = 5;
+    let labelMargin:CGFloat = 15;
+    let goalBarOffset:CGFloat = 100;
+    let goalBarHeight:CGFloat = 5;
+    let verticalLineHeight:CGFloat = 15;
     
     let pageTitles:[String] = ["Active Challenges","Upcoming Challenges","Available Challenges","Invitations"]
     var activeChallenges:[HigiChallenge] = []
@@ -28,7 +33,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
             
             switch(challenge.userStatus) {
             case "current":
-                    activeChallenges.append(challenge);
+                activeChallenges.append(challenge);
             case "public":
                 availableChallenges.append(challenge)
             case "upcoming":
@@ -51,18 +56,17 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
+        var count = 0;
         if (activeChallengesTable == tableView) {
-            return activeChallenges.count
+            count = activeChallenges.count;
         } else if (upcomingChallengesTable == tableView) {
-            return upcomingChallenges.count
+            count = upcomingChallenges.count;
         } else if (availableChallengesTable == tableView) {
-            return availableChallenges.count
+            count = availableChallenges.count;
         } else if (invitationsTable == tableView) {
-            return invitations.count
+            count = invitations.count;
         }
-        
-        return 0
+        return count;
     }
     
     func populateView(challenge:HigiChallenge, winConditions:[ChallengeWinCondition]) -> UIView {
@@ -77,15 +81,12 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
             var goalType = wincondition.goal.type;
             
             if (goalType == "most_points" || goalType == "unit_goal_reached") {
-                if (challenge.userStatus == "current") {
-                    nib = populateCompetitiveView(challenge);
-                }
+                nib = populateCompetitiveView(challenge);
             }
             else if (goalType == "threshold_reached") {
                 nib = populateGoalView(challenge, winConditions: winConditions);
             }
         }
-        
         return nib;
     }
     
@@ -120,14 +121,22 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
             goalView.avatar.setImageWithURL(loadImageFromUrl(challenge.participant.imageUrl));
         }
         
-        drawGoals();
-        
-        drawParticipantProgress();
-        
-        drawParticipantPoints();
-        
         let participantPoints = challenge.participant != nil ? Int(challenge.participant.units) : 0;
+        let maxGoalValue = winConditions[0].goal.minThreshold;
         
+        drawGoals(goalView, participantPoints: participantPoints, winConditions: winConditions);
+        
+        drawParticipantProgress(goalView, participantPoints: participantPoints, maxGoalValue: maxGoalValue);
+        
+        //points label + vertical line pointing
+        if (participantPoints < maxGoalValue) {
+            drawParticipantPoints(goalView, participantPoints: participantPoints, maxGoalValue: maxGoalValue);
+        }
+        
+        return goalView;
+    }
+    
+    func drawGoals(goalView: UIView, participantPoints: Int, winConditions: [ChallengeWinCondition]) {
         var goalWinConditions = winConditions;
         goalWinConditions.sort { $0.goal.minThreshold! > $1.goal.minThreshold! };
         let maxGoalThreshold = goalWinConditions[0].goal.minThreshold;
@@ -140,37 +149,43 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
             addGoalNode(goalView, winCondition: winCondition, participantPoints: participantPoints, maxGoalValue: maxGoalThreshold, isBottom: displayLabelBottom);
             counter++;
         }
-        
-        return goalView;
     }
     
-    func drawGoals() {
-        
+    func drawParticipantProgress(goalView: UIView, participantPoints: Int, maxGoalValue: Int) {
+        let barWidth = (goalView.frame.width - goalBarOffset) * CGFloat(participantPoints) / CGFloat(maxGoalValue);
+        let bar = UIView(frame: CGRect(x: goalBarOffset, y: goalView.frame.height/2 - goalBarHeight/2, width: barWidth, height: goalBarHeight));
+        bar.backgroundColor = Utility.colorFromHexString("#76C043");
+        bar.layer.cornerRadius = 2;
+        goalView.addSubview(bar);
+
     }
     
-    func drawParticipantProgress() {
+    func drawParticipantPoints(goalView: UIView, participantPoints: Int, maxGoalValue: Int) {
+        let progressWidth = goalBarOffset + (goalView.frame.width - goalBarOffset) * (CGFloat(participantPoints) / CGFloat(maxGoalValue));
+        let verticalLinePosY = goalView.frame.height/2 - verticalLineHeight - 10;
+        let verticalLine = UIView(frame: CGRect(x: progressWidth, y: goalView.frame.height/2 - verticalLineHeight - 10, width: 1, height: verticalLineHeight));
+        verticalLine.backgroundColor = UIColor.lightGrayColor();
+        var labelHeight:CGFloat = 20;
         
-    }
-    
-    func drawParticipantPoints() {
+        var text = String(participantPoints);
+
+        let labelPosX = progressWidth - estimateStringWidth(text);
+        let labelPosY = verticalLinePosY - labelHeight;
+        let pointsLabel = UILabel(frame: CGRectMake(labelPosX, labelPosY, goalView.frame.width, 15));
+        pointsLabel.text = text;
+        pointsLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline);
         
+        goalView.addSubview(pointsLabel);
+        goalView.addSubview(verticalLine);
     }
     
     func addGoalNode(goalView: UIView, winCondition: ChallengeWinCondition, participantPoints: Int!, maxGoalValue: Int!, isBottom: Bool) {
-        let circleRadius:CGFloat = 5;
-        let barHeight:CGFloat = 5;
-        let labelMargin:CGFloat = 15;
-        let goalBarOffset:CGFloat = 100;
         
         let frameWidth = goalView.frame.width - goalBarOffset;
-        let frameHeight = goalView.frame.height/2 - circleRadius;
+        let frameHeight = goalView.frame.height / 2 - circleRadius;
         let thisGoalValue = winCondition.goal.minThreshold;
         let proportion = CGFloat(thisGoalValue) / CGFloat(maxGoalValue);
         
-        let marginLeft = goalView.frame.origin.x;
-        let marginBottom = goalView.frame.origin.y;
-        
-        goalView.subviews
         let posX = proportion * frameWidth + goalBarOffset;
         let posY = frameHeight;
         
@@ -181,18 +196,18 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         
         var labelHeight:CGFloat = isBottom ? -1.0 * labelMargin - circleRadius: labelMargin;
         var text = String(Int(thisGoalValue));
-        var length = countElements(text);
-        
-        let labelPosX = posX - (CGFloat(countElements(text) + 1) * 2);
+        let labelPosX = posX - estimateStringWidth(text);
         let labelPosY = posY + (labelHeight);
-        let goalLabel = UILabel(frame: CGRectMake(labelPosX, labelPosY, goalView.frame.width, 15));
-        
+        let goalLabel = UILabel(frame: CGRectMake(labelPosX, labelPosY, goalView.frame.width, 13));
         goalLabel.text = text;
-        
+        goalLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline);
         goalView.addSubview(goalLabel);
         goalView.addSubview(goalCircle);
     }
     
+    func estimateStringWidth(text: String) -> CGFloat {
+        return (CGFloat(countElements(text) + 1) * 3);
+    }
     
     func findClosestPointIndex(participantPoints: Int, goalWinConditions: [ChallengeWinCondition]) -> Int {
         let size = goalWinConditions.count;
@@ -208,7 +223,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         }
         return size - 1;
     }
-    
+
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         //@todo fix the scrolling issue maybe an autolayout issue
         var cell = tableView.dequeueReusableCellWithIdentifier("ChallengeRowCell") as ChallengeRowCell!;
@@ -234,7 +249,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
             cell = buildChallengeCell(cell, challenge: challenges[indexPath.row]);
         } else if (tableView == upcomingChallengesTable) {
             challenges = upcomingChallenges;
-            cell = buildInvitationCell(cell, challenge: challenges[indexPath.row]);
+            buildInvitationCell(cell, challenge: challenges[indexPath.row]);
         } else if (tableView == availableChallengesTable) {
             challenges = availableChallenges;
             cell = buildInvitationCell(cell, challenge: challenges[indexPath.row]);
@@ -258,7 +273,6 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
 
         let screenSize: CGRect = UIScreen.mainScreen().bounds;
         let screenWidth = screenSize.width;
-//        cell.scrollView.frame.size.width = screenWidth;
 
         var pages = 0;
         for currentWinCondition in challenge.winConditions {

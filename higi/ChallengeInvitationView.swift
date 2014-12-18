@@ -1,11 +1,3 @@
-//
-//  ChallengeInvitation.swift
-//  higi
-//
-//  Created by Joe Sangervasi on 11/14/14.
-//  Copyright (c) 2014 higi, LLC. All rights reserved.
-//
-
 import Foundation
 
 class ChallengeInvitationView: UIView {
