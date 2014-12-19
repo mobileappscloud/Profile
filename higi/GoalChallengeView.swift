@@ -15,7 +15,7 @@ class GoalChallengeView: UIView {
         static let verticalLineHeight:CGFloat = 15;
         static let labelHeight:CGFloat = 15;
     }
-
+    
     class func instanceFromNib(challenge: HigiChallenge, winConditions: [ChallengeWinCondition]) -> GoalChallengeView {
         let goalView = UINib(nibName: "GoalChallengeView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as GoalChallengeView;
         
@@ -26,20 +26,15 @@ class GoalChallengeView: UIView {
         let participantPoints:Int = challenge.participant != nil ? Int(challenge.participant.units) : 0;
         let maxGoalValue = winConditions[0].goal.minThreshold;
         
-        if (maxGoalValue > 0) {
-            drawGoals(goalView, participantPoints: participantPoints, winConditions: winConditions);
+        drawGoals(goalView, participantPoints: participantPoints, winConditions: winConditions);
         
-            drawParticipantProgress(goalView, participantPoints: participantPoints, maxGoalValue: maxGoalValue);
-            
-            //points label + vertical line pointing
-            if (participantPoints < maxGoalValue) {
-                drawParticipantPoints(goalView, participantPoints: participantPoints, maxGoalValue: maxGoalValue);
-            }
+        drawParticipantProgress(goalView, participantPoints: participantPoints, maxGoalValue: maxGoalValue);
         
+        //points label + vertical line pointing
+        if (participantPoints < maxGoalValue) {
+            drawParticipantPoints(goalView, participantPoints: participantPoints, maxGoalValue: maxGoalValue);
         }
-        else {
-            var i = 0;
-        }
+        
         return goalView;
     }
     

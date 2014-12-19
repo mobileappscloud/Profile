@@ -1,7 +1,7 @@
 import Foundation
 
 class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource {
-
+    
     @IBOutlet var pager: UIPageControl!
     @IBOutlet var activeChallengesTable: UITableView!
     @IBOutlet var upcomingChallengesTable: UITableView!
@@ -11,30 +11,29 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     
     var currentPage  = 0;
     
-    let pageTitles:[String] = ["Active Challenges","Upcoming Challenges","Available Challenges","Invitations"]
-    var activeChallenges:[HigiChallenge] = []
-    var upcomingChallenges:[HigiChallenge] = []
-    var availableChallenges:[HigiChallenge] = []
-    var invitations:[HigiChallenge] = []
+    let pageTitles:[String] = ["Active Challenges","Upcoming Challenges","Available Challenges","Invitations"];
+    var activeChallenges:[HigiChallenge] = [];
+    var upcomingChallenges:[HigiChallenge] = [];
+    var availableChallenges:[HigiChallenge] = [];
+    var invitations:[HigiChallenge] = [];
     
     override func viewDidLoad() {
         super.viewDidLoad();
         pager.currentPage = currentPage;
         title = pageTitles[currentPage];
         
-        var session = SessionController.Instance
+        var session = SessionController.Instance;
         
         for challenge:HigiChallenge in session.challenges {
-            
             switch(challenge.userStatus) {
             case "current":
                 activeChallenges.append(challenge);
             case "public":
-                availableChallenges.append(challenge)
+                availableChallenges.append(challenge);
             case "upcoming":
-                upcomingChallenges.append(challenge)
+                upcomingChallenges.append(challenge);
             case "invited":
-                invitations.append(challenge)
+                invitations.append(challenge);
             default:
                 var i = 0;
             }
@@ -43,7 +42,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews();
-        scrollView.contentSize = CGSize(width: scrollView.frame.size.width * 4, height: self.scrollView.frame.size.height);
+        scrollView.contentSize = CGSize(width: scrollView.frame.size.width * 4, height: scrollView.frame.size.height);
     }
     
     func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool {
@@ -52,6 +51,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var count = 0;
+        let x = section;
         if (activeChallengesTable == tableView) {
             count = activeChallenges.count;
         } else if (upcomingChallengesTable == tableView) {
@@ -83,13 +83,14 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         }
         
         //load the appropriate challenges for this table
+        let test = tableView;
         var challenges:[HigiChallenge] = [];
         if (tableView == activeChallengesTable) {
             challenges = activeChallenges;
             cell = buildChallengeCell(cell, challenge: challenges[indexPath.row]);
         } else if (tableView == upcomingChallengesTable) {
             challenges = upcomingChallenges;
-            buildInvitationCell(cell, challenge: challenges[indexPath.row]);
+            cell = buildInvitationCell(cell, challenge: challenges[indexPath.row]);
         } else if (tableView == availableChallengesTable) {
             challenges = availableChallenges;
             cell = buildInvitationCell(cell, challenge: challenges[indexPath.row]);
@@ -111,11 +112,11 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         var nibs = Utility.getChallengeViews(challenge);
         for nib in nibs {
             nib.frame.origin.x = nibOriginX;
-        
+            
             cell.scrollView.addSubview(nib);
             nibOriginX += nib.frame.width;
         }
-
+        
         cell.pager.numberOfPages = nibs.count;
         cell.pager.currentPage = 0;
         cell.title.text = challenge.name
@@ -142,7 +143,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     func buildInvitationCell(cell: ChallengeRowCell, challenge: HigiChallenge) -> ChallengeRowCell {
         var invitationView = UINib(nibName: "ChallengeInvitation", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeInvitationView;
         
-        //we can just grab the first one bcuz win conditions prioritized by API and have already been consolidated so type is same for all of them
+        //we can just grab the first one bcuz win conditions prioritized by API
         var winCondition = challenge.winConditions[0];
         
         invitationView.title.text = challenge.name;
@@ -156,7 +157,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         var message:String!
         var startDate:NSDate? = challenge.startDate?
         var endDate:NSDate? = challenge.endDate?
-        if ( startDate != nil ) {
+        if (startDate != nil) {
             var compare:NSTimeInterval = startDate!.timeIntervalSinceNow
             
             if ( Int(compare) > 0) {
@@ -176,10 +177,15 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         var startDateShort = formatter.stringFromDate(startDate!);
         var endDateShort = formatter.stringFromDate(endDate!);
         
+        if (challenge.status == "upcoming") {
+            invitationView.
+        }
+        
         invitationView.dateRange.text = "\(startDateShort) - \(endDateShort)";
         
         cell.scrollView.contentSize = CGSize(width: cell.frame.size.width, height: cell.frame.size.height);
-
+        cell.scrollView.addSubview(invitationView);
+        
         cell.title.hidden = true;
         cell.avatar.hidden = true;
         cell.daysLeft.hidden = true;
@@ -214,4 +220,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         scrollView.setContentOffset(frame.origin, animated: true);
     }
     
+    func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return false
+    }
 }

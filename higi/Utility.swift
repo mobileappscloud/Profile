@@ -38,7 +38,7 @@ class Utility {
     }
     
     class func scaleImage(image: UIImage, newSize: CGSize) -> UIImage {
-    
+        
         UIGraphicsBeginImageContextWithOptions(newSize, false, image.scale);
         image.drawInRect(CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height));
         var newImage = UIGraphicsGetImageFromCurrentImageContext();
@@ -68,7 +68,7 @@ class Utility {
         var nib:UIView!;
         var nibs:[UIView] = [];
         var winConditions:[ChallengeWinCondition] = [];
-
+        
         for index in 0...challenge.winConditions.count - 1 {
             let currentWinCondition = challenge.winConditions[index];
             let previousWinCondition:ChallengeWinCondition = index == 0 ? challenge.winConditions[index] : challenge.winConditions[index-1];

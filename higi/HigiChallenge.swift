@@ -27,6 +27,8 @@ class HigiChallenge {
     var gravityBoard: [GravityParticipant]!;
     
     var teams: [ChallengeTeam]!;
+
+    var highScore = 1000;
     
     init(dictionary: NSDictionary, userStatus: NSString, participant: ChallengeParticipant!, gravityBoard: [GravityParticipant]!) {
         self.userStatus = userStatus;

@@ -40,5 +40,4 @@ class ChallengeRowCell: UITableViewCell, UIScrollViewDelegate {
         frame.origin.y = 0;
         scrollView.setContentOffset(frame.origin, animated: true);
     }
-
 }
