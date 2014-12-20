@@ -11,15 +11,6 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="216"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="72t-O2-gl4">
-                    <rect key="frame" x="8" y="8" width="40" height="40"/>
-                </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="BucketFeet Challenge" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1TG-c6-lBw">
-                    <rect key="frame" x="65" y="17" width="247" height="21"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Type:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k5H-rO-CAb">
                     <rect key="frame" x="10" y="70" width="55" height="21"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
@@ -74,9 +65,6 @@
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="person_icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="AN1-bl-3Ve">
                     <rect key="frame" x="253" y="169" width="19" height="19"/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sjJ-pc-yTx">
-                    <rect key="frame" x="38" y="29" width="19" height="19"/>
-                </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Starts in 13 days!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5uR-SJ-Ftv">
                     <rect key="frame" x="51" y="162" width="167" height="21"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
@@ -105,16 +93,14 @@
             <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="avatar" destination="72t-O2-gl4" id="wbH-Dp-tdP"/>
-                <outlet property="challengeLogo" destination="sjJ-pc-yTx" id="LRj-31-eg4"/>
                 <outlet property="dateRange" destination="7pF-nP-Ueo" id="cf5-fa-4yZ"/>
                 <outlet property="dateRangeIcon" destination="pAl-Xg-bUo" id="nMX-bl-Un1"/>
                 <outlet property="goal" destination="2bD-Cy-bKM" id="D7g-0o-lNS"/>
+                <outlet property="join" destination="CiU-21-gL5" id="yZI-Sj-1Im"/>
                 <outlet property="participantCount" destination="Bdz-7M-T6K" id="hhN-Mv-jC9"/>
                 <outlet property="participantCountIcon" destination="AN1-bl-3Ve" id="5CB-yN-Z0U"/>
                 <outlet property="prize" destination="Amq-Ux-ccQ" id="kmN-qf-Okf"/>
                 <outlet property="starting" destination="5uR-SJ-Ftv" id="U1D-kY-R6O"/>
-                <outlet property="title" destination="1TG-c6-lBw" id="61w-jr-Rs0"/>
                 <outlet property="type" destination="hYd-TV-0hA" id="KCH-FE-dHP"/>
             </connections>
             <point key="canvasLocation" x="449" y="165"/>

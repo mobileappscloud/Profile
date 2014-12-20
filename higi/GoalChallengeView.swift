@@ -18,7 +18,7 @@ class GoalChallengeView: UIView {
     
     class func instanceFromNib(challenge: HigiChallenge, winConditions: [ChallengeWinCondition]) -> GoalChallengeView {
         let goalView = UINib(nibName: "GoalChallengeView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as GoalChallengeView;
-        
+        goalView.frame.size.width = 300;
         if (challenge.participant != nil) {
             goalView.avatar.setImageWithURL(Utility.loadImageFromUrl(challenge.participant.imageUrl));
         }

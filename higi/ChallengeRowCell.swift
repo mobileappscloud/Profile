@@ -7,6 +7,7 @@ class ChallengeRowCell: UITableViewCell, UIScrollViewDelegate {
     @IBOutlet var title: UILabel!;
     @IBOutlet var avatar: UIImageView!;
     @IBOutlet var pager: UIPageControl!;
+    @IBOutlet weak var join: UILabel!
     
     var totalPages = 0;
     var currentPage = 0;
@@ -30,7 +31,6 @@ class ChallengeRowCell: UITableViewCell, UIScrollViewDelegate {
     
     @IBAction func changePage(sender: AnyObject) {
         var pager = sender as UIPageControl;
-        var page2 = lround(Double(scrollView.contentOffset.x / scrollView.frame.size.width));
         var pageNumber = pager.currentPage;
         currentPage = pageNumber;
         

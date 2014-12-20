@@ -15,9 +15,55 @@ class ChallengeInvitationView: UIView {
     @IBOutlet var startingIcon: UIImageView!
     @IBOutlet var dateRangeIcon: UIImageView!
     @IBOutlet var participantCountIcon: UIImageView!
+    @IBOutlet var join: UILabel!
     
+    class func instanceFromNib(challenge: HigiChallenge) -> ChallengeInvitationView {
+        let invitationView = UINib(nibName: "ChallengeInvitation", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeInvitationView;
+        
+        //we can just grab the first one bcuz win conditions prioritized by API
+        let winCondition = challenge.winConditions[0];
+        
+        //invitationView.title.text = challenge.name;
+        //invitationView.avatar.setImageWithURL(Utility.loadImageFromUrl(challenge.imageUrl))
+        invitationView.goal.text = winCondition.goal.type == "most_points" ? "Most points" : "Threshold reached";
+        invitationView.type.text = goalTypeDisplayHelper(winCondition.goal.type, winnerType: winCondition.winnerType);
+        invitationView.prize.text = winCondition.prizeName != nil ? winCondition.prizeName : "Coming soon!";
+        invitationView.participantCount.text = String(challenge.participantsCount)
+        
+        var days:Int = 0
+        var message:String!
+        var startDate:NSDate? = challenge.startDate?
+        var endDate:NSDate? = challenge.endDate?
+        if (startDate != nil) {
+            let compare:NSTimeInterval = startDate!.timeIntervalSinceNow
+            
+            if ( Int(compare) > 0) {
+                days = Int(compare) / 60 / 60 / 24
+                message = "Starts in \(days) days!"
+            } else if ( Int(compare) < 0 ) {
+                days = abs(Int(compare)) / 60 / 60 / 24
+                message = "Started \(days) days ago!"
+            } else {
+                message = "Starting today!"
+            }
+        }
+        invitationView.starting.text = message;
+        
+        let formatter = NSDateFormatter();
+        formatter.dateStyle = .MediumStyle;
+        var startDateShort = formatter.stringFromDate(startDate!);
+        var endDateShort = formatter.stringFromDate(endDate!);
+        
+        invitationView.dateRange.text = "\(startDateShort) - \(endDateShort)";
+        
+        return invitationView;
+    }
     
-    class func instanceFromNib() -> ChallengeInvitationView {
-        return UINib(nibName: "ChallengeInvitationView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeInvitationView
+    class func goalTypeDisplayHelper(goalType: String, winnerType: String) -> String {
+        //either individual or team, only
+        var firstPart = goalType == "individual" ? "Individual" : "Team";
+        var secondPart = winnerType == "most_points" ? "Points Challenge" : "Goal Challenge";
+        return firstPart + " " + secondPart;
+        
     }
 }
