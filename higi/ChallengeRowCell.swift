@@ -18,6 +18,7 @@ class ChallengeRowCell: UITableViewCell, UIScrollViewDelegate {
     
     override
     func layoutSubviews() {
+        scrollView.delegate = self;
         var page = lround(Double(scrollView.contentOffset.x / scrollView.frame.size.width));
         currentPage = page;
         changePage(pager);
@@ -35,7 +36,7 @@ class ChallengeRowCell: UITableViewCell, UIScrollViewDelegate {
         currentPage = pageNumber;
         
         var frame = scrollView.frame;
-        
+        frame.size.width = 320;
         frame.origin.x = frame.size.width * CGFloat(pageNumber);
         frame.origin.y = 0;
         scrollView.setContentOffset(frame.origin, animated: true);

@@ -53,20 +53,14 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Join" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CiU-21-gL5">
-                    <rect key="frame" x="270" y="19" width="42" height="20"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <color key="textColor" red="0.46274509803921571" green="0.75294117647058822" blue="0.2627450980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="calendar_icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="pAl-Xg-bUo">
-                    <rect key="frame" x="18" y="169" width="19" height="19"/>
+                    <rect key="frame" x="18" y="169" width="15" height="15"/>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="person_icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="AN1-bl-3Ve">
                     <rect key="frame" x="253" y="169" width="19" height="19"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Starts in 13 days!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5uR-SJ-Ftv">
-                    <rect key="frame" x="51" y="162" width="167" height="21"/>
+                    <rect key="frame" x="45" y="160" width="167" height="21"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
@@ -84,7 +78,7 @@
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sept 22, '14 - Sept 26, '14" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7pF-nP-Ueo">
-                    <rect key="frame" x="51" y="177" width="168" height="20"/>
+                    <rect key="frame" x="45" y="179" width="168" height="20"/>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
@@ -96,7 +90,6 @@
                 <outlet property="dateRange" destination="7pF-nP-Ueo" id="cf5-fa-4yZ"/>
                 <outlet property="dateRangeIcon" destination="pAl-Xg-bUo" id="nMX-bl-Un1"/>
                 <outlet property="goal" destination="2bD-Cy-bKM" id="D7g-0o-lNS"/>
-                <outlet property="join" destination="CiU-21-gL5" id="yZI-Sj-1Im"/>
                 <outlet property="participantCount" destination="Bdz-7M-T6K" id="hhN-Mv-jC9"/>
                 <outlet property="participantCountIcon" destination="AN1-bl-3Ve" id="5CB-yN-Z0U"/>
                 <outlet property="prize" destination="Amq-Ux-ccQ" id="kmN-qf-Okf"/>

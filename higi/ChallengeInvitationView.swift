@@ -50,7 +50,7 @@ class ChallengeInvitationView: UIView {
         invitationView.starting.text = message;
         
         let formatter = NSDateFormatter();
-        formatter.dateStyle = .MediumStyle;
+        formatter.dateFormat = "MMM d, ''yy";
         var startDateShort = formatter.stringFromDate(startDate!);
         var endDateShort = formatter.stringFromDate(endDate!);
         

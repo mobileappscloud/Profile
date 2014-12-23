@@ -102,6 +102,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         let challenge = challenges[indexPath.row];
         cell.title.text = challenge.name;
         cell.avatar.setImageWithURL(Utility.loadImageFromUrl(challenge.imageUrl));
+        
         return cell;
     }
     
@@ -132,7 +133,6 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
             }
         }
         cell.daysLeft.text = "\(daysLeft)d left";
-        
         return cell;
     }
     

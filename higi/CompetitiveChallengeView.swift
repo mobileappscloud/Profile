@@ -1,6 +1,6 @@
 import Foundation
 
-class CompetitiveChallengeView: UIView {
+class CompetitiveChallengeView: UIView, UIScrollViewDelegate {
     
     @IBOutlet var firstPositionAvatar: UIImageView!
     @IBOutlet var secondPositionAvatar: UIImageView!
@@ -176,5 +176,9 @@ class CompetitiveChallengeView: UIView {
         default:
             return rank + "th"
         }
+    }
+    
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        var i = 0;
     }
 }

@@ -14,7 +14,7 @@
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fhS-10-ORM" id="ggG-Ox-512">
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lGb-gk-1XT">
+                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lGb-gk-1XT">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="216"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </scrollView>
@@ -25,7 +25,7 @@
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="2d left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="do3-VF-y8L">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="2d left" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="do3-VF-y8L">
                         <rect key="frame" x="263" y="8" width="49" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.39786537247474751" green="0.39786537247474751" blue="0.39786537247474751" alpha="1" colorSpace="calibratedRGB"/>
@@ -34,8 +34,8 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="higi_logo_innercircle.png" translatesAutoresizingMaskIntoConstraints="NO" id="U7Y-O7-h3b">
                         <rect key="frame" x="17" y="19" width="30" height="30"/>
                     </imageView>
-                    <pageControl contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" hidesForSinglePage="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xdd-7h-crl">
-                        <rect key="frame" x="141" y="190" width="39" height="10"/>
+                    <pageControl contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" hidesForSinglePage="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xdd-7h-crl">
+                        <rect key="frame" x="141" y="186" width="39" height="10"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="39" id="UuD-wG-uVl"/>
                             <constraint firstAttribute="height" constant="10" id="cYe-wA-ZRn"/>
@@ -59,7 +59,7 @@
                     <constraint firstAttribute="trailingMargin" secondItem="lGb-gk-1XT" secondAttribute="trailing" constant="-8" id="MCd-US-k21"/>
                     <constraint firstAttribute="bottomMargin" secondItem="Xdd-7h-crl" secondAttribute="bottom" constant="10" id="RXe-fD-FZI"/>
                     <constraint firstItem="lGb-gk-1XT" firstAttribute="leading" secondItem="ggG-Ox-512" secondAttribute="leadingMargin" constant="-8" id="ZUU-gx-Aov"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="lGb-gk-1XT" secondAttribute="bottom" constant="-8" id="hM0-Oq-kYJ"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="lGb-gk-1XT" secondAttribute="bottom" constant="-10" id="hM0-Oq-kYJ"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
