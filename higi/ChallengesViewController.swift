@@ -43,6 +43,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews();
         scrollView.contentSize = CGSize(width: scrollView.frame.size.width * 4, height: scrollView.frame.size.height);
+        scrollView.setContentOffset(CGPointMake(0,0),animated: false);
     }
     
     func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool {
@@ -117,7 +118,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         for nib in nibs {
             nib.frame.origin.x = nibOriginX;
             cell.scrollView.addSubview(nib);
-            nibOriginX += nib.frame.width;
+            nibOriginX += max(nib.frame.width, 320);
         }
         cell.pager.numberOfPages = nibs.count;
         cell.pager.currentPage = 0;

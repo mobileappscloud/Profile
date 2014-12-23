@@ -7,7 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleAspectFill" id="iN0-l3-epB" customClass="ChallengeInvitationView" customModule="higi" customModuleProvider="target">
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ChallengeInvitationView" customModule="higi" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="216"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -53,12 +53,6 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="calendar_icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="pAl-Xg-bUo">
-                    <rect key="frame" x="18" y="169" width="15" height="15"/>
-                </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="person_icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="AN1-bl-3Ve">
-                    <rect key="frame" x="253" y="169" width="19" height="19"/>
-                </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Starts in 13 days!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5uR-SJ-Ftv">
                     <rect key="frame" x="45" y="160" width="167" height="21"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
@@ -83,15 +77,25 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="&amp;#xf007;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OBb-4x-Ehq">
+                    <rect key="frame" x="243" y="169" width="19" height="19"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="&amp;#xf073;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nDW-Zc-eQD">
+                    <rect key="frame" x="10" y="168" width="19" height="19"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="dateRange" destination="7pF-nP-Ueo" id="cf5-fa-4yZ"/>
-                <outlet property="dateRangeIcon" destination="pAl-Xg-bUo" id="nMX-bl-Un1"/>
                 <outlet property="goal" destination="2bD-Cy-bKM" id="D7g-0o-lNS"/>
                 <outlet property="participantCount" destination="Bdz-7M-T6K" id="hhN-Mv-jC9"/>
-                <outlet property="participantCountIcon" destination="AN1-bl-3Ve" id="5CB-yN-Z0U"/>
                 <outlet property="prize" destination="Amq-Ux-ccQ" id="kmN-qf-Okf"/>
                 <outlet property="starting" destination="5uR-SJ-Ftv" id="U1D-kY-R6O"/>
                 <outlet property="type" destination="hYd-TV-0hA" id="KCH-FE-dHP"/>
@@ -99,8 +103,4 @@
             <point key="canvasLocation" x="449" y="165"/>
         </view>
     </objects>
-    <resources>
-        <image name="calendar_icon.png" width="16" height="16"/>
-        <image name="person_icon.png" width="21" height="22"/>
-    </resources>
 </document>

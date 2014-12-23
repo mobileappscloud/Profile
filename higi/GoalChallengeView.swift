@@ -18,15 +18,17 @@ class GoalChallengeView: UIView {
     
     class func instanceFromNib(challenge: HigiChallenge, winConditions: [ChallengeWinCondition]) -> GoalChallengeView {
         let goalView = UINib(nibName: "GoalChallengeView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as GoalChallengeView;
-        goalView.frame.size.width = 300;
         if (challenge.participant != nil) {
             goalView.avatar.setImageWithURL(Utility.loadImageFromUrl(challenge.participant.imageUrl));
         }
         
         let participantPoints:Int = challenge.participant != nil ? Int(challenge.participant.units) : 0;
-        let maxGoalValue = winConditions[0].goal.minThreshold;
         
-        drawGoals(goalView, participantPoints: participantPoints, winConditions: winConditions);
+        var sortedWinConditions = winConditions;
+        sortedWinConditions.sort { $0.goal.minThreshold! > $1.goal.minThreshold! };
+        let maxGoalValue = sortedWinConditions[0].goal.minThreshold;
+        
+        drawGoals(goalView, participantPoints: participantPoints, winConditions: sortedWinConditions, maxGoalValue: maxGoalValue);
         
         drawParticipantProgress(goalView, participantPoints: participantPoints, maxGoalValue: maxGoalValue);
         
@@ -38,23 +40,19 @@ class GoalChallengeView: UIView {
         return goalView;
     }
     
-    class func drawGoals(goalView: GoalChallengeView, participantPoints: Int, winConditions: [ChallengeWinCondition]) {
-        var goalWinConditions = winConditions;
-        goalWinConditions.sort { $0.goal.minThreshold! > $1.goal.minThreshold! };
-        let maxGoalThreshold = goalWinConditions[0].goal.minThreshold;
-        
+    class func drawGoals(goalView: GoalChallengeView, participantPoints: Int, winConditions: [ChallengeWinCondition], maxGoalValue: Int) {
         let closestPointIndex = findClosestPointIndex(participantPoints, goalWinConditions: winConditions);
         
         var counter = 0;
         for winCondition in winConditions {
             let displayLabelBottom = (closestPointIndex % 2 == counter % 2);
-            addGoalNode(goalView, winCondition: winCondition, participantPoints: participantPoints, maxGoalValue: maxGoalThreshold, isBottom: displayLabelBottom);
+            addGoalNode(goalView, winCondition: winCondition, participantPoints: participantPoints, maxGoalValue: maxGoalValue, isBottom: displayLabelBottom);
             counter++;
         }
     }
     
     class func drawParticipantProgress(goalView: GoalChallengeView, participantPoints: Int, maxGoalValue: Int) {
-        let barWidth = (goalView.frame.width - ViewConstants.goalBarOffset) * CGFloat(participantPoints) / CGFloat(maxGoalValue);
+        let barWidth = min((goalView.frame.width - ViewConstants.goalBarOffset) * CGFloat(participantPoints) / CGFloat(maxGoalValue),goalView.frame.width - ViewConstants.goalBarOffset + ViewConstants.circleRadius);
         let bar = UIView(frame: CGRect(x: ViewConstants.goalBarOffset, y: goalView.frame.height/2 - ViewConstants.goalBarHeight/2, width: barWidth, height: ViewConstants.goalBarHeight));
         bar.backgroundColor = Utility.colorFromHexString("#76C043");
         bar.layer.cornerRadius = 2;
@@ -87,7 +85,7 @@ class GoalChallengeView: UIView {
         let thisGoalValue = winCondition.goal.minThreshold;
         let proportion = CGFloat(thisGoalValue) / CGFloat(maxGoalValue);
         
-        let posX = proportion * frameWidth + ViewConstants.goalBarOffset;
+        let posX = min(proportion * frameWidth + ViewConstants.goalBarOffset, frameWidth + ViewConstants.goalBarOffset);
         let posY = frameHeight;
         
         let goalCircle = UIView(frame: CGRect(x: posX, y: posY, width: ViewConstants.circleRadius * 2, height: ViewConstants.circleRadius * 2));
@@ -104,6 +102,9 @@ class GoalChallengeView: UIView {
         goalLabel.center = CGPointMake(labelPosX, labelPosY);
         goalLabel.textAlignment = NSTextAlignment.Center;
         goalLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline);
+        let goalLabelColor:UIColor = (participantPoints >= thisGoalValue) ? UIColor.blackColor() : UIColor.lightGrayColor();
+        goalLabel.textColor = goalLabelColor;
+        
         goalView.addSubview(goalLabel);
         goalView.addSubview(goalCircle);
     }

@@ -53,7 +53,8 @@ class ChallengeInvitationView: UIView {
         formatter.dateFormat = "MMM d, ''yy";
         var startDateShort = formatter.stringFromDate(startDate!);
         var endDateShort = formatter.stringFromDate(endDate!);
-        
+
+        invitationView.participantCountIcon.font =
         invitationView.dateRange.text = "\(startDateShort) - \(endDateShort)";
         
         return invitationView;
