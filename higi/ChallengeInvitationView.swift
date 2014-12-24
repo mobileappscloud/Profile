@@ -13,9 +13,9 @@ class ChallengeInvitationView: UIView {
     @IBOutlet var avatar: UIImageView!
     @IBOutlet var challengeLogo: UIImageView!
     @IBOutlet var startingIcon: UIImageView!
-    @IBOutlet var dateRangeIcon: UIImageView!
-    @IBOutlet var participantCountIcon: UIImageView!
     @IBOutlet var join: UILabel!
+    @IBOutlet var calendarIcon: UILabel!;
+    @IBOutlet var participantIcon: UILabel!;
     
     class func instanceFromNib(challenge: HigiChallenge) -> ChallengeInvitationView {
         let invitationView = UINib(nibName: "ChallengeInvitation", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeInvitationView;
@@ -54,7 +54,10 @@ class ChallengeInvitationView: UIView {
         var startDateShort = formatter.stringFromDate(startDate!);
         var endDateShort = formatter.stringFromDate(endDate!);
 
-        invitationView.participantCountIcon.font =
+        //unicode values must be set here
+        invitationView.calendarIcon.text = "\u{f073}";
+        invitationView.participantIcon.text = "\u{f007}";
+
         invitationView.dateRange.text = "\(startDateShort) - \(endDateShort)";
         
         return invitationView;

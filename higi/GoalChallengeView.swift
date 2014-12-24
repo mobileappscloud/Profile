@@ -40,17 +40,6 @@ class GoalChallengeView: UIView {
         return goalView;
     }
     
-    class func drawGoals(goalView: GoalChallengeView, participantPoints: Int, winConditions: [ChallengeWinCondition], maxGoalValue: Int) {
-        let closestPointIndex = findClosestPointIndex(participantPoints, goalWinConditions: winConditions);
-        
-        var counter = 0;
-        for winCondition in winConditions {
-            let displayLabelBottom = (closestPointIndex % 2 == counter % 2);
-            addGoalNode(goalView, winCondition: winCondition, participantPoints: participantPoints, maxGoalValue: maxGoalValue, isBottom: displayLabelBottom);
-            counter++;
-        }
-    }
-    
     class func drawParticipantProgress(goalView: GoalChallengeView, participantPoints: Int, maxGoalValue: Int) {
         let barWidth = min((goalView.frame.width - ViewConstants.goalBarOffset) * CGFloat(participantPoints) / CGFloat(maxGoalValue),goalView.frame.width - ViewConstants.goalBarOffset + ViewConstants.circleRadius);
         let bar = UIView(frame: CGRect(x: ViewConstants.goalBarOffset, y: goalView.frame.height/2 - ViewConstants.goalBarHeight/2, width: barWidth, height: ViewConstants.goalBarHeight));
@@ -76,6 +65,17 @@ class GoalChallengeView: UIView {
         
         goalView.addSubview(pointsLabel);
         goalView.addSubview(verticalLine);
+    }
+    
+    class func drawGoals(goalView: GoalChallengeView, participantPoints: Int, winConditions: [ChallengeWinCondition], maxGoalValue: Int) {
+        let closestPointIndex = findClosestPointIndex(participantPoints, goalWinConditions: winConditions);
+        
+        var counter = 0;
+        for winCondition in winConditions {
+            let displayLabelBottom = (closestPointIndex % 2 == counter % 2);
+            addGoalNode(goalView, winCondition: winCondition, participantPoints: participantPoints, maxGoalValue: maxGoalValue, isBottom: displayLabelBottom);
+            counter++;
+        }
     }
     
     class func addGoalNode(goalView: GoalChallengeView, winCondition: ChallengeWinCondition, participantPoints: Int!, maxGoalValue: Int!, isBottom: Bool) {
