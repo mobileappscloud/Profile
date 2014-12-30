@@ -52,7 +52,6 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var count = 0;
-        let x = section;
         if (activeChallengesTable == tableView) {
             count = activeChallenges.count;
         } else if (upcomingChallengesTable == tableView) {
@@ -66,17 +65,17 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        //@todo fix the scrolling issue maybe an autolayout issue
         var cell = tableView.dequeueReusableCellWithIdentifier("ChallengeRowCell") as ChallengeRowCell!;
         
         if (cell == nil) {
             cell = UINib(nibName: "ChallengeRowCell", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeRowCell
         }
-        cell.separatorInset = UIEdgeInsetsZero;
-        
-        if (UIDevice.currentDevice().systemVersion >= "8.0") {
-            cell.layoutMargins = UIEdgeInsetsZero;
-        }
+        //legacy code...not sure if this does anything...JM
+//        cell.separatorInset = UIEdgeInsetsZero;
+//        
+//        if (UIDevice.currentDevice().systemVersion >= "8.0") {
+//            cell.layoutMargins = UIEdgeInsetsZero;
+//        }
         
         //remove all children before populating scrollview
         for subview in cell.scrollView.subviews {
@@ -85,33 +84,65 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         
         //load the appropriate challenges for this table
         var challenges:[HigiChallenge] = [];
+        var challengeType = "";
         if (tableView == activeChallengesTable) {
             challenges = activeChallenges;
-            cell.join.hidden = true;
-            cell = buildChallengeCell(cell, challenge: challenges[indexPath.row]);
+            challengeType = "active";
         } else if (tableView == upcomingChallengesTable) {
             challenges = upcomingChallenges;
             cell = buildInvitationCell(cell, challenge: challenges[indexPath.row]);
-            cell.join.hidden = true;
+            challengeType = "available";
         } else if (tableView == availableChallengesTable) {
             challenges = availableChallenges;
             cell = buildInvitationCell(cell, challenge: challenges[indexPath.row]);
+            challengeType = "upcoming";
         } else {
             challenges = invitations;
             cell = buildInvitationCell(cell, challenge: challenges[indexPath.row]);
+            challengeType = "invitation";
         }
-        let challenge = challenges[indexPath.row];
-        cell.title.text = challenge.name;
-        cell.avatar.setImageWithURL(Utility.loadImageFromUrl(challenge.imageUrl));
+        let isActiveChallenge = challengeType == "active";
+        cell = buildChallengeCell(cell, challenge: challenges[indexPath.row], isActive: isActiveChallenge);
+        
+        if (challengeType == "available") {
+            cell.join.hidden = true;
+        }
+        if (challenges.count == 0) {
+//            cell = buildEmptyCell(cell);
+        } else {
+            let challenge = challenges[indexPath.row];
+            cell.title.text = challenge.name;
+            cell.avatar.setImageWithURL(Utility.loadImageFromUrl(challenge.imageUrl));
+        }
+        
+        let footer = UIView(frame: CGRect(x: 0, y: cell.frame.height - 10, width: cell.frame.width, height: 10));
+        footer.backgroundColor = tableView.sectionIndexBackgroundColor;
+        cell.addSubview(footer);
         
         return cell;
+    }
+    
+    func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
+        return indexPath;
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true);
     }
     
-    func buildChallengeCell(cell: ChallengeRowCell, challenge: HigiChallenge) -> ChallengeRowCell {
+    func buildEmptyCell(cell: ChallengeRowCell) {
+        
+    }
+    
+    func buildChallengeCell(cell: ChallengeRowCell, challenge: HigiChallenge, isActive: Bool) -> ChallengeRowCell {
+        if (isActive) {
+            return buildActiveCell(cell, challenge: challenge);
+        } else {
+            return buildInvitationCell(cell, challenge: challenge);
+        }
+    }
+    
+    func buildActiveCell(cell: ChallengeRowCell, challenge: HigiChallenge) -> ChallengeRowCell {
         var nibOriginX:CGFloat = 0.0;
         
         var nibs = Utility.getChallengeViews(challenge);
@@ -134,6 +165,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
             }
         }
         cell.daysLeft.text = "\(daysLeft)d left";
+        cell.join.hidden = true;
         return cell;
     }
     
