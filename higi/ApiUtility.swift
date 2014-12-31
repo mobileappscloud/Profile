@@ -300,7 +300,7 @@ class ApiUtility {
             
             }, failure: {operation, error in
                 
-                var i = 0; //TODO remove this if possible
+                var i = 0; //TODO remove this if possible. Causes to not build because contents are only an optional call.
                 callback?();
                 
         });

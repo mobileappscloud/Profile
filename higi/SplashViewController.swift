@@ -38,7 +38,7 @@ class SplashViewController: UIViewController {
     }
     
     func gotoDashboard() {
-        if (SessionController.Instance.checkins != nil && SessionController.Instance.activities != nil && SessionController.Instance.challenges != nil) {
+        if (SessionController.Instance.checkins != nil && SessionController.Instance.activities != nil && SessionController.Instance.challenges != nil && SessionData.Instance.kioskList.count > 0) {
             Utility.gotoDashboard(self);
         }
     }

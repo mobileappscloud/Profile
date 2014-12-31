@@ -15,4 +15,5 @@ class ActivityCell: UITableViewCell {
     @IBOutlet weak var activity: UILabel!
     @IBOutlet weak var coloredPoint: UIView!
     @IBOutlet weak var points: UILabel!
+    @IBOutlet weak var error: UILabel!
 }
