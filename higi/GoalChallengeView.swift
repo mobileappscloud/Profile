@@ -36,7 +36,6 @@ class GoalChallengeView: UIView {
         if (participantPoints < maxGoalValue) {
             drawParticipantPoints(goalView, participantPoints: participantPoints, maxGoalValue: maxGoalValue);
         }
-        
         return goalView;
     }
     

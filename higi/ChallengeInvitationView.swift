@@ -23,15 +23,13 @@ class ChallengeInvitationView: UIView {
         //we can just grab the first one bcuz win conditions prioritized by API
         let winCondition = challenge.winConditions[0];
         
-        //invitationView.title.text = challenge.name;
-        //invitationView.avatar.setImageWithURL(Utility.loadImageFromUrl(challenge.imageUrl))
         invitationView.goal.text = winCondition.goal.type == "most_points" ? "Most points" : "Threshold reached";
         invitationView.type.text = goalTypeDisplayHelper(winCondition.goal.type, winnerType: winCondition.winnerType);
         invitationView.prize.text = winCondition.prizeName != nil ? winCondition.prizeName : "Coming soon!";
         invitationView.participantCount.text = String(challenge.participantsCount)
         
         var days:Int = 0
-        var message:String!
+        var startsIn:String!
         var startDate:NSDate? = challenge.startDate?
         var endDate:NSDate? = challenge.endDate?
         if (startDate != nil) {
@@ -39,15 +37,15 @@ class ChallengeInvitationView: UIView {
             
             if ( Int(compare) > 0) {
                 days = Int(compare) / 60 / 60 / 24
-                message = "Starts in \(days) days!"
+                startsIn = "Starts in \(days) days!"
             } else if ( Int(compare) < 0 ) {
                 days = abs(Int(compare)) / 60 / 60 / 24
-                message = "Started \(days) days ago!"
+                startsIn = "Started \(days) days ago!"
             } else {
-                message = "Starting today!"
+                startsIn = "Starting today!"
             }
         }
-        invitationView.starting.text = message;
+        invitationView.starting.text = startsIn;
         
         let formatter = NSDateFormatter();
         formatter.dateFormat = "MMM d, ''yy";
@@ -68,6 +66,5 @@ class ChallengeInvitationView: UIView {
         var firstPart = goalType == "individual" ? "Individual" : "Team";
         var secondPart = winnerType == "most_points" ? "Points Challenge" : "Goal Challenge";
         return firstPart + " " + secondPart;
-        
     }
 }

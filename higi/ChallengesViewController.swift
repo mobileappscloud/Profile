@@ -9,7 +9,6 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     @IBOutlet var invitationsTable: UITableView!
     @IBOutlet var scrollView: UIScrollView!
     
-    var currentPage  = 0;
     
     let pageTitles:[String] = ["Active Challenges","Upcoming Challenges","Available Challenges","Invitations"];
     var activeChallenges:[HigiChallenge] = [];
@@ -17,10 +16,15 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     var availableChallenges:[HigiChallenge] = [];
     var invitations:[HigiChallenge] = [];
     
+    struct ViewConstants {
+        static let footerHeight:CGFloat = 10;
+        static let viewWidth:CGFloat = 320;
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad();
-        pager.currentPage = currentPage;
-        title = pageTitles[currentPage];
+        pager.currentPage = 0;
+        title = pageTitles[0];
         
         var session = SessionController.Instance;
         
@@ -70,13 +74,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         if (cell == nil) {
             cell = UINib(nibName: "ChallengeRowCell", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeRowCell
         }
-        //legacy code...not sure if this does anything...JM
-//        cell.separatorInset = UIEdgeInsetsZero;
-//        
-//        if (UIDevice.currentDevice().systemVersion >= "8.0") {
-//            cell.layoutMargins = UIEdgeInsetsZero;
-//        }
-        
+
         //remove all children before populating scrollview
         for subview in cell.scrollView.subviews {
             subview.removeFromSuperview();
@@ -90,15 +88,12 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
             challengeType = "active";
         } else if (tableView == upcomingChallengesTable) {
             challenges = upcomingChallenges;
-            cell = buildInvitationCell(cell, challenge: challenges[indexPath.row]);
             challengeType = "available";
         } else if (tableView == availableChallengesTable) {
             challenges = availableChallenges;
-            cell = buildInvitationCell(cell, challenge: challenges[indexPath.row]);
             challengeType = "upcoming";
         } else {
             challenges = invitations;
-            cell = buildInvitationCell(cell, challenge: challenges[indexPath.row]);
             challengeType = "invitation";
         }
         let isActiveChallenge = challengeType == "active";
@@ -115,7 +110,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
             cell.avatar.setImageWithURL(Utility.loadImageFromUrl(challenge.imageUrl));
         }
         
-        let footer = UIView(frame: CGRect(x: 0, y: cell.frame.height - 10, width: cell.frame.width, height: 10));
+        let footer = UIView(frame: CGRect(x: 0, y: cell.frame.height - ViewConstants.footerHeight, width: cell.frame.width, height: ViewConstants.footerHeight));
         footer.backgroundColor = tableView.sectionIndexBackgroundColor;
         cell.addSubview(footer);
         
@@ -149,7 +144,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         for nib in nibs {
             nib.frame.origin.x = nibOriginX;
             cell.scrollView.addSubview(nib);
-            nibOriginX += max(nib.frame.width, 320);
+            nibOriginX += max(nib.frame.width, ViewConstants.viewWidth);
         }
         cell.pager.numberOfPages = nibs.count;
         cell.pager.currentPage = 0;
@@ -174,9 +169,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
 
         cell.scrollView.contentSize = CGSize(width: cell.frame.size.width, height: cell.frame.size.height);
         cell.scrollView.addSubview(invitationView);
-        
         cell.daysLeft.hidden = true;
-        
         return cell;
     }
     
@@ -190,7 +183,6 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         var pager = sender as UIPageControl;
         var page = pager.currentPage;
         title = pageTitles[page];
-        currentPage = page
         
         var frame = self.scrollView.frame;
         frame.origin.x = frame.size.width * CGFloat(page);

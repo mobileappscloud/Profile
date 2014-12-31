@@ -24,6 +24,9 @@ class CompetitiveChallengeView: UIView, UIScrollViewDelegate {
         static let pointsIndex = 1;
         static let rankIndex = 2;
         static let avatarIndex = 3;
+        
+        static let barHeight:CGFloat = 5;
+        static let barCornerRadius:CGFloat = 2;
     }
     
     class func instanceFromNib(challenge: HigiChallenge, winConditions: [ChallengeWinCondition]) -> CompetitiveChallengeView {
@@ -34,14 +37,10 @@ class CompetitiveChallengeView: UIView, UIScrollViewDelegate {
         let thirdRow:[UILabel] = [competitiveView.thirdPositionName, competitiveView.thirdPositionPoints, competitiveView.thirdPositionRank];
         let avatars:[UIImageView] = [competitiveView.firstPositionAvatar, competitiveView.secondPositionAvatar, competitiveView.thirdPositionAvatar];
         let progressBars:[UIView] = [competitiveView.firstPositionProgressBar, competitiveView.secondPositionProgressBar, competitiveView.thirdPositionProgressBar];
+        
         let rows:[[UILabel]] = [firstRow, secondRow, thirdRow];
         
-        var isTeamChallenge:Bool;
-        if (winConditions[0].winnerType == "individual") {
-            isTeamChallenge = false;
-        } else {
-            isTeamChallenge = true;
-        }
+        let isTeamChallenge = winConditions[0].winnerType == "team";
         
         if (isTeamChallenge) {
             let gravityTuple = getTeamGravityBoard(challenge);
@@ -62,8 +61,7 @@ class CompetitiveChallengeView: UIView, UIScrollViewDelegate {
                 let progressBar = progressBars[index];
                 setProgressBar(progressBar, points: Int(teamGravityBoard[index].units), highScore: highScore);
             }
-        }
-        else {
+        } else {
             let individualGravityBoard = challenge.gravityBoard;
             
             let highScore = challenge.highScore;
@@ -95,9 +93,9 @@ class CompetitiveChallengeView: UIView, UIScrollViewDelegate {
         let newWidth = (CGFloat(points)/CGFloat(highScore)) * width;
         view.frame.size.width = (CGFloat(points)/CGFloat(highScore)) * width;
 
-        let bar = UIView(frame: CGRect(x: view.frame.origin.x, y: view.frame.origin.y - 5, width: newWidth, height: 5));
+        let bar = UIView(frame: CGRect(x: view.frame.origin.x, y: view.frame.origin.y - ViewConstants.barHeight, width: newWidth, height: ViewConstants.barHeight));
         bar.backgroundColor = Utility.colorFromHexString("#76C043");
-        bar.layer.cornerRadius = 2;
+        bar.layer.cornerRadius = ViewConstants.barCornerRadius;
         view.addSubview(bar);
     }
     
@@ -110,46 +108,49 @@ class CompetitiveChallengeView: UIView, UIScrollViewDelegate {
         view.setImageWithURL(Utility.loadImageFromUrl(url));
     }
     
+    //ouput team gravity board from full teams array
     class func getTeamGravityBoard(challenge: HigiChallenge) -> ([ChallengeTeam], [Int]){
         let teams = challenge.teams;
         if (teams != nil) {
             var userTeamIndex = getUserIndex(teams, userTeam: challenge.participant.team);
-            //calculate offsets, e.g. grab 1,2,3 or 4,5,6 from gravity board
-            var startIndex:Int, endIndex:Int;
-            //user's team in first
-            if (userTeamIndex == 0) {
-                startIndex = userTeamIndex;
-                endIndex = userTeamIndex + 2;
+            if (userTeamIndex != -1) {
+                //calculate offsets, e.g. grab 1,2,3 or 4,5,6 from gravity board
+                var startIndex:Int, endIndex:Int;
+                //user's team in first
+                if (userTeamIndex == 0) {
+                    startIndex = userTeamIndex;
+                    endIndex = userTeamIndex + 2;
+                }
+                    //user's team in last
+                else if (userTeamIndex == teams.count - 1) {
+                    startIndex = userTeamIndex - 2;
+                    endIndex = userTeamIndex;
+                }
+                    //somewhere in the middle
+                else {
+                    startIndex = userTeamIndex - 1;
+                    endIndex = userTeamIndex + 1;
+                }
+                //account for cases where size < 3 or = 3 but user's team not second
+                startIndex = max(startIndex, 0);
+                endIndex = min(endIndex, teams.count - 1);
+                
+                var gravityBoard:[ChallengeTeam] = [];
+                var ranks:[Int] = [];
+                
+                for index in startIndex...endIndex {
+                    //index - startIndex is effectively a counter
+                    gravityBoard.append(teams[index]);
+                    ranks.append(index + 1);
+                }
+                return (gravityBoard, ranks);
             }
-            //user's team in last
-            else if (userTeamIndex == teams.count - 1) {
-                startIndex = userTeamIndex - 2;
-                endIndex = userTeamIndex;
-            }
-            //somewhere in the middle
-            else {
-                startIndex = userTeamIndex - 1;
-                endIndex = userTeamIndex + 1;
-            }
-            //account for cases where size < 3 or = 3 but user's team not second
-            startIndex = max(startIndex, 0);
-            endIndex = min(endIndex, teams.count - 1);
-            
-            var gravityBoard:[ChallengeTeam] = [];
-            var ranks:[Int] = [];
-            
-            for index in startIndex...endIndex {
-                //index - startIndex is effectively a counter
-                gravityBoard.append(teams[index]);
-                ranks.append(index + 1);
-            }
-            return (gravityBoard, ranks);
         }
         return ([],[]);
     }
     
+    //helper to find the current team's index
     class func getUserIndex(teams: [ChallengeTeam], userTeam: ChallengeTeam) -> Int {
-        //find user's team's index
         for index in 0...teams.count-1 {
             let thisTeam = teams[index];
             if (thisTeam.name == userTeam.name) {
@@ -164,7 +165,6 @@ class CompetitiveChallengeView: UIView, UIScrollViewDelegate {
         if ( rank == "11" || rank == "12" || rank == "13") {
             return rank + "th"
         }
-        
         let last = rank.substringFromIndex(rank.length - 1)
         switch(last) {
         case "1":
@@ -176,9 +176,5 @@ class CompetitiveChallengeView: UIView, UIScrollViewDelegate {
         default:
             return rank + "th"
         }
-    }
-    
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        var i = 0;
     }
 }

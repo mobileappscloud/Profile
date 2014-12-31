@@ -9,9 +9,7 @@ class ChallengeRowCell: UITableViewCell, UIScrollViewDelegate {
     @IBOutlet var pager: UIPageControl!;
     @IBOutlet weak var join: UILabel!
     
-    var totalPages = 0;
-    var currentPage = 0;
-    
+
     class func instanceFromNib(numPages: Int) -> ChallengeRowCell {
         return UINib(nibName: "ChallengeRowCell", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeRowCell;
     }
@@ -20,7 +18,6 @@ class ChallengeRowCell: UITableViewCell, UIScrollViewDelegate {
     func layoutSubviews() {
         scrollView.delegate = self;
         var page = lround(Double(scrollView.contentOffset.x / scrollView.frame.size.width));
-        currentPage = page;
         changePage(pager);
     }
     
@@ -33,7 +30,6 @@ class ChallengeRowCell: UITableViewCell, UIScrollViewDelegate {
     @IBAction func changePage(sender: AnyObject) {
         var pager = sender as UIPageControl;
         var pageNumber = pager.currentPage;
-        currentPage = pageNumber;
         
         var frame = scrollView.frame;
         frame.size.width = 320;

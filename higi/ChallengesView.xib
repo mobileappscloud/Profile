@@ -55,7 +55,7 @@
                             </connections>
                         </tableView>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="226" sectionHeaderHeight="60" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="X1I-cE-aXH">
-                            <rect key="frame" x="0.0" y="68" width="320" height="500"/>
+                            <rect key="frame" x="0.0" y="68" width="320" height="499"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <color key="sectionIndexColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="sectionIndexBackgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
