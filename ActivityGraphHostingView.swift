@@ -60,7 +60,9 @@ class ActivityGraphHostingView: CPTGraphHostingView, CPTBarPlotDataSource {
     }
     
     func doubleForPlot(plot: CPTPlot!, field fieldEnum: UInt, recordIndex idx: UInt) -> Double {
-        return points[plot.name]![Int(idx)];
+        var test = points[plot.name]![Int(idx)];
+        return 5;
+//        return points[plot.name![Int(idx)]];
     }
     
     func numberOfRecordsForPlot(plot: CPTPlot!) -> UInt {

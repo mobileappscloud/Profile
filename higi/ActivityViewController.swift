@@ -216,14 +216,16 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
         dayGraph = ActivityGraphHostingView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: graphContainer.frame.size), points: dayBuckets);
         weekGraph = ActivityGraphHostingView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: graphContainer.frame.size), points: weekBuckets);
         monthGraph = ActivityGraphHostingView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: graphContainer.frame.size), points: monthBuckets);
-        weekGraph.hidden = true;
-        monthGraph.hidden = true;
-        graphContainer.addSubview(dayGraph);
-        graphContainer.addSubview(weekGraph);
-        graphContainer.addSubview(monthGraph);
+//        weekGraph.hidden = true;
+//        monthGraph.hidden = true;
+        
         dayGraph.setupGraph(ActivityGraphHostingView.Mode.DAY);
         weekGraph.setupGraph(ActivityGraphHostingView.Mode.WEEK);
         monthGraph.setupGraph(ActivityGraphHostingView.Mode.MONTH);
+        
+        graphContainer.addSubview(dayGraph);
+        graphContainer.addSubview(weekGraph);
+        graphContainer.addSubview(monthGraph);
     }
     
     func drawArc() {

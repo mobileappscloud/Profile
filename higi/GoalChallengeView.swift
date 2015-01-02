@@ -96,9 +96,14 @@ class GoalChallengeView: UIView {
         var text = String(Int(thisGoalValue));
         let labelPosX = posX + ViewConstants.circleRadius;
         let labelPosY = posY + labelMargin;
-        let goalLabel = UILabel(frame: CGRectMake(0, 0, goalView.frame.width, labelMargin));
+        let goalLabel = UILabel(frame: CGRectMake(goalView.frame.width/2, labelPosY - labelMargin/2, goalView.frame.width, labelMargin));
         goalLabel.text = text;
-        goalLabel.center = CGPointMake(labelPosX, labelPosY);
+        if (thisGoalValue == maxGoalValue) {
+            goalLabel.textAlignment = NSTextAlignment.Right;
+        } else {
+            goalLabel.center = CGPointMake(labelPosX, labelPosY);
+        }
+        
         goalLabel.textAlignment = NSTextAlignment.Center;
         goalLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline);
         let goalLabelColor:UIColor = (participantPoints >= thisGoalValue) ? UIColor.blackColor() : UIColor.lightGrayColor();

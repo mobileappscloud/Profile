@@ -68,6 +68,10 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         return count;
     }
     
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 83));
+    }
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("ChallengeRowCell") as ChallengeRowCell!;
         
@@ -79,6 +83,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         for subview in cell.scrollView.subviews {
             subview.removeFromSuperview();
         }
+        
         
         //load the appropriate challenges for this table
         var challenges:[HigiChallenge] = [];
@@ -111,7 +116,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         }
         
         let footer = UIView(frame: CGRect(x: 0, y: cell.frame.height - ViewConstants.footerHeight, width: cell.frame.width, height: ViewConstants.footerHeight));
-        footer.backgroundColor = tableView.sectionIndexBackgroundColor;
+        footer.backgroundColor = Utility.colorFromHexString("#EEEEEE");
         cell.addSubview(footer);
         
         return cell;
