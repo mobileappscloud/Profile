@@ -9,22 +9,31 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     @IBOutlet var invitationsTable: UITableView!
     @IBOutlet var scrollView: UIScrollView!
     
-    
-    let pageTitles:[String] = ["Active Challenges","Upcoming Challenges","Available Challenges","Invitations"];
+    var pageTitles:[String] = ["Active Challenges","Upcoming Challenges","Available Challenges","Invitations"];
+    var pageDisplayMaster = [false, false, false, false];
+    struct PagerConstants {
+        static let activeChallengesIndex = 0;
+        static let upcomingChallengesIndex = 1;
+        static let availableChallengesIndex = 2;
+        static let invitedChallengesIndex = 3;
+    }
+
     var activeChallenges:[HigiChallenge] = [];
     var upcomingChallenges:[HigiChallenge] = [];
     var availableChallenges:[HigiChallenge] = [];
     var invitations:[HigiChallenge] = [];
     
+    var currentPage  = 0;
+    var totalPages = 0;
+    
     struct ViewConstants {
         static let footerHeight:CGFloat = 10;
-        static let viewWidth:CGFloat = 320;
+        static let maxViewWidth:CGFloat = 320;
     }
     
     override func viewDidLoad() {
         super.viewDidLoad();
-        pager.currentPage = 0;
-        title = pageTitles[0];
+        pager.currentPage = currentPage;
         
         var session = SessionController.Instance;
         
@@ -32,22 +41,52 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
             switch(challenge.userStatus) {
             case "current":
                 activeChallenges.append(challenge);
+                pageDisplayMaster[PagerConstants.activeChallengesIndex] = true;
             case "public":
                 availableChallenges.append(challenge);
+                pageDisplayMaster[PagerConstants.availableChallengesIndex] = true;
             case "upcoming":
                 upcomingChallenges.append(challenge);
+                pageDisplayMaster[PagerConstants.upcomingChallengesIndex] = true;
             case "invited":
                 invitations.append(challenge);
+                pageDisplayMaster[PagerConstants.invitedChallengesIndex] = true;
             default:
                 var i = 0;
             }
         }
+        let tableViews:[UITableView] = [activeChallengesTable, upcomingChallengesTable, availableChallengesTable, invitationsTable];
+        var pageTitle = "";
+        var firstPageIndex = 0;
+        let viewSize = scrollView.frame.size.width;
+        var validPageIndex = 0;
+        
+        for index in 0...pageDisplayMaster.count-1 {
+            if (pageDisplayMaster[index]) {
+                if (index < firstPageIndex && firstPageIndex > 0) {
+                    firstPageIndex = index;
+                }
+                let x = CGFloat(validPageIndex) * viewSize;
+                tableViews[index].frame.origin.x = CGFloat(validPageIndex) * viewSize;
+
+                validPageIndex++;
+            } else {
+                pageTitles.removeAtIndex(index);
+                tableViews[index].removeFromSuperview();
+            }
+            totalPages++;
+        }
+        pageTitle = pageTitles[firstPageIndex];
+        title = pageTitle;
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews();
-        scrollView.contentSize = CGSize(width: scrollView.frame.size.width * 4, height: scrollView.frame.size.height);
+        
+        scrollView.contentSize = CGSize(width: scrollView.frame.size.width * CGFloat(totalPages), height: scrollView.frame.size.height);
         scrollView.setContentOffset(CGPointMake(0,0),animated: false);
+        
+        pager.numberOfPages = totalPages;
     }
     
     func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool {
@@ -79,11 +118,17 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
             cell = UINib(nibName: "ChallengeRowCell", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeRowCell
         }
 
+        //legacy code...not sure if this does anything...JM
+        cell.separatorInset = UIEdgeInsetsZero;
+        
+        if (UIDevice.currentDevice().systemVersion >= "8.0") {
+            cell.layoutMargins = UIEdgeInsetsZero;
+        }
+        
         //remove all children before populating scrollview
         for subview in cell.scrollView.subviews {
             subview.removeFromSuperview();
         }
-        
         
         //load the appropriate challenges for this table
         var challenges:[HigiChallenge] = [];
@@ -101,6 +146,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
             challenges = invitations;
             challengeType = "invitation";
         }
+        
         let isActiveChallenge = challengeType == "active";
         cell = buildChallengeCell(cell, challenge: challenges[indexPath.row], isActive: isActiveChallenge);
         
@@ -149,7 +195,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         for nib in nibs {
             nib.frame.origin.x = nibOriginX;
             cell.scrollView.addSubview(nib);
-            nibOriginX += max(nib.frame.width, ViewConstants.viewWidth);
+            nibOriginX += max(nib.frame.width, ViewConstants.maxViewWidth);
         }
         cell.pager.numberOfPages = nibs.count;
         cell.pager.currentPage = 0;
@@ -182,12 +228,17 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         var page = lround(Double(scrollView.contentOffset.x / scrollView.frame.size.width));
         pager.currentPage = page;
         changePage(pager);
+
     }
     
     @IBAction func changePage(sender: AnyObject) {
         var pager = sender as UIPageControl;
         var page = pager.currentPage;
+        
+        let previousPage = currentPage;
+        
         title = pageTitles[page];
+        currentPage = page;
         
         var frame = self.scrollView.frame;
         frame.origin.x = frame.size.width * CGFloat(page);
@@ -198,4 +249,6 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return false;
     }
+    
+    
 }

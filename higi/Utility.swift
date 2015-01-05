@@ -111,4 +111,21 @@ class Utility {
         return NSURL()
     }
     
+    class func getRankSuffix(rank: NSString) -> String {
+        if ( rank == "11" || rank == "12" || rank == "13") {
+            return rank + "th"
+        }
+        let last = rank.substringFromIndex(rank.length - 1)
+        switch(last) {
+        case "1":
+            return rank + "st"
+        case "2":
+            return rank + "nd"
+        case "3":
+            return rank + "rd"
+        default:
+            return rank + "th"
+        }
+    }
+    
 }

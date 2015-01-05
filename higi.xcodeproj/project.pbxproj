@@ -289,6 +289,7 @@
 		C05CB27FD2A34A3BA2F46E97 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C0A91AD3D5DE44B7872F95D7 /* libPods.a */; };
 		D12780AE1A4A2701002EB56A /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D12780AD1A4A2701002EB56A /* fontawesome-webfont.ttf */; };
 		D19C66C91A3F74A400655218 /* ScrollViewPagerControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19C66C81A3F74A400655218 /* ScrollViewPagerControllerViewController.swift */; };
+		D19DDA501A5B37F4004F97A3 /* ChallengePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19DDA4F1A5B37F4004F97A3 /* ChallengePage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -601,6 +602,7 @@
 		C0A91AD3D5DE44B7872F95D7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D12780AD1A4A2701002EB56A /* fontawesome-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fontawesome-webfont.ttf"; sourceTree = "<group>"; };
 		D19C66C81A3F74A400655218 /* ScrollViewPagerControllerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollViewPagerControllerViewController.swift; sourceTree = "<group>"; };
+		D19DDA4F1A5B37F4004F97A3 /* ChallengePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengePage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -654,6 +656,7 @@
 				2BBDBA4D1A12AC2C005A6815 /* ChallengesViewController.swift */,
 				2BBDBA501A12AC2C005A6815 /* GoalChallengeView.swift */,
 				D19C66C81A3F74A400655218 /* ScrollViewPagerControllerViewController.swift */,
+				D19DDA4F1A5B37F4004F97A3 /* ChallengePage.swift */,
 			);
 			name = Challenges;
 			sourceTree = "<group>";
@@ -1661,6 +1664,7 @@
 				8F08AFAF19894EE6002EE906 /* WelcomeView.swift in Sources */,
 				8FCD2D8019EC286900AC5A82 /* UIImage+Orientation.m in Sources */,
 				8F6A2445195A076B0094B73C /* MapGraphDelegate.swift in Sources */,
+				D19DDA501A5B37F4004F97A3 /* ChallengePage.swift in Sources */,
 				8F2B7E43198C2DA0009DE89A /* DrawerViewController.swift in Sources */,
 				8F524BF6195B5ABB00BFC49D /* ConversionUtility.m in Sources */,
 				8F087A901A1BDFC7008E0446 /* ActivityCellHeader.swift in Sources */,

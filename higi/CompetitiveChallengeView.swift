@@ -51,7 +51,7 @@ class CompetitiveChallengeView: UIView, UIScrollViewDelegate {
             for index in 0...teamGravityBoard.count - 1 {
                 let name = teamGravityBoard[index].name;
                 let points = "\(Int(teamGravityBoard[index].units)) pts";
-                let rank = getRankSuffix(String(teamRanks[index]));
+                let rank = Utility.getRankSuffix(String(teamRanks[index]));
                 let avatarUrl = teamGravityBoard[index].imageUrl;
                 populateLeaderBoardRow(rows[index], name: name, points: points, rank: rank);
                 setAvatar(avatars[index], url: avatarUrl);
@@ -68,7 +68,7 @@ class CompetitiveChallengeView: UIView, UIScrollViewDelegate {
             for index in 0...individualGravityBoard.count - 1 {
                 let name = individualGravityBoard[index].participant.displayName;
                 let points = "\(Int(individualGravityBoard[index].participant.units)) pts";
-                let rank = getRankSuffix(individualGravityBoard[index].place);
+                let rank = Utility.getRankSuffix(individualGravityBoard[index].place);
                 let avatarUrl = individualGravityBoard[index].participant.imageUrl;
                 populateLeaderBoardRow(rows[index], name: name, points: points, rank: rank);
                 setAvatar(avatars[index], url: avatarUrl);
@@ -159,22 +159,5 @@ class CompetitiveChallengeView: UIView, UIScrollViewDelegate {
             }
         }
         return -1;
-    }
-    
-    class func getRankSuffix(rank: NSString) -> String {
-        if ( rank == "11" || rank == "12" || rank == "13") {
-            return rank + "th"
-        }
-        let last = rank.substringFromIndex(rank.length - 1)
-        switch(last) {
-        case "1":
-            return rank + "st"
-        case "2":
-            return rank + "nd"
-        case "3":
-            return rank + "rd"
-        default:
-            return rank + "th"
-        }
     }
 }
