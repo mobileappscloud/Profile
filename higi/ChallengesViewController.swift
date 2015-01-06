@@ -55,28 +55,24 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
                 var i = 0;
             }
         }
+        
         let tableViews:[UITableView] = [activeChallengesTable, upcomingChallengesTable, availableChallengesTable, invitationsTable];
+
         var pageTitle = "";
-        var firstPageIndex = 0;
-        let viewSize = scrollView.frame.size.width;
+        let viewWidth = scrollView.frame.size.width;
+        let viewHeight = scrollView.frame.size.height;
         var validPageIndex = 0;
         
         for index in 0...pageDisplayMaster.count-1 {
             if (pageDisplayMaster[index]) {
-                if (index < firstPageIndex && firstPageIndex > 0) {
-                    firstPageIndex = index;
-                }
-                let x = CGFloat(validPageIndex) * viewSize;
-                tableViews[index].frame.origin.x = CGFloat(validPageIndex) * viewSize;
-
+                let table = UITableView(frame: CGRect(x: CGFloat(validPageIndex) * viewWidth, y: 0, width: viewWidth, height: viewHeight));
                 validPageIndex++;
             } else {
                 pageTitles.removeAtIndex(index);
-                tableViews[index].removeFromSuperview();
             }
             totalPages++;
         }
-        pageTitle = pageTitles[firstPageIndex];
+        pageTitle = pageTitles[0];
         title = pageTitle;
     }
     
@@ -95,6 +91,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var count = 0;
+        let x = section;
         if (activeChallengesTable == tableView) {
             count = activeChallenges.count;
         } else if (upcomingChallengesTable == tableView) {
