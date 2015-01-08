@@ -30,6 +30,7 @@ class ApiUtility {
                 ApiUtility.retrieveCheckins(success);
                 ApiUtility.retrieveActivities(success);
                 ApiUtility.retrieveChallenges(success);
+                ApiUtility.retrieveDevices(success);
             }
             
             }, failure: {operation, error in
@@ -135,6 +136,30 @@ class ApiUtility {
         
     }
     
+    class func retrieveDevices(success: (() -> Void)?) {
+        let userId = HigiApi.PRODUCTION == true ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
+        
+        HigiApi().sendGet("\(HigiApi.earnditApiUrl)/user/\(userId)/devices", success: {operation, responseObject in
+            var devices: [String:ActivityDevice] = [:];
+            var serverDevices = (responseObject as NSDictionary)["response"] as NSArray;
+            for device: AnyObject in serverDevices {
+                var serverDevice = (device as NSDictionary)["device"] as? NSDictionary;
+                if (serverDevice != nil) {
+                    var thisDevice = ActivityDevice(dictionary: serverDevice!);
+                    thisDevice.enabled = (device as NSDictionary)["enabled"] as? Bool;
+                    devices[thisDevice.name] = ActivityDevice(dictionary: serverDevice!);
+                }
+            }
+            
+            SessionController.Instance.devices = devices;
+            success?();
+            }, failure: { operation, error in
+                SessionController.Instance.devices = [:];
+                success?();
+        });
+        
+    }
+    
     class func retrieveKioskList(success: (() -> Void)?) {
         
         HigiApi().sendGet("\(HigiApi.higiApiUrl)/data/KioskList", success:
@@ -175,6 +200,7 @@ class ApiUtility {
                 
         });
     }
+    
     
     class func updateHealthKit() {
         if (UIDevice.currentDevice().systemVersion >= "8.0" && HKHealthStore.isHealthDataAvailable()) {

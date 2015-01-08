@@ -290,6 +290,8 @@
 		D12780AE1A4A2701002EB56A /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D12780AD1A4A2701002EB56A /* fontawesome-webfont.ttf */; };
 		D19C66C91A3F74A400655218 /* ScrollViewPagerControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19C66C81A3F74A400655218 /* ScrollViewPagerControllerViewController.swift */; };
 		D19DDA501A5B37F4004F97A3 /* ChallengePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19DDA4F1A5B37F4004F97A3 /* ChallengePage.swift */; };
+		D19DDA531A5EF599004F97A3 /* NewCPTAxisLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = D19DDA521A5EF599004F97A3 /* NewCPTAxisLabel.m */; };
+		D19DDA551A5F1705004F97A3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19DDA541A5F1705004F97A3 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -603,6 +605,9 @@
 		D12780AD1A4A2701002EB56A /* fontawesome-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fontawesome-webfont.ttf"; sourceTree = "<group>"; };
 		D19C66C81A3F74A400655218 /* ScrollViewPagerControllerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollViewPagerControllerViewController.swift; sourceTree = "<group>"; };
 		D19DDA4F1A5B37F4004F97A3 /* ChallengePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengePage.swift; sourceTree = "<group>"; };
+		D19DDA511A5EF432004F97A3 /* NewCPTAxisLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewCPTAxisLabel.h; sourceTree = "<group>"; };
+		D19DDA521A5EF599004F97A3 /* NewCPTAxisLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewCPTAxisLabel.m; sourceTree = "<group>"; };
+		D19DDA541A5F1705004F97A3 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -757,6 +762,8 @@
 				8F2B7E40198C2C27009DE89A /* SWRevealViewController.m */,
 				8FCD2D7E19EC286900AC5A82 /* UIImage+Orientation.h */,
 				8FCD2D7F19EC286900AC5A82 /* UIImage+Orientation.m */,
+				D19DDA511A5EF432004F97A3 /* NewCPTAxisLabel.h */,
+				D19DDA521A5EF599004F97A3 /* NewCPTAxisLabel.m */,
 			);
 			name = "Objective-C Helpers";
 			sourceTree = "<group>";
@@ -766,6 +773,7 @@
 			children = (
 				8F524BF7195B829400BFC49D /* CustomFormatter.swift */,
 				8F6D510D1947B2E700F7C769 /* Utility.swift */,
+				D19DDA541A5F1705004F97A3 /* Constants.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -1593,6 +1601,7 @@
 				8FDB4B681A09731B00F57B38 /* ActivityDevice.swift in Sources */,
 				8F3643A219460EB300C0033E /* BodyStatsViewController.swift in Sources */,
 				8F296316194B9BF700E787FD /* SessionController.swift in Sources */,
+				D19DDA531A5EF599004F97A3 /* NewCPTAxisLabel.m in Sources */,
 				8F9C69DB1950C8B700449664 /* PulseArticle.swift in Sources */,
 				8F29630B194B8E3700E787FD /* DashboardViewController.swift in Sources */,
 				8FF2E06E194A5E9500A81D8C /* NewCPTPlotRange.m in Sources */,
@@ -1636,6 +1645,7 @@
 				8F7065B81A16B46A002FCA10 /* ChallengeTeam.swift in Sources */,
 				8F6D510E1947B2E700F7C769 /* Utility.swift in Sources */,
 				8F296309194B8DE700E787FD /* SplashViewController.swift in Sources */,
+				D19DDA551A5F1705004F97A3 /* Constants.swift in Sources */,
 				8F6A243C1958EA730094B73C /* NewCPTScatterPlot.m in Sources */,
 				2BC5865E1A16D0AF005A7983 /* ChallengeInvitationView.swift in Sources */,
 				2BBDBA551A12AC2C005A6815 /* ChallengesViewController.swift in Sources */,

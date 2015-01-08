@@ -41,7 +41,7 @@ class ActivityGraphHostingView: CPTGraphHostingView, CPTBarPlotDataSource {
         
         graph.plotAreaFrame.paddingLeft = 40;
         graph.plotAreaFrame.paddingTop = 5;
-        graph.plotAreaFrame.paddingBottom = 20;
+        graph.plotAreaFrame.paddingBottom = 40;
         
         var axes = graph.axisSet as CPTXYAxisSet;
         
@@ -51,6 +51,8 @@ class ActivityGraphHostingView: CPTGraphHostingView, CPTBarPlotDataSource {
         xAxis.axisConstraints = CPTConstraints.constraintWithLowerOffset(0.0);
         var formatter = NSNumberFormatter();
         formatter.generatesDecimalNumbers = false;
+        xAxis.labelingPolicy = CPTAxisLabelingPolicyNone;
+        
         xAxis.labelFormatter = formatter;
         
         var yAxis = axes.yAxis;
@@ -62,66 +64,57 @@ class ActivityGraphHostingView: CPTGraphHostingView, CPTBarPlotDataSource {
         var plotSpace = graph.defaultPlotSpace as CPTXYPlotSpace;
         plotSpace.allowsUserInteraction = false;
 
-        var labelIndex = 0;
-        var dateLabels:[CPTAxisLabel] = [];
-        //NOTE this doesn't work because of the missing tickLocation property
-        let dates = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-        for day in dates {
-            var label = CPTAxisLabel(text: day, textStyle: xAxis.labelTextStyle);
-            //label.tickLocation = CGFloat(labelIndex);
+        var dateLabels:[NewCPTAxisLabel] = [];
+
+        let dates:[String] = populateDates(mode);
+        let date = NSDate();
+        for index in 0...6 {
+            var label = NewCPTAxisLabel(text: dates[index], textStyle: xAxis.labelTextStyle);
+            label.setTickIndex(Double(index));
             label.offset = xAxis.labelOffset + xAxis.majorTickLength;
+            if (mode == Mode.WEEK) {
+                label.rotation = CGFloat(M_PI) / 4;
+            }
             dateLabels.append(label);
-            
-            labelIndex++;
         }
         xAxis.axisLabels = NSSet(array: dateLabels);
         
         var maxPlotPoints = 10;
         var firstPlot = true;
         var plotIndex = 0;
-        for (device, pointArray) in points {
-            var plot = CPTBarPlot(frame: CGRectZero);
-            plot.fill = CPTFill(color: getDeviceColor(device));
-            plot.barWidthScale = 1;
-            
-            plot.barBasesVary = !firstPlot;
-            firstPlot = false;
-            
-            plot.dataSource = self;
-            plot.name = device;
-            
-            graph.addPlot(plot, toPlotSpace: plotSpace);
-
-            for index in 0...pointArray.count - 1 {
-                var pointValue = pointArray[index];
-                if (pointValue > maxPlotPoints) {
-                    maxPlotPoints = pointValue;
+        for device in Constants.getDevicePriority.reverse() {
+            if (points.indexForKey(device) != nil) {
+                let pointArray = points[device]!;
+                var plot = CPTBarPlot(frame: CGRectZero);
+                plot.lineStyle = nil;
+                plot.cornerRadius = 5;
+                plot.fill = CPTFill(color: getDeviceColor(device));
+                plot.barWidthScale = 1;
+                
+                plot.barBasesVary = !firstPlot;
+                firstPlot = false;
+                
+                plot.dataSource = self;
+                plot.name = device;
+                
+                graph.addPlot(plot, toPlotSpace: plotSpace);
+                
+                for index in 0...pointArray.count - 1 {
+                    var pointValue = pointArray[index];
+                    if (pointValue > maxPlotPoints) {
+                        maxPlotPoints = pointValue;
+                    }
+                    totalPlotPoints[index] = totalPlotPoints[index] + pointValue;
                 }
-                totalPlotPoints[index] = totalPlotPoints[index] + pointValue;
+                plotIndex++;
+                lastDevice = device;
             }
-            plotIndex++;
-            lastDevice = device;
         }
+
         plotSpace.xRange = NewCPTPlotRange(location: -1, length: 8);
         plotSpace.yRange = NewCPTPlotRange(location: 0, length: Double(maxPlotPoints) * 1.5);
         plotSpace.globalXRange = plotSpace.xRange;
         plotSpace.globalYRange = plotSpace.yRange;
-    }
-    
-    func getDeviceColor(device: String) ->CPTColor {
-        var color:UIColor;
-        let deviceName = device.lowercaseString;
-
-        if (deviceName == "jawbone") {
-            color = UIColor.redColor();
-        } else if (deviceName == "higi") {
-            color = UIColor.whiteColor();
-        } else if (deviceName == "moves") {
-            color = UIColor.greenColor();
-        } else {
-            color = UIColor.blueColor();
-        }
-        return CPTColor(CGColor: color.CGColor);
     }
     
     func doubleForPlot(plot: CPTPlot!, field fieldEnum: UInt, recordIndex idx: UInt) -> Double {
@@ -137,13 +130,15 @@ class ActivityGraphHostingView: CPTGraphHostingView, CPTBarPlotDataSource {
             var offset = 0;
             var barPlot = plot as CPTBarPlot;
             if (barPlot.barBasesVary) {
-                for (device, pointArray) in points {
-                    var arr = pointArray;
-                    if (plot.name.isEqual(device)) {
-                        break;
-                    } else {
-                        let val = pointArray[Int(idx)]
-                        offset += pointArray[Int(idx)];
+                for device in Constants.getDevicePriority.reverse() {
+                    if (points.indexForKey(device) != nil) {
+                        let pointArray = points[device]!;
+                        if (plot.name.isEqual(device)) {
+                            break;
+                        } else {
+                            let val = pointArray[Int(idx)]
+                            offset += pointArray[Int(idx)];
+                        }
                     }
                 }
             }
@@ -155,7 +150,6 @@ class ActivityGraphHostingView: CPTGraphHostingView, CPTBarPlotDataSource {
                 plotValue = offset;
             }
         }
-        //masterPlots[index] = plotValue;
         return Double(plotValue);
     }
     
@@ -178,5 +172,41 @@ class ActivityGraphHostingView: CPTGraphHostingView, CPTBarPlotDataSource {
             return nil;
         }
     }
-
+    
+    func getDeviceColor(deviceName: String) -> CPTColor {
+        var color:UIColor;
+        if (SessionController.Instance.devices.indexForKey(deviceName) != nil) {
+            color = Utility.colorFromHexString(SessionController.Instance.devices[deviceName]!.colorCode);
+        } else {
+            color = UIColor.whiteColor();
+        }
+        return CPTColor(CGColor: color.CGColor);
+    }
+    
+    func populateDates(mode: Mode) -> [String] {
+        var dateFormatter = NSDateFormatter();
+        var dateComponent = NSDateComponents();
+        
+        var todaysDate = NSDate();
+        var dates:[String] = [];
+        
+        for index in 0...6 {
+            var calendar = NSCalendar.currentCalendar();
+            dateComponent.day = index - 6;
+            if (mode == Mode.DAY) {
+                dateFormatter.dateFormat = "E";
+                dateComponent.day = index - 6;
+            } else if (mode == Mode.WEEK) {
+                dateFormatter.dateFormat = "MM/dd";
+                dateComponent.day = (index - 6) * 7;
+            } else {
+                dateFormatter.dateFormat = "LLL";
+                dateComponent.month = index - 6;
+            }
+            var nextDate = calendar.dateByAddingComponents(dateComponent, toDate: todaysDate, options: nil);
+            dates.append(dateFormatter.stringFromDate(nextDate!));
+        }
+        
+        return dates;
+    }
 }
