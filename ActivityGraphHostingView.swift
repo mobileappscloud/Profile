@@ -11,6 +11,8 @@ import Foundation
 class ActivityGraphHostingView: CPTGraphHostingView, CPTBarPlotDataSource {
     
     var points: [String: [Int]]!;
+    var lastDevice = "";
+    var totalPlotPoints:[Int] = [0,0,0,0,0,0,0];
     
     enum Mode {
         case DAY
@@ -32,12 +34,12 @@ class ActivityGraphHostingView: CPTGraphHostingView, CPTBarPlotDataSource {
         self.hostedGraph = graph;
         self.allowPinchScaling = false;
         
-        graph.paddingLeft = -20;
+        graph.paddingLeft = -10;
         graph.paddingTop = 0;
         graph.paddingRight = 0;
         graph.paddingBottom = -20;
         
-        graph.plotAreaFrame.paddingLeft = 20;
+        graph.plotAreaFrame.paddingLeft = 40;
         graph.plotAreaFrame.paddingTop = 5;
         graph.plotAreaFrame.paddingBottom = 20;
         
@@ -47,10 +49,15 @@ class ActivityGraphHostingView: CPTGraphHostingView, CPTBarPlotDataSource {
         xAxis.majorTickLength = 0;
         xAxis.minorTicksPerInterval = 0;
         xAxis.axisConstraints = CPTConstraints.constraintWithLowerOffset(0.0);
+        var formatter = NSNumberFormatter();
+        formatter.generatesDecimalNumbers = false;
+        xAxis.labelFormatter = formatter;
         
         var yAxis = axes.yAxis;
         yAxis.minorTicksPerInterval = 0;
         yAxis.labelingPolicy = CPTAxisLabelingPolicyAutomatic;
+        yAxis.axisConstraints = CPTConstraints.constraintWithLowerOffset(0.0);
+        yAxis.labelFormatter = formatter;
         
         var plotSpace = graph.defaultPlotSpace as CPTXYPlotSpace;
         plotSpace.allowsUserInteraction = false;
@@ -71,6 +78,7 @@ class ActivityGraphHostingView: CPTGraphHostingView, CPTBarPlotDataSource {
         
         var maxPlotPoints = 10;
         var firstPlot = true;
+        var plotIndex = 0;
         for (device, pointArray) in points {
             var plot = CPTBarPlot(frame: CGRectZero);
             plot.fill = CPTFill(color: getDeviceColor(device));
@@ -81,14 +89,18 @@ class ActivityGraphHostingView: CPTGraphHostingView, CPTBarPlotDataSource {
             
             plot.dataSource = self;
             plot.name = device;
-            plot.identifier = device;
-
+            
             graph.addPlot(plot, toPlotSpace: plotSpace);
-            for pointValue in pointArray {
+
+            for index in 0...pointArray.count - 1 {
+                var pointValue = pointArray[index];
                 if (pointValue > maxPlotPoints) {
                     maxPlotPoints = pointValue;
                 }
+                totalPlotPoints[index] = totalPlotPoints[index] + pointValue;
             }
+            plotIndex++;
+            lastDevice = device;
         }
         plotSpace.xRange = NewCPTPlotRange(location: -1, length: 8);
         plotSpace.yRange = NewCPTPlotRange(location: 0, length: Double(maxPlotPoints) * 1.5);
@@ -127,8 +139,7 @@ class ActivityGraphHostingView: CPTGraphHostingView, CPTBarPlotDataSource {
             if (barPlot.barBasesVary) {
                 for (device, pointArray) in points {
                     var arr = pointArray;
-                    let id = plot.identifier;
-                    if (plot.identifier.isEqual(device)) {
+                    if (plot.name.isEqual(device)) {
                         break;
                     } else {
                         let val = pointArray[Int(idx)]
@@ -151,15 +162,21 @@ class ActivityGraphHostingView: CPTGraphHostingView, CPTBarPlotDataSource {
     func numberOfRecordsForPlot(plot: CPTPlot!) -> UInt {
         return 7;
     }
-    
+
     func dataLabelForPlot(plot: CPTPlot!, recordIndex idx: UInt) -> CPTLayer! {
-        var labelValue = 0;
-        if let pointsArray = points[plot.name] as [Int]! {
-            labelValue = pointsArray[Int(idx)];
+        let device = plot.name;
+        //only make label for last index
+        if (device == lastDevice) {
+            var labelValue = 0;
+            if let pointsArray = points[plot.name] as [Int]! {
+                labelValue = totalPlotPoints[Int(idx)];
+            }
+            var label = CPTTextLayer(text: String(labelValue));
+            plot.labelOffset = 0;
+            return label;
+        } else {
+            return nil;
         }
-        var label = CPTTextLayer(text: String(labelValue));
-        label.paddingBottom = 0;
-        return label;
     }
 
 }
