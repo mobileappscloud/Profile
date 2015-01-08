@@ -26,7 +26,7 @@ class HigiApi {
     }
     
     class var webUrl: String {
-        return HigiApi.PRODUCTION == true ? WEB_URL : DEV_EARNDIT_URL;
+        return WEB_URL;
     }
     
     class var apiKey: String {
@@ -42,7 +42,7 @@ class HigiApi {
         manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept");
         manager.requestSerializer.setValue("application/vnd.higi.earndit;version=2", forHTTPHeaderField: "Accept");
         
-        if (HigiApi.PRODUCTION) {
+        if (!HigiApi.PRODUCTION) {
             manager.requestSerializer.setValue("rQIpgKhmd0qObDSr5SkHbw", forHTTPHeaderField: "Dev-Token");  // Grant
         }
         manager.requestSerializer.setValue("iOSv\(Utility.appVersion()).\(Utility.appBuild())", forHTTPHeaderField: "X-Consumer-Id");

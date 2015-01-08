@@ -81,10 +81,12 @@ class Utility {
                 if (winConditionGoalType == "most_points" || winConditionGoalType == "unit_goal_reached") {
                     nib = CompetitiveChallengeView.instanceFromNib(challenge, winConditions: winConditions);
                 }
-                else if (winConditionGoalType == "threshold_reached") {
+                else if (winConditionGoalType == "threshold_reached" && winConditions[0].goal.minThreshold > 1) {
                     nib = GoalChallengeView.instanceFromNib(challenge, winConditions: winConditions);
                 }
-                nibs.append(nib);
+                if (nib != nil) {
+                    nibs.append(nib);
+                }
                 winConditions = [];
             }
             winConditions.append(currentWinCondition);
@@ -95,10 +97,12 @@ class Utility {
             if (remainingGoalType == "most_points" || remainingGoalType == "unit_goal_reached") {
                 nib = CompetitiveChallengeView.instanceFromNib(challenge, winConditions: winConditions);
             }
-            else if (remainingGoalType == "threshold_reached") {
+            else if (remainingGoalType == "threshold_reached" && winConditions[0].goal.minThreshold > 1) {
                 nib = GoalChallengeView.instanceFromNib(challenge, winConditions: winConditions);
             }
-            nibs.append(nib);
+            if (nib != nil) {
+                nibs.append(nib);
+            }
         }
         return nibs;
     }
@@ -127,5 +131,4 @@ class Utility {
             return rank + "th"
         }
     }
-    
 }

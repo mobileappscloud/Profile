@@ -223,7 +223,7 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
         dayGraph.setupGraph(ActivityGraphHostingView.Mode.DAY);
         weekGraph.setupGraph(ActivityGraphHostingView.Mode.WEEK);
         monthGraph.setupGraph(ActivityGraphHostingView.Mode.MONTH);
-        
+
         graphContainer.addSubview(dayGraph);
         graphContainer.addSubview(weekGraph);
         graphContainer.addSubview(monthGraph);
