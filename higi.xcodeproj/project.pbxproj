@@ -272,6 +272,8 @@
 		8FFF43C219B798380056F412 /* pulse_overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFF43BD19B798380056F412 /* pulse_overlay@2x.png */; };
 		8FFF43C319B798380056F412 /* weight_overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFF43BE19B798380056F412 /* weight_overlay@2x.png */; };
 		C05CB27FD2A34A3BA2F46E97 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C0A91AD3D5DE44B7872F95D7 /* libPods.a */; };
+		D1F22F671A607FF90075DDC5 /* ChallengeDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F22F661A607FF90075DDC5 /* ChallengeDetailsViewController.swift */; };
+		D1F22F691A6080230075DDC5 /* ChallengeDetailsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1F22F681A6080230075DDC5 /* ChallengeDetailsView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -567,6 +569,8 @@
 		8FFF43BD19B798380056F412 /* pulse_overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pulse_overlay@2x.png"; path = "images/pulse_overlay@2x.png"; sourceTree = "<group>"; };
 		8FFF43BE19B798380056F412 /* weight_overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "weight_overlay@2x.png"; path = "images/weight_overlay@2x.png"; sourceTree = "<group>"; };
 		C0A91AD3D5DE44B7872F95D7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D1F22F661A607FF90075DDC5 /* ChallengeDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeDetailsViewController.swift; sourceTree = "<group>"; };
+		D1F22F681A6080230075DDC5 /* ChallengeDetailsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailsView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1200,6 +1204,8 @@
 			children = (
 				8FFB035619FEAF050036228C /* ChallengesViewController.swift */,
 				8FFB035A19FEAF550036228C /* ChallengesView.xib */,
+				D1F22F661A607FF90075DDC5 /* ChallengeDetailsViewController.swift */,
+				D1F22F681A6080230075DDC5 /* ChallengeDetailsView.xib */,
 			);
 			name = Challenges;
 			sourceTree = "<group>";
@@ -1426,6 +1432,7 @@
 				8FC7B6FB19E5C1A000D0112F /* welcome_04_bg-568h@2x.png in Resources */,
 				8F5C38E11981901600F51543 /* pulse.png in Resources */,
 				8F5E7FDC199BD089009067E5 /* gen_checkin.png in Resources */,
+				D1F22F691A6080230075DDC5 /* ChallengeDetailsView.xib in Resources */,
 				8FF9409319899AEA00D319D7 /* createreminder.png in Resources */,
 				8F02A13F19AE2CF4002FF73E /* bodystats_background.png in Resources */,
 				8F5C38E91981B2B300F51543 /* createreminder_inverted.png in Resources */,
@@ -1580,6 +1587,7 @@
 				8F2B7E53198C3097009DE89A /* DrawerCell.swift in Sources */,
 				8FDB4B641A096E1C00F57B38 /* HigiChallenge.swift in Sources */,
 				8F29630D194B8F4600E787FD /* WelcomeViewController.swift in Sources */,
+				D1F22F671A607FF90075DDC5 /* ChallengeDetailsViewController.swift in Sources */,
 				8FDB4B6A1A09741400F57B38 /* ChallengeWinCondition.swift in Sources */,
 				8F2B7E41198C2C27009DE89A /* SWRevealViewController.m in Sources */,
 				8F2CB5891993E68C009377A8 /* SessionData.swift in Sources */,
