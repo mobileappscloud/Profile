@@ -39,22 +39,21 @@ class ActivityGraphHostingView: CPTGraphHostingView, CPTBarPlotDataSource {
         graph.paddingRight = 0;
         graph.paddingBottom = -20;
         
+        //not sure why, but graph was cutting off axes
         graph.plotAreaFrame.paddingLeft = 40;
         graph.plotAreaFrame.paddingTop = 5;
         graph.plotAreaFrame.paddingBottom = 40;
         
-        var axes = graph.axisSet as CPTXYAxisSet;
+        var formatter = NSNumberFormatter();
+        formatter.generatesDecimalNumbers = false;
         
+        var axes = graph.axisSet as CPTXYAxisSet;
         var xAxis = axes.xAxis;
         xAxis.majorTickLength = 0;
         xAxis.minorTicksPerInterval = 0;
         xAxis.axisConstraints = CPTConstraints.constraintWithLowerOffset(0.0);
-        var formatter = NSNumberFormatter();
-        formatter.generatesDecimalNumbers = false;
         xAxis.labelingPolicy = CPTAxisLabelingPolicyNone;
-        
         xAxis.labelFormatter = formatter;
-        
         var yAxis = axes.yAxis;
         yAxis.minorTicksPerInterval = 0;
         yAxis.labelingPolicy = CPTAxisLabelingPolicyAutomatic;
@@ -104,6 +103,7 @@ class ActivityGraphHostingView: CPTGraphHostingView, CPTBarPlotDataSource {
                     if (pointValue > maxPlotPoints) {
                         maxPlotPoints = pointValue;
                     }
+                    //we need this to know the value that the data label shows
                     totalPlotPoints[index] = totalPlotPoints[index] + pointValue;
                 }
                 plotIndex++;
