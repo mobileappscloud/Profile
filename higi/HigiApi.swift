@@ -11,14 +11,18 @@ import Foundation
 
 class HigiApi {
     
+    class var PRODUCTION: Bool {
+        return true;
+    }
+    
     var manager: AFHTTPRequestOperationManager;
     
     class var higiApiUrl: String {
-        return BASE_URL;
+        return HigiApi.PRODUCTION == true ? BASE_URL : DEV_BASE_URL;
     }
     
     class var earnditApiUrl: String {
-        return EARNDIT_URL;
+        return HigiApi.PRODUCTION == true ? EARNDIT_URL : DEV_EARNDIT_URL;
     }
     
     class var webUrl: String {
@@ -38,9 +42,10 @@ class HigiApi {
         manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept");
         manager.requestSerializer.setValue("application/vnd.higi.earndit;version=2", forHTTPHeaderField: "Accept");
         
-        manager.requestSerializer.setValue("rQIpgKhmd0qObDSr5SkHbw", forHTTPHeaderField: "Dev-Token");  // Grant
-        //manager.requestSerializer.setValue("XibU2q0gN0eB5NxdflUQ0w", forHTTPHeaderField: "Dev-Token");  // Harry
-        
+        if (!HigiApi.PRODUCTION) {
+            manager.requestSerializer.setValue("rQIpgKhmd0qObDSr5SkHbw", forHTTPHeaderField: "Dev-Token");  // Grant
+        }
+        manager.requestSerializer.setValue("iOSv\(Utility.appVersion()).\(Utility.appBuild())", forHTTPHeaderField: "X-Consumer-Id");
         if (!SessionData.Instance.token.isEmpty) {
             manager.requestSerializer.setValue(SessionData.Instance.token, forHTTPHeaderField: "Token");
         }
@@ -77,12 +82,12 @@ class HigiApi {
 }
 
 let BASE_URL = "https://api.higi.com";
-//let BASE_URL = "http://higiapi2.cloudapp.net";
+let DEV_BASE_URL = "http://higiapi2.cloudapp.net";
 
-//let EARNDIT_URL = "https://higi.com/higiApi";
-let EARNDIT_URL = "http://earndit-web-qa2.cloudapp.net/higiApi";
+let EARNDIT_URL = "https://earndit.com/higiApi";
+let DEV_EARNDIT_URL = "http://earndit-web-qa2.cloudapp.net/higiApi";
 
 let WEB_URL = "https://higi.com";
-//let WEB_URL = "https://webqa.superbuddytime.com";
+let DEV_WEB_URL = "https://webqa.superbuddytime.com";
 
 let API_KEY = "SyNAqa1DNkeph3P6pvMw8kCdbAh0mMNaJ0quimRPHNZH5jKvzBZulRhn31mGfPfUIZ7l2HBazU9tMeWMJ7eNPn35ZVxw9liS3mQ20Bj780MBAA==";

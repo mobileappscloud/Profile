@@ -30,6 +30,7 @@ class ApiUtility {
                 ApiUtility.retrieveCheckins(success);
                 ApiUtility.retrieveActivities(success);
                 ApiUtility.retrieveChallenges(success);
+                ApiUtility.retrieveDevices(success);
             }
             
             }, failure: {operation, error in
@@ -81,6 +82,7 @@ class ApiUtility {
     }
     
     class func retrieveActivities(success: (() -> Void)?) {
+        let userId = HigiApi.PRODUCTION == true ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
         var startDateFormatter = NSDateFormatter();
         startDateFormatter.dateFormat = "yyyy-MM-01";
         var endDateFormatter = NSDateFormatter();
@@ -89,7 +91,7 @@ class ApiUtility {
         var dateComponents = NSDateComponents();
         dateComponents.month = -6;
         var startDate = NSCalendar.currentCalendar().dateByAddingComponents(dateComponents, toDate: endDate, options: NSCalendarOptions.allZeros)!;
-        HigiApi().sendGet("\(HigiApi.earnditApiUrl)/user/rQIpgKhmd0qObDSr5SkHbw/activities?startDate=\(startDateFormatter.stringFromDate(startDate))&endDate=\(endDateFormatter.stringFromDate(endDate))", success: {operation, responseObject in
+        HigiApi().sendGet("\(HigiApi.earnditApiUrl)/user/\(userId)/activities?startDate=\(startDateFormatter.stringFromDate(startDate))&endDate=\(endDateFormatter.stringFromDate(endDate))", success: {operation, responseObject in
             var activities: [HigiActivity] = [];
             var serverActivities = ((responseObject as NSDictionary)["response"] as NSDictionary)["data"] as NSArray;
             for activity: AnyObject in serverActivities {
@@ -100,19 +102,21 @@ class ApiUtility {
             }, failure: { operation, error in
                 SessionController.Instance.activities = [];
                 success?();
-        });    }
+        });
+    }
     
     class func retrieveChallenges(success: (() -> Void)?) {
-        HigiApi().sendGet("\(HigiApi.earnditApiUrl)/user/rQIpgKhmd0qObDSr5SkHbw/challenges?include[gravityboard]=3", success: {operation, responseObject in
+        let userId = HigiApi.PRODUCTION == true ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
+        HigiApi().sendGet("\(HigiApi.earnditApiUrl)/user/\(userId)/challenges?include[gravityboard]=3", success: {operation, responseObject in
             var challenges: [HigiChallenge] = [];
             var serverChallenges = ((responseObject as NSDictionary)["response"] as NSDictionary)["data"] as NSArray;
             for challenge: AnyObject in serverChallenges {
-                var serverParticipant = (challenge as NSDictionary)["participant"] as? NSDictionary;
+                var serverParticipant = ((challenge as NSDictionary)["userRelation"] as NSDictionary)["participant"] as? NSDictionary;
                 var participant: ChallengeParticipant!;
                 if (serverParticipant != nil) {
                     participant = ChallengeParticipant(dictionary: serverParticipant!);
                 }
-                var serverGravityBoard = (challenge as NSDictionary)["gravityboard"] as? NSArray;
+                var serverGravityBoard = ((challenge as NSDictionary)["userRelation"] as NSDictionary)["gravityboard"] as? NSArray;
                 var gravityBoard: [GravityParticipant] = [];
                 if (serverGravityBoard != nil) {
                     for boardParticipant: AnyObject in serverGravityBoard! {
@@ -120,13 +124,37 @@ class ApiUtility {
                         gravityBoard.append(GravityParticipant(place: (boardParticipant as NSDictionary)["position"] as NSString, participant: ChallengeParticipant(dictionary: (boardParticipant as NSDictionary)["participant"] as NSDictionary)));
                     }
                 }
-                challenges.append(HigiChallenge(dictionary: (challenge as NSDictionary)["challenge"] as NSDictionary, userStatus: (challenge as NSDictionary)["status"] as NSString, participant: participant, gravityBoard: gravityBoard));
+                challenges.append(HigiChallenge(dictionary: challenge as NSDictionary, userStatus: ((challenge as NSDictionary)["userRelation"] as NSDictionary)["status"] as NSString, participant: participant, gravityBoard: gravityBoard));
             }
             
             SessionController.Instance.challenges = challenges;
             success?();
             }, failure: { operation, error in
                 SessionController.Instance.challenges = [];
+                success?();
+        });
+        
+    }
+    
+    class func retrieveDevices(success: (() -> Void)?) {
+        let userId = HigiApi.PRODUCTION == true ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
+        
+        HigiApi().sendGet("\(HigiApi.earnditApiUrl)/user/\(userId)/devices", success: {operation, responseObject in
+            var devices: [String:ActivityDevice] = [:];
+            var serverDevices = (responseObject as NSDictionary)["response"] as NSArray;
+            for device: AnyObject in serverDevices {
+                var serverDevice = (device as NSDictionary)["device"] as? NSDictionary;
+                if (serverDevice != nil) {
+                    var thisDevice = ActivityDevice(dictionary: serverDevice!);
+                    thisDevice.enabled = (device as NSDictionary)["enabled"] as? Bool;
+                    devices[thisDevice.name] = ActivityDevice(dictionary: serverDevice!);
+                }
+            }
+            
+            SessionController.Instance.devices = devices;
+            success?();
+            }, failure: { operation, error in
+                SessionController.Instance.devices = [:];
                 success?();
         });
         
@@ -172,6 +200,7 @@ class ApiUtility {
                 
         });
     }
+    
     
     class func updateHealthKit() {
         if (UIDevice.currentDevice().systemVersion >= "8.0" && HKHealthStore.isHealthDataAvailable()) {
@@ -300,7 +329,7 @@ class ApiUtility {
             
             }, failure: {operation, error in
                 
-                var i = 0; //TODO remove this if possible
+                var i = 0; //TODO remove this if possible. Causes to not build because contents are only an optional call.
                 callback?();
                 
         });
