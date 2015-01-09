@@ -47,19 +47,26 @@ class ActivityGraphHostingView: CPTGraphHostingView, CPTBarPlotDataSource {
         var formatter = NSNumberFormatter();
         formatter.generatesDecimalNumbers = false;
         
+        var labelStyle = CPTMutableTextStyle();
+        labelStyle.fontSize = 10;
+        
         var axes = graph.axisSet as CPTXYAxisSet;
         var xAxis = axes.xAxis;
+        var yAxis = axes.yAxis;
+        
         xAxis.majorTickLength = 0;
         xAxis.minorTicksPerInterval = 0;
         xAxis.axisConstraints = CPTConstraints.constraintWithLowerOffset(0.0);
         xAxis.labelingPolicy = CPTAxisLabelingPolicyNone;
         xAxis.labelFormatter = formatter;
-        var yAxis = axes.yAxis;
+        xAxis.labelTextStyle = labelStyle;
+        
         yAxis.minorTicksPerInterval = 0;
-        yAxis.labelingPolicy = CPTAxisLabelingPolicyAutomatic;
+        yAxis.labelingPolicy = CPTAxisLabelingPolicyNone;
         yAxis.axisConstraints = CPTConstraints.constraintWithLowerOffset(0.0);
         yAxis.labelFormatter = formatter;
-        
+        yAxis.labelTextStyle = labelStyle;
+        yAxis.labelOffset = -20;
         var plotSpace = graph.defaultPlotSpace as CPTXYPlotSpace;
         plotSpace.allowsUserInteraction = false;
 
@@ -71,9 +78,6 @@ class ActivityGraphHostingView: CPTGraphHostingView, CPTBarPlotDataSource {
             var label = NewCPTAxisLabel(text: dates[index], textStyle: xAxis.labelTextStyle);
             label.setTickIndex(Double(index));
             label.offset = xAxis.labelOffset + xAxis.majorTickLength;
-            if (mode == Mode.WEEK) {
-                label.rotation = CGFloat(M_PI) / 4;
-            }
             dateLabels.append(label);
         }
         xAxis.axisLabels = NSSet(array: dateLabels);
@@ -104,17 +108,48 @@ class ActivityGraphHostingView: CPTGraphHostingView, CPTBarPlotDataSource {
                         maxPlotPoints = pointValue;
                     }
                     //we need this to know the value that the data label shows
-                    totalPlotPoints[index] = totalPlotPoints[index] + pointValue;
+                    var newVal = totalPlotPoints[index] + pointValue;
+                    totalPlotPoints[index] = newVal;
+                    if (newVal > maxPlotPoints) {
+                        maxPlotPoints = newVal;
+                    }
                 }
                 plotIndex++;
                 lastDevice = device;
             }
         }
+        
+        var yAxisLabels:NewCPTAxisLabel;
+        
+        var yLabelValue = getNearestYLabel(maxPlotPoints);
+        var label = NewCPTAxisLabel(text: String(yLabelValue), textStyle: xAxis.labelTextStyle);
+        label.setTickIndex(Double(yLabelValue));
+        dateLabels.append(label);
+        yAxis.axisLabels = NSSet(array: [label]);
 
         plotSpace.xRange = NewCPTPlotRange(location: -1, length: 8);
+        var a  = Double(maxPlotPoints) * 1.5;
         plotSpace.yRange = NewCPTPlotRange(location: 0, length: Double(maxPlotPoints) * 1.5);
         plotSpace.globalXRange = plotSpace.xRange;
         plotSpace.globalYRange = plotSpace.yRange;
+    }
+    
+    func setUpAxes(labelStyle: CPTMutableTextStyle, xAxis: CPTAxis, yAxis: CPTAxis) {
+        
+    }
+    
+    func getNearestYLabel(points: Int) -> Int {
+        var nearestValue = 0;
+        if (points < 10) {
+            nearestValue = 10;
+        } else if (points < 100) {
+            nearestValue = Int(points % 10) * 10;
+        } else if (points < 500) {
+            nearestValue = Int(points / 100) * 100;
+        } else {
+            nearestValue = Int(points / 500) * 500;
+        }
+        return nearestValue;
     }
     
     func doubleForPlot(plot: CPTPlot!, field fieldEnum: UInt, recordIndex idx: UInt) -> Double {
