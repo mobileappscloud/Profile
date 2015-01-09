@@ -133,7 +133,7 @@
                 <outlet property="thirdPositionProgressBar" destination="ab3-dY-NfI" id="T4x-9B-NnC"/>
                 <outlet property="thirdPositionRank" destination="MSy-Hn-gWp" id="Ek8-uc-EEh"/>
             </connections>
-            <point key="canvasLocation" x="540" y="113"/>
+            <point key="canvasLocation" x="505" y="80"/>
         </view>
     </objects>
     <resources>

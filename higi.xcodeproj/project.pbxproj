@@ -289,9 +289,10 @@
 		C05CB27FD2A34A3BA2F46E97 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C0A91AD3D5DE44B7872F95D7 /* libPods.a */; };
 		D12780AE1A4A2701002EB56A /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D12780AD1A4A2701002EB56A /* fontawesome-webfont.ttf */; };
 		D19C66C91A3F74A400655218 /* ScrollViewPagerControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19C66C81A3F74A400655218 /* ScrollViewPagerControllerViewController.swift */; };
-		D19DDA501A5B37F4004F97A3 /* ChallengePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19DDA4F1A5B37F4004F97A3 /* ChallengePage.swift */; };
 		D19DDA531A5EF599004F97A3 /* NewCPTAxisLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = D19DDA521A5EF599004F97A3 /* NewCPTAxisLabel.m */; };
 		D19DDA551A5F1705004F97A3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19DDA541A5F1705004F97A3 /* Constants.swift */; };
+		D19DDA591A60313A004F97A3 /* ChallengeDetails.xib in Resources */ = {isa = PBXBuildFile; fileRef = D19DDA581A60313A004F97A3 /* ChallengeDetails.xib */; };
+		D19DDA5B1A6034FC004F97A3 /* ChallengeDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19DDA5A1A6034FC004F97A3 /* ChallengeDetailsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -604,10 +605,11 @@
 		C0A91AD3D5DE44B7872F95D7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D12780AD1A4A2701002EB56A /* fontawesome-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fontawesome-webfont.ttf"; sourceTree = "<group>"; };
 		D19C66C81A3F74A400655218 /* ScrollViewPagerControllerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollViewPagerControllerViewController.swift; sourceTree = "<group>"; };
-		D19DDA4F1A5B37F4004F97A3 /* ChallengePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengePage.swift; sourceTree = "<group>"; };
 		D19DDA511A5EF432004F97A3 /* NewCPTAxisLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewCPTAxisLabel.h; sourceTree = "<group>"; };
 		D19DDA521A5EF599004F97A3 /* NewCPTAxisLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewCPTAxisLabel.m; sourceTree = "<group>"; };
 		D19DDA541A5F1705004F97A3 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		D19DDA581A60313A004F97A3 /* ChallengeDetails.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetails.xib; sourceTree = "<group>"; };
+		D19DDA5A1A6034FC004F97A3 /* ChallengeDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeDetailsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -661,7 +663,8 @@
 				2BBDBA4D1A12AC2C005A6815 /* ChallengesViewController.swift */,
 				2BBDBA501A12AC2C005A6815 /* GoalChallengeView.swift */,
 				D19C66C81A3F74A400655218 /* ScrollViewPagerControllerViewController.swift */,
-				D19DDA4F1A5B37F4004F97A3 /* ChallengePage.swift */,
+				D19DDA581A60313A004F97A3 /* ChallengeDetails.xib */,
+				D19DDA5A1A6034FC004F97A3 /* ChallengeDetailsViewController.swift */,
 			);
 			name = Challenges;
 			sourceTree = "<group>";
@@ -1439,6 +1442,7 @@
 				8F08AFB319895214002EE906 /* higilogo_ocmenu.png in Resources */,
 				8F02A13619AE2CBB002FF73E /* dashboard3@2x.png in Resources */,
 				8FFB034F19FEA2440036228C /* oc_findastation_active.png in Resources */,
+				D19DDA591A60313A004F97A3 /* ChallengeDetails.xib in Resources */,
 				8FC7B70119E5C32500D0112F /* welcome_02_text-568h@2x.png in Resources */,
 				8F1D979C1995554C003B5645 /* ModifyImageView.xib in Resources */,
 				8FC7B71319E5E67000D0112F /* dashboard3-568h@2x.png in Resources */,
@@ -1617,6 +1621,7 @@
 				8FE056E3198FDC3900C81208 /* SettingsViewController.swift in Sources */,
 				8F6A24361958DDFB0094B73C /* NewCPTMutablePlotRange.m in Sources */,
 				8F9C69D71950C89B00449664 /* HigiUser.swift in Sources */,
+				D19DDA5B1A6034FC004F97A3 /* ChallengeDetailsViewController.swift in Sources */,
 				8F9C69D51950C88900449664 /* HigiCheckin.swift in Sources */,
 				8F5E7FBF199965CF009067E5 /* PinCodeViewController.swift in Sources */,
 				8F9C69D31950C84400449664 /* HigiLogin.swift in Sources */,
@@ -1674,7 +1679,6 @@
 				8F08AFAF19894EE6002EE906 /* WelcomeView.swift in Sources */,
 				8FCD2D8019EC286900AC5A82 /* UIImage+Orientation.m in Sources */,
 				8F6A2445195A076B0094B73C /* MapGraphDelegate.swift in Sources */,
-				D19DDA501A5B37F4004F97A3 /* ChallengePage.swift in Sources */,
 				8F2B7E43198C2DA0009DE89A /* DrawerViewController.swift in Sources */,
 				8F524BF6195B5ABB00BFC49D /* ConversionUtility.m in Sources */,
 				8F087A901A1BDFC7008E0446 /* ActivityCellHeader.swift in Sources */,
