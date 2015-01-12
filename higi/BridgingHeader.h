@@ -11,6 +11,8 @@
 
 #import "NewCPTScatterPlot.h"
 
+#import "NewCPTAxisLabel.h"
+
 #import "ConversionUtility.h"
 
 #import "NewCPTScatterPlotDelegate.h"

@@ -1,11 +1,3 @@
-//
-//  Utility.swift
-//  higi
-//
-//  Created by Dan Harms on 6/10/14.
-//  Copyright (c) 2014 higi, LLC. All rights reserved.
-//
-
 import Foundation
 
 class Utility {
@@ -46,7 +38,7 @@ class Utility {
     }
     
     class func scaleImage(image: UIImage, newSize: CGSize) -> UIImage {
-    
+        
         UIGraphicsBeginImageContextWithOptions(newSize, false, image.scale);
         image.drawInRect(CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height));
         var newImage = UIGraphicsGetImageFromCurrentImageContext();
@@ -72,4 +64,71 @@ class Utility {
         return NSBundle.mainBundle().objectForInfoDictionaryKey(kCFBundleVersionKey as NSString) as String
     }
     
+    class func getChallengeViews(challenge: HigiChallenge) -> [UIView] {
+        var nib:UIView!;
+        var nibs:[UIView] = [];
+        var winConditions:[ChallengeWinCondition] = [];
+        
+        for index in 0...challenge.winConditions.count - 1 {
+            let currentWinCondition = challenge.winConditions[index];
+            let previousWinCondition:ChallengeWinCondition = index == 0 ? challenge.winConditions[index] : challenge.winConditions[index-1];
+            
+            let goalType = currentWinCondition.goal.type;
+            let winnerType = currentWinCondition.winnerType;
+            
+            if (previousWinCondition !== currentWinCondition && (goalType != previousWinCondition.goal.type || winnerType != previousWinCondition.winnerType)) {
+                let winConditionGoalType = winConditions[0].goal.type;
+                if (winConditionGoalType == "most_points" || winConditionGoalType == "unit_goal_reached") {
+                    nib = CompetitiveChallengeView.instanceFromNib(challenge, winConditions: winConditions);
+                }
+                else if (winConditionGoalType == "threshold_reached" && winConditions[0].goal.minThreshold > 1) {
+                    nib = GoalChallengeView.instanceFromNib(challenge, winConditions: winConditions);
+                }
+                if (nib != nil) {
+                    nibs.append(nib);
+                }
+                winConditions = [];
+            }
+            winConditions.append(currentWinCondition);
+        }
+        
+        if winConditions.count > 0 {
+            let remainingGoalType = winConditions[0].goal.type;
+            if (remainingGoalType == "most_points" || remainingGoalType == "unit_goal_reached") {
+                nib = CompetitiveChallengeView.instanceFromNib(challenge, winConditions: winConditions);
+            }
+            else if (remainingGoalType == "threshold_reached" && winConditions[0].goal.minThreshold > 1) {
+                nib = GoalChallengeView.instanceFromNib(challenge, winConditions: winConditions);
+            }
+            if (nib != nil) {
+                nibs.append(nib);
+            }
+        }
+        return nibs;
+    }
+    
+    class func loadImageFromUrl(imageUrlString: String) -> NSURL {
+        let imageUrl = NSURL(string: imageUrlString)?;
+        if let imageError = imageUrl?.checkResourceIsReachableAndReturnError(NSErrorPointer()) {
+            return imageUrl!;
+        }
+        return NSURL()
+    }
+    
+    class func getRankSuffix(rank: NSString) -> String {
+        if ( rank == "11" || rank == "12" || rank == "13") {
+            return rank + "th"
+        }
+        let last = rank.substringFromIndex(rank.length - 1)
+        switch(last) {
+        case "1":
+            return rank + "st"
+        case "2":
+            return rank + "nd"
+        case "3":
+            return rank + "rd"
+        default:
+            return rank + "th"
+        }
+    }
 }

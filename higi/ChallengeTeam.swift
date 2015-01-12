@@ -1,11 +1,3 @@
-//
-//  ChallengeTeam.swift
-//  higi
-//
-//  Created by Dan Harms on 11/14/14.
-//  Copyright (c) 2014 higi, LLC. All rights reserved.
-//
-
 import Foundation
 
 class ChallengeTeam {
@@ -15,6 +7,8 @@ class ChallengeTeam {
     var memberCount: Int!;
     
     var units: Double!;
+    
+    var place: Int?;
     
     init(dictionary: NSDictionary) {
         name = dictionary["name"] as NSString;

@@ -27,6 +27,8 @@ class HigiChallenge {
     var gravityBoard: [GravityParticipant]!;
     
     var teams: [ChallengeTeam]!;
+
+    var highScore = 1000;
     
     init(dictionary: NSDictionary, userStatus: NSString, participant: ChallengeParticipant!, gravityBoard: [GravityParticipant]!) {
         self.userStatus = userStatus;
@@ -49,14 +51,14 @@ class HigiChallenge {
         participantsCount = dictionary["participantsCount"] as Int;
         terms = (dictionary["terms"] ?? "") as? NSString;
         
-        var conditions = dictionary["winConditions"] as NSArray?;
+        var conditions = dictionary["winConditions"] as? NSArray;
         if (conditions != nil) {
             for condition: AnyObject in conditions! {
                 winConditions.append(ChallengeWinCondition(dictionary: condition as NSDictionary));
             }
         }
         
-        var serverDevices = dictionary["devices"] as NSArray?;
+        var serverDevices = dictionary["devices"] as? NSArray;
         if (serverDevices != nil) {
             for device: AnyObject in serverDevices! {
                 devices.append(ActivityDevice(dictionary: device as NSDictionary));

@@ -25,6 +25,8 @@ class SessionController {
     
     var healthStore: HKHealthStore!;
     
+    var devices: [String: ActivityDevice] = [:];
+    
     func reset() {
         checkins = [];
     }

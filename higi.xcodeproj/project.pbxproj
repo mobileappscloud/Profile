@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B8032001A1FEF420029D6DF /* calendar_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B8031FF1A1FEF420029D6DF /* calendar_icon.png */; };
+		2B8032021A1FEF4F0029D6DF /* person_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B8032011A1FEF4F0029D6DF /* person_icon.png */; };
+		2BBDBA521A12AC2C005A6815 /* ChallengeRowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBDBA4A1A12AC2C005A6815 /* ChallengeRowCell.swift */; };
+		2BBDBA531A12AC2C005A6815 /* ChallengeRowCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BBDBA4B1A12AC2C005A6815 /* ChallengeRowCell.xib */; };
+		2BBDBA541A12AC2C005A6815 /* ChallengesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BBDBA4C1A12AC2C005A6815 /* ChallengesView.xib */; };
+		2BBDBA551A12AC2C005A6815 /* ChallengesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBDBA4D1A12AC2C005A6815 /* ChallengesViewController.swift */; };
+		2BBDBA561A12AC2C005A6815 /* CompetitiveChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBDBA4E1A12AC2C005A6815 /* CompetitiveChallengeView.swift */; };
+		2BBDBA571A12AC2C005A6815 /* CompetitiveChallengeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BBDBA4F1A12AC2C005A6815 /* CompetitiveChallengeView.xib */; };
+		2BBDBA581A12AC2C005A6815 /* GoalChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBDBA501A12AC2C005A6815 /* GoalChallengeView.swift */; };
+		2BBDBA591A12AC2C005A6815 /* GoalChallengeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BBDBA511A12AC2C005A6815 /* GoalChallengeView.xib */; };
+		2BC5865C1A16C63B005A7983 /* ChallengeInvitation.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BC5865B1A16C63B005A7983 /* ChallengeInvitation.xib */; };
+		2BC5865E1A16D0AF005A7983 /* ChallengeInvitationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC5865D1A16D0AF005A7983 /* ChallengeInvitationView.swift */; };
 		8F02A11F19AE2BF6002FF73E /* btn_back_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A11719AE2BF6002FF73E /* btn_back_black.png */; };
 		8F02A12019AE2BF6002FF73E /* btn_back_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A11819AE2BF6002FF73E /* btn_back_black@2x.png */; };
 		8F02A12119AE2BF6002FF73E /* btn_back_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A11919AE2BF6002FF73E /* btn_back_white.png */; };
@@ -29,6 +41,7 @@
 		8F069CBB19D9D5C200DCC820 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F069CBA19D9D5C200DCC820 /* MapKit.framework */; };
 		8F069CBF19D9E20D00DCC820 /* libFlurry_5.4.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F069CBE19D9E20D00DCC820 /* libFlurry_5.4.0.a */; };
 		8F069CC219DAFCFF00DCC820 /* higi_logo_innercircle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F069CC119DAFCFF00DCC820 /* higi_logo_innercircle@2x.png */; };
+		8F087A901A1BDFC7008E0446 /* ActivityCellHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F087A8F1A1BDFC7008E0446 /* ActivityCellHeader.swift */; };
 		8F08AF9D198940E8002EE906 /* Welcome.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F08AF9C198940E8002EE906 /* Welcome.xib */; };
 		8F08AFAD19894EDD002EE906 /* WelcomeFirstView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F08AFAC19894EDD002EE906 /* WelcomeFirstView.swift */; };
 		8F08AFAF19894EE6002EE906 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F08AFAE19894EE6002EE906 /* WelcomeView.swift */; };
@@ -38,6 +51,8 @@
 		8F1D979C1995554C003B5645 /* ModifyImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F1D979B1995554C003B5645 /* ModifyImageView.xib */; };
 		8F1D979E199556F3003B5645 /* mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F1D979D199556F3003B5645 /* mask.png */; };
 		8F1D97A0199558F7003B5645 /* checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F1D979F199558F7003B5645 /* checkmark.png */; };
+		8F211EF91A1E85AE00A256C0 /* oc_dropdownmenu_down.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F211EF71A1E85AE00A256C0 /* oc_dropdownmenu_down.png */; };
+		8F211EFA1A1E85AE00A256C0 /* oc_dropdownmenu_up.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F211EF81A1E85AE00A256C0 /* oc_dropdownmenu_up.png */; };
 		8F296309194B8DE700E787FD /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F296308194B8DE700E787FD /* SplashViewController.swift */; };
 		8F29630B194B8E3700E787FD /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F29630A194B8E3700E787FD /* DashboardViewController.swift */; };
 		8F29630D194B8F4600E787FD /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F29630C194B8F4600E787FD /* WelcomeViewController.swift */; };
@@ -159,6 +174,7 @@
 		8F77DF1A1A0080550056BE27 /* GraphPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F77DF191A0080550056BE27 /* GraphPoint.swift */; };
 		8F807A761976C9D600EEE019 /* LandscapeGraph.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F807A751976C9D600EEE019 /* LandscapeGraph.xib */; };
 		8F807A781976C9ED00EEE019 /* PortraitGraph.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F807A771976C9ED00EEE019 /* PortraitGraph.xib */; };
+		8F81DB571A1BDD670054EB2E /* ActivityCellHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F81DB561A1BDD670054EB2E /* ActivityCellHeaderView.xib */; };
 		8F89C2581A01B0B700A3AD09 /* ActivityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F89C2571A01B0B700A3AD09 /* ActivityCell.swift */; };
 		8F89C25A1A01B0D500A3AD09 /* ActivityCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F89C2591A01B0D500A3AD09 /* ActivityCellView.xib */; };
 		8F9C69D31950C84400449664 /* HigiLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C69D21950C84400449664 /* HigiLogin.swift */; };
@@ -170,6 +186,7 @@
 		8FA5925B19AB921C00622266 /* create_overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA5925A19AB921C00622266 /* create_overlay.png */; };
 		8FA5925D19ABBCEC00622266 /* TourView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FA5925C19ABBCEC00622266 /* TourView.xib */; };
 		8FA5925F19ABBD3A00622266 /* TourViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA5925E19ABBD3A00622266 /* TourViewController.swift */; };
+		8FC130C71A26464400591C58 /* ActivityGraphHostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC130C61A26464400591C58 /* ActivityGraphHostingView.swift */; };
 		8FC7B6F819E5C1A000D0112F /* welcome_01_bg-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FC7B6F219E5C1A000D0112F /* welcome_01_bg-568h@2x.png */; };
 		8FC7B6F919E5C1A000D0112F /* welcome_02_bg-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FC7B6F319E5C1A000D0112F /* welcome_02_bg-568h@2x.png */; };
 		8FC7B6FA19E5C1A000D0112F /* welcome_03_bg-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FC7B6F419E5C1A000D0112F /* welcome_03_bg-568h@2x.png */; };
@@ -263,9 +280,7 @@
 		8FFB035019FEA2440036228C /* oc_pulse_active.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFB034619FEA2440036228C /* oc_pulse_active.png */; };
 		8FFB035119FEA2440036228C /* oc_settings_active.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFB034719FEA2440036228C /* oc_settings_active.png */; };
 		8FFB035519FEAED10036228C /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFB035419FEAED10036228C /* ActivityViewController.swift */; };
-		8FFB035719FEAF050036228C /* ChallengesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFB035619FEAF050036228C /* ChallengesViewController.swift */; };
 		8FFB035919FEAF2C0036228C /* ActivityView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FFB035819FEAF2C0036228C /* ActivityView.xib */; };
-		8FFB035B19FEAF550036228C /* ChallengesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FFB035A19FEAF550036228C /* ChallengesView.xib */; };
 		8FFF43BF19B798380056F412 /* bmi_overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFF43BA19B798380056F412 /* bmi_overlay@2x.png */; };
 		8FFF43C019B798380056F412 /* bp_overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFF43BB19B798380056F412 /* bp_overlay@2x.png */; };
 		8FFF43C119B798380056F412 /* map_overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFF43BC19B798380056F412 /* map_overlay@2x.png */; };
@@ -287,6 +302,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B8031FF1A1FEF420029D6DF /* calendar_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calendar_icon.png; sourceTree = "<group>"; };
+		2B8032011A1FEF4F0029D6DF /* person_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = person_icon.png; sourceTree = "<group>"; };
+		2BBDBA4A1A12AC2C005A6815 /* ChallengeRowCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeRowCell.swift; sourceTree = "<group>"; };
+		2BBDBA4B1A12AC2C005A6815 /* ChallengeRowCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeRowCell.xib; sourceTree = "<group>"; };
+		2BBDBA4C1A12AC2C005A6815 /* ChallengesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengesView.xib; sourceTree = "<group>"; };
+		2BBDBA4D1A12AC2C005A6815 /* ChallengesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengesViewController.swift; sourceTree = "<group>"; };
+		2BBDBA4E1A12AC2C005A6815 /* CompetitiveChallengeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompetitiveChallengeView.swift; sourceTree = "<group>"; };
+		2BBDBA4F1A12AC2C005A6815 /* CompetitiveChallengeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompetitiveChallengeView.xib; sourceTree = "<group>"; };
+		2BBDBA501A12AC2C005A6815 /* GoalChallengeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalChallengeView.swift; sourceTree = "<group>"; };
+		2BBDBA511A12AC2C005A6815 /* GoalChallengeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoalChallengeView.xib; sourceTree = "<group>"; };
+		2BC5865B1A16C63B005A7983 /* ChallengeInvitation.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeInvitation.xib; sourceTree = "<group>"; };
+		2BC5865D1A16D0AF005A7983 /* ChallengeInvitationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeInvitationView.swift; sourceTree = "<group>"; };
 		500FF7A379474030959012D0 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		8F02A11719AE2BF6002FF73E /* btn_back_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_back_black.png; sourceTree = "<group>"; };
 		8F02A11819AE2BF6002FF73E /* btn_back_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_back_black@2x.png"; sourceTree = "<group>"; };
@@ -311,6 +338,7 @@
 		8F069CBD19D9E20D00DCC820 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
 		8F069CBE19D9E20D00DCC820 /* libFlurry_5.4.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_5.4.0.a; sourceTree = "<group>"; };
 		8F069CC119DAFCFF00DCC820 /* higi_logo_innercircle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "higi_logo_innercircle@2x.png"; path = "images/higi_logo_innercircle@2x.png"; sourceTree = "<group>"; };
+		8F087A8F1A1BDFC7008E0446 /* ActivityCellHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityCellHeader.swift; sourceTree = "<group>"; };
 		8F08AF9C198940E8002EE906 /* Welcome.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Welcome.xib; sourceTree = "<group>"; };
 		8F08AFAC19894EDD002EE906 /* WelcomeFirstView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeFirstView.swift; sourceTree = "<group>"; };
 		8F08AFAE19894EE6002EE906 /* WelcomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
@@ -320,6 +348,8 @@
 		8F1D979B1995554C003B5645 /* ModifyImageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ModifyImageView.xib; sourceTree = "<group>"; };
 		8F1D979D199556F3003B5645 /* mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mask.png; path = images/mask.png; sourceTree = "<group>"; };
 		8F1D979F199558F7003B5645 /* checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = checkmark.png; path = images/checkmark.png; sourceTree = "<group>"; };
+		8F211EF71A1E85AE00A256C0 /* oc_dropdownmenu_down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oc_dropdownmenu_down.png; path = images/oc_dropdownmenu_down.png; sourceTree = "<group>"; };
+		8F211EF81A1E85AE00A256C0 /* oc_dropdownmenu_up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oc_dropdownmenu_up.png; path = images/oc_dropdownmenu_up.png; sourceTree = "<group>"; };
 		8F296308194B8DE700E787FD /* SplashViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		8F29630A194B8E3700E787FD /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 		8F29630C194B8F4600E787FD /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
@@ -453,6 +483,7 @@
 		8F77DF191A0080550056BE27 /* GraphPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphPoint.swift; sourceTree = "<group>"; };
 		8F807A751976C9D600EEE019 /* LandscapeGraph.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LandscapeGraph.xib; sourceTree = "<group>"; };
 		8F807A771976C9ED00EEE019 /* PortraitGraph.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PortraitGraph.xib; sourceTree = "<group>"; };
+		8F81DB561A1BDD670054EB2E /* ActivityCellHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityCellHeaderView.xib; sourceTree = "<group>"; };
 		8F89C2571A01B0B700A3AD09 /* ActivityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityCell.swift; sourceTree = "<group>"; };
 		8F89C2591A01B0D500A3AD09 /* ActivityCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityCellView.xib; sourceTree = "<group>"; };
 		8F9C69D21950C84400449664 /* HigiLogin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HigiLogin.swift; sourceTree = "<group>"; };
@@ -464,6 +495,7 @@
 		8FA5925A19AB921C00622266 /* create_overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = create_overlay.png; path = images/create_overlay.png; sourceTree = "<group>"; };
 		8FA5925C19ABBCEC00622266 /* TourView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TourView.xib; sourceTree = "<group>"; };
 		8FA5925E19ABBD3A00622266 /* TourViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TourViewController.swift; sourceTree = "<group>"; };
+		8FC130C61A26464400591C58 /* ActivityGraphHostingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityGraphHostingView.swift; sourceTree = "<group>"; };
 		8FC7B6F219E5C1A000D0112F /* welcome_01_bg-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "welcome_01_bg-568h@2x.png"; path = "images/welcome_01_bg-568h@2x.png"; sourceTree = "<group>"; };
 		8FC7B6F319E5C1A000D0112F /* welcome_02_bg-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "welcome_02_bg-568h@2x.png"; path = "images/welcome_02_bg-568h@2x.png"; sourceTree = "<group>"; };
 		8FC7B6F419E5C1A000D0112F /* welcome_03_bg-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "welcome_03_bg-568h@2x.png"; path = "images/welcome_03_bg-568h@2x.png"; sourceTree = "<group>"; };
@@ -560,9 +592,7 @@
 		8FFB034619FEA2440036228C /* oc_pulse_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oc_pulse_active.png; path = images/oc_pulse_active.png; sourceTree = "<group>"; };
 		8FFB034719FEA2440036228C /* oc_settings_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oc_settings_active.png; path = images/oc_settings_active.png; sourceTree = "<group>"; };
 		8FFB035419FEAED10036228C /* ActivityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
-		8FFB035619FEAF050036228C /* ChallengesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengesViewController.swift; sourceTree = "<group>"; };
 		8FFB035819FEAF2C0036228C /* ActivityView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityView.xib; sourceTree = "<group>"; };
-		8FFB035A19FEAF550036228C /* ChallengesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengesView.xib; sourceTree = "<group>"; };
 		8FFF43BA19B798380056F412 /* bmi_overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bmi_overlay@2x.png"; path = "images/bmi_overlay@2x.png"; sourceTree = "<group>"; };
 		8FFF43BB19B798380056F412 /* bp_overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bp_overlay@2x.png"; path = "images/bp_overlay@2x.png"; sourceTree = "<group>"; };
 		8FFF43BC19B798380056F412 /* map_overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "map_overlay@2x.png"; path = "images/map_overlay@2x.png"; sourceTree = "<group>"; };
@@ -610,6 +640,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2BBDBA491A12AB73005A6815 /* Challenges */ = {
+			isa = PBXGroup;
+			children = (
+				2BBDBA4B1A12AC2C005A6815 /* ChallengeRowCell.xib */,
+				2BBDBA4C1A12AC2C005A6815 /* ChallengesView.xib */,
+				2BBDBA4F1A12AC2C005A6815 /* CompetitiveChallengeView.xib */,
+				2BC5865B1A16C63B005A7983 /* ChallengeInvitation.xib */,
+				2BBDBA511A12AC2C005A6815 /* GoalChallengeView.xib */,
+				2BC5865D1A16D0AF005A7983 /* ChallengeInvitationView.swift */,
+				2BBDBA4A1A12AC2C005A6815 /* ChallengeRowCell.swift */,
+				2BBDBA4E1A12AC2C005A6815 /* CompetitiveChallengeView.swift */,
+				2BBDBA4D1A12AC2C005A6815 /* ChallengesViewController.swift */,
+				2BBDBA501A12AC2C005A6815 /* GoalChallengeView.swift */,
+				D19C66C81A3F74A400655218 /* ScrollViewPagerControllerViewController.swift */,
+			);
+			name = Challenges;
+			sourceTree = "<group>";
+		};
 		3735674FA759427E8EA44775 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -706,6 +754,8 @@
 				8F2B7E40198C2C27009DE89A /* SWRevealViewController.m */,
 				8FCD2D7E19EC286900AC5A82 /* UIImage+Orientation.h */,
 				8FCD2D7F19EC286900AC5A82 /* UIImage+Orientation.m */,
+				D19DDA511A5EF432004F97A3 /* NewCPTAxisLabel.h */,
+				D19DDA521A5EF599004F97A3 /* NewCPTAxisLabel.m */,
 			);
 			name = "Objective-C Helpers";
 			sourceTree = "<group>";
@@ -715,6 +765,7 @@
 			children = (
 				8F524BF7195B829400BFC49D /* CustomFormatter.swift */,
 				8F6D510D1947B2E700F7C769 /* Utility.swift */,
+				D19DDA541A5F1705004F97A3 /* Constants.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -724,7 +775,7 @@
 			children = (
 				8FFB035319FEAEBA0036228C /* Activity */,
 				8F6266AD197EC8C700145EDB /* Body Stats */,
-				8FFB035219FEAEB30036228C /* Challenges */,
+				2BBDBA491A12AB73005A6815 /* Challenges */,
 				8F5C38E51981915500F51543 /* Dashboard */,
 				8FE056DA198FDB9200C81208 /* Find Station */,
 				8F08AF9B198940C8002EE906 /* Login */,
@@ -767,6 +818,8 @@
 		8F2ACD3D19CB857700107D44 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				2B8032011A1FEF4F0029D6DF /* person_icon.png */,
+				2B8031FF1A1FEF420029D6DF /* calendar_icon.png */,
 			);
 			name = Icons;
 			sourceTree = "<group>";
@@ -882,6 +935,7 @@
 		8F36439D19460EB300C0033E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D12780AD1A4A2701002EB56A /* fontawesome-webfont.ttf */,
 				8F36439E19460EB300C0033E /* Info.plist */,
 				8FF851C0194F7DD7005C33C6 /* Config-prod.plist */,
 				8FF851C2194F7DE2005C33C6 /* Config-qa.plist */,
@@ -909,6 +963,8 @@
 		8F5C38D619818EE000F51543 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				8F211EF71A1E85AE00A256C0 /* oc_dropdownmenu_down.png */,
+				8F211EF81A1E85AE00A256C0 /* oc_dropdownmenu_up.png */,
 				8FF9518A1A01AC69005FD632 /* banner_nologo.png */,
 				8F069CC119DAFCFF00DCC820 /* higi_logo_innercircle@2x.png */,
 				8FD964C919BE4A2B00DA3DF8 /* gradient_overlay.png */,
@@ -1100,18 +1156,19 @@
 		8F6A243D195A011F0094B73C /* Graphing */ = {
 			isa = PBXGroup;
 			children = (
+				8FC130C61A26464400591C58 /* ActivityGraphHostingView.swift */,
 				8F6A243E195A01350094B73C /* BaseCustomGraphHostingView.swift */,
 				8F6A2448195A07880094B73C /* BmiGraphDelegate.swift */,
 				8F6266CE19800A5400145EDB /* BpGraphDelegate.swift */,
 				8F6A2440195A05200094B73C /* BpGraphHostingView.swift */,
 				8F5C38BE19813F9F00F51543 /* GraphDelegate.swift */,
+				8F77DF191A0080550056BE27 /* GraphPoint.swift */,
 				8FF2940F1979D28F00C4FC1A /* GraphView.swift */,
 				8F6A2444195A076B0094B73C /* MapGraphDelegate.swift */,
 				8F6A2442195A07620094B73C /* PulseGraphDelegate.swift */,
 				8F6A2446195A07740094B73C /* WeightGraphDelegate.swift */,
 				8F807A751976C9D600EEE019 /* LandscapeGraph.xib */,
 				8F807A771976C9ED00EEE019 /* PortraitGraph.xib */,
-				8F77DF191A0080550056BE27 /* GraphPoint.swift */,
 			);
 			name = Graphing;
 			path = ..;
@@ -1213,10 +1270,12 @@
 		8FFB035319FEAEBA0036228C /* Activity */ = {
 			isa = PBXGroup;
 			children = (
-				8FFB035419FEAED10036228C /* ActivityViewController.swift */,
-				8FFB035819FEAF2C0036228C /* ActivityView.xib */,
 				8F89C2571A01B0B700A3AD09 /* ActivityCell.swift */,
+				8F087A8F1A1BDFC7008E0446 /* ActivityCellHeader.swift */,
+				8FFB035419FEAED10036228C /* ActivityViewController.swift */,
+				8F81DB561A1BDD670054EB2E /* ActivityCellHeaderView.xib */,
 				8F89C2591A01B0D500A3AD09 /* ActivityCellView.xib */,
+				8FFB035819FEAF2C0036228C /* ActivityView.xib */,
 			);
 			name = Activity;
 			sourceTree = "<group>";
@@ -1353,6 +1412,7 @@
 				8FE056E7198FDC9800C81208 /* FindStationView.xib in Resources */,
 				8F337B53198AA661001E4AD8 /* cell_selected_light.png in Resources */,
 				8FFB034A19FEA2440036228C /* oc_activity.png in Resources */,
+				2BC5865C1A16C63B005A7983 /* ChallengeInvitation.xib in Resources */,
 				8F5C38E01981901600F51543 /* checkincheckmark.png in Resources */,
 				8F58D98519C0F4BD00C0EC72 /* welcome_05_text@2x.png in Resources */,
 				8FFF43BF19B798380056F412 /* bmi_overlay@2x.png in Resources */,
@@ -1385,6 +1445,7 @@
 				8FC7B70119E5C32500D0112F /* welcome_02_text-568h@2x.png in Resources */,
 				8F1D979C1995554C003B5645 /* ModifyImageView.xib in Resources */,
 				8FC7B71319E5E67000D0112F /* dashboard3-568h@2x.png in Resources */,
+				D12780AE1A4A2701002EB56A /* fontawesome-webfont.ttf in Resources */,
 				8FE0BCD0199175C800940D39 /* PulseCellView.xib in Resources */,
 				8FDCE1C41988063E006428C3 /* InfoOverlay.xib in Resources */,
 				8F58D98319C0F4BD00C0EC72 /* welcome_04_text@2x.png in Resources */,
@@ -1392,6 +1453,7 @@
 				8F5E7FE5199C081F009067E5 /* vital_map_icon.png in Resources */,
 				8FDCE1D219880919006428C3 /* weight_overlay.png in Resources */,
 				8FFF43C119B798380056F412 /* map_overlay@2x.png in Resources */,
+				2BBDBA571A12AC2C005A6815 /* CompetitiveChallengeView.xib in Resources */,
 				8F807A761976C9D600EEE019 /* LandscapeGraph.xib in Resources */,
 				8FA5925D19ABBCEC00622266 /* TourView.xib in Resources */,
 				8FDCE1D019880919006428C3 /* map_overlay.png in Resources */,
@@ -1409,6 +1471,7 @@
 				8FC7B70319E5C32500D0112F /* welcome_04_text-568h@2x.png in Resources */,
 				8F5C38D519818BDB00F51543 /* graph_orientation.png in Resources */,
 				8FE056DF198FDBDC00C81208 /* PulseHomeView.xib in Resources */,
+				8F81DB571A1BDD670054EB2E /* ActivityCellHeaderView.xib in Resources */,
 				8F02A12319AE2BF6002FF73E /* btn_share_black.png in Resources */,
 				8FD73CC31990303000BACCB2 /* GoogleMaps.bundle in Resources */,
 				8FDA6DA119A2978B00244D5F /* ChangePasswordView.xib in Resources */,
@@ -1434,6 +1497,7 @@
 				8F5E7FDC199BD089009067E5 /* gen_checkin.png in Resources */,
 				D1F22F691A6080230075DDC5 /* ChallengeDetailsView.xib in Resources */,
 				8FF9409319899AEA00D319D7 /* createreminder.png in Resources */,
+				2BBDBA541A12AC2C005A6815 /* ChallengesView.xib in Resources */,
 				8F02A13F19AE2CF4002FF73E /* bodystats_background.png in Resources */,
 				8F5C38E91981B2B300F51543 /* createreminder_inverted.png in Resources */,
 				8F02A12F19AE2CBB002FF73E /* dashboard_background.png in Resources */,
@@ -1441,18 +1505,20 @@
 				8F5C38CF19818BA900F51543 /* gauge2_normal.png in Resources */,
 				8F524BFA195C6DD400BFC49D /* graph_timespan_bg.png in Resources */,
 				8FA5925919A7E5CE00622266 /* nodata_bodystats.png in Resources */,
+				2B8032001A1FEF420029D6DF /* calendar_icon.png in Resources */,
 				8F02A14619AE2CF4002FF73E /* bodystats3@2x.png in Resources */,
 				8F89C25A1A01B0D500A3AD09 /* ActivityCellView.xib in Resources */,
 				8F6ACCC0199D687D00D5E157 /* mapicon_higicard.png in Resources */,
 				8F2CB58B19942E96009377A8 /* noservicemessage.png in Resources */,
 				8FFF43C319B798380056F412 /* weight_overlay@2x.png in Resources */,
 				8FC7B70819E5E60D00D0112F /* bodystats2-568h@2x.png in Resources */,
+				2BBDBA591A12AC2C005A6815 /* GoalChallengeView.xib in Resources */,
 				8FF873F219DF528E002A6341 /* PullRefreshView.xib in Resources */,
 				8FA5925B19AB921C00622266 /* create_overlay.png in Resources */,
-				8FFB035B19FEAF550036228C /* ChallengesView.xib in Resources */,
 				8FC7B71119E5E67000D0112F /* dashboard1-568h@2x.png in Resources */,
 				8F5E7FE3199C081F009067E5 /* vital_bmi_icon.png in Resources */,
 				8F5E7FCC199BC976009067E5 /* BpCheckinCellView.xib in Resources */,
+				2B8032021A1FEF4F0029D6DF /* person_icon.png in Resources */,
 				8F6266C3197F12E900145EDB /* graph_info.png in Resources */,
 				8FF9518B1A01AC69005FD632 /* banner_nologo.png in Resources */,
 				8F5C38E71981917100F51543 /* DashboardView.xib in Resources */,
@@ -1469,13 +1535,16 @@
 				8FC7B71219E5E67000D0112F /* dashboard2-568h@2x.png in Resources */,
 				8F3643A719460EB300C0033E /* Images.xcassets in Resources */,
 				8FFF43C219B798380056F412 /* pulse_overlay@2x.png in Resources */,
+				8F211EFA1A1E85AE00A256C0 /* oc_dropdownmenu_up.png in Resources */,
 				8F02A13219AE2CBB002FF73E /* dashboard1@2x.png in Resources */,
 				8F5C38DE1981901600F51543 /* bloodpressure.png in Resources */,
 				8F1D979E199556F3003B5645 /* mask.png in Resources */,
 				8F5E7FDA199BCD52009067E5 /* overlay_close.png in Resources */,
 				8FFB034919FEA2440036228C /* oc_activity_active.png in Resources */,
 				8F02A12419AE2BF6002FF73E /* btn_share_black@2x.png in Resources */,
+				8F211EF91A1E85AE00A256C0 /* oc_dropdownmenu_down.png in Resources */,
 				8F2B7E57198C34D0009DE89A /* RevealView.xib in Resources */,
+				2BBDBA531A12AC2C005A6815 /* ChallengeRowCell.xib in Resources */,
 				8FF9409C198A8C9200D319D7 /* SignupEmailView.xib in Resources */,
 				8F2B7E46198C2E28009DE89A /* DrawerView.xib in Resources */,
 				8F2B7E5C198C49A9009DE89A /* nav_ocmicon_inverted.png in Resources */,
@@ -1536,6 +1605,7 @@
 				8FDB4B681A09731B00F57B38 /* ActivityDevice.swift in Sources */,
 				8F3643A219460EB300C0033E /* BodyStatsViewController.swift in Sources */,
 				8F296316194B9BF700E787FD /* SessionController.swift in Sources */,
+				D19DDA531A5EF599004F97A3 /* NewCPTAxisLabel.m in Sources */,
 				8F9C69DB1950C8B700449664 /* PulseArticle.swift in Sources */,
 				8F29630B194B8E3700E787FD /* DashboardViewController.swift in Sources */,
 				8FF2E06E194A5E9500A81D8C /* NewCPTPlotRange.m in Sources */,
@@ -1557,6 +1627,7 @@
 				8F5C38F71983094F00F51543 /* NSString+HTML.m in Sources */,
 				8FDA6DA619A4038F00244D5F /* TermsViewController.swift in Sources */,
 				8FE056E9198FDCA600C81208 /* FindStationViewController.swift in Sources */,
+				2BBDBA561A12AC2C005A6815 /* CompetitiveChallengeView.swift in Sources */,
 				8F6A24311951E5D80094B73C /* ApiUtility.swift in Sources */,
 				8F2B7E55198C3475009DE89A /* RevealViewController.swift in Sources */,
 				8F6266B5197ECC6A00145EDB /* BodyStatsPortView.swift in Sources */,
@@ -1565,7 +1636,9 @@
 				8F89C2581A01B0B700A3AD09 /* ActivityCell.swift in Sources */,
 				8F7065B41A16B129002FCA10 /* ChallengeParticipant.swift in Sources */,
 				8FFB035519FEAED10036228C /* ActivityViewController.swift in Sources */,
+				2BBDBA581A12AC2C005A6815 /* GoalChallengeView.swift in Sources */,
 				8F9C69D91950C8AD00449664 /* KioskInfo.swift in Sources */,
+				8FC130C71A26464400591C58 /* ActivityGraphHostingView.swift in Sources */,
 				8FDB4B661A096ECF00F57B38 /* HigiActivity.swift in Sources */,
 				8F6A2441195A05200094B73C /* BpGraphHostingView.swift in Sources */,
 				8FDA6DA319A2979800244D5F /* ChangePasswordViewController.swift in Sources */,
@@ -1576,7 +1649,10 @@
 				8F7065B81A16B46A002FCA10 /* ChallengeTeam.swift in Sources */,
 				8F6D510E1947B2E700F7C769 /* Utility.swift in Sources */,
 				8F296309194B8DE700E787FD /* SplashViewController.swift in Sources */,
+				D19DDA551A5F1705004F97A3 /* Constants.swift in Sources */,
 				8F6A243C1958EA730094B73C /* NewCPTScatterPlot.m in Sources */,
+				2BC5865E1A16D0AF005A7983 /* ChallengeInvitationView.swift in Sources */,
+				2BBDBA551A12AC2C005A6815 /* ChallengesViewController.swift in Sources */,
 				8FA5925F19ABBD3A00622266 /* TourViewController.swift in Sources */,
 				8FF294101979D28F00C4FC1A /* GraphView.swift in Sources */,
 				8FF873F419DF5394002A6341 /* PullRefresh.swift in Sources */,
@@ -1585,12 +1661,14 @@
 				8FDCE1C81988082B006428C3 /* InfoOverlayView.swift in Sources */,
 				8F08AFAD19894EDD002EE906 /* WelcomeFirstView.swift in Sources */,
 				8F2B7E53198C3097009DE89A /* DrawerCell.swift in Sources */,
+				2BBDBA521A12AC2C005A6815 /* ChallengeRowCell.swift in Sources */,
 				8FDB4B641A096E1C00F57B38 /* HigiChallenge.swift in Sources */,
 				8F29630D194B8F4600E787FD /* WelcomeViewController.swift in Sources */,
 				D1F22F671A607FF90075DDC5 /* ChallengeDetailsViewController.swift in Sources */,
 				8FDB4B6A1A09741400F57B38 /* ChallengeWinCondition.swift in Sources */,
 				8F2B7E41198C2C27009DE89A /* SWRevealViewController.m in Sources */,
 				8F2CB5891993E68C009377A8 /* SessionData.swift in Sources */,
+				D19C66C91A3F74A400655218 /* ScrollViewPagerControllerViewController.swift in Sources */,
 				8F29630F194B8F5D00E787FD /* SignupEmailViewController.swift in Sources */,
 				8F524BF8195B829400BFC49D /* CustomFormatter.swift in Sources */,
 				8F6A243F195A01350094B73C /* BaseCustomGraphHostingView.swift in Sources */,
@@ -1603,8 +1681,8 @@
 				8F6A2445195A076B0094B73C /* MapGraphDelegate.swift in Sources */,
 				8F2B7E43198C2DA0009DE89A /* DrawerViewController.swift in Sources */,
 				8F524BF6195B5ABB00BFC49D /* ConversionUtility.m in Sources */,
+				8F087A901A1BDFC7008E0446 /* ActivityCellHeader.swift in Sources */,
 				8F296311194B911C00E787FD /* SignupNameViewController.swift in Sources */,
-				8FFB035719FEAF050036228C /* ChallengesViewController.swift in Sources */,
 				8FF851C6194F7F2E005C33C6 /* HigiApi.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
