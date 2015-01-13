@@ -3,19 +3,28 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="fontawesome-webfont.ttf">
+            <string>FontAwesome</string>
+        </mutableArray>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChallengeDetailsViewController" customModule="higi" customModuleProvider="target">
             <connections>
+                <outlet property="buttonContainer" destination="0Dj-0Z-1GK" id="ibh-w3-Cyl"/>
                 <outlet property="calendarIcon" destination="daY-5a-Oft" id="w4w-wA-qyW"/>
-                <outlet property="challengeAvatar" destination="77J-uP-PXX" id="cAo-o0-E3a"/>
+                <outlet property="challengeAvatar" destination="hbV-VH-YUh" id="4Lg-es-yh7"/>
                 <outlet property="challengeDaysLeft" destination="eoo-5v-2QL" id="hdz-85-S6X"/>
                 <outlet property="challengeTitle" destination="77J-uP-PXX" id="Hn9-rr-ZFu"/>
+                <outlet property="contentView" destination="PE7-hb-4Wz" id="Fqs-B1-74J"/>
                 <outlet property="participantAvatar" destination="sYR-RX-l73" id="1CS-YP-Mdk"/>
+                <outlet property="participantPlace" destination="RYd-xi-WiK" id="n8i-C1-Btz"/>
+                <outlet property="participantPoints" destination="Lj2-kM-7ai" id="3la-LI-des"/>
                 <outlet property="participantProgress" destination="4PH-3r-dHT" id="a4R-nP-77u"/>
-                <outlet property="placeLabel" destination="RYd-xi-WiK" id="bJq-Vw-eIl"/>
                 <outlet property="pointsLabel" destination="Lj2-kM-7ai" id="E5e-x4-P7e"/>
-                <outlet property="scrollView" destination="3xq-86-abo" id="Lea-Ny-9F4"/>
+                <outlet property="scrollView" destination="3xq-86-abo" id="6uw-Nn-qZe"/>
                 <outlet property="view" destination="PE7-hb-4Wz" id="mUe-Pk-Pp2"/>
             </connections>
         </placeholder>
@@ -24,87 +33,116 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" directionalLockEnabled="YES" bounces="NO" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3xq-86-abo">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" directionalLockEnabled="YES" bounces="NO" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3xq-86-abo">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                    <subviews>
-                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uDa-Lt-ibU">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="178"/>
-                            <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eXg-80-4iQ">
-                                    <rect key="frame" x="-1" y="0.0" width="320" height="178"/>
-                                </imageView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="You" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ch-HP-i6Y">
-                                    <rect key="frame" x="61" y="131" width="132" height="16"/>
-                                    <rect key="contentStretch" x="1" y="0.0" width="1" height="1"/>
-                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="13"/>
-                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="420 pts" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lj2-kM-7ai">
-                                    <rect key="frame" x="232" y="143" width="62" height="21"/>
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
-                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4PH-3r-dHT">
-                                    <rect key="frame" x="94" y="149" width="130" height="15"/>
-                                    <subviews>
-                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lha-S5-irA">
-                                            <rect key="frame" x="-14" y="6" width="80" height="5"/>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                    <integer key="value" value="2"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
-                                        </view>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="23rd" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RYd-xi-WiK">
-                                    <rect key="frame" x="61" y="144" width="58" height="26"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="higi_logo_innercircle.png" translatesAutoresizingMaskIntoConstraints="NO" id="sYR-RX-l73">
-                                    <rect key="frame" x="13" y="134" width="30" height="30"/>
-                                </imageView>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="higi_logo_innercircle.png" translatesAutoresizingMaskIntoConstraints="NO" id="hbV-VH-YUh">
-                                    <rect key="frame" x="135" y="64" width="50" height="50"/>
-                                </imageView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sweeping the Nation Challenge" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="77J-uP-PXX">
-                                    <rect key="frame" x="94" y="45" width="132" height="16"/>
-                                    <rect key="contentStretch" x="1" y="0.0" width="1" height="1"/>
-                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="13"/>
-                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="2 days left" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eoo-5v-2QL">
-                                    <rect key="frame" x="135" y="111" width="80" height="16"/>
-                                    <rect key="contentStretch" x="1" y="0.0" width="1" height="1"/>
-                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="13"/>
-                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="X" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="daY-5a-Oft">
-                                    <rect key="frame" x="107" y="111" width="20" height="16"/>
-                                    <rect key="contentStretch" x="1" y="0.0" width="1" height="1"/>
-                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="13"/>
-                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                            </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <constraints>
-                                <constraint firstAttribute="centerX" secondItem="hbV-VH-YUh" secondAttribute="centerX" id="YwC-Lx-XCx"/>
-                                <constraint firstAttribute="centerY" secondItem="hbV-VH-YUh" secondAttribute="centerY" id="xZ5-br-xuX"/>
-                            </constraints>
-                        </view>
-                    </subviews>
                 </scrollView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uDa-Lt-ibU">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="178"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bodymassindex.png" translatesAutoresizingMaskIntoConstraints="NO" id="eXg-80-4iQ">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="178"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="320" id="hal-Hc-uyq"/>
+                                <constraint firstAttribute="height" constant="178" id="kgb-4v-0LW"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="You" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ch-HP-i6Y">
+                            <rect key="frame" x="61" y="131" width="132" height="16"/>
+                            <rect key="contentStretch" x="1" y="0.0" width="1" height="1"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="13"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="420 pts" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lj2-kM-7ai">
+                            <rect key="frame" x="232" y="143" width="62" height="21"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4PH-3r-dHT">
+                            <rect key="frame" x="94" y="149" width="130" height="15"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lha-S5-irA">
+                                    <rect key="frame" x="-14" y="6" width="80" height="5"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="2"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="23rd" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RYd-xi-WiK">
+                            <rect key="frame" x="61" y="144" width="58" height="26"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="higi_logo_innercircle.png" translatesAutoresizingMaskIntoConstraints="NO" id="sYR-RX-l73">
+                            <rect key="frame" x="13" y="134" width="30" height="30"/>
+                        </imageView>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="higi_logo_innercircle.png" translatesAutoresizingMaskIntoConstraints="NO" id="hbV-VH-YUh">
+                            <rect key="frame" x="135" y="64" width="50" height="50"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="50" id="RyQ-qp-s32"/>
+                                <constraint firstAttribute="width" constant="50" id="X8m-TZ-ZdO"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sweeping the Nation Challenge" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="77J-uP-PXX">
+                            <rect key="frame" x="61" y="45" width="233" height="16"/>
+                            <rect key="contentStretch" x="1" y="0.0" width="1" height="1"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="13"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="2 days left" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eoo-5v-2QL">
+                            <rect key="frame" x="135" y="111" width="80" height="16"/>
+                            <rect key="contentStretch" x="1" y="0.0" width="1" height="1"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="13"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="X" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="daY-5a-Oft">
+                            <rect key="frame" x="107" y="111" width="20" height="16"/>
+                            <rect key="contentStretch" x="1" y="0.0" width="1" height="1"/>
+                            <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="13"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="eXg-80-4iQ" secondAttribute="bottom" id="8gp-GS-U4M"/>
+                        <constraint firstItem="eXg-80-4iQ" firstAttribute="leading" secondItem="uDa-Lt-ibU" secondAttribute="leading" id="9ka-Za-Xwc"/>
+                        <constraint firstItem="eXg-80-4iQ" firstAttribute="top" secondItem="uDa-Lt-ibU" secondAttribute="top" id="BXi-HW-6lS"/>
+                        <constraint firstItem="eXg-80-4iQ" firstAttribute="leading" secondItem="uDa-Lt-ibU" secondAttribute="leading" id="Csw-Kv-spB"/>
+                        <constraint firstAttribute="trailing" secondItem="eXg-80-4iQ" secondAttribute="trailing" id="Czn-xL-WL5"/>
+                        <constraint firstAttribute="height" constant="178" id="FYJ-O6-5ze"/>
+                        <constraint firstItem="eXg-80-4iQ" firstAttribute="top" secondItem="uDa-Lt-ibU" secondAttribute="topMargin" constant="8" id="FgL-MM-bYh"/>
+                        <constraint firstItem="eXg-80-4iQ" firstAttribute="centerY" secondItem="uDa-Lt-ibU" secondAttribute="centerY" id="H1B-4O-D2d"/>
+                        <constraint firstItem="eXg-80-4iQ" firstAttribute="top" secondItem="uDa-Lt-ibU" secondAttribute="top" id="UkZ-60-17p"/>
+                        <constraint firstItem="eXg-80-4iQ" firstAttribute="top" secondItem="uDa-Lt-ibU" secondAttribute="top" id="VFK-Ov-jB0"/>
+                        <constraint firstItem="eXg-80-4iQ" firstAttribute="centerX" secondItem="uDa-Lt-ibU" secondAttribute="centerX" id="dDf-Wl-SBz"/>
+                        <constraint firstItem="eXg-80-4iQ" firstAttribute="leading" secondItem="uDa-Lt-ibU" secondAttribute="leading" id="eTI-cA-aE5"/>
+                        <constraint firstAttribute="trailing" secondItem="eXg-80-4iQ" secondAttribute="trailing" id="lqd-p3-E5u"/>
+                        <constraint firstAttribute="bottom" secondItem="eXg-80-4iQ" secondAttribute="bottom" id="pnn-G2-Gz7"/>
+                        <constraint firstItem="eXg-80-4iQ" firstAttribute="centerY" secondItem="hbV-VH-YUh" secondAttribute="centerY" id="qgp-dZ-hEn"/>
+                        <constraint firstAttribute="centerY" secondItem="hbV-VH-YUh" secondAttribute="centerY" id="tGp-9A-Bkh"/>
+                        <constraint firstItem="eXg-80-4iQ" firstAttribute="centerX" secondItem="hbV-VH-YUh" secondAttribute="centerX" id="unF-c6-BR1"/>
+                        <constraint firstItem="eXg-80-4iQ" firstAttribute="top" secondItem="uDa-Lt-ibU" secondAttribute="top" id="wEi-3U-hJV"/>
+                        <constraint firstAttribute="centerX" secondItem="hbV-VH-YUh" secondAttribute="centerX" id="wkx-iB-iYN"/>
+                        <constraint firstItem="eXg-80-4iQ" firstAttribute="leading" secondItem="uDa-Lt-ibU" secondAttribute="leading" id="x4j-5T-2aF"/>
+                    </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="FgL-MM-bYh"/>
+                        </mask>
+                    </variation>
+                </view>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Dj-0Z-1GK">
                     <rect key="frame" x="0.0" y="176" width="320" height="57"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>
             <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -113,6 +151,7 @@
         </view>
     </objects>
     <resources>
+        <image name="bodymassindex.png" width="353" height="353"/>
         <image name="higi_logo_innercircle.png" width="24" height="24"/>
     </resources>
 </document>

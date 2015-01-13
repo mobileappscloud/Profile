@@ -1,6 +1,6 @@
 import Foundation
 
-class ChallengeRowCell: UITableViewCell, UIScrollViewDelegate {
+class ChallengeRowCell: UITableViewCell, UIScrollViewDelegate, UIGestureRecognizerDelegate {
     
     @IBOutlet var scrollView: UIScrollView!;
     @IBOutlet var daysLeft: UILabel!;
@@ -9,14 +9,14 @@ class ChallengeRowCell: UITableViewCell, UIScrollViewDelegate {
     @IBOutlet var pager: UIPageControl!;
     @IBOutlet weak var join: UILabel!
     
-
     class func instanceFromNib(numPages: Int) -> ChallengeRowCell {
         return UINib(nibName: "ChallengeRowCell", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeRowCell;
     }
-    
+        
     override
     func layoutSubviews() {
         scrollView.delegate = self;
+        scrollView.delaysContentTouches = true;
         var page = lround(Double(scrollView.contentOffset.x / scrollView.frame.size.width));
         changePage(pager);
     }
@@ -36,5 +36,16 @@ class ChallengeRowCell: UITableViewCell, UIScrollViewDelegate {
         frame.origin.x = frame.size.width * CGFloat(pageNumber);
         frame.origin.y = 0;
         scrollView.setContentOffset(frame.origin, animated: true);
+    }
+    
+    override func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {
+        return self;
+    }
+    
+    override
+    func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+        if (self.nextResponder() != nil) {
+            self.nextResponder()!.touchesBegan(touches, withEvent: event);
+        }
     }
 }

@@ -201,6 +201,10 @@ class ActivityGraphHostingView: CPTGraphHostingView, CPTBarPlotDataSource {
                 labelValue = totalPlotPoints[Int(idx)];
             }
             var label = CPTTextLayer(text: String(labelValue));
+            var labelStyle = CPTMutableTextStyle();
+            labelStyle.fontSize = 10;
+            label.textStyle = labelStyle;
+            
             plot.labelOffset = 0;
             return label;
         } else {
