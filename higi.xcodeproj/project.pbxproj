@@ -293,6 +293,13 @@
 		D19C66C91A3F74A400655218 /* ScrollViewPagerControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19C66C81A3F74A400655218 /* ScrollViewPagerControllerViewController.swift */; };
 		D19DDA531A5EF599004F97A3 /* NewCPTAxisLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = D19DDA521A5EF599004F97A3 /* NewCPTAxisLabel.m */; };
 		D19DDA551A5F1705004F97A3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19DDA541A5F1705004F97A3 /* Constants.swift */; };
+		D1EEDB951A660F2B0012EFD3 /* challenge_image.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDB8E1A660F2B0012EFD3 /* challenge_image.png */; };
+		D1EEDB961A660F2B0012EFD3 /* chat_bubble_green.9.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDB8F1A660F2B0012EFD3 /* chat_bubble_green.9.png */; };
+		D1EEDB971A660F2B0012EFD3 /* chat_bubble.9.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDB901A660F2B0012EFD3 /* chat_bubble.9.png */; };
+		D1EEDB981A660F2B0012EFD3 /* ui_chatter.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDB911A660F2B0012EFD3 /* ui_chatter.png */; };
+		D1EEDB991A660F2B0012EFD3 /* ui_details.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDB921A660F2B0012EFD3 /* ui_details.png */; };
+		D1EEDB9A1A660F2B0012EFD3 /* ui_leaderboards.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDB931A660F2B0012EFD3 /* ui_leaderboards.png */; };
+		D1EEDB9B1A660F2B0012EFD3 /* ui_progress.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDB941A660F2B0012EFD3 /* ui_progress.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -610,6 +617,13 @@
 		D19DDA511A5EF432004F97A3 /* NewCPTAxisLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewCPTAxisLabel.h; sourceTree = "<group>"; };
 		D19DDA521A5EF599004F97A3 /* NewCPTAxisLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewCPTAxisLabel.m; sourceTree = "<group>"; };
 		D19DDA541A5F1705004F97A3 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		D1EEDB8E1A660F2B0012EFD3 /* challenge_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = challenge_image.png; path = "../../android-main/app/src/main/res/drawable-nodpi/challenge_image.png"; sourceTree = "<group>"; };
+		D1EEDB8F1A660F2B0012EFD3 /* chat_bubble_green.9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chat_bubble_green.9.png; path = "../../android-main/app/src/main/res/drawable-nodpi/chat_bubble_green.9.png"; sourceTree = "<group>"; };
+		D1EEDB901A660F2B0012EFD3 /* chat_bubble.9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chat_bubble.9.png; path = "../../android-main/app/src/main/res/drawable-nodpi/chat_bubble.9.png"; sourceTree = "<group>"; };
+		D1EEDB911A660F2B0012EFD3 /* ui_chatter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_chatter.png; path = "../../android-main/app/src/main/res/drawable-nodpi/ui_chatter.png"; sourceTree = "<group>"; };
+		D1EEDB921A660F2B0012EFD3 /* ui_details.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_details.png; path = "../../android-main/app/src/main/res/drawable-nodpi/ui_details.png"; sourceTree = "<group>"; };
+		D1EEDB931A660F2B0012EFD3 /* ui_leaderboards.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_leaderboards.png; path = "../../android-main/app/src/main/res/drawable-nodpi/ui_leaderboards.png"; sourceTree = "<group>"; };
+		D1EEDB941A660F2B0012EFD3 /* ui_progress.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_progress.png; path = "../../android-main/app/src/main/res/drawable-nodpi/ui_progress.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -813,6 +827,7 @@
 		8F296317194B9E5700E787FD /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				D1EEDB8D1A660E900012EFD3 /* Challenge */,
 				8F6266CD197F131100145EDB /* Body Stats */,
 				8F5C38D819818F3A00F51543 /* Checkin */,
 				8F5C38D619818EE000F51543 /* Common */,
@@ -1280,6 +1295,20 @@
 			name = Activity;
 			sourceTree = "<group>";
 		};
+		D1EEDB8D1A660E900012EFD3 /* Challenge */ = {
+			isa = PBXGroup;
+			children = (
+				D1EEDB8E1A660F2B0012EFD3 /* challenge_image.png */,
+				D1EEDB8F1A660F2B0012EFD3 /* chat_bubble_green.9.png */,
+				D1EEDB901A660F2B0012EFD3 /* chat_bubble.9.png */,
+				D1EEDB911A660F2B0012EFD3 /* ui_chatter.png */,
+				D1EEDB921A660F2B0012EFD3 /* ui_details.png */,
+				D1EEDB931A660F2B0012EFD3 /* ui_leaderboards.png */,
+				D1EEDB941A660F2B0012EFD3 /* ui_progress.png */,
+			);
+			name = Challenge;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1376,6 +1405,7 @@
 				8F5C38D019818BA900F51543 /* gauge3_normal.png in Resources */,
 				8F6ACCBE199C1B4E00D5E157 /* TwoLineCheckinCellView.xib in Resources */,
 				8F02A12019AE2BF6002FF73E /* btn_back_black@2x.png in Resources */,
+				D1EEDB991A660F2B0012EFD3 /* ui_details.png in Resources */,
 				8FF9409E198A8CB600D319D7 /* SignupNameView.xib in Resources */,
 				8F5C38D219818BA900F51543 /* gauge3_overweight.png in Resources */,
 				8F5C38CC19818BA900F51543 /* gauge1_normal.png in Resources */,
@@ -1398,6 +1428,7 @@
 				8FF94091198960C900D319D7 /* LoginView.xib in Resources */,
 				8F5E7FD9199BCD52009067E5 /* graph_sincelastarrow_up_invert.png in Resources */,
 				8FD964CE19BFB99D00DA3DF8 /* search_icon.png in Resources */,
+				D1EEDB961A660F2B0012EFD3 /* chat_bubble_green.9.png in Resources */,
 				8F58D97E19C0F4BD00C0EC72 /* welcome_02_bg@2x.png in Resources */,
 				8FFB035019FEA2440036228C /* oc_pulse_active.png in Resources */,
 				8F2B7E50198C3058009DE89A /* oc_pulse.png in Resources */,
@@ -1425,11 +1456,13 @@
 				8F5C38EB1982DBB900F51543 /* onboarding_avatar.png in Resources */,
 				8FFB035119FEA2440036228C /* oc_settings_active.png in Resources */,
 				8F5C38CA19818BA900F51543 /* gauge1_high.png in Resources */,
+				D1EEDB9B1A660F2B0012EFD3 /* ui_progress.png in Resources */,
 				8FC7B6F819E5C1A000D0112F /* welcome_01_bg-568h@2x.png in Resources */,
 				8F5E7FE6199C081F009067E5 /* vital_pulse_icon.png in Resources */,
 				8F02A12219AE2BF6002FF73E /* btn_back_white@2x.png in Resources */,
 				8FF940A0198A8CCD00D319D7 /* BirthdateView.xib in Resources */,
 				8F02A12519AE2BF6002FF73E /* btn_share_white.png in Resources */,
+				D1EEDB951A660F2B0012EFD3 /* challenge_image.png in Resources */,
 				8FDA6DA819A4039D00244D5F /* TermsView.xib in Resources */,
 				8F5E7FBD199965C0009067E5 /* PinCodeView.xib in Resources */,
 				8FDCE1D119880919006428C3 /* pulse_overlay.png in Resources */,
@@ -1463,6 +1496,7 @@
 				8FD73CBC1990280C00BACCB2 /* map_iconwithdot.png in Resources */,
 				8F2B7E4E198C3058009DE89A /* oc_dashboard.png in Resources */,
 				8F58D98A19C0FE5800C0EC72 /* welcome_01_logo.png in Resources */,
+				D1EEDB981A660F2B0012EFD3 /* ui_chatter.png in Resources */,
 				8FFB034D19FEA2440036228C /* oc_challenges.png in Resources */,
 				8FF851C3194F7DE2005C33C6 /* Config-qa.plist in Resources */,
 				8F5C38D119818BA900F51543 /* gauge3_obese.png in Resources */,
@@ -1531,6 +1565,7 @@
 				8F5C38CD19818BA900F51543 /* gauge2_atrisk.png in Resources */,
 				8F6266AF197EC8E200145EDB /* BodyStatsLand.xib in Resources */,
 				8F5E7FCE199BC986009067E5 /* CheckinCellView.xib in Resources */,
+				D1EEDB9A1A660F2B0012EFD3 /* ui_leaderboards.png in Resources */,
 				8FC7B71219E5E67000D0112F /* dashboard2-568h@2x.png in Resources */,
 				8F3643A719460EB300C0033E /* Images.xcassets in Resources */,
 				8FFF43C219B798380056F412 /* pulse_overlay@2x.png in Resources */,
@@ -1541,6 +1576,7 @@
 				8F5E7FDA199BCD52009067E5 /* overlay_close.png in Resources */,
 				8FFB034919FEA2440036228C /* oc_activity_active.png in Resources */,
 				8F02A12419AE2BF6002FF73E /* btn_share_black@2x.png in Resources */,
+				D1EEDB971A660F2B0012EFD3 /* chat_bubble.9.png in Resources */,
 				D17010C91A644414002CBFE8 /* ChallengeDetailsView.xib in Resources */,
 				8F211EF91A1E85AE00A256C0 /* oc_dropdownmenu_down.png in Resources */,
 				8F2B7E57198C34D0009DE89A /* RevealView.xib in Resources */,

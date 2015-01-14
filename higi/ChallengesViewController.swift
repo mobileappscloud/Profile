@@ -92,27 +92,27 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     }
     
     func updateNavbar() {
-        var scrollY = activeTable.contentOffset.y;
-        if (scrollY >= 0) {
-            //headerImage.frame.origin.y = -scrollY / 2;
-            var alpha = min(scrollY / 75, 1);
-            self.fakeNavBar.alpha = alpha;
-            self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0 - alpha, alpha: 1.0)];
-            if (alpha < 0.5) {
-                toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon"), forState: UIControlState.Normal);
-                toggleButton!.alpha = 1 - alpha;
-                self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
-                pager.currentPageIndicatorTintColor = UIColor.whiteColor();
-            } else {
-                toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon_inverted"), forState: UIControlState.Normal);
-                toggleButton!.alpha = alpha;
-                self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
-                pager.currentPageIndicatorTintColor = UIColor.blackColor();
-            }
-        } else {
-            self.fakeNavBar.alpha = 0;
-            self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0, alpha: 1)];
-        }
+//        var scrollY = activeTable.contentOffset.y;
+//        if (scrollY >= 0) {
+//            //headerImage.frame.origin.y = -scrollY / 2;
+//            var alpha = min(scrollY / 75, 1);
+//            self.fakeNavBar.alpha = alpha;
+//            self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0 - alpha, alpha: 1.0)];
+//            if (alpha < 0.5) {
+//                toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon"), forState: UIControlState.Normal);
+//                toggleButton!.alpha = 1 - alpha;
+//                self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
+//                pager.currentPageIndicatorTintColor = UIColor.whiteColor();
+//            } else {
+//                toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon_inverted"), forState: UIControlState.Normal);
+//                toggleButton!.alpha = alpha;
+//                self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
+//                pager.currentPageIndicatorTintColor = UIColor.blackColor();
+//            }
+//        } else {
+//            self.fakeNavBar.alpha = 0;
+//            self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0, alpha: 1)];
+//        }
     }
 
     
