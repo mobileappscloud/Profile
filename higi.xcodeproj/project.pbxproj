@@ -300,6 +300,8 @@
 		D1EEDB991A660F2B0012EFD3 /* ui_details.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDB921A660F2B0012EFD3 /* ui_details.png */; };
 		D1EEDB9A1A660F2B0012EFD3 /* ui_leaderboards.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDB931A660F2B0012EFD3 /* ui_leaderboards.png */; };
 		D1EEDB9B1A660F2B0012EFD3 /* ui_progress.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDB941A660F2B0012EFD3 /* ui_progress.png */; };
+		D1EEDBA31A66E4B10012EFD3 /* ChallengeLeaderboardRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDBA21A66E4B10012EFD3 /* ChallengeLeaderboardRow.xib */; };
+		D1EEDBA51A66FA570012EFD3 /* ChallengeLeaderboardRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EEDBA41A66FA570012EFD3 /* ChallengeLeaderboardRow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -624,6 +626,8 @@
 		D1EEDB921A660F2B0012EFD3 /* ui_details.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_details.png; path = "../../android-main/app/src/main/res/drawable-nodpi/ui_details.png"; sourceTree = "<group>"; };
 		D1EEDB931A660F2B0012EFD3 /* ui_leaderboards.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_leaderboards.png; path = "../../android-main/app/src/main/res/drawable-nodpi/ui_leaderboards.png"; sourceTree = "<group>"; };
 		D1EEDB941A660F2B0012EFD3 /* ui_progress.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_progress.png; path = "../../android-main/app/src/main/res/drawable-nodpi/ui_progress.png"; sourceTree = "<group>"; };
+		D1EEDBA21A66E4B10012EFD3 /* ChallengeLeaderboardRow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeLeaderboardRow.xib; sourceTree = "<group>"; };
+		D1EEDBA41A66FA570012EFD3 /* ChallengeLeaderboardRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeLeaderboardRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -666,6 +670,7 @@
 		2BBDBA491A12AB73005A6815 /* Challenges */ = {
 			isa = PBXGroup;
 			children = (
+				D1EEDBA21A66E4B10012EFD3 /* ChallengeLeaderboardRow.xib */,
 				D17010C71A644414002CBFE8 /* ChallengeDetailsView.xib */,
 				2BBDBA4B1A12AC2C005A6815 /* ChallengeRowCell.xib */,
 				2BBDBA4C1A12AC2C005A6815 /* ChallengesView.xib */,
@@ -679,6 +684,7 @@
 				2BBDBA501A12AC2C005A6815 /* GoalChallengeView.swift */,
 				D19C66C81A3F74A400655218 /* ScrollViewPagerControllerViewController.swift */,
 				D17010C81A644414002CBFE8 /* ChallengeDetailsViewController.swift */,
+				D1EEDBA41A66FA570012EFD3 /* ChallengeLeaderboardRow.swift */,
 			);
 			name = Challenges;
 			sourceTree = "<group>";
@@ -1497,6 +1503,7 @@
 				8F2B7E4E198C3058009DE89A /* oc_dashboard.png in Resources */,
 				8F58D98A19C0FE5800C0EC72 /* welcome_01_logo.png in Resources */,
 				D1EEDB981A660F2B0012EFD3 /* ui_chatter.png in Resources */,
+				D1EEDBA31A66E4B10012EFD3 /* ChallengeLeaderboardRow.xib in Resources */,
 				8FFB034D19FEA2440036228C /* oc_challenges.png in Resources */,
 				8FF851C3194F7DE2005C33C6 /* Config-qa.plist in Resources */,
 				8F5C38D119818BA900F51543 /* gauge3_obese.png in Resources */,
@@ -1657,6 +1664,7 @@
 				8FE056E3198FDC3900C81208 /* SettingsViewController.swift in Sources */,
 				8F6A24361958DDFB0094B73C /* NewCPTMutablePlotRange.m in Sources */,
 				8F9C69D71950C89B00449664 /* HigiUser.swift in Sources */,
+				D1EEDBA51A66FA570012EFD3 /* ChallengeLeaderboardRow.swift in Sources */,
 				D17010CA1A644414002CBFE8 /* ChallengeDetailsViewController.swift in Sources */,
 				8F9C69D51950C88900449664 /* HigiCheckin.swift in Sources */,
 				8F5E7FBF199965CF009067E5 /* PinCodeViewController.swift in Sources */,

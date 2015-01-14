@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ChallengeDetailsViewController: BaseViewController, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate {
+class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet var contentView: UIView!
     @IBOutlet var pointsLabel:UILabel?;
     
@@ -21,7 +21,6 @@ class ChallengeDetailsViewController: BaseViewController, UIScrollViewDelegate, 
     @IBOutlet var scrollView: UIScrollView!
     
     @IBOutlet weak var participantContainer: UIView!
-    @IBOutlet weak var calendarIcon: UILabel!
     @IBOutlet weak var challengeDaysLeft: UILabel!
     @IBOutlet weak var participantAvatar: UIImageView!
     @IBOutlet weak var participantPlace: UILabel!
@@ -33,6 +32,7 @@ class ChallengeDetailsViewController: BaseViewController, UIScrollViewDelegate, 
     var displayLeaderBoardTab = false;
     var displayProgressTab = false;
     
+    @IBOutlet weak var selectedGreenBar: UIView!
     var leaderBoardTable: UITableView!;
     var progressTable: UITableView!;
     var detailsTable: UITableView!;
@@ -59,6 +59,17 @@ class ChallengeDetailsViewController: BaseViewController, UIScrollViewDelegate, 
     
     override func viewDidLoad() {
         super.viewDidLoad();
+        
+        self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
+        (self.navigationController as MainNavigationController).revealController.panGestureRecognizer().enabled = false;
+        var backButton = UIButton.buttonWithType(UIButtonType.Custom) as UIButton;
+        backButton.setBackgroundImage(UIImage(named: "btn_back_white.png"), forState: UIControlState.Normal);
+        backButton.addTarget(self, action: "goBack:", forControlEvents: UIControlEvents.TouchUpInside);
+        backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
+        var backBarItem = UIBarButtonItem(customView: backButton);
+        self.navigationItem.leftBarButtonItem = backBarItem;
+        self.navigationItem.hidesBackButton = true;
+        
         var session = SessionController.Instance;
         
         for thisChallenge:HigiChallenge in session.challenges {
@@ -90,7 +101,7 @@ class ChallengeDetailsViewController: BaseViewController, UIScrollViewDelegate, 
             participantAvatar.setImageWithURL(Utility.loadImageFromUrl(participant.imageUrl));
             participantPoints.text = "\(Int(participant.units)) pts";
             participantPlace.text = getUserRank();
-            //participantProgress = ;
+            setProgressBar(participantProgress, points: Int(participant.units), highScore: challenge.highScore);
         } else {
             participantAvatar.hidden = true;
             participantPoints.hidden = true;
@@ -100,11 +111,8 @@ class ChallengeDetailsViewController: BaseViewController, UIScrollViewDelegate, 
 //
         challengeAvatar.setImageWithURL(Utility.loadImageFromUrl(challenge.imageUrl));
         challengeTitle.text = challenge.name;
-//        challengeDaysLeft.text = daysLeftHelper();
         
-        calendarIcon.text = "\u{f073}";
-        
-        minHeaderHeightThreshold = 50;
+        minHeaderHeightThreshold = 67;
         headerContainerHeight = headerContainer.frame.size.height;
         buttonContainerOriginY = buttonContainer.frame.origin.y;
         
@@ -118,7 +126,7 @@ class ChallengeDetailsViewController: BaseViewController, UIScrollViewDelegate, 
     func populateTabButtons() {
         var buttons:[UILabel] = [];
     
-        var containerYValue = buttonContainer.frame.origin.y;
+        let containerYValue = buttonContainer.frame.origin.y;
         
         var buttonText:[String] = [];
         var buttonIcons:[String] = [];
@@ -136,13 +144,16 @@ class ChallengeDetailsViewController: BaseViewController, UIScrollViewDelegate, 
         buttonIcons.append("ui_chatter.png");
         
         var height:CGFloat = buttonContainer.frame.size.height;
-        var width:CGFloat = buttonContainer.frame.size.width / CGFloat(buttonText.count);
+        let buttonWidth = buttonContainer.frame.size.width / CGFloat(buttonText.count)
+        
+        selectedGreenBar.frame = CGRect(x: 0, y: buttonContainer.frame.size.height - 2, width: buttonWidth, height: 2);
+        selectedGreenBar.setNeedsDisplay();
         
         for index in 0...buttonText.count - 1 {
             var image = UIImage(named: buttonIcons[index]) as UIImage!;
             image.drawInRect(CGRect(x: 0, y: 0, width: 30, height: 30));
             var button = UIButton.buttonWithType(UIButtonType.System) as UIButton
-            button.frame = CGRect(x: width * CGFloat(index), y: 0, width: width, height: height);
+            button.frame = CGRect(x: buttonWidth * CGFloat(index), y: 0, width: buttonWidth, height: height);
             button.backgroundColor = UIColor.lightGrayColor();
             button.setBackgroundImage(image, forState: UIControlState.Normal);
             button.setTitle(buttonText[index], forState: UIControlState.Normal);
@@ -157,13 +168,16 @@ class ChallengeDetailsViewController: BaseViewController, UIScrollViewDelegate, 
     }
     
     func selectButton(sender: UIButton!) {
+        moveGreenBar(sender.tag);
         changePage(sender.tag);
     }
     
+    func moveGreenBar(page: Int) {
+        selectedGreenBar.frame.origin.x = CGFloat(page) * selectedGreenBar.frame.size.width;
+    }
+    
     func populateScrollView() {
-        
         scrollView.delegate = self;
-        
         var table:UITableView;
         for index in 0...3 {
             if (index == 0) {
@@ -232,21 +246,38 @@ class ChallengeDetailsViewController: BaseViewController, UIScrollViewDelegate, 
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if (tableView == leaderBoardTable) {
+            return challenge.participantsCount;
+        }
         return 20;
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        return UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "");
+        if (tableView == leaderBoardTable) {
+            var cell = tableView.dequeueReusableCellWithIdentifier("ChallengeLeaderboardRow") as ChallengeLeaderboardRow!;
+            if (cell == nil) {
+                cell = ChallengeLeaderboardRow.instanceFromNib(challenge);
+            }
+            return cell;
+        } else {
+            return UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "");
+        }
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
         updateScroll();
     }
     
+    var lastScrollY:CGFloat = 0;
     func updateScroll() {
         var headerXOffset:CGFloat = 50;
         var currentTable = tables[currentPage];
         var scrollY = currentTable.contentOffset.y;
+        
+        if (scrollY < lastScrollY) {
+            var t = 0;
+        }
+        lastScrollY = scrollY;
         if (scrollY >= 0) {
             if (scrollY >= headerContainerHeight - minHeaderHeightThreshold) {
                 headerContainer.frame.origin.y = minHeaderHeightThreshold - headerContainerHeight;
@@ -266,9 +297,10 @@ class ChallengeDetailsViewController: BaseViewController, UIScrollViewDelegate, 
                 
             }
         }
-        for table in tables {
-            if (table != currentTable) {
-                table.contentOffset.y = min(scrollY, headerContainerHeight - minHeaderHeightThreshold);
+        
+        for index in 0...tables.count - 1 {
+            if (index != currentPage) {
+                tables[index].contentOffset.y = min(scrollY, headerContainerHeight - minHeaderHeightThreshold);
             }
         }
     }
@@ -285,16 +317,35 @@ class ChallengeDetailsViewController: BaseViewController, UIScrollViewDelegate, 
         return true;
     }
     
+    var lastContentOffset:CGFloat = 0;
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        var page = lround(Double(scrollView.contentOffset.x / scrollView.frame.size.width));
-        currentPage = page;
-        changePage(page);
+        if (scrollView.contentOffset.x != lastContentOffset) {
+            var page = lround(Double(scrollView.contentOffset.x / scrollView.frame.size.width));
+            changePage(page);
+            lastContentOffset = scrollView.contentOffset.x;
+        }
     }
     
+    func setProgressBar(view: UIView, points: Int, highScore: Int) {
+        let width = view.frame.size.width;
+        let newWidth = (CGFloat(points)/CGFloat(highScore)) * width;
+        view.frame.size.width = (CGFloat(points)/CGFloat(highScore)) * width;
+        
+        let bar = UIView(frame: CGRect(x: view.frame.origin.x, y: view.frame.origin.y - 5, width: newWidth, height: 5));
+        bar.backgroundColor = Utility.colorFromHexString("#76C043");
+        bar.layer.cornerRadius = 2;
+        view.addSubview(bar);
+    }
+
     func changePage(page: Int) {
         var frame = self.scrollView.frame;
         frame.origin.x = frame.size.width * CGFloat(page);
         frame.origin.y = 0;
         scrollView.setContentOffset(frame.origin, animated: true);
+        currentPage = page;
+    }
+    
+    func goBack(sender: AnyObject!) {
+        self.navigationController!.popViewControllerAnimated(true);
     }
 }
