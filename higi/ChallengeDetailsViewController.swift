@@ -247,6 +247,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             if (cell == nil) {
                 var a = challenge.participants;
                 var i = indexPath.row;
+                var ab = challenge.participants[indexPath.row];
                 cell = ChallengeLeaderboardRow.instanceFromNib(challenge, participant: challenge.participants[indexPath.row], index: indexPath.row);
             }
             return cell;
