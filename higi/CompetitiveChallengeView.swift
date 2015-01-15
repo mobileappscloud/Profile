@@ -47,7 +47,7 @@ class CompetitiveChallengeView: UIView, UIScrollViewDelegate {
             let teamGravityBoard = gravityTuple.0;
             let teamRanks = gravityTuple.1;
             
-            let highScore = Int(teamGravityBoard[0].units);
+            let highScore = challenge.teamHighScore;
             for index in 0...teamGravityBoard.count - 1 {
                 let name = teamGravityBoard[index].name;
                 let points = "\(Int(teamGravityBoard[index].units)) pts";
@@ -59,12 +59,12 @@ class CompetitiveChallengeView: UIView, UIScrollViewDelegate {
                     setTextGreen(rows[index]);
                 }
                 let progressBar = progressBars[index];
-                setProgressBar(progressBar, points: Int(teamGravityBoard[index].units), highScore: highScore);
+                setProgressBar(progressBar, points: Int(teamGravityBoard[index].units), highScore: Int(highScore));
             }
         } else {
             let individualGravityBoard = challenge.gravityBoard;
             
-            let highScore = challenge.highScore;
+            let highScore = challenge.individualHighScore;
             for index in 0...individualGravityBoard.count - 1 {
                 let name = individualGravityBoard[index].participant.displayName;
                 let points = "\(Int(individualGravityBoard[index].participant.units)) pts";
@@ -76,7 +76,7 @@ class CompetitiveChallengeView: UIView, UIScrollViewDelegate {
                     setTextGreen(rows[index]);
                 }
                 let progressBar = progressBars[index];
-                setProgressBar(progressBar, points: Int(individualGravityBoard[index].participant.units), highScore: highScore);
+                setProgressBar(progressBar, points: Int(individualGravityBoard[index].participant.units), highScore: Int(highScore));
             }
         }
         return competitiveView;

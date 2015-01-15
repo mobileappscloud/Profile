@@ -31,6 +31,9 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     var displayLeaderBoardTab = false;
     var displayProgressTab = false;
+    var hasTeamComponent = false;
+    var hasIndividualComponent = false;
+    var isIndividualLeaderboard = true;
     
     @IBOutlet weak var selectedGreenBar: UIView!
     var leaderBoardTable: UITableView!;
@@ -51,7 +54,10 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     var headerProgressOriginWidth:CGFloat = 0;
     var headerPointsOriginX:CGFloat = 0;
     
+    let toggleButtonHeight:CGFloat = 60;
     var scrollOffset = 0;
+    
+    var toggleButtons:[UIButton] = [];
     
     func setChallengeName(name: String) {
         challengeName = name;
@@ -85,6 +91,12 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             } else if (winCondition.goal.type == "most_points" || winCondition.goal.type == "unit_goal_reached") {
                 displayLeaderBoardTab = true;
             }
+            
+            if (winCondition.winnerType == "individual") {
+                hasIndividualComponent = true;
+            } else if (winCondition.winnerType == "team") {
+                hasTeamComponent = true;
+            }
         }
         
         populateHeader();
@@ -101,7 +113,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             participantAvatar.setImageWithURL(Utility.loadImageFromUrl(participant.imageUrl));
             participantPoints.text = "\(Int(participant.units)) pts";
             participantPlace.text = getUserRank();
-            setProgressBar(participantProgress, points: Int(participant.units), highScore: challenge.highScore);
+            setProgressBar(participantProgress, points: Int(participant.units), highScore: Int(challenge.individualHighScore));
         } else {
             participantAvatar.hidden = true;
             participantPoints.hidden = true;
@@ -146,7 +158,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         var height:CGFloat = buttonContainer.frame.size.height;
         let buttonWidth = buttonContainer.frame.size.width / CGFloat(buttonText.count)
         
-        selectedGreenBar.frame = CGRect(x: 0, y: buttonContainer.frame.size.height - 4, width: buttonWidth, height: 4);
+        selectedGreenBar.frame = CGRect(x: 0, y: -4, width: buttonWidth, height: 4);
         selectedGreenBar.setNeedsDisplay();
         
         for index in 0...buttonText.count - 1 {
@@ -173,6 +185,16 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func moveGreenBar(page: Int) {
         selectedGreenBar.frame.origin.x = CGFloat(page) * selectedGreenBar.frame.size.width;
+    }
+    
+    func toggleButton(sender: UIButton!) {
+        if (!sender.selected) {
+            for button in toggleButtons {
+                button.selected = !button.selected;
+            }
+            isIndividualLeaderboard = toggleButtons[0].selected;
+            leaderBoardTable.reloadData();
+        }
     }
     
     func populateScrollView() {
@@ -212,6 +234,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         table.separatorStyle = UITableViewCellSeparatorStyle.None;
         table.backgroundColor = page % 2 == 0 ? UIColor.grayColor() : UIColor.blackColor();
         table.scrollEnabled = true;
+        table.allowsSelection = false;
         
         return table;
     }
@@ -227,18 +250,69 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0));
+        if (hasIndividualComponent && hasTeamComponent && (tableView == leaderBoardTable || tableView == progressTable)) {
+            let buttonMargin:CGFloat = 10;
+            let header = UIView(frame: CGRect(x: 0, y: buttonContainerOriginY + buttonContainer.frame.size.height, width: contentView.frame.size.width, height: toggleButtonHeight  - buttonMargin));
+            let filler = UIView(frame: CGRect(x: 0, y: 0, width: contentView.frame.size.width, height: buttonContainerOriginY + buttonContainer.frame.size.height));
+            filler.backgroundColor = Utility.colorFromHexString("#F4F4F4");
+            
+            header.addSubview(filler);
+
+            let toggleButtonsText = ["Individuals", "Teams"];
+            for index in 0...1 {
+                //no x padding for first button
+                let buttonX = (CGFloat(1 - index) * buttonMargin) + (CGFloat(index) * (contentView.frame.size.width / 2));
+                let buttonY = buttonContainerOriginY + buttonContainer.frame.size.height + buttonMargin;
+                //subtract margin from width of second button
+                let buttonWidth = contentView.frame.size.width / 2 - (CGFloat(index) * buttonMargin);
+                let buttonHeight = toggleButtonHeight - buttonMargin * 2;
+                var button = UIButton(frame: CGRect(x: buttonX, y: buttonY, width: buttonWidth, height: buttonHeight));
+                
+                button.setBackgroundImage(makeImageWithColor(UIColor.whiteColor()), forState: UIControlState.Selected);
+                button.setTitleColor(UIColor.darkGrayColor(), forState: UIControlState.Selected);
+                button.setBackgroundImage(makeImageWithColor(Utility.colorFromHexString("#E3E3E3")), forState: UIControlState.Normal);
+                button.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal);
+                button.backgroundColor = UIColor.lightGrayColor();
+                button.setTitle(toggleButtonsText[index], forState: UIControlState.Normal);
+                button.titleLabel?.font.fontWithSize(10);
+                button.tintColor = UIColor.whiteColor();
+                button.selected = index == 0;
+                button.addTarget(self, action: "toggleButton:", forControlEvents: UIControlEvents.TouchUpInside);
+                
+                toggleButtons.append(button);
+                header.insertSubview(button, belowSubview: filler);
+            }
+            
+            return header;
+        } else {
+            return UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0));
+        }
+    }
+    
+    func makeImageWithColor(color: UIColor) -> UIImage {
+        let rect = CGRectMake(0, 0, 1, 1);
+        UIGraphicsBeginImageContext(rect.size);
+        let context = UIGraphicsGetCurrentContext();
+        CGContextSetFillColorWithColor(context, color.CGColor);
+        CGContextFillRect(context, rect);
+        let image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        return image;
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if (tableView == leaderBoardTable) {
+            return buttonContainerOriginY + buttonContainer.frame.size.height + toggleButtonHeight;
+        }
         return buttonContainerOriginY + buttonContainer.frame.size.height;
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (tableView == leaderBoardTable) {
-            return min(50,challenge.participantsCount);
+            return isIndividualLeaderboard ? min(50,challenge.participantsCount) : min(50, challenge.teams.count);
         }
-        return 20;
+        return 1;
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -248,7 +322,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                 var a = challenge.participants;
                 var i = indexPath.row;
                 var ab = challenge.participants[indexPath.row];
-                cell = ChallengeLeaderboardRow.instanceFromNib(challenge, participant: challenge.participants[indexPath.row], index: indexPath.row);
+                cell = ChallengeLeaderboardRow.instanceFromNib(challenge, participant: challenge.participants[indexPath.row], index: indexPath.row, isIndividual: isIndividualLeaderboard);
             }
             return cell;
         } else {
@@ -320,10 +394,11 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func setProgressBar(view: UIView, points: Int, highScore: Int) {
         let width = view.frame.size.width;
-        let newWidth = (CGFloat(points)/CGFloat(highScore)) * width;
-        view.frame.size.width = (CGFloat(points)/CGFloat(highScore)) * width;
+        let proportion = min(CGFloat(points)/CGFloat(highScore), 1);
+        let newWidth = proportion * width;
+        participantContainer.frame.size.width = proportion * width;
         
-        let bar = UIView(frame: CGRect(x: view.frame.origin.x, y: view.frame.origin.y - 5, width: newWidth, height: 5));
+        let bar = UIView(frame: CGRect(x: 0, y: view.frame.origin.y / 2 - 5, width: newWidth, height: 5));
         bar.backgroundColor = Utility.colorFromHexString("#76C043");
         bar.layer.cornerRadius = 2;
         view.addSubview(bar);
