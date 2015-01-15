@@ -107,7 +107,8 @@ class ApiUtility {
     
     class func retrieveChallenges(success: (() -> Void)?) {
         let userId = HigiApi.PRODUCTION == true ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
-        HigiApi().sendGet("\(HigiApi.earnditApiUrl)/user/\(userId)/challenges?include[gravityboard]=3", success: {operation, responseObject in
+        HigiApi().sendGet("\(HigiApi.earnditApiUrl)/user/\(userId)/challenges?&include[gravityboard]=3&include[participants]=50" +
+            "&include[comments]=50&include[teams.comments]=50", success: {operation, responseObject in
             var challenges: [HigiChallenge] = [];
             var serverChallenges = ((responseObject as NSDictionary)["response"] as NSDictionary)["data"] as NSArray;
             for challenge: AnyObject in serverChallenges {
@@ -120,11 +121,17 @@ class ApiUtility {
                 var gravityBoard: [GravityParticipant] = [];
                 if (serverGravityBoard != nil) {
                     for boardParticipant: AnyObject in serverGravityBoard! {
-                        var dict = boardParticipant as NSDictionary;
                         gravityBoard.append(GravityParticipant(place: (boardParticipant as NSDictionary)["position"] as NSString, participant: ChallengeParticipant(dictionary: (boardParticipant as NSDictionary)["participant"] as NSDictionary)));
                     }
                 }
-                challenges.append(HigiChallenge(dictionary: challenge as NSDictionary, userStatus: ((challenge as NSDictionary)["userRelation"] as NSDictionary)["status"] as NSString, participant: participant, gravityBoard: gravityBoard));
+                var serverParticipants = ((challenge as NSDictionary)["participants"] as NSDictionary)["data"] as? NSArray;
+                var participants:[ChallengeParticipant] = [];
+                if (serverParticipants != nil) {
+                    for singleParticipant: AnyObject in serverParticipants! {
+                        participants.append(ChallengeParticipant(dictionary: singleParticipant as NSDictionary));
+                    }
+                }
+                challenges.append(HigiChallenge(dictionary: challenge as NSDictionary, userStatus: ((challenge as NSDictionary)["userRelation"] as NSDictionary)["status"] as NSString, participant: participant, gravityBoard: gravityBoard, participants: participants));
             }
             
             SessionController.Instance.challenges = challenges;

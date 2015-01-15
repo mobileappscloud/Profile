@@ -146,7 +146,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         var height:CGFloat = buttonContainer.frame.size.height;
         let buttonWidth = buttonContainer.frame.size.width / CGFloat(buttonText.count)
         
-        selectedGreenBar.frame = CGRect(x: 0, y: buttonContainer.frame.size.height - 2, width: buttonWidth, height: 2);
+        selectedGreenBar.frame = CGRect(x: 0, y: buttonContainer.frame.size.height - 4, width: buttonWidth, height: 4);
         selectedGreenBar.setNeedsDisplay();
         
         for index in 0...buttonText.count - 1 {
@@ -168,7 +168,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func selectButton(sender: UIButton!) {
-        moveGreenBar(sender.tag);
         changePage(sender.tag);
     }
     
@@ -179,33 +178,28 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     func populateScrollView() {
         scrollView.delegate = self;
         var table:UITableView;
-        for index in 0...3 {
-            if (index == 0) {
-                if (displayLeaderBoardTab) {
-                    leaderBoardTable = addTableView(totalPages);
-                    scrollView.addSubview(leaderBoardTable);
-                    tables.append(leaderBoardTable);
-                    totalPages++;
-                }
-            } else if (index == 1) {
-                if (displayProgressTab) {
-                    progressTable = addTableView(totalPages);
-                    scrollView.addSubview(progressTable);
-                    tables.append(progressTable);
-                    totalPages++;
-                }
-            } else if (index == 2) {
-                detailsTable = addTableView(totalPages);
-                scrollView.addSubview(detailsTable);
-                tables.append(detailsTable);
-                totalPages++;
-            } else if (index == 3) {
-                chatterTable = addTableView(totalPages);
-                scrollView.addSubview(chatterTable);
-                tables.append(chatterTable);
-                totalPages++;
-            }
+        if (displayLeaderBoardTab) {
+            leaderBoardTable = addTableView(totalPages);
+            scrollView.addSubview(leaderBoardTable);
+            tables.append(leaderBoardTable);
+            totalPages++;
         }
+        if (displayProgressTab) {
+            progressTable = addTableView(totalPages);
+            scrollView.addSubview(progressTable);
+            tables.append(progressTable);
+            totalPages++;
+        }
+        
+        detailsTable = addTableView(totalPages);
+        scrollView.addSubview(detailsTable);
+        tables.append(detailsTable);
+        totalPages++;
+        
+        chatterTable = addTableView(totalPages);
+        scrollView.addSubview(chatterTable);
+        tables.append(chatterTable);
+        totalPages++;
     }
     
     func addTableView(page: Int) -> UITableView {
@@ -219,11 +213,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         table.backgroundColor = page % 2 == 0 ? UIColor.grayColor() : UIColor.blackColor();
         table.scrollEnabled = true;
         
-        var text = UILabel(frame: CGRect(x: 150, y: 400, width: 100, height: 25));
-        text.text = "This is a test";
-        text.textColor = UIColor.whiteColor();
-        
-        table.addSubview(text);
         return table;
     }
     
@@ -242,12 +231,12 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 200;
+        return buttonContainerOriginY + buttonContainer.frame.size.height;
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (tableView == leaderBoardTable) {
-            return challenge.participantsCount;
+            return min(50,challenge.participantsCount);
         }
         return 20;
     }
@@ -256,7 +245,9 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         if (tableView == leaderBoardTable) {
             var cell = tableView.dequeueReusableCellWithIdentifier("ChallengeLeaderboardRow") as ChallengeLeaderboardRow!;
             if (cell == nil) {
-                cell = ChallengeLeaderboardRow.instanceFromNib(challenge);
+                var a = challenge.participants;
+                var i = indexPath.row;
+                cell = ChallengeLeaderboardRow.instanceFromNib(challenge, participant: challenge.participants[indexPath.row], index: indexPath.row);
             }
             return cell;
         } else {
@@ -282,6 +273,9 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             if (scrollY >= headerContainerHeight - minHeaderHeightThreshold) {
                 headerContainer.frame.origin.y = minHeaderHeightThreshold - headerContainerHeight;
                 buttonContainer.frame.origin.y = minHeaderHeightThreshold - 1;
+//
+//                var t1 = minHeaderHeightThreshold - headerContainerHeight;
+//                var t2 = headerContainer.frame.origin.y;
             } else {
                 participantPlace.frame.origin.x = headerPlaceOriginX + (scrollY / headerXOffset);
                 participantProgress.frame.origin.x = headerProgressOriginX + (scrollY / headerXOffset);
@@ -300,7 +294,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         
         for index in 0...tables.count - 1 {
             if (index != currentPage) {
-                tables[index].contentOffset.y = min(scrollY, headerContainerHeight - minHeaderHeightThreshold);
+                tables[index].contentOffset.y = scrollY;
             }
         }
     }
@@ -317,13 +311,10 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         return true;
     }
     
-    var lastContentOffset:CGFloat = 0;
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        if (scrollView.contentOffset.x != lastContentOffset) {
-            var page = lround(Double(scrollView.contentOffset.x / scrollView.frame.size.width));
-            changePage(page);
-            lastContentOffset = scrollView.contentOffset.x;
-        }
+        var page = lround(Double(scrollView.contentOffset.x / scrollView.frame.size.width));
+        currentPage = page;
+        changePage(page);
     }
     
     func setProgressBar(view: UIView, points: Int, highScore: Int) {
@@ -338,11 +329,11 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
 
     func changePage(page: Int) {
+        moveGreenBar(page);
         var frame = self.scrollView.frame;
         frame.origin.x = frame.size.width * CGFloat(page);
         frame.origin.y = 0;
         scrollView.setContentOffset(frame.origin, animated: true);
-        currentPage = page;
     }
     
     func goBack(sender: AnyObject!) {

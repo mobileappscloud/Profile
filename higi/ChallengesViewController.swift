@@ -164,6 +164,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 83;
     }
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("ChallengeRowCell") as ChallengeRowCell!;
         

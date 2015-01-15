@@ -9,7 +9,7 @@ class ChallengeRowCell: UITableViewCell, UIScrollViewDelegate, UIGestureRecogniz
     @IBOutlet var pager: UIPageControl!;
     @IBOutlet weak var join: UILabel!
     
-    class func instanceFromNib(numPages: Int) -> ChallengeRowCell {
+    class func instanceFromNib() -> ChallengeRowCell {
         return UINib(nibName: "ChallengeRowCell", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeRowCell;
     }
         

@@ -24,16 +24,19 @@ class HigiChallenge {
     
     var participant: ChallengeParticipant!;
     
+    var participants: [ChallengeParticipant]! = [];
+    
     var gravityBoard: [GravityParticipant]!;
     
     var teams: [ChallengeTeam]!;
 
     var highScore = 1000;
     
-    init(dictionary: NSDictionary, userStatus: NSString, participant: ChallengeParticipant!, gravityBoard: [GravityParticipant]!) {
+    init(dictionary: NSDictionary, userStatus: NSString, participant: ChallengeParticipant!, gravityBoard: [GravityParticipant]!, participants: [ChallengeParticipant]!) {
         self.userStatus = userStatus;
         self.participant = participant;
         self.gravityBoard = gravityBoard;
+        self.participants = participants;
         name = (dictionary["name"] ?? "") as NSString;
         description = "";   // Deal with this later
         shortDescription = (dictionary["shortDescription"] ?? "") as NSString;

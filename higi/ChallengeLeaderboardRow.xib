@@ -8,7 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ChallengeLeaderboardRow" customModule="higi" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="35"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="You" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gj9-zg-cQR">
@@ -50,7 +50,14 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="345" y="208"/>
+            <connections>
+                <outlet property="avatar" destination="ot0-KN-rck" id="emI-uu-uWf"/>
+                <outlet property="name" destination="gj9-zg-cQR" id="WU2-K0-G4S"/>
+                <outlet property="place" destination="weF-Yk-wxc" id="ZkC-dg-Iu6"/>
+                <outlet property="points" destination="Ara-sS-UlK" id="ytz-DD-Ngd"/>
+                <outlet property="progress" destination="V7f-uV-swD" id="PmC-3A-gEj"/>
+            </connections>
+            <point key="canvasLocation" x="345" y="205.5"/>
         </view>
     </objects>
     <resources>
