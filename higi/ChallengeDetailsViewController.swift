@@ -57,6 +57,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     let toggleButtonHeight:CGFloat = 60;
     var scrollOffset = 0;
     
+    var shouldScroll = true;
     var toggleButtons:[UIButton] = [];
     
     func setChallengeName(name: String) {
@@ -104,7 +105,45 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         populateScrollView();
         
         populateTabButtons();
+        
+        if (displayProgressTab && hasIndividualComponent && hasTeamComponent) {
+            addToggleButtons(leaderBoardTable);
+        } else if (false) {
+            
+        }
 
+    }
+    
+    func addToggleButtons(table: UITableView) {
+        let buttonMargin:CGFloat = 10;
+        let header = UIView(frame: CGRect(x: 0, y: buttonContainerOriginY + buttonContainer.frame.size.height + buttonMargin, width: contentView.frame.size.width, height: toggleButtonHeight  - buttonMargin));
+        
+        header.backgroundColor = Utility.colorFromHexString("#F4F4F4");
+        
+        let toggleButtonsText = ["Individuals", "Teams"];
+        for index in 0...1 {
+            //no x padding for first button
+            let buttonX = (CGFloat(1 - index) * buttonMargin) + (CGFloat(index) * (contentView.frame.size.width / 2));
+            let buttonY = buttonContainerOriginY + buttonContainer.frame.size.height + buttonMargin;
+            //subtract margin from width of second button
+            let buttonWidth = contentView.frame.size.width / 2 - (CGFloat(index) * buttonMargin);
+            let buttonHeight = toggleButtonHeight - buttonMargin * 2;
+            var button = UIButton(frame: CGRect(x: buttonX, y: buttonY, width: buttonWidth, height: buttonHeight));
+            button.setBackgroundImage(makeImageWithColor(UIColor.whiteColor()), forState: UIControlState.Selected);
+            button.setTitleColor(UIColor.darkGrayColor(), forState: UIControlState.Selected);
+            button.setBackgroundImage(makeImageWithColor(Utility.colorFromHexString("#E3E3E3")), forState: UIControlState.Normal);
+            button.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal);
+            button.backgroundColor = UIColor.lightGrayColor();
+            button.setTitle(toggleButtonsText[index], forState: UIControlState.Normal);
+            button.titleLabel?.font = UIFont.boldSystemFontOfSize(12);
+            button.tintColor = UIColor.whiteColor();
+            button.selected = index == 0;
+            button.addTarget(self, action: "toggleButton:", forControlEvents: UIControlEvents.TouchUpInside);
+            button.enabled = true;
+            toggleButtons.append(button);
+            header.addSubview(button);
+        }
+        table.tableHeaderView = header;
     }
     
     func populateHeader() {
@@ -163,11 +202,15 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         
         for index in 0...buttonText.count - 1 {
             var image = UIImage(named: buttonIcons[index]) as UIImage!;
-            image.drawInRect(CGRect(x: 0, y: 0, width: 30, height: 30));
+            
+            image.drawInRect(CGRect(x: 0, y: 0, width: 10, height: 10));
             var button = UIButton.buttonWithType(UIButtonType.System) as UIButton
             button.frame = CGRect(x: buttonWidth * CGFloat(index), y: 0, width: buttonWidth, height: height);
             button.backgroundColor = UIColor.lightGrayColor();
-            button.setBackgroundImage(image, forState: UIControlState.Normal);
+            button.setImage(image, forState: UIControlState.Normal);
+            button.imageEdgeInsets = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15);
+            button.contentMode = UIViewContentMode.Center;
+//            button.setBackgroundImage(image, forState: UIControlState.Normal);
             button.setTitle(buttonText[index], forState: UIControlState.Normal);
             button.titleLabel?.font = UIFont.systemFontOfSize(10);
             button.tintColor = UIColor.darkGrayColor();
@@ -250,43 +293,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if (hasIndividualComponent && hasTeamComponent && (tableView == leaderBoardTable || tableView == progressTable)) {
-            let buttonMargin:CGFloat = 10;
-            let header = UIView(frame: CGRect(x: 0, y: buttonContainerOriginY + buttonContainer.frame.size.height, width: contentView.frame.size.width, height: toggleButtonHeight  - buttonMargin));
-            let filler = UIView(frame: CGRect(x: 0, y: 0, width: contentView.frame.size.width, height: buttonContainerOriginY + buttonContainer.frame.size.height));
-            filler.backgroundColor = Utility.colorFromHexString("#F4F4F4");
-            
-            header.addSubview(filler);
-
-            let toggleButtonsText = ["Individuals", "Teams"];
-            for index in 0...1 {
-                //no x padding for first button
-                let buttonX = (CGFloat(1 - index) * buttonMargin) + (CGFloat(index) * (contentView.frame.size.width / 2));
-                let buttonY = buttonContainerOriginY + buttonContainer.frame.size.height + buttonMargin;
-                //subtract margin from width of second button
-                let buttonWidth = contentView.frame.size.width / 2 - (CGFloat(index) * buttonMargin);
-                let buttonHeight = toggleButtonHeight - buttonMargin * 2;
-                var button = UIButton(frame: CGRect(x: buttonX, y: buttonY, width: buttonWidth, height: buttonHeight));
-                
-                button.setBackgroundImage(makeImageWithColor(UIColor.whiteColor()), forState: UIControlState.Selected);
-                button.setTitleColor(UIColor.darkGrayColor(), forState: UIControlState.Selected);
-                button.setBackgroundImage(makeImageWithColor(Utility.colorFromHexString("#E3E3E3")), forState: UIControlState.Normal);
-                button.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal);
-                button.backgroundColor = UIColor.lightGrayColor();
-                button.setTitle(toggleButtonsText[index], forState: UIControlState.Normal);
-                button.titleLabel?.font.fontWithSize(10);
-                button.tintColor = UIColor.whiteColor();
-                button.selected = index == 0;
-                button.addTarget(self, action: "toggleButton:", forControlEvents: UIControlEvents.TouchUpInside);
-                
-                toggleButtons.append(button);
-                header.insertSubview(button, belowSubview: filler);
-            }
-            
-            return header;
-        } else {
-            return UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0));
-        }
+        return UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0));
     }
     
     func makeImageWithColor(color: UIColor) -> UIImage {
@@ -303,7 +310,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if (tableView == leaderBoardTable) {
-            return buttonContainerOriginY + buttonContainer.frame.size.height + toggleButtonHeight;
+            return buttonContainerOriginY + buttonContainer.frame.size.height + 10;
         }
         return buttonContainerOriginY + buttonContainer.frame.size.height;
     }
@@ -331,7 +338,9 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        updateScroll();
+        if (shouldScroll) {
+            updateScroll();
+        }
     }
     
     var lastScrollY:CGFloat = 0;
@@ -348,9 +357,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             if (scrollY >= headerContainerHeight - minHeaderHeightThreshold) {
                 headerContainer.frame.origin.y = minHeaderHeightThreshold - headerContainerHeight;
                 buttonContainer.frame.origin.y = minHeaderHeightThreshold - 1;
-//
-//                var t1 = minHeaderHeightThreshold - headerContainerHeight;
-//                var t2 = headerContainer.frame.origin.y;
             } else {
                 participantPlace.frame.origin.x = headerPlaceOriginX + (scrollY / headerXOffset);
                 participantProgress.frame.origin.x = headerProgressOriginX + (scrollY / headerXOffset);
@@ -363,7 +369,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
 
                 headerContainer.frame.origin.y = -scrollY;
                 buttonContainer.frame.origin.y = buttonContainerOriginY - scrollY;
-                
             }
         }
         
@@ -398,10 +403,15 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         let newWidth = proportion * width;
         participantContainer.frame.size.width = proportion * width;
         
-        let bar = UIView(frame: CGRect(x: 0, y: view.frame.origin.y / 2 - 5, width: newWidth, height: 5));
-        bar.backgroundColor = Utility.colorFromHexString("#76C043");
-        bar.layer.cornerRadius = 2;
-        view.addSubview(bar);
+        let clearBar = UIView(frame: CGRect(x: 0, y: view.frame.origin.y / 2 - 5, width: width, height: 5));
+        clearBar.backgroundColor = Utility.colorFromHexString("#76C043");
+        clearBar.layer.cornerRadius = 2;
+        view.addSubview(clearBar);
+        
+        let greenBar = UIView(frame: CGRect(x: 0, y: view.frame.origin.y / 2 - 5, width: newWidth, height: 5));
+        greenBar.backgroundColor = Utility.colorFromHexString("#76C043");
+        greenBar.layer.cornerRadius = 2;
+        view.addSubview(greenBar);
     }
 
     func changePage(page: Int) {
@@ -414,5 +424,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func goBack(sender: AnyObject!) {
         self.navigationController!.popViewControllerAnimated(true);
+        shouldScroll = false;
     }
 }

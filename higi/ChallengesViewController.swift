@@ -20,10 +20,10 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         static let invitedChallengesIndex = 3;
     }
 
-    var activeChallenges:[HigiChallenge] = [];
-    var upcomingChallenges:[HigiChallenge] = [];
-    var availableChallenges:[HigiChallenge] = [];
-    var invitedChallenges:[HigiChallenge] = [];
+    var activeChallenges:[HigiChallenge]! = [];
+    var upcomingChallenges:[HigiChallenge]! = [];
+    var availableChallenges:[HigiChallenge]! = [];
+    var invitedChallenges:[HigiChallenge]! = [];
     
     var currentPage  = 0;
     var totalPages = 0;
@@ -115,7 +115,6 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
 //        }
     }
 
-    
     func addTableView(page: Int) -> UITableView {
         let viewWidth = scrollView.frame.size.width;
         let viewHeight = min(ViewConstants.cardHeight * CGFloat(activeChallenges.count) + 83, scrollView.frame.size.height);
@@ -141,17 +140,18 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool {
         return true;
     }
-    
+
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var count = 0;
-        let x = section;
-        if (activeTable != nil && tableView == activeTable) {
+        let activeTableViewTemp:UITableView = activeTable;
+        //check display master array instead of null checks to avoid crash
+        if (pageDisplayMaster[0] && tableView == activeTable && activeChallenges != nil) {
             count = activeChallenges.count;
-        } else if (upcomingTable != nil && tableView == upcomingTable) {
+        } else if (pageDisplayMaster[1] && tableView == upcomingTable && upcomingChallenges != nil) {
             count = upcomingChallenges.count;
-        } else if (availableTable != nil && tableView == availableTable) {
+        } else if (pageDisplayMaster[2] && tableView == availableTable && availableChallenges != nil) {
             count = availableChallenges.count;
-        } else if (invitedTable != nil && tableView == invitedTable) {
+        } else if (pageDisplayMaster[3] && pageDisplayMaster[3] && tableView == invitedTable && invitedChallenges != nil) {
             count = invitedChallenges.count;
         }
         return count;
@@ -235,7 +235,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         Flurry.logEvent("Challenge_Pressed");
         var challengeName = challenge.name!;
         var challengeDetailViewController = ChallengeDetailsViewController();
-        challengeDetailViewController.setChallengeName(challengeName);
+        challengeDetailViewController.challengeName = challengeName;
         self.navigationController!.pushViewController(challengeDetailViewController, animated: true);
     }
     
@@ -308,6 +308,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     }
     
     func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true);
         var challenges:[HigiChallenge] = [];
         var challengeType = "";
         
@@ -323,11 +324,10 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         
         var challenge = challenges[indexPath.row];
         
-//        Flurry.logEvent("Challenge_Pressed");
-        var challengeName = challenges[indexPath.row].name;
+        Flurry.logEvent("Challenge_Pressed");
         var challengeDetailViewController = ChallengeDetailsViewController(nibName: "ChallengeDetailsView", bundle: nil);
-//        challengeDetailViewController.challengeName = challengeName;
-        challengeDetailViewController.setChallengeName(challengeName);
+
+        challengeDetailViewController.challenge = challenge;
         self.navigationController!.pushViewController(challengeDetailViewController, animated: true);
         
         return false;
