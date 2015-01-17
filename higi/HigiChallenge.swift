@@ -40,7 +40,7 @@ class HigiChallenge {
         self.gravityBoard = gravityBoard;
         self.participants = participants;
         name = (dictionary["name"] ?? "") as NSString;
-        description = "";   // Deal with this later
+        description = dictionary["description"] as NSString!;
         shortDescription = (dictionary["shortDescription"] ?? "") as NSString;
         var imageUrls =  dictionary["imageUrl"] as NSDictionary;
         imageUrl = imageUrls["default"] as? NSString;
