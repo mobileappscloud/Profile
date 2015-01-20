@@ -82,7 +82,7 @@ class ApiUtility {
     }
     
     class func retrieveActivities(success: (() -> Void)?) {
-        let userId = HigiApi.PRODUCTION == true ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
+        let userId = HigiApi.PRODUCTION ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
         var startDateFormatter = NSDateFormatter();
         startDateFormatter.dateFormat = "yyyy-MM-01";
         var endDateFormatter = NSDateFormatter();
@@ -91,7 +91,7 @@ class ApiUtility {
         var dateComponents = NSDateComponents();
         dateComponents.month = -6;
         var startDate = NSCalendar.currentCalendar().dateByAddingComponents(dateComponents, toDate: endDate, options: NSCalendarOptions.allZeros)!;
-        HigiApi().sendGet("\(HigiApi.earnditApiUrl)/user/\(userId)/activities?startDate=\(startDateFormatter.stringFromDate(startDate))&endDate=\(endDateFormatter.stringFromDate(endDate))", success: {operation, responseObject in
+        HigiApi().sendGet("\(HigiApi.earnditApiUrl)/user/\(userId)/activities?limit=0&startDate=\(startDateFormatter.stringFromDate(startDate))&endDate=\(endDateFormatter.stringFromDate(endDate))", success: {operation, responseObject in
             var activities: [HigiActivity] = [];
             var serverActivities = ((responseObject as NSDictionary)["response"] as NSDictionary)["data"] as NSArray;
             for activity: AnyObject in serverActivities {
@@ -106,7 +106,7 @@ class ApiUtility {
     }
     
     class func retrieveChallenges(success: (() -> Void)?) {
-        let userId = HigiApi.PRODUCTION == true ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
+        let userId = HigiApi.PRODUCTION ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
         HigiApi().sendGet("\(HigiApi.earnditApiUrl)/user/\(userId)/challenges?&include[gravityboard]=3&include[participants]=50" +
             "&include[comments]=50&include[teams.comments]=50", success: {operation, responseObject in
             var challenges: [HigiChallenge] = [];
@@ -144,18 +144,14 @@ class ApiUtility {
     }
     
     class func retrieveDevices(success: (() -> Void)?) {
-        let userId = HigiApi.PRODUCTION == true ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
+        let userId = HigiApi.PRODUCTION ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
         
         HigiApi().sendGet("\(HigiApi.earnditApiUrl)/user/\(userId)/devices", success: {operation, responseObject in
             var devices: [String:ActivityDevice] = [:];
             var serverDevices = (responseObject as NSDictionary)["response"] as NSArray;
             for device: AnyObject in serverDevices {
-                var serverDevice = (device as NSDictionary)["device"] as? NSDictionary;
-                if (serverDevice != nil) {
-                    var thisDevice = ActivityDevice(dictionary: serverDevice!);
-                    thisDevice.enabled = (device as NSDictionary)["enabled"] as? Bool;
-                    devices[thisDevice.name] = ActivityDevice(dictionary: serverDevice!);
-                }
+                var thisDevice = ActivityDevice(dictionary: device as NSDictionary);
+                devices[thisDevice.name] = thisDevice;
             }
             
             SessionController.Instance.devices = devices;

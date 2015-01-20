@@ -10,9 +10,9 @@ import Foundation
 
 class ActivityDevice {
     
-    var name, description, url, connectUrl, partnerHomepage, iconUrl, colorCode: NSString!;
+    var name, description, url, connectUrl, partnerHomepage, iconUrl, colorCode, disconnectUrl: NSString!;
     
-    var enabled: Bool!;
+    var connected: Bool!;
     
     init(dictionary: NSDictionary) {
         name = dictionary["name"] as NSString;
@@ -21,9 +21,11 @@ class ActivityDevice {
         connectUrl = dictionary["connectUrl"] as? NSString;
         partnerHomepage = dictionary["partnerHomepage"] as? NSString;
         colorCode = dictionary["colorCode"] as NSString;
-        enabled = dictionary["enabled"] as Bool;
         var imageUrls = dictionary["imageUrl"] as NSDictionary;
         iconUrl = imageUrls["icon"] as? NSString;
+        var userRelation = dictionary["userRelation"] as NSDictionary;
+        connected = userRelation["connected"] as? Bool;
+        disconnectUrl = userRelation["disconnectUrl"] as? NSString;
     }
     
 }
