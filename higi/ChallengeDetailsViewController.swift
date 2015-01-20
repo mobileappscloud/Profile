@@ -60,9 +60,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     var shouldScroll = true;
     var toggleButtons:[UIButton] = [];
     
-    func setChallengeName(name: String) {
-        challengeName = name;
-    }
+    let gestureRecognizer = UITapGestureRecognizer();
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -106,12 +104,13 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         
         populateTabButtons();
         
+        gestureRecognizer.addTarget(self, action: "toggleButton:");
+        
         if (displayProgressTab && hasIndividualComponent && hasTeamComponent) {
             addToggleButtons(leaderBoardTable);
         } else if (false) {
             
         }
-
     }
     
     func addToggleButtons(table: UITableView) {
@@ -140,6 +139,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             button.selected = index == 0;
             button.addTarget(self, action: "toggleButton:", forControlEvents: UIControlEvents.TouchUpInside);
             button.enabled = true;
+
             toggleButtons.append(button);
             header.addSubview(button);
         }
@@ -207,7 +207,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             image.drawInRect(CGRect(x: 0, y: 0, width: 10, height: 10));
             var button = UIButton.buttonWithType(UIButtonType.System) as UIButton
             button.frame = CGRect(x: buttonWidth * CGFloat(index), y: 0, width: buttonWidth, height: height);
-            button.backgroundColor = UIColor.lightGrayColor();
+            button.backgroundColor = Utility.colorFromHexString("#FDFDFD");
             button.setImage(image, forState: UIControlState.Normal);
             button.imageEdgeInsets = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15);
             button.setTitle(buttonText[index], forState: UIControlState.Normal);
@@ -230,14 +230,12 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         selectedGreenBar.frame.origin.x = CGFloat(page) * selectedGreenBar.frame.size.width;
     }
     
-    func toggleButton(sender: UIButton!) {
-        if (!sender.selected) {
-            for button in toggleButtons {
-                button.selected = !button.selected;
-            }
-            isIndividualLeaderboard = toggleButtons[0].selected;
-            leaderBoardTable.reloadData();
+    func toggleButton(sender: AnyObject) {
+        for button in toggleButtons {
+            button.selected = !button.selected;
         }
+        isIndividualLeaderboard = toggleButtons[0].selected;
+        leaderBoardTable.reloadData();
     }
     
     func populateScrollViewWithTables() {
@@ -297,7 +295,9 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0));
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0));
+        view.addGestureRecognizer(gestureRecognizer);
+        return view;
     }
     
     func makeImageWithColor(color: UIColor) -> UIImage {
@@ -328,13 +328,14 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if (displayLeaderBoardTab && tableView == leaderBoardTable) {
-            var cell = tableView.dequeueReusableCellWithIdentifier("ChallengeLeaderboardRow") as ChallengeLeaderboardRow!;
-            if (cell == nil) {
-                var a = challenge.participants;
-                var i = indexPath.row;
-                var ab = challenge.participants[indexPath.row];
-                cell = ChallengeLeaderboardRow.instanceFromNib(challenge, participant: challenge.participants[indexPath.row], index: indexPath.row, isIndividual: isIndividualLeaderboard);
-            }
+            //var cell = tableView.dequeueReusableCellWithIdentifier("ChallengeLeaderboardRow") as ChallengeLeaderboardRow!;
+            //if (cell == nil) {
+                var cell = ChallengeLeaderboardRow.instanceFromNib(challenge, index: indexPath.row, isIndividual: isIndividualLeaderboard);
+            //}
+            return cell;
+        } else if (tableView == progressTable) {
+            let cell = UITableViewCell(frame: CGRect(x: 0, y: 0, width: scrollView.frame.size.width, height: 200));
+            cell.addSubview(Utility.getChallengeViews(challenge)[2])
             return cell;
         } else if (tableView == detailsTable) {
             return ChallengeDetailsTab.instanceFromNib(challenge);
@@ -355,11 +356,13 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         var currentTable = tables[currentPage];
         var scrollY = currentTable.contentOffset.y;
         
-        if (scrollY < lastScrollY) {
+        //@todo for some reason there is a hiccup in scrolling at 34 and 78 that resets scroll to 0
+        if (scrollY == 34 || scrollY == 78) {
             var t = 0;
         }
-        lastScrollY = scrollY;
-        if (scrollY >= 0) {
+        
+        lastScrollY = headerContainer.frame.origin.y;
+//        if (scrollY >= 0) {
             if (scrollY >= headerContainerHeight - minHeaderHeightThreshold) {
                 headerContainer.frame.origin.y = minHeaderHeightThreshold - headerContainerHeight;
                 buttonContainer.frame.origin.y = minHeaderHeightThreshold - 1;
@@ -372,11 +375,12 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                 participantPlace.frame = CGRect(x: headerPlaceOriginX + xOffset, y: participantPlace.frame.origin.y, width: 58, height: 25);
                 participantName.frame = CGRect(x: headerPlaceOriginX + xOffset, y: participantName.frame.origin.y, width: 162, height: 16);
                 participantProgress.frame = CGRect(x: headerProgressOriginX + xOffset, y: participantPoints.frame.origin.y, width: headerProgressOriginWidth - xOffset, height: 15);
-                participantProgress.setNeedsDisplay();
+
                 headerContainer.frame.origin.y = -scrollY;
+                //buttonContainer.frame.origin.y = buttonContainerOriginY - scrollY;
                 buttonContainer.frame.origin.y = buttonContainerOriginY - scrollY;
             }
-        }
+//        }
         
         for index in 0...tables.count - 1 {
             if (index != currentPage) {

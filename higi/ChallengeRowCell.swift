@@ -9,16 +9,38 @@ class ChallengeRowCell: UITableViewCell, UIScrollViewDelegate, UIGestureRecogniz
     @IBOutlet var pager: UIPageControl!;
     @IBOutlet weak var join: UILabel!
     
+    //@todo remove this if not used
+    let tapGestureRecognizer = UITapGestureRecognizer();
+    let swipeGestureRecognizer = UISwipeGestureRecognizer();
+    
     class func instanceFromNib() -> ChallengeRowCell {
         return UINib(nibName: "ChallengeRowCell", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeRowCell;
     }
-        
+
     override
     func layoutSubviews() {
         scrollView.delegate = self;
         scrollView.delaysContentTouches = true;
         var page = lround(Double(scrollView.contentOffset.x / scrollView.frame.size.width));
         changePage(pager);
+        
+//        @todo fix this up or remove it
+//
+//        tapGestureRecognizer.addTarget(self, action: "cellTapped:");
+//        tapGestureRecognizer.cancelsTouchesInView = false;
+//        swipeGestureRecognizer.addTarget(self, action: "cellSwiped:");
+//        
+//        scrollView.addGestureRecognizer(tapGestureRecognizer);
+//        scrollView.addGestureRecognizer(swipeGestureRecognizer);
+//
+    }
+    
+    func cellTapped(sender: AnyObject) {
+        var i = 0;
+    }
+    
+    func cellSwiped(sender: AnyObject) {
+        var t = 0;
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
@@ -38,10 +60,11 @@ class ChallengeRowCell: UITableViewCell, UIScrollViewDelegate, UIGestureRecogniz
         scrollView.setContentOffset(frame.origin, animated: true);
     }
     
+    //@todo this needs to return self on tap, but scroll on swipe -- or otherwise go to details page on tap
     override func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {
         return self;
     }
-    
+
     override
     func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
         if (self.nextResponder() != nil) {

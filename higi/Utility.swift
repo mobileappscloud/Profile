@@ -64,41 +64,46 @@ class Utility {
         return NSBundle.mainBundle().objectForInfoDictionaryKey(kCFBundleVersionKey as NSString) as String
     }
     
-    class func getChallengeViews(challenge: HigiChallenge) -> [UIView] {
-        var nib:UIView!;
-        var nibs:[UIView] = [];
-        var winConditions:[ChallengeWinCondition] = [];
+    class func consolodateWinConditions(winConditions: [ChallengeWinCondition]) -> [[ChallengeWinCondition]] {
+        var conditionsListHolder:[ChallengeWinCondition] = [];
+        var consolodatedList:[[ChallengeWinCondition]] = [];
         
-        for index in 0...challenge.winConditions.count - 1 {
-            let currentWinCondition = challenge.winConditions[index];
-            let previousWinCondition:ChallengeWinCondition = index == 0 ? challenge.winConditions[index] : challenge.winConditions[index-1];
+        for index in 0...winConditions.count - 1 {
+            let currentWinCondition = winConditions[index];
+            let previousWinCondition:ChallengeWinCondition = index == 0 ? winConditions[index] : winConditions[index-1];
             
             let goalType = currentWinCondition.goal.type;
             let winnerType = currentWinCondition.winnerType;
             
             if (previousWinCondition !== currentWinCondition && (goalType != previousWinCondition.goal.type || winnerType != previousWinCondition.winnerType)) {
-                let winConditionGoalType = winConditions[0].goal.type;
-                if (winConditionGoalType == "most_points" || winConditionGoalType == "unit_goal_reached") {
-                    nib = CompetitiveChallengeView.instanceFromNib(challenge, winConditions: winConditions);
-                }
-                else if (winConditionGoalType == "threshold_reached" && winConditions[0].goal.minThreshold > 1) {
-                    nib = GoalChallengeView.instanceFromNib(challenge, winConditions: winConditions);
-                }
-                if (nib != nil) {
-                    nibs.append(nib);
-                }
-                winConditions = [];
+                consolodatedList.append(conditionsListHolder);
+                conditionsListHolder = [];
             }
-            winConditions.append(currentWinCondition);
+            conditionsListHolder.append(currentWinCondition);
         }
+        if conditionsListHolder.count > 0 {
+            consolodatedList.append(conditionsListHolder);
+            conditionsListHolder = [];
+        }
+        return consolodatedList;
+    }
+    
+    class func getChallengeViews(challenge: HigiChallenge) -> [UIView] {
+        var nib:UIView!;
+        var nibs:[UIView] = [];
+        var winConditions:[ChallengeWinCondition] = [];
         
-        if winConditions.count > 0 {
-            let remainingGoalType = winConditions[0].goal.type;
-            if (remainingGoalType == "most_points" || remainingGoalType == "unit_goal_reached") {
-                nib = CompetitiveChallengeView.instanceFromNib(challenge, winConditions: winConditions);
-            }
-            else if (remainingGoalType == "threshold_reached" && winConditions[0].goal.minThreshold > 1) {
-                nib = GoalChallengeView.instanceFromNib(challenge, winConditions: winConditions);
+        let consolodatedList = consolodateWinConditions(challenge.winConditions);
+        
+        for index in 0...consolodatedList.count - 1 {
+            let firstWinCondition = consolodatedList[index][0];
+            let goalType = firstWinCondition.goal.type;
+            let winnerType = firstWinCondition.winnerType;
+
+            if (goalType == "most_points" || goalType == "unit_goal_reached") {
+                nib = CompetitiveChallengeView.instanceFromNib(challenge, winConditions: consolodatedList[index]);
+            } else if (goalType == "threshold_reached" && firstWinCondition.goal.minThreshold > 1) {
+                    nib = GoalChallengeView.instanceFromNib(challenge, winConditions: consolodatedList[index]);
             }
             if (nib != nil) {
                 nibs.append(nib);
@@ -112,7 +117,7 @@ class Utility {
         if let imageError = imageUrl?.checkResourceIsReachableAndReturnError(NSErrorPointer()) {
             return imageUrl!;
         }
-        return NSURL()
+        return NSURL();
     }
     
     class func getRankSuffix(rank: NSString) -> String {

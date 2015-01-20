@@ -16,7 +16,11 @@ class ChallengeDetailsTab: UITableViewCell {
         let firstWinCondition = challenge.winConditions[0];
         
         tab.descriptionText.text = challenge.description;
-        tab.durationText.text = setDateRangeHelper(challenge.startDate, endDate: challenge.endDate);
+        if (challenge.endDate != nil) {
+            tab.durationText.text = setDateRangeHelper(challenge.startDate, endDate: challenge.endDate);
+        } else {
+            tab.durationText.text = "Never ends!";
+        }
         tab.goalText.text = firstWinCondition.description;
         tab.typeText.text = goalTypeDisplayHelper(firstWinCondition.goal.type.description, winnerType: firstWinCondition.winnerType);
         tab.individualCountText.text = String(challenge.participantsCount);
@@ -31,7 +35,9 @@ class ChallengeDetailsTab: UITableViewCell {
     }
     
     class func setDateRangeHelper(startDate: NSDate, endDate: NSDate) -> String {
-        return "Sep 2 - Jan 1";
+        var dateFormatter = NSDateFormatter();
+        dateFormatter.dateFormat = "MMM. dd, YYYY"
+        return "\(dateFormatter.stringFromDate(startDate)) - \(dateFormatter.stringFromDate(endDate))";
     }
     
     class func goalTypeDisplayHelper(goalType: String, winnerType: String) -> String {

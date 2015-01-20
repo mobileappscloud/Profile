@@ -7,10 +7,10 @@ class ChallengeLeaderboardRow: UITableViewCell {
     @IBOutlet weak var points: UILabel!
     @IBOutlet weak var avatar: UIImageView!
 
-    class func instanceFromNib(challenge: HigiChallenge, participant: ChallengeParticipant, index: Int, isIndividual: Bool) -> ChallengeLeaderboardRow {
+    class func instanceFromNib(challenge: HigiChallenge, index: Int, isIndividual: Bool) -> ChallengeLeaderboardRow {
         let row = UINib(nibName: "ChallengeLeaderboardRow", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeLeaderboardRow;
-        
         if (isIndividual) {
+            let participant = challenge.participants[index];
             let highScore = challenge.individualHighScore;
             row.avatar.setImageWithURL(Utility.loadImageFromUrl(participant.imageUrl));
             row.name.text = participant.displayName;
@@ -18,14 +18,15 @@ class ChallengeLeaderboardRow: UITableViewCell {
             row.place.text = Utility.getRankSuffix(String(index + 1));
             setProgressBar(row.progress, points: Int(participant.units), highScore: Int(highScore));
         } else {
+            let team = challenge.teams[index];
             let highScore = challenge.teamHighScore;
-            row.avatar.setImageWithURL(Utility.loadImageFromUrl(participant.team.imageUrl));
-            row.name.text = participant.team.name;
-            let units = participant.team.memberCount > 0 ? Int(participant.team.units) / participant.team.memberCount : 0;
+            row.avatar.setImageWithURL(Utility.loadImageFromUrl(team.imageUrl));
+            row.name.text = team.name;
+            let units = team.memberCount > 0 ? Int(team.units) / challenge.teams.count: 0;
                 
             row.points.text = "\(units) \(challenge.metric)";
             row.place.text = Utility.getRankSuffix(String(index + 1));
-            setProgressBar(row.progress, points: Int(participant.team.units), highScore: Int(highScore));
+            setProgressBar(row.progress, points: Int(team.units), highScore: Int(highScore));
         }
         return row;
     }
