@@ -254,7 +254,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     func buildActiveCell(cell: ChallengeRowCell, challenge: HigiChallenge) -> ChallengeRowCell {
         var nibOriginX:CGFloat = 0.0;
         
-        var nibs = Utility.getChallengeViews(challenge);
+        var nibs = Utility.getChallengeViews(challenge, isComplex: true);
         for nib in nibs {
             nib.frame.origin.x = nibOriginX;
             cell.scrollView.addSubview(nib);

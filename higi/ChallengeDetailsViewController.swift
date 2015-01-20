@@ -34,6 +34,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     var hasTeamComponent = false;
     var hasIndividualComponent = false;
     var isIndividualLeaderboard = true;
+    var isIndividualProgress = true;
     
     @IBOutlet weak var selectedGreenBar: UIView!
     var leaderBoardTable: UITableView!;
@@ -160,7 +161,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             participantPlace.hidden = true;
             participantProgress.hidden = true;
         }
-//
+
         challengeAvatar.setImageWithURL(Utility.loadImageFromUrl(challenge.imageUrl));
         challengeTitle.text = challenge.name;
         
@@ -322,6 +323,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (displayLeaderBoardTab && tableView == leaderBoardTable) {
             return isIndividualLeaderboard ? min(50,challenge.participantsCount) : min(50, challenge.teams.count);
+        } else if (displayProgressTab && tableView == progressTable) {
+            return 1;
         }
         return 1;
     }
@@ -333,9 +336,34 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                 var cell = ChallengeLeaderboardRow.instanceFromNib(challenge, index: indexPath.row, isIndividual: isIndividualLeaderboard);
             //}
             return cell;
-        } else if (tableView == progressTable) {
+        } else if (displayProgressTab && tableView == progressTable) {
             let cell = UITableViewCell(frame: CGRect(x: 0, y: 0, width: scrollView.frame.size.width, height: 200));
-            cell.addSubview(Utility.getChallengeViews(challenge)[2])
+            let consolodatedWinConditions = Utility.consolodateWinConditions(challenge.winConditions);
+            var individualGoalViewIndex = 0;
+            var teamGoalViewIndex = 0;
+            // the win condition for getting 1 point messed up my logic here since we don't have a view for it
+            var ignoreOnePointGoalWinCondition = false;
+            for index in 0...consolodatedWinConditions.count - 1 {
+                let winConditionList = consolodatedWinConditions[index];
+                let firstWinCondition = winConditionList[0];
+                if (firstWinCondition.goal.type == "threshold_reached") {
+                    if (firstWinCondition.winnerType == "individual") {
+                        if (firstWinCondition.goal.minThreshold == 1) {
+                            ignoreOnePointGoalWinCondition = true;
+                        } else {
+                            individualGoalViewIndex = ignoreOnePointGoalWinCondition ? index - 1 : index;
+                        }
+                    } else {
+                        teamGoalViewIndex = ignoreOnePointGoalWinCondition ? index - 1 : index;
+                    }
+                }
+            }
+            let nibs = Utility.getChallengeViews(challenge, isComplex: true);
+            if (isIndividualProgress) {
+                cell.addSubview(nibs[individualGoalViewIndex]);
+            } else {
+                cell.addSubview(nibs[teamGoalViewIndex])
+            }
             return cell;
         } else if (tableView == detailsTable) {
             return ChallengeDetailsTab.instanceFromNib(challenge);
@@ -384,7 +412,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         
         for index in 0...tables.count - 1 {
             if (index != currentPage) {
-                tables[index].contentOffset.y = scrollY;
+                tables[index].contentOffset.y = min(scrollY, headerContainer.frame.size.height);
             }
         }
     }

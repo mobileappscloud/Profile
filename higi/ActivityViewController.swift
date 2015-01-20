@@ -31,7 +31,7 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
     var dayBuckets, weekBuckets, monthBuckets: [String: [Int]]!;
     
     var dayGraph, weekGraph, monthGraph: ActivityGraphHostingView!;
-    
+
     override func viewDidLoad() {
         super.viewDidLoad();
         self.title = "Activity";
@@ -44,7 +44,7 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
         }
         createGraphs();
     }
-    
+
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated);
         pointsMeter.drawArc();
