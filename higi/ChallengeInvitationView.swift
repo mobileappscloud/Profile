@@ -46,17 +46,20 @@ class ChallengeInvitationView: UIView {
             }
         }
         invitationView.starting.text = startsIn;
-        
-        let formatter = NSDateFormatter();
-        formatter.dateFormat = "MMM d, ''yy";
-        var startDateShort = formatter.stringFromDate(startDate!);
-        var endDateShort = formatter.stringFromDate(endDate!);
 
         //unicode values must be set here
         invitationView.calendarIcon.text = "\u{f073}";
         invitationView.participantIcon.text = "\u{f007}";
 
-        invitationView.dateRange.text = "\(startDateShort) - \(endDateShort)";
+        if (endDate != nil) {
+            let formatter = NSDateFormatter();
+            formatter.dateFormat = "MMM d, ''yy";
+            let startDateShort = formatter.stringFromDate(startDate!);
+            let endDateShort = formatter.stringFromDate(endDate!);
+            invitationView.dateRange.text = "\(startDateShort) - \(endDateShort)";
+        } else {
+            invitationView.dateRange.text = "Never ends!";
+        }
         
         return invitationView;
     }

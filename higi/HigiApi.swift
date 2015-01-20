@@ -18,11 +18,11 @@ class HigiApi {
     var manager: AFHTTPRequestOperationManager;
     
     class var higiApiUrl: String {
-        return HigiApi.PRODUCTION == true ? BASE_URL : DEV_BASE_URL;
+        return HigiApi.PRODUCTION ? BASE_URL : DEV_BASE_URL;
     }
     
     class var earnditApiUrl: String {
-        return HigiApi.PRODUCTION == true ? EARNDIT_URL : DEV_EARNDIT_URL;
+        return HigiApi.PRODUCTION ? EARNDIT_URL : DEV_EARNDIT_URL;
     }
     
     class var webUrl: String {

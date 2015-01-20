@@ -24,22 +24,28 @@ class HigiChallenge {
     
     var participant: ChallengeParticipant!;
     
+    var participants: [ChallengeParticipant]! = [];
+    
     var gravityBoard: [GravityParticipant]!;
     
     var teams: [ChallengeTeam]!;
 
-    var highScore = 1000;
+    var teamHighScore: Double! = 0;
     
-    init(dictionary: NSDictionary, userStatus: NSString, participant: ChallengeParticipant!, gravityBoard: [GravityParticipant]!) {
+    var individualHighScore: Double! = 0;
+    
+    init(dictionary: NSDictionary, userStatus: NSString, participant: ChallengeParticipant!, gravityBoard: [GravityParticipant]!, participants: [ChallengeParticipant]!) {
         self.userStatus = userStatus;
         self.participant = participant;
         self.gravityBoard = gravityBoard;
+        self.participants = participants;
         name = (dictionary["name"] ?? "") as NSString;
-        description = "";   // Deal with this later
+        description = dictionary["description"] as NSString!;
         shortDescription = (dictionary["shortDescription"] ?? "") as NSString;
         var imageUrls =  dictionary["imageUrl"] as NSDictionary;
         imageUrl = imageUrls["default"] as? NSString;
         status = dictionary["status"] as NSString!;
+        metric = dictionary["metric"] as NSString!;
         var formatter = NSDateFormatter();
         formatter.dateFormat = "yyyy-MM-dd";
         var startDateString = dictionary["startDate"] as NSString;
@@ -71,8 +77,16 @@ class HigiChallenge {
             for team: AnyObject in serverTeams! {
                 teams.append(ChallengeTeam(dictionary: team as NSDictionary));
             }
+            if (teams.count > 0) {
+                teamHighScore = teams[0].units;
+            }
+        }
+        
+        if (participants.count > 0) {
+            individualHighScore = participants[0].units;
         }
 
+        
     }
     
 }

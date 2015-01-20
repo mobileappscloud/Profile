@@ -20,10 +20,10 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         static let invitedChallengesIndex = 3;
     }
 
-    var activeChallenges:[HigiChallenge] = [];
-    var upcomingChallenges:[HigiChallenge] = [];
-    var availableChallenges:[HigiChallenge] = [];
-    var invitedChallenges:[HigiChallenge] = [];
+    var activeChallenges:[HigiChallenge]! = [];
+    var upcomingChallenges:[HigiChallenge]! = [];
+    var availableChallenges:[HigiChallenge]! = [];
+    var invitedChallenges:[HigiChallenge]! = [];
     
     var currentPage  = 0;
     var totalPages = 0;
@@ -37,7 +37,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     override func viewDidLoad() {
         super.viewDidLoad();
         pager.currentPage = currentPage;
-        
+
         var session = SessionController.Instance;
         
         for challenge:HigiChallenge in session.challenges {
@@ -63,19 +63,19 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         for index in 0...pageDisplayMaster.count-1 {
             if (pageDisplayMaster[index]) {
                 if (index == 0) {
-                    activeTable = addActiveTableView(totalPages);
+                    activeTable = addTableView(totalPages);
                     scrollView.addSubview(activeTable);
                     pageTitles.append("Active Challenges");
                 } else if (index == 1) {
-                    upcomingTable = addActiveTableView(totalPages);
+                    upcomingTable = addTableView(totalPages);
                     scrollView.addSubview(upcomingTable);
                     pageTitles.append("Upcoming Challenges");
                 } else if (index == 2) {
-                    availableTable = addActiveTableView(totalPages);
+                    availableTable = addTableView(totalPages);
                     scrollView.addSubview(availableTable);
                     pageTitles.append("Available Challenges");
                 } else if (index == 3) {
-                    invitedTable = addActiveTableView(totalPages);
+                    invitedTable = addTableView(totalPages);
                     scrollView.addSubview(invitedTable);
                     pageTitles.append("Invited Challenges");
                 }
@@ -87,37 +87,35 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         }
     }
     
-    
     func scrollViewDidScroll(scrollView: UIScrollView) {
         updateNavbar();
     }
     
     func updateNavbar() {
-        var scrollY = activeTable.contentOffset.y;
-        if (scrollY >= 0) {
-            //headerImage.frame.origin.y = -scrollY / 2;
-            var alpha = min(scrollY / 75, 1);
-            self.fakeNavBar.alpha = alpha;
-            self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0 - alpha, alpha: 1.0)];
-            if (alpha < 0.5) {
-                toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon"), forState: UIControlState.Normal);
-                toggleButton!.alpha = 1 - alpha;
-                self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
-                pager.currentPageIndicatorTintColor = UIColor.whiteColor();
-            } else {
-                toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon_inverted"), forState: UIControlState.Normal);
-                toggleButton!.alpha = alpha;
-                self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
-                pager.currentPageIndicatorTintColor = UIColor.blackColor();
-            }
-        } else {
-            self.fakeNavBar.alpha = 0;
-            self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0, alpha: 1)];
-        }
+//        var scrollY = activeTable.contentOffset.y;
+//        if (scrollY >= 0) {
+//            //headerImage.frame.origin.y = -scrollY / 2;
+//            var alpha = min(scrollY / 75, 1);
+//            self.fakeNavBar.alpha = alpha;
+//            self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0 - alpha, alpha: 1.0)];
+//            if (alpha < 0.5) {
+//                toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon"), forState: UIControlState.Normal);
+//                toggleButton!.alpha = 1 - alpha;
+//                self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
+//                pager.currentPageIndicatorTintColor = UIColor.whiteColor();
+//            } else {
+//                toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon_inverted"), forState: UIControlState.Normal);
+//                toggleButton!.alpha = alpha;
+//                self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
+//                pager.currentPageIndicatorTintColor = UIColor.blackColor();
+//            }
+//        } else {
+//            self.fakeNavBar.alpha = 0;
+//            self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0, alpha: 1)];
+//        }
     }
 
-    
-    func addActiveTableView(page: Int) -> UITableView {
+    func addTableView(page: Int) -> UITableView {
         let viewWidth = scrollView.frame.size.width;
         let viewHeight = min(ViewConstants.cardHeight * CGFloat(activeChallenges.count) + 83, scrollView.frame.size.height);
         
@@ -142,17 +140,18 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool {
         return true;
     }
-    
+
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var count = 0;
-        let x = section;
-        if (activeTable != nil && tableView == activeTable) {
+        let activeTableViewTemp:UITableView = activeTable;
+        //check display master array instead of null checks to avoid crash
+        if (pageDisplayMaster[0] && tableView == activeTable && activeChallenges != nil) {
             count = activeChallenges.count;
-        } else if (upcomingTable != nil && tableView == upcomingTable) {
+        } else if (pageDisplayMaster[1] && tableView == upcomingTable && upcomingChallenges != nil) {
             count = upcomingChallenges.count;
-        } else if (availableTable != nil && tableView == availableTable) {
+        } else if (pageDisplayMaster[2] && tableView == availableTable && availableChallenges != nil) {
             count = availableChallenges.count;
-        } else if (invitedTable != nil && tableView == invitedTable) {
+        } else if (pageDisplayMaster[3] && pageDisplayMaster[3] && tableView == invitedTable && invitedChallenges != nil) {
             count = invitedChallenges.count;
         }
         return count;
@@ -165,6 +164,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 83;
     }
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("ChallengeRowCell") as ChallengeRowCell!;
         
@@ -211,16 +211,32 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         let footer = UIView(frame: CGRect(x: 0, y: cell.frame.height - ViewConstants.footerHeight, width: cell.frame.width, height: ViewConstants.footerHeight));
         footer.backgroundColor = Utility.colorFromHexString("#EEEEEE");
         cell.addSubview(footer);
-        
         return cell;
-    }
-    
-    func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
-        return indexPath;
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true);
+//
+        var challenges:[HigiChallenge] = [];
+        var challengeType = "";
+        
+        if (activeTable != nil && tableView == activeTable) {
+            challenges = activeChallenges;
+        } else if (upcomingTable != nil && tableView == upcomingTable) {
+            challenges = upcomingChallenges;
+        } else if (availableTable != nil && tableView == availableTable) {
+            challenges = availableChallenges;
+        } else {
+            challenges = invitedChallenges;
+        }
+
+        var challenge = challenges[indexPath.row];
+        
+        Flurry.logEvent("Challenge_Pressed");
+        var challengeName = challenge.name!;
+        var challengeDetailViewController = ChallengeDetailsViewController();
+        challengeDetailViewController.challengeName = challengeName;
+        self.navigationController!.pushViewController(challengeDetailViewController, animated: true);
     }
     
     func buildEmptyCell(cell: ChallengeRowCell) {
@@ -274,7 +290,6 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         var page = lround(Double(scrollView.contentOffset.x / scrollView.frame.size.width));
         pager.currentPage = page;
         changePage(pager);
-
     }
     
     @IBAction func changePage(sender: AnyObject) {
@@ -293,6 +308,28 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     }
     
     func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true);
+        var challenges:[HigiChallenge] = [];
+        var challengeType = "";
+        
+        if (activeTable != nil && tableView == activeTable) {
+            challenges = activeChallenges;
+        } else if (upcomingTable != nil && tableView == upcomingTable) {
+            challenges = upcomingChallenges;
+        } else if (availableTable != nil && tableView == availableTable) {
+            challenges = availableChallenges;
+        } else {
+            challenges = invitedChallenges;
+        }
+        
+        var challenge = challenges[indexPath.row];
+        
+        Flurry.logEvent("Challenge_Pressed");
+        var challengeDetailViewController = ChallengeDetailsViewController(nibName: "ChallengeDetailsView", bundle: nil);
+
+        challengeDetailViewController.challenge = challenge;
+        self.navigationController!.pushViewController(challengeDetailViewController, animated: true);
+        
         return false;
     }
 }
