@@ -216,6 +216,8 @@ class ActivityGraphHostingView: CPTGraphHostingView, CPTBarPlotDataSource {
         var color:UIColor;
         if (SessionController.Instance.devices.indexForKey(deviceName) != nil) {
             color = Utility.colorFromHexString(SessionController.Instance.devices[deviceName]!.colorCode);
+        } else if (deviceName == "higi") {
+            color = Utility.colorFromHexString("#76C043");
         } else {
             color = UIColor.whiteColor();
         }
