@@ -252,6 +252,10 @@
 		8FE056E9198FDCA600C81208 /* FindStationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE056E8198FDCA600C81208 /* FindStationViewController.swift */; };
 		8FE0BCCE199175BC00940D39 /* PulseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE0BCCD199175BC00940D39 /* PulseCell.swift */; };
 		8FE0BCD0199175C800940D39 /* PulseCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FE0BCCF199175C800940D39 /* PulseCellView.xib */; };
+		8FEF6F3A1A6EAA58001EF8A6 /* NewDashboardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FEF6F391A6EAA58001EF8A6 /* NewDashboardView.xib */; };
+		8FEF6F3C1A6EAACE001EF8A6 /* NewDashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEF6F3B1A6EAACE001EF8A6 /* NewDashboardViewController.swift */; };
+		8FEF6F3E1A6EB437001EF8A6 /* PointsMeterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FEF6F3D1A6EB437001EF8A6 /* PointsMeterView.xib */; };
+		8FEF6F401A6EB638001EF8A6 /* PointsMeter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEF6F3F1A6EB638001EF8A6 /* PointsMeter.swift */; };
 		8FF294101979D28F00C4FC1A /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF2940F1979D28F00C4FC1A /* GraphView.swift */; };
 		8FF2E06E194A5E9500A81D8C /* NewCPTPlotRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF2E06D194A5E9500A81D8C /* NewCPTPlotRange.m */; };
 		8FF851C1194F7DD7005C33C6 /* Config-prod.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8FF851C0194F7DD7005C33C6 /* Config-prod.plist */; };
@@ -578,6 +582,10 @@
 		8FE056E8198FDCA600C81208 /* FindStationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindStationViewController.swift; sourceTree = "<group>"; };
 		8FE0BCCD199175BC00940D39 /* PulseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PulseCell.swift; sourceTree = "<group>"; };
 		8FE0BCCF199175C800940D39 /* PulseCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PulseCellView.xib; sourceTree = "<group>"; };
+		8FEF6F391A6EAA58001EF8A6 /* NewDashboardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewDashboardView.xib; sourceTree = "<group>"; };
+		8FEF6F3B1A6EAACE001EF8A6 /* NewDashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewDashboardViewController.swift; sourceTree = "<group>"; };
+		8FEF6F3D1A6EB437001EF8A6 /* PointsMeterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PointsMeterView.xib; sourceTree = "<group>"; };
+		8FEF6F3F1A6EB638001EF8A6 /* PointsMeter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PointsMeter.swift; sourceTree = "<group>"; };
 		8FF2940F1979D28F00C4FC1A /* GraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 		8FF2E06D194A5E9500A81D8C /* NewCPTPlotRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewCPTPlotRange.m; sourceTree = "<group>"; };
 		8FF2E06F194A5EAD00A81D8C /* NewCPTPlotRange.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewCPTPlotRange.h; sourceTree = "<group>"; };
@@ -1074,6 +1082,8 @@
 				8F5C38F01982F20000F51543 /* CheckinTableViewCell.xib */,
 				8F5C38E61981917100F51543 /* DashboardView.xib */,
 				8F29630A194B8E3700E787FD /* DashboardViewController.swift */,
+				8FEF6F391A6EAA58001EF8A6 /* NewDashboardView.xib */,
+				8FEF6F3B1A6EAACE001EF8A6 /* NewDashboardViewController.swift */,
 			);
 			name = Dashboard;
 			sourceTree = "<group>";
@@ -1303,6 +1313,8 @@
 				8F81DB561A1BDD670054EB2E /* ActivityCellHeaderView.xib */,
 				8F89C2591A01B0D500A3AD09 /* ActivityCellView.xib */,
 				8FFB035819FEAF2C0036228C /* ActivityView.xib */,
+				8FEF6F3D1A6EB437001EF8A6 /* PointsMeterView.xib */,
+				8FEF6F3F1A6EB638001EF8A6 /* PointsMeter.swift */,
 			);
 			name = Activity;
 			sourceTree = "<group>";
@@ -1432,6 +1444,7 @@
 				8F5C390019868B7000F51543 /* cell_selected.png in Resources */,
 				8F1D97A0199558F7003B5645 /* checkmark.png in Resources */,
 				8F58D98919C0FE5800C0EC72 /* welcome_01_arrow.png in Resources */,
+				8FEF6F3A1A6EAA58001EF8A6 /* NewDashboardView.xib in Resources */,
 				8F5C38E41981904C00F51543 /* meanarterialpressure.png in Resources */,
 				8F58D98B19C0FE5800C0EC72 /* welcome_01_text.png in Resources */,
 				8F58D98019C0F4BD00C0EC72 /* welcome_03_bg@2x.png in Resources */,
@@ -1479,6 +1492,7 @@
 				8F5E7FBD199965C0009067E5 /* PinCodeView.xib in Resources */,
 				8FDCE1D119880919006428C3 /* pulse_overlay.png in Resources */,
 				8F0B29A5198AC20300B0DD29 /* map_mapviewicon.png in Resources */,
+				8FEF6F3E1A6EB437001EF8A6 /* PointsMeterView.xib in Resources */,
 				8FFF43C019B798380056F412 /* bp_overlay@2x.png in Resources */,
 				8FC7B70719E5E60D00D0112F /* bodystats1-568h@2x.png in Resources */,
 				8F2CB5821992563E009377A8 /* WebView.xib in Resources */,
@@ -1670,6 +1684,7 @@
 				8F5E7FC5199BC6CB009067E5 /* CheckinCard.swift in Sources */,
 				8FE056E3198FDC3900C81208 /* SettingsViewController.swift in Sources */,
 				8F6A24361958DDFB0094B73C /* NewCPTMutablePlotRange.m in Sources */,
+				8FEF6F401A6EB638001EF8A6 /* PointsMeter.swift in Sources */,
 				8F9C69D71950C89B00449664 /* HigiUser.swift in Sources */,
 				D1EEDBA51A66FA570012EFD3 /* ChallengeLeaderboardRow.swift in Sources */,
 				D17010CA1A644414002CBFE8 /* ChallengeDetailsViewController.swift in Sources */,
@@ -1727,6 +1742,7 @@
 				8F5C38EF1982EFDF00F51543 /* CheckinTableViewCell.swift in Sources */,
 				8F296313194B912F00E787FD /* LoginViewController.swift in Sources */,
 				8F6266CF19800A5400145EDB /* BpGraphDelegate.swift in Sources */,
+				8FEF6F3C1A6EAACE001EF8A6 /* NewDashboardViewController.swift in Sources */,
 				8F5C39021986918700F51543 /* BodyStatCheckinCell.swift in Sources */,
 				8F08AFAF19894EE6002EE906 /* WelcomeView.swift in Sources */,
 				8FCD2D8019EC286900AC5A82 /* UIImage+Orientation.m in Sources */,

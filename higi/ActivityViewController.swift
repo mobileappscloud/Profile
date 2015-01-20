@@ -17,8 +17,10 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var weekButton: UIButton!
     @IBOutlet weak var monthButton: UIButton!
     @IBOutlet weak var meterContainer: UIView!
-    @IBOutlet weak var points: UILabel!
     @IBOutlet weak var legendButton: UIImageView!
+    @IBOutlet weak var pointsMeterContainer: UIView!
+    
+    var pointsMeter: PointsMeter!;
     
     var activitiesByDay: [[HigiActivity]] = [];
     
@@ -34,13 +36,18 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
         super.viewDidLoad();
         self.title = "Activity";
         dateFormatter.dateFormat = "MM/dd/yyyy";
+        pointsMeter = UINib(nibName: "PointsMeterView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as PointsMeter;
+        pointsMeterContainer.addSubview(pointsMeter);
         populateActivities();
+        if (activitiesByDay.count > 0) {
+            pointsMeter.activities = activitiesByDay[0];
+        }
         createGraphs();
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated);
-        drawArc();
+        pointsMeter.drawArc();
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -166,6 +173,20 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
                 addToBuckets(activity);
             }
         }
+        
+        var blankSeries = ["higi": [0, 0, 0, 0, 0, 0, 0]];
+       
+        if (dayBuckets.count == 0) {
+            dayBuckets = blankSeries;
+        }
+        
+        if (weekBuckets.count == 0) {
+            weekBuckets = blankSeries;
+        }
+        
+        if (monthBuckets.count == 0) {
+            monthBuckets = blankSeries;
+        }
     }
     
     func addToBuckets(activity: HigiActivity) {
@@ -229,70 +250,6 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
         graphContainer.addSubview(monthGraph);
     }
     
-    func drawArc() {
-        var total = 0;
-        var center = CGPoint(x: 50.0, y: 50.0);
-        var radius: CGFloat = 44.0;
-        if (activitiesByDay.count > 0 && dateFormatter.stringFromDate(activitiesByDay[0][0].startTime) == dateFormatter.stringFromDate(NSDate())) {
-            var lastEnd = 0.0;
-            for activity in activitiesByDay[0] {
-                total += activity.points;
-            }
-            
-            for activity in activitiesByDay[0] {
-                var toPath = UIBezierPath();
-                var arc = CAShapeLayer();
-                arc.lineWidth = 12;
-                arc.fillColor = UIColor.clearColor().CGColor;
-                arc.strokeColor = Utility.colorFromHexString(activity.device.colorCode).CGColor;
-                
-                var increment = Double(activity.points) / Double(total);
-                var startingPoint = CGPoint(x: center.x + radius * CGFloat(cos(lastEnd * 2 * M_PI)), y: center.y + radius * CGFloat(sin(lastEnd * 2 * M_PI)));
-                toPath.moveToPoint(startingPoint);
-                var startAngle = lastEnd * 2 * M_PI;
-                toPath.addArcWithCenter(center, radius: radius, startAngle: CGFloat(startAngle), endAngle: CGFloat(startAngle + 2 * M_PI), clockwise: true);
-                toPath.closePath();
-                
-                arc.path = toPath.CGPath;
-                meterContainer.layer.addSublayer(arc);
-                
-                CATransaction.begin();
-                CATransaction.setDisableActions(true);
-                arc.strokeStart = CGFloat(0);
-                arc.strokeEnd = CGFloat(0);
-                CATransaction.setDisableActions(false);
-                CATransaction.commit();
-                dispatch_async(dispatch_get_main_queue(), {
-                    CATransaction.begin();
-                    CATransaction.setAnimationDuration(1.0);
-                    arc.strokeEnd = CGFloat(increment + 0.01);
-                    CATransaction.commit();
-                });
-                lastEnd += increment;
-            }
-        } else {
-            var arc = CAShapeLayer();
-            arc.lineWidth = 12;
-            arc.fillColor = UIColor.whiteColor().CGColor;
-            arc.strokeColor = Utility.colorFromHexString("#DDDDDD").CGColor;
-            var toPath = UIBezierPath();
-            var startingPoint = CGPoint(x: center.x, y: center.y + radius);
-            toPath.moveToPoint(startingPoint);
-            toPath.addArcWithCenter(center, radius: radius, startAngle: CGFloat(M_PI_2), endAngle: CGFloat(5 * M_PI_2), clockwise: true);
-            toPath.closePath();
-            
-            arc.path = toPath.CGPath;
-            meterContainer.layer.addSublayer(arc);
-            CATransaction.begin();
-            CATransaction.setDisableActions(true);
-            arc.strokeStart = 0.0;
-            arc.strokeEnd = 1.0;
-            CATransaction.setDisableActions(false);
-            CATransaction.commit();
-        }
-        
-        self.points.text = "\(total)";
-    }
     
     @IBAction func legendButtonTapped(sender: AnyObject) {
         if (legendIsOpen) {
