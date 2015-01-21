@@ -274,6 +274,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         totalPages++;
         
         scrollView.delegate = self;
+        
         scrollView.contentSize = CGSize(width: scrollView.frame.size.width * CGFloat(totalPages), height: scrollView.frame.size.height);
         self.automaticallyAdjustsScrollViewInsets = false;
 
