@@ -149,6 +149,7 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
                 self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
             }
         } else {
+            headerImage.frame.origin.y = 0;
             self.fakeNavBar.alpha = 0;
             self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0, alpha: 1)];
         }

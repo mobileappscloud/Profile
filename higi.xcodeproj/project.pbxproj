@@ -54,7 +54,7 @@
 		8F211EF91A1E85AE00A256C0 /* oc_dropdownmenu_down.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F211EF71A1E85AE00A256C0 /* oc_dropdownmenu_down.png */; };
 		8F211EFA1A1E85AE00A256C0 /* oc_dropdownmenu_up.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F211EF81A1E85AE00A256C0 /* oc_dropdownmenu_up.png */; };
 		8F296309194B8DE700E787FD /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F296308194B8DE700E787FD /* SplashViewController.swift */; };
-		8F29630B194B8E3700E787FD /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F29630A194B8E3700E787FD /* DashboardViewController.swift */; };
+		8F29630B194B8E3700E787FD /* DashboardViewController_old.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F29630A194B8E3700E787FD /* DashboardViewController_old.swift */; };
 		8F29630D194B8F4600E787FD /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F29630C194B8F4600E787FD /* WelcomeViewController.swift */; };
 		8F29630F194B8F5D00E787FD /* SignupEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F29630E194B8F5D00E787FD /* SignupEmailViewController.swift */; };
 		8F296311194B911C00E787FD /* SignupNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F296310194B911C00E787FD /* SignupNameViewController.swift */; };
@@ -119,7 +119,7 @@
 		8F5C38E11981901600F51543 /* pulse.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5C38DC1981901600F51543 /* pulse.png */; };
 		8F5C38E21981901600F51543 /* weight.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5C38DD1981901600F51543 /* weight.png */; };
 		8F5C38E41981904C00F51543 /* meanarterialpressure.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5C38E31981904C00F51543 /* meanarterialpressure.png */; };
-		8F5C38E71981917100F51543 /* DashboardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F5C38E61981917100F51543 /* DashboardView.xib */; };
+		8F5C38E71981917100F51543 /* DashboardView_old.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F5C38E61981917100F51543 /* DashboardView_old.xib */; };
 		8F5C38E91981B2B300F51543 /* createreminder_inverted.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5C38E81981B2B300F51543 /* createreminder_inverted.png */; };
 		8F5C38EB1982DBB900F51543 /* onboarding_avatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5C38EA1982DBB800F51543 /* onboarding_avatar.png */; };
 		8F5C38ED1982EE6D00F51543 /* higicard_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5C38EC1982EE6D00F51543 /* higicard_icon.png */; };
@@ -149,6 +149,9 @@
 		8F5E7FE5199C081F009067E5 /* vital_map_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5E7FE0199C081F009067E5 /* vital_map_icon.png */; };
 		8F5E7FE6199C081F009067E5 /* vital_pulse_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5E7FE1199C081F009067E5 /* vital_pulse_icon.png */; };
 		8F5E7FE7199C081F009067E5 /* vital_weight_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5E7FE2199C081F009067E5 /* vital_weight_icon.png */; };
+		8F5F91811A701A0E0042D87C /* btn_action_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5F917F1A701A0E0042D87C /* btn_action_black.png */; };
+		8F5F91821A701A0E0042D87C /* btn_action_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5F91801A701A0E0042D87C /* btn_action_black@2x.png */; };
+		8F5F91841A7068920042D87C /* ui_kiosk.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5F91831A7068920042D87C /* ui_kiosk.png */; };
 		8F6266AF197EC8E200145EDB /* BodyStatsLand.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F6266AE197EC8E200145EDB /* BodyStatsLand.xib */; };
 		8F6266B1197EC95900145EDB /* BodyStatsPort.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F6266B0197EC95900145EDB /* BodyStatsPort.xib */; };
 		8F6266B3197ECAA700145EDB /* BodyStatsLandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6266B2197ECAA700145EDB /* BodyStatsLandView.swift */; };
@@ -252,10 +255,14 @@
 		8FE056E9198FDCA600C81208 /* FindStationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE056E8198FDCA600C81208 /* FindStationViewController.swift */; };
 		8FE0BCCE199175BC00940D39 /* PulseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE0BCCD199175BC00940D39 /* PulseCell.swift */; };
 		8FE0BCD0199175C800940D39 /* PulseCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FE0BCCF199175C800940D39 /* PulseCellView.xib */; };
-		8FEF6F3A1A6EAA58001EF8A6 /* NewDashboardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FEF6F391A6EAA58001EF8A6 /* NewDashboardView.xib */; };
-		8FEF6F3C1A6EAACE001EF8A6 /* NewDashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEF6F3B1A6EAACE001EF8A6 /* NewDashboardViewController.swift */; };
+		8FEF6F3A1A6EAA58001EF8A6 /* DashboardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FEF6F391A6EAA58001EF8A6 /* DashboardView.xib */; };
+		8FEF6F3C1A6EAACE001EF8A6 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEF6F3B1A6EAACE001EF8A6 /* DashboardViewController.swift */; };
 		8FEF6F3E1A6EB437001EF8A6 /* PointsMeterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FEF6F3D1A6EB437001EF8A6 /* PointsMeterView.xib */; };
 		8FEF6F401A6EB638001EF8A6 /* PointsMeter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEF6F3F1A6EB638001EF8A6 /* PointsMeter.swift */; };
+		8FEF6F421A6EECBE001EF8A6 /* BodyStatsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEF6F411A6EECBE001EF8A6 /* BodyStatsCard.swift */; };
+		8FEF6F441A6EECC9001EF8A6 /* ActivityCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEF6F431A6EECC9001EF8A6 /* ActivityCard.swift */; };
+		8FEF6F461A6EECD5001EF8A6 /* ChallengesCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEF6F451A6EECD5001EF8A6 /* ChallengesCard.swift */; };
+		8FEF6F481A6EECDE001EF8A6 /* PulseCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEF6F471A6EECDE001EF8A6 /* PulseCard.swift */; };
 		8FF294101979D28F00C4FC1A /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF2940F1979D28F00C4FC1A /* GraphView.swift */; };
 		8FF2E06E194A5E9500A81D8C /* NewCPTPlotRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF2E06D194A5E9500A81D8C /* NewCPTPlotRange.m */; };
 		8FF851C1194F7DD7005C33C6 /* Config-prod.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8FF851C0194F7DD7005C33C6 /* Config-prod.plist */; };
@@ -370,7 +377,7 @@
 		8F211EF71A1E85AE00A256C0 /* oc_dropdownmenu_down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oc_dropdownmenu_down.png; path = images/oc_dropdownmenu_down.png; sourceTree = "<group>"; };
 		8F211EF81A1E85AE00A256C0 /* oc_dropdownmenu_up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oc_dropdownmenu_up.png; path = images/oc_dropdownmenu_up.png; sourceTree = "<group>"; };
 		8F296308194B8DE700E787FD /* SplashViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
-		8F29630A194B8E3700E787FD /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
+		8F29630A194B8E3700E787FD /* DashboardViewController_old.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewController_old.swift; sourceTree = "<group>"; };
 		8F29630C194B8F4600E787FD /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		8F29630E194B8F5D00E787FD /* SignupEmailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupEmailViewController.swift; sourceTree = "<group>"; };
 		8F296310194B911C00E787FD /* SignupNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupNameViewController.swift; sourceTree = "<group>"; };
@@ -444,7 +451,7 @@
 		8F5C38DC1981901600F51543 /* pulse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pulse.png; path = images/pulse.png; sourceTree = "<group>"; };
 		8F5C38DD1981901600F51543 /* weight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = weight.png; path = images/weight.png; sourceTree = "<group>"; };
 		8F5C38E31981904C00F51543 /* meanarterialpressure.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = meanarterialpressure.png; path = images/meanarterialpressure.png; sourceTree = "<group>"; };
-		8F5C38E61981917100F51543 /* DashboardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DashboardView.xib; sourceTree = "<group>"; };
+		8F5C38E61981917100F51543 /* DashboardView_old.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DashboardView_old.xib; sourceTree = "<group>"; };
 		8F5C38E81981B2B300F51543 /* createreminder_inverted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = createreminder_inverted.png; path = images/createreminder_inverted.png; sourceTree = "<group>"; };
 		8F5C38EA1982DBB800F51543 /* onboarding_avatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = onboarding_avatar.png; path = images/onboarding_avatar.png; sourceTree = "<group>"; };
 		8F5C38EC1982EE6D00F51543 /* higicard_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = higicard_icon.png; path = images/higicard_icon.png; sourceTree = "<group>"; };
@@ -475,6 +482,9 @@
 		8F5E7FE0199C081F009067E5 /* vital_map_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = vital_map_icon.png; path = images/vital_map_icon.png; sourceTree = "<group>"; };
 		8F5E7FE1199C081F009067E5 /* vital_pulse_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = vital_pulse_icon.png; path = images/vital_pulse_icon.png; sourceTree = "<group>"; };
 		8F5E7FE2199C081F009067E5 /* vital_weight_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = vital_weight_icon.png; path = images/vital_weight_icon.png; sourceTree = "<group>"; };
+		8F5F917F1A701A0E0042D87C /* btn_action_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_action_black.png; sourceTree = "<group>"; };
+		8F5F91801A701A0E0042D87C /* btn_action_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_action_black@2x.png"; sourceTree = "<group>"; };
+		8F5F91831A7068920042D87C /* ui_kiosk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_kiosk.png; path = images/ui_kiosk.png; sourceTree = "<group>"; };
 		8F6266AE197EC8E200145EDB /* BodyStatsLand.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BodyStatsLand.xib; sourceTree = "<group>"; };
 		8F6266B0197EC95900145EDB /* BodyStatsPort.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BodyStatsPort.xib; sourceTree = "<group>"; };
 		8F6266B2197ECAA700145EDB /* BodyStatsLandView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BodyStatsLandView.swift; sourceTree = "<group>"; };
@@ -582,10 +592,14 @@
 		8FE056E8198FDCA600C81208 /* FindStationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindStationViewController.swift; sourceTree = "<group>"; };
 		8FE0BCCD199175BC00940D39 /* PulseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PulseCell.swift; sourceTree = "<group>"; };
 		8FE0BCCF199175C800940D39 /* PulseCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PulseCellView.xib; sourceTree = "<group>"; };
-		8FEF6F391A6EAA58001EF8A6 /* NewDashboardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewDashboardView.xib; sourceTree = "<group>"; };
-		8FEF6F3B1A6EAACE001EF8A6 /* NewDashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewDashboardViewController.swift; sourceTree = "<group>"; };
+		8FEF6F391A6EAA58001EF8A6 /* DashboardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DashboardView.xib; sourceTree = "<group>"; };
+		8FEF6F3B1A6EAACE001EF8A6 /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 		8FEF6F3D1A6EB437001EF8A6 /* PointsMeterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PointsMeterView.xib; sourceTree = "<group>"; };
 		8FEF6F3F1A6EB638001EF8A6 /* PointsMeter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PointsMeter.swift; sourceTree = "<group>"; };
+		8FEF6F411A6EECBE001EF8A6 /* BodyStatsCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BodyStatsCard.swift; sourceTree = "<group>"; };
+		8FEF6F431A6EECC9001EF8A6 /* ActivityCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityCard.swift; sourceTree = "<group>"; };
+		8FEF6F451A6EECD5001EF8A6 /* ChallengesCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengesCard.swift; sourceTree = "<group>"; };
+		8FEF6F471A6EECDE001EF8A6 /* PulseCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PulseCard.swift; sourceTree = "<group>"; };
 		8FF2940F1979D28F00C4FC1A /* GraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 		8FF2E06D194A5E9500A81D8C /* NewCPTPlotRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewCPTPlotRange.m; sourceTree = "<group>"; };
 		8FF2E06F194A5EAD00A81D8C /* NewCPTPlotRange.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewCPTPlotRange.h; sourceTree = "<group>"; };
@@ -900,6 +914,8 @@
 		8F2B7E47198C3023009DE89A /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				8F5F917F1A701A0E0042D87C /* btn_action_black.png */,
+				8F5F91801A701A0E0042D87C /* btn_action_black@2x.png */,
 				8FFB033E19FEA2440036228C /* higi_guy.png */,
 				8FFB033F19FEA2440036228C /* oc_activity_active.png */,
 				8FFB034019FEA2440036228C /* oc_activity.png */,
@@ -1025,22 +1041,23 @@
 		8F5C38D719818F0A00F51543 /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
-				8FC7B70B19E5E67000D0112F /* dashboard_background-568h@2x.png */,
-				8FC7B70C19E5E67000D0112F /* dashboard1-568h@2x.png */,
-				8FC7B70D19E5E67000D0112F /* dashboard2-568h@2x.png */,
-				8FC7B70E19E5E67000D0112F /* dashboard3-568h@2x.png */,
-				8F02A12719AE2CBB002FF73E /* dashboard_background.png */,
-				8F02A12819AE2CBB002FF73E /* dashboard_background@2x.png */,
-				8F02A12A19AE2CBB002FF73E /* dashboard1@2x.png */,
-				8F02A12C19AE2CBB002FF73E /* dashboard2@2x.png */,
-				8F02A12E19AE2CBB002FF73E /* dashboard3@2x.png */,
-				8FF9409219899AEA00D319D7 /* createreminder.png */,
-				8F5C38E81981B2B300F51543 /* createreminder_inverted.png */,
 				8F5C38D91981901600F51543 /* bloodpressure.png */,
 				8F5C38DA1981901600F51543 /* bodymassindex.png */,
 				8F5C38DB1981901600F51543 /* checkincheckmark.png */,
+				8F5C38E81981B2B300F51543 /* createreminder_inverted.png */,
+				8FF9409219899AEA00D319D7 /* createreminder.png */,
+				8FC7B70B19E5E67000D0112F /* dashboard_background-568h@2x.png */,
+				8F02A12719AE2CBB002FF73E /* dashboard_background.png */,
+				8F02A12819AE2CBB002FF73E /* dashboard_background@2x.png */,
+				8FC7B70C19E5E67000D0112F /* dashboard1-568h@2x.png */,
+				8F02A12A19AE2CBB002FF73E /* dashboard1@2x.png */,
+				8FC7B70D19E5E67000D0112F /* dashboard2-568h@2x.png */,
+				8F02A12C19AE2CBB002FF73E /* dashboard2@2x.png */,
+				8FC7B70E19E5E67000D0112F /* dashboard3-568h@2x.png */,
+				8F02A12E19AE2CBB002FF73E /* dashboard3@2x.png */,
 				8F5C38E31981904C00F51543 /* meanarterialpressure.png */,
 				8F5C38DC1981901600F51543 /* pulse.png */,
+				8F5F91831A7068920042D87C /* ui_kiosk.png */,
 				8F5C38DD1981901600F51543 /* weight.png */,
 			);
 			name = Dashboard;
@@ -1078,12 +1095,16 @@
 		8F5C38E51981915500F51543 /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
+				8FEF6F431A6EECC9001EF8A6 /* ActivityCard.swift */,
+				8FEF6F411A6EECBE001EF8A6 /* BodyStatsCard.swift */,
+				8FEF6F451A6EECD5001EF8A6 /* ChallengesCard.swift */,
 				8F5C38EE1982EFDF00F51543 /* CheckinTableViewCell.swift */,
+				8F29630A194B8E3700E787FD /* DashboardViewController_old.swift */,
+				8FEF6F3B1A6EAACE001EF8A6 /* DashboardViewController.swift */,
+				8FEF6F471A6EECDE001EF8A6 /* PulseCard.swift */,
 				8F5C38F01982F20000F51543 /* CheckinTableViewCell.xib */,
-				8F5C38E61981917100F51543 /* DashboardView.xib */,
-				8F29630A194B8E3700E787FD /* DashboardViewController.swift */,
-				8FEF6F391A6EAA58001EF8A6 /* NewDashboardView.xib */,
-				8FEF6F3B1A6EAACE001EF8A6 /* NewDashboardViewController.swift */,
+				8F5C38E61981917100F51543 /* DashboardView_old.xib */,
+				8FEF6F391A6EAA58001EF8A6 /* DashboardView.xib */,
 			);
 			name = Dashboard;
 			sourceTree = "<group>";
@@ -1444,7 +1465,7 @@
 				8F5C390019868B7000F51543 /* cell_selected.png in Resources */,
 				8F1D97A0199558F7003B5645 /* checkmark.png in Resources */,
 				8F58D98919C0FE5800C0EC72 /* welcome_01_arrow.png in Resources */,
-				8FEF6F3A1A6EAA58001EF8A6 /* NewDashboardView.xib in Resources */,
+				8FEF6F3A1A6EAA58001EF8A6 /* DashboardView.xib in Resources */,
 				8F5C38E41981904C00F51543 /* meanarterialpressure.png in Resources */,
 				8F58D98B19C0FE5800C0EC72 /* welcome_01_text.png in Resources */,
 				8F58D98019C0F4BD00C0EC72 /* welcome_03_bg@2x.png in Resources */,
@@ -1553,6 +1574,7 @@
 				8F5C38DF1981901600F51543 /* bodymassindex.png in Resources */,
 				8F02A14219AE2CF4002FF73E /* bodystats1@2x.png in Resources */,
 				8F5C38FE198689E200F51543 /* CheckinCell.xib in Resources */,
+				8F5F91811A701A0E0042D87C /* btn_action_black.png in Resources */,
 				8FC7B70219E5C32500D0112F /* welcome_03_text-568h@2x.png in Resources */,
 				8FC7B6FB19E5C1A000D0112F /* welcome_04_bg-568h@2x.png in Resources */,
 				8F5C38E11981901600F51543 /* pulse.png in Resources */,
@@ -1563,6 +1585,7 @@
 				8F5C38E91981B2B300F51543 /* createreminder_inverted.png in Resources */,
 				8F02A12F19AE2CBB002FF73E /* dashboard_background.png in Resources */,
 				8F58D97F19C0F4BD00C0EC72 /* welcome_02_text@2x.png in Resources */,
+				8F5F91841A7068920042D87C /* ui_kiosk.png in Resources */,
 				8F5C38CF19818BA900F51543 /* gauge2_normal.png in Resources */,
 				8F524BFA195C6DD400BFC49D /* graph_timespan_bg.png in Resources */,
 				8FA5925919A7E5CE00622266 /* nodata_bodystats.png in Resources */,
@@ -1582,7 +1605,7 @@
 				2B8032021A1FEF4F0029D6DF /* person_icon.png in Resources */,
 				8F6266C3197F12E900145EDB /* graph_info.png in Resources */,
 				8FF9518B1A01AC69005FD632 /* banner_nologo.png in Resources */,
-				8F5C38E71981917100F51543 /* DashboardView.xib in Resources */,
+				8F5C38E71981917100F51543 /* DashboardView_old.xib in Resources */,
 				8F2B7E51198C3058009DE89A /* oc_settings.png in Resources */,
 				8FD73CBD1990280C00BACCB2 /* map_listviewicon.png in Resources */,
 				8F6266B1197EC95900145EDB /* BodyStatsPort.xib in Resources */,
@@ -1609,6 +1632,7 @@
 				8F211EF91A1E85AE00A256C0 /* oc_dropdownmenu_down.png in Resources */,
 				8F2B7E57198C34D0009DE89A /* RevealView.xib in Resources */,
 				2BBDBA531A12AC2C005A6815 /* ChallengeRowCell.xib in Resources */,
+				8F5F91821A701A0E0042D87C /* btn_action_black@2x.png in Resources */,
 				8FF9409C198A8C9200D319D7 /* SignupEmailView.xib in Resources */,
 				8F2B7E46198C2E28009DE89A /* DrawerView.xib in Resources */,
 				8F2B7E5C198C49A9009DE89A /* nav_ocmicon_inverted.png in Resources */,
@@ -1671,7 +1695,7 @@
 				8F296316194B9BF700E787FD /* SessionController.swift in Sources */,
 				D19DDA531A5EF599004F97A3 /* NewCPTAxisLabel.m in Sources */,
 				8F9C69DB1950C8B700449664 /* PulseArticle.swift in Sources */,
-				8F29630B194B8E3700E787FD /* DashboardViewController.swift in Sources */,
+				8F29630B194B8E3700E787FD /* DashboardViewController_old.swift in Sources */,
 				8FF2E06E194A5E9500A81D8C /* NewCPTPlotRange.m in Sources */,
 				8F6A2449195A07880094B73C /* BmiGraphDelegate.swift in Sources */,
 				8F5E7FD2199BC99C009067E5 /* BpCheckinCell.swift in Sources */,
@@ -1689,6 +1713,7 @@
 				D1EEDBA51A66FA570012EFD3 /* ChallengeLeaderboardRow.swift in Sources */,
 				D17010CA1A644414002CBFE8 /* ChallengeDetailsViewController.swift in Sources */,
 				8F9C69D51950C88900449664 /* HigiCheckin.swift in Sources */,
+				8FEF6F421A6EECBE001EF8A6 /* BodyStatsCard.swift in Sources */,
 				8F5E7FBF199965CF009067E5 /* PinCodeViewController.swift in Sources */,
 				8F9C69D31950C84400449664 /* HigiLogin.swift in Sources */,
 				8F5C38F71983094F00F51543 /* NSString+HTML.m in Sources */,
@@ -1698,6 +1723,7 @@
 				8F6A24311951E5D80094B73C /* ApiUtility.swift in Sources */,
 				8F2B7E55198C3475009DE89A /* RevealViewController.swift in Sources */,
 				8F6266B5197ECC6A00145EDB /* BodyStatsPortView.swift in Sources */,
+				8FEF6F481A6EECDE001EF8A6 /* PulseCard.swift in Sources */,
 				8F5E7FC31999676E009067E5 /* KioskListCell.swift in Sources */,
 				8FCE580D1979B8BA0042CEE2 /* NewCPTScatterPlotDelegate.m in Sources */,
 				8F89C2581A01B0B700A3AD09 /* ActivityCell.swift in Sources */,
@@ -1717,6 +1743,7 @@
 				8F6D510E1947B2E700F7C769 /* Utility.swift in Sources */,
 				8F296309194B8DE700E787FD /* SplashViewController.swift in Sources */,
 				D19DDA551A5F1705004F97A3 /* Constants.swift in Sources */,
+				8FEF6F441A6EECC9001EF8A6 /* ActivityCard.swift in Sources */,
 				8F6A243C1958EA730094B73C /* NewCPTScatterPlot.m in Sources */,
 				2BC5865E1A16D0AF005A7983 /* ChallengeInvitationView.swift in Sources */,
 				D18395C31A69CAD500D290BF /* ChallengesDetailsTab.swift in Sources */,
@@ -1724,6 +1751,7 @@
 				8FA5925F19ABBD3A00622266 /* TourViewController.swift in Sources */,
 				8FF294101979D28F00C4FC1A /* GraphView.swift in Sources */,
 				8FF873F419DF5394002A6341 /* PullRefresh.swift in Sources */,
+				8FEF6F461A6EECD5001EF8A6 /* ChallengesCard.swift in Sources */,
 				8F6266B7197EE42700145EDB /* MainNavigationController.swift in Sources */,
 				8FE056E1198FDBFE00C81208 /* PulseHomeViewController.swift in Sources */,
 				8FDCE1C81988082B006428C3 /* InfoOverlayView.swift in Sources */,
@@ -1742,7 +1770,7 @@
 				8F5C38EF1982EFDF00F51543 /* CheckinTableViewCell.swift in Sources */,
 				8F296313194B912F00E787FD /* LoginViewController.swift in Sources */,
 				8F6266CF19800A5400145EDB /* BpGraphDelegate.swift in Sources */,
-				8FEF6F3C1A6EAACE001EF8A6 /* NewDashboardViewController.swift in Sources */,
+				8FEF6F3C1A6EAACE001EF8A6 /* DashboardViewController.swift in Sources */,
 				8F5C39021986918700F51543 /* BodyStatCheckinCell.swift in Sources */,
 				8F08AFAF19894EE6002EE906 /* WelcomeView.swift in Sources */,
 				8FCD2D8019EC286900AC5A82 /* UIImage+Orientation.m in Sources */,

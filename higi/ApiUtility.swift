@@ -31,6 +31,7 @@ class ApiUtility {
                 ApiUtility.retrieveActivities(success);
                 ApiUtility.retrieveChallenges(success);
                 ApiUtility.retrieveDevices(success);
+                ApiUtility.grabNextPulseArticles(success);
             }
             
             }, failure: {operation, error in

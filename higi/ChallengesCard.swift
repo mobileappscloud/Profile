@@ -1,5 +1,5 @@
 //
-//  NewDashboardViewController.swift
+//  ChallengesCard.swift
 //  higi
 //
 //  Created by Dan Harms on 1/20/15.
@@ -8,6 +8,7 @@
 
 import Foundation
 
-class NewDashboardViewController: BaseViewController {
+class ChallengesCard: UIView {
     
+    @IBOutlet weak var challengeBox: UIView!
 }

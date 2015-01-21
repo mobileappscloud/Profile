@@ -10,6 +10,7 @@ import Foundation
 
 class PointsMeter: UIView {
     
+    @IBOutlet weak var meterContainer: UIView!
     @IBOutlet weak var points: UILabel!
     
     var activities: [HigiActivity] = [];
@@ -19,9 +20,19 @@ class PointsMeter: UIView {
         var center = CGPoint(x: 50.0, y: 50.0);
         var radius: CGFloat = 44.0;
         var lastEnd = 0.0;
+        if (self.meterContainer.layer.sublayers != nil) {
+            for sublayer in meterContainer.layer.sublayers {
+                sublayer.removeFromSuperlayer();
+            }
+        }
         if (activities.count > 0) {
+            
+            // Need to know total to calculate percentage. (I know, I hate the double loop too)
             for activity in activities {
                 total += activity.points;
+            }
+            
+            for activity in activities {
                 var toPath = UIBezierPath();
                 var arc = CAShapeLayer();
                 arc.lineWidth = 12;
@@ -36,7 +47,7 @@ class PointsMeter: UIView {
                 toPath.closePath();
                 
                 arc.path = toPath.CGPath;
-                self.layer.addSublayer(arc);
+                self.meterContainer.layer.addSublayer(arc);
                 
                 CATransaction.begin();
                 CATransaction.setDisableActions(true);
@@ -64,7 +75,7 @@ class PointsMeter: UIView {
             toPath.closePath();
             
             arc.path = toPath.CGPath;
-            self.layer.addSublayer(arc);
+            self.meterContainer.layer.addSublayer(arc);
             CATransaction.begin();
             CATransaction.setDisableActions(true);
             arc.strokeStart = 0.0;
