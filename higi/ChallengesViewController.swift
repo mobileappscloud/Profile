@@ -62,22 +62,25 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         var table:UITableView;
         for index in 0...pageDisplayMaster.count-1 {
             if (pageDisplayMaster[index]) {
-                if (index == 0) {
+                switch(index) {
+                case 0:
                     activeTable = addTableView(totalPages);
                     scrollView.addSubview(activeTable);
                     pageTitles.append("Active Challenges");
-                } else if (index == 1) {
+                case 1:
                     upcomingTable = addTableView(totalPages);
                     scrollView.addSubview(upcomingTable);
                     pageTitles.append("Upcoming Challenges");
-                } else if (index == 2) {
+                case 2:
                     availableTable = addTableView(totalPages);
                     scrollView.addSubview(availableTable);
                     pageTitles.append("Available Challenges");
-                } else if (index == 3) {
+                case 3:
                     invitedTable = addTableView(totalPages);
                     scrollView.addSubview(invitedTable);
                     pageTitles.append("Invited Challenges");
+                default:
+                    var i = 0;
                 }
                 totalPages++;
             }
@@ -92,27 +95,28 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     }
     
     func updateNavbar() {
-//        var scrollY = activeTable.contentOffset.y;
-//        if (scrollY >= 0) {
-//            //headerImage.frame.origin.y = -scrollY / 2;
-//            var alpha = min(scrollY / 75, 1);
-//            self.fakeNavBar.alpha = alpha;
-//            self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0 - alpha, alpha: 1.0)];
-//            if (alpha < 0.5) {
-//                toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon"), forState: UIControlState.Normal);
-//                toggleButton!.alpha = 1 - alpha;
-//                self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
-//                pager.currentPageIndicatorTintColor = UIColor.whiteColor();
-//            } else {
-//                toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon_inverted"), forState: UIControlState.Normal);
-//                toggleButton!.alpha = alpha;
-//                self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
-//                pager.currentPageIndicatorTintColor = UIColor.blackColor();
-//            }
-//        } else {
-//            self.fakeNavBar.alpha = 0;
-//            self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0, alpha: 1)];
-//        }
+        //@todo this only works for the first table at the moment
+        var scrollY = activeTable.contentOffset.y;
+        if (scrollY >= 0) {
+            //headerImage.frame.origin.y = -scrollY / 2;
+            var alpha = min(scrollY / 75, 1);
+            self.fakeNavBar.alpha = alpha;
+            self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0 - alpha, alpha: 1.0)];
+            if (alpha < 0.5) {
+                toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon"), forState: UIControlState.Normal);
+                toggleButton!.alpha = 1 - alpha;
+                self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
+                pager.currentPageIndicatorTintColor = UIColor.whiteColor();
+            } else {
+                toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon_inverted"), forState: UIControlState.Normal);
+                toggleButton!.alpha = alpha;
+                self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
+                pager.currentPageIndicatorTintColor = UIColor.blackColor();
+            }
+        } else {
+            self.fakeNavBar.alpha = 0;
+            self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0, alpha: 1)];
+        }
     }
 
     func addTableView(page: Int) -> UITableView {
@@ -216,7 +220,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true);
-//
+
         var challenges:[HigiChallenge] = [];
         var challengeType = "";
         
@@ -235,7 +239,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         Flurry.logEvent("Challenge_Pressed");
         var challengeName = challenge.name!;
         var challengeDetailViewController = ChallengeDetailsViewController();
-        challengeDetailViewController.challengeName = challengeName;
+        challengeDetailViewController.challenge = challenge;
         self.navigationController!.pushViewController(challengeDetailViewController, animated: true);
     }
     

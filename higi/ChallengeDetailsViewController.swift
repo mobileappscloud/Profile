@@ -60,6 +60,9 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     let progressGestureRecognizer = UITapGestureRecognizer();
     let leaderboardGestureRecognizer = UITapGestureRecognizer();
     
+    var individualLeaderboardCount = 50;
+    var teamLeaderboardCount = 50;
+
     override func viewDidLoad() {
         super.viewDidLoad();
         
@@ -74,13 +77,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         self.navigationItem.hidesBackButton = true;
         
         var session = SessionController.Instance;
-        
-        for thisChallenge:HigiChallenge in session.challenges {
-            if (thisChallenge.name == challengeName) {
-                challenge = thisChallenge;
-                break;
-            }
-        }
         
         for winCondition in challenge.winConditions {
             if (winCondition.goal.type == "threshold_reached") {
@@ -200,7 +196,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         var height:CGFloat = buttonContainer.frame.size.height;
         let buttonWidth = buttonContainer.frame.size.width / CGFloat(buttonText.count)
         
-        selectedGreenBar.frame = CGRect(x: 0, y: -4, width: buttonWidth, height: 4);
+        selectedGreenBar.frame = CGRect(x: 0, y: -4, width: buttonWidth, height: 8);
         selectedGreenBar.setNeedsDisplay();
         
         for index in 0...buttonText.count - 1 {
@@ -305,18 +301,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         return "";
     }
     
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0));
-        if (displayLeaderboardTab && tableView == leaderboardTable) {
-            leaderboardGestureRecognizer.addTarget(self, action: "toggleLeaderboardButtons:");
-            view.addGestureRecognizer(leaderboardGestureRecognizer);
-        } else if (displayProgressTab && tableView == progressTable) {
-            progressGestureRecognizer.addTarget(self, action: "toggleProgressButtons:");
-            view.addGestureRecognizer(progressGestureRecognizer);
-        }
-        return view;
-    }
-    
     func makeImageWithColor(color: UIColor) -> UIImage {
         let rect = CGRectMake(0, 0, 1, 1);
         UIGraphicsBeginImageContext(rect.size);
@@ -327,6 +311,75 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         UIGraphicsEndImageContext();
         
         return image;
+    }
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        if (shouldScroll) {
+            updateScroll();
+        }
+    }
+    
+    var lastScrollY:CGFloat = 0;
+    func updateScroll() {
+        var headerXOffset:CGFloat = 50;
+        var currentTable = tables[currentPage];
+        var scrollY = currentTable.contentOffset.y;
+        
+        //@todo for some reason there is a hiccup in scrolling at a couple places, same scrollY values each time
+        
+        lastScrollY = headerContainer.frame.origin.y;
+        if (scrollY >= 0) {
+            if (scrollY >= headerContainerHeight - minHeaderHeightThreshold) {
+                headerContainer.frame.origin.y = minHeaderHeightThreshold - headerContainerHeight;
+                buttonContainer.frame.origin.y = minHeaderHeightThreshold - 1;
+            } else {
+                participantPlace.frame.origin.x = headerPlaceOriginX + (scrollY / headerXOffset);
+                participantProgress.frame.origin.x = headerProgressOriginX + (scrollY / headerXOffset);
+ 
+                var xOffset = min(scrollY * (headerXOffset / ((headerContainerHeight - minHeaderHeightThreshold) / 2)),50);
+                participantAvatar.frame = CGRect(x: headerAvatarOriginX + xOffset, y: participantAvatar.frame.origin.y, width: 30, height: 30);
+                participantPlace.frame = CGRect(x: headerPlaceOriginX + xOffset, y: participantPlace.frame.origin.y, width: 58, height: 25);
+                participantName.frame = CGRect(x: headerPlaceOriginX + xOffset, y: participantName.frame.origin.y, width: 162, height: 16);
+                participantProgress.frame = CGRect(x: headerProgressOriginX + xOffset, y: participantPoints.frame.origin.y, width: headerProgressOriginWidth - xOffset, height: 15);
+
+                headerContainer.frame.origin.y = -scrollY;
+                //buttonContainer.frame.origin.y = buttonContainerOriginY - scrollY;
+                buttonContainer.frame.origin.y = buttonContainerOriginY - scrollY;
+            }
+        }
+        
+        for index in 0...tables.count - 1 {
+            if (index != currentPage) {
+                tables[index].contentOffset.y = min(scrollY, headerContainer.frame.size.height);
+            }
+        }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews();
+    }
+    
+    func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool {
+        return true;
+    }
+    
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        var x = scrollView.contentOffset.x;
+        var w = scrollView.frame.size.width;
+        var page = lround(Double(scrollView.contentOffset.x / scrollView.frame.size.width));
+        changePage(page);
+    }
+    
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0));
+        if (displayLeaderboardTab && tableView == leaderboardTable) {
+            leaderboardGestureRecognizer.addTarget(self, action: "toggleLeaderboardButtons:");
+            view.addGestureRecognizer(leaderboardGestureRecognizer);
+        } else if (displayProgressTab && tableView == progressTable) {
+            progressGestureRecognizer.addTarget(self, action: "toggleProgressButtons:");
+            view.addGestureRecognizer(progressGestureRecognizer);
+        }
+        return view;
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -340,19 +393,40 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (displayLeaderboardTab && tableView == leaderboardTable) {
-            return isIndividualLeaderboard ? min(50,challenge.participantsCount) : min(50, challenge.teams.count);
+            let a = isIndividualLeaderboard ? min(individualLeaderboardCount,challenge.participantsCount) : min(teamLeaderboardCount, challenge.teams.count);
+            return isIndividualLeaderboard ? min(individualLeaderboardCount,challenge.participantsCount) : min(teamLeaderboardCount, challenge.teams.count);
         } else if (displayProgressTab && tableView == progressTable) {
             return 1;
         }
         return 1;
     }
     
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        if (indexPath.row == individualLeaderboardCount - 1 || indexPath.row == teamLeaderboardCount - 1) {
+            if (displayLeaderboardTab && tableView == leaderboardTable) {
+                if (isIndividualLeaderboard) {
+                    individualLeaderboardCount = min(individualLeaderboardCount + 50, challenge.participantsCount);
+                    tableView.reloadData();
+                } else {
+                    individualLeaderboardCount = min(individualLeaderboardCount + 50, challenge.participantsCount);
+                }
+            }
+        }
+    }
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if (displayLeaderboardTab && tableView == leaderboardTable) {
-            //var cell = tableView.dequeueReusableCellWithIdentifier("ChallengeLeaderboardRow") as ChallengeLeaderboardRow!;
-            //if (cell == nil) {
-                var cell = ChallengeLeaderboardRow.instanceFromNib(challenge, index: indexPath.row, isIndividual: isIndividualLeaderboard);
-            //}
+            var cell = tableView.dequeueReusableCellWithIdentifier("ChallengeLeaderboardRow") as ChallengeLeaderboardRow!;
+            if (cell == nil) {
+                cell = ChallengeLeaderboardRow.instanceFromNib(challenge, index: indexPath.row, isIndividual: isIndividualLeaderboard);
+                if (isIndividualLeaderboard) {
+                    if (challenge.participants[indexPath.row].displayName == challenge.participant.displayName) {
+                        cell.backgroundColor = Utility.colorFromHexString("#9DF280");
+                    }
+                } else if (challenge.teams[indexPath.row].name == challenge.participant.team.name) {
+                    cell.backgroundColor = Utility.colorFromHexString("#9DF280");
+                }
+            }
             return cell;
         } else if (displayProgressTab && tableView == progressTable) {
             let cell = UITableViewCell(frame: CGRect(x: 0, y: 0, width: scrollView.frame.size.width, height: 200));
@@ -389,67 +463,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             return UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "");
         }
     }
-    
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        if (shouldScroll) {
-            updateScroll();
-        }
-    }
-    
-    var lastScrollY:CGFloat = 0;
-    func updateScroll() {
-        var headerXOffset:CGFloat = 50;
-        var currentTable = tables[currentPage];
-        var scrollY = currentTable.contentOffset.y;
-        
-        //@todo for some reason there is a hiccup in scrolling at 34 and 78 that resets scroll to 0
-        if (scrollY == 34 || scrollY == 78) {
-            var t = 0;
-        }
-        
-        lastScrollY = headerContainer.frame.origin.y;
-//        if (scrollY >= 0) {
-            if (scrollY >= headerContainerHeight - minHeaderHeightThreshold) {
-                headerContainer.frame.origin.y = minHeaderHeightThreshold - headerContainerHeight;
-                buttonContainer.frame.origin.y = minHeaderHeightThreshold - 1;
-            } else {
-                participantPlace.frame.origin.x = headerPlaceOriginX + (scrollY / headerXOffset);
-                participantProgress.frame.origin.x = headerProgressOriginX + (scrollY / headerXOffset);
- 
-                var xOffset = min(scrollY * (headerXOffset / ((headerContainerHeight - minHeaderHeightThreshold) / 2)),50);
-                participantAvatar.frame = CGRect(x: headerAvatarOriginX + xOffset, y: participantAvatar.frame.origin.y, width: 30, height: 30);
-                participantPlace.frame = CGRect(x: headerPlaceOriginX + xOffset, y: participantPlace.frame.origin.y, width: 58, height: 25);
-                participantName.frame = CGRect(x: headerPlaceOriginX + xOffset, y: participantName.frame.origin.y, width: 162, height: 16);
-                participantProgress.frame = CGRect(x: headerProgressOriginX + xOffset, y: participantPoints.frame.origin.y, width: headerProgressOriginWidth - xOffset, height: 15);
 
-                headerContainer.frame.origin.y = -scrollY;
-                //buttonContainer.frame.origin.y = buttonContainerOriginY - scrollY;
-                buttonContainer.frame.origin.y = buttonContainerOriginY - scrollY;
-            }
-//        }
-        
-        for index in 0...tables.count - 1 {
-            if (index != currentPage) {
-                tables[index].contentOffset.y = min(scrollY, headerContainer.frame.size.height);
-            }
-        }
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews();
-    }
-    
-    func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool {
-        return true;
-    }
-    
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        var x = scrollView.contentOffset.x;
-        var w = scrollView.frame.size.width;
-        var page = lround(Double(scrollView.contentOffset.x / scrollView.frame.size.width));
-        changePage(page);
-    }
-    
     func setProgressBar(view: UIView, points: Int, highScore: Int) {
         let width = view.frame.size.width;
         let proportion = min(CGFloat(points)/CGFloat(highScore), 1);
