@@ -73,6 +73,8 @@ class TermsViewController: UIViewController {
             ApiUtility.retrieveCheckins(self.gotoDashboard);
             ApiUtility.retrieveActivities(self.gotoDashboard);
             ApiUtility.retrieveChallenges(self.gotoDashboard);
+            ApiUtility.retrieveDevices(self.gotoDashboard);
+            ApiUtility.grabNextPulseArticles(self.gotoDashboard);
             
             }, failure: {operation, error in
                 self.reset();
@@ -80,8 +82,8 @@ class TermsViewController: UIViewController {
     }
     
     func gotoDashboard() {
-        if (SessionController.Instance.checkins != nil && SessionController.Instance.activities != nil && SessionController.Instance.challenges != nil) {
-             Utility.gotoDashboard(self);
+        if (SessionController.Instance.checkins != nil && SessionController.Instance.activities != nil && SessionController.Instance.challenges != nil && SessionController.Instance.pulseArticles.count > 0) {
+            Utility.gotoDashboard(self);
         }
     }
     
