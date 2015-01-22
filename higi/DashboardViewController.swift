@@ -14,13 +14,15 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     
     @IBOutlet weak var mainScrollView: UIScrollView!
     
-    @IBOutlet weak var activityCard: ActivityCard!;
+    @IBOutlet weak var activityCard: ActivityCard!
     
-    @IBOutlet weak var challengesCard: ChallengesCard!;
+    @IBOutlet weak var challengesCard: ChallengesCard!
     
-    @IBOutlet weak var bodyStatsCard: BodyStatsCard!;
+    @IBOutlet weak var bodyStatsCard: BodyStatsCard!
     
-    @IBOutlet weak var pulseCard: PulseCard!;
+    @IBOutlet weak var pulseCard: PulseCard!
+    
+    @IBOutlet var errorCard: UIView!
     
     var pointsMeter: PointsMeter!;
     
@@ -33,6 +35,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     var pullRefreshView: PullRefresh!;
     
     var doneRefreshing = true, activitiesRefreshed = true, challengesRefreshed = true, checkinsRefreshed = true, devicesRefreshed = true;
+    
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -89,20 +92,69 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                 todaysPoints += activity.points;
             }
         }
-        pointsMeter.activities = todaysActivity;
-        pointsMeter.points.text = "\(todaysPoints)";
         
-        activityCard.frame.origin.y = currentOrigin;
-        currentOrigin += activityCard.frame.size.height + gap;
-        mainScrollView.addSubview(activityCard);
+        if (todaysPoints > 0) {
+            pointsMeter.hidden = false;
+            activityCard.blankStateImage.hidden = true;
+            pointsMeter.activities = todaysActivity;
+            pointsMeter.points.text = "\(todaysPoints)";
+        } else {
+            pointsMeter.hidden = true;
+            activityCard.blankStateImage.hidden = false;
+        }
+        
+        if (todaysPoints > 0 || !SessionController.Instance.earnditError) {
+            activityCard.frame.origin.y = currentOrigin;
+            currentOrigin += activityCard.frame.size.height + gap;
+            mainScrollView.addSubview(activityCard);
+        } else {
+            errorCard.frame.origin.y = currentOrigin;
+            currentOrigin += errorCard.frame.size.height + gap;
+            mainScrollView.addSubview(errorCard);
+        }
         
     }
     
     func initChallengesCard() {
         
-        challengesCard.frame.origin.y = currentOrigin;
-        currentOrigin += challengesCard.frame.size.height + gap;
-        mainScrollView.addSubview(challengesCard);
+        var challengeToDisplay: HigiChallenge!;
+        
+        for challenge in SessionController.Instance.challenges {
+            if (challenge.userStatus == "current") {
+                if (challengeToDisplay == nil) {
+                    challengeToDisplay = challenge;
+                } else {
+                    if (challengeToDisplay.endDate == nil) {
+                        if (challenge.endDate != nil) {
+                            challengeToDisplay = challenge;
+                        }
+                    } else if (challengeToDisplay.endDate.compare(challenge.endDate) == NSComparisonResult.OrderedDescending) {
+                        challengeToDisplay = challenge;
+                    }
+                }
+            }
+        }
+        
+        challengesCard.challengeBox.layer.borderColor = Utility.colorFromHexString("#CCCCCC").CGColor;
+        
+        if (challengeToDisplay != nil) {
+            challengesCard.challengeBox.hidden = false;
+            challengesCard.blankStateImage.hidden = true;
+            challengesCard.challengeAvatar.setImageWithURL(NSURL(string: challengeToDisplay.imageUrl));
+            challengesCard.challengeTitle.text = challengeToDisplay.name;
+            var challengeView = Utility.getChallengeViews(challengeToDisplay)[0];
+            challengeView.frame = CGRect(x: 0, y: 56, width: challengesCard.challengeBox.frame.size.width, height: 180);
+            challengesCard.challengeBox.addSubview(challengeView);
+        } else {
+            challengesCard.challengeBox.hidden = true;
+            challengesCard.blankStateImage.hidden = false;
+        }
+        
+        if (challengeToDisplay != nil || !SessionController.Instance.earnditError) {
+            challengesCard.frame.origin.y = currentOrigin;
+            currentOrigin += challengesCard.frame.size.height + gap;
+            mainScrollView.addSubview(challengesCard);
+        }
     }
     
     func initBodyStatsCard() {

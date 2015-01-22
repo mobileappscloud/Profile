@@ -11,4 +11,8 @@ import Foundation
 class ChallengesCard: UIView {
     
     @IBOutlet weak var challengeBox: UIView!
+    @IBOutlet weak var challengeAvatar: UIImageView!
+    @IBOutlet weak var challengeTitle: UILabel!
+    @IBOutlet weak var blankStateImage: UIImageView!
+    
 }

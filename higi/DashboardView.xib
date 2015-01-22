@@ -10,6 +10,7 @@
                 <outlet property="activityCard" destination="U8d-yS-WcI" id="O22-LI-2vr"/>
                 <outlet property="bodyStatsCard" destination="G8T-De-5l9" id="Hld-06-0zV"/>
                 <outlet property="challengesCard" destination="SkR-F1-95x" id="kbO-Hp-pUG"/>
+                <outlet property="errorCard" destination="j9i-G7-nbm" id="ZxX-jK-VB5"/>
                 <outlet property="headerImage" destination="cHq-ic-aVv" id="B4e-ev-B66"/>
                 <outlet property="mainScrollView" destination="rhI-8E-VoM" id="f4l-Xd-OfK"/>
                 <outlet property="pulseCard" destination="mQp-GL-upY" id="Syx-V4-ndb"/>
@@ -44,7 +45,7 @@
             <point key="canvasLocation" x="542" y="405"/>
         </view>
         <view contentMode="scaleToFill" id="U8d-yS-WcI" customClass="ActivityCard" customModule="higi" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="253"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="237"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Today's Activity" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CoD-7D-k6d">
@@ -54,21 +55,21 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <view userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mt7-5r-pdL">
-                    <rect key="frame" x="110" y="70" width="100" height="100"/>
+                    <rect key="frame" x="110" y="58" width="100" height="100"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <view userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MrK-Tc-6OF">
-                    <rect key="frame" x="0.0" y="207" width="320" height="1"/>
+                    <rect key="frame" x="0.0" y="191" width="320" height="1"/>
                     <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </view>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="btn_action_black.png" translatesAutoresizingMaskIntoConstraints="NO" id="FZA-bu-XZD">
-                    <rect key="frame" x="292" y="111" width="20" height="20"/>
+                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="activitywidgetblankstate.png" translatesAutoresizingMaskIntoConstraints="NO" id="Jmp-19-ybW">
+                    <rect key="frame" x="8" y="43" width="304" height="149"/>
                 </imageView>
-                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jmp-19-ybW">
-                    <rect key="frame" x="8" y="43" width="304" height="156"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="btn_action_black.png" translatesAutoresizingMaskIntoConstraints="NO" id="FZA-bu-XZD">
+                    <rect key="frame" x="292" y="95" width="20" height="20"/>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qzx-0i-3nB">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="208"/>
+                    <rect key="frame" x="0.0" y="-2" width="320" height="194"/>
                     <state key="normal">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -77,7 +78,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QhU-Al-2Rt">
-                    <rect key="frame" x="0.0" y="207" width="320" height="46"/>
+                    <rect key="frame" x="0.0" y="191" width="320" height="46"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                     <state key="normal" title="Attach more devices!">
                         <color key="titleColor" red="0.46274509800000002" green="0.75294117650000003" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
@@ -96,12 +97,22 @@
                 <outlet property="blankStateImage" destination="Jmp-19-ybW" id="Vit-kO-QU9"/>
                 <outlet property="meterContainer" destination="mt7-5r-pdL" id="3mp-PA-389"/>
             </connections>
-            <point key="canvasLocation" x="1008" y="247.5"/>
+            <point key="canvasLocation" x="1008" y="259.5"/>
         </view>
         <view contentMode="scaleToFill" id="SkR-F1-95x" customClass="ChallengesCard" customModule="higi" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="253"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="302"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FrM-ob-Twl">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="302"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <state key="normal">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="gotoChallenges:" destination="-1" eventType="touchUpInside" id="Kdi-2N-DWj"/>
+                    </connections>
+                </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Active Challenges" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s2t-tK-QJR">
                     <rect key="frame" x="71" y="18" width="179" height="21"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
@@ -109,10 +120,13 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="btn_action_black.png" translatesAutoresizingMaskIntoConstraints="NO" id="tM5-1g-wiX">
-                    <rect key="frame" x="292" y="19" width="20" height="20"/>
+                    <rect key="frame" x="292" y="18" width="20" height="20"/>
+                </imageView>
+                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="challengewidgetblankstate.png" translatesAutoresizingMaskIntoConstraints="NO" id="uaS-Cl-yoQ">
+                    <rect key="frame" x="8" y="57" width="304" height="237"/>
                 </imageView>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CQv-F5-yyO">
-                    <rect key="frame" x="8" y="57" width="304" height="188"/>
+                    <rect key="frame" x="8" y="57" width="304" height="236"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tyd-5w-Iky">
                             <rect key="frame" x="-8" y="-6" width="319" height="200"/>
@@ -123,26 +137,34 @@
                                 <action selector="gotoChallengeDetails:" destination="-1" eventType="touchUpInside" id="IJh-RH-gcy"/>
                             </connections>
                         </button>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uLR-Ii-X0q">
+                            <rect key="frame" x="8" y="10" width="35" height="35"/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M5I-Sn-ku5">
+                            <rect key="frame" x="56" y="10" width="240" height="35"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                            <color key="textColor" red="0.2666666667" green="0.2666666667" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                            <integer key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FrM-ob-Twl">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="253"/>
-                    <state key="normal">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="gotoChallenges:" destination="-1" eventType="touchUpInside" id="Kdi-2N-DWj"/>
-                    </connections>
-                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="blankStateImage" destination="uaS-Cl-yoQ" id="cDx-lh-gAl"/>
+                <outlet property="challengeAvatar" destination="uLR-Ii-X0q" id="Idf-V2-7GA"/>
                 <outlet property="challengeBox" destination="CQv-F5-yyO" id="hDN-oN-iBk"/>
+                <outlet property="challengeTitle" destination="M5I-Sn-ku5" id="AaS-Uz-65g"/>
             </connections>
-            <point key="canvasLocation" x="1008" y="561.5"/>
+            <point key="canvasLocation" x="1008" y="586"/>
         </view>
         <view contentMode="scaleToFill" id="G8T-De-5l9" customClass="BodyStatsCard" customModule="higi" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="265"/>
@@ -413,12 +435,28 @@
             </connections>
             <point key="canvasLocation" x="1008" y="1311.5"/>
         </view>
+        <view contentMode="scaleToFill" id="j9i-G7-nbm">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="264"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="dashboard_errorstate.png" translatesAutoresizingMaskIntoConstraints="NO" id="wTv-sj-pCw">
+                    <rect key="frame" x="10" y="0.0" width="300" height="264"/>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="1008" y="1700"/>
+        </view>
     </objects>
     <resources>
+        <image name="activitywidgetblankstate.png" width="1080" height="650"/>
         <image name="banner_nologo.png" width="1080" height="491"/>
         <image name="bloodpressure.png" width="353" height="353"/>
         <image name="bodymassindex.png" width="353" height="353"/>
         <image name="btn_action_black.png" width="23" height="23"/>
+        <image name="challengewidgetblankstate.png" width="1080" height="650"/>
+        <image name="dashboard_errorstate.png" width="1080" height="900"/>
         <image name="gradient_overlay.png" width="204" height="204"/>
         <image name="meanarterialpressure.png" width="353" height="353"/>
         <image name="pulse.png" width="353" height="353"/>

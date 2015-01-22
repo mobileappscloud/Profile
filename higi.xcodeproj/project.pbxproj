@@ -152,6 +152,10 @@
 		8F5F91811A701A0E0042D87C /* btn_action_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5F917F1A701A0E0042D87C /* btn_action_black.png */; };
 		8F5F91821A701A0E0042D87C /* btn_action_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5F91801A701A0E0042D87C /* btn_action_black@2x.png */; };
 		8F5F91841A7068920042D87C /* ui_kiosk.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5F91831A7068920042D87C /* ui_kiosk.png */; };
+		8F5F91881A7193E80042D87C /* activitywidgetblankstate.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5F91851A7193E80042D87C /* activitywidgetblankstate.png */; };
+		8F5F91891A7193E80042D87C /* challengewidgetblankstate.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5F91861A7193E80042D87C /* challengewidgetblankstate.png */; };
+		8F5F918A1A7193E80042D87C /* dashboard_errorstate.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5F91871A7193E80042D87C /* dashboard_errorstate.png */; };
+		8F5F918C1A7193FC0042D87C /* activitypageblankstate.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5F918B1A7193FC0042D87C /* activitypageblankstate.png */; };
 		8F6266AF197EC8E200145EDB /* BodyStatsLand.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F6266AE197EC8E200145EDB /* BodyStatsLand.xib */; };
 		8F6266B1197EC95900145EDB /* BodyStatsPort.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F6266B0197EC95900145EDB /* BodyStatsPort.xib */; };
 		8F6266B3197ECAA700145EDB /* BodyStatsLandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6266B2197ECAA700145EDB /* BodyStatsLandView.swift */; };
@@ -485,6 +489,10 @@
 		8F5F917F1A701A0E0042D87C /* btn_action_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_action_black.png; sourceTree = "<group>"; };
 		8F5F91801A701A0E0042D87C /* btn_action_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_action_black@2x.png"; sourceTree = "<group>"; };
 		8F5F91831A7068920042D87C /* ui_kiosk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_kiosk.png; path = images/ui_kiosk.png; sourceTree = "<group>"; };
+		8F5F91851A7193E80042D87C /* activitywidgetblankstate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = activitywidgetblankstate.png; path = images/activitywidgetblankstate.png; sourceTree = "<group>"; };
+		8F5F91861A7193E80042D87C /* challengewidgetblankstate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = challengewidgetblankstate.png; path = images/challengewidgetblankstate.png; sourceTree = "<group>"; };
+		8F5F91871A7193E80042D87C /* dashboard_errorstate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dashboard_errorstate.png; path = images/dashboard_errorstate.png; sourceTree = "<group>"; };
+		8F5F918B1A7193FC0042D87C /* activitypageblankstate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = activitypageblankstate.png; path = images/activitypageblankstate.png; sourceTree = "<group>"; };
 		8F6266AE197EC8E200145EDB /* BodyStatsLand.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BodyStatsLand.xib; sourceTree = "<group>"; };
 		8F6266B0197EC95900145EDB /* BodyStatsPort.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BodyStatsPort.xib; sourceTree = "<group>"; };
 		8F6266B2197ECAA700145EDB /* BodyStatsLandView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BodyStatsLandView.swift; sourceTree = "<group>"; };
@@ -1041,6 +1049,9 @@
 		8F5C38D719818F0A00F51543 /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
+				8F5F91851A7193E80042D87C /* activitywidgetblankstate.png */,
+				8F5F91861A7193E80042D87C /* challengewidgetblankstate.png */,
+				8F5F91871A7193E80042D87C /* dashboard_errorstate.png */,
 				8F5C38D91981901600F51543 /* bloodpressure.png */,
 				8F5C38DA1981901600F51543 /* bodymassindex.png */,
 				8F5C38DB1981901600F51543 /* checkincheckmark.png */,
@@ -1343,6 +1354,7 @@
 		D1EEDB8D1A660E900012EFD3 /* Challenge */ = {
 			isa = PBXGroup;
 			children = (
+				8F5F918B1A7193FC0042D87C /* activitypageblankstate.png */,
 				D1EEDB8E1A660F2B0012EFD3 /* challenge_image.png */,
 				D1EEDB8F1A660F2B0012EFD3 /* chat_bubble_green.9.png */,
 				D1EEDB901A660F2B0012EFD3 /* chat_bubble.9.png */,
@@ -1454,6 +1466,7 @@
 				8FF9409E198A8CB600D319D7 /* SignupNameView.xib in Resources */,
 				8F5C38D219818BA900F51543 /* gauge3_overweight.png in Resources */,
 				8F5C38CC19818BA900F51543 /* gauge1_normal.png in Resources */,
+				8F5F91891A7193E80042D87C /* challengewidgetblankstate.png in Resources */,
 				8F58D98119C0F4BD00C0EC72 /* welcome_03_text@2x.png in Resources */,
 				8FDCE1C61988072C006428C3 /* btn_close_reminder.png in Resources */,
 				8F02A13419AE2CBB002FF73E /* dashboard2@2x.png in Resources */,
@@ -1467,6 +1480,7 @@
 				8F58D98919C0FE5800C0EC72 /* welcome_01_arrow.png in Resources */,
 				8FEF6F3A1A6EAA58001EF8A6 /* DashboardView.xib in Resources */,
 				8F5C38E41981904C00F51543 /* meanarterialpressure.png in Resources */,
+				8F5F918A1A7193E80042D87C /* dashboard_errorstate.png in Resources */,
 				8F58D98B19C0FE5800C0EC72 /* welcome_01_text.png in Resources */,
 				8F58D98019C0F4BD00C0EC72 /* welcome_03_bg@2x.png in Resources */,
 				8F3643A519460EB300C0033E /* Main.storyboard in Resources */,
@@ -1590,6 +1604,7 @@
 				8F524BFA195C6DD400BFC49D /* graph_timespan_bg.png in Resources */,
 				8FA5925919A7E5CE00622266 /* nodata_bodystats.png in Resources */,
 				2B8032001A1FEF420029D6DF /* calendar_icon.png in Resources */,
+				8F5F918C1A7193FC0042D87C /* activitypageblankstate.png in Resources */,
 				8F02A14619AE2CF4002FF73E /* bodystats3@2x.png in Resources */,
 				8F89C25A1A01B0D500A3AD09 /* ActivityCellView.xib in Resources */,
 				8F6ACCC0199D687D00D5E157 /* mapicon_higicard.png in Resources */,
@@ -1622,6 +1637,7 @@
 				8FFF43C219B798380056F412 /* pulse_overlay@2x.png in Resources */,
 				8F211EFA1A1E85AE00A256C0 /* oc_dropdownmenu_up.png in Resources */,
 				8F02A13219AE2CBB002FF73E /* dashboard1@2x.png in Resources */,
+				8F5F91881A7193E80042D87C /* activitywidgetblankstate.png in Resources */,
 				8F5C38DE1981901600F51543 /* bloodpressure.png in Resources */,
 				8F1D979E199556F3003B5645 /* mask.png in Resources */,
 				8F5E7FDA199BCD52009067E5 /* overlay_close.png in Resources */,

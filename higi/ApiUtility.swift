@@ -83,30 +83,49 @@ class ApiUtility {
     }
     
     class func retrieveActivities(success: (() -> Void)?) {
+        ApiUtility.checkForNewActivities({
+            SessionController.Instance.earnditError = false;
+            let userId = HigiApi.PRODUCTION ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
+            var startDateFormatter = NSDateFormatter();
+            startDateFormatter.dateFormat = "yyyy-MM-01";
+            var endDateFormatter = NSDateFormatter();
+            endDateFormatter.dateFormat = "yyyy-MM-dd";
+            var endDate = NSDate();
+            var dateComponents = NSDateComponents();
+            dateComponents.month = -6;
+            var startDate = NSCalendar.currentCalendar().dateByAddingComponents(dateComponents, toDate: endDate, options: NSCalendarOptions.allZeros)!;
+            
+            HigiApi().sendGet("\(HigiApi.earnditApiUrl)/user/\(userId)/activities?limit=0&startDate=\(startDateFormatter.stringFromDate(startDate))&endDate=\(endDateFormatter.stringFromDate(endDate))", success: {operation, responseObject in
+                var activities: [HigiActivity] = [];
+                var serverActivities = ((responseObject as NSDictionary)["response"] as NSDictionary)["data"] as NSArray;
+                for activity: AnyObject in serverActivities {
+                    activities.append(HigiActivity(dictionary: activity as NSDictionary));
+                }
+                SessionController.Instance.activities = activities;
+                success?();
+                }, failure: { operation, error in
+                    SessionController.Instance.earnditError = true;
+                    SessionController.Instance.activities = [];
+                    success?();
+            });
+        });
+        
+    }
+    
+    class func checkForNewActivities(success: (() -> Void)?) {
         let userId = HigiApi.PRODUCTION ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
-        var startDateFormatter = NSDateFormatter();
-        startDateFormatter.dateFormat = "yyyy-MM-01";
-        var endDateFormatter = NSDateFormatter();
-        endDateFormatter.dateFormat = "yyyy-MM-dd";
-        var endDate = NSDate();
-        var dateComponents = NSDateComponents();
-        dateComponents.month = -6;
-        var startDate = NSCalendar.currentCalendar().dateByAddingComponents(dateComponents, toDate: endDate, options: NSCalendarOptions.allZeros)!;
-        HigiApi().sendGet("\(HigiApi.earnditApiUrl)/user/\(userId)/activities?limit=0&startDate=\(startDateFormatter.stringFromDate(startDate))&endDate=\(endDateFormatter.stringFromDate(endDate))", success: {operation, responseObject in
-            var activities: [HigiActivity] = [];
-            var serverActivities = ((responseObject as NSDictionary)["response"] as NSDictionary)["data"] as NSArray;
-            for activity: AnyObject in serverActivities {
-                activities.append(HigiActivity(dictionary: activity as NSDictionary));
-            }
-            SessionController.Instance.activities = activities;
+        HigiApi().sendPost("\(HigiApi.earnditApiUrl)/user/\(userId)/lookForNewActivities", parameters: nil, success: {operation, responseObject in
+            var i=0;    // Still won't allow optional method be the only thing in the body
             success?();
             }, failure: { operation, error in
-                SessionController.Instance.activities = [];
+                var i=0;
                 success?();
         });
+        
     }
     
     class func retrieveChallenges(success: (() -> Void)?) {
+        SessionController.Instance.earnditError = false;
         let userId = HigiApi.PRODUCTION ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
         HigiApi().sendGet("\(HigiApi.earnditApiUrl)/user/\(userId)/challenges?&include[gravityboard]=3&include[participants]=50" +
             "&include[comments]=50&include[teams.comments]=50", success: {operation, responseObject in
@@ -138,6 +157,7 @@ class ApiUtility {
             SessionController.Instance.challenges = challenges;
             success?();
             }, failure: { operation, error in
+                SessionController.Instance.earnditError = true;
                 SessionController.Instance.challenges = [];
                 success?();
         });
@@ -146,7 +166,7 @@ class ApiUtility {
     
     class func retrieveDevices(success: (() -> Void)?) {
         let userId = HigiApi.PRODUCTION ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
-        
+        SessionController.Instance.earnditError = false;
         HigiApi().sendGet("\(HigiApi.earnditApiUrl)/user/\(userId)/devices", success: {operation, responseObject in
             var devices: [String:ActivityDevice] = [:];
             var serverDevices = (responseObject as NSDictionary)["response"] as NSArray;
@@ -159,6 +179,7 @@ class ApiUtility {
             success?();
             }, failure: { operation, error in
                 SessionController.Instance.devices = [:];
+                SessionController.Instance.earnditError = true;
                 success?();
         });
         
