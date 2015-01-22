@@ -129,7 +129,7 @@
                     <rect key="frame" x="8" y="57" width="304" height="236"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tyd-5w-Iky">
-                            <rect key="frame" x="-8" y="-6" width="319" height="200"/>
+                            <rect key="frame" x="0.0" y="0.0" width="304" height="236"/>
                             <state key="normal">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>

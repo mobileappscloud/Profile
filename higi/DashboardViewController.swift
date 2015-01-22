@@ -34,6 +34,8 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     
     var pullRefreshView: PullRefresh!;
     
+    var displayedChallenge: HigiChallenge!;
+    
     var doneRefreshing = true, activitiesRefreshed = true, challengesRefreshed = true, checkinsRefreshed = true, devicesRefreshed = true;
     
     
@@ -117,19 +119,19 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     
     func initChallengesCard() {
         
-        var challengeToDisplay: HigiChallenge!;
+        displayedChallenge = nil;
         
         for challenge in SessionController.Instance.challenges {
             if (challenge.userStatus == "current") {
-                if (challengeToDisplay == nil) {
-                    challengeToDisplay = challenge;
+                if (displayedChallenge == nil) {
+                    displayedChallenge = challenge;
                 } else {
-                    if (challengeToDisplay.endDate == nil) {
+                    if (displayedChallenge.endDate == nil) {
                         if (challenge.endDate != nil) {
-                            challengeToDisplay = challenge;
+                            displayedChallenge = challenge;
                         }
-                    } else if (challengeToDisplay.endDate.compare(challenge.endDate) == NSComparisonResult.OrderedDescending) {
-                        challengeToDisplay = challenge;
+                    } else if (displayedChallenge.endDate.compare(challenge.endDate) == NSComparisonResult.OrderedDescending) {
+                        displayedChallenge = challenge;
                     }
                 }
             }
@@ -137,12 +139,12 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         
         challengesCard.challengeBox.layer.borderColor = Utility.colorFromHexString("#CCCCCC").CGColor;
         
-        if (challengeToDisplay != nil) {
+        if (displayedChallenge != nil) {
             challengesCard.challengeBox.hidden = false;
             challengesCard.blankStateImage.hidden = true;
-            challengesCard.challengeAvatar.setImageWithURL(NSURL(string: challengeToDisplay.imageUrl));
-            challengesCard.challengeTitle.text = challengeToDisplay.name;
-            var challengeView = Utility.getChallengeViews(challengeToDisplay)[0];
+            challengesCard.challengeAvatar.setImageWithURL(NSURL(string: displayedChallenge.imageUrl));
+            challengesCard.challengeTitle.text = displayedChallenge.name;
+            var challengeView = Utility.getChallengeViews(displayedChallenge)[0];
             challengeView.frame = CGRect(x: 0, y: 56, width: challengesCard.challengeBox.frame.size.width, height: 180);
             challengesCard.challengeBox.addSubview(challengeView);
         } else {
@@ -150,7 +152,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             challengesCard.blankStateImage.hidden = false;
         }
         
-        if (challengeToDisplay != nil || !SessionController.Instance.earnditError) {
+        if (displayedChallenge != nil || !SessionController.Instance.earnditError) {
             challengesCard.frame.origin.y = currentOrigin;
             currentOrigin += challengesCard.frame.size.height + gap;
             mainScrollView.addSubview(challengesCard);
@@ -240,7 +242,9 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     }
     
     @IBAction func gotoChallengeDetails(sender: AnyObject) {
-        
+        var detailsViewController = ChallengeDetailsViewController(nibName: "ChallengeDetailsView", bundle: nil);
+        //detailsViewController.challenge = displayedChallenge;
+        self.navigationController!.pushViewController(detailsViewController, animated: true);
     }
     
     @IBAction func gotoPulseHome(sender: AnyObject) {
