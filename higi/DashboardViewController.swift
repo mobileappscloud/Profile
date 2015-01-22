@@ -1,43 +1,32 @@
 //
-//  DashboardViewController.swift
+//  NewDashboardViewController.swift
 //  higi
 //
-//  Created by Dan Harms on 6/13/14.
-//  Copyright (c) 2014 higi, LLC. All rights reserved.
+//  Created by Dan Harms on 1/20/15.
+//  Copyright (c) 2015 higi, LLC. All rights reserved.
 //
 
 import Foundation
 
-import QuartzCore
-
-class DashboardViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     
-    @IBOutlet var headerView: UIView!;
-    @IBOutlet var tableView: UITableView!;
+    @IBOutlet weak var headerImage: UIImageView!
     
-    @IBOutlet var blurredImage: UIImageView!;
-    @IBOutlet var scoreRing: UIView!;
-    @IBOutlet var scoreRingMask: UIView!;
-    @IBOutlet var profileImage: UIImageView!;
-    @IBOutlet var higiScore: UILabel!;
-    @IBOutlet var name: UILabel!;
+    @IBOutlet weak var mainScrollView: UIScrollView!
     
-    @IBOutlet var lastCheckinDate: UILabel!;
+    @IBOutlet weak var activityCard: ActivityCard!
     
-    @IBOutlet var bpButton: UIButton!;
-    @IBOutlet var pulseButton: UIButton!;
-    @IBOutlet var mapButton: UIButton!;
-    @IBOutlet var weightButton: UIButton!;
-    @IBOutlet var bmiButton: UIButton!;
-    @IBOutlet var higiPulseButton: UIButton!;
+    @IBOutlet weak var challengesCard: ChallengesCard!
     
-    @IBOutlet var noData: UIView!;
-    @IBOutlet var findStationButton: UIButton!;
-    @IBOutlet var checkPulseButton: UIButton!;
+    @IBOutlet weak var bodyStatsCard: BodyStatsCard!
     
-    @IBOutlet weak var checkinContainer: UIView!
-    @IBOutlet weak var checkinBlur: UIView!
-    @IBOutlet weak var checkinCardContainer: UIView!
+    @IBOutlet weak var pulseCard: PulseCard!
+    
+    @IBOutlet var errorCard: UIView!
+    
+    var pointsMeter: PointsMeter!;
+    
+    var currentOrigin: CGFloat = 0, gap: CGFloat = 10;
     
     var arc: CAShapeLayer!, circle: CAShapeLayer!, refreshArc: CAShapeLayer!;
     
@@ -45,13 +34,13 @@ class DashboardViewController: BaseViewController, UITableViewDelegate, UITableV
     
     var pullRefreshView: PullRefresh!;
     
-    var doneRefreshing = true, refreshing = false;
+    var displayedChallenge: HigiChallenge!;
+    
+    var doneRefreshing = true, activitiesRefreshed = true, challengesRefreshed = true, checkinsRefreshed = true, devicesRefreshed = true;
+    
     
     override func viewDidLoad() {
         super.viewDidLoad();
-        
-        var user = SessionData.Instance.user;
-        name.text = "\(user.firstName) \(user.lastName)";
         self.title = "Dashboard";
         self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
         var reminderButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30));
@@ -60,86 +49,126 @@ class DashboardViewController: BaseViewController, UITableViewDelegate, UITableV
         var reminderBarItem = UIBarButtonItem();
         reminderBarItem.customView = reminderButton;
         self.navigationItem.rightBarButtonItem = reminderBarItem;
-        
-        tableView.separatorInset = UIEdgeInsetsZero;
-        
         createPullToRefresh();
-        
-        findStationButton.layer.borderWidth = 1.0;
-        findStationButton.layer.borderColor = Utility.colorFromHexString("#76C044").CGColor;
-        
-        checkPulseButton.layer.borderWidth = 1.0;
-        checkPulseButton.layer.borderColor = Utility.colorFromHexString("#76C044").CGColor;
-        
-        updateTiles();
-        
-        if (UIDevice.currentDevice().systemVersion >= "8.0") {
-            var effect = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.Dark));
-            effect.frame = checkinBlur.frame;
-            checkinBlur.addSubview(effect);
-            tableView.layoutMargins = UIEdgeInsetsZero;
-        } else {
-            checkinBlur.backgroundColor = UIColor.blackColor();
-            checkinBlur.alpha = 0.7;
-        }
-        
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated);
-        updateNavbar();
-        var user = SessionData.Instance.user;
-        profileImage.image = user.profileImage;
-        blurredImage.image = user.blurredImage;
-        createScoreArc(SessionData.Instance.user.currentHigiScore);
-        if (SessionController.Instance.pulseArticles.count > 0) {
-            higiPulseButton.imageView!.contentMode = UIViewContentMode.ScaleAspectFill;
-            higiPulseButton.imageView!.clipsToBounds = true;
-            var article = SessionController.Instance.pulseArticles.first!;
-            higiPulseButton.setImage(UIImage(data: NSData(contentsOfURL: NSURL(string: article.imageUrl)!)!), forState: UIControlState.Normal);
-        }
+        initCards();
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated);
-        if (!SessionData.Instance.seenDashboard) {
-            SessionData.Instance.seenDashboard = true;
-            SessionData.Instance.save();
-            var tourController = TourViewController(nibName: "TourView", bundle: nil);
-            tourController.mode = "dashboard";
-            self.presentViewController(tourController, animated: false, completion: nil);
+        if (pointsMeter != nil) {
+            pointsMeter.drawArc();
         }
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning();
+    func initCards() {
+        activityCard.removeFromSuperview();
+        challengesCard.removeFromSuperview();
+        bodyStatsCard.removeFromSuperview();
+        pulseCard.removeFromSuperview();
+        currentOrigin = 83;
+        initActivityCard();
+        initChallengesCard();
+        initBodyStatsCard();
+        initPulseCard();
+        mainScrollView.contentSize.height = currentOrigin;
     }
     
-    @IBAction func bodyStatClicked(sender: AnyObject) {
-        Flurry.logEvent("Bodystat_Pressed");
-        var bodyStatsViewController = BodyStatsViewController();
-        var tag = sender.tag;
-        bodyStatsViewController.currentPage = sender.tag;
-        self.navigationController!.pushViewController(bodyStatsViewController, animated: true);
-        (self.navigationController as MainNavigationController).drawerController?.tableView.reloadData();
-        (self.navigationController as MainNavigationController).drawerController?.tableView.selectRowAtIndexPath(NSIndexPath(forItem: 3, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None);
+    func initActivityCard() {
+        
+        if (pointsMeter == nil) {
+            pointsMeter = UINib(nibName: "PointsMeterView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as PointsMeter;
+            activityCard.meterContainer.addSubview(pointsMeter);
+        }
+        var dateFormatter = NSDateFormatter();
+        dateFormatter.dateFormat = "MM/dd/yyyy";
+        var todaysActivity: [HigiActivity] = [];
+        var today = dateFormatter.stringFromDate(NSDate());
+        var todaysPoints = 0;
+        for activity in SessionController.Instance.activities.reverse() {
+            var dateString = dateFormatter.stringFromDate(activity.startTime);
+            if (today != dateString) {
+                break;
+            }
+            if (activity.errorDescription == nil) {
+                todaysActivity.append(activity);
+                todaysPoints += activity.points;
+            }
+        }
+        
+        if (todaysPoints > 0) {
+            pointsMeter.hidden = false;
+            activityCard.blankStateImage.hidden = true;
+            pointsMeter.activities = todaysActivity;
+            pointsMeter.points.text = "\(todaysPoints)";
+        } else {
+            pointsMeter.hidden = true;
+            activityCard.blankStateImage.hidden = false;
+        }
+        
+        if (todaysPoints > 0 || !SessionController.Instance.earnditError) {
+            activityCard.frame.origin.y = currentOrigin;
+            currentOrigin += activityCard.frame.size.height + gap;
+            mainScrollView.addSubview(activityCard);
+        } else {
+            errorCard.frame.origin.y = currentOrigin;
+            currentOrigin += errorCard.frame.size.height + gap;
+            mainScrollView.addSubview(errorCard);
+        }
+        
     }
     
-    @IBAction func higiPulseClicked(sender: AnyObject) {
-        Flurry.logEvent("HigiPulse_Pressed");
-        (self.navigationController as MainNavigationController).drawerController?.tableView.reloadData();
-        self.navigationController!.pushViewController(PulseHomeViewController(nibName: "PulseHomeView", bundle: nil), animated: true);
-        (self.navigationController as MainNavigationController).drawerController?.tableView.selectRowAtIndexPath(NSIndexPath(forItem: 5, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None);
+    func initChallengesCard() {
+        
+        displayedChallenge = nil;
+        
+        for challenge in SessionController.Instance.challenges {
+            if (challenge.userStatus == "current") {
+                if (displayedChallenge == nil) {
+                    displayedChallenge = challenge;
+                } else {
+                    if (displayedChallenge.endDate == nil) {
+                        if (challenge.endDate != nil) {
+                            displayedChallenge = challenge;
+                        }
+                    } else if (displayedChallenge.endDate.compare(challenge.endDate) == NSComparisonResult.OrderedDescending) {
+                        displayedChallenge = challenge;
+                    }
+                }
+            }
+        }
+        
+        challengesCard.challengeBox.layer.borderColor = Utility.colorFromHexString("#CCCCCC").CGColor;
+        
+        if (displayedChallenge != nil) {
+            challengesCard.challengeBox.hidden = false;
+            challengesCard.blankStateImage.hidden = true;
+            challengesCard.challengeAvatar.setImageWithURL(NSURL(string: displayedChallenge.imageUrl));
+            challengesCard.challengeTitle.text = displayedChallenge.name;
+            var challengeView = Utility.getChallengeViews(displayedChallenge)[0];
+            challengeView.frame = CGRect(x: 0, y: 56, width: challengesCard.challengeBox.frame.size.width, height: 180);
+            challengesCard.challengeBox.addSubview(challengeView);
+        } else {
+            challengesCard.challengeBox.hidden = true;
+            challengesCard.blankStateImage.hidden = false;
+        }
+        
+        if (displayedChallenge != nil || !SessionController.Instance.earnditError) {
+            challengesCard.frame.origin.y = currentOrigin;
+            currentOrigin += challengesCard.frame.size.height + gap;
+            mainScrollView.addSubview(challengesCard);
+        }
     }
     
-    func updateTiles() {
+    func initBodyStatsCard() {
+        
+        bodyStatsCard.lastCheckinBox.layer.borderColor = Utility.colorFromHexString("#CCCCCC").CGColor;
+        
         var checkins = SessionController.Instance.checkins;
         
         if (checkins.count > 0) {
-            tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0));
             var dateFormatter = NSDateFormatter();
-            dateFormatter.dateFormat = "MMMM d, yyyy";
-            lastCheckinDate.text = "Last updated: \(dateFormatter.stringFromDate(checkins[checkins.count - 1].dateTime))";
+            dateFormatter.dateFormat = "MMM d, yyyy";
+            bodyStatsCard.lastCheckin.text = "\(dateFormatter.stringFromDate(checkins[checkins.count - 1].dateTime))";
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                 var lastBpCheckin, lastWeightCheckin: HigiCheckin?;
                 for index in lazy(0...checkins.count - 1).reverse() {
@@ -156,109 +185,77 @@ class DashboardViewController: BaseViewController, UITableViewDelegate, UITableV
                 }
                 dispatch_async(dispatch_get_main_queue(), {
                     if (lastBpCheckin != nil) {
-                        self.bpButton.setTitle("\(lastBpCheckin!.systolic!)/\(lastBpCheckin!.diastolic!)", forState: UIControlState.Normal);
-                        self.pulseButton.setTitle("\(lastBpCheckin!.pulseBpm!)", forState: UIControlState.Normal);
-                        self.mapButton.setTitle(String(format: "%.1f", lastBpCheckin!.map!), forState: UIControlState.Normal);
+                        self.bodyStatsCard.bpButton.setTitle("\(lastBpCheckin!.systolic!)/\(lastBpCheckin!.diastolic!)", forState: UIControlState.Normal);
+                        self.bodyStatsCard.pulseButton.setTitle("\(lastBpCheckin!.pulseBpm!)", forState: UIControlState.Normal);
+                        self.bodyStatsCard.mapButton.setTitle(String(format: "%.1f", lastBpCheckin!.map!), forState: UIControlState.Normal);
                     }
                     
                     if (lastWeightCheckin != nil) {
-                        self.weightButton.setTitle("\(Int(lastWeightCheckin!.weightLbs!))", forState: UIControlState.Normal);
-                        self.bmiButton.setTitle(String(format: "%.2f", lastWeightCheckin!.bmi!), forState: UIControlState.Normal);
+                        self.bodyStatsCard.weightButton.setTitle("\(Int(lastWeightCheckin!.weightLbs!))", forState: UIControlState.Normal);
+                        self.bodyStatsCard.bmiButton.setTitle(String(format: "%.2f", lastWeightCheckin!.bmi!), forState: UIControlState.Normal);
                     }
                 });
             });
             
         }
+        
+        bodyStatsCard.frame.origin.y = currentOrigin;
+        currentOrigin += bodyStatsCard.frame.size.height + gap;
+        mainScrollView.addSubview(bodyStatsCard);
     }
     
-    func setReminder(sender: AnyObject) {
-        Flurry.logEvent("Reminder_Pressed");
-        var reminderController = FindStationViewController(nibName: "FindStationView", bundle: nil);
-        reminderController.reminderMode = true;
-        self.navigationController!.pushViewController(reminderController, animated: true);
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("CheckinCell") as CheckinTableViewCell!;
-        if (cell == nil) {
-            cell = UINib(nibName: "CheckinTableViewCell", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as CheckinTableViewCell;
-        }
-        cell.separatorInset = UIEdgeInsetsZero;
-        if (UIDevice.currentDevice().systemVersion >= "8.0") {
-            cell.layoutMargins = UIEdgeInsetsZero;
-        }
-        var checkin = SessionController.Instance.checkins[SessionController.Instance.checkins.count - 1 - indexPath.item];
-        if (checkin.kioskInfo != nil) {
-            cell.title.text = "\(checkin.kioskInfo!.organizations[0]) check-in";
-            cell.address.text = checkin.kioskInfo!.fullAddress;
+    func initPulseCard() {
+        var articles = SessionController.Instance.pulseArticles;
+        if (articles.count > 2) {
+            var topArticle = articles[0], middleArticle = articles[1], bottomArticle = articles[2];
+            pulseCard.topImage.setImageWithURL(NSURL(string: topArticle.imageUrl));
+            pulseCard.topTitle.text = topArticle.title;
+            pulseCard.topExcerpt.text = topArticle.excerpt;
+            pulseCard.middleImage.setImageWithURL(NSURL(string: middleArticle.imageUrl));
+            pulseCard.middleTitle.text = middleArticle.title;
+            pulseCard.middleExcerpt.text = middleArticle.excerpt;
+            pulseCard.bottomImage.setImageWithURL(NSURL(string: bottomArticle.imageUrl));
+            pulseCard.bottomTitle.text = bottomArticle.title;
+            pulseCard.bottomExcerpt.text = bottomArticle.excerpt;
+            pulseCard.middleTitle.sizeToFit();
+            pulseCard.middleExcerpt.sizeToFit();
+            pulseCard.bottomTitle.sizeToFit();
+            pulseCard.bottomExcerpt.sizeToFit();
         } else {
-            cell.title.text = "\(checkin.sourceVendorId!) check-in";
-            cell.address.text = "";
+            // TODO make error state
         }
-        var dateFormatter = NSDateFormatter();
-        dateFormatter.dateFormat = "MMMM d, yyyy";
-        cell.date.text = dateFormatter.stringFromDate(checkin.dateTime);
-        return cell;
+        pulseCard.frame.origin.y = currentOrigin;
+        currentOrigin += pulseCard.frame.size.height + gap;
+        mainScrollView.addSubview(pulseCard);
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return SessionController.Instance.checkins.count;
+    @IBAction func gotoActivities(sender: AnyObject) {
+        self.navigationController!.pushViewController(ActivityViewController(nibName: "ActivityView", bundle: nil), animated: true);
     }
     
-    func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true);
-        self.navigationController!.navigationBarHidden = true;
-        self.navigationController!.navigationBar.userInteractionEnabled = false;
-        self.fakeNavBar.hidden = true;
-        checkinContainer.hidden = false;
-        var checkinCard = UINib(nibName: "CheckinCardView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as CheckinCard;
-        checkinCard.frame.size = checkinCardContainer.frame.size;
-        var checkin = SessionController.Instance.checkins[SessionController.Instance.checkins.count - 1 - indexPath.item];
-        checkinCard.createTable(checkin, onClose: self.closeCheckinCard, onSelection: self.checkinMeasureSelected);
-        checkinCardContainer.addSubview(checkinCard);
-        checkinCard.frame.origin.y = checkinCardContainer.frame.size.height;
+    @IBAction func gotoConnectDevices(sender: AnyObject) {
         
-        UIView.animateWithDuration(0.15, delay: 0.0, options: .CurveEaseInOut, animations: {
-            
-            self.checkinContainer.alpha = 1.0;
-            
-            }, completion: {finished in
-                UIView.animateWithDuration(0.35, delay: 0.0, options: .CurveEaseInOut, animations: {
-                    
-                    checkinCard.frame.origin.y = 0;
-                    
-                    }, completion: nil);
-        });
-        checkinCard.setupMap();
-        self.revealController.panGestureRecognizer().enabled = false;
     }
     
-    func closeCheckinCard(checkinCard: UIView) {
-        
-        UIView.animateWithDuration(0.35, delay: 0.0, options: .CurveEaseInOut, animations: {
-            
-            checkinCard.frame.origin.y = checkinCard.frame.size.height;
-            
-            }, completion: {finished in
-                self.navigationController!.navigationBarHidden = false;
-                self.fakeNavBar.hidden = false;
-                self.navigationController!.navigationBar.userInteractionEnabled = true;
-                UIView.animateWithDuration(0.15, delay: 0.0, options: .CurveEaseInOut, animations: {
-                    self.checkinContainer.alpha = 0.0;
-                    }, completion: {finished in
-                        self.checkinContainer.hidden = true;
-                });
-                checkinCard.removeFromSuperview();
-                self.revealController.panGestureRecognizer().enabled = true;
-        });
+    @IBAction func gotoChallenges(sender: AnyObject) {
+        self.navigationController!.pushViewController(ChallengesViewController(nibName: "ChallengesView", bundle: nil), animated: true);
     }
     
-    func checkinMeasureSelected(checkin: HigiCheckin, selected: Int) {
-        var bodyStats = BodyStatsViewController();
-        bodyStats.selected = checkin;
-        bodyStats.currentPage = selected;
-        (self.navigationController as MainNavigationController).drawerController?.tableView.selectRowAtIndexPath(NSIndexPath(forItem: 1, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None);
-        self.navigationController!.pushViewController(bodyStats, animated: true);
+    @IBAction func gotoChallengeDetails(sender: AnyObject) {
+        var detailsViewController = ChallengeDetailsViewController(nibName: "ChallengeDetailsView", bundle: nil);
+        //detailsViewController.challenge = displayedChallenge;
+        self.navigationController!.pushViewController(detailsViewController, animated: true);
+    }
+    
+    @IBAction func gotoPulseHome(sender: AnyObject) {
+        self.navigationController!.pushViewController(PulseHomeViewController(nibName: "PulseHomeView", bundle: nil), animated: true);
+    }
+    
+    @IBAction func gotoPulseArticle(sender: AnyObject) {
+        var webView = WebViewController(nibName: "WebView", bundle: nil);
+        var article: PulseArticle!;
+        webView.url = SessionController.Instance.pulseArticles[sender.tag!].permalink;
+        self.navigationController?.pushViewController(webView, animated: true);
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView!) {
@@ -266,8 +263,9 @@ class DashboardViewController: BaseViewController, UITableViewDelegate, UITableV
     }
     
     func updateNavbar() {
-        var scrollY = tableView.contentOffset.y;
+        var scrollY = mainScrollView.contentOffset.y;
         if (scrollY >= 0) {
+            headerImage.frame.origin.y = -scrollY / 2;
             var alpha = min(scrollY / 100, 1);
             self.fakeNavBar.alpha = alpha;
             CATransaction.setDisableActions(true);
@@ -291,9 +289,10 @@ class DashboardViewController: BaseViewController, UITableViewDelegate, UITableV
                 self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
             }
         } else {    // Pull refresh
+            headerImage.frame.origin.y = 0;
             self.fakeNavBar.alpha = 0;
             self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0, alpha: 0)];
-            var alpha = max(1.0 + scrollY / (tableView.frame.size.height * 0.195), 0.0);
+            var alpha = max(1.0 + scrollY / (mainScrollView.frame.size.height * 0.195), 0.0);
             if (!refreshControl.refreshing && doneRefreshing) {
                 pullRefreshView.icon.alpha = 1.0 - alpha;
                 pullRefreshView.circleContainer.alpha = 1.0 - alpha;
@@ -310,86 +309,7 @@ class DashboardViewController: BaseViewController, UITableViewDelegate, UITableV
             }
         }
     }
-   
-    @IBAction func gotoFindStation(sender: AnyObject) {
-        Flurry.logEvent("NoDataFindStation_Pressed");
-        (self.navigationController as MainNavigationController).drawerController?.tableView.selectRowAtIndexPath(NSIndexPath(forItem: 2, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None);
-        self.navigationController!.pushViewController(FindStationViewController(nibName: "FindStationView", bundle: nil), animated: true);
-    }
     
-    @IBAction func gotoPulse(sender: AnyObject) {
-        Flurry.logEvent("NoDataPulse_Pressed");
-        (self.navigationController as MainNavigationController).drawerController?.tableView.selectRowAtIndexPath(NSIndexPath(forItem: 3, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None);
-        self.navigationController!.pushViewController(PulseHomeViewController(nibName: "PulseHomeView", bundle: nil), animated: true);
-    }
-    
-    func createScoreArc(score: Int) {
-        higiScore.text = "0";
-        if (score > 0) {
-            if (arc == nil) {
-                scoreRingMask.hidden = false;
-                scoreRingMask.frame = CGRect(x: 43, y: 86, width: 14, height: 14);
-                arc = CAShapeLayer();
-                arc.lineWidth = 14;
-                arc.fillColor = UIColor.whiteColor().CGColor;
-                arc.strokeColor = Utility.colorFromHexString("#76C044").CGColor;
-                
-                var toPath = UIBezierPath();
-                var center = CGPoint(x: 50.0, y: 50.0);
-                var radius: CGFloat = 43.0;
-                var startingPoint = CGPoint(x: center.x, y: center.y + radius);
-                toPath.moveToPoint(startingPoint);
-                toPath.addArcWithCenter(center, radius: radius, startAngle: CGFloat(M_PI_2), endAngle: CGFloat(5 * M_PI_2), clockwise: true);
-                toPath.closePath();
-                
-                arc.path = toPath.CGPath;
-                scoreRing.layer.addSublayer(arc);
-            }
-            scoreRingMask.frame.origin = CGPoint(x: 43, y: 86);
-            scoreRingMask.hidden = false;
-            CATransaction.begin();
-            CATransaction.setDisableActions(true);
-            arc.strokeStart = 0.0;
-            arc.strokeEnd = 0.0;
-            CATransaction.setDisableActions(false);
-            CATransaction.commit();
-            
-            var percent = Double(score) / 999.0;
-            
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                NSThread.sleepForTimeInterval(0.25);
-                var progress = 0.0;
-                var startTime = NSDate().timeIntervalSince1970;
-                var duration = 1.0;
-                while (progress < 1) {
-                    var currentTime = NSDate().timeIntervalSince1970;
-                    progress = min((currentTime - startTime) / duration, 1.0);
-                    var easeProg = (currentTime - startTime) / (duration / 2.0);
-                    var drawPercent: Double;
-                    
-                    if (easeProg < 1) {
-                        drawPercent = percent / 2.0 * pow(easeProg, 3.0);
-                    } else {
-                        easeProg -= 2;
-                        drawPercent = percent / 2.0 * (pow(easeProg, 3.0) + 2.0);
-                    }
-                    dispatch_async(dispatch_get_main_queue(), {
-                        // Turn off implicit animations on layer
-                        CATransaction.begin();
-                        CATransaction.setDisableActions(true);
-                        self.arc.strokeEnd = CGFloat(drawPercent);
-                        CATransaction.setDisableActions(false);
-                        CATransaction.commit();
-                        self.higiScore.text = "\(Int(Double(score) * (drawPercent / percent)))";
-                        self.scoreRingMask.frame.origin = CGPoint(x: 43 * cos(drawPercent * M_PI * 2 + M_PI_2) + 43, y: 43 * sin(drawPercent * M_PI * 2 + M_PI_2) + 43);
-                    });
-                    
-                    NSThread.sleepForTimeInterval(0.02);
-                }
-                
-            });
-        }
-    }
     
     func createPullToRefresh() {
         pullRefreshView = UINib(nibName: "PullRefreshView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as PullRefresh;
@@ -399,7 +319,7 @@ class DashboardViewController: BaseViewController, UITableViewDelegate, UITableV
         refreshControl.tintColor = UIColor.clearColor();
         refreshControl.backgroundColor = UIColor.clearColor();
         refreshControl.addSubview(pullRefreshView);
-        tableView.addSubview(refreshControl);
+        mainScrollView.addSubview(refreshControl);
         
         refreshArc = CAShapeLayer();
         refreshArc.lineWidth = 3;
@@ -424,7 +344,10 @@ class DashboardViewController: BaseViewController, UITableViewDelegate, UITableV
     }
     
     func refresh() {
-        refreshing = true;
+        activitiesRefreshed = false;
+        challengesRefreshed = false;
+        checkinsRefreshed = false;
+        devicesRefreshed = false;
         self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0, alpha: 0.0)];
         pullRefreshView.icon.alpha = 1.0;
         pullRefreshView.circleContainer.alpha = 1.0;
@@ -467,7 +390,7 @@ class DashboardViewController: BaseViewController, UITableViewDelegate, UITableV
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
             
-            while (self.refreshing) {
+            while (!self.activitiesRefreshed || !self.challengesRefreshed || !self.checkinsRefreshed || !self.devicesRefreshed) {
                 NSThread.sleepForTimeInterval(0.1);
             }
             
@@ -482,14 +405,8 @@ class DashboardViewController: BaseViewController, UITableViewDelegate, UITableV
                 CATransaction.setDisableActions(false);
                 CATransaction.commit();
                 var user = SessionData.Instance.user;
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.profileImage.image = user.profileImage;
-                    self.blurredImage.image = user.blurredImage;
-                });
+                self.initCards();
                 self.doneRefreshing = true;
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.createScoreArc(user.currentHigiScore);
-                });
                 self.refreshControl.endRefreshing();
             });
             
@@ -501,20 +418,34 @@ class DashboardViewController: BaseViewController, UITableViewDelegate, UITableV
                 var login = HigiLogin(dictionary: responseObject as NSDictionary);
                 SessionData.Instance.user = login.user;
                 SessionData.Instance.user.retrieveProfileImages();
-                ApiUtility.retrieveCheckins({
-                    self.updateTiles();
-                    dispatch_async(dispatch_get_main_queue(), {
-                        self.tableView.reloadData();
-                        self.refreshing = false;
-                    });
+                
+                ApiUtility.retrieveActivities({
+                    self.activitiesRefreshed = true;
                 });
+                
+                ApiUtility.retrieveChallenges({
+                    self.challengesRefreshed = true;
+                });
+                
+                ApiUtility.retrieveCheckins({
+                    self.checkinsRefreshed = true;
+                });
+                
+                ApiUtility.retrieveDevices({
+                    self.devicesRefreshed = true;
+                });
+                
             });
-           
-        }, failure: nil);
+            
+            }, failure: nil);
         
         
     }
     
-    
-    
+    func setReminder(sender: AnyObject) {
+        Flurry.logEvent("Reminder_Pressed");
+        var reminderController = FindStationViewController(nibName: "FindStationView", bundle: nil);
+        reminderController.reminderMode = true;
+        self.navigationController!.pushViewController(reminderController, animated: true);
+    }
 }

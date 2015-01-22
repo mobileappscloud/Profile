@@ -27,8 +27,13 @@ class SessionController {
     
     var devices: [String: ActivityDevice] = [:];
     
+    var earnditError = false;
+    
     func reset() {
         checkins = [];
+        activities = [];
+        challenges = [];
+        devices = [:];
     }
     
     
