@@ -18,11 +18,14 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     @IBOutlet weak var participantPlace: UILabel!
     
     @IBOutlet weak var buttonContainer: UIView!
+    
     var challengeName = "";
     var challenge:HigiChallenge!;
     
     var displayLeaderboardTab = false;
     var displayProgressTab = false;
+    var displayChatterTab = false;
+    
     var hasTeamGoalComponent = false;
     var hasIndividualGoalComponent = false;
     var hasTeamLeaderboardComponent = false;
@@ -31,7 +34,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     var isIndividualLeaderboard = true;
     var isIndividualProgress = true;
     
-    @IBOutlet weak var selectedGreenBar: UIView!
     var leaderboardTable: UITableView!;
     var progressTable: UITableView!;
     var detailsTable: UITableView!;
@@ -41,7 +43,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     var currentPage = 0;
     var tables:[UITableView] = [];
     
-    var minHeaderHeightThreshold:CGFloat = 0;
     var headerContainerHeight:CGFloat = 0;
     var buttonContainerOriginY:CGFloat = 0;
     var headerAvatarOriginX:CGFloat = 0;
@@ -50,18 +51,19 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     var headerProgressOriginWidth:CGFloat = 0;
     var headerPointsOriginX:CGFloat = 0;
     
-    let toggleButtonHeight:CGFloat = 60;
     var scrollOffset = 0;
     
     var shouldScroll = true;
     var leaderboardToggleButtons:[UIButton] = [];
     var progressToggleButtons:[UIButton] = [];
-    
+    var greenBars:[UIView] = [];
     let progressGestureRecognizer = UITapGestureRecognizer();
     let leaderboardGestureRecognizer = UITapGestureRecognizer();
     
     var individualLeaderboardCount = 50;
     var teamLeaderboardCount = 50;
+    var individualLeaderboardParticipants:[ChallengeParticipant] = [];
+    var teamLeaderboardParticipants:[ChallengeTeam] = [];
 
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -79,7 +81,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         var session = SessionController.Instance;
         
         for winCondition in challenge.winConditions {
-            if (winCondition.goal.type == "threshold_reached") {
+            if (challenge.participant != nil && winCondition.goal.type == "threshold_reached") {
                 displayProgressTab = true;
                 if (winCondition.winnerType == "individual") {
                     hasIndividualGoalComponent = true;
@@ -96,6 +98,10 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             }
         }
         
+        if (challenge.participant != nil) {
+            displayChatterTab = true;
+        }
+        
         populateHeader();
         
         populateScrollViewWithTables();
@@ -108,9 +114,13 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         if (displayProgressTab && hasIndividualGoalComponent && hasTeamGoalComponent) {
             addToggleButtons(progressTable);
         }
+        
+        individualLeaderboardParticipants = challenge.participants;
+        teamLeaderboardParticipants = challenge.teams;
     }
     
     func addToggleButtons(table: UITableView) {
+        let toggleButtonHeight:CGFloat = 60;
         let buttonMargin:CGFloat = 10;
         let header = UIControl(frame: CGRect(x: 0, y: buttonContainerOriginY + buttonContainer.frame.size.height + buttonMargin, width: contentView.frame.size.width, height: toggleButtonHeight  - buttonMargin));
         
@@ -162,7 +172,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         challengeAvatar.setImageWithURL(Utility.loadImageFromUrl(challenge.imageUrl));
         challengeTitle.text = challenge.name;
         
-        minHeaderHeightThreshold = 67;
         headerContainerHeight = headerContainer.frame.size.height;
         buttonContainerOriginY = buttonContainer.frame.origin.y;
         
@@ -190,42 +199,49 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         }
         buttonText.append("Details");
         buttonIcons.append("ui_details.png");
-        buttonText.append("Chatter");
-        buttonIcons.append("ui_chatter.png");
+        if (displayChatterTab) {
+            buttonText.append("Chatter");
+            buttonIcons.append("ui_chatter.png");
+        }
         
-        var height:CGFloat = buttonContainer.frame.size.height;
+        let height:CGFloat = buttonContainer.frame.size.height;
         let buttonWidth = buttonContainer.frame.size.width / CGFloat(buttonText.count)
         
-        selectedGreenBar.frame = CGRect(x: 0, y: -4, width: buttonWidth, height: 8);
-        selectedGreenBar.setNeedsDisplay();
-        
         for index in 0...buttonText.count - 1 {
-            var image = UIImage(named: buttonIcons[index]) as UIImage!;
-            
-            image.drawInRect(CGRect(x: 0, y: 0, width: 10, height: 10));
-            var button = UIButton.buttonWithType(UIButtonType.System) as UIButton
-            button.frame = CGRect(x: buttonWidth * CGFloat(index), y: 0, width: buttonWidth, height: height);
-            button.backgroundColor = Utility.colorFromHexString("#FDFDFD");
-            button.setImage(image, forState: UIControlState.Normal);
-            button.imageEdgeInsets = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15);
-            button.setTitle(buttonText[index], forState: UIControlState.Normal);
-            button.titleLabel?.font = UIFont.systemFontOfSize(12);
-            button.tintColor = UIColor.darkGrayColor();
-            button.tag = index;
-            button.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Center;
-            button.contentVerticalAlignment = UIControlContentVerticalAlignment.Bottom;
-            button.contentEdgeInsets.bottom = 10;
-            button.addTarget(self, action: "selectButton:", forControlEvents:UIControlEvents.TouchUpInside);
-            buttonContainer.addSubview(button);
+            let tabGestureRecognizer = UITapGestureRecognizer();
+            tabGestureRecognizer.addTarget(self, action: "selectButton:");
+            let tabView = UIView(frame: CGRect(x: buttonWidth * CGFloat(index), y: 00, width: buttonWidth, height: height));
+            tabView.backgroundColor = Utility.colorFromHexString("#FDFDFD");
+            tabView.tag = index;
+            let image = UIImageView(frame: CGRect(x: buttonWidth/2 - 30/2, y: 10, width: 30, height: 20));
+            image.image = UIImage(named: buttonIcons[index]);
+            let label = UILabel(frame: CGRect(x: 0, y: image.frame.origin.y + image.frame.size.height + 2, width: buttonWidth, height: 25));
+            label.font = UIFont.systemFontOfSize(10);
+            label.tintColor = UIColor.darkGrayColor();
+            label.textAlignment = NSTextAlignment.Center;
+            label.text = buttonText[index];
+            let greenBar = UIView(frame: CGRect(x: 0, y: height - 3, width: buttonWidth, height: 3));
+            greenBar.backgroundColor = Utility.colorFromHexString("#76C043");
+            greenBar.hidden = index != 0;
+            greenBars.append(greenBar);
+            tabView.addSubview(greenBar);
+            tabView.addSubview(image);
+            tabView.addSubview(label);
+            tabView.addGestureRecognizer(tabGestureRecognizer);
+            buttonContainer.addSubview(tabView);
         }
     }
     
-    func selectButton(sender: UIButton!) {
-        changePage(sender.tag);
+    func selectButton(sender: AnyObject) {
+        let view = sender.view as UIView!;
+        changePage(view.tag);
     }
     
     func moveGreenBar(page: Int) {
-        selectedGreenBar.frame.origin.x = CGFloat(page) * selectedGreenBar.frame.size.width;
+        for bar in greenBars {
+            bar.hidden = true;
+        }
+        greenBars[page].hidden = false;
     }
     
     func toggleLeaderboardButtons(sender: AnyObject) {
@@ -321,9 +337,10 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     var lastScrollY:CGFloat = 0;
     func updateScroll() {
-        var headerXOffset:CGFloat = 50;
-        var currentTable = tables[currentPage];
-        var scrollY = currentTable.contentOffset.y;
+        let headerXOffset:CGFloat = 50;
+        let minHeaderHeightThreshold:CGFloat = 67;
+        let currentTable = tables[currentPage];
+        let scrollY = currentTable.contentOffset.y;
         
         //@todo for some reason there is a hiccup in scrolling at a couple places, same scrollY values each time
         
@@ -393,8 +410,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (displayLeaderboardTab && tableView == leaderboardTable) {
-            let a = isIndividualLeaderboard ? min(individualLeaderboardCount,challenge.participantsCount) : min(teamLeaderboardCount, challenge.teams.count);
-            return isIndividualLeaderboard ? min(individualLeaderboardCount,challenge.participantsCount) : min(teamLeaderboardCount, challenge.teams.count);
+            return isIndividualLeaderboard ? min(individualLeaderboardParticipants.count,challenge.participantsCount) : min(teamLeaderboardParticipants.count, challenge.teams.count);
         } else if (displayProgressTab && tableView == progressTable) {
             return 1;
         }
@@ -406,6 +422,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             if (displayLeaderboardTab && tableView == leaderboardTable) {
                 if (isIndividualLeaderboard) {
                     individualLeaderboardCount = min(individualLeaderboardCount + 50, challenge.participantsCount);
+                    loadMoreParticipants();
                     tableView.reloadData();
                 } else {
                     individualLeaderboardCount = min(individualLeaderboardCount + 50, challenge.participantsCount);
@@ -418,7 +435,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         if (displayLeaderboardTab && tableView == leaderboardTable) {
             var cell = tableView.dequeueReusableCellWithIdentifier("ChallengeLeaderboardRow") as ChallengeLeaderboardRow!;
             if (cell == nil) {
-                cell = ChallengeLeaderboardRow.instanceFromNib(challenge, index: indexPath.row, isIndividual: isIndividualLeaderboard);
+                cell = ChallengeLeaderboardRow.instanceFromNib(challenge, participants: individualLeaderboardParticipants, teams: teamLeaderboardParticipants, index: indexPath.row, isIndividual: isIndividualLeaderboard);
                 if (isIndividualLeaderboard) {
                     if (challenge.participants[indexPath.row].displayName == challenge.participant.displayName) {
                         cell.backgroundColor = Utility.colorFromHexString("#9DF280");
@@ -493,5 +510,35 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     func goBack(sender: AnyObject!) {
         self.navigationController!.popViewControllerAnimated(true);
         shouldScroll = false;
+    }
+    
+    func loadMoreParticipants(){
+        var participants:[ChallengeParticipant] = [];
+        let url = challenge.pagingData != nil ? challenge.pagingData?.nextUrl : nil;
+        if (url != nil) {
+            HigiApi().sendGet(url!, success: {operation, responseObject in
+                if (self.isIndividualLeaderboard) {
+                    var serverParticipants = ((responseObject as NSDictionary)["response"] as NSDictionary)["data"] as? NSArray;
+                    var participants:[ChallengeParticipant] = [];
+                    if (serverParticipants != nil) {
+                        for singleParticipant: AnyObject in serverParticipants! {
+                            participants.append(ChallengeParticipant(dictionary: singleParticipant as NSDictionary));
+                        }
+                    }
+                    for singleParticipant in participants {
+                        self.individualLeaderboardParticipants.append(singleParticipant);
+                    }
+                } else {
+                    var teams:[ChallengeTeam] = [];
+                    var serverTeams = (((responseObject as NSDictionary)["response"] as NSDictionary)["data"] as NSDictionary)["teams"] as? NSArray;
+                    if (serverTeams != nil) {
+                        for team: AnyObject in serverTeams! {
+                            self.teamLeaderboardParticipants.append(ChallengeTeam(dictionary: team as NSDictionary));
+                        }
+                    }
+                }
+                }, failure: { operation, error in
+            });
+        }
     }
 }

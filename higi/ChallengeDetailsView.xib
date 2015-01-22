@@ -21,7 +21,6 @@
                 <outlet property="participantProgress" destination="4PH-3r-dHT" id="a4R-nP-77u"/>
                 <outlet property="pointsLabel" destination="Lj2-kM-7ai" id="E5e-x4-P7e"/>
                 <outlet property="scrollView" destination="3xq-86-abo" id="6uw-Nn-qZe"/>
-                <outlet property="selectedGreenBar" destination="9Ar-a2-lo0" id="7BH-Sg-zQC"/>
                 <outlet property="view" destination="PE7-hb-4Wz" id="mUe-Pk-Pp2"/>
             </connections>
         </placeholder>
@@ -143,12 +142,6 @@
                 </view>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Dj-0Z-1GK">
                     <rect key="frame" x="0.0" y="238" width="320" height="57"/>
-                    <subviews>
-                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Ar-a2-lo0">
-                            <rect key="frame" x="0.0" y="56" width="80" height="2"/>
-                            <color key="backgroundColor" red="0.46274509800000002" green="0.75294117650000003" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        </view>
-                    </subviews>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>

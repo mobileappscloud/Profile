@@ -82,7 +82,6 @@ class DashboardViewController: BaseViewController, UITableViewDelegate, UITableV
             checkinBlur.backgroundColor = UIColor.blackColor();
             checkinBlur.alpha = 0.7;
         }
-        
     }
     
     override func viewWillAppear(animated: Bool) {

@@ -68,7 +68,7 @@ class CompetitiveChallengeView: UIView, UIScrollViewDelegate {
             for index in 0...individualGravityBoard.count - 1 {
                 let name = individualGravityBoard[index].participant.displayName;
                 let points = "\(Int(individualGravityBoard[index].participant.units)) pts";
-                let rank = Utility.getRankSuffix(individualGravityBoard[index].place);
+                let rank = Utility.getRankSuffix(individualGravityBoard[index].place!);
                 let avatarUrl = individualGravityBoard[index].participant.imageUrl;
                 populateLeaderBoardRow(rows[index], name: name, points: points, rank: rank);
                 setAvatar(avatars[index], url: avatarUrl);

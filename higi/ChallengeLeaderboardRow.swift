@@ -7,10 +7,10 @@ class ChallengeLeaderboardRow: UITableViewCell {
     @IBOutlet weak var points: UILabel!
     @IBOutlet weak var avatar: UIImageView!
 
-    class func instanceFromNib(challenge: HigiChallenge, index: Int, isIndividual: Bool) -> ChallengeLeaderboardRow {
+    class func instanceFromNib(challenge: HigiChallenge, participants: [ChallengeParticipant], teams: [ChallengeTeam], index: Int, isIndividual: Bool) -> ChallengeLeaderboardRow {
         let row = UINib(nibName: "ChallengeLeaderboardRow", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeLeaderboardRow;
         if (isIndividual) {
-            let participant = challenge.participants[index];
+            let participant = participants[index];
             let highScore = challenge.individualHighScore;
             row.avatar.setImageWithURL(Utility.loadImageFromUrl(participant.imageUrl));
             row.name.text = participant.displayName;
@@ -18,7 +18,7 @@ class ChallengeLeaderboardRow: UITableViewCell {
             row.place.text = Utility.getRankSuffix(String(index + 1));
             setProgressBar(row.progress, points: Int(participant.units), highScore: Int(highScore));
         } else {
-            let team = challenge.teams[index];
+            let team = teams[index];
             let highScore = challenge.teamHighScore;
             row.avatar.setImageWithURL(Utility.loadImageFromUrl(team.imageUrl));
             row.name.text = team.name;
