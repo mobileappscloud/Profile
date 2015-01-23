@@ -69,6 +69,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         super.viewDidLoad();
         
         self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
+        self.navigationController!.navigationBar.barTintColor = UIColor.whiteColor();
         (self.navigationController as MainNavigationController).revealController.panGestureRecognizer().enabled = false;
         var backButton = UIButton.buttonWithType(UIButtonType.Custom) as UIButton;
         backButton.setBackgroundImage(UIImage(named: "btn_back_white.png"), forState: UIControlState.Normal);
@@ -392,10 +393,10 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0));
-        if (displayLeaderboardTab && tableView == leaderboardTable) {
+        if (displayLeaderboardTab && hasIndividualLeaderboardComponent && hasTeamLeaderboardComponent && tableView == leaderboardTable) {
             leaderboardGestureRecognizer.addTarget(self, action: "toggleLeaderboardButtons:");
             view.addGestureRecognizer(leaderboardGestureRecognizer);
-        } else if (displayProgressTab && tableView == progressTable) {
+        } else if (displayProgressTab && hasIndividualGoalComponent && hasTeamGoalComponent && tableView == progressTable) {
             progressGestureRecognizer.addTarget(self, action: "toggleProgressButtons:");
             view.addGestureRecognizer(progressGestureRecognizer);
         }
@@ -421,15 +422,10 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        if (indexPath.row == individualLeaderboardCount - 1 || indexPath.row == teamLeaderboardCount - 1) {
-            if (displayLeaderboardTab && tableView == leaderboardTable) {
-                if (isIndividualLeaderboard) {
-                    individualLeaderboardCount = min(individualLeaderboardCount + 50, challenge.participantsCount);
-                    loadMoreParticipants();
-                    tableView.reloadData();
-                } else {
-                    individualLeaderboardCount = min(individualLeaderboardCount + 50, challenge.participantsCount);
-                }
+        if (indexPath.row == individualLeaderboardCount - 1) {
+            if (displayLeaderboardTab && tableView == leaderboardTable && isIndividualLeaderboard) {
+                individualLeaderboardCount = min(individualLeaderboardCount + 50, challenge.participantsCount);
+                loadMoreParticipants();
             }
         }
     }
@@ -441,11 +437,11 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                 if (isIndividualLeaderboard) {
                     cell = ChallengeLeaderboardRow.instanceFromNib(challenge, participant: individualLeaderboardParticipants[indexPath.row], index: indexPath.row);
                     if (challenge.participants[indexPath.row].displayName == challenge.participant.displayName) {
-                        cell.backgroundColor = Utility.colorFromHexString("#9DF280");
+                        cell.backgroundColor = Utility.colorFromHexString("#d5ffb8");
                     }
                 } else if (challenge.teams[indexPath.row].name == challenge.participant.team.name) {
                     cell = ChallengeLeaderboardRow.instanceFromNib(challenge, team: teamLeaderboardParticipants[indexPath.row], index: indexPath.row);
-                    cell.backgroundColor = Utility.colorFromHexString("#9DF280");
+                    cell.backgroundColor = Utility.colorFromHexString("#d5ffb8");
                 }
             }
             return cell;
@@ -517,6 +513,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func loadMoreParticipants(){
+        showLoadingFooter();
         var participants:[ChallengeParticipant] = [];
         let url = challenge.pagingData != nil ? challenge.pagingData?.nextUrl : nil;
         if (url != nil) {
@@ -532,17 +529,19 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                     for singleParticipant in participants {
                         self.individualLeaderboardParticipants.append(singleParticipant);
                     }
-                } else {
-                    var teams:[ChallengeTeam] = [];
-                    var serverTeams = (((responseObject as NSDictionary)["response"] as NSDictionary)["data"] as NSDictionary)["teams"] as? NSArray;
-                    if (serverTeams != nil) {
-                        for team: AnyObject in serverTeams! {
-                            self.teamLeaderboardParticipants.append(ChallengeTeam(dictionary: team as NSDictionary));
-                        }
-                    }
+                    self.leaderboardTable.reloadData();
+                    self.hideLoadingFooter();
                 }
                 }, failure: { operation, error in
             });
         }
+    }
+    
+    func showLoadingFooter() {
+        
+    }
+    
+    func hideLoadingFooter() {
+        
     }
 }

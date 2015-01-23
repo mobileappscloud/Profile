@@ -7,6 +7,6 @@ class Constants {
     }
 }
 
-let DEVICE_PRIORITY = ["Moves", "Omron", "FitBit", "Jawbone",
-    "Garmin", "BodyMedia", "Nike+", "Runkeeper", "MapMyFitness", "Endomondo", "Foursquare",
+let DEVICE_PRIORITY = ["Moves", "Omron", "Fitbit", "Jawbone",
+    "Garmin", "Bodymedia", "Nike+", "Runkeeper", "MapMyFitness", "Endomondo", "Foursquare",
     "Withings", "higi"];

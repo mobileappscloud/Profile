@@ -62,6 +62,7 @@ class GoalChallengeView: UIView {
         pointsLabel.center = CGPointMake(progressWidth, labelPosY);
         pointsLabel.textAlignment = NSTextAlignment.Center;
         pointsLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline);
+        pointsLabel.textColor = Utility.colorFromHexString("#444444");
         
         goalView.progress.addSubview(pointsLabel);
         goalView.progress.addSubview(verticalLine);
@@ -129,7 +130,7 @@ class GoalChallengeView: UIView {
         
         goalLabel.textAlignment = NSTextAlignment.Center;
         goalLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline);
-        let goalLabelColor:UIColor = (participantPoints >= thisGoalValue) ? UIColor.blackColor() : UIColor.lightGrayColor();
+        let goalLabelColor:UIColor = (participantPoints >= thisGoalValue) ? Utility.colorFromHexString("#444444") : UIColor.lightGrayColor();
         goalLabel.textColor = goalLabelColor;
         
         goalView.progress.addSubview(goalLabel);
