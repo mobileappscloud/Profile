@@ -18,7 +18,7 @@ class HigiApi {
     }
     
     class var webUrl: String {
-        return WEB_URL;
+        return HigiApi.PRODUCTION ? WEB_URL : DEV_WEB_URL;
     }
     
     class var apiKey: String {
