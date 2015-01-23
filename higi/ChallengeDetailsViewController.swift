@@ -432,48 +432,9 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if (displayLeaderboardTab && tableView == leaderboardTable) {
-            var cell = tableView.dequeueReusableCellWithIdentifier("ChallengeLeaderboardRow") as ChallengeLeaderboardRow!;
-            if (cell == nil) {
-                if (isIndividualLeaderboard) {
-                    cell = ChallengeLeaderboardRow.instanceFromNib(challenge, participant: individualLeaderboardParticipants[indexPath.row], index: indexPath.row);
-                    if (challenge.participants[indexPath.row].displayName == challenge.participant.displayName) {
-                        cell.backgroundColor = Utility.colorFromHexString("#d5ffb8");
-                    }
-                } else if (challenge.teams[indexPath.row].name == challenge.participant.team.name) {
-                    cell = ChallengeLeaderboardRow.instanceFromNib(challenge, team: teamLeaderboardParticipants[indexPath.row], index: indexPath.row);
-                    cell.backgroundColor = Utility.colorFromHexString("#d5ffb8");
-                }
-            }
-            return cell;
+            return createLeaderboardCell(tableView, index: indexPath.row);
         } else if (displayProgressTab && tableView == progressTable) {
-            let cell = UITableViewCell(frame: CGRect(x: 0, y: 0, width: scrollView.frame.size.width, height: 200));
-            let consolodatedWinConditions = Utility.consolodateWinConditions(challenge.winConditions);
-            var individualGoalViewIndex = 0;
-            var teamGoalViewIndex = 0;
-            // the win condition for getting 1 point messed up my logic here since we don't have a view for it
-            var ignoreOnePointGoalWinCondition = false;
-            for index in 0...consolodatedWinConditions.count - 1 {
-                let winConditionList = consolodatedWinConditions[index];
-                let firstWinCondition = winConditionList[0];
-                if (firstWinCondition.goal.type == "threshold_reached") {
-                    if (firstWinCondition.winnerType == "individual") {
-                        if (firstWinCondition.goal.minThreshold == 1) {
-                            ignoreOnePointGoalWinCondition = true;
-                        } else {
-                            individualGoalViewIndex = ignoreOnePointGoalWinCondition ? index - 1 : index;
-                        }
-                    } else {
-                        teamGoalViewIndex = ignoreOnePointGoalWinCondition ? index - 1 : index;
-                    }
-                }
-            }
-            let nibs = Utility.getChallengeViews(challenge, isComplex: true);
-            if (isIndividualProgress) {
-                cell.addSubview(nibs[individualGoalViewIndex]);
-            } else {
-                cell.addSubview(nibs[teamGoalViewIndex])
-            }
-            return cell;
+            return createProgressTable(tableView, index: indexPath.row);
         } else if (tableView == detailsTable) {
             return ChallengeDetailsTab.instanceFromNib(challenge);
         } else {
@@ -535,6 +496,53 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                 }, failure: { operation, error in
             });
         }
+    }
+    
+    func createLeaderboardCell(tableView: UITableView, index: Int) -> UITableViewCell {
+        var cell = tableView.dequeueReusableCellWithIdentifier("ChallengeLeaderboardRow") as ChallengeLeaderboardRow!;
+        if (cell == nil) {
+            if (isIndividualLeaderboard) {
+                cell = ChallengeLeaderboardRow.instanceFromNib(challenge, participant: individualLeaderboardParticipants[index], index: index);
+                if (challenge.participants[index].displayName == challenge.participant.displayName) {
+                    cell.backgroundColor = Utility.colorFromHexString("#d5ffb8");
+                }
+            } else if (challenge.teams[index].name == challenge.participant.team.name) {
+                cell = ChallengeLeaderboardRow.instanceFromNib(challenge, team: teamLeaderboardParticipants[index], index: index);
+                cell.backgroundColor = Utility.colorFromHexString("#d5ffb8");
+            }
+        }
+        return cell;
+    }
+    
+    func createProgressTable(tableView: UITableView, index: Int) -> UITableViewCell {
+        let cell = UITableViewCell(frame: CGRect(x: 0, y: 0, width: scrollView.frame.size.width, height: 200));
+        let consolodatedWinConditions = Utility.consolodateWinConditions(challenge.winConditions);
+        var individualGoalViewIndex = 0;
+        var teamGoalViewIndex = 0;
+        // the win condition for getting 1 point messed up my logic here since we don't have a view for it
+        var ignoreOnePointGoalWinCondition = false;
+        for index in 0...consolodatedWinConditions.count - 1 {
+            let winConditionList = consolodatedWinConditions[index];
+            let firstWinCondition = winConditionList[0];
+            if (firstWinCondition.goal.type == "threshold_reached") {
+                if (firstWinCondition.winnerType == "individual") {
+                    if (firstWinCondition.goal.minThreshold == 1) {
+                        ignoreOnePointGoalWinCondition = true;
+                    } else {
+                        individualGoalViewIndex = ignoreOnePointGoalWinCondition ? index - 1 : index;
+                    }
+                } else {
+                    teamGoalViewIndex = ignoreOnePointGoalWinCondition ? index - 1 : index;
+                }
+            }
+        }
+        let nibs = Utility.getChallengeViews(challenge, isComplex: true);
+        if (isIndividualProgress) {
+            cell.addSubview(nibs[individualGoalViewIndex]);
+        } else {
+            cell.addSubview(nibs[teamGoalViewIndex])
+        }
+        return cell;
     }
     
     func showLoadingFooter() {
