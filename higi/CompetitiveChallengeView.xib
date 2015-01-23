@@ -8,149 +8,30 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="tI1-Dt-MFM" customClass="CompetitiveChallengeView" customModule="higi" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="179"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="176"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pc6-1E-8dJ">
-                    <rect key="frame" x="49" y="24" width="132" height="16"/>
-                    <rect key="contentStretch" x="1" y="0.0" width="1" height="1"/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gFX-fb-Ptc">
-                    <rect key="frame" x="250" y="36" width="62" height="21"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bBG-kY-rkq">
-                    <rect key="frame" x="49" y="72" width="132" height="12"/>
-                    <rect key="contentStretch" x="1" y="0.0" width="1" height="1"/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZqB-BV-wdX">
-                    <rect key="frame" x="250" y="84" width="62" height="21"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MSy-Hn-gWp">
-                    <rect key="frame" x="49" y="134" width="58" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="61X-7J-xDu">
-                    <rect key="frame" x="49" y="120" width="132" height="13"/>
-                    <rect key="contentStretch" x="1" y="0.0" width="1" height="1"/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <imageView multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="higi_logo_innercircle.png" translatesAutoresizingMaskIntoConstraints="NO" id="2AZ-r5-j7c">
-                    <rect key="frame" x="8" y="24" width="30" height="30"/>
-                </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="higi_logo_innercircle.png" translatesAutoresizingMaskIntoConstraints="NO" id="ZOd-L4-OVP">
-                    <rect key="frame" x="8" y="72" width="30" height="30"/>
-                </imageView>
-                <view multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J2F-nV-YFt">
-                    <rect key="frame" x="115" y="41" width="130" height="15"/>
-                    <subviews>
-                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ei4-VX-pXs">
-                            <rect key="frame" x="-14" y="6" width="80" height="5"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                    <integer key="value" value="2"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
-                        </view>
-                    </subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e2D-sC-QkF">
+                    <rect key="frame" x="0.0" y="10" width="320" height="40"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
-                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6fP-PF-8Ez">
-                    <rect key="frame" x="115" y="83" width="130" height="16"/>
-                    <subviews>
-                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9R2-aY-Eqe">
-                            <rect key="frame" x="-14" y="8" width="80" height="5"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                    <integer key="value" value="2"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
-                        </view>
-                    </subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n07-h6-OF7">
+                    <rect key="frame" x="0.0" y="60" width="320" height="40"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WJu-jt-96B">
-                    <rect key="frame" x="250" y="134" width="62" height="21"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="higi_logo_innercircle.png" translatesAutoresizingMaskIntoConstraints="NO" id="xup-gl-jhy">
-                    <rect key="frame" x="8" y="120" width="30" height="30"/>
-                </imageView>
-                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xuy-PM-wry">
-                    <rect key="frame" x="115" y="132" width="130" height="18"/>
-                    <subviews>
-                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ab3-dY-NfI">
-                            <rect key="frame" x="-14" y="8" width="80" height="5"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                    <integer key="value" value="2"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
-                        </view>
-                    </subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XVh-mb-TAc">
+                    <rect key="frame" x="0.0" y="110" width="320" height="40"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
-                <label opaque="NO" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="44V-q5-Ohf">
-                    <rect key="frame" x="49" y="36" width="58" height="26"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J90-hG-uNG">
-                    <rect key="frame" x="49" y="84" width="58" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                    <nil key="highlightedColor"/>
-                </label>
             </subviews>
-            <constraints>
-                <constraint firstItem="J2F-nV-YFt" firstAttribute="leading" secondItem="44V-q5-Ohf" secondAttribute="trailing" constant="8" id="88L-Cc-NKk"/>
-                <constraint firstItem="xup-gl-jhy" firstAttribute="leading" secondItem="tI1-Dt-MFM" secondAttribute="leading" constant="8" id="DBp-LF-SWC"/>
-                <constraint firstAttribute="trailing" secondItem="WJu-jt-96B" secondAttribute="trailing" constant="8" id="G8w-Ev-RM6"/>
-                <constraint firstItem="J90-hG-uNG" firstAttribute="leading" secondItem="ZOd-L4-OVP" secondAttribute="trailing" constant="11" id="Kj7-ja-jl5"/>
-                <constraint firstItem="2AZ-r5-j7c" firstAttribute="leading" secondItem="tI1-Dt-MFM" secondAttribute="leading" constant="8" id="PuD-JI-NzW"/>
-                <constraint firstItem="6fP-PF-8Ez" firstAttribute="leading" secondItem="J90-hG-uNG" secondAttribute="trailing" constant="8" id="YEZ-J5-Vyq"/>
-                <constraint firstItem="bBG-kY-rkq" firstAttribute="leading" secondItem="ZOd-L4-OVP" secondAttribute="trailing" constant="11" id="YQO-JP-Zhw"/>
-                <constraint firstItem="Xuy-PM-wry" firstAttribute="leading" secondItem="MSy-Hn-gWp" secondAttribute="trailing" constant="8" id="d80-YI-wX4"/>
-                <constraint firstAttribute="trailing" secondItem="ZqB-BV-wdX" secondAttribute="trailing" constant="8" id="dpe-aw-xR6"/>
-                <constraint firstAttribute="trailing" secondItem="gFX-fb-Ptc" secondAttribute="trailing" constant="8" id="fzM-lx-6q8"/>
-                <constraint firstItem="44V-q5-Ohf" firstAttribute="leading" secondItem="2AZ-r5-j7c" secondAttribute="trailing" constant="11" id="gEc-bc-2eq"/>
-                <constraint firstItem="J2F-nV-YFt" firstAttribute="top" secondItem="Pc6-1E-8dJ" secondAttribute="bottom" constant="1" id="hsr-7d-3ov"/>
-                <constraint firstItem="MSy-Hn-gWp" firstAttribute="leading" secondItem="xup-gl-jhy" secondAttribute="trailing" constant="11" id="hvR-6k-4lx"/>
-                <constraint firstItem="ZOd-L4-OVP" firstAttribute="leading" secondItem="tI1-Dt-MFM" secondAttribute="leading" constant="8" id="jWg-OW-50K"/>
-                <constraint firstItem="Pc6-1E-8dJ" firstAttribute="leading" secondItem="2AZ-r5-j7c" secondAttribute="trailing" constant="11" id="rDu-uY-2tF"/>
-                <constraint firstItem="61X-7J-xDu" firstAttribute="leading" secondItem="xup-gl-jhy" secondAttribute="trailing" constant="11" id="zSg-9N-yQB"/>
-            </constraints>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="firstPositionAvatar" destination="2AZ-r5-j7c" id="d42-fm-OQQ"/>
-                <outlet property="firstPositionName" destination="Pc6-1E-8dJ" id="XMK-XL-xtY"/>
-                <outlet property="firstPositionPoints" destination="gFX-fb-Ptc" id="KYt-rv-lEV"/>
-                <outlet property="firstPositionProgressBar" destination="Ei4-VX-pXs" id="4Do-EX-d3w"/>
-                <outlet property="firstPositionRank" destination="44V-q5-Ohf" id="aTu-6b-R6c"/>
-                <outlet property="secondPositionAvatar" destination="ZOd-L4-OVP" id="jJz-jI-dxn"/>
-                <outlet property="secondPositionName" destination="bBG-kY-rkq" id="R6X-Mq-uSl"/>
-                <outlet property="secondPositionPoints" destination="ZqB-BV-wdX" id="WuQ-hi-FEs"/>
-                <outlet property="secondPositionProgressBar" destination="9R2-aY-Eqe" id="muM-jA-JZS"/>
-                <outlet property="secondPositionRank" destination="J90-hG-uNG" id="yHw-Pc-oal"/>
-                <outlet property="thirdPositionAvatar" destination="xup-gl-jhy" id="Qfu-3E-Brc"/>
-                <outlet property="thirdPositionName" destination="61X-7J-xDu" id="kE4-zr-iAr"/>
-                <outlet property="thirdPositionPoints" destination="WJu-jt-96B" id="L6B-qN-OSI"/>
-                <outlet property="thirdPositionProgressBar" destination="ab3-dY-NfI" id="T4x-9B-NnC"/>
-                <outlet property="thirdPositionRank" destination="MSy-Hn-gWp" id="Ek8-uc-EEh"/>
+                <outlet property="row1" destination="e2D-sC-QkF" id="1h7-76-3uv"/>
+                <outlet property="row2" destination="n07-h6-OF7" id="kCR-lX-w2T"/>
+                <outlet property="row3" destination="XVh-mb-TAc" id="PBD-cq-6rR"/>
             </connections>
             <point key="canvasLocation" x="505" y="98.5"/>
         </view>
     </objects>
-    <resources>
-        <image name="higi_logo_innercircle.png" width="24" height="24"/>
-    </resources>
 </document>
