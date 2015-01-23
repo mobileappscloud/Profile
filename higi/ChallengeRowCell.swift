@@ -59,16 +59,5 @@ class ChallengeRowCell: UITableViewCell, UIScrollViewDelegate, UIGestureRecogniz
         frame.origin.y = 0;
         scrollView.setContentOffset(frame.origin, animated: true);
     }
-    
-    //@todo this needs to return self on tap, but scroll on swipe -- or otherwise go to details page on tap
-    override func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {
-        return self;
-    }
 
-    override
-    func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
-        if (self.nextResponder() != nil) {
-            self.nextResponder()!.touchesBegan(touches, withEvent: event);
-        }
-    }
 }

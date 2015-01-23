@@ -50,39 +50,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         reminderBarItem.customView = reminderButton;
         self.navigationItem.rightBarButtonItem = reminderBarItem;
         createPullToRefresh();
-        
-        findStationButton.layer.borderWidth = 1.0;
-        findStationButton.layer.borderColor = Utility.colorFromHexString("#76C044").CGColor;
-        
-        checkPulseButton.layer.borderWidth = 1.0;
-        checkPulseButton.layer.borderColor = Utility.colorFromHexString("#76C044").CGColor;
-        
-        updateTiles();
-        
-        if (UIDevice.currentDevice().systemVersion >= "8.0") {
-            var effect = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.Dark));
-            effect.frame = checkinBlur.frame;
-            checkinBlur.addSubview(effect);
-            tableView.layoutMargins = UIEdgeInsetsZero;
-        } else {
-            checkinBlur.backgroundColor = UIColor.blackColor();
-            checkinBlur.alpha = 0.7;
-        }
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated);
-        updateNavbar();
-        var user = SessionData.Instance.user;
-        profileImage.image = user.profileImage;
-        blurredImage.image = user.blurredImage;
-        createScoreArc(SessionData.Instance.user.currentHigiScore);
-        if (SessionController.Instance.pulseArticles.count > 0) {
-            higiPulseButton.imageView!.contentMode = UIViewContentMode.ScaleAspectFill;
-            higiPulseButton.imageView!.clipsToBounds = true;
-            var article = SessionController.Instance.pulseArticles.first!;
-            higiPulseButton.setImage(UIImage(data: NSData(contentsOfURL: NSURL(string: article.imageUrl)!)!), forState: UIControlState.Normal);
-        }
+        initCards();
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -176,7 +144,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             challengesCard.blankStateImage.hidden = true;
             challengesCard.challengeAvatar.setImageWithURL(NSURL(string: displayedChallenge.imageUrl));
             challengesCard.challengeTitle.text = displayedChallenge.name;
-            var challengeView = Utility.getChallengeViews(displayedChallenge)[0];
+            var challengeView = Utility.getChallengeViews(displayedChallenge, isComplex: false)[2];
             challengeView.frame = CGRect(x: 0, y: 56, width: challengesCard.challengeBox.frame.size.width, height: 180);
             challengesCard.challengeBox.addSubview(challengeView);
         } else {
@@ -275,7 +243,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     
     @IBAction func gotoChallengeDetails(sender: AnyObject) {
         var detailsViewController = ChallengeDetailsViewController(nibName: "ChallengeDetailsView", bundle: nil);
-        //detailsViewController.challenge = displayedChallenge;
+        detailsViewController.challenge = displayedChallenge;
         self.navigationController!.pushViewController(detailsViewController, animated: true);
     }
     

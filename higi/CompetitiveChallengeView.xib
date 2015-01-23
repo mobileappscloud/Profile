@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -86,7 +86,7 @@
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="higi_logo_innercircle.png" translatesAutoresizingMaskIntoConstraints="NO" id="xup-gl-jhy">
                     <rect key="frame" x="8" y="120" width="30" height="30"/>
                 </imageView>
-                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xuy-PM-wry">
+                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xuy-PM-wry">
                     <rect key="frame" x="115" y="132" width="130" height="18"/>
                     <subviews>
                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ab3-dY-NfI">
@@ -111,17 +111,18 @@
                 </label>
             </subviews>
             <constraints>
+                <constraint firstItem="J2F-nV-YFt" firstAttribute="leading" secondItem="44V-q5-Ohf" secondAttribute="trailing" constant="8" id="88L-Cc-NKk"/>
                 <constraint firstItem="xup-gl-jhy" firstAttribute="leading" secondItem="tI1-Dt-MFM" secondAttribute="leading" constant="8" id="DBp-LF-SWC"/>
                 <constraint firstAttribute="trailing" secondItem="WJu-jt-96B" secondAttribute="trailing" constant="8" id="G8w-Ev-RM6"/>
                 <constraint firstItem="J90-hG-uNG" firstAttribute="leading" secondItem="ZOd-L4-OVP" secondAttribute="trailing" constant="11" id="Kj7-ja-jl5"/>
-                <constraint firstItem="gFX-fb-Ptc" firstAttribute="leading" secondItem="J2F-nV-YFt" secondAttribute="trailing" constant="5" id="PY7-Ml-cQA"/>
                 <constraint firstItem="2AZ-r5-j7c" firstAttribute="leading" secondItem="tI1-Dt-MFM" secondAttribute="leading" constant="8" id="PuD-JI-NzW"/>
+                <constraint firstItem="6fP-PF-8Ez" firstAttribute="leading" secondItem="J90-hG-uNG" secondAttribute="trailing" constant="8" id="YEZ-J5-Vyq"/>
                 <constraint firstItem="bBG-kY-rkq" firstAttribute="leading" secondItem="ZOd-L4-OVP" secondAttribute="trailing" constant="11" id="YQO-JP-Zhw"/>
-                <constraint firstItem="WJu-jt-96B" firstAttribute="leading" secondItem="Xuy-PM-wry" secondAttribute="trailing" constant="5" id="ZAC-nb-2kZ"/>
+                <constraint firstItem="Xuy-PM-wry" firstAttribute="leading" secondItem="MSy-Hn-gWp" secondAttribute="trailing" constant="8" id="d80-YI-wX4"/>
                 <constraint firstAttribute="trailing" secondItem="ZqB-BV-wdX" secondAttribute="trailing" constant="8" id="dpe-aw-xR6"/>
-                <constraint firstItem="ZqB-BV-wdX" firstAttribute="leading" secondItem="6fP-PF-8Ez" secondAttribute="trailing" constant="5" id="eb2-NV-O1O"/>
                 <constraint firstAttribute="trailing" secondItem="gFX-fb-Ptc" secondAttribute="trailing" constant="8" id="fzM-lx-6q8"/>
                 <constraint firstItem="44V-q5-Ohf" firstAttribute="leading" secondItem="2AZ-r5-j7c" secondAttribute="trailing" constant="11" id="gEc-bc-2eq"/>
+                <constraint firstItem="J2F-nV-YFt" firstAttribute="top" secondItem="Pc6-1E-8dJ" secondAttribute="bottom" constant="1" id="hsr-7d-3ov"/>
                 <constraint firstItem="MSy-Hn-gWp" firstAttribute="leading" secondItem="xup-gl-jhy" secondAttribute="trailing" constant="11" id="hvR-6k-4lx"/>
                 <constraint firstItem="ZOd-L4-OVP" firstAttribute="leading" secondItem="tI1-Dt-MFM" secondAttribute="leading" constant="8" id="jWg-OW-50K"/>
                 <constraint firstItem="Pc6-1E-8dJ" firstAttribute="leading" secondItem="2AZ-r5-j7c" secondAttribute="trailing" constant="11" id="rDu-uY-2tF"/>

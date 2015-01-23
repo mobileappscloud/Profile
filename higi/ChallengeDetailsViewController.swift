@@ -114,9 +114,12 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         if (displayProgressTab && hasIndividualGoalComponent && hasTeamGoalComponent) {
             addToggleButtons(progressTable);
         }
-        
-        individualLeaderboardParticipants = challenge.participants;
-        teamLeaderboardParticipants = challenge.teams;
+        if (hasIndividualLeaderboardComponent) {
+            individualLeaderboardParticipants = challenge.participants;
+        }
+        if (hasTeamLeaderboardComponent) {
+            teamLeaderboardParticipants = challenge.teams;
+        }
     }
     
     func addToggleButtons(table: UITableView) {
@@ -435,12 +438,13 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         if (displayLeaderboardTab && tableView == leaderboardTable) {
             var cell = tableView.dequeueReusableCellWithIdentifier("ChallengeLeaderboardRow") as ChallengeLeaderboardRow!;
             if (cell == nil) {
-                cell = ChallengeLeaderboardRow.instanceFromNib(challenge, participants: individualLeaderboardParticipants, teams: teamLeaderboardParticipants, index: indexPath.row, isIndividual: isIndividualLeaderboard);
                 if (isIndividualLeaderboard) {
+                    cell = ChallengeLeaderboardRow.instanceFromNib(challenge, participant: individualLeaderboardParticipants[indexPath.row], index: indexPath.row);
                     if (challenge.participants[indexPath.row].displayName == challenge.participant.displayName) {
                         cell.backgroundColor = Utility.colorFromHexString("#9DF280");
                     }
                 } else if (challenge.teams[indexPath.row].name == challenge.participant.team.name) {
+                    cell = ChallengeLeaderboardRow.instanceFromNib(challenge, team: teamLeaderboardParticipants[indexPath.row], index: indexPath.row);
                     cell.backgroundColor = Utility.colorFromHexString("#9DF280");
                 }
             }

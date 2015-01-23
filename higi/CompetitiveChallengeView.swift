@@ -32,6 +32,7 @@ class CompetitiveChallengeView: UIView, UIScrollViewDelegate {
     class func instanceFromNib(challenge: HigiChallenge, winConditions: [ChallengeWinCondition]) -> CompetitiveChallengeView {
         let competitiveView = UINib(nibName: "CompetitiveChallengeView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as CompetitiveChallengeView;
         
+        
         let firstRow:[UILabel] = [competitiveView.firstPositionName, competitiveView.firstPositionPoints, competitiveView.firstPositionRank];
         let secondRow:[UILabel] = [competitiveView.secondPositionName, competitiveView.secondPositionPoints, competitiveView.secondPositionRank];
         let thirdRow:[UILabel] = [competitiveView.thirdPositionName, competitiveView.thirdPositionPoints, competitiveView.thirdPositionRank];
@@ -55,11 +56,14 @@ class CompetitiveChallengeView: UIView, UIScrollViewDelegate {
                 let avatarUrl = teamGravityBoard[index].imageUrl;
                 populateLeaderBoardRow(rows[index], name: name, points: points, rank: rank);
                 setAvatar(avatars[index], url: avatarUrl);
-                if (name == challenge.participant.team.name) {
-                    setTextGreen(rows[index]);
-                }
+
                 let progressBar = progressBars[index];
                 setProgressBar(progressBar, points: Int(teamGravityBoard[index].units), highScore: Int(highScore));
+                let row = ChallengeLeaderboardRow.instanceFromNib(challenge, team: teamGravityBoard[index], index: index);
+                if (name == challenge.participant.team.name) {
+                    row.name.textColor = Utility.colorFromHexString("#76C044");
+                    row.place.textColor = Utility.colorFromHexString("#76C044");
+                }
             }
         } else {
             let individualGravityBoard = challenge.gravityBoard;
@@ -77,6 +81,12 @@ class CompetitiveChallengeView: UIView, UIScrollViewDelegate {
                 }
                 let progressBar = progressBars[index];
                 setProgressBar(progressBar, points: Int(individualGravityBoard[index].participant.units), highScore: Int(highScore));
+                
+                let row = ChallengeLeaderboardRow.instanceFromNib(challenge, participant: individualGravityBoard[index].participant, index: index);
+                if (name == challenge.participant.displayName) {
+                    row.name.textColor = Utility.colorFromHexString("#76C044");
+                    row.place.textColor = Utility.colorFromHexString("#76C044");
+                }
             }
         }
         return competitiveView;

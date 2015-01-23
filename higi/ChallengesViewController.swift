@@ -212,35 +212,14 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
             cell.avatar.setImageWithURL(Utility.loadImageFromUrl(challenge.imageUrl));
         }
         
+        //use this to send to challenge details page
+        cell.tag = indexPath.row;
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "gotoDetails:");
+        cell.addGestureRecognizer(tapGestureRecognizer);
         let footer = UIView(frame: CGRect(x: 0, y: cell.frame.height - ViewConstants.footerHeight, width: cell.frame.width, height: ViewConstants.footerHeight));
         footer.backgroundColor = Utility.colorFromHexString("#EEEEEE");
         cell.addSubview(footer);
         return cell;
-    }
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true);
-
-        var challenges:[HigiChallenge] = [];
-        var challengeType = "";
-        
-        if (activeTable != nil && tableView == activeTable) {
-            challenges = activeChallenges;
-        } else if (upcomingTable != nil && tableView == upcomingTable) {
-            challenges = upcomingChallenges;
-        } else if (availableTable != nil && tableView == availableTable) {
-            challenges = availableChallenges;
-        } else {
-            challenges = invitedChallenges;
-        }
-
-        var challenge = challenges[indexPath.row];
-        
-        Flurry.logEvent("Challenge_Pressed");
-        var challengeName = challenge.name!;
-        var challengeDetailViewController = ChallengeDetailsViewController();
-        challengeDetailViewController.challenge = challenge;
-        self.navigationController!.pushViewController(challengeDetailViewController, animated: true);
     }
     
     func buildEmptyCell(cell: ChallengeRowCell) {
@@ -296,6 +275,51 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         changePage(pager);
     }
     
+    func gotoDetails(sender: AnyObject) {
+        
+        let view = sender.view as UIView!;
+        let index = view.tag;
+        
+        var challenges:[HigiChallenge] = [];
+        var challengeType = "";
+        
+        let currentTableIndex = getCurrentTable();
+        
+        switch(currentTableIndex) {
+        case PagerConstants.activeChallengesIndex:
+            challenges = activeChallenges;
+        case PagerConstants.availableChallengesIndex:
+            challenges = upcomingChallenges;
+        case PagerConstants.upcomingChallengesIndex:
+            challenges = availableChallenges;
+        case PagerConstants.invitedChallengesIndex:
+            challenges = invitedChallenges;
+        default:
+            var i = 0;
+        }
+
+        var challenge = challenges[index];
+        
+        Flurry.logEvent("Challenge_Pressed");
+        var challengeDetailViewController = ChallengeDetailsViewController(nibName: "ChallengeDetailsView", bundle: nil);
+        
+        challengeDetailViewController.challenge = challenge;
+        self.navigationController!.pushViewController(challengeDetailViewController, animated: true);
+    }
+    
+    func getCurrentTable() -> Int {
+        var count = 0;
+        for page in pageDisplayMaster {
+            if (page) {
+                count++;
+            }
+            if (count == currentPage) {
+                return count;
+            }
+        }
+        return 0;
+    }
+    
     @IBAction func changePage(sender: AnyObject) {
         var pager = sender as UIPageControl;
         var page = pager.currentPage;
@@ -313,27 +337,6 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     
     func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         tableView.deselectRowAtIndexPath(indexPath, animated: true);
-        var challenges:[HigiChallenge] = [];
-        var challengeType = "";
-        
-        if (activeTable != nil && tableView == activeTable) {
-            challenges = activeChallenges;
-        } else if (upcomingTable != nil && tableView == upcomingTable) {
-            challenges = upcomingChallenges;
-        } else if (availableTable != nil && tableView == availableTable) {
-            challenges = availableChallenges;
-        } else {
-            challenges = invitedChallenges;
-        }
-        
-        var challenge = challenges[indexPath.row];
-        
-        Flurry.logEvent("Challenge_Pressed");
-        var challengeDetailViewController = ChallengeDetailsViewController(nibName: "ChallengeDetailsView", bundle: nil);
-
-        challengeDetailViewController.challenge = challenge;
-        self.navigationController!.pushViewController(challengeDetailViewController, animated: true);
-        
         return false;
     }
 }

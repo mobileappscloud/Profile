@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -14,14 +14,11 @@
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fhS-10-ORM" id="ggG-Ox-512">
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="top" directionalLockEnabled="YES" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lGb-gk-1XT">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="222"/>
+                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="top" ambiguous="YES" misplaced="YES" directionalLockEnabled="YES" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lGb-gk-1XT">
+                        <rect key="frame" x="0.0" y="50" width="320" height="176"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="222" id="tFh-39-lmk"/>
-                        </constraints>
                     </scrollView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sweeping the Nation Challenge" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rWV-YR-WqJ">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Sweeping the Nation Challenge" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rWV-YR-WqJ">
                         <rect key="frame" x="55" y="19" width="257" height="21"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
@@ -37,8 +34,8 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="higi_logo_innercircle.png" translatesAutoresizingMaskIntoConstraints="NO" id="U7Y-O7-h3b">
                         <rect key="frame" x="17" y="15" width="30" height="30"/>
                     </imageView>
-                    <pageControl contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" hidesForSinglePage="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xdd-7h-crl">
-                        <rect key="frame" x="141" y="197" width="39" height="10"/>
+                    <pageControl contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" hidesForSinglePage="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xdd-7h-crl">
+                        <rect key="frame" x="141" y="198" width="39" height="10"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="39" id="UuD-wG-uVl"/>
                             <constraint firstAttribute="height" constant="10" id="cYe-wA-ZRn"/>
@@ -57,12 +54,11 @@
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="Xdd-7h-crl" firstAttribute="centerX" secondItem="lGb-gk-1XT" secondAttribute="centerX" id="3TN-XJ-rw1"/>
-                    <constraint firstItem="lGb-gk-1XT" firstAttribute="top" secondItem="ggG-Ox-512" secondAttribute="topMargin" constant="-8" id="Dd5-at-ePj"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="lGb-gk-1XT" secondAttribute="trailing" constant="-8" id="MCd-US-k21"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="lGb-gk-1XT" secondAttribute="bottom" constant="-8" id="6mp-HX-LvP"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="lGb-gk-1XT" secondAttribute="trailing" constant="-8" id="GBJ-ad-SKS"/>
                     <constraint firstAttribute="bottomMargin" secondItem="Xdd-7h-crl" secondAttribute="bottom" constant="10" id="RXe-fD-FZI"/>
-                    <constraint firstItem="lGb-gk-1XT" firstAttribute="leading" secondItem="ggG-Ox-512" secondAttribute="leadingMargin" constant="-8" id="ZUU-gx-Aov"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="lGb-gk-1XT" secondAttribute="bottom" constant="-5" id="hM0-Oq-kYJ"/>
+                    <constraint firstItem="lGb-gk-1XT" firstAttribute="leading" secondItem="ggG-Ox-512" secondAttribute="leadingMargin" constant="-8" id="W0F-Zm-hGh"/>
+                    <constraint firstItem="lGb-gk-1XT" firstAttribute="top" secondItem="rWV-YR-WqJ" secondAttribute="bottom" constant="10" id="osR-te-v6a"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
@@ -73,7 +69,7 @@
                 <outlet property="scrollView" destination="lGb-gk-1XT" id="ngl-fW-lxb"/>
                 <outlet property="title" destination="rWV-YR-WqJ" id="nog-xu-7M6"/>
             </connections>
-            <point key="canvasLocation" x="454" y="276"/>
+            <point key="canvasLocation" x="454" y="275"/>
         </tableViewCell>
     </objects>
     <resources>
