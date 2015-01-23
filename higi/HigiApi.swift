@@ -1,18 +1,10 @@
-//
-//  HigiApi.swift
-//  higi
-//
-//  Created by Dan Harms on 6/16/14.
-//  Copyright (c) 2014 higi, LLC. All rights reserved.
-//
-
 import Foundation
 
 
 class HigiApi {
     
     class var PRODUCTION: Bool {
-        return true;
+        return false;
     }
     
     var manager: AFHTTPRequestOperationManager;

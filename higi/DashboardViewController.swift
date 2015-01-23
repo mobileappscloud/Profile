@@ -144,7 +144,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             challengesCard.blankStateImage.hidden = true;
             challengesCard.challengeAvatar.setImageWithURL(NSURL(string: displayedChallenge.imageUrl));
             challengesCard.challengeTitle.text = displayedChallenge.name;
-            var challengeView = Utility.getChallengeViews(displayedChallenge, isComplex: false)[2];
+            var challengeView = Utility.getChallengeViews(displayedChallenge, isComplex: true)[0];
             challengeView.frame = CGRect(x: 0, y: 56, width: challengesCard.challengeBox.frame.size.width, height: 180);
             challengesCard.challengeBox.addSubview(challengeView);
         } else {

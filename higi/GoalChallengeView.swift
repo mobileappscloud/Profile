@@ -5,19 +5,19 @@ class GoalChallengeView: UIView {
     @IBOutlet var avatar: UIImageView!
     @IBOutlet var name: UILabel!
     @IBOutlet var rank: UILabel!
-    @IBOutlet var progressBar: UIView!
+    @IBOutlet var progress: UIView!
     
     struct ViewConstants {
         static let circleRadius:CGFloat = 5;
         static let labelMargin:CGFloat = 15;
-        static let goalBarOffset:CGFloat = 100;
-        static let goalBarHeight:CGFloat = 5;
+        static let goalBarHeight:CGFloat = 4;
         static let verticalLineHeight:CGFloat = 15;
         static let labelHeight:CGFloat = 15;
     }
     
     class func instanceFromNib(challenge: HigiChallenge, winConditions: [ChallengeWinCondition], isComplex: Bool) -> GoalChallengeView {
         let goalView = UINib(nibName: "GoalChallengeView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as GoalChallengeView;
+        goalView.autoresizingMask = UIViewAutoresizing.FlexibleWidth;
         if (challenge.participant != nil) {
             goalView.avatar.setImageWithURL(Utility.loadImageFromUrl(challenge.participant.imageUrl));
         }
@@ -36,34 +36,35 @@ class GoalChallengeView: UIView {
         if (participantPoints < maxGoalValue) {
             drawParticipantPoints(goalView, participantPoints: participantPoints, maxGoalValue: maxGoalValue);
         }
+        
         return goalView;
     }
     
     class func drawParticipantProgress(goalView: GoalChallengeView, participantPoints: Int, maxGoalValue: Int) {
-        let barWidth = min((goalView.frame.width - ViewConstants.goalBarOffset) * CGFloat(participantPoints) / CGFloat(maxGoalValue),goalView.frame.width - ViewConstants.goalBarOffset + ViewConstants.circleRadius);
-        let bar = UIView(frame: CGRect(x: ViewConstants.goalBarOffset, y: goalView.frame.height/2 - ViewConstants.goalBarHeight/2, width: barWidth, height: ViewConstants.goalBarHeight));
+        let barWidth = min((goalView.progress.frame.width) * CGFloat(participantPoints) / CGFloat(maxGoalValue),goalView.progress.frame.width + ViewConstants.circleRadius);
+        let bar = UIView(frame: CGRect(x: 0, y: goalView.frame.height/2 - ViewConstants.goalBarHeight/2, width: barWidth, height: ViewConstants.goalBarHeight));
         bar.backgroundColor = Utility.colorFromHexString("#76C043");
         bar.layer.cornerRadius = 2;
-        goalView.addSubview(bar);
+        goalView.progress.addSubview(bar);
     }
     
     class func drawParticipantPoints(goalView: GoalChallengeView, participantPoints: Int, maxGoalValue: Int) {
-        let progressWidth = ViewConstants.goalBarOffset + (goalView.frame.width - ViewConstants.goalBarOffset) * (CGFloat(participantPoints) / CGFloat(maxGoalValue));
-        let verticalLinePosY = goalView.frame.height/2 - ViewConstants.verticalLineHeight - ViewConstants.labelHeight;
-        let verticalLine = UIView(frame: CGRect(x: progressWidth, y: goalView.frame.height/2 - ViewConstants.verticalLineHeight - ViewConstants.labelHeight, width: 1, height: ViewConstants.verticalLineHeight));
+        let progressWidth = (goalView.progress.frame.width) * (CGFloat(participantPoints) / CGFloat(maxGoalValue));
+        let verticalLinePosY = goalView.progress.frame.height/2 - ViewConstants.verticalLineHeight - ViewConstants.labelHeight;
+        let verticalLine = UIView(frame: CGRect(x: progressWidth, y: goalView.progress.frame.height/2 - ViewConstants.verticalLineHeight - ViewConstants.labelHeight, width: 1, height: ViewConstants.verticalLineHeight));
         verticalLine.backgroundColor = UIColor.lightGrayColor();
         
         var text = String(participantPoints);
         
         let labelPosY = verticalLinePosY - ViewConstants.labelHeight;
-        let pointsLabel = UILabel(frame: CGRectMake(0, 0, goalView.frame.width, ViewConstants.labelHeight));
+        let pointsLabel = UILabel(frame: CGRectMake(0, 0, goalView.progress.frame.width, ViewConstants.labelHeight));
         pointsLabel.text = text;
         pointsLabel.center = CGPointMake(progressWidth, labelPosY);
         pointsLabel.textAlignment = NSTextAlignment.Center;
         pointsLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline);
         
-        goalView.addSubview(pointsLabel);
-        goalView.addSubview(verticalLine);
+        goalView.progress.addSubview(pointsLabel);
+        goalView.progress.addSubview(verticalLine);
     }
     
     class func drawGoals(goalView: GoalChallengeView, participantPoints: Int, winConditions: [ChallengeWinCondition], maxGoalValue: Int, isComplex: Bool) {
@@ -81,12 +82,12 @@ class GoalChallengeView: UIView {
     
     class func addGoalNode(goalView: GoalChallengeView, winCondition: ChallengeWinCondition, participantPoints: Int!, maxGoalValue: Int!, goalIndex: Int, isBottom: Bool, isComplex: Bool) {
         
-        let frameWidth = goalView.frame.width - ViewConstants.goalBarOffset;
-        let frameHeight = goalView.frame.height / 2 - ViewConstants.circleRadius;
+        let frameWidth = goalView.progress.frame.width;
+        let frameHeight = goalView.progress.frame.height / 2 - ViewConstants.circleRadius;
         let thisGoalValue = winCondition.goal.minThreshold;
         let proportion = CGFloat(thisGoalValue) / CGFloat(maxGoalValue);
         
-        let posX = min(proportion * frameWidth + ViewConstants.goalBarOffset, frameWidth + ViewConstants.goalBarOffset);
+        let posX = min(proportion * frameWidth, frameWidth);
         let posY = frameHeight;
         
         var labelMargin:CGFloat = 0;
@@ -96,7 +97,7 @@ class GoalChallengeView: UIView {
             let circleColor:UIColor = (participantPoints > thisGoalValue) ? Utility.colorFromHexString("#76C043") : UIColor.lightGrayColor();
             goalCircle.backgroundColor = circleColor;
             goalCircle.layer.cornerRadius = ViewConstants.circleRadius;
-            goalView.addSubview(goalCircle);
+            goalView.progress.addSubview(goalCircle);
             
             labelMargin = isBottom ? -1.0 * ViewConstants.labelMargin + ViewConstants.circleRadius/2: ViewConstants.labelMargin + ViewConstants.circleRadius;
         } else {
@@ -111,14 +112,14 @@ class GoalChallengeView: UIView {
             goalCircle.textAlignment = NSTextAlignment.Center;
             goalCircle.font = UIFont.systemFontOfSize(10);
             goalCircle.layer.masksToBounds = true;
-            goalView.addSubview(goalCircle);
+            goalView.progress.addSubview(goalCircle);
 
             labelMargin = isBottom ? -1.0 * ViewConstants.labelMargin - ViewConstants.circleRadius/2: ViewConstants.labelMargin + ViewConstants.circleRadius * 2;
         }
         var text = String(Int(thisGoalValue));
         let labelPosX = posX + ViewConstants.circleRadius;
         let labelPosY = posY + labelMargin;
-        let goalLabel = UILabel(frame: CGRectMake(goalView.frame.width/2, labelPosY - labelMargin/2, goalView.frame.width, labelMargin));
+        let goalLabel = UILabel(frame: CGRectMake(goalView.progress.frame.width/2, labelPosY - labelMargin/2, goalView.progress.frame.width, labelMargin));
         goalLabel.text = text;
         if (thisGoalValue == maxGoalValue) {
             goalLabel.textAlignment = NSTextAlignment.Right;
@@ -131,7 +132,7 @@ class GoalChallengeView: UIView {
         let goalLabelColor:UIColor = (participantPoints >= thisGoalValue) ? UIColor.blackColor() : UIColor.lightGrayColor();
         goalLabel.textColor = goalLabelColor;
         
-        goalView.addSubview(goalLabel);
+        goalView.progress.addSubview(goalLabel);
     }
     
     class func findClosestPointIndex(participantPoints: Int, goalWinConditions: [ChallengeWinCondition]) -> Int {

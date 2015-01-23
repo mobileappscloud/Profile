@@ -1,6 +1,6 @@
 import Foundation
 
-class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource {
+class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate {
     
     @IBOutlet var pager: UIPageControl!
     @IBOutlet var scrollView: UIScrollView!
@@ -30,8 +30,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     
     struct ViewConstants {
         static let footerHeight:CGFloat = 10;
-        static let maxViewWidth:CGFloat = 320;
-        static let cardHeight:CGFloat = 226;
+        static let cardHeight:CGFloat = 176;
     }
     
     override func viewDidLoad() {
@@ -39,6 +38,8 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         pager.currentPage = currentPage;
 
         var session = SessionController.Instance;
+        
+        self.navigationController?.delegate = self;
         
         for challenge:HigiChallenge in session.challenges {
             switch(challenge.userStatus) {
@@ -237,11 +238,11 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     func buildActiveCell(cell: ChallengeRowCell, challenge: HigiChallenge) -> ChallengeRowCell {
         var nibOriginX:CGFloat = 0.0;
         
-        var nibs = Utility.getChallengeViews(challenge, isComplex: true);
+        var nibs = Utility.getChallengeViews(challenge, isComplex: false);
         for nib in nibs {
             nib.frame.origin.x = nibOriginX;
             cell.scrollView.addSubview(nib);
-            nibOriginX += max(nib.frame.width, ViewConstants.maxViewWidth);
+            nibOriginX += nib.frame.width;
         }
         cell.pager.numberOfPages = nibs.count;
         cell.pager.currentPage = 0;
@@ -270,7 +271,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        var page = lround(Double(scrollView.contentOffset.x / scrollView.frame.size.width));
+        let page = lround(Double(scrollView.contentOffset.x / scrollView.frame.size.width));
         pager.currentPage = page;
         changePage(pager);
     }
@@ -309,12 +310,13 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     
     func getCurrentTable() -> Int {
         var count = 0;
-        for page in pageDisplayMaster {
-            if (page) {
+        for index in 0...pageDisplayMaster.count - 1 {
+            let display = pageDisplayMaster[index]
+            if (display) {
                 count++;
             }
             if (count == currentPage) {
-                return count;
+                return index;
             }
         }
         return 0;
@@ -338,5 +340,25 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         tableView.deselectRowAtIndexPath(indexPath, animated: true);
         return false;
+    }
+    
+    func navigationController(navigationController: UINavigationController, didShowViewController viewController: UIViewController, animated: Bool) {
+        let currentTableIndex = getCurrentTable();
+        //@todo logic for directing user back to appropriate page
+        //in the mean time, need to reload data to avoid view being smashed on return from back button
+        switch(currentTableIndex) {
+        case PagerConstants.activeChallengesIndex:
+            activeTable.reloadData();
+//        case PagerConstants.availableChallengesIndex:
+//            challenges = upcomingChallenges;
+//        case PagerConstants.upcomingChallengesIndex:
+//            challenges = availableChallenges;
+//        case PagerConstants.invitedChallengesIndex:
+//            challenges = invitedChallenges;
+        default:
+            var i = 0;
+        }
+
+        activeTable.reloadData();
     }
 }
