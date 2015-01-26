@@ -18,7 +18,7 @@ class SessionData {
     
     var user: HigiUser!;
     
-    var kioskList: [KioskInfo] = [];
+    var kioskList: [KioskInfo]!;
     
     var seenDashboard, seenBodyStats, seenReminder: Bool!;
     
@@ -59,10 +59,8 @@ class SessionData {
             seenDashboard = (savedDictionary["seenDashboard"] ?? false) as Bool;
             seenBodyStats = (savedDictionary["seenBodyStats"] ?? false) as Bool;
             seenReminder = (savedDictionary["seenReminder"] ?? false) as Bool;
-            kioskList = [];
         } else {
             reset();
-            kioskList = [];
         }
     }
     

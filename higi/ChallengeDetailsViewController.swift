@@ -91,7 +91,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                 } else if (winCondition.winnerType == "team") {
                     hasTeamGoalComponent = true;
                 }
-            } else if (winCondition.goal.type == "most_points" || winCondition.goal.type == "unit_goal_reached") {
+            } else if (challenge.status != "registration" && winCondition.goal.type == "most_points" || winCondition.goal.type == "unit_goal_reached") {
                 displayLeaderboardTab = true;
                 
                 if (winCondition.winnerType == "individual") {

@@ -7,6 +7,10 @@ class HigiApi {
         return false;
     }
     
+    class var EARNDIT_DEV: Bool {
+        return true;
+    }
+    
     var manager: AFHTTPRequestOperationManager;
     
     class var higiApiUrl: String {
@@ -34,7 +38,7 @@ class HigiApi {
         manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept");
         manager.requestSerializer.setValue("application/vnd.higi.earndit;version=2", forHTTPHeaderField: "Accept");
         
-        if (!HigiApi.PRODUCTION) {
+        if (HigiApi.EARNDIT_DEV) {
             manager.requestSerializer.setValue("rQIpgKhmd0qObDSr5SkHbw", forHTTPHeaderField: "Dev-Token");  // Grant
         }
         manager.requestSerializer.setValue("iOSv\(Utility.appVersion()).\(Utility.appBuild())", forHTTPHeaderField: "X-Consumer-Id");

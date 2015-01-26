@@ -63,7 +63,7 @@ class ApiUtility {
                     }
                 }
                 SessionController.Instance.checkins = checkins;
-                if (SessionData.Instance.kioskList.count > 0) {
+                if (SessionData.Instance.kioskList != nil) {
                     ApiUtility.retrieveKioskList(nil);
                     success?();
                 } else {
@@ -73,7 +73,7 @@ class ApiUtility {
             },
             failure: { operation, error in
                 SessionController.Instance.checkins = [];
-                if (SessionData.Instance.kioskList.count > 0) {
+                if (SessionData.Instance.kioskList != nil) {
                     ApiUtility.retrieveKioskList(nil);
                     success?();
                 } else {
@@ -85,7 +85,7 @@ class ApiUtility {
     class func retrieveActivities(success: (() -> Void)?) {
         ApiUtility.checkForNewActivities({
             SessionController.Instance.earnditError = false;
-            let userId = HigiApi.PRODUCTION ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
+            let userId = !HigiApi.EARNDIT_DEV ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
             var startDateFormatter = NSDateFormatter();
             startDateFormatter.dateFormat = "yyyy-MM-01";
             var endDateFormatter = NSDateFormatter();
@@ -113,7 +113,7 @@ class ApiUtility {
     }
     
     class func checkForNewActivities(success: (() -> Void)?) {
-        let userId = HigiApi.PRODUCTION ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
+        let userId = !HigiApi.EARNDIT_DEV ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
         HigiApi().sendPost("\(HigiApi.earnditApiUrl)/user/\(userId)/lookForNewActivities", parameters: nil, success: {operation, responseObject in
             var i=0;    // Still won't allow optional method be the only thing in the body
             success?();
@@ -126,7 +126,7 @@ class ApiUtility {
     
     class func retrieveChallenges(success: (() -> Void)?) {
         SessionController.Instance.earnditError = false;
-        let userId = HigiApi.PRODUCTION ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
+        let userId = !HigiApi.EARNDIT_DEV ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
         HigiApi().sendGet("\(HigiApi.earnditApiUrl)/user/\(userId)/challenges?&include[gravityboard]=3&include[participants]=50" +
             "&include[comments]=50&include[teams.comments]=50", success: {operation, responseObject in
             var challenges: [HigiChallenge] = [];
@@ -167,7 +167,7 @@ class ApiUtility {
     }
     
     class func retrieveDevices(success: (() -> Void)?) {
-        let userId = HigiApi.PRODUCTION ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
+        let userId = !HigiApi.EARNDIT_DEV ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
         SessionController.Instance.earnditError = false;
         HigiApi().sendGet("\(HigiApi.earnditApiUrl)/user/\(userId)/devices", success: {operation, responseObject in
             var devices: [String:ActivityDevice] = [:];
@@ -224,7 +224,11 @@ class ApiUtility {
                 
             },
             failure: { operation, error in
-                
+                SessionData.Instance.kioskList = [];
+                if (success != nil) {
+                    success!();
+                }
+
         });
     }
     
