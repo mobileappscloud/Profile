@@ -103,16 +103,7 @@ class GoalChallengeView: UIView {
             labelMargin = isBottom ? -1.0 * ViewConstants.labelMargin + ViewConstants.circleRadius/2: ViewConstants.labelMargin + ViewConstants.circleRadius;
         } else {
 
-            let goalCircle = UILabel(frame: CGRect(x: posX - ViewConstants.circleRadius, y: posY - ViewConstants.circleRadius, width: ViewConstants.circleRadius * 4, height: ViewConstants.circleRadius * 4));
-            let circleColor:UIColor = (participantPoints > thisGoalValue) ? Utility.colorFromHexString("#76C043") : UIColor.lightGrayColor();
-            goalCircle.backgroundColor = UIColor.whiteColor();
-            goalCircle.layer.cornerRadius = ViewConstants.circleRadius * 2;
-            goalCircle.layer.borderWidth = 2;
-            goalCircle.layer.borderColor = circleColor.CGColor;
-            goalCircle.text = String(goalIndex);
-            goalCircle.textAlignment = NSTextAlignment.Center;
-            goalCircle.font = UIFont.systemFontOfSize(10);
-            goalCircle.layer.masksToBounds = true;
+            let goalCircle = makeComplexGoalNode(posX, posY: posY, thisGoalValue: thisGoalValue, participantPoints: participantPoints, goalIndex: goalIndex);
             goalView.progress.addSubview(goalCircle);
 
             labelMargin = isBottom ? -1.0 * ViewConstants.labelMargin - ViewConstants.circleRadius/2: ViewConstants.labelMargin + ViewConstants.circleRadius * 2;
@@ -134,6 +125,21 @@ class GoalChallengeView: UIView {
         goalLabel.textColor = goalLabelColor;
         
         goalView.progress.addSubview(goalLabel);
+    }
+    
+    class func makeComplexGoalNode(posX: CGFloat, posY: CGFloat, thisGoalValue: Int, participantPoints: Int, goalIndex: Int) -> UIView {
+        let goalCircle = UILabel(frame: CGRect(x: posX - ViewConstants.circleRadius, y: posY - ViewConstants.circleRadius, width: ViewConstants.circleRadius * 4, height: ViewConstants.circleRadius * 4));
+        let circleColor:UIColor = (participantPoints > thisGoalValue) ? Utility.colorFromHexString("#76C043") : UIColor.lightGrayColor();
+        goalCircle.backgroundColor = UIColor.whiteColor();
+        goalCircle.layer.cornerRadius = ViewConstants.circleRadius * 2;
+        goalCircle.layer.borderWidth = 2;
+        goalCircle.layer.borderColor = circleColor.CGColor;
+        goalCircle.text = String(goalIndex);
+        goalCircle.textAlignment = NSTextAlignment.Center;
+        goalCircle.font = UIFont.systemFontOfSize(10);
+        goalCircle.layer.masksToBounds = true;
+        
+        return goalCircle;
     }
     
     class func findClosestPointIndex(participantPoints: Int, goalWinConditions: [ChallengeWinCondition]) -> Int {

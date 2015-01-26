@@ -396,10 +396,13 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        var x = scrollView.contentOffset.x;
-        var w = scrollView.frame.size.width;
-        var page = lround(Double(scrollView.contentOffset.x / scrollView.frame.size.width));
-        changePage(page);
+        if (scrollView == self.scrollView) {
+            let x = scrollView.contentOffset.x;
+            let w = scrollView.frame.size.width;
+            
+            var page = lround(Double(scrollView.contentOffset.x / scrollView.frame.size.width));
+            changePage(page);
+        }
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -427,6 +430,18 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         return showLoadingFooter ? 10 : 0;
     }
     
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if (displayLeaderboardTab && tableView == leaderboardTable) {
+            return leaderboardTable.rowHeight;
+        } else if (displayProgressTab && tableView == progressTable) {
+            return indexPath.row == 0 ? 150 : 100;
+        } else if (displayChatterTab && tableView == chatterTable) {
+            return chatterTable.rowHeight;
+        } else {
+            return 100;
+        }
+    }
+    
     func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         if (showLoadingFooter) {
             let footer = UIView(frame: CGRect(x: 0, y: 0, width: scrollView.frame.size.width, height: 10));
@@ -443,7 +458,10 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         if (displayLeaderboardTab && tableView == leaderboardTable) {
             return isIndividualLeaderboard ? min(individualLeaderboardParticipants.count,challenge.participantsCount) : min(teamLeaderboardParticipants.count, challenge.teams.count);
         } else if (displayProgressTab && tableView == progressTable) {
-            return 1;
+            //one row for each win condition plus 1 for graph view
+            return challenge.winConditions.count + 1;
+        } else if (tableView == detailsTable) {
+            return 7;
         }
         return 1;
     }
@@ -459,11 +477,12 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if (displayLeaderboardTab && tableView == leaderboardTable) {
-            return createLeaderboardCell(tableView, index: indexPath.row);
+            return createLeaderboardCell(indexPath.row);
         } else if (displayProgressTab && tableView == progressTable) {
-            return createProgressTable(tableView, index: indexPath.row);
+            return createProgressTable(indexPath.row);
         } else if (tableView == detailsTable) {
-            return ChallengeDetailsTab.instanceFromNib(challenge);
+//            return ChallengeDetailsTab.instanceFromNib(challenge);
+            return createDetailsTable(indexPath.row);
         } else {
             return UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "");
         }
@@ -529,8 +548,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         }
     }
     
-    func createLeaderboardCell(tableView: UITableView, index: Int) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("ChallengeLeaderboardRow") as ChallengeLeaderboardRow!;
+    func createLeaderboardCell(index: Int) -> UITableViewCell {
+        var cell = leaderboardTable.dequeueReusableCellWithIdentifier("ChallengeLeaderboardRow") as ChallengeLeaderboardRow!;
         if (cell == nil) {
             if (isIndividualLeaderboard) {
                 cell = ChallengeLeaderboardRow.instanceFromNib(challenge, participant: individualLeaderboardParticipants[index], index: index);
@@ -545,12 +564,14 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         return cell;
     }
     
-    func createProgressTable(tableView: UITableView, index: Int) -> UITableViewCell {
-        //if (index == 0) {
+    func createProgressTable(index: Int) -> UITableViewCell {
+        if (index == 0) {
             return createProgressGraph();
-        /*} else {
-            return createProgressLegendRow(index: index);
-        }*/
+        } else {
+            return createProgressLegendRow(index - 1);
+        }
+//
+//        return createProgressLegendRow(index);
     }
     
     func createProgressGraph() -> UITableViewCell {
@@ -581,10 +602,16 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         } else {
             cell.addSubview(nibs[teamGoalViewIndex])
         }
+        cell.backgroundColor = Utility.colorFromHexString("#F4F4F4");
         return cell;
     }
     
-    /*func createProgressLegendRow(index: Int) -> UITableViewCell {
-        
-    }*/
+    func createProgressLegendRow(index: Int) -> UITableViewCell {
+        let displayIndex = challenge.winConditions.count - index;
+        return ChallengeProgressLegendRow.instanceFromNib(challenge.winConditions[index], userPoints: challenge.participant.units,  metric: challenge.metric, index: displayIndex);
+    }
+    
+    func createDetailsTable(index: Int) -> UITableViewCell {
+        return ChallengeDetailsRow.instanceFromNib(challenge, index: index);
+    }
 }

@@ -253,9 +253,11 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        let page = lround(Double(scrollView.contentOffset.x / scrollView.frame.size.width));
-        pager.currentPage = page;
-        changePage(pager);
+        if (scrollView == self.scrollView) {
+            let page = lround(Double(scrollView.contentOffset.x / scrollView.frame.size.width));
+            pager.currentPage = page;
+            changePage(pager);
+        }
     }
     
     func gotoDetails(sender: AnyObject) {

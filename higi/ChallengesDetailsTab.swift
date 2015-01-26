@@ -17,10 +17,10 @@ class ChallengeDetailsTab: UITableViewCell, UIWebViewDelegate {
         let firstWinCondition = challenge.winConditions[0];
         
         tab.descriptionText.text = challenge.description;
-        let webView = UIWebView(frame: CGRect(x: 0, y: 20, width: tab.frame.size.width, height: 400));
-        webView.loadHTMLString(challenge.description, baseURL: nil);
-        tab.descriptionView.addSubview(webView);
-        
+//        let webView = UIWebView(frame: CGRect(x: 0, y: 20, width: tab.frame.size.width, height: 400));
+//        webView.loadHTMLString(challenge.description, baseURL: nil);
+//        tab.descriptionView.addSubview(webView);
+//
         if (challenge.endDate != nil) {
             tab.durationText.text = setDateRangeHelper(challenge.startDate, endDate: challenge.endDate);
         } else {
