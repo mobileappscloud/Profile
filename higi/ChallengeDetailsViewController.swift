@@ -91,7 +91,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                 } else if (winCondition.winnerType == "team") {
                     hasTeamGoalComponent = true;
                 }
-            } else if (winCondition.goal.type == "most_points" || winCondition.goal.type == "unit_goal_reached") {
+            } else if (challenge.status != "registration" && winCondition.goal.type == "most_points" || winCondition.goal.type == "unit_goal_reached") {
                 displayLeaderboardTab = true;
                 
                 if (winCondition.winnerType == "individual") {
@@ -546,11 +546,11 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func createProgressTable(tableView: UITableView, index: Int) -> UITableViewCell {
-        if (index == 0) {
+        //if (index == 0) {
             return createProgressGraph();
-        } else {
-            return createProgressLegendRow(index: Int);
-        }
+        /*} else {
+            return createProgressLegendRow(index: index);
+        }*/
     }
     
     func createProgressGraph() -> UITableViewCell {
@@ -584,7 +584,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         return cell;
     }
     
-    func createProgressLegendRow(index: Int) -> UITableViewCell {
+    /*func createProgressLegendRow(index: Int) -> UITableViewCell {
         
-    }
+    }*/
 }

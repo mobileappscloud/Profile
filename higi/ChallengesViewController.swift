@@ -270,29 +270,25 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     
     func gotoDetails(sender: AnyObject) {
         
-        let view = sender.view as UIView!;
-        let index = view.tag;
+        let index = (sender.view as UIView!).tag;
         
         var challenges:[HigiChallenge] = [];
-        var challengeType = "";
         
-        let currentTableIndex = getCurrentTable();
+        var challenge: HigiChallenge!;
         
-        switch(currentTableIndex) {
+        switch(getCurrentTable()) {
         case PagerConstants.activeChallengesIndex:
-            challenges = activeChallenges;
+            challenge = activeChallenges[index];
         case PagerConstants.availableChallengesIndex:
-            challenges = upcomingChallenges;
+            challenge = availableChallenges[index];
         case PagerConstants.upcomingChallengesIndex:
-            challenges = availableChallenges;
+            challenge = upcomingChallenges[index];
         case PagerConstants.invitedChallengesIndex:
-            challenges = invitedChallenges;
+            challenge = invitedChallenges[index];
         default:
             var i = 0;
         }
 
-        var challenge = challenges[index];
-        
         Flurry.logEvent("Challenge_Pressed");
         var challengeDetailViewController = ChallengeDetailsViewController(nibName: "ChallengeDetailsView", bundle: nil);
         
@@ -303,12 +299,12 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     func getCurrentTable() -> Int {
         var count = 0;
         for index in 0...pageDisplayMaster.count - 1 {
-            let display = pageDisplayMaster[index]
-            if (display) {
-                count++;
-            }
+            
             if (count == currentPage) {
                 return index;
+            }
+            if (pageDisplayMaster[index]) {
+                count++;
             }
         }
         return 0;
