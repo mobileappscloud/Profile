@@ -11,10 +11,10 @@
             <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Myz-yS-9cf">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Myz-yS-9cf">
                     <rect key="frame" x="0.0" y="54" width="568" height="36"/>
                     <subviews>
-                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cce-I8-0HK">
+                        <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cce-I8-0HK">
                             <rect key="frame" x="0.0" y="0.0" width="568" height="1"/>
                             <color key="backgroundColor" white="1" alpha="0.25" colorSpace="calibratedWhite"/>
                             <constraints>
@@ -74,6 +74,7 @@
             <color key="backgroundColor" red="0.42237115557386828" green="0.72919753555025257" blue="1" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="8bX-PA-Wxm" secondAttribute="trailing" id="4uM-b9-6Cb"/>
+                <constraint firstItem="Myz-yS-9cf" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="54" id="AlB-FJ-xFX"/>
                 <constraint firstAttribute="bottom" secondItem="8bX-PA-Wxm" secondAttribute="bottom" id="dDg-IS-yAD"/>
                 <constraint firstItem="8bX-PA-Wxm" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="rhE-Ch-6im"/>
                 <constraint firstAttribute="trailing" secondItem="Myz-yS-9cf" secondAttribute="trailing" id="u5S-jN-OLn"/>
