@@ -2,44 +2,15 @@ import Foundation
 
 class CompetitiveChallengeView: UIView, UIScrollViewDelegate {
     
-    @IBOutlet var firstPositionAvatar: UIImageView!
-    @IBOutlet var secondPositionAvatar: UIImageView!
-    @IBOutlet var thirdPositionAvatar: UIImageView!
-    @IBOutlet var firstPositionRank: UILabel!
-    @IBOutlet var secondPositionRank: UILabel!
-    @IBOutlet var thirdPositionRank: UILabel!
-    @IBOutlet var firstPositionName: UILabel!
-    @IBOutlet var secondPositionName: UILabel!
-    @IBOutlet var thirdPositionName: UILabel!
-    @IBOutlet var firstPositionProgressBar: UIView!
-    @IBOutlet var secondPositionProgressBar: UIView!
-    @IBOutlet var thirdPositionProgressBar: UIView!
-    @IBOutlet var firstPositionPoints: UILabel!
-    @IBOutlet var secondPositionPoints: UILabel!
-    @IBOutlet var thirdPositionPoints: UILabel!
     
-    //index of views in various 'row' arrays to associate data with views
-    struct ViewConstants {
-        static let nameIndex = 0;
-        static let pointsIndex = 1;
-        static let rankIndex = 2;
-        static let avatarIndex = 3;
-        
-        static let barHeight:CGFloat = 5;
-        static let barCornerRadius:CGFloat = 2;
-    }
+    @IBOutlet weak var row1: UIView!
+    @IBOutlet weak var row2: UIView!
+    @IBOutlet weak var row3: UIView!
     
     class func instanceFromNib(challenge: HigiChallenge, winConditions: [ChallengeWinCondition]) -> CompetitiveChallengeView {
         let competitiveView = UINib(nibName: "CompetitiveChallengeView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as CompetitiveChallengeView;
         
-        let firstRow:[UILabel] = [competitiveView.firstPositionName, competitiveView.firstPositionPoints, competitiveView.firstPositionRank];
-        let secondRow:[UILabel] = [competitiveView.secondPositionName, competitiveView.secondPositionPoints, competitiveView.secondPositionRank];
-        let thirdRow:[UILabel] = [competitiveView.thirdPositionName, competitiveView.thirdPositionPoints, competitiveView.thirdPositionRank];
-        let avatars:[UIImageView] = [competitiveView.firstPositionAvatar, competitiveView.secondPositionAvatar, competitiveView.thirdPositionAvatar];
-        let progressBars:[UIView] = [competitiveView.firstPositionProgressBar, competitiveView.secondPositionProgressBar, competitiveView.thirdPositionProgressBar];
-        
-        let rows:[[UILabel]] = [firstRow, secondRow, thirdRow];
-        
+        var rows = [competitiveView.row1, competitiveView.row2, competitiveView.row3];
         let isTeamChallenge = winConditions[0].winnerType == "team";
         
         if (isTeamChallenge) {
@@ -50,16 +21,12 @@ class CompetitiveChallengeView: UIView, UIScrollViewDelegate {
             let highScore = challenge.teamHighScore;
             for index in 0...teamGravityBoard.count - 1 {
                 let name = teamGravityBoard[index].name;
-                let points = "\(Int(teamGravityBoard[index].units)) pts";
-                let rank = Utility.getRankSuffix(String(teamRanks[index]));
-                let avatarUrl = teamGravityBoard[index].imageUrl;
-                populateLeaderBoardRow(rows[index], name: name, points: points, rank: rank);
-                setAvatar(avatars[index], url: avatarUrl);
+                let row = ChallengeLeaderboardRow.instanceFromNib(challenge, team: teamGravityBoard[index], index: index);
                 if (name == challenge.participant.team.name) {
-                    setTextGreen(rows[index]);
+                    row.name.textColor = Utility.colorFromHexString("#76C044");
+                    row.place.textColor = Utility.colorFromHexString("#76C044");
                 }
-                let progressBar = progressBars[index];
-                setProgressBar(progressBar, points: Int(teamGravityBoard[index].units), highScore: Int(highScore));
+                rows[index].addSubview(row);
             }
         } else {
             let individualGravityBoard = challenge.gravityBoard;
@@ -67,45 +34,17 @@ class CompetitiveChallengeView: UIView, UIScrollViewDelegate {
             let highScore = challenge.individualHighScore;
             for index in 0...individualGravityBoard.count - 1 {
                 let name = individualGravityBoard[index].participant.displayName;
-                let points = "\(Int(individualGravityBoard[index].participant.units)) pts";
-                let rank = Utility.getRankSuffix(individualGravityBoard[index].place);
-                let avatarUrl = individualGravityBoard[index].participant.imageUrl;
-                populateLeaderBoardRow(rows[index], name: name, points: points, rank: rank);
-                setAvatar(avatars[index], url: avatarUrl);
+                let row = ChallengeLeaderboardRow.instanceFromNib(challenge, participant: individualGravityBoard[index].participant, index: index);
                 if (name == challenge.participant.displayName) {
-                    setTextGreen(rows[index]);
+                    row.name.textColor = Utility.colorFromHexString("#76C044");
+                    row.place.textColor = Utility.colorFromHexString("#76C044");
                 }
-                let progressBar = progressBars[index];
-                setProgressBar(progressBar, points: Int(individualGravityBoard[index].participant.units), highScore: Int(highScore));
+                rows[index].addSubview(row);
             }
         }
+        competitiveView.autoresizingMask = UIViewAutoresizing.FlexibleWidth;
+        competitiveView.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize);
         return competitiveView;
-    }
-    
-    class func populateLeaderBoardRow(row: [UILabel], name: String, points: String, rank: String) {
-        row[ViewConstants.nameIndex].text = name;
-        row[ViewConstants.pointsIndex].text = points;
-        row[ViewConstants.rankIndex].text = rank;
-    }
-    
-    class func setProgressBar(view: UIView, points: Int, highScore: Int) {
-        let width = view.frame.size.width;
-        let newWidth = (CGFloat(points)/CGFloat(highScore)) * width;
-        view.frame.size.width = (CGFloat(points)/CGFloat(highScore)) * width;
-
-        let bar = UIView(frame: CGRect(x: view.frame.origin.x, y: view.frame.origin.y - ViewConstants.barHeight, width: newWidth, height: ViewConstants.barHeight));
-        bar.backgroundColor = Utility.colorFromHexString("#76C043");
-        bar.layer.cornerRadius = ViewConstants.barCornerRadius;
-        view.addSubview(bar);
-    }
-    
-    class func setTextGreen(row: [UILabel]) {
-        row[ViewConstants.nameIndex].textColor = Utility.colorFromHexString("#76C044");
-        row[ViewConstants.pointsIndex].textColor = Utility.colorFromHexString("#76C044");
-    }
-    
-    class func setAvatar(view: UIImageView, url: String) {
-        view.setImageWithURL(Utility.loadImageFromUrl(url));
     }
     
     //ouput team gravity board from full teams array

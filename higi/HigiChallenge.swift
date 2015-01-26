@@ -1,11 +1,3 @@
-//
-//  HigiChallenge.swift
-//  higi
-//
-//  Created by Dan Harms on 11/4/14.
-//  Copyright (c) 2014 higi, LLC. All rights reserved.
-//
-
 import Foundation
 
 class HigiChallenge {
@@ -28,17 +20,20 @@ class HigiChallenge {
     
     var gravityBoard: [GravityParticipant]!;
     
+    var pagingData: PagingData?;
+    
     var teams: [ChallengeTeam]!;
 
     var teamHighScore: Double! = 0;
     
     var individualHighScore: Double! = 0;
     
-    init(dictionary: NSDictionary, userStatus: NSString, participant: ChallengeParticipant!, gravityBoard: [GravityParticipant]!, participants: [ChallengeParticipant]!) {
+    init(dictionary: NSDictionary, userStatus: NSString, participant: ChallengeParticipant!, gravityBoard: [GravityParticipant]!, participants: [ChallengeParticipant]!, pagingData: PagingData?) {
         self.userStatus = userStatus;
         self.participant = participant;
         self.gravityBoard = gravityBoard;
         self.participants = participants;
+        self.pagingData = pagingData;
         name = (dictionary["name"] ?? "") as NSString;
         description = dictionary["description"] as NSString!;
         shortDescription = (dictionary["shortDescription"] ?? "") as NSString;
@@ -91,7 +86,11 @@ class HigiChallenge {
     
 }
 
+struct PagingData {
+    var nextUrl: NSString?;
+}
+
 struct GravityParticipant {
-    var place: NSString!;
+    var place: NSString?;
     var participant: ChallengeParticipant!;
 }

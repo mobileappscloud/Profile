@@ -130,28 +130,30 @@ class ApiUtility {
         HigiApi().sendGet("\(HigiApi.earnditApiUrl)/user/\(userId)/challenges?&include[gravityboard]=3&include[participants]=50" +
             "&include[comments]=50&include[teams.comments]=50", success: {operation, responseObject in
             var challenges: [HigiChallenge] = [];
-            var serverChallenges = ((responseObject as NSDictionary)["response"] as NSDictionary)["data"] as NSArray;
+            let serverChallenges = ((responseObject as NSDictionary)["response"] as NSDictionary)["data"] as NSArray;
             for challenge: AnyObject in serverChallenges {
-                var serverParticipant = ((challenge as NSDictionary)["userRelation"] as NSDictionary)["participant"] as? NSDictionary;
+                let serverParticipant = ((challenge as NSDictionary)["userRelation"] as NSDictionary)["participant"] as? NSDictionary;
                 var participant: ChallengeParticipant!;
                 if (serverParticipant != nil) {
                     participant = ChallengeParticipant(dictionary: serverParticipant!);
                 }
-                var serverGravityBoard = ((challenge as NSDictionary)["userRelation"] as NSDictionary)["gravityboard"] as? NSArray;
+                let serverGravityBoard = ((challenge as NSDictionary)["userRelation"] as NSDictionary)["gravityboard"] as? NSArray;
                 var gravityBoard: [GravityParticipant] = [];
                 if (serverGravityBoard != nil) {
                     for boardParticipant: AnyObject in serverGravityBoard! {
-                        gravityBoard.append(GravityParticipant(place: (boardParticipant as NSDictionary)["position"] as NSString, participant: ChallengeParticipant(dictionary: (boardParticipant as NSDictionary)["participant"] as NSDictionary)));
+                        gravityBoard.append(GravityParticipant(place: (boardParticipant as NSDictionary)["position"] as? NSString, participant: ChallengeParticipant(dictionary: (boardParticipant as NSDictionary)["participant"] as NSDictionary)));
                     }
                 }
-                var serverParticipants = ((challenge as NSDictionary)["participants"] as NSDictionary)["data"] as? NSArray;
+                let serverParticipants = ((challenge as NSDictionary)["participants"] as NSDictionary)["data"] as? NSArray;
                 var participants:[ChallengeParticipant] = [];
                 if (serverParticipants != nil) {
                     for singleParticipant: AnyObject in serverParticipants! {
                         participants.append(ChallengeParticipant(dictionary: singleParticipant as NSDictionary));
                     }
                 }
-                challenges.append(HigiChallenge(dictionary: challenge as NSDictionary, userStatus: ((challenge as NSDictionary)["userRelation"] as NSDictionary)["status"] as NSString, participant: participant, gravityBoard: gravityBoard, participants: participants));
+                let serverPagingData = (((challenge as NSDictionary)["participants"] as NSDictionary)["paging"]as NSDictionary)["nextUrl"] as? NSString;
+                var pagingData = PagingData(nextUrl: serverPagingData);
+                challenges.append(HigiChallenge(dictionary: challenge as NSDictionary, userStatus: ((challenge as NSDictionary)["userRelation"] as NSDictionary)["status"] as NSString, participant: participant, gravityBoard: gravityBoard, participants: participants, pagingData: pagingData));
             }
             
             SessionController.Instance.challenges = challenges;
@@ -225,7 +227,6 @@ class ApiUtility {
                 
         });
     }
-    
     
     class func updateHealthKit() {
         if (UIDevice.currentDevice().systemVersion >= "8.0" && HKHealthStore.isHealthDataAvailable()) {

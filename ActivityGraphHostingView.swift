@@ -63,10 +63,9 @@ class ActivityGraphHostingView: CPTGraphHostingView, CPTBarPlotDataSource {
         
         yAxis.minorTicksPerInterval = 0;
         yAxis.labelingPolicy = CPTAxisLabelingPolicyNone;
-        yAxis.axisConstraints = CPTConstraints.constraintWithLowerOffset(0.0);
+        yAxis.axisConstraints = CPTConstraints.constraintWithLowerOffset(5);
         yAxis.labelFormatter = formatter;
         yAxis.labelTextStyle = labelStyle;
-        yAxis.labelOffset = -20;
         var plotSpace = graph.defaultPlotSpace as CPTXYPlotSpace;
         plotSpace.allowsUserInteraction = false;
 

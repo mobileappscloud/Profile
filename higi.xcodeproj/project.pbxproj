@@ -308,6 +308,8 @@
 		D19C66C91A3F74A400655218 /* ScrollViewPagerControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19C66C81A3F74A400655218 /* ScrollViewPagerControllerViewController.swift */; };
 		D19DDA531A5EF599004F97A3 /* NewCPTAxisLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = D19DDA521A5EF599004F97A3 /* NewCPTAxisLabel.m */; };
 		D19DDA551A5F1705004F97A3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19DDA541A5F1705004F97A3 /* Constants.swift */; };
+		D1E1FF061A76C28F00C8951C /* ChallengeProgressLegendRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E1FF051A76C28F00C8951C /* ChallengeProgressLegendRow.swift */; };
+		D1E1FF081A76C2DB00C8951C /* ChallengeProgressLegendRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1E1FF071A76C2DB00C8951C /* ChallengeProgressLegendRow.xib */; };
 		D1EEDB951A660F2B0012EFD3 /* challenge_image.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDB8E1A660F2B0012EFD3 /* challenge_image.png */; };
 		D1EEDB961A660F2B0012EFD3 /* chat_bubble_green.9.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDB8F1A660F2B0012EFD3 /* chat_bubble_green.9.png */; };
 		D1EEDB971A660F2B0012EFD3 /* chat_bubble.9.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDB901A660F2B0012EFD3 /* chat_bubble.9.png */; };
@@ -649,6 +651,8 @@
 		D19DDA511A5EF432004F97A3 /* NewCPTAxisLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewCPTAxisLabel.h; sourceTree = "<group>"; };
 		D19DDA521A5EF599004F97A3 /* NewCPTAxisLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewCPTAxisLabel.m; sourceTree = "<group>"; };
 		D19DDA541A5F1705004F97A3 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		D1E1FF051A76C28F00C8951C /* ChallengeProgressLegendRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeProgressLegendRow.swift; sourceTree = "<group>"; };
+		D1E1FF071A76C2DB00C8951C /* ChallengeProgressLegendRow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeProgressLegendRow.xib; sourceTree = "<group>"; };
 		D1EEDB8E1A660F2B0012EFD3 /* challenge_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = challenge_image.png; path = "../../android-main/app/src/main/res/drawable-nodpi/challenge_image.png"; sourceTree = "<group>"; };
 		D1EEDB8F1A660F2B0012EFD3 /* chat_bubble_green.9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chat_bubble_green.9.png; path = "../../android-main/app/src/main/res/drawable-nodpi/chat_bubble_green.9.png"; sourceTree = "<group>"; };
 		D1EEDB901A660F2B0012EFD3 /* chat_bubble.9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chat_bubble.9.png; path = "../../android-main/app/src/main/res/drawable-nodpi/chat_bubble.9.png"; sourceTree = "<group>"; };
@@ -700,6 +704,7 @@
 		2BBDBA491A12AB73005A6815 /* Challenges */ = {
 			isa = PBXGroup;
 			children = (
+				D1E1FF071A76C2DB00C8951C /* ChallengeProgressLegendRow.xib */,
 				D18395C01A69BC9E00D290BF /* ChallengeDetailsTab.xib */,
 				D1EEDBA21A66E4B10012EFD3 /* ChallengeLeaderboardRow.xib */,
 				D17010C71A644414002CBFE8 /* ChallengeDetailsView.xib */,
@@ -717,6 +722,7 @@
 				D17010C81A644414002CBFE8 /* ChallengeDetailsViewController.swift */,
 				D1EEDBA41A66FA570012EFD3 /* ChallengeLeaderboardRow.swift */,
 				D18395C21A69CAD500D290BF /* ChallengesDetailsTab.swift */,
+				D1E1FF051A76C28F00C8951C /* ChallengeProgressLegendRow.swift */,
 			);
 			name = Challenges;
 			sourceTree = "<group>";
@@ -1619,6 +1625,7 @@
 				8F6266B1197EC95900145EDB /* BodyStatsPort.xib in Resources */,
 				8FFB034C19FEA2440036228C /* oc_challenges_active.png in Resources */,
 				8FFB035919FEAF2C0036228C /* ActivityView.xib in Resources */,
+				D1E1FF081A76C2DB00C8951C /* ChallengeProgressLegendRow.xib in Resources */,
 				8FE056E5198FDC5F00C81208 /* SettingsView.xib in Resources */,
 				8F58D97D19C0F4BD00C0EC72 /* welcome_01_bg@2x.png in Resources */,
 				8F5C38CD19818BA900F51543 /* gauge2_atrisk.png in Resources */,
@@ -1772,6 +1779,7 @@
 				8F2B7E41198C2C27009DE89A /* SWRevealViewController.m in Sources */,
 				8F2CB5891993E68C009377A8 /* SessionData.swift in Sources */,
 				D19C66C91A3F74A400655218 /* ScrollViewPagerControllerViewController.swift in Sources */,
+				D1E1FF061A76C28F00C8951C /* ChallengeProgressLegendRow.swift in Sources */,
 				8F29630F194B8F5D00E787FD /* SignupEmailViewController.swift in Sources */,
 				8F524BF8195B829400BFC49D /* CustomFormatter.swift in Sources */,
 				8F6A243F195A01350094B73C /* BaseCustomGraphHostingView.swift in Sources */,
