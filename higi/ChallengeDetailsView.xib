@@ -140,7 +140,7 @@
                         </mask>
                     </variation>
                 </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Dj-0Z-1GK">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Dj-0Z-1GK">
                     <rect key="frame" x="0.0" y="238" width="320" height="57"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
@@ -151,8 +151,12 @@
                 <constraint firstItem="uDa-Lt-ibU" firstAttribute="leading" secondItem="3xq-86-abo" secondAttribute="leading" id="DZd-ZI-eb1"/>
                 <constraint firstItem="uDa-Lt-ibU" firstAttribute="top" secondItem="3xq-86-abo" secondAttribute="top" id="FfD-FY-BfW"/>
                 <constraint firstItem="3xq-86-abo" firstAttribute="top" secondItem="PE7-hb-4Wz" secondAttribute="top" id="GVo-vS-fAt"/>
+                <constraint firstItem="0Dj-0Z-1GK" firstAttribute="top" secondItem="uDa-Lt-ibU" secondAttribute="bottom" id="IIC-h6-sua"/>
                 <constraint firstItem="3xq-86-abo" firstAttribute="leading" secondItem="PE7-hb-4Wz" secondAttribute="leading" id="TbV-0P-035"/>
+                <constraint firstItem="0Dj-0Z-1GK" firstAttribute="leading" secondItem="uDa-Lt-ibU" secondAttribute="leading" id="UV6-ef-Olo"/>
                 <constraint firstAttribute="bottom" secondItem="3xq-86-abo" secondAttribute="bottom" id="b4q-9W-chP"/>
+                <constraint firstItem="0Dj-0Z-1GK" firstAttribute="trailing" secondItem="uDa-Lt-ibU" secondAttribute="trailing" id="f49-UQ-Rbe"/>
+                <constraint firstAttribute="bottom" secondItem="0Dj-0Z-1GK" secondAttribute="bottom" constant="273" id="iMu-dA-TZl"/>
                 <constraint firstAttribute="bottom" secondItem="uDa-Lt-ibU" secondAttribute="bottom" constant="330" id="owi-Mj-lBW"/>
                 <constraint firstItem="uDa-Lt-ibU" firstAttribute="trailing" secondItem="3xq-86-abo" secondAttribute="trailing" id="rfg-eu-VY5"/>
             </constraints>
