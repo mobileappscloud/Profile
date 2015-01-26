@@ -84,7 +84,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         var todaysActivity: [HigiActivity] = [];
         var today = dateFormatter.stringFromDate(NSDate());
         var todaysPoints = 0;
-        for activity in SessionController.Instance.activities.reverse() {
+        for activity in SessionController.Instance.activities {
             var dateString = dateFormatter.stringFromDate(activity.startTime);
             if (today != dateString) {
                 break;

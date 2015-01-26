@@ -54,7 +54,6 @@
 		8F211EF91A1E85AE00A256C0 /* oc_dropdownmenu_down.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F211EF71A1E85AE00A256C0 /* oc_dropdownmenu_down.png */; };
 		8F211EFA1A1E85AE00A256C0 /* oc_dropdownmenu_up.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F211EF81A1E85AE00A256C0 /* oc_dropdownmenu_up.png */; };
 		8F296309194B8DE700E787FD /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F296308194B8DE700E787FD /* SplashViewController.swift */; };
-		8F29630B194B8E3700E787FD /* DashboardViewController_old.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F29630A194B8E3700E787FD /* DashboardViewController_old.swift */; };
 		8F29630D194B8F4600E787FD /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F29630C194B8F4600E787FD /* WelcomeViewController.swift */; };
 		8F29630F194B8F5D00E787FD /* SignupEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F29630E194B8F5D00E787FD /* SignupEmailViewController.swift */; };
 		8F296311194B911C00E787FD /* SignupNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F296310194B911C00E787FD /* SignupNameViewController.swift */; };
@@ -119,7 +118,6 @@
 		8F5C38E11981901600F51543 /* pulse.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5C38DC1981901600F51543 /* pulse.png */; };
 		8F5C38E21981901600F51543 /* weight.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5C38DD1981901600F51543 /* weight.png */; };
 		8F5C38E41981904C00F51543 /* meanarterialpressure.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5C38E31981904C00F51543 /* meanarterialpressure.png */; };
-		8F5C38E71981917100F51543 /* DashboardView_old.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F5C38E61981917100F51543 /* DashboardView_old.xib */; };
 		8F5C38E91981B2B300F51543 /* createreminder_inverted.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5C38E81981B2B300F51543 /* createreminder_inverted.png */; };
 		8F5C38EB1982DBB900F51543 /* onboarding_avatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5C38EA1982DBB800F51543 /* onboarding_avatar.png */; };
 		8F5C38ED1982EE6D00F51543 /* higicard_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5C38EC1982EE6D00F51543 /* higicard_icon.png */; };
@@ -383,7 +381,6 @@
 		8F211EF71A1E85AE00A256C0 /* oc_dropdownmenu_down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oc_dropdownmenu_down.png; path = images/oc_dropdownmenu_down.png; sourceTree = "<group>"; };
 		8F211EF81A1E85AE00A256C0 /* oc_dropdownmenu_up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oc_dropdownmenu_up.png; path = images/oc_dropdownmenu_up.png; sourceTree = "<group>"; };
 		8F296308194B8DE700E787FD /* SplashViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
-		8F29630A194B8E3700E787FD /* DashboardViewController_old.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewController_old.swift; sourceTree = "<group>"; };
 		8F29630C194B8F4600E787FD /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		8F29630E194B8F5D00E787FD /* SignupEmailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupEmailViewController.swift; sourceTree = "<group>"; };
 		8F296310194B911C00E787FD /* SignupNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupNameViewController.swift; sourceTree = "<group>"; };
@@ -457,7 +454,6 @@
 		8F5C38DC1981901600F51543 /* pulse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pulse.png; path = images/pulse.png; sourceTree = "<group>"; };
 		8F5C38DD1981901600F51543 /* weight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = weight.png; path = images/weight.png; sourceTree = "<group>"; };
 		8F5C38E31981904C00F51543 /* meanarterialpressure.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = meanarterialpressure.png; path = images/meanarterialpressure.png; sourceTree = "<group>"; };
-		8F5C38E61981917100F51543 /* DashboardView_old.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DashboardView_old.xib; sourceTree = "<group>"; };
 		8F5C38E81981B2B300F51543 /* createreminder_inverted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = createreminder_inverted.png; path = images/createreminder_inverted.png; sourceTree = "<group>"; };
 		8F5C38EA1982DBB800F51543 /* onboarding_avatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = onboarding_avatar.png; path = images/onboarding_avatar.png; sourceTree = "<group>"; };
 		8F5C38EC1982EE6D00F51543 /* higicard_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = higicard_icon.png; path = images/higicard_icon.png; sourceTree = "<group>"; };
@@ -1116,11 +1112,9 @@
 				8FEF6F411A6EECBE001EF8A6 /* BodyStatsCard.swift */,
 				8FEF6F451A6EECD5001EF8A6 /* ChallengesCard.swift */,
 				8F5C38EE1982EFDF00F51543 /* CheckinTableViewCell.swift */,
-				8F29630A194B8E3700E787FD /* DashboardViewController_old.swift */,
 				8FEF6F3B1A6EAACE001EF8A6 /* DashboardViewController.swift */,
 				8FEF6F471A6EECDE001EF8A6 /* PulseCard.swift */,
 				8F5C38F01982F20000F51543 /* CheckinTableViewCell.xib */,
-				8F5C38E61981917100F51543 /* DashboardView_old.xib */,
 				8FEF6F391A6EAA58001EF8A6 /* DashboardView.xib */,
 			);
 			name = Dashboard;
@@ -1626,7 +1620,6 @@
 				2B8032021A1FEF4F0029D6DF /* person_icon.png in Resources */,
 				8F6266C3197F12E900145EDB /* graph_info.png in Resources */,
 				8FF9518B1A01AC69005FD632 /* banner_nologo.png in Resources */,
-				8F5C38E71981917100F51543 /* DashboardView_old.xib in Resources */,
 				8F2B7E51198C3058009DE89A /* oc_settings.png in Resources */,
 				8FD73CBD1990280C00BACCB2 /* map_listviewicon.png in Resources */,
 				8F6266B1197EC95900145EDB /* BodyStatsPort.xib in Resources */,
@@ -1718,7 +1711,6 @@
 				8F296316194B9BF700E787FD /* SessionController.swift in Sources */,
 				D19DDA531A5EF599004F97A3 /* NewCPTAxisLabel.m in Sources */,
 				8F9C69DB1950C8B700449664 /* PulseArticle.swift in Sources */,
-				8F29630B194B8E3700E787FD /* DashboardViewController_old.swift in Sources */,
 				8FF2E06E194A5E9500A81D8C /* NewCPTPlotRange.m in Sources */,
 				8F6A2449195A07880094B73C /* BmiGraphDelegate.swift in Sources */,
 				8F5E7FD2199BC99C009067E5 /* BpCheckinCell.swift in Sources */,

@@ -167,9 +167,15 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         if (challenge.participant != nil) {
             let participant = challenge.participant!;
             participantAvatar.setImageWithURL(Utility.loadImageFromUrl(participant.imageUrl));
-            participantPoints.text = "\(Int(participant.units)) pts";
-            participantPlace.text = getUserRank();
-            setProgressBar(participantProgress, points: Int(participant.units), highScore: Int(challenge.individualHighScore));
+            if (challenge.userStatus == "current") {
+                participantPoints.text = "\(Int(participant.units)) pts";
+                participantPlace.text = getUserRank();
+                setProgressBar(participantProgress, points: Int(participant.units), highScore: Int(challenge.individualHighScore));
+            } else {
+                participantPoints.hidden = true;
+                participantPlace.hidden = true;
+                participantProgress.hidden = true;
+            }
         } else {
             participantAvatar.hidden = true;
             participantPoints.hidden = true;
