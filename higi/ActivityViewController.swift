@@ -158,7 +158,7 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
     func populateActivities() {
         var savedDate = "";
         var currentSection = -1;
-        var activities = SessionController.Instance.activities.reverse();
+        var activities = SessionController.Instance.activities;
         dayBuckets = [:];
         weekBuckets = [:];
         monthBuckets = [:];
@@ -195,8 +195,8 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
         let today = dateFormatter.dateFromString(dateFormatter.stringFromDate(NSDate()))!;
         let activityDate = dateFormatter.dateFromString(dateFormatter.stringFromDate(activity.startTime))!;
         var dayComponents = calendar.components(NSCalendarUnit.CalendarUnitDay, fromDate: activityDate, toDate: today, options: NSCalendarOptions.allZeros);
-        var weekOffset = calendar.component(NSCalendarUnit.WeekOfYearCalendarUnit, fromDate: today) - calendar.component(NSCalendarUnit.WeekOfYearCalendarUnit, fromDate: activityDate);
-        var monthOffset = calendar.component(NSCalendarUnit.MonthCalendarUnit, fromDate: today) - calendar.component(NSCalendarUnit.MonthCalendarUnit, fromDate: activityDate);
+        var weekOffset = calendar.components(NSCalendarUnit.WeekOfYearCalendarUnit, fromDate: today).weekOfYear - calendar.components(NSCalendarUnit.WeekOfYearCalendarUnit, fromDate: activityDate).weekOfYear;
+        var monthOffset = calendar.components(NSCalendarUnit.MonthCalendarUnit, fromDate: today).month - calendar.components(NSCalendarUnit.MonthCalendarUnit, fromDate: activityDate).month;
         
         let deviceName = activity.device.name;
         
