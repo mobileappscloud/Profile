@@ -312,6 +312,8 @@
 		D1E1FF081A76C2DB00C8951C /* ChallengeProgressLegendRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1E1FF071A76C2DB00C8951C /* ChallengeProgressLegendRow.xib */; };
 		D1E1FF0A1A76E0AC00C8951C /* ChallengeDetailsRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1E1FF091A76E0AC00C8951C /* ChallengeDetailsRow.xib */; };
 		D1E1FF0C1A76E0F200C8951C /* ChallengeDetailsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E1FF0B1A76E0F200C8951C /* ChallengeDetailsRow.swift */; };
+		D1E1FF0E1A76FAB100C8951C /* ChallengeDetailsIcons.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1E1FF0D1A76FAB100C8951C /* ChallengeDetailsIcons.xib */; };
+		D1E1FF101A76FB5400C8951C /* ChallengeDetailsIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E1FF0F1A76FB5400C8951C /* ChallengeDetailsIcons.swift */; };
 		D1EEDB951A660F2B0012EFD3 /* challenge_image.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDB8E1A660F2B0012EFD3 /* challenge_image.png */; };
 		D1EEDB961A660F2B0012EFD3 /* chat_bubble_green.9.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDB8F1A660F2B0012EFD3 /* chat_bubble_green.9.png */; };
 		D1EEDB971A660F2B0012EFD3 /* chat_bubble.9.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDB901A660F2B0012EFD3 /* chat_bubble.9.png */; };
@@ -657,6 +659,8 @@
 		D1E1FF071A76C2DB00C8951C /* ChallengeProgressLegendRow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeProgressLegendRow.xib; sourceTree = "<group>"; };
 		D1E1FF091A76E0AC00C8951C /* ChallengeDetailsRow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailsRow.xib; sourceTree = "<group>"; };
 		D1E1FF0B1A76E0F200C8951C /* ChallengeDetailsRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeDetailsRow.swift; sourceTree = "<group>"; };
+		D1E1FF0D1A76FAB100C8951C /* ChallengeDetailsIcons.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailsIcons.xib; sourceTree = "<group>"; };
+		D1E1FF0F1A76FB5400C8951C /* ChallengeDetailsIcons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeDetailsIcons.swift; sourceTree = "<group>"; };
 		D1EEDB8E1A660F2B0012EFD3 /* challenge_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = challenge_image.png; path = "../../android-main/app/src/main/res/drawable-nodpi/challenge_image.png"; sourceTree = "<group>"; };
 		D1EEDB8F1A660F2B0012EFD3 /* chat_bubble_green.9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chat_bubble_green.9.png; path = "../../android-main/app/src/main/res/drawable-nodpi/chat_bubble_green.9.png"; sourceTree = "<group>"; };
 		D1EEDB901A660F2B0012EFD3 /* chat_bubble.9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chat_bubble.9.png; path = "../../android-main/app/src/main/res/drawable-nodpi/chat_bubble.9.png"; sourceTree = "<group>"; };
@@ -709,6 +713,7 @@
 			isa = PBXGroup;
 			children = (
 				D1E1FF091A76E0AC00C8951C /* ChallengeDetailsRow.xib */,
+				D1E1FF0D1A76FAB100C8951C /* ChallengeDetailsIcons.xib */,
 				D1E1FF071A76C2DB00C8951C /* ChallengeProgressLegendRow.xib */,
 				D18395C01A69BC9E00D290BF /* ChallengeDetailsTab.xib */,
 				D1EEDBA21A66E4B10012EFD3 /* ChallengeLeaderboardRow.xib */,
@@ -729,6 +734,7 @@
 				D18395C21A69CAD500D290BF /* ChallengesDetailsTab.swift */,
 				D1E1FF051A76C28F00C8951C /* ChallengeProgressLegendRow.swift */,
 				D1E1FF0B1A76E0F200C8951C /* ChallengeDetailsRow.swift */,
+				D1E1FF0F1A76FB5400C8951C /* ChallengeDetailsIcons.swift */,
 			);
 			name = Challenges;
 			sourceTree = "<group>";
@@ -1627,6 +1633,7 @@
 				8F6266C3197F12E900145EDB /* graph_info.png in Resources */,
 				8FF9518B1A01AC69005FD632 /* banner_nologo.png in Resources */,
 				8F2B7E51198C3058009DE89A /* oc_settings.png in Resources */,
+				D1E1FF0E1A76FAB100C8951C /* ChallengeDetailsIcons.xib in Resources */,
 				8FD73CBD1990280C00BACCB2 /* map_listviewicon.png in Resources */,
 				8F6266B1197EC95900145EDB /* BodyStatsPort.xib in Resources */,
 				8FFB034C19FEA2440036228C /* oc_challenges_active.png in Resources */,
@@ -1800,6 +1807,7 @@
 				8FCD2D8019EC286900AC5A82 /* UIImage+Orientation.m in Sources */,
 				8F6A2445195A076B0094B73C /* MapGraphDelegate.swift in Sources */,
 				8F2B7E43198C2DA0009DE89A /* DrawerViewController.swift in Sources */,
+				D1E1FF101A76FB5400C8951C /* ChallengeDetailsIcons.swift in Sources */,
 				8F524BF6195B5ABB00BFC49D /* ConversionUtility.m in Sources */,
 				8F087A901A1BDFC7008E0446 /* ActivityCellHeader.swift in Sources */,
 				8F296311194B911C00E787FD /* SignupNameViewController.swift in Sources */,

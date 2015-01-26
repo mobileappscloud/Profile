@@ -396,10 +396,13 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        var x = scrollView.contentOffset.x;
-        var w = scrollView.frame.size.width;
-        var page = lround(Double(scrollView.contentOffset.x / scrollView.frame.size.width));
-        changePage(page);
+        if (scrollView == self.scrollView) {
+            let x = scrollView.contentOffset.x;
+            let w = scrollView.frame.size.width;
+            
+            var page = lround(Double(scrollView.contentOffset.x / scrollView.frame.size.width));
+            changePage(page);
+        }
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -435,7 +438,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         } else if (displayChatterTab && tableView == chatterTable) {
             return chatterTable.rowHeight;
         } else {
-            return detailsTable.rowHeight;
+            return 100;
         }
     }
     
@@ -457,6 +460,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         } else if (displayProgressTab && tableView == progressTable) {
             //one row for each win condition plus 1 for graph view
             return challenge.winConditions.count + 1;
+        } else if (tableView == detailsTable) {
+            return 7;
         }
         return 1;
     }
@@ -476,7 +481,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         } else if (displayProgressTab && tableView == progressTable) {
             return createProgressTable(indexPath.row);
         } else if (tableView == detailsTable) {
-            return ChallengeDetailsTab.instanceFromNib(challenge);
+//            return ChallengeDetailsTab.instanceFromNib(challenge);
+            return createDetailsTable(indexPath.row);
         } else {
             return UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "");
         }
@@ -602,7 +608,10 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func createProgressLegendRow(index: Int) -> UITableViewCell {
         let displayIndex = challenge.winConditions.count - index;
-        let cell = ChallengeProgressLegendRow.instanceFromNib(challenge.winConditions[index], userPoints: challenge.participant.units,  metric: challenge.metric, index: displayIndex);
-        return cell;
+        return ChallengeProgressLegendRow.instanceFromNib(challenge.winConditions[index], userPoints: challenge.participant.units,  metric: challenge.metric, index: displayIndex);
+    }
+    
+    func createDetailsTable(index: Int) -> UITableViewCell {
+        return ChallengeDetailsRow.instanceFromNib(challenge, index: index);
     }
 }

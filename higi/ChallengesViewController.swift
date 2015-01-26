@@ -116,7 +116,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     }
 
     func addTableView(page: Int) -> UITableView {
-        let table = UITableView(frame: CGRect(x: CGFloat(page) * scrollView.frame.size.width, y: 0, width: scrollView.frame.size.width, height: 226 + 83));
+        let table = UITableView(frame: CGRect(x: CGFloat(page) * scrollView.frame.size.width, y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height));
         table.dataSource = self;
         table.delegate = self;
         table.separatorStyle = UITableViewCellSeparatorStyle.None;
@@ -263,9 +263,11 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        let page = lround(Double(scrollView.contentOffset.x / scrollView.frame.size.width));
-        pager.currentPage = page;
-        changePage(pager);
+        if (scrollView == self.scrollView) {
+            let page = lround(Double(scrollView.contentOffset.x / scrollView.frame.size.width));
+            pager.currentPage = page;
+            changePage(pager);
+        }
     }
     
     func gotoDetails(sender: AnyObject) {
