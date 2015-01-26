@@ -4,7 +4,7 @@ import Foundation
 class HigiApi {
     
     class var PRODUCTION: Bool {
-        return true;
+        return false;
     }
     
     var manager: AFHTTPRequestOperationManager;

@@ -34,6 +34,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     var isIndividualLeaderboard = true;
     var isIndividualProgress = true;
     
+    var showLoadingFooter = false;
+    
     var leaderboardTable: UITableView!;
     var progressTable: UITableView!;
     var detailsTable: UITableView!;
@@ -91,6 +93,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                 }
             } else if (winCondition.goal.type == "most_points" || winCondition.goal.type == "unit_goal_reached") {
                 displayLeaderboardTab = true;
+                
                 if (winCondition.winnerType == "individual") {
                     hasIndividualLeaderboardComponent = true;
                 } else if (winCondition.winnerType == "team") {
@@ -149,6 +152,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             button.tintColor = UIColor.whiteColor();
             button.selected = index == 0;
             button.enabled = true;
+            
             if (table == leaderboardTable) {
                 leaderboardToggleButtons.append(button);
             } else {
@@ -268,6 +272,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         var table:UITableView;
         if (displayLeaderboardTab) {
             leaderboardTable = addTableView(totalPages);
+            leaderboardTable.tableFooterView?.hidden = true;
             scrollView.addSubview(leaderboardTable);
             tables.append(leaderboardTable);
             totalPages++;
@@ -412,6 +417,22 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         return buttonContainerOriginY + buttonContainer.frame.size.height;
     }
     
+    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return showLoadingFooter ? 10 : 0;
+    }
+    
+    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if (showLoadingFooter) {
+            let footer = UIView(frame: CGRect(x: 0, y: 0, width: scrollView.frame.size.width, height: 10));
+            let spinner = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 10, height: 10));
+            footer.addSubview(spinner);
+            spinner.startAnimating();
+            footer.backgroundColor = UIColor.blackColor();
+            return footer;
+        } else {
+            return UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0));
+        }
+    }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (displayLeaderboardTab && tableView == leaderboardTable) {
             return isIndividualLeaderboard ? min(individualLeaderboardParticipants.count,challenge.participantsCount) : min(teamLeaderboardParticipants.count, challenge.teams.count);
@@ -423,7 +444,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         if (indexPath.row == individualLeaderboardCount - 1) {
-            if (displayLeaderboardTab && tableView == leaderboardTable && isIndividualLeaderboard) {
+            if (displayLeaderboardTab && tableView == leaderboardTable && isIndividualLeaderboard && individualLeaderboardCount != challenge.participantsCount) {
                 individualLeaderboardCount = min(individualLeaderboardCount + 50, challenge.participantsCount);
                 loadMoreParticipants();
             }
@@ -474,7 +495,9 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func loadMoreParticipants(){
-        showLoadingFooter();
+        showLoadingFooter = true;
+        leaderboardTable.reloadData();
+        //showLoadingFooter();
         var participants:[ChallengeParticipant] = [];
         let url = challenge.pagingData != nil ? challenge.pagingData?.nextUrl : nil;
         if (url != nil) {
@@ -490,8 +513,10 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                     for singleParticipant in participants {
                         self.individualLeaderboardParticipants.append(singleParticipant);
                     }
+                    self.showLoadingFooter = false;
                     self.leaderboardTable.reloadData();
-                    self.hideLoadingFooter();
+//                    self.showLoadingFooter = false;
+                    //self.hideLoadingFooter();
                 }
                 }, failure: { operation, error in
             });
@@ -503,10 +528,10 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         if (cell == nil) {
             if (isIndividualLeaderboard) {
                 cell = ChallengeLeaderboardRow.instanceFromNib(challenge, participant: individualLeaderboardParticipants[index], index: index);
-                if (challenge.participants[index].displayName == challenge.participant.displayName) {
+                if (individualLeaderboardParticipants[index].displayName == challenge.participant.displayName) {
                     cell.backgroundColor = Utility.colorFromHexString("#d5ffb8");
                 }
-            } else if (challenge.teams[index].name == challenge.participant.team.name) {
+            } else if (teamLeaderboardParticipants[index].name == challenge.participant.team.name) {
                 cell = ChallengeLeaderboardRow.instanceFromNib(challenge, team: teamLeaderboardParticipants[index], index: index);
                 cell.backgroundColor = Utility.colorFromHexString("#d5ffb8");
             }
@@ -515,6 +540,14 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func createProgressTable(tableView: UITableView, index: Int) -> UITableViewCell {
+        if (index == 0) {
+            return createProgressGraph();
+        } else {
+            return createProgressLegendRow(index: Int);
+        }
+    }
+    
+    func createProgressGraph() -> UITableViewCell {
         let cell = UITableViewCell(frame: CGRect(x: 0, y: 0, width: scrollView.frame.size.width, height: 200));
         let consolodatedWinConditions = Utility.consolodateWinConditions(challenge.winConditions);
         var individualGoalViewIndex = 0;
@@ -545,11 +578,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         return cell;
     }
     
-    func showLoadingFooter() {
-        
-    }
-    
-    func hideLoadingFooter() {
+    func createProgressLegendRow(index: Int) -> UITableViewCell {
         
     }
 }

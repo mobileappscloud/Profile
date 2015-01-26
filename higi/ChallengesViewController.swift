@@ -28,11 +28,6 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     var currentPage  = 0;
     var totalPages = 0;
     
-    struct ViewConstants {
-        static let footerHeight:CGFloat = 10;
-        static let cardHeight:CGFloat = 176;
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad();
         pager.currentPage = currentPage;
@@ -121,10 +116,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     }
 
     func addTableView(page: Int) -> UITableView {
-        let viewWidth = scrollView.frame.size.width;
-        let viewHeight = min(ViewConstants.cardHeight * CGFloat(activeChallenges.count) + 83, scrollView.frame.size.height);
-        
-        let table = UITableView(frame: CGRect(x: CGFloat(page) * viewWidth, y: 0, width: viewWidth, height: viewHeight));
+        let table = UITableView(frame: CGRect(x: CGFloat(page) * scrollView.frame.size.width, y: 0, width: scrollView.frame.size.width, height: 226 + 83));
         table.dataSource = self;
         table.delegate = self;
         table.separatorStyle = UITableViewCellSeparatorStyle.None;
@@ -217,7 +209,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         cell.tag = indexPath.row;
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "gotoDetails:");
         cell.addGestureRecognizer(tapGestureRecognizer);
-        let footer = UIView(frame: CGRect(x: 0, y: cell.frame.height - ViewConstants.footerHeight, width: cell.frame.width, height: ViewConstants.footerHeight));
+        let footer = UIView(frame: CGRect(x: 0, y: cell.frame.height - 10, width: cell.frame.width, height: 10));
         footer.backgroundColor = Utility.colorFromHexString("#EEEEEE");
         cell.addSubview(footer);
         return cell;
