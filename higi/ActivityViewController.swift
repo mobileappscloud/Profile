@@ -22,7 +22,7 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
     
     var pointsMeter: PointsMeter!;
     
-    var activitiesByDay: [[HigiActivity]] = [];
+    var activitiesByDay: [[HigiActivity]] = [], todaysActivities: [HigiActivity] = [];
     
     let dateFormatter = NSDateFormatter();
     
@@ -39,8 +39,8 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
         pointsMeter = UINib(nibName: "PointsMeterView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as PointsMeter;
         pointsMeterContainer.addSubview(pointsMeter);
         populateActivities();
-        if (activitiesByDay.count > 0) {
-            pointsMeter.activities = activitiesByDay[0];
+        if (todaysActivities.count > 0) {
+            pointsMeter.activities = todaysActivities;
         }
         createGraphs();
     }
@@ -162,6 +162,8 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
         dayBuckets = [:];
         weekBuckets = [:];
         monthBuckets = [:];
+        todaysActivities = [];
+        activitiesByDay = [];
         for activity in activities {
             var dateString = dateFormatter.stringFromDate(activity.startTime);
             if (savedDate != dateString) {
@@ -207,6 +209,9 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
             }
             dayArray![6 - dayComponents.day] += activity.points;
             dayBuckets[deviceName] = dayArray;
+            if (dayComponents.day == 0) {
+                todaysActivities.append(activity);
+            }
         }
         
         if (weekOffset < 0) {

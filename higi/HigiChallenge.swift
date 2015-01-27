@@ -2,7 +2,7 @@ import Foundation
 
 class HigiChallenge {
     
-    var name, description, shortDescription, imageUrl, metric, status, userStatus, terms: NSString!;
+    var name, description, shortDescription, imageUrl, metric, status, userStatus, terms, abbrMetric: NSString!;
     
     var startDate, endDate: NSDate!;
     
