@@ -95,3 +95,18 @@ struct GravityParticipant {
     var place: NSString?;
     var participant: ChallengeParticipant!;
 }
+
+struct Comments {
+    var comment: NSString?;
+    var timeSincePosted: NSString?;
+    
+    var participant: ChallengeParticipant!;
+    
+    var team:ChallengeTeam;
+    
+    struct Chatter {
+        var chatter:[Comments];
+        var paging:PagingData;
+    }
+
+}

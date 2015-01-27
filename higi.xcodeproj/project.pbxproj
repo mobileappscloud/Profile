@@ -303,6 +303,8 @@
 		D12780AE1A4A2701002EB56A /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D12780AD1A4A2701002EB56A /* fontawesome-webfont.ttf */; };
 		D149E9451A78221200FBAA15 /* ChallengeDetailsPrizes.xib in Resources */ = {isa = PBXBuildFile; fileRef = D149E9441A78221200FBAA15 /* ChallengeDetailsPrizes.xib */; };
 		D149E9471A7822D900FBAA15 /* ChallengeDetailsPrize.swift in Sources */ = {isa = PBXBuildFile; fileRef = D149E9461A7822D900FBAA15 /* ChallengeDetailsPrize.swift */; };
+		D149E9491A7845A200FBAA15 /* ChallengeDetailsChatterRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D149E9481A7845A200FBAA15 /* ChallengeDetailsChatterRow.xib */; };
+		D149E94B1A78471A00FBAA15 /* ChallengeDetailsChatterRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D149E94A1A78471A00FBAA15 /* ChallengeDetailsChatterRow.swift */; };
 		D17010C91A644414002CBFE8 /* ChallengeDetailsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D17010C71A644414002CBFE8 /* ChallengeDetailsView.xib */; };
 		D17010CA1A644414002CBFE8 /* ChallengeDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17010C81A644414002CBFE8 /* ChallengeDetailsViewController.swift */; };
 		D18395C11A69BC9E00D290BF /* ChallengeDetailsTab.xib in Resources */ = {isa = PBXBuildFile; fileRef = D18395C01A69BC9E00D290BF /* ChallengeDetailsTab.xib */; };
@@ -651,6 +653,8 @@
 		D12780AD1A4A2701002EB56A /* fontawesome-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fontawesome-webfont.ttf"; sourceTree = "<group>"; };
 		D149E9441A78221200FBAA15 /* ChallengeDetailsPrizes.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailsPrizes.xib; sourceTree = "<group>"; };
 		D149E9461A7822D900FBAA15 /* ChallengeDetailsPrize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeDetailsPrize.swift; sourceTree = "<group>"; };
+		D149E9481A7845A200FBAA15 /* ChallengeDetailsChatterRow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailsChatterRow.xib; sourceTree = "<group>"; };
+		D149E94A1A78471A00FBAA15 /* ChallengeDetailsChatterRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeDetailsChatterRow.swift; sourceTree = "<group>"; };
 		D17010C71A644414002CBFE8 /* ChallengeDetailsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailsView.xib; sourceTree = "<group>"; };
 		D17010C81A644414002CBFE8 /* ChallengeDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeDetailsViewController.swift; sourceTree = "<group>"; };
 		D18395C01A69BC9E00D290BF /* ChallengeDetailsTab.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailsTab.xib; sourceTree = "<group>"; };
@@ -716,6 +720,7 @@
 		2BBDBA491A12AB73005A6815 /* Challenges */ = {
 			isa = PBXGroup;
 			children = (
+				D149E9481A7845A200FBAA15 /* ChallengeDetailsChatterRow.xib */,
 				D1E1FF091A76E0AC00C8951C /* ChallengeDetailsRow.xib */,
 				D149E9441A78221200FBAA15 /* ChallengeDetailsPrizes.xib */,
 				D1E1FF0D1A76FAB100C8951C /* ChallengeDetailsIcons.xib */,
@@ -741,6 +746,7 @@
 				D1E1FF0B1A76E0F200C8951C /* ChallengeDetailsRow.swift */,
 				D1E1FF0F1A76FB5400C8951C /* ChallengeDetailsIcons.swift */,
 				D149E9461A7822D900FBAA15 /* ChallengeDetailsPrize.swift */,
+				D149E94A1A78471A00FBAA15 /* ChallengeDetailsChatterRow.swift */,
 			);
 			name = Challenges;
 			sourceTree = "<group>";
@@ -1599,6 +1605,7 @@
 				8FC7B70919E5E60D00D0112F /* bodystats3-568h@2x.png in Resources */,
 				8F5E7FD8199BCD52009067E5 /* graph_sincelastarrow_nochange_invert.png in Resources */,
 				8F2B7E4F198C3058009DE89A /* oc_findastation.png in Resources */,
+				D149E9491A7845A200FBAA15 /* ChallengeDetailsChatterRow.xib in Resources */,
 				8F5C38E21981901600F51543 /* weight.png in Resources */,
 				8FD73CC11990291300BACCB2 /* nodata_map.png in Resources */,
 				8FCD2D7B19E874FD00AC5A82 /* noResults.png in Resources */,
@@ -1809,6 +1816,7 @@
 				D1E1FF0C1A76E0F200C8951C /* ChallengeDetailsRow.swift in Sources */,
 				8F296313194B912F00E787FD /* LoginViewController.swift in Sources */,
 				8F6266CF19800A5400145EDB /* BpGraphDelegate.swift in Sources */,
+				D149E94B1A78471A00FBAA15 /* ChallengeDetailsChatterRow.swift in Sources */,
 				8FEF6F3C1A6EAACE001EF8A6 /* DashboardViewController.swift in Sources */,
 				8F5C39021986918700F51543 /* BodyStatCheckinCell.swift in Sources */,
 				8F08AFAF19894EE6002EE906 /* WelcomeView.swift in Sources */,
