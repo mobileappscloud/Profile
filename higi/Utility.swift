@@ -136,4 +136,10 @@ class Utility {
             return rank + "th"
         }
     }
+    
+    class func heightForTextView(width: CGFloat, text: String, fontSize: CGFloat, margin: CGFloat) -> CGFloat {
+        let size = (text as NSString).sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(fontSize)]);
+        let area = size.height * size.width;
+        return floor(area/width) + margin;
+    }
 }

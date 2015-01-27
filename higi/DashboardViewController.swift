@@ -130,7 +130,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                         if (challenge.endDate != nil) {
                             displayedChallenge = challenge;
                         }
-                    } else if (displayedChallenge.endDate.compare(challenge.endDate) == NSComparisonResult.OrderedDescending) {
+                    } else if (challenge.endDate != nil && displayedChallenge.endDate.compare(challenge.endDate) == NSComparisonResult.OrderedDescending) {
                         displayedChallenge = challenge;
                     }
                 }

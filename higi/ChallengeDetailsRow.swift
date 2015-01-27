@@ -16,13 +16,20 @@ class ChallengeDetailsRow: UITableViewCell {
         static let termsIndex = 7;
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews();
+        desc.sizeToFit();
+    }
+    
     class func instanceFromNib(challenge: HigiChallenge, index: Int) -> ChallengeDetailsRow {
         var row = UINib(nibName: "ChallengeDetailsRow", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeDetailsRow;
         
         row.title.text = getDetailRowTitle(index);
         row.desc.text = getDetailRowDescription(challenge, index: index);
         
-        if (index == DetailRowConstants.participantsIndex) {
+        if (index == DetailRowConstants.descriptionIndex) {
+            row = addDescriptionRowLogic(row, challenge: challenge);
+        } else if (index == DetailRowConstants.participantsIndex) {
             row = addParticipantRowLogic(row, challenge: challenge);
         } else if (index == DetailRowConstants.termsIndex) {
             row = addTermsRowLogic(row, challenge: challenge);
@@ -35,6 +42,16 @@ class ChallengeDetailsRow: UITableViewCell {
         }
         
         return row;
+    }
+    
+    class func heightForIndex(challenge: HigiChallenge, index:Int, width: CGFloat, margin: CGFloat) -> CGFloat {
+        let d = getDetailRowDescription(challenge, index: index);
+        let a = Utility.heightForTextView(width, text: getDetailRowDescription(challenge, index: index), fontSize: 11, margin: margin);
+        if (index == DetailRowConstants.participantsIndex) {
+            return 80;
+        } else {
+            return Utility.heightForTextView(width, text: getDetailRowDescription(challenge, index: index), fontSize: 11, margin: margin);
+        }
     }
     
     class func getDetailRowTitle(index: Int) -> String {
@@ -81,7 +98,6 @@ class ChallengeDetailsRow: UITableViewCell {
             let i = 0;
         }
         return desc;
-
     }
     
     class func durationHelper(startDate: NSDate, endDate: NSDate) -> String {
@@ -96,59 +112,34 @@ class ChallengeDetailsRow: UITableViewCell {
         return firstPart + " " + secondPart;
     }
 
+    class func addDescriptionRowLogic(row: ChallengeDetailsRow, challenge: HigiChallenge) -> ChallengeDetailsRow {
+        return row;
+    }
+    
     class func addParticipantRowLogic(row: ChallengeDetailsRow, challenge: HigiChallenge) -> ChallengeDetailsRow {
-//        let individuals = challenge.participantsCount;
-//        let teams = challenge.teams != nil ? challenge.teams.count : 0;
-//        var viewWidth = row.frame.size.width;
-//        let viewHeight = row.frame.size.height;
-// 
-//        if (teams > 0) {
-//            viewWidth = viewWidth/2;
-//            let teamView = UIView(frame: CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight));
-//            
-//            let teamIcon = ChallengeDetailsIcons.instanceFromNib(teams, isTeam: true);
-//            teamIcon.center = teamView.center;
-//            
-////            let teamLabel = UILabel(frame: CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight));
-////            teamLabel.text = "Individuals";
-////            teamLabel.center = teamView.center;
-////            let teamCount = UILabel(frame: CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight));
-////            teamCount.text = "\(challenge.participantsCount)";
-////            teamCount.center = teamView.center;
-////            let teamIcon = UILabel(frame: CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight));
-////            teamIcon.text = "\u{f0c0}";
-//////            teamIcon.center = teamView.center;
-////            
-////            teamView.addSubview(teamLabel);
-////            teamView.addSubview(teamCount);
-////            teamView.addSubview(teamIcon);
-//            
-//            row.addSubview(teamView);
-//        }
-//        
-//        let individualView = UIView(frame: CGRect(x: row.frame.size.width - viewWidth, y: 0, width: viewWidth, height: viewHeight));
-//        
-//        let individualIcon = ChallengeDetailsIcons.instanceFromNib(individuals, isTeam: false);
-//        individualIcon.center = individualView.center;
-//
-////        let individualLabel = UILabel(frame: CGRect(x: viewWidth/2, y: viewHeight - 10, width:viewWidth, height: viewHeight));
-////        individualLabel.text = "Individuals";
-////        individualLabel.center = individualView.center;
-////        let individualCount = UILabel(frame: CGRect(x: viewWidth/2, y: 0, width: viewWidth, height: viewHeight));
-////        individualCount.text = "\(challenge.participantsCount)";
-////        individualCount.center = individualView.center;
-////        let personIcon = UILabel(frame: CGRect(x: viewWidth/2, y: 0, width: viewWidth, height: viewHeight));
-////        personIcon.text = "\u{f007}";
-////        personIcon.center = individualView.center;
-////        
-////        individualView.addSubview(individualLabel);
-////        individualView.addSubview(individualCount);
-////        individualView.addSubview(personIcon);
-////        
-//        
-//        
-//        row.addSubview(individualView);
+        let individuals = challenge.participantsCount;
+        let teams = challenge.teams != nil ? challenge.teams.count : 0;
+        var viewWidth = row.frame.size.width;
+        let viewHeight = row.frame.size.height;
+
+        if (teams > 0) {
+            viewWidth = viewWidth/2;
+            let teamView = UIView(frame: CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight));
+            
+            let teamIcon = ChallengeDetailsIcons.instanceFromNib(teams, isTeam: true);
+            teamIcon.center = teamView.center;
+
+            row.addSubview(teamIcon);
+        }
+
+        let w = row.frame.size.width - viewWidth
+        let individualView = UIView(frame: CGRect(x: row.frame.size.width - viewWidth, y: 0, width: viewWidth, height: viewHeight));
         
+        let individualIcon = ChallengeDetailsIcons.instanceFromNib(individuals, isTeam: false);
+        individualIcon.center = individualView.center;
+        
+        row.addSubview(individualIcon);
+        row.sizeToFit();
         return row;
     }
     

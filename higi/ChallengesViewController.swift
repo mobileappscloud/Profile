@@ -338,7 +338,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         case PagerConstants.invitedChallengesIndex:
             invitedTable.reloadData();
         default:
-            var i = 0;
+            let i = 0;
         }
 
     }
