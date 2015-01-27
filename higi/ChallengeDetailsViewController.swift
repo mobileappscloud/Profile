@@ -145,10 +145,11 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         let toggleButtonsText = ["Individuals", "Teams"];
         for index in 0...1 {
             //no x padding for first button
-            let buttonX = buttonMargin + (CGFloat(index) * (contentView.frame.size.width / 2));
+            let xPadding = index == 0 ? buttonMargin : buttonMargin / 2;
+            let buttonX = xPadding + (CGFloat(index) * contentView.frame.size.width / 2);
             let buttonY = buttonContainerOriginY + buttonContainer.frame.size.height + buttonMargin;
             //subtract margin from width of second button
-            let buttonWidth = contentView.frame.size.width / 2 - buttonMargin;
+            let buttonWidth = (contentView.frame.size.width / 2) - (3/2 * buttonMargin);
             let buttonHeight = toggleButtonHeight - buttonMargin * 2;
             var button = UIButton(frame: CGRect(x: buttonX, y: buttonY, width: buttonWidth, height: buttonHeight));
             button.setBackgroundImage(makeImageWithColor(Utility.colorFromHexString("#76C043")), forState: UIControlState.Selected);
