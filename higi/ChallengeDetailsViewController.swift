@@ -145,22 +145,21 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         let toggleButtonsText = ["Individuals", "Teams"];
         for index in 0...1 {
             //no x padding for first button
-            let buttonX = (CGFloat(1 - index) * buttonMargin) + (CGFloat(index) * (contentView.frame.size.width / 2));
+            let buttonX = buttonMargin + (CGFloat(index) * (contentView.frame.size.width / 2));
             let buttonY = buttonContainerOriginY + buttonContainer.frame.size.height + buttonMargin;
             //subtract margin from width of second button
-            let buttonWidth = contentView.frame.size.width / 2 - (CGFloat(index) * buttonMargin);
+            let buttonWidth = contentView.frame.size.width / 2 - buttonMargin;
             let buttonHeight = toggleButtonHeight - buttonMargin * 2;
             var button = UIButton(frame: CGRect(x: buttonX, y: buttonY, width: buttonWidth, height: buttonHeight));
-            button.setBackgroundImage(makeImageWithColor(UIColor.whiteColor()), forState: UIControlState.Selected);
-            button.setTitleColor(UIColor.darkGrayColor(), forState: UIControlState.Selected);
-            button.setBackgroundImage(makeImageWithColor(Utility.colorFromHexString("#E3E3E3")), forState: UIControlState.Normal);
+            button.setBackgroundImage(makeImageWithColor(Utility.colorFromHexString("#76C043")), forState: UIControlState.Selected);
+            button.setBackgroundImage(makeImageWithColor(UIColor.blackColor()), forState: UIControlState.Normal);
             button.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal);
-            button.backgroundColor = UIColor.lightGrayColor();
             button.setTitle(toggleButtonsText[index], forState: UIControlState.Normal);
             button.titleLabel?.font = UIFont.boldSystemFontOfSize(12);
-            button.tintColor = UIColor.whiteColor();
             button.selected = index == 0;
             button.enabled = true;
+            button.layer.cornerRadius = 5;
+            button.clipsToBounds = true;
             
             if (table == leaderboardTable) {
                 leaderboardToggleButtons.append(button);
