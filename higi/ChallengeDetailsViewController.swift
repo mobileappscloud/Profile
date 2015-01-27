@@ -471,8 +471,10 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             return isIndividualProgress ? individualGoalWinConditions.count + 1: teamGoalWinConditions.count + 1;
         } else if (tableView == detailsTable) {
             return 7;
+        } else if (displayChatterTab && tableView == chatterTable) {
+            return 1;
         }
-        return 1;
+        return 0;
     }
     
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -625,7 +627,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func getDetailsRowHeight(index: Int) -> CGFloat {
-        return 50 + ChallengeDetailsRow.heightForIndex(challenge, index: index, width: progressTable.frame.size.width, margin: 0);
+        return 50 + ChallengeDetailsRow.heightForIndex(challenge, index: index, width: detailsTable.frame.size.width, margin: 0);
     }
     
 }

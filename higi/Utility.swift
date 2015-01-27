@@ -142,4 +142,12 @@ class Utility {
         let area = size.height * size.width;
         return floor(area/width) + margin;
     }
+    
+    class func htmlDecodeString(encodedString: String) -> String {
+        let encodedData = encodedString.dataUsingEncoding(NSUTF8StringEncoding)!
+        let attributedOptions = [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType]
+        let attributedString = NSAttributedString(data: encodedData, options: attributedOptions, documentAttributes: nil, error: nil)!;
+        
+        return attributedString.string;
+    }
 }

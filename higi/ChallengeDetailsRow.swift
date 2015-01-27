@@ -12,8 +12,9 @@ class ChallengeDetailsRow: UITableViewCell {
         static let typeIndex = 3;
         static let participantsIndex = 4;
         static let prizesIndex = 5;
-        static let topScoringTeamIndex = 6;
-        static let termsIndex = 7;
+        static let termsIndex = 6;
+        
+        static let prizeRowHeight:CGFloat = 80;
     }
     
     override func layoutSubviews() {
@@ -49,6 +50,8 @@ class ChallengeDetailsRow: UITableViewCell {
         let a = Utility.heightForTextView(width, text: getDetailRowDescription(challenge, index: index), fontSize: 11, margin: margin);
         if (index == DetailRowConstants.participantsIndex) {
             return 80;
+        } else if (index == DetailRowConstants.prizesIndex) {
+            return 80 * CGFloat(challenge.winConditions.count);
         } else {
             return Utility.heightForTextView(width, text: getDetailRowDescription(challenge, index: index), fontSize: 11, margin: margin);
         }
@@ -70,7 +73,7 @@ class ChallengeDetailsRow: UITableViewCell {
         case DetailRowConstants.prizesIndex:
             title = "Prizes";
         case DetailRowConstants.termsIndex:
-            title = "Terms and Conditions";
+            title = "";
         default:
             let i = 0;
         }
@@ -81,19 +84,20 @@ class ChallengeDetailsRow: UITableViewCell {
         var desc = "";
         switch index {
         case DetailRowConstants.descriptionIndex:
+//            desc = Utility.htmlDecodeString(challenge.shortDescription);
             desc = challenge.shortDescription;
         case DetailRowConstants.durationIndex:
             desc = durationHelper(challenge.startDate, endDate: challenge.endDate);
         case DetailRowConstants.goalIndex:
             desc = challenge.winConditions[0].description;
         case DetailRowConstants.typeIndex:
-            desc = goalTypeDisplayHelper(challenge.winConditions[0].goal.type, winnerType: challenge.winConditions[0].winnerType);
+            desc = "\(goalTypeDisplayHelper(challenge.winConditions[0].goal.type, winnerType: challenge.winConditions[0].winnerType)). \(limitDisplayHelper(challenge.dailyLimit, metric: challenge.metric)) ";
         case DetailRowConstants.participantsIndex:
             desc = "";
         case DetailRowConstants.prizesIndex:
             desc = "Prizes";
         case DetailRowConstants.termsIndex:
-            desc = "Terms and Conditions";
+            desc = "";
         default:
             let i = 0;
         }
@@ -111,7 +115,14 @@ class ChallengeDetailsRow: UITableViewCell {
         let secondPart = winnerType == "most_points" ? "Points Challenge" : "Goal Challenge";
         return firstPart + " " + secondPart;
     }
-
+    
+    class func limitDisplayHelper(limit: Int, metric: String) -> String {
+        if (limit > 0) {
+            return "Limit of \(limit) \(metric) per day.";
+        } else {
+            return "Unlimited \(metric) per day.";
+        }
+    }
     class func addDescriptionRowLogic(row: ChallengeDetailsRow, challenge: HigiChallenge) -> ChallengeDetailsRow {
         return row;
     }
@@ -144,10 +155,38 @@ class ChallengeDetailsRow: UITableViewCell {
     }
     
     class func addTermsRowLogic(row: ChallengeDetailsRow, challenge: HigiChallenge) -> ChallengeDetailsRow {
+        let button = UIView(frame: CGRect(x: 0, y: 0, width: row.frame.size.width, height: 50));
+        button.backgroundColor = UIColor.lightGrayColor();
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: row.frame.size.width, height: 50));
+        label.center = button.center;
+        label.text = "Terms and Conditions";
+        label.textColor = UIColor.whiteColor();
+        label.font = UIFont.systemFontOfSize(12);
+        label.textAlignment = NSTextAlignment.Center;
+        
+        let tapGestureRecognizer = UITapGestureRecognizer();
+        tapGestureRecognizer.addTarget(row, action: "showTerms:");
+        row.addGestureRecognizer(tapGestureRecognizer);
+        
+        button.addSubview(label);
+        row.addSubview(button);
         return row;
     }
     
     class func addPrizesRowLogic(row: ChallengeDetailsRow, challenge: HigiChallenge) -> ChallengeDetailsRow {
+        var yPos:CGFloat = 0;
+        let view = UIView(frame: CGRect(x: 0, y: 30, width: 0, height: 80 * CGFloat(challenge.winConditions.count)));
+        for winCondition in challenge.winConditions {
+            let prize = ChallengeDetailsPrize.instanceFromNib(winCondition);
+            prize.frame = CGRect(x: 0, y: yPos, width: row.frame.size.width, height: 80);
+            view.addSubview(prize);
+            yPos += 80;
+        }
+        row.addSubview(view);
         return row;
+    }
+    
+    func showTerms(sender: AnyObject!) {
+        let i = 0;
     }
 }

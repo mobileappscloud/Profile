@@ -41,6 +41,7 @@ class HigiChallenge {
         imageUrl = imageUrls["default"] as? NSString;
         status = dictionary["status"] as NSString!;
         metric = dictionary["metric"] as NSString!;
+        dailyLimit = dictionary["dailyLimit"] as Int;
         var formatter = NSDateFormatter();
         formatter.dateFormat = "yyyy-MM-dd";
         var startDateString = dictionary["startDate"] as NSString;
