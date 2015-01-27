@@ -54,13 +54,15 @@
             <constraints>
                 <constraint firstItem="gZI-38-v6m" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="5wH-tn-3hb"/>
                 <constraint firstAttribute="trailing" secondItem="CfV-8n-mVT" secondAttribute="trailing" id="8iL-UD-EQm"/>
-                <constraint firstItem="zea-2V-4dW" firstAttribute="leading" secondItem="n9C-5L-FAL" secondAttribute="trailing" constant="4" id="Nc2-SA-grX"/>
-                <constraint firstItem="n9C-5L-FAL" firstAttribute="leading" secondItem="jmt-RE-G10" secondAttribute="trailing" constant="8" id="U8F-7E-9FI"/>
                 <constraint firstItem="CfV-8n-mVT" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="XYX-kM-bZQ"/>
                 <constraint firstAttribute="trailing" secondItem="gZI-38-v6m" secondAttribute="trailing" id="XqU-VM-PtU"/>
                 <constraint firstAttribute="bottom" secondItem="CfV-8n-mVT" secondAttribute="bottom" constant="-1" id="l04-My-GVe"/>
                 <constraint firstItem="gZI-38-v6m" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="lfi-9f-Puc"/>
+                <constraint firstItem="n9C-5L-FAL" firstAttribute="leading" secondItem="jmt-RE-G10" secondAttribute="trailing" constant="8" id="taF-qa-5j5"/>
+                <constraint firstAttribute="trailing" secondItem="zea-2V-4dW" secondAttribute="trailing" constant="8" id="vTS-tZ-QAn"/>
+                <constraint firstItem="zea-2V-4dW" firstAttribute="leading" secondItem="n9C-5L-FAL" secondAttribute="trailing" constant="4" id="xmu-f5-wMc"/>
             </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="date" destination="nft-4b-5Jv" id="w7M-fd-TP7"/>
