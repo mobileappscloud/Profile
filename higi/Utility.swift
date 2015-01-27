@@ -136,4 +136,18 @@ class Utility {
             return rank + "th"
         }
     }
+    
+    class func heightForTextView(width: CGFloat, text: String, fontSize: CGFloat, margin: CGFloat) -> CGFloat {
+        let size = (text as NSString).sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(fontSize)]);
+        let area = size.height * size.width;
+        return floor(area/width) + margin;
+    }
+    
+    class func htmlDecodeString(encodedString: String) -> String {
+        let encodedData = encodedString.dataUsingEncoding(NSUTF8StringEncoding)!
+        let attributedOptions = [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType]
+        let attributedString = NSAttributedString(data: encodedData, options: attributedOptions, documentAttributes: nil, error: nil)!;
+        
+        return attributedString.string;
+    }
 }

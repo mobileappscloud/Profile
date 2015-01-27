@@ -67,6 +67,10 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     var individualLeaderboardParticipants:[ChallengeParticipant] = [];
     var teamLeaderboardParticipants:[ChallengeTeam] = [];
 
+    var individualGoalWinConditions:[ChallengeWinCondition] = [];
+    var teamGoalWinConditions:[ChallengeWinCondition] = [];
+    var nonTrivialWinConditions = 0;
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         
@@ -88,8 +92,10 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                 displayProgressTab = true;
                 if (winCondition.winnerType == "individual") {
                     hasIndividualGoalComponent = true;
+                    individualGoalWinConditions.append(winCondition);
                 } else if (winCondition.winnerType == "team") {
                     hasTeamGoalComponent = true;
+                    teamGoalWinConditions.append(winCondition);
                 }
             } else if (challenge.status != "registration" && winCondition.goal.type == "most_points" || winCondition.goal.type == "unit_goal_reached") {
                 displayLeaderboardTab = true;
@@ -99,6 +105,9 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                 } else if (winCondition.winnerType == "team") {
                     hasTeamLeaderboardComponent = true;
                 }
+            }
+            if (winCondition.goal.minThreshold > 1) {
+                nonTrivialWinConditions++;
             }
         }
         
@@ -136,22 +145,21 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         let toggleButtonsText = ["Individuals", "Teams"];
         for index in 0...1 {
             //no x padding for first button
-            let buttonX = (CGFloat(1 - index) * buttonMargin) + (CGFloat(index) * (contentView.frame.size.width / 2));
+            let buttonX = buttonMargin + (CGFloat(index) * (contentView.frame.size.width / 2));
             let buttonY = buttonContainerOriginY + buttonContainer.frame.size.height + buttonMargin;
             //subtract margin from width of second button
-            let buttonWidth = contentView.frame.size.width / 2 - (CGFloat(index) * buttonMargin);
+            let buttonWidth = contentView.frame.size.width / 2 - buttonMargin;
             let buttonHeight = toggleButtonHeight - buttonMargin * 2;
             var button = UIButton(frame: CGRect(x: buttonX, y: buttonY, width: buttonWidth, height: buttonHeight));
-            button.setBackgroundImage(makeImageWithColor(UIColor.whiteColor()), forState: UIControlState.Selected);
-            button.setTitleColor(UIColor.darkGrayColor(), forState: UIControlState.Selected);
-            button.setBackgroundImage(makeImageWithColor(Utility.colorFromHexString("#E3E3E3")), forState: UIControlState.Normal);
+            button.setBackgroundImage(makeImageWithColor(Utility.colorFromHexString("#76C043")), forState: UIControlState.Selected);
+            button.setBackgroundImage(makeImageWithColor(UIColor.blackColor()), forState: UIControlState.Normal);
             button.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal);
-            button.backgroundColor = UIColor.lightGrayColor();
             button.setTitle(toggleButtonsText[index], forState: UIControlState.Normal);
             button.titleLabel?.font = UIFont.boldSystemFontOfSize(12);
-            button.tintColor = UIColor.whiteColor();
             button.selected = index == 0;
             button.enabled = true;
+            button.layer.cornerRadius = 5;
+            button.clipsToBounds = true;
             
             if (table == leaderboardTable) {
                 leaderboardToggleButtons.append(button);
@@ -438,7 +446,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         } else if (displayChatterTab && tableView == chatterTable) {
             return chatterTable.rowHeight;
         } else {
-            return 100;
+            return getDetailsRowHeight(indexPath.row);
         }
     }
     
@@ -459,11 +467,13 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             return isIndividualLeaderboard ? min(individualLeaderboardParticipants.count,challenge.participantsCount) : min(teamLeaderboardParticipants.count, challenge.teams.count);
         } else if (displayProgressTab && tableView == progressTable) {
             //one row for each win condition plus 1 for graph view
-            return challenge.winConditions.count + 1;
+            return isIndividualProgress ? individualGoalWinConditions.count + 1: teamGoalWinConditions.count + 1;
         } else if (tableView == detailsTable) {
             return 7;
+        } else if (displayChatterTab && tableView == chatterTable) {
+            return 1;
         }
-        return 1;
+        return 0;
     }
     
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -481,7 +491,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         } else if (displayProgressTab && tableView == progressTable) {
             return createProgressTable(indexPath.row);
         } else if (tableView == detailsTable) {
-//            return ChallengeDetailsTab.instanceFromNib(challenge);
             return createDetailsTable(indexPath.row);
         } else {
             return UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "");
@@ -556,9 +565,11 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                 if (individualLeaderboardParticipants[index].displayName == challenge.participant.displayName) {
                     cell.backgroundColor = Utility.colorFromHexString("#d5ffb8");
                 }
-            } else if (teamLeaderboardParticipants[index].name == challenge.participant.team.name) {
+            } else {
                 cell = ChallengeLeaderboardRow.instanceFromNib(challenge, team: teamLeaderboardParticipants[index], index: index);
-                cell.backgroundColor = Utility.colorFromHexString("#d5ffb8");
+                if (teamLeaderboardParticipants[index].name == challenge.participant.team.name) {
+                    cell.backgroundColor = Utility.colorFromHexString("#d5ffb8");
+                }
             }
         }
         return cell;
@@ -570,8 +581,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         } else {
             return createProgressLegendRow(index - 1);
         }
-//
-//        return createProgressLegendRow(index);
     }
     
     func createProgressGraph() -> UITableViewCell {
@@ -607,11 +616,17 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func createProgressLegendRow(index: Int) -> UITableViewCell {
-        let displayIndex = challenge.winConditions.count - index;
-        return ChallengeProgressLegendRow.instanceFromNib(challenge.winConditions[index], userPoints: challenge.participant.units,  metric: challenge.metric, index: displayIndex);
+        let displayIndex = index + 1;
+        let winConditions = isIndividualProgress ? individualGoalWinConditions : teamGoalWinConditions;
+        return ChallengeProgressLegendRow.instanceFromNib(winConditions[index], userPoints: challenge.participant.units,  metric: challenge.metric, index: displayIndex);
     }
     
     func createDetailsTable(index: Int) -> UITableViewCell {
         return ChallengeDetailsRow.instanceFromNib(challenge, index: index);
     }
+    
+    func getDetailsRowHeight(index: Int) -> CGFloat {
+        return 50 + ChallengeDetailsRow.heightForIndex(challenge, index: index, width: detailsTable.frame.size.width, margin: 0);
+    }
+    
 }

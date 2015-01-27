@@ -12,8 +12,14 @@ class ChallengeDetailsRow: UITableViewCell {
         static let typeIndex = 3;
         static let participantsIndex = 4;
         static let prizesIndex = 5;
-        static let topScoringTeamIndex = 6;
-        static let termsIndex = 7;
+        static let termsIndex = 6;
+        
+        static let prizeRowHeight:CGFloat = 80;
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews();
+        desc.sizeToFit();
     }
     
     class func instanceFromNib(challenge: HigiChallenge, index: Int) -> ChallengeDetailsRow {
@@ -22,7 +28,9 @@ class ChallengeDetailsRow: UITableViewCell {
         row.title.text = getDetailRowTitle(index);
         row.desc.text = getDetailRowDescription(challenge, index: index);
         
-        if (index == DetailRowConstants.participantsIndex) {
+        if (index == DetailRowConstants.descriptionIndex) {
+            row = addDescriptionRowLogic(row, challenge: challenge);
+        } else if (index == DetailRowConstants.participantsIndex) {
             row = addParticipantRowLogic(row, challenge: challenge);
         } else if (index == DetailRowConstants.termsIndex) {
             row = addTermsRowLogic(row, challenge: challenge);
@@ -35,6 +43,18 @@ class ChallengeDetailsRow: UITableViewCell {
         }
         
         return row;
+    }
+    
+    class func heightForIndex(challenge: HigiChallenge, index:Int, width: CGFloat, margin: CGFloat) -> CGFloat {
+        let d = getDetailRowDescription(challenge, index: index);
+        let a = Utility.heightForTextView(width, text: getDetailRowDescription(challenge, index: index), fontSize: 11, margin: margin);
+        if (index == DetailRowConstants.participantsIndex) {
+            return 80;
+        } else if (index == DetailRowConstants.prizesIndex) {
+            return 80 * CGFloat(challenge.winConditions.count);
+        } else {
+            return Utility.heightForTextView(width, text: getDetailRowDescription(challenge, index: index), fontSize: 11, margin: margin);
+        }
     }
     
     class func getDetailRowTitle(index: Int) -> String {
@@ -53,7 +73,7 @@ class ChallengeDetailsRow: UITableViewCell {
         case DetailRowConstants.prizesIndex:
             title = "Prizes";
         case DetailRowConstants.termsIndex:
-            title = "Terms and Conditions";
+            title = "";
         default:
             let i = 0;
         }
@@ -64,24 +84,24 @@ class ChallengeDetailsRow: UITableViewCell {
         var desc = "";
         switch index {
         case DetailRowConstants.descriptionIndex:
+//            desc = Utility.htmlDecodeString(challenge.shortDescription);
             desc = challenge.shortDescription;
         case DetailRowConstants.durationIndex:
             desc = durationHelper(challenge.startDate, endDate: challenge.endDate);
         case DetailRowConstants.goalIndex:
             desc = challenge.winConditions[0].description;
         case DetailRowConstants.typeIndex:
-            desc = goalTypeDisplayHelper(challenge.winConditions[0].goal.type, winnerType: challenge.winConditions[0].winnerType);
+            desc = "\(goalTypeDisplayHelper(challenge.winConditions[0].goal.type, winnerType: challenge.winConditions[0].winnerType)). \(limitDisplayHelper(challenge.dailyLimit, metric: challenge.metric)) ";
         case DetailRowConstants.participantsIndex:
             desc = "";
         case DetailRowConstants.prizesIndex:
             desc = "Prizes";
         case DetailRowConstants.termsIndex:
-            desc = "Terms and Conditions";
+            desc = "";
         default:
             let i = 0;
         }
         return desc;
-
     }
     
     class func durationHelper(startDate: NSDate, endDate: NSDate) -> String {
@@ -95,68 +115,78 @@ class ChallengeDetailsRow: UITableViewCell {
         let secondPart = winnerType == "most_points" ? "Points Challenge" : "Goal Challenge";
         return firstPart + " " + secondPart;
     }
-
+    
+    class func limitDisplayHelper(limit: Int, metric: String) -> String {
+        if (limit > 0) {
+            return "Limit of \(limit) \(metric) per day.";
+        } else {
+            return "Unlimited \(metric) per day.";
+        }
+    }
+    class func addDescriptionRowLogic(row: ChallengeDetailsRow, challenge: HigiChallenge) -> ChallengeDetailsRow {
+        return row;
+    }
+    
     class func addParticipantRowLogic(row: ChallengeDetailsRow, challenge: HigiChallenge) -> ChallengeDetailsRow {
-//        let individuals = challenge.participantsCount;
-//        let teams = challenge.teams != nil ? challenge.teams.count : 0;
-//        var viewWidth = row.frame.size.width;
-//        let viewHeight = row.frame.size.height;
-// 
-//        if (teams > 0) {
-//            viewWidth = viewWidth/2;
-//            let teamView = UIView(frame: CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight));
-//            
-//            let teamIcon = ChallengeDetailsIcons.instanceFromNib(teams, isTeam: true);
-//            teamIcon.center = teamView.center;
-//            
-////            let teamLabel = UILabel(frame: CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight));
-////            teamLabel.text = "Individuals";
-////            teamLabel.center = teamView.center;
-////            let teamCount = UILabel(frame: CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight));
-////            teamCount.text = "\(challenge.participantsCount)";
-////            teamCount.center = teamView.center;
-////            let teamIcon = UILabel(frame: CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight));
-////            teamIcon.text = "\u{f0c0}";
-//////            teamIcon.center = teamView.center;
-////            
-////            teamView.addSubview(teamLabel);
-////            teamView.addSubview(teamCount);
-////            teamView.addSubview(teamIcon);
-//            
-//            row.addSubview(teamView);
-//        }
-//        
-//        let individualView = UIView(frame: CGRect(x: row.frame.size.width - viewWidth, y: 0, width: viewWidth, height: viewHeight));
-//        
-//        let individualIcon = ChallengeDetailsIcons.instanceFromNib(individuals, isTeam: false);
-//        individualIcon.center = individualView.center;
-//
-////        let individualLabel = UILabel(frame: CGRect(x: viewWidth/2, y: viewHeight - 10, width:viewWidth, height: viewHeight));
-////        individualLabel.text = "Individuals";
-////        individualLabel.center = individualView.center;
-////        let individualCount = UILabel(frame: CGRect(x: viewWidth/2, y: 0, width: viewWidth, height: viewHeight));
-////        individualCount.text = "\(challenge.participantsCount)";
-////        individualCount.center = individualView.center;
-////        let personIcon = UILabel(frame: CGRect(x: viewWidth/2, y: 0, width: viewWidth, height: viewHeight));
-////        personIcon.text = "\u{f007}";
-////        personIcon.center = individualView.center;
-////        
-////        individualView.addSubview(individualLabel);
-////        individualView.addSubview(individualCount);
-////        individualView.addSubview(personIcon);
-////        
-//        
-//        
-//        row.addSubview(individualView);
+        let individuals = challenge.participantsCount;
+        let teams = challenge.teams != nil ? challenge.teams.count : 0;
+        var viewWidth = row.frame.size.width;
+        let viewHeight = row.frame.size.height;
+
+        if (teams > 0) {
+            viewWidth = viewWidth/2;
+            let teamView = UIView(frame: CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight));
+            
+            let teamIcon = ChallengeDetailsIcons.instanceFromNib(teams, isTeam: true);
+            teamIcon.center = teamView.center;
+
+            row.addSubview(teamIcon);
+        }
+
+        let w = row.frame.size.width - viewWidth
+        let individualView = UIView(frame: CGRect(x: row.frame.size.width - viewWidth, y: 0, width: viewWidth, height: viewHeight));
         
+        let individualIcon = ChallengeDetailsIcons.instanceFromNib(individuals, isTeam: false);
+        individualIcon.center = individualView.center;
+        
+        row.addSubview(individualIcon);
+        row.sizeToFit();
         return row;
     }
     
     class func addTermsRowLogic(row: ChallengeDetailsRow, challenge: HigiChallenge) -> ChallengeDetailsRow {
+        let button = UIView(frame: CGRect(x: 0, y: 0, width: row.frame.size.width, height: 50));
+        button.backgroundColor = UIColor.lightGrayColor();
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: row.frame.size.width, height: 50));
+        label.center = button.center;
+        label.text = "Terms and Conditions";
+        label.textColor = UIColor.whiteColor();
+        label.font = UIFont.systemFontOfSize(12);
+        label.textAlignment = NSTextAlignment.Center;
+        
+        let tapGestureRecognizer = UITapGestureRecognizer();
+        tapGestureRecognizer.addTarget(row, action: "showTerms:");
+        row.addGestureRecognizer(tapGestureRecognizer);
+        
+        button.addSubview(label);
+        row.addSubview(button);
         return row;
     }
     
     class func addPrizesRowLogic(row: ChallengeDetailsRow, challenge: HigiChallenge) -> ChallengeDetailsRow {
+        var yPos:CGFloat = 0;
+        let view = UIView(frame: CGRect(x: 0, y: 30, width: 0, height: 80 * CGFloat(challenge.winConditions.count)));
+        for winCondition in challenge.winConditions {
+            let prize = ChallengeDetailsPrize.instanceFromNib(winCondition);
+            prize.frame = CGRect(x: 0, y: yPos, width: row.frame.size.width, height: 80);
+            view.addSubview(prize);
+            yPos += 80;
+        }
+        row.addSubview(view);
         return row;
+    }
+    
+    func showTerms(sender: AnyObject!) {
+        let i = 0;
     }
 }

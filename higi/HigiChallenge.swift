@@ -41,6 +41,7 @@ class HigiChallenge {
         imageUrl = imageUrls["default"] as? NSString;
         status = dictionary["status"] as NSString!;
         metric = dictionary["metric"] as NSString!;
+        dailyLimit = dictionary["dailyLimit"] as Int;
         var formatter = NSDateFormatter();
         formatter.dateFormat = "yyyy-MM-dd";
         var startDateString = dictionary["startDate"] as NSString;
@@ -93,4 +94,19 @@ struct PagingData {
 struct GravityParticipant {
     var place: NSString?;
     var participant: ChallengeParticipant!;
+}
+
+struct Comments {
+    var comment: NSString?;
+    var timeSincePosted: NSString?;
+    
+    var participant: ChallengeParticipant!;
+    
+    var team:ChallengeTeam;
+    
+    struct Chatter {
+        var chatter:[Comments];
+        var paging:PagingData;
+    }
+
 }
