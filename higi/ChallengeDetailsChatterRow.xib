@@ -8,45 +8,78 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ChallengeDetailsChatterRow" customModule="higi" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="109"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FlO-8t-LGR">
-                    <rect key="frame" x="0.0" y="170" width="30" height="30"/>
+                    <rect key="frame" x="0.0" y="59" width="30" height="30"/>
                 </imageView>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hcp-In-U7E">
-                    <rect key="frame" x="38" y="0.0" width="174" height="200"/>
+                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hcp-In-U7E">
+                    <rect key="frame" x="38" y="0.0" width="174" height="89"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6i4-B1-Txw">
-                            <rect key="frame" x="8" y="0.0" width="92" height="21"/>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="chat_bubble.png" translatesAutoresizingMaskIntoConstraints="NO" id="IyR-qR-qIz">
+                            <rect key="frame" x="0.0" y="0.0" width="191" height="89"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="195" id="2Ll-Vn-rGR"/>
+                                <constraint firstAttribute="height" constant="89" id="R9Z-Gx-CxT"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6i4-B1-Txw">
+                            <rect key="frame" x="26" y="8" width="92" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <color key="textColor" red="0.46274509803921571" green="0.75294117647058822" blue="0.26666666666666666" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fhw-E2-rXI">
-                            <rect key="frame" x="8" y="29" width="158" height="144"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" lineBreakMode="wordWrap" numberOfLines="100" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fhw-E2-rXI">
+                            <rect key="frame" x="26" y="29" width="158" height="36"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="42X-sh-fDi">
-                            <rect key="frame" x="8" y="181" width="100" height="21"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="42X-sh-fDi">
+                            <rect key="frame" x="26" y="68" width="100" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <color key="textColor" red="0.58585858585858586" green="0.58585858585858586" blue="0.58585858585858586" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="IyR-qR-qIz" firstAttribute="leading" secondItem="hcp-In-U7E" secondAttribute="leading" id="0KH-7d-k7e"/>
+                        <constraint firstItem="IyR-qR-qIz" firstAttribute="leading" secondItem="hcp-In-U7E" secondAttribute="leading" id="3J1-WB-zts"/>
+                        <constraint firstItem="IyR-qR-qIz" firstAttribute="top" secondItem="hcp-In-U7E" secondAttribute="top" id="5uP-wJ-UHA"/>
+                        <constraint firstItem="IyR-qR-qIz" firstAttribute="top" secondItem="hcp-In-U7E" secondAttribute="top" id="A63-e9-TYg"/>
+                        <constraint firstItem="IyR-qR-qIz" firstAttribute="leading" secondItem="hcp-In-U7E" secondAttribute="leading" id="CyW-Pw-P0B"/>
+                        <constraint firstItem="IyR-qR-qIz" firstAttribute="bottom" secondItem="42X-sh-fDi" secondAttribute="bottom" id="L0o-j4-PvJ"/>
+                        <constraint firstAttribute="bottom" secondItem="IyR-qR-qIz" secondAttribute="bottom" id="Sg5-3D-fhd"/>
+                        <constraint firstItem="6i4-B1-Txw" firstAttribute="leading" secondItem="hcp-In-U7E" secondAttribute="leading" constant="26" id="WxH-Py-m6p"/>
+                        <constraint firstItem="IyR-qR-qIz" firstAttribute="centerY" secondItem="hcp-In-U7E" secondAttribute="centerY" id="bha-9b-qyB"/>
+                        <constraint firstAttribute="trailing" secondItem="IyR-qR-qIz" secondAttribute="trailing" constant="-17" id="cA0-lA-eYf"/>
+                        <constraint firstItem="IyR-qR-qIz" firstAttribute="top" secondItem="hcp-In-U7E" secondAttribute="top" id="gTO-fd-Lo7"/>
+                        <constraint firstItem="42X-sh-fDi" firstAttribute="leading" secondItem="hcp-In-U7E" secondAttribute="leading" constant="26" id="hbP-o9-voe"/>
+                        <constraint firstAttribute="trailing" secondItem="6i4-B1-Txw" secondAttribute="trailing" constant="56" id="izG-Vj-soD"/>
+                        <constraint firstItem="IyR-qR-qIz" firstAttribute="leading" secondItem="hcp-In-U7E" secondAttribute="leading" id="nLP-TI-Jj3"/>
+                        <constraint firstItem="fhw-E2-rXI" firstAttribute="top" secondItem="6i4-B1-Txw" secondAttribute="bottom" id="q5c-bj-fgc"/>
+                        <constraint firstItem="6i4-B1-Txw" firstAttribute="top" secondItem="hcp-In-U7E" secondAttribute="top" constant="8" id="wN5-DA-jgM"/>
+                        <constraint firstAttribute="bottom" secondItem="IyR-qR-qIz" secondAttribute="bottom" id="y7i-Er-2d2"/>
+                        <constraint firstItem="IyR-qR-qIz" firstAttribute="top" secondItem="hcp-In-U7E" secondAttribute="top" id="zyB-jx-HUh"/>
+                    </constraints>
                 </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="avatar" destination="FlO-8t-LGR" id="wlr-t6-qlR"/>
+                <outlet property="chattBubble" destination="hcp-In-U7E" id="mNS-x1-V8N"/>
                 <outlet property="displayName" destination="6i4-B1-Txw" id="g5G-ZR-cC1"/>
                 <outlet property="message" destination="fhw-E2-rXI" id="Ao6-hh-0Mr"/>
                 <outlet property="time" destination="42X-sh-fDi" id="H1R-TI-LdQ"/>
             </connections>
+            <point key="canvasLocation" x="403" y="316.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="chat_bubble.png" width="202" height="202"/>
+    </resources>
 </document>

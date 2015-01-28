@@ -121,7 +121,6 @@ class ApiUtility {
                 var i=0;
                 success?();
         });
-        
     }
     
     class func retrieveChallenges(success: (() -> Void)?) {
@@ -154,24 +153,22 @@ class ApiUtility {
                 let serverPagingData = (((challenge as NSDictionary)["participants"] as NSDictionary)["paging"] as NSDictionary)["nextUrl"] as? NSString;
                 var pagingData = PagingData(nextUrl: serverPagingData);
                 
-                let test = (challenge as NSDictionary)["comments"] as? NSDictionary;
                 let serverComments = ((challenge as NSDictionary)["comments"] as NSDictionary)["data"] as? NSArray;
+                var chatter:Chatter;
+                var comments:[Comments] = [];
+                var commentPagingData = PagingData(nextUrl: "");
                 if (serverComments != nil) {
-//                    var comments:[ChallengeComment] = [];
+                    commentPagingData = PagingData(nextUrl: (((challenge as NSDictionary)["comments"] as NSDictionary)["paging"] as NSDictionary)["nextUrl"] as? NSString);
                     for challengeComment in serverComments! {
-                        let comment = (challengeComment as NSDictionary)["comment"] as? NSString;
-                        let timeSinceLastPost = (challengeComment as NSDictionary)["timeSinceLastPost"] as? NSString;
-                        let commentParticipant = ChallengeParticipant(dictionary: (challengeComment as NSDictionary)["timeSinceLastPost"] as NSDictionary);
-                        let commentTeam = commentParticipant.team;
-                        var pagingData = 0;
-                        //let chatter = Chatter(above);
-//                        comments.append(chatter);
-                        
+                        let comment = (challengeComment as NSDictionary)["comment"] as NSString;
+                        let timeSinceLastPost = (challengeComment as NSDictionary)["timeSincePosted"] as NSString;
+                        let commentParticipant = ChallengeParticipant(dictionary: (challengeComment as NSDictionary)["participant"] as NSDictionary);
+                        let commentTeam = commentParticipant.team?;
+                        comments.append(Comments(comment: comment, timeSincePosted: timeSinceLastPost, participant: commentParticipant, team: commentTeam))
                     }
-//                    paginData = pagindData;
-                    //chatter = comments or some shit
                 }
-                challenges.append(HigiChallenge(dictionary: challenge as NSDictionary, userStatus: ((challenge as NSDictionary)["userRelation"] as NSDictionary)["status"] as NSString, participant: participant, gravityBoard: gravityBoard, participants: participants, pagingData: pagingData));
+                chatter = Chatter(comments: comments, paging: commentPagingData);
+                challenges.append(HigiChallenge(dictionary: challenge as NSDictionary, userStatus: ((challenge as NSDictionary)["userRelation"] as NSDictionary)["status"] as NSString, participant: participant, gravityBoard: gravityBoard, participants: participants, pagingData: pagingData, chatter: chatter));
             }
             
             SessionController.Instance.challenges = challenges;

@@ -71,6 +71,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     var teamGoalWinConditions:[ChallengeWinCondition] = [];
     var nonTrivialWinConditions = 0;
     
+    var challengeChatterComments:[Comments] = [];
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         
@@ -113,6 +115,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         
         if (challenge.participant != nil) {
             displayChatterTab = true;
+            challengeChatterComments = challenge.chatter.comments;
         }
         
         populateHeader();
@@ -173,7 +176,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func populateHeader() {
-        if (challenge.participant != nil) {
+        if (challenge.participant != nil && challenge.userStatus == "current") {
             let participant = challenge.participant!;
             participantAvatar.setImageWithURL(Utility.loadImageFromUrl(participant.imageUrl));
             if (challenge.userStatus == "current") {
@@ -190,6 +193,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             participantPoints.hidden = true;
             participantPlace.hidden = true;
             participantProgress.hidden = true;
+            participantName.hidden = true;
+            addCallToActionButton();
         }
 
         challengeAvatar.setImageWithURL(Utility.loadImageFromUrl(challenge.imageUrl));
@@ -203,6 +208,32 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         headerProgressOriginX = participantProgress.frame.origin.x;
         headerProgressOriginWidth = participantProgress.frame.size.width;
         headerPointsOriginX = participantPoints.frame.origin.x;
+    }
+    
+    func addCallToActionButton() {
+        var button = UIButton(frame: CGRect(x: 50, y: 1, width: contentView.frame.size.width - 100, height: participantContainer.frame.size.height - 5));
+        button.setBackgroundImage(makeImageWithColor(Utility.colorFromHexString("#76C043")), forState: UIControlState.Normal);
+        button.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal);
+        button.setTitle("Join", forState: UIControlState.Normal);
+        button.titleLabel?.font = UIFont.boldSystemFontOfSize(12);
+        button.enabled = true;
+        button.layer.cornerRadius = 5;
+        button.clipsToBounds = true;
+        
+        let joinGestureRecognizer = UITapGestureRecognizer(target: self, action: "joinChallenge:");
+        button.addGestureRecognizer(joinGestureRecognizer);
+        participantContainer.addSubview(button);
+    }
+    
+    func joinChallenge(sender: AnyObject!) {
+        //@todo actually join challenge
+        //@todo call below, again
+//        populateHeader();
+//        
+//        populateScrollViewWithTables();
+//        
+//        populateTabButtons();
+//
     }
     
     func populateTabButtons() {
@@ -305,6 +336,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         totalPages++;
         
         chatterTable = addTableView(totalPages);
+        chatterTable.backgroundColor = Utility.colorFromHexString("#F4F4F4");
         scrollView.addSubview(chatterTable);
         tables.append(chatterTable);
         totalPages++;
@@ -445,7 +477,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         } else if (displayProgressTab && tableView == progressTable) {
             return indexPath.row == 0 ? 150 : 100;
         } else if (displayChatterTab && tableView == chatterTable) {
-            return chatterTable.rowHeight;
+            return 250;
         } else {
             return getDetailsRowHeight(indexPath.row);
         }
@@ -472,17 +504,17 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         } else if (tableView == detailsTable) {
             return 7;
         } else if (displayChatterTab && tableView == chatterTable) {
-            return 1;
+            return challengeChatterComments.count;
         }
         return 0;
     }
     
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        if (indexPath.row == individualLeaderboardCount - 1) {
-            if (displayLeaderboardTab && tableView == leaderboardTable && isIndividualLeaderboard && individualLeaderboardCount != challenge.participantsCount) {
-                individualLeaderboardCount = min(individualLeaderboardCount + 50, challenge.participantsCount);
-                loadMoreParticipants();
-            }
+        if (displayLeaderboardTab && tableView == leaderboardTable && isIndividualLeaderboard && individualLeaderboardCount != challenge.participantsCount && indexPath.row == individualLeaderboardCount - 1) {
+            individualLeaderboardCount = min(individualLeaderboardCount + 50, challenge.participantsCount);
+            loadMoreParticipants();
+        } else if (displayChatterTab && tableView == chatterTable && indexPath.row == challengeChatterComments.count - 1) {
+            loadMoreChatter();
         }
     }
     
@@ -494,7 +526,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         } else if (tableView == detailsTable) {
             return createDetailsTable(indexPath.row);
         } else {
-            return UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "");
+            return createChatterTable(indexPath.row);
         }
     }
 
@@ -550,10 +582,42 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                     }
                     self.showLoadingFooter = false;
                     self.leaderboardTable.reloadData();
-//                    self.showLoadingFooter = false;
+                    //self.showLoadingFooter = false;
                     //self.hideLoadingFooter();
                 }
                 }, failure: { operation, error in
+            });
+        }
+    }
+    
+    func loadMoreChatter() {
+        showLoadingFooter = true;
+        var comments:[Comments] = [];
+        let url = challenge.chatter.paging.nextUrl;
+        if (url != nil && url != "") {
+            HigiApi().sendGet(url!, success: {operation, responseObject in
+                var chatter:Chatter;
+                let serverComments = ((responseObject as NSDictionary)["response"] as NSDictionary)["data"] as? NSArray;
+                if (serverComments != nil) {
+                    self.challenge.chatter.paging.nextUrl = ((responseObject as NSDictionary)["comments"] as NSDictionary)["paging"] as? NSString;
+                    for challengeComment in serverComments! {
+                        let comment = (challengeComment as NSDictionary)["comment"] as NSString;
+                        let timeSinceLastPost = (challengeComment as NSDictionary)["timeSincePosted"] as NSString;
+                        let commentParticipant = ChallengeParticipant(dictionary: (challengeComment as NSDictionary)["participant"] as NSDictionary);
+                        let commentTeam = commentParticipant.team?;
+                        var pagingData = 0;
+                        
+                        self.challengeChatterComments.append(Comments(comment: comment, timeSincePosted: timeSinceLastPost, participant: commentParticipant, team: commentTeam))
+                    }
+                }
+                self.showLoadingFooter = false;
+                self.chatterTable.reloadData();
+                //self.showLoadingFooter = false;
+                //self.hideLoadingFooter();
+                }, failure: { operation, error in
+                    let e = error;
+                    let o = operation;
+                    let i = 0;
             });
         }
     }
@@ -630,4 +694,13 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         return 50 + ChallengeDetailsRow.heightForIndex(challenge, index: index, width: detailsTable.frame.size.width, margin: 0);
     }
     
+    func getChatterRowHeight(index: Int) -> CGFloat {
+        return 50 + ChallengeDetailsChatterRow.heightForIndex(challenge.chatter.comments[index]);
+    }
+    
+    func createChatterTable(index: Int) -> UITableViewCell {
+        let cell = ChallengeDetailsChatterRow.instanceFromNib(challenge.chatter.comments[index]);
+        cell.backgroundColor = Utility.colorFromHexString("#F4F4F4");
+        return cell;
+    }
 }
