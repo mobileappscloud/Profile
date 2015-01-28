@@ -32,7 +32,7 @@ class ChallengeInvitationView: UIView {
         var startsIn:String!
         var startDate:NSDate? = challenge.startDate?
         var endDate:NSDate? = challenge.endDate?
-        if (startDate != nil) {
+        if (endDate != nil) {
             let compare:NSTimeInterval = startDate!.timeIntervalSinceNow
             
             if ( Int(compare) > 0) {

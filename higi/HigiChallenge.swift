@@ -2,7 +2,7 @@ import Foundation
 
 class HigiChallenge {
     
-    var name, description, shortDescription, imageUrl, metric, status, userStatus, terms, abbrMetric: NSString!;
+    var name, description, shortDescription, imageUrl, metric, status, userStatus, terms, abbrMetric, joinUrl: NSString!;
     
     var startDate, endDate: NSDate!;
     
@@ -28,12 +28,15 @@ class HigiChallenge {
     
     var individualHighScore: Double! = 0;
     
-    init(dictionary: NSDictionary, userStatus: NSString, participant: ChallengeParticipant!, gravityBoard: [GravityParticipant]!, participants: [ChallengeParticipant]!, pagingData: PagingData?) {
+    var chatter:Chatter!;
+    
+    init(dictionary: NSDictionary, userStatus: NSString, participant: ChallengeParticipant!, gravityBoard: [GravityParticipant]!, participants: [ChallengeParticipant]!, pagingData: PagingData?, chatter: Chatter) {
         self.userStatus = userStatus;
         self.participant = participant;
         self.gravityBoard = gravityBoard;
         self.participants = participants;
         self.pagingData = pagingData;
+        self.chatter = chatter;
         name = (dictionary["name"] ?? "") as NSString;
         description = dictionary["description"] as NSString!;
         shortDescription = (dictionary["shortDescription"] ?? "") as NSString;
@@ -42,6 +45,7 @@ class HigiChallenge {
         status = dictionary["status"] as NSString!;
         metric = dictionary["metric"] as NSString!;
         dailyLimit = dictionary["dailyLimit"] as Int;
+        joinUrl = dictionary["joinUrl"] as? NSString;
         var formatter = NSDateFormatter();
         formatter.dateFormat = "yyyy-MM-dd";
         var startDateString = dictionary["startDate"] as NSString;
@@ -52,7 +56,6 @@ class HigiChallenge {
         }
         participantsCount = dictionary["participantsCount"] as Int;
         terms = (dictionary["terms"] ?? "") as? NSString;
-        
         var conditions = dictionary["winConditions"] as? NSArray;
         if (conditions != nil) {
             for condition: AnyObject in conditions! {
@@ -96,17 +99,14 @@ struct GravityParticipant {
     var participant: ChallengeParticipant!;
 }
 
-struct Comments {
-    var comment: NSString?;
-    var timeSincePosted: NSString?;
-    
-    var participant: ChallengeParticipant!;
-    
-    var team:ChallengeTeam;
-    
-    struct Chatter {
-        var chatter:[Comments];
-        var paging:PagingData;
-    }
+struct Chatter {
+    var comments:[Comments];
+    var paging:PagingData;
+}
 
+struct Comments {
+    var comment: NSString;
+    var timeSincePosted: NSString;
+    var participant: ChallengeParticipant!;
+    var team:ChallengeTeam?;
 }
