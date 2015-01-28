@@ -180,7 +180,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func populateHeader() {
-        if (challenge.participant != nil && challenge.userStatus == "current") {
+        if (challenge.participant != nil) {
             let participant = challenge.participant!;
             participantAvatar.setImageWithURL(Utility.loadImageFromUrl(participant.imageUrl));
             if (challenge.userStatus == "current") {
@@ -203,7 +203,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
 
         challengeAvatar.setImageWithURL(Utility.loadImageFromUrl(challenge.imageUrl));
         challengeTitle.text = challenge.name;
-        
+        challengeDaysLeft.text = dateDisplayHelper();
         headerContainerHeight = headerContainer.frame.size.height;
         buttonContainerOriginY = buttonContainer.frame.origin.y;
         
@@ -212,6 +212,26 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         headerProgressOriginX = participantProgress.frame.origin.x;
         headerProgressOriginWidth = participantProgress.frame.size.width;
         headerPointsOriginX = participantPoints.frame.origin.x;
+    }
+    
+    func dateDisplayHelper() -> String{
+        var days:Int = 0
+        var startsIn:String!
+        var startDate:NSDate? = challenge.startDate?
+        var endDate:NSDate? = challenge.endDate?
+        if (endDate != nil) {
+            let compare:NSTimeInterval = startDate!.timeIntervalSinceNow
+            if (Int(compare) > 0) {
+                days = Int(compare) / 60 / 60 / 24
+                startsIn = "Starts in \(days) days!"
+            } else if ( Int(compare) < 0 ) {
+                days = abs(Int(compare)) / 60 / 60 / 24
+                startsIn = "Started \(days) days ago!"
+            } else {
+                startsIn = "Starting today!"
+            }
+        }
+        return startsIn;
     }
     
     func addCallToActionButton() {
