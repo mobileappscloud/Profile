@@ -108,5 +108,5 @@ struct Comments {
         var chatter:[Comments];
         var paging:PagingData;
     }
-
+    
 }

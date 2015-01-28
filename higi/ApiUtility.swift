@@ -151,8 +151,26 @@ class ApiUtility {
                         participants.append(ChallengeParticipant(dictionary: singleParticipant as NSDictionary));
                     }
                 }
-                let serverPagingData = (((challenge as NSDictionary)["participants"] as NSDictionary)["paging"]as NSDictionary)["nextUrl"] as? NSString;
+                let serverPagingData = (((challenge as NSDictionary)["participants"] as NSDictionary)["paging"] as NSDictionary)["nextUrl"] as? NSString;
                 var pagingData = PagingData(nextUrl: serverPagingData);
+                
+                let test = (challenge as NSDictionary)["comments"] as? NSDictionary;
+                let serverComments = ((challenge as NSDictionary)["comments"] as NSDictionary)["data"] as? NSArray;
+                if (serverComments != nil) {
+//                    var comments:[ChallengeComment] = [];
+                    for challengeComment in serverComments! {
+                        let comment = (challengeComment as NSDictionary)["comment"] as? NSString;
+                        let timeSinceLastPost = (challengeComment as NSDictionary)["timeSinceLastPost"] as? NSString;
+                        let commentParticipant = ChallengeParticipant(dictionary: (challengeComment as NSDictionary)["timeSinceLastPost"] as NSDictionary);
+                        let commentTeam = commentParticipant.team;
+                        var pagingData = 0;
+                        //let chatter = Chatter(above);
+//                        comments.append(chatter);
+                        
+                    }
+//                    paginData = pagindData;
+                    //chatter = comments or some shit
+                }
                 challenges.append(HigiChallenge(dictionary: challenge as NSDictionary, userStatus: ((challenge as NSDictionary)["userRelation"] as NSDictionary)["status"] as NSString, participant: participant, gravityBoard: gravityBoard, participants: participants, pagingData: pagingData));
             }
             
