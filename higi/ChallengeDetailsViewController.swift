@@ -335,12 +335,14 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         tables.append(detailsTable);
         totalPages++;
         
-        chatterTable = addTableView(totalPages);
-        chatterTable.backgroundColor = Utility.colorFromHexString("#F4F4F4");
-        scrollView.addSubview(chatterTable);
-        tables.append(chatterTable);
-        totalPages++;
-        
+        if (displayChatterTab) {
+            chatterTable = addTableView(totalPages);
+            chatterTable.backgroundColor = Utility.colorFromHexString("#F4F4F4");
+            addChatterInputBox();
+            scrollView.addSubview(chatterTable);
+            tables.append(chatterTable);
+            totalPages++;
+        }
         scrollView.delegate = self;
         
         scrollView.contentSize = CGSize(width: scrollView.frame.size.width * CGFloat(totalPages), height: scrollView.frame.size.height);
@@ -468,6 +470,9 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if (displayChatterTab && tableView == chatterTable) {
+            return showLoadingFooter ? 10 + 50: 50
+        }
         return showLoadingFooter ? 10 : 0;
     }
     
@@ -477,24 +482,35 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         } else if (displayProgressTab && tableView == progressTable) {
             return indexPath.row == 0 ? 150 : 100;
         } else if (displayChatterTab && tableView == chatterTable) {
-            return 250;
+            return getChatterRowHeight(indexPath.row);
         } else {
             return getDetailsRowHeight(indexPath.row);
         }
     }
     
     func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        if (showLoadingFooter) {
-            let footer = UIView(frame: CGRect(x: 0, y: 0, width: scrollView.frame.size.width, height: 10));
-            let spinner = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 10, height: 10));
-            footer.addSubview(spinner);
-            spinner.startAnimating();
-            footer.backgroundColor = UIColor.blackColor();
-            return footer;
-        } else {
-            return UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0));
+        var view = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0));
+        if (displayChatterTab && tableView == chatterTable) {
+            view = UIView(frame: CGRect(x: chatterTable.frame.origin.x, y: scrollView.frame.size.height - 50, width: scrollView.frame.size.width, height: 50));
+            let textField = UITextField(frame: CGRect(x: 10, y: 0, width: scrollView.frame.size.width, height: 50));
+            view.backgroundColor = UIColor.whiteColor();
+            textField.placeholder = "Talk some smack!";
+            textField.font = textField.font.fontWithSize(14);
+            view.addSubview(textField);
         }
+        return view;
+//        if (showLoadingFooter) {
+//            let footer = UIView(frame: CGRect(x: 0, y: 0, width: scrollView.frame.size.width, height: 10));
+//            let spinner = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 10, height: 10));
+//            footer.addSubview(spinner);
+//            spinner.startAnimating();
+//            footer.backgroundColor = UIColor.blackColor();
+//            return footer;
+//        } else {
+//            return UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0));
+//        }
     }
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (displayLeaderboardTab && tableView == leaderboardTable) {
             return isIndividualLeaderboard ? min(individualLeaderboardParticipants.count,challenge.participantsCount) : min(teamLeaderboardParticipants.count, challenge.teams.count);
@@ -702,5 +718,13 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         let cell = ChallengeDetailsChatterRow.instanceFromNib(challenge.chatter.comments[index]);
         cell.backgroundColor = Utility.colorFromHexString("#F4F4F4");
         return cell;
+    }
+    
+    func addChatterInputBox() -> UIView {
+        let view = UIView(frame: CGRect(x: chatterTable.frame.origin.x, y: scrollView.frame.size.height - 50, width: scrollView.frame.size.width, height: 50));
+        let textField = UITextField(frame: CGRect(x: 0, y: 0, width: scrollView.frame.size.width, height: 50));
+        view.backgroundColor = UIColor.whiteColor();
+        textField.placeholder = "Talk some smack!";
+        return textField;
     }
 }

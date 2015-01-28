@@ -26,6 +26,6 @@ class ChallengeDetailsChatterRow: UITableViewCell {
     }
     
     class func heightForIndex(comment: Comments) -> CGFloat {
-        return Utility.heightForTextView(200, text: comment.comment, fontSize: 12, margin: 0);
+        return Utility.heightForTextView(200, text: comment.comment, fontSize: 12, margin: 50);
     }
 }
