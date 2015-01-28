@@ -1,6 +1,6 @@
 import Foundation
 
-class ChallengeDetailsRow: UITableViewCell {
+class ChallengeDetailsRow: UITableViewCell, UIAlertViewDelegate {
     
     @IBOutlet weak var title: UILabel!
     
@@ -187,6 +187,6 @@ class ChallengeDetailsRow: UITableViewCell {
     }
     
     func showTerms(sender: AnyObject!) {
-        let i = 0;
+        UIAlertView(title: "Terms and Conditions", message: "Terms and conditions placeholder", delegate: self, cancelButtonTitle: "Reject", otherButtonTitles: "Accept").show();
     }
 }

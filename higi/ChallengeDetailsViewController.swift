@@ -231,10 +231,10 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func joinChallenge(sender: AnyObject!) {
         
-        //@todo pick teams if team challenge
-        showTeamsPicker();
-        //@todo show terms and conditions?
-        showTermsAndConditions();
+//        //@todo pick teams if team challenge
+//        showTeamsPicker();
+//        //@todo show terms and conditions?
+//        showTermsAndConditions();
         //@todo pick teams if team challenge
         let userId = !HigiApi.EARNDIT_DEV ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
         let joinUrl =  challenge.joinUrl;
@@ -253,7 +253,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func showTermsAndConditions() {
-        UIAlertView(title: "Terms and Conditions", message: "Terms and conditions placeholder", delegate: self, cancelButtonTitle: "Accept", otherButtonTitles: "Reject").show();
+        UIAlertView(title: "Terms and Conditions", message: "Terms and conditions placeholder", delegate: self, cancelButtonTitle: "Reject", otherButtonTitles: "Accept").show();
     }
     
     func showTeamsPicker() {
