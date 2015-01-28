@@ -215,23 +215,24 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func dateDisplayHelper() -> String{
-        var days:Int = 0
-        var startsIn:String!
-        var startDate:NSDate? = challenge.startDate?
-        var endDate:NSDate? = challenge.endDate?
-        if (endDate != nil) {
-            let compare:NSTimeInterval = startDate!.timeIntervalSinceNow
-            if (Int(compare) > 0) {
-                days = Int(compare) / 60 / 60 / 24
-                startsIn = "Starts in \(days) days!"
-            } else if ( Int(compare) < 0 ) {
-                days = abs(Int(compare)) / 60 / 60 / 24
-                startsIn = "Started \(days) days ago!"
-            } else {
-                startsIn = "Starting today!"
-            }
-        }
-        return startsIn;
+//        var days:Int = 0
+//        var startsIn:String!
+//        var startDate:NSDate? = challenge.startDate?
+//        var endDate:NSDate? = challenge.endDate?
+//        if (endDate != nil) {
+//            let compare:NSTimeInterval = startDate!.timeIntervalSinceNow
+//            if (Int(compare) > 0) {
+//                days = Int(compare) / 60 / 60 / 24
+//                startsIn = "Starts in \(days) days!"
+//            } else if ( Int(compare) < 0 ) {
+//                days = abs(Int(compare)) / 60 / 60 / 24
+//                startsIn = "Started \(days) days ago!"
+//            } else {
+//                startsIn = "Starting today!"
+//            }
+//        }
+//        return startsIn;
+        return "Starts in 3 days!";
     }
     
     func addCallToActionButton() {
