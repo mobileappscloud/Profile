@@ -1,6 +1,6 @@
 import Foundation
 
-class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate {
+class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate {
     @IBOutlet var contentView: UIView!
     @IBOutlet var pointsLabel:UILabel?;
     
@@ -89,6 +89,10 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         
         var session = SessionController.Instance;
         
+        initializeDetailView();
+    }
+    
+    func initializeDetailView() {
         for winCondition in challenge.winConditions {
             if (challenge.participant != nil && winCondition.goal.type == "threshold_reached") {
                 displayProgressTab = true;
@@ -226,14 +230,45 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func joinChallenge(sender: AnyObject!) {
-        //@todo actually join challenge
-        //@todo call below, again
-//        populateHeader();
-//        
-//        populateScrollViewWithTables();
-//        
-//        populateTabButtons();
-//
+        
+        //@todo pick teams if team challenge
+        showTeamsPicker();
+        //@todo show terms and conditions?
+        showTermsAndConditions();
+        //@todo pick teams if team challenge
+        let userId = !HigiApi.EARNDIT_DEV ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
+        let joinUrl =  challenge.joinUrl;
+        var contents = NSMutableDictionary();
+        contents.setObject(userId, forKey: "userId");
+        if (joinUrl != nil) {
+            HigiApi().sendPost(joinUrl, parameters: contents, success: {operation, responseObject in
+                ApiUtility.retrieveChallenges(self.refreshChallenge);
+                }, failure: { operation, error in
+                    let e = error;
+                    UIAlertView(title: "Error", message: "Cannot join challenge at this time.  Please try again later.", delegate: self, cancelButtonTitle: "OK").show();
+            });
+        } else {
+            UIAlertView(title: "Error", message: "Cannot join challenge at this time.  Please try again later.", delegate: self, cancelButtonTitle: "OK").show();
+        }
+    }
+    
+    func showTermsAndConditions() {
+        UIAlertView(title: "Terms and Conditions", message: "Terms and conditions placeholder", delegate: self, cancelButtonTitle: "Accept", otherButtonTitles: "Reject").show();
+    }
+    
+    func showTeamsPicker() {
+        UIAlertView(title: "Team Challenge", message: "Select a team to join.", delegate: self, cancelButtonTitle: "Team 1", otherButtonTitles: "Team 2").show();
+    }
+    
+    func refreshChallenge() {
+        let name = challenge.name;
+        let challenges = SessionController.Instance.challenges;
+        for challenge in challenges {
+            if (name == challenge.name) {
+                self.challenge = challenge;
+            }
+        }
+        initializeDetailView();
     }
     
     func populateTabButtons() {

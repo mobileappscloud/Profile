@@ -84,6 +84,9 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         if (pageTitles.count > 0) {
             title = pageTitles[0];
         }
+        scrollView.contentSize = CGSize(width: scrollView.frame.size.width * CGFloat(totalPages), height: scrollView.frame.size.height);
+        scrollView.setContentOffset(CGPointMake(0,0),animated: false);
+        pager.numberOfPages = totalPages;
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -126,15 +129,15 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         return table;
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews();
-        
-        scrollView.contentSize = CGSize(width: scrollView.frame.size.width * CGFloat(totalPages), height: scrollView.frame.size.height);
-        scrollView.setContentOffset(CGPointMake(0,0),animated: false);
-        
-        pager.numberOfPages = totalPages;
-    }
-    
+//    override func viewDidLayoutSubviews() {
+//        super.viewDidLayoutSubviews();
+//        
+////        scrollView.contentSize = CGSize(width: scrollView.frame.size.width * CGFloat(totalPages), height: scrollView.frame.size.height);
+////        scrollView.setContentOffset(CGPointMake(0,0),animated: false);
+////        
+//        pager.numberOfPages = totalPages;
+//    }
+//    
     func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool {
         return true;
     }

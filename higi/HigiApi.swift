@@ -4,11 +4,11 @@ import Foundation
 class HigiApi {
     
     class var PRODUCTION: Bool {
-        return false;
+        return true;
     }
     
     class var EARNDIT_DEV: Bool {
-        return true;
+        return false;
     }
     
     var manager: AFHTTPRequestOperationManager;
