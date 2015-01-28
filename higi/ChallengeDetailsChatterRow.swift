@@ -11,6 +11,7 @@ class ChallengeDetailsChatterRow: UITableViewCell {
     
     override func layoutSubviews() {
         message.frame.size.width = chattBubble.frame.size.width - 10;
+        message.frame.size.height = Utility.heightForTextView(chattBubble.frame.size.width - 10, text: message.text!, fontSize: 12, margin: 20);
         message.sizeToFit();
     }
     

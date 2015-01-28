@@ -138,9 +138,14 @@ class Utility {
     }
     
     class func heightForTextView(width: CGFloat, text: String, fontSize: CGFloat, margin: CGFloat) -> CGFloat {
-        let size = (text as NSString).sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(fontSize)]);
-        let area = size.height * size.width;
-        return floor(area/width) + margin;
+        let label:UILabel = UILabel(frame: CGRectMake(0, 0, width, CGFloat.max));
+        label.numberOfLines = 0;
+        label.lineBreakMode = NSLineBreakMode.ByWordWrapping;
+        label.font = UIFont.systemFontOfSize(fontSize);
+        label.text = text;
+        
+        label.sizeToFit();
+        return label.frame.height + margin;
     }
     
     class func htmlDecodeString(encodedString: String) -> String {
