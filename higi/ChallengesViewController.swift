@@ -231,7 +231,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         }
         cell.pager.numberOfPages = nibs.count;
         cell.pager.currentPage = 0;
-        cell.scrollView.contentSize = CGSize(width: cell.frame.size.width * CGFloat(nibs.count), height: cell.frame.size.height - 45);
+        cell.scrollView.contentSize = CGSize(width: cell.frame.size.width * CGFloat(nibs.count), height: cell.frame.size.height);
         
         var daysLeft:Int = 0
         var endDate:NSDate? = challenge.endDate?

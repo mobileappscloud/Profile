@@ -10,7 +10,7 @@ class ChallengeLeaderboardRow: UITableViewCell {
     class func instanceFromNib(challenge: HigiChallenge, participant: ChallengeParticipant, index: Int) -> ChallengeLeaderboardRow {
         let row = UINib(nibName: "ChallengeLeaderboardRow", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeLeaderboardRow;
         
-        let highScore = challenge.individualHighScore;
+        let highScore = challenge.individualHighScore != 0 ? challenge.individualHighScore : 1;
         row.avatar.setImageWithURL(Utility.loadImageFromUrl(participant.imageUrl));
         row.name.text = participant.displayName;
         row.points.text = "\(Int(participant.units)) \(challenge.metric)";
@@ -26,7 +26,7 @@ class ChallengeLeaderboardRow: UITableViewCell {
         let highScore = challenge.teamHighScore;
         row.avatar.setImageWithURL(Utility.loadImageFromUrl(team.imageUrl));
         row.name.text = team.name;
-        let units = team.memberCount > 0 ? Int(team.units) / challenge.teams.count: 0;
+        let units = challenge.teams.count > 0 ? Int(team.units) / challenge.teams.count: 0;
         
         row.points.text = "\(units) \(challenge.metric)";
         row.place.text = Utility.getRankSuffix(String(index + 1));
