@@ -213,6 +213,9 @@
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="bodyStatClicked:" destination="G8T-De-5l9" eventType="touchUpInside" id="if9-ws-AOi"/>
+                            </connections>
                         </button>
                         <button opaque="NO" tag="4" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ED9-hk-nVf">
                             <rect key="frame" x="109" y="324" width="102" height="102"/>
