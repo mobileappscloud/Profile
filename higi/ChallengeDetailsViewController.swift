@@ -42,6 +42,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     var detailsTable: UITableView!;
     var chatterTable: UITableView?;
 
+    var scrollY: CGFloat = 0;
     var totalPages = 0;
     var currentPage = 0;
     var tables:[UITableView] = [];
@@ -54,9 +55,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     var headerProgressOriginWidth:CGFloat = 0;
     var headerPointsOriginX:CGFloat = 0;
     
-    var scrollOffset = 0;
-    
-    var shouldScroll = true;
     var leaderboardToggleButtons:[UIButton] = [];
     var progressToggleButtons:[UIButton] = [];
     var greenBars:[UIView] = [];
@@ -77,8 +75,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     override func viewDidLoad() {
         super.viewDidLoad();
         
-        self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
-        self.navigationController!.navigationBar.barTintColor = UIColor.whiteColor();
         (self.navigationController as MainNavigationController).revealController.panGestureRecognizer().enabled = false;
         var backButton = UIButton.buttonWithType(UIButtonType.Custom) as UIButton;
         backButton.setBackgroundImage(UIImage(named: "btn_back_white.png"), forState: UIControlState.Normal);
@@ -493,39 +489,49 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        if (shouldScroll) {
+        if (scrollView != self.scrollView) {
             updateScroll();
         }
     }
     
-    var lastScrollY:CGFloat = 0;
     func updateScroll() {
         let headerXOffset:CGFloat = 50;
         let minHeaderHeightThreshold:CGFloat = 67;
         let currentTable = tables[currentPage];
-        let scrollY = currentTable.contentOffset.y;
+        scrollY = currentTable.contentOffset.y;
         
         //@todo for some reason there is a hiccup in scrolling at a couple places, same scrollY values each time
         
-        lastScrollY = headerContainer.frame.origin.y;
         if (scrollY >= 0) {
-            if (scrollY >= headerContainerHeight - minHeaderHeightThreshold) {
+            if (scrollY > headerContainerHeight - minHeaderHeightThreshold) {
                 headerContainer.frame.origin.y = minHeaderHeightThreshold - headerContainerHeight;
                 buttonContainer.frame.origin.y = minHeaderHeightThreshold - 1;
             } else {
                 participantPlace.frame.origin.x = headerPlaceOriginX + (scrollY / headerXOffset);
                 participantProgress.frame.origin.x = headerProgressOriginX + (scrollY / headerXOffset);
- 
+                
                 var xOffset = min(scrollY * (headerXOffset / ((headerContainerHeight - minHeaderHeightThreshold) / 2)),50);
                 participantAvatar.frame = CGRect(x: headerAvatarOriginX + xOffset, y: participantAvatar.frame.origin.y, width: 30, height: 30);
                 participantPlace.frame = CGRect(x: headerPlaceOriginX + xOffset, y: participantPlace.frame.origin.y, width: 58, height: 25);
                 participantName.frame = CGRect(x: headerPlaceOriginX + xOffset, y: participantName.frame.origin.y, width: 162, height: 16);
                 participantProgress.frame = CGRect(x: headerProgressOriginX + xOffset, y: participantPoints.frame.origin.y, width: headerProgressOriginWidth - xOffset, height: 15);
-
+                
                 headerContainer.frame.origin.y = -scrollY;
-                //buttonContainer.frame.origin.y = buttonContainerOriginY - scrollY;
                 buttonContainer.frame.origin.y = buttonContainerOriginY - scrollY;
             }
+            
+            
+        } else {
+            participantPlace.frame.origin.x = headerPlaceOriginX;
+            participantProgress.frame.origin.x = headerProgressOriginX;
+            
+            participantAvatar.frame = CGRect(x: headerAvatarOriginX, y: participantAvatar.frame.origin.y, width: 30, height: 30);
+            participantPlace.frame = CGRect(x: headerPlaceOriginX, y: participantPlace.frame.origin.y, width: 58, height: 25);
+            participantName.frame = CGRect(x: headerPlaceOriginX, y: participantName.frame.origin.y, width: 162, height: 16);
+            participantProgress.frame = CGRect(x: headerProgressOriginX, y: participantPoints.frame.origin.y, width: headerProgressOriginWidth, height: 15);
+            
+            headerContainer.frame.origin.y = 0;
+            buttonContainer.frame.origin.y = buttonContainerOriginY;
         }
         
         for index in 0...tables.count - 1 {
@@ -537,6 +543,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews();
+        updateScroll();
     }
     
     func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool {
@@ -680,7 +687,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func goBack(sender: AnyObject!) {
         self.navigationController!.popViewControllerAnimated(true);
-        shouldScroll = false;
     }
     
     func loadMoreParticipants(){
