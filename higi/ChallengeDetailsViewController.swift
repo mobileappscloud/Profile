@@ -1,10 +1,9 @@
 import Foundation
 
-class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UIActionSheetDelegate {
+class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UIActionSheetDelegate, UITextFieldDelegate {
     @IBOutlet var contentView: UIView!
     @IBOutlet var pointsLabel:UILabel?;
     
-    @IBOutlet weak var participantName: UILabel!
     @IBOutlet weak var headerContainer: UIView!
     @IBOutlet weak var participantPoints: UILabel!
     @IBOutlet weak var participantProgress: UIView!
@@ -208,7 +207,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                 participantPlace.hidden = false;
                 participantProgress.hidden = false;
                 participantAvatar.hidden = false;
-                participantName.hidden = false;
                 
                 participantPoints.text = "\(Int(participant.units)) pts";
                 participantPlace.text = getUserRank();
@@ -218,14 +216,12 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                 participantPlace.hidden = true;
                 participantProgress.hidden = true;
                 participantAvatar.hidden = true;
-                participantName.hidden = true;
             }
         } else {
             participantAvatar.hidden = true;
             participantPoints.hidden = true;
             participantPlace.hidden = true;
             participantProgress.hidden = true;
-            participantName.hidden = true;
             //@todo make this static and global.  hide show it with other header elements
             //@todo loading spinner on button click
             addCallToActionButton();
@@ -282,7 +278,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     func joinChallenge(joinUrl: String) {
 //        //@todo show terms and conditions?
 //        showTermsAndConditions();
-        //@todo pick teams if team challenge
         let userId = !HigiApi.EARNDIT_DEV ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
         var contents = NSMutableDictionary();
         contents.setObject(userId, forKey: "userId");
@@ -513,7 +508,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                 var xOffset = min(scrollY * (headerXOffset / ((headerContainerHeight - minHeaderHeightThreshold) / 2)),50);
                 participantAvatar.frame = CGRect(x: headerAvatarOriginX + xOffset, y: participantAvatar.frame.origin.y, width: 30, height: 30);
                 participantPlace.frame = CGRect(x: headerPlaceOriginX + xOffset, y: participantPlace.frame.origin.y, width: 58, height: 25);
-                participantName.frame = CGRect(x: headerPlaceOriginX + xOffset, y: participantName.frame.origin.y, width: 162, height: 16);
                 participantProgress.frame = CGRect(x: headerProgressOriginX + xOffset, y: participantPoints.frame.origin.y, width: headerProgressOriginWidth - xOffset, height: 15);
                 
                 headerContainer.frame.origin.y = -scrollY;
@@ -527,7 +521,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             
             participantAvatar.frame = CGRect(x: headerAvatarOriginX, y: participantAvatar.frame.origin.y, width: 30, height: 30);
             participantPlace.frame = CGRect(x: headerPlaceOriginX, y: participantPlace.frame.origin.y, width: 58, height: 25);
-            participantName.frame = CGRect(x: headerPlaceOriginX, y: participantName.frame.origin.y, width: 162, height: 16);
             participantProgress.frame = CGRect(x: headerProgressOriginX, y: participantPoints.frame.origin.y, width: headerProgressOriginWidth, height: 15);
             
             headerContainer.frame.origin.y = 0;
@@ -837,6 +830,32 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         let textField = UITextField(frame: CGRect(x: 0, y: 0, width: scrollView.frame.size.width, height: 50));
         view.backgroundColor = UIColor.whiteColor();
         textField.placeholder = "Talk some smack!";
+        textField.delegate = self;
+//        textField.returnKeyType = 
         return textField;
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if (textField.text != "") {
+            sendUserChatter(textField.text);
+        }
+        return true;
+    }
+    
+    func sendUserChatter(chatter: String) {
+        //@todo add message row while waiting for server response
+        
+        let userId = !HigiApi.EARNDIT_DEV ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
+        var contents = NSMutableDictionary();
+        contents.setObject(userId, forKey: "userId");
+        contents.setObject(chatter, forKey: "comment");
+        HigiApi().sendPost(challenge.commentsUrl, parameters: contents, success: {operation, responseObject in
+//            ApiUtility.retrieveChallenges(self.refreshChallenge);
+            //@todo refresh comments, i.e. get comments from server again
+            let i = 0;
+            }, failure: { operation, error in
+                let e = error;
+                UIAlertView(title: "Uh oh", message: "Cannot send chatter at this time.  Please try again later.", delegate: self, cancelButtonTitle: "OK").show();
+        });
     }
 }

@@ -2,7 +2,7 @@ import Foundation
 
 class HigiChallenge {
     
-    var name, description, shortDescription, imageUrl, metric, status, userStatus, terms, abbrMetric, joinUrl: NSString!;
+    var name, description, shortDescription, imageUrl, metric, status, userStatus, terms, abbrMetric, joinUrl, commentsUrl: NSString!;
     
     var startDate, endDate: NSDate!;
     
@@ -46,6 +46,7 @@ class HigiChallenge {
         metric = dictionary["metric"] as NSString!;
         dailyLimit = dictionary["dailyLimit"] as Int;
         joinUrl = dictionary["joinUrl"] as? NSString;
+        commentsUrl = dictionary["commentsUrl"] as? NSString;
         var formatter = NSDateFormatter();
         formatter.dateFormat = "yyyy-MM-dd";
         var startDateString = dictionary["startDate"] as NSString;
