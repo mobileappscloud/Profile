@@ -240,9 +240,8 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
             if (Int(compare) > 0) {
                 daysLeft = Int(compare) / 60 / 60 / 24
             }
+            cell.daysLeft.text = "\(daysLeft)d left";
         }
-        cell.daysLeft.text = "\(daysLeft)d left";
-        cell.join.hidden = true;
         return cell;
     }
     

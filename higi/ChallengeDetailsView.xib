@@ -50,7 +50,7 @@
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="2 days left" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eoo-5v-2QL">
-                            <rect key="frame" x="110" y="154" width="100" height="16"/>
+                            <rect key="frame" x="60" y="154" width="200" height="16"/>
                             <rect key="contentStretch" x="1" y="0.0" width="1" height="1"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="100" id="AuT-ev-3CM"/>

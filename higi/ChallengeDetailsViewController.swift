@@ -1,6 +1,6 @@
 import Foundation
 
-class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate {
+class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UIActionSheetDelegate {
     @IBOutlet var contentView: UIView!
     @IBOutlet var pointsLabel:UILabel?;
     
@@ -21,6 +21,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     var challengeName = "";
     var challenge:HigiChallenge!;
+    var challengeTeamSelected:Int?;
     
     var displayLeaderboardTab = false;
     var displayProgressTab = false;
@@ -94,7 +95,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func initializeDetailView() {
         for winCondition in challenge.winConditions {
-            if (challenge.participant != nil && winCondition.goal.type == "threshold_reached") {
+            if (challenge.participant != nil && winCondition.goal.type == "threshold_reached" && challenge.userStatus == "current") {
                 displayProgressTab = true;
                 if (winCondition.winnerType == "individual") {
                     hasIndividualGoalComponent = true;
@@ -103,7 +104,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                     hasTeamGoalComponent = true;
                     teamGoalWinConditions.append(winCondition);
                 }
-            } else if (challenge.status != "registration" && winCondition.goal.type == "most_points" || winCondition.goal.type == "unit_goal_reached") {
+            } else if (challenge.status != "registration" && winCondition.goal.type == "most_points" || winCondition.goal.type == "unit_goal_reached" && challenge.userStatus == "current") {
                 displayLeaderboardTab = true;
                 
                 if (winCondition.winnerType == "individual") {
@@ -117,6 +118,9 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             }
         }
         
+        if (displayLeaderboardTab && !hasIndividualGoalComponent && hasTeamLeaderboardComponent) {
+            isIndividualLeaderboard = false;
+        }
         if (challenge.participant != nil) {
             displayChatterTab = true;
             challengeChatterComments = challenge.chatter.comments;
@@ -191,6 +195,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                 participantPoints.hidden = true;
                 participantPlace.hidden = true;
                 participantProgress.hidden = true;
+                participantAvatar.hidden = true;
+                participantName.hidden = true;
             }
         } else {
             participantAvatar.hidden = true;
@@ -215,24 +221,23 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func dateDisplayHelper() -> String{
-//        var days:Int = 0
-//        var startsIn:String!
-//        var startDate:NSDate? = challenge.startDate?
-//        var endDate:NSDate? = challenge.endDate?
-//        if (endDate != nil) {
-//            let compare:NSTimeInterval = startDate!.timeIntervalSinceNow
-//            if (Int(compare) > 0) {
-//                days = Int(compare) / 60 / 60 / 24
-//                startsIn = "Starts in \(days) days!"
-//            } else if ( Int(compare) < 0 ) {
-//                days = abs(Int(compare)) / 60 / 60 / 24
-//                startsIn = "Started \(days) days ago!"
-//            } else {
-//                startsIn = "Starting today!"
-//            }
-//        }
-//        return startsIn;
-        return "Starts in 3 days!";
+        var dateDisplay:String!
+        let startDate:NSDate? = challenge.startDate?
+        let endDate:NSDate? = challenge.endDate?
+        if (Int(startDate!.timeIntervalSinceNow) > 0) {
+            let days = Int(startDate!.timeIntervalSinceNow);
+            let s = days == 1 ? "" : "s";
+            dateDisplay = "Starts in \(days) / 60 / 60 / 24) day\(s)";
+        } else if (endDate != nil) {
+            let days = Int(endDate!.timeIntervalSinceNow);
+            let s = days == 1 ? "" : "s";
+            dateDisplay = "\(days) / 60 / 60 / 24) day\(s) left";
+        } else {
+            let days = Int(startDate!.timeIntervalSinceNow);
+            let s = days == 1 ? "" : "s";
+            dateDisplay = "Started \(days) / 60 / 60 / 24) day\(s) ago";
+        }
+        return dateDisplay;
     }
     
     func addCallToActionButton() {
@@ -245,31 +250,32 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         button.layer.cornerRadius = 5;
         button.clipsToBounds = true;
         
-        let joinGestureRecognizer = UITapGestureRecognizer(target: self, action: "joinChallenge:");
+        let joinGestureRecognizer = UITapGestureRecognizer(target: self, action: "joinButtonClick:");
         button.addGestureRecognizer(joinGestureRecognizer);
         participantContainer.addSubview(button);
     }
     
-    func joinChallenge(sender: AnyObject!) {
-        
-//        //@todo pick teams if team challenge
-//        showTeamsPicker();
+    func joinChallenge(joinUrl: String) {
 //        //@todo show terms and conditions?
 //        showTermsAndConditions();
         //@todo pick teams if team challenge
         let userId = !HigiApi.EARNDIT_DEV ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
-        let joinUrl =  challenge.joinUrl;
         var contents = NSMutableDictionary();
         contents.setObject(userId, forKey: "userId");
+        HigiApi().sendPost(joinUrl, parameters: contents, success: {operation, responseObject in
+            ApiUtility.retrieveChallenges(self.refreshChallenge);
+            }, failure: { operation, error in
+                let e = error;
+                UIAlertView(title: "Uh oh", message: "Cannot join challenge at this time.  Please try again later.", delegate: self, cancelButtonTitle: "OK").show();
+        });
+    }
+    
+    func joinButtonClick(sender: AnyObject!) {
+        let joinUrl =  challenge.joinUrl;
         if (joinUrl != nil) {
-            HigiApi().sendPost(joinUrl, parameters: contents, success: {operation, responseObject in
-                ApiUtility.retrieveChallenges(self.refreshChallenge);
-                }, failure: { operation, error in
-                    let e = error;
-                    UIAlertView(title: "Error", message: "Cannot join challenge at this time.  Please try again later.", delegate: self, cancelButtonTitle: "OK").show();
-            });
+            joinChallenge(joinUrl);
         } else {
-            UIAlertView(title: "Error", message: "Cannot join challenge at this time.  Please try again later.", delegate: self, cancelButtonTitle: "OK").show();
+            showTeamsPicker();
         }
     }
     
@@ -278,9 +284,20 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func showTeamsPicker() {
-        UIAlertView(title: "Team Challenge", message: "Select a team to join.", delegate: self, cancelButtonTitle: "Team 1", otherButtonTitles: "Team 2").show();
+        let picker = UIActionSheet(title: "Select a team to join", delegate: self, cancelButtonTitle: nil, destructiveButtonTitle: nil);
+        for team in challenge.teams {
+            picker.addButtonWithTitle(team.name);
+        }
+        picker.addButtonWithTitle("Back");
+        picker.cancelButtonIndex = challenge.teams.count;
+        picker.showInView(scrollView);
     }
     
+    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
+        if (buttonIndex != challenge.teams.count) {
+            joinChallenge(challenge.teams[buttonIndex].joinUrl);
+        }
+    }
     func refreshChallenge() {
         let name = challenge.name;
         let challenges = SessionController.Instance.challenges;
@@ -417,7 +434,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         table.backgroundColor = Utility.colorFromHexString("#F4F4F4");
         table.scrollEnabled = true;
         table.allowsSelection = false;
-        
+        table.showsVerticalScrollIndicator = false;
         return table;
     }
     

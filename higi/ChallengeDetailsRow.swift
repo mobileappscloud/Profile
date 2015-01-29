@@ -87,7 +87,7 @@ class ChallengeDetailsRow: UITableViewCell, UIAlertViewDelegate {
 //            desc = Utility.htmlDecodeString(challenge.shortDescription);
             desc = challenge.shortDescription;
         case DetailRowConstants.durationIndex:
-            desc = durationHelper(challenge.startDate, endDate: challenge.endDate);
+            desc = durationHelper(challenge.startDate, endDate: challenge.endDate?);
         case DetailRowConstants.goalIndex:
             desc = challenge.winConditions[0].description;
         case DetailRowConstants.typeIndex:
@@ -104,10 +104,14 @@ class ChallengeDetailsRow: UITableViewCell, UIAlertViewDelegate {
         return desc;
     }
     
-    class func durationHelper(startDate: NSDate, endDate: NSDate) -> String {
+    class func durationHelper(startDate: NSDate, endDate: NSDate?) -> String {
         let dateFormatter = NSDateFormatter();
         dateFormatter.dateFormat = "MMM. dd, YYYY"
-        return "\(dateFormatter.stringFromDate(startDate)) - \(dateFormatter.stringFromDate(endDate))";
+        if (endDate != nil) {
+            return "\(dateFormatter.stringFromDate(startDate)) - \(dateFormatter.stringFromDate(endDate!))";
+        } else {
+            return "Starts \(dateFormatter.stringFromDate(startDate))";
+        }
     }
     
     class func goalTypeDisplayHelper(goalType: String, winnerType: String) -> String {
