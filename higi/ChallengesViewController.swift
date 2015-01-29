@@ -231,7 +231,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         }
         cell.pager.numberOfPages = nibs.count;
         cell.pager.currentPage = 0;
-        cell.scrollView.contentSize = CGSize(width: cell.frame.size.width * CGFloat(nibs.count), height: cell.frame.size.height - 45);
+        cell.scrollView.contentSize = CGSize(width: cell.frame.size.width * CGFloat(nibs.count), height: cell.frame.size.height);
         
         var daysLeft:Int = 0
         var endDate:NSDate? = challenge.endDate?
@@ -240,10 +240,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
             if (Int(compare) > 0) {
                 daysLeft = Int(compare) / 60 / 60 / 24
             }
-            cell.daysLeft.hidden = false;
             cell.daysLeft.text = "\(daysLeft)d left";
-        } else {
-            cell.daysLeft.hidden = true;
         }
         return cell;
     }
