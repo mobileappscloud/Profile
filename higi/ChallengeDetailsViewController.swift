@@ -89,13 +89,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func initializeDetailView() {
-        
-        let w = scrollView.frame.size.width;
-        let h = scrollView.frame.size.height;
-        let x = scrollView.frame.origin.x;
-        let y = scrollView.frame.origin.y;
-        
-        
         for winCondition in challenge.winConditions {
             if (challenge.participant != nil && winCondition.goal.type == "threshold_reached" && challenge.userStatus == "current") {
                 displayProgressTab = true;
@@ -331,7 +324,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func populateTabButtons() {
         var buttons:[UILabel] = [];
-    
+        greenBars = [];
         let containerYValue = buttonContainer.frame.origin.y;
         
         var buttonText:[String] = [];
@@ -434,7 +427,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         if (displayChatterTab) {
             chatterTable = addTableView(totalPages);
             chatterTable!.backgroundColor = Utility.colorFromHexString("#F4F4F4");
-            addChatterInputBox();
+            let textField = addChatterInputBox();
+            chatterTable?.addSubview(textField);
             scrollView.addSubview(chatterTable!);
             tables.append(chatterTable!);
             totalPages++;
@@ -570,6 +564,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             return buttonContainerOriginY + buttonContainer.frame.size.height + 10;
         } else if (displayProgressTab && progressTable != nil && tableView == progressTable) {
             return buttonContainerOriginY + buttonContainer.frame.size.height + 10;
+        } else if (displayChatterTab && chatterTable != nil && tableView == chatterTable) {
+            return 50;
         }
         return buttonContainerOriginY + buttonContainer.frame.size.height;
     }
@@ -601,6 +597,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             view.backgroundColor = UIColor.whiteColor();
             textField.placeholder = "Talk some smack!";
             textField.font = textField.font.fontWithSize(14);
+            textField.delegate = self;
+            textField.returnKeyType = UIReturnKeyType.Done;
             view.addSubview(textField);
         }
         return view;
@@ -711,6 +709,33 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         }
     }
     
+    func refreshChatter() {
+        var comments:[Comments] = [];
+        let url = challenge.commentsUrl;
+        if (url != nil && url != "") {
+            HigiApi().sendGet(url!, success: {operation, responseObject in
+                self.challengeChatterComments = [];
+                var chatter:Chatter;
+                let serverComments = ((responseObject as NSDictionary)["response"] as NSDictionary)["data"] as? NSArray;
+                if (serverComments != nil) {
+                    self.challenge.chatter.paging.nextUrl = ((responseObject as NSDictionary)["response"] as NSDictionary)["paging"] as? NSString;
+                    for challengeComment in serverComments! {
+                        let comment = (challengeComment as NSDictionary)["comment"] as NSString;
+                        let timeSinceLastPost = (challengeComment as NSDictionary)["timeSincePosted"] as NSString;
+                        let commentParticipant = ChallengeParticipant(dictionary: (challengeComment as NSDictionary)["participant"] as NSDictionary);
+                        let commentTeam = commentParticipant.team?;
+                        var pagingData = 0;
+                        
+                        self.challengeChatterComments.append(Comments(comment: comment, timeSincePosted: timeSinceLastPost, participant: commentParticipant, team: commentTeam))
+                    }
+                }
+                self.chatterTable!.reloadData();
+                }, failure: { operation, error in
+                    let e = error;
+            });
+        }
+    }
+
     func loadMoreChatter() {
         showLoadingFooter = true;
         var comments:[Comments] = [];
@@ -720,7 +745,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                 var chatter:Chatter;
                 let serverComments = ((responseObject as NSDictionary)["response"] as NSDictionary)["data"] as? NSArray;
                 if (serverComments != nil) {
-                    self.challenge.chatter.paging.nextUrl = ((responseObject as NSDictionary)["comments"] as NSDictionary)["paging"] as? NSString;
+                    self.challenge.chatter.paging.nextUrl = ((responseObject as NSDictionary)["response"] as NSDictionary)["paging"] as? NSString;
                     for challengeComment in serverComments! {
                         let comment = (challengeComment as NSDictionary)["comment"] as NSString;
                         let timeSinceLastPost = (challengeComment as NSDictionary)["timeSincePosted"] as NSString;
@@ -737,8 +762,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                 //self.hideLoadingFooter();
                 }, failure: { operation, error in
                     let e = error;
-                    let o = operation;
-                    let i = 0;
             });
         }
     }
@@ -816,26 +839,23 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func getChatterRowHeight(index: Int) -> CGFloat {
-        return 50 + ChallengeDetailsChatterRow.heightForIndex(challenge.chatter.comments[index]);
+        return 50 + ChallengeDetailsChatterRow.heightForIndex(challengeChatterComments[index]);
     }
     
     func createChatterTable(index: Int) -> UITableViewCell {
-        let cell = ChallengeDetailsChatterRow.instanceFromNib(challenge.chatter.comments[index]);
+        let chatter = challengeChatterComments[index];
+        let cell = ChallengeDetailsChatterRow.instanceFromNib(chatter.comment, participant: chatter.participant, timeSincePosted: chatter.timeSincePosted, isYou: chatter.participant.displayName == challenge.participant.displayName);
         cell.backgroundColor = Utility.colorFromHexString("#F4F4F4");
         return cell;
     }
     
     func addChatterInputBox() -> UIView {
         let view = UIView(frame: CGRect(x: chatterTable!.frame.origin.x, y: scrollView.frame.size.height - 50, width: scrollView.frame.size.width, height: 50));
-        let textField = UITextField(frame: CGRect(x: 0, y: 0, width: scrollView.frame.size.width, height: 50));
-        view.backgroundColor = UIColor.whiteColor();
-        textField.placeholder = "Talk some smack!";
-        textField.delegate = self;
-//        textField.returnKeyType = 
-        return textField;
+        return view;
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
+        let text = textField.text;
         if (textField.text != "") {
             sendUserChatter(textField.text);
         }
@@ -850,6 +870,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         contents.setObject(userId, forKey: "userId");
         contents.setObject(chatter, forKey: "comment");
         HigiApi().sendPost(challenge.commentsUrl, parameters: contents, success: {operation, responseObject in
+            self.addPlaceholderChatter(chatter);
+            self.refreshChatter();
 //            ApiUtility.retrieveChallenges(self.refreshChallenge);
             //@todo refresh comments, i.e. get comments from server again
             let i = 0;
@@ -858,4 +880,13 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                 UIAlertView(title: "Uh oh", message: "Cannot send chatter at this time.  Please try again later.", delegate: self, cancelButtonTitle: "OK").show();
         });
     }
+    
+    func addPlaceholderChatter(comment: String) {
+        let userChatter = Comments(comment: comment, timeSincePosted: "Sending...", participant: challenge.participant, team: challenge.participant.team);
+        challengeChatterComments.insert(userChatter, atIndex: 0);
+        chatterTable!.reloadData();
+        chatterTable!.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true);
+        //@todo scroll to top
+    }
+    
 }
