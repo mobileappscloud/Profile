@@ -24,6 +24,8 @@ class ChallengeDetailsChatterRow: UITableViewCell {
             row.yourAvatar.setImageWithURL(Utility.loadImageFromUrl(participant.imageUrl));
             row.chatBubble.hidden = true;
             row.yourChatBuble.hidden = false;
+            row.displayName.textColor = UIColor.whiteColor();
+            row.message.textColor = UIColor.whiteColor()
         } else {
             row.avatar.setImageWithURL(Utility.loadImageFromUrl(participant.imageUrl));
             row.yourChatBuble.hidden = true;

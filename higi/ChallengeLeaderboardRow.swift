@@ -13,7 +13,7 @@ class ChallengeLeaderboardRow: UITableViewCell {
         let highScore = challenge.individualHighScore != 0 ? challenge.individualHighScore : 1;
         row.avatar.setImageWithURL(Utility.loadImageFromUrl(participant.imageUrl));
         row.name.text = participant.displayName;
-        row.points.text = "\(Int(participant.units)) \(challenge.metric)";
+        row.points.text = "\(Int(participant.units)) \(challenge.metricAbbreviated())";
         row.place.text = Utility.getRankSuffix(String(index + 1));
         setProgressBar(row.progress, points: Int(participant.units), highScore: Int(highScore));
         
@@ -28,7 +28,7 @@ class ChallengeLeaderboardRow: UITableViewCell {
         row.name.text = team.name;
         let units = challenge.teams.count > 0 ? Int(team.units) / challenge.teams.count: 0;
         
-        row.points.text = "\(units) \(challenge.metric)";
+        row.points.text = "\(units) \(challenge.metricAbbreviated())";
         row.place.text = Utility.getRankSuffix(String(index + 1));
         setProgressBar(row.progress, points: Int(team.units), highScore: Int(highScore));
         return row;

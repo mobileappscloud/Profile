@@ -458,7 +458,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     func getUserRank() -> String {
         let gravityBoard = challenge.gravityBoard;
         for index in 0...challenge.gravityBoard.count - 1 {
-            if (gravityBoard[index].participant.displayName == challenge.participant.displayName) {
+            if (gravityBoard[index].participant.url == challenge.participant.url) {
                 return Utility.getRankSuffix("\(index + 1)");
             }
         }
@@ -565,7 +565,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         } else if (displayProgressTab && progressTable != nil && tableView == progressTable) {
             return buttonContainerOriginY + buttonContainer.frame.size.height + 10;
         } else if (displayChatterTab && chatterTable != nil && tableView == chatterTable) {
-            return 50;
+//            return -50;
         }
         return buttonContainerOriginY + buttonContainer.frame.size.height;
     }
@@ -771,7 +771,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         if (cell == nil) {
             if (isIndividualLeaderboard) {
                 cell = ChallengeLeaderboardRow.instanceFromNib(challenge, participant: individualLeaderboardParticipants[index], index: index);
-                if (individualLeaderboardParticipants[index].displayName == challenge.participant.displayName) {
+                if (individualLeaderboardParticipants[index].url == challenge.participant.url) {
                     cell.backgroundColor = Utility.colorFromHexString("#d5ffb8");
                 }
             } else {
@@ -827,7 +827,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     func createProgressLegendRow(index: Int) -> UITableViewCell {
         let displayIndex = index + 1;
         let winConditions = isIndividualProgress ? individualGoalWinConditions : teamGoalWinConditions;
-        return ChallengeProgressLegendRow.instanceFromNib(winConditions[index], userPoints: challenge.participant.units,  metric: challenge.metric, index: displayIndex);
+        return ChallengeProgressLegendRow.instanceFromNib(winConditions[index], userPoints: challenge.participant.units,  metric: challenge.metricAbbreviated(), index: displayIndex);
     }
     
     func createDetailsTable(index: Int) -> UITableViewCell {
@@ -844,7 +844,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func createChatterTable(index: Int) -> UITableViewCell {
         let chatter = challengeChatterComments[index];
-        let cell = ChallengeDetailsChatterRow.instanceFromNib(chatter.comment, participant: chatter.participant, timeSincePosted: chatter.timeSincePosted, isYou: chatter.participant.displayName == challenge.participant.displayName);
+        let cell = ChallengeDetailsChatterRow.instanceFromNib(chatter.comment, participant: chatter.participant, timeSincePosted: chatter.timeSincePosted, isYou: chatter.participant.url == challenge.participant.url);
         cell.backgroundColor = Utility.colorFromHexString("#F4F4F4");
         return cell;
     }
