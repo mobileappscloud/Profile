@@ -89,6 +89,9 @@ class HigiChallenge {
         
     }
     
+    func metricAbbreviated() -> String {
+        return metric.stringByReplacingOccurrencesOfString("points", withString: "pts");
+    }
 }
 
 struct PagingData {

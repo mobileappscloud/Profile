@@ -10,7 +10,7 @@ import Foundation
 
 class ChallengeParticipant {
     
-    var displayName, imageUrl: NSString!;
+    var displayName, imageUrl, url: NSString!;
     
     var units: Double!;
     
@@ -19,6 +19,7 @@ class ChallengeParticipant {
     init(dictionary: NSDictionary) {
         var userObject = dictionary["userPublic"] as NSDictionary;
         var teamObject = dictionary["team"] as? NSDictionary;
+        url = dictionary["url"] as NSString;
         if (teamObject != nil) {
             team = ChallengeTeam(dictionary: teamObject!);
         }

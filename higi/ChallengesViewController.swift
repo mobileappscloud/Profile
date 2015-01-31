@@ -125,6 +125,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         table.separatorStyle = UITableViewCellSeparatorStyle.None;
         table.backgroundColor = UIColor.clearColor();
         table.scrollEnabled = true;
+        table.showsVerticalScrollIndicator = false;
         table.rowHeight = 226;
         return table;
     }
@@ -198,7 +199,16 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
             cell.avatar.setImageWithURL(Utility.loadImageFromUrl(challenge.imageUrl));
         }
         
-        //use this to send to challenge details page
+        var daysLeft:Int = 0;
+        var endDate:NSDate? = challenge.endDate?;
+        if (endDate != nil) {
+            var compare:NSTimeInterval = endDate!.timeIntervalSinceNow
+            if (Int(compare) > 0) {
+                cell.daysLeft.text = "\(Int(compare) / 60 / 60 / 24)d left";
+            }
+        }
+        
+        //use tag to send to indentify which challenge selected when going to challenge details page
         cell.tag = indexPath.row;
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "gotoDetails:");
         cell.addGestureRecognizer(tapGestureRecognizer);
@@ -227,21 +237,12 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         for nib in nibs {
             nib.frame.origin.x = nibOriginX;
             cell.scrollView.addSubview(nib);
-            nibOriginX += nib.frame.width;
+            nibOriginX += cell.scrollView.frame.size.width;
         }
         cell.pager.numberOfPages = nibs.count;
         cell.pager.currentPage = 0;
         cell.scrollView.contentSize = CGSize(width: cell.frame.size.width * CGFloat(nibs.count), height: cell.frame.size.height);
-        
-        var daysLeft:Int = 0
-        var endDate:NSDate? = challenge.endDate?
-        if (endDate != nil) {
-            var compare:NSTimeInterval = endDate!.timeIntervalSinceNow
-            if (Int(compare) > 0) {
-                daysLeft = Int(compare) / 60 / 60 / 24
-            }
-            cell.daysLeft.text = "\(daysLeft)d left";
-        }
+
         return cell;
     }
     

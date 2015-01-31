@@ -2,26 +2,39 @@ import Foundation
 
 class ChallengeDetailsChatterRow: UITableViewCell {
     
-    
-    @IBOutlet weak var chattBubble: UIView!
+    @IBOutlet weak var chatView: UIView!
     @IBOutlet weak var avatar: UIImageView!
     @IBOutlet weak var displayName: UILabel!
     @IBOutlet weak var message: UILabel!
     @IBOutlet weak var time: UILabel!
     
+    @IBOutlet weak var chatBubble: UIImageView!
+    @IBOutlet weak var yourChatBuble: UIImageView!
+    @IBOutlet weak var yourAvatar: UIImageView!
+    
     override func layoutSubviews() {
-        message.frame.size.width = chattBubble.frame.size.width - 10;
-        message.frame.size.height = Utility.heightForTextView(chattBubble.frame.size.width - 10, text: message.text!, fontSize: 12, margin: 20);
+        message.frame.size.width = chatView.frame.size.width - 10;
+        message.frame.size.height = Utility.heightForTextView(chatView.frame.size.width - 10, text: message.text!, fontSize: 12, margin: 20);
         message.sizeToFit();
     }
     
-    class func instanceFromNib(comment: Comments) -> ChallengeDetailsChatterRow {
+    class func instanceFromNib(comment: String, participant: ChallengeParticipant, timeSincePosted: String, isYou: Bool) -> ChallengeDetailsChatterRow {
         let row = UINib(nibName: "ChallengeDetailsChatterRow", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeDetailsChatterRow;
-        row.avatar.setImageWithURL(Utility.loadImageFromUrl(comment.participant.imageUrl));
-        row.displayName.text = comment.participant.displayName;
-        row.message.text = comment.comment;
-        row.time.text = comment.timeSincePosted;
-//        row.chattBubble.b
+        if (isYou) {
+            row.yourAvatar.setImageWithURL(Utility.loadImageFromUrl(participant.imageUrl));
+            row.chatBubble.hidden = true;
+            row.yourChatBuble.hidden = false;
+            row.displayName.textColor = UIColor.whiteColor();
+            row.message.textColor = UIColor.whiteColor()
+        } else {
+            row.avatar.setImageWithURL(Utility.loadImageFromUrl(participant.imageUrl));
+            row.yourChatBuble.hidden = true;
+            row.chatBubble.hidden = false;
+        }
+        row.displayName.text = participant.displayName;
+        row.message.text = comment;
+        row.time.text = timeSincePosted;
+
         return row;
     }
     
