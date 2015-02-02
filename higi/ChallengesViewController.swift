@@ -329,8 +329,6 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     
     func navigationController(navigationController: UINavigationController, didShowViewController viewController: UIViewController, animated: Bool) {
         let currentTableIndex = getCurrentTable();
-        //@todo logic for directing user back to appropriate page
-        //in the mean time, need to reload data to avoid view being smashed on return from back button
         switch(currentTableIndex) {
         case PagerConstants.activeChallengesIndex:
             activeTable.reloadData();

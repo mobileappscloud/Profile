@@ -1,14 +1,6 @@
-//
-//  PulseArticleViewController.swift
-//  higi
-//
-//  Created by Dan Harms on 8/6/14.
-//  Copyright (c) 2014 higi, LLC. All rights reserved.
-//
-
 import Foundation
 
-class WebViewController: UIViewController, NSURLConnectionDataDelegate {
+class WebViewController: UIViewController, NSURLConnectionDataDelegate, UIWebViewDelegate {
     
     @IBOutlet weak var webView: UIWebView!
     
@@ -18,6 +10,7 @@ class WebViewController: UIViewController, NSURLConnectionDataDelegate {
     
     var webData: NSMutableData!;
     
+    var headers:[String:String!] = [:];
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -32,6 +25,13 @@ class WebViewController: UIViewController, NSURLConnectionDataDelegate {
         
         var urlRequest = NSMutableURLRequest(URL: NSURL(string: url)!);
         
+        if (headers.count > 0) {
+            for (field, value) in headers {
+                urlRequest.addValue(value, forHTTPHeaderField: field);
+            }
+        }
+        webView.delegate = self;
+        
         urlRequest.addValue("mobile-ios", forHTTPHeaderField: "Higi-Source");
         if (loadData) {
             NSURLConnection(request: urlRequest, delegate: self);
@@ -39,6 +39,12 @@ class WebViewController: UIViewController, NSURLConnectionDataDelegate {
             webView.loadRequest(urlRequest);
         }
         
+    }
+    
+    func webViewDidStartLoad(webView: UIWebView) {
+        if (webView.request?.URL.absoluteString?.rangeOfString("www.google.com") != nil) {
+            goBack(self);
+        }
     }
     
     func connection(connection: NSURLConnection!, didReceiveResponse response: NSURLResponse!) {

@@ -1151,14 +1151,14 @@
 				8FEF6F411A6EECBE001EF8A6 /* BodyStatsCard.swift */,
 				8FEF6F451A6EECD5001EF8A6 /* ChallengesCard.swift */,
 				8F5C38EE1982EFDF00F51543 /* CheckinTableViewCell.swift */,
+				D1E2236F1A7FFF43006330E7 /* ConnectDeviceRow.swift */,
+				D1E223791A8009E6006330E7 /* ConnectDeviceViewController.swift */,
 				8FEF6F3B1A6EAACE001EF8A6 /* DashboardViewController.swift */,
 				8FEF6F471A6EECDE001EF8A6 /* PulseCard.swift */,
 				8F5C38F01982F20000F51543 /* CheckinTableViewCell.xib */,
 				8FEF6F391A6EAA58001EF8A6 /* DashboardView.xib */,
 				D1E2236D1A7FFE60006330E7 /* ConnectDeviceRow.xib */,
-				D1E2236F1A7FFF43006330E7 /* ConnectDeviceRow.swift */,
 				D1E223771A8009CE006330E7 /* ConnectDeviceView.xib */,
-				D1E223791A8009E6006330E7 /* ConnectDeviceViewController.swift */,
 			);
 			name = Dashboard;
 			sourceTree = "<group>";

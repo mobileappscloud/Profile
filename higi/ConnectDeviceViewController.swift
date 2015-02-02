@@ -18,14 +18,11 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
         self.navigationItem.leftBarButtonItem = backBarItem;
         self.navigationItem.hidesBackButton = true;
         
-        
         self.title = "Connect a device";
-        
         table.delegate = self;
         table.dataSource = self;
         
         let serverDevices = SessionController.Instance.devices;
-        
         for deviceName in Constants.getDevicePriority {
             if (serverDevices.indexForKey(deviceName) != nil) {
                 devices.append(serverDevices[deviceName]!);
@@ -60,7 +57,10 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        return ConnectDeviceRow.instanceFromNib(devices[indexPath.row]);
+        let row = ConnectDeviceRow();
+        row.device = devices[indexPath.row];
+        row.parentController = self.navigationController;
+        return row.instanceFromNib();
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -69,5 +69,10 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
     
     func goBack(sender: AnyObject!) {
         self.navigationController!.popViewControllerAnimated(true);
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated);
+        table.reloadData();
     }
 }
