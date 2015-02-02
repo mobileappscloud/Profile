@@ -320,6 +320,11 @@
 		D1E1FF0C1A76E0F200C8951C /* ChallengeDetailsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E1FF0B1A76E0F200C8951C /* ChallengeDetailsRow.swift */; };
 		D1E1FF0E1A76FAB100C8951C /* ChallengeDetailsIcons.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1E1FF0D1A76FAB100C8951C /* ChallengeDetailsIcons.xib */; };
 		D1E1FF101A76FB5400C8951C /* ChallengeDetailsIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E1FF0F1A76FB5400C8951C /* ChallengeDetailsIcons.swift */; };
+		D1E2236C1A7FFB7D006330E7 /* ui_nodevices.png in Resources */ = {isa = PBXBuildFile; fileRef = D1E2236B1A7FFB7D006330E7 /* ui_nodevices.png */; };
+		D1E2236E1A7FFE60006330E7 /* ConnectDeviceRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1E2236D1A7FFE60006330E7 /* ConnectDeviceRow.xib */; };
+		D1E223701A7FFF43006330E7 /* ConnectDeviceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E2236F1A7FFF43006330E7 /* ConnectDeviceRow.swift */; };
+		D1E223781A8009CE006330E7 /* ConnectDeviceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1E223771A8009CE006330E7 /* ConnectDeviceView.xib */; };
+		D1E2237A1A8009E6006330E7 /* ConnectDeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E223791A8009E6006330E7 /* ConnectDeviceViewController.swift */; };
 		D1EEDB951A660F2B0012EFD3 /* challenge_image.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDB8E1A660F2B0012EFD3 /* challenge_image.png */; };
 		D1EEDB961A660F2B0012EFD3 /* chat_bubble_green.9.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDB8F1A660F2B0012EFD3 /* chat_bubble_green.9.png */; };
 		D1EEDB971A660F2B0012EFD3 /* chat_bubble.9.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDB901A660F2B0012EFD3 /* chat_bubble.9.png */; };
@@ -673,6 +678,11 @@
 		D1E1FF0B1A76E0F200C8951C /* ChallengeDetailsRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeDetailsRow.swift; sourceTree = "<group>"; };
 		D1E1FF0D1A76FAB100C8951C /* ChallengeDetailsIcons.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailsIcons.xib; sourceTree = "<group>"; };
 		D1E1FF0F1A76FB5400C8951C /* ChallengeDetailsIcons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeDetailsIcons.swift; sourceTree = "<group>"; };
+		D1E2236B1A7FFB7D006330E7 /* ui_nodevices.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_nodevices.png; path = images/ui_nodevices.png; sourceTree = "<group>"; };
+		D1E2236D1A7FFE60006330E7 /* ConnectDeviceRow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConnectDeviceRow.xib; sourceTree = "<group>"; };
+		D1E2236F1A7FFF43006330E7 /* ConnectDeviceRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectDeviceRow.swift; sourceTree = "<group>"; };
+		D1E223771A8009CE006330E7 /* ConnectDeviceView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConnectDeviceView.xib; sourceTree = "<group>"; };
+		D1E223791A8009E6006330E7 /* ConnectDeviceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectDeviceViewController.swift; sourceTree = "<group>"; };
 		D1EEDB8E1A660F2B0012EFD3 /* challenge_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = challenge_image.png; path = "../../android-main/app/src/main/res/drawable-nodpi/challenge_image.png"; sourceTree = "<group>"; };
 		D1EEDB8F1A660F2B0012EFD3 /* chat_bubble_green.9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chat_bubble_green.9.png; path = "../../android-main/app/src/main/res/drawable-nodpi/chat_bubble_green.9.png"; sourceTree = "<group>"; };
 		D1EEDB901A660F2B0012EFD3 /* chat_bubble.9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chat_bubble.9.png; path = "../../android-main/app/src/main/res/drawable-nodpi/chat_bubble.9.png"; sourceTree = "<group>"; };
@@ -1079,6 +1089,7 @@
 		8F5C38D719818F0A00F51543 /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
+				D1E2236B1A7FFB7D006330E7 /* ui_nodevices.png */,
 				8F5F91851A7193E80042D87C /* activitywidgetblankstate.png */,
 				8F5F91861A7193E80042D87C /* challengewidgetblankstate.png */,
 				8F5F91871A7193E80042D87C /* dashboard_errorstate.png */,
@@ -1144,6 +1155,10 @@
 				8FEF6F471A6EECDE001EF8A6 /* PulseCard.swift */,
 				8F5C38F01982F20000F51543 /* CheckinTableViewCell.xib */,
 				8FEF6F391A6EAA58001EF8A6 /* DashboardView.xib */,
+				D1E2236D1A7FFE60006330E7 /* ConnectDeviceRow.xib */,
+				D1E2236F1A7FFF43006330E7 /* ConnectDeviceRow.swift */,
+				D1E223771A8009CE006330E7 /* ConnectDeviceView.xib */,
+				D1E223791A8009E6006330E7 /* ConnectDeviceViewController.swift */,
 			);
 			name = Dashboard;
 			sourceTree = "<group>";
@@ -1524,6 +1539,7 @@
 				8FFB035019FEA2440036228C /* oc_pulse_active.png in Resources */,
 				8F2B7E50198C3058009DE89A /* oc_pulse.png in Resources */,
 				8F02A14019AE2CF4002FF73E /* bodystats_background@2x.png in Resources */,
+				D1E2236C1A7FFB7D006330E7 /* ui_nodevices.png in Resources */,
 				8FFB034B19FEA2440036228C /* oc_bodystats_active.png in Resources */,
 				8F069CC219DAFCFF00DCC820 /* higi_logo_innercircle@2x.png in Resources */,
 				8FC7B71519E5E6B900D0112F /* bodystats_background-568h@2x.png in Resources */,
@@ -1552,6 +1568,7 @@
 				8F5E7FE6199C081F009067E5 /* vital_pulse_icon.png in Resources */,
 				8F02A12219AE2BF6002FF73E /* btn_back_white@2x.png in Resources */,
 				8FF940A0198A8CCD00D319D7 /* BirthdateView.xib in Resources */,
+				D1E2236E1A7FFE60006330E7 /* ConnectDeviceRow.xib in Resources */,
 				8F02A12519AE2BF6002FF73E /* btn_share_white.png in Resources */,
 				D1EEDB951A660F2B0012EFD3 /* challenge_image.png in Resources */,
 				8FDA6DA819A4039D00244D5F /* TermsView.xib in Resources */,
@@ -1669,6 +1686,7 @@
 				D1EEDB9A1A660F2B0012EFD3 /* ui_leaderboards.png in Resources */,
 				8FC7B71219E5E67000D0112F /* dashboard2-568h@2x.png in Resources */,
 				8F3643A719460EB300C0033E /* Images.xcassets in Resources */,
+				D1E223781A8009CE006330E7 /* ConnectDeviceView.xib in Resources */,
 				8FFF43C219B798380056F412 /* pulse_overlay@2x.png in Resources */,
 				8F211EFA1A1E85AE00A256C0 /* oc_dropdownmenu_up.png in Resources */,
 				8F02A13219AE2CBB002FF73E /* dashboard1@2x.png in Resources */,
@@ -1746,6 +1764,7 @@
 				8F3643A219460EB300C0033E /* BodyStatsViewController.swift in Sources */,
 				8F296316194B9BF700E787FD /* SessionController.swift in Sources */,
 				D19DDA531A5EF599004F97A3 /* NewCPTAxisLabel.m in Sources */,
+				D1E2237A1A8009E6006330E7 /* ConnectDeviceViewController.swift in Sources */,
 				8F9C69DB1950C8B700449664 /* PulseArticle.swift in Sources */,
 				8FF2E06E194A5E9500A81D8C /* NewCPTPlotRange.m in Sources */,
 				8F6A2449195A07880094B73C /* BmiGraphDelegate.swift in Sources */,
@@ -1816,6 +1835,7 @@
 				8F2B7E41198C2C27009DE89A /* SWRevealViewController.m in Sources */,
 				8F2CB5891993E68C009377A8 /* SessionData.swift in Sources */,
 				D19C66C91A3F74A400655218 /* ScrollViewPagerControllerViewController.swift in Sources */,
+				D1E223701A7FFF43006330E7 /* ConnectDeviceRow.swift in Sources */,
 				D1E1FF061A76C28F00C8951C /* ChallengeProgressLegendRow.swift in Sources */,
 				8F29630F194B8F5D00E787FD /* SignupEmailViewController.swift in Sources */,
 				8F524BF8195B829400BFC49D /* CustomFormatter.swift in Sources */,
