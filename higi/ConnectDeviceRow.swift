@@ -35,6 +35,7 @@ class ConnectDeviceRow: UITableViewCell, UIAlertViewDelegate {
         let headers = ["Higi-Device-Connect-Url": device.connectUrl.stringByReplacingOccurrencesOfString("{redirect}", withString: "http://www.google.com".stringByReplacingPercentEscapesUsingEncoding(16)!), "User-Id": SessionData.Instance.user.userId, "Token": SessionData.Instance.token];
         webView.headers = headers;
         parentController.pushViewController(webView, animated: true);
+        device.connected = true;
     }
     
     func disconnectDevice() {
