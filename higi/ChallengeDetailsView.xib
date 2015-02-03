@@ -141,7 +141,7 @@
                         </mask>
                     </variation>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Dj-0Z-1GK">
+                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Dj-0Z-1GK">
                     <rect key="frame" x="0.0" y="238" width="320" height="57"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
@@ -149,21 +149,18 @@
             <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="3xq-86-abo" secondAttribute="trailing" id="8DX-Gi-OHZ"/>
-                <constraint firstAttribute="bottom" secondItem="0Dj-0Z-1GK" secondAttribute="bottom" constant="273" id="B4p-Gf-Igk"/>
                 <constraint firstItem="uDa-Lt-ibU" firstAttribute="leading" secondItem="3xq-86-abo" secondAttribute="leading" id="DZd-ZI-eb1"/>
                 <constraint firstItem="uDa-Lt-ibU" firstAttribute="top" secondItem="3xq-86-abo" secondAttribute="top" id="FfD-FY-BfW"/>
                 <constraint firstItem="3xq-86-abo" firstAttribute="top" secondItem="PE7-hb-4Wz" secondAttribute="top" id="GVo-vS-fAt"/>
                 <constraint firstItem="3xq-86-abo" firstAttribute="leading" secondItem="PE7-hb-4Wz" secondAttribute="leading" id="HzB-l9-XiI"/>
+                <constraint firstItem="0Dj-0Z-1GK" firstAttribute="leading" secondItem="PE7-hb-4Wz" secondAttribute="leading" id="NUy-OV-zVg"/>
+                <constraint firstAttribute="trailing" secondItem="0Dj-0Z-1GK" secondAttribute="trailing" id="QT6-12-ANG"/>
+                <constraint firstItem="0Dj-0Z-1GK" firstAttribute="top" secondItem="uDa-Lt-ibU" secondAttribute="bottom" id="RYM-iw-iS9"/>
                 <constraint firstItem="3xq-86-abo" firstAttribute="leading" secondItem="PE7-hb-4Wz" secondAttribute="leading" id="TbV-0P-035"/>
-                <constraint firstItem="0Dj-0Z-1GK" firstAttribute="leading" secondItem="uDa-Lt-ibU" secondAttribute="leading" id="UV6-ef-Olo"/>
                 <constraint firstAttribute="trailing" secondItem="3xq-86-abo" secondAttribute="trailing" id="WZU-7O-tdc"/>
                 <constraint firstItem="3xq-86-abo" firstAttribute="top" secondItem="PE7-hb-4Wz" secondAttribute="top" id="Zal-8X-LXK"/>
                 <constraint firstAttribute="bottom" secondItem="3xq-86-abo" secondAttribute="bottom" id="b2C-Ls-ZlU"/>
                 <constraint firstAttribute="bottom" secondItem="3xq-86-abo" secondAttribute="bottom" id="b4q-9W-chP"/>
-                <constraint firstItem="0Dj-0Z-1GK" firstAttribute="trailing" secondItem="uDa-Lt-ibU" secondAttribute="trailing" id="f49-UQ-Rbe"/>
-                <constraint firstItem="0Dj-0Z-1GK" firstAttribute="top" secondItem="uDa-Lt-ibU" secondAttribute="bottom" id="fKm-3Y-WRF"/>
-                <constraint firstItem="0Dj-0Z-1GK" firstAttribute="leading" secondItem="PE7-hb-4Wz" secondAttribute="leading" id="feb-p5-hC6"/>
-                <constraint firstAttribute="trailing" secondItem="0Dj-0Z-1GK" secondAttribute="trailing" id="hNK-xC-p2i"/>
                 <constraint firstItem="uDa-Lt-ibU" firstAttribute="trailing" secondItem="3xq-86-abo" secondAttribute="trailing" id="rfg-eu-VY5"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
