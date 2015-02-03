@@ -21,7 +21,7 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
         self.title = "Connect a device";
         table.delegate = self;
         table.dataSource = self;
-        
+        table.rowHeight = 70;
         let serverDevices = SessionController.Instance.devices;
         for deviceName in Constants.getDevicePriority {
             if (serverDevices.indexForKey(deviceName) != nil) {
