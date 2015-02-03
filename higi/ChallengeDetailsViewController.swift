@@ -532,7 +532,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews();
         updateScroll();
-        
+        scrollView.contentSize = CGSize(width: scrollView.frame.size.width, height: scrollView.frame.size.height);
         if (displayLeaderboardTab && leaderboardTable != nil ) {
             leaderboardTable!.frame.size.height = scrollView.frame.size.height;
         }
@@ -788,7 +788,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                 }
             } else {
                 cell = ChallengeLeaderboardRow.instanceFromNib(challenge, team: teamLeaderboardParticipants[index], index: index);
-                if (teamLeaderboardParticipants[index].name == challenge.participant.team.name) {
+                if (teamLeaderboardParticipants[index].joinUrl == challenge.participant.team.joinUrl) {
                     cell.backgroundColor = Utility.colorFromHexString("#d5ffb8");
                 }
             }
