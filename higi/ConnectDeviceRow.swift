@@ -35,7 +35,7 @@ class ConnectDeviceRow: UITableViewCell, UIAlertViewDelegate {
         let headers = ["Higi-Device-Connect-Url": device.connectUrl.stringByReplacingOccurrencesOfString("{redirect}", withString: "http://www.google.com".stringByReplacingPercentEscapesUsingEncoding(16)!), "User-Id": SessionData.Instance.user.userId, "Token": SessionData.Instance.token];
         webView.headers = headers;
         parentController.pushViewController(webView, animated: true);
-        device.connected = true;
+//        device.connected = true;
     }
     
     func disconnectDevice() {
@@ -46,11 +46,15 @@ class ConnectDeviceRow: UITableViewCell, UIAlertViewDelegate {
         if (buttonIndex == 0) {
             connectedToggle.on = true;
         } else {
-            HigiApi().sendDelete(device.disconnectUrl, parameters: nil, success: {operation, responseObject in
-                self.device.connected = false;
-                }, failure: { operation, error in
-                    UIAlertView(title: "Uh oh", message: "Unable to remove device.  Please try again later.", delegate: self, cancelButtonTitle: "OK").show();
-            });
+            if (device.disconnectUrl != nil) {
+                HigiApi().sendDelete(device.disconnectUrl, parameters: nil, success: {operation, responseObject in
+                    self.device.connected = false;
+                    }, failure: { operation, error in
+                        UIAlertView(title: "Uh oh", message: "Unable to remove device.  Please try again later.", delegate: self, cancelButtonTitle: "OK").show();
+                });
+            } else {
+                UIAlertView(title: "Uh oh", message: "Unable to disconnect device.  Please try again later.", delegate: self, cancelButtonTitle: "OK").show();
+            }
         }
     }
 }
