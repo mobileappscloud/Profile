@@ -238,15 +238,15 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         let startDate:NSDate? = challenge.startDate?
         let endDate:NSDate? = challenge.endDate?
         if (Int(startDate!.timeIntervalSinceNow) > 0) {
-            let days = Int(startDate!.timeIntervalSinceNow / 60 / 60 / 24);
+            let days = Int(startDate!.timeIntervalSinceNow / 60 / 60 / 24) + 1;
             let s = days == 1 ? "" : "s";
             dateDisplay = "Starts in \(days) day\(s)";
         } else if (endDate != nil) {
-            let days = Int(endDate!.timeIntervalSinceNow / 60 / 60 / 24);
+            let days = Int(endDate!.timeIntervalSinceNow / 60 / 60 / 24) + 1;
             let s = days == 1 ? "" : "s";
             dateDisplay = "\(days) day\(s) left";
         } else {
-            let days = Int(startDate!.timeIntervalSinceNow / 60 / 60 / 24);
+            let days = Int(startDate!.timeIntervalSinceNow / 60 / 60 / 24) + 1;
             let s = days == 1 ? "" : "s";
             dateDisplay = "Started \(days) day\(s) ago";
         }

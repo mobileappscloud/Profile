@@ -214,6 +214,8 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         cell.addGestureRecognizer(tapGestureRecognizer);
         let footer = UIView(frame: CGRect(x: 0, y: cell.frame.height - 10, width: cell.frame.width, height: 10));
         footer.backgroundColor = Utility.colorFromHexString("#EEEEEE");
+        
+//        cell.scrollView.contentSize = 
         cell.addSubview(footer);
         return cell;
     }

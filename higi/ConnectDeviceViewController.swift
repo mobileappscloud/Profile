@@ -73,6 +73,7 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
+        ApiUtility.retrieveDevices(nil);
         table.reloadData();
     }
 }
