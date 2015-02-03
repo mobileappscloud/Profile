@@ -46,7 +46,7 @@ class ConnectDeviceRow: UITableViewCell, UIAlertViewDelegate {
             connectedToggle.on = true;
         } else {
             HigiApi().sendDelete(device.disconnectUrl, parameters: nil, success: {operation, responseObject in
-                self.connectedToggle.on = false;
+                self.device.connected = false;
                 }, failure: { operation, error in
                     UIAlertView(title: "Uh oh", message: "Unable to remove device.  Please try again later.", delegate: self, cancelButtonTitle: "OK").show();
             });
