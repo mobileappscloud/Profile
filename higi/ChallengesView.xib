@@ -36,10 +36,10 @@
             </subviews>
             <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="Yrk-O0-ijV" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="7j4-ah-SPH"/>
-                <constraint firstItem="Yrk-O0-ijV" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Q52-1l-H6Z"/>
-                <constraint firstAttribute="bottom" secondItem="Yrk-O0-ijV" secondAttribute="bottom" id="hds-8J-V5A"/>
-                <constraint firstAttribute="trailing" secondItem="Yrk-O0-ijV" secondAttribute="trailing" id="zH6-Sv-b3S"/>
+                <constraint firstItem="Yrk-O0-ijV" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="HfB-sk-H0q"/>
+                <constraint firstAttribute="bottom" secondItem="Yrk-O0-ijV" secondAttribute="bottom" id="LTC-lC-ZJR"/>
+                <constraint firstItem="Yrk-O0-ijV" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="wBG-Sd-2kb"/>
+                <constraint firstAttribute="trailing" secondItem="Yrk-O0-ijV" secondAttribute="trailing" id="xsB-iD-ciK"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
             <point key="canvasLocation" x="159" y="329"/>

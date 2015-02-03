@@ -6,10 +6,10 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var headerImage: UIImageView!
     
-    var activeTable: UITableView!;
-    var upcomingTable: UITableView!;
-    var availableTable: UITableView!;
-    var invitedTable: UITableView!;
+    var activeTable: UITableView?;
+    var upcomingTable: UITableView?;
+    var availableTable: UITableView?;
+    var invitedTable: UITableView?;
     
     var pageTitles:[String] = [];
     var pageDisplayMaster = [false, false, false, false];
@@ -27,6 +27,8 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     
     var currentPage  = 0;
     var totalPages = 0;
+    
+    let headerHeight:CGFloat = 83;
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -61,19 +63,19 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
                 switch(index) {
                 case 0:
                     activeTable = addTableView(totalPages);
-                    scrollView.addSubview(activeTable);
+                    scrollView.addSubview(activeTable!);
                     pageTitles.append("Active Challenges");
                 case 1:
                     upcomingTable = addTableView(totalPages);
-                    scrollView.addSubview(upcomingTable);
+                    scrollView.addSubview(upcomingTable!);
                     pageTitles.append("Upcoming Challenges");
                 case 2:
                     availableTable = addTableView(totalPages);
-                    scrollView.addSubview(availableTable);
+                    scrollView.addSubview(availableTable!);
                     pageTitles.append("Available Challenges");
                 case 3:
                     invitedTable = addTableView(totalPages);
-                    scrollView.addSubview(invitedTable);
+                    scrollView.addSubview(invitedTable!);
                     pageTitles.append("Invited Challenges");
                 default:
                     var i = 0;
@@ -87,6 +89,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         scrollView.contentSize = CGSize(width: scrollView.frame.size.width * CGFloat(totalPages), height: scrollView.frame.size.height);
         scrollView.setContentOffset(CGPointMake(0,0),animated: false);
         pager.numberOfPages = totalPages;
+
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -95,26 +98,29 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     
     func updateNavbar() {
         //@todo this only works for the first table at the moment
-        var scrollY = activeTable.contentOffset.y;
-        if (scrollY >= 0) {
-            //headerImage.frame.origin.y = -scrollY / 2;
-            var alpha = min(scrollY / 75, 1);
-            self.fakeNavBar.alpha = alpha;
-            self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0 - alpha, alpha: 1.0)];
-            if (alpha < 0.5) {
-                toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon"), forState: UIControlState.Normal);
-                toggleButton!.alpha = 1 - alpha;
-                self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
-                pager.currentPageIndicatorTintColor = UIColor.whiteColor();
+        let table = getCurrentTable();
+        if (table != nil) {
+            var scrollY = table!.contentOffset.y;
+            if (scrollY >= 0) {
+                //headerImage.frame.origin.y = -scrollY / 2;
+                var alpha = min(scrollY / 75, 1);
+                self.fakeNavBar.alpha = alpha;
+                self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0 - alpha, alpha: 1.0)];
+                if (alpha < 0.5) {
+                    toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon"), forState: UIControlState.Normal);
+                    toggleButton!.alpha = 1 - alpha;
+                    self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
+                    pager.currentPageIndicatorTintColor = UIColor.whiteColor();
+                } else {
+                    toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon_inverted"), forState: UIControlState.Normal);
+                    toggleButton!.alpha = alpha;
+                    self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
+                    pager.currentPageIndicatorTintColor = UIColor.blackColor();
+                }
             } else {
-                toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon_inverted"), forState: UIControlState.Normal);
-                toggleButton!.alpha = alpha;
-                self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
-                pager.currentPageIndicatorTintColor = UIColor.blackColor();
+                self.fakeNavBar.alpha = 0;
+                self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0, alpha: 1)];
             }
-        } else {
-            self.fakeNavBar.alpha = 0;
-            self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0, alpha: 1)];
         }
     }
 
@@ -130,15 +136,25 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         return table;
     }
     
-//    override func viewDidLayoutSubviews() {
-//        super.viewDidLayoutSubviews();
-//        
-////        scrollView.contentSize = CGSize(width: scrollView.frame.size.width * CGFloat(totalPages), height: scrollView.frame.size.height);
-////        scrollView.setContentOffset(CGPointMake(0,0),animated: false);
-////        
-//        pager.numberOfPages = totalPages;
-//    }
-//    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews();
+        
+        scrollView.contentSize = CGSize(width: scrollView.frame.size.width * CGFloat(totalPages), height: scrollView.frame.size.height);
+        scrollView.setContentOffset(CGPointMake(0,0),animated: false);
+        if (pageDisplayMaster[PagerConstants.activeChallengesIndex] && activeTable != nil) {
+            activeTable!.frame.size.height = scrollView.frame.size.height;
+        }
+        if (pageDisplayMaster[PagerConstants.upcomingChallengesIndex] && upcomingTable != nil) {
+            upcomingTable!.frame.size.height = scrollView.frame.size.height;
+        }
+        if (pageDisplayMaster[PagerConstants.availableChallengesIndex] && availableTable != nil) {
+            availableTable!.frame.size.height = scrollView.frame.size.height;
+        }
+        if (pageDisplayMaster[PagerConstants.invitedChallengesIndex] && invitedTable != nil) {
+            invitedTable!.frame.size.height = scrollView.frame.size.height;
+        }
+    }
+    
     func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool {
         return true;
     }
@@ -159,11 +175,11 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 83));
+        return UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: headerHeight));
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 83;
+        return headerHeight;
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -179,10 +195,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         }
         
         //load the appropriate challenges for this table
-        
         var challenge: HigiChallenge!;
-        
-
         if (activeTable != nil && tableView == activeTable) {
             challenge = activeChallenges[indexPath.row];
         } else if (upcomingTable != nil && tableView == upcomingTable) {
@@ -215,7 +228,6 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         let footer = UIView(frame: CGRect(x: 0, y: cell.frame.height - 10, width: cell.frame.width, height: 10));
         footer.backgroundColor = Utility.colorFromHexString("#EEEEEE");
         
-//        cell.scrollView.contentSize = 
         cell.addSubview(footer);
         return cell;
     }
@@ -273,17 +285,16 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         
         var challenge: HigiChallenge!;
         
-        switch(getCurrentTable()) {
-        case PagerConstants.activeChallengesIndex:
+        let table = getCurrentTable()!;
+        
+        if (activeTable != nil && table == activeTable) {
             challenge = activeChallenges[index];
-        case PagerConstants.availableChallengesIndex:
+        } else if (availableTable != nil && table == availableTable) {
             challenge = availableChallenges[index];
-        case PagerConstants.upcomingChallengesIndex:
+        } else if (upcomingTable != nil && table == upcomingTable) {
             challenge = upcomingChallenges[index];
-        case PagerConstants.invitedChallengesIndex:
+        } else if (invitedTable != nil && table == invitedTable) {
             challenge = invitedChallenges[index];
-        default:
-            var i = 0;
         }
 
         Flurry.logEvent("Challenge_Pressed");
@@ -293,7 +304,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         self.navigationController!.pushViewController(challengeDetailViewController, animated: true);
     }
     
-    func getCurrentTable() -> Int {
+    func getCurrentTable() -> UITableView? {
         var count = -1;
         for index in 0...pageDisplayMaster.count - 1 {
             
@@ -302,11 +313,26 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
             }
             
             if (count == currentPage) {
-                return index;
+                count = index;
+                break;
             }
             
         }
-        return count;
+        var table:UITableView?;
+        switch(count) {
+        case PagerConstants.activeChallengesIndex:
+            table = activeTable!;
+        case PagerConstants.availableChallengesIndex:
+            table = availableTable!;
+        case PagerConstants.upcomingChallengesIndex:
+            table = upcomingTable!;
+        case PagerConstants.invitedChallengesIndex:
+            table = invitedTable!;
+        default:
+            let i = 0;
+        }
+        
+        return table;
     }
     
     @IBAction func changePage(sender: AnyObject) {
@@ -322,6 +348,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         frame.origin.x = frame.size.width * CGFloat(page);
         frame.origin.y = 0;
         scrollView.setContentOffset(frame.origin, animated: true);
+        updateNavbar();
     }
     
     func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -330,19 +357,13 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     }
     
     func navigationController(navigationController: UINavigationController, didShowViewController viewController: UIViewController, animated: Bool) {
-        let currentTableIndex = getCurrentTable();
-        switch(currentTableIndex) {
-        case PagerConstants.activeChallengesIndex:
-            activeTable.reloadData();
-        case PagerConstants.availableChallengesIndex:
-            availableTable.reloadData();
-        case PagerConstants.upcomingChallengesIndex:
-            upcomingTable.reloadData();
-        case PagerConstants.invitedChallengesIndex:
-            invitedTable.reloadData();
-        default:
-            let i = 0;
+        let currentTable = getCurrentTable();
+        if (currentTable != nil) {
+            currentTable!.reloadData();
+        } else {
+            //@todo i believe this case would mean that there was one unjoined challenge as the only challenge
+            //in a particular page, then the user clicked on it and joined it, then came back.  thus the page they 
+            //were on does not exist
         }
-
     }
 }
