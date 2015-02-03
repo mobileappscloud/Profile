@@ -234,7 +234,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     }
     
     @IBAction func gotoConnectDevices(sender: AnyObject) {
-        
+        self.navigationController!.pushViewController(ConnectDeviceViewController(nibName: "ConnectDeviceView", bundle: nil), animated: true);
     }
     
     @IBAction func gotoChallenges(sender: AnyObject) {

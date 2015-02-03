@@ -4,11 +4,11 @@ import Foundation
 class HigiApi {
     
     class var PRODUCTION: Bool {
-        return false;
+        return true;
     }
     
     class var EARNDIT_DEV: Bool {
-        return true;
+        return false;
     }
     
     var manager: AFHTTPRequestOperationManager;
@@ -59,6 +59,10 @@ class HigiApi {
         manager.PUT(url, parameters: parameters, success: success, failure: failure);
     }
     
+    func sendDelete(url: String, parameters: NSDictionary?, success: ((AFHTTPRequestOperation!, AnyObject!) -> Void)?, failure: ((AFHTTPRequestOperation!, NSError!) -> Void)?) {
+        manager.DELETE(url, parameters: parameters, success: success, failure: failure);
+    }
+    
     func sendBytePost(url: String, contentType: String, body: NSData, parameters: NSDictionary?, success: ((AFHTTPRequestOperation!, AnyObject!) -> Void)?, failure: ((AFHTTPRequestOperation!, NSError!) -> Void)?) {
         var request = NSMutableURLRequest(URL: NSURL(string: url)!);
         request.HTTPMethod = "POST";
@@ -74,7 +78,6 @@ class HigiApi {
         op.setCompletionBlockWithSuccess(success, failure: failure);
         op.start();
     }
-    
 }
 
 let BASE_URL = "https://api.higi.com";
