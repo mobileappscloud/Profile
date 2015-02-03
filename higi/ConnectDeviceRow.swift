@@ -1,6 +1,6 @@
 import Foundation
 
-class ConnectDeviceRow: UITableViewCell {
+class ConnectDeviceRow: UITableViewCell, UIAlertViewDelegate {
 
     @IBOutlet weak var logo: UIImageView!
     @IBOutlet weak var name: UILabel!
@@ -39,5 +39,17 @@ class ConnectDeviceRow: UITableViewCell {
     
     func disconnectDevice() {
         UIAlertView(title: "Remove device", message: "You are about to remove \(device.name) from your devices.  Are you sure?", delegate: self, cancelButtonTitle: "No", otherButtonTitles: "Yes").show();
+    }
+    
+    func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
+        if (buttonIndex == 0) {
+            connectedToggle.on = true;
+        } else {
+            HigiApi().sendDelete(device.disconnectUrl, parameters: nil, success: {operation, responseObject in
+                self.connectedToggle.on = false;
+                }, failure: { operation, error in
+                    UIAlertView(title: "Uh oh", message: "Unable to remove device.  Please try again later.", delegate: self, cancelButtonTitle: "OK").show();
+            });
+        }
     }
 }
