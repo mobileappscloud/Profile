@@ -367,6 +367,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             tabView.addSubview(greenBar);
             tabView.addSubview(image);
             tabView.addSubview(label);
+            tabView.userInteractionEnabled = true;
             tabView.addGestureRecognizer(tabGestureRecognizer);
             buttonContainer.addSubview(tabView);
         }
@@ -531,6 +532,17 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews();
         updateScroll();
+        
+        if (displayLeaderboardTab && leaderboardTable != nil ) {
+            leaderboardTable!.frame.size.height = scrollView.frame.size.height;
+        }
+        if (displayProgressTab && progressTable != nil) {
+            progressTable!.frame.size.height = scrollView.frame.size.height;
+        }
+        detailsTable.frame.size.height = scrollView.frame.size.height;
+        if (displayChatterTab && chatterTable != nil) {
+            chatterTable!.frame.size.height = scrollView.frame.size.height;
+        }
     }
     
     func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool {
