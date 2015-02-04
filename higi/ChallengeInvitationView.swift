@@ -49,10 +49,12 @@ class ChallengeInvitationView: UIView {
             let days = Int(startDate.timeIntervalSinceNow / 60 / 60 / 24) + 1;
             let s = days == 1 ? "" : "s";
             dateDisplay = "Starts in \(days) day\(s)";
-        } else {
-            let days = Int(startDate.timeIntervalSinceNow / 60 / 60 / 24) + 1;
+        } else if (Int(startDate.timeIntervalSinceNow) < 0){
+            let days = Int(startDate.timeIntervalSinceNow / 60 / 60 / 24) * -1 + 1;
             let s = days == 1 ? "" : "s";
             dateDisplay = "Started \(days) day\(s) ago";
+        } else {
+            dateDisplay = "Started today";
         }
         return dateDisplay;
     }
