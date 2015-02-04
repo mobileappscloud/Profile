@@ -1,6 +1,6 @@
 import Foundation
 
-class ChallengeDetailsTab: UITableView, UIWebViewDelegate, UIAlertViewDelegate {
+class ChallengeDetailsTab: UITableView, UIAlertViewDelegate {
     
     @IBOutlet weak var descriptionText: UILabel!
     @IBOutlet weak var durationText: UILabel!
@@ -9,12 +9,12 @@ class ChallengeDetailsTab: UITableView, UIWebViewDelegate, UIAlertViewDelegate {
     @IBOutlet weak var individualCountText: UILabel!
     @IBOutlet weak var descriptionView: UIView!
     
-    override func layoutSubviews() {
-        super.layoutSubviews();
-        descriptionText.sizeToFit();
-        descriptionText.center = descriptionView.center;
-        descriptionText.textAlignment = NSTextAlignment.Center;
-    }
+//    override func layoutSubviews() {
+//        super.layoutSubviews();
+//        descriptionText.sizeToFit();
+//        descriptionText.center = descriptionView.center;
+//        descriptionText.textAlignment = NSTextAlignment.Center;
+//    }
     
     class func instanceFromNib(challenge: HigiChallenge) -> ChallengeDetailsTab {
         let tab = UINib(nibName: "ChallengeDetailsTab", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeDetailsTab;
@@ -22,10 +22,7 @@ class ChallengeDetailsTab: UITableView, UIWebViewDelegate, UIAlertViewDelegate {
         let firstWinCondition = challenge.winConditions[0];
         
         tab.descriptionText.text = challenge.shortDescription;
-//        let webView = UIWebView(frame: CGRect(x: 0, y: 20, width: tab.frame.size.width, height: 400));
-//        webView.loadHTMLString(challenge.description, baseURL: nil);
-//        tab.descriptionView.addSubview(webView);
-//
+
         if (challenge.endDate != nil) {
             tab.durationText.text = setDateRangeHelper(challenge.startDate, endDate: challenge.endDate);
         } else {

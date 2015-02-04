@@ -426,23 +426,29 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             tables.append(progressTable!);
             totalPages++;
         }
-        detailsTable = ChallengeDetailsTab.instanceFromNib(challenge);
-        detailsTable.frame = CGRect(x: CGFloat(totalPages) * scrollView.frame.size.width, y: buttonContainerOriginY + buttonContainer.frame.size.height, width: scrollView.frame.size.width, height: scrollView.frame.size.height);
-        detailsTable.dataSource = self;
-        detailsTable.delegate = self;
-        detailsTable.separatorStyle = UITableViewCellSeparatorStyle.None;
-        detailsTable.backgroundColor = Utility.colorFromHexString("#F4F4F4");
-        detailsTable.scrollEnabled = true;
-        detailsTable.allowsSelection = false;
-        detailsTable.showsVerticalScrollIndicator = false;
-        scrollView.addSubview(detailsTable);
-        tables.append(detailsTable);
-        totalPages++;
         
-//        detailsTable = addTableView(totalPages);
+//        scrollView.setTranslatesAutoresizingMaskIntoConstraints(false);
+//
+//        detailsTable = ChallengeDetailsTab.instanceFromNib(challenge);
+//        detailsTable.frame = CGRect(x: CGFloat(totalPages) * scrollView.frame.size.width, y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height);
+//        detailsTable.dataSource = self;
+//        detailsTable.delegate = self;
+//        detailsTable.separatorStyle = UITableViewCellSeparatorStyle.None;
+//        detailsTable.backgroundColor = Utility.colorFromHexString("#F4F4F4");
+//        detailsTable.scrollEnabled = true;
+//        detailsTable.allowsSelection = false;
+//        detailsTable.showsVerticalScrollIndicator = false;
+//        detailsTable.updateConstraints();
+//        detailsTable.autoresizesSubviews = true;
+//        detailsTable.setTranslatesAutoresizingMaskIntoConstraints(false);
 //        scrollView.addSubview(detailsTable);
 //        tables.append(detailsTable);
 //        totalPages++;
+        
+        detailsTable = addTableView(totalPages);
+        scrollView.addSubview(detailsTable);
+        tables.append(detailsTable);
+        totalPages++;
         
         if (displayChatterTab) {
             chatterTable = addTableView(totalPages);
@@ -459,7 +465,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         self.automaticallyAdjustsScrollViewInsets = false;
 
     }
-    
+
     func addTableView(page: Int) -> UITableView {
         let viewWidth = scrollView.frame.size.width;
         let viewHeight:CGFloat = scrollView.frame.size.height;
@@ -556,10 +562,12 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         if (displayProgressTab && progressTable != nil) {
             progressTable!.frame.size.height = scrollView.frame.size.height;
         }
-        detailsTable.frame.size.height = scrollView.frame.size.height;
+        detailsTable.layoutIfNeeded();
+//        detailsTable.frame.size.height = scrollView.frame.size.height;
         if (displayChatterTab && chatterTable != nil) {
             chatterTable!.frame.size.height = scrollView.frame.size.height;
         }
+        scrollView.layoutIfNeeded();
     }
     
     func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool {
