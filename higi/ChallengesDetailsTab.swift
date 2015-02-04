@@ -7,7 +7,6 @@ class ChallengeDetailsTab: UITableView, UIWebViewDelegate, UIAlertViewDelegate {
     @IBOutlet weak var typeText: UILabel!
     @IBOutlet weak var teamCountText: UILabel!
     @IBOutlet weak var individualCountText: UILabel!
-    @IBOutlet weak var prizesText: UILabel!
     @IBOutlet weak var descriptionView: UIView!
     
     class func instanceFromNib(challenge: HigiChallenge) -> ChallengeDetailsTab {
@@ -32,8 +31,7 @@ class ChallengeDetailsTab: UITableView, UIWebViewDelegate, UIAlertViewDelegate {
         } else {
             tab.teamCountText.text = "0";
         }
-        tab.prizesText.text = firstWinCondition.prizeName;
-        
+
         return tab;
     }
     
