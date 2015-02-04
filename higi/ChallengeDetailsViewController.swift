@@ -419,11 +419,23 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             tables.append(progressTable!);
             totalPages++;
         }
-        
-        detailsTable = addTableView(totalPages);
+        detailsTable = ChallengeDetailsTab.instanceFromNib(challenge);
+        detailsTable.frame = CGRect(x: CGFloat(totalPages) * scrollView.frame.size.width, y: buttonContainerOriginY + buttonContainer.frame.size.height, width: scrollView.frame.size.width, height: scrollView.frame.size.height);
+        detailsTable.dataSource = self;
+        detailsTable.delegate = self;
+        detailsTable.separatorStyle = UITableViewCellSeparatorStyle.None;
+        detailsTable.backgroundColor = Utility.colorFromHexString("#F4F4F4");
+        detailsTable.scrollEnabled = true;
+        detailsTable.allowsSelection = false;
+        detailsTable.showsVerticalScrollIndicator = false;
         scrollView.addSubview(detailsTable);
         tables.append(detailsTable);
         totalPages++;
+        
+//        detailsTable = addTableView(totalPages);
+//        scrollView.addSubview(detailsTable);
+//        tables.append(detailsTable);
+//        totalPages++;
         
         if (displayChatterTab) {
             chatterTable = addTableView(totalPages);
@@ -595,7 +607,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         } else if (displayChatterTab && chatterTable != nil && tableView == chatterTable) {
             return getChatterRowHeight(indexPath.row);
         } else {
-            return getDetailsRowHeight(indexPath.row);
+//            return getDetailsRowHeight(indexPath.row);
+            return 800;
         }
     }
     
@@ -632,7 +645,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             //one row for each win condition plus 1 for graph view
             return isIndividualProgress ? individualGoalWinConditions.count + 1: teamGoalWinConditions.count + 1;
         } else if (detailsTable != nil && tableView == detailsTable) {
-            return 1;
+            return challenge.winConditions.count;
         } else if (displayChatterTab && chatterTable != nil && tableView == chatterTable) {
             return challengeChatterComments.count;
         }
@@ -654,8 +667,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         } else if (displayProgressTab && progressTable != nil && tableView == progressTable) {
             return createProgressTable(indexPath.row);
         } else if (detailsTable != nil && tableView == detailsTable) {
-//            return createDetailsTable(indexPath.row);
-            return ChallengeDetailsTab.instanceFromNib(challenge);
+            return ChallengeDetailsPrize.instanceFromNib(challenge.winConditions[indexPath.row]);
         } else {
             return createChatterTable(indexPath.row);
         }
