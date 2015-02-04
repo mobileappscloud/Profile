@@ -26,7 +26,7 @@ class ChallengeLeaderboardRow: UITableViewCell {
         let highScore = challenge.teamHighScore;
         row.avatar.setImageWithURL(Utility.loadImageFromUrl(team.imageUrl));
         row.name.text = team.name;
-        let units = challenge.teams.count > 0 ? Int(team.units) / challenge.teams.count: 0;
+        let units = challenge.participant.team.memberCount > 0 ? Int(team.units) / challenge.participant.team.memberCount : 0;
         
         row.points.text = "\(units) \(challenge.metricAbbreviated())";
         row.place.text = Utility.getRankSuffix(String(index + 1));

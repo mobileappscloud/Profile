@@ -205,9 +205,16 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                 participantProgress.hidden = false;
                 participantAvatar.hidden = false;
                 
-                participantPoints.text = "\(Int(participant.units)) pts";
-                participantPlace.text = getUserRank();
-                setProgressBar(participantProgress, points: Int(participant.units), highScore: Int(challenge.individualHighScore));
+                if (challenge.winConditions[0].winnerType == "individual") {
+                    participantPoints.text = "\(Int(participant.units)) pts";
+                    participantPlace.text = getUserRank(false);
+                    setProgressBar(participantProgress, points: Int(participant.units), highScore: Int(challenge.individualHighScore));
+                } else {
+                    let teamAvgPts = participant.team.memberCount > 0 ? Int(participant.team.units) / participant.team.memberCount : 0;
+                    participantPoints.text = "\(teamAvgPts) pts";
+                    participantPlace.text = getUserRank(true);
+                    setProgressBar(participantProgress, points: teamAvgPts, highScore: Int(challenge.individualHighScore));
+                }
             } else {
                 participantPoints.hidden = true;
                 participantPlace.hidden = true;
@@ -468,11 +475,11 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         return table;
     }
     
-    func getUserRank() -> String {
+    func getUserRank(isTeam: Bool) -> String {
         let gravityBoard = challenge.gravityBoard;
         for index in 0...challenge.gravityBoard.count - 1 {
             if (gravityBoard[index].participant.url == challenge.participant.url) {
-                return Utility.getRankSuffix("\(index + 1)");
+                return Utility.getRankSuffix(gravityBoard[index].place!);
             }
         }
         return "";
@@ -499,42 +506,42 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     func updateScroll() {
         let headerXOffset:CGFloat = 50;
         let minHeaderHeightThreshold:CGFloat = 67;
-        let currentTable = tables[currentPage];
-        scrollY = currentTable.contentOffset.y;
-        
-        //@todo for some reason there is a hiccup in scrolling at a couple places, same scrollY values each time
-        
-        if (scrollY >= 0) {
-            if (scrollY > headerContainerHeight - minHeaderHeightThreshold) {
-                headerContainer.frame.origin.y = minHeaderHeightThreshold - headerContainerHeight;
-                buttonContainer.frame.origin.y = minHeaderHeightThreshold - 1;
+        if (tables.count > currentPage) {
+            let currentTable = tables[currentPage];
+            scrollY = currentTable.contentOffset.y;
+
+            if (scrollY >= 0) {
+                if (scrollY > headerContainerHeight - minHeaderHeightThreshold) {
+                    headerContainer.frame.origin.y = minHeaderHeightThreshold - headerContainerHeight;
+                    buttonContainer.frame.origin.y = minHeaderHeightThreshold - 1;
+                } else {
+                    participantPlace.frame.origin.x = headerPlaceOriginX + (scrollY / headerXOffset);
+                    participantProgress.frame.origin.x = headerProgressOriginX + (scrollY / headerXOffset);
+                    
+                    var xOffset = min(scrollY * (headerXOffset / ((headerContainerHeight - minHeaderHeightThreshold) / 2)),50);
+                    participantAvatar.frame = CGRect(x: headerAvatarOriginX + xOffset, y: participantAvatar.frame.origin.y, width: 30, height: 30);
+                    participantPlace.frame = CGRect(x: headerPlaceOriginX + xOffset, y: participantPlace.frame.origin.y, width: 58, height: 25);
+                    participantProgress.frame = CGRect(x: headerProgressOriginX + xOffset, y: participantPoints.frame.origin.y, width: headerProgressOriginWidth - xOffset, height: 15);
+                    
+                    headerContainer.frame.origin.y = -scrollY;
+                    buttonContainer.frame.origin.y = buttonContainerOriginY - scrollY;
+                }
             } else {
-                participantPlace.frame.origin.x = headerPlaceOriginX + (scrollY / headerXOffset);
-                participantProgress.frame.origin.x = headerProgressOriginX + (scrollY / headerXOffset);
+                participantPlace.frame.origin.x = headerPlaceOriginX;
+                participantProgress.frame.origin.x = headerProgressOriginX;
                 
-                var xOffset = min(scrollY * (headerXOffset / ((headerContainerHeight - minHeaderHeightThreshold) / 2)),50);
-                participantAvatar.frame = CGRect(x: headerAvatarOriginX + xOffset, y: participantAvatar.frame.origin.y, width: 30, height: 30);
-                participantPlace.frame = CGRect(x: headerPlaceOriginX + xOffset, y: participantPlace.frame.origin.y, width: 58, height: 25);
-                participantProgress.frame = CGRect(x: headerProgressOriginX + xOffset, y: participantPoints.frame.origin.y, width: headerProgressOriginWidth - xOffset, height: 15);
+                participantAvatar.frame = CGRect(x: headerAvatarOriginX, y: participantAvatar.frame.origin.y, width: 30, height: 30);
+                participantPlace.frame = CGRect(x: headerPlaceOriginX, y: participantPlace.frame.origin.y, width: 58, height: 25);
+                participantProgress.frame = CGRect(x: headerProgressOriginX, y: participantPoints.frame.origin.y, width: headerProgressOriginWidth, height: 15);
                 
-                headerContainer.frame.origin.y = -scrollY;
-                buttonContainer.frame.origin.y = buttonContainerOriginY - scrollY;
+                headerContainer.frame.origin.y = 0;
+                buttonContainer.frame.origin.y = buttonContainerOriginY;
             }
-        } else {
-            participantPlace.frame.origin.x = headerPlaceOriginX;
-            participantProgress.frame.origin.x = headerProgressOriginX;
             
-            participantAvatar.frame = CGRect(x: headerAvatarOriginX, y: participantAvatar.frame.origin.y, width: 30, height: 30);
-            participantPlace.frame = CGRect(x: headerPlaceOriginX, y: participantPlace.frame.origin.y, width: 58, height: 25);
-            participantProgress.frame = CGRect(x: headerProgressOriginX, y: participantPoints.frame.origin.y, width: headerProgressOriginWidth, height: 15);
-            
-            headerContainer.frame.origin.y = 0;
-            buttonContainer.frame.origin.y = buttonContainerOriginY;
-        }
-        
-        for index in 0...tables.count - 1 {
-            if (index != currentPage) {
-                tables[index].contentOffset.y = min(scrollY, headerContainer.frame.size.height);
+            for index in 0...tables.count - 1 {
+                if (index != currentPage) {
+                    tables[index].contentOffset.y = min(scrollY, headerContainer.frame.size.height);
+                }
             }
         }
     }

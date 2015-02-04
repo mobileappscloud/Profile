@@ -25,7 +25,7 @@ class ChallengeInvitationView: UIView {
         
         invitationView.goal.text = winCondition.goal.type == "most_points" ? "Most points" : "Threshold reached";
         invitationView.type.text = goalTypeDisplayHelper(winCondition.goal.type, winnerType: winCondition.winnerType);
-        invitationView.prize.text = winCondition.prizeName != nil ? winCondition.prizeName : "Coming soon!";
+        invitationView.prize.text = winCondition.prizeName != nil ? winCondition.prizeName : "No prize";
         invitationView.participantCount.text = String(challenge.participantsCount)
         invitationView.starting.text = startsInDisplayHelper(challenge.startDate);
         invitationView.dateRange.text = dateRangeDisplayHelper(challenge.startDate, endDate: challenge.endDate?);

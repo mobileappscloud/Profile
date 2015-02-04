@@ -106,9 +106,8 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     }
     
     func updateNavbar() {
-        let table = getCurrentTable();
-        if (table != nil) {
-            var scrollY = table!.contentOffset.y;
+        if (currentTable != nil) {
+            var scrollY = activeTable!.contentOffset.y;
             if (scrollY >= 0) {
                 //headerImage.frame.origin.y = -scrollY / 2;
                 var alpha = min(scrollY / 75, 1);
@@ -149,10 +148,10 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         
         scrollView.contentSize = CGSize(width: scrollView.frame.size.width * CGFloat(totalPages), height: scrollView.frame.size.height);
         scrollView.setContentOffset(CGPointMake(0,0),animated: false);
-        if (pageDisplayMaster[PagerConstants.activeChallengesIndex] && activeTable != nil) {
+        if (pageDisplayMaster[PagerConstants.activeChallengesIndex] && activeTable != nil && currentTable == activeTable) {
             activeTable!.frame.size.height = scrollView.frame.size.height;
         }
-        if (pageDisplayMaster[PagerConstants.upcomingChallengesIndex] && upcomingTable != nil) {
+        if (pageDisplayMaster[PagerConstants.upcomingChallengesIndex] && upcomingTable != nil && currentTable == upcomingTable) {
             upcomingTable!.frame.size.height = scrollView.frame.size.height;
         }
         if (pageDisplayMaster[PagerConstants.availableChallengesIndex] && availableTable != nil) {

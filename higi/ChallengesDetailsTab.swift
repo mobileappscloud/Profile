@@ -9,6 +9,13 @@ class ChallengeDetailsTab: UITableView, UIWebViewDelegate, UIAlertViewDelegate {
     @IBOutlet weak var individualCountText: UILabel!
     @IBOutlet weak var descriptionView: UIView!
     
+    override func layoutSubviews() {
+        super.layoutSubviews();
+        descriptionText.sizeToFit();
+        descriptionText.center = descriptionView.center;
+        descriptionText.textAlignment = NSTextAlignment.Center;
+    }
+    
     class func instanceFromNib(challenge: HigiChallenge) -> ChallengeDetailsTab {
         let tab = UINib(nibName: "ChallengeDetailsTab", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeDetailsTab;
         
