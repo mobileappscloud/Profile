@@ -75,7 +75,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     override func viewDidLoad() {
         super.viewDidLoad();
-        
+        self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
         (self.navigationController as MainNavigationController).revealController.panGestureRecognizer().enabled = false;
         var backButton = UIButton.buttonWithType(UIButtonType.Custom) as UIButton;
         backButton.setBackgroundImage(UIImage(named: "btn_back_white.png"), forState: UIControlState.Normal);

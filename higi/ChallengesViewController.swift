@@ -368,6 +368,8 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     }
     
     func navigationController(navigationController: UINavigationController, didShowViewController viewController: UIViewController, animated: Bool) {
+//        pager.currentPage = 0;
+//        changePage(pager);
         let currentTable = getCurrentTable();
         if (currentTable != nil) {
             currentTable!.reloadData();
