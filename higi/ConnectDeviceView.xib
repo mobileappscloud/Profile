@@ -21,12 +21,12 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
                 </imageView>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" indicatorStyle="white" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="a1e-54-1yK">
-                    <rect key="frame" x="10" y="0.0" width="300" height="568"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     <color key="sectionIndexBackgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <view key="tableHeaderView" contentMode="scaleToFill" id="bn5-Qk-dYR">
-                        <rect key="frame" x="0.0" y="0.0" width="300" height="200"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lzi-V2-YcO">
@@ -55,10 +55,10 @@
             </subviews>
             <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="a1e-54-1yK" secondAttribute="trailing" constant="10" id="8cw-OC-TLH"/>
+                <constraint firstAttribute="trailing" secondItem="a1e-54-1yK" secondAttribute="trailing" id="8cw-OC-TLH"/>
                 <constraint firstAttribute="bottom" secondItem="a1e-54-1yK" secondAttribute="bottom" id="baa-2c-AZz"/>
                 <constraint firstItem="a1e-54-1yK" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="bvw-zL-0ga"/>
-                <constraint firstItem="a1e-54-1yK" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="dZr-Aj-nM7"/>
+                <constraint firstItem="a1e-54-1yK" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="dZr-Aj-nM7"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
             <point key="canvasLocation" x="130" y="-24"/>

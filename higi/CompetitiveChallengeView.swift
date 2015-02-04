@@ -34,7 +34,8 @@ class CompetitiveChallengeView: UIView, UIScrollViewDelegate {
             let highScore = challenge.individualHighScore;
             for index in 0...individualGravityBoard.count - 1 {
                 let name = individualGravityBoard[index].participant.displayName;
-                let row = ChallengeLeaderboardRow.instanceFromNib(challenge, participant: individualGravityBoard[index].participant, index: index);
+                let place = individualGravityBoard[index].place!;
+                let row = ChallengeLeaderboardRow.instanceFromNib(challenge, participant: individualGravityBoard[index].participant, place: place);
                 if (name == challenge.participant.displayName) {
                     row.name.textColor = Utility.colorFromHexString("#76C044");
                     row.place.textColor = Utility.colorFromHexString("#76C044");

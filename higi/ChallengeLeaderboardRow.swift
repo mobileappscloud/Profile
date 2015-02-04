@@ -7,14 +7,14 @@ class ChallengeLeaderboardRow: UITableViewCell {
     @IBOutlet weak var points: UILabel!
     @IBOutlet weak var avatar: UIImageView!
     
-    class func instanceFromNib(challenge: HigiChallenge, participant: ChallengeParticipant, index: Int) -> ChallengeLeaderboardRow {
+    class func instanceFromNib(challenge: HigiChallenge, participant: ChallengeParticipant, place: String) -> ChallengeLeaderboardRow {
         let row = UINib(nibName: "ChallengeLeaderboardRow", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeLeaderboardRow;
         
         let highScore = challenge.individualHighScore != 0 ? challenge.individualHighScore : 1;
         row.avatar.setImageWithURL(Utility.loadImageFromUrl(participant.imageUrl));
         row.name.text = participant.displayName;
         row.points.text = "\(Int(participant.units)) \(challenge.metricAbbreviated())";
-        row.place.text = Utility.getRankSuffix(String(index + 1));
+        row.place.text = Utility.getRankSuffix(place);
         setProgressBar(row.progress, points: Int(participant.units), highScore: Int(highScore));
         
         return row;
