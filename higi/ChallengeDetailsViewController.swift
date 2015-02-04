@@ -4,6 +4,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     @IBOutlet var contentView: UIView!
     @IBOutlet var pointsLabel:UILabel?;
     
+
+    @IBOutlet weak var joinButton: UIButton!
     @IBOutlet weak var headerContainer: UIView!
     @IBOutlet weak var participantPoints: UILabel!
     @IBOutlet weak var participantProgress: UIView!
@@ -193,6 +195,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func populateHeader() {
         if (challenge.participant != nil) {
+            joinButton.hidden = true;
             let participant = challenge.participant!;
             participantAvatar.setImageWithURL(Utility.loadImageFromUrl(participant.imageUrl));
             if (challenge.userStatus == "current") {
@@ -217,7 +220,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             participantProgress.hidden = true;
             //@todo make this static and global.  hide show it with other header elements
             //@todo loading spinner on button click
-            addCallToActionButton();
+            joinButton.hidden = false;
         }
 
         challengeAvatar.setImageWithURL(Utility.loadImageFromUrl(challenge.imageUrl));
@@ -233,6 +236,15 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         headerPointsOriginX = participantPoints.frame.origin.x;
     }
     
+    @IBAction func joinButtonClick(sender: AnyObject) {
+        let joinUrl =  challenge.joinUrl;
+        if (joinUrl != nil) {
+            joinChallenge(joinUrl);
+        } else {
+            showTeamsPicker();
+        }
+    }
+    
     func dateDisplayHelper() -> String {
         var dateDisplay:String!
         let startDate:NSDate? = challenge.startDate?
@@ -246,26 +258,11 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             let s = days == 1 ? "" : "s";
             dateDisplay = "\(days) day\(s) left";
         } else {
-            let days = Int(startDate!.timeIntervalSinceNow / 60 / 60 / 24) + 1;
+            let days = Int(startDate!.timeIntervalSinceNow / 60 / 60 / 24) * -1;
             let s = days == 1 ? "" : "s";
             dateDisplay = "Started \(days) day\(s) ago";
         }
         return dateDisplay;
-    }
-    
-    func addCallToActionButton() {
-        var button = UIButton(frame: CGRect(x: 50, y: 1, width: contentView.frame.size.width - 100, height: participantContainer.frame.size.height - 5));
-        button.setBackgroundImage(makeImageWithColor(Utility.colorFromHexString("#76C043")), forState: UIControlState.Normal);
-        button.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal);
-        button.setTitle("Join", forState: UIControlState.Normal);
-        button.titleLabel?.font = UIFont.boldSystemFontOfSize(12);
-        button.enabled = true;
-        button.layer.cornerRadius = 5;
-        button.clipsToBounds = true;
-        
-        let joinGestureRecognizer = UITapGestureRecognizer(target: self, action: "joinButtonClick:");
-        button.addGestureRecognizer(joinGestureRecognizer);
-        participantContainer.addSubview(button);
     }
     
     func joinChallenge(joinUrl: String) {
@@ -508,8 +505,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                 headerContainer.frame.origin.y = -scrollY;
                 buttonContainer.frame.origin.y = buttonContainerOriginY - scrollY;
             }
-            
-            
         } else {
             participantPlace.frame.origin.x = headerPlaceOriginX;
             participantProgress.frame.origin.x = headerProgressOriginX;
@@ -782,7 +777,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         var cell = leaderboardTable!.dequeueReusableCellWithIdentifier("ChallengeLeaderboardRow") as ChallengeLeaderboardRow!;
         if (cell == nil) {
             if (isIndividualLeaderboard) {
-                cell = ChallengeLeaderboardRow.instanceFromNib(challenge, participant: individualLeaderboardParticipants[index], index: index);
+                cell = ChallengeLeaderboardRow.instanceFromNib(challenge, participant: individualLeaderboardParticipants[index], place: String(index + 1));
                 if (individualLeaderboardParticipants[index].url == challenge.participant.url) {
                     cell.backgroundColor = Utility.colorFromHexString("#d5ffb8");
                 }
