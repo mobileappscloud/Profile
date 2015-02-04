@@ -18,16 +18,6 @@ class ConnectDeviceRow: UITableViewCell, UIAlertViewDelegate {
         }
     }
     
-    func instanceFromNib() -> ConnectDeviceRow {
-        let row = UINib(nibName: "ConnectDeviceRow", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ConnectDeviceRow;
-        row.logo.setImageWithURL(Utility.loadImageFromUrl(device.iconUrl));
-        row.name.text = device.name;
-        row.connectedToggle.on = device.connected;
-        row.device = device;
-        row.parentController = parentController;
-        return row;
-    }
-    
     func connectDevice() {
         var webView = WebViewController(nibName: "WebView", bundle: nil);
         webView.url = "\(HigiApi.webUrl)/mobileDeviceConnect";
