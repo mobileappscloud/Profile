@@ -226,6 +226,8 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
             var compare:NSTimeInterval = endDate!.timeIntervalSinceNow
             if (Int(compare) > 0) {
                 cell.daysLeft.text = "\(Int(compare) / 60 / 60 / 24)d left";
+            } else {
+                cell.daysLeft.text = "Finished!";
             }
         }
         

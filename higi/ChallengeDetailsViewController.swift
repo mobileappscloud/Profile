@@ -163,7 +163,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         
         header.backgroundColor = Utility.colorFromHexString("#F4F4F4");
         
-        let toggleButtonsText = ["Individuals", "Teams"];
+        let toggleButtonsText = ["You", "Teams"];
         for index in 0...1 {
             //no x padding for first button
             let xPadding = index == 0 ? buttonMargin : buttonMargin / 2;
@@ -192,7 +192,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         }
         table.tableHeaderView = header;
     }
-    
+
     func populateHeader() {
         if (challenge.participant != nil) {
             joinButton.hidden = true;
@@ -253,10 +253,12 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             let days = Int(startDate!.timeIntervalSinceNow / 60 / 60 / 24) + 1;
             let s = days == 1 ? "" : "s";
             dateDisplay = "Starts in \(days) day\(s)";
-        } else if (endDate != nil) {
+        } else if (endDate != nil && Int(endDate!.timeIntervalSinceNow) > 0) {
             let days = Int(endDate!.timeIntervalSinceNow / 60 / 60 / 24) + 1;
             let s = days == 1 ? "" : "s";
             dateDisplay = "\(days) day\(s) left";
+        } else if (endDate != nil && Int(endDate!.timeIntervalSinceNow) < 0) {
+            dateDisplay = "Challenge finished!";
         } else {
             let days = Int(startDate!.timeIntervalSinceNow / 60 / 60 / 24) * -1;
             let s = days == 1 ? "" : "s";
