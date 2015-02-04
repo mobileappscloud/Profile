@@ -60,12 +60,12 @@ class CompetitiveChallengeView: UIView, UIScrollViewDelegate {
                     startIndex = userTeamIndex;
                     endIndex = userTeamIndex + 2;
                 }
-                    //user's team in last
+                //user's team in last
                 else if (userTeamIndex == teams.count - 1) {
                     startIndex = userTeamIndex - 2;
                     endIndex = userTeamIndex;
                 }
-                    //somewhere in the middle
+                //somewhere in the middle
                 else {
                     startIndex = userTeamIndex - 1;
                     endIndex = userTeamIndex + 1;
@@ -98,5 +98,12 @@ class CompetitiveChallengeView: UIView, UIScrollViewDelegate {
             }
         }
         return -1;
+    }
+    
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview();
+        let a = self.superview?.frame.size.height;
+        let b = self.superview?.frame.size.width;
+        let i = 0;
     }
 }

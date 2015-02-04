@@ -38,4 +38,8 @@ class ChallengeRowCell: UITableViewCell, UIScrollViewDelegate, UIGestureRecogniz
         scrollView.setContentOffset(frame.origin, animated: true);
     }
 
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview();
+        let i = 0;
+    }
 }

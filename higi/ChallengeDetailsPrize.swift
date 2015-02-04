@@ -14,12 +14,11 @@ class ChallengeDetailsPrize: UIView {
     class func instanceFromNib(winCondition: ChallengeWinCondition) -> ChallengeDetailsPrize {
         var prize = UINib(nibName: "ChallengeDetailsPrizes", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeDetailsPrize;
         
-        if (winCondition.prizeName != nil || winCondition.prizeName != "") {
+        if (winCondition.prizeName != nil && winCondition.prizeName != "") {
             prize.title.text = winCondition.prizeName;
-        } else if (winCondition.name != nil || winCondition.name != "") {
+        } else if (winCondition.name != nil && winCondition.name != "") {
             prize.title.text = winCondition.name;
-        }
-        else {
+        } else {
             prize.title.text = "No prize, doing this simply for the love of the game.";
         }
         prize.title.text = winCondition.name;

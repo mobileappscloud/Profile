@@ -98,9 +98,11 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     
     func updateNavbar() {
         //@todo this only works for the first table at the moment
-        let table = getCurrentTable();
-        if (table != nil) {
-            var scrollY = table!.contentOffset.y;
+//        let table = getCurrentTable();
+//        if (table != nil) {
+        if (false) {
+//            var scrollY = table!.contentOffset.y;
+            var scrollY:CGFloat = 0;
             if (scrollY >= 0) {
                 //headerImage.frame.origin.y = -scrollY / 2;
                 var alpha = min(scrollY / 75, 1);
@@ -316,8 +318,8 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
                 count = index;
                 break;
             }
-            
         }
+        
         var table:UITableView?;
         switch(count) {
         case PagerConstants.activeChallengesIndex:

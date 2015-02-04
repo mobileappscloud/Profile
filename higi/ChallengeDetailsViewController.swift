@@ -233,7 +233,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         headerPointsOriginX = participantPoints.frame.origin.x;
     }
     
-    func dateDisplayHelper() -> String{
+    func dateDisplayHelper() -> String {
         var dateDisplay:String!
         let startDate:NSDate? = challenge.startDate?
         let endDate:NSDate? = challenge.endDate?
@@ -788,7 +788,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                 }
             } else {
                 cell = ChallengeLeaderboardRow.instanceFromNib(challenge, team: teamLeaderboardParticipants[index], index: index);
-                if (teamLeaderboardParticipants[index].joinUrl == challenge.participant.team.joinUrl) {
+                if (teamLeaderboardParticipants[index].name == challenge.participant.team.name) {
                     cell.backgroundColor = Utility.colorFromHexString("#d5ffb8");
                 }
             }
