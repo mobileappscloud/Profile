@@ -608,7 +608,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             return getChatterRowHeight(indexPath.row);
         } else {
 //            return getDetailsRowHeight(indexPath.row);
-            return 800;
+            return 100;
         }
     }
     
