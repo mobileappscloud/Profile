@@ -41,8 +41,9 @@ class WebViewController: UIViewController, NSURLConnectionDataDelegate, UIWebVie
         
     }
     
-    func webViewDidStartLoad(webView: UIWebView) {
+    func webViewDidFinishLoad(webView: UIWebView) {
         if (webView.request?.URL.absoluteString?.rangeOfString("www.google.com") != nil) {
+            webView.stopLoading();
             goBack(self);
         }
     }

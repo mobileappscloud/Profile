@@ -15,6 +15,8 @@
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0Ju-Gt-z9S">
                     <rect key="frame" x="10" y="10" width="50" height="50"/>
                     <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="W8u-nE-vSV"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="ZhQ-fD-uDa"/>
                         <constraint firstAttribute="width" constant="50" id="lMb-aP-rQf"/>
                         <constraint firstAttribute="height" constant="50" id="q1h-wC-GgI"/>
                     </constraints>

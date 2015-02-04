@@ -233,20 +233,20 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         headerPointsOriginX = participantPoints.frame.origin.x;
     }
     
-    func dateDisplayHelper() -> String{
+    func dateDisplayHelper() -> String {
         var dateDisplay:String!
         let startDate:NSDate? = challenge.startDate?
         let endDate:NSDate? = challenge.endDate?
         if (Int(startDate!.timeIntervalSinceNow) > 0) {
-            let days = Int(startDate!.timeIntervalSinceNow / 60 / 60 / 24);
+            let days = Int(startDate!.timeIntervalSinceNow / 60 / 60 / 24) + 1;
             let s = days == 1 ? "" : "s";
             dateDisplay = "Starts in \(days) day\(s)";
         } else if (endDate != nil) {
-            let days = Int(endDate!.timeIntervalSinceNow / 60 / 60 / 24);
+            let days = Int(endDate!.timeIntervalSinceNow / 60 / 60 / 24) + 1;
             let s = days == 1 ? "" : "s";
             dateDisplay = "\(days) day\(s) left";
         } else {
-            let days = Int(startDate!.timeIntervalSinceNow / 60 / 60 / 24);
+            let days = Int(startDate!.timeIntervalSinceNow / 60 / 60 / 24) + 1;
             let s = days == 1 ? "" : "s";
             dateDisplay = "Started \(days) day\(s) ago";
         }
@@ -367,6 +367,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             tabView.addSubview(greenBar);
             tabView.addSubview(image);
             tabView.addSubview(label);
+            tabView.userInteractionEnabled = true;
             tabView.addGestureRecognizer(tabGestureRecognizer);
             buttonContainer.addSubview(tabView);
         }
@@ -531,6 +532,17 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews();
         updateScroll();
+        scrollView.contentSize = CGSize(width: scrollView.frame.size.width, height: scrollView.frame.size.height);
+        if (displayLeaderboardTab && leaderboardTable != nil ) {
+            leaderboardTable!.frame.size.height = scrollView.frame.size.height;
+        }
+        if (displayProgressTab && progressTable != nil) {
+            progressTable!.frame.size.height = scrollView.frame.size.height;
+        }
+        detailsTable.frame.size.height = scrollView.frame.size.height;
+        if (displayChatterTab && chatterTable != nil) {
+            chatterTable!.frame.size.height = scrollView.frame.size.height;
+        }
     }
     
     func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool {

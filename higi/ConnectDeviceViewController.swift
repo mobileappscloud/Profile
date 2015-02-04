@@ -21,7 +21,13 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
         self.title = "Connect a device";
         table.delegate = self;
         table.dataSource = self;
+        table.rowHeight = 70;
         
+        populateDevices();
+
+    }
+    
+    func populateDevices() {
         let serverDevices = SessionController.Instance.devices;
         for deviceName in Constants.getDevicePriority {
             if (serverDevices.indexForKey(deviceName) != nil) {
@@ -73,6 +79,13 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
+        refreshDevices();
+    }
+    
+    func refreshDevices() {
+        ApiUtility.retrieveDevices(nil);
+        devices = [];
+        populateDevices();
         table.reloadData();
     }
 }
