@@ -63,10 +63,18 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let row = ConnectDeviceRow();
-        row.device = devices[indexPath.row];
+        var row = tableView.dequeueReusableCellWithIdentifier("ConnectDeviceRow") as ConnectDeviceRow!;
+        if (row == nil) {
+            row = UINib(nibName: "ConnectDeviceRow", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ConnectDeviceRow;
+        }
+        let device = devices[indexPath.row]
+        row.device = device;
         row.parentController = self.navigationController;
-        return row.instanceFromNib();
+        row.logo.setImageWithURL(Utility.loadImageFromUrl(device.iconUrl));
+        row.name.text = device.name;
+        row.connectedToggle.on = device.connected;
+        row.device = device;
+        return row;
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
