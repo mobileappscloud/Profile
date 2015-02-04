@@ -74,6 +74,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     override func viewDidLoad() {
         super.viewDidLoad();
         
+        self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
         (self.navigationController as MainNavigationController).revealController.panGestureRecognizer().enabled = false;
         var backButton = UIButton.buttonWithType(UIButtonType.Custom) as UIButton;
         backButton.setBackgroundImage(UIImage(named: "btn_back_white.png"), forState: UIControlState.Normal);
@@ -634,7 +635,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             //one row for each win condition plus 1 for graph view
             return isIndividualProgress ? individualGoalWinConditions.count + 1: teamGoalWinConditions.count + 1;
         } else if (detailsTable != nil && tableView == detailsTable) {
-            return 7;
+            return 1;
         } else if (displayChatterTab && chatterTable != nil && tableView == chatterTable) {
             return challengeChatterComments.count;
         }
@@ -656,7 +657,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         } else if (displayProgressTab && progressTable != nil && tableView == progressTable) {
             return createProgressTable(indexPath.row);
         } else if (detailsTable != nil && tableView == detailsTable) {
-            return createDetailsTable(indexPath.row);
+//            return createDetailsTable(indexPath.row);
+            return ChallengeDetailsTab.instanceFromNib(challenge);
         } else {
             return createChatterTable(indexPath.row);
         }

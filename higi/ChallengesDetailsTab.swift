@@ -4,7 +4,6 @@ class ChallengeDetailsTab: UITableViewCell, UIWebViewDelegate {
     
     @IBOutlet weak var descriptionText: UILabel!
     @IBOutlet weak var durationText: UILabel!
-    @IBOutlet weak var goalText: UILabel!
     @IBOutlet weak var typeText: UILabel!
     @IBOutlet weak var teamCountText: UILabel!
     @IBOutlet weak var individualCountText: UILabel!
@@ -26,7 +25,6 @@ class ChallengeDetailsTab: UITableViewCell, UIWebViewDelegate {
         } else {
             tab.durationText.text = "Never ends!";
         }
-        tab.goalText.text = firstWinCondition.description;
         tab.typeText.text = goalTypeDisplayHelper(firstWinCondition.goal.type.description, winnerType: firstWinCondition.winnerType);
         tab.individualCountText.text = String(challenge.participantsCount);
         if (challenge.teams != nil) {
