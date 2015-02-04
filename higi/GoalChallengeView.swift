@@ -25,8 +25,8 @@ class GoalChallengeView: UIView {
         let participantPoints:Int = challenge.participant != nil ? Int(challenge.participant.units) : 0;
         
         var sortedWinConditions = winConditions;
-        sortedWinConditions.sort { $0.goal.minThreshold! > $1.goal.minThreshold! };
-        let maxGoalValue = sortedWinConditions[0].goal.minThreshold;
+        sortedWinConditions.sort { $0.goal.minThreshold! < $1.goal.minThreshold! };
+        let maxGoalValue = sortedWinConditions[winConditions.count - 1].goal.minThreshold;
         
         drawParticipantProgress(goalView, participantPoints: participantPoints, maxGoalValue: maxGoalValue);
         
@@ -74,7 +74,7 @@ class GoalChallengeView: UIView {
         var counter = 0;
         for index in 0...winConditions.count - 1 {
             let winCondition = winConditions[index];
-            let displayLabelBottom = (closestPointIndex % 2 == counter % 2);
+            let displayLabelBottom = closestPointIndex % 2 != counter % 2;
             //drawing goes from right to left so "index" is backwards
             addGoalNode(goalView, winCondition: winCondition, participantPoints: participantPoints, maxGoalValue: maxGoalValue, goalIndex: winConditions.count - index, isBottom: displayLabelBottom, isComplex: isComplex);
             counter++;
@@ -145,13 +145,14 @@ class GoalChallengeView: UIView {
     class func findClosestPointIndex(participantPoints: Int, goalWinConditions: [ChallengeWinCondition]) -> Int {
         let size = goalWinConditions.count;
         var distance = goalWinConditions[size - 1].goal.minThreshold;
+        let lastNode = distance;
         
         for index in 0...size-1 {
-            let thisDistance = abs(goalWinConditions[index].goal.minThreshold - participantPoints);
+            let thisDistance = abs(goalWinConditions[index].goal.minThreshold - min(participantPoints, lastNode));
             if (thisDistance < distance) {
                 distance = thisDistance;
             } else {
-                return index;
+                return index - 1;
             }
         }
         return size - 1;

@@ -29,6 +29,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     var totalPages = 0;
     
     let headerHeight:CGFloat = 83;
+    var currentTable:UITableView?;
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -57,7 +58,6 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
             }
         }
         
-        var table:UITableView;
         for index in 0...pageDisplayMaster.count-1 {
             if (pageDisplayMaster[index]) {
                 switch(index) {
@@ -65,18 +65,28 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
                     activeTable = addTableView(totalPages);
                     scrollView.addSubview(activeTable!);
                     pageTitles.append("Active Challenges");
+                    currentTable = activeTable;
                 case 1:
                     upcomingTable = addTableView(totalPages);
                     scrollView.addSubview(upcomingTable!);
                     pageTitles.append("Upcoming Challenges");
+                    if (currentTable == nil) {
+                        currentTable = upcomingTable;
+                    }
                 case 2:
                     availableTable = addTableView(totalPages);
                     scrollView.addSubview(availableTable!);
                     pageTitles.append("Available Challenges");
+                    if (currentTable == nil) {
+                        currentTable = availableTable;
+                    }
                 case 3:
                     invitedTable = addTableView(totalPages);
                     scrollView.addSubview(invitedTable!);
                     pageTitles.append("Invited Challenges");
+                    if (currentTable == nil) {
+                        currentTable = invitedTable;
+                    }
                 default:
                     var i = 0;
                 }
@@ -89,7 +99,6 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         scrollView.contentSize = CGSize(width: scrollView.frame.size.width * CGFloat(totalPages), height: scrollView.frame.size.height);
         scrollView.setContentOffset(CGPointMake(0,0),animated: false);
         pager.numberOfPages = totalPages;
-
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -97,12 +106,9 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     }
     
     func updateNavbar() {
-        //@todo this only works for the first table at the moment
-//        let table = getCurrentTable();
-//        if (table != nil) {
-        if (false) {
-//            var scrollY = table!.contentOffset.y;
-            var scrollY:CGFloat = 0;
+        let table = getCurrentTable();
+        if (table != nil) {
+            var scrollY = table!.contentOffset.y;
             if (scrollY >= 0) {
                 //headerImage.frame.origin.y = -scrollY / 2;
                 var alpha = min(scrollY / 75, 1);
@@ -220,6 +226,8 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
             var compare:NSTimeInterval = endDate!.timeIntervalSinceNow
             if (Int(compare) > 0) {
                 cell.daysLeft.text = "\(Int(compare) / 60 / 60 / 24)d left";
+            } else {
+                cell.daysLeft.text = "Finished!";
             }
         }
         
@@ -345,6 +353,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         
         title = pageTitles[page];
         currentPage = page;
+        currentTable = getCurrentTable();
         
         var frame = self.scrollView.frame;
         frame.origin.x = frame.size.width * CGFloat(page);
@@ -359,6 +368,8 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     }
     
     func navigationController(navigationController: UINavigationController, didShowViewController viewController: UIViewController, animated: Bool) {
+//        pager.currentPage = 0;
+//        changePage(pager);
         let currentTable = getCurrentTable();
         if (currentTable != nil) {
             currentTable!.reloadData();

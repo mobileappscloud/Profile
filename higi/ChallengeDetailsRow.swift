@@ -110,7 +110,7 @@ class ChallengeDetailsRow: UITableViewCell, UIAlertViewDelegate {
         if (endDate != nil) {
             return "\(dateFormatter.stringFromDate(startDate)) - \(dateFormatter.stringFromDate(endDate!))";
         } else {
-            return "Starts \(dateFormatter.stringFromDate(startDate))";
+            return "\(dateFormatter.stringFromDate(startDate)) - No end date";
         }
     }
     
