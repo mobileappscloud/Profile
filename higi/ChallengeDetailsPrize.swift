@@ -5,12 +5,15 @@ class ChallengeDetailsPrize: UITableViewCell {
     @IBOutlet weak var desc: UILabel!
     @IBOutlet weak var title: UILabel!
     
-    override func layoutSubviews() {
-        super.layoutSubviews();
-        title.sizeToFit();
-        desc.sizeToFit();
-    }
-    
+//    override func layoutSubviews() {
+//        super.layoutSubviews();
+//        title.sizeToFit();
+//        desc.sizeToFit();
+//        
+////        let frame = desc.frame;
+//        desc.center = self.center;
+//    }
+//    
     class func instanceFromNib(winCondition: ChallengeWinCondition) -> ChallengeDetailsPrize {
         var prize = UINib(nibName: "ChallengeDetailsPrizes", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeDetailsPrize;
         
