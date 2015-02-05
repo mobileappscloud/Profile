@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TermsAndConditionsViewController" customModule="higi" customModuleProvider="target">
+            <connections>
+                <outlet property="closeButton" destination="63d-2A-gZD" id="5Mg-Tk-LvN"/>
+                <outlet property="webView" destination="Tnh-Bk-ESG" id="htu-1M-Qak"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="evC-i8-swY">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="higilogo_ocmenu.png" translatesAutoresizingMaskIntoConstraints="NO" id="EFR-Qm-4kc">
+                    <rect key="frame" x="0.0" y="15" width="320" height="49"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="49" id="GaY-84-Xh8"/>
+                    </constraints>
+                </imageView>
+                <webView contentMode="scaleToFill" ambiguous="YES" misplaced="YES" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tnh-Bk-ESG">
+                    <rect key="frame" x="0.0" y="65" width="320" height="444"/>
+                </webView>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="63d-2A-gZD">
+                    <rect key="frame" x="8" y="523" width="304" height="37"/>
+                    <color key="backgroundColor" red="0.46274509800000002" green="0.75294117650000003" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <state key="normal" title="Close">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="closeButtonClick:" destination="-1" eventType="touchUpInside" id="ThK-kV-cCA"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="Tnh-Bk-ESG" secondAttribute="bottom" id="2xJ-61-cIj"/>
+                <constraint firstItem="EFR-Qm-4kc" firstAttribute="leading" secondItem="evC-i8-swY" secondAttribute="leading" id="I7R-mW-gjd"/>
+                <constraint firstItem="EFR-Qm-4kc" firstAttribute="top" secondItem="evC-i8-swY" secondAttribute="top" constant="15" id="MGo-qH-e7A"/>
+                <constraint firstAttribute="trailing" secondItem="EFR-Qm-4kc" secondAttribute="trailing" id="shL-42-n83"/>
+                <constraint firstItem="Tnh-Bk-ESG" firstAttribute="top" secondItem="EFR-Qm-4kc" secondAttribute="bottom" constant="1" id="tAg-4g-xBk"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+            <point key="canvasLocation" x="-73" y="336"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="higilogo_ocmenu.png" width="380" height="160"/>
+    </resources>
+</document>

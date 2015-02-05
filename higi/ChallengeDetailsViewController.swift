@@ -431,6 +431,17 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         }
 
         detailsTable = ChallengeDetailsTab.instanceFromNib(challenge);
+//        var yOffset = detailsTable.frame.size.height + detailsTable.frame.origin.y + buttonContainerOriginY + buttonContainer.frame.size.height;
+//        var rowsHeight:CGFloat = 0;
+//        for winCondition in challenge.winConditions {
+//            let prizeRow = ChallengeDetailsPrize.instanceFromNib(winCondition);
+//            prizeRow.frame.origin.y = yOffset;
+//            detailsTable.insertSubview(prizeRow, atIndex: 0);
+////            detailsTable.addSubview(prizeRow);
+//            yOffset += prizeRow.frame.size.height;
+//            rowsHeight += prizeRow.frame.size.height;
+//        }
+//        
         let a = detailsTable.contentSize.height;
         detailsTable.frame = CGRect(x: CGFloat(totalPages) * scrollView.frame.size.width, y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height);
         let b = detailsTable.contentSize.height;
@@ -442,16 +453,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         detailsTable.allowsSelection = false;
         detailsTable.showsVerticalScrollIndicator = false;
         
-        var yOffset = detailsTable.frame.size.height + detailsTable.frame.origin.y + buttonContainerOriginY + buttonContainer.frame.size.height;
-        var rowsHeight:CGFloat = 0;
-        for winCondition in challenge.winConditions {
-            let prizeRow = ChallengeDetailsPrize.instanceFromNib(winCondition);
-            prizeRow.frame.origin.y = yOffset;
-            detailsTable.addSubview(prizeRow);
-            yOffset += prizeRow.frame.size.height;
-            rowsHeight += prizeRow.frame.size.height;
-        }
-        detailsTable.contentSize.height = detailsTable.contentSize.height + rowsHeight;
+//        detailsTable.contentSize.height = 1000;
         let c = detailsTable.contentSize.height;
         scrollView.addSubview(detailsTable);
         tables.append(detailsTable);
@@ -634,7 +636,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             return getChatterRowHeight(indexPath.row);
         } else {
 //            return getDetailsRowHeight(indexPath.row);
-            return 100;
+            return 60;
         }
     }
     

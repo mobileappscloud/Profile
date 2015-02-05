@@ -15,7 +15,18 @@ class ChallengeDetailsTab: UITableView, UIAlertViewDelegate {
     
     @IBOutlet weak var participantRowView: UIView!
     
+    @IBOutlet weak var termsButton: UIButton!
+    @IBAction func termsAndConditionsClick(sender: AnyObject) {
+
+//        var termsController = TermsAndConditionsViewController(nibName: "TermsAndConditionsView", bundle: nil);
+//        termsController.html = terms;
+        //self.navigationController!.pushViewController(tourController, animated: false);
+//        self.presentViewController(termsController, animated: false, completion: nil);
+        
+    }
+    
     @IBOutlet weak var prizesContainer: UIView!
+    
     override func layoutSubviews() {
         super.layoutSubviews();
         descriptionText.sizeToFit();
@@ -28,6 +39,7 @@ class ChallengeDetailsTab: UITableView, UIAlertViewDelegate {
     
     @IBOutlet weak var teamCountSubview: UIView!
     @IBOutlet weak var participantCountSubView: UIView!
+    
     class func instanceFromNib(challenge: HigiChallenge) -> ChallengeDetailsTab {
         let tab = UINib(nibName: "ChallengeDetailsTab", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeDetailsTab;
         
@@ -48,9 +60,20 @@ class ChallengeDetailsTab: UITableView, UIAlertViewDelegate {
         } else {
             tab.teamCountView.removeFromSuperview();
             tab.participantCountView.center = tab.participantRowView.center;
+            tab.participantCountSubView.center = tab.participantRowView.center;
         }
 
         tab.participantIcon.text = "\u{f007}"
+        
+        var yOffset:CGFloat = 30;
+        for winCondition in challenge.winConditions {
+            let prizeRow = ChallengeDetailsPrize.instanceFromNib(winCondition);
+            prizeRow.frame.origin.y = yOffset;
+
+            tab.prizesContainer.addSubview(prizeRow);
+            yOffset += prizeRow.frame.size.height;
+        }
+        tab.prizesContainer.frame.size.height = yOffset;
         return tab;
     }
     
