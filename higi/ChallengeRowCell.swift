@@ -7,10 +7,6 @@ class ChallengeRowCell: UITableViewCell, UIScrollViewDelegate, UIGestureRecogniz
     @IBOutlet var title: UILabel!;
     @IBOutlet var avatar: UIImageView!;
     @IBOutlet var pager: UIPageControl!;
-        
-    class func instanceFromNib() -> ChallengeRowCell {
-        return UINib(nibName: "ChallengeRowCell", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeRowCell;
-    }
 
     override
     func layoutSubviews() {
@@ -38,8 +34,4 @@ class ChallengeRowCell: UITableViewCell, UIScrollViewDelegate, UIGestureRecogniz
         scrollView.setContentOffset(frame.origin, animated: true);
     }
 
-    override func didMoveToSuperview() {
-        super.didMoveToSuperview();
-        let i = 0;
-    }
 }

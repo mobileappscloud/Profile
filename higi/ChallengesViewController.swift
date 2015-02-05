@@ -29,7 +29,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     var totalPages = 0;
     
     let headerHeight:CGFloat = 83;
-    var currentTable:UITableView?;
+    var currentTable:UITableView!;
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -102,13 +102,14 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        updateNavbar();
+        if (scrollView != self.scrollView) {
+            updateNavbar();
+        }
     }
     
     func updateNavbar() {
-        let table = getCurrentTable();
-        if (table != nil) {
-            var scrollY = table!.contentOffset.y;
+        if (currentTable != nil) {
+            var scrollY = currentTable.contentOffset.y;
             if (scrollY >= 0) {
                 //headerImage.frame.origin.y = -scrollY / 2;
                 var alpha = min(scrollY / 75, 1);
@@ -146,9 +147,8 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews();
-        
+        scrollView.frame = self.view.frame;
         scrollView.contentSize = CGSize(width: scrollView.frame.size.width * CGFloat(totalPages), height: scrollView.frame.size.height);
-        scrollView.setContentOffset(CGPointMake(0,0),animated: false);
         if (pageDisplayMaster[PagerConstants.activeChallengesIndex] && activeTable != nil) {
             activeTable!.frame.size.height = scrollView.frame.size.height;
         }
@@ -161,10 +161,6 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         if (pageDisplayMaster[PagerConstants.invitedChallengesIndex] && invitedTable != nil) {
             invitedTable!.frame.size.height = scrollView.frame.size.height;
         }
-    }
-    
-    func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool {
-        return true;
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -213,7 +209,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         } else {
             challenge = invitedChallenges[indexPath.row];
         }
-        cell = buildChallengeCell(cell, challenge: challenge);
+        buildChallengeCell(cell, challenge: challenge);
         
         if (challenge != nil) {
             cell.title.text = challenge.name;
@@ -246,15 +242,15 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         
     }
     
-    func buildChallengeCell(cell: ChallengeRowCell, challenge: HigiChallenge) -> ChallengeRowCell {
+    func buildChallengeCell(cell: ChallengeRowCell, challenge: HigiChallenge) {
         if (challenge.userStatus == "current") {
-            return buildActiveCell(cell, challenge: challenge);
+            buildActiveCell(cell, challenge: challenge);
         } else {
-            return buildInvitationCell(cell, challenge: challenge);
+            buildInvitationCell(cell, challenge: challenge);
         }
     }
     
-    func buildActiveCell(cell: ChallengeRowCell, challenge: HigiChallenge) -> ChallengeRowCell {
+    func buildActiveCell(cell: ChallengeRowCell, challenge: HigiChallenge) {
         var nibOriginX:CGFloat = 0.0;
         
         var nibs = Utility.getChallengeViews(challenge, isComplex: false);
@@ -267,16 +263,14 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         cell.pager.currentPage = 0;
         cell.scrollView.contentSize = CGSize(width: cell.frame.size.width * CGFloat(nibs.count), height: cell.frame.size.height);
 
-        return cell;
     }
     
-    func buildInvitationCell(cell: ChallengeRowCell, challenge: HigiChallenge) -> ChallengeRowCell {
+    func buildInvitationCell(cell: ChallengeRowCell, challenge: HigiChallenge) {
         var invitationView = ChallengeInvitationView.instanceFromNib(challenge);
 
         cell.scrollView.contentSize = CGSize(width: cell.frame.size.width, height: cell.frame.size.height);
         cell.scrollView.addSubview(invitationView);
         cell.daysLeft.hidden = true;
-        return cell;
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
