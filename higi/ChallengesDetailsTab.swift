@@ -22,7 +22,6 @@ class ChallengeDetailsTab: UITableView, UIAlertViewDelegate {
         let firstWinCondition = challenge.winConditions[0];
         
         tab.descriptionText.text = challenge.shortDescription;
-
         if (challenge.endDate != nil) {
             tab.durationText.text = setDateRangeHelper(challenge.startDate, endDate: challenge.endDate);
         } else {
