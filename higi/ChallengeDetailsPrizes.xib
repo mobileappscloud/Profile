@@ -31,6 +31,7 @@
                     </view>
                 </subviews>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="desc" destination="Kjv-4Y-MhM" id="8nW-ad-H2s"/>
                 <outlet property="title" destination="beZ-DU-2cl" id="1HM-VS-Mkp"/>

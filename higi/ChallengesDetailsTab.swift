@@ -15,6 +15,7 @@ class ChallengeDetailsTab: UITableView, UIAlertViewDelegate {
     
     @IBOutlet weak var participantRowView: UIView!
     
+    @IBOutlet weak var prizesContainer: UIView!
     override func layoutSubviews() {
         super.layoutSubviews();
         descriptionText.sizeToFit();

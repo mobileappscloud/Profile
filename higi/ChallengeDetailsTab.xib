@@ -18,6 +18,7 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
             <inset key="scrollIndicatorInsets" minX="0.0" minY="20" maxX="0.0" maxY="0.0"/>
+            <color key="sectionIndexBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
             <view key="tableFooterView" contentMode="scaleToFill" id="6rH-4Z-e4u">
                 <rect key="frame" x="0.0" y="2" width="320" height="568"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -173,7 +174,7 @@
                         </state>
                     </button>
                     <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x7J-PD-rhh">
-                        <rect key="frame" x="0.0" y="312" width="320" height="256"/>
+                        <rect key="frame" x="0.0" y="312" width="320" height="50"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Prizes" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C2o-SR-ypJ">
                                 <rect key="frame" x="109" y="8" width="100" height="21"/>
@@ -185,7 +186,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </subviews>
-                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 <constraints>
                     <constraint firstItem="kTN-OZ-wr5" firstAttribute="top" secondItem="GH1-jg-xMV" secondAttribute="bottom" constant="124" id="4hK-IN-Ve9"/>
                     <constraint firstAttribute="trailing" secondItem="GH1-jg-xMV" secondAttribute="trailing" id="5Yn-Du-VfJ"/>
@@ -210,6 +211,7 @@
                 <outlet property="participantCountView" destination="gwp-eW-p5H" id="Afv-QH-Tqv"/>
                 <outlet property="participantIcon" destination="FLt-li-umJ" id="guc-vZ-0vo"/>
                 <outlet property="participantRowView" destination="kTN-OZ-wr5" id="Ka1-d9-aYi"/>
+                <outlet property="prizesContainer" destination="x7J-PD-rhh" id="roe-yn-kCq"/>
                 <outlet property="teamCountSubview" destination="UlZ-eF-u6h" id="oUo-9K-0N9"/>
                 <outlet property="teamCountText" destination="H2a-I3-6KH" id="XlB-tB-bSD"/>
                 <outlet property="teamCountView" destination="5sq-Ew-cYk" id="MDc-n4-Izy"/>

@@ -431,7 +431,9 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         }
 
         detailsTable = ChallengeDetailsTab.instanceFromNib(challenge);
+        let a = detailsTable.contentSize.height;
         detailsTable.frame = CGRect(x: CGFloat(totalPages) * scrollView.frame.size.width, y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height);
+        let b = detailsTable.contentSize.height;
         detailsTable.dataSource = self;
         detailsTable.delegate = self;
         detailsTable.separatorStyle = UITableViewCellSeparatorStyle.None;
@@ -439,7 +441,18 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         detailsTable.scrollEnabled = true;
         detailsTable.allowsSelection = false;
         detailsTable.showsVerticalScrollIndicator = false;
-
+        
+        var yOffset = detailsTable.frame.size.height + detailsTable.frame.origin.y + buttonContainerOriginY + buttonContainer.frame.size.height;
+        var rowsHeight:CGFloat = 0;
+        for winCondition in challenge.winConditions {
+            let prizeRow = ChallengeDetailsPrize.instanceFromNib(winCondition);
+            prizeRow.frame.origin.y = yOffset;
+            detailsTable.addSubview(prizeRow);
+            yOffset += prizeRow.frame.size.height;
+            rowsHeight += prizeRow.frame.size.height;
+        }
+        detailsTable.contentSize.height = detailsTable.contentSize.height + rowsHeight;
+        let c = detailsTable.contentSize.height;
         scrollView.addSubview(detailsTable);
         tables.append(detailsTable);
         totalPages++;
@@ -658,7 +671,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             //one row for each win condition plus 1 for graph view
             return isIndividualProgress ? individualGoalWinConditions.count + 1: teamGoalWinConditions.count + 1;
         } else if (detailsTable != nil && tableView == detailsTable) {
-            return challenge.winConditions.count;
+            return 0;
+//            return challenge.winConditions.count;
         } else if (displayChatterTab && chatterTable != nil && tableView == chatterTable) {
             return challengeChatterComments.count;
         }
