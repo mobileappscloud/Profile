@@ -3,7 +3,9 @@ import Foundation
 class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UIActionSheetDelegate, UITextFieldDelegate {
     @IBOutlet var contentView: UIView!
     @IBOutlet var pointsLabel:UILabel?;
+    @IBOutlet var detailTabView: UIView!
     
+    @IBOutlet var detailsTabTable: ChallengeDetailsTab!
 
     @IBOutlet weak var joinButton: UIButton!
     @IBOutlet weak var headerContainer: UIView!
@@ -426,8 +428,14 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             tables.append(progressTable!);
             totalPages++;
         }
+//        detailsTabTable.removeFromSuperview();
+//        scrollView.addSubview(detailsTabTable);
         
-//        scrollView.setTranslatesAutoresizingMaskIntoConstraints(false);
+                detailTabView.removeFromSuperview();
+                scrollView.addSubview(detailTabView);
+        detailTabView.autoresizingMask = nil;
+        let a = scrollView.translatesAutoresizingMaskIntoConstraints();
+        scrollView.setTranslatesAutoresizingMaskIntoConstraints(true);
 //
 //        detailsTable = ChallengeDetailsTab.instanceFromNib(challenge);
 //        detailsTable.frame = CGRect(x: CGFloat(totalPages) * scrollView.frame.size.width, y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height);
@@ -568,6 +576,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             chatterTable!.frame.size.height = scrollView.frame.size.height;
         }
         scrollView.layoutIfNeeded();
+        detailTabView.layoutSubviews();
     }
     
     func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool {

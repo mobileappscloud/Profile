@@ -12,6 +12,7 @@
                 <outlet property="challengeDaysLeft" destination="eoo-5v-2QL" id="hdz-85-S6X"/>
                 <outlet property="challengeTitle" destination="77J-uP-PXX" id="Hn9-rr-ZFu"/>
                 <outlet property="contentView" destination="PE7-hb-4Wz" id="Fqs-B1-74J"/>
+                <outlet property="detailTabView" destination="p0U-4a-YiU" id="ESp-mR-s59"/>
                 <outlet property="headerContainer" destination="uDa-Lt-ibU" id="0hG-Q2-BSP"/>
                 <outlet property="joinButton" destination="buX-BP-Hyp" id="CPF-xG-WOC"/>
                 <outlet property="participantAvatar" destination="sYR-RX-l73" id="1CS-YP-Mdk"/>
@@ -165,6 +166,11 @@
             <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
             <point key="canvasLocation" x="438" y="238"/>
+        </view>
+        <view contentMode="scaleToFill" id="p0U-4a-YiU">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
         </view>
     </objects>
     <resources>
