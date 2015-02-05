@@ -443,6 +443,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         scrollView.addSubview(detailsTable);
         tables.append(detailsTable);
         totalPages++;
+        
 //        detailsTable.layoutSubviews();
 //        detailsTable = addTableView(totalPages);
 //        scrollView.addSubview(detailsTable);
@@ -875,6 +876,14 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         return ChallengeProgressLegendRow.instanceFromNib(winConditions[index], userPoints: challenge.participant.units,  metric: challenge.metricAbbreviated(), index: displayIndex);
     }
     
+//    func createDetailsTable(index: Int) -> UITableViewCell {
+//        return ChallengeDetailsRow.instanceFromNib(challenge, index: index);
+//    }
+//    
+//    func getDetailsRowHeight(index: Int) -> CGFloat {
+//        return 50 + ChallengeDetailsRow.heightForIndex(challenge, index: index, width: detailsTable.frame.size.width, margin: 0);
+//    }
+//    
     func getChatterRowHeight(index: Int) -> CGFloat {
         return 50 + ChallengeDetailsChatterRow.heightForIndex(challengeChatterComments[index]);
     }
