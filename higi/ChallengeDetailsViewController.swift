@@ -431,32 +431,33 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
 //        detailsTabTable.removeFromSuperview();
 //        scrollView.addSubview(detailsTabTable);
         
-                detailTabView.removeFromSuperview();
-                scrollView.addSubview(detailTabView);
-        detailTabView.autoresizingMask = nil;
-        let a = scrollView.translatesAutoresizingMaskIntoConstraints();
-        scrollView.setTranslatesAutoresizingMaskIntoConstraints(true);
+//                detailTabView.removeFromSuperview();
+//                scrollView.addSubview(detailTabView);
+//        detailTabView.autoresizingMask = nil;
+//        let a = scrollView.translatesAutoresizingMaskIntoConstraints();
+//        scrollView.setTranslatesAutoresizingMaskIntoConstraints(true);
 //
-//        detailsTable = ChallengeDetailsTab.instanceFromNib(challenge);
-//        detailsTable.frame = CGRect(x: CGFloat(totalPages) * scrollView.frame.size.width, y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height);
-//        detailsTable.dataSource = self;
-//        detailsTable.delegate = self;
-//        detailsTable.separatorStyle = UITableViewCellSeparatorStyle.None;
-//        detailsTable.backgroundColor = Utility.colorFromHexString("#F4F4F4");
-//        detailsTable.scrollEnabled = true;
-//        detailsTable.allowsSelection = false;
-//        detailsTable.showsVerticalScrollIndicator = false;
+        detailsTable = ChallengeDetailsTab.instanceFromNib(challenge);
+        detailsTable.frame = CGRect(x: CGFloat(totalPages) * scrollView.frame.size.width, y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height);
+        detailsTable.dataSource = self;
+        detailsTable.delegate = self;
+        detailsTable.separatorStyle = UITableViewCellSeparatorStyle.None;
+        detailsTable.backgroundColor = Utility.colorFromHexString("#F4F4F4");
+        detailsTable.scrollEnabled = true;
+        detailsTable.allowsSelection = false;
+        detailsTable.showsVerticalScrollIndicator = false;
 //        detailsTable.updateConstraints();
 //        detailsTable.autoresizesSubviews = true;
 //        detailsTable.setTranslatesAutoresizingMaskIntoConstraints(false);
-//        scrollView.addSubview(detailsTable);
-//        tables.append(detailsTable);
-//        totalPages++;
-        
-        detailsTable = addTableView(totalPages);
+//        detailsTable.layoutSubviews();
         scrollView.addSubview(detailsTable);
         tables.append(detailsTable);
         totalPages++;
+//        detailsTable.layoutSubviews();
+//        detailsTable = addTableView(totalPages);
+//        scrollView.addSubview(detailsTable);
+//        tables.append(detailsTable);
+//        totalPages++;
         
         if (displayChatterTab) {
             chatterTable = addTableView(totalPages);
@@ -563,20 +564,18 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews();
         updateScroll();
-        scrollView.contentSize = CGSize(width: scrollView.frame.size.width, height: scrollView.frame.size.height);
+//        scrollView.contentSize = CGSize(width: scrollView.frame.size.width, height: scrollView.frame.size.height);
         if (displayLeaderboardTab && leaderboardTable != nil ) {
             leaderboardTable!.frame.size.height = scrollView.frame.size.height;
         }
         if (displayProgressTab && progressTable != nil) {
             progressTable!.frame.size.height = scrollView.frame.size.height;
         }
-        detailsTable.layoutIfNeeded();
-//        detailsTable.frame.size.height = scrollView.frame.size.height;
+        detailsTable.frame.size.height = scrollView.frame.size.height;
         if (displayChatterTab && chatterTable != nil) {
             chatterTable!.frame.size.height = scrollView.frame.size.height;
         }
-        scrollView.layoutIfNeeded();
-        detailTabView.layoutSubviews();
+
     }
     
     func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool {

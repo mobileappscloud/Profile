@@ -1,6 +1,6 @@
 import Foundation
 
-class ChallengeDetailsTab: UIScrollView, UIAlertViewDelegate {
+class ChallengeDetailsTab: UITableView, UIAlertViewDelegate {
     
     @IBOutlet weak var descriptionText: UILabel!
     @IBOutlet weak var durationText: UILabel!
