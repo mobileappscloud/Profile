@@ -311,7 +311,6 @@
 		D17010CA1A644414002CBFE8 /* ChallengeDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17010C81A644414002CBFE8 /* ChallengeDetailsViewController.swift */; };
 		D18395C11A69BC9E00D290BF /* ChallengeDetailsTab.xib in Resources */ = {isa = PBXBuildFile; fileRef = D18395C01A69BC9E00D290BF /* ChallengeDetailsTab.xib */; };
 		D18395C31A69CAD500D290BF /* ChallengesDetailsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18395C21A69CAD500D290BF /* ChallengesDetailsTab.swift */; };
-		D19C66C91A3F74A400655218 /* ScrollViewPagerControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19C66C81A3F74A400655218 /* ScrollViewPagerControllerViewController.swift */; };
 		D19DDA531A5EF599004F97A3 /* NewCPTAxisLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = D19DDA521A5EF599004F97A3 /* NewCPTAxisLabel.m */; };
 		D19DDA551A5F1705004F97A3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19DDA541A5F1705004F97A3 /* Constants.swift */; };
 		D1E1FF061A76C28F00C8951C /* ChallengeProgressLegendRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E1FF051A76C28F00C8951C /* ChallengeProgressLegendRow.swift */; };
@@ -668,7 +667,6 @@
 		D17010C81A644414002CBFE8 /* ChallengeDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeDetailsViewController.swift; sourceTree = "<group>"; };
 		D18395C01A69BC9E00D290BF /* ChallengeDetailsTab.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailsTab.xib; sourceTree = "<group>"; };
 		D18395C21A69CAD500D290BF /* ChallengesDetailsTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengesDetailsTab.swift; sourceTree = "<group>"; };
-		D19C66C81A3F74A400655218 /* ScrollViewPagerControllerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollViewPagerControllerViewController.swift; sourceTree = "<group>"; };
 		D19DDA511A5EF432004F97A3 /* NewCPTAxisLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewCPTAxisLabel.h; sourceTree = "<group>"; };
 		D19DDA521A5EF599004F97A3 /* NewCPTAxisLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewCPTAxisLabel.m; sourceTree = "<group>"; };
 		D19DDA541A5F1705004F97A3 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -734,19 +732,18 @@
 		2BBDBA491A12AB73005A6815 /* Challenges */ = {
 			isa = PBXGroup;
 			children = (
+				2BC5865D1A16D0AF005A7983 /* ChallengeInvitationView.swift */,
+				D1EEDBA41A66FA570012EFD3 /* ChallengeLeaderboardRow.swift */,
+				2BBDBA4A1A12AC2C005A6815 /* ChallengeRowCell.swift */,
+				2BBDBA4D1A12AC2C005A6815 /* ChallengesViewController.swift */,
+				2BBDBA4E1A12AC2C005A6815 /* CompetitiveChallengeView.swift */,
+				2BBDBA501A12AC2C005A6815 /* GoalChallengeView.swift */,
+				2BC5865B1A16C63B005A7983 /* ChallengeInvitation.xib */,
 				D1EEDBA21A66E4B10012EFD3 /* ChallengeLeaderboardRow.xib */,
 				2BBDBA4B1A12AC2C005A6815 /* ChallengeRowCell.xib */,
 				2BBDBA4C1A12AC2C005A6815 /* ChallengesView.xib */,
 				2BBDBA4F1A12AC2C005A6815 /* CompetitiveChallengeView.xib */,
-				2BC5865B1A16C63B005A7983 /* ChallengeInvitation.xib */,
 				2BBDBA511A12AC2C005A6815 /* GoalChallengeView.xib */,
-				2BC5865D1A16D0AF005A7983 /* ChallengeInvitationView.swift */,
-				2BBDBA4A1A12AC2C005A6815 /* ChallengeRowCell.swift */,
-				2BBDBA4E1A12AC2C005A6815 /* CompetitiveChallengeView.swift */,
-				2BBDBA4D1A12AC2C005A6815 /* ChallengesViewController.swift */,
-				2BBDBA501A12AC2C005A6815 /* GoalChallengeView.swift */,
-				D19C66C81A3F74A400655218 /* ScrollViewPagerControllerViewController.swift */,
-				D1EEDBA41A66FA570012EFD3 /* ChallengeLeaderboardRow.swift */,
 			);
 			name = Challenges;
 			sourceTree = "<group>";
@@ -1842,7 +1839,6 @@
 				8FDB4B6A1A09741400F57B38 /* ChallengeWinCondition.swift in Sources */,
 				8F2B7E41198C2C27009DE89A /* SWRevealViewController.m in Sources */,
 				8F2CB5891993E68C009377A8 /* SessionData.swift in Sources */,
-				D19C66C91A3F74A400655218 /* ScrollViewPagerControllerViewController.swift in Sources */,
 				D1E223701A7FFF43006330E7 /* ConnectDeviceRow.swift in Sources */,
 				D1E1FF061A76C28F00C8951C /* ChallengeProgressLegendRow.swift in Sources */,
 				8F29630F194B8F5D00E787FD /* SignupEmailViewController.swift in Sources */,
