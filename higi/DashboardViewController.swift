@@ -122,7 +122,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         displayedChallenge = nil;
         
         for challenge in SessionController.Instance.challenges {
-            if (challenge.userStatus == "current") {
+            if (challenge.userStatus == "current" && challenge.status == "running") {
                 if (displayedChallenge == nil) {
                     displayedChallenge = challenge;
                 } else {
@@ -231,6 +231,8 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     
     @IBAction func gotoActivities(sender: AnyObject) {
         self.navigationController!.pushViewController(ActivityViewController(nibName: "ActivityView", bundle: nil), animated: true);
+        (self.navigationController as MainNavigationController).drawerController?.tableView.reloadData();
+        (self.navigationController as MainNavigationController).drawerController?.tableView.selectRowAtIndexPath(NSIndexPath(forItem: 1, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None);
     }
     
     @IBAction func gotoConnectDevices(sender: AnyObject) {
@@ -239,16 +241,22 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     
     @IBAction func gotoChallenges(sender: AnyObject) {
         self.navigationController!.pushViewController(ChallengesViewController(nibName: "ChallengesView", bundle: nil), animated: true);
+        (self.navigationController as MainNavigationController).drawerController?.tableView.reloadData();
+        (self.navigationController as MainNavigationController).drawerController?.tableView.selectRowAtIndexPath(NSIndexPath(forItem: 2, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None);
     }
     
     @IBAction func gotoChallengeDetails(sender: AnyObject) {
         var detailsViewController = ChallengeDetailsViewController(nibName: "ChallengeDetailsView", bundle: nil);
         detailsViewController.challenge = displayedChallenge;
         self.navigationController!.pushViewController(detailsViewController, animated: true);
+        (self.navigationController as MainNavigationController).drawerController?.tableView.reloadData();
+        (self.navigationController as MainNavigationController).drawerController?.tableView.selectRowAtIndexPath(NSIndexPath(forItem: 2, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None);
     }
     
     @IBAction func gotoPulseHome(sender: AnyObject) {
         self.navigationController!.pushViewController(PulseHomeViewController(nibName: "PulseHomeView", bundle: nil), animated: true);
+        (self.navigationController as MainNavigationController).drawerController?.tableView.reloadData();
+        (self.navigationController as MainNavigationController).drawerController?.tableView.selectRowAtIndexPath(NSIndexPath(forItem: 5, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None);
     }
     
     @IBAction func gotoPulseArticle(sender: AnyObject) {
@@ -256,6 +264,8 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         var article: PulseArticle!;
         webView.url = SessionController.Instance.pulseArticles[sender.tag!].permalink;
         self.navigationController?.pushViewController(webView, animated: true);
+        (self.navigationController as MainNavigationController).drawerController?.tableView.reloadData();
+        (self.navigationController as MainNavigationController).drawerController?.tableView.selectRowAtIndexPath(NSIndexPath(forItem: 5, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None);
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView!) {
