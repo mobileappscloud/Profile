@@ -28,7 +28,7 @@ class ChallengeDetailsTab: UITableView, UIAlertViewDelegate {
         } else {
             tab.durationText.text = "Never ends!";
         }
-        tab.typeText.text = goalTypeDisplayHelper(firstWinCondition.goal.type.description, winnerType: firstWinCondition.winnerType);
+        tab.typeText.text = "\(goalTypeDisplayHelper(firstWinCondition.goal.type.description, winnerType: firstWinCondition.winnerType)). \(limitDisplayHelper(challenge.dailyLimit, metric: challenge.metric))";
         tab.individualCountText.text = String(challenge.participantsCount);
         if (challenge.teams != nil) {
             tab.teamCountText.text = String(challenge.teams.count);
@@ -50,8 +50,8 @@ class ChallengeDetailsTab: UITableView, UIAlertViewDelegate {
     }
     
     class func goalTypeDisplayHelper(goalType: String, winnerType: String) -> String {
-        var firstPart = goalType == "individual" ? "Individual" : "Team";
-        var secondPart = winnerType == "most_points" ? "Points Challenge" : "Goal Challenge";
+        var firstPart = winnerType == "individual" ? "Individual" : "Team";
+        var secondPart = goalType == "most_points" ? "Points Challenge" : "Goal Challenge";
         return firstPart + " " + secondPart;
     }
     

@@ -147,6 +147,7 @@
                 <outlet property="teamCountText" destination="H2a-I3-6KH" id="XlB-tB-bSD"/>
                 <outlet property="typeText" destination="ytg-U2-Krf" id="O8R-64-uUL"/>
             </connections>
+            <point key="canvasLocation" x="64" y="214"/>
         </tableView>
     </objects>
 </document>

@@ -33,7 +33,7 @@
                 <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V7f-uV-swD">
                     <rect key="frame" x="104" y="14" width="115" height="20"/>
                     <subviews>
-                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aa2-Sg-2dj">
+                        <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aa2-Sg-2dj">
                             <rect key="frame" x="9" y="6" width="80" height="5"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -43,6 +43,9 @@
                         </view>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="centerY" secondItem="aa2-Sg-2dj" secondAttribute="centerY" id="gbT-Jv-9ay"/>
+                    </constraints>
                 </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="higi_logo_innercircle.png" translatesAutoresizingMaskIntoConstraints="NO" id="ot0-KN-rck">
                     <rect key="frame" x="8" y="4" width="30" height="30"/>
@@ -51,6 +54,8 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="Ara-sS-UlK" firstAttribute="leading" secondItem="V7f-uV-swD" secondAttribute="trailing" constant="8" id="chG-3n-5Yc"/>
+                <constraint firstItem="V7f-uV-swD" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="14" id="j6r-0o-lKu"/>
+                <constraint firstAttribute="bottom" secondItem="V7f-uV-swD" secondAttribute="bottom" constant="4" id="tbs-uc-vnS"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>

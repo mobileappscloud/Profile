@@ -75,6 +75,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     var challengeChatterComments:[Comments] = [];
     
+    var isLeaving = false;
     override func viewDidLoad() {
         super.viewDidLoad();
         
@@ -428,15 +429,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             tables.append(progressTable!);
             totalPages++;
         }
-//        detailsTabTable.removeFromSuperview();
-//        scrollView.addSubview(detailsTabTable);
-        
-//                detailTabView.removeFromSuperview();
-//                scrollView.addSubview(detailTabView);
-//        detailTabView.autoresizingMask = nil;
-//        let a = scrollView.translatesAutoresizingMaskIntoConstraints();
-//        scrollView.setTranslatesAutoresizingMaskIntoConstraints(true);
-//
+
         detailsTable = ChallengeDetailsTab.instanceFromNib(challenge);
         detailsTable.frame = CGRect(x: CGFloat(totalPages) * scrollView.frame.size.width, y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height);
         detailsTable.dataSource = self;
@@ -446,10 +439,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         detailsTable.scrollEnabled = true;
         detailsTable.allowsSelection = false;
         detailsTable.showsVerticalScrollIndicator = false;
-//        detailsTable.updateConstraints();
-//        detailsTable.autoresizesSubviews = true;
-//        detailsTable.setTranslatesAutoresizingMaskIntoConstraints(false);
-//        detailsTable.layoutSubviews();
+
         scrollView.addSubview(detailsTable);
         tables.append(detailsTable);
         totalPages++;
@@ -521,7 +511,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     func updateScroll() {
         let headerXOffset:CGFloat = 50;
         let minHeaderHeightThreshold:CGFloat = 67;
-        if (tables.count > currentPage) {
+        if (!isLeaving && tables.count > currentPage) {
             let currentTable = tables[currentPage];
             scrollY = currentTable.contentOffset.y;
 
@@ -575,7 +565,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         if (displayChatterTab && chatterTable != nil) {
             chatterTable!.frame.size.height = scrollView.frame.size.height;
         }
-
     }
     
     func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool {
@@ -690,12 +679,21 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         } else if (displayProgressTab && progressTable != nil && tableView == progressTable) {
             return createProgressTable(indexPath.row);
         } else if (detailsTable != nil && tableView == detailsTable) {
-            return ChallengeDetailsPrize.instanceFromNib(challenge.winConditions[indexPath.row]);
+            return createDetailsPrizeCell(challenge.winConditions[indexPath.row])
+//            return ChallengeDetailsPrize.instanceFromNib();
         } else {
             return createChatterTable(indexPath.row);
         }
     }
-
+    
+    func createDetailsPrizeCell(winCondition: ChallengeWinCondition) -> ChallengeDetailsPrize {
+        var cell = detailsTable!.dequeueReusableCellWithIdentifier("ChallengeDetailsPrize") as ChallengeDetailsPrize!;
+        if (cell == nil) {
+            cell = ChallengeDetailsPrize.instanceFromNib(winCondition);
+        }
+        return cell;
+    }
+    
     func setProgressBar(view: UIView, points: Int, highScore: Int) {
         let width = view.frame.size.width;
         let proportion = min(CGFloat(points)/CGFloat(highScore), 1);
@@ -723,6 +721,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func goBack(sender: AnyObject!) {
+        isLeaving = true;
         self.navigationController!.popViewControllerAnimated(true);
     }
     
