@@ -67,24 +67,6 @@
                         </subviews>
                         <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DKo-Gt-cvG">
-                        <rect key="frame" x="0.0" y="320" width="320" height="50"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pg0-15-TMh">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <state key="normal" title="Terms and Conditions">
-                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WhL-rv-ZWr">
-                        <rect key="frame" x="0.0" y="398" width="320" height="10"/>
-                        <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </view>
                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kTN-OZ-wr5">
                         <rect key="frame" x="0.0" y="173" width="320" height="83"/>
                         <subviews>
@@ -113,7 +95,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="team_icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="RPB-ig-hVa">
-                                                <rect key="frame" x="64" y="0.0" width="31" height="30"/>
+                                                <rect key="frame" x="69" y="0.0" width="31" height="30"/>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -189,6 +171,24 @@
                             <constraint firstItem="ytg-U2-Krf" firstAttribute="leading" secondItem="o4U-xs-cji" secondAttribute="leading" constant="20" id="fce-Zs-bQg"/>
                         </constraints>
                     </view>
+                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TDa-tb-1yj">
+                        <rect key="frame" x="0.0" y="259" width="320" height="50"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h9b-t7-sg8">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" title="Terms and Conditions">
+                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WhL-rv-ZWr">
+                        <rect key="frame" x="0.0" y="306" width="320" height="10"/>
+                        <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 <constraints>
@@ -197,6 +197,7 @@
                     <constraint firstItem="QNk-th-qR9" firstAttribute="leading" secondItem="6rH-4Z-e4u" secondAttribute="leading" id="AAl-HU-dba"/>
                     <constraint firstAttribute="trailing" secondItem="QNk-th-qR9" secondAttribute="trailing" id="JwT-7M-rrf"/>
                     <constraint firstItem="o4U-xs-cji" firstAttribute="top" secondItem="GH1-jg-xMV" secondAttribute="bottom" constant="62" id="Mos-Ph-ATk"/>
+                    <constraint firstItem="TDa-tb-1yj" firstAttribute="top" secondItem="GH1-jg-xMV" secondAttribute="bottom" constant="210" id="Qtx-UZ-Eg1"/>
                     <constraint firstItem="GH1-jg-xMV" firstAttribute="top" secondItem="6rH-4Z-e4u" secondAttribute="top" id="agb-TS-5lU"/>
                     <constraint firstItem="GH1-jg-xMV" firstAttribute="leading" secondItem="6rH-4Z-e4u" secondAttribute="leading" id="wSU-Dz-gOA"/>
                     <constraint firstItem="QNk-th-qR9" firstAttribute="top" secondItem="GH1-jg-xMV" secondAttribute="bottom" constant="1" id="zM5-pn-Gfx"/>
