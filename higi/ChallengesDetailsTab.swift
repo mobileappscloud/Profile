@@ -21,8 +21,8 @@ class ChallengeDetailsTab: UITableView, UIAlertViewDelegate {
         descriptionText.center = descriptionView.center;
         descriptionText.textAlignment = NSTextAlignment.Center;
         
-        individualCountText.sizeToFit();
-        teamCountText.sizeToFit();
+//        individualCountText.sizeToFit();
+//        teamCountText.sizeToFit();
     }
     
     @IBOutlet weak var teamCountSubview: UIView!
