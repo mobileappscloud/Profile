@@ -11,7 +11,7 @@
         <tableViewCell multipleTouchEnabled="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="226" id="fhS-10-ORM" customClass="ChallengeRowCell" customModule="higi" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="226"/>
             <autoresizingMask key="autoresizingMask"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fhS-10-ORM" id="ggG-Ox-512">
+            <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fhS-10-ORM" id="ggG-Ox-512">
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="top" ambiguous="YES" misplaced="YES" directionalLockEnabled="YES" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lGb-gk-1XT">

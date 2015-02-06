@@ -1,6 +1,6 @@
 import Foundation
 
-class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate {
+class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet var pager: UIPageControl!
     @IBOutlet var scrollView: UIScrollView!
@@ -35,11 +35,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         super.viewDidLoad();
         pager.currentPage = currentPage;
 
-        var session = SessionController.Instance;
-        
-        self.navigationController?.delegate = self;
-        
-        for challenge:HigiChallenge in session.challenges {
+        for challenge:HigiChallenge in SessionController.Instance.challenges {
             switch(challenge.userStatus) {
             case "current":
                 activeChallenges.append(challenge);
@@ -252,8 +248,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     
     func buildActiveCell(cell: ChallengeRowCell, challenge: HigiChallenge) {
         var nibOriginX:CGFloat = 0.0;
-        
-        var nibs = Utility.getChallengeViews(challenge, isComplex: false);
+        var nibs = Utility.getChallengeViews(challenge, frame: scrollView.frame, isComplex: false);
         for nib in nibs {
             nib.frame.origin.x = nibOriginX;
             cell.scrollView.addSubview(nib);
@@ -361,16 +356,4 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         return false;
     }
     
-    func navigationController(navigationController: UINavigationController, didShowViewController viewController: UIViewController, animated: Bool) {
-//        pager.currentPage = 0;
-//        changePage(pager);
-        let currentTable = getCurrentTable();
-        if (currentTable != nil) {
-            currentTable!.reloadData();
-        } else {
-            //@todo i believe this case would mean that there was one unjoined challenge as the only challenge
-            //in a particular page, then the user clicked on it and joined it, then came back.  thus the page they 
-            //were on does not exist
-        }
-    }
 }

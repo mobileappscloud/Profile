@@ -823,7 +823,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                 }
             }
         }
-        let nibs = Utility.getChallengeViews(challenge, isComplex: true);
+        let nibs = Utility.getChallengeViews(challenge, frame: cell.frame, isComplex: true);
         if (isIndividualProgress) {
             cell.addSubview(nibs[individualGoalViewIndex]);
         } else {

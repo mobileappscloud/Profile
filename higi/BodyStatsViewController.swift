@@ -44,7 +44,6 @@ class BodyStatsViewController: BaseViewController, UIScrollViewDelegate, UIGestu
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
         revealController.panGestureRecognizer().enabled = false;
-        revealController.delegate = self;
         if (selected != nil) {
             revealController.supportedOrientations = UIInterfaceOrientationMask.Portrait.rawValue | UIInterfaceOrientationMask.LandscapeLeft.rawValue | UIInterfaceOrientationMask.LandscapeRight.rawValue;
             revealController.shouldRotate = true;

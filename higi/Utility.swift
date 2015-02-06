@@ -88,7 +88,7 @@ class Utility {
         return consolodatedList;
     }
     
-    class func getChallengeViews(challenge: HigiChallenge, isComplex: Bool) -> [UIView] {
+    class func getChallengeViews(challenge: HigiChallenge, frame: CGRect, isComplex: Bool) -> [UIView] {
         var nib:UIView!;
         var nibs:[UIView] = [];
         var winConditions:[ChallengeWinCondition] = [];
@@ -101,9 +101,9 @@ class Utility {
             let winnerType = firstWinCondition.winnerType;
 
             if (goalType == "most_points" || goalType == "unit_goal_reached") {
-                nib = CompetitiveChallengeView.instanceFromNib(challenge, winConditions: consolodatedList[index]);
+                nib = CompetitiveChallengeView.instanceFromNib(frame, challenge: challenge, winConditions: consolodatedList[index]);
             } else if (goalType == "threshold_reached" && firstWinCondition.goal.minThreshold > 1) {
-                nib = GoalChallengeView.instanceFromNib(challenge, winConditions: consolodatedList[index], isComplex: isComplex);
+                nib = GoalChallengeView.instanceFromNib(frame, challenge: challenge, winConditions: consolodatedList[index], isComplex: isComplex);
             }
             if (nib != nil) {
                 nibs.append(nib);

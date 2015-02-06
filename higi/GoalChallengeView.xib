@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -11,20 +11,20 @@
             <rect key="frame" x="0.0" y="0.0" width="290" height="176"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="higi_logo_innercircle.png" translatesAutoresizingMaskIntoConstraints="NO" id="TaJ-fi-xFR">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="higi_logo_innercircle.png" translatesAutoresizingMaskIntoConstraints="NO" id="TaJ-fi-xFR">
                     <rect key="frame" x="8" y="73" width="30" height="30"/>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="You" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PMc-0o-gRw">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="You" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PMc-0o-gRw">
                     <rect key="frame" x="46" y="77" width="65" height="21"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                     <color key="textColor" red="0.46274509803921571" green="0.75294117647058822" blue="0.26666666666666666" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="center" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j6h-qm-ysG">
-                    <rect key="frame" x="80" y="0.0" width="210" height="176"/>
+                    <rect key="frame" x="80" y="0.0" width="202" height="176"/>
                     <subviews>
                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Vp-0h-pgJ">
-                            <rect key="frame" x="0.0" y="86" width="211" height="4"/>
+                            <rect key="frame" x="0.0" y="86" width="202" height="4"/>
                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -37,22 +37,8 @@
                 </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-            <constraints>
-                <constraint firstItem="TaJ-fi-xFR" firstAttribute="leading" secondItem="bms-Pq-cVl" secondAttribute="leading" constant="8" id="593-lB-V3u"/>
-                <constraint firstItem="PMc-0o-gRw" firstAttribute="top" secondItem="bms-Pq-cVl" secondAttribute="top" constant="97" id="GVm-l8-bIk"/>
-                <constraint firstAttribute="bottom" secondItem="PMc-0o-gRw" secondAttribute="bottom" constant="98" id="OqC-GU-Vda"/>
-                <constraint firstItem="PMc-0o-gRw" firstAttribute="leading" secondItem="TaJ-fi-xFR" secondAttribute="trailing" constant="8" id="UOo-au-DTG"/>
-                <constraint firstAttribute="centerY" secondItem="PMc-0o-gRw" secondAttribute="centerY" id="f2l-P5-u3W"/>
-                <constraint firstAttribute="centerY" secondItem="TaJ-fi-xFR" secondAttribute="centerY" id="thg-06-5OJ"/>
-            </constraints>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <variation key="default">
-                <mask key="constraints">
-                    <exclude reference="GVm-l8-bIk"/>
-                    <exclude reference="OqC-GU-Vda"/>
-                </mask>
-            </variation>
             <connections>
                 <outlet property="avatar" destination="TaJ-fi-xFR" id="K0S-FP-PlC"/>
                 <outlet property="name" destination="PMc-0o-gRw" id="d9B-Cc-ik9"/>

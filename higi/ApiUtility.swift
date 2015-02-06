@@ -175,7 +175,9 @@ class ApiUtility {
             success?();
             }, failure: { operation, error in
                 SessionController.Instance.earnditError = true;
-                SessionController.Instance.challenges = [];
+                if (SessionController.Instance.challenges == nil) {
+                    SessionController.Instance.challenges = [];
+                }
                 success?();
         });
         
