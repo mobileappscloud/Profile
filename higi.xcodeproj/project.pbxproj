@@ -306,6 +306,8 @@
 		D149E9471A7822D900FBAA15 /* ChallengeDetailsPrize.swift in Sources */ = {isa = PBXBuildFile; fileRef = D149E9461A7822D900FBAA15 /* ChallengeDetailsPrize.swift */; };
 		D149E9491A7845A200FBAA15 /* ChallengeDetailsChatterRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D149E9481A7845A200FBAA15 /* ChallengeDetailsChatterRow.xib */; };
 		D149E94B1A78471A00FBAA15 /* ChallengeDetailsChatterRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D149E94A1A78471A00FBAA15 /* ChallengeDetailsChatterRow.swift */; };
+		D15372911A841FEA00954569 /* TermsAndConditionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15372901A841FEA00954569 /* TermsAndConditionsViewController.swift */; };
+		D15372931A84201600954569 /* TermsAndConditionsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D15372921A84201600954569 /* TermsAndConditionsView.xib */; };
 		D164D3761A7C19A600300F35 /* chat_bubble_green.png in Resources */ = {isa = PBXBuildFile; fileRef = D164D3751A7C19A600300F35 /* chat_bubble_green.png */; };
 		D17010C91A644414002CBFE8 /* ChallengeDetailsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D17010C71A644414002CBFE8 /* ChallengeDetailsView.xib */; };
 		D17010CA1A644414002CBFE8 /* ChallengeDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17010C81A644414002CBFE8 /* ChallengeDetailsViewController.swift */; };
@@ -316,9 +318,7 @@
 		D1E1FF061A76C28F00C8951C /* ChallengeProgressLegendRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E1FF051A76C28F00C8951C /* ChallengeProgressLegendRow.swift */; };
 		D1E1FF081A76C2DB00C8951C /* ChallengeProgressLegendRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1E1FF071A76C2DB00C8951C /* ChallengeProgressLegendRow.xib */; };
 		D1E1FF0A1A76E0AC00C8951C /* ChallengeDetailsRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1E1FF091A76E0AC00C8951C /* ChallengeDetailsRow.xib */; };
-		D1E1FF0C1A76E0F200C8951C /* ChallengeDetailsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E1FF0B1A76E0F200C8951C /* ChallengeDetailsRow.swift */; };
 		D1E1FF0E1A76FAB100C8951C /* ChallengeDetailsIcons.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1E1FF0D1A76FAB100C8951C /* ChallengeDetailsIcons.xib */; };
-		D1E1FF101A76FB5400C8951C /* ChallengeDetailsIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E1FF0F1A76FB5400C8951C /* ChallengeDetailsIcons.swift */; };
 		D1E2236C1A7FFB7D006330E7 /* ui_nodevices.png in Resources */ = {isa = PBXBuildFile; fileRef = D1E2236B1A7FFB7D006330E7 /* ui_nodevices.png */; };
 		D1E2236E1A7FFE60006330E7 /* ConnectDeviceRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1E2236D1A7FFE60006330E7 /* ConnectDeviceRow.xib */; };
 		D1E223701A7FFF43006330E7 /* ConnectDeviceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E2236F1A7FFF43006330E7 /* ConnectDeviceRow.swift */; };
@@ -333,6 +333,7 @@
 		D1EEDB9B1A660F2B0012EFD3 /* ui_progress.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDB941A660F2B0012EFD3 /* ui_progress.png */; };
 		D1EEDBA31A66E4B10012EFD3 /* ChallengeLeaderboardRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDBA21A66E4B10012EFD3 /* ChallengeLeaderboardRow.xib */; };
 		D1EEDBA51A66FA570012EFD3 /* ChallengeLeaderboardRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EEDBA41A66FA570012EFD3 /* ChallengeLeaderboardRow.swift */; };
+		D1FC09951A83DE960049B5C0 /* team_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D1FC09941A83DE960049B5C0 /* team_icon.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -662,6 +663,8 @@
 		D149E9461A7822D900FBAA15 /* ChallengeDetailsPrize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeDetailsPrize.swift; sourceTree = "<group>"; };
 		D149E9481A7845A200FBAA15 /* ChallengeDetailsChatterRow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailsChatterRow.xib; sourceTree = "<group>"; };
 		D149E94A1A78471A00FBAA15 /* ChallengeDetailsChatterRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeDetailsChatterRow.swift; sourceTree = "<group>"; };
+		D15372901A841FEA00954569 /* TermsAndConditionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsViewController.swift; sourceTree = "<group>"; };
+		D15372921A84201600954569 /* TermsAndConditionsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TermsAndConditionsView.xib; sourceTree = "<group>"; };
 		D164D3751A7C19A600300F35 /* chat_bubble_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chat_bubble_green.png; path = images/chat_bubble_green.png; sourceTree = "<group>"; };
 		D17010C71A644414002CBFE8 /* ChallengeDetailsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailsView.xib; sourceTree = "<group>"; };
 		D17010C81A644414002CBFE8 /* ChallengeDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeDetailsViewController.swift; sourceTree = "<group>"; };
@@ -673,9 +676,7 @@
 		D1E1FF051A76C28F00C8951C /* ChallengeProgressLegendRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeProgressLegendRow.swift; sourceTree = "<group>"; };
 		D1E1FF071A76C2DB00C8951C /* ChallengeProgressLegendRow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeProgressLegendRow.xib; sourceTree = "<group>"; };
 		D1E1FF091A76E0AC00C8951C /* ChallengeDetailsRow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailsRow.xib; sourceTree = "<group>"; };
-		D1E1FF0B1A76E0F200C8951C /* ChallengeDetailsRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeDetailsRow.swift; sourceTree = "<group>"; };
 		D1E1FF0D1A76FAB100C8951C /* ChallengeDetailsIcons.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailsIcons.xib; sourceTree = "<group>"; };
-		D1E1FF0F1A76FB5400C8951C /* ChallengeDetailsIcons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeDetailsIcons.swift; sourceTree = "<group>"; };
 		D1E2236B1A7FFB7D006330E7 /* ui_nodevices.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_nodevices.png; path = images/ui_nodevices.png; sourceTree = "<group>"; };
 		D1E2236D1A7FFE60006330E7 /* ConnectDeviceRow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConnectDeviceRow.xib; sourceTree = "<group>"; };
 		D1E2236F1A7FFF43006330E7 /* ConnectDeviceRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectDeviceRow.swift; sourceTree = "<group>"; };
@@ -690,6 +691,7 @@
 		D1EEDB941A660F2B0012EFD3 /* ui_progress.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_progress.png; path = "../../android-main/app/src/main/res/drawable-nodpi/ui_progress.png"; sourceTree = "<group>"; };
 		D1EEDBA21A66E4B10012EFD3 /* ChallengeLeaderboardRow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeLeaderboardRow.xib; sourceTree = "<group>"; };
 		D1EEDBA41A66FA570012EFD3 /* ChallengeLeaderboardRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeLeaderboardRow.swift; sourceTree = "<group>"; };
+		D1FC09941A83DE960049B5C0 /* team_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = team_icon.png; path = images/team_icon.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -893,6 +895,7 @@
 		8F296317194B9E5700E787FD /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				D1FC09931A83DE600049B5C0 /* Challenge Details */,
 				D1EEDB8D1A660E900012EFD3 /* Challenge */,
 				8F6266CD197F131100145EDB /* Body Stats */,
 				8F5C38D819818F3A00F51543 /* Checkin */,
@@ -925,6 +928,8 @@
 				8FA5925E19ABBD3A00622266 /* TourViewController.swift */,
 				8F2CB5811992563E009377A8 /* WebView.xib */,
 				8F2CB57F19925631009377A8 /* WebViewController.swift */,
+				D15372901A841FEA00954569 /* TermsAndConditionsViewController.swift */,
+				D15372921A84201600954569 /* TermsAndConditionsView.xib */,
 			);
 			name = Miscellaneous;
 			sourceTree = "<group>";
@@ -1191,8 +1196,8 @@
 				8F6266B2197ECAA700145EDB /* BodyStatsLandView.swift */,
 				8F6266B4197ECC6A00145EDB /* BodyStatsPortView.swift */,
 				8F3643A119460EB300C0033E /* BodyStatsViewController.swift */,
-				8FDCE1C71988082B006428C3 /* InfoOverlayView.swift */,
 				8F6266AE197EC8E200145EDB /* BodyStatsLand.xib */,
+				8FDCE1C71988082B006428C3 /* InfoOverlayView.swift */,
 				8F6266B0197EC95900145EDB /* BodyStatsPort.xib */,
 				8F5C38FD198689E200F51543 /* CheckinCell.xib */,
 				8FDCE1C31988063E006428C3 /* InfoOverlay.xib */,
@@ -1391,8 +1396,6 @@
 				D17010C81A644414002CBFE8 /* ChallengeDetailsViewController.swift */,
 				D18395C21A69CAD500D290BF /* ChallengesDetailsTab.swift */,
 				D1E1FF051A76C28F00C8951C /* ChallengeProgressLegendRow.swift */,
-				D1E1FF0B1A76E0F200C8951C /* ChallengeDetailsRow.swift */,
-				D1E1FF0F1A76FB5400C8951C /* ChallengeDetailsIcons.swift */,
 				D149E9461A7822D900FBAA15 /* ChallengeDetailsPrize.swift */,
 				D149E94A1A78471A00FBAA15 /* ChallengeDetailsChatterRow.swift */,
 			);
@@ -1402,18 +1405,26 @@
 		D1EEDB8D1A660E900012EFD3 /* Challenge */ = {
 			isa = PBXGroup;
 			children = (
-				D164D3751A7C19A600300F35 /* chat_bubble_green.png */,
-				D101757A1A79693C00CA32DC /* chat_bubble.png */,
 				8F5F918B1A7193FC0042D87C /* activitypageblankstate.png */,
 				D1EEDB8E1A660F2B0012EFD3 /* challenge_image.png */,
 				D1EEDB8F1A660F2B0012EFD3 /* chat_bubble_green.9.png */,
 				D1EEDB901A660F2B0012EFD3 /* chat_bubble.9.png */,
+			);
+			name = Challenge;
+			sourceTree = "<group>";
+		};
+		D1FC09931A83DE600049B5C0 /* Challenge Details */ = {
+			isa = PBXGroup;
+			children = (
+				D1FC09941A83DE960049B5C0 /* team_icon.png */,
+				D164D3751A7C19A600300F35 /* chat_bubble_green.png */,
+				D101757A1A79693C00CA32DC /* chat_bubble.png */,
 				D1EEDB911A660F2B0012EFD3 /* ui_chatter.png */,
 				D1EEDB921A660F2B0012EFD3 /* ui_details.png */,
 				D1EEDB931A660F2B0012EFD3 /* ui_leaderboards.png */,
 				D1EEDB941A660F2B0012EFD3 /* ui_progress.png */,
 			);
-			name = Challenge;
+			name = "Challenge Details";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1542,6 +1553,7 @@
 				D1EEDB961A660F2B0012EFD3 /* chat_bubble_green.9.png in Resources */,
 				8F58D97E19C0F4BD00C0EC72 /* welcome_02_bg@2x.png in Resources */,
 				8FFB035019FEA2440036228C /* oc_pulse_active.png in Resources */,
+				D15372931A84201600954569 /* TermsAndConditionsView.xib in Resources */,
 				8F2B7E50198C3058009DE89A /* oc_pulse.png in Resources */,
 				8F02A14019AE2CF4002FF73E /* bodystats_background@2x.png in Resources */,
 				D1E2236C1A7FFB7D006330E7 /* ui_nodevices.png in Resources */,
@@ -1695,6 +1707,7 @@
 				8FFF43C219B798380056F412 /* pulse_overlay@2x.png in Resources */,
 				8F211EFA1A1E85AE00A256C0 /* oc_dropdownmenu_up.png in Resources */,
 				8F02A13219AE2CBB002FF73E /* dashboard1@2x.png in Resources */,
+				D1FC09951A83DE960049B5C0 /* team_icon.png in Resources */,
 				8F5F91881A7193E80042D87C /* activitywidgetblankstate.png in Resources */,
 				8F5C38DE1981901600F51543 /* bloodpressure.png in Resources */,
 				8F1D979E199556F3003B5645 /* mask.png in Resources */,
@@ -1775,6 +1788,7 @@
 				8F6A2449195A07880094B73C /* BmiGraphDelegate.swift in Sources */,
 				8F5E7FD2199BC99C009067E5 /* BpCheckinCell.swift in Sources */,
 				8F5C38BF19813F9F00F51543 /* GraphDelegate.swift in Sources */,
+				D15372911A841FEA00954569 /* TermsAndConditionsViewController.swift in Sources */,
 				8F77DF1A1A0080550056BE27 /* GraphPoint.swift in Sources */,
 				8FF94098198A8C0A00D319D7 /* BirthdateViewController.swift in Sources */,
 				8F58D98E19C22AB600C0EC72 /* GTMNSString+HTML.m in Sources */,
@@ -1845,7 +1859,6 @@
 				8F524BF8195B829400BFC49D /* CustomFormatter.swift in Sources */,
 				8F6A243F195A01350094B73C /* BaseCustomGraphHostingView.swift in Sources */,
 				8F5C38EF1982EFDF00F51543 /* CheckinTableViewCell.swift in Sources */,
-				D1E1FF0C1A76E0F200C8951C /* ChallengeDetailsRow.swift in Sources */,
 				8F296313194B912F00E787FD /* LoginViewController.swift in Sources */,
 				8F6266CF19800A5400145EDB /* BpGraphDelegate.swift in Sources */,
 				D149E94B1A78471A00FBAA15 /* ChallengeDetailsChatterRow.swift in Sources */,
@@ -1855,7 +1868,6 @@
 				8FCD2D8019EC286900AC5A82 /* UIImage+Orientation.m in Sources */,
 				8F6A2445195A076B0094B73C /* MapGraphDelegate.swift in Sources */,
 				8F2B7E43198C2DA0009DE89A /* DrawerViewController.swift in Sources */,
-				D1E1FF101A76FB5400C8951C /* ChallengeDetailsIcons.swift in Sources */,
 				8F524BF6195B5ABB00BFC49D /* ConversionUtility.m in Sources */,
 				8F087A901A1BDFC7008E0446 /* ActivityCellHeader.swift in Sources */,
 				8F296311194B911C00E787FD /* SignupNameViewController.swift in Sources */,

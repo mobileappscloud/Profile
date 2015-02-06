@@ -3,8 +3,7 @@ import Foundation
 class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UIActionSheetDelegate, UITextFieldDelegate {
     @IBOutlet var contentView: UIView!
     @IBOutlet var pointsLabel:UILabel?;
-    
-
+    @IBOutlet var detailTabView: UIView!
     @IBOutlet weak var joinButton: UIButton!
     @IBOutlet weak var headerContainer: UIView!
     @IBOutlet weak var participantPoints: UILabel!
@@ -12,12 +11,10 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     @IBOutlet weak var challengeTitle: UILabel!
     @IBOutlet weak var challengeAvatar: UIImageView!
     @IBOutlet var scrollView: UIScrollView!
-    
     @IBOutlet weak var participantContainer: UIView!
     @IBOutlet weak var challengeDaysLeft: UILabel!
     @IBOutlet weak var participantAvatar: UIImageView!
     @IBOutlet weak var participantPlace: UILabel!
-    
     @IBOutlet weak var buttonContainer: UIView!
     
     var challengeName = "";
@@ -43,6 +40,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     var detailsTable: UITableView!;
     var chatterTable: UITableView?;
 
+    var detailsTableContentHeight:CGFloat = 0;
     var scrollY: CGFloat = 0;
     var totalPages = 0;
     var currentPage = 0;
@@ -56,6 +54,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     var headerProgressOriginWidth:CGFloat = 0;
     var headerPointsOriginX:CGFloat = 0;
     
+    var tabButtonLabels:[String] = [];
+    var tabButtonIcons:[String] = [];
     var leaderboardToggleButtons:[UIButton] = [];
     var progressToggleButtons:[UIButton] = [];
     var greenBars:[UIView] = [];
@@ -63,7 +63,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     let leaderboardGestureRecognizer = UITapGestureRecognizer();
     
     var individualLeaderboardCount = 50;
-    var teamLeaderboardCount = 50;
+
     var individualLeaderboardParticipants:[ChallengeParticipant] = [];
     var teamLeaderboardParticipants:[ChallengeTeam] = [];
 
@@ -73,8 +73,17 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     var challengeChatterComments:[Comments] = [];
     
+    var isLeaving = false;
+    
     override func viewDidLoad() {
         super.viewDidLoad();
+        
+        initBackButton();
+
+        initializeDetailView();
+    }
+    
+    func initBackButton() {
         self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
         (self.navigationController as MainNavigationController).revealController.panGestureRecognizer().enabled = false;
         var backButton = UIButton.buttonWithType(UIButtonType.Custom) as UIButton;
@@ -84,10 +93,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         var backBarItem = UIBarButtonItem(customView: backButton);
         self.navigationItem.leftBarButtonItem = backBarItem;
         self.navigationItem.hidesBackButton = true;
-        
-        var session = SessionController.Instance;
-        
-        initializeDetailView();
     }
     
     func initializeDetailView() {
@@ -143,19 +148,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         }
     }
     
-    func clearExistingViews() {
-        if (displayLeaderboardTab) {
-            leaderboardTable!.removeFromSuperview();
-        }
-        if (displayProgressTab) {
-            progressTable!.removeFromSuperview();
-        }
-        detailsTable!.removeFromSuperview();
-        if (displayChatterTab) {
-            chatterTable!.removeFromSuperview();
-        }
-    }
-    
     func addToggleButtons(table: UITableView) {
         let toggleButtonHeight:CGFloat = 60;
         let buttonMargin:CGFloat = 10;
@@ -204,9 +196,16 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                 participantProgress.hidden = false;
                 participantAvatar.hidden = false;
                 
-                participantPoints.text = "\(Int(participant.units)) pts";
-                participantPlace.text = getUserRank();
-                setProgressBar(participantProgress, points: Int(participant.units), highScore: Int(challenge.individualHighScore));
+                if (challenge.winConditions[0].winnerType == "individual") {
+                    participantPoints.text = "\(Int(participant.units)) pts";
+                    participantPlace.text = getUserRank(false);
+                    setProgressBar(participantProgress, points: Int(participant.units), highScore: Int(challenge.individualHighScore));
+                } else {
+                    let teamAvgPts = participant.team.memberCount > 0 ? Int(participant.team.units) / participant.team.memberCount : 0;
+                    participantPoints.text = "\(teamAvgPts) pts";
+                    participantPlace.text = getUserRank(true);
+                    setProgressBar(participantProgress, points: teamAvgPts, highScore: Int(challenge.individualHighScore));
+                }
             } else {
                 participantPoints.hidden = true;
                 participantPlace.hidden = true;
@@ -218,7 +217,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             participantPoints.hidden = true;
             participantPlace.hidden = true;
             participantProgress.hidden = true;
-            //@todo make this static and global.  hide show it with other header elements
+
             //@todo loading spinner on button click
             joinButton.hidden = false;
         }
@@ -309,11 +308,11 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             joinChallenge(challenge.teams[buttonIndex].joinUrl);
         }
     }
+    
     func refreshChallenge() {
-        let name = challenge.name;
         let challenges = SessionController.Instance.challenges;
         for challenge in challenges {
-            if (name == challenge.name) {
+            if (self.challenge.name == challenge.name) {
                 self.challenge = challenge;
             }
         }
@@ -321,55 +320,57 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         initializeDetailView();
     }
     
-    func populateTabButtons() {
-        var buttons:[UILabel] = [];
-        greenBars = [];
-        let containerYValue = buttonContainer.frame.origin.y;
-        
-        var buttonText:[String] = [];
-        var buttonIcons:[String] = [];
+    func clearExistingViews() {
         if (displayLeaderboardTab) {
-            buttonText.append("Leaderboard");
-            buttonIcons.append("ui_leaderboards.png");
+            leaderboardTable!.removeFromSuperview();
         }
         if (displayProgressTab) {
-            buttonText.append("Progress");
-            buttonIcons.append("ui_progress.png");
+            progressTable!.removeFromSuperview();
         }
-        buttonText.append("Details");
-        buttonIcons.append("ui_details.png");
+        detailsTable!.removeFromSuperview();
         if (displayChatterTab) {
-            buttonText.append("Chatter");
-            buttonIcons.append("ui_chatter.png");
+            chatterTable!.removeFromSuperview();
         }
+        greenBars = [];
+        totalPages = 0;
+        tables = [];
         
-        let height:CGFloat = buttonContainer.frame.size.height;
-        let buttonWidth = buttonContainer.frame.size.width / CGFloat(buttonText.count)
+    }
+    
+    func populateTabButtons() {
+        let containerYValue = buttonContainer.frame.origin.y;
         
-        for index in 0...buttonText.count - 1 {
-            let tabGestureRecognizer = UITapGestureRecognizer();
-            tabGestureRecognizer.addTarget(self, action: "selectButton:");
-            let tabView = UIView(frame: CGRect(x: buttonWidth * CGFloat(index), y: 00, width: buttonWidth, height: height));
-            tabView.backgroundColor = Utility.colorFromHexString("#FDFDFD");
-            tabView.tag = index;
-            let image = UIImageView(frame: CGRect(x: buttonWidth/2 - 30/2, y: 10, width: 30, height: 20));
-            image.image = UIImage(named: buttonIcons[index]);
-            let label = UILabel(frame: CGRect(x: 0, y: image.frame.origin.y + image.frame.size.height + 2, width: buttonWidth, height: 25));
-            label.font = UIFont.systemFontOfSize(10);
-            label.tintColor = UIColor.darkGrayColor();
-            label.textAlignment = NSTextAlignment.Center;
-            label.text = buttonText[index];
-            let greenBar = UIView(frame: CGRect(x: 0, y: height - 3, width: buttonWidth, height: 3));
-            greenBar.backgroundColor = Utility.colorFromHexString("#76C043");
-            greenBar.hidden = index != 0;
-            greenBars.append(greenBar);
-            tabView.addSubview(greenBar);
-            tabView.addSubview(image);
-            tabView.addSubview(label);
-            tabView.userInteractionEnabled = true;
-            tabView.addGestureRecognizer(tabGestureRecognizer);
-            buttonContainer.addSubview(tabView);
+        let buttonHeight:CGFloat = buttonContainer.frame.size.height;
+        let buttonWidth = buttonContainer.frame.size.width / CGFloat(tabButtonLabels.count);
+        
+        for index in 0...tabButtonLabels.count - 1 {
+            buttonContainer.addSubview(makeTabButton(tabButtonLabels[index], buttonImageName: tabButtonIcons[index], index: index, height: buttonHeight, width: buttonWidth));
         }
+    }
+    
+    func makeTabButton(buttonText: String, buttonImageName: String, index: Int, height: CGFloat, width: CGFloat) -> UIView {
+        let tabGestureRecognizer = UITapGestureRecognizer();
+        tabGestureRecognizer.addTarget(self, action: "selectButton:");
+        let tabView = UIView(frame: CGRect(x: width * CGFloat(index), y: 0, width: width, height: height));
+        tabView.backgroundColor = Utility.colorFromHexString("#FDFDFD");
+        tabView.tag = index;
+        let image = UIImageView(frame: CGRect(x: width/2 - 15, y: 10, width: 30, height: 20));
+        image.image = UIImage(named: buttonImageName);
+        let label = UILabel(frame: CGRect(x: 0, y: image.frame.origin.y + image.frame.size.height + 2, width: width, height: 25));
+        label.font = UIFont.systemFontOfSize(10);
+        label.tintColor = UIColor.darkGrayColor();
+        label.textAlignment = NSTextAlignment.Center;
+        label.text = buttonText;
+        let greenBar = UIView(frame: CGRect(x: 0, y: height - 3, width: width, height: 3));
+        greenBar.backgroundColor = Utility.colorFromHexString("#76C043");
+        greenBar.hidden = index != 0;
+        greenBars.append(greenBar);
+        tabView.addSubview(greenBar);
+        tabView.addSubview(image);
+        tabView.addSubview(label);
+        tabView.userInteractionEnabled = true;
+        tabView.addGestureRecognizer(tabGestureRecognizer);
+        return tabView;
     }
     
     func selectButton(sender: AnyObject) {
@@ -401,11 +402,9 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func populateScrollViewWithTables() {
-        var table:UITableView;
-        //need to reset total pages for when we join a challenge
-        totalPages = 0;
-        tables = [];
         if (displayLeaderboardTab) {
+            tabButtonLabels.append("Leaderboard");
+            tabButtonIcons.append("ui_leaderboards.png");
             leaderboardTable = addTableView(totalPages);
             leaderboardTable!.tableFooterView?.hidden = true;
             scrollView.addSubview(leaderboardTable!);
@@ -413,18 +412,24 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             totalPages++;
         }
         if (displayProgressTab) {
+            tabButtonLabels.append("Progress");
+            tabButtonIcons.append("ui_progress.png");
             progressTable = addTableView(totalPages);
             scrollView.addSubview(progressTable!);
             tables.append(progressTable!);
             totalPages++;
         }
         
-        detailsTable = addTableView(totalPages);
+        tabButtonLabels.append("Details");
+        tabButtonIcons.append("ui_details.png");
+        detailsTable = initDetailsTable();
         scrollView.addSubview(detailsTable);
         tables.append(detailsTable);
         totalPages++;
         
         if (displayChatterTab) {
+            tabButtonLabels.append("Chatter");
+            tabButtonIcons.append("ui_chatter.png");
             chatterTable = addTableView(totalPages);
             chatterTable!.backgroundColor = Utility.colorFromHexString("#F4F4F4");
             let textField = addChatterInputBox();
@@ -433,11 +438,106 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             tables.append(chatterTable!);
             totalPages++;
         }
-        scrollView.delegate = self;
         
+        scrollView.delegate = self;
         scrollView.contentSize = CGSize(width: scrollView.frame.size.width * CGFloat(totalPages), height: scrollView.frame.size.height);
         self.automaticallyAdjustsScrollViewInsets = false;
+    }
 
+    func initDetailsTable() -> UITableView {
+        let table = UINib(nibName: "ChallengeDetailsTab", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeDetailsTab;
+        let firstWinCondition = challenge.winConditions[0];
+        
+        table.descriptionText.text = htmlEscape(challenge.shortDescription);
+        if (challenge.endDate != nil) {
+            table.durationText.text = setDateRangeHelper(challenge.startDate, endDate: challenge.endDate);
+        } else {
+            table.durationText.text = "Never ends!";
+        }
+        table.typeText.text = "\(goalTypeDisplayHelper(firstWinCondition.goal.type.description, winnerType: firstWinCondition.winnerType)). \(limitDisplayHelper(challenge.dailyLimit, metric: challenge.metric))";
+        table.individualCountText.text = String(challenge.participantsCount);
+        
+        let teamCount = challenge.teams != nil ? challenge.teams.count : 0;
+        if (teamCount > 0) {
+            table.teamCountText.text = String(challenge.teams.count);
+        } else {
+            table.teamCountView.removeFromSuperview();
+            table.participantCountView.center = table.participantRowView.center;
+//            table.participantCountSubView.center.x = table.frame.size.width/2;
+        }
+        
+        table.participantIcon.text = "\u{f007}";
+
+        table.termsButton.addTarget(self, action: "termsClick:", forControlEvents: UIControlEvents.TouchUpInside);
+        
+        var yOffset:CGFloat = 30;
+        for winCondition in challenge.winConditions {
+            let prizeRow = createDetailsPrizeCell(winCondition);
+            prizeRow.frame.origin.y = yOffset;
+            
+            table.prizesContainer.addSubview(prizeRow);
+            yOffset += prizeRow.height;
+        }
+        table.prizesContainer.frame.size.height = yOffset;
+        
+        detailsTableContentHeight = table.prizesContainer.frame.origin.y + yOffset;
+        table.frame.origin.x = CGFloat(totalPages) * scrollView.frame.size.width;
+//        table.frame = CGRect(x: CGFloat(totalPages) * scrollView.frame.size.width, y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height);
+        table.layoutIfNeeded();
+        table.dataSource = self;
+        table.delegate = self;
+        table.separatorStyle = UITableViewCellSeparatorStyle.None;
+        table.backgroundColor = Utility.colorFromHexString("#F4F4F4");
+        table.scrollEnabled = true;
+        table.allowsSelection = false;
+        table.showsVerticalScrollIndicator = false;
+        return table;
+    }
+    
+    func htmlEscape(string: String) -> String {
+        var newString = string;
+//        let replaceDict = ["&nbsp;":" ", "&#39;": "'", "\r": "", "\n": ""];
+        let replaceDict = ["&nbsp;":" ", "&#39;": "'", "\t": "", "&middot;": "", "&rsquo;": "'", "&amp;": "&"];
+        for (oldVal, newVal) in replaceDict {
+            newString = newString.stringByReplacingOccurrencesOfString(oldVal, withString: newVal, options: nil, range: nil);
+        }
+        return newString;
+    }
+    
+    func setDateRangeHelper(startDate: NSDate, endDate: NSDate) -> String {
+        var dateFormatter = NSDateFormatter();
+        dateFormatter.dateFormat = "MMM. dd, YYYY"
+        return "\(dateFormatter.stringFromDate(startDate)) - \(dateFormatter.stringFromDate(endDate))";
+    }
+    
+    func goalTypeDisplayHelper(goalType: String, winnerType: String) -> String {
+        var firstPart = winnerType == "individual" ? "Individual" : "Team";
+        var secondPart = goalType == "most_points" ? "Points Challenge" : "Goal Challenge";
+        return firstPart + " " + secondPart;
+    }
+    
+    func durationHelper(startDate: NSDate, endDate: NSDate?) -> String {
+        let dateFormatter = NSDateFormatter();
+        dateFormatter.dateFormat = "MMM. dd, YYYY"
+        if (endDate != nil) {
+            return "\(dateFormatter.stringFromDate(startDate)) - \(dateFormatter.stringFromDate(endDate!))";
+        } else {
+            return "\(dateFormatter.stringFromDate(startDate)) - No end date";
+        }
+    }
+    
+    func limitDisplayHelper(limit: Int, metric: String) -> String {
+        if (limit > 0) {
+            return "Limit of \(limit) \(metric) per day.";
+        } else {
+            return "Unlimited \(metric) per day.";
+        }
+    }
+    
+    func termsClick(sender: AnyObject) {
+        var termsController = TermsAndConditionsViewController(nibName: "TermsAndConditionsView", bundle: nil);
+                termsController.html = challenge.terms;
+        self.presentViewController(termsController, animated: false, completion: nil);
     }
     
     func addTableView(page: Int) -> UITableView {
@@ -455,28 +555,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         return table;
     }
     
-    func getUserRank() -> String {
-        let gravityBoard = challenge.gravityBoard;
-        for index in 0...challenge.gravityBoard.count - 1 {
-            if (gravityBoard[index].participant.url == challenge.participant.url) {
-                return Utility.getRankSuffix("\(index + 1)");
-            }
-        }
-        return "";
-    }
-    
-    func makeImageWithColor(color: UIColor) -> UIImage {
-        let rect = CGRectMake(0, 0, 1, 1);
-        UIGraphicsBeginImageContext(rect.size);
-        let context = UIGraphicsGetCurrentContext();
-        CGContextSetFillColorWithColor(context, color.CGColor);
-        CGContextFillRect(context, rect);
-        let image = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-        
-        return image;
-    }
-    
     func scrollViewDidScroll(scrollView: UIScrollView) {
         if (scrollView != self.scrollView) {
             updateScroll();
@@ -486,42 +564,42 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     func updateScroll() {
         let headerXOffset:CGFloat = 50;
         let minHeaderHeightThreshold:CGFloat = 67;
-        let currentTable = tables[currentPage];
-        scrollY = currentTable.contentOffset.y;
-        
-        //@todo for some reason there is a hiccup in scrolling at a couple places, same scrollY values each time
-        
-        if (scrollY >= 0) {
-            if (scrollY > headerContainerHeight - minHeaderHeightThreshold) {
-                headerContainer.frame.origin.y = minHeaderHeightThreshold - headerContainerHeight;
-                buttonContainer.frame.origin.y = minHeaderHeightThreshold - 1;
+        if (!isLeaving && tables.count > currentPage) {
+            let currentTable = tables[currentPage];
+            scrollY = currentTable.contentOffset.y;
+
+            if (scrollY >= 0) {
+                if (scrollY > headerContainerHeight - minHeaderHeightThreshold) {
+                    headerContainer.frame.origin.y = minHeaderHeightThreshold - headerContainerHeight;
+                    buttonContainer.frame.origin.y = minHeaderHeightThreshold - 1;
+                } else {
+                    participantPlace.frame.origin.x = headerPlaceOriginX + (scrollY / headerXOffset);
+                    participantProgress.frame.origin.x = headerProgressOriginX + (scrollY / headerXOffset);
+                    
+                    var xOffset = min(scrollY * (headerXOffset / ((headerContainerHeight - minHeaderHeightThreshold) / 2)),50);
+                    participantAvatar.frame = CGRect(x: headerAvatarOriginX + xOffset, y: participantAvatar.frame.origin.y, width: 30, height: 30);
+                    participantPlace.frame = CGRect(x: headerPlaceOriginX + xOffset, y: participantPlace.frame.origin.y, width: 58, height: 25);
+                    participantProgress.frame = CGRect(x: headerProgressOriginX + xOffset, y: participantPoints.frame.origin.y, width: headerProgressOriginWidth - xOffset, height: 15);
+                    
+                    headerContainer.frame.origin.y = -scrollY;
+                    buttonContainer.frame.origin.y = buttonContainerOriginY - scrollY;
+                }
             } else {
-                participantPlace.frame.origin.x = headerPlaceOriginX + (scrollY / headerXOffset);
-                participantProgress.frame.origin.x = headerProgressOriginX + (scrollY / headerXOffset);
+                participantPlace.frame.origin.x = headerPlaceOriginX;
+                participantProgress.frame.origin.x = headerProgressOriginX;
                 
-                var xOffset = min(scrollY * (headerXOffset / ((headerContainerHeight - minHeaderHeightThreshold) / 2)),50);
-                participantAvatar.frame = CGRect(x: headerAvatarOriginX + xOffset, y: participantAvatar.frame.origin.y, width: 30, height: 30);
-                participantPlace.frame = CGRect(x: headerPlaceOriginX + xOffset, y: participantPlace.frame.origin.y, width: 58, height: 25);
-                participantProgress.frame = CGRect(x: headerProgressOriginX + xOffset, y: participantPoints.frame.origin.y, width: headerProgressOriginWidth - xOffset, height: 15);
+                participantAvatar.frame = CGRect(x: headerAvatarOriginX, y: participantAvatar.frame.origin.y, width: 30, height: 30);
+                participantPlace.frame = CGRect(x: headerPlaceOriginX, y: participantPlace.frame.origin.y, width: 58, height: 25);
+                participantProgress.frame = CGRect(x: headerProgressOriginX, y: participantPoints.frame.origin.y, width: headerProgressOriginWidth, height: 15);
                 
-                headerContainer.frame.origin.y = -scrollY;
-                buttonContainer.frame.origin.y = buttonContainerOriginY - scrollY;
+                headerContainer.frame.origin.y = 0;
+                buttonContainer.frame.origin.y = buttonContainerOriginY;
             }
-        } else {
-            participantPlace.frame.origin.x = headerPlaceOriginX;
-            participantProgress.frame.origin.x = headerProgressOriginX;
             
-            participantAvatar.frame = CGRect(x: headerAvatarOriginX, y: participantAvatar.frame.origin.y, width: 30, height: 30);
-            participantPlace.frame = CGRect(x: headerPlaceOriginX, y: participantPlace.frame.origin.y, width: 58, height: 25);
-            participantProgress.frame = CGRect(x: headerProgressOriginX, y: participantPoints.frame.origin.y, width: headerProgressOriginWidth, height: 15);
-            
-            headerContainer.frame.origin.y = 0;
-            buttonContainer.frame.origin.y = buttonContainerOriginY;
-        }
-        
-        for index in 0...tables.count - 1 {
-            if (index != currentPage) {
-                tables[index].contentOffset.y = min(scrollY, headerContainer.frame.size.height);
+            for index in 0...tables.count - 1 {
+                if (index != currentPage) {
+                    tables[index].contentOffset.y = min(scrollY, headerContainer.frame.size.height);
+                }
             }
         }
     }
@@ -529,14 +607,15 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews();
         updateScroll();
-        scrollView.contentSize = CGSize(width: scrollView.frame.size.width, height: scrollView.frame.size.height);
+
         if (displayLeaderboardTab && leaderboardTable != nil ) {
             leaderboardTable!.frame.size.height = scrollView.frame.size.height;
         }
         if (displayProgressTab && progressTable != nil) {
             progressTable!.frame.size.height = scrollView.frame.size.height;
         }
-        detailsTable.frame.size.height = scrollView.frame.size.height;
+//        detailsTable.frame.size.height = scrollView.frame.size.height;
+        detailsTable.contentSize.height = scrollView.frame.size.height * 4;
         if (displayChatterTab && chatterTable != nil) {
             chatterTable!.frame.size.height = scrollView.frame.size.height;
         }
@@ -548,9 +627,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         if (scrollView == self.scrollView) {
-            let x = scrollView.contentOffset.x;
-            let w = scrollView.frame.size.width;
-            
             var page = lround(Double(scrollView.contentOffset.x / scrollView.frame.size.width));
             changePage(page);
         }
@@ -573,17 +649,17 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             return buttonContainerOriginY + buttonContainer.frame.size.height + 10;
         } else if (displayProgressTab && progressTable != nil && tableView == progressTable) {
             return buttonContainerOriginY + buttonContainer.frame.size.height + 10;
-        } else if (displayChatterTab && chatterTable != nil && tableView == chatterTable) {
-//            return -50;
+        } else {
+            return buttonContainerOriginY + buttonContainer.frame.size.height;
         }
-        return buttonContainerOriginY + buttonContainer.frame.size.height;
     }
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         if (displayChatterTab && chatterTable != nil && tableView == chatterTable) {
-            return showLoadingFooter ? 10 + 50: 50
+            return 50;
+        } else {
+            return showLoadingFooter ? 10 : 0;
         }
-        return showLoadingFooter ? 10 : 0;
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -594,7 +670,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         } else if (displayChatterTab && chatterTable != nil && tableView == chatterTable) {
             return getChatterRowHeight(indexPath.row);
         } else {
-            return getDetailsRowHeight(indexPath.row);
+            return createDetailsPrizeCell(challenge.winConditions[indexPath.row]).height;
         }
     }
     
@@ -631,7 +707,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             //one row for each win condition plus 1 for graph view
             return isIndividualProgress ? individualGoalWinConditions.count + 1: teamGoalWinConditions.count + 1;
         } else if (detailsTable != nil && tableView == detailsTable) {
-            return 7;
+            return 0;
+//            return challenge.winConditions.count;
         } else if (displayChatterTab && chatterTable != nil && tableView == chatterTable) {
             return challengeChatterComments.count;
         }
@@ -653,12 +730,37 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         } else if (displayProgressTab && progressTable != nil && tableView == progressTable) {
             return createProgressTable(indexPath.row);
         } else if (detailsTable != nil && tableView == detailsTable) {
-            return createDetailsTable(indexPath.row);
+            return createDetailsPrizeCell(challenge.winConditions[indexPath.row])
         } else {
             return createChatterTable(indexPath.row);
         }
     }
-
+    
+    func createDetailsPrizeCell(winCondition: ChallengeWinCondition) -> ChallengeDetailsPrize {
+//        var cell = detailsTable!.dequeueReusableCellWithIdentifier("ChallengeDetailsPrize") as ChallengeDetailsPrize!;
+//        if (cell == nil) {
+            var cell = UINib(nibName: "ChallengeDetailsPrizes", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeDetailsPrize;
+            if (winCondition.prizeName != nil && winCondition.prizeName != "") {
+                cell.title.text = winCondition.prizeName;
+            } else if (winCondition.name != nil && winCondition.name != "") {
+                cell.title.text = winCondition.name;
+            } else {
+                cell.title.text = "No prize, doing this simply for the love of the game.";
+            }
+            cell.title.text = winCondition.name;
+            cell.desc.text = winCondition.prizeName;
+            
+            cell.title.sizeToFit();
+            cell.desc.sizeToFit();
+            
+            cell.title.center.x = cell.frame.size.width/2;
+            cell.desc.center.x = cell.frame.size.width/2;
+            
+            cell.height = cell.title.frame.size.height + cell.desc.frame.size.height + 20;
+//        }
+        return cell;
+    }
+    
     func setProgressBar(view: UIView, points: Int, highScore: Int) {
         let width = view.frame.size.width;
         let proportion = min(CGFloat(points)/CGFloat(highScore), 1);
@@ -676,6 +778,28 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         view.addSubview(greenBar);
     }
 
+    func getUserRank(isTeam: Bool) -> String {
+        let gravityBoard = challenge.gravityBoard;
+        for index in 0...challenge.gravityBoard.count - 1 {
+            if (gravityBoard[index].participant.url == challenge.participant.url) {
+                return Utility.getRankSuffix(gravityBoard[index].place!);
+            }
+        }
+        return "";
+    }
+    
+    func makeImageWithColor(color: UIColor) -> UIImage {
+        let rect = CGRectMake(0, 0, 1, 1);
+        UIGraphicsBeginImageContext(rect.size);
+        let context = UIGraphicsGetCurrentContext();
+        CGContextSetFillColorWithColor(context, color.CGColor);
+        CGContextFillRect(context, rect);
+        let image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        return image;
+    }
+    
     func changePage(page: Int) {
         moveGreenBar(page);
         var frame = self.scrollView.frame;
@@ -686,6 +810,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func goBack(sender: AnyObject!) {
+        isLeaving = true;
         self.navigationController!.popViewControllerAnimated(true);
     }
     
@@ -839,15 +964,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         return ChallengeProgressLegendRow.instanceFromNib(winConditions[index], userPoints: challenge.participant.units,  metric: challenge.metricAbbreviated(), index: displayIndex);
     }
     
-    func createDetailsTable(index: Int) -> UITableViewCell {
-        return ChallengeDetailsRow.instanceFromNib(challenge, index: index);
-    }
-    
-    func getDetailsRowHeight(index: Int) -> CGFloat {
-        return 50 + ChallengeDetailsRow.heightForIndex(challenge, index: index, width: detailsTable.frame.size.width, margin: 0);
-    }
-    
     func getChatterRowHeight(index: Int) -> CGFloat {
+        //@todo this is terrible
         return 50 + ChallengeDetailsChatterRow.heightForIndex(challengeChatterComments[index]);
     }
     

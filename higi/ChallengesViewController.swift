@@ -148,7 +148,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         if (pageDisplayMaster[PagerConstants.activeChallengesIndex] && activeTable != nil) {
             activeTable!.frame.size.height = scrollView.frame.size.height;
         }
-        if (pageDisplayMaster[PagerConstants.upcomingChallengesIndex] && upcomingTable != nil) {
+        if (pageDisplayMaster[PagerConstants.upcomingChallengesIndex] && upcomingTable != nil && currentTable == upcomingTable) {
             upcomingTable!.frame.size.height = scrollView.frame.size.height;
         }
         if (pageDisplayMaster[PagerConstants.availableChallengesIndex] && availableTable != nil) {

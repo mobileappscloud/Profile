@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -12,6 +12,7 @@
                 <outlet property="challengeDaysLeft" destination="eoo-5v-2QL" id="hdz-85-S6X"/>
                 <outlet property="challengeTitle" destination="77J-uP-PXX" id="Hn9-rr-ZFu"/>
                 <outlet property="contentView" destination="PE7-hb-4Wz" id="Fqs-B1-74J"/>
+                <outlet property="detailTabView" destination="p0U-4a-YiU" id="ESp-mR-s59"/>
                 <outlet property="headerContainer" destination="uDa-Lt-ibU" id="0hG-Q2-BSP"/>
                 <outlet property="joinButton" destination="buX-BP-Hyp" id="CPF-xG-WOC"/>
                 <outlet property="participantAvatar" destination="sYR-RX-l73" id="1CS-YP-Mdk"/>
@@ -32,24 +33,24 @@
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" directionalLockEnabled="YES" bounces="NO" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3xq-86-abo">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                 </scrollView>
-                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uDa-Lt-ibU">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uDa-Lt-ibU">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="238"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="challenge_image.png" translatesAutoresizingMaskIntoConstraints="NO" id="eXg-80-4iQ">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="challenge_image.png" translatesAutoresizingMaskIntoConstraints="NO" id="eXg-80-4iQ">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="238"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="320" id="Iyu-Oe-79Z"/>
                                 <constraint firstAttribute="height" constant="238" id="uiC-Xl-EMH"/>
                             </constraints>
                         </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="higi_logo_innercircle.png" translatesAutoresizingMaskIntoConstraints="NO" id="hbV-VH-YUh">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="higi_logo_innercircle.png" translatesAutoresizingMaskIntoConstraints="NO" id="hbV-VH-YUh">
                             <rect key="frame" x="140" y="99" width="40" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="bfw-w2-pIe"/>
                                 <constraint firstAttribute="width" constant="40" id="kpf-ip-LLL"/>
                             </constraints>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="2 days left" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eoo-5v-2QL">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="2 days left" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eoo-5v-2QL">
                             <rect key="frame" x="60" y="154" width="200" height="16"/>
                             <rect key="contentStretch" x="1" y="0.0" width="1" height="1"/>
                             <constraints>
@@ -59,7 +60,7 @@
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rJ4-Tz-Gn1">
+                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rJ4-Tz-Gn1">
                             <rect key="frame" x="0.0" y="192" width="320" height="46"/>
                             <subviews>
                                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="buX-BP-Hyp">
@@ -100,7 +101,7 @@
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="higi_logo_innercircle.png" translatesAutoresizingMaskIntoConstraints="NO" id="sYR-RX-l73">
                                     <rect key="frame" x="8" y="8" width="30" height="30"/>
                                 </imageView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" ambiguous="YES" misplaced="YES" text="420 pts" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lj2-kM-7ai">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" misplaced="YES" text="420 pts" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lj2-kM-7ai">
                                     <rect key="frame" x="297" y="13" width="15" height="20"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -114,7 +115,7 @@
                                 <constraint firstAttribute="bottom" secondItem="Lj2-kM-7ai" secondAttribute="bottom" constant="10" id="VKf-Rq-teV"/>
                             </constraints>
                         </view>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Sweeping the Nation Challenge" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="77J-uP-PXX">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sweeping the Nation Challenge" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="77J-uP-PXX">
                             <rect key="frame" x="44" y="64" width="233" height="27"/>
                             <rect key="contentStretch" x="1" y="0.0" width="1" height="1"/>
                             <constraints>
@@ -165,6 +166,11 @@
             <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
             <point key="canvasLocation" x="438" y="238"/>
+        </view>
+        <view contentMode="scaleToFill" id="p0U-4a-YiU">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
         </view>
     </objects>
     <resources>
