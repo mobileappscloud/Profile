@@ -65,7 +65,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     let leaderboardGestureRecognizer = UITapGestureRecognizer();
     
     var individualLeaderboardCount = 50;
-    var teamLeaderboardCount = 50;
+
     var individualLeaderboardParticipants:[ChallengeParticipant] = [];
     var teamLeaderboardParticipants:[ChallengeTeam] = [];
 
@@ -430,7 +430,10 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             totalPages++;
         }
 
+        let tapRecognizer = UIGestureRecognizer();
+        tapRecognizer.addTarget(self, action: "termsClick:");
         detailsTable = ChallengeDetailsTab.instanceFromNib(challenge);
+        detailsTable.addGestureRecognizer(tapRecognizer);
 //        var yOffset = detailsTable.frame.size.height + detailsTable.frame.origin.y + buttonContainerOriginY + buttonContainer.frame.size.height;
 //        var rowsHeight:CGFloat = 0;
 //        for winCondition in challenge.winConditions {
@@ -442,6 +445,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
 //            rowsHeight += prizeRow.frame.size.height;
 //        }
 //        
+        
         let a = detailsTable.contentSize.height;
         detailsTable.frame = CGRect(x: CGFloat(totalPages) * scrollView.frame.size.width, y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height);
         let b = detailsTable.contentSize.height;
@@ -481,6 +485,13 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
 
     }
 
+    func termsClick(sender: AnyObject) {
+        var termsController = TermsAndConditionsViewController(nibName: "TermsAndConditionsView", bundle: nil);
+                termsController.html = challenge.terms;
+        self.navigationController!.pushViewController(termsController, animated: false);
+        self.presentViewController(termsController, animated: false, completion: nil);
+    }
+    
     func addTableView(page: Int) -> UITableView {
         let viewWidth = scrollView.frame.size.width;
         let viewHeight:CGFloat = scrollView.frame.size.height;
