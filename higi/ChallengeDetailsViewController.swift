@@ -4,9 +4,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     @IBOutlet var contentView: UIView!
     @IBOutlet var pointsLabel:UILabel?;
     @IBOutlet var detailTabView: UIView!
-    
-    @IBOutlet var detailsTabTable: ChallengeDetailsTab!
-
     @IBOutlet weak var joinButton: UIButton!
     @IBOutlet weak var headerContainer: UIView!
     @IBOutlet weak var participantPoints: UILabel!
@@ -14,12 +11,10 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     @IBOutlet weak var challengeTitle: UILabel!
     @IBOutlet weak var challengeAvatar: UIImageView!
     @IBOutlet var scrollView: UIScrollView!
-    
     @IBOutlet weak var participantContainer: UIView!
     @IBOutlet weak var challengeDaysLeft: UILabel!
     @IBOutlet weak var participantAvatar: UIImageView!
     @IBOutlet weak var participantPlace: UILabel!
-    
     @IBOutlet weak var buttonContainer: UIView!
     
     var challengeName = "";
@@ -45,6 +40,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     var detailsTable: UITableView!;
     var chatterTable: UITableView?;
 
+    var detailsTableContentHeight:CGFloat = 0;
     var scrollY: CGFloat = 0;
     var totalPages = 0;
     var currentPage = 0;
@@ -221,7 +217,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             participantPoints.hidden = true;
             participantPlace.hidden = true;
             participantProgress.hidden = true;
-            //@todo make this static and global.  hide show it with other header elements
+
             //@todo loading spinner on button click
             joinButton.hidden = false;
         }
@@ -474,17 +470,20 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
 
         table.termsButton.addTarget(self, action: "termsClick:", forControlEvents: UIControlEvents.TouchUpInside);
         
-//        var yOffset:CGFloat = 30;
-//        for winCondition in challenge.winConditions {
-//            let prizeRow = ChallengeDetailsPrize.instanceFromNib(winCondition);
-//            prizeRow.frame.origin.y = yOffset;
-//            
-//            table.prizesContainer.addSubview(prizeRow);
-//            yOffset += prizeRow.frame.size.height;
-//        }
-//        table.prizesContainer.frame.size.height = yOffset;
+        var yOffset:CGFloat = 30;
+        for winCondition in challenge.winConditions {
+            let prizeRow = createDetailsPrizeCell(winCondition);
+            prizeRow.frame.origin.y = yOffset;
+            
+            table.prizesContainer.addSubview(prizeRow);
+            yOffset += prizeRow.height;
+        }
+        table.prizesContainer.frame.size.height = yOffset;
         
-        table.frame = CGRect(x: CGFloat(totalPages) * scrollView.frame.size.width, y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height);
+        detailsTableContentHeight = table.prizesContainer.frame.origin.y + yOffset;
+        table.frame.origin.x = CGFloat(totalPages) * scrollView.frame.size.width;
+//        table.frame = CGRect(x: CGFloat(totalPages) * scrollView.frame.size.width, y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height);
+        table.layoutIfNeeded();
         table.dataSource = self;
         table.delegate = self;
         table.separatorStyle = UITableViewCellSeparatorStyle.None;
@@ -615,7 +614,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         if (displayProgressTab && progressTable != nil) {
             progressTable!.frame.size.height = scrollView.frame.size.height;
         }
-        detailsTable.frame.size.height = scrollView.frame.size.height;
+//        detailsTable.frame.size.height = scrollView.frame.size.height;
+        detailsTable.contentSize.height = scrollView.frame.size.height * 4;
         if (displayChatterTab && chatterTable != nil) {
             chatterTable!.frame.size.height = scrollView.frame.size.height;
         }
@@ -707,8 +707,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             //one row for each win condition plus 1 for graph view
             return isIndividualProgress ? individualGoalWinConditions.count + 1: teamGoalWinConditions.count + 1;
         } else if (detailsTable != nil && tableView == detailsTable) {
-//            return 0;
-            return challenge.winConditions.count;
+            return 0;
+//            return challenge.winConditions.count;
         } else if (displayChatterTab && chatterTable != nil && tableView == chatterTable) {
             return challengeChatterComments.count;
         }
@@ -737,9 +737,9 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func createDetailsPrizeCell(winCondition: ChallengeWinCondition) -> ChallengeDetailsPrize {
-        var cell = detailsTable!.dequeueReusableCellWithIdentifier("ChallengeDetailsPrize") as ChallengeDetailsPrize!;
-        if (cell == nil) {
-            cell = UINib(nibName: "ChallengeDetailsPrizes", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeDetailsPrize;
+//        var cell = detailsTable!.dequeueReusableCellWithIdentifier("ChallengeDetailsPrize") as ChallengeDetailsPrize!;
+//        if (cell == nil) {
+            var cell = UINib(nibName: "ChallengeDetailsPrizes", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeDetailsPrize;
             if (winCondition.prizeName != nil && winCondition.prizeName != "") {
                 cell.title.text = winCondition.prizeName;
             } else if (winCondition.name != nil && winCondition.name != "") {
@@ -757,7 +757,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             cell.desc.center.x = cell.frame.size.width/2;
             
             cell.height = cell.title.frame.size.height + cell.desc.frame.size.height + 20;
-        }
+//        }
         return cell;
     }
     
