@@ -58,6 +58,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     var headerProgressOriginWidth:CGFloat = 0;
     var headerPointsOriginX:CGFloat = 0;
     
+    var tabButtonLabels:[String] = [];
+    var tabButtonIcons:[String] = [];
     var leaderboardToggleButtons:[UIButton] = [];
     var progressToggleButtons:[UIButton] = [];
     var greenBars:[UIView] = [];
@@ -161,7 +163,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         if (displayChatterTab) {
             chatterTable!.removeFromSuperview();
         }
-        //buttons = []
+        greenBars = [];
         totalPages = 0;
         tables = [];
         
@@ -329,10 +331,9 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func refreshChallenge() {
-        let name = challenge.name;
         let challenges = SessionController.Instance.challenges;
         for challenge in challenges {
-            if (name == challenge.name) {
+            if (self.challenge.name == challenge.name) {
                 self.challenge = challenge;
             }
         }
@@ -341,54 +342,39 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func populateTabButtons() {
-        var buttons:[UILabel] = [];
-        greenBars = [];
         let containerYValue = buttonContainer.frame.origin.y;
         
-        var buttonText:[String] = [];
-        var buttonIcons:[String] = [];
-        if (displayLeaderboardTab) {
-            buttonText.append("Leaderboard");
-            buttonIcons.append("ui_leaderboards.png");
-        }
-        if (displayProgressTab) {
-            buttonText.append("Progress");
-            buttonIcons.append("ui_progress.png");
-        }
-        buttonText.append("Details");
-        buttonIcons.append("ui_details.png");
-        if (displayChatterTab) {
-            buttonText.append("Chatter");
-            buttonIcons.append("ui_chatter.png");
-        }
+        let buttonHeight:CGFloat = buttonContainer.frame.size.height;
+        let buttonWidth = buttonContainer.frame.size.width / CGFloat(tabButtonLabels.count);
         
-        let height:CGFloat = buttonContainer.frame.size.height;
-        let buttonWidth = buttonContainer.frame.size.width / CGFloat(buttonText.count)
-        
-        for index in 0...buttonText.count - 1 {
-            let tabGestureRecognizer = UITapGestureRecognizer();
-            tabGestureRecognizer.addTarget(self, action: "selectButton:");
-            let tabView = UIView(frame: CGRect(x: buttonWidth * CGFloat(index), y: 00, width: buttonWidth, height: height));
-            tabView.backgroundColor = Utility.colorFromHexString("#FDFDFD");
-            tabView.tag = index;
-            let image = UIImageView(frame: CGRect(x: buttonWidth/2 - 30/2, y: 10, width: 30, height: 20));
-            image.image = UIImage(named: buttonIcons[index]);
-            let label = UILabel(frame: CGRect(x: 0, y: image.frame.origin.y + image.frame.size.height + 2, width: buttonWidth, height: 25));
-            label.font = UIFont.systemFontOfSize(10);
-            label.tintColor = UIColor.darkGrayColor();
-            label.textAlignment = NSTextAlignment.Center;
-            label.text = buttonText[index];
-            let greenBar = UIView(frame: CGRect(x: 0, y: height - 3, width: buttonWidth, height: 3));
-            greenBar.backgroundColor = Utility.colorFromHexString("#76C043");
-            greenBar.hidden = index != 0;
-            greenBars.append(greenBar);
-            tabView.addSubview(greenBar);
-            tabView.addSubview(image);
-            tabView.addSubview(label);
-            tabView.userInteractionEnabled = true;
-            tabView.addGestureRecognizer(tabGestureRecognizer);
-            buttonContainer.addSubview(tabView);
+        for index in 0...tabButtonLabels.count - 1 {
+            buttonContainer.addSubview(makeTabButton(tabButtonLabels[index], buttonImageName: tabButtonIcons[index], index: index, height: buttonHeight, width: buttonWidth));
         }
+    }
+    
+    func makeTabButton(buttonText: String, buttonImageName: String, index: Int, height: CGFloat, width: CGFloat) -> UIView {
+        let tabGestureRecognizer = UITapGestureRecognizer();
+        tabGestureRecognizer.addTarget(self, action: "selectButton:");
+        let tabView = UIView(frame: CGRect(x: width * CGFloat(index), y: 0, width: width, height: height));
+        tabView.backgroundColor = Utility.colorFromHexString("#FDFDFD");
+        tabView.tag = index;
+        let image = UIImageView(frame: CGRect(x: width/2 - 15, y: 10, width: 30, height: 20));
+        image.image = UIImage(named: buttonImageName);
+        let label = UILabel(frame: CGRect(x: 0, y: image.frame.origin.y + image.frame.size.height + 2, width: width, height: 25));
+        label.font = UIFont.systemFontOfSize(10);
+        label.tintColor = UIColor.darkGrayColor();
+        label.textAlignment = NSTextAlignment.Center;
+        label.text = buttonText;
+        let greenBar = UIView(frame: CGRect(x: 0, y: height - 3, width: width, height: 3));
+        greenBar.backgroundColor = Utility.colorFromHexString("#76C043");
+        greenBar.hidden = index != 0;
+        greenBars.append(greenBar);
+        tabView.addSubview(greenBar);
+        tabView.addSubview(image);
+        tabView.addSubview(label);
+        tabView.userInteractionEnabled = true;
+        tabView.addGestureRecognizer(tabGestureRecognizer);
+        return tabView;
     }
     
     func selectButton(sender: AnyObject) {
@@ -420,25 +406,9 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func populateScrollViewWithTables() {
-        var table:UITableView;
-        var buttonText:[String] = [];
-        var buttonIcons:[String] = [];
         if (displayLeaderboardTab) {
-            buttonText.append("Leaderboard");
-            buttonIcons.append("ui_leaderboards.png");
-        }
-        if (displayProgressTab) {
-            buttonText.append("Progress");
-            buttonIcons.append("ui_progress.png");
-        }
-        buttonText.append("Details");
-        buttonIcons.append("ui_details.png");
-        if (displayChatterTab) {
-            buttonText.append("Chatter");
-            buttonIcons.append("ui_chatter.png");
-        }
-        
-        if (displayLeaderboardTab) {
+            tabButtonLabels.append("Leaderboard");
+            tabButtonIcons.append("ui_leaderboards.png");
             leaderboardTable = addTableView(totalPages);
             leaderboardTable!.tableFooterView?.hidden = true;
             scrollView.addSubview(leaderboardTable!);
@@ -446,18 +416,24 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             totalPages++;
         }
         if (displayProgressTab) {
+            tabButtonLabels.append("Progress");
+            tabButtonIcons.append("ui_progress.png");
             progressTable = addTableView(totalPages);
             scrollView.addSubview(progressTable!);
             tables.append(progressTable!);
             totalPages++;
         }
-
+        
+        tabButtonLabels.append("Details");
+        tabButtonIcons.append("ui_details.png");
         detailsTable = initDetailsTable();
         scrollView.addSubview(detailsTable);
         tables.append(detailsTable);
         totalPages++;
         
         if (displayChatterTab) {
+            tabButtonLabels.append("Chatter");
+            tabButtonIcons.append("ui_chatter.png");
             chatterTable = addTableView(totalPages);
             chatterTable!.backgroundColor = Utility.colorFromHexString("#F4F4F4");
             let textField = addChatterInputBox();
@@ -466,18 +442,17 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             tables.append(chatterTable!);
             totalPages++;
         }
-        scrollView.delegate = self;
         
+        scrollView.delegate = self;
         scrollView.contentSize = CGSize(width: scrollView.frame.size.width * CGFloat(totalPages), height: scrollView.frame.size.height);
         self.automaticallyAdjustsScrollViewInsets = false;
-
     }
 
     func initDetailsTable() -> UITableView {
         let table = UINib(nibName: "ChallengeDetailsTab", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeDetailsTab;
         let firstWinCondition = challenge.winConditions[0];
         
-        table.descriptionText.text = challenge.shortDescription;
+        table.descriptionText.text = htmlEscape(challenge.shortDescription);
         if (challenge.endDate != nil) {
             table.durationText.text = setDateRangeHelper(challenge.startDate, endDate: challenge.endDate);
         } else {
@@ -492,14 +467,10 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         } else {
             table.teamCountView.removeFromSuperview();
             table.participantCountView.center = table.participantRowView.center;
-            table.participantCountSubView.center = table.participantRowView.center;
+//            table.participantCountSubView.center.x = table.frame.size.width/2;
         }
         
-        table.participantIcon.text = "\u{f007}"
-        
-//        let tapRecognizer = UIGestureRecognizer();
-//        tapRecognizer.addTarget(self, action: "termsClick:");
-//        table.termsButton.addGestureRecognizer(tapRecognizer);
+        table.participantIcon.text = "\u{f007}";
 
         table.termsButton.addTarget(self, action: "termsClick:", forControlEvents: UIControlEvents.TouchUpInside);
         
@@ -522,6 +493,16 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         table.allowsSelection = false;
         table.showsVerticalScrollIndicator = false;
         return table;
+    }
+    
+    func htmlEscape(string: String) -> String {
+        var newString = string;
+//        let replaceDict = ["&nbsp;":" ", "&#39;": "'", "\r": "", "\n": ""];
+        let replaceDict = ["&nbsp;":" ", "&#39;": "'", "\t": "", "&middot;": "", "&rsquo;": "'", "&amp;": "&"];
+        for (oldVal, newVal) in replaceDict {
+            newString = newString.stringByReplacingOccurrencesOfString(oldVal, withString: newVal, options: nil, range: nil);
+        }
+        return newString;
     }
     
     func setDateRangeHelper(startDate: NSDate, endDate: NSDate) -> String {
@@ -649,7 +630,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews();
         updateScroll();
-//        scrollView.contentSize = CGSize(width: scrollView.frame.size.width, height: scrollView.frame.size.height);
+
         if (displayLeaderboardTab && leaderboardTable != nil ) {
             leaderboardTable!.frame.size.height = scrollView.frame.size.height;
         }
@@ -668,9 +649,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         if (scrollView == self.scrollView) {
-            let x = scrollView.contentOffset.x;
-            let w = scrollView.frame.size.width;
-            
             var page = lround(Double(scrollView.contentOffset.x / scrollView.frame.size.width));
             changePage(page);
         }
@@ -693,17 +671,17 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             return buttonContainerOriginY + buttonContainer.frame.size.height + 10;
         } else if (displayProgressTab && progressTable != nil && tableView == progressTable) {
             return buttonContainerOriginY + buttonContainer.frame.size.height + 10;
-        } else if (displayChatterTab && chatterTable != nil && tableView == chatterTable) {
-//            return -50;
+        } else {
+            return buttonContainerOriginY + buttonContainer.frame.size.height;
         }
-        return buttonContainerOriginY + buttonContainer.frame.size.height;
     }
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         if (displayChatterTab && chatterTable != nil && tableView == chatterTable) {
-            return showLoadingFooter ? 10 + 50: 50
+            return 50;
+        } else {
+            return showLoadingFooter ? 10 : 0;
         }
-        return showLoadingFooter ? 10 : 0;
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -714,8 +692,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         } else if (displayChatterTab && chatterTable != nil && tableView == chatterTable) {
             return getChatterRowHeight(indexPath.row);
         } else {
-//            return getDetailsRowHeight(indexPath.row);
-            return 60;
+            return createDetailsPrizeCell(challenge.winConditions[indexPath.row]).height;
         }
     }
     
@@ -776,7 +753,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             return createProgressTable(indexPath.row);
         } else if (detailsTable != nil && tableView == detailsTable) {
             return createDetailsPrizeCell(challenge.winConditions[indexPath.row])
-//            return ChallengeDetailsPrize.instanceFromNib();
         } else {
             return createChatterTable(indexPath.row);
         }
@@ -785,7 +761,24 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     func createDetailsPrizeCell(winCondition: ChallengeWinCondition) -> ChallengeDetailsPrize {
         var cell = detailsTable!.dequeueReusableCellWithIdentifier("ChallengeDetailsPrize") as ChallengeDetailsPrize!;
         if (cell == nil) {
-            cell = ChallengeDetailsPrize.instanceFromNib(winCondition);
+            cell = UINib(nibName: "ChallengeDetailsPrizes", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeDetailsPrize;
+            if (winCondition.prizeName != nil && winCondition.prizeName != "") {
+                cell.title.text = winCondition.prizeName;
+            } else if (winCondition.name != nil && winCondition.name != "") {
+                cell.title.text = winCondition.name;
+            } else {
+                cell.title.text = "No prize, doing this simply for the love of the game.";
+            }
+            cell.title.text = winCondition.name;
+            cell.desc.text = winCondition.prizeName;
+            
+            cell.title.sizeToFit();
+            cell.desc.sizeToFit();
+            
+            cell.title.center.x = cell.frame.size.width/2;
+            cell.desc.center.x = cell.frame.size.width/2;
+            
+            cell.height = cell.title.frame.size.height + cell.desc.frame.size.height + 20;
         }
         return cell;
     }
