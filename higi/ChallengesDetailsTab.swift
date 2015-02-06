@@ -43,37 +43,37 @@ class ChallengeDetailsTab: UITableView, UIAlertViewDelegate {
     class func instanceFromNib(challenge: HigiChallenge) -> ChallengeDetailsTab {
         let tab = UINib(nibName: "ChallengeDetailsTab", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeDetailsTab;
         
-        let firstWinCondition = challenge.winConditions[0];
-        
-        tab.descriptionText.text = challenge.shortDescription;
-        if (challenge.endDate != nil) {
-            tab.durationText.text = setDateRangeHelper(challenge.startDate, endDate: challenge.endDate);
-        } else {
-            tab.durationText.text = "Never ends!";
-        }
-        tab.typeText.text = "\(goalTypeDisplayHelper(firstWinCondition.goal.type.description, winnerType: firstWinCondition.winnerType)). \(limitDisplayHelper(challenge.dailyLimit, metric: challenge.metric))";
-        tab.individualCountText.text = String(challenge.participantsCount);
-        
-        let teamCount = challenge.teams != nil ? challenge.teams.count : 0;
-        if (teamCount > 0) {
-            tab.teamCountText.text = String(challenge.teams.count);
-        } else {
-            tab.teamCountView.removeFromSuperview();
-            tab.participantCountView.center = tab.participantRowView.center;
-            tab.participantCountSubView.center = tab.participantRowView.center;
-        }
-
-        tab.participantIcon.text = "\u{f007}"
-        
-        var yOffset:CGFloat = 30;
-        for winCondition in challenge.winConditions {
-            let prizeRow = ChallengeDetailsPrize.instanceFromNib(winCondition);
-            prizeRow.frame.origin.y = yOffset;
-
-            tab.prizesContainer.addSubview(prizeRow);
-            yOffset += prizeRow.frame.size.height;
-        }
-        tab.prizesContainer.frame.size.height = yOffset;
+//        let firstWinCondition = challenge.winConditions[0];
+//        
+//        tab.descriptionText.text = challenge.shortDescription;
+//        if (challenge.endDate != nil) {
+//            tab.durationText.text = setDateRangeHelper(challenge.startDate, endDate: challenge.endDate);
+//        } else {
+//            tab.durationText.text = "Never ends!";
+//        }
+//        tab.typeText.text = "\(goalTypeDisplayHelper(firstWinCondition.goal.type.description, winnerType: firstWinCondition.winnerType)). \(limitDisplayHelper(challenge.dailyLimit, metric: challenge.metric))";
+//        tab.individualCountText.text = String(challenge.participantsCount);
+//        
+//        let teamCount = challenge.teams != nil ? challenge.teams.count : 0;
+//        if (teamCount > 0) {
+//            tab.teamCountText.text = String(challenge.teams.count);
+//        } else {
+//            tab.teamCountView.removeFromSuperview();
+//            tab.participantCountView.center = tab.participantRowView.center;
+//            tab.participantCountSubView.center = tab.participantRowView.center;
+//        }
+//
+//        tab.participantIcon.text = "\u{f007}"
+//        
+//        var yOffset:CGFloat = 30;
+//        for winCondition in challenge.winConditions {
+//            let prizeRow = ChallengeDetailsPrize.instanceFromNib(winCondition);
+//            prizeRow.frame.origin.y = yOffset;
+//
+//            tab.prizesContainer.addSubview(prizeRow);
+//            yOffset += prizeRow.frame.size.height;
+//        }
+//        tab.prizesContainer.frame.size.height = yOffset;
         return tab;
     }
     

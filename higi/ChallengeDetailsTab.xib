@@ -13,10 +13,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="1" id="ClG-Jk-via" customClass="ChallengeDetailsTab" customModule="higi" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="365"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <inset key="scrollIndicatorInsets" minX="0.0" minY="20" maxX="0.0" maxY="0.0"/>
             <color key="sectionIndexBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
             <view key="tableFooterView" contentMode="scaleToFill" id="6rH-4Z-e4u">
@@ -221,7 +221,7 @@
                 <outlet property="termsButton" destination="D4f-3Z-5Ud" id="hYF-0C-Gv0"/>
                 <outlet property="typeText" destination="ytg-U2-Krf" id="O8R-64-uUL"/>
             </connections>
-            <point key="canvasLocation" x="64" y="214"/>
+            <point key="canvasLocation" x="64" y="112.5"/>
         </tableView>
     </objects>
     <resources>

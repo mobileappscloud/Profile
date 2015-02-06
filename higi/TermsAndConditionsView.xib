@@ -8,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TermsAndConditionsViewController" customModule="higi" customModuleProvider="target">
             <connections>
                 <outlet property="closeButton" destination="63d-2A-gZD" id="5Mg-Tk-LvN"/>
+                <outlet property="view" destination="evC-i8-swY" id="V6Q-T5-wYW"/>
                 <outlet property="webView" destination="Tnh-Bk-ESG" id="htu-1M-Qak"/>
             </connections>
         </placeholder>
@@ -26,7 +27,7 @@
                 <webView contentMode="scaleToFill" ambiguous="YES" misplaced="YES" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tnh-Bk-ESG">
                     <rect key="frame" x="0.0" y="65" width="320" height="444"/>
                 </webView>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="63d-2A-gZD">
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="63d-2A-gZD">
                     <rect key="frame" x="8" y="523" width="304" height="37"/>
                     <color key="backgroundColor" red="0.46274509800000002" green="0.75294117650000003" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <state key="normal" title="Close">
@@ -46,8 +47,11 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="Tnh-Bk-ESG" secondAttribute="bottom" id="2xJ-61-cIj"/>
+                <constraint firstItem="63d-2A-gZD" firstAttribute="leading" secondItem="evC-i8-swY" secondAttribute="leading" constant="8" id="BiJ-qj-8cK"/>
+                <constraint firstAttribute="trailing" secondItem="63d-2A-gZD" secondAttribute="trailing" constant="8" id="Gdf-OR-YMy"/>
                 <constraint firstItem="EFR-Qm-4kc" firstAttribute="leading" secondItem="evC-i8-swY" secondAttribute="leading" id="I7R-mW-gjd"/>
                 <constraint firstItem="EFR-Qm-4kc" firstAttribute="top" secondItem="evC-i8-swY" secondAttribute="top" constant="15" id="MGo-qH-e7A"/>
+                <constraint firstAttribute="bottom" secondItem="63d-2A-gZD" secondAttribute="bottom" constant="8" id="V3d-wf-yg7"/>
                 <constraint firstAttribute="trailing" secondItem="EFR-Qm-4kc" secondAttribute="trailing" id="shL-42-n83"/>
                 <constraint firstItem="Tnh-Bk-ESG" firstAttribute="top" secondItem="EFR-Qm-4kc" secondAttribute="bottom" constant="1" id="tAg-4g-xBk"/>
             </constraints>
