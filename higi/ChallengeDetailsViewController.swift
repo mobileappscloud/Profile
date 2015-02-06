@@ -152,23 +152,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         }
     }
     
-    func clearExistingViews() {
-        if (displayLeaderboardTab) {
-            leaderboardTable!.removeFromSuperview();
-        }
-        if (displayProgressTab) {
-            progressTable!.removeFromSuperview();
-        }
-        detailsTable!.removeFromSuperview();
-        if (displayChatterTab) {
-            chatterTable!.removeFromSuperview();
-        }
-        greenBars = [];
-        totalPages = 0;
-        tables = [];
-        
-    }
-    
     func addToggleButtons(table: UITableView) {
         let toggleButtonHeight:CGFloat = 60;
         let buttonMargin:CGFloat = 10;
@@ -339,6 +322,23 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         }
         clearExistingViews();
         initializeDetailView();
+    }
+    
+    func clearExistingViews() {
+        if (displayLeaderboardTab) {
+            leaderboardTable!.removeFromSuperview();
+        }
+        if (displayProgressTab) {
+            progressTable!.removeFromSuperview();
+        }
+        detailsTable!.removeFromSuperview();
+        if (displayChatterTab) {
+            chatterTable!.removeFromSuperview();
+        }
+        greenBars = [];
+        totalPages = 0;
+        tables = [];
+        
     }
     
     func populateTabButtons() {
@@ -554,28 +554,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         table.allowsSelection = false;
         table.showsVerticalScrollIndicator = false;
         return table;
-    }
-    
-    func getUserRank(isTeam: Bool) -> String {
-        let gravityBoard = challenge.gravityBoard;
-        for index in 0...challenge.gravityBoard.count - 1 {
-            if (gravityBoard[index].participant.url == challenge.participant.url) {
-                return Utility.getRankSuffix(gravityBoard[index].place!);
-            }
-        }
-        return "";
-    }
-    
-    func makeImageWithColor(color: UIColor) -> UIImage {
-        let rect = CGRectMake(0, 0, 1, 1);
-        UIGraphicsBeginImageContext(rect.size);
-        let context = UIGraphicsGetCurrentContext();
-        CGContextSetFillColorWithColor(context, color.CGColor);
-        CGContextFillRect(context, rect);
-        let image = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-        
-        return image;
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -800,6 +778,28 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         view.addSubview(greenBar);
     }
 
+    func getUserRank(isTeam: Bool) -> String {
+        let gravityBoard = challenge.gravityBoard;
+        for index in 0...challenge.gravityBoard.count - 1 {
+            if (gravityBoard[index].participant.url == challenge.participant.url) {
+                return Utility.getRankSuffix(gravityBoard[index].place!);
+            }
+        }
+        return "";
+    }
+    
+    func makeImageWithColor(color: UIColor) -> UIImage {
+        let rect = CGRectMake(0, 0, 1, 1);
+        UIGraphicsBeginImageContext(rect.size);
+        let context = UIGraphicsGetCurrentContext();
+        CGContextSetFillColorWithColor(context, color.CGColor);
+        CGContextFillRect(context, rect);
+        let image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        return image;
+    }
+    
     func changePage(page: Int) {
         moveGreenBar(page);
         var frame = self.scrollView.frame;
@@ -964,15 +964,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         return ChallengeProgressLegendRow.instanceFromNib(winConditions[index], userPoints: challenge.participant.units,  metric: challenge.metricAbbreviated(), index: displayIndex);
     }
     
-//    func createDetailsTable(index: Int) -> UITableViewCell {
-//        return ChallengeDetailsRow.instanceFromNib(challenge, index: index);
-//    }
-//    
-//    func getDetailsRowHeight(index: Int) -> CGFloat {
-//        return 50 + ChallengeDetailsRow.heightForIndex(challenge, index: index, width: detailsTable.frame.size.width, margin: 0);
-//    }
-//    
     func getChatterRowHeight(index: Int) -> CGFloat {
+        //@todo this is terrible
         return 50 + ChallengeDetailsChatterRow.heightForIndex(challengeChatterComments[index]);
     }
     
