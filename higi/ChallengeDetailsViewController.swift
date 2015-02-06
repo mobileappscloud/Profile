@@ -252,6 +252,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             let days = Int(startDate!.timeIntervalSinceNow / 60 / 60 / 24) + 1;
             let s = days == 1 ? "" : "s";
             dateDisplay = "Starts in \(days) day\(s)";
+        } else if (endDate!.isEqualToDate(NSDate())) {
+            dateDisplay = "Ends today!";
         } else if (endDate != nil && Int(endDate!.timeIntervalSinceNow) > 0) {
             let days = Int(endDate!.timeIntervalSinceNow / 60 / 60 / 24) + 1;
             let s = days == 1 ? "" : "s";
@@ -259,9 +261,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         } else if (endDate != nil && Int(endDate!.timeIntervalSinceNow) < 0) {
             dateDisplay = "Challenge finished!";
         } else {
-            let days = Int(startDate!.timeIntervalSinceNow / 60 / 60 / 24) * -1;
-            let s = days == 1 ? "" : "s";
-            dateDisplay = "Started \(days) day\(s) ago";
+            dateDisplay = "";
         }
         return dateDisplay;
     }
