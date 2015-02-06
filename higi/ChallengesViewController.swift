@@ -59,9 +59,11 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
                 pageDisplayMaster[2] = true;
                 challengeIndex = challengeName == challenge.name ? 2 : challengeIndex;
             case "invited":
-                invitedChallenges.append(challenge);
-                pageDisplayMaster[3] = true;
-                challengeIndex = challengeName == challenge.name ? 3 : challengeIndex;
+                if (challenge.entryFee == 0) {
+                    invitedChallenges.append(challenge);
+                    pageDisplayMaster[3] = true;
+                    challengeIndex = challengeName == challenge.name ? 3 : challengeIndex;
+                }
             default:
                 var i = 0;
             }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -12,7 +12,6 @@
                 <outlet property="challengeDaysLeft" destination="eoo-5v-2QL" id="hdz-85-S6X"/>
                 <outlet property="challengeTitle" destination="77J-uP-PXX" id="Hn9-rr-ZFu"/>
                 <outlet property="contentView" destination="PE7-hb-4Wz" id="Fqs-B1-74J"/>
-                <outlet property="detailTabView" destination="p0U-4a-YiU" id="ESp-mR-s59"/>
                 <outlet property="headerContainer" destination="uDa-Lt-ibU" id="0hG-Q2-BSP"/>
                 <outlet property="joinButton" destination="buX-BP-Hyp" id="CPF-xG-WOC"/>
                 <outlet property="participantAvatar" destination="sYR-RX-l73" id="1CS-YP-Mdk"/>
@@ -30,7 +29,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" directionalLockEnabled="YES" bounces="NO" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3xq-86-abo">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" bounces="NO" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3xq-86-abo">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                 </scrollView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uDa-Lt-ibU">
@@ -50,12 +49,9 @@
                                 <constraint firstAttribute="width" constant="40" id="kpf-ip-LLL"/>
                             </constraints>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="2 days left" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eoo-5v-2QL">
-                            <rect key="frame" x="60" y="154" width="200" height="16"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="2 days left" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eoo-5v-2QL">
+                            <rect key="frame" x="44" y="154" width="233" height="16"/>
                             <rect key="contentStretch" x="1" y="0.0" width="1" height="1"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="100" id="AuT-ev-3CM"/>
-                            </constraints>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
@@ -131,12 +127,14 @@
                         <constraint firstAttribute="trailing" secondItem="eXg-80-4iQ" secondAttribute="trailing" id="1Es-0G-BUg"/>
                         <constraint firstAttribute="centerX" secondItem="hbV-VH-YUh" secondAttribute="centerX" id="2A5-aE-kBY"/>
                         <constraint firstItem="77J-uP-PXX" firstAttribute="top" secondItem="uDa-Lt-ibU" secondAttribute="top" constant="64" id="455-rr-zq1"/>
+                        <constraint firstAttribute="trailing" secondItem="eoo-5v-2QL" secondAttribute="trailing" constant="43" id="4vm-Zr-8dx"/>
                         <constraint firstItem="rJ4-Tz-Gn1" firstAttribute="top" secondItem="eoo-5v-2QL" secondAttribute="bottom" constant="22" id="6Da-cT-Aki"/>
                         <constraint firstItem="eXg-80-4iQ" firstAttribute="centerX" secondItem="eoo-5v-2QL" secondAttribute="centerX" id="8EW-dX-Oln"/>
                         <constraint firstItem="rJ4-Tz-Gn1" firstAttribute="top" secondItem="eoo-5v-2QL" secondAttribute="bottom" constant="22" id="Bd3-AI-j2f"/>
                         <constraint firstItem="hbV-VH-YUh" firstAttribute="top" secondItem="77J-uP-PXX" secondAttribute="bottom" constant="8" id="BzL-gY-fbS"/>
                         <constraint firstAttribute="centerX" secondItem="eoo-5v-2QL" secondAttribute="centerX" id="FMo-99-LTr"/>
                         <constraint firstAttribute="centerX" secondItem="77J-uP-PXX" secondAttribute="centerX" id="Lfd-i9-zy8"/>
+                        <constraint firstItem="eoo-5v-2QL" firstAttribute="leading" secondItem="uDa-Lt-ibU" secondAttribute="leading" constant="44" id="Qug-rW-nkV"/>
                         <constraint firstItem="eoo-5v-2QL" firstAttribute="top" secondItem="hbV-VH-YUh" secondAttribute="bottom" constant="15" id="Sye-jY-XH6"/>
                         <constraint firstItem="eXg-80-4iQ" firstAttribute="centerY" secondItem="hbV-VH-YUh" secondAttribute="centerY" id="Xbz-jr-Gxj"/>
                         <constraint firstItem="eoo-5v-2QL" firstAttribute="top" secondItem="hbV-VH-YUh" secondAttribute="bottom" constant="15" id="Z6q-T8-uec"/>
@@ -164,13 +162,17 @@
                 </view>
             </subviews>
             <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="3xq-86-abo" firstAttribute="top" secondItem="PE7-hb-4Wz" secondAttribute="top" id="9R4-j9-Y6x"/>
+                <constraint firstItem="3xq-86-abo" firstAttribute="leading" secondItem="PE7-hb-4Wz" secondAttribute="leading" id="AJ9-wk-cIo"/>
+                <constraint firstAttribute="bottom" secondItem="3xq-86-abo" secondAttribute="bottom" id="BHb-A1-7Ol"/>
+                <constraint firstItem="uDa-Lt-ibU" firstAttribute="top" secondItem="PE7-hb-4Wz" secondAttribute="top" id="CIv-6N-Qrk"/>
+                <constraint firstItem="uDa-Lt-ibU" firstAttribute="leading" secondItem="PE7-hb-4Wz" secondAttribute="leading" id="e5k-FH-9UQ"/>
+                <constraint firstAttribute="trailing" secondItem="uDa-Lt-ibU" secondAttribute="trailing" id="kzI-nB-uS0"/>
+                <constraint firstAttribute="trailing" secondItem="3xq-86-abo" secondAttribute="trailing" id="vxZ-2w-38k"/>
+            </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
             <point key="canvasLocation" x="438" y="238"/>
-        </view>
-        <view contentMode="scaleToFill" id="p0U-4a-YiU">
-            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
         </view>
     </objects>
     <resources>

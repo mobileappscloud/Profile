@@ -34,7 +34,6 @@ class ChallengeDetailsChatterRow: UITableViewCell {
         row.displayName.text = participant.displayName;
         row.message.text = comment;
         row.time.text = timeSincePosted;
-
         return row;
     }
     

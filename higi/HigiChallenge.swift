@@ -47,6 +47,7 @@ class HigiChallenge {
         dailyLimit = dictionary["dailyLimit"] as Int;
         joinUrl = dictionary["joinUrl"] as? NSString;
         commentsUrl = dictionary["commentsUrl"] as? NSString;
+        entryFee = (dictionary["entryFee"] ?? 0) as Float;
         var formatter = NSDateFormatter();
         formatter.dateFormat = "yyyy-MM-dd";
         var startDateString = dictionary["startDate"] as NSString;

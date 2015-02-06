@@ -1386,18 +1386,18 @@
 		D1229A051A8167F200FB1773 /* Challenge Details */ = {
 			isa = PBXGroup;
 			children = (
+				D149E94A1A78471A00FBAA15 /* ChallengeDetailsChatterRow.swift */,
+				D149E9461A7822D900FBAA15 /* ChallengeDetailsPrize.swift */,
+				D17010C81A644414002CBFE8 /* ChallengeDetailsViewController.swift */,
+				D1E1FF051A76C28F00C8951C /* ChallengeProgressLegendRow.swift */,
+				D18395C21A69CAD500D290BF /* ChallengesDetailsTab.swift */,
 				D149E9481A7845A200FBAA15 /* ChallengeDetailsChatterRow.xib */,
-				D1E1FF091A76E0AC00C8951C /* ChallengeDetailsRow.xib */,
-				D149E9441A78221200FBAA15 /* ChallengeDetailsPrizes.xib */,
 				D1E1FF0D1A76FAB100C8951C /* ChallengeDetailsIcons.xib */,
-				D1E1FF071A76C2DB00C8951C /* ChallengeProgressLegendRow.xib */,
+				D149E9441A78221200FBAA15 /* ChallengeDetailsPrizes.xib */,
+				D1E1FF091A76E0AC00C8951C /* ChallengeDetailsRow.xib */,
 				D18395C01A69BC9E00D290BF /* ChallengeDetailsTab.xib */,
 				D17010C71A644414002CBFE8 /* ChallengeDetailsView.xib */,
-				D17010C81A644414002CBFE8 /* ChallengeDetailsViewController.swift */,
-				D18395C21A69CAD500D290BF /* ChallengesDetailsTab.swift */,
-				D1E1FF051A76C28F00C8951C /* ChallengeProgressLegendRow.swift */,
-				D149E9461A7822D900FBAA15 /* ChallengeDetailsPrize.swift */,
-				D149E94A1A78471A00FBAA15 /* ChallengeDetailsChatterRow.swift */,
+				D1E1FF071A76C2DB00C8951C /* ChallengeProgressLegendRow.xib */,
 			);
 			name = "Challenge Details";
 			sourceTree = "<group>";
