@@ -9,7 +9,7 @@ class ChallengeDetailsChatterRow: UITableViewCell {
     @IBOutlet weak var time: UILabel!
     
     @IBOutlet weak var chatBubble: UIImageView!
-    @IBOutlet weak var yourChatBuble: UIImageView!
+    @IBOutlet weak var yourChatBubble: UIImageView!
     @IBOutlet weak var yourAvatar: UIImageView!
     
     override func layoutSubviews() {
@@ -23,17 +23,25 @@ class ChallengeDetailsChatterRow: UITableViewCell {
         if (isYou) {
             row.yourAvatar.setImageWithURL(Utility.loadImageFromUrl(participant.imageUrl));
             row.chatBubble.hidden = true;
-            row.yourChatBuble.hidden = false;
+            row.yourChatBubble.hidden = false;
             row.displayName.textColor = UIColor.whiteColor();
-            row.message.textColor = UIColor.whiteColor()
+            row.message.textColor = UIColor.whiteColor();
+            row.yourChatBubble.image = row.yourChatBubble.image!.resizableImageWithCapInsets(UIEdgeInsets(top: 17, left: 19, bottom: 26, right: 31));
+            row.message.textAlignment = NSTextAlignment.Right;
         } else {
             row.avatar.setImageWithURL(Utility.loadImageFromUrl(participant.imageUrl));
-            row.yourChatBuble.hidden = true;
+            row.yourChatBubble.hidden = true;
             row.chatBubble.hidden = false;
+            row.chatBubble.image = row.chatBubble.image!.resizableImageWithCapInsets(UIEdgeInsets(top: 19, left: 31, bottom: 27, right: 49));
+            row.message.textAlignment = NSTextAlignment.Left;
         }
         row.displayName.text = participant.displayName;
         row.message.text = comment;
+        row.message.sizeToFit();
         row.time.text = timeSincePosted;
+        row.time.sizeToFit();
+        var timeFrame = row.time.frame;
+        row.frame.size.height = row.time.frame.origin.y;
         return row;
     }
     

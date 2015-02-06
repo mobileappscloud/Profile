@@ -233,7 +233,9 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         var endDate:NSDate? = challenge.endDate?;
         if (endDate != nil) {
             let days = Int(endDate!.timeIntervalSinceNow / 60 / 60 / 24) + 1;
-            if (endDate!.isEqualToDate(NSDate())) {
+            var formatter = NSDateFormatter();
+            formatter.dateFormat = "yyyyMMdd";
+            if (formatter.stringFromDate(NSDate()) == formatter.stringFromDate(endDate!)) {
                 cell.daysLeft.text = "Ends today!";
             } else if (days > 0) {
                 let s = days == 1 ? "" : "s";
