@@ -42,6 +42,7 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
         if (todaysActivities.count > 0) {
             pointsMeter.activities = todaysActivities;
         }
+        tableView.rowHeight = 63;
         createGraphs();
     }
 
@@ -264,6 +265,7 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
             legendButton.image = UIImage(named: "oc_dropdownmenu_up");
         }
         legendIsOpen = !legendIsOpen;
+        meterContainer.frame.size.height = meterContainer.frame.size.height + 100;
     }
     
     
