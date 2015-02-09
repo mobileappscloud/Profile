@@ -265,6 +265,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         contents.setObject(userId, forKey: "userId");
         HigiApi().sendPost(joinUrl, parameters: contents, success: {operation, responseObject in
             ApiUtility.retrieveChallenges(self.refreshChallenge);
+            self.loadingSpinner.hidden = true;
             }, failure: { operation, error in
                 let e = error;
                 UIAlertView(title: "Uh oh", message: "Cannot join challenge at this time.  Please try again later.", delegate: self, cancelButtonTitle: "OK").show();
@@ -273,6 +274,10 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         });
     }
 
+    
+    func showTermsAndConditions() {
+        UIAlertView(title: "Terms and Conditions", message: "Terms and conditions placeholder", delegate: self, cancelButtonTitle: "Reject", otherButtonTitles: "Accept").show();
+    }
     
     func showTeamsPicker() {
         let picker = UIActionSheet(title: "Select a team to join", delegate: self, cancelButtonTitle: nil, destructiveButtonTitle: nil);
