@@ -25,7 +25,6 @@ class ConnectDeviceRow: UITableViewCell, UIAlertViewDelegate {
         let headers = ["Higi-Device-Connect-Url": device.connectUrl.stringByReplacingOccurrencesOfString("{redirect}", withString: "http://www.google.com".stringByReplacingPercentEscapesUsingEncoding(16)!), "User-Id": SessionData.Instance.user.userId, "Token": SessionData.Instance.token];
         webView.headers = headers;
         parentController.pushViewController(webView, animated: true);
-//        device.connected = true;
     }
     
     func disconnectDevice() {
@@ -33,6 +32,7 @@ class ConnectDeviceRow: UITableViewCell, UIAlertViewDelegate {
     }
     
     func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
+        //index 0 == cancel
         if (buttonIndex == 0) {
             connectedToggle.on = true;
         } else {
