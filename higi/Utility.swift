@@ -155,4 +155,56 @@ class Utility {
         
         return attributedString.string;
     }
+    
+    class func getTeamGravityBoard(challenge: HigiChallenge) -> ([ChallengeTeam], [Int]){
+        let teams = challenge.teams;
+        if (teams != nil) {
+            var userTeamIndex = getUserIndex(teams, userTeam: challenge.participant.team);
+            if (userTeamIndex != -1) {
+                //calculate offsets, e.g. grab 1,2,3 or 4,5,6 from gravity board
+                var startIndex:Int, endIndex:Int;
+                //user's team in first
+                if (userTeamIndex == 0) {
+                    startIndex = userTeamIndex;
+                    endIndex = userTeamIndex + 2;
+                }
+                    //user's team in last
+                else if (userTeamIndex == teams.count - 1) {
+                    startIndex = userTeamIndex - 2;
+                    endIndex = userTeamIndex;
+                }
+                    //somewhere in the middle
+                else {
+                    startIndex = userTeamIndex - 1;
+                    endIndex = userTeamIndex + 1;
+                }
+                //account for cases where size < 3 or = 3 but user's team not second
+                startIndex = max(startIndex, 0);
+                endIndex = min(endIndex, teams.count - 1);
+                
+                var gravityBoard:[ChallengeTeam] = [];
+                var ranks:[Int] = [];
+                
+                for index in startIndex...endIndex {
+                    //index - startIndex is effectively a counter
+                    gravityBoard.append(teams[index]);
+                    ranks.append(index + 1);
+                }
+                return (gravityBoard, ranks);
+            }
+        }
+        return ([],[]);
+    }
+    
+    //helper to find the current team's index
+    class func getUserIndex(teams: [ChallengeTeam], userTeam: ChallengeTeam) -> Int {
+        for index in 0...teams.count-1 {
+            let thisTeam = teams[index];
+            if (thisTeam.name == userTeam.name) {
+                userTeam.place = index;
+                return index;
+            }
+        }
+        return -1;
+    }
 }
