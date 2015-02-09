@@ -917,12 +917,12 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         if (cell == nil) {
             if (isIndividualLeaderboard) {
                 cell = ChallengeLeaderboardRow.instanceFromNib(challenge, participant: individualLeaderboardParticipants[index], place: String(index + 1));
-                if (individualLeaderboardParticipants[index].url == challenge.participant.url) {
+                if (challenge.participant != nil && individualLeaderboardParticipants[index].url == challenge.participant.url) {
                     cell.backgroundColor = Utility.colorFromHexString("#d5ffb8");
                 }
             } else {
                 cell = ChallengeLeaderboardRow.instanceFromNib(challenge, team: teamLeaderboardParticipants[index], index: index);
-                if (teamLeaderboardParticipants[index].name == challenge.participant.team.name) {
+                if (challenge.participant != nil && teamLeaderboardParticipants[index].name == challenge.participant.team.name) {
                     cell.backgroundColor = Utility.colorFromHexString("#d5ffb8");
                 }
             }

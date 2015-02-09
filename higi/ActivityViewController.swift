@@ -265,7 +265,6 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
             legendButton.image = UIImage(named: "oc_dropdownmenu_up");
         }
         legendIsOpen = !legendIsOpen;
-        meterContainer.frame.size.height = meterContainer.frame.size.height + 100;
     }
     
     

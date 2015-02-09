@@ -104,7 +104,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
             }
         }
         if (challenge != nil) {
-            pager.currentPage = actualTableIndex();
+            pager.currentPage = actualTableIndex(challengeIndex);
             changePage(pager);
             challenge = nil;
         }
@@ -315,7 +315,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     }
     
     func getCurrentTable() -> UITableView? {
-        let index = actualTableIndex();
+        let index = actualTableIndex(currentPage);
         var table:UITableView?;
         switch(index) {
         case 0:
@@ -332,13 +332,13 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         return table!;
     }
     
-    func actualTableIndex() -> Int {
+    func actualTableIndex(page: Int) -> Int {
         var count = -1;
         for index in 0...pageDisplayMaster.count - 1 {
             if (pageDisplayMaster[index]) {
                 count++;
             }
-            if (count == currentPage) {
+            if (count == page) {
                 count = index;
                 break;
             }
