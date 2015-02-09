@@ -15,6 +15,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     @IBOutlet weak var participantAvatar: UIImageView!
     @IBOutlet weak var participantPlace: UILabel!
     @IBOutlet weak var buttonContainer: UIView!
+    @IBOutlet weak var loadingSpinner: UIActivityIndicatorView!
     
     var challengeName = "";
     var challenge:HigiChallenge!;
@@ -214,10 +215,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             participantAvatar.hidden = true;
             participantPoints.hidden = true;
             participantPlace.hidden = true;
-            participantProgress.hidden = true;
-
-            //@todo loading spinner on button click
-            joinButton.hidden = false;
+            participantProgress.hidden = true;            joinButton.hidden = false;
         }
 
         challengeAvatar.setImageWithURL(Utility.loadImageFromUrl(challenge.imageUrl));
@@ -234,6 +232,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     @IBAction func joinButtonClick(sender: AnyObject) {
+        joinButton.hidden = true;
+        loadingSpinner.hidden = false;
         let joinUrl =  challenge.joinUrl;
         if (joinUrl != nil) {
             joinChallenge(joinUrl);
@@ -276,19 +276,13 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         contents.setObject(userId, forKey: "userId");
         HigiApi().sendPost(joinUrl, parameters: contents, success: {operation, responseObject in
             ApiUtility.retrieveChallenges(self.refreshChallenge);
+            self.loadingSpinner.hidden = true;
             }, failure: { operation, error in
                 let e = error;
                 UIAlertView(title: "Uh oh", message: "Cannot join challenge at this time.  Please try again later.", delegate: self, cancelButtonTitle: "OK").show();
+                self.joinButton.hidden = false;
+                self.loadingSpinner.hidden = true;
         });
-    }
-    
-    func joinButtonClick(sender: AnyObject!) {
-        let joinUrl =  challenge.joinUrl;
-        if (joinUrl != nil) {
-            joinChallenge(joinUrl);
-        } else {
-            showTeamsPicker();
-        }
     }
     
     func showTermsAndConditions() {
@@ -308,6 +302,9 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
         if (buttonIndex != challenge.teams.count) {
             joinChallenge(challenge.teams[buttonIndex].joinUrl);
+        } else {
+            joinButton.hidden = false;
+            loadingSpinner.hidden = true;
         }
     }
     

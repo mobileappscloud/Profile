@@ -308,7 +308,6 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
             challenge = invitedChallenges[index];
         }
         self.challenge = challenge;
-        Flurry.logEvent("Challenge_Pressed");
         var challengeDetailViewController = ChallengeDetailsViewController(nibName: "ChallengeDetailsView", bundle: nil);
         challengeDetailViewController.challenge = challenge;
         self.navigationController!.pushViewController(challengeDetailViewController, animated: true);

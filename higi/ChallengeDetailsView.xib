@@ -14,6 +14,7 @@
                 <outlet property="contentView" destination="PE7-hb-4Wz" id="Fqs-B1-74J"/>
                 <outlet property="headerContainer" destination="uDa-Lt-ibU" id="0hG-Q2-BSP"/>
                 <outlet property="joinButton" destination="buX-BP-Hyp" id="CPF-xG-WOC"/>
+                <outlet property="loadingSpinner" destination="1rP-kO-yoz" id="ZSM-gO-c0g"/>
                 <outlet property="participantAvatar" destination="sYR-RX-l73" id="1CS-YP-Mdk"/>
                 <outlet property="participantContainer" destination="rJ4-Tz-Gn1" id="JNl-CB-MHS"/>
                 <outlet property="participantPlace" destination="RYd-xi-WiK" id="n8i-C1-Btz"/>
@@ -121,6 +122,10 @@
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="1rP-kO-yoz">
+                            <rect key="frame" x="150" y="201" width="20" height="20"/>
+                            <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </activityIndicatorView>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
