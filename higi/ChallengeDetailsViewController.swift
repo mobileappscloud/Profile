@@ -272,10 +272,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                 self.loadingSpinner.hidden = true;
         });
     }
-    
-    func showTermsAndConditions() {
-        UIAlertView(title: "Terms and Conditions", message: "Terms and conditions placeholder", delegate: self, cancelButtonTitle: "Reject", otherButtonTitles: "Accept").show();
-    }
+
     
     func showTeamsPicker() {
         let picker = UIActionSheet(title: "Select a team to join", delegate: self, cancelButtonTitle: nil, destructiveButtonTitle: nil);
@@ -322,7 +319,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         greenBars = [];
         totalPages = 0;
         tables = [];
-        
+        tabButtonIcons = [];
+        tabButtonLabels = [];
     }
     
     func populateTabButtons() {
@@ -536,7 +534,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func termsClick(sender: AnyObject) {
         var termsController = TermsAndConditionsViewController(nibName: "TermsAndConditionsView", bundle: nil);
-                termsController.html = challenge.terms;
+        termsController.html = challenge.terms;
         self.presentViewController(termsController, animated: false, completion: nil);
     }
     
@@ -577,6 +575,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                     participantProgress.frame.origin.x = headerProgressOriginX + (scrollY / headerXOffset);
                     
                     var xOffset = min(scrollY * (headerXOffset / ((headerContainerHeight - minHeaderHeightThreshold) / 2)),50);
+//                    headerContainer.frame.origin.x = headerAvatarOriginX + xOffset
                     participantAvatar.frame = CGRect(x: headerAvatarOriginX + xOffset, y: participantAvatar.frame.origin.y, width: 30, height: 30);
                     participantPlace.frame = CGRect(x: headerPlaceOriginX + xOffset, y: participantPlace.frame.origin.y, width: 58, height: 25);
                     participantProgress.frame = CGRect(x: headerProgressOriginX + xOffset, y: participantPoints.frame.origin.y, width: headerProgressOriginWidth - xOffset, height: 15);
@@ -761,19 +760,40 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func setProgressBar(view: UIView, points: Int, highScore: Int) {
         let width = view.frame.size.width;
+        let posY = view.frame.origin.y / 2 - 5;
         
-        let proportion = highScore != 0 ? min(CGFloat(points)/CGFloat(highScore), 1) : 0;
+        var proportion:CGFloat;
+        if (challenge.winConditions[0].goal.type == "threshold_reached") {
+            var largestGoal = challenge.winConditions[0].winnerType == "individual" ? individualGoalWinConditions[0].goal.minThreshold : teamGoalWinConditions[0].goal.minThreshold;
+            if (largestGoal == 0) {
+                largestGoal = 1;
+            }
+            let participantPoints = challenge.winConditions[0].winnerType == "individual" ? challenge.participant.units : challenge.participant.team.units;
+            proportion = min(CGFloat(participantPoints) / CGFloat(largestGoal), 1);
+            for winCondition in individualGoalWinConditions {
+                let goalVal = winCondition.goal.minThreshold;
+                let posX = min(width, CGFloat(goalVal) / CGFloat(largestGoal) * width) - 5;
+                let goalCircle = UIView(frame: CGRect(x: posX, y: 2, width: 10, height: 10));
+                let circleColor:UIColor = participantPoints > Double(goalVal) ? Utility.colorFromHexString("#76C043") : UIColor(white: 0.5, alpha: 0.5);
+                goalCircle.backgroundColor = circleColor;
+                goalCircle.layer.cornerRadius = 5;
+                view.addSubview(goalCircle);
+            }
+        } else {
+            proportion = highScore != 0 ? min(CGFloat(points)/CGFloat(highScore), 1) : 0;
+        }
+        
         let newWidth = proportion * width;
-        participantContainer.frame.size.width = proportion * width;
         
-        let clearBar = UIView(frame: CGRect(x: 0, y: view.frame.origin.y / 2 - 5, width: width, height: 5));
+        let clearBar = UIView(frame: CGRect(x: 0, y: posY, width: width, height: 5));
         clearBar.backgroundColor = UIColor(white: 0.5, alpha: 0.5);
         clearBar.layer.cornerRadius = 2;
         view.addSubview(clearBar);
         
-        let greenBar = UIView(frame: CGRect(x: 0, y: view.frame.origin.y / 2 - 5, width: newWidth, height: 5));
+        let greenBar = UIView(frame: CGRect(x: 0, y: posY, width: newWidth, height: 5));
         greenBar.backgroundColor = Utility.colorFromHexString("#76C043");
         greenBar.layer.cornerRadius = 2;
+        
         view.addSubview(greenBar);
     }
 
