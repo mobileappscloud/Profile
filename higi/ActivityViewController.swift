@@ -42,6 +42,7 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
         if (todaysActivities.count > 0) {
             pointsMeter.activities = todaysActivities;
         }
+        tableView.rowHeight = 63;
         createGraphs();
     }
 
