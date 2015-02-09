@@ -116,6 +116,9 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             }
         }
         
+        individualGoalWinConditions.sort { $0.goal.minThreshold! > $1.goal.minThreshold! }
+        teamGoalWinConditions.sort { $0.goal.minThreshold! > $1.goal.minThreshold! }
+        
         if (displayLeaderboardTab && !hasIndividualLeaderboardComponent && hasTeamLeaderboardComponent) {
             isIndividualLeaderboard = false;
         }
@@ -170,7 +173,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             button.selected = index == 0;
             button.enabled = true;
             button.userInteractionEnabled = true;
-            button.layer.cornerRadius = 10;
+            button.layer.cornerRadius = 6;
+            button.clipsToBounds = true;
             
             if (table == leaderboardTable) {
                 leaderboardToggleButtons.append(button);
@@ -188,34 +192,19 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         if (challenge.participant != nil) {
             joinButton.hidden = true;
             let participant = challenge.participant!;
-            participantAvatar.setImageWithURL(Utility.loadImageFromUrl(participant.imageUrl));
-            if (challenge.userStatus == "current") {
-                participantPoints.hidden = false;
-                participantPlace.hidden = false;
-                participantProgress.hidden = false;
-                participantAvatar.hidden = false;
-                
-                if (challenge.winConditions[0].winnerType == "individual") {
-                    participantPoints.text = "\(Int(participant.units)) pts";
-                    participantPlace.text = getUserRank(false);
-                    setProgressBar(participantProgress, points: Int(participant.units), highScore: Int(challenge.individualHighScore));
-                } else {
-                    let teamAvgPts = participant.team.memberCount > 0 ? Int(participant.team.units) / participant.team.memberCount : 0;
-                    participantPoints.text = "\(teamAvgPts) pts";
-                    participantPlace.text = getUserRank(true);
-                    setProgressBar(participantProgress, points: teamAvgPts, highScore: Int(challenge.individualHighScore));
-                }
+            if (challenge.winConditions[0].winnerType == "individual") {
+                participantPoints.text = "\(Int(participant.units)) pts";
+                participantPlace.text = getUserRank(false);
+                setProgressBar(participantProgress, points: Int(participant.units), highScore: Int(challenge.individualHighScore));
+                participantAvatar.setImageWithURL(Utility.loadImageFromUrl(participant.imageUrl));
             } else {
-                participantPoints.hidden = true;
-                participantPlace.hidden = true;
-                participantProgress.hidden = true;
-                participantAvatar.hidden = true;
+                participantPoints.text = "\(Int(participant.team.units)) pts";
+                participantPlace.text = getUserRank(true);
+                setProgressBar(participantProgress, points: Int(participant.team.units), highScore: Int(challenge.teamHighScore));
+                participantAvatar.setImageWithURL(Utility.loadImageFromUrl(participant.team.imageUrl));
             }
         } else {
-            participantAvatar.hidden = true;
-            participantPoints.hidden = true;
-            participantPlace.hidden = true;
-            participantProgress.hidden = true;            joinButton.hidden = false;
+            joinButton.hidden = false;
         }
 
         challengeAvatar.setImageWithURL(Utility.loadImageFromUrl(challenge.imageUrl));
@@ -276,7 +265,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         contents.setObject(userId, forKey: "userId");
         HigiApi().sendPost(joinUrl, parameters: contents, success: {operation, responseObject in
             ApiUtility.retrieveChallenges(self.refreshChallenge);
-            self.loadingSpinner.hidden = true;
             }, failure: { operation, error in
                 let e = error;
                 UIAlertView(title: "Uh oh", message: "Cannot join challenge at this time.  Please try again later.", delegate: self, cancelButtonTitle: "OK").show();
@@ -309,6 +297,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func refreshChallenge() {
+        self.loadingSpinner.hidden = true;
         let challenges = SessionController.Instance.challenges;
         for challenge in challenges {
             if (self.challenge.name == challenge.name) {
@@ -772,7 +761,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func setProgressBar(view: UIView, points: Int, highScore: Int) {
         let width = view.frame.size.width;
-        let proportion = min(CGFloat(points)/CGFloat(highScore), 1);
+        
+        let proportion = highScore != 0 ? min(CGFloat(points)/CGFloat(highScore), 1) : 0;
         let newWidth = proportion * width;
         participantContainer.frame.size.width = proportion * width;
         
@@ -788,12 +778,29 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
 
     func getUserRank(isTeam: Bool) -> String {
-        let gravityBoard = challenge.gravityBoard;
-        for index in 0...challenge.gravityBoard.count - 1 {
-            if (gravityBoard[index].participant.url == challenge.participant.url) {
-                return Utility.getRankSuffix(gravityBoard[index].place!);
+        if (isTeam) {
+            let gravityTuple = Utility.getTeamGravityBoard(challenge);
+            let teamGravityBoard = gravityTuple.0;
+            let teamRanks = gravityTuple.1;
+            
+            let highScore = challenge.teamHighScore;
+            for index in 0...teamGravityBoard.count - 1 {
+                let name = teamGravityBoard[index].name;
+                if (name == challenge.participant.team.name) {
+                    return Utility.getRankSuffix(String(teamRanks[index]));
+                }
+            }
+        } else {
+            let gravityBoard = challenge.gravityBoard;
+            if (gravityBoard != nil && gravityBoard.count > 0) {
+                for index in 0...gravityBoard.count - 1 {
+                    if (gravityBoard[index].participant.url == challenge.participant.url) {
+                        return Utility.getRankSuffix(gravityBoard[index].place!);
+                    }
+                }
             }
         }
+
         return "";
     }
     
@@ -968,9 +975,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func createProgressLegendRow(index: Int) -> UITableViewCell {
-        let displayIndex = index + 1;
         let winConditions = isIndividualProgress ? individualGoalWinConditions : teamGoalWinConditions;
-        return ChallengeProgressLegendRow.instanceFromNib(winConditions[index], userPoints: challenge.participant.units,  metric: challenge.metricAbbreviated(), index: displayIndex);
+        return ChallengeProgressLegendRow.instanceFromNib(winConditions[winConditions.count - index - 1], userPoints: challenge.participant.units,  metric: challenge.metricAbbreviated(), index: index + 1);
     }
     
     func getChatterRowHeight(index: Int) -> CGFloat {
