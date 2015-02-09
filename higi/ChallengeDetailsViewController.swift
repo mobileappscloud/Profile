@@ -445,6 +445,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         
         scrollView.delegate = self;
         self.automaticallyAdjustsScrollViewInsets = false;
+        scrollView.frame = self.view.frame;
+        scrollView.contentSize = CGSize(width: self.view.frame.width * CGFloat(totalPages), height: 1);
     }
 
     func initDetailsTable() -> UITableView {
@@ -618,9 +620,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews();
-        scrollView.frame = self.view.frame;
-        //scrollView.contentSize = CGSize(width: self.view.frame.width * CGFloat(totalPages), height: self.view.frame.size.height);
-        scrollView.contentSize = CGSize(width: self.view.frame.width * CGFloat(totalPages), height: 1);
 
         updateScroll();
 
