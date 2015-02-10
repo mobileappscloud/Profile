@@ -37,10 +37,9 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     var leaderboardTable: UITableView?;
     var progressTable: UITableView?;
-    var detailsTable: UITableView!;
+    var detailsTable: ChallengeDetailsTab!;
     var chatterTable: UITableView?;
 
-    var detailsTableContentHeight:CGFloat = 0;
     var scrollY: CGFloat = 0;
     var totalPages = 0;
     var currentPage = 0;
@@ -61,6 +60,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     var greenBars:[UIView] = [];
     
     var individualLeaderboardCount = 50;
+    
+    var prizesHeight:CGFloat = 0;
 
     var individualLeaderboardParticipants:[ChallengeParticipant] = [];
     var teamLeaderboardParticipants:[ChallengeTeam] = [];
@@ -193,7 +194,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             participantAvatar.hidden = false;
             participantPoints.hidden = false;
             participantProgress.hidden = false;
-            participantPoints.hidden = false;
+            participantPlace.hidden = false;
             joinButton.hidden = true;
             let participant = challenge.participant!;
             if (challenge.winConditions[0].winnerType == "individual") {
@@ -220,7 +221,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             participantAvatar.hidden = true;
             participantPoints.hidden = true;
             participantProgress.hidden = true;
-            participantPoints.hidden = true;
+            participantPlace.hidden = true;
             joinButton.hidden = false;
         }
 
@@ -455,12 +456,11 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         scrollView.contentSize = CGSize(width: self.view.frame.width * CGFloat(totalPages), height: 1);
     }
 
-    func initDetailsTable() -> UITableView {
+    func initDetailsTable() -> ChallengeDetailsTab {
         let table = UINib(nibName: "ChallengeDetailsTab", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeDetailsTab;
-        table.frame = self.view.frame;
         let firstWinCondition = challenge.winConditions[0];
         
-        table.descriptionText.text = htmlEscape(challenge.shortDescription);
+        table.descriptionText.text = challenge.shortDescription.stringByDecodingHTMLEntities();
         if (challenge.endDate != nil) {
             table.durationText.text = setDateRangeHelper(challenge.startDate, endDate: challenge.endDate);
         } else {
@@ -502,11 +502,10 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             table.prizesContainer.addSubview(prizeRow);
             yOffset += prizeRow.height;
         }
+        prizesHeight = yOffset;
         table.prizesContainer.frame.size.height = yOffset;
-        
-        detailsTableContentHeight = table.prizesContainer.frame.origin.y + yOffset;
+        table.frame = self.view.frame;
         table.frame.origin.x = CGFloat(totalPages) * self.view.frame.size.width;
-        table.layoutIfNeeded();
         table.dataSource = self;
         table.delegate = self;
         table.separatorStyle = UITableViewCellSeparatorStyle.None;
@@ -514,18 +513,11 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         table.scrollEnabled = true;
         table.allowsSelection = false;
         table.showsVerticalScrollIndicator = false;
+        table.reloadData();
+        table.layoutIfNeeded();
         return table;
     }
     
-    func htmlEscape(string: String) -> String {
-        var newString = string;
-//        let replaceDict = ["&nbsp;":" ", "&#39;": "'", "\r": "", "\n": ""];
-        let replaceDict = ["&nbsp;":" ", "&#39;": "'", "\t": "", "&middot;": "", "&rsquo;": "'", "&amp;": "&"];
-        for (oldVal, newVal) in replaceDict {
-            newString = newString.stringByReplacingOccurrencesOfString(oldVal, withString: newVal, options: nil, range: nil);
-        }
-        return newString;
-    }
     
     func setDateRangeHelper(startDate: NSDate, endDate: NSDate) -> String {
         var dateFormatter = NSDateFormatter();
@@ -638,8 +630,11 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         if (displayProgressTab && progressTable != nil) {
             progressTable!.frame.size.height = self.view.frame.size.height;
         }
+        var frame = detailsTable.prizesContainer.frame;
+        var height = detailsTable.prizesContainer.frame.origin.y + prizesHeight + 305;
+        var descFrame = detailsTable.descriptionView.frame;
+        detailsTable.contentSize.height = height;
 //        detailsTable.frame.size.height = scrollView.frame.size.height;
-        detailsTable.contentSize.height = self.view.frame.size.height * 4;
         if (displayChatterTab && chatterTable != nil) {
             chatterTable!.frame.size.height = self.view.frame.size.height;
         }
