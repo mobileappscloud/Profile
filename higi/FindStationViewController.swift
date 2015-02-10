@@ -186,6 +186,9 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         mapView.settings.myLocationButton = true;
         mapView.delegate = self;
         
+        var myLocationButton = mapView.subviews.last as UIView;
+        myLocationButton.frame.origin.x = 10;
+        
         mapContainer.addSubview(mapView);
     }
     

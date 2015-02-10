@@ -21,8 +21,6 @@ class SettingsViewController: BaseViewController, UIScrollViewDelegate {
     @IBOutlet weak var changePasscodeLabel: UILabel!
     @IBOutlet weak var changePasscode: UIButton!
     @IBOutlet var passcodeSwitch: UISwitch!
-    @IBOutlet weak var resetWalkthroughLabel: UILabel!
-    @IBOutlet weak var resetWalkthroughButton: UIButton!
     @IBOutlet weak var versionNumber: UILabel!
     
     var user = SessionData.Instance.user;
@@ -61,15 +59,11 @@ class SettingsViewController: BaseViewController, UIScrollViewDelegate {
         resizeButton.enabled = SessionData.Instance.user.hasPhoto;
         blurredImage.image = user.blurredImage;
         profileImage.image = user.profileImage;
-        if (!SessionData.Instance.seenBodyStats && !SessionData.Instance.seenDashboard && !SessionData.Instance.seenReminder) {
-            resetWalkthroughLabel.textColor = Utility.colorFromHexString("#CCCCCC");
-            resetWalkthroughButton.enabled = false;
-        }
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews();
-        scrollView.contentSize = CGSize(width: scrollView.bounds.size.width, height: 741);
+        scrollView.contentSize = CGSize(width: scrollView.bounds.size.width, height: 698);
     }
     
     @IBAction func newProfileImage(sender: AnyObject) {
@@ -137,17 +131,6 @@ class SettingsViewController: BaseViewController, UIScrollViewDelegate {
     @IBAction func changePassword(sender: AnyObject) {
         resetColor(sender);
         self.navigationController!.pushViewController(ChangePasswordViewController(nibName: "ChangePasswordView", bundle: nil), animated: true);
-    }
-    
-    @IBAction func resetWalkthroughs(sender: AnyObject) {
-        Flurry.logEvent("ResetWalkthroughs_Pressed");
-        resetColor(sender);
-        SessionData.Instance.seenDashboard = false;
-        SessionData.Instance.seenBodyStats = false;
-        SessionData.Instance.seenReminder = false;
-        SessionData.Instance.save();
-        resetWalkthroughLabel.textColor = Utility.colorFromHexString("#CCCCCC");
-        resetWalkthroughButton.enabled = false;
     }
     
     @IBAction func showTerms(sender: AnyObject) {

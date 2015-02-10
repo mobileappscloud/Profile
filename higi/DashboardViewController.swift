@@ -53,6 +53,11 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         initCards();
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated);
+        updateNavbar();
+    }
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated);
         if (pointsMeter != nil) {
@@ -415,6 +420,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                 CATransaction.commit();
                 var user = SessionData.Instance.user;
                 self.initCards();
+                self.pointsMeter.drawArc();
                 self.doneRefreshing = true;
                 self.refreshControl.endRefreshing();
             });
