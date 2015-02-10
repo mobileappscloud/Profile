@@ -583,6 +583,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     func updateScroll() {
         let headerXOffset:CGFloat = 50;
         let minHeaderHeightThreshold:CGFloat = 67;
+        let maxProgressOffset:CGFloat = participantPoints.frame.origin.x - participantProgress.frame.origin.x - participantProgress.frame.size.width;
+        
         if (!isLeaving && tables.count > currentPage) {
             let currentTable = tables[currentPage];
             scrollY = currentTable.contentOffset.y;
@@ -595,12 +597,13 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                     participantPlace.frame.origin.x = headerPlaceOriginX + (scrollY / headerXOffset);
                     participantProgress.frame.origin.x = headerProgressOriginX + (scrollY / headerXOffset);
                     
-                    var xOffset = min(scrollY * (headerXOffset / ((headerContainerHeight - minHeaderHeightThreshold) / 2)),50);
-//                    headerContainer.frame.origin.x = headerAvatarOriginX + xOffset
-//                    participantAvatar.frame = CGRect(x: headerAvatarOriginX + xOffset, y: participantAvatar.frame.origin.y, width: 30, height: 30);
-//                    participantPlace.frame = CGRect(x: headerPlaceOriginX + xOffset, y: participantPlace.frame.origin.y, width: 58, height: 25);
-//                    participantProgress.frame = CGRect(x: headerProgressOriginX + xOffset, y: participantPoints.frame.origin.y, width: headerProgressOriginWidth - xOffset, height: 15);
-//                    
+                    var xOffset = min(scrollY * (headerXOffset / ((headerContainerHeight - minHeaderHeightThreshold) / 2)),headerXOffset);
+
+                    var progressOffset = min(scrollY * (headerXOffset / ((maxProgressOffset - headerXOffset) / 2)), headerXOffset);
+                    participantAvatar.frame.origin.x = headerAvatarOriginX + xOffset;
+                    participantPlace.frame.origin.x = headerPlaceOriginX + xOffset;
+                    participantProgress.frame.origin.x = headerProgressOriginX + min(xOffset, maxProgressOffset);
+
                     headerContainer.frame.origin.y = -scrollY;
                     buttonContainer.frame.origin.y = buttonContainerOriginY - scrollY;
                 }
@@ -781,7 +784,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func setProgressBar(view: UIView, points: Int, highScore: Int) {
         let width = view.frame.size.width;
-        let posY = view.frame.origin.y / 2 - 5;
+        let posY = view.frame.origin.y / 2 + 2;
         
         var proportion:CGFloat;
         if (challenge.winConditions[0].goal.type == "threshold_reached") {
@@ -794,8 +797,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             for winCondition in individualGoalWinConditions {
                 let goalVal = winCondition.goal.minThreshold;
                 let posX = min(width, CGFloat(goalVal) / CGFloat(largestGoal) * width) - 5;
-                let goalCircle = UIView(frame: CGRect(x: posX, y: 2, width: 10, height: 10));
-                let circleColor:UIColor = participantPoints > Double(goalVal) ? Utility.colorFromHexString("#76C043") : UIColor(white: 0.5, alpha: 0.5);
+                let goalCircle = UIView(frame: CGRect(x: posX, y: posY - 5/2, width: 10, height: 10));
+                let circleColor:UIColor = participantPoints > Double(goalVal) ? Utility.colorFromHexString("#76C043") : UIColor(white: 0.5, alpha: 1);
                 goalCircle.backgroundColor = circleColor;
                 goalCircle.layer.cornerRadius = 5;
                 view.addSubview(goalCircle);
@@ -806,12 +809,12 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         
         let newWidth = proportion * width;
         
-        let clearBar = UIView(frame: CGRect(x: 0, y: posY, width: width, height: 5));
+        let clearBar = UIView(frame: CGRect(x: 0, y: posY, width: width, height: 4));
         clearBar.backgroundColor = UIColor(white: 0.5, alpha: 0.5);
         clearBar.layer.cornerRadius = 2;
         view.addSubview(clearBar);
         
-        let greenBar = UIView(frame: CGRect(x: 0, y: posY, width: newWidth, height: 5));
+        let greenBar = UIView(frame: CGRect(x: 0, y: posY, width: newWidth, height: 4));
         greenBar.backgroundColor = Utility.colorFromHexString("#76C043");
         greenBar.layer.cornerRadius = 2;
         
