@@ -197,7 +197,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             joinButton.hidden = true;
             let participant = challenge.participant!;
             if (challenge.winConditions[0].winnerType == "individual") {
-                participantPoints.text = "\(Int(participant.units)) pts";
+                participantPoints.text = "\(Int(participant.units)) \(challenge.abbrMetric)";
                 if (challenge.winConditions[0].goal.type == "threshold_reached") {
                     participantPlace.text = "";
                 } else {
@@ -206,7 +206,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                 setProgressBar(participantProgress, points: Int(participant.units), highScore: Int(challenge.individualHighScore));
                 participantAvatar.setImageWithURL(Utility.loadImageFromUrl(participant.imageUrl));
             } else {
-                participantPoints.text = "\(Int(participant.team.units)) pts";
+                participantPoints.text = "\(Int(participant.team.units)) \(challenge.abbrMetric)";
                 if (challenge.winConditions[0].goal.type == "threshold_reached") {
                     participantPlace.text = "";
                 } else {
@@ -215,6 +215,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                 setProgressBar(participantProgress, points: Int(participant.team.units), highScore: Int(challenge.teamHighScore));
                 participantAvatar.setImageWithURL(Utility.loadImageFromUrl(participant.team.imageUrl));
             }
+            participantPoints.sizeToFit();
         } else {
             participantAvatar.hidden = true;
             participantPoints.hidden = true;
@@ -466,19 +467,22 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             table.durationText.text = "Never ends!";
         }
         table.typeText.text = "\(goalTypeDisplayHelper(firstWinCondition.goal.type.description, winnerType: firstWinCondition.winnerType)). \(limitDisplayHelper(challenge.dailyLimit, metric: challenge.metric))";
-        table.individualCountText.text = String(challenge.participantsCount);
         
         let teamCount = challenge.teams != nil ? challenge.teams.count : 0;
         if (teamCount > 0) {
             table.teamCountText.text = String(challenge.teams.count);
+            table.participantIcon.text = "\u{f007}";
+            table.individualCountText.text = String(challenge.participantsCount);
         } else {
             table.teamCountView.removeFromSuperview();
-            table.participantCountView.center = table.participantRowView.center;
-//            table.participantCountSubView.center.x = table.frame.size.width/2;
+            table.participantCountView.removeFromSuperview();
+//            let particpantView = UINib(nibName: "ChallengeDetailsIcons", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeDetailsIcons;
+//            participantView.icon.text = "\u{f007}"
+//            participantView.number.text = String(challenge.participantsCount);
+//            participantView.center = table.participantRowView.center;
+//            table.addSubview(participantView);
         }
         
-        table.participantIcon.text = "\u{f007}";
-
         table.termsButton.addTarget(self, action: "termsClick:", forControlEvents: UIControlEvents.TouchUpInside);
         
         var yOffset:CGFloat = 30;
@@ -595,14 +599,11 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                     buttonContainer.frame.origin.y = minHeaderHeightThreshold - 1;
                 } else {
                     participantPlace.frame.origin.x = headerPlaceOriginX + (scrollY / headerXOffset);
-                    participantProgress.frame.origin.x = headerProgressOriginX + (scrollY / headerXOffset);
-                    
                     var xOffset = min(scrollY * (headerXOffset / ((headerContainerHeight - minHeaderHeightThreshold) / 2)),headerXOffset);
-
-                    var progressOffset = min(scrollY * (headerXOffset / ((maxProgressOffset - headerXOffset) / 2)), headerXOffset);
+                    var progressOffset = min(xOffset / 2, headerXOffset);
                     participantAvatar.frame.origin.x = headerAvatarOriginX + xOffset;
                     participantPlace.frame.origin.x = headerPlaceOriginX + xOffset;
-                    participantProgress.frame.origin.x = headerProgressOriginX + min(xOffset, maxProgressOffset);
+                    participantProgress.frame.origin.x = headerProgressOriginX + min(progressOffset, maxProgressOffset);
 
                     headerContainer.frame.origin.y = -scrollY;
                     buttonContainer.frame.origin.y = buttonContainerOriginY - scrollY;
@@ -610,10 +611,9 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             } else {
                 participantPlace.frame.origin.x = headerPlaceOriginX;
                 participantProgress.frame.origin.x = headerProgressOriginX;
-                
-                participantAvatar.frame = CGRect(x: headerAvatarOriginX, y: participantAvatar.frame.origin.y, width: 30, height: 30);
-                participantPlace.frame = CGRect(x: headerPlaceOriginX, y: participantPlace.frame.origin.y, width: 58, height: 25);
-                participantProgress.frame = CGRect(x: headerProgressOriginX, y: participantPoints.frame.origin.y, width: headerProgressOriginWidth, height: 15);
+                participantAvatar.frame.origin.x = headerAvatarOriginX;
+                participantPlace.frame.origin.x = headerPlaceOriginX;
+                participantProgress.frame.origin.x = headerProgressOriginX;
                 
                 headerContainer.frame.origin.y = 0;
                 buttonContainer.frame.origin.y = buttonContainerOriginY;
@@ -784,8 +784,10 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func setProgressBar(view: UIView, points: Int, highScore: Int) {
         let width = view.frame.size.width;
-        let posY = view.frame.origin.y / 2 + 2;
-        
+        let barHeight:CGFloat = 4;
+        let nodeHeight:CGFloat = 10;
+        //** idk why this is + and not - ...auto-layout?
+        let posY = view.frame.origin.y / 2 + barHeight / 2;
         var proportion:CGFloat;
         if (challenge.winConditions[0].goal.type == "threshold_reached") {
             var largestGoal = challenge.winConditions[0].winnerType == "individual" ? individualGoalWinConditions[0].goal.minThreshold : teamGoalWinConditions[0].goal.minThreshold;
@@ -796,11 +798,12 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             proportion = min(CGFloat(participantPoints) / CGFloat(largestGoal), 1);
             for winCondition in individualGoalWinConditions {
                 let goalVal = winCondition.goal.minThreshold;
-                let posX = min(width, CGFloat(goalVal) / CGFloat(largestGoal) * width) - 5;
-                let goalCircle = UIView(frame: CGRect(x: posX, y: posY - 5/2, width: 10, height: 10));
+                let posX = min(width, CGFloat(goalVal) / CGFloat(largestGoal) * width) - nodeHeight / 2;
+                //** idk why this is / 4 instead of /2 ... auto-layout?
+                let goalCircle = UIView(frame: CGRect(x: posX, y: posY - nodeHeight / 4 , width: nodeHeight, height: nodeHeight));
                 let circleColor:UIColor = participantPoints > Double(goalVal) ? Utility.colorFromHexString("#76C043") : UIColor(white: 0.5, alpha: 1);
                 goalCircle.backgroundColor = circleColor;
-                goalCircle.layer.cornerRadius = 5;
+                goalCircle.layer.cornerRadius = nodeHeight / 2;
                 view.addSubview(goalCircle);
             }
         } else {
@@ -809,14 +812,14 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         
         let newWidth = proportion * width;
         
-        let clearBar = UIView(frame: CGRect(x: 0, y: posY, width: width, height: 4));
+        let clearBar = UIView(frame: CGRect(x: 0, y: posY, width: width, height: barHeight));
         clearBar.backgroundColor = UIColor(white: 0.5, alpha: 0.5);
-        clearBar.layer.cornerRadius = 2;
+        clearBar.layer.cornerRadius = barHeight / 2;
         view.addSubview(clearBar);
         
-        let greenBar = UIView(frame: CGRect(x: 0, y: posY, width: newWidth, height: 4));
+        let greenBar = UIView(frame: CGRect(x: 0, y: posY, width: newWidth, height: barHeight));
         greenBar.backgroundColor = Utility.colorFromHexString("#76C043");
-        greenBar.layer.cornerRadius = 2;
+        greenBar.layer.cornerRadius = barHeight / 2;
         
         view.addSubview(greenBar);
     }
@@ -1020,7 +1023,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func createProgressLegendRow(index: Int) -> UITableViewCell {
         let winConditions = isIndividualProgress ? individualGoalWinConditions : teamGoalWinConditions;
-        return ChallengeProgressLegendRow.instanceFromNib(winConditions[winConditions.count - index - 1], userPoints: challenge.participant.units,  metric: challenge.metricAbbreviated(), index: index + 1);
+        return ChallengeProgressLegendRow.instanceFromNib(winConditions[winConditions.count - index - 1], userPoints: challenge.participant.units,  metric: challenge.abbrMetric, index: index + 1);
     }
     
     func getChatterRowHeight(index: Int) -> CGFloat {

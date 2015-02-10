@@ -9,12 +9,10 @@ class ChallengeLeaderboardRow: UITableViewCell {
     
     class func instanceFromNib(frame: CGRect, challenge: HigiChallenge, participant: ChallengeParticipant, place: String) -> ChallengeLeaderboardRow {
         let row = UINib(nibName: "ChallengeLeaderboardRow", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeLeaderboardRow;
-        row.autoresizingMask = UIViewAutoresizing.FlexibleWidth;
-        row.frame.size.width = 100;
         let highScore = challenge.individualHighScore != 0 ? challenge.individualHighScore : 1;
         row.avatar.setImageWithURL(Utility.loadImageFromUrl(participant.imageUrl));
         row.name.text = participant.displayName;
-        row.points.text = "\(Int(participant.units)) \(challenge.metricAbbreviated())";
+        row.points.text = "\(Int(participant.units)) \(challenge.abbrMetric)";
         row.place.text = Utility.getRankSuffix(place);
         setProgressBar(row.progress, points: Int(participant.units), highScore: Int(highScore));
         
@@ -28,8 +26,7 @@ class ChallengeLeaderboardRow: UITableViewCell {
         row.avatar.setImageWithURL(Utility.loadImageFromUrl(team.imageUrl));
         row.name.text = team.name;
         let units = Int(team.units);
-        row.frame.size.width = 100;
-        row.points.text = "\(units) \(challenge.metricAbbreviated())";
+        row.points.text = "\(units) \(challenge.abbrMetric)";
         row.place.text = Utility.getRankSuffix(String(index + 1));
         setProgressBar(row.progress, points: Int(team.units), highScore: Int(highScore));
         return row;

@@ -44,6 +44,7 @@ class HigiChallenge {
         imageUrl = imageUrls["default"] as? NSString;
         status = dictionary["status"] as NSString!;
         metric = dictionary["metric"] as NSString!;
+        abbrMetric = metric.stringByReplacingOccurrencesOfString("points", withString: "pts");
         dailyLimit = dictionary["dailyLimit"] as Int;
         joinUrl = dictionary["joinUrl"] as? NSString;
         commentsUrl = dictionary["commentsUrl"] as? NSString;
@@ -88,10 +89,6 @@ class HigiChallenge {
         }
 
         
-    }
-    
-    func metricAbbreviated() -> String {
-        return metric.stringByReplacingOccurrencesOfString("points", withString: "pts");
     }
 }
 
