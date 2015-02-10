@@ -43,7 +43,6 @@ class CompetitiveChallengeView: UIView, UIScrollViewDelegate {
                 rows[index].addSubview(row);
             }
         }
-        competitiveView.layoutSubviews();
         competitiveView.autoresizingMask = UIViewAutoresizing.FlexibleWidth;
         competitiveView.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize);
         return competitiveView;

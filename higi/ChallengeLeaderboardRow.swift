@@ -21,7 +21,6 @@ class ChallengeLeaderboardRow: UITableViewCell {
     
     class func instanceFromNib(frame: CGRect, challenge: HigiChallenge, team: ChallengeTeam, index: Int) -> ChallengeLeaderboardRow {
         let row = UINib(nibName: "ChallengeLeaderboardRow", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeLeaderboardRow;
-        row.autoresizingMask = UIViewAutoresizing.FlexibleWidth;
         let highScore = challenge.teamHighScore;
         row.avatar.setImageWithURL(Utility.loadImageFromUrl(team.imageUrl));
         row.name.text = team.name;
