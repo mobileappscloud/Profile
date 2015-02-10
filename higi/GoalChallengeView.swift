@@ -19,11 +19,15 @@ class GoalChallengeView: UIView {
         let goalView = UINib(nibName: "GoalChallengeView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as GoalChallengeView;
         goalView.frame = frame;
         goalView.autoresizingMask = UIViewAutoresizing.FlexibleWidth;
-        if (challenge.participant != nil) {
+        let isTeam = winConditions[0].winnerType == "team";
+        
+        if (isTeam) {
+            goalView.avatar.setImageWithURL(Utility.loadImageFromUrl(challenge.participant.team.imageUrl));
+        } else {
             goalView.avatar.setImageWithURL(Utility.loadImageFromUrl(challenge.participant.imageUrl));
         }
         
-        let participantPoints:Int = challenge.participant != nil ? Int(challenge.participant.units) : 0;
+        let participantPoints = isTeam ? Int(challenge.participant.team.units) : Int(challenge.participant.units);
         
         var sortedWinConditions = winConditions;
         sortedWinConditions.sort { $0.goal.minThreshold! < $1.goal.minThreshold! };
