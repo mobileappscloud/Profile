@@ -56,16 +56,6 @@ class BodyStatsViewController: BaseViewController, UIScrollViewDelegate, UIGestu
             setSelected(selected);
         }
         NSFileManager.defaultManager().removeItemAtPath(self.getShareFilePath(), error: nil);
-        if (!SessionData.Instance.seenBodyStats) {
-            SessionData.Instance.seenBodyStats = true;
-            SessionData.Instance.save();
-            var tourController = TourViewController(nibName: "TourView", bundle: nil);
-            tourController.mode = "bodystats";
-            //self.navigationController!.pushViewController(tourController, animated: false);
-            self.presentViewController(tourController, animated: false, completion: nil);
-        } else {
-            
-        }
     }
     
     override func viewWillDisappear(animated: Bool) {

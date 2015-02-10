@@ -19,11 +19,13 @@ class ConnectDeviceRow: UITableViewCell, UIAlertViewDelegate {
     }
     
     func connectDevice() {
+        self.device.connected = true;
         var webView = WebViewController(nibName: "WebView", bundle: nil);
         webView.url = "\(HigiApi.webUrl)/mobileDeviceConnect";
 
         let headers = ["Higi-Device-Connect-Url": device.connectUrl.stringByReplacingOccurrencesOfString("{redirect}", withString: "http://www.google.com".stringByReplacingPercentEscapesUsingEncoding(16)!), "User-Id": SessionData.Instance.user.userId, "Token": SessionData.Instance.token];
         webView.headers = headers;
+        webView.device = device;
         parentController.pushViewController(webView, animated: true);
     }
     
@@ -37,9 +39,11 @@ class ConnectDeviceRow: UITableViewCell, UIAlertViewDelegate {
             connectedToggle.on = true;
         } else {
             if (device.disconnectUrl != nil) {
-                HigiApi().sendDelete(device.disconnectUrl, parameters: nil, success: {operation, responseObject in
-                    self.device.connected = false;
-                    }, failure: { operation, error in
+                self.device.connected = false;
+                HigiApi().sendDelete(device.disconnectUrl, parameters: nil, success: nil,
+                    failure: { operation, error in
+                        self.device.connected = true;
+                        self.connectedToggle.on = true;
                         UIAlertView(title: "Uh oh", message: "Unable to remove device.  Please try again later.", delegate: self, cancelButtonTitle: "OK").show();
                 });
             } else {

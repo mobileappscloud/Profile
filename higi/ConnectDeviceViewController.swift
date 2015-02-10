@@ -6,6 +6,8 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
     @IBOutlet weak var headerImage: UIImageView!
     @IBOutlet weak var table: UITableView!
     
+    var active = false;
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         
@@ -36,29 +38,41 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
         }
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated);
+        active = false;
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated);
+        active = true;
+    }
+    
     func scrollViewDidScroll(scrollView: UIScrollView) {
         updateNavbar();
     }
     
     func updateNavbar() {
-        var scrollY = table.contentOffset.y;
-        if (scrollY >= 0) {
-            headerImage.frame.origin.y = -scrollY / 2;
-            var alpha = min(scrollY / 75, 1);
-            self.fakeNavBar.alpha = alpha;
-            self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0 - alpha, alpha: 1.0)];
-            if (alpha < 0.5) {
-                toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon"), forState: UIControlState.Normal);
-                toggleButton!.alpha = 1 - alpha;
-                self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
+        if (active) {
+            var scrollY = table.contentOffset.y;
+            if (scrollY >= 0) {
+                headerImage.frame.origin.y = -scrollY / 2;
+                var alpha = min(scrollY / 75, 1);
+                self.fakeNavBar.alpha = alpha;
+                self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0 - alpha, alpha: 1.0)];
+                if (alpha < 0.5) {
+                    toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon"), forState: UIControlState.Normal);
+                    toggleButton!.alpha = 1 - alpha;
+                    self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
+                } else {
+                    toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon_inverted"), forState: UIControlState.Normal);
+                    toggleButton!.alpha = alpha;
+                    self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
+                }
             } else {
-                toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon_inverted"), forState: UIControlState.Normal);
-                toggleButton!.alpha = alpha;
-                self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
+                self.fakeNavBar.alpha = 0;
+                self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0, alpha: 1)];
             }
-        } else {
-            self.fakeNavBar.alpha = 0;
-            self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0, alpha: 1)];
         }
     }
     
@@ -91,9 +105,11 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func refreshDevices() {
-        ApiUtility.retrieveDevices(nil);
-        devices = [];
-        populateDevices();
         table.reloadData();
+        ApiUtility.retrieveDevices({
+            self.devices = SessionController.Instance.devices.values.array;
+            self.table.reloadData();
+        });
+        
     }
 }

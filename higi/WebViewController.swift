@@ -12,6 +12,8 @@ class WebViewController: UIViewController, NSURLConnectionDataDelegate, UIWebVie
     
     var headers:[String:String!] = [:];
     
+    var device: ActivityDevice!;
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
@@ -44,6 +46,16 @@ class WebViewController: UIViewController, NSURLConnectionDataDelegate, UIWebVie
     func webViewDidFinishLoad(webView: UIWebView) {
         if (webView.request?.URL.absoluteString?.rangeOfString("www.google.com") != nil) {
             webView.stopLoading();
+            var components = NSURLComponents(URL: webView.request!.URL, resolvingAgainstBaseURL: false)!;
+            for item in components.query!.componentsSeparatedByString("%") {
+                var keyValuePair = item.componentsSeparatedByString("=");
+                if (keyValuePair[0] == "error") {
+                    if (keyValuePair.count > 1 && keyValuePair[1].utf16Count > 0) {
+                        device.connected = false;
+                    }
+                    break;
+                }
+            }
             goBack(self);
         }
     }
