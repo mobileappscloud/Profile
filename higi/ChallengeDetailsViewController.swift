@@ -190,6 +190,10 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
 
     func populateHeader() {
         if (challenge.participant != nil) {
+            participantAvatar.hidden = false;
+            participantPoints.hidden = false;
+            participantProgress.hidden = false;
+            participantPoints.hidden = false;
             joinButton.hidden = true;
             let participant = challenge.participant!;
             if (challenge.winConditions[0].winnerType == "individual") {
@@ -204,6 +208,10 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                 participantAvatar.setImageWithURL(Utility.loadImageFromUrl(participant.team.imageUrl));
             }
         } else {
+            participantAvatar.hidden = true;
+            participantPoints.hidden = true;
+            participantProgress.hidden = true;
+            participantPoints.hidden = true;
             joinButton.hidden = false;
         }
 
