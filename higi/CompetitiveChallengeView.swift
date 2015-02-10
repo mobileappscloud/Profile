@@ -26,7 +26,6 @@ class CompetitiveChallengeView: UIView, UIScrollViewDelegate {
                     row.name.textColor = Utility.colorFromHexString("#76C044");
                     row.place.textColor = Utility.colorFromHexString("#76C044");
                 }
-                row.frame.size.width = 100;
                 rows[index].addSubview(row);
             }
         } else {
