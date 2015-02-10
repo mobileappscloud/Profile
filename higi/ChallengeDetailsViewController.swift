@@ -198,12 +198,20 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             let participant = challenge.participant!;
             if (challenge.winConditions[0].winnerType == "individual") {
                 participantPoints.text = "\(Int(participant.units)) pts";
-                participantPlace.text = getUserRank(false);
+                if (challenge.winConditions[0].goal.type == "threshold_reached") {
+                    participantPlace.text = "";
+                } else {
+                    participantPlace.text = getUserRank(false);
+                }
                 setProgressBar(participantProgress, points: Int(participant.units), highScore: Int(challenge.individualHighScore));
                 participantAvatar.setImageWithURL(Utility.loadImageFromUrl(participant.imageUrl));
             } else {
                 participantPoints.text = "\(Int(participant.team.units)) pts";
-                participantPlace.text = getUserRank(true);
+                if (challenge.winConditions[0].goal.type == "threshold_reached") {
+                    participantPlace.text = "";
+                } else {
+                    participantPlace.text = getUserRank(true);
+                }
                 setProgressBar(participantProgress, points: Int(participant.team.units), highScore: Int(challenge.teamHighScore));
                 participantAvatar.setImageWithURL(Utility.loadImageFromUrl(participant.team.imageUrl));
             }
@@ -589,10 +597,10 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                     
                     var xOffset = min(scrollY * (headerXOffset / ((headerContainerHeight - minHeaderHeightThreshold) / 2)),50);
 //                    headerContainer.frame.origin.x = headerAvatarOriginX + xOffset
-                    participantAvatar.frame = CGRect(x: headerAvatarOriginX + xOffset, y: participantAvatar.frame.origin.y, width: 30, height: 30);
-                    participantPlace.frame = CGRect(x: headerPlaceOriginX + xOffset, y: participantPlace.frame.origin.y, width: 58, height: 25);
-                    participantProgress.frame = CGRect(x: headerProgressOriginX + xOffset, y: participantPoints.frame.origin.y, width: headerProgressOriginWidth - xOffset, height: 15);
-                    
+//                    participantAvatar.frame = CGRect(x: headerAvatarOriginX + xOffset, y: participantAvatar.frame.origin.y, width: 30, height: 30);
+//                    participantPlace.frame = CGRect(x: headerPlaceOriginX + xOffset, y: participantPlace.frame.origin.y, width: 58, height: 25);
+//                    participantProgress.frame = CGRect(x: headerProgressOriginX + xOffset, y: participantPoints.frame.origin.y, width: headerProgressOriginWidth - xOffset, height: 15);
+//                    
                     headerContainer.frame.origin.y = -scrollY;
                     buttonContainer.frame.origin.y = buttonContainerOriginY - scrollY;
                 }
@@ -953,12 +961,12 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         var cell = leaderboardTable!.dequeueReusableCellWithIdentifier("ChallengeLeaderboardRow") as ChallengeLeaderboardRow!;
         if (cell == nil) {
             if (isIndividualLeaderboard) {
-                cell = ChallengeLeaderboardRow.instanceFromNib(challenge, participant: individualLeaderboardParticipants[index], place: String(index + 1));
+                cell = ChallengeLeaderboardRow.instanceFromNib(CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 40),challenge: challenge, participant: individualLeaderboardParticipants[index], place: String(index + 1));
                 if (challenge.participant != nil && individualLeaderboardParticipants[index].url == challenge.participant.url) {
                     cell.backgroundColor = Utility.colorFromHexString("#d5ffb8");
                 }
             } else {
-                cell = ChallengeLeaderboardRow.instanceFromNib(challenge, team: teamLeaderboardParticipants[index], index: index);
+                cell = ChallengeLeaderboardRow.instanceFromNib(CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 40), challenge: challenge, team: teamLeaderboardParticipants[index], index: index);
                 if (challenge.participant != nil && teamLeaderboardParticipants[index].name == challenge.participant.team.name) {
                     cell.backgroundColor = Utility.colorFromHexString("#d5ffb8");
                 }
