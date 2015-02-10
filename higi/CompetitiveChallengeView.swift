@@ -21,7 +21,7 @@ class CompetitiveChallengeView: UIView, UIScrollViewDelegate {
             let highScore = challenge.teamHighScore;
             for index in 0...teamGravityBoard.count - 1 {
                 let name = teamGravityBoard[index].name;
-                let row = ChallengeLeaderboardRow.instanceFromNib(challenge, team: teamGravityBoard[index], index: index);
+                let row = ChallengeLeaderboardRow.instanceFromNib(frame, challenge: challenge, team: teamGravityBoard[index], index: index);
                 if (name == challenge.participant.team.name) {
                     row.name.textColor = Utility.colorFromHexString("#76C044");
                     row.place.textColor = Utility.colorFromHexString("#76C044");
@@ -35,7 +35,7 @@ class CompetitiveChallengeView: UIView, UIScrollViewDelegate {
             for index in 0...individualGravityBoard.count - 1 {
                 let name = individualGravityBoard[index].participant.displayName;
                 let place = individualGravityBoard[index].place!;
-                let row = ChallengeLeaderboardRow.instanceFromNib(challenge, participant: individualGravityBoard[index].participant, place: place);
+                let row = ChallengeLeaderboardRow.instanceFromNib(frame, challenge: challenge, participant: individualGravityBoard[index].participant, place: place);
                 if (name == challenge.participant.displayName) {
                     row.name.textColor = Utility.colorFromHexString("#76C044");
                     row.place.textColor = Utility.colorFromHexString("#76C044");
