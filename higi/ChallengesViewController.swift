@@ -148,6 +148,11 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
             } else {
                 self.fakeNavBar.alpha = 0;
                 self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0, alpha: 1)];
+                self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
+                pager.currentPageIndicatorTintColor = UIColor.whiteColor();
+                toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon"), forState: UIControlState.Normal);
+                toggleButton!.alpha = 1;
+                
             }
         }
     }
