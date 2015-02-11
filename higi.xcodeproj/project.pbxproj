@@ -327,8 +327,6 @@
 		D1E223781A8009CE006330E7 /* ConnectDeviceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1E223771A8009CE006330E7 /* ConnectDeviceView.xib */; };
 		D1E2237A1A8009E6006330E7 /* ConnectDeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E223791A8009E6006330E7 /* ConnectDeviceViewController.swift */; };
 		D1EEDB951A660F2B0012EFD3 /* challenge_image.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDB8E1A660F2B0012EFD3 /* challenge_image.png */; };
-		D1EEDB961A660F2B0012EFD3 /* chat_bubble_green.9.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDB8F1A660F2B0012EFD3 /* chat_bubble_green.9.png */; };
-		D1EEDB971A660F2B0012EFD3 /* chat_bubble.9.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDB901A660F2B0012EFD3 /* chat_bubble.9.png */; };
 		D1EEDB981A660F2B0012EFD3 /* ui_chatter.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDB911A660F2B0012EFD3 /* ui_chatter.png */; };
 		D1EEDB991A660F2B0012EFD3 /* ui_details.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDB921A660F2B0012EFD3 /* ui_details.png */; };
 		D1EEDB9A1A660F2B0012EFD3 /* ui_leaderboards.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDB931A660F2B0012EFD3 /* ui_leaderboards.png */; };
@@ -687,8 +685,6 @@
 		D1E223771A8009CE006330E7 /* ConnectDeviceView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConnectDeviceView.xib; sourceTree = "<group>"; };
 		D1E223791A8009E6006330E7 /* ConnectDeviceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectDeviceViewController.swift; sourceTree = "<group>"; };
 		D1EEDB8E1A660F2B0012EFD3 /* challenge_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = challenge_image.png; path = "../../android-main/app/src/main/res/drawable-nodpi/challenge_image.png"; sourceTree = "<group>"; };
-		D1EEDB8F1A660F2B0012EFD3 /* chat_bubble_green.9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chat_bubble_green.9.png; path = "../../android-main/app/src/main/res/drawable-nodpi/chat_bubble_green.9.png"; sourceTree = "<group>"; };
-		D1EEDB901A660F2B0012EFD3 /* chat_bubble.9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chat_bubble.9.png; path = "../../android-main/app/src/main/res/drawable-nodpi/chat_bubble.9.png"; sourceTree = "<group>"; };
 		D1EEDB911A660F2B0012EFD3 /* ui_chatter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_chatter.png; path = "../../android-main/app/src/main/res/drawable-nodpi/ui_chatter.png"; sourceTree = "<group>"; };
 		D1EEDB921A660F2B0012EFD3 /* ui_details.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_details.png; path = "../../android-main/app/src/main/res/drawable-nodpi/ui_details.png"; sourceTree = "<group>"; };
 		D1EEDB931A660F2B0012EFD3 /* ui_leaderboards.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_leaderboards.png; path = "../../android-main/app/src/main/res/drawable-nodpi/ui_leaderboards.png"; sourceTree = "<group>"; };
@@ -934,8 +930,6 @@
 				8F2CB57F19925631009377A8 /* WebViewController.swift */,
 				D15372901A841FEA00954569 /* TermsAndConditionsViewController.swift */,
 				D15372921A84201600954569 /* TermsAndConditionsView.xib */,
-				D1ACD44A1A8ABE10000AB99F /* ChatterInputView.xib */,
-				D1ACD44E1A8ABE85000AB99F /* ChatterInputViewController.swift */,
 			);
 			name = Miscellaneous;
 			sourceTree = "<group>";
@@ -1395,6 +1389,7 @@
 				D149E94A1A78471A00FBAA15 /* ChallengeDetailsChatterRow.swift */,
 				D149E9461A7822D900FBAA15 /* ChallengeDetailsPrize.swift */,
 				D17010C81A644414002CBFE8 /* ChallengeDetailsViewController.swift */,
+				D1ACD44E1A8ABE85000AB99F /* ChatterInputViewController.swift */,
 				D1E1FF051A76C28F00C8951C /* ChallengeProgressLegendRow.swift */,
 				D18395C21A69CAD500D290BF /* ChallengesDetailsTab.swift */,
 				D149E9481A7845A200FBAA15 /* ChallengeDetailsChatterRow.xib */,
@@ -1403,6 +1398,7 @@
 				D1E1FF091A76E0AC00C8951C /* ChallengeDetailsRow.xib */,
 				D18395C01A69BC9E00D290BF /* ChallengeDetailsTab.xib */,
 				D17010C71A644414002CBFE8 /* ChallengeDetailsView.xib */,
+				D1ACD44A1A8ABE10000AB99F /* ChatterInputView.xib */,
 				D1E1FF071A76C2DB00C8951C /* ChallengeProgressLegendRow.xib */,
 			);
 			name = "Challenge Details";
@@ -1413,8 +1409,6 @@
 			children = (
 				8F5F918B1A7193FC0042D87C /* activitypageblankstate.png */,
 				D1EEDB8E1A660F2B0012EFD3 /* challenge_image.png */,
-				D1EEDB8F1A660F2B0012EFD3 /* chat_bubble_green.9.png */,
-				D1EEDB901A660F2B0012EFD3 /* chat_bubble.9.png */,
 			);
 			name = Challenge;
 			sourceTree = "<group>";
@@ -1556,7 +1550,6 @@
 				D101757B1A79693C00CA32DC /* chat_bubble.png in Resources */,
 				8F5E7FD9199BCD52009067E5 /* graph_sincelastarrow_up_invert.png in Resources */,
 				8FD964CE19BFB99D00DA3DF8 /* search_icon.png in Resources */,
-				D1EEDB961A660F2B0012EFD3 /* chat_bubble_green.9.png in Resources */,
 				8F58D97E19C0F4BD00C0EC72 /* welcome_02_bg@2x.png in Resources */,
 				8FFB035019FEA2440036228C /* oc_pulse_active.png in Resources */,
 				D15372931A84201600954569 /* TermsAndConditionsView.xib in Resources */,
@@ -1721,7 +1714,6 @@
 				8F5E7FDA199BCD52009067E5 /* overlay_close.png in Resources */,
 				8FFB034919FEA2440036228C /* oc_activity_active.png in Resources */,
 				8F02A12419AE2BF6002FF73E /* btn_share_black@2x.png in Resources */,
-				D1EEDB971A660F2B0012EFD3 /* chat_bubble.9.png in Resources */,
 				D17010C91A644414002CBFE8 /* ChallengeDetailsView.xib in Resources */,
 				D1E1FF0A1A76E0AC00C8951C /* ChallengeDetailsRow.xib in Resources */,
 				8F211EF91A1E85AE00A256C0 /* oc_dropdownmenu_down.png in Resources */,

@@ -456,17 +456,23 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             chatterTable = addTableView(totalPages);
             chatterTable!.backgroundColor = Utility.colorFromHexString("#F4F4F4");
             
+            let chatterView = UIView(frame: CGRect(x: chatterTable!.frame.origin.x, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height));
+            chatterTable!.frame.origin.x = 0;
+            
             let actionButtonWidth:CGFloat = 40;
-            let actionButtonMargin:CGFloat = 20;
-            actionButtonY = view.frame.size.height - actionButtonWidth - actionButtonMargin - buttonContainer.frame.size.height - 30;
+            let actionButtonMargin:CGFloat = 8;
+            actionButtonY = view.frame.size.height - actionButtonWidth - actionButtonMargin;
             actionButton = UIButton(frame: CGRect(x: view.frame.size.width - (actionButtonWidth + actionButtonMargin), y: actionButtonY, width: actionButtonWidth, height: actionButtonWidth));
             actionButton.setTitle("+", forState: UIControlState.Normal);
+            actionButton.titleLabel?.center = actionButton.center;
             actionButton.titleLabel?.textColor = UIColor.whiteColor();
             actionButton.backgroundColor = Utility.colorFromHexString("#76C043");
             actionButton.layer.cornerRadius = actionButtonWidth / 2;
             actionButton.addTarget(self, action: "gotoChatterInput:", forControlEvents: UIControlEvents.TouchUpInside);
-            chatterTable?.addSubview(actionButton);
-            scrollView.addSubview(chatterTable!);
+            
+            chatterView.addSubview(chatterTable!);
+            chatterView.addSubview(actionButton);
+            scrollView.addSubview(chatterView);
             tables.append(chatterTable!);
             totalPages++;
         }
@@ -610,7 +616,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         
         if (!isLeaving && tables.count > currentPage) {
             let currentTable = tables[currentPage];
-            scrollY = currentTable.contentOffset.y;
+//            scrollY = currentTable.contentOffset.y;
             if (scrollY >= 0) {
                 if (displayChatterTab) {
                     actionButton.frame.origin.y = scrollY + actionButtonY;
@@ -1035,19 +1041,17 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func getChatterRowHeight(index: Int) -> CGFloat {
-        //@todo this is terrible
         return 50 + ChallengeDetailsChatterRow.heightForIndex(challengeChatterComments[index]);
     }
     
     func createChatterTable(index: Int) -> UITableViewCell {
         let chatter = challengeChatterComments[index];
-        let cell = ChallengeDetailsChatterRow.instanceFromNib(chatter.comment, participant: chatter.participant, timeSincePosted: chatter.timeSincePosted, isYou: chatter.participant.url == challenge.participant.url);
+        let cell = ChallengeDetailsChatterRow.instanceFromNib(chatter.comment, participant: chatter.participant, timeSincePosted: chatter.timeSincePosted, isYou: chatter.participant.url == challenge.participant.url, isTeam: challenge.winConditions[0].winnerType == "team");
         cell.backgroundColor = Utility.colorFromHexString("#F4F4F4");
         return cell;
     }
 
     func sendUserChatter(chatter: String) {
-        //@todo add message row while waiting for server response
         
         let userId = !HigiApi.EARNDIT_DEV ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
         var contents = NSMutableDictionary();
@@ -1057,7 +1061,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             self.addPlaceholderChatter(chatter);
             self.refreshChatter();
 //            ApiUtility.retrieveChallenges(self.refreshChallenge);
-            //@todo refresh comments, i.e. get comments from server again
             let i = 0;
             }, failure: { operation, error in
                 let e = error;

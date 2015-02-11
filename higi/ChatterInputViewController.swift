@@ -9,18 +9,12 @@ class ChatterInputViewController: UIViewController, UITextViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad();
-//        let a = (self.navigationController as MainNavigationController);
-//        let b = (self.navigationController as MainNavigationController).revealController;
-//        let c = (self.navigationController as MainNavigationController).revealController.panGestureRecognizer();
-//        (self.navigationController as MainNavigationController).revealController.panGestureRecognizer().enabled = false;
         var backButton = UIButton.buttonWithType(UIButtonType.Custom) as UIButton;
         backButton.setBackgroundImage(UIImage(named: "btn_back_white.png"), forState: UIControlState.Normal);
         backButton.addTarget(self, action: "goBack:", forControlEvents: UIControlEvents.TouchUpInside);
         backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
         var backBarItem = UIBarButtonItem(customView: backButton);
         navBar.leftBarButtonItem = backBarItem;
-//        self.navigationItem.leftBarButtonItem = backBarItem;
-//        self.title = "Enter Chatter";
         
         textInput.text = "Talk some smack!";
         textInput.textColor = UIColor.lightGrayColor();
@@ -40,10 +34,12 @@ class ChatterInputViewController: UIViewController, UITextViewDelegate {
         let b = countElements(updatedText);
         
         if (text == "\n") {
-            textView.resignFirstResponder();
-            parent.userChatter = textView.text;
-            self.dismissViewControllerAnimated(false, completion: nil);
-            return false;
+            if (textView.text != "Talk some smack!") {
+                textView.resignFirstResponder();
+                parent.userChatter = textView.text;
+                self.dismissViewControllerAnimated(false, completion: nil);
+                return false;
+            }
         } else if (countElements(updatedText) == 0) {
             textView.text = "Talk some smack!";
             textView.textColor = UIColor.lightGrayColor();

@@ -18,7 +18,7 @@ class ChallengeDetailsChatterRow: UITableViewCell {
         message.sizeToFit();
     }
     
-    class func instanceFromNib(comment: String, participant: ChallengeParticipant, timeSincePosted: String, isYou: Bool) -> ChallengeDetailsChatterRow {
+    class func instanceFromNib(comment: String, participant: ChallengeParticipant, timeSincePosted: String, isYou: Bool, isTeam: Bool) -> ChallengeDetailsChatterRow {
         let row = UINib(nibName: "ChallengeDetailsChatterRow", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeDetailsChatterRow;
         if (isYou) {
             row.yourAvatar.setImageWithURL(Utility.loadImageFromUrl(participant.imageUrl));
@@ -28,6 +28,9 @@ class ChallengeDetailsChatterRow: UITableViewCell {
             row.message.textColor = UIColor.whiteColor();
             row.yourChatBubble.image = row.yourChatBubble.image!.resizableImageWithCapInsets(UIEdgeInsets(top: 17, left: 19, bottom: 26, right: 31));
             row.message.textAlignment = NSTextAlignment.Right;
+            row.time.textAlignment = NSTextAlignment.Right;
+            row.displayName.textAlignment = NSTextAlignment.Right;
+            row.time.textColor = Utility.colorFromHexString("#DDDDDD");
         } else {
             row.avatar.setImageWithURL(Utility.loadImageFromUrl(participant.imageUrl));
             row.yourChatBubble.hidden = true;
@@ -35,7 +38,11 @@ class ChallengeDetailsChatterRow: UITableViewCell {
             row.chatBubble.image = row.chatBubble.image!.resizableImageWithCapInsets(UIEdgeInsets(top: 19, left: 31, bottom: 27, right: 49));
             row.message.textAlignment = NSTextAlignment.Left;
         }
-        row.displayName.text = participant.displayName;
+        if (isTeam) {
+            row.displayName.text = "\(participant.displayName) - [\(participant.team.name)]";
+        } else {
+            row.displayName.text = participant.displayName;
+        }
         row.message.text = comment;
         row.message.sizeToFit();
         row.time.text = timeSincePosted;
