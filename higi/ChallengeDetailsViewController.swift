@@ -1,6 +1,6 @@
 import Foundation
 
-class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UIActionSheetDelegate, UITextFieldDelegate {
+class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UIActionSheetDelegate {
     @IBOutlet var contentView: UIView!
     @IBOutlet var pointsLabel:UILabel?;
     @IBOutlet weak var joinButton: UIButton!
@@ -73,11 +73,22 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     var isLeaving = false;
     
+    var userChatter:String?;
+    var actionButton:UIButton!;
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         
         initBackButton();
         initializeDetailView();
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated);
+        if (userChatter != nil) {
+            sendUserChatter(userChatter!);
+            userChatter = nil;
+        }
     }
     
     func initBackButton() {
@@ -442,8 +453,13 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             tabButtonIcons.append("ui_chatter.png");
             chatterTable = addTableView(totalPages);
             chatterTable!.backgroundColor = Utility.colorFromHexString("#F4F4F4");
-            let textField = addChatterInputBox();
-            chatterTable?.addSubview(textField);
+            actionButton = UIButton(frame: CGRect(x: view.frame.size.width - 60, y: view.frame.size.height - 60, width: 40, height: 40));
+            actionButton.titleLabel?.text = "+";
+            actionButton.titleLabel?.textColor = UIColor.whiteColor();
+            actionButton.backgroundColor = Utility.colorFromHexString("#76C043");
+            actionButton.layer.cornerRadius = 20;
+            actionButton.addTarget(self, action: "gotoChatterInput:", forControlEvents: UIControlEvents.TouchUpInside);
+            chatterTable?.addSubview(actionButton);
             scrollView.addSubview(chatterTable!);
             tables.append(chatterTable!);
             totalPages++;
@@ -455,6 +471,12 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         scrollView.contentSize = CGSize(width: self.view.frame.width * CGFloat(totalPages), height: 1);
     }
 
+    func gotoChatterInput(sender: AnyObject) {
+        var chatterInputController = ChatterInputViewController(nibName: "ChatterInputView", bundle: nil);
+        chatterInputController.parent = self;
+        self.presentViewController(chatterInputController, animated: false, completion: nil);
+    }
+    
     func initDetailsTable() -> UITableView {
         let table = UINib(nibName: "ChallengeDetailsTab", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeDetailsTab;
         table.frame = self.view.frame;
@@ -591,8 +613,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         
         if (!isLeaving && tables.count > currentPage) {
             let currentTable = tables[currentPage];
+            actionButton.frame.origin.y = view.frame.size.height - 60;
             scrollY = currentTable.contentOffset.y;
-
             if (scrollY >= 0) {
                 if (scrollY > headerContainerHeight - minHeaderHeightThreshold) {
                     headerContainer.frame.origin.y = minHeaderHeightThreshold - headerContainerHeight;
@@ -681,11 +703,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        if (displayChatterTab && chatterTable != nil && tableView == chatterTable) {
-            return 50;
-        } else {
-            return showLoadingFooter ? 10 : 0;
-        }
+        return showLoadingFooter ? 10 : 0;
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -701,18 +719,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        var view = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0));
-        if (displayChatterTab && chatterTable != nil && tableView == chatterTable) {
-            view = UIView(frame: CGRect(x: chatterTable!.frame.origin.x, y: self.view.frame.size.height - 50, width: self.view.frame.size.width, height: 50));
-            let textField = UITextField(frame: CGRect(x: 10, y: 0, width: self.view.frame.size.width, height: 50));
-            view.backgroundColor = UIColor.whiteColor();
-            textField.placeholder = "Talk some smack!";
-            textField.font = textField.font.fontWithSize(14);
-            textField.delegate = self;
-            textField.returnKeyType = UIReturnKeyType.Done;
-            view.addSubview(textField);
-        }
-        return view;
         //@todo show loading footer
 //        if (showLoadingFooter) {
 //            let footer = UIView(frame: CGRect(x: 0, y: 0, width: scrollView.frame.size.width, height: 10));
@@ -722,7 +728,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
 //            footer.backgroundColor = UIColor.blackColor();
 //            return footer;
 //        } else {
-//            return UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0));
+            return UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0));
 //        }
     }
     
@@ -1037,20 +1043,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         cell.backgroundColor = Utility.colorFromHexString("#F4F4F4");
         return cell;
     }
-    
-    func addChatterInputBox() -> UIView {
-        let view = UIView(frame: CGRect(x: chatterTable!.frame.origin.x, y: self.view.frame.size.height - 50, width: self.view.frame.size.width, height: 50));
-        return view;
-    }
-    
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        let text = textField.text;
-        if (textField.text != "") {
-            sendUserChatter(textField.text);
-        }
-        return true;
-    }
-    
+
     func sendUserChatter(chatter: String) {
         //@todo add message row while waiting for server response
         

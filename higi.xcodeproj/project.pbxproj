@@ -315,6 +315,8 @@
 		D18395C31A69CAD500D290BF /* ChallengesDetailsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18395C21A69CAD500D290BF /* ChallengesDetailsTab.swift */; };
 		D19DDA531A5EF599004F97A3 /* NewCPTAxisLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = D19DDA521A5EF599004F97A3 /* NewCPTAxisLabel.m */; };
 		D19DDA551A5F1705004F97A3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19DDA541A5F1705004F97A3 /* Constants.swift */; };
+		D1ACD44B1A8ABE10000AB99F /* ChatterInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1ACD44A1A8ABE10000AB99F /* ChatterInputView.xib */; };
+		D1ACD44F1A8ABE85000AB99F /* ChatterInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1ACD44E1A8ABE85000AB99F /* ChatterInputViewController.swift */; };
 		D1E1FF061A76C28F00C8951C /* ChallengeProgressLegendRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E1FF051A76C28F00C8951C /* ChallengeProgressLegendRow.swift */; };
 		D1E1FF081A76C2DB00C8951C /* ChallengeProgressLegendRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1E1FF071A76C2DB00C8951C /* ChallengeProgressLegendRow.xib */; };
 		D1E1FF0A1A76E0AC00C8951C /* ChallengeDetailsRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1E1FF091A76E0AC00C8951C /* ChallengeDetailsRow.xib */; };
@@ -673,6 +675,8 @@
 		D19DDA511A5EF432004F97A3 /* NewCPTAxisLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewCPTAxisLabel.h; sourceTree = "<group>"; };
 		D19DDA521A5EF599004F97A3 /* NewCPTAxisLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewCPTAxisLabel.m; sourceTree = "<group>"; };
 		D19DDA541A5F1705004F97A3 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		D1ACD44A1A8ABE10000AB99F /* ChatterInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatterInputView.xib; sourceTree = "<group>"; };
+		D1ACD44E1A8ABE85000AB99F /* ChatterInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatterInputViewController.swift; sourceTree = "<group>"; };
 		D1E1FF051A76C28F00C8951C /* ChallengeProgressLegendRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeProgressLegendRow.swift; sourceTree = "<group>"; };
 		D1E1FF071A76C2DB00C8951C /* ChallengeProgressLegendRow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeProgressLegendRow.xib; sourceTree = "<group>"; };
 		D1E1FF091A76E0AC00C8951C /* ChallengeDetailsRow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailsRow.xib; sourceTree = "<group>"; };
@@ -930,6 +934,8 @@
 				8F2CB57F19925631009377A8 /* WebViewController.swift */,
 				D15372901A841FEA00954569 /* TermsAndConditionsViewController.swift */,
 				D15372921A84201600954569 /* TermsAndConditionsView.xib */,
+				D1ACD44A1A8ABE10000AB99F /* ChatterInputView.xib */,
+				D1ACD44E1A8ABE85000AB99F /* ChatterInputViewController.swift */,
 			);
 			name = Miscellaneous;
 			sourceTree = "<group>";
@@ -1642,6 +1648,7 @@
 				8F5E7FE4199C081F009067E5 /* vital_bp_icon.png in Resources */,
 				8F5C38D319818BA900F51543 /* gauge3_underweight.png in Resources */,
 				8FDCE1CE19880919006428C3 /* bmi_overlay.png in Resources */,
+				D1ACD44B1A8ABE10000AB99F /* ChatterInputView.xib in Resources */,
 				8F807A781976C9ED00EEE019 /* PortraitGraph.xib in Resources */,
 				8FC7B70919E5E60D00D0112F /* bodystats3-568h@2x.png in Resources */,
 				8F5E7FD8199BCD52009067E5 /* graph_sincelastarrow_nochange_invert.png in Resources */,
@@ -1783,6 +1790,7 @@
 				8F296316194B9BF700E787FD /* SessionController.swift in Sources */,
 				D19DDA531A5EF599004F97A3 /* NewCPTAxisLabel.m in Sources */,
 				D1E2237A1A8009E6006330E7 /* ConnectDeviceViewController.swift in Sources */,
+				D1ACD44F1A8ABE85000AB99F /* ChatterInputViewController.swift in Sources */,
 				8F9C69DB1950C8B700449664 /* PulseArticle.swift in Sources */,
 				8FF2E06E194A5E9500A81D8C /* NewCPTPlotRange.m in Sources */,
 				8F6A2449195A07880094B73C /* BmiGraphDelegate.swift in Sources */,
