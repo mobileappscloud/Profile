@@ -458,9 +458,9 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             
             let actionButtonWidth:CGFloat = 40;
             let actionButtonMargin:CGFloat = 20;
-            actionButtonY = view.frame.size.height - (actionButtonWidth + actionButtonMargin);
+            actionButtonY = view.frame.size.height - actionButtonWidth - actionButtonMargin - buttonContainer.frame.size.height - 30;
             actionButton = UIButton(frame: CGRect(x: view.frame.size.width - (actionButtonWidth + actionButtonMargin), y: actionButtonY, width: actionButtonWidth, height: actionButtonWidth));
-            actionButton.titleLabel?.text = "+";
+            actionButton.setTitle("+", forState: UIControlState.Normal);
             actionButton.titleLabel?.textColor = UIColor.whiteColor();
             actionButton.backgroundColor = Utility.colorFromHexString("#76C043");
             actionButton.layer.cornerRadius = actionButtonWidth / 2;
@@ -482,8 +482,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         chatterInputController.parent = self;
         self.presentViewController(chatterInputController, animated: false, completion: nil);
     }
-    
-    func initDetailsTable() -> UITableView {
+
+    func initDetailsTable() -> ChallengeDetailsTab {
         let table = UINib(nibName: "ChallengeDetailsTab", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeDetailsTab;
         let firstWinCondition = challenge.winConditions[0];
         
@@ -610,11 +610,11 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         
         if (!isLeaving && tables.count > currentPage) {
             let currentTable = tables[currentPage];
-            if (displayChatterTab) {
-                actionButton.frame.origin.y = actionButtonY;
-            }
             scrollY = currentTable.contentOffset.y;
             if (scrollY >= 0) {
+                if (displayChatterTab) {
+                    actionButton.frame.origin.y = scrollY + actionButtonY;
+                }
                 if (scrollY > headerContainerHeight - minHeaderHeightThreshold) {
                     headerContainer.frame.origin.y = minHeaderHeightThreshold - headerContainerHeight;
                     buttonContainer.frame.origin.y = minHeaderHeightThreshold - 1;
