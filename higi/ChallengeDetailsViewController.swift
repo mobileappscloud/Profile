@@ -75,6 +75,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     var userChatter:String?;
     var actionButton:UIButton!;
+    var actionButtonY:CGFloat = 0;
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -453,11 +454,15 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             tabButtonIcons.append("ui_chatter.png");
             chatterTable = addTableView(totalPages);
             chatterTable!.backgroundColor = Utility.colorFromHexString("#F4F4F4");
-            actionButton = UIButton(frame: CGRect(x: view.frame.size.width - 60, y: view.frame.size.height - 60, width: 40, height: 40));
+            
+            let actionButtonWidth:CGFloat = 40;
+            let actionButtonMargin:CGFloat = 20;
+            actionButtonY = view.frame.size.height - (actionButtonWidth + actionButtonMargin);
+            actionButton = UIButton(frame: CGRect(x: view.frame.size.width - (actionButtonWidth + actionButtonMargin), y: actionButtonY, width: actionButtonWidth, height: actionButtonWidth));
             actionButton.titleLabel?.text = "+";
             actionButton.titleLabel?.textColor = UIColor.whiteColor();
             actionButton.backgroundColor = Utility.colorFromHexString("#76C043");
-            actionButton.layer.cornerRadius = 20;
+            actionButton.layer.cornerRadius = actionButtonWidth / 2;
             actionButton.addTarget(self, action: "gotoChatterInput:", forControlEvents: UIControlEvents.TouchUpInside);
             chatterTable?.addSubview(actionButton);
             scrollView.addSubview(chatterTable!);
@@ -613,7 +618,9 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         
         if (!isLeaving && tables.count > currentPage) {
             let currentTable = tables[currentPage];
-            actionButton.frame.origin.y = view.frame.size.height - 60;
+            if (displayChatterTab) {
+                actionButton.frame.origin.y = actionButtonY;
+            }
             scrollY = currentTable.contentOffset.y;
             if (scrollY >= 0) {
                 if (scrollY > headerContainerHeight - minHeaderHeightThreshold) {
