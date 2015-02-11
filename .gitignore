@@ -6,3 +6,5 @@ build/
 **/*.perspectivev*
 *.xcworkspace/xcuserdata*
 *xcuserdata*
+
+higi/ChallengeProgressLegendRow.xib
