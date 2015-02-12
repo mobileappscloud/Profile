@@ -48,7 +48,7 @@ class WebViewController: UIViewController, NSURLConnectionDataDelegate, UIWebVie
     }
     
     func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-        if (((request.URL.absoluteString != nil && request.URL.absoluteString!.hasPrefix("http://www.google.com")))) {
+        if (((!isGone && request.URL.absoluteString != nil && request.URL.absoluteString!.hasPrefix("http://www.google.com")))) {
             webView.stopLoading();
             var components = NSURLComponents(URL: request.URL, resolvingAgainstBaseURL: false)!;
             errorMessage = "";
