@@ -38,8 +38,9 @@ class ChatterInputViewController: UIViewController, UITextViewDelegate {
                 textView.resignFirstResponder();
                 parent.userChatter = textView.text;
                 self.dismissViewControllerAnimated(false, completion: nil);
-                return false;
+                
             }
+            return false;
         } else if (countElements(updatedText) == 0) {
             textView.text = "Talk some smack!";
             textView.textColor = UIColor.lightGrayColor();
