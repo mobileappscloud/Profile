@@ -457,6 +457,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
 
     func initDetailsTable() -> ChallengeDetailsTab {
+        let rowTextYOffset:CGFloat = 30;
         let table = UINib(nibName: "ChallengeDetailsTab", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeDetailsTab;
         let firstWinCondition = challenge.winConditions[0];
         
@@ -476,16 +477,17 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         } else {
             table.teamCountView.removeFromSuperview();
             table.participantCountView.removeFromSuperview();
-//            let particpantView = UINib(nibName: "ChallengeDetailsIcons", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeDetailsIcons;
-//            participantView.icon.text = "\u{f007}"
-//            participantView.number.text = String(challenge.participantsCount);
-//            participantView.center = table.participantRowView.center;
-//            table.addSubview(participantView);
+            let participantRowView = UINib(nibName: "ChallengeDetailsParticipantIconView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeDetailsParticipantIcon;
+            participantRowView.icon.text = "\u{f007}"
+            participantRowView.count.text = String(challenge.participantsCount);
+            participantRowView.center.x = table.participantRowView.center.x;
+            participantRowView.frame.origin.y = rowTextYOffset;
+            table.participantRowView.addSubview(participantRowView);
         }
         
         table.termsButton.addTarget(self, action: "termsClick:", forControlEvents: UIControlEvents.TouchUpInside);
         
-        var yOffset:CGFloat = 30;
+        var yOffset = rowTextYOffset;
         for winCondition in challenge.winConditions {
             if (winCondition.prizeName != nil && winCondition.prizeName != "") {
                 let prizeRow = createDetailsPrizeCell(winCondition);
@@ -495,7 +497,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                 yOffset += prizeRow.height;
             }
         }
-        if (yOffset == 30) {
+        if (yOffset == rowTextYOffset) {
             let prizeRow = createDetailsPrizeCell(nil);
             prizeRow.frame.origin.y = yOffset;
             
