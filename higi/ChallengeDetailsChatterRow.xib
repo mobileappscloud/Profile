@@ -63,6 +63,7 @@
                         <constraint firstAttribute="trailing" secondItem="fhw-E2-rXI" secondAttribute="trailing" constant="32" id="XkX-E0-5Ko"/>
                         <constraint firstItem="fhw-E2-rXI" firstAttribute="top" secondItem="hcp-In-U7E" secondAttribute="top" constant="24" id="fqG-Qw-Gw5"/>
                         <constraint firstItem="vIQ-2j-Jr3" firstAttribute="leading" secondItem="hcp-In-U7E" secondAttribute="leading" id="ms1-Yu-BBA"/>
+                        <constraint firstAttribute="trailing" secondItem="42X-sh-fDi" secondAttribute="trailing" constant="32" id="qrG-5o-Ifb"/>
                     </constraints>
                 </view>
             </subviews>
