@@ -8,6 +8,8 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
     
     var active = false;
     
+    var viewLoading = true;
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         
@@ -26,16 +28,21 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
         table.rowHeight = 70;
         
         populateDevices();
-
+        viewLoading = false;
     }
     
     func populateDevices() {
         let serverDevices = SessionController.Instance.devices;
-        for (name,device) in serverDevices {
-//            if (serverDevices.indexForKey(deviceName) != nil) {
-                devices.append(device);
-//            }
+        for deviceName in Constants.getDevicePriority {
+            if (serverDevices.indexForKey(deviceName) != nil) {
+                devices.append(serverDevices[deviceName]!);
+            }
         }
+        devices.sort(sortByConnected);
+    }
+    
+    func sortByConnected(this: ActivityDevice, that: ActivityDevice) -> Bool {
+        return this.connected;
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -101,13 +108,16 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
-        refreshDevices();
+        if (!viewLoading) {
+            refreshDevices();
+        }
     }
     
     func refreshDevices() {
         table.reloadData();
         ApiUtility.retrieveDevices({
             self.devices = SessionController.Instance.devices.values.array;
+            self.devices.sort(self.sortByConnected);
             self.table.reloadData();
         });
         
