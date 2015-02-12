@@ -37,8 +37,8 @@ class ChallengeInvitationView: UIView {
     }
     
     class func goalTypeDisplayHelper(goalType: String, winnerType: String) -> String {
-        var firstPart = goalType == "individual" ? "Individual" : "Team";
-        var secondPart = winnerType == "most_points" ? "Points Challenge" : "Goal Challenge";
+        var firstPart = winnerType == "individual" ? "Individual" : "Team";
+        var secondPart = goalType == "most_points" ? "Points Challenge" : "Goal Challenge";
         return firstPart + " " + secondPart;
     }
     
