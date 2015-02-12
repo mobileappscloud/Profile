@@ -44,31 +44,37 @@ class ApiUtility {
         grabNextPulseArticles(nil);
         HigiApi().sendGet( "\(HigiApi.higiApiUrl)/data/user/\(SessionData.Instance.user.userId)/checkIn", success:
             { operation, responseObject in
-                
-                var serverCheckins = responseObject as NSArray;
-                var checkins: [HigiCheckin] = [];
-                var lastBpCheckin, lastBmiCheckin: HigiCheckin?;
-                for checkin: AnyObject in serverCheckins {
-                    if let checkinData = checkin as? NSDictionary {
-                        var checkin = HigiCheckin(dictionary: checkinData);
-                        checkin.prevBpCheckin = lastBpCheckin;
-                        checkin.prevBmiCheckin = lastBmiCheckin;
-                        if (checkin.systolic != nil) {
-                            lastBpCheckin = checkin;
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                    var serverCheckins = responseObject as NSArray;
+                    var checkins: [HigiCheckin] = [];
+                    var lastBpCheckin, lastBmiCheckin: HigiCheckin?;
+                    for checkin: AnyObject in serverCheckins {
+                        if let checkinData = checkin as? NSDictionary {
+                            var checkin = HigiCheckin(dictionary: checkinData);
+                            checkin.prevBpCheckin = lastBpCheckin;
+                            checkin.prevBmiCheckin = lastBmiCheckin;
+                            if (checkin.systolic != nil) {
+                                lastBpCheckin = checkin;
+                            }
+                            if (checkin.bmi != nil) {
+                                lastBmiCheckin = checkin;
+                            }
+                            checkins.append(checkin);
                         }
-                        if (checkin.bmi != nil) {
-                            lastBmiCheckin = checkin;
-                        }
-                        checkins.append(checkin);
                     }
-                }
-                SessionController.Instance.checkins = checkins;
-                if (SessionData.Instance.kioskList != nil) {
-                    ApiUtility.retrieveKioskList(nil);
-                    success?();
-                } else {
-                    ApiUtility.retrieveKioskList(success);
-                }
+                    SessionController.Instance.checkins = checkins;
+                    
+                    if (SessionData.Instance.kioskList != nil) {
+                        ApiUtility.retrieveKioskList(nil);
+                        dispatch_async(dispatch_get_main_queue(), {
+                            var i = 0;
+                            success?();
+                        });
+                        
+                    } else {
+                        ApiUtility.retrieveKioskList(success);
+                    }
+                });
                 
             },
             failure: { operation, error in
@@ -79,7 +85,7 @@ class ApiUtility {
                 } else {
                     ApiUtility.retrieveKioskList(success);
                 }
-            });
+        });
     }
     
     class func retrieveActivities(success: (() -> Void)?) {
@@ -96,13 +102,19 @@ class ApiUtility {
             var startDate = NSCalendar.currentCalendar().dateByAddingComponents(dateComponents, toDate: endDate, options: NSCalendarOptions.allZeros)!;
             
             HigiApi().sendGet("\(HigiApi.earnditApiUrl)/user/\(userId)/activities?limit=0&startDate=\(startDateFormatter.stringFromDate(startDate))&endDate=\(endDateFormatter.stringFromDate(endDate))", success: {operation, responseObject in
-                var activities: [HigiActivity] = [];
-                var serverActivities = ((responseObject as NSDictionary)["response"] as NSDictionary)["data"] as NSArray;
-                for activity: AnyObject in serverActivities {
-                    activities.append(HigiActivity(dictionary: activity as NSDictionary));
-                }
-                SessionController.Instance.activities = activities;
-                success?();
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                    var activities: [HigiActivity] = [];
+                    var serverActivities = ((responseObject as NSDictionary)["response"] as NSDictionary)["data"] as NSArray;
+                    for activity: AnyObject in serverActivities {
+                        activities.append(HigiActivity(dictionary: activity as NSDictionary));
+                    }
+                    SessionController.Instance.activities = activities;
+                        dispatch_async(dispatch_get_main_queue(), {
+                            var i = 0;
+                            success?();
+                        });
+                
+                });
                 }, failure: { operation, error in
                     SessionController.Instance.earnditError = true;
                     SessionController.Instance.activities = [];
@@ -128,51 +140,56 @@ class ApiUtility {
         let userId = !HigiApi.EARNDIT_DEV ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
         HigiApi().sendGet("\(HigiApi.earnditApiUrl)/user/\(userId)/challenges?&include[gravityboard]=3&include[participants]=50" +
             "&include[comments]=50&include[teams.comments]=50", success: {operation, responseObject in
-            var challenges: [HigiChallenge] = [];
-            let serverChallenges = ((responseObject as NSDictionary)["response"] as NSDictionary)["data"] as NSArray;
-            for challenge: AnyObject in serverChallenges {
-                let serverParticipant = ((challenge as NSDictionary)["userRelation"] as NSDictionary)["participant"] as? NSDictionary;
-                var participant: ChallengeParticipant!;
-                if (serverParticipant != nil) {
-                    participant = ChallengeParticipant(dictionary: serverParticipant!);
-                }
-                let serverGravityBoard = ((challenge as NSDictionary)["userRelation"] as NSDictionary)["gravityboard"] as? NSArray;
-                var gravityBoard: [GravityParticipant] = [];
-                if (serverGravityBoard != nil) {
-                    for boardParticipant: AnyObject in serverGravityBoard! {
-                        gravityBoard.append(GravityParticipant(place: (boardParticipant as NSDictionary)["position"] as? NSString, participant: ChallengeParticipant(dictionary: (boardParticipant as NSDictionary)["participant"] as NSDictionary)));
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                    var challenges: [HigiChallenge] = [];
+                    let serverChallenges = ((responseObject as NSDictionary)["response"] as NSDictionary)["data"] as NSArray;
+                    for challenge: AnyObject in serverChallenges {
+                        let serverParticipant = ((challenge as NSDictionary)["userRelation"] as NSDictionary)["participant"] as? NSDictionary;
+                        var participant: ChallengeParticipant!;
+                        if (serverParticipant != nil) {
+                            participant = ChallengeParticipant(dictionary: serverParticipant!);
+                        }
+                        let serverGravityBoard = ((challenge as NSDictionary)["userRelation"] as NSDictionary)["gravityboard"] as? NSArray;
+                        var gravityBoard: [GravityParticipant] = [];
+                        if (serverGravityBoard != nil) {
+                            for boardParticipant: AnyObject in serverGravityBoard! {
+                                gravityBoard.append(GravityParticipant(place: (boardParticipant as NSDictionary)["position"] as? NSString, participant: ChallengeParticipant(dictionary: (boardParticipant as NSDictionary)["participant"] as NSDictionary)));
+                            }
+                        }
+                        let serverParticipants = ((challenge as NSDictionary)["participants"] as NSDictionary)["data"] as? NSArray;
+                        var participants:[ChallengeParticipant] = [];
+                        if (serverParticipants != nil) {
+                            for singleParticipant: AnyObject in serverParticipants! {
+                                participants.append(ChallengeParticipant(dictionary: singleParticipant as NSDictionary));
+                            }
+                        }
+                        let serverPagingData = (((challenge as NSDictionary)["participants"] as NSDictionary)["paging"] as NSDictionary)["nextUrl"] as? NSString;
+                        var pagingData = PagingData(nextUrl: serverPagingData);
+                        
+                        let serverComments = ((challenge as NSDictionary)["comments"] as NSDictionary)["data"] as? NSArray;
+                        var chatter:Chatter;
+                        var comments:[Comments] = [];
+                        var commentPagingData = PagingData(nextUrl: "");
+                        if (serverComments != nil) {
+                            commentPagingData = PagingData(nextUrl: (((challenge as NSDictionary)["comments"] as NSDictionary)["paging"] as NSDictionary)["nextUrl"] as? NSString);
+                            for challengeComment in serverComments! {
+                                let comment = (challengeComment as NSDictionary)["comment"] as NSString;
+                                let timeSinceLastPost = (challengeComment as NSDictionary)["timeSincePosted"] as NSString;
+                                let commentParticipant = ChallengeParticipant(dictionary: (challengeComment as NSDictionary)["participant"] as NSDictionary);
+                                let commentTeam = commentParticipant.team?;
+                                comments.append(Comments(comment: comment, timeSincePosted: timeSinceLastPost, participant: commentParticipant, team: commentTeam))
+                            }
+                        }
+                        chatter = Chatter(comments: comments, paging: commentPagingData);
+                        challenges.append(HigiChallenge(dictionary: challenge as NSDictionary, userStatus: ((challenge as NSDictionary)["userRelation"] as NSDictionary)["status"] as NSString, participant: participant, gravityBoard: gravityBoard, participants: participants, pagingData: pagingData, chatter: chatter));
                     }
-                }
-                let serverParticipants = ((challenge as NSDictionary)["participants"] as NSDictionary)["data"] as? NSArray;
-                var participants:[ChallengeParticipant] = [];
-                if (serverParticipants != nil) {
-                    for singleParticipant: AnyObject in serverParticipants! {
-                        participants.append(ChallengeParticipant(dictionary: singleParticipant as NSDictionary));
-                    }
-                }
-                let serverPagingData = (((challenge as NSDictionary)["participants"] as NSDictionary)["paging"] as NSDictionary)["nextUrl"] as? NSString;
-                var pagingData = PagingData(nextUrl: serverPagingData);
-                
-                let serverComments = ((challenge as NSDictionary)["comments"] as NSDictionary)["data"] as? NSArray;
-                var chatter:Chatter;
-                var comments:[Comments] = [];
-                var commentPagingData = PagingData(nextUrl: "");
-                if (serverComments != nil) {
-                    commentPagingData = PagingData(nextUrl: (((challenge as NSDictionary)["comments"] as NSDictionary)["paging"] as NSDictionary)["nextUrl"] as? NSString);
-                    for challengeComment in serverComments! {
-                        let comment = (challengeComment as NSDictionary)["comment"] as NSString;
-                        let timeSinceLastPost = (challengeComment as NSDictionary)["timeSincePosted"] as NSString;
-                        let commentParticipant = ChallengeParticipant(dictionary: (challengeComment as NSDictionary)["participant"] as NSDictionary);
-                        let commentTeam = commentParticipant.team?;
-                        comments.append(Comments(comment: comment, timeSincePosted: timeSinceLastPost, participant: commentParticipant, team: commentTeam))
-                    }
-                }
-                chatter = Chatter(comments: comments, paging: commentPagingData);
-                challenges.append(HigiChallenge(dictionary: challenge as NSDictionary, userStatus: ((challenge as NSDictionary)["userRelation"] as NSDictionary)["status"] as NSString, participant: participant, gravityBoard: gravityBoard, participants: participants, pagingData: pagingData, chatter: chatter));
-            }
-            
-            SessionController.Instance.challenges = challenges;
-            success?();
+                    
+                    SessionController.Instance.challenges = challenges;
+                    dispatch_async(dispatch_get_main_queue(), {
+                        var i = 0;
+                        success?();
+                    });
+                });
             }, failure: { operation, error in
                 SessionController.Instance.earnditError = true;
                 if (SessionController.Instance.challenges == nil) {
@@ -245,7 +262,7 @@ class ApiUtility {
                 if (success != nil) {
                     success!();
                 }
-
+                
         });
     }
     
