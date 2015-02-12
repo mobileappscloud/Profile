@@ -14,9 +14,9 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     
     @IBOutlet weak var mainScrollView: UIScrollView!
     
-    @IBOutlet weak var activityCard: ActivityCard!
+    @IBOutlet var activityCard: ActivityCard!
     
-    @IBOutlet weak var challengesCard: ChallengesCard!
+    @IBOutlet var challengesCard: ChallengesCard!
     
     @IBOutlet weak var bodyStatsCard: BodyStatsCard!
     
@@ -66,8 +66,12 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     }
     
     func initCards() {
-        activityCard.removeFromSuperview();
-        challengesCard.removeFromSuperview();
+        if (activityCard.superview != nil) {
+            activityCard.removeFromSuperview();
+        }
+        if (challengesCard.superview != nil) {
+            challengesCard.removeFromSuperview();
+        }
         bodyStatsCard.removeFromSuperview();
         pulseCard.removeFromSuperview();
         currentOrigin = 83;
@@ -455,6 +459,10 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             }, failure: nil);
         
         
+    }
+    
+    @IBAction func refreshButtonPressed(sender: AnyObject) {
+        mainScrollView.setContentOffset(CGPoint(x: 0, y: -mainScrollView.frame.size.height * 0.195), animated: true);
     }
     
     func setReminder(sender: AnyObject) {
