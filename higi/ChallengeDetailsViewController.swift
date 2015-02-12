@@ -77,6 +77,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     var userChatter:String?;
     var actionButton:UIButton!;
     var actionButtonY:CGFloat = 0;
+    var chatterView:UIView!;
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -456,13 +457,13 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             chatterTable = addTableView(totalPages);
             chatterTable!.backgroundColor = Utility.colorFromHexString("#F4F4F4");
             
-            let chatterView = UIView(frame: CGRect(x: chatterTable!.frame.origin.x, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height));
+            chatterView = UIView(frame: CGRect(x: chatterTable!.frame.origin.x, y: 0, width: UIScreen.mainScreen().bounds.size.width, height: UIScreen.mainScreen().bounds.size.height));
             chatterTable!.frame.origin.x = 0;
             
             let actionButtonWidth:CGFloat = 40;
             let actionButtonMargin:CGFloat = 8;
-            actionButtonY = view.frame.size.height - actionButtonWidth - actionButtonMargin;
-            actionButton = UIButton(frame: CGRect(x: view.frame.size.width - (actionButtonWidth + actionButtonMargin), y: actionButtonY, width: actionButtonWidth, height: actionButtonWidth));
+            actionButtonY = UIScreen.mainScreen().bounds.size.height - actionButtonWidth - actionButtonMargin;
+            actionButton = UIButton(frame: CGRect(x: UIScreen.mainScreen().bounds.size.width - (actionButtonWidth + actionButtonMargin), y: actionButtonY, width: actionButtonWidth, height: actionButtonWidth));
             actionButton.setTitle("+", forState: UIControlState.Normal);
             actionButton.titleLabel?.center = actionButton.center;
             actionButton.titleLabel?.textColor = UIColor.whiteColor();
@@ -479,8 +480,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         
         scrollView.delegate = self;
         self.automaticallyAdjustsScrollViewInsets = false;
-        scrollView.frame = self.view.frame;
-        scrollView.contentSize = CGSize(width: self.view.frame.width * CGFloat(totalPages), height: 1);
+        scrollView.frame = UIScreen.mainScreen().bounds;
+        scrollView.contentSize = CGSize(width: UIScreen.mainScreen().bounds.width * CGFloat(totalPages), height: 1);
     }
 
     func gotoChatterInput(sender: AnyObject) {
@@ -539,8 +540,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         }
         prizesHeight = yOffset;
         table.prizesContainer.frame.size.height = yOffset;
-        table.frame = self.view.frame;
-        table.frame.origin.x = CGFloat(totalPages) * self.view.frame.size.width;
+        table.frame = UIScreen.mainScreen().bounds;
+        table.frame.origin.x = CGFloat(totalPages) * UIScreen.mainScreen().bounds.size.width;
         table.dataSource = self;
         table.delegate = self;
         table.separatorStyle = UITableViewCellSeparatorStyle.None;
@@ -552,7 +553,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         table.layoutIfNeeded();
         return table;
     }
-    
     
     func setDateRangeHelper(startDate: NSDate, endDate: NSDate) -> String {
         var dateFormatter = NSDateFormatter();
@@ -591,8 +591,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func addTableView(page: Int) -> UITableView {
-        let viewWidth = self.view.frame.size.width;
-        let viewHeight:CGFloat = self.view.frame.size.height;
+        let viewWidth = UIScreen.mainScreen().bounds.size.width;
+        let viewHeight:CGFloat = UIScreen.mainScreen().bounds.size.height;
         let table = UITableView(frame: CGRect(x: CGFloat(page) * viewWidth, y: 0, width: viewWidth, height: viewHeight));
         table.dataSource = self;
         table.delegate = self;
@@ -658,18 +658,19 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         updateScroll();
 
         if (displayLeaderboardTab && leaderboardTable != nil ) {
-            leaderboardTable!.frame.size.height = self.view.frame.size.height;
+            leaderboardTable!.frame.size.height = UIScreen.mainScreen().bounds.size.height;
         }
         if (displayProgressTab && progressTable != nil) {
-            progressTable!.frame.size.height = self.view.frame.size.height;
+            progressTable!.frame.size.height = UIScreen.mainScreen().bounds.size.height;
         }
         var frame = detailsTable.prizesContainer.frame;
         var height = detailsTable.prizesContainer.frame.origin.y + prizesHeight + 305;
         var descFrame = detailsTable.descriptionView.frame;
         detailsTable.contentSize.height = height;
-//        detailsTable.frame.size.height = scrollView.frame.size.height;
+        
         if (displayChatterTab && chatterTable != nil) {
-            chatterTable!.frame.size.height = self.view.frame.size.height;
+            chatterView.frame.size.height = UIScreen.mainScreen().bounds.size.height;
+            chatterTable!.frame.size.height = UIScreen.mainScreen().bounds.size.height;
         }
     }
     
@@ -679,7 +680,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         if (scrollView == self.scrollView) {
-            var page = lround(Double(scrollView.contentOffset.x / self.view.frame.size.width));
+            var page = lround(Double(scrollView.contentOffset.x / UIScreen.mainScreen().bounds.size.width));
             changePage(page);
         }
     }
@@ -877,7 +878,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func changePage(page: Int) {
         moveGreenBar(page);
-        var frame = self.view.frame;
+        var frame = UIScreen.mainScreen().bounds;
         frame.origin.x = frame.size.width * CGFloat(page);
         frame.origin.y = 0;
         scrollView.setContentOffset(frame.origin, animated: true);
@@ -979,12 +980,12 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         var cell = leaderboardTable!.dequeueReusableCellWithIdentifier("ChallengeLeaderboardRow") as ChallengeLeaderboardRow!;
         if (cell == nil) {
             if (isIndividualLeaderboard) {
-                cell = ChallengeLeaderboardRow.instanceFromNib(CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 40),challenge: challenge, participant: individualLeaderboardParticipants[index], place: String(index + 1));
+                cell = ChallengeLeaderboardRow.instanceFromNib(CGRect(x: 0, y: 0, width: UIScreen.mainScreen().bounds.size.width, height: 40),challenge: challenge, participant: individualLeaderboardParticipants[index], place: String(index + 1));
                 if (challenge.participant != nil && individualLeaderboardParticipants[index].url == challenge.participant.url) {
                     cell.backgroundColor = Utility.colorFromHexString("#d5ffb8");
                 }
             } else {
-                cell = ChallengeLeaderboardRow.instanceFromNib(CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 40), challenge: challenge, team: teamLeaderboardParticipants[index], index: index);
+                cell = ChallengeLeaderboardRow.instanceFromNib(CGRect(x: 0, y: 0, width: UIScreen.mainScreen().bounds.size.width, height: 40), challenge: challenge, team: teamLeaderboardParticipants[index], index: index);
                 if (challenge.participant != nil && teamLeaderboardParticipants[index].name == challenge.participant.team.name) {
                     cell.backgroundColor = Utility.colorFromHexString("#d5ffb8");
                 }
@@ -1002,7 +1003,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func createProgressGraph() -> UITableViewCell {
-        let cell = UITableViewCell(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 200));
+        let cell = UITableViewCell(frame: CGRect(x: 0, y: 0, width: UIScreen.mainScreen().bounds.size.width, height: 200));
         let consolodatedWinConditions = Utility.consolodateWinConditions(challenge.winConditions);
         var individualGoalViewIndex = 0;
         var teamGoalViewIndex = 0;
