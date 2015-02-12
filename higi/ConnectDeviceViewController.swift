@@ -31,10 +31,10 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
     
     func populateDevices() {
         let serverDevices = SessionController.Instance.devices;
-        for deviceName in Constants.getDevicePriority {
-            if (serverDevices.indexForKey(deviceName) != nil) {
-                devices.append(serverDevices[deviceName]!);
-            }
+        for (name,device) in serverDevices {
+//            if (serverDevices.indexForKey(deviceName) != nil) {
+                devices.append(device);
+//            }
         }
     }
     
