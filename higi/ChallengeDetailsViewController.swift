@@ -1043,7 +1043,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func getChatterRowHeight(index: Int) -> CGFloat {
-        return 50 + ChallengeDetailsChatterRow.heightForIndex(challengeChatterComments[index]);
+        return ChallengeDetailsChatterRow.heightForIndex(challengeChatterComments[index]);
     }
     
     func createChatterTable(index: Int) -> UITableViewCell {
@@ -1054,7 +1054,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
 
     func sendUserChatter(chatter: String) {
-        
         let userId = !HigiApi.EARNDIT_DEV ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
         var contents = NSMutableDictionary();
         contents.setObject(userId, forKey: "userId");

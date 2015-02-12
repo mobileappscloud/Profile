@@ -13,6 +13,7 @@ class ChallengeDetailsChatterRow: UITableViewCell {
     @IBOutlet weak var yourAvatar: UIImageView!
     
     override func layoutSubviews() {
+        let a = chatView.frame.size.width - 10;
         message.frame.size.width = chatView.frame.size.width - 10;
         message.frame.size.height = Utility.heightForTextView(chatView.frame.size.width - 10, text: message.text!, fontSize: 12, margin: 20);
         message.sizeToFit();
@@ -57,6 +58,6 @@ class ChallengeDetailsChatterRow: UITableViewCell {
     }
     
     class func heightForIndex(comment: Comments) -> CGFloat {
-        return Utility.heightForTextView(200, text: comment.comment, fontSize: 12, margin: 50);
+        return 22 + 4 + Utility.heightForTextView(164, text: comment.comment, fontSize: 12, margin: 10) + 22 + 10;
     }
 }
