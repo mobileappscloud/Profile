@@ -13,7 +13,6 @@ class ChallengeDetailsChatterRow: UITableViewCell {
     @IBOutlet weak var yourAvatar: UIImageView!
     
     override func layoutSubviews() {
-        let a = chatView.frame.size.width - 10;
         message.frame.size.width = chatView.frame.size.width - 10;
         message.frame.size.height = Utility.heightForTextView(chatView.frame.size.width - 10, text: message.text!, fontSize: 12, margin: 20);
         message.sizeToFit();
