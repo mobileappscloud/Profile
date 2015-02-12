@@ -593,7 +593,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     func addTableView(page: Int) -> UITableView {
         let viewWidth = self.view.frame.size.width;
         let viewHeight:CGFloat = self.view.frame.size.height;
-        
         let table = UITableView(frame: CGRect(x: CGFloat(page) * viewWidth, y: 0, width: viewWidth, height: viewHeight));
         table.dataSource = self;
         table.delegate = self;
@@ -618,11 +617,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         
         if (!isLeaving && tables.count > currentPage) {
             let currentTable = tables[currentPage];
-//            scrollY = currentTable.contentOffset.y;
+            scrollY = currentTable.contentOffset.y;
             if (scrollY >= 0) {
-                if (displayChatterTab) {
-                    actionButton.frame.origin.y = scrollY + actionButtonY;
-                }
                 if (scrollY > headerContainerHeight - minHeaderHeightThreshold) {
                     headerContainer.frame.origin.y = minHeaderHeightThreshold - headerContainerHeight;
                     buttonContainer.frame.origin.y = minHeaderHeightThreshold - 1;
