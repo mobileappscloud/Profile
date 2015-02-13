@@ -199,7 +199,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
                 locationManager.requestWhenInUseAuthorization();
                 locationManager.delegate = self;
             }
-            for kiosk in SessionData.Instance.kioskList {
+            for kiosk in SessionController.Instance.kioskList {
                 var marker = GMSMarker(position: kiosk.position!);
                 marker.icon = self.unselectedIcon;
                 markers.append(marker);
@@ -240,13 +240,13 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     func mapView(mapView: GMSMapView!, didTapMarker marker: GMSMarker!) -> Bool {
         if (marker != selectedMarker) {
             var index = find(markers, marker);
-            setSelectedKiosk(SessionData.Instance.kioskList[index!]);
+            setSelectedKiosk(SessionController.Instance.kioskList[index!]);
         }
         return true;
     }
     
     func updateKioskPositions() {
-        if (markers.count == SessionData.Instance.kioskList.count) {
+        if (markers.count == SessionController.Instance.kioskList.count) {
             currentVisibleKioskTask.cancelAllOperations();
             searchField.resignFirstResponder();
             visibleKiosks = [];
@@ -254,8 +254,8 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
             
             currentVisibleKioskTask.addOperationWithBlock({
                 
-                for i in 0..<SessionData.Instance.kioskList.count {
-                    var kiosk = SessionData.Instance.kioskList[i];
+                for i in 0..<SessionController.Instance.kioskList.count {
+                    var kiosk = SessionController.Instance.kioskList[i];
                     if (kiosk.group == "retired" || kiosk.group == "removed") {
                         continue;
                     }
@@ -321,7 +321,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         } else {
             currentAutoCompleteTask.addOperationWithBlock( {
                 let size = self.searchField.text.utf16Count;
-                for kiosk in SessionData.Instance.kioskList {
+                for kiosk in SessionController.Instance.kioskList {
                     if (kiosk.group == "retired" || kiosk.group == "removed") {
                         continue;
                     }
@@ -511,7 +511,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     }
     
     func setSelectedKiosk(kiosk: KioskInfo) {
-        var marker = markers[find(SessionData.Instance.kioskList, kiosk)!];
+        var marker = markers[find(SessionController.Instance.kioskList, kiosk)!];
         marker.icon = selectedIcon;
         if (selectedMarker != nil) {
             selectedMarker!.icon = unselectedIcon;
