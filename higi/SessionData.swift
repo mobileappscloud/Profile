@@ -18,7 +18,7 @@ class SessionData {
     
     var user: HigiUser!;
     
-    var kioskListString: String!;
+    var kioskListString: String = "";
     
     var seenDashboard, seenBodyStats, seenReminder: Bool!;
     

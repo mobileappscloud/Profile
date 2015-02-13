@@ -223,33 +223,33 @@ class ApiUtility {
     
     class func retrieveKioskList(success: (() -> Void)?) {
         if (SessionData.Instance.kioskListString != "") {
-            SessionController.Instance.kioskList = deserializeKiosks(SessionData.Instance.kioskListString);
-            
-            HigiApi().sendGet("\(HigiApi.higiApiUrl)/data/KioskList", success:
-                { operation, responseObject in
-                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                SessionController.Instance.kioskList = self.deserializeKiosks(SessionData.Instance.kioskListString);
+                
+                HigiApi().sendGet("\(HigiApi.higiApiUrl)/data/KioskList", success:
+                    { operation, responseObject in
+                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                            
+                            let responseString = self.JsonStringify(responseObject);
+                            SessionData.Instance.kioskListString = responseString;
+                            SessionData.Instance.save();
+                            SessionController.Instance.kioskList = self.deserializeKiosks(responseString);
+                        });
                         
-                        let responseString = self.JSONStringify(responseObject);
-                        let kiosks: [KioskInfo] = self.deserializeKiosks(responseString);
-                        SessionController.Instance.kioskList = kiosks;
-                        SessionData.Instance.kioskListString = responseString;
-                    });
-                    
-                }, failure: nil);
-            
-            if (success != nil) {
-                success!();
-            }
+                    }, failure: nil);
+                
+                if (success != nil) {
+                    success!();
+                }
+            });
         } else {
             HigiApi().sendGet("\(HigiApi.higiApiUrl)/data/KioskList", success:
                 { operation, responseObject in
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                         
-                        
-                        SessionData.Instance.kioskListString = self.JSONStringify(responseObject);
+                        SessionData.Instance.kioskListString = self.JsonStringify(responseObject);
                         SessionData.Instance.save();
-                        let kiosks: [KioskInfo] = self.deserializeKiosks(SessionData.Instance.kioskListString);
-                        SessionController.Instance.kioskList = kiosks;
+                        SessionController.Instance.kioskList = self.deserializeKiosks(SessionData.Instance.kioskListString);
                         dispatch_async(dispatch_get_main_queue(), {
                             if (success != nil) {
                                 success!();
@@ -268,7 +268,7 @@ class ApiUtility {
         }
     }
     
-    class func JSONStringify(value: AnyObject) -> String {
+    class func JsonStringify(value: AnyObject) -> String {
         if NSJSONSerialization.isValidJSONObject(value) {
             if let data = NSJSONSerialization.dataWithJSONObject(value, options: nil, error: nil) {
                 if let string = NSString(data: data, encoding: NSUTF8StringEncoding) {
@@ -276,7 +276,7 @@ class ApiUtility {
                 }
             }
         }
-        return ""
+        return "";
     }
     
     class func deserializeKiosks(response: String) -> [KioskInfo] {
