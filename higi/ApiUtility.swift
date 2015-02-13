@@ -64,7 +64,7 @@ class ApiUtility {
                     }
                     SessionController.Instance.checkins = checkins;
                     
-                    if (SessionData.Instance.kioskList != nil) {
+                    if (SessionController.Instance.kioskList != nil) {
                         ApiUtility.retrieveKioskList(nil);
                         dispatch_async(dispatch_get_main_queue(), {
                             var i = 0;
@@ -79,7 +79,7 @@ class ApiUtility {
             },
             failure: { operation, error in
                 SessionController.Instance.checkins = [];
-                if (SessionData.Instance.kioskList != nil) {
+                if (SessionController.Instance.kioskList != nil) {
                     ApiUtility.retrieveKioskList(nil);
                     success?();
                 } else {
@@ -222,48 +222,85 @@ class ApiUtility {
     }
     
     class func retrieveKioskList(success: (() -> Void)?) {
-        
-        HigiApi().sendGet("\(HigiApi.higiApiUrl)/data/KioskList", success:
-            { operation, responseObject in
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                    
-                    
-                    var serverKiosks = responseObject as NSArray;
-                    var kiosks: [KioskInfo] = [];
-                    for kiosk: AnyObject in serverKiosks {
-                        if let kioskData = kiosk as? NSDictionary {
-                            var newKiosk = KioskInfo(dictionary: kioskData);
-                            if (newKiosk.position != nil) {
-                                if (newKiosk.isMapVisible) {
-                                    kiosks.append(newKiosk);
-                                } else {
-                                    for checkin in SessionController.Instance.checkins {
-                                        if (checkin.kioskInfo != nil && newKiosk.kioskId == checkin.kioskInfo!.kioskId) {
-                                            kiosks.append(newKiosk);
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    
-                    SessionData.Instance.kioskList = kiosks;
-                    dispatch_async(dispatch_get_main_queue(), {
-                        if (success != nil) {
-                            success!();
-                        }
-                    });
-                });
+        if (SessionData.Instance.kioskListString != "") {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                SessionController.Instance.kioskList = self.deserializeKiosks(SessionData.Instance.kioskListString);
                 
-            },
-            failure: { operation, error in
-                SessionData.Instance.kioskList = [];
+                HigiApi().sendGet("\(HigiApi.higiApiUrl)/data/KioskList", success:
+                    { operation, responseObject in
+                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                            
+                            let responseString = self.JsonStringify(responseObject);
+                            SessionData.Instance.kioskListString = responseString;
+                            SessionData.Instance.save();
+                            SessionController.Instance.kioskList = self.deserializeKiosks(responseString);
+                        });
+                        
+                    }, failure: nil);
+                
                 if (success != nil) {
                     success!();
                 }
-                
-        });
+            });
+        } else {
+            HigiApi().sendGet("\(HigiApi.higiApiUrl)/data/KioskList", success:
+                { operation, responseObject in
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                        
+                        SessionData.Instance.kioskListString = self.JsonStringify(responseObject);
+                        SessionData.Instance.save();
+                        SessionController.Instance.kioskList = self.deserializeKiosks(SessionData.Instance.kioskListString);
+                        dispatch_async(dispatch_get_main_queue(), {
+                            if (success != nil) {
+                                success!();
+                            }
+                        });
+                    });
+                    
+                },
+                failure: { operation, error in
+                        SessionController.Instance.kioskList = [];
+                        if (success != nil) {
+                            success!();
+                        }
+                    
+            });
+        }
+    }
+    
+    class func JsonStringify(value: AnyObject) -> String {
+        if NSJSONSerialization.isValidJSONObject(value) {
+            if let data = NSJSONSerialization.dataWithJSONObject(value, options: nil, error: nil) {
+                if let string = NSString(data: data, encoding: NSUTF8StringEncoding) {
+                    return string;
+                }
+            }
+        }
+        return "";
+    }
+    
+    class func deserializeKiosks(response: String) -> [KioskInfo] {
+        let jsonData = response.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false);
+        let serverKiosks = NSJSONSerialization.JSONObjectWithData(jsonData!, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSArray;
+        var kiosks: [KioskInfo] = [];
+        for kiosk: AnyObject in serverKiosks {
+            if let kioskData = kiosk as? NSDictionary {
+                var newKiosk = KioskInfo(dictionary: kioskData);
+                if (newKiosk.position != nil) {
+                    if (newKiosk.isMapVisible) {
+                        kiosks.append(newKiosk);
+                    } else {
+                        for checkin in SessionController.Instance.checkins {
+                            if (checkin.kioskInfo != nil && newKiosk.kioskId == checkin.kioskInfo!.kioskId) {
+                                kiosks.append(newKiosk);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return kiosks;
     }
     
     class func updateHealthKit() {

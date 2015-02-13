@@ -23,6 +23,8 @@ class SessionController {
     
     var pulseArticles: [PulseArticle] = [];
     
+    var kioskList: [KioskInfo]!;
+    
     var healthStore: HKHealthStore!;
     
     var devices: [String: ActivityDevice] = [:];
