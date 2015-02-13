@@ -15,7 +15,6 @@ class ChallengeLeaderboardRow: UITableViewCell {
         row.points.text = "\(Int(participant.units)) \(challenge.abbrMetric)";
         row.place.text = Utility.getRankSuffix(place);
         setProgressBar(row.progress, points: Int(participant.units), highScore: Int(highScore));
-        
         return row;
     }
     
@@ -35,9 +34,10 @@ class ChallengeLeaderboardRow: UITableViewCell {
         let width = view.frame.size.width;
         let proportion = min(CGFloat(points)/CGFloat(highScore), 1);
         let newWidth = proportion * width;
-        let bar = UIView(frame: CGRect(x: 0, y: view.frame.origin.y - 5/2, width: newWidth, height: 4));
+        let barHeight:CGFloat = 4;
+        let bar = UIView(frame: CGRect(x: 0, y: view.frame.origin.y - barHeight / 2, width: newWidth, height: barHeight));
         bar.backgroundColor = Utility.colorFromHexString("#76C043");
-        bar.layer.cornerRadius = 2;
+        bar.layer.cornerRadius = barHeight / 2;
         view.addSubview(bar);
     }
 }
