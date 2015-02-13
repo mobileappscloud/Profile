@@ -238,16 +238,19 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     }
     
     @IBAction func gotoActivities(sender: AnyObject) {
+        Flurry.logEvent("Activity_Pressed");
         self.navigationController!.pushViewController(ActivityViewController(nibName: "ActivityView", bundle: nil), animated: true);
         (self.navigationController as MainNavigationController).drawerController?.tableView.reloadData();
         (self.navigationController as MainNavigationController).drawerController?.tableView.selectRowAtIndexPath(NSIndexPath(forItem: 1, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None);
     }
     
     @IBAction func gotoConnectDevices(sender: AnyObject) {
+        Flurry.logEvent("ConnectDevice_Pressed");
         self.navigationController!.pushViewController(ConnectDeviceViewController(nibName: "ConnectDeviceView", bundle: nil), animated: true);
     }
     
     @IBAction func gotoChallenges(sender: AnyObject) {
+        Flurry.logEvent("Challenges_Pressed");
         self.navigationController!.pushViewController(ChallengesViewController(nibName: "ChallengesView", bundle: nil), animated: true);
         (self.navigationController as MainNavigationController).drawerController?.tableView.reloadData();
         (self.navigationController as MainNavigationController).drawerController?.tableView.selectRowAtIndexPath(NSIndexPath(forItem: 2, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None);

@@ -252,6 +252,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     @IBAction func joinButtonClick(sender: AnyObject) {
+        Flurry.logEvent("ChallengeJoined");
         joinButton.hidden = true;
         loadingSpinner.hidden = false;
         let joinUrl =  challenge.joinUrl;
@@ -372,7 +373,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func makeTabButton(buttonText: String, buttonImageName: String, index: Int, height: CGFloat, width: CGFloat) -> UIView {
         let tabGestureRecognizer = UITapGestureRecognizer();
-        tabGestureRecognizer.addTarget(self, action: "selectButton:");
+        tabGestureRecognizer.addTarget(self, action: "selectTabButton:");
         let tabView = UIView(frame: CGRect(x: width * CGFloat(index), y: 0, width: width, height: height));
         tabView.backgroundColor = Utility.colorFromHexString("#FDFDFD");
         tabView.tag = index;
@@ -395,8 +396,9 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         return tabView;
     }
     
-    func selectButton(sender: AnyObject) {
+    func selectTabButton(sender: AnyObject) {
         let view = sender.view as UIView!;
+        Flurry.logEvent("\(tabButtonLabels[view.tag])Tab_Pressed");
         changePage(view.tag);
     }
     
@@ -1051,6 +1053,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
 
     func sendUserChatter(chatter: String) {
+        Flurry.logEvent("ChatterSent");
         let userId = !HigiApi.EARNDIT_DEV ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
         var contents = NSMutableDictionary();
         contents.setObject(userId, forKey: "userId");
