@@ -299,6 +299,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     }
     
     func gotoDetails(sender: AnyObject) {
+        Flurry.logEvent("ChallengeCard_Pressed");
         let index = (sender.view as UIView!).tag;
         var challenges:[HigiChallenge] = [];
         var challenge: HigiChallenge!;

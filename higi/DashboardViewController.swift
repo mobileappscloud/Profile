@@ -238,22 +238,26 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     }
     
     @IBAction func gotoActivities(sender: AnyObject) {
+        Flurry.logEvent("Activity_Pressed");
         self.navigationController!.pushViewController(ActivityViewController(nibName: "ActivityView", bundle: nil), animated: true);
         (self.navigationController as MainNavigationController).drawerController?.tableView.reloadData();
         (self.navigationController as MainNavigationController).drawerController?.tableView.selectRowAtIndexPath(NSIndexPath(forItem: 1, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None);
     }
     
     @IBAction func gotoConnectDevices(sender: AnyObject) {
+        Flurry.logEvent("ConnectDevice_Pressed");
         self.navigationController!.pushViewController(ConnectDeviceViewController(nibName: "ConnectDeviceView", bundle: nil), animated: true);
     }
     
     @IBAction func gotoChallenges(sender: AnyObject) {
+        Flurry.logEvent("Challenges_Pressed");
         self.navigationController!.pushViewController(ChallengesViewController(nibName: "ChallengesView", bundle: nil), animated: true);
         (self.navigationController as MainNavigationController).drawerController?.tableView.reloadData();
         (self.navigationController as MainNavigationController).drawerController?.tableView.selectRowAtIndexPath(NSIndexPath(forItem: 2, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None);
     }
     
     @IBAction func gotoChallengeDetails(sender: AnyObject) {
+        Flurry.logEvent("ActiveChallenge_Pressed");
         var detailsViewController = ChallengeDetailsViewController(nibName: "ChallengeDetailsView", bundle: nil);
         detailsViewController.challenge = displayedChallenge;
         self.navigationController!.pushViewController(detailsViewController, animated: true);
@@ -262,12 +266,18 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     }
     
     @IBAction func gotoPulseHome(sender: AnyObject) {
+        Flurry.logEvent("higiPulse_Pressed");
         self.navigationController!.pushViewController(PulseHomeViewController(nibName: "PulseHomeView", bundle: nil), animated: true);
         (self.navigationController as MainNavigationController).drawerController?.tableView.reloadData();
         (self.navigationController as MainNavigationController).drawerController?.tableView.selectRowAtIndexPath(NSIndexPath(forItem: 5, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None);
     }
     
     @IBAction func gotoPulseArticle(sender: AnyObject) {
+        if (sender.tag! == 0) {
+            Flurry.logEvent("FeaturedPulseArticle_Pressed");
+        } else {
+            Flurry.logEvent("NonFeaturedPulseArticle_Pressed");
+        }
         var webView = WebViewController(nibName: "WebView", bundle: nil);
         var article: PulseArticle!;
         webView.url = SessionController.Instance.pulseArticles[sender.tag!].permalink;
