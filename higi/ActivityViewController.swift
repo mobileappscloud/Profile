@@ -120,10 +120,13 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
         weekGraph.hidden = true;
         monthGraph.hidden = true;
         if (sender as UIButton == weekButton) {
+            Flurry.logEvent("ActivityWeekGraph_Pressed");
             weekGraph.hidden = false;
         } else if (sender as UIButton == monthButton) {
+            Flurry.logEvent("ActivityMonthGraph_Pressed");
             monthGraph.hidden = false;
         } else {
+            Flurry.logEvent("ActivityDayGraph_Pressed");
             dayGraph.hidden = false;
         }
         
