@@ -8,6 +8,7 @@ class ConnectDeviceRow: UITableViewCell, UIAlertViewDelegate {
     
     var device:ActivityDevice!;
     var parentController:UINavigationController!;
+    var webView:WebViewController!;
     
     @IBAction func deviceSwitchTouch(sender: UISwitch) {
         let connected = sender.on;
@@ -20,7 +21,7 @@ class ConnectDeviceRow: UITableViewCell, UIAlertViewDelegate {
     
     func connectDevice() {
         self.device.connected = true;
-        var webView = WebViewController(nibName: "WebView", bundle: nil);
+        webView = WebViewController(nibName: "WebView", bundle: nil);
         webView.url = "\(HigiApi.webUrl)/mobileDeviceConnect";
 
         let headers = ["Higi-Device-Connect-Url": device.connectUrl.stringByReplacingOccurrencesOfString("{redirect}", withString: "http://www.google.com".stringByReplacingPercentEscapesUsingEncoding(16)!), "User-Id": SessionData.Instance.user.userId, "Token": SessionData.Instance.token];
