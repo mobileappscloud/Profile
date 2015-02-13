@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6254"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -11,19 +11,27 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="176"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e2D-sC-QkF">
+                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e2D-sC-QkF">
                     <rect key="frame" x="0.0" y="10" width="320" height="40"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n07-h6-OF7">
+                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n07-h6-OF7">
                     <rect key="frame" x="0.0" y="60" width="320" height="40"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XVh-mb-TAc">
+                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XVh-mb-TAc">
                     <rect key="frame" x="0.0" y="110" width="320" height="40"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>
+            <constraints>
+                <constraint firstItem="e2D-sC-QkF" firstAttribute="leading" secondItem="tI1-Dt-MFM" secondAttribute="leading" id="1Ee-XU-Q9S"/>
+                <constraint firstItem="XVh-mb-TAc" firstAttribute="leading" secondItem="tI1-Dt-MFM" secondAttribute="leading" id="8B9-bC-Jvd"/>
+                <constraint firstAttribute="trailing" secondItem="e2D-sC-QkF" secondAttribute="trailing" id="P5j-IU-5Mh"/>
+                <constraint firstAttribute="trailing" secondItem="n07-h6-OF7" secondAttribute="trailing" id="Yhe-f5-Ttr"/>
+                <constraint firstItem="n07-h6-OF7" firstAttribute="leading" secondItem="tI1-Dt-MFM" secondAttribute="leading" id="qlG-xR-XwT"/>
+                <constraint firstAttribute="trailing" secondItem="XVh-mb-TAc" secondAttribute="trailing" id="v09-T3-uST"/>
+            </constraints>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
