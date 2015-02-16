@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -24,8 +24,9 @@
                         <constraint firstAttribute="height" constant="49" id="GaY-84-Xh8"/>
                     </constraints>
                 </imageView>
-                <webView contentMode="scaleToFill" ambiguous="YES" misplaced="YES" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tnh-Bk-ESG">
-                    <rect key="frame" x="0.0" y="65" width="320" height="444"/>
+                <webView contentMode="scaleToFill" misplaced="YES" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tnh-Bk-ESG">
+                    <rect key="frame" x="8" y="64" width="304" height="444"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </webView>
                 <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="63d-2A-gZD">
                     <rect key="frame" x="8" y="523" width="304" height="37"/>
@@ -46,10 +47,12 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="Tnh-Bk-ESG" secondAttribute="bottom" id="2xJ-61-cIj"/>
+                <constraint firstAttribute="bottom" secondItem="Tnh-Bk-ESG" secondAttribute="bottom" constant="60" id="2xJ-61-cIj"/>
                 <constraint firstItem="63d-2A-gZD" firstAttribute="leading" secondItem="evC-i8-swY" secondAttribute="leading" constant="8" id="BiJ-qj-8cK"/>
+                <constraint firstItem="Tnh-Bk-ESG" firstAttribute="leading" secondItem="evC-i8-swY" secondAttribute="leading" constant="8" id="GWa-Cd-rgV"/>
                 <constraint firstAttribute="trailing" secondItem="63d-2A-gZD" secondAttribute="trailing" constant="8" id="Gdf-OR-YMy"/>
                 <constraint firstItem="EFR-Qm-4kc" firstAttribute="leading" secondItem="evC-i8-swY" secondAttribute="leading" id="I7R-mW-gjd"/>
+                <constraint firstAttribute="trailing" secondItem="Tnh-Bk-ESG" secondAttribute="trailing" constant="8" id="KED-Pf-jK0"/>
                 <constraint firstItem="EFR-Qm-4kc" firstAttribute="top" secondItem="evC-i8-swY" secondAttribute="top" constant="15" id="MGo-qH-e7A"/>
                 <constraint firstAttribute="bottom" secondItem="63d-2A-gZD" secondAttribute="bottom" constant="8" id="V3d-wf-yg7"/>
                 <constraint firstAttribute="trailing" secondItem="EFR-Qm-4kc" secondAttribute="trailing" id="shL-42-n83"/>
