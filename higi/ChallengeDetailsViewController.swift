@@ -663,23 +663,20 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         if (displayLeaderboardTab && leaderboardTable != nil ) {
             leaderboardTable!.frame.size.height = UIScreen.mainScreen().bounds.size.height;
             leaderboardTable!.contentSize.height = max(leaderboardTable!.contentSize.height, minTableHeight - 10);
-            leaderboardTable!.layoutIfNeeded();
         }
         if (displayProgressTab && progressTable != nil) {
             progressTable!.frame.size.height = UIScreen.mainScreen().bounds.size.height;
             progressTable!.contentSize.height = max(progressTable!.contentSize.height, minTableHeight);
-            progressTable!.layoutIfNeeded();
         }
         var frame = detailsTable.prizesContainer.frame;
         var height = detailsTable.prizesContainer.frame.origin.y + prizesHeight + 305;
         var descFrame = detailsTable.descriptionView.frame;
-        detailsTable.contentSize.height = height;
+        detailsTable.contentSize.height = max(height, minTableHeight);
         
         if (displayChatterTab && chatterTable != nil) {
             chatterView.frame.size.height = UIScreen.mainScreen().bounds.size.height;
             chatterTable!.frame.size.height = UIScreen.mainScreen().bounds.size.height;
             chatterTable!.contentSize.height = max(chatterTable!.contentSize.height, minTableHeight - 10);
-            chatterTable!.layoutIfNeeded();
         }
     }
     
