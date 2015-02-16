@@ -155,6 +155,8 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
         } else {
             headerImage.frame.origin.y = 0;
             self.fakeNavBar.alpha = 0;
+            toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon"), forState: UIControlState.Normal);
+            toggleButton!.alpha = 1;
             self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0, alpha: 1)];
         }
     }

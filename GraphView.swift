@@ -11,6 +11,7 @@ import Foundation
 class GraphView: UIView, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet var graphContainer: UIView!
+    @IBOutlet var highlightContainer: UIView!
     @IBOutlet var highlightText: UILabel!
     @IBOutlet var trendText: UILabel!
     
@@ -97,6 +98,10 @@ class GraphView: UIView, UITableViewDelegate, UITableViewDataSource {
                 
                 checkPulseButton.layer.borderWidth = 1.0;
                 checkPulseButton.layer.borderColor = Utility.colorFromHexString("#76C044").CGColor;
+            } else {
+                highlightContainer.hidden = true;
+                trendText.hidden = true;
+                noDataGraph.hidden = false;
             }
         }
         
@@ -201,6 +206,9 @@ class GraphView: UIView, UITableViewDelegate, UITableViewDataSource {
     }
     
     func setSelectedCheckin(selectedCheckin: HigiCheckin) {
+        if (checkins.count == 0) {
+            return;
+        }
         var selectedIndex = checkins.count - 1;
         for index in 0..<checkins.count {
             if (selectedCheckin.dateTime.compare(checkins[index].dateTime) == NSComparisonResult.OrderedAscending) {
@@ -208,7 +216,7 @@ class GraphView: UIView, UITableViewDelegate, UITableViewDataSource {
                 break;
             }
         }
-        selectedIndex = min(max(selectedIndex, 0), checkins.count - 1);
+        selectedIndex = max(min(selectedIndex, checkins.count - 1), 0);
         var checkin = checkins[selectedIndex];
         if (isPortrait) {
             var  cell = checkinTable.cellForRowAtIndexPath(NSIndexPath(forItem: checkins.count - selectedIndex - 1, inSection: 0)) as? BodyStatCheckinCell;
