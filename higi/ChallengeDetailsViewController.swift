@@ -497,7 +497,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         let table = UINib(nibName: "ChallengeDetailsTab", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeDetailsTab;
         let firstWinCondition = challenge.winConditions[0];
         
-        table.descriptionText.text = challenge.shortDescription.stringByDecodingHTMLEntities();
+//        table.descriptionText.text = challenge.shortDescription.stringByDecodingHTMLEntities();
         if (challenge.endDate != nil) {
             table.durationText.text = setDateRangeHelper(challenge.startDate, endDate: challenge.endDate);
         } else {
