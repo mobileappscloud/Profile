@@ -659,11 +659,16 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
 
         updateScroll();
 
+        let minTableHeight = UIScreen.mainScreen().bounds.size.height + (buttonContainerOriginY - buttonContainer.frame.size.height);
         if (displayLeaderboardTab && leaderboardTable != nil ) {
             leaderboardTable!.frame.size.height = UIScreen.mainScreen().bounds.size.height;
+            leaderboardTable!.contentSize.height = max(leaderboardTable!.contentSize.height, minTableHeight - 10);
+            leaderboardTable!.layoutIfNeeded();
         }
         if (displayProgressTab && progressTable != nil) {
             progressTable!.frame.size.height = UIScreen.mainScreen().bounds.size.height;
+            progressTable!.contentSize.height = max(progressTable!.contentSize.height, minTableHeight);
+            progressTable!.layoutIfNeeded();
         }
         var frame = detailsTable.prizesContainer.frame;
         var height = detailsTable.prizesContainer.frame.origin.y + prizesHeight + 305;
@@ -673,6 +678,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         if (displayChatterTab && chatterTable != nil) {
             chatterView.frame.size.height = UIScreen.mainScreen().bounds.size.height;
             chatterTable!.frame.size.height = UIScreen.mainScreen().bounds.size.height;
+            chatterTable!.contentSize.height = max(chatterTable!.contentSize.height, minTableHeight - 10);
+            chatterTable!.layoutIfNeeded();
         }
     }
     
@@ -695,7 +702,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if (displayLeaderboardTab && leaderboardTable != nil && tableView == leaderboardTable) {
-            var height = buttonContainerOriginY + buttonContainer.frame.size.height + 10;
+            var height = buttonContainerOriginY + buttonContainer.frame.size.height;
             if (leaderboardToggleButtons.count > 0) {
                 height += 50;
             }
