@@ -60,8 +60,8 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rJ4-Tz-Gn1">
                             <rect key="frame" x="0.0" y="192" width="320" height="46"/>
                             <subviews>
-                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="buX-BP-Hyp">
-                                    <rect key="frame" x="46" y="5" width="224" height="30"/>
+                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="buX-BP-Hyp">
+                                    <rect key="frame" x="50" y="5" width="220" height="30"/>
                                     <color key="backgroundColor" red="0.46274509800000002" green="0.75294117650000003" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <state key="normal" title="Join">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -106,10 +106,12 @@
                             <constraints>
                                 <constraint firstAttribute="bottom" secondItem="4PH-3r-dHT" secondAttribute="bottom" constant="13" id="1FC-qa-uYC"/>
                                 <constraint firstAttribute="centerY" secondItem="sYR-RX-l73" secondAttribute="centerY" id="1hD-gk-Ryo"/>
+                                <constraint firstAttribute="trailing" secondItem="buX-BP-Hyp" secondAttribute="trailing" constant="50" id="3Yr-MX-aDn"/>
                                 <constraint firstItem="4PH-3r-dHT" firstAttribute="top" secondItem="rJ4-Tz-Gn1" secondAttribute="top" constant="13" id="DRo-LR-mhK"/>
                                 <constraint firstAttribute="trailing" secondItem="Lj2-kM-7ai" secondAttribute="trailing" constant="8" id="Dm4-yY-pfm"/>
                                 <constraint firstAttribute="centerY" secondItem="RYd-xi-WiK" secondAttribute="centerY" id="Q8L-Zm-Wbt"/>
                                 <constraint firstAttribute="centerY" secondItem="4PH-3r-dHT" secondAttribute="centerY" id="pyK-dV-9SX"/>
+                                <constraint firstItem="buX-BP-Hyp" firstAttribute="leading" secondItem="rJ4-Tz-Gn1" secondAttribute="leading" constant="50" id="qo1-OH-bNh"/>
                                 <constraint firstAttribute="centerY" secondItem="buX-BP-Hyp" secondAttribute="centerY" id="vFw-S8-pff"/>
                                 <constraint firstAttribute="centerY" secondItem="Lj2-kM-7ai" secondAttribute="centerY" id="yG0-vV-3iR"/>
                             </constraints>
