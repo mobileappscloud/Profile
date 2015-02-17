@@ -33,8 +33,13 @@ class CompetitiveChallengeView: UIView, UIScrollViewDelegate {
                 rows[index].addSubview(row);
                 
                 row.setTranslatesAutoresizingMaskIntoConstraints(false);
-                let trailingConstraint = NSLayoutConstraint(item: row, attribute: NSLayoutAttribute.Leading, relatedBy: NSLayoutRelation.Equal, toItem: rows[index], attribute: NSLayoutAttribute.Trailing, multiplier: 1, constant: 0);
+                
+                let xConstraint = NSLayoutConstraint(item: rows[index], attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: row, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0);
+                let yConstraint = NSLayoutConstraint(item: rows[index], attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: row, attribute: NSLayoutAttribute.CenterY, multiplier: 1, constant: 0)
                 let widthConstraint = NSLayoutConstraint(item: row, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: frame.size.width);
+                
+                rows[index].addConstraint(xConstraint);
+                rows[index].addConstraint(yConstraint);
                 row.addConstraint(widthConstraint);
             }
         } else {

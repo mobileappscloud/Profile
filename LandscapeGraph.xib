@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -70,6 +70,9 @@
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Scb-Lv-Y5j">
                     <rect key="frame" x="0.0" y="0.0" width="568" height="295"/>
                 </view>
+                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="nodata_bodystats.png" translatesAutoresizingMaskIntoConstraints="NO" id="YeC-3W-MwL">
+                    <rect key="frame" x="0.0" y="0.0" width="568" height="285"/>
+                </imageView>
             </subviews>
             <color key="backgroundColor" red="0.42237115557386828" green="0.72919753555025257" blue="1" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
@@ -83,7 +86,9 @@
             <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
             <connections>
                 <outlet property="graphContainer" destination="Scb-Lv-Y5j" id="gQd-0w-DV5"/>
+                <outlet property="highlightContainer" destination="Myz-yS-9cf" id="Hc6-Xc-dsz"/>
                 <outlet property="highlightText" destination="6p8-rc-N3l" id="5At-ad-Nq1"/>
+                <outlet property="noDataGraph" destination="YeC-3W-MwL" id="ORt-fa-uyF"/>
                 <outlet property="selectedMarker" destination="nzE-Yr-OdT" id="uaq-1f-FGO"/>
                 <outlet property="selectedMarker2" destination="0M3-KS-xEX" id="I2s-6X-k0f"/>
                 <outlet property="trendText" destination="HNd-Xs-Goe" id="m5I-F8-Zyq"/>
@@ -93,6 +98,7 @@
     </objects>
     <resources>
         <image name="cell_selected_light.png" width="38" height="38"/>
+        <image name="nodata_bodystats.png" width="1080" height="800"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

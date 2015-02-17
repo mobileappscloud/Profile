@@ -521,7 +521,9 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             table.participantRowView.addSubview(participantRowView);
         }
         
-        table.termsButton.addTarget(self, action: "termsClick:", forControlEvents: UIControlEvents.TouchUpInside);
+        var termsButton = table.termsButton;
+        
+        termsButton.addTarget(self, action: "termsClick:", forControlEvents: UIControlEvents.TouchUpInside);
         
         var yOffset = rowTextYOffset;
         for winCondition in challenge.winConditions {
@@ -551,6 +553,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         table.scrollEnabled = true;
         table.allowsSelection = false;
         table.showsVerticalScrollIndicator = false;
+        table.headerView.frame.size.height = termsButton.frame.origin.y + termsButton.frame.size.height;
         table.reloadData();
         table.layoutIfNeeded();
         return table;
@@ -659,20 +662,25 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
 
         updateScroll();
 
+        let minTableHeight = UIScreen.mainScreen().bounds.size.height + (buttonContainerOriginY - buttonContainer.frame.size.height);
         if (displayLeaderboardTab && leaderboardTable != nil ) {
             leaderboardTable!.frame.size.height = UIScreen.mainScreen().bounds.size.height;
+            leaderboardTable!.contentSize.height = max(leaderboardTable!.contentSize.height, minTableHeight - 10);
         }
         if (displayProgressTab && progressTable != nil) {
             progressTable!.frame.size.height = UIScreen.mainScreen().bounds.size.height;
+            progressTable!.contentSize.height = max(progressTable!.contentSize.height, minTableHeight);
         }
         var frame = detailsTable.prizesContainer.frame;
         var height = detailsTable.prizesContainer.frame.origin.y + prizesHeight + 305;
         var descFrame = detailsTable.descriptionView.frame;
-        detailsTable.contentSize.height = height;
+        detailsTable.contentSize.height = max(height, minTableHeight);
+        detailsTable.headerView.frame.size.height = detailsTable.termsButton.frame.origin.y + detailsTable.termsButton.frame.size.height;
         
         if (displayChatterTab && chatterTable != nil) {
             chatterView.frame.size.height = UIScreen.mainScreen().bounds.size.height;
             chatterTable!.frame.size.height = UIScreen.mainScreen().bounds.size.height;
+            chatterTable!.contentSize.height = max(chatterTable!.contentSize.height, minTableHeight - 10);
         }
     }
     
@@ -695,7 +703,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if (displayLeaderboardTab && leaderboardTable != nil && tableView == leaderboardTable) {
-            var height = buttonContainerOriginY + buttonContainer.frame.size.height + 10;
+            var height = buttonContainerOriginY + buttonContainer.frame.size.height;
             if (leaderboardToggleButtons.count > 0) {
                 height += 50;
             }
