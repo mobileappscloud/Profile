@@ -7,6 +7,8 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var signupButton: UIButton!
     
+    @IBOutlet weak var buttonSeparator: UIView!
+    @IBOutlet weak var welcomeText: UILabel!
     @IBOutlet weak var pageTitle: UILabel!
     @IBOutlet weak var pageSubTitle: UILabel!
 
@@ -47,15 +49,15 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         scrollView.addSubview(fourthScreen);
         scrollView.addSubview(fifthScreen);
         
-//        pageTitle.text = "";
-//        pageSubTitle.text = "";
+        pageTitle.text = "";
+        pageSubTitle.text = "";
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews();
         self.navigationController!.navigationBar.hidden = true;
         self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
-        var frame = UIScreen.mainScreen().bounds;
+        var frame = self.view.frame;
         scrollView.frame = frame;
         scrollView.contentSize = CGSize(width: 5 * frame.size.width, height: frame.size.height);
         firstScreen.frame = frame;
@@ -72,18 +74,20 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         signupButton.layer.borderColor = Utility.colorFromHexString("#4C8823").CGColor;
         
         pageControl.frame.origin.y = frame.origin.y + 20;
+        buttonSeparator.frame.origin.y = signupButton.frame.origin.y - 1;
         
         if (!didAnimate) {
         
 //            firstScreen.bottomImage.alpha = 0;
             loginButton.alpha = 0;
             signupButton.alpha = 0;
-            
+            welcomeText.alpha = 0;
             UIView.animateWithDuration(1.0, delay: 0.0, options: .CurveEaseInOut, animations: {
                 
 //                self.firstScreen.bottomImage.alpha = 1.0;
                 self.loginButton.alpha = 1.0;
                 self.signupButton.alpha = 1.0;
+                self.welcomeText.alpha = 1.0;
                 
                 }, completion: nil);
             didAnimate = true;
@@ -110,15 +114,20 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         var page = pageControl.currentPage;
         var offset = scrollView.contentOffset.x - scrollView.frame.size.width * CGFloat(page);
         offset *= 0.5;
-        if (page < 5) {
+        if (page == 0) {
+//            (scrollView.subviews[page] as WelcomeFirstView).swipeText.frame.origin.x = -offset;
+        } else if (page < 5) {
             (scrollView.subviews[page] as WelcomeView).topImage.frame.origin.x = -offset;
         }
         if (offset < 0 && page > 0) {
-            (scrollView.subviews[page - 1] as WelcomeView).topImage.frame.origin.x = -scrollView.frame.size.width / 2 - offset;
+            if (page == 1) {
+//                (scrollView.subviews[page - 1] as WelcomeFirstView).swipeText.frame.origin.x = -scrollView.frame.size.width / 2 - offset;
+            } else {
+                (scrollView.subviews[page - 1] as WelcomeView).topImage.frame.origin.x = -scrollView.frame.size.width / 2 - offset;
+            }
         } else if (offset > 0 && page < 4){
             (scrollView.subviews[page + 1] as WelcomeView).topImage.frame.origin.x = scrollView.frame.size.width / 2 - offset;
         }
-        
     }
     
     @IBAction func changePage(sender: AnyObject) {
