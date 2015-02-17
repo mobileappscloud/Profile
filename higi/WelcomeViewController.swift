@@ -12,6 +12,7 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var pageTitle: UILabel!
     @IBOutlet weak var pageSubTitle: UILabel!
 
+    @IBOutlet weak var phoneContainer: UIScrollView!
     var firstScreen: WelcomeFirstView!;
     
     var secondScreen, thirdScreen, fourthScreen, fifthScreen: WelcomeView!;
@@ -43,6 +44,20 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
 //        fifthScreen.bottomImage.image = Utility.iphone5Image("welcome_01_bg");
         fifthScreen.topImage.image = Utility.iphone5Image("welcome_05_text");
         
+        var frame = UIScreen.mainScreen().bounds;
+        scrollView.frame = frame;
+        scrollView.contentSize = CGSize(width: 5 * frame.size.width, height: frame.size.height);
+        firstScreen.frame = frame;
+        frame.origin.x += frame.size.width;
+        secondScreen.frame = frame;
+        frame.origin.x += frame.size.width;
+        thirdScreen.frame = frame;
+        frame.origin.x += frame.size.width;
+        fourthScreen.frame = frame;
+        frame.origin.x += frame.size.width;
+        fifthScreen.frame = frame;
+
+        
         scrollView.addSubview(firstScreen);
         scrollView.addSubview(secondScreen);
         scrollView.addSubview(thirdScreen);
@@ -57,42 +72,42 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLayoutSubviews();
         self.navigationController!.navigationBar.hidden = true;
         self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
-        var frame = self.view.frame;
-        scrollView.frame = frame;
-        scrollView.contentSize = CGSize(width: 5 * frame.size.width, height: frame.size.height);
-        firstScreen.frame = frame;
-        frame.origin.x += self.view.frame.size.width;
-        secondScreen.frame = frame;
-        frame.origin.x += self.view.frame.size.width;
-        thirdScreen.frame = frame;
-        frame.origin.x += self.view.frame.size.width;
-        fourthScreen.frame = frame;
-        frame.origin.x += self.view.frame.size.width;
-        fifthScreen.frame = frame;
-        scrollView.layoutSubviews();
-        loginButton.layer.borderColor = Utility.colorFromHexString("#BEBEBE").CGColor;
-        signupButton.layer.borderColor = Utility.colorFromHexString("#4C8823").CGColor;
-        
-        pageControl.frame.origin.y = frame.origin.y + 20;
+//        var frame = self.view.frame;
+//        scrollView.frame = frame;
+//        scrollView.contentSize = CGSize(width: 5 * frame.size.width, height: frame.size.height);
+//        firstScreen.frame = frame;
+//        frame.origin.x += self.view.frame.size.width;
+//        secondScreen.frame = frame;
+//        frame.origin.x += self.view.frame.size.width;
+//        thirdScreen.frame = frame;
+//        frame.origin.x += self.view.frame.size.width;
+//        fourthScreen.frame = frame;
+//        frame.origin.x += self.view.frame.size.width;
+//        fifthScreen.frame = frame;
+//        scrollView.layoutSubviews();
+//        loginButton.layer.borderColor = Utility.colorFromHexString("#BEBEBE").CGColor;
+//        signupButton.layer.borderColor = Utility.colorFromHexString("#4C8823").CGColor;
+//        
+//        pageControl.frame.origin.y = frame.origin.y + 20;
         buttonSeparator.frame.origin.y = signupButton.frame.origin.y - 1;
-        
-        if (!didAnimate) {
-        
-//            firstScreen.bottomImage.alpha = 0;
-            loginButton.alpha = 0;
-            signupButton.alpha = 0;
-            welcomeText.alpha = 0;
-            UIView.animateWithDuration(1.0, delay: 0.0, options: .CurveEaseInOut, animations: {
-                
-//                self.firstScreen.bottomImage.alpha = 1.0;
-                self.loginButton.alpha = 1.0;
-                self.signupButton.alpha = 1.0;
-                self.welcomeText.alpha = 1.0;
-                
-                }, completion: nil);
-            didAnimate = true;
-        }
-        
+//
+//        if (!didAnimate) {
+//        
+////            firstScreen.bottomImage.alpha = 0;
+//            loginButton.alpha = 0;
+//            signupButton.alpha = 0;
+//            welcomeText.alpha = 0;
+//            UIView.animateWithDuration(1.0, delay: 0.0, options: .CurveEaseInOut, animations: {
+//                
+////                self.firstScreen.bottomImage.alpha = 1.0;
+//                self.loginButton.alpha = 1.0;
+//                self.signupButton.alpha = 1.0;
+//                self.welcomeText.alpha = 1.0;
+//                
+//                }, completion: nil);
+//            didAnimate = true;
+//        }
+//        
         
     }
     
@@ -116,6 +131,9 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         offset *= 0.5;
         if (page == 0) {
 //            (scrollView.subviews[page] as WelcomeFirstView).swipeText.frame.origin.x = -offset;
+            UIView.animateWithDuration(0.5, animations: {
+                (scrollView.subviews[page] as WelcomeFirstView).alpha = 0.0;
+            });
         } else if (page < 5) {
             (scrollView.subviews[page] as WelcomeView).topImage.frame.origin.x = -offset;
         }
