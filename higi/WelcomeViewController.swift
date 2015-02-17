@@ -7,6 +7,8 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var signupButton: UIButton!
     
+    @IBOutlet weak var pageSubTitle: UILabel!
+    @IBOutlet weak var pageTitle: UILabel!
     var firstScreen: WelcomeFirstView!;
     
     var secondScreen, thirdScreen, fourthScreen, fifthScreen: WelcomeView!;
@@ -15,6 +17,8 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad();
+        self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
+        
         firstScreen = UINib(nibName: "Welcome", bundle: nil).instantiateWithOwner(self, options: nil)[1] as WelcomeFirstView;
         UIView.animateWithDuration(1.0, delay: 0.0, options: .CurveEaseInOut, animations: {
             
@@ -24,16 +28,16 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         self.automaticallyAdjustsScrollViewInsets = false;
         firstScreen.bottomImage.image = Utility.iphone5Image("welcome_01_bg");
         secondScreen = UINib(nibName: "Welcome", bundle: nil).instantiateWithOwner(self, options: nil)[2] as WelcomeView;
-        secondScreen.bottomImage.image = Utility.iphone5Image("welcome_02_bg");
+        secondScreen.bottomImage.image = Utility.iphone5Image("welcome_01_bg");
         secondScreen.topImage.image = Utility.iphone5Image("welcome_02_text");
         thirdScreen = UINib(nibName: "Welcome", bundle: nil).instantiateWithOwner(self, options: nil)[2] as WelcomeView;
-        thirdScreen.bottomImage.image = Utility.iphone5Image("welcome_03_bg");
+        thirdScreen.bottomImage.image = Utility.iphone5Image("welcome_01_bg");
         thirdScreen.topImage.image = Utility.iphone5Image("welcome_03_text");
         fourthScreen = UINib(nibName: "Welcome", bundle: nil).instantiateWithOwner(self, options: nil)[2] as WelcomeView;
-        fourthScreen.bottomImage.image = Utility.iphone5Image("welcome_04_bg");
+        fourthScreen.bottomImage.image = Utility.iphone5Image("welcome_01_bg");
         fourthScreen.topImage.image = Utility.iphone5Image("welcome_04_text");
         fifthScreen = UINib(nibName: "Welcome", bundle: nil).instantiateWithOwner(self, options: nil)[1] as WelcomeFirstView;
-        fifthScreen.bottomImage.image = Utility.iphone5Image("welcome_05_bg");
+        fifthScreen.bottomImage.image = Utility.iphone5Image("welcome_01_bg");
         fifthScreen.topImage.image = Utility.iphone5Image("welcome_05_text");
         
         scrollView.addSubview(firstScreen);
@@ -41,6 +45,9 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         scrollView.addSubview(thirdScreen);
         scrollView.addSubview(fourthScreen);
         scrollView.addSubview(fifthScreen);
+        
+        pageTitle.text = "";
+        pageSubTitle.text = "";
     }
     
     override func viewDidLayoutSubviews() {
@@ -104,11 +111,8 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
                     }, completion: nil);
                 
         });
-        if (pageControl.currentPage == 1) {
-            self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
-        } else {
-            self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
-        }
+
+        self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
@@ -146,12 +150,37 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         frame.origin.x = frame.size.width * CGFloat(page);
         frame.origin.y = 0;
         
-        scrollView.setContentOffset(frame.origin, animated: true);
-        if (page == 1) {
-            self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
-        } else {
-            self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
+        switch page {
+            case 0:
+                pageTitle.text = "";
+                pageSubTitle.text = "";
+            case 1:
+                pageTitle.text = "Find a higi Station";
+                pageSubTitle.text = "Track your body stats and earn points";
+            case 2:
+                pageTitle.text = "Sync your fitness device";
+                pageSubTitle.text = "Add a device and earn daily points";
+            case 3:
+                pageTitle.text = "Join challenges";
+                pageSubTitle.text = "Push yourself with challenges or compete with friends for sweet prizes";
+            case 4:
+                pageTitle.text = "Track your body stats";
+                pageSubTitle.text = "Keep track of your body stats like blood pressure and weight to see progress";
+            default:
+                let i = 0;
         }
+        
+        let duration = 0.5;
+        pageTitle.alpha = 0;
+        pageSubTitle.alpha = 0;
+        UIView.animateWithDuration(duration, animations: {
+            self.pageTitle.alpha = 1.0
+        });
+        UIView.animateWithDuration(0.5, animations: {
+            self.pageSubTitle.alpha = 1.0
+        });
+
+        scrollView.setContentOffset(frame.origin, animated: true);
     }
     
     @IBAction func gotoLogin(sender: AnyObject) {
