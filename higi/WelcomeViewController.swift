@@ -23,22 +23,22 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         firstScreen = UINib(nibName: "Welcome", bundle: nil).instantiateWithOwner(self, options: nil)[1] as WelcomeFirstView;
         UIView.animateWithDuration(1.0, delay: 0.0, options: .CurveEaseInOut, animations: {
             
-            self.firstScreen.bottomImage.alpha = 1.0;
+//            self.firstScreen.bottomImage.alpha = 1.0;
             
             }, completion: nil);
         self.automaticallyAdjustsScrollViewInsets = false;
-        firstScreen.bottomImage.image = Utility.iphone5Image("welcome_01_bg");
+//        firstScreen.bottomImage.image = Utility.iphone5Image("welcome_01_bg");
         secondScreen = UINib(nibName: "Welcome", bundle: nil).instantiateWithOwner(self, options: nil)[2] as WelcomeView;
-        secondScreen.bottomImage.image = Utility.iphone5Image("welcome_01_bg");
+//        secondScreen.bottomImage.image = Utility.iphone5Image("welcome_01_bg");
         secondScreen.topImage.image = Utility.iphone5Image("welcome_02_text");
         thirdScreen = UINib(nibName: "Welcome", bundle: nil).instantiateWithOwner(self, options: nil)[2] as WelcomeView;
-        thirdScreen.bottomImage.image = Utility.iphone5Image("welcome_01_bg");
+//        thirdScreen.bottomImage.image = Utility.iphone5Image("welcome_01_bg");
         thirdScreen.topImage.image = Utility.iphone5Image("welcome_03_text");
         fourthScreen = UINib(nibName: "Welcome", bundle: nil).instantiateWithOwner(self, options: nil)[2] as WelcomeView;
-        fourthScreen.bottomImage.image = Utility.iphone5Image("welcome_01_bg");
+//        fourthScreen.bottomImage.image = Utility.iphone5Image("welcome_01_bg");
         fourthScreen.topImage.image = Utility.iphone5Image("welcome_04_text");
         fifthScreen = UINib(nibName: "Welcome", bundle: nil).instantiateWithOwner(self, options: nil)[1] as WelcomeFirstView;
-        fifthScreen.bottomImage.image = Utility.iphone5Image("welcome_01_bg");
+//        fifthScreen.bottomImage.image = Utility.iphone5Image("welcome_01_bg");
         fifthScreen.topImage.image = Utility.iphone5Image("welcome_05_text");
         
         scrollView.addSubview(firstScreen);
@@ -47,8 +47,8 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         scrollView.addSubview(fourthScreen);
         scrollView.addSubview(fifthScreen);
         
-        pageTitle.text = "";
-        pageSubTitle.text = "";
+//        pageTitle.text = "";
+//        pageSubTitle.text = "";
     }
     
     override func viewDidLayoutSubviews() {
@@ -71,16 +71,17 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         loginButton.layer.borderColor = Utility.colorFromHexString("#BEBEBE").CGColor;
         signupButton.layer.borderColor = Utility.colorFromHexString("#4C8823").CGColor;
         
+        pageControl.frame.origin.y = frame.origin.y + 20;
         
         if (!didAnimate) {
         
-            firstScreen.bottomImage.alpha = 0;
+//            firstScreen.bottomImage.alpha = 0;
             loginButton.alpha = 0;
             signupButton.alpha = 0;
             
             UIView.animateWithDuration(1.0, delay: 0.0, options: .CurveEaseInOut, animations: {
                 
-                self.firstScreen.bottomImage.alpha = 1.0;
+//                self.firstScreen.bottomImage.alpha = 1.0;
                 self.loginButton.alpha = 1.0;
                 self.signupButton.alpha = 1.0;
                 
