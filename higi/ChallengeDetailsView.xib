@@ -158,6 +158,7 @@
                         <constraint firstItem="eXg-80-4iQ" firstAttribute="bottom" secondItem="rJ4-Tz-Gn1" secondAttribute="bottom" id="th6-Nl-SGY"/>
                         <constraint firstItem="eXg-80-4iQ" firstAttribute="trailing" secondItem="rJ4-Tz-Gn1" secondAttribute="trailing" id="u0D-nj-9jn"/>
                         <constraint firstItem="eXg-80-4iQ" firstAttribute="leading" secondItem="uDa-Lt-ibU" secondAttribute="leading" id="xU5-eo-RyR"/>
+                        <constraint firstAttribute="trailing" secondItem="77J-uP-PXX" secondAttribute="trailing" constant="43" id="yMp-84-Zzu"/>
                     </constraints>
                     <variation key="default">
                         <mask key="constraints">
