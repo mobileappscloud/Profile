@@ -93,14 +93,14 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         let imageMargin:CGFloat = 10;
         let imageWidth = dashboardView.frame.size.width - imageMargin * 2;
         
-        var imageHeight:CGFloat = 120;
+        var imageHeight:CGFloat = 150;
         activityView = UIImageView(frame: CGRect(x: imageMargin, y: yPos, width: imageWidth, height: imageHeight));
         let activityCard = UIImage(named: "todayactivity");
         activityView.image = activityCard;
         dashboardView.addSubview(activityView);
         yPos += imageHeight + imageMargin;
 
-        imageHeight = 180;
+        imageHeight = 150;
         challengeView = UIImageView(frame: CGRect(x: imageMargin, y: yPos, width: imageWidth, height: imageHeight));
         let challengeCard = UIImage(named: "activechallenges");
         challengeView.image = challengeCard;
@@ -114,7 +114,6 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         dashboardView.addSubview(bodyStatsView);
         yPos += imageHeight + imageMargin;
         
-        imageHeight = 180;
         pulseView = UIImageView(frame: CGRect(x: imageMargin, y: yPos, width: imageWidth, height: imageHeight));
         let pulseCard = UIImage(named: "pulse_article");
         pulseView.image = pulseCard;
