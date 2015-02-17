@@ -521,7 +521,9 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             table.participantRowView.addSubview(participantRowView);
         }
         
-        table.termsButton.addTarget(self, action: "termsClick:", forControlEvents: UIControlEvents.TouchUpInside);
+        var termsButton = table.termsButton;
+        
+        termsButton.addTarget(self, action: "termsClick:", forControlEvents: UIControlEvents.TouchUpInside);
         
         var yOffset = rowTextYOffset;
         for winCondition in challenge.winConditions {
@@ -551,6 +553,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         table.scrollEnabled = true;
         table.allowsSelection = false;
         table.showsVerticalScrollIndicator = false;
+        table.headerView.frame.size.height = termsButton.frame.origin.y + termsButton.frame.size.height;
         table.reloadData();
         table.layoutIfNeeded();
         return table;
@@ -672,6 +675,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         var height = detailsTable.prizesContainer.frame.origin.y + prizesHeight + 305;
         var descFrame = detailsTable.descriptionView.frame;
         detailsTable.contentSize.height = max(height, minTableHeight);
+        detailsTable.headerView.frame.size.height = detailsTable.termsButton.frame.origin.y + detailsTable.termsButton.frame.size.height;
         
         if (displayChatterTab && chatterTable != nil) {
             chatterView.frame.size.height = UIScreen.mainScreen().bounds.size.height;

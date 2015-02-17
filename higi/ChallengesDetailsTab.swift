@@ -2,7 +2,7 @@ import Foundation
 
 class ChallengeDetailsTab: UITableView {
     
-    @IBOutlet weak var view: UIView!
+    @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var descriptionText: UILabel!
     @IBOutlet weak var durationText: UILabel!
     @IBOutlet weak var typeText: UILabel!
