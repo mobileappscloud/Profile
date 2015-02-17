@@ -54,9 +54,19 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PFd-04-F5R">
-                    <rect key="frame" x="40" y="248" width="240" height="312"/>
-                </scrollView>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4q6-bB-7EQ">
+                    <rect key="frame" x="40" y="248" width="240" height="280"/>
+                    <subviews>
+                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PFd-04-F5R">
+                            <rect key="frame" x="0.0" y="30" width="240" height="250"/>
+                            <color key="backgroundColor" red="0.90588235289999997" green="0.90588235289999997" blue="0.90588235289999997" alpha="1" colorSpace="calibratedRGB"/>
+                        </scrollView>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="iphone.png" translatesAutoresizingMaskIntoConstraints="NO" id="zeb-Ve-jcT">
+                            <rect key="frame" x="0.0" y="0.0" width="240" height="280"/>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
                 <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fKl-Ed-4Yf">
                     <rect key="frame" x="160" y="528" width="160" height="40"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -152,6 +162,7 @@
         </view>
     </objects>
     <resources>
+        <image name="iphone.png" width="619" height="763"/>
         <image name="welcome_01_logo.png" width="1080" height="1700"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
