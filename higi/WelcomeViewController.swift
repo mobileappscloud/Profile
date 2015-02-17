@@ -54,7 +54,7 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLayoutSubviews();
         self.navigationController!.navigationBar.hidden = true;
         self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
-        var frame = self.view.frame
+        var frame = UIScreen.mainScreen().bounds;
         scrollView.frame = frame;
         scrollView.contentSize = CGSize(width: 5 * frame.size.width, height: frame.size.height);
         firstScreen.frame = frame;
@@ -93,49 +93,26 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
         self.navigationController!.navigationBar.hidden = true;
-        firstScreen.swipeArrow.layer.removeAllAnimations();
-        firstScreen.swipeText.alpha = 0.0;
-        firstScreen.swipeArrow.alpha = 0.0;
-        UIView.animateWithDuration(1.0, delay: 2.0, options: .CurveEaseInOut, animations: {
-            
-            self.firstScreen.swipeText.alpha = 1.0;
-            self.firstScreen.swipeArrow.alpha = 1.0;
-            
-            }, completion: {(arg: Bool) in
-                
-                UIView.animateWithDuration(1.0, delay: 0.0, options: .CurveEaseInOut | .Repeat, animations: {
-                    
-                    self.firstScreen.swipeArrow.frame.origin.x = -20;
-                    self.firstScreen.swipeArrow.alpha = 0.0;
-                    
-                    }, completion: nil);
-                
-        });
-
         self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         var page = lround(Double(scrollView.contentOffset.x / scrollView.frame.size.width));
-        pageControl.currentPage = page;
-        changePage(pageControl);
+        if (page != pageControl.currentPage) {
+            pageControl.currentPage = page;
+            changePage(pageControl);
+        }
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView!) {
         var page = pageControl.currentPage;
         var offset = scrollView.contentOffset.x - scrollView.frame.size.width * CGFloat(page);
         offset *= 0.5;
-        if (page == 0) {
-            (scrollView.subviews[page] as WelcomeFirstView).swipeText.frame.origin.x = -offset;
-        } else if (page < 5) {
+        if (page < 5) {
             (scrollView.subviews[page] as WelcomeView).topImage.frame.origin.x = -offset;
         }
         if (offset < 0 && page > 0) {
-            if (page == 1) {
-                (scrollView.subviews[page - 1] as WelcomeFirstView).swipeText.frame.origin.x = -scrollView.frame.size.width / 2 - offset;
-            } else {
-                (scrollView.subviews[page - 1] as WelcomeView).topImage.frame.origin.x = -scrollView.frame.size.width / 2 - offset;
-            }
+            (scrollView.subviews[page - 1] as WelcomeView).topImage.frame.origin.x = -scrollView.frame.size.width / 2 - offset;
         } else if (offset > 0 && page < 4){
             (scrollView.subviews[page + 1] as WelcomeView).topImage.frame.origin.x = scrollView.frame.size.width / 2 - offset;
         }
