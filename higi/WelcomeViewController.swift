@@ -12,7 +12,6 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var pageTitle: UILabel!
     @IBOutlet weak var pageSubTitle: UILabel!
 
-    
     @IBOutlet weak var phoneContainer: UIView!
     @IBOutlet weak var phoneScrollView: UIScrollView!
     
@@ -23,24 +22,17 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
     var bodyStatsView:UIImageView!;
     var pulseView:UIImageView!;
     
-    let animDuration = 0.5;
     var firstScreen: WelcomeFirstView!;
-    
     var secondScreen, thirdScreen, fourthScreen, fifthScreen: WelcomeView!;
     
     var didAnimate = false;
-    
+    let animDuration = 0.5;
     override func viewDidLoad() {
         super.viewDidLoad();
         self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
         
-        firstScreen = UINib(nibName: "Welcome", bundle: nil).instantiateWithOwner(self, options: nil)[1] as WelcomeFirstView;
-        UIView.animateWithDuration(1.0, delay: 0.0, options: .CurveEaseInOut, animations: {
-            
-//            self.firstScreen.bottomImage.alpha = 1.0;
-            
-            }, completion: nil);
         self.automaticallyAdjustsScrollViewInsets = false;
+        firstScreen = UINib(nibName: "Welcome", bundle: nil).instantiateWithOwner(self, options: nil)[1] as WelcomeFirstView;
         secondScreen = UINib(nibName: "Welcome", bundle: nil).instantiateWithOwner(self, options: nil)[2] as WelcomeView;
         thirdScreen = UINib(nibName: "Welcome", bundle: nil).instantiateWithOwner(self, options: nil)[2] as WelcomeView;
         fourthScreen = UINib(nibName: "Welcome", bundle: nil).instantiateWithOwner(self, options: nil)[2] as WelcomeView;
@@ -146,7 +138,6 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLayoutSubviews();
         self.navigationController!.navigationBar.hidden = true;
         self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
-
         buttonSeparator.frame.origin.y = signupButton.frame.origin.y - 1;
     }
     
@@ -204,7 +195,6 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
             case 1:
                 mapAlpha = 1;
                 dashboardAlpha = 0;
-                
                 pageTitle.text = "Find a higi Station";
                 pageSubTitle.text = "Track your body stats and earn points";
             case 2:
@@ -238,17 +228,15 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
             self.pageSubTitle.alpha = 1.0;
         });
 
-        UIView.animateWithDuration(0.5, animations: {
+        UIView.animateWithDuration(animDuration, animations: {
             self.phoneContainer.alpha = phoneAlpha;
         });
         UIView.animateWithDuration(animDuration, animations: {
             self.mapView.alpha = mapAlpha;
         });
-        if (dashboardView.alpha != dashboardAlpha) {
-            UIView.animateWithDuration(animDuration, animations: {
-                self.dashboardView.alpha = dashboardAlpha;
-            });
-        }
+        UIView.animateWithDuration(animDuration, animations: {
+            self.dashboardView.alpha = dashboardAlpha;
+        });
         activityView.alpha = activityAlpha;
         challengeView.alpha = challengesAlpha;
         bodyStatsView.alpha = bodyStatsAlpha;
