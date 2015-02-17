@@ -301,6 +301,7 @@
 		D1A9C6F71A93E5280008084B /* iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D1A9C6F21A93E5280008084B /* iphone.png */; };
 		D1A9C6F81A93E5280008084B /* iphonemap.png in Resources */ = {isa = PBXBuildFile; fileRef = D1A9C6F31A93E5280008084B /* iphonemap.png */; };
 		D1A9C6F91A93E5280008084B /* pulse_article.png in Resources */ = {isa = PBXBuildFile; fileRef = D1A9C6F41A93E5280008084B /* pulse_article.png */; };
+		D1A9C6FB1A93FA150008084B /* todayactivity.png in Resources */ = {isa = PBXBuildFile; fileRef = D1A9C6FA1A93FA150008084B /* todayactivity.png */; };
 		D1B6D6981A8D09FD0006F80C /* ChatterInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B6D6971A8D09FD0006F80C /* ChatterInputViewController.swift */; };
 		D1BA13451A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1BA13441A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib */; };
 		D1BA13471A8D056900E1AFE9 /* ChatterInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1BA13461A8D056900E1AFE9 /* ChatterInputView.xib */; };
@@ -645,6 +646,7 @@
 		D1A9C6F21A93E5280008084B /* iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iphone.png; path = images/iphone.png; sourceTree = "<group>"; };
 		D1A9C6F31A93E5280008084B /* iphonemap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iphonemap.png; path = images/iphonemap.png; sourceTree = "<group>"; };
 		D1A9C6F41A93E5280008084B /* pulse_article.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pulse_article.png; path = images/pulse_article.png; sourceTree = "<group>"; };
+		D1A9C6FA1A93FA150008084B /* todayactivity.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = todayactivity.png; path = images/todayactivity.png; sourceTree = "<group>"; };
 		D1B6D6971A8D09FD0006F80C /* ChatterInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatterInputViewController.swift; sourceTree = "<group>"; };
 		D1BA13441A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailsParticipantIconView.xib; sourceTree = "<group>"; };
 		D1BA13461A8D056900E1AFE9 /* ChatterInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatterInputView.xib; sourceTree = "<group>"; };
@@ -1181,6 +1183,7 @@
 		8F6266CC197F130A00145EDB /* Welcome */ = {
 			isa = PBXGroup;
 			children = (
+				D1A9C6FA1A93FA150008084B /* todayactivity.png */,
 				D1A9C6F01A93E5280008084B /* activechallenges.png */,
 				D1A9C6F11A93E5280008084B /* bodystats.png */,
 				D1A9C6F21A93E5280008084B /* iphone.png */,
@@ -1592,6 +1595,7 @@
 				8F5E7FD8199BCD52009067E5 /* graph_sincelastarrow_nochange_invert.png in Resources */,
 				8F2B7E4F198C3058009DE89A /* oc_findastation.png in Resources */,
 				D149E9491A7845A200FBAA15 /* ChallengeDetailsChatterRow.xib in Resources */,
+				D1A9C6FB1A93FA150008084B /* todayactivity.png in Resources */,
 				8F5C38E21981901600F51543 /* weight.png in Resources */,
 				8FD73CC11990291300BACCB2 /* nodata_map.png in Resources */,
 				8FCD2D7B19E874FD00AC5A82 /* noResults.png in Resources */,

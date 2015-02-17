@@ -12,7 +12,16 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var pageTitle: UILabel!
     @IBOutlet weak var pageSubTitle: UILabel!
 
-    @IBOutlet weak var phoneContainer: UIScrollView!
+    
+    @IBOutlet weak var phoneContainer: UIView!
+    @IBOutlet weak var phoneScrollView: UIScrollView!
+    
+    var mapView:UIImageView!;
+    var dashboardView:UIView!;
+    var activityView:UIImageView!;
+    var challengeView:UIImageView!;
+    var bodyStatsView:UIImageView!;
+    var pulseView:UIImageView!;
     
     let animDuration = 0.5;
     var firstScreen: WelcomeFirstView!;
@@ -32,20 +41,11 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
             
             }, completion: nil);
         self.automaticallyAdjustsScrollViewInsets = false;
-//        firstScreen.bottomImage.image = Utility.iphone5Image("welcome_01_bg");
         secondScreen = UINib(nibName: "Welcome", bundle: nil).instantiateWithOwner(self, options: nil)[2] as WelcomeView;
-//        secondScreen.bottomImage.image = Utility.iphone5Image("welcome_01_bg");
-        secondScreen.topImage.image = Utility.iphone5Image("welcome_02_text");
         thirdScreen = UINib(nibName: "Welcome", bundle: nil).instantiateWithOwner(self, options: nil)[2] as WelcomeView;
-//        thirdScreen.bottomImage.image = Utility.iphone5Image("welcome_01_bg");
-        thirdScreen.topImage.image = Utility.iphone5Image("welcome_03_text");
         fourthScreen = UINib(nibName: "Welcome", bundle: nil).instantiateWithOwner(self, options: nil)[2] as WelcomeView;
-//        fourthScreen.bottomImage.image = Utility.iphone5Image("welcome_01_bg");
-        fourthScreen.topImage.image = Utility.iphone5Image("welcome_04_text");
-        fifthScreen = UINib(nibName: "Welcome", bundle: nil).instantiateWithOwner(self, options: nil)[1] as WelcomeFirstView;
-//        fifthScreen.bottomImage.image = Utility.iphone5Image("welcome_01_bg");
-        fifthScreen.topImage.image = Utility.iphone5Image("welcome_05_text");
-        
+        fifthScreen = UINib(nibName: "Welcome", bundle: nil).instantiateWithOwner(self, options: nil)[2] as WelcomeView;
+
         var frame = UIScreen.mainScreen().bounds;
         scrollView.frame = frame;
         scrollView.contentSize = CGSize(width: 5 * frame.size.width, height: frame.size.height);
@@ -72,60 +72,73 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
             loginButton.alpha = 0;
             signupButton.alpha = 0;
             welcomeText.alpha = 0;
+            buttonSeparator.alpha = 0;
             UIView.animateWithDuration(animDuration, delay: 0.0, options: .CurveEaseInOut, animations: {
                 self.loginButton.alpha = 1.0;
                 self.signupButton.alpha = 1.0;
                 self.welcomeText.alpha = 1.0;
-
+                self.buttonSeparator.alpha = 1.0;
                 }, completion: nil);
             didAnimate = true;
         }
+        let phoneWidth = phoneScrollView.frame.size.width;
+        let phoneHeight = phoneScrollView.frame.size.height;
+
+        mapView = UIImageView(frame: CGRect(x: 0, y: 2, width: phoneScrollView.frame.size.width, height: phoneScrollView.frame.size.height));
+        let map = UIImage(named: "iphonemap");
+        mapView.image = map;
         
-//        let image = UIView(frame: CGRect(
-//        phoneContainer.addSubview(image);
+        dashboardView = UIView(frame: CGRect(x: 0, y: 7, width: phoneScrollView.frame.size.width, height: phoneScrollView.frame.size.height - 5));
+        var yPos:CGFloat = 2;
+        let imageMargin:CGFloat = 10;
+        let imageWidth = dashboardView.frame.size.width - imageMargin * 2;
+        
+        var imageHeight:CGFloat = 120;
+        activityView = UIImageView(frame: CGRect(x: imageMargin, y: yPos, width: imageWidth, height: imageHeight));
+        let activityCard = UIImage(named: "todayactivity");
+        activityView.image = activityCard;
+        dashboardView.addSubview(activityView);
+        yPos += imageHeight + imageMargin;
+
+        imageHeight = 180;
+        challengeView = UIImageView(frame: CGRect(x: imageMargin, y: yPos, width: imageWidth, height: imageHeight));
+        let challengeCard = UIImage(named: "activechallenges");
+        challengeView.image = challengeCard;
+        dashboardView.addSubview(challengeView);
+        yPos += imageHeight + imageMargin;
+        
+        imageHeight = 180;
+        bodyStatsView = UIImageView(frame: CGRect(x: imageMargin, y: yPos, width: imageWidth, height: imageHeight));
+        let bodyStatsCard = UIImage(named: "bodystats");
+        bodyStatsView.image = bodyStatsCard;
+        dashboardView.addSubview(bodyStatsView);
+        yPos += imageHeight + imageMargin;
+        
+        imageHeight = 180;
+        pulseView = UIImageView(frame: CGRect(x: imageMargin, y: yPos, width: imageWidth, height: imageHeight));
+        let pulseCard = UIImage(named: "pulse_article");
+        pulseView.image = pulseCard;
+        dashboardView.addSubview(pulseView);
+        
+        phoneContainer.alpha = 0;
+        dashboardView.alpha = 0;
+        
+        phoneScrollView.addSubview(mapView);
+        phoneScrollView.addSubview(dashboardView);
+        let leftGestureRecognizer = UISwipeGestureRecognizer(target: self, action: "swipeLeft:");
+        leftGestureRecognizer.direction = UISwipeGestureRecognizerDirection.Left;
+        let rightGestureRecognizer = UISwipeGestureRecognizer(target: self, action: "swipeRight:");
+        rightGestureRecognizer.direction = UISwipeGestureRecognizerDirection.Right;
+        phoneScrollView.addGestureRecognizer(leftGestureRecognizer);
+        phoneScrollView.addGestureRecognizer(rightGestureRecognizer);
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews();
         self.navigationController!.navigationBar.hidden = true;
         self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
-//        var frame = self.view.frame;
-//        scrollView.frame = frame;
-//        scrollView.contentSize = CGSize(width: 5 * frame.size.width, height: frame.size.height);
-//        firstScreen.frame = frame;
-//        frame.origin.x += self.view.frame.size.width;
-//        secondScreen.frame = frame;
-//        frame.origin.x += self.view.frame.size.width;
-//        thirdScreen.frame = frame;
-//        frame.origin.x += self.view.frame.size.width;
-//        fourthScreen.frame = frame;
-//        frame.origin.x += self.view.frame.size.width;
-//        fifthScreen.frame = frame;
-//        scrollView.layoutSubviews();
-//        loginButton.layer.borderColor = Utility.colorFromHexString("#BEBEBE").CGColor;
-//        signupButton.layer.borderColor = Utility.colorFromHexString("#4C8823").CGColor;
-//        
-//        pageControl.frame.origin.y = frame.origin.y + 20;
+
         buttonSeparator.frame.origin.y = signupButton.frame.origin.y - 1;
-//
-//        if (!didAnimate) {
-//        
-////            firstScreen.bottomImage.alpha = 0;
-//            loginButton.alpha = 0;
-//            signupButton.alpha = 0;
-//            welcomeText.alpha = 0;
-//            UIView.animateWithDuration(1.0, delay: 0.0, options: .CurveEaseInOut, animations: {
-//                
-////                self.firstScreen.bottomImage.alpha = 1.0;
-//                self.loginButton.alpha = 1.0;
-//                self.signupButton.alpha = 1.0;
-//                self.welcomeText.alpha = 1.0;
-//                
-//                }, completion: nil);
-//            didAnimate = true;
-//        }
-//        
-        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -148,27 +161,18 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    func scrollViewDidScroll(scrollView: UIScrollView!) {
-        var page = pageControl.currentPage;
-        var offset = scrollView.contentOffset.x - scrollView.frame.size.width * CGFloat(page);
-        offset *= 0.5;
-//        if (page == 0) {
-////            (scrollView.subviews[page] as WelcomeFirstView).swipeText.frame.origin.x = -offset;
-////            UIView.animateWithDuration(0.5, animations: {
-////                (scrollView.subviews[page] as WelcomeFirstView).alpha = 0.0;
-////            });
-//        } else if (page < 5) {
-//            (scrollView.subviews[page] as WelcomeView).topImage.frame.origin.x = -offset;
-//        }
-//        if (offset < 0 && page > 0) {
-//            if (page == 1) {
-////                (scrollView.subviews[page - 1] as WelcomeFirstView).swipeText.frame.origin.x = -scrollView.frame.size.width / 2 - offset;
-//            } else {
-//                (scrollView.subviews[page - 1] as WelcomeView).topImage.frame.origin.x = -scrollView.frame.size.width / 2 - offset;
-//            }
-//        } else if (offset > 0 && page < 4){
-//            (scrollView.subviews[page + 1] as WelcomeView).topImage.frame.origin.x = scrollView.frame.size.width / 2 - offset;
-//        }
+    func swipeLeft(sender: AnyObject) {
+        if (pageControl.currentPage > 0) {
+            pageControl.currentPage = pageControl.currentPage - 1;
+            changePage(sender);
+        }
+    }
+    
+    func swipeRight(sender: AnyObject) {
+        if (pageControl.currentPage < 5) {
+            pageControl.currentPage = pageControl.currentPage + 1;
+            changePage(sender);
+        }
     }
     
     @IBAction func changePage(sender: AnyObject) {
@@ -179,34 +183,74 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         frame.origin.x = frame.size.width * CGFloat(page);
         frame.origin.y = 0;
         
+        var phoneAlpha:CGFloat = 1.0;
+        var mapAlpha:CGFloat = 0;
+        var dashboardAlpha:CGFloat = 0;
+        var activityAlpha:CGFloat = 0.3;
+        var challengesAlpha:CGFloat = 0.3;
+        var bodyStatsAlpha:CGFloat = 0.3;
+        let pulseAlpha:CGFloat = 0.3;
         switch page {
             case 0:
+                phoneAlpha = 0;
+                UIView.animateWithDuration(0.5, animations: {
+                    self.phoneContainer.alpha = 0;
+                });
                 pageTitle.text = "";
                 pageSubTitle.text = "";
             case 1:
+                mapAlpha = 1;
+                dashboardAlpha = 0;
+                
                 pageTitle.text = "Find a higi Station";
                 pageSubTitle.text = "Track your body stats and earn points";
             case 2:
+                dashboardAlpha = 1;
+                activityAlpha = 1;
+                phoneScrollView.setContentOffset(CGPoint(x: 0,y: 0), animated: true);
                 pageTitle.text = "Sync your fitness device";
                 pageSubTitle.text = "Add a device and earn daily points";
             case 3:
+                dashboardAlpha = 1;
+                challengesAlpha = 1;
+                phoneScrollView.setContentOffset(CGPoint(x: 0, y: challengeView.frame.origin.y - 20), animated: true);
                 pageTitle.text = "Join challenges";
                 pageSubTitle.text = "Push yourself with challenges or compete with friends for sweet prizes";
             case 4:
+                dashboardAlpha = 1;
+                bodyStatsAlpha = 1;
+                phoneScrollView.setContentOffset(CGPoint(x: 0, y: bodyStatsView.frame.origin.y - 20), animated: true);
                 pageTitle.text = "Track your body stats";
                 pageSubTitle.text = "Keep track of your body stats like blood pressure and weight to see progress";
             default:
                 let i = 0;
         }
+
         pageTitle.alpha = 0;
         pageSubTitle.alpha = 0;
         UIView.animateWithDuration(animDuration, animations: {
-            self.pageTitle.alpha = 1.0
+            self.pageTitle.alpha = 1.0;
         });
         UIView.animateWithDuration(animDuration, animations: {
-            self.pageSubTitle.alpha = 1.0
+            self.pageSubTitle.alpha = 1.0;
         });
 
+        UIView.animateWithDuration(0.5, animations: {
+            self.phoneContainer.alpha = phoneAlpha;
+        });
+        UIView.animateWithDuration(animDuration, animations: {
+            self.mapView.alpha = mapAlpha;
+        });
+        if (dashboardView.alpha != dashboardAlpha) {
+            UIView.animateWithDuration(animDuration, animations: {
+                self.dashboardView.alpha = dashboardAlpha;
+            });
+        }
+        activityView.alpha = activityAlpha;
+        challengeView.alpha = challengesAlpha;
+        bodyStatsView.alpha = bodyStatsAlpha;
+        pulseView.alpha = pulseAlpha;
+        
         scrollView.setContentOffset(frame.origin, animated: true);
     }
     

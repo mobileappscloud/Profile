@@ -12,7 +12,8 @@
                 <outlet property="pageControl" destination="dhs-Uw-8UU" id="Nie-Ig-ltu"/>
                 <outlet property="pageSubTitle" destination="kzA-2s-4jL" id="M48-fg-9vb"/>
                 <outlet property="pageTitle" destination="ePL-qi-dzS" id="Enr-zd-0MP"/>
-                <outlet property="phoneContainer" destination="PFd-04-F5R" id="vtn-lz-0OL"/>
+                <outlet property="phoneContainer" destination="4q6-bB-7EQ" id="Vhq-x9-YKj"/>
+                <outlet property="phoneScrollView" destination="PFd-04-F5R" id="4Np-h2-efQ"/>
                 <outlet property="scrollView" destination="Fud-1H-ojK" id="ZnH-4v-i3J"/>
                 <outlet property="signupButton" destination="hEu-Ce-PoV" id="ab0-ZF-kja"/>
                 <outlet property="view" destination="iN0-l3-epB" id="u5U-DD-QKA"/>
@@ -38,10 +39,6 @@
                         <action selector="changePage:" destination="-1" eventType="valueChanged" id="r3V-Zm-X31"/>
                     </connections>
                 </pageControl>
-                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ufj-qC-5L8">
-                    <rect key="frame" x="-1" y="527" width="321" height="1"/>
-                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ePL-qi-dzS">
                     <rect key="frame" x="8" y="70" width="304" height="21"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
@@ -55,17 +52,21 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4q6-bB-7EQ">
-                    <rect key="frame" x="40" y="248" width="240" height="280"/>
+                    <rect key="frame" x="40" y="206" width="240" height="322"/>
                     <subviews>
-                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PFd-04-F5R">
-                            <rect key="frame" x="0.0" y="30" width="240" height="250"/>
+                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PFd-04-F5R">
+                            <rect key="frame" x="14" y="64" width="212" height="258"/>
                             <color key="backgroundColor" red="0.90588235289999997" green="0.90588235289999997" blue="0.90588235289999997" alpha="1" colorSpace="calibratedRGB"/>
                         </scrollView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="iphone.png" translatesAutoresizingMaskIntoConstraints="NO" id="zeb-Ve-jcT">
-                            <rect key="frame" x="0.0" y="0.0" width="240" height="280"/>
+                            <rect key="frame" x="0.0" y="0.0" width="240" height="322"/>
                         </imageView>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ufj-qC-5L8">
+                    <rect key="frame" x="-1" y="527" width="321" height="1"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fKl-Ed-4Yf">
                     <rect key="frame" x="160" y="528" width="160" height="40"/>
@@ -100,8 +101,6 @@
             <constraints>
                 <constraint firstItem="ePL-qi-dzS" firstAttribute="top" secondItem="dhs-Uw-8UU" secondAttribute="bottom" constant="13" id="DBL-PP-KD5"/>
                 <constraint firstItem="fKl-Ed-4Yf" firstAttribute="leading" secondItem="hEu-Ce-PoV" secondAttribute="trailing" id="GQH-8F-okK"/>
-                <constraint firstItem="Ufj-qC-5L8" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="-1" id="Iko-rg-xOd"/>
-                <constraint firstAttribute="trailing" secondItem="Ufj-qC-5L8" secondAttribute="trailing" id="K46-sB-weY"/>
                 <constraint firstAttribute="trailing" secondItem="ePL-qi-dzS" secondAttribute="trailing" constant="8" id="Nr5-v2-KIf"/>
                 <constraint firstItem="ePL-qi-dzS" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="QhV-ca-Eif"/>
                 <constraint firstItem="kzA-2s-4jL" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="24" id="R7K-wI-S7d"/>
@@ -112,7 +111,6 @@
                 <constraint firstAttribute="bottom" secondItem="hEu-Ce-PoV" secondAttribute="bottom" id="sMi-TX-c4v"/>
                 <constraint firstItem="kzA-2s-4jL" firstAttribute="top" secondItem="ePL-qi-dzS" secondAttribute="bottom" constant="9" id="t6O-kN-oFr"/>
                 <constraint firstItem="fKl-Ed-4Yf" firstAttribute="leading" secondItem="hEu-Ce-PoV" secondAttribute="trailing" id="wZT-3O-kgL"/>
-                <constraint firstAttribute="bottom" secondItem="Ufj-qC-5L8" secondAttribute="bottom" constant="40" id="zqt-os-uSg"/>
             </constraints>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
