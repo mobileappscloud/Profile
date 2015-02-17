@@ -7,8 +7,9 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var signupButton: UIButton!
     
-    @IBOutlet weak var pageSubTitle: UILabel!
     @IBOutlet weak var pageTitle: UILabel!
+    @IBOutlet weak var pageSubTitle: UILabel!
+
     var firstScreen: WelcomeFirstView!;
     
     var secondScreen, thirdScreen, fourthScreen, fifthScreen: WelcomeView!;
