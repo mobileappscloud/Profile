@@ -164,14 +164,14 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
     func swipeLeft(sender: AnyObject) {
         if (pageControl.currentPage > 0) {
             pageControl.currentPage = pageControl.currentPage - 1;
-            changePage(sender);
+            changePage(pageControl);
         }
     }
     
     func swipeRight(sender: AnyObject) {
         if (pageControl.currentPage < 5) {
             pageControl.currentPage = pageControl.currentPage + 1;
-            changePage(sender);
+            changePage(pageControl);
         }
     }
     
