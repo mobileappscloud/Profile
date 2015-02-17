@@ -94,20 +94,20 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         let imageWidth = dashboardView.frame.size.width - imageMargin * 2;
         
         var imageHeight:CGFloat = 150;
-        activityView = UIImageView(frame: CGRect(x: imageMargin, y: yPos, width: imageWidth, height: imageHeight));
+        activityView = UIImageView(frame: CGRect(x: imageMargin, y: yPos, width: imageWidth, height: 150));
         let activityCard = UIImage(named: "todayactivity");
         activityView.image = activityCard;
         dashboardView.addSubview(activityView);
         yPos += imageHeight + imageMargin;
 
-        imageHeight = 150;
+        imageHeight = 142;
         challengeView = UIImageView(frame: CGRect(x: imageMargin, y: yPos, width: imageWidth, height: imageHeight));
         let challengeCard = UIImage(named: "activechallenges");
         challengeView.image = challengeCard;
         dashboardView.addSubview(challengeView);
         yPos += imageHeight + imageMargin;
         
-        imageHeight = 180;
+        imageHeight = 172;
         bodyStatsView = UIImageView(frame: CGRect(x: imageMargin, y: yPos, width: imageWidth, height: imageHeight));
         let bodyStatsCard = UIImage(named: "bodystats");
         bodyStatsView.image = bodyStatsCard;
@@ -124,12 +124,22 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         
         phoneScrollView.addSubview(mapView);
         phoneScrollView.addSubview(dashboardView);
-        let leftGestureRecognizer = UISwipeGestureRecognizer(target: self, action: "swipeLeft:");
-        leftGestureRecognizer.direction = UISwipeGestureRecognizerDirection.Left;
-        let rightGestureRecognizer = UISwipeGestureRecognizer(target: self, action: "swipeRight:");
-        rightGestureRecognizer.direction = UISwipeGestureRecognizerDirection.Right;
-        phoneScrollView.addGestureRecognizer(leftGestureRecognizer);
-        phoneScrollView.addGestureRecognizer(rightGestureRecognizer);
+        
+        let leftPhoneSwipeRecognizer = UISwipeGestureRecognizer(target: self, action: "swipeLeft:");
+        leftPhoneSwipeRecognizer.direction = UISwipeGestureRecognizerDirection.Left;
+        let rightPhoneSwipeRecognizer = UISwipeGestureRecognizer(target: self, action: "swipeRight:");
+        rightPhoneSwipeRecognizer.direction = UISwipeGestureRecognizerDirection.Right;
+
+        phoneContainer.addGestureRecognizer(leftPhoneSwipeRecognizer);
+        phoneContainer.addGestureRecognizer(rightPhoneSwipeRecognizer);
+        
+        let leftScrollViewSwipeRecognizer = UISwipeGestureRecognizer(target: self, action: "swipeLeft:");
+        leftScrollViewSwipeRecognizer.direction = UISwipeGestureRecognizerDirection.Left;
+        let rightScrollViewSwipeRecognizer = UISwipeGestureRecognizer(target: self, action: "swipeRight:");
+        rightScrollViewSwipeRecognizer.direction = UISwipeGestureRecognizerDirection.Right;
+
+        scrollView.addGestureRecognizer(leftScrollViewSwipeRecognizer);
+        scrollView.addGestureRecognizer(rightScrollViewSwipeRecognizer);
     }
     
     override func viewDidLayoutSubviews() {
@@ -145,31 +155,19 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         self.navigationController!.navigationBar.hidden = true;
         self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
     }
-    
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        var page = lround(Double(scrollView.contentOffset.x / scrollView.frame.size.width));
-        if (page != pageControl.currentPage) {
-            (self.scrollView.subviews[0] as WelcomeFirstView).alpha = 0;
-            if (page == 0) {
-                UIView.animateWithDuration(0.5, animations: {
-                    (self.scrollView.subviews[0] as WelcomeFirstView).alpha = 1.0;
-                });
-            }
-            pageControl.currentPage = page;
-            changePage(pageControl);
-        }
-    }
-    
+
     func swipeLeft(sender: AnyObject) {
-        if (pageControl.currentPage > 0) {
-            pageControl.currentPage = pageControl.currentPage - 1;
+        let a = pageControl.currentPage;
+        if (pageControl.currentPage < 4) {
+            pageControl.currentPage = pageControl.currentPage + 1;
             changePage(pageControl);
         }
     }
     
     func swipeRight(sender: AnyObject) {
-        if (pageControl.currentPage < 5) {
-            pageControl.currentPage = pageControl.currentPage + 1;
+        let a = pageControl.currentPage;
+        if (pageControl.currentPage > 0) {
+            pageControl.currentPage = pageControl.currentPage - 1;
             changePage(pageControl);
         }
     }
@@ -191,6 +189,12 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         let pulseAlpha:CGFloat = 0.3;
         switch page {
             case 0:
+                (self.scrollView.subviews[0] as WelcomeFirstView).alpha = 0;
+                if (page == 0) {
+                    UIView.animateWithDuration(0.5, animations: {
+                        (self.scrollView.subviews[0] as WelcomeFirstView).alpha = 1.0;
+                    });
+                }
                 phoneAlpha = 0;
                 UIView.animateWithDuration(0.5, animations: {
                     self.phoneContainer.alpha = 0;
@@ -250,7 +254,7 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         bodyStatsView.alpha = bodyStatsAlpha;
         pulseView.alpha = pulseAlpha;
         
-        scrollView.setContentOffset(frame.origin, animated: true);
+        scrollView.setContentOffset(frame.origin, animated: false);
     }
     
     @IBAction func gotoLogin(sender: AnyObject) {
