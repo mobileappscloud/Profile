@@ -468,10 +468,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             let actionButtonMargin:CGFloat = 8;
             actionButtonY = UIScreen.mainScreen().bounds.size.height - actionButtonWidth - actionButtonMargin;
             actionButton = UIButton(frame: CGRect(x: UIScreen.mainScreen().bounds.size.width - (actionButtonWidth + actionButtonMargin), y: actionButtonY, width: actionButtonWidth, height: actionButtonWidth));
-            actionButton.setTitle("+", forState: UIControlState.Normal);
-            actionButton.titleLabel?.center = actionButton.center;
-            actionButton.titleLabel?.textColor = UIColor.whiteColor();
-            actionButton.backgroundColor = Utility.colorFromHexString("#76C043");
+            actionButton.setImage(UIImage(named: "chatterbutton_normal"), forState: UIControlState.Normal);
+            actionButton.setImage(UIImage(named: "chatterbutton_pressed"), forState: UIControlState.Selected);
             actionButton.layer.cornerRadius = actionButtonWidth / 2;
             actionButton.addTarget(self, action: "gotoChatterInput:", forControlEvents: UIControlEvents.TouchUpInside);
             
