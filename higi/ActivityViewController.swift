@@ -20,6 +20,8 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var legendButton: UIImageView!
     @IBOutlet weak var pointsMeterContainer: UIView!
     
+    @IBOutlet weak var headerContainer: UIView!
+    @IBOutlet weak var activityContainer: UIView!
     var pointsMeter: PointsMeter!;
     
     var activitiesByDay: [[HigiActivity]] = [], todaysActivities: [HigiActivity] = [];
@@ -32,6 +34,17 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
     
     var dayGraph, weekGraph, monthGraph: ActivityGraphHostingView!;
 
+    var meterContainerHeight:CGFloat!;
+    var activityContainerOriginY:CGFloat!;
+    var headerContainerHeight:CGFloat!;
+    var legendButtonOriginY:CGFloat!;
+    var legendSize:CGFloat!;
+    
+    var legendRowHeight:CGFloat = 25;
+    var legendDeviceRows:[ActivityLegend] = [];
+    
+    var legendView:UIView!;
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         self.title = "Activity";
@@ -44,6 +57,13 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
         }
         tableView.rowHeight = 63;
         createGraphs();
+        
+        meterContainerHeight = meterContainer.frame.size.height;
+        activityContainerOriginY = activityContainer.frame.origin.y;
+        headerContainerHeight = headerContainer.frame.size.height;
+        legendButtonOriginY = legendButton.frame.origin.y;
+        
+        addLegendDevices();
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -215,6 +235,7 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
             dayBuckets[deviceName] = dayArray;
             if (dayComponents.day == 0) {
                 todaysActivities.append(activity);
+                legendDeviceRows.append(ActivityLegend.instanceFromNib(activity.device, points: activity.points));
             }
         }
         
@@ -260,15 +281,45 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
         graphContainer.addSubview(monthGraph);
     }
     
-    
-    @IBAction func legendButtonTapped(sender: AnyObject) {
-        if (legendIsOpen) {
-            legendButton.image = UIImage(named: "oc_dropdownmenu_down");
-        } else {
-            legendButton.image = UIImage(named: "oc_dropdownmenu_up");
+    func addLegendDevices() {
+        legendView = UIView(frame: CGRect(x: 0, y: legendButtonOriginY, width: legendButton.frame.size.width, height: (legendRowHeight) * CGFloat(legendDeviceRows.count)));
+        var yPos:CGFloat = 2;
+        for row in legendDeviceRows {
+            row.frame.origin.y = yPos;
+            yPos += legendRowHeight + 2;
+            legendView.addSubview(row);
         }
-        legendIsOpen = !legendIsOpen;
+        legendView.hidden = true;
+        meterContainer.addSubview(legendView);
+        
     }
     
-    
+    @IBAction func legendButtonTapped(sender: AnyObject) {
+        let animationDuration = 0.5;
+        
+        if (legendIsOpen) {
+            legendButton.image = UIImage(named: "oc_dropdownmenu_down");
+            UIView.animateWithDuration(animationDuration, delay: 0.0, options: .CurveEaseInOut, animations: {
+                self.meterContainer.frame.size.height = self.meterContainerHeight;
+                self.activityContainer.frame.origin.y = self.activityContainerOriginY;
+                self.headerContainer.frame.size.height = self.headerContainerHeight;
+                self.legendButton.frame.origin.y = self.legendButtonOriginY;
+                }, completion: nil);
+        } else {
+            legendButton.image = UIImage(named: "oc_dropdownmenu_up");
+            UIView.animateWithDuration(animationDuration, delay: 0.0, options: .CurveEaseInOut, animations: {
+                self.meterContainer.frame.size.height = self.meterContainerHeight + self.legendView.frame.size.height;
+                self.activityContainer.frame.origin.y = self.activityContainerOriginY + self.legendView.frame.size.height;
+                self.headerContainer.frame.size.height = self.headerContainerHeight + self.legendView.frame.size.height;
+                self.legendButton.frame.origin.y = self.legendButtonOriginY + self.legendView.frame.size.height;
+                }, completion: nil);
+        }
+        legendView.hidden = legendIsOpen;
+        
+        tableView.beginUpdates();
+        tableView.tableHeaderView = tableView.tableHeaderView!;
+        tableView.endUpdates();
+        
+        legendIsOpen = !legendIsOpen;
+    }
 }
