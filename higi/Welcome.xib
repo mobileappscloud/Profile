@@ -15,6 +15,7 @@
                 <outlet property="phoneContainer" destination="4q6-bB-7EQ" id="Vhq-x9-YKj"/>
                 <outlet property="phoneScrollView" destination="PFd-04-F5R" id="4Np-h2-efQ"/>
                 <outlet property="signupButton" destination="hEu-Ce-PoV" id="ab0-ZF-kja"/>
+                <outlet property="stationView" destination="cl1-BU-hFJ" id="Dct-Wu-Xlm"/>
                 <outlet property="view" destination="iN0-l3-epB" id="u5U-DD-QKA"/>
                 <outlet property="welcomeSubTitle" destination="naM-lB-Iug" id="Z4w-il-bZ8"/>
                 <outlet property="welcomeText" destination="Umu-q6-W9Q" id="nBR-Ka-8IM"/>
@@ -39,7 +40,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Higi makes it fun to keep tabs on your health and get rewarded for it. " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="naM-lB-Iug">
-                            <rect key="frame" x="24" y="340" width="272" height="40"/>
+                            <rect key="frame" x="24" y="330" width="272" height="40"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
@@ -67,6 +68,9 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="higistation.png" translatesAutoresizingMaskIntoConstraints="NO" id="cl1-BU-hFJ">
+                    <rect key="frame" x="0.0" y="227" width="320" height="300"/>
+                </imageView>
                 <view clearsContextBeforeDrawing="NO" alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4q6-bB-7EQ">
                     <rect key="frame" x="40" y="165" width="240" height="363"/>
                     <subviews>
@@ -134,6 +138,7 @@
         </view>
     </objects>
     <resources>
+        <image name="higistation.png" width="650" height="610"/>
         <image name="iphone.png" width="619" height="763"/>
         <image name="welcome_01_logo.png" width="1080" height="1700"/>
     </resources>

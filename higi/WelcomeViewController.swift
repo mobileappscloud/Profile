@@ -16,7 +16,7 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var welcomeText: UILabel!
     @IBOutlet weak var welcomeSubTitle: UILabel!
     @IBOutlet weak var welcomeView: UIView!
-    var stationView:UIImageView!;
+    @IBOutlet weak var stationView: UIImageView!
     var dashboardView:UIView!;
     var activityView:UIImageView!;
     var challengeView:UIImageView!;
@@ -50,10 +50,6 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         }
         let phoneWidth = phoneScrollView.frame.size.width;
         let phoneHeight = phoneScrollView.frame.size.height;
-
-        stationView = UIImageView(frame: CGRect(x: 0, y: 2, width: 225, height: phoneScrollView.frame.size.height));
-        let station = UIImage(named: "higistation");
-        stationView.image = station;
         
         dashboardView = UIView(frame: CGRect(x: 0, y: 2, width: phoneScrollView.frame.size.width, height: phoneScrollView.frame.size.height - 5));
         var yPos:CGFloat = 2;
@@ -200,6 +196,9 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
             if (phoneAlpha == 0) {
                 self.phoneContainer.alpha = phoneAlpha;
             }
+            if (stationAlpha == 0) {
+                self.stationView.alpha = stationAlpha;
+            }
             }, completion: {
                 finished in
                 self.pageTitle.text = title;
@@ -214,6 +213,9 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
                     self.pulseView.alpha = pulseAlpha;
                     if (welcomeAlpha == 1.0) {
                         self.welcomeView.alpha = welcomeAlpha;
+                    }
+                    if (stationAlpha == 1.0) {
+                        self.stationView.alpha = stationAlpha;
                     }
                     if (phoneAlpha == 1.0) {
                         self.phoneContainer.alpha = phoneAlpha;
