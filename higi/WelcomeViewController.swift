@@ -14,8 +14,9 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var phoneScrollView: UIScrollView!
     
     @IBOutlet weak var welcomeText: UILabel!
+    @IBOutlet weak var welcomeSubTitle: UILabel!
     @IBOutlet weak var welcomeView: UIView!
-    var mapView:UIImageView!;
+    var stationView:UIImageView!;
     var dashboardView:UIView!;
     var activityView:UIImageView!;
     var challengeView:UIImageView!;
@@ -37,20 +38,22 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
             signupButton.alpha = 0;
             buttonSeparator.alpha = 0;
             welcomeText.alpha = 0;
+            welcomeSubTitle.alpha = 0;
             UIView.animateWithDuration(animDuration, delay: 0.0, options: .CurveEaseInOut, animations: {
                 self.loginButton.alpha = 1.0;
                 self.signupButton.alpha = 1.0;
                 self.buttonSeparator.alpha = 1.0;
                 self.welcomeText.alpha = 1.0;
+                self.welcomeSubTitle.alpha = 1.0;
                 }, completion: nil);
             didAnimate = true;
         }
         let phoneWidth = phoneScrollView.frame.size.width;
         let phoneHeight = phoneScrollView.frame.size.height;
 
-        mapView = UIImageView(frame: CGRect(x: 0, y: 2, width: phoneScrollView.frame.size.width, height: phoneScrollView.frame.size.height));
-        let map = UIImage(named: "iphonemap");
-        mapView.image = map;
+        stationView = UIImageView(frame: CGRect(x: 0, y: 2, width: 225, height: phoneScrollView.frame.size.height));
+        let station = UIImage(named: "higistation");
+        stationView.image = station;
         
         dashboardView = UIView(frame: CGRect(x: 0, y: 2, width: phoneScrollView.frame.size.width, height: phoneScrollView.frame.size.height - 5));
         var yPos:CGFloat = 2;
@@ -86,7 +89,7 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         phoneContainer.alpha = 0;
         dashboardView.alpha = 0;
         
-        phoneScrollView.addSubview(mapView);
+        phoneContainer.addSubview(stationView);
         phoneScrollView.addSubview(dashboardView);
         
         let leftScrollViewSwipeRecognizer = UISwipeGestureRecognizer(target: self, action: "swipeLeft:");
@@ -133,7 +136,7 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         frame.origin.y = 0;
         
         var phoneAlpha:CGFloat = 1.0;
-        var mapAlpha:CGFloat = 0;
+        var stationAlpha:CGFloat = 0;
         var dashboardAlpha:CGFloat = 0;
         var welcomeAlpha:CGFloat = 0;
         
@@ -154,25 +157,26 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
                     self.phoneContainer.alpha = 0;
                     }, completion: nil);
             case 1:
-                //map
-                mapAlpha = 1;
-                dashboardAlpha = 0;
+                //station
+                stationAlpha = 1;
                 activityAlpha = 1;
-                title = "Find a higi Station";
-                subTitle = "Track your body stats and earn points";
+                dashboardAlpha = 0;
+                phoneAlpha = 0;
+                title = "Get Started";
+                subTitle = "Visit a higi Station at your local pharmacy or connect a fitness tracker here in the app.";
             case 2:
                 //activity
                 dashboardAlpha = 1;
                 activityAlpha = 1;
-                title = "Sync your fitness device";
-                subTitle = "Add a device and earn daily points";
+                title = "Earn Points";
+                subTitle = "Rack up the points with each check of your vitals and for your steps and workouts.";
                 phoneScrollView.setContentOffset(CGPoint(x: 0,y: 0), animated: true);
             case 3:
                 //challenges
                 dashboardAlpha = 1;
                 challengesAlpha = 1;
-                title = "Join challenges";
-                subTitle = "Push yourself with challenges or compete with friends for sweet prizes";
+                title = "Chart Your Progress";
+                subTitle = "Easily track trends and changes in your body stats you receive from a higi Station.";
                 phoneScrollView.setContentOffset(CGPoint(x: 0, y: challengeView.frame.origin.y - 20), animated: true);
             case 4:
                 //body stats
@@ -188,7 +192,7 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         UIView.animateWithDuration(animDuration, delay: 0.0, options: .CurveEaseInOut, animations: {
             self.pageTitle.alpha = 0.0;
             self.pageSubTitle.alpha = 0.0;
-            self.mapView.alpha = mapAlpha;
+            self.stationView.alpha = stationAlpha;
             self.dashboardView.alpha = dashboardAlpha;
             if (welcomeAlpha == 0) {
                 self.welcomeView.alpha = welcomeAlpha;

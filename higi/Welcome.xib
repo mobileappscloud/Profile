@@ -16,6 +16,7 @@
                 <outlet property="phoneScrollView" destination="PFd-04-F5R" id="4Np-h2-efQ"/>
                 <outlet property="signupButton" destination="hEu-Ce-PoV" id="ab0-ZF-kja"/>
                 <outlet property="view" destination="iN0-l3-epB" id="u5U-DD-QKA"/>
+                <outlet property="welcomeSubTitle" destination="naM-lB-Iug" id="Z4w-il-bZ8"/>
                 <outlet property="welcomeText" destination="Umu-q6-W9Q" id="nBR-Ka-8IM"/>
                 <outlet property="welcomeView" destination="lHv-ke-vf0" id="7GW-sz-N6g"/>
             </connections>
@@ -34,6 +35,12 @@
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Welcome" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Umu-q6-W9Q">
                             <rect key="frame" x="8" y="300" width="304" height="21"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Higi makes it fun to keep tabs on your health and get rewarded for it. " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="naM-lB-Iug">
+                            <rect key="frame" x="24" y="340" width="272" height="40"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -77,14 +84,14 @@
                     <rect key="frame" x="-1" y="527" width="321" height="1"/>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fKl-Ed-4Yf">
+                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fKl-Ed-4Yf" userLabel="Log in">
                     <rect key="frame" x="160" y="528" width="160" height="40"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="A8G-j6-wCh"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                    <state key="normal" title="I'm a higi user">
+                    <state key="normal" title="Log in">
                         <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
