@@ -64,6 +64,9 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
         legendButtonOriginY = legendButton.frame.origin.y;
         
         addLegendDevices();
+        if (legendDeviceRows.count == 0) {
+            legendButton.hidden = true;
+        }
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -292,10 +295,11 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
         legendView.hidden = true;
         meterContainer.addSubview(legendView);
         
+        meterContainer.bringSubviewToFront(legendButton);
     }
     
     @IBAction func legendButtonTapped(sender: AnyObject) {
-        let animationDuration = 0.5;
+        let animationDuration = 0.25;
         
         if (legendIsOpen) {
             legendButton.image = UIImage(named: "oc_dropdownmenu_down");
@@ -304,8 +308,11 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
                 self.activityContainer.frame.origin.y = self.activityContainerOriginY;
                 self.headerContainer.frame.size.height = self.headerContainerHeight;
                 self.legendButton.frame.origin.y = self.legendButtonOriginY;
-                }, completion: nil);
+                }, completion: { success in
+                    self.legendView.hidden = true;
+            });
         } else {
+            legendView.hidden = false;
             legendButton.image = UIImage(named: "oc_dropdownmenu_up");
             UIView.animateWithDuration(animationDuration, delay: 0.0, options: .CurveEaseInOut, animations: {
                 self.meterContainer.frame.size.height = self.meterContainerHeight + self.legendView.frame.size.height;
@@ -314,7 +321,6 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
                 self.legendButton.frame.origin.y = self.legendButtonOriginY + self.legendView.frame.size.height;
                 }, completion: nil);
         }
-        legendView.hidden = legendIsOpen;
         
         tableView.beginUpdates();
         tableView.tableHeaderView = tableView.tableHeaderView!;
