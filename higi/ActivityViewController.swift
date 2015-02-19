@@ -19,6 +19,8 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var meterContainer: UIView!
     @IBOutlet weak var legendButton: UIImageView!
     @IBOutlet weak var pointsMeterContainer: UIView!
+    @IBOutlet weak var noPoints: UIImageView!
+    @IBOutlet weak var bigBlankState: UIImageView!
     
     @IBOutlet weak var headerContainer: UIView!
     @IBOutlet weak var activityContainer: UIView!
@@ -54,6 +56,10 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
         populateActivities();
         if (todaysActivities.count > 0) {
             pointsMeter.activities = todaysActivities;
+        } else {
+            pointsMeter.hidden = true;
+            noPoints.hidden = false;
+            legendButton.hidden = true;
         }
         tableView.rowHeight = 63;
         createGraphs();
@@ -181,6 +187,7 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
             toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon"), forState: UIControlState.Normal);
             toggleButton!.alpha = 1;
             self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0, alpha: 1)];
+            self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
         }
     }
     
@@ -270,20 +277,26 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
     }
     
     func createGraphs() {
-        dayGraph = ActivityGraphHostingView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: graphContainer.frame.size), points: dayBuckets);
-        weekGraph = ActivityGraphHostingView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: graphContainer.frame.size), points: weekBuckets);
-        monthGraph = ActivityGraphHostingView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: graphContainer.frame.size), points: monthBuckets);
         
-        weekGraph.hidden = true;
-        monthGraph.hidden = true;
-        
-        dayGraph.setupGraph(ActivityGraphHostingView.Mode.DAY);
-        weekGraph.setupGraph(ActivityGraphHostingView.Mode.WEEK);
-        monthGraph.setupGraph(ActivityGraphHostingView.Mode.MONTH);
+        if (SessionController.Instance.activities.count > 0) {
+            dayGraph = ActivityGraphHostingView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: graphContainer.frame.size), points: dayBuckets);
+            weekGraph = ActivityGraphHostingView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: graphContainer.frame.size), points: weekBuckets);
+            monthGraph = ActivityGraphHostingView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: graphContainer.frame.size), points: monthBuckets);
+            
+            weekGraph.hidden = true;
+            monthGraph.hidden = true;
+            
+            dayGraph.setupGraph(ActivityGraphHostingView.Mode.DAY);
+            weekGraph.setupGraph(ActivityGraphHostingView.Mode.WEEK);
+            monthGraph.setupGraph(ActivityGraphHostingView.Mode.MONTH);
 
-        graphContainer.addSubview(dayGraph);
-        graphContainer.addSubview(weekGraph);
-        graphContainer.addSubview(monthGraph);
+            graphContainer.addSubview(dayGraph);
+            graphContainer.addSubview(weekGraph);
+            graphContainer.addSubview(monthGraph);
+        } else {
+            tableView.hidden = true;
+            bigBlankState.hidden = false;
+        }
     }
     
     func addLegendDevices() {
