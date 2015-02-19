@@ -170,14 +170,14 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
                 //challenges
                 dashboardAlpha = 1;
                 challengesAlpha = 1;
-                title = "Chart Your Progress";
-                subTitle = "Easily track trends and changes in your body stats you receive from a higi Station";
+                title = "Friendly Competition";
+                subTitle = "Compete in challenges with other higi members for prizes and bragging rights";
                 phoneScrollView.setContentOffset(CGPoint(x: 0, y: challengeView.frame.origin.y - 20), animated: true);
             case 4:
                 //body stats
                 dashboardAlpha = 1;
                 bodyStatsAlpha = 1;
-                title = "Chart Your Progress";
+                title = "Follow Your Progress";
                 subTitle = "Easily track trends and changes in your body stats you receive from a higi Station";
                 phoneScrollView.setContentOffset(CGPoint(x: 0, y: bodyStatsView.frame.origin.y - 20), animated: true);
             default:
