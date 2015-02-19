@@ -158,27 +158,27 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
                 dashboardAlpha = 0;
                 phoneAlpha = 0;
                 title = "Get Started";
-                subTitle = "Visit a higi Station at your local pharmacy or connect a fitness tracker here in the app.";
+                subTitle = "Visit a higi Station at your local pharmacy or connect a fitness tracker here in the app";
             case 2:
                 //activity
                 dashboardAlpha = 1;
                 activityAlpha = 1;
                 title = "Earn Points";
-                subTitle = "Rack up the points with each check of your vitals and for your steps and workouts.";
+                subTitle = "Rack up the points with each check of your vitals and for your steps and workouts";
                 phoneScrollView.setContentOffset(CGPoint(x: 0,y: 0), animated: true);
             case 3:
                 //challenges
                 dashboardAlpha = 1;
                 challengesAlpha = 1;
                 title = "Chart Your Progress";
-                subTitle = "Easily track trends and changes in your body stats you receive from a higi Station.";
+                subTitle = "Easily track trends and changes in your body stats you receive from a higi Station";
                 phoneScrollView.setContentOffset(CGPoint(x: 0, y: challengeView.frame.origin.y - 20), animated: true);
             case 4:
                 //body stats
                 dashboardAlpha = 1;
                 bodyStatsAlpha = 1;
-                title = "Track your body stats";
-                subTitle = "Keep track of your body stats like blood pressure and weight to see progress";
+                title = "Chart Your Progress";
+                subTitle = "Easily track trends and changes in your body stats you receive from a higi Station";
                 phoneScrollView.setContentOffset(CGPoint(x: 0, y: bodyStatsView.frame.origin.y - 20), animated: true);
             default:
                 let i = 0;
