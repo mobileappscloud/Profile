@@ -56,29 +56,34 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         let imageMargin:CGFloat = 10;
         let imageWidth = dashboardView.frame.size.width;
         
-        var imageHeight:CGFloat = 150;
-        activityView = UIImageView(frame: CGRect(x: 0, y: yPos, width: imageWidth, height: 150));
         let activityCard = UIImage(named: "todayspoints");
+        var imageHeight = scaledHeightFromWidth(activityCard!, viewWidth: imageWidth);
+        activityView = UIImageView(frame: CGRect(x: 0, y: yPos, width: imageWidth, height: imageHeight));
+        activityView.contentMode = UIViewContentMode.ScaleAspectFit;
         activityView.image = activityCard;
         dashboardView.addSubview(activityView);
         yPos += imageHeight + imageMargin;
 
-        imageHeight = 142;
-        challengeView = UIImageView(frame: CGRect(x: 0, y: yPos, width: imageWidth, height: imageHeight));
         let challengeCard = UIImage(named: "activechallenges");
+        imageHeight = scaledHeightFromWidth(challengeCard!, viewWidth: imageWidth);
+        challengeView = UIImageView(frame: CGRect(x: 0, y: yPos, width: imageWidth, height: imageHeight));
+        challengeView.contentMode = UIViewContentMode.ScaleAspectFit;
         challengeView.image = challengeCard;
         dashboardView.addSubview(challengeView);
         yPos += imageHeight + imageMargin;
         
-        imageHeight = 172;
-        bodyStatsView = UIImageView(frame: CGRect(x: 0, y: yPos, width: imageWidth, height: imageHeight));
         let bodyStatsCard = UIImage(named: "bodystats");
+        imageHeight = scaledHeightFromWidth(bodyStatsCard!, viewWidth: imageWidth);
+        bodyStatsView = UIImageView(frame: CGRect(x: 0, y: yPos, width: imageWidth, height: imageHeight));
+        bodyStatsView.contentMode = UIViewContentMode.ScaleAspectFit;
         bodyStatsView.image = bodyStatsCard;
         dashboardView.addSubview(bodyStatsView);
         yPos += imageHeight + imageMargin;
         
-        pulseView = UIImageView(frame: CGRect(x: 0, y: yPos, width: imageWidth, height: imageHeight));
         let pulseCard = UIImage(named: "pulse_article");
+        imageHeight = scaledHeightFromWidth(pulseCard!, viewWidth: imageWidth);
+        pulseView = UIImageView(frame: CGRect(x: 0, y: yPos, width: imageWidth, height: imageHeight));
+        pulseView.contentMode = UIViewContentMode.ScaleAspectFit;
         pulseView.image = pulseCard;
         dashboardView.addSubview(pulseView);
         
@@ -94,6 +99,12 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         self.view.addGestureRecognizer(leftScrollViewSwipeRecognizer);
         self.view.addGestureRecognizer(rightScrollViewSwipeRecognizer);
         
+    }
+    
+    func scaledHeightFromWidth(image: UIImage, viewWidth: CGFloat) -> CGFloat {
+        var size = image.size;
+        var ratio = viewWidth / size.width;
+        return size.height * ratio;
     }
     
     override func viewDidLayoutSubviews() {

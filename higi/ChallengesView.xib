@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChallengesViewController" customModule="higi" customModuleProvider="target">
             <connections>
+                <outlet property="blankState" destination="kML-RK-oWB" id="5ae-fQ-gXv"/>
                 <outlet property="pager" destination="TM9-Eb-dnu" id="VKU-qA-tIQ"/>
                 <outlet property="scrollView" destination="Yrk-O0-ijV" id="qea-LR-cvh"/>
                 <outlet property="view" destination="iN0-l3-epB" id="q14-rk-5Lv"/>
@@ -33,6 +34,9 @@
                         <outlet property="delegate" destination="-1" id="lBW-wb-4Ae"/>
                     </connections>
                 </scrollView>
+                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="activitypageblankstate.png" translatesAutoresizingMaskIntoConstraints="NO" id="kML-RK-oWB">
+                    <rect key="frame" x="40" y="60" width="240" height="272"/>
+                </imageView>
             </subviews>
             <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -46,6 +50,7 @@
         </view>
     </objects>
     <resources>
+        <image name="activitypageblankstate.png" width="1080" height="1225"/>
         <image name="banner_nologo.png" width="1080" height="491"/>
     </resources>
 </document>

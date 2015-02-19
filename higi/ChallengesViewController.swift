@@ -4,6 +4,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var headerImage: UIImageView!
     
+    @IBOutlet weak var blankState: UIImageView!
     var activeTable: UITableView?;
     var upcomingTable: UITableView?;
     var availableTable: UITableView?;
@@ -44,74 +45,80 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         var session = SessionController.Instance;
         let challengeName = challenge != nil ? challenge!.name : "";
         var challengeIndex = -1;
-        for challenge:HigiChallenge in session.challenges {
-            switch(challenge.userStatus) {
-            case "current":
-                activeChallenges.append(challenge);
-                pageDisplayMaster[0] = true;
-                challengeIndex = challengeName == challenge.name ? 0 : challengeIndex;
-            case "upcoming":
-                upcomingChallenges.append(challenge);
-                pageDisplayMaster[1] = true;
-                challengeIndex = challengeName == challenge.name ? 1 : challengeIndex;
-            case "public":
-                availableChallenges.append(challenge);
-                pageDisplayMaster[2] = true;
-                challengeIndex = challengeName == challenge.name ? 2 : challengeIndex;
-            case "invited":
-                if (challenge.entryFee == 0) {
-                    invitedChallenges.append(challenge);
-                    pageDisplayMaster[3] = true;
-                    challengeIndex = challengeName == challenge.name ? 3 : challengeIndex;
-                }
-            default:
-                var i = 0;
-            }
-        }
-        for index in 0...pageDisplayMaster.count-1 {
-            if (pageDisplayMaster[index]) {
-                switch(index) {
-                case 0:
-                    activeTable = addTableView(totalPages);
-                    scrollView.addSubview(activeTable!);
-                    pageTitles.append("Active Challenges");
-                    currentTable = activeTable;
-                case 1:
-                    upcomingTable = addTableView(totalPages);
-                    scrollView.addSubview(upcomingTable!);
-                    pageTitles.append("Upcoming Challenges");
-                    if (currentTable == nil) {
-                        currentTable = upcomingTable;
-                    }
-                case 2:
-                    availableTable = addTableView(totalPages);
-                    scrollView.addSubview(availableTable!);
-                    pageTitles.append("Available Challenges");
-                    if (currentTable == nil) {
-                        currentTable = availableTable;
-                    }
-                case 3:
-                    invitedTable = addTableView(totalPages);
-                    scrollView.addSubview(invitedTable!);
-                    pageTitles.append("Invited Challenges");
-                    if (currentTable == nil) {
-                        currentTable = invitedTable;
+        
+        if (session.challenges.count > 0) {
+            for challenge:HigiChallenge in session.challenges {
+                switch(challenge.userStatus) {
+                case "current":
+                    activeChallenges.append(challenge);
+                    pageDisplayMaster[0] = true;
+                    challengeIndex = challengeName == challenge.name ? 0 : challengeIndex;
+                case "upcoming":
+                    upcomingChallenges.append(challenge);
+                    pageDisplayMaster[1] = true;
+                    challengeIndex = challengeName == challenge.name ? 1 : challengeIndex;
+                case "public":
+                    availableChallenges.append(challenge);
+                    pageDisplayMaster[2] = true;
+                    challengeIndex = challengeName == challenge.name ? 2 : challengeIndex;
+                case "invited":
+                    if (challenge.entryFee == 0) {
+                        invitedChallenges.append(challenge);
+                        pageDisplayMaster[3] = true;
+                        challengeIndex = challengeName == challenge.name ? 3 : challengeIndex;
                     }
                 default:
                     var i = 0;
                 }
-                totalPages++;
             }
+            for index in 0...pageDisplayMaster.count-1 {
+                if (pageDisplayMaster[index]) {
+                    switch(index) {
+                    case 0:
+                        activeTable = addTableView(totalPages);
+                        scrollView.addSubview(activeTable!);
+                        pageTitles.append("Active Challenges");
+                        currentTable = activeTable;
+                    case 1:
+                        upcomingTable = addTableView(totalPages);
+                        scrollView.addSubview(upcomingTable!);
+                        pageTitles.append("Upcoming Challenges");
+                        if (currentTable == nil) {
+                            currentTable = upcomingTable;
+                        }
+                    case 2:
+                        availableTable = addTableView(totalPages);
+                        scrollView.addSubview(availableTable!);
+                        pageTitles.append("Available Challenges");
+                        if (currentTable == nil) {
+                            currentTable = availableTable;
+                        }
+                    case 3:
+                        invitedTable = addTableView(totalPages);
+                        scrollView.addSubview(invitedTable!);
+                        pageTitles.append("Invited Challenges");
+                        if (currentTable == nil) {
+                            currentTable = invitedTable;
+                        }
+                    default:
+                        var i = 0;
+                    }
+                    totalPages++;
+                }
+            }
+            if (challenge != nil) {
+                pager.currentPage = actualTableIndex(challengeIndex);
+                changePage(pager);
+                challenge = nil;
+            }
+            if (pageTitles.count > 0) {
+                title = pageTitles[currentPage];
+            }
+            scrollView.contentSize = CGSize(width: scrollView.frame.size.width * CGFloat(totalPages), height: scrollView.frame.size.height);
+            
+        } else {
+            blankState.hidden = false;
         }
-        if (challenge != nil) {
-            pager.currentPage = actualTableIndex(challengeIndex);
-            changePage(pager);
-            challenge = nil;
-        }
-        if (pageTitles.count > 0) {
-            title = pageTitles[currentPage];
-        }
-        scrollView.contentSize = CGSize(width: scrollView.frame.size.width * CGFloat(totalPages), height: scrollView.frame.size.height);
         pager.numberOfPages = totalPages;
     }
     
@@ -130,7 +137,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         if (currentTable != nil) {
             var scrollY = currentTable.contentOffset.y;
             if (scrollY >= 0) {
-                // headerImage.frame.origin.y = -scrollY / 2;
+//                self.headerImage.frame.origin.y = -scrollY / 2;
                 var alpha = min(scrollY / 75, 1);
                 self.fakeNavBar.alpha = alpha;
                 self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0 - alpha, alpha: 1.0)];
