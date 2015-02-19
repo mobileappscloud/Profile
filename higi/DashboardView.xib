@@ -283,7 +283,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="btn_action_black.png" translatesAutoresizingMaskIntoConstraints="NO" id="IIG-nh-f5X">
-                            <rect key="frame" x="292" y="180" width="20" height="20"/>
+                            <rect key="frame" x="292" y="183" width="20" height="20"/>
                         </imageView>
                     </subviews>
                 </view>
