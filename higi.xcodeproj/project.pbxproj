@@ -1334,6 +1334,8 @@
 				8FFB035819FEAF2C0036228C /* ActivityView.xib */,
 				8FEF6F3D1A6EB437001EF8A6 /* PointsMeterView.xib */,
 				8FEF6F3F1A6EB638001EF8A6 /* PointsMeter.swift */,
+				D10BA0241A9540D200DB22A3 /* ActivityLegendView.xib */,
+				D10BA0261A9541FF00DB22A3 /* ActivityLegend.swift */,
 			);
 			name = Activity;
 			sourceTree = "<group>";
@@ -1372,6 +1374,8 @@
 		D1FC09931A83DE600049B5C0 /* Challenge Details */ = {
 			isa = PBXGroup;
 			children = (
+				D1A9C6FC1A951D0D0008084B /* chatterbutton_normal.png */,
+				D1A9C6FD1A951D0D0008084B /* chatterbutton_pressed.png */,
 				D1FC09941A83DE960049B5C0 /* team_icon.png */,
 				D164D3751A7C19A600300F35 /* chat_bubble_green.png */,
 				D101757A1A79693C00CA32DC /* chat_bubble.png */,
@@ -1485,6 +1489,7 @@
 				8F5F91891A7193E80042D87C /* challengewidgetblankstate.png in Resources */,
 				8FDCE1C61988072C006428C3 /* btn_close_reminder.png in Resources */,
 				8F02A13419AE2CBB002FF73E /* dashboard2@2x.png in Resources */,
+				D1A9C6FF1A951D0D0008084B /* chatterbutton_pressed.png in Resources */,
 				8F5E7FC9199BC74E009067E5 /* CheckinCardView.xib in Resources */,
 				8F02A13019AE2CBB002FF73E /* dashboard_background@2x.png in Resources */,
 				8FD73CBB1990280C00BACCB2 /* map_circleicon.png in Resources */,
@@ -1569,6 +1574,7 @@
 				D1EEDB981A660F2B0012EFD3 /* ui_chatter.png in Resources */,
 				D1EEDBA31A66E4B10012EFD3 /* ChallengeLeaderboardRow.xib in Resources */,
 				8FFB034D19FEA2440036228C /* oc_challenges.png in Resources */,
+				D1A9C6FE1A951D0D0008084B /* chatterbutton_normal.png in Resources */,
 				8FF851C3194F7DE2005C33C6 /* Config-qa.plist in Resources */,
 				8F5C38D119818BA900F51543 /* gauge3_obese.png in Resources */,
 				8F02A11F19AE2BF6002FF73E /* btn_back_black.png in Resources */,
@@ -1637,6 +1643,7 @@
 				8FFB034C19FEA2440036228C /* oc_challenges_active.png in Resources */,
 				8FFB035919FEAF2C0036228C /* ActivityView.xib in Resources */,
 				D1E1FF081A76C2DB00C8951C /* ChallengeProgressLegendRow.xib in Resources */,
+				D10BA0251A9540D200DB22A3 /* ActivityLegendView.xib in Resources */,
 				8FE056E5198FDC5F00C81208 /* SettingsView.xib in Resources */,
 				8F5C38CD19818BA900F51543 /* gauge2_atrisk.png in Resources */,
 				8F6266AF197EC8E200145EDB /* BodyStatsLand.xib in Resources */,
@@ -1750,6 +1757,7 @@
 				8FDA6DA619A4038F00244D5F /* TermsViewController.swift in Sources */,
 				D1B6D6981A8D09FD0006F80C /* ChatterInputViewController.swift in Sources */,
 				D149E9471A7822D900FBAA15 /* ChallengeDetailsPrize.swift in Sources */,
+				D10BA0271A9541FF00DB22A3 /* ActivityLegend.swift in Sources */,
 				8FE056E9198FDCA600C81208 /* FindStationViewController.swift in Sources */,
 				2BBDBA561A12AC2C005A6815 /* CompetitiveChallengeView.swift in Sources */,
 				8F6A24311951E5D80094B73C /* ApiUtility.swift in Sources */,
