@@ -270,7 +270,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         if (Int(startDate!.timeIntervalSinceNow) > 0) {
             let days = Int(startDate!.timeIntervalSinceNow / 60 / 60 / 24) + 1;
             let s = days == 1 ? "" : "s";
-            dateDisplay = "Starts in \(days) day\(s)";
+            dateDisplay = "Starts in \(days) day\(s)!";
         } else if (endDate != nil) {
             var formatter = NSDateFormatter();
             formatter.dateFormat = "yyyyMMdd";
@@ -279,12 +279,14 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             } else if (Int(endDate!.timeIntervalSinceNow) > 0) {
                 let days = Int(endDate!.timeIntervalSinceNow / 60 / 60 / 24) + 1;
                 let s = days == 1 ? "" : "s";
-                dateDisplay = "\(days) day\(s) left";
+                dateDisplay = "\(days) day\(s) left!";
             } else if (Int(endDate!.timeIntervalSinceNow) < 0) {
                 dateDisplay = "Challenge finished!";
             }
         } else {
-            dateDisplay = "";
+            let days = -Int(startDate!.timeIntervalSinceNow / 60 / 60 / 24) + 1;
+            let s = days == 1 ? "" : "s";
+            dateDisplay = "Started \(days) day\(s) ago!";
         }
         return dateDisplay;
     }
@@ -498,11 +500,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         let firstWinCondition = challenge.winConditions[0];
         
         table.descriptionText.text = challenge.shortDescription.stringByDecodingHTMLEntities();
-        if (challenge.endDate != nil) {
-            table.durationText.text = setDateRangeHelper(challenge.startDate, endDate: challenge.endDate);
-        } else {
-            table.durationText.text = "Never ends!";
-        }
+        table.durationText.text = setDateRangeHelper(challenge.startDate, endDate: challenge.endDate);
         table.typeText.text = "\(goalTypeDisplayHelper(firstWinCondition.goal.type.description, winnerType: firstWinCondition.winnerType)). \(limitDisplayHelper(challenge.dailyLimit, metric: challenge.metric))";
         
         let teamCount = challenge.teams != nil ? challenge.teams.count : 0;
@@ -559,10 +557,14 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         return table;
     }
     
-    func setDateRangeHelper(startDate: NSDate, endDate: NSDate) -> String {
+    func setDateRangeHelper(startDate: NSDate, endDate: NSDate!) -> String {
         var dateFormatter = NSDateFormatter();
         dateFormatter.dateFormat = "MMM. dd, YYYY"
-        return "\(dateFormatter.stringFromDate(startDate)) - \(dateFormatter.stringFromDate(endDate))";
+        if (endDate != nil) {
+            return "\(dateFormatter.stringFromDate(startDate)) - \(dateFormatter.stringFromDate(endDate))";
+        } else {
+            return "\(dateFormatter.stringFromDate(startDate)) - No end date";
+        }
     }
     
     func goalTypeDisplayHelper(goalType: String, winnerType: String) -> String {

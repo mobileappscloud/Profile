@@ -66,7 +66,7 @@ class ChallengeInvitationView: UIView {
             formatter.dateFormat = "MMM d, ''yy";
             dateRange = "\(formatter.stringFromDate(startDate)) - \(formatter.stringFromDate(endDate!))";
         } else {
-            dateRange = "Never ends!";
+            dateRange = "No end date";
         }
         return dateRange;
     }
