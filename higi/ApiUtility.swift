@@ -18,18 +18,26 @@ class ApiUtility {
                 termsController.termsFile = termsFile;
                 termsController.privacyFile = privacyFile;
                 viewController.presentViewController(termsController, animated: true, completion: nil);
+            } else if (user.firstName == nil || user.firstName == "" || user.lastName == nil || user.lastName == "") {
+                var nameViewController = SignupNameViewController(nibName: "SignupNameView", bundle: nil);
+                nameViewController.dashboardNext = true;
+                viewController.presentViewController(nameViewController, animated: true, completion: nil);
             } else {
-                ApiUtility.retrieveCheckins(success);
-                ApiUtility.retrieveActivities(success);
-                ApiUtility.retrieveChallenges(success);
-                ApiUtility.retrieveDevices(success);
-                ApiUtility.grabNextPulseArticles(success);
+                ApiUtility.initializeApiDataThenCallback(success);
             }
             
             }, failure: {operation, error in
                 var i = 0;
                 failure?();
         });
+    }
+    
+    class func initializeApiDataThenCallback(success: (() -> Void)?) {
+        ApiUtility.retrieveCheckins(success);
+        ApiUtility.retrieveActivities(success);
+        ApiUtility.retrieveChallenges(success);
+        ApiUtility.retrieveDevices(success);
+        ApiUtility.grabNextPulseArticles(success);
     }
     
     class func retrieveCheckins(success: (() -> Void)?) {
