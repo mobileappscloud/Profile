@@ -280,6 +280,7 @@
 		C05CB27FD2A34A3BA2F46E97 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C0A91AD3D5DE44B7872F95D7 /* libPods.a */; };
 		D101757B1A79693C00CA32DC /* chat_bubble.png in Resources */ = {isa = PBXBuildFile; fileRef = D101757A1A79693C00CA32DC /* chat_bubble.png */; };
 		D10BA0291A95548000DB22A3 /* higistation.png in Resources */ = {isa = PBXBuildFile; fileRef = D10BA0281A95548000DB22A3 /* higistation.png */; };
+		D10BA02B1A967A0A00DB22A3 /* todayspoints.png in Resources */ = {isa = PBXBuildFile; fileRef = D10BA02A1A967A0A00DB22A3 /* todayspoints.png */; };
 		D10D89501A8C11A9000402D4 /* ChallengeDetailsParticipantIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10D894F1A8C11A9000402D4 /* ChallengeDetailsParticipantIcon.swift */; };
 		D12780AE1A4A2701002EB56A /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D12780AD1A4A2701002EB56A /* fontawesome-webfont.ttf */; };
 		D149E9451A78221200FBAA15 /* ChallengeDetailsPrizes.xib in Resources */ = {isa = PBXBuildFile; fileRef = D149E9441A78221200FBAA15 /* ChallengeDetailsPrizes.xib */; };
@@ -299,7 +300,6 @@
 		D1A9C6F61A93E5280008084B /* bodystats.png in Resources */ = {isa = PBXBuildFile; fileRef = D1A9C6F11A93E5280008084B /* bodystats.png */; };
 		D1A9C6F71A93E5280008084B /* iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D1A9C6F21A93E5280008084B /* iphone.png */; };
 		D1A9C6F91A93E5280008084B /* pulse_article.png in Resources */ = {isa = PBXBuildFile; fileRef = D1A9C6F41A93E5280008084B /* pulse_article.png */; };
-		D1A9C6FB1A93FA150008084B /* todayactivity.png in Resources */ = {isa = PBXBuildFile; fileRef = D1A9C6FA1A93FA150008084B /* todayactivity.png */; };
 		D1B6D6981A8D09FD0006F80C /* ChatterInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B6D6971A8D09FD0006F80C /* ChatterInputViewController.swift */; };
 		D1BA13451A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1BA13441A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib */; };
 		D1BA13471A8D056900E1AFE9 /* ChatterInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1BA13461A8D056900E1AFE9 /* ChatterInputView.xib */; };
@@ -623,6 +623,7 @@
 		C0A91AD3D5DE44B7872F95D7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D101757A1A79693C00CA32DC /* chat_bubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chat_bubble.png; path = images/chat_bubble.png; sourceTree = "<group>"; };
 		D10BA0281A95548000DB22A3 /* higistation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = higistation.png; path = images/higistation.png; sourceTree = "<group>"; };
+		D10BA02A1A967A0A00DB22A3 /* todayspoints.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = todayspoints.png; path = images/todayspoints.png; sourceTree = "<group>"; };
 		D10D894F1A8C11A9000402D4 /* ChallengeDetailsParticipantIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeDetailsParticipantIcon.swift; sourceTree = "<group>"; };
 		D12780AD1A4A2701002EB56A /* fontawesome-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fontawesome-webfont.ttf"; sourceTree = "<group>"; };
 		D149E9441A78221200FBAA15 /* ChallengeDetailsPrizes.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailsPrizes.xib; sourceTree = "<group>"; };
@@ -642,7 +643,6 @@
 		D1A9C6F11A93E5280008084B /* bodystats.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bodystats.png; path = images/bodystats.png; sourceTree = "<group>"; };
 		D1A9C6F21A93E5280008084B /* iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iphone.png; path = images/iphone.png; sourceTree = "<group>"; };
 		D1A9C6F41A93E5280008084B /* pulse_article.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pulse_article.png; path = images/pulse_article.png; sourceTree = "<group>"; };
-		D1A9C6FA1A93FA150008084B /* todayactivity.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = todayactivity.png; path = images/todayactivity.png; sourceTree = "<group>"; };
 		D1B6D6971A8D09FD0006F80C /* ChatterInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatterInputViewController.swift; sourceTree = "<group>"; };
 		D1BA13441A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailsParticipantIconView.xib; sourceTree = "<group>"; };
 		D1BA13461A8D056900E1AFE9 /* ChatterInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatterInputView.xib; sourceTree = "<group>"; };
@@ -1177,8 +1177,8 @@
 		8F6266CC197F130A00145EDB /* Welcome */ = {
 			isa = PBXGroup;
 			children = (
+				D10BA02A1A967A0A00DB22A3 /* todayspoints.png */,
 				D10BA0281A95548000DB22A3 /* higistation.png */,
-				D1A9C6FA1A93FA150008084B /* todayactivity.png */,
 				D1A9C6F01A93E5280008084B /* activechallenges.png */,
 				D1A9C6F11A93E5280008084B /* bodystats.png */,
 				D1A9C6F21A93E5280008084B /* iphone.png */,
@@ -1531,6 +1531,7 @@
 				8F02A12219AE2BF6002FF73E /* btn_back_white@2x.png in Resources */,
 				8FF940A0198A8CCD00D319D7 /* BirthdateView.xib in Resources */,
 				D1E2236E1A7FFE60006330E7 /* ConnectDeviceRow.xib in Resources */,
+				D10BA02B1A967A0A00DB22A3 /* todayspoints.png in Resources */,
 				8F02A12519AE2BF6002FF73E /* btn_share_white.png in Resources */,
 				D1EEDB951A660F2B0012EFD3 /* challenge_image.png in Resources */,
 				8FDA6DA819A4039D00244D5F /* TermsView.xib in Resources */,
@@ -1588,7 +1589,6 @@
 				8F5E7FD8199BCD52009067E5 /* graph_sincelastarrow_nochange_invert.png in Resources */,
 				8F2B7E4F198C3058009DE89A /* oc_findastation.png in Resources */,
 				D149E9491A7845A200FBAA15 /* ChallengeDetailsChatterRow.xib in Resources */,
-				D1A9C6FB1A93FA150008084B /* todayactivity.png in Resources */,
 				8F5C38E21981901600F51543 /* weight.png in Resources */,
 				8FD73CC11990291300BACCB2 /* nodata_map.png in Resources */,
 				8FCD2D7B19E874FD00AC5A82 /* noResults.png in Resources */,

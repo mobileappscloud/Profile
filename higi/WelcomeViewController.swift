@@ -58,7 +58,7 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         
         var imageHeight:CGFloat = 150;
         activityView = UIImageView(frame: CGRect(x: 0, y: yPos, width: imageWidth, height: 150));
-        let activityCard = UIImage(named: "todayactivity");
+        let activityCard = UIImage(named: "todayspoints");
         activityView.image = activityCard;
         dashboardView.addSubview(activityView);
         yPos += imageHeight + imageMargin;
