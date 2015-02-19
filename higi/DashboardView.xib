@@ -48,7 +48,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="237"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Today's Activity" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CoD-7D-k6d">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Today's Points" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CoD-7D-k6d">
                     <rect key="frame" x="71" y="14" width="179" height="21"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                     <color key="textColor" red="0.2666666667" green="0.2666666667" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -97,7 +97,7 @@
                 <outlet property="blankStateImage" destination="Jmp-19-ybW" id="Vit-kO-QU9"/>
                 <outlet property="meterContainer" destination="mt7-5r-pdL" id="3mp-PA-389"/>
             </connections>
-            <point key="canvasLocation" x="1008" y="259.5"/>
+            <point key="canvasLocation" x="655" y="176.5"/>
         </view>
         <view contentMode="scaleToFill" id="SkR-F1-95x" customClass="ChallengesCard" customModule="higi" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="302"/>
