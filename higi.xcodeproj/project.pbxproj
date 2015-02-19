@@ -279,8 +279,8 @@
 		8FFF43C319B798380056F412 /* weight_overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFF43BE19B798380056F412 /* weight_overlay@2x.png */; };
 		C05CB27FD2A34A3BA2F46E97 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C0A91AD3D5DE44B7872F95D7 /* libPods.a */; };
 		D101757B1A79693C00CA32DC /* chat_bubble.png in Resources */ = {isa = PBXBuildFile; fileRef = D101757A1A79693C00CA32DC /* chat_bubble.png */; };
-		D10BA0291A95548000DB22A3 /* higistation.png in Resources */ = {isa = PBXBuildFile; fileRef = D10BA0281A95548000DB22A3 /* higistation.png */; };
-		D10BA02B1A967A0A00DB22A3 /* todayspoints.png in Resources */ = {isa = PBXBuildFile; fileRef = D10BA02A1A967A0A00DB22A3 /* todayspoints.png */; };
+		D10BA0251A9540D200DB22A3 /* ActivityLegendView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D10BA0241A9540D200DB22A3 /* ActivityLegendView.xib */; };
+		D10BA0271A9541FF00DB22A3 /* ActivityLegend.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10BA0261A9541FF00DB22A3 /* ActivityLegend.swift */; };
 		D10D89501A8C11A9000402D4 /* ChallengeDetailsParticipantIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10D894F1A8C11A9000402D4 /* ChallengeDetailsParticipantIcon.swift */; };
 		D12780AE1A4A2701002EB56A /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D12780AD1A4A2701002EB56A /* fontawesome-webfont.ttf */; };
 		D149E9451A78221200FBAA15 /* ChallengeDetailsPrizes.xib in Resources */ = {isa = PBXBuildFile; fileRef = D149E9441A78221200FBAA15 /* ChallengeDetailsPrizes.xib */; };
@@ -292,14 +292,18 @@
 		D164D3761A7C19A600300F35 /* chat_bubble_green.png in Resources */ = {isa = PBXBuildFile; fileRef = D164D3751A7C19A600300F35 /* chat_bubble_green.png */; };
 		D17010C91A644414002CBFE8 /* ChallengeDetailsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D17010C71A644414002CBFE8 /* ChallengeDetailsView.xib */; };
 		D17010CA1A644414002CBFE8 /* ChallengeDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17010C81A644414002CBFE8 /* ChallengeDetailsViewController.swift */; };
+		D17787221A96873500C78F8B /* activechallenges.png in Resources */ = {isa = PBXBuildFile; fileRef = D177871C1A96873500C78F8B /* activechallenges.png */; };
+		D17787231A96873500C78F8B /* bodystats.png in Resources */ = {isa = PBXBuildFile; fileRef = D177871D1A96873500C78F8B /* bodystats.png */; };
+		D17787241A96873500C78F8B /* higistation.png in Resources */ = {isa = PBXBuildFile; fileRef = D177871E1A96873500C78F8B /* higistation.png */; };
+		D17787251A96873500C78F8B /* iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D177871F1A96873500C78F8B /* iphone.png */; };
+		D17787261A96873500C78F8B /* pulse_article.png in Resources */ = {isa = PBXBuildFile; fileRef = D17787201A96873500C78F8B /* pulse_article.png */; };
+		D17787271A96873500C78F8B /* todayspoints.png in Resources */ = {isa = PBXBuildFile; fileRef = D17787211A96873500C78F8B /* todayspoints.png */; };
 		D18395C11A69BC9E00D290BF /* ChallengeDetailsTab.xib in Resources */ = {isa = PBXBuildFile; fileRef = D18395C01A69BC9E00D290BF /* ChallengeDetailsTab.xib */; };
 		D18395C31A69CAD500D290BF /* ChallengesDetailsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18395C21A69CAD500D290BF /* ChallengesDetailsTab.swift */; };
 		D19DDA531A5EF599004F97A3 /* NewCPTAxisLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = D19DDA521A5EF599004F97A3 /* NewCPTAxisLabel.m */; };
 		D19DDA551A5F1705004F97A3 /* (null) in Sources */ = {isa = PBXBuildFile; };
-		D1A9C6F51A93E5280008084B /* activechallenges.png in Resources */ = {isa = PBXBuildFile; fileRef = D1A9C6F01A93E5280008084B /* activechallenges.png */; };
-		D1A9C6F61A93E5280008084B /* bodystats.png in Resources */ = {isa = PBXBuildFile; fileRef = D1A9C6F11A93E5280008084B /* bodystats.png */; };
-		D1A9C6F71A93E5280008084B /* iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D1A9C6F21A93E5280008084B /* iphone.png */; };
-		D1A9C6F91A93E5280008084B /* pulse_article.png in Resources */ = {isa = PBXBuildFile; fileRef = D1A9C6F41A93E5280008084B /* pulse_article.png */; };
+		D1A9C6FE1A951D0D0008084B /* chatterbutton_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = D1A9C6FC1A951D0D0008084B /* chatterbutton_normal.png */; };
+		D1A9C6FF1A951D0D0008084B /* chatterbutton_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = D1A9C6FD1A951D0D0008084B /* chatterbutton_pressed.png */; };
 		D1B6D6981A8D09FD0006F80C /* ChatterInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B6D6971A8D09FD0006F80C /* ChatterInputViewController.swift */; };
 		D1BA13451A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1BA13441A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib */; };
 		D1BA13471A8D056900E1AFE9 /* ChatterInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1BA13461A8D056900E1AFE9 /* ChatterInputView.xib */; };
@@ -622,8 +626,8 @@
 		8FFF43BE19B798380056F412 /* weight_overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "weight_overlay@2x.png"; path = "images/weight_overlay@2x.png"; sourceTree = "<group>"; };
 		C0A91AD3D5DE44B7872F95D7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D101757A1A79693C00CA32DC /* chat_bubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chat_bubble.png; path = images/chat_bubble.png; sourceTree = "<group>"; };
-		D10BA0281A95548000DB22A3 /* higistation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = higistation.png; path = images/higistation.png; sourceTree = "<group>"; };
-		D10BA02A1A967A0A00DB22A3 /* todayspoints.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = todayspoints.png; path = images/todayspoints.png; sourceTree = "<group>"; };
+		D10BA0241A9540D200DB22A3 /* ActivityLegendView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityLegendView.xib; sourceTree = "<group>"; };
+		D10BA0261A9541FF00DB22A3 /* ActivityLegend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityLegend.swift; sourceTree = "<group>"; };
 		D10D894F1A8C11A9000402D4 /* ChallengeDetailsParticipantIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeDetailsParticipantIcon.swift; sourceTree = "<group>"; };
 		D12780AD1A4A2701002EB56A /* fontawesome-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fontawesome-webfont.ttf"; sourceTree = "<group>"; };
 		D149E9441A78221200FBAA15 /* ChallengeDetailsPrizes.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailsPrizes.xib; sourceTree = "<group>"; };
@@ -635,14 +639,18 @@
 		D164D3751A7C19A600300F35 /* chat_bubble_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chat_bubble_green.png; path = images/chat_bubble_green.png; sourceTree = "<group>"; };
 		D17010C71A644414002CBFE8 /* ChallengeDetailsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailsView.xib; sourceTree = "<group>"; };
 		D17010C81A644414002CBFE8 /* ChallengeDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeDetailsViewController.swift; sourceTree = "<group>"; };
+		D177871C1A96873500C78F8B /* activechallenges.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = activechallenges.png; path = images/activechallenges.png; sourceTree = "<group>"; };
+		D177871D1A96873500C78F8B /* bodystats.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bodystats.png; path = images/bodystats.png; sourceTree = "<group>"; };
+		D177871E1A96873500C78F8B /* higistation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = higistation.png; path = images/higistation.png; sourceTree = "<group>"; };
+		D177871F1A96873500C78F8B /* iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iphone.png; path = images/iphone.png; sourceTree = "<group>"; };
+		D17787201A96873500C78F8B /* pulse_article.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pulse_article.png; path = images/pulse_article.png; sourceTree = "<group>"; };
+		D17787211A96873500C78F8B /* todayspoints.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = todayspoints.png; path = images/todayspoints.png; sourceTree = "<group>"; };
 		D18395C01A69BC9E00D290BF /* ChallengeDetailsTab.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailsTab.xib; sourceTree = "<group>"; };
 		D18395C21A69CAD500D290BF /* ChallengesDetailsTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengesDetailsTab.swift; sourceTree = "<group>"; };
 		D19DDA511A5EF432004F97A3 /* NewCPTAxisLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewCPTAxisLabel.h; sourceTree = "<group>"; };
 		D19DDA521A5EF599004F97A3 /* NewCPTAxisLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewCPTAxisLabel.m; sourceTree = "<group>"; };
-		D1A9C6F01A93E5280008084B /* activechallenges.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = activechallenges.png; path = images/activechallenges.png; sourceTree = "<group>"; };
-		D1A9C6F11A93E5280008084B /* bodystats.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bodystats.png; path = images/bodystats.png; sourceTree = "<group>"; };
-		D1A9C6F21A93E5280008084B /* iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iphone.png; path = images/iphone.png; sourceTree = "<group>"; };
-		D1A9C6F41A93E5280008084B /* pulse_article.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pulse_article.png; path = images/pulse_article.png; sourceTree = "<group>"; };
+		D1A9C6FC1A951D0D0008084B /* chatterbutton_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chatterbutton_normal.png; path = images/chatterbutton_normal.png; sourceTree = "<group>"; };
+		D1A9C6FD1A951D0D0008084B /* chatterbutton_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chatterbutton_pressed.png; path = images/chatterbutton_pressed.png; sourceTree = "<group>"; };
 		D1B6D6971A8D09FD0006F80C /* ChatterInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatterInputViewController.swift; sourceTree = "<group>"; };
 		D1BA13441A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailsParticipantIconView.xib; sourceTree = "<group>"; };
 		D1BA13461A8D056900E1AFE9 /* ChatterInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatterInputView.xib; sourceTree = "<group>"; };
@@ -1177,12 +1185,12 @@
 		8F6266CC197F130A00145EDB /* Welcome */ = {
 			isa = PBXGroup;
 			children = (
-				D10BA02A1A967A0A00DB22A3 /* todayspoints.png */,
-				D10BA0281A95548000DB22A3 /* higistation.png */,
-				D1A9C6F01A93E5280008084B /* activechallenges.png */,
-				D1A9C6F11A93E5280008084B /* bodystats.png */,
-				D1A9C6F21A93E5280008084B /* iphone.png */,
-				D1A9C6F41A93E5280008084B /* pulse_article.png */,
+				D177871C1A96873500C78F8B /* activechallenges.png */,
+				D177871D1A96873500C78F8B /* bodystats.png */,
+				D177871E1A96873500C78F8B /* higistation.png */,
+				D177871F1A96873500C78F8B /* iphone.png */,
+				D17787201A96873500C78F8B /* pulse_article.png */,
+				D17787211A96873500C78F8B /* todayspoints.png */,
 				8F58D98719C0FE5800C0EC72 /* welcome_01_logo.png */,
 			);
 			name = Welcome;
@@ -1482,6 +1490,7 @@
 				8F5C38D019818BA900F51543 /* gauge3_normal.png in Resources */,
 				8F6ACCBE199C1B4E00D5E157 /* TwoLineCheckinCellView.xib in Resources */,
 				8F02A12019AE2BF6002FF73E /* btn_back_black@2x.png in Resources */,
+				D17787231A96873500C78F8B /* bodystats.png in Resources */,
 				D1EEDB991A660F2B0012EFD3 /* ui_details.png in Resources */,
 				8FF9409E198A8CB600D319D7 /* SignupNameView.xib in Resources */,
 				8F5C38D219818BA900F51543 /* gauge3_overweight.png in Resources */,
@@ -1536,12 +1545,13 @@
 				8F02A12219AE2BF6002FF73E /* btn_back_white@2x.png in Resources */,
 				8FF940A0198A8CCD00D319D7 /* BirthdateView.xib in Resources */,
 				D1E2236E1A7FFE60006330E7 /* ConnectDeviceRow.xib in Resources */,
-				D10BA02B1A967A0A00DB22A3 /* todayspoints.png in Resources */,
 				8F02A12519AE2BF6002FF73E /* btn_share_white.png in Resources */,
 				D1EEDB951A660F2B0012EFD3 /* challenge_image.png in Resources */,
 				8FDA6DA819A4039D00244D5F /* TermsView.xib in Resources */,
 				8F5E7FBD199965C0009067E5 /* PinCodeView.xib in Resources */,
 				8FDCE1D119880919006428C3 /* pulse_overlay.png in Resources */,
+				D17787251A96873500C78F8B /* iphone.png in Resources */,
+				D17787261A96873500C78F8B /* pulse_article.png in Resources */,
 				8F0B29A5198AC20300B0DD29 /* map_mapviewicon.png in Resources */,
 				8FEF6F3E1A6EB437001EF8A6 /* PointsMeterView.xib in Resources */,
 				8FFF43C019B798380056F412 /* bp_overlay@2x.png in Resources */,
@@ -1565,6 +1575,7 @@
 				2BBDBA571A12AC2C005A6815 /* CompetitiveChallengeView.xib in Resources */,
 				8F807A761976C9D600EEE019 /* LandscapeGraph.xib in Resources */,
 				8FA5925D19ABBCEC00622266 /* TourView.xib in Resources */,
+				D17787221A96873500C78F8B /* activechallenges.png in Resources */,
 				8FDCE1D019880919006428C3 /* map_overlay.png in Resources */,
 				8F5E7FC11999674C009067E5 /* KioskListCellView.xib in Resources */,
 				8F02A14419AE2CF4002FF73E /* bodystats2@2x.png in Resources */,
@@ -1578,7 +1589,6 @@
 				8FF851C3194F7DE2005C33C6 /* Config-qa.plist in Resources */,
 				8F5C38D119818BA900F51543 /* gauge3_obese.png in Resources */,
 				8F02A11F19AE2BF6002FF73E /* btn_back_black.png in Resources */,
-				D1A9C6F71A93E5280008084B /* iphone.png in Resources */,
 				D18395C11A69BC9E00D290BF /* ChallengeDetailsTab.xib in Resources */,
 				8F5C38D519818BDB00F51543 /* graph_orientation.png in Resources */,
 				8FE056DF198FDBDC00C81208 /* PulseHomeView.xib in Resources */,
@@ -1602,7 +1612,6 @@
 				8FC7B71019E5E67000D0112F /* dashboard_background-568h@2x.png in Resources */,
 				8F5C38DF1981901600F51543 /* bodymassindex.png in Resources */,
 				8F02A14219AE2CF4002FF73E /* bodystats1@2x.png in Resources */,
-				D1A9C6F61A93E5280008084B /* bodystats.png in Resources */,
 				8F5C38FE198689E200F51543 /* CheckinCell.xib in Resources */,
 				8F5F91811A701A0E0042D87C /* btn_action_black.png in Resources */,
 				8F5C38E11981901600F51543 /* pulse.png in Resources */,
@@ -1622,18 +1631,16 @@
 				8F89C25A1A01B0D500A3AD09 /* ActivityCellView.xib in Resources */,
 				8F6ACCC0199D687D00D5E157 /* mapicon_higicard.png in Resources */,
 				8F2CB58B19942E96009377A8 /* noservicemessage.png in Resources */,
-				D1A9C6F91A93E5280008084B /* pulse_article.png in Resources */,
 				8FFF43C319B798380056F412 /* weight_overlay@2x.png in Resources */,
 				D164D3761A7C19A600300F35 /* chat_bubble_green.png in Resources */,
 				8FC7B70819E5E60D00D0112F /* bodystats2-568h@2x.png in Resources */,
 				2BBDBA591A12AC2C005A6815 /* GoalChallengeView.xib in Resources */,
 				8FF873F219DF528E002A6341 /* PullRefreshView.xib in Resources */,
 				8FA5925B19AB921C00622266 /* create_overlay.png in Resources */,
-				D1A9C6F51A93E5280008084B /* activechallenges.png in Resources */,
 				8FC7B71119E5E67000D0112F /* dashboard1-568h@2x.png in Resources */,
 				8F5E7FE3199C081F009067E5 /* vital_bmi_icon.png in Resources */,
-				D10BA0291A95548000DB22A3 /* higistation.png in Resources */,
 				8F5E7FCC199BC976009067E5 /* BpCheckinCellView.xib in Resources */,
+				D17787241A96873500C78F8B /* higistation.png in Resources */,
 				2B8032021A1FEF4F0029D6DF /* person_icon.png in Resources */,
 				8F6266C3197F12E900145EDB /* graph_info.png in Resources */,
 				8FF9518B1A01AC69005FD632 /* banner_nologo.png in Resources */,
@@ -1641,6 +1648,7 @@
 				8FD73CBD1990280C00BACCB2 /* map_listviewicon.png in Resources */,
 				8F6266B1197EC95900145EDB /* BodyStatsPort.xib in Resources */,
 				8FFB034C19FEA2440036228C /* oc_challenges_active.png in Resources */,
+				D17787271A96873500C78F8B /* todayspoints.png in Resources */,
 				8FFB035919FEAF2C0036228C /* ActivityView.xib in Resources */,
 				D1E1FF081A76C2DB00C8951C /* ChallengeProgressLegendRow.xib in Resources */,
 				D10BA0251A9540D200DB22A3 /* ActivityLegendView.xib in Resources */,
