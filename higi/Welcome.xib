@@ -68,8 +68,12 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="higistation.png" translatesAutoresizingMaskIntoConstraints="NO" id="cl1-BU-hFJ">
-                    <rect key="frame" x="0.0" y="227" width="320" height="300"/>
+                <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="higistation.png" translatesAutoresizingMaskIntoConstraints="NO" id="cl1-BU-hFJ">
+                    <rect key="frame" x="40" y="200" width="240" height="225"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="225" id="YHK-gO-udX"/>
+                        <constraint firstAttribute="width" constant="240" id="YdQ-OE-2hT"/>
+                    </constraints>
                 </imageView>
                 <view clearsContextBeforeDrawing="NO" alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4q6-bB-7EQ">
                     <rect key="frame" x="40" y="165" width="240" height="363"/>
@@ -84,7 +88,7 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ufj-qC-5L8">
+                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ufj-qC-5L8">
                     <rect key="frame" x="-1" y="527" width="321" height="1"/>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
@@ -119,18 +123,21 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="Ufj-qC-5L8" firstAttribute="top" secondItem="cl1-BU-hFJ" secondAttribute="bottom" constant="102" id="3ed-lG-GLv"/>
                 <constraint firstItem="ePL-qi-dzS" firstAttribute="top" secondItem="dhs-Uw-8UU" secondAttribute="bottom" constant="13" id="DBL-PP-KD5"/>
                 <constraint firstItem="fKl-Ed-4Yf" firstAttribute="leading" secondItem="hEu-Ce-PoV" secondAttribute="trailing" id="GQH-8F-okK"/>
                 <constraint firstAttribute="trailing" secondItem="ePL-qi-dzS" secondAttribute="trailing" constant="8" id="Nr5-v2-KIf"/>
                 <constraint firstItem="ePL-qi-dzS" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="QhV-ca-Eif"/>
                 <constraint firstItem="kzA-2s-4jL" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="24" id="R7K-wI-S7d"/>
                 <constraint firstAttribute="trailing" secondItem="fKl-Ed-4Yf" secondAttribute="trailing" id="XMV-kY-2Xj"/>
+                <constraint firstAttribute="trailing" secondItem="cl1-BU-hFJ" secondAttribute="trailing" constant="40" id="fgg-IJ-Prd"/>
                 <constraint firstItem="hEu-Ce-PoV" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="-1" id="fvE-sj-t1C"/>
                 <constraint firstAttribute="trailing" secondItem="kzA-2s-4jL" secondAttribute="trailing" constant="24" id="grG-iP-CkV"/>
                 <constraint firstAttribute="bottom" secondItem="fKl-Ed-4Yf" secondAttribute="bottom" id="jyK-8e-lrF"/>
                 <constraint firstAttribute="bottom" secondItem="hEu-Ce-PoV" secondAttribute="bottom" id="sMi-TX-c4v"/>
                 <constraint firstItem="kzA-2s-4jL" firstAttribute="top" secondItem="ePL-qi-dzS" secondAttribute="bottom" constant="9" id="t6O-kN-oFr"/>
                 <constraint firstItem="fKl-Ed-4Yf" firstAttribute="leading" secondItem="hEu-Ce-PoV" secondAttribute="trailing" id="wZT-3O-kgL"/>
+                <constraint firstItem="cl1-BU-hFJ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="40" id="xPh-Cr-wwk"/>
             </constraints>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>

@@ -85,7 +85,6 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         phoneContainer.alpha = 0;
         dashboardView.alpha = 0;
         
-        phoneContainer.addSubview(stationView);
         phoneScrollView.addSubview(dashboardView);
         
         let leftScrollViewSwipeRecognizer = UISwipeGestureRecognizer(target: self, action: "swipeLeft:");
@@ -188,7 +187,6 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         UIView.animateWithDuration(animDuration, delay: 0.0, options: .CurveEaseInOut, animations: {
             self.pageTitle.alpha = 0.0;
             self.pageSubTitle.alpha = 0.0;
-            self.stationView.alpha = stationAlpha;
             self.dashboardView.alpha = dashboardAlpha;
             if (welcomeAlpha == 0) {
                 self.welcomeView.alpha = welcomeAlpha;
@@ -206,7 +204,6 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
                 UIView.animateWithDuration(self.animDuration, delay: 0.0, options: .CurveEaseInOut, animations: {
                     self.pageTitle.alpha = 1.0;
                     self.pageSubTitle.alpha = 1.0;
-                    self.phoneContainer.alpha = phoneAlpha;
                     self.activityView.alpha = activityAlpha;
                     self.challengeView.alpha = challengesAlpha;
                     self.bodyStatsView.alpha = bodyStatsAlpha;
