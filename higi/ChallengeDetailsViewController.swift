@@ -705,13 +705,13 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         if (displayLeaderboardTab && leaderboardTable != nil && tableView == leaderboardTable) {
             var height = buttonContainerOriginY + buttonContainer.frame.size.height;
             if (leaderboardToggleButtons.count > 0) {
-                height += 50;
+                height += 60;
             }
             return height;
         } else if (displayProgressTab && progressTable != nil && tableView == progressTable) {
-            var height = buttonContainerOriginY + buttonContainer.frame.size.height + 10
+            var height = buttonContainerOriginY + buttonContainer.frame.size.height;
             if (progressToggleButtons.count > 0) {
-                height += 50;
+                height += 60;
             }
             return height;
         } else {

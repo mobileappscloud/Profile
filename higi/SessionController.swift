@@ -32,9 +32,9 @@ class SessionController {
     var earnditError = false;
     
     func reset() {
-        checkins = [];
-        activities = [];
-        challenges = [];
+        checkins = nil;
+        activities = nil;
+        challenges = nil;
         devices = [:];
     }
     
