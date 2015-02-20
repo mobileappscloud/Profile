@@ -73,7 +73,7 @@ class GraphView: UIView, UITableViewDelegate, UITableViewDataSource {
             }
             
             if (isPortrait) {
-                noData.frame.size.height = 0;
+                checkinTable.tableHeaderView = nil;
                 measureUnit.text = delegate.getUnit();
                 checkinTable.separatorInset = UIEdgeInsetsZero;
                 checkinTable.tableHeaderView?.frame = CGRectZero;
