@@ -43,6 +43,8 @@ class GraphView: UIView, UITableViewDelegate, UITableViewDataSource {
     
     var infoOverlay: InfoOverlayView!;
     
+    var noDataView: UIView!;
+    
     class func createViewFromNib(isPortrait: Bool) -> GraphView {
         if (isPortrait) {
             return UINib(nibName: "PortraitGraph", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as GraphView
@@ -57,7 +59,7 @@ class GraphView: UIView, UITableViewDelegate, UITableViewDataSource {
         self.checkins = checkins;
         self.isPortrait = isPortrait
         self.backgroundColor = delegate.getBackgroundColor();
-        if (checkins.count > 0) {
+        if (self.checkins.count > 0) {
             graph = delegate.createGraph(checkins, isPortrait: isPortrait, frame: CGRect(origin: CGPoint(x: 0, y: 0), size: graphContainer.frame.size));
             if (graph != nil) {
                 graphContainer.addSubview(graph!);
@@ -71,6 +73,7 @@ class GraphView: UIView, UITableViewDelegate, UITableViewDataSource {
             }
             
             if (isPortrait) {
+                noData.frame.size.height = 0;
                 measureUnit.text = delegate.getUnit();
                 checkinTable.separatorInset = UIEdgeInsetsZero;
                 checkinTable.tableHeaderView?.frame = CGRectZero;
@@ -89,8 +92,6 @@ class GraphView: UIView, UITableViewDelegate, UITableViewDataSource {
                 measureValue.hidden = true;
                 measureClass.hidden = true;
                 measureUnit.text = "Learn more about \(delegate.getTitle())";
-                var noDataView = UINib(nibName: "PortraitGraph", bundle: nil).instantiateWithOwner(nil, options: nil)[1] as UIView;
-                checkinTable.tableHeaderView = noDataView;
                 trendText.text = "";
                 noDataGraph.hidden = false;
                 findStationButton.layer.borderWidth = 1.0;
