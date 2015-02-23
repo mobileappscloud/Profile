@@ -69,7 +69,7 @@ class ProfileImageViewController: UIViewController, UIImagePickerControllerDeleg
             user.retrieveProfileImages();
         }
         
-        Utility.gotoDashboard(self);
+        ApiUtility.initializeApiDataThenCallback(self.gotoDashboard);
     }
     
     func imagePickerController(picker: UIImagePickerController!, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]!) {
@@ -85,5 +85,10 @@ class ProfileImageViewController: UIViewController, UIImagePickerControllerDeleg
         self.navigationController!.popViewControllerAnimated(true);
     }
     
+    func gotoDashboard() {
+        if (SessionController.Instance.checkins != nil && SessionController.Instance.activities != nil && SessionController.Instance.challenges != nil && SessionController.Instance.kioskList != nil && SessionController.Instance.pulseArticles.count > 0) {
+            Utility.gotoDashboard(self);
+        }
+    }
 }
  
