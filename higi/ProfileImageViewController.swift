@@ -16,6 +16,7 @@ class ProfileImageViewController: UIViewController, UIImagePickerControllerDeleg
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     var fromSettings = false;
+    var dashboardSent = false;
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -86,8 +87,9 @@ class ProfileImageViewController: UIViewController, UIImagePickerControllerDeleg
     }
     
     func gotoDashboard() {
-        if (SessionController.Instance.checkins != nil && SessionController.Instance.activities != nil && SessionController.Instance.challenges != nil && SessionController.Instance.kioskList != nil && SessionController.Instance.pulseArticles.count > 0) {
+        if (SessionController.Instance.checkins != nil && SessionController.Instance.activities != nil && SessionController.Instance.challenges != nil && SessionController.Instance.kioskList != nil && SessionController.Instance.pulseArticles.count > 0 && !dashboardSent) {
             Utility.gotoDashboard(self);
+            dashboardSent = true;
         }
     }
 }
