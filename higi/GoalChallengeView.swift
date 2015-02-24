@@ -29,9 +29,16 @@ class GoalChallengeView: UIView {
         
         let participantPoints = isTeam ? Int(challenge.participant.team.units) : Int(challenge.participant.units);
         
-        var sortedWinConditions = winConditions;
+        var nonTrivialWinConditions:[ChallengeWinCondition] = [];
+        for winCondition in winConditions {
+            if (winCondition.goal.minThreshold > 1) {
+                nonTrivialWinConditions.append(winCondition);
+            }
+        }
+        
+        var sortedWinConditions = nonTrivialWinConditions;
         sortedWinConditions.sort { $0.goal.minThreshold! < $1.goal.minThreshold! };
-        let maxGoalValue = sortedWinConditions[winConditions.count - 1].goal.minThreshold;
+        let maxGoalValue = sortedWinConditions[sortedWinConditions.count - 1].goal.minThreshold;
         
         drawParticipantProgress(goalView, participantPoints: participantPoints, maxGoalValue: maxGoalValue);
         
