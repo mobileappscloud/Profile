@@ -79,6 +79,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     var actionButtonY:CGFloat = 0;
     var chatterView:UIView!;
     
+    var joinAccepted = false;
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         
@@ -232,6 +234,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             }
             participantPoints.sizeToFit();
         } else {
+            setProgressBar(participantProgress, points: 0, highScore: 1);
             participantAvatar.hidden = true;
             participantPoints.hidden = true;
             participantProgress.hidden = true;
@@ -254,11 +257,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     @IBAction func joinButtonClick(sender: AnyObject) {
         Flurry.logEvent("ChallengeJoined");
-        joinButton.hidden = true;
-        loadingSpinner.hidden = false;
-        let joinUrl =  challenge.joinUrl;
-        if (joinUrl != nil) {
-            joinChallenge(joinUrl);
+        if (challenge.joinUrl != nil) {
+            showTermsAndConditions(challenge.joinUrl);
         } else {
             showTeamsPicker();
         }
@@ -293,6 +293,9 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func joinChallenge(joinUrl: String) {
+        joinButton.hidden = true;
+        loadingSpinner.hidden = false;
+        let joinUrl =  challenge.joinUrl;
         let userId = !HigiApi.EARNDIT_DEV ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
         var contents = NSMutableDictionary();
         contents.setObject(userId, forKey: "userId");
@@ -306,10 +309,19 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         });
     }
 
-    func showTermsAndConditions() {
-        UIAlertView(title: "Terms and Conditions", message: "Terms and conditions placeholder", delegate: self, cancelButtonTitle: "Reject", otherButtonTitles: "Accept").show();
+    func showTermsAndConditions(joinUrl: String) {
+        var termsController = TermsAndConditionsViewController(nibName: "TermsAndConditionsView", bundle: nil);
+        termsController.html = challenge.terms;
+        termsController.joinUrl = joinUrl;
+        termsController.parent = self;
+        termsController.responseRequired = true;
+        self.presentViewController(termsController, animated: false, completion: {
+            if (self.joinAccepted) {
+                self.joinChallenge(joinUrl);
+            }
+        });
     }
-    
+
     func showTeamsPicker() {
         let picker = UIActionSheet(title: "Select a team to join", delegate: self, cancelButtonTitle: nil, destructiveButtonTitle: nil);
         for team in challenge.teams {
@@ -322,7 +334,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
         if (buttonIndex != challenge.teams.count) {
-            joinChallenge(challenge.teams[buttonIndex].joinUrl);
+            showTermsAndConditions(self.challenge.teams[buttonIndex].joinUrl);
         } else {
             joinButton.hidden = false;
             loadingSpinner.hidden = true;
@@ -802,7 +814,13 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func setProgressBar(view: UIView, points: Int, highScore: Int) {
-        let width = headerProgressOriginWidth;
+        var width = view.frame.size.width;
+        if (width == 0) {
+            width = headerProgressOriginWidth;
+        }
+        if (view.frame.origin.x == 0) {
+            view.frame.origin.x = 100;
+        }
         let barHeight:CGFloat = 4;
         let nodeHeight:CGFloat = 10;
         //** idk why this is + and not - ...auto-layout?
