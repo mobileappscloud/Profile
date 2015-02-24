@@ -2,7 +2,7 @@ import Foundation
 
 class HigiChallenge {
     
-    var name, description, shortDescription, imageUrl, metric, status, userStatus, terms, abbrMetric, joinUrl, commentsUrl: NSString!;
+    var name, description, shortDescription, imageUrl, metric, status, userStatus, terms, abbrMetric, joinUrl, commentsUrl, url: NSString!;
     
     var startDate, endDate: NSDate!;
     
@@ -37,6 +37,7 @@ class HigiChallenge {
         self.participants = participants;
         self.pagingData = pagingData;
         self.chatter = chatter;
+        url = (dictionary["url"] ?? "") as NSString;
         name = (dictionary["name"] ?? "") as NSString;
         description = dictionary["description"] as NSString!;
         shortDescription = (dictionary["shortDescription"] ?? "") as NSString;

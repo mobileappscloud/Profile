@@ -109,13 +109,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         for winCondition in challenge.winConditions {
             if (challenge.participant != nil && winCondition.goal.type == "threshold_reached" && challenge.userStatus == "current" && winCondition.goal.minThreshold > 1) {
                 displayProgressTab = true;
-                if (winCondition.winnerType == "individual") {
-                    hasIndividualGoalComponent = true;
-                    individualGoalWinConditions.append(winCondition);
-                } else if (winCondition.winnerType == "team") {
-                    hasTeamGoalComponent = true;
-                    teamGoalWinConditions.append(winCondition);
-                }
             } else if (challenge.status != "registration" && winCondition.goal.type == "most_points" || winCondition.goal.type == "unit_goal_reached" && challenge.userStatus == "current") {
                 displayLeaderboardTab = true;
                 
@@ -124,6 +117,13 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                 } else if (winCondition.winnerType == "team") {
                     hasTeamLeaderboardComponent = true;
                 }
+            }
+            if (winCondition.winnerType == "individual") {
+                hasIndividualGoalComponent = true;
+                individualGoalWinConditions.append(winCondition);
+            } else if (winCondition.winnerType == "team") {
+                hasTeamGoalComponent = true;
+                teamGoalWinConditions.append(winCondition);
             }
             if (winCondition.goal.minThreshold > 1) {
                 nonTrivialWinConditions++;
@@ -210,6 +210,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             participantPlace.hidden = false;
             joinButton.hidden = true;
             let participant = challenge.participant!;
+            let a = challenge.winConditions[0].winnerType;
             if (challenge.winConditions[0].winnerType == "individual") {
                 participantPoints.text = "\(Int(participant.units)) \(challenge.abbrMetric)";
                 if (challenge.winConditions[0].goal.type == "threshold_reached") {
@@ -292,14 +293,11 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func joinChallenge(joinUrl: String) {
-//        //@todo show terms and conditions?
-//        showTermsAndConditions();
         let userId = !HigiApi.EARNDIT_DEV ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
         var contents = NSMutableDictionary();
         contents.setObject(userId, forKey: "userId");
         HigiApi().sendPost(joinUrl, parameters: contents, success: {operation, responseObject in
             ApiUtility.retrieveChallenges(self.refreshChallenge);
-            self.loadingSpinner.hidden = true;
             }, failure: { operation, error in
                 let e = error;
                 UIAlertView(title: "Uh oh", message: "Cannot join challenge at this time.  Please try again later.", delegate: self, cancelButtonTitle: "OK").show();
@@ -308,7 +306,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         });
     }
 
-    
     func showTermsAndConditions() {
         UIAlertView(title: "Terms and Conditions", message: "Terms and conditions placeholder", delegate: self, cancelButtonTitle: "Reject", otherButtonTitles: "Accept").show();
     }
@@ -336,12 +333,25 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         self.loadingSpinner.hidden = true;
         let challenges = SessionController.Instance.challenges;
         for challenge in challenges {
-            if (self.challenge.name == challenge.name) {
+            if (self.challenge.url == challenge.url) {
                 self.challenge = challenge;
             }
         }
         clearExistingViews();
         initializeDetailView();
+        
+        if (displayLeaderboardTab && leaderboardTable != nil) {
+            leaderboardTable!.layoutIfNeeded();
+        }
+        if (displayProgressTab && progressTable != nil) {
+            progressTable!.layoutIfNeeded();
+        }
+        detailsTable.layoutIfNeeded();
+        
+        if (displayChatterTab && chatterTable != nil) {
+            chatterTable!.layoutIfNeeded();
+        }
+        scrollView.contentOffset = CGPointMake(0,0);
     }
     
     func clearExistingViews() {
@@ -736,17 +746,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        //@todo show loading footer
-//        if (showLoadingFooter) {
-//            let footer = UIView(frame: CGRect(x: 0, y: 0, width: scrollView.frame.size.width, height: 10));
-//            let spinner = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 10, height: 10));
-//            footer.addSubview(spinner);
-//            spinner.startAnimating();
-//            footer.backgroundColor = UIColor.blackColor();
-//            return footer;
-//        } else {
-            return UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0));
-//        }
+        return UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0));
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -757,7 +757,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             return isIndividualProgress ? individualGoalWinConditions.count + 1: teamGoalWinConditions.count + 1;
         } else if (detailsTable != nil && tableView == detailsTable) {
             return 0;
-//            return challenge.winConditions.count;
         } else if (displayChatterTab && chatterTable != nil && tableView == chatterTable) {
             return challengeChatterComments.count;
         }
@@ -786,27 +785,24 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func createDetailsPrizeCell(winCondition: ChallengeWinCondition!) -> ChallengeDetailsPrize {
-//        var cell = detailsTable!.dequeueReusableCellWithIdentifier("ChallengeDetailsPrize") as ChallengeDetailsPrize!;
-//        if (cell == nil) {
-            var cell = UINib(nibName: "ChallengeDetailsPrizes", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeDetailsPrize;
-            if (winCondition != nil && winCondition.prizeName != nil && winCondition.prizeName != "") {
-                cell.title.text = winCondition.prizeName;
-                cell.desc.text = winCondition.description;
-            } else {
-                cell.title.text = "No prize, doing this simply for the love of the game.";
-                cell.desc.text = "";
-            }
-            
-            cell.title.sizeToFit();
-            cell.desc.sizeToFit();
+        var cell = UINib(nibName: "ChallengeDetailsPrizes", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeDetailsPrize;
+        if (winCondition != nil && winCondition.prizeName != nil && winCondition.prizeName != "") {
+            cell.title.text = winCondition.prizeName;
+            cell.desc.text = winCondition.description;
+        } else {
+            cell.title.text = "No prize, doing this simply for the love of the game.";
+            cell.desc.text = "";
+        }
         
-            cell.height = cell.desc.frame.origin.y + cell.desc.frame.size.height + 20;
-//        }
+        cell.title.sizeToFit();
+        cell.desc.sizeToFit();
+    
+        cell.height = cell.desc.frame.origin.y + cell.desc.frame.size.height + 20;
         return cell;
     }
     
     func setProgressBar(view: UIView, points: Int, highScore: Int) {
-        let width = view.frame.size.width;
+        let width = headerProgressOriginWidth;
         let barHeight:CGFloat = 4;
         let nodeHeight:CGFloat = 10;
         //** idk why this is + and not - ...auto-layout?
