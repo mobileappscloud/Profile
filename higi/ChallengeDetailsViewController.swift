@@ -315,7 +315,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         termsController.joinUrl = joinUrl;
         termsController.parent = self;
         termsController.responseRequired = true;
-        self.presentViewController(termsController, animated: false, completion: {
+        self.presentViewController(termsController, animated: true, completion: {
             if (self.joinAccepted) {
                 self.joinChallenge(joinUrl);
             }
@@ -352,21 +352,27 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         clearExistingViews();
         initializeDetailView();
         
+        refreshTableScrolling();
+        
+        scrollView.contentOffset = CGPointMake(0,0);
+        updateScroll();
+        
+        headerContainer.layoutIfNeeded();
+    }
+    
+    func refreshTableScrolling() {
         if (displayLeaderboardTab && leaderboardTable != nil) {
             leaderboardTable!.layoutIfNeeded();
         }
         if (displayProgressTab && progressTable != nil) {
             progressTable!.layoutIfNeeded();
         }
+        detailsTable.reloadData();
         detailsTable.layoutIfNeeded();
         
         if (displayChatterTab && chatterTable != nil) {
             chatterTable!.layoutIfNeeded();
         }
-        scrollView.contentOffset = CGPointMake(0,0);
-        updateScroll();
-        
-        headerContainer.layoutIfNeeded();
     }
     
     func clearExistingViews() {
@@ -514,7 +520,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     func gotoChatterInput(sender: AnyObject) {
         var chatterInputController = ChatterInputViewController(nibName: "ChatterInputView", bundle: nil);
         chatterInputController.parent = self;
-        self.presentViewController(chatterInputController, animated: false, completion: nil);
+        self.presentViewController(chatterInputController, animated: true, completion: nil);
     }
 
     func initDetailsTable() -> ChallengeDetailsTab {
@@ -617,7 +623,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     func termsClick(sender: AnyObject) {
         var termsController = TermsAndConditionsViewController(nibName: "TermsAndConditionsView", bundle: nil);
         termsController.html = challenge.terms;
-        self.presentViewController(termsController, animated: false, completion: nil);
+        self.presentViewController(termsController, animated: true, completion: nil);
     }
     
     func addTableView(page: Int) -> UITableView {
@@ -680,6 +686,11 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                 }
             }
         }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated);
+        viewDidLayoutSubviews();
     }
     
     override func viewDidLayoutSubviews() {
