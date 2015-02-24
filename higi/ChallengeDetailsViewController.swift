@@ -205,6 +205,18 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
 
     func populateHeader() {
+        challengeAvatar.setImageWithURL(Utility.loadImageFromUrl(challenge.imageUrl));
+        challengeTitle.text = challenge.name;
+        challengeDaysLeft.text = dateDisplayHelper();
+        
+        headerContainerHeight = headerContainer.frame.size.height;
+        buttonContainerOriginY = buttonContainer.frame.origin.y;
+        headerAvatarOriginX = participantAvatar.frame.origin.x;
+        headerPlaceOriginX = participantPlace.frame.origin.x;
+        headerProgressOriginX = participantProgress.frame.origin.x;
+        headerProgressOriginWidth = participantProgress.frame.size.width;
+        headerPointsOriginX = participantPoints.frame.origin.x;
+        
         if (challenge.participant != nil) {
             participantAvatar.hidden = false;
             participantPoints.hidden = false;
@@ -241,18 +253,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             participantPlace.hidden = true;
             joinButton.hidden = false;
         }
-
-        challengeAvatar.setImageWithURL(Utility.loadImageFromUrl(challenge.imageUrl));
-        challengeTitle.text = challenge.name;
-        challengeDaysLeft.text = dateDisplayHelper();
-        headerContainerHeight = headerContainer.frame.size.height;
-        buttonContainerOriginY = buttonContainer.frame.origin.y;
-        
-        headerAvatarOriginX = participantAvatar.frame.origin.x;
-        headerPlaceOriginX = participantPlace.frame.origin.x;
-        headerProgressOriginX = participantProgress.frame.origin.x;
-        headerProgressOriginWidth = participantProgress.frame.size.width;
-        headerPointsOriginX = participantPoints.frame.origin.x;
     }
     
     @IBAction func joinButtonClick(sender: AnyObject) {
@@ -364,6 +364,9 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             chatterTable!.layoutIfNeeded();
         }
         scrollView.contentOffset = CGPointMake(0,0);
+        updateScroll();
+        
+        headerContainer.layoutIfNeeded();
     }
     
     func clearExistingViews() {
@@ -815,11 +818,11 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func setProgressBar(view: UIView, points: Int, highScore: Int) {
         var width = view.frame.size.width;
-        if (width == 0) {
-            width = headerProgressOriginWidth;
-        }
+//        if (width == 0) {
+//            width = headerProgressOriginWidth;
+//        }
         if (view.frame.origin.x == 0) {
-            view.frame.origin.x = 100;
+            view.frame.origin.x = headerProgressOriginX;
         }
         let barHeight:CGFloat = 4;
         let nodeHeight:CGFloat = 10;
