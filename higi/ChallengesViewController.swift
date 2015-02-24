@@ -117,6 +117,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
             scrollView.contentSize = CGSize(width: scrollView.frame.size.width * CGFloat(totalPages), height: scrollView.frame.size.height);
             
         } else {
+            title = "Challenges";
             blankState.hidden = false;
         }
         pager.numberOfPages = totalPages;
@@ -264,9 +265,6 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         footer.backgroundColor = Utility.colorFromHexString("#EEEEEE");
         cell.addSubview(footer);
         return cell;
-    }
-    
-    func buildEmptyCell(cell: ChallengeRowCell) {
     }
     
     func buildChallengeCell(cell: ChallengeRowCell, challenge: HigiChallenge) {
