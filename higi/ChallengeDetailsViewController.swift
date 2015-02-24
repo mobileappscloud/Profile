@@ -68,7 +68,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
 
     var individualGoalWinConditions:[ChallengeWinCondition] = [];
     var teamGoalWinConditions:[ChallengeWinCondition] = [];
-    var nonTrivialWinConditions = 0;
     
     var challengeChatterComments:[Comments] = [];
     
@@ -120,15 +119,12 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                     hasTeamLeaderboardComponent = true;
                 }
             }
-            if (winCondition.winnerType == "individual") {
+            if (winCondition.winnerType == "individual" && winCondition.goal.minThreshold > 1) {
                 hasIndividualGoalComponent = true;
                 individualGoalWinConditions.append(winCondition);
-            } else if (winCondition.winnerType == "team") {
+            } else if (winCondition.winnerType == "team" && winCondition.goal.minThreshold > 1) {
                 hasTeamGoalComponent = true;
                 teamGoalWinConditions.append(winCondition);
-            }
-            if (winCondition.goal.minThreshold > 1) {
-                nonTrivialWinConditions++;
             }
         }
         
@@ -1052,13 +1048,13 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             let firstWinCondition = winConditionList[0];
             if (firstWinCondition.goal.type == "threshold_reached") {
                 if (firstWinCondition.winnerType == "individual") {
-                    if (firstWinCondition.goal.minThreshold == 1) {
-                        ignoreOnePointGoalWinCondition = true;
-                    } else {
-                        individualGoalViewIndex = ignoreOnePointGoalWinCondition ? index - 1 : index;
-                    }
+//                    if (firstWinCondition.goal.minThreshold == 1) {
+//                        ignoreOnePointGoalWinCondition = true;
+//                    } else {
+                        individualGoalViewIndex = index;
+//                    }
                 } else {
-                    teamGoalViewIndex = ignoreOnePointGoalWinCondition ? index - 1 : index;
+                    teamGoalViewIndex = index;
                 }
             }
         }
