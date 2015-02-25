@@ -1068,7 +1068,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         let winConditions = isIndividualProgress ? individualGoalWinConditions : teamGoalWinConditions;
         let points = isIndividualProgress ? challenge.participant.units : challenge.participant.team.units;
         let cell = ChallengeProgressLegendRow.instanceFromNib(winConditions[winConditions.count - index - 1], userPoints: points,  metric: challenge.abbrMetric, index: index + 1);
-        cell.prizeDescription.sizeToFit();
+//        cell.prizeDescription.sizeToFit();
         return cell;
     }
     
