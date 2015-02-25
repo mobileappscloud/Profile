@@ -26,6 +26,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     
     override func viewDidLoad() {
         super.viewDidLoad();
+        pager = UIPageControl(frame: CGRect(x: UIScreen.mainScreen().bounds.width / 2 - 50 / 2 , y: self.navigationController!.navigationBar.frame.size.height - 10, width: 50, height: 10));
         pager.currentPage = currentPage;
     }
     
@@ -121,6 +122,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
             blankState.hidden = false;
         }
         pager.numberOfPages = totalPages;
+        self.navigationController?.navigationBar.addSubview(pager);
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -145,28 +147,26 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
                     toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon"), forState: UIControlState.Normal);
                     toggleButton!.alpha = 1 - alpha;
                     self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
-//                    pager.currentPageIndicatorTintColor = UIColor.whiteColor();
                 } else {
                     toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon_inverted"), forState: UIControlState.Normal);
                     toggleButton!.alpha = alpha;
                     self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
-//                    pager.currentPageIndicatorTintColor = UIColor.blackColor();
                 }
                 if (scrollY > 0) {
-//                    pager.pageIndicatorTintColor = UIColor.lightGrayColor();
+                    pager.pageIndicatorTintColor = UIColor.lightGrayColor();
                     pager.currentPageIndicatorTintColor = UIColor.blackColor();
+                } else {
+                    pager.pageIndicatorTintColor = UIColor(white: 1.0, alpha: 0.2);
+                    pager.currentPageIndicatorTintColor = UIColor.whiteColor();
                 }
-
             } else {
                 self.fakeNavBar.alpha = 0;
                 self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0, alpha: 1)];
                 self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
-//                pager.currentPageIndicatorTintColor = UIColor.whiteColor();
                 toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon"), forState: UIControlState.Normal);
                 toggleButton!.alpha = 1;
-//                pager.tintColor = UIColor(white: 1.0, alpha: 0.1);
+                pager.pageIndicatorTintColor = UIColor(white: 1.0, alpha: 0.2);
                 pager.currentPageIndicatorTintColor = UIColor.whiteColor();
-//                self.pager.setNeedsDisplay();
             }
         }
     }
