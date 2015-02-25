@@ -125,7 +125,6 @@ class SignupEmailViewController: UIViewController, UITextFieldDelegate {
                         SessionData.Instance.save();
                         SessionController.Instance.checkins = [];
                         SessionController.Instance.activities = [];
-                        SessionController.Instance.challenges = [];
                         
                         self.navigationController!.pushViewController(SignupNameViewController(nibName: "SignupNameView", bundle: nil), animated: true);
                         
