@@ -1066,11 +1066,10 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func createProgressLegendRow(index: Int) -> UITableViewCell {
         let winConditions = isIndividualProgress ? individualGoalWinConditions : teamGoalWinConditions;
-        let points = isIndividualProgress ? challenge.participant.units: challenge.participant.team.units;
+        let points = isIndividualProgress ? challenge.participant.units : challenge.participant.team.units;
         let cell = ChallengeProgressLegendRow.instanceFromNib(winConditions[winConditions.count - index - 1], userPoints: points,  metric: challenge.abbrMetric, index: index + 1);
         cell.prizeDescription.sizeToFit();
         return cell;
-        
     }
     
     func getProgressLegendRowHeight(index:Int) -> CGFloat {
