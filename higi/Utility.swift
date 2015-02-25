@@ -102,8 +102,17 @@ class Utility {
 
             if (goalType == "most_points" || goalType == "unit_goal_reached") {
                 nib = CompetitiveChallengeView.instanceFromNib(frame, challenge: challenge, winConditions: consolodatedList[index]);
-            } else if (goalType == "threshold_reached" && firstWinCondition.goal.minThreshold > 1) {
-                nib = GoalChallengeView.instanceFromNib(frame, challenge: challenge, winConditions: consolodatedList[index], isComplex: isComplex);
+            } else if (goalType == "threshold_reached") {
+                var createNib = false;
+                for winCondition in consolodatedList[index] {
+                    if (winCondition.goal.minThreshold > 1) {
+                        createNib = true;
+                        break;
+                    }
+                }
+                if (createNib) {
+                    nib = GoalChallengeView.instanceFromNib(frame, challenge: challenge, winConditions: consolodatedList[index], isComplex: isComplex);
+                }
             }
             if (nib != nil) {
                 nibs.append(nib);
