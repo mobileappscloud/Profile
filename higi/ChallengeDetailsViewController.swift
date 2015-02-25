@@ -532,7 +532,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         if (teamCount > 0) {
             table.teamCountText.text = String(challenge.teams.count);
             table.participantIcon.text = "\u{f007}";
-            table.individualCountText.text = String(teamCount);
+            table.individualCountText.text = String(challenge.participantsCount);
         } else {
             table.teamCountView.removeFromSuperview();
             table.participantCountView.removeFromSuperview();
