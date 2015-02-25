@@ -23,7 +23,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="banner_nologo.png" translatesAutoresizingMaskIntoConstraints="NO" id="cHq-ic-aVv">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="238"/>
                 </imageView>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rhI-8E-VoM">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>

@@ -138,7 +138,6 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         if (currentTable != nil) {
             var scrollY = currentTable.contentOffset.y;
             if (scrollY >= 0) {
-//                self.headerImage.frame.origin.y = -scrollY / 2;
                 var alpha = min(scrollY / 75, 1);
                 self.fakeNavBar.alpha = alpha;
                 self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0 - alpha, alpha: 1.0)];
@@ -146,21 +145,28 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
                     toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon"), forState: UIControlState.Normal);
                     toggleButton!.alpha = 1 - alpha;
                     self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
-                    pager.currentPageIndicatorTintColor = UIColor.whiteColor();
+//                    pager.currentPageIndicatorTintColor = UIColor.whiteColor();
                 } else {
                     toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon_inverted"), forState: UIControlState.Normal);
                     toggleButton!.alpha = alpha;
                     self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
+//                    pager.currentPageIndicatorTintColor = UIColor.blackColor();
+                }
+                if (scrollY > 0) {
+//                    pager.pageIndicatorTintColor = UIColor.lightGrayColor();
                     pager.currentPageIndicatorTintColor = UIColor.blackColor();
                 }
+
             } else {
                 self.fakeNavBar.alpha = 0;
                 self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0, alpha: 1)];
                 self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
-                pager.currentPageIndicatorTintColor = UIColor.whiteColor();
+//                pager.currentPageIndicatorTintColor = UIColor.whiteColor();
                 toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon"), forState: UIControlState.Normal);
                 toggleButton!.alpha = 1;
-                
+//                pager.tintColor = UIColor(white: 1.0, alpha: 0.1);
+                pager.currentPageIndicatorTintColor = UIColor.whiteColor();
+//                self.pager.setNeedsDisplay();
             }
         }
     }
@@ -196,18 +202,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var count = 0;
-        //check display master array instead of null checks to avoid crash
-        if (pageDisplayMaster[0] && tableView == activeTable && activeChallenges != nil) {
-            count = activeChallenges.count;
-        } else if (pageDisplayMaster[1] && tableView == upcomingTable && upcomingChallenges != nil) {
-            count = upcomingChallenges.count;
-        } else if (pageDisplayMaster[2] && tableView == availableTable && availableChallenges != nil) {
-            count = availableChallenges.count;
-        } else if (pageDisplayMaster[3] && tableView == invitedTable && invitedChallenges != nil) {
-            count = invitedChallenges.count;
-        }
-        return count;
+        return numberOfRowsInCurrentTableView(tableView);
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -261,10 +256,27 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         cell.tag = indexPath.row;
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "gotoDetails:");
         cell.addGestureRecognizer(tapGestureRecognizer);
-        let footer = UIView(frame: CGRect(x: 0, y: cell.frame.height - 10, width: cell.frame.width, height: 10));
-        footer.backgroundColor = Utility.colorFromHexString("#EEEEEE");
-        cell.addSubview(footer);
+        if (indexPath.row != numberOfRowsInCurrentTableView(tableView) - 1) {
+            let footer = UIView(frame: CGRect(x: 0, y: cell.frame.height - 10, width: cell.frame.width, height: 10));
+            footer.backgroundColor = Utility.colorFromHexString("#EEEEEE");
+            cell.addSubview(footer);
+        }
         return cell;
+    }
+    
+    func numberOfRowsInCurrentTableView(tableView: UITableView) -> Int {
+        var count = 0;
+        //check display master array instead of null checks to avoid crash
+        if (pageDisplayMaster[0] && tableView == activeTable) {
+            count = activeChallenges.count;
+        } else if (pageDisplayMaster[1] && tableView == upcomingTable) {
+            count = upcomingChallenges.count;
+        } else if (pageDisplayMaster[2] && tableView == availableTable) {
+            count = availableChallenges.count;
+        } else if (pageDisplayMaster[3] && tableView == invitedTable) {
+            count = invitedChallenges.count;
+        }
+        return count;
     }
     
     func buildChallengeCell(cell: ChallengeRowCell, challenge: HigiChallenge) {
