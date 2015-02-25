@@ -10,7 +10,7 @@ class ChallengeProgressLegendRow: UITableViewCell {
 //    override func layoutSubviews() {
 //        prizeDescription.sizeToFit();
 //    }
-    
+//    
     class func instanceFromNib(winCondition: ChallengeWinCondition, userPoints: Double, metric: String, index: Int) -> ChallengeProgressLegendRow {
         let row = UINib(nibName: "ChallengeProgressLegendRow", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeProgressLegendRow;
 
