@@ -759,7 +759,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         if (displayLeaderboardTab && leaderboardTable != nil && tableView == leaderboardTable) {
             return leaderboardTable!.rowHeight;
         } else if (displayProgressTab && progressTable != nil && tableView == progressTable) {
-            return indexPath.row == 0 ? 150 : 100;
+            return indexPath.row == 0 ? 150 : getProgressLegendRowHeight(indexPath.row);
         } else if (displayChatterTab && chatterTable != nil && tableView == chatterTable) {
             return getChatterRowHeight(indexPath.row);
         } else {
@@ -1048,11 +1048,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             let firstWinCondition = winConditionList[0];
             if (firstWinCondition.goal.type == "threshold_reached") {
                 if (firstWinCondition.winnerType == "individual") {
-//                    if (firstWinCondition.goal.minThreshold == 1) {
-//                        ignoreOnePointGoalWinCondition = true;
-//                    } else {
-                        individualGoalViewIndex = index;
-//                    }
+                    individualGoalViewIndex = index;
                 } else {
                     teamGoalViewIndex = index;
                 }
@@ -1070,7 +1066,18 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func createProgressLegendRow(index: Int) -> UITableViewCell {
         let winConditions = isIndividualProgress ? individualGoalWinConditions : teamGoalWinConditions;
-        return ChallengeProgressLegendRow.instanceFromNib(winConditions[winConditions.count - index - 1], userPoints: challenge.participant.units,  metric: challenge.abbrMetric, index: index + 1);
+        let cell = ChallengeProgressLegendRow.instanceFromNib(winConditions[winConditions.count - index - 1], userPoints: challenge.participant.units,  metric: challenge.abbrMetric, index: index + 1);
+//        cell.prizeDescription.sizeToFit();
+        return cell;
+        
+    }
+    
+    func getProgressLegendRowHeight(index:Int) -> CGFloat {
+        let b = individualGoalWinConditions.count;
+        let winConditions = isIndividualProgress ? individualGoalWinConditions : teamGoalWinConditions;
+        let d = winConditions.count - index - 1;
+        let a = winConditions.count;
+        return ChallengeProgressLegendRow.heightForRowAtIndex(winConditions[winConditions.count - (index - 1) - 1]);
     }
     
     func getChatterRowHeight(index: Int) -> CGFloat {
@@ -1093,8 +1100,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         HigiApi().sendPost(challenge.commentsUrl, parameters: contents, success: {operation, responseObject in
             self.addPlaceholderChatter(chatter);
             self.refreshChatter();
-//            ApiUtility.retrieveChallenges(self.refreshChallenge);
-            let i = 0;
             }, failure: { operation, error in
                 let e = error;
                 UIAlertView(title: "Uh oh", message: "Cannot send chatter at this time.  Please try again later.", delegate: self, cancelButtonTitle: "OK").show();
