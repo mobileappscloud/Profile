@@ -24,10 +24,17 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     var currentTable:UITableView!;
     var challenge:HigiChallenge?;
     
-    override func viewDidLoad() {
-        super.viewDidLoad();
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated);
+        self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
         pager = UIPageControl(frame: CGRect(x: UIScreen.mainScreen().bounds.width / 2 - 50 / 2 , y: self.navigationController!.navigationBar.frame.size.height - 10, width: 50, height: 10));
         pager.currentPage = currentPage;
+        initChallengeCards();
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated);
+        pager.removeFromSuperview();
     }
     
     func initChallengeCards() {
@@ -123,11 +130,6 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         }
         pager.numberOfPages = totalPages;
         self.navigationController?.navigationBar.addSubview(pager);
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated);
-        initChallengeCards();
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {

@@ -84,7 +84,7 @@ class ActivityGraphHostingView: CPTGraphHostingView, CPTBarPlotDataSource {
         var maxPlotPoints = 10;
         var firstPlot = true;
         var plotIndex = 0;
-        for device in Constants.getDevicePriority.reverse() {
+        for device in Constants.getDevicePriority {
             if (points.indexForKey(device) != nil) {
                 let pointArray = points[device]!;
                 var plot = CPTBarPlot(frame: CGRectZero);
@@ -164,7 +164,7 @@ class ActivityGraphHostingView: CPTGraphHostingView, CPTBarPlotDataSource {
             var offset = 0;
             var barPlot = plot as CPTBarPlot;
             if (barPlot.barBasesVary) {
-                for device in Constants.getDevicePriority.reverse() {
+                for device in Constants.getDevicePriority {
                     if (points.indexForKey(device) != nil) {
                         let pointArray = points[device]!;
                         if (plot.name.isEqual(device)) {

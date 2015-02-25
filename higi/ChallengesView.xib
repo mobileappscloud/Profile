@@ -27,8 +27,8 @@
                         <outlet property="delegate" destination="-1" id="lBW-wb-4Ae"/>
                     </connections>
                 </scrollView>
-                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="activitypageblankstate.png" translatesAutoresizingMaskIntoConstraints="NO" id="kML-RK-oWB">
-                    <rect key="frame" x="40" y="60" width="240" height="272"/>
+                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="challengesblankstate.png" translatesAutoresizingMaskIntoConstraints="NO" id="kML-RK-oWB">
+                    <rect key="frame" x="0.0" y="100" width="320" height="370"/>
                 </imageView>
             </subviews>
             <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -43,7 +43,7 @@
         </view>
     </objects>
     <resources>
-        <image name="activitypageblankstate.png" width="1080" height="1225"/>
         <image name="banner_nologo.png" width="1080" height="491"/>
+        <image name="challengesblankstate.png" width="1080" height="1250"/>
     </resources>
 </document>
