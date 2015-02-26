@@ -34,20 +34,20 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <view hidden="YES" contentMode="scaleToFill" id="iJB-Zx-4cn">
-                    <rect key="frame" x="0.0" y="82" width="320" height="407"/>
+                    <rect key="frame" x="0.0" y="65" width="320" height="404"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="activitypageblankstate.png" id="V1c-cn-KB4">
-                            <rect key="frame" x="10" y="10" width="300" height="386"/>
+                            <rect key="frame" x="10" y="10" width="300" height="340"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         </imageView>
                         <view userInteractionEnabled="NO" contentMode="scaleToFill" id="RxD-XH-FhR">
-                            <rect key="frame" x="0.0" y="360" width="320" height="1"/>
+                            <rect key="frame" x="0.0" y="356" width="320" height="1"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ZlQ-x0-bNu">
-                            <rect key="frame" x="0.0" y="361" width="320" height="46"/>
+                            <rect key="frame" x="0.0" y="358" width="320" height="46"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                             <state key="normal" title="Attach more devices!">
