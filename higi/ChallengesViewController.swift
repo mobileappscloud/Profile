@@ -145,6 +145,8 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
                 var alpha = min(scrollY / 75, 1);
                 self.fakeNavBar.alpha = alpha;
                 self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0 - alpha, alpha: 1.0)];
+                pager.pageIndicatorTintColor = UIColor(white: 1 - alpha, alpha: 0.2);
+                pager.currentPageIndicatorTintColor = UIColor(white: 1 - alpha, alpha: 1);
                 if (alpha < 0.5) {
                     toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon"), forState: UIControlState.Normal);
                     toggleButton!.alpha = 1 - alpha;
@@ -153,13 +155,6 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
                     toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon_inverted"), forState: UIControlState.Normal);
                     toggleButton!.alpha = alpha;
                     self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
-                }
-                if (scrollY > 0) {
-                    pager.pageIndicatorTintColor = UIColor.lightGrayColor();
-                    pager.currentPageIndicatorTintColor = UIColor.blackColor();
-                } else {
-                    pager.pageIndicatorTintColor = UIColor(white: 1.0, alpha: 0.2);
-                    pager.currentPageIndicatorTintColor = UIColor.whiteColor();
                 }
             } else {
                 self.fakeNavBar.alpha = 0;
