@@ -208,14 +208,14 @@
                 <outlet property="descriptionView" destination="GH1-jg-xMV" id="3qa-TL-NE2"/>
                 <outlet property="durationText" destination="4aL-fc-MXv" id="sfi-ll-kHW"/>
                 <outlet property="headerView" destination="6rH-4Z-e4u" id="RLm-5W-OxE"/>
-                <outlet property="individualCountText" destination="no8-jc-2qs" id="P5d-it-AZc"/>
+                <outlet property="individualCountText" destination="H2a-I3-6KH" id="TIe-bW-Exa"/>
                 <outlet property="participantCountSubView" destination="glg-77-cL1" id="3TX-hd-Vej"/>
                 <outlet property="participantCountView" destination="gwp-eW-p5H" id="Afv-QH-Tqv"/>
                 <outlet property="participantIcon" destination="FLt-li-umJ" id="guc-vZ-0vo"/>
                 <outlet property="participantRowView" destination="kTN-OZ-wr5" id="Ka1-d9-aYi"/>
                 <outlet property="prizesContainer" destination="x7J-PD-rhh" id="roe-yn-kCq"/>
                 <outlet property="teamCountSubview" destination="UlZ-eF-u6h" id="oUo-9K-0N9"/>
-                <outlet property="teamCountText" destination="H2a-I3-6KH" id="XlB-tB-bSD"/>
+                <outlet property="teamCountText" destination="no8-jc-2qs" id="EzU-id-bDY"/>
                 <outlet property="teamCountView" destination="5sq-Ew-cYk" id="MDc-n4-Izy"/>
                 <outlet property="termsButton" destination="D4f-3Z-5Ud" id="hYF-0C-Gv0"/>
                 <outlet property="typeText" destination="ytg-U2-Krf" id="O8R-64-uUL"/>
