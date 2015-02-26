@@ -8,7 +8,7 @@ class HigiApi {
     }
     
     class var EARNDIT_DEV: Bool {
-        return true;
+        return false;
     }
     
     var manager: AFHTTPRequestOperationManager;

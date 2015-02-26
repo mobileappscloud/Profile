@@ -372,6 +372,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     }
     
     func refresh() {
+        SessionController.Instance.earnditError = false;
         activitiesRefreshed = false;
         challengesRefreshed = false;
         checkinsRefreshed = false;

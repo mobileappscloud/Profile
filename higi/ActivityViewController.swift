@@ -58,8 +58,14 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
         pointsMeter = UINib(nibName: "PointsMeterView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as PointsMeter;
         pointsMeterContainer.addSubview(pointsMeter);
         populateActivities();
-        if (todaysActivities.count > 0) {
+        if (SessionController.Instance.activities.count > 0) {
             pointsMeter.activities = todaysActivities;
+            if (todaysActivities.count > 0) {
+                legendButton.hidden = false;
+            } else {
+                legendButton.hidden = true;
+
+            }
         } else {
             pointsMeter.hidden = true;
             noPoints.hidden = false;
