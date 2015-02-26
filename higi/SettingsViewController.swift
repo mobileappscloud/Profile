@@ -147,7 +147,6 @@ class SettingsViewController: BaseViewController, UIScrollViewDelegate {
         self.navigationController!.pushViewController(webController, animated: true);
     }
     
-    
     @IBAction func logout(sender: AnyObject) {
         resetColor(sender);
         SessionController.Instance.reset();
