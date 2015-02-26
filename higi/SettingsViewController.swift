@@ -63,7 +63,7 @@ class SettingsViewController: BaseViewController, UIScrollViewDelegate {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews();
-        scrollView.contentSize = CGSize(width: scrollView.bounds.size.width, height: 698);
+        scrollView.contentSize = CGSize(width: scrollView.bounds.size.width, height: 741);
     }
     
     @IBAction func newProfileImage(sender: AnyObject) {
