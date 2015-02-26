@@ -165,6 +165,12 @@ class SettingsViewController: BaseViewController, UIScrollViewDelegate {
         (sender as UIButton).backgroundColor = UIColor.clearColor();
     }
     
+    @IBAction func connectDevices(sender: AnyObject) {
+        Flurry.logEvent("ConnectDevice_Pressed");
+        self.navigationController!.pushViewController(ConnectDeviceViewController(nibName: "ConnectDeviceView", bundle: nil), animated: true);
+        (sender as UIButton).backgroundColor = Utility.colorFromHexString("#FFFFFF");
+    }
+    
     func scrollViewDidScroll(scrollView: UIScrollView!) {
         updateNavBar();
     }

@@ -50,6 +50,8 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad();
         self.title = "Activity";
+        self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
+        
         dateFormatter.dateFormat = "MM/dd/yyyy";
         pointsMeter = UINib(nibName: "PointsMeterView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as PointsMeter;
         pointsMeterContainer.addSubview(pointsMeter);
@@ -168,7 +170,7 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
     func updateNavbar() {
         var scrollY = tableView.contentOffset.y;
         if (scrollY >= 0) {
-            headerImage.frame.origin.y = -scrollY / 2;
+            headerImage.frame.origin.y = -scrollY / 1.5;
             var alpha = min(scrollY / 75, 1);
             self.fakeNavBar.alpha = alpha;
             self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0 - alpha, alpha: 1.0)];
