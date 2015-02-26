@@ -825,9 +825,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func setProgressBar(view: UIView, points: Int, highScore: Int) {
         var width = view.frame.size.width;
-//        if (width == 0) {
-//            width = headerProgressOriginWidth;
-//        }
         if (view.frame.origin.x == 0) {
             view.frame.origin.x = headerProgressOriginX;
         }
@@ -841,14 +838,14 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             if (largestGoal == 0) {
                 largestGoal = 1;
             }
-            let participantPoints = challenge.winConditions[0].winnerType == "individual" ? challenge.participant.units : challenge.participant.team.units;
-            proportion = min(CGFloat(participantPoints) / CGFloat(largestGoal), 1);
+
+            proportion = min(CGFloat(points) / CGFloat(largestGoal), 1);
             for winCondition in individualGoalWinConditions {
                 let goalVal = winCondition.goal.minThreshold;
                 let posX = min(width, CGFloat(goalVal) / CGFloat(largestGoal) * width) - nodeHeight / 2;
                 //** idk why this is / 4 instead of /2 ... auto-layout?
                 let goalCircle = UIView(frame: CGRect(x: posX, y: posY - nodeHeight / 4 , width: nodeHeight, height: nodeHeight));
-                let circleColor:UIColor = participantPoints > Double(goalVal) ? Utility.colorFromHexString("#76C043") : UIColor(white: 0.5, alpha: 1);
+                let circleColor:UIColor = Double(points) > Double(goalVal) ? Utility.colorFromHexString("#76C043") : UIColor(white: 0.5, alpha: 1);
                 goalCircle.backgroundColor = circleColor;
                 goalCircle.layer.cornerRadius = nodeHeight / 2;
                 view.addSubview(goalCircle);
@@ -1068,7 +1065,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         let winConditions = isIndividualProgress ? individualGoalWinConditions : teamGoalWinConditions;
         let points = isIndividualProgress ? challenge.participant.units : challenge.participant.team.units;
         let cell = ChallengeProgressLegendRow.instanceFromNib(winConditions[winConditions.count - index - 1], userPoints: points,  metric: challenge.abbrMetric, index: index + 1);
-//        cell.prizeDescription.sizeToFit();
         return cell;
     }
     
