@@ -3,7 +3,6 @@ import Foundation
 class GoalChallengeView: UIView {
     
     @IBOutlet var avatar: UIImageView!
-    @IBOutlet var name: UILabel!
     @IBOutlet var rank: UILabel!
     @IBOutlet var progress: UIView!
     

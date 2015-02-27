@@ -296,6 +296,7 @@
 		D17787251A96873500C78F8B /* iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D177871F1A96873500C78F8B /* iphone.png */; };
 		D17787261A96873500C78F8B /* pulse_article.png in Resources */ = {isa = PBXBuildFile; fileRef = D17787201A96873500C78F8B /* pulse_article.png */; };
 		D17787271A96873500C78F8B /* todayspoints.png in Resources */ = {isa = PBXBuildFile; fileRef = D17787211A96873500C78F8B /* todayspoints.png */; };
+		D17C0A8D1A9FC5520010971C /* unpluggederrorstate.png in Resources */ = {isa = PBXBuildFile; fileRef = D17C0A8C1A9FC5520010971C /* unpluggederrorstate.png */; };
 		D18395C11A69BC9E00D290BF /* ChallengeDetailsTab.xib in Resources */ = {isa = PBXBuildFile; fileRef = D18395C01A69BC9E00D290BF /* ChallengeDetailsTab.xib */; };
 		D18395C31A69CAD500D290BF /* ChallengesDetailsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18395C21A69CAD500D290BF /* ChallengesDetailsTab.swift */; };
 		D19DDA531A5EF599004F97A3 /* NewCPTAxisLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = D19DDA521A5EF599004F97A3 /* NewCPTAxisLabel.m */; };
@@ -642,6 +643,7 @@
 		D177871F1A96873500C78F8B /* iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iphone.png; path = images/iphone.png; sourceTree = "<group>"; };
 		D17787201A96873500C78F8B /* pulse_article.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pulse_article.png; path = images/pulse_article.png; sourceTree = "<group>"; };
 		D17787211A96873500C78F8B /* todayspoints.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = todayspoints.png; path = images/todayspoints.png; sourceTree = "<group>"; };
+		D17C0A8C1A9FC5520010971C /* unpluggederrorstate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = unpluggederrorstate.png; path = images/unpluggederrorstate.png; sourceTree = "<group>"; };
 		D18395C01A69BC9E00D290BF /* ChallengeDetailsTab.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailsTab.xib; sourceTree = "<group>"; };
 		D18395C21A69CAD500D290BF /* ChallengesDetailsTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengesDetailsTab.swift; sourceTree = "<group>"; };
 		D19DDA511A5EF432004F97A3 /* NewCPTAxisLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewCPTAxisLabel.h; sourceTree = "<group>"; };
@@ -1362,6 +1364,7 @@
 		D1AAA7A01A9E7E1800A41B3D /* Activity */ = {
 			isa = PBXGroup;
 			children = (
+				D17C0A8C1A9FC5520010971C /* unpluggederrorstate.png */,
 				8F5F918B1A7193FC0042D87C /* activitypageblankstate.png */,
 			);
 			name = Activity;
@@ -1651,6 +1654,7 @@
 				8F5C38CD19818BA900F51543 /* gauge2_atrisk.png in Resources */,
 				8F6266AF197EC8E200145EDB /* BodyStatsLand.xib in Resources */,
 				8F5E7FCE199BC986009067E5 /* CheckinCellView.xib in Resources */,
+				D17C0A8D1A9FC5520010971C /* unpluggederrorstate.png in Resources */,
 				D1EEDB9A1A660F2B0012EFD3 /* ui_leaderboards.png in Resources */,
 				8FC7B71219E5E67000D0112F /* dashboard2-568h@2x.png in Resources */,
 				8F3643A719460EB300C0033E /* Images.xcassets in Resources */,

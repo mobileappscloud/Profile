@@ -33,6 +33,7 @@ class ApiUtility {
     }
     
     class func initializeApiDataThenCallback(success: (() -> Void)?) {
+        SessionController.Instance.earnditError = false;
         ApiUtility.retrieveCheckins(success);
         ApiUtility.retrieveActivities(success);
         ApiUtility.retrieveChallenges(success);
@@ -90,7 +91,6 @@ class ApiUtility {
     
     class func retrieveActivities(success: (() -> Void)?) {
         ApiUtility.checkForNewActivities({
-            SessionController.Instance.earnditError = false;
             let userId = !HigiApi.EARNDIT_DEV ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
             var startDateFormatter = NSDateFormatter();
             startDateFormatter.dateFormat = "yyyy-MM-01";
@@ -136,7 +136,6 @@ class ApiUtility {
     }
     
     class func retrieveChallenges(success: (() -> Void)?) {
-        SessionController.Instance.earnditError = false;
         let userId = !HigiApi.EARNDIT_DEV ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
         HigiApi().sendGet("\(HigiApi.earnditApiUrl)/user/\(userId)/challenges?&include[gravityboard]=3&include[participants]=50" +
             "&include[comments]=50&include[teams.comments]=50", success: {operation, responseObject in
@@ -202,7 +201,6 @@ class ApiUtility {
     
     class func retrieveDevices(success: (() -> Void)?) {
         let userId = !HigiApi.EARNDIT_DEV ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
-        SessionController.Instance.earnditError = false;
         HigiApi().sendGet("\(HigiApi.earnditApiUrl)/user/\(userId)/devices", success: {operation, responseObject in
             var devices: [String:ActivityDevice] = [:];
             var serverDevices = (responseObject as NSDictionary)["response"] as NSArray;

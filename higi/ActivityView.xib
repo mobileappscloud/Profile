@@ -8,14 +8,15 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ActivityViewController" customModule="higi" customModuleProvider="target">
             <connections>
                 <outlet property="activityContainer" destination="vOP-W3-aJq" id="0iS-EH-8HD"/>
-                <outlet property="bigBlankState" destination="V1c-cn-KB4" id="RUq-3R-h0v"/>
                 <outlet property="dayButton" destination="Jwm-ct-Dxv" id="xJX-is-quT"/>
+                <outlet property="errorState" destination="vLs-2F-vgC" id="LFM-xf-D2F"/>
                 <outlet property="graphContainer" destination="FPC-Ce-M7Y" id="QA1-O8-5tN"/>
                 <outlet property="headerContainer" destination="7X7-pr-R91" id="G7U-tK-xsJ"/>
                 <outlet property="headerImage" destination="hf1-yC-WOq" id="UIf-An-nNI"/>
                 <outlet property="legendButton" destination="adP-ej-227" id="MRb-Ik-of3"/>
                 <outlet property="meterContainer" destination="Ety-6r-yrR" id="Lvx-td-KNj"/>
                 <outlet property="monthButton" destination="Xlb-9N-gCa" id="5ee-NC-Lpy"/>
+                <outlet property="noActivityEverView" destination="iJB-Zx-4cn" id="ziD-LX-GLI"/>
                 <outlet property="noPoints" destination="58U-EP-Otk" id="WbO-Zb-eaJ"/>
                 <outlet property="pointsMeterContainer" destination="Yfz-yD-sS5" id="RJ5-ar-1zB"/>
                 <outlet property="tableView" destination="KBI-5Z-NYk" id="RwC-Ba-DIX"/>
@@ -32,6 +33,34 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="250"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
+                <view hidden="YES" contentMode="scaleToFill" id="iJB-Zx-4cn">
+                    <rect key="frame" x="0.0" y="65" width="320" height="404"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="activitypageblankstate.png" id="V1c-cn-KB4">
+                            <rect key="frame" x="10" y="10" width="300" height="340"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                        <view userInteractionEnabled="NO" contentMode="scaleToFill" id="RxD-XH-FhR">
+                            <rect key="frame" x="0.0" y="356" width="320" height="1"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ZlQ-x0-bNu">
+                            <rect key="frame" x="0.0" y="358" width="320" height="46"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                            <state key="normal" title="Attach more devices!">
+                                <color key="titleColor" red="0.46274509800000002" green="0.75294117650000003" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="connectDevices:" destination="-1" eventType="touchUpInside" id="ZTJ-wi-akh"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="KBI-5Z-NYk">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -133,10 +162,17 @@
                         <outlet property="delegate" destination="-1" id="HSA-1b-7Zg"/>
                     </connections>
                 </tableView>
-                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="activitypageblankstate.png" id="V1c-cn-KB4">
-                    <rect key="frame" x="0.0" y="82" width="320" height="368"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                </imageView>
+                <view hidden="YES" contentMode="scaleToFill" id="vLs-2F-vgC">
+                    <rect key="frame" x="0.0" y="71" width="320" height="367"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="unpluggederrorstate.png" id="OWv-2U-eRQ">
+                            <rect key="frame" x="10" y="10" width="300" height="347"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
             </subviews>
             <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
@@ -154,6 +190,7 @@
         <image name="activitywidgetblankstate.png" width="1080" height="650"/>
         <image name="banner_nologo.png" width="1080" height="491"/>
         <image name="oc_dropdownmenu_down.png" width="70" height="70"/>
+        <image name="unpluggederrorstate.png" width="1080" height="1200"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
