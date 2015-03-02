@@ -59,13 +59,15 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     
     var selectedMarker: GMSMarker?;
     
-    var selectedIcon = Utility.scaleImage(UIImage(named: "map_iconwithdot")!, newSize: CGSize(width: 45, height: 45));
+    var selectedIcon = Utility.scaleImage(UIImage(named: "map_iconwithdot.png")!, newSize: CGSize(width: 45, height: 45));
     
-    var unselectedIcon = Utility.scaleImage(UIImage(named: "map_circleicon")!, newSize: CGSize(width: 15, height: 15));
+    var unselectedIcon = Utility.scaleImage(UIImage(named: "map_circleicon.png")!, newSize: CGSize(width: 15, height: 15));
     
     var currentAutoCompleteTask = NSOperationQueue(), currentVisibleKioskTask = NSOperationQueue();
     
     var autoCompleteY, visibleY, selectedY: CGFloat!;
+    
+    var clusterManager:GClusterManager = GClusterManager();
     
     override func viewDidLoad()  {
         super.viewDidLoad();
@@ -167,13 +169,6 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         selectedKioskPane.frame.origin = CGPoint(x: 0, y: selectedY);
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated);
-        if (!reminderMode) {
-            populateMarkers();
-        }
-    }
-    
     override func viewDidDisappear(animated: Bool) {
         currentVisibleKioskTask.cancelAllOperations();
         super.viewDidDisappear(animated)
@@ -185,6 +180,16 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         mapView.myLocationEnabled = true;
         mapView.settings.myLocationButton = true;
         mapView.delegate = self;
+        
+        clusterManager = GClusterManager(mapView: mapView, algorithm: NonHierarchicalDistanceBasedAlgorithm(), renderer: GDefaultClusterRenderer(mapView: mapView))
+
+        for kiosk in SessionController.Instance.kioskList {
+            let item = GClusterKiosk();
+            item.setPosition(kiosk.position!);
+            clusterManager.addItem(item);
+        }
+        
+        clusterManager.cluster();
         
         var myLocationButton = mapView.subviews.last as UIView;
         myLocationButton.frame.origin.x = 10;
@@ -199,12 +204,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
                 locationManager.requestWhenInUseAuthorization();
                 locationManager.delegate = self;
             }
-            for kiosk in SessionController.Instance.kioskList {
-                var marker = GMSMarker(position: kiosk.position!);
-                marker.icon = self.unselectedIcon;
-                markers.append(marker);
-            }
-            updateKioskPositions();
+
         }
     }
     
@@ -231,10 +231,8 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         listOpen = !listOpen;
     }
     
-    func mapView(mapView: GMSMapView!, didChangeCameraPosition position: GMSCameraPosition!) {
-        if (markers.count > 0) {
-            updateKioskPositions();
-        }
+    func mapView(mapView: GMSMapView!, idleAtCameraPosition position: GMSCameraPosition!) {
+        clusterManager.cluster();
     }
     
     func mapView(mapView: GMSMapView!, didTapMarker marker: GMSMarker!) -> Bool {
@@ -243,56 +241,6 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
             setSelectedKiosk(SessionController.Instance.kioskList[index!]);
         }
         return true;
-    }
-    
-    func updateKioskPositions() {
-        if (markers.count == SessionController.Instance.kioskList.count) {
-            currentVisibleKioskTask.cancelAllOperations();
-            searchField.resignFirstResponder();
-            visibleKiosks = [];
-            var bounds = GMSCoordinateBounds(region: self.mapView!.projection.visibleRegion());
-            
-            currentVisibleKioskTask.addOperationWithBlock({
-                
-                for i in 0..<SessionController.Instance.kioskList.count {
-                    var kiosk = SessionController.Instance.kioskList[i];
-                    if (kiosk.group == "retired" || kiosk.group == "removed") {
-                        continue;
-                    }
-                    var marker = self.markers[i];
-                    if (bounds.containsCoordinate(kiosk.position!)) {
-                        self.visibleKiosks.append(kiosk);
-                        if (marker.map == nil) {
-                            dispatch_async(dispatch_get_main_queue(), {
-                                marker.map = self.mapView;
-                            });
-                        }
-                    } else if (marker.map != nil) {
-                        dispatch_async(dispatch_get_main_queue(), {
-                            marker.map = nil;
-                        });
-                    }
-                    if ((self.currentVisibleKioskTask.operations[0] as NSOperation).cancelled) {
-                        return;
-                    }
-                }
-                if ((self.currentVisibleKioskTask.operations[0] as NSOperation).cancelled) {
-                    return;
-                }
-                self.visibleKiosks.sort { self.calcDistance($0.position!) < self.calcDistance($1.position!) };
-                if ((self.currentVisibleKioskTask.operations[0] as NSOperation).cancelled) {
-                    return;
-                }
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.visibleKiosksTable.reloadData();
-                    if (self.visibleKiosks.count == 0) {
-                        self.listButton.hidden = true;
-                    } else {
-                        self.listButton.hidden = false;
-                    }
-                });
-            });
-        }
     }
     
     func calcDistance(position: CLLocationCoordinate2D) -> Double {
@@ -549,8 +497,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         } else {
             selectedDistance.text = "";
         }
-        mapView.animateWithCameraUpdate(GMSCameraUpdate.setTarget(kiosk.position!));
-        updateKioskPositions();
+//        mapView.animateWithCameraUpdate(GMSCameraUpdate.setTarget(kiosk.position!));
     }
     
     func getKioskLogoUrl(kiosk: KioskInfo!) -> NSURL {
@@ -563,9 +510,6 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         if (!firstLocation && keyPath == "myLocation") {
             firstLocation = true;
             mapView.camera = GMSCameraPosition.cameraWithTarget(mapView.myLocation.coordinate, zoom: 11);
-            if (markers.count > 0) {
-                updateKioskPositions();
-            }
         }
     }
     
