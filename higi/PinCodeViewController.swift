@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import LocalAuthentication
 
 class PinCodeViewController: UIViewController, UITextFieldDelegate {
     
@@ -14,10 +15,13 @@ class PinCodeViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var pinField: UITextField!
     @IBOutlet weak var circleContainer: UIView!
     @IBOutlet weak var topTitle: UILabel!
+    @IBOutlet weak var contents: UIView!
     
     var newCode = false, modifying = false, removing = false, confirming = false;
     
     var tempCode: String!;
+    
+    let authenticationContext = LAContext();
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -31,7 +35,6 @@ class PinCodeViewController: UIViewController, UITextFieldDelegate {
             var backBarItem = UIBarButtonItem(customView: backButton);
             self.navigationItem.leftBarButtonItem = backBarItem;
         }
-        pinField.becomeFirstResponder();
         backgroundImage.image = SessionData.Instance.user.blurredImage;
         for circle in circleContainer.subviews as [UIView]{
             circle.layer.cornerRadius = 30;
@@ -40,12 +43,44 @@ class PinCodeViewController: UIViewController, UITextFieldDelegate {
         }
         
         if (newCode) {
-            topTitle.text = "Protect access to your higi app with a passcode.";
+            topTitle.text = "Protect access to your higi app with a passcode";
         } else if (modifying || removing) {
-            topTitle.text = "Enter your passcode again to verify it.";
+            topTitle.text = "Enter your passcode again to verify it";
         } else {
-            topTitle.text = "Enter your passcode to unlock.";
+            topTitle.text = "Enter your passcode to unlock";
         }
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "checkTouchId", name: UIApplicationWillEnterForegroundNotification, object: nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:"appleSucks", name: UIApplicationWillResignActiveNotification, object: nil);
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated);
+        checkTouchId();
+    }
+    
+    func appleSucks() {
+        self.contents.alpha = 0.0;
+        self.pinField.resignFirstResponder();
+    }
+    
+    func checkTouchId() {
+        if (SessionController.Instance.askTouchId && self.authenticationContext.canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, error: nil)) {
+            self.authenticationContext.evaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, localizedReason: "Use your fingerprint to access higi", reply: {success, error in
+                if (success) {
+                    self.closeView();
+                } else {
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(1000 * Double(NSEC_PER_MSEC))), dispatch_get_main_queue(), {
+                        self.contents.alpha = 1.0;
+                        self.pinField.becomeFirstResponder();
+                    });
+                }
+            });
+        } else {
+            self.contents.alpha = 1.0;
+            self.pinField.becomeFirstResponder();
+        }
+        SessionController.Instance.askTouchId = true;
+        
     }
     
     func textField(textField: UITextField!, shouldChangeCharactersInRange range: NSRange, replacementString string: String!) -> Bool {
@@ -53,7 +88,7 @@ class PinCodeViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func pinChanged(sender: AnyObject!) {
-       
+        
         for index in 0..<pinField.text.utf16Count {
             var circle = circleContainer.subviews[index] as UIView;
             circle.layer.borderWidth = 20;
@@ -139,5 +174,9 @@ class PinCodeViewController: UIViewController, UITextFieldDelegate {
     override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
         return UIInterfaceOrientation.Portrait;
     }
-
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self);
+    }
+    
 }

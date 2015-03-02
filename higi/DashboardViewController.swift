@@ -523,4 +523,8 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         reminderController.reminderMode = true;
         self.navigationController!.pushViewController(reminderController, animated: true);
     }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self);
+    }
 }
