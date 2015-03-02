@@ -58,7 +58,8 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
         pointsMeter = UINib(nibName: "PointsMeterView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as PointsMeter;
         pointsMeterContainer.addSubview(pointsMeter);
         populateActivities();
-        if (SessionController.Instance.activities.count > 0) {
+        let activities = SessionController.Instance.activities;
+        if (activities != nil && activities.count > 0) {
             pointsMeter.activities = todaysActivities;
             if (todaysActivities.count > 0) {
                 legendButton.hidden = false;
@@ -210,16 +211,18 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
         monthBuckets = [:];
         todaysActivities = [];
         activitiesByDay = [];
-        for activity in activities {
-            var dateString = dateFormatter.stringFromDate(activity.startTime);
-            if (savedDate != dateString) {
-                currentSection++;
-                activitiesByDay.append([]);
-                savedDate = dateString;
-            }
-            activitiesByDay[currentSection].append(activity);
-            if (activity.errorDescription == nil) {
-                addToBuckets(activity);
+        if (activities != nil) {
+            for activity in activities {
+                var dateString = dateFormatter.stringFromDate(activity.startTime);
+                if (savedDate != dateString) {
+                    currentSection++;
+                    activitiesByDay.append([]);
+                    savedDate = dateString;
+                }
+                activitiesByDay[currentSection].append(activity);
+                if (activity.errorDescription == nil) {
+                    addToBuckets(activity);
+                }
             }
         }
         
@@ -287,8 +290,8 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
     }
     
     func createGraphs() {
-        
-        if (SessionController.Instance.activities.count > 0) {
+        let activities = SessionController.Instance.activities;
+        if (activities != nil && activities.count > 0) {
             dayGraph = ActivityGraphHostingView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: graphContainer.frame.size), points: dayBuckets);
             weekGraph = ActivityGraphHostingView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: graphContainer.frame.size), points: weekBuckets);
             monthGraph = ActivityGraphHostingView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: graphContainer.frame.size), points: monthBuckets);

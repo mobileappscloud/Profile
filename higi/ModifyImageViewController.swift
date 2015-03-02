@@ -129,7 +129,8 @@ class ModifyImageViewController: UIViewController {
                     }
                 }
             } else {
-                ApiUtility.initializeApiDataThenCallback(self.gotoDashboard);
+                ApiUtility.initializeApiData();
+                Utility.gotoDashboard(self);
             }
             
             }, failure: {operation, error in
@@ -168,12 +169,6 @@ class ModifyImageViewController: UIViewController {
         self.navigationItem.leftBarButtonItem?.customView?.hidden = false;
         spinner.hidden = true;
         doneButton.hidden = false;
-    }
-    
-    func gotoDashboard() {
-        if (SessionController.Instance.checkins != nil && SessionController.Instance.activities != nil && SessionController.Instance.challenges != nil && SessionController.Instance.kioskList != nil && SessionController.Instance.pulseArticles.count > 0) {
-            Utility.gotoDashboard(self);
-        }
     }
     
 }
