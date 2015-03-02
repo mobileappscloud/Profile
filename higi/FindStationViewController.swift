@@ -179,17 +179,16 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         mapView = GMSMapView.mapWithFrame(CGRect(origin: CGPoint(x: 0, y: 0), size: mapContainer.frame.size), camera: camera);
         mapView.myLocationEnabled = true;
         mapView.settings.myLocationButton = true;
-        mapView.delegate = self;
-        
-        clusterManager = GClusterManager(mapView: mapView, algorithm: NonHierarchicalDistanceBasedAlgorithm(), renderer: GDefaultClusterRenderer(mapView: mapView))
 
+        clusterManager = GClusterManager(mapView: mapView, algorithm: NonHierarchicalDistanceBasedAlgorithm(), renderer: GDefaultClusterRenderer(mapView: mapView))
+        mapView.delegate = clusterManager;
         for kiosk in SessionController.Instance.kioskList {
             let item = GClusterKiosk();
             item.setPosition(kiosk.position!);
             clusterManager.addItem(item);
         }
         
-        clusterManager.cluster();
+//        clusterManager.cluster();
         
         var myLocationButton = mapView.subviews.last as UIView;
         myLocationButton.frame.origin.x = 10;
@@ -231,9 +230,9 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         listOpen = !listOpen;
     }
     
-    func mapView(mapView: GMSMapView!, idleAtCameraPosition position: GMSCameraPosition!) {
-        clusterManager.cluster();
-    }
+//    func mapView(mapView: GMSMapView!, idleAtCameraPosition position: GMSCameraPosition!) {
+//        clusterManager.cluster();
+//    }
     
     func mapView(mapView: GMSMapView!, didTapMarker marker: GMSMarker!) -> Bool {
         if (marker != selectedMarker) {

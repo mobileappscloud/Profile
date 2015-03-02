@@ -6,12 +6,14 @@
 @implementation GDefaultClusterRenderer {
     GMSMapView *_map;
     NSMutableArray *_markerCache;
+    UIImage *icon;
 }
 
 - (id)initWithMapView:(GMSMapView*)googleMap {
     if (self = [super init]) {
         _map = googleMap;
         _markerCache = [[NSMutableArray alloc] init];
+        icon = [self scaleImage:[UIImage imageNamed:@"map_circleicon"] size:CGRectMake(0, 0, 15, 15)];
     }
     return self;
 }
@@ -22,7 +24,6 @@
     }
     
     [_markerCache removeAllObjects];
-    UIImage *icon = [self scaleImage:[UIImage imageNamed:@"map_circleicon.png"] size:CGRectMake(0, 0, 15, 15)];
 
     for (id <GCluster> cluster in clusters) {
         GMSMarker *marker;
@@ -111,8 +112,8 @@
 }
 
 - (UIImage*) scaleImage:(UIImage*)image size:(CGRect)size {
-    CGRect rect = CGRectMake(0,0,75,75);
-    UIGraphicsBeginImageContext( rect.size );
+    CGRect rect = size;
+    UIGraphicsBeginImageContext(rect.size);
     [image drawInRect:rect];
     UIImage *tempImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
