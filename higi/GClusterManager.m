@@ -28,7 +28,7 @@
 }
 
 - (void)cluster {
-    NSSet *clusters = [_clusterAlgorithm getClusters:_mapView.camera.zoom];
+    NSSet *clusters = [_clusterAlgorithm getClusters:_mapView];
     [_clusterRenderer clustersChanged:clusters];
 }
 

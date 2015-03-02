@@ -36,8 +36,8 @@
   [_quadTree clear];
 }
 
-- (NSSet*)getClusters:(float)zoom {
-    int discreteZoom = (int) zoom;
+- (NSSet*)getClusters:(GMSMapView *)map {
+    int discreteZoom = (int) map.camera.zoom;
     
     double zoomSpecificSpan = _maxDistanceAtZoom / pow(2, discreteZoom) / 256;
     
@@ -45,16 +45,17 @@
     NSMutableSet *results = [[NSMutableSet alloc] init];
     NSMutableDictionary *distanceToCluster = [[NSMutableDictionary alloc] init];
     NSMutableDictionary *itemToCluster = [[NSMutableDictionary alloc] init];
-    
+    GMSCoordinateBounds *mapBounds = [[GMSCoordinateBounds alloc] initWithRegion:map.projection.visibleRegion];
     for (GQuadItem* candidate in _items) {
-        if ([visitedCandidates containsObject:candidate]) {
+        if (![mapBounds containsCoordinate:candidate.position] || [visitedCandidates containsObject:candidate]) {
             // Candidate is already part of another cluster.
             continue;
         }
         
+        
         GQTBounds bounds = [self createBoundsFromSpan:candidate.point span:zoomSpecificSpan];
         NSArray *clusterItems  = [_quadTree searchWithBounds:bounds];
-        if ([clusterItems count] == 1) {
+        if ([clusterItems count] < 4) {
             // Only the current marker is in range. Just add the single item to the results.
             [results addObject:candidate];
             [visitedCandidates addObject:candidate];

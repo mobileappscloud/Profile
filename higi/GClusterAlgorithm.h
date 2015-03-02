@@ -6,6 +6,6 @@
 - (void)addItem:(id <GClusterItem>) item;
 - (void)removeItems;
 
-- (NSSet*)getClusters:(float)zoom;
+- (NSSet*)getClusters:(GMSMapView*) map;
 
 @end

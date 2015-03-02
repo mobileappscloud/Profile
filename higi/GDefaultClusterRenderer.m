@@ -45,7 +45,7 @@
 
 - (UIImage*) generateClusterIconWithCount:(NSUInteger)count {
     
-    int diameter = 40;
+    int diameter = 60;
     float inset = 3;
     
     CGRect rect = CGRectMake(0, 0, diameter, diameter);
@@ -67,7 +67,7 @@
     CGContextFillEllipseInRect(ctx, circleRect);
     CGContextStrokeEllipseInRect(ctx, circleRect);
 
-    CTFontRef myFont = CTFontCreateWithName( (CFStringRef)@"Helvetica-Bold", 18.0f, NULL);
+    CTFontRef myFont = CTFontCreateWithName( (CFStringRef)@"Helvetica-Bold", 16.0f, NULL);
     
     NSDictionary *attributesDict = [NSDictionary dictionaryWithObjectsAndKeys:
             (__bridge id)myFont, (id)kCTFontAttributeName,
@@ -94,8 +94,8 @@
     CFRelease(frameSetter);
     
     //Get the position on the y axis
-    float midHeight = diameter;
-    midHeight -= suggestedSize.height;
+    float midHeight = diameter / 2;
+    midHeight -= suggestedSize.height / 2;
     
     float midWidth = diameter / 2;
     midWidth -= suggestedSize.width / 2;
