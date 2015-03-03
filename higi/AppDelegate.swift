@@ -49,6 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func checkPin() {
         if (SessionData.Instance.pin != "") {
+            SessionController.Instance.askTouchId = false;
             self.window?.rootViewController!.presentViewController(PinCodeViewController(nibName: "PinCodeView", bundle: nil), animated: false, completion: nil);
             NSRunLoop.currentRunLoop().runMode(NSDefaultRunLoopMode, beforeDate: NSDate(timeIntervalSinceNow: 0.2)); // Run for a bit to make sure lock screen shows up
         }

@@ -28,18 +28,12 @@ class SplashViewController: UIViewController, UIAlertViewDelegate {
                 
                 var login = HigiLogin(dictionary: responseObject as NSDictionary);
                 SessionData.Instance.user = login.user;
-                ApiUtility.checkTermsAndPrivacy(self, success: self.gotoDashboard, failure: self.errorToWelcome);
+                ApiUtility.checkTermsAndPrivacy(self, success: nil, failure: self.errorToWelcome);
                 
                 }, failure: {operation, error in
                     
                     self.errorToWelcome();
             });
-        }
-    }
-    
-    func gotoDashboard() {
-        if (SessionController.Instance.checkins != nil && SessionController.Instance.activities != nil && SessionController.Instance.challenges != nil && SessionController.Instance.kioskList != nil && SessionController.Instance.pulseArticles.count > 0) {
-            Utility.gotoDashboard(self);
         }
     }
     

@@ -70,11 +70,8 @@ class TermsViewController: UIViewController {
         
         HigiApi().sendPost("\(HigiApi.higiApiUrl)/data/user/\(SessionData.Instance.user.userId)", parameters: contents, success: {operation, responseObject in
             
-            ApiUtility.retrieveCheckins(self.gotoDashboard);
-            ApiUtility.retrieveActivities(self.gotoDashboard);
-            ApiUtility.retrieveChallenges(self.gotoDashboard);
-            ApiUtility.retrieveDevices(self.gotoDashboard);
-            ApiUtility.grabNextPulseArticles(self.gotoDashboard);
+            ApiUtility.initializeApiData();
+            Utility.gotoDashboard(self);
             
             }, failure: {operation, error in
                 self.reset();

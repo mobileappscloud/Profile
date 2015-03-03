@@ -49,6 +49,11 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         var reminderBarItem = UIBarButtonItem();
         reminderBarItem.customView = reminderButton;
         self.navigationItem.rightBarButtonItem = reminderBarItem;
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveApiNotification:", name: ApiUtility.ACTIVITIES, object: nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveApiNotification:", name: ApiUtility.CHALLENGES, object: nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveApiNotification:", name: ApiUtility.CHECKINS, object: nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveApiNotification:", name: ApiUtility.PULSE, object: nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveApiNotification:", name: ApiUtility.DEVICES, object: nil);
         createPullToRefresh();
         initCards();
     }
@@ -56,12 +61,44 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
         updateNavbar();
+        
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated);
         if (pointsMeter != nil) {
             pointsMeter.drawArc();
+        }
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated);
+    }
+    
+    func receiveApiNotification(notification: NSNotification) {
+        switch (notification.name) {
+        case ApiUtility.ACTIVITIES:
+            if (doneRefreshing) {
+                initActivityCard();
+                pointsMeter.drawArc();
+            }
+            activitiesRefreshed = true;
+        case ApiUtility.CHALLENGES:
+            if (doneRefreshing) {
+                initChallengesCard();
+            }
+            challengesRefreshed = true;
+        case ApiUtility.CHECKINS:
+            if (doneRefreshing) {
+                initBodyStatsCard();
+            }
+            checkinsRefreshed = true;
+        case ApiUtility.PULSE:
+            initPulseCard();
+        case ApiUtility.DEVICES:
+            devicesRefreshed = true;
+        default:
+            break;
         }
     }
     
@@ -93,14 +130,16 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         var todaysActivity: [HigiActivity] = [];
         var today = dateFormatter.stringFromDate(NSDate());
         var todaysPoints = 0;
-        for activity in SessionController.Instance.activities {
-            var dateString = dateFormatter.stringFromDate(activity.startTime);
-            if (today != dateString) {
-                break;
-            }
-            if (activity.errorDescription == nil) {
-                todaysActivity.append(activity);
-                todaysPoints += activity.points;
+        if (SessionController.Instance.activities != nil) {
+            for activity in SessionController.Instance.activities {
+                var dateString = dateFormatter.stringFromDate(activity.startTime);
+                if (today != dateString) {
+                    break;
+                }
+                if (activity.errorDescription == nil) {
+                    todaysActivity.append(activity);
+                    todaysPoints += activity.points;
+                }
             }
         }
         
@@ -115,13 +154,17 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         }
         
         if (todaysPoints > 0 || !SessionController.Instance.earnditError) {
-            activityCard.frame.origin.y = currentOrigin;
-            currentOrigin += activityCard.frame.size.height + gap;
-            mainScrollView.addSubview(activityCard);
+            if (activityCard.superview == nil) {
+                activityCard.frame.origin.y = currentOrigin;
+                currentOrigin += activityCard.frame.size.height + gap;
+                mainScrollView.addSubview(activityCard);
+            }
         } else {
-            errorCard.frame.origin.y = currentOrigin;
-            currentOrigin += errorCard.frame.size.height + gap;
-            mainScrollView.addSubview(errorCard);
+            if (errorCard.superview == nil) {
+                errorCard.frame.origin.y = currentOrigin;
+                currentOrigin += errorCard.frame.size.height + gap;
+                mainScrollView.addSubview(errorCard);
+            }
         }
         
     }
@@ -130,17 +173,19 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         
         displayedChallenge = nil;
         
-        for challenge in SessionController.Instance.challenges {
-            if (challenge.userStatus == "current" && challenge.status == "running") {
-                if (displayedChallenge == nil) {
-                    displayedChallenge = challenge;
-                } else {
-                    if (displayedChallenge.endDate == nil) {
-                        if (challenge.endDate != nil) {
+        if (SessionController.Instance.challenges != nil) {
+            for challenge in SessionController.Instance.challenges {
+                if (challenge.userStatus == "current" && challenge.status == "running") {
+                    if (displayedChallenge == nil) {
+                        displayedChallenge = challenge;
+                    } else {
+                        if (displayedChallenge.endDate == nil) {
+                            if (challenge.endDate != nil) {
+                                displayedChallenge = challenge;
+                            }
+                        } else if (challenge.endDate != nil && displayedChallenge.endDate.compare(challenge.endDate) == NSComparisonResult.OrderedDescending) {
                             displayedChallenge = challenge;
                         }
-                    } else if (challenge.endDate != nil && displayedChallenge.endDate.compare(challenge.endDate) == NSComparisonResult.OrderedDescending) {
-                        displayedChallenge = challenge;
                     }
                 }
             }
@@ -160,7 +205,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             challengesCard.blankStateImage.hidden = false;
         }
         
-        if (displayedChallenge != nil || !SessionController.Instance.earnditError) {
+        if ((displayedChallenge != nil || !SessionController.Instance.earnditError) && challengesCard.superview == nil) {
             challengesCard.frame.origin.y = currentOrigin;
             currentOrigin += challengesCard.frame.size.height + gap;
             mainScrollView.addSubview(challengesCard);
@@ -173,7 +218,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         
         var checkins = SessionController.Instance.checkins;
         
-        if (checkins.count > 0) {
+        if (checkins != nil && checkins.count > 0) {
             var dateFormatter = NSDateFormatter();
             dateFormatter.dateFormat = "MMM d, yyyy";
             bodyStatsCard.lastCheckin.text = "\(dateFormatter.stringFromDate(checkins[checkins.count - 1].dateTime))";
@@ -207,9 +252,11 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             
         }
         
-        bodyStatsCard.frame.origin.y = currentOrigin;
-        currentOrigin += bodyStatsCard.frame.size.height + gap;
-        mainScrollView.addSubview(bodyStatsCard);
+        if (bodyStatsCard.superview == nil) {
+            bodyStatsCard.frame.origin.y = currentOrigin;
+            currentOrigin += bodyStatsCard.frame.size.height + gap;
+            mainScrollView.addSubview(bodyStatsCard);
+        }
     }
     
     func initPulseCard() {
@@ -232,9 +279,11 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         } else {
             // TODO make error state
         }
-        pulseCard.frame.origin.y = currentOrigin;
-        currentOrigin += pulseCard.frame.size.height + gap;
-        mainScrollView.addSubview(pulseCard);
+        if (pulseCard.superview == nil) {
+            pulseCard.frame.origin.y = currentOrigin;
+            currentOrigin += pulseCard.frame.size.height + gap;
+            mainScrollView.addSubview(pulseCard);
+        }
     }
     
     @IBAction func gotoActivities(sender: AnyObject) {
@@ -448,26 +497,18 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                 var login = HigiLogin(dictionary: responseObject as NSDictionary);
                 SessionData.Instance.user = login.user;
                 SessionData.Instance.user.retrieveProfileImages();
-                
-                ApiUtility.retrieveActivities({
-                    self.activitiesRefreshed = true;
-                });
-                
-                ApiUtility.retrieveChallenges({
-                    self.challengesRefreshed = true;
-                });
-                
-                ApiUtility.retrieveCheckins({
-                    self.checkinsRefreshed = true;
-                });
-                
-                ApiUtility.retrieveDevices({
-                    self.devicesRefreshed = true;
-                });
-                
+                ApiUtility.retrieveActivities(nil);
+                ApiUtility.retrieveChallenges(nil);
+                ApiUtility.retrieveCheckins(nil);
+                ApiUtility.retrieveDevices(nil);
             });
             
-            }, failure: nil);
+            }, failure: { operation, error in
+                self.activitiesRefreshed = true;
+                self.challengesRefreshed = true;
+                self.checkinsRefreshed = true;
+                self.devicesRefreshed = true;
+        });
         
         
     }
@@ -481,5 +522,9 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         var reminderController = FindStationViewController(nibName: "FindStationView", bundle: nil);
         reminderController.reminderMode = true;
         self.navigationController!.pushViewController(reminderController, animated: true);
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self);
     }
 }

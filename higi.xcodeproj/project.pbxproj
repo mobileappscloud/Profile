@@ -233,6 +233,7 @@
 		8FE056E9198FDCA600C81208 /* FindStationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE056E8198FDCA600C81208 /* FindStationViewController.swift */; };
 		8FE0BCCE199175BC00940D39 /* PulseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE0BCCD199175BC00940D39 /* PulseCell.swift */; };
 		8FE0BCD0199175C800940D39 /* PulseCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FE0BCCF199175C800940D39 /* PulseCellView.xib */; };
+		8FEF1B031AA4E8C60036C4FB /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FEF1B021AA4E8C60036C4FB /* LocalAuthentication.framework */; };
 		8FEF6F3A1A6EAA58001EF8A6 /* DashboardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FEF6F391A6EAA58001EF8A6 /* DashboardView.xib */; };
 		8FEF6F3C1A6EAACE001EF8A6 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEF6F3B1A6EAACE001EF8A6 /* DashboardViewController.swift */; };
 		8FEF6F3E1A6EB437001EF8A6 /* PointsMeterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FEF6F3D1A6EB437001EF8A6 /* PointsMeterView.xib */; };
@@ -579,6 +580,7 @@
 		8FE056E8198FDCA600C81208 /* FindStationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindStationViewController.swift; sourceTree = "<group>"; };
 		8FE0BCCD199175BC00940D39 /* PulseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PulseCell.swift; sourceTree = "<group>"; };
 		8FE0BCCF199175C800940D39 /* PulseCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PulseCellView.xib; sourceTree = "<group>"; };
+		8FEF1B021AA4E8C60036C4FB /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		8FEF6F391A6EAA58001EF8A6 /* DashboardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DashboardView.xib; sourceTree = "<group>"; };
 		8FEF6F3B1A6EAACE001EF8A6 /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 		8FEF6F3D1A6EB437001EF8A6 /* PointsMeterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PointsMeterView.xib; sourceTree = "<group>"; };
@@ -678,6 +680,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FEF1B031AA4E8C60036C4FB /* LocalAuthentication.framework in Frameworks */,
 				8FDB4B611A040B8500F57B38 /* HealthKit.framework in Frameworks */,
 				8FD73CB4199025D000BACCB2 /* SystemConfiguration.framework in Frameworks */,
 				8F069CBB19D9D5C200DCC820 /* MapKit.framework in Frameworks */,
@@ -732,6 +735,7 @@
 		3735674FA759427E8EA44775 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8FEF1B021AA4E8C60036C4FB /* LocalAuthentication.framework */,
 				8FDB4B601A040B8500F57B38 /* HealthKit.framework */,
 				8F069CBC19D9E20D00DCC820 /* Flurry */,
 				8F069CBA19D9D5C200DCC820 /* MapKit.framework */,
