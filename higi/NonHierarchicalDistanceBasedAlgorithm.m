@@ -30,8 +30,7 @@
     [_quadTree add:quadItem];
 }
 
-- (void)removeItems
-{
+- (void)removeItems {
   [_items removeAllObjects];
   [_quadTree clear];
 }
@@ -52,11 +51,10 @@
             continue;
         }
         
-        
         GQTBounds bounds = [self createBoundsFromSpan:candidate.point span:zoomSpecificSpan];
         NSArray *clusterItems  = [_quadTree searchWithBounds:bounds];
         if ([clusterItems count] < 4) {
-            // Only the current marker is in range. Just add the single item to the results.
+            // just add as marker
             [results addObject:candidate];
             [visitedCandidates addObject:candidate];
             [distanceToCluster setObject:[NSNumber numberWithDouble:0] forKey:candidate];

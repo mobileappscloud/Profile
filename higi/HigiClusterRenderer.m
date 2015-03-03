@@ -1,9 +1,9 @@
 #import <CoreText/CoreText.h>
-#import "GDefaultClusterRenderer.h"
+#import "HigiClusterRenderer.h"
 #import "GQuadItem.h"
 #import "GCluster.h"
 
-@implementation GDefaultClusterRenderer {
+@implementation HigiClusterRenderer {
     GMSMapView *_map;
     NSMutableArray *_markerCache;
     UIImage *icon;
@@ -24,7 +24,7 @@
     }
     
     [_markerCache removeAllObjects];
-
+    
     for (id <GCluster> cluster in clusters) {
         GMSMarker *marker;
         marker = [[GMSMarker alloc] init];
@@ -39,50 +39,55 @@
             marker.icon = icon;
         }
         marker.position = cluster.position;
+//        if (cluster.isMarker) {
+//            marker.userData = @{@"item":cluster.items};
+//        }
         marker.map = _map;
     }
 }
 
 - (UIImage*) generateClusterIconWithCount:(NSUInteger)count {
     
-    int diameter = 60;
+    int diameter = 40;
     float inset = 3;
     
     CGRect rect = CGRectMake(0, 0, diameter, diameter);
     UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0);
-
+    
     CGContextRef ctx = UIGraphicsGetCurrentContext();
-
+    
     // set stroking color and draw circle
     [[UIColor colorWithRed:1 green:1 blue:1 alpha:0.8] setStroke];
     [[UIColor colorWithRed:0.463 green:0.753 blue:0.267 alpha:1] setFill];  /* #76c044 */
-
+    
     CGContextSetLineWidth(ctx, inset);
-
+    
     // make circle rect 5 px from border
     CGRect circleRect = CGRectMake(0, 0, diameter, diameter);
     circleRect = CGRectInset(circleRect, inset, inset);
-
+    
     // draw circle
     CGContextFillEllipseInRect(ctx, circleRect);
     CGContextStrokeEllipseInRect(ctx, circleRect);
-
-    CTFontRef myFont = CTFontCreateWithName( (CFStringRef)@"Helvetica-Bold", 16.0f, NULL);
     
+    CTFontRef myFont = CTFontCreateWithName( (CFStringRef)@"Helvetica-Bold", 16.0f, NULL);
+    if (count > 999) {
+        myFont = CTFontCreateWithName( (CFStringRef)@"Helvetica-Bold", 12.0f, NULL);
+    }
     NSDictionary *attributesDict = [NSDictionary dictionaryWithObjectsAndKeys:
-            (__bridge id)myFont, (id)kCTFontAttributeName,
-                    [UIColor whiteColor], (id)kCTForegroundColorAttributeName, nil];
-
+                                    (__bridge id)myFont, (id)kCTFontAttributeName,
+                                    [UIColor whiteColor], (id)kCTForegroundColorAttributeName, nil];
+    
     // create a naked string
     NSString *string = [[NSString alloc] initWithFormat:@"%lu", (unsigned long)count];
-
+    
     NSAttributedString *stringToDraw = [[NSAttributedString alloc] initWithString:string
                                                                        attributes:attributesDict];
     // flip the coordinate system
     CGContextSetTextMatrix(ctx, CGAffineTransformIdentity);
     CGContextTranslateCTM(ctx, 0, diameter);
     CGContextScaleCTM(ctx, 1.0, -1.0);
-
+    
     CTFramesetterRef frameSetter = CTFramesetterCreateWithAttributedString((__bridge CFAttributedStringRef)(stringToDraw));
     CGSize suggestedSize = CTFramesetterSuggestFrameSizeWithConstraints(
                                                                         frameSetter, /* Framesetter */
@@ -95,19 +100,19 @@
     
     //Get the position on the y axis
     float midHeight = diameter / 2;
-    midHeight -= suggestedSize.height / 2;
+    midHeight -= suggestedSize.height / 2 - 4;
     
     float midWidth = diameter / 2;
     midWidth -= suggestedSize.width / 2;
-
+    
     CTLineRef line = CTLineCreateWithAttributedString(
-            (__bridge CFAttributedStringRef)stringToDraw);
-    CGContextSetTextPosition(ctx, midWidth, 12);
+                                                      (__bridge CFAttributedStringRef)stringToDraw);
+    CGContextSetTextPosition(ctx, midWidth, midHeight);
     CTLineDraw(line, ctx);
-
+    
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-
+    
     return image;
 }
 

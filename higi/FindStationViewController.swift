@@ -10,7 +10,7 @@ import Foundation
 import EventKitUI
 import MapKit
 
-class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITableViewDataSource, UITableViewDelegate, EKEventEditViewDelegate, UINavigationControllerDelegate, UITextFieldDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate {
+class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITableViewDataSource, UITableViewDelegate, EKEventEditViewDelegate, UINavigationControllerDelegate, UITextFieldDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate, ClusterManagerDelegate {
     
     @IBOutlet weak var mapContainer: UIView!
     
@@ -59,9 +59,9 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     
     var selectedMarker: GMSMarker?;
     
-    var selectedIcon = Utility.scaleImage(UIImage(named: "map_iconwithdot.png")!, newSize: CGSize(width: 45, height: 45));
+    var selectedIcon = Utility.scaleImage(UIImage(named: "map_iconwithdot")!, newSize: CGSize(width: 45, height: 45));
     
-    var unselectedIcon = Utility.scaleImage(UIImage(named: "map_circleicon.png")!, newSize: CGSize(width: 15, height: 15));
+    var unselectedIcon = Utility.scaleImage(UIImage(named: "map_circleicon")!, newSize: CGSize(width: 15, height: 15));
     
     var currentAutoCompleteTask = NSOperationQueue(), currentVisibleKioskTask = NSOperationQueue();
     
@@ -180,15 +180,15 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         mapView.myLocationEnabled = true;
         mapView.settings.myLocationButton = true;
 
-        clusterManager = GClusterManager(mapView: mapView, algorithm: NonHierarchicalDistanceBasedAlgorithm(), renderer: GDefaultClusterRenderer(mapView: mapView))
+        clusterManager = GClusterManager(mapView: mapView, algorithm: NonHierarchicalDistanceBasedAlgorithm(), renderer: HigiClusterRenderer(mapView: mapView))
         mapView.delegate = clusterManager;
+        
+        clusterManager.delegate = self;
         for kiosk in SessionController.Instance.kioskList {
-            let item = GClusterKiosk();
+            let item = ClusterKiosk();
             item.setPosition(kiosk.position!);
             clusterManager.addItem(item);
         }
-        
-//        clusterManager.cluster();
         
         var myLocationButton = mapView.subviews.last as UIView;
         myLocationButton.frame.origin.x = 10;
@@ -203,7 +203,54 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
                 locationManager.requestWhenInUseAuthorization();
                 locationManager.delegate = self;
             }
+            for kiosk in SessionController.Instance.kioskList {
+                var marker = GMSMarker(position: kiosk.position!);
+                marker.icon = self.unselectedIcon;
+                markers.append(marker);
+            }
+            updateKioskPositions()
+        }
+    }
+    
+    func updateKioskPositions() {
+        if (markers.count == SessionController.Instance.kioskList.count) {
+            currentVisibleKioskTask.cancelAllOperations();
+            searchField.resignFirstResponder();
+            visibleKiosks = [];
+            var bounds = GMSCoordinateBounds(region: self.mapView!.projection.visibleRegion());
+            
+            currentVisibleKioskTask.addOperationWithBlock({
+                
+                for i in 0..<SessionController.Instance.kioskList.count {
+                    var kiosk = SessionController.Instance.kioskList[i];
+                    if (kiosk.group == "retired" || kiosk.group == "removed") {
+                        continue;
+                    }
+                    var marker = self.markers[i];
+                    if (bounds.containsCoordinate(kiosk.position!)) {
+                        self.visibleKiosks.append(kiosk);
 
+                    }
+                    if ((self.currentVisibleKioskTask.operations[0] as NSOperation).cancelled) {
+                        return;
+                    }
+                }
+                if ((self.currentVisibleKioskTask.operations[0] as NSOperation).cancelled) {
+                    return;
+                }
+                self.visibleKiosks.sort { self.calcDistance($0.position!) < self.calcDistance($1.position!) };
+                if ((self.currentVisibleKioskTask.operations[0] as NSOperation).cancelled) {
+                    return;
+                }
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.visibleKiosksTable.reloadData();
+                    if (self.visibleKiosks.count == 0) {
+                        self.listButton.hidden = true;
+                    } else {
+                        self.listButton.hidden = false;
+                    }
+                });
+            });
         }
     }
     
@@ -230,10 +277,6 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         listOpen = !listOpen;
     }
     
-//    func mapView(mapView: GMSMapView!, idleAtCameraPosition position: GMSCameraPosition!) {
-//        clusterManager.cluster();
-//    }
-    
     func mapView(mapView: GMSMapView!, didTapMarker marker: GMSMarker!) -> Bool {
         if (marker != selectedMarker) {
             var index = find(markers, marker);
@@ -250,7 +293,6 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
             return -1;
         }
     }
-    
     
     func textFieldChanged() {
         if (!self.autoCompleteOpen) {
@@ -458,12 +500,12 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     }
     
     func setSelectedKiosk(kiosk: KioskInfo) {
-        var marker = markers[find(SessionController.Instance.kioskList, kiosk)!];
-        marker.icon = selectedIcon;
-        if (selectedMarker != nil) {
-            selectedMarker!.icon = unselectedIcon;
-        }
-        selectedMarker = marker;
+//        selectedMarker!.icon = unselectedIcon;
+//        marker.icon = selectedIcon;
+//        if (selectedMarker != nil) {
+//            selectedMarker!.icon = unselectedIcon;
+//        }
+//        selectedMarker = marker;
         searchField.resignFirstResponder();
         if (selectedKioskPane.hidden) {
             selectedKioskPane.hidden = false;
@@ -509,6 +551,9 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         if (!firstLocation && keyPath == "myLocation") {
             firstLocation = true;
             mapView.camera = GMSCameraPosition.cameraWithTarget(mapView.myLocation.coordinate, zoom: 11);
+            if (markers.count > 0) {
+                updateKioskPositions();
+            }
         }
     }
     
@@ -581,6 +626,13 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         toggleAutoCompleteTable();
         textField.resignFirstResponder();
         return true;
+    }
+    
+    func markerSelected(marker: GMSMarker) {
+        if (marker != selectedMarker) {
+            var index = find(markers, marker);
+            setSelectedKiosk(SessionController.Instance.kioskList[index!]);
+        }
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {

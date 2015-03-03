@@ -3,16 +3,17 @@
 #import "GClusterAlgorithm.h"
 #import "GClusterRenderer.h"
 #import "GQTPointQuadTreeItem.h"
+#import "ClusterManagerDelegate.h"
 
-@interface GClusterManager : NSObject <GMSMapViewDelegate> 
+@interface GClusterManager : NSObject <ClusterManagerDelegate>
 
 @property(nonatomic, strong) GMSMapView *mapView;
 @property(nonatomic, strong) id<GClusterAlgorithm> clusterAlgorithm;
 @property(nonatomic, strong) id<GClusterRenderer> clusterRenderer;
+@property id<ClusterManagerDelegate> delegate;
 
 - (void)addItem:(id <GClusterItem>) item;
 - (void)removeItems;
-
 - (void)cluster;
 
 //convenience

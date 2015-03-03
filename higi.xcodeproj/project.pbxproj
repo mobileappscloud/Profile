@@ -280,13 +280,13 @@
 		D10BA0251A9540D200DB22A3 /* ActivityLegendView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D10BA0241A9540D200DB22A3 /* ActivityLegendView.xib */; };
 		D10BA0271A9541FF00DB22A3 /* ActivityLegend.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10BA0261A9541FF00DB22A3 /* ActivityLegend.swift */; };
 		D10D89501A8C11A9000402D4 /* ChallengeDetailsParticipantIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10D894F1A8C11A9000402D4 /* ChallengeDetailsParticipantIcon.swift */; };
+		D1247BC91AA620F1008A601A /* HigiClusterRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = D1247BC81AA620F1008A601A /* HigiClusterRenderer.m */; };
 		D12780AE1A4A2701002EB56A /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D12780AD1A4A2701002EB56A /* fontawesome-webfont.ttf */; };
-		D12B37061AA4DF02005B2ABA /* GClusterKiosk.m in Sources */ = {isa = PBXBuildFile; fileRef = D12B37051AA4DF02005B2ABA /* GClusterKiosk.m */; };
+		D12B37061AA4DF02005B2ABA /* ClusterKiosk.m in Sources */ = {isa = PBXBuildFile; fileRef = D12B37051AA4DF02005B2ABA /* ClusterKiosk.m */; };
 		D12B370E1AA4EC57005B2ABA /* SphericalMercatorProjection.m in Sources */ = {isa = PBXBuildFile; fileRef = D12B370D1AA4EC57005B2ABA /* SphericalMercatorProjection.m */; };
 		D12B37131AA4EC70005B2ABA /* GClusterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D12B37121AA4EC70005B2ABA /* GClusterManager.m */; };
 		D12B398B1AA4ECC6005B2ABA /* GQTPointQuadTree.m in Sources */ = {isa = PBXBuildFile; fileRef = D12B39871AA4ECC6005B2ABA /* GQTPointQuadTree.m */; };
 		D12B398C1AA4ECC6005B2ABA /* GQTPointQuadTreeChild.m in Sources */ = {isa = PBXBuildFile; fileRef = D12B39891AA4ECC6005B2ABA /* GQTPointQuadTreeChild.m */; };
-		D12B39901AA4ECEB005B2ABA /* GDefaultClusterRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = D12B398F1AA4ECEB005B2ABA /* GDefaultClusterRenderer.m */; };
 		D12B39981AA4ED08005B2ABA /* GQuadItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D12B39931AA4ED08005B2ABA /* GQuadItem.m */; };
 		D12B39991AA4ED08005B2ABA /* GStaticCluster.m in Sources */ = {isa = PBXBuildFile; fileRef = D12B39951AA4ED08005B2ABA /* GStaticCluster.m */; };
 		D12B399A1AA4ED08005B2ABA /* NonHierarchicalDistanceBasedAlgorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = D12B39971AA4ED08005B2ABA /* NonHierarchicalDistanceBasedAlgorithm.m */; };
@@ -636,9 +636,12 @@
 		D10BA0241A9540D200DB22A3 /* ActivityLegendView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityLegendView.xib; sourceTree = "<group>"; };
 		D10BA0261A9541FF00DB22A3 /* ActivityLegend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityLegend.swift; sourceTree = "<group>"; };
 		D10D894F1A8C11A9000402D4 /* ChallengeDetailsParticipantIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeDetailsParticipantIcon.swift; sourceTree = "<group>"; };
+		D1247BC71AA620C9008A601A /* HigiClusterRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HigiClusterRenderer.h; sourceTree = "<group>"; };
+		D1247BC81AA620F1008A601A /* HigiClusterRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HigiClusterRenderer.m; sourceTree = "<group>"; };
+		D1247BCC1AA662DC008A601A /* ClusterManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClusterManagerDelegate.h; sourceTree = "<group>"; };
 		D12780AD1A4A2701002EB56A /* fontawesome-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fontawesome-webfont.ttf"; sourceTree = "<group>"; };
-		D12B37051AA4DF02005B2ABA /* GClusterKiosk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GClusterKiosk.m; sourceTree = "<group>"; };
-		D12B37071AA4DF11005B2ABA /* GClusterKiosk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GClusterKiosk.h; sourceTree = "<group>"; };
+		D12B37051AA4DF02005B2ABA /* ClusterKiosk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClusterKiosk.m; sourceTree = "<group>"; };
+		D12B37071AA4DF11005B2ABA /* ClusterKiosk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClusterKiosk.h; sourceTree = "<group>"; };
 		D12B370C1AA4EC57005B2ABA /* SphericalMercatorProjection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SphericalMercatorProjection.h; sourceTree = "<group>"; };
 		D12B370D1AA4EC57005B2ABA /* SphericalMercatorProjection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SphericalMercatorProjection.m; sourceTree = "<group>"; };
 		D12B370F1AA4EC70005B2ABA /* GCluster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCluster.h; sourceTree = "<group>"; };
@@ -653,8 +656,6 @@
 		D12B39891AA4ECC6005B2ABA /* GQTPointQuadTreeChild.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQTPointQuadTreeChild.m; sourceTree = "<group>"; };
 		D12B398A1AA4ECC6005B2ABA /* GQTPointQuadTreeItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTPointQuadTreeItem.h; sourceTree = "<group>"; };
 		D12B398D1AA4ECEB005B2ABA /* GClusterRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GClusterRenderer.h; sourceTree = "<group>"; };
-		D12B398E1AA4ECEB005B2ABA /* GDefaultClusterRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDefaultClusterRenderer.h; sourceTree = "<group>"; };
-		D12B398F1AA4ECEB005B2ABA /* GDefaultClusterRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDefaultClusterRenderer.m; sourceTree = "<group>"; };
 		D12B39911AA4ED08005B2ABA /* GClusterAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GClusterAlgorithm.h; sourceTree = "<group>"; };
 		D12B39921AA4ED08005B2ABA /* GQuadItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQuadItem.h; sourceTree = "<group>"; };
 		D12B39931AA4ED08005B2ABA /* GQuadItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQuadItem.m; sourceTree = "<group>"; };
@@ -1407,8 +1408,9 @@
 				D12B37101AA4EC70005B2ABA /* GClusterItem.h */,
 				D12B37111AA4EC70005B2ABA /* GClusterManager.h */,
 				D12B37121AA4EC70005B2ABA /* GClusterManager.m */,
-				D12B37051AA4DF02005B2ABA /* GClusterKiosk.m */,
-				D12B37071AA4DF11005B2ABA /* GClusterKiosk.h */,
+				D12B37051AA4DF02005B2ABA /* ClusterKiosk.m */,
+				D12B37071AA4DF11005B2ABA /* ClusterKiosk.h */,
+				D1247BCC1AA662DC008A601A /* ClusterManagerDelegate.h */,
 			);
 			name = Clustering;
 			sourceTree = "<group>";
@@ -1445,8 +1447,8 @@
 			isa = PBXGroup;
 			children = (
 				D12B398D1AA4ECEB005B2ABA /* GClusterRenderer.h */,
-				D12B398E1AA4ECEB005B2ABA /* GDefaultClusterRenderer.h */,
-				D12B398F1AA4ECEB005B2ABA /* GDefaultClusterRenderer.m */,
+				D1247BC71AA620C9008A601A /* HigiClusterRenderer.h */,
+				D1247BC81AA620F1008A601A /* HigiClusterRenderer.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1917,7 +1919,6 @@
 				8F2CB5891993E68C009377A8 /* SessionData.swift in Sources */,
 				D1E223701A7FFF43006330E7 /* ConnectDeviceRow.swift in Sources */,
 				D1E1FF061A76C28F00C8951C /* ChallengeProgressLegendRow.swift in Sources */,
-				D12B39901AA4ECEB005B2ABA /* GDefaultClusterRenderer.m in Sources */,
 				8F29630F194B8F5D00E787FD /* SignupEmailViewController.swift in Sources */,
 				8F524BF8195B829400BFC49D /* CustomFormatter.swift in Sources */,
 				8F6A243F195A01350094B73C /* BaseCustomGraphHostingView.swift in Sources */,
@@ -1930,11 +1931,12 @@
 				8FCD2D8019EC286900AC5A82 /* UIImage+Orientation.m in Sources */,
 				D12B398C1AA4ECC6005B2ABA /* GQTPointQuadTreeChild.m in Sources */,
 				D10D89501A8C11A9000402D4 /* ChallengeDetailsParticipantIcon.swift in Sources */,
-				D12B37061AA4DF02005B2ABA /* GClusterKiosk.m in Sources */,
+				D12B37061AA4DF02005B2ABA /* ClusterKiosk.m in Sources */,
 				8F6A2445195A076B0094B73C /* MapGraphDelegate.swift in Sources */,
 				D12B37131AA4EC70005B2ABA /* GClusterManager.m in Sources */,
 				8F2B7E43198C2DA0009DE89A /* DrawerViewController.swift in Sources */,
 				8F524BF6195B5ABB00BFC49D /* ConversionUtility.m in Sources */,
+				D1247BC91AA620F1008A601A /* HigiClusterRenderer.m in Sources */,
 				8F087A901A1BDFC7008E0446 /* ActivityCellHeader.swift in Sources */,
 				8F296311194B911C00E787FD /* SignupNameViewController.swift in Sources */,
 				8FF851C6194F7F2E005C33C6 /* HigiApi.swift in Sources */,

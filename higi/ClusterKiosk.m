@@ -1,6 +1,6 @@
-#import "GClusterKiosk.h"
+#import "ClusterKiosk.h"
 
-@implementation GClusterKiosk : NSObject
+@implementation ClusterKiosk : NSObject
 
 - (CLLocationCoordinate2D)position {
     return location;

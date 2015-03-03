@@ -29,8 +29,10 @@
 
 #import "GClusterManager.h"
 
+#import "ClusterManagerDelegate.h"
+
 #import "NonHierarchicalDistanceBasedAlgorithm.h"
 
-#import "GDefaultClusterRenderer.h"
+#import "HigiClusterRenderer.h"
 
-#import "GClusterKiosk.h"
+#import "ClusterKiosk.h"
