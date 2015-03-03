@@ -11,6 +11,9 @@ import LocalAuthentication
 
 class PinCodeViewController: UIViewController, UITextFieldDelegate {
     
+    var touchIdCancelledNotification = "TouchIdCancelledNotification"
+    var touchIdSuccessfulNotification = "TouchIdSuccessfulNotification"
+    
     @IBOutlet weak var backgroundImage: UIImageView!
     @IBOutlet weak var pinField: UITextField!
     @IBOutlet weak var circleContainer: UIView!
@@ -50,7 +53,10 @@ class PinCodeViewController: UIViewController, UITextFieldDelegate {
             topTitle.text = "Enter your passcode to unlock";
         }
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "checkTouchId", name: UIApplicationWillEnterForegroundNotification, object: nil);
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:"appleSucks", name: UIApplicationWillResignActiveNotification, object: nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "applicationWillResignActive", name: UIApplicationWillResignActiveNotification, object: nil);
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:"displayPinView", name: self.touchIdCancelledNotification, object:nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:"closeView", name: self.touchIdSuccessfulNotification, object:nil);
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -58,21 +64,28 @@ class PinCodeViewController: UIViewController, UITextFieldDelegate {
         checkTouchId();
     }
     
-    func appleSucks() {
-        self.contents.alpha = 0.0;
-        self.pinField.resignFirstResponder();
+    func applicationWillResignActive() {
+        if (self.contents.alpha > 0)
+        {
+            self.contents.alpha = 0.0;
+            self.pinField.resignFirstResponder();
+        }
+    }
+    
+    func displayPinView() {
+        dispatch_async(dispatch_get_main_queue(), {
+            self.contents.alpha = 1.0
+            self.pinField.becomeFirstResponder()
+        })
     }
     
     func checkTouchId() {
         if (SessionController.Instance.askTouchId && self.authenticationContext.canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, error: nil)) {
             self.authenticationContext.evaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, localizedReason: "Use your fingerprint to access higi", reply: {success, error in
                 if (success) {
-                    self.closeView();
+                    NSNotificationCenter.defaultCenter().postNotificationName(self.touchIdSuccessfulNotification, object: nil);
                 } else {
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(1000 * Double(NSEC_PER_MSEC))), dispatch_get_main_queue(), {
-                        self.contents.alpha = 1.0;
-                        self.pinField.becomeFirstResponder();
-                    });
+                    NSNotificationCenter.defaultCenter().postNotificationName(self.touchIdCancelledNotification, object: nil);
                 }
             });
         } else {
@@ -80,7 +93,6 @@ class PinCodeViewController: UIViewController, UITextFieldDelegate {
             self.pinField.becomeFirstResponder();
         }
         SessionController.Instance.askTouchId = true;
-        
     }
     
     func textField(textField: UITextField!, shouldChangeCharactersInRange range: NSRange, replacementString string: String!) -> Bool {
