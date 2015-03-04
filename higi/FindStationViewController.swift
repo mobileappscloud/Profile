@@ -153,7 +153,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     }
     
     func receiveApiNotification(notification: NSNotification) {
-        populateMarkers();
+        populateClusterManager();
         clusterManager.cluster()
     }
     
@@ -188,8 +188,14 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         mapView.delegate = clusterManager;
         clusterManager.delegate = self;
         
+        if (UIDevice.currentDevice().systemVersion >= "8.0") {
+            locationManager = CLLocationManager();
+            locationManager.requestWhenInUseAuthorization();
+            locationManager.delegate = self;
+        }
+        
         if (SessionController.Instance.kioskList != nil) {
-            populateMarkers();
+            populateClusterManager();
         }
         
         var myLocationButton = mapView.subviews.last as UIView;
@@ -198,7 +204,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         mapContainer.addSubview(mapView);
     }
     
-    func populateMarkers() {
+    func populateClusterManager() {
         if (UIDevice.currentDevice().systemVersion >= "8.0") {
             locationManager = CLLocationManager();
             locationManager.requestWhenInUseAuthorization();
@@ -559,7 +565,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         reminderOverlay.hidden = true;
         self.fakeNavBar.alpha = 1;
         self.navigationController!.navigationBarHidden = false;
-        populateMarkers();
+        populateClusterManager();
     }
     
     @IBAction func cancelReminder(sender: AnyObject) {
@@ -634,4 +640,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         return gestureRecognizer != self.revealController.panGestureRecognizer() && otherGestureRecognizer != self.revealController.panGestureRecognizer();
     }
     
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self);
+    }
 }
