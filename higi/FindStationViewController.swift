@@ -180,6 +180,8 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         mapView.myLocationEnabled = true;
         mapView.settings.myLocationButton = true;
 
+        populateMarkers();
+        
         clusterManager = GClusterManager(mapView: mapView, algorithm: NonHierarchicalDistanceBasedAlgorithm(), renderer: HigiClusterRenderer(mapView: mapView))
         mapView.delegate = clusterManager;
         
@@ -187,6 +189,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         for kiosk in SessionController.Instance.kioskList {
             let item = ClusterKiosk();
             item.setPosition(kiosk.position!);
+            item.setData(["kiosk": kiosk]);
             clusterManager.addItem(item);
         }
         
@@ -500,12 +503,15 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     }
     
     func setSelectedKiosk(kiosk: KioskInfo) {
-//        selectedMarker!.icon = unselectedIcon;
-//        marker.icon = selectedIcon;
-//        if (selectedMarker != nil) {
-//            selectedMarker!.icon = unselectedIcon;
-//        }
-//        selectedMarker = marker;
+        if (selectedMarker == nil) {
+            selectedMarker = GMSMarker();
+            selectedMarker!.icon = selectedIcon;
+        }
+        
+        selectedMarker!.position = kiosk.position!;
+        selectedMarker!.icon = selectedIcon;
+        selectedMarker!.map = mapView;
+
         searchField.resignFirstResponder();
         if (selectedKioskPane.hidden) {
             selectedKioskPane.hidden = false;
@@ -629,10 +635,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     }
     
     func markerSelected(marker: GMSMarker) {
-        if (marker != selectedMarker) {
-            var index = find(markers, marker);
-            setSelectedKiosk(SessionController.Instance.kioskList[index!]);
-        }
+        setSelectedKiosk(marker.userData.valueForKey("kiosk") as KioskInfo);
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {

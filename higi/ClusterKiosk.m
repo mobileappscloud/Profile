@@ -10,4 +10,12 @@
     location = pos;
 }
 
+-(NSObject*)data {
+    return data;
+}
+
+-(void)setData:(NSObject*)obj {
+    data = obj;
+}
+
 @end

@@ -5,4 +5,6 @@
 
 @property (nonatomic, assign, readonly) CLLocationCoordinate2D position;
 
+@property NSObject *data;
+
 @end

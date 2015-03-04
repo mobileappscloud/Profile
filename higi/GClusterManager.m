@@ -53,21 +53,19 @@
 {
     //hacky way to know if we clicked a marker or not
     if (marker.icon.size.height == 15) {
-        if (selectedMarker == nil) {
-            selectedMarker = [[GMSMarker alloc] init];
-            selectedIcon = [self scaleImage:[UIImage imageNamed:@"map_iconwithdot"] size:CGRectMake(0, 0, 45, 45)];
-            selectedMarker.icon = selectedIcon;
-        }
-        
-        selectedMarker.position = marker.position;
-        selectedMarker.map = mapView;
-        
-        NSUInteger count = selectedMarker.userData[@"item"];
+//        if (selectedMarker == nil) {
+//            selectedMarker = [[GMSMarker alloc] init];
+//            selectedIcon = [self scaleImage:[UIImage imageNamed:@"map_iconwithdot"] size:CGRectMake(0, 0, 45, 45)];
+//            selectedMarker.icon = selectedIcon;
+//        }
+//        
+//        selectedMarker.position = marker.position;
+//        selectedMarker.map = mapView;
         
         [_delegate markerSelected: marker];
     } else {
         //todo zoom a bit
-        [_delegate clusterSelected: marker];
+//        [_delegate clusterSelected: marker];
     }
     
     CGPoint point = [mapView.projection pointForCoordinate:marker.position];
@@ -90,17 +88,6 @@
     }
     
     return mgr;
-}
-
-- (UIImage*) scaleImage:(UIImage*)image size:(CGRect)size {
-    CGRect rect = size;
-    UIGraphicsBeginImageContext(rect.size);
-    [image drawInRect:rect];
-    UIImage *tempImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    NSData *imageData = UIImagePNGRepresentation(tempImage);
-    return [UIImage imageWithData:imageData];
 }
 
 @end

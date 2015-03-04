@@ -5,6 +5,7 @@
     id <GClusterItem> _item;
     GQTPoint _point;
     CLLocationCoordinate2D _position;
+    NSObject *data;
 }
 
 - (id)initWithItem:(id <GClusterItem>)clusterItem {

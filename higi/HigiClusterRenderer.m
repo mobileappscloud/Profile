@@ -2,6 +2,7 @@
 #import "HigiClusterRenderer.h"
 #import "GQuadItem.h"
 #import "GCluster.h"
+#import "GClusterItem.h"
 
 @implementation HigiClusterRenderer {
     GMSMapView *_map;
@@ -34,14 +35,15 @@
         NSUInteger count = cluster.items.count;
         if (count > 1) {
             marker.icon = [self generateClusterIconWithCount:count];
+//            marker.userData = nil;
         }
         else {
             marker.icon = icon;
+            for (id <GClusterItem> clusterItem in cluster.items) {
+                marker.userData = clusterItem.data;
+            }
         }
         marker.position = cluster.position;
-//        if (cluster.isMarker) {
-//            marker.userData = @{@"item":cluster.items};
-//        }
         marker.map = _map;
     }
 }

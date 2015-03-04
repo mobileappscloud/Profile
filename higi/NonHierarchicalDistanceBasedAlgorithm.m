@@ -54,7 +54,7 @@
         GQTBounds bounds = [self createBoundsFromSpan:candidate.point span:zoomSpecificSpan];
         NSArray *clusterItems  = [_quadTree searchWithBounds:bounds];
         if ([clusterItems count] < 4) {
-            // just add as marker
+            //add as marker
             [results addObject:candidate];
             [visitedCandidates addObject:candidate];
             [distanceToCluster setObject:[NSNumber numberWithDouble:0] forKey:candidate];
