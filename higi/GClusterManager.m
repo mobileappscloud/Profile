@@ -34,6 +34,11 @@
     [_clusterRenderer clustersChanged:clusters];
 }
 
+- (void) setSelectedMarker:(CLLocationCoordinate2D) position {
+    [_clusterRenderer setSelectedMarker:position];
+    [self cluster];
+}
+
 #pragma mark mapview delegate
 
 - (void)mapView:(GMSMapView *)mapView idleAtCameraPosition:(GMSCameraPosition *)cameraPosition {
@@ -49,8 +54,7 @@
     [self cluster];
 }
 
--(BOOL) mapView:(GMSMapView *) mapView didTapMarker:(GMSMarker *)marker
-{
+-(BOOL) mapView:(GMSMapView *) mapView didTapMarker:(GMSMarker *)marker {
     //hacky way to know if we clicked a marker or not
     if (marker.icon.size.height == 15) {
 //        if (selectedMarker == nil) {
@@ -61,7 +65,7 @@
 //        
 //        selectedMarker.position = marker.position;
 //        selectedMarker.map = mapView;
-        
+//        [self setSelectedMarker:marker.position];
         [_delegate markerSelected: marker];
     } else {
         //todo zoom a bit

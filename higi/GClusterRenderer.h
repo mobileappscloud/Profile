@@ -13,4 +13,6 @@
 
 - (void)clustersChanged:(NSSet*)clusters;
 
+- (void)setSelectedMarker:(CLLocationCoordinate2D) position;
+
 @end

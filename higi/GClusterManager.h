@@ -15,9 +15,9 @@
 - (void)addItem:(id <GClusterItem>) item;
 - (void)removeItems;
 - (void)cluster;
+- (void)setSelectedMarker:(CLLocationCoordinate2D) position;
 
 //convenience
-
 + (instancetype)managerWithMapView:(GMSMapView*)googleMap
                          algorithm:(id<GClusterAlgorithm>)algorithm
                           renderer:(id<GClusterRenderer>)renderer;

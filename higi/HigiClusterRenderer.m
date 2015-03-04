@@ -7,22 +7,27 @@
 @implementation HigiClusterRenderer {
     GMSMapView *_map;
     NSMutableArray *_markerCache;
-    UIImage *icon;
+    UIImage *selectedIcon;
+    UIImage *unselectedIcon;
+    CLLocationCoordinate2D selectedMarkerPosition;
 }
 
 - (id)initWithMapView:(GMSMapView*)googleMap {
     if (self = [super init]) {
         _map = googleMap;
         _markerCache = [[NSMutableArray alloc] init];
-        icon = [self scaleImage:[UIImage imageNamed:@"map_circleicon"] size:CGRectMake(0, 0, 15, 15)];
+        unselectedIcon = [self scaleImage:[UIImage imageNamed:@"map_circleicon"] size:CGRectMake(0, 0, 15, 15)];
+        selectedIcon = [self scaleImage:[UIImage imageNamed:@"map_iconwithdot"] size:CGRectMake(0, 0, 45, 45)];
     }
     return self;
 }
 
+- (void)setSelectedMarker:(CLLocationCoordinate2D) position {
+    selectedMarkerPosition = position;
+}
+
 - (void)clustersChanged:(NSSet*)clusters {
-    for (GMSMarker *marker in _markerCache) {
-        marker.map = nil;
-    }
+    [_map clear];
     
     [_markerCache removeAllObjects];
     
@@ -35,10 +40,12 @@
         NSUInteger count = cluster.items.count;
         if (count > 1) {
             marker.icon = [self generateClusterIconWithCount:count];
-//            marker.userData = nil;
-        }
-        else {
-            marker.icon = icon;
+        } else {
+            if (selectedMarkerPosition.latitude == cluster.position.latitude && selectedMarkerPosition.longitude == cluster.position.longitude) {
+                marker.icon = selectedIcon;
+            } else {
+                marker.icon = unselectedIcon;
+            }
             for (id <GClusterItem> clusterItem in cluster.items) {
                 marker.userData = clusterItem.data;
             }

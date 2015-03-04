@@ -211,7 +211,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
                 marker.icon = self.unselectedIcon;
                 markers.append(marker);
             }
-            updateKioskPositions()
+            updateKioskPositions();
         }
     }
     
@@ -278,14 +278,6 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
                 }, completion: nil);
         }
         listOpen = !listOpen;
-    }
-    
-    func mapView(mapView: GMSMapView!, didTapMarker marker: GMSMarker!) -> Bool {
-        if (marker != selectedMarker) {
-            var index = find(markers, marker);
-            setSelectedKiosk(SessionController.Instance.kioskList[index!]);
-        }
-        return true;
     }
     
     func calcDistance(position: CLLocationCoordinate2D) -> Double {
@@ -503,14 +495,10 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     }
     
     func setSelectedKiosk(kiosk: KioskInfo) {
-        if (selectedMarker == nil) {
-            selectedMarker = GMSMarker();
-            selectedMarker!.icon = selectedIcon;
-        }
-        
-        selectedMarker!.position = kiosk.position!;
-        selectedMarker!.icon = selectedIcon;
-        selectedMarker!.map = mapView;
+        clusterManager.setSelectedMarker(kiosk.position!);
+//        selectedMarker!.position = kiosk.position!;
+//        selectedMarker!.icon = selectedIcon;
+//        selectedMarker!.map = mapView;
 
         searchField.resignFirstResponder();
         if (selectedKioskPane.hidden) {
@@ -635,6 +623,12 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     }
     
     func markerSelected(marker: GMSMarker) {
+//        if (selectedMarker != nil) {
+//            selectedMarker!.icon = unselectedIcon;
+//        }
+//        selectedMarker = marker;
+//        selectedMarker!.icon = selectedIcon;
+//        
         setSelectedKiosk(marker.userData.valueForKey("kiosk") as KioskInfo);
     }
     
