@@ -70,7 +70,8 @@ class ProfileImageViewController: UIViewController, UIImagePickerControllerDeleg
             user.retrieveProfileImages();
         }
         
-        ApiUtility.initializeApiDataThenCallback(self.gotoDashboard);
+        ApiUtility.initializeApiData();
+        Utility.gotoDashboard(self);
     }
     
     func imagePickerController(picker: UIImagePickerController!, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]!) {

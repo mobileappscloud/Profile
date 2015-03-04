@@ -3,6 +3,38 @@ import HealthKit
 
 class ApiUtility {
     
+    // Notificiation names
+    
+    class var ACTIVITIES: String {
+        return "activitiesLoaded";
+    }
+    
+    class var CHALLENGES: String {
+        return "challengesLoaded";
+    }
+    
+    class var CHECKINS: String {
+        return "checkinsLoaded";
+    }
+    
+    class var DEVICES: String {
+        return "devicesLoaded";
+    }
+    
+    class var PULSE: String {
+        return "pulseArticlesLoaded";
+    }
+    
+    class var KIOSKS: String {
+        return "kiosksLoaded";
+    }
+    
+    class var PROFILE_PICTURES: String {
+        return "profilePicturesLoaded";
+    }
+    
+    
+    
     class func checkTermsAndPrivacy(viewController: UIViewController, success: (() -> Void)?, failure: (() -> Void)?) {
         HigiApi().sendGet("\(HigiApi.webUrl)/termsinfo", success: {operation, responseObject in
             var user = SessionData.Instance.user;
@@ -23,7 +55,8 @@ class ApiUtility {
                 nameViewController.dashboardNext = true;
                 viewController.presentViewController(nameViewController, animated: true, completion: nil);
             } else {
-                ApiUtility.initializeApiDataThenCallback(success);
+                ApiUtility.initializeApiData();
+                Utility.gotoDashboard(viewController);
             }
             
             }, failure: {operation, error in
@@ -32,13 +65,13 @@ class ApiUtility {
         });
     }
     
-    class func initializeApiDataThenCallback(success: (() -> Void)?) {
+    class func initializeApiData() {
         SessionController.Instance.earnditError = false;
-        ApiUtility.retrieveCheckins(success);
-        ApiUtility.retrieveActivities(success);
-        ApiUtility.retrieveChallenges(success);
-        ApiUtility.retrieveDevices(success);
-        ApiUtility.grabNextPulseArticles(success);
+        ApiUtility.retrieveCheckins(nil);
+        ApiUtility.retrieveActivities(nil);
+        ApiUtility.retrieveChallenges(nil);
+        ApiUtility.retrieveDevices(nil);
+        ApiUtility.grabNextPulseArticles(nil);
     }
     
     class func retrieveCheckins(success: (() -> Void)?) {
@@ -64,22 +97,17 @@ class ApiUtility {
                         }
                     }
                     SessionController.Instance.checkins = checkins;
+                    NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.CHECKINS, object: nil, userInfo: ["success": true]);
+                    ApiUtility.retrieveKioskList(success);
                     
-                    if (SessionController.Instance.kioskList != nil) {
-                        ApiUtility.retrieveKioskList(nil);
-                        dispatch_async(dispatch_get_main_queue(), {
-                            var i = 0;
-                            success?();
-                        });
-                        
-                    } else {
-                        ApiUtility.retrieveKioskList(success);
-                    }
                 });
                 
             },
             failure: { operation, error in
-                SessionController.Instance.checkins = [];
+                NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.CHECKINS, object: nil, userInfo: ["success": false]);
+                if (SessionController.Instance.checkins == nil) {
+                    SessionController.Instance.checkins = [];
+                }
                 if (SessionController.Instance.kioskList != nil) {
                     ApiUtility.retrieveKioskList(nil);
                     success?();
@@ -108,15 +136,17 @@ class ApiUtility {
                     for activity: AnyObject in serverActivities {
                         activities.append(HigiActivity(dictionary: activity as NSDictionary));
                     }
+                    
                     SessionController.Instance.activities = activities;
                         dispatch_async(dispatch_get_main_queue(), {
-                            var i = 0;
+                            NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.ACTIVITIES, object: nil, userInfo: ["success": true]);
                             success?();
                         });
                 
                 });
                 }, failure: { operation, error in
                     SessionController.Instance.earnditError = true;
+                    NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.ACTIVITIES, object: nil, userInfo: ["success": false]);
                     SessionController.Instance.activities = [];
                     success?();
             });
@@ -185,7 +215,7 @@ class ApiUtility {
                     
                     SessionController.Instance.challenges = challenges;
                     dispatch_async(dispatch_get_main_queue(), {
-                        var i = 0;
+                        NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.CHALLENGES, object: nil, userInfo: ["success": true]);
                         success?();
                     });
                 });
@@ -210,10 +240,11 @@ class ApiUtility {
             }
             
             SessionController.Instance.devices = devices;
+            NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.DEVICES, object: nil, userInfo: ["success": true]);
             success?();
             }, failure: { operation, error in
-                SessionController.Instance.devices = [:];
                 SessionController.Instance.earnditError = true;
+                NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.DEVICES, object: nil, userInfo: ["success": false]);
                 success?();
         });
         
@@ -235,10 +266,8 @@ class ApiUtility {
                         });
                         
                     }, failure: nil);
-                
-                if (success != nil) {
-                    success!();
-                }
+                NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.KIOSKS, object: nil, userInfo: ["success": true]);
+                success?();
             });
         } else {
             HigiApi().sendGet("\(HigiApi.higiApiUrl)/data/KioskList", success:
@@ -249,18 +278,18 @@ class ApiUtility {
                         SessionData.Instance.save();
                         SessionController.Instance.kioskList = self.deserializeKiosks(SessionData.Instance.kioskListString);
                         dispatch_async(dispatch_get_main_queue(), {
-                            if (success != nil) {
-                                success!();
-                            }
+                            NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.KIOSKS, object: nil, userInfo: ["success": true]);
+                            success?();
                         });
                     });
                     
                 },
                 failure: { operation, error in
-                        SessionController.Instance.kioskList = [];
-                        if (success != nil) {
-                            success!();
-                        }
+                    if (SessionController.Instance.kioskList == nil) {
+                            SessionController.Instance.kioskList = [];
+                    }
+                    NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.KIOSKS, object: nil, userInfo: ["success": false]);
+                    success?();
                     
             });
         }
@@ -423,12 +452,11 @@ class ApiUtility {
             }
             
             SessionController.Instance.pulseArticles += articles;
-            
+            NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.PULSE, object: nil, userInfo: ["success": true]);
             callback?();
             
             }, failure: {operation, error in
-                
-                var i = 0; //TODO remove this if possible. Causes to not build because contents are only an optional call.
+                NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.PULSE, object: nil, userInfo: ["success": false]);
                 callback?();
                 
         });
