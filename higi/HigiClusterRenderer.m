@@ -46,6 +46,7 @@
             } else {
                 marker.icon = unselectedIcon;
             }
+            //how do you get a single item from nsset?
             for (id <GClusterItem> clusterItem in cluster.items) {
                 marker.userData = clusterItem.data;
             }

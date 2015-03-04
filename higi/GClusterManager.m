@@ -44,37 +44,24 @@
 - (void)mapView:(GMSMapView *)mapView idleAtCameraPosition:(GMSCameraPosition *)cameraPosition {
     assert(mapView == _mapView);
     
-    // Don't re-compute clusters if the map has just been panned/tilted/rotated.
-    GMSCameraPosition *position = [mapView camera];
-    if (previousCameraPosition != nil && previousCameraPosition.zoom == position.zoom) {
-        return;
-    }
-    previousCameraPosition = [mapView camera];
-    
-    [self cluster];
+//        CLLocation *previousLocation = [[CLLocation alloc]initWithLatitude:previousCameraPosition.target.latitude longitude:previousCameraPosition.target.longitude];
+//        CLLocation *currentLocation = [[CLLocation alloc]initWithLatitude:cameraPosition.target.latitude longitude:cameraPosition.target.longitude];
+//
+//        CLLocationDistance dist = [previousLocation distanceFromLocation:currentLocation];
+    //only cluster on pan of 5dp or more
+//    if (previousCameraPosition == nil || [previousLocation distanceFromLocation:currentLocation] > 4) {
+        previousCameraPosition = [mapView camera];
+        [self cluster];
+//    }
 }
 
 -(BOOL) mapView:(GMSMapView *) mapView didTapMarker:(GMSMarker *)marker {
-    //hacky way to know if we clicked a marker or not
-    if (marker.icon.size.height == 15) {
-//        if (selectedMarker == nil) {
-//            selectedMarker = [[GMSMarker alloc] init];
-//            selectedIcon = [self scaleImage:[UIImage imageNamed:@"map_iconwithdot"] size:CGRectMake(0, 0, 45, 45)];
-//            selectedMarker.icon = selectedIcon;
-//        }
-//        
-//        selectedMarker.position = marker.position;
-//        selectedMarker.map = mapView;
-//        [self setSelectedMarker:marker.position];
+    //markers have data, clusters do not
+    if (marker.userData != nil) {
         [_delegate markerSelected: marker];
     } else {
-        //todo zoom a bit
-//        [_delegate clusterSelected: marker];
+        [_delegate clusterSelected: marker];
     }
-    
-    CGPoint point = [mapView.projection pointForCoordinate:marker.position];
-    GMSCameraUpdate *camera = [GMSCameraUpdate setTarget:[mapView.projection coordinateForPoint:point]];
-    [mapView animateWithCameraUpdate:camera];
 
     return YES;
 }

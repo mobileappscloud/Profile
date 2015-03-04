@@ -53,8 +53,6 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     
     var selectedKiosk: KioskInfo?;
     
-    var markers: [GMSMarker] = [];
-    
     var listButton: UIButton!;
     
     var selectedMarker: GMSMarker?;
@@ -200,61 +198,51 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     }
     
     func populateMarkers() {
-        if (markers.count == 0) {
-            if (UIDevice.currentDevice().systemVersion >= "8.0") {
-                locationManager = CLLocationManager();
-                locationManager.requestWhenInUseAuthorization();
-                locationManager.delegate = self;
-            }
-            for kiosk in SessionController.Instance.kioskList {
-                var marker = GMSMarker(position: kiosk.position!);
-                marker.icon = self.unselectedIcon;
-                markers.append(marker);
-            }
-            updateKioskPositions();
+        if (UIDevice.currentDevice().systemVersion >= "8.0") {
+            locationManager = CLLocationManager();
+            locationManager.requestWhenInUseAuthorization();
+            locationManager.delegate = self;
         }
+        updateKioskPositions();
     }
     
     func updateKioskPositions() {
-        if (markers.count == SessionController.Instance.kioskList.count) {
-            currentVisibleKioskTask.cancelAllOperations();
-            searchField.resignFirstResponder();
-            visibleKiosks = [];
-            var bounds = GMSCoordinateBounds(region: self.mapView!.projection.visibleRegion());
+        currentVisibleKioskTask.cancelAllOperations();
+        searchField.resignFirstResponder();
+        visibleKiosks = [];
+        var bounds = GMSCoordinateBounds(region: self.mapView!.projection.visibleRegion());
+        
+        currentVisibleKioskTask.addOperationWithBlock({
             
-            currentVisibleKioskTask.addOperationWithBlock({
-                
-                for i in 0..<SessionController.Instance.kioskList.count {
-                    var kiosk = SessionController.Instance.kioskList[i];
-                    if (kiosk.group == "retired" || kiosk.group == "removed") {
-                        continue;
-                    }
-                    var marker = self.markers[i];
-                    if (bounds.containsCoordinate(kiosk.position!)) {
-                        self.visibleKiosks.append(kiosk);
+            for i in 0..<SessionController.Instance.kioskList.count {
+                var kiosk = SessionController.Instance.kioskList[i];
+                if (kiosk.group == "retired" || kiosk.group == "removed") {
+                    continue;
+                }
+                if (bounds.containsCoordinate(kiosk.position!)) {
+                    self.visibleKiosks.append(kiosk);
 
-                    }
-                    if ((self.currentVisibleKioskTask.operations[0] as NSOperation).cancelled) {
-                        return;
-                    }
                 }
                 if ((self.currentVisibleKioskTask.operations[0] as NSOperation).cancelled) {
                     return;
                 }
-                self.visibleKiosks.sort { self.calcDistance($0.position!) < self.calcDistance($1.position!) };
-                if ((self.currentVisibleKioskTask.operations[0] as NSOperation).cancelled) {
-                    return;
+            }
+            if ((self.currentVisibleKioskTask.operations[0] as NSOperation).cancelled) {
+                return;
+            }
+            self.visibleKiosks.sort { self.calcDistance($0.position!) < self.calcDistance($1.position!) };
+            if ((self.currentVisibleKioskTask.operations[0] as NSOperation).cancelled) {
+                return;
+            }
+            dispatch_async(dispatch_get_main_queue(), {
+                self.visibleKiosksTable.reloadData();
+                if (self.visibleKiosks.count == 0) {
+                    self.listButton.hidden = true;
+                } else {
+                    self.listButton.hidden = false;
                 }
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.visibleKiosksTable.reloadData();
-                    if (self.visibleKiosks.count == 0) {
-                        self.listButton.hidden = true;
-                    } else {
-                        self.listButton.hidden = false;
-                    }
-                });
             });
-        }
+        });
     }
     
     func toggleList(sender: AnyObject!) {
@@ -496,10 +484,13 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     
     func setSelectedKiosk(kiosk: KioskInfo) {
         clusterManager.setSelectedMarker(kiosk.position!);
-//        selectedMarker!.position = kiosk.position!;
-//        selectedMarker!.icon = selectedIcon;
-//        selectedMarker!.map = mapView;
-
+        
+        // this seemed to do the smoothest animation but it was hard to tell
+//        mapView.animateToLocation(kiosk.position!);
+//        mapView.animateToZoom(max(mapView.camera.zoom, 14));
+        
+        mapView.animateToCameraPosition(GMSCameraPosition(target: kiosk.position!, zoom: max(mapView.camera.zoom, 14), bearing: mapView.camera.bearing, viewingAngle: mapView.camera.viewingAngle));
+        
         searchField.resignFirstResponder();
         if (selectedKioskPane.hidden) {
             selectedKioskPane.hidden = false;
@@ -545,9 +536,6 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         if (!firstLocation && keyPath == "myLocation") {
             firstLocation = true;
             mapView.camera = GMSCameraPosition.cameraWithTarget(mapView.myLocation.coordinate, zoom: 11);
-            if (markers.count > 0) {
-                updateKioskPositions();
-            }
         }
     }
     
@@ -623,13 +611,11 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     }
     
     func markerSelected(marker: GMSMarker) {
-//        if (selectedMarker != nil) {
-//            selectedMarker!.icon = unselectedIcon;
-//        }
-//        selectedMarker = marker;
-//        selectedMarker!.icon = selectedIcon;
-//        
         setSelectedKiosk(marker.userData.valueForKey("kiosk") as KioskInfo);
+    }
+    
+    func clusterSelected(cluster: GMSMarker!) {
+        mapView.animateWithCameraUpdate(GMSCameraUpdate.setTarget(cluster.position, zoom: mapView.camera.zoom * 1.25));
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
