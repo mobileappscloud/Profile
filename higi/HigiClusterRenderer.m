@@ -40,7 +40,6 @@
         NSUInteger count = cluster.items.count;
         if (count > 1) {
             marker.icon = [self generateClusterIconWithCount:count];
-            marker.appearAnimation = kGMSMarkerAnimationPop;
         } else {
             if (selectedMarkerPosition.latitude == cluster.position.latitude && selectedMarkerPosition.longitude == cluster.position.longitude) {
                 marker.icon = selectedIcon;
