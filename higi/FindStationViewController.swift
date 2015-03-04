@@ -149,6 +149,12 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         
         setupMap();
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveApiNotification:", name: ApiUtility.KIOSKS, object: nil);
+    }
+    
+    func receiveApiNotification(notification: NSNotification) {
+        populateMarkers();
+        clusterManager.cluster()
     }
     
     override func viewDidLayoutSubviews() {
@@ -178,17 +184,12 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         mapView.myLocationEnabled = true;
         mapView.settings.myLocationButton = true;
 
-        populateMarkers();
-        
         clusterManager = GClusterManager(mapView: mapView, algorithm: NonHierarchicalDistanceBasedAlgorithm(), renderer: HigiClusterRenderer(mapView: mapView))
         mapView.delegate = clusterManager;
-        
         clusterManager.delegate = self;
-        for kiosk in SessionController.Instance.kioskList {
-            let item = ClusterKiosk();
-            item.setPosition(kiosk.position!);
-            item.setData(["kiosk": kiosk]);
-            clusterManager.addItem(item);
+        
+        if (SessionController.Instance.kioskList != nil) {
+            populateMarkers();
         }
         
         var myLocationButton = mapView.subviews.last as UIView;
@@ -202,6 +203,12 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
             locationManager = CLLocationManager();
             locationManager.requestWhenInUseAuthorization();
             locationManager.delegate = self;
+        }
+        for kiosk in SessionController.Instance.kioskList {
+            let item = ClusterKiosk();
+            item.setPosition(kiosk.position!);
+            item.setData(["kiosk": kiosk]);
+            clusterManager.addItem(item);
         }
         updateKioskPositions();
     }
