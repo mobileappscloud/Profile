@@ -198,8 +198,12 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             challengesCard.blankStateImage.hidden = true;
             challengesCard.challengeAvatar.setImageWithURL(NSURL(string: displayedChallenge.imageUrl));
             challengesCard.challengeTitle.text = displayedChallenge.name;
+            if (challengesCard.challengeBox.subviews.count > 0) {
+                (challengesCard.challengeBox.subviews[0] as UIView).removeFromSuperview();
+            }
             var challengeView = Utility.getChallengeViews(displayedChallenge, frame: CGRect(x: 0, y: 56, width: challengesCard.challengeBox.frame.size.width, height: 180), isComplex: false)[0];
             challengesCard.challengeBox.addSubview(challengeView);
+            challengeView.animate();
         } else {
             challengesCard.challengeBox.hidden = true;
             challengesCard.blankStateImage.hidden = false;

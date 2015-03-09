@@ -88,9 +88,9 @@ class Utility {
         return consolodatedList;
     }
     
-    class func getChallengeViews(challenge: HigiChallenge, frame: CGRect, isComplex: Bool) -> [UIView] {
-        var nib:UIView!;
-        var nibs:[UIView] = [];
+    class func getChallengeViews(challenge: HigiChallenge, frame: CGRect, isComplex: Bool) -> [ChallengeView] {
+        var nib:ChallengeView!;
+        var nibs:[ChallengeView] = [];
         var winConditions:[ChallengeWinCondition] = [];
         
         let consolodatedList = consolodateWinConditions(challenge.winConditions);

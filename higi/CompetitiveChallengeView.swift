@@ -1,6 +1,6 @@
 import Foundation
 
-class CompetitiveChallengeView: UIView, UIScrollViewDelegate {
+class CompetitiveChallengeView: ChallengeView, UIScrollViewDelegate {
     
     
     @IBOutlet weak var row1: UIView!
@@ -73,5 +73,32 @@ class CompetitiveChallengeView: UIView, UIScrollViewDelegate {
         competitiveView.autoresizingMask = UIViewAutoresizing.FlexibleWidth;
         competitiveView.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize);
         return competitiveView;
+    }
+    
+    override func animate() {
+        let innerRow1 = row1.subviews[0] as ChallengeLeaderboardRow;
+        let innerRow2 = row2.subviews[0] as? ChallengeLeaderboardRow;
+        let innerRow3 = row3.subviews[0] as? ChallengeLeaderboardRow;
+        let width1 = (innerRow1.progress.subviews[0] as UIView).frame.size.width;
+        (innerRow1.progress.subviews[0] as UIView).frame.size.width = 0;
+        UIView.animateWithDuration(1.0, delay: 0.0, options: .CurveEaseInOut, animations: {
+            (innerRow1.progress.subviews[0] as UIView).frame.size.width = width1;
+            }, completion: nil);
+        
+        if (innerRow2 != nil) {
+            let width2 = (innerRow2!.progress.subviews[0] as UIView).frame.size.width;
+            (innerRow2!.progress.subviews[0] as UIView).frame.size.width = 0;
+            UIView.animateWithDuration(1.0, delay: 0.1, options: .CurveEaseInOut, animations: {
+                (innerRow2!.progress.subviews[0] as UIView).frame.size.width = width2;
+                }, completion: nil);
+        }
+        
+        if (innerRow3 != nil) {
+            let width3 = (innerRow3!.progress.subviews[0] as UIView).frame.size.width;
+            (innerRow3!.progress.subviews[0] as UIView).frame.size.width = 0;
+            UIView.animateWithDuration(1.0, delay: 0.2, options: .CurveEaseInOut, animations: {
+                (innerRow3!.progress.subviews[0] as UIView).frame.size.width = width3;
+                }, completion: nil);
+        }
     }
 }
