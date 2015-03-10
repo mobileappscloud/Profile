@@ -97,7 +97,7 @@
                 <outlet property="blankStateImage" destination="Jmp-19-ybW" id="Vit-kO-QU9"/>
                 <outlet property="meterContainer" destination="mt7-5r-pdL" id="3mp-PA-389"/>
             </connections>
-            <point key="canvasLocation" x="655" y="176.5"/>
+            <point key="canvasLocation" x="1008" y="239.5"/>
         </view>
         <view contentMode="scaleToFill" id="SkR-F1-95x" customClass="ChallengesCard" customModule="higi" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="302"/>
@@ -267,7 +267,7 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </view>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ui_kiosk.png" translatesAutoresizingMaskIntoConstraints="NO" id="xnF-t9-D2f">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ui_kiosk.png" translatesAutoresizingMaskIntoConstraints="NO" id="xnF-t9-D2f">
                             <rect key="frame" x="240" y="372" width="50" height="50"/>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Last check-in" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jsm-J6-Okc">
@@ -315,7 +315,7 @@
                 <outlet property="pulseButton" destination="Xzh-7h-IUd" id="pGE-FC-e9C"/>
                 <outlet property="weightButton" destination="zC9-Ug-n3O" id="6Sb-fI-eAk"/>
             </connections>
-            <point key="canvasLocation" x="1008" y="902.5"/>
+            <point key="canvasLocation" x="1008" y="926.5"/>
         </view>
         <view contentMode="scaleToFill" id="mQp-GL-upY" customClass="PulseCard" customModule="higi" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="395"/>
