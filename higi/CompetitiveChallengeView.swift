@@ -77,8 +77,14 @@ class CompetitiveChallengeView: ChallengeView, UIScrollViewDelegate {
     
     override func animate() {
         let innerRow1 = row1.subviews[0] as ChallengeLeaderboardRow;
-        let innerRow2 = row2.subviews[0] as? ChallengeLeaderboardRow;
-        let innerRow3 = row3.subviews[0] as? ChallengeLeaderboardRow;
+        var innerRow2: ChallengeLeaderboardRow!;
+        if (row2.subviews.count > 0) {
+            innerRow2 = row2.subviews[0] as ChallengeLeaderboardRow;
+        }
+        var innerRow3: ChallengeLeaderboardRow!;
+        if (row3.subviews.count > 0) {
+            innerRow3 = row3.subviews[0] as ChallengeLeaderboardRow;
+        }
         let width1 = (innerRow1.progress.subviews[0] as UIView).frame.size.width;
         (innerRow1.progress.subviews[0] as UIView).frame.size.width = 0;
         UIView.animateWithDuration(1.0, delay: 0.0, options: .CurveEaseInOut, animations: {
