@@ -118,6 +118,8 @@ class ApiUtility {
     }
     
     class func retrieveActivities(success: (() -> Void)?) {
+        SessionData.Instance.lastUpdate = NSDate();
+        
         ApiUtility.checkForNewActivities({
             let userId = !HigiApi.EARNDIT_DEV ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
             var startDateFormatter = NSDateFormatter();
