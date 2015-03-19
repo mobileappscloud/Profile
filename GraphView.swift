@@ -75,6 +75,11 @@ class GraphView: UIView, UITableViewDelegate, UITableViewDataSource {
             if (isPortrait) {
                 checkinTable.tableHeaderView = nil;
                 measureUnit.text = delegate.getUnit();
+                
+                measureValue.hidden = true;
+                measureClass.hidden = true;
+                measureUnit.hidden = true;
+                
                 checkinTable.separatorInset = UIEdgeInsetsZero;
                 checkinTable.tableHeaderView?.frame = CGRectZero;
                 checkinTable.tableFooterView = UIView(frame: CGRectZero);
@@ -92,6 +97,11 @@ class GraphView: UIView, UITableViewDelegate, UITableViewDataSource {
                 measureValue.hidden = true;
                 measureClass.hidden = true;
                 measureUnit.text = "Learn more about \(delegate.getTitle())";
+                
+                measureValue.hidden = true;
+                measureClass.hidden = true;
+                measureUnit.hidden = true;
+                
                 trendText.text = "";
                 noDataGraph.hidden = false;
                 findStationButton.layer.borderWidth = 1.0;
@@ -111,7 +121,7 @@ class GraphView: UIView, UITableViewDelegate, UITableViewDataSource {
     func pointClicked(index: Int) {
         var viewController = Utility.getViewController(self) as BodyStatsViewController?;
         if (viewController != nil && index < checkins.count) {
-            viewController!.setSelected(checkins[index]);
+//            viewController!.setSelected(checkins[index]);
         }
     }
     
@@ -126,7 +136,7 @@ class GraphView: UIView, UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         var viewController = Utility.getViewController(self) as BodyStatsViewController!;
         if (viewController != nil) {
-            viewController.setSelected(checkins[checkins.count - indexPath.item - 1]);
+//            viewController.setSelected(checkins[checkins.count - indexPath.item - 1]);
         }
         tableView.deselectRowAtIndexPath(indexPath, animated: true);
     }

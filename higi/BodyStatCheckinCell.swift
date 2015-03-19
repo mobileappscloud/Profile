@@ -31,12 +31,12 @@ class BodyStatCheckinCell: UITableViewCell {
         }
         parentViewController.revealController.shouldRotate = false;
         parentViewController.revealController.supportedOrientations = UIInterfaceOrientationMask.Portrait.rawValue;
-        parentViewController.portView.scrollView.scrollEnabled = false;
+//        parentViewController.portView.scrollView.scrollEnabled = false;
         parentViewController!.navigationController!.navigationBarHidden = true;
         parentViewController!.navigationController!.navigationBar.userInteractionEnabled = false;
         parentViewController.fakeNavBar.hidden = true;
-        self.parentViewController.portView.orientationIndicator.hidden = true;
-        self.parentViewController.portView.pager.hidden = true;
+//        self.parentViewController.portView.orientationIndicator.hidden = true;
+//        self.parentViewController.portView.pager.hidden = true;
         checkinContainer.hidden = false;
         var checkinCard = UINib(nibName: "CheckinCardView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as CheckinCard;
         checkinCard.frame.size = checkinCardContainer.frame.size;
@@ -68,15 +68,15 @@ class BodyStatCheckinCell: UITableViewCell {
                 self.parentViewController.navigationController!.navigationBarHidden = false;
                 self.parentViewController.fakeNavBar.hidden = false;
                 self.parentViewController.navigationController!.navigationBar.userInteractionEnabled = true;
-                self.parentViewController.portView.orientationIndicator.hidden = false;
-                self.parentViewController.portView.pager.hidden = false;
+//                self.parentViewController.portView.orientationIndicator.hidden = false;
+//                self.parentViewController.portView.pager.hidden = false;
                 UIView.animateWithDuration(0.15, delay: 0.0, options: .CurveEaseInOut, animations: {
                     self.checkinContainer.alpha = 0.0;
                     }, completion: {finished in
                         self.checkinContainer.hidden = true;
                 });
                 checkinCard.removeFromSuperview();
-                self.parentViewController.portView.scrollView.scrollEnabled = true;
+//                self.parentViewController.portView.scrollView.scrollEnabled = true;
                 self.parentViewController.revealController.supportedOrientations = UIInterfaceOrientationMask.Portrait.rawValue | UIInterfaceOrientationMask.LandscapeLeft.rawValue | UIInterfaceOrientationMask.LandscapeRight.rawValue;
                 self.parentViewController.revealController.shouldRotate = true;
         });
@@ -87,9 +87,9 @@ class BodyStatCheckinCell: UITableViewCell {
         if (checkin.bpClass == nil) {
             offsetSelected += 3;
         }
-        var pager = parentViewController.portView.pager;
-        pager.currentPage = offsetSelected;
-        parentViewController.changePage(pager);
-        parentViewController.setSelected(checkin);
+//        var pager = parentViewController.portView.pager;
+//        pager.currentPage = offsetSelected;
+
+//        parentViewController.setSelected(checkin);
     }
 }

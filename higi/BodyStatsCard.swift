@@ -21,8 +21,7 @@ class BodyStatsCard: UIView {
     @IBAction func bodyStatClicked(sender: AnyObject) {
         Flurry.logEvent("Bodystat_Pressed");
         var bodyStatsViewController = BodyStatsViewController();
-        var tag = sender.tag;
-        bodyStatsViewController.currentPage = sender.tag;
+        var tag = sender.tag
         var viewController = Utility.getViewController(self);
         viewController!.navigationController!.pushViewController(bodyStatsViewController, animated: true);
         (viewController!.navigationController as MainNavigationController).drawerController?.tableView.reloadData();

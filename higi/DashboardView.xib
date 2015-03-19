@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DashboardViewController" customModule="higi" customModuleProvider="target">
@@ -167,126 +167,9 @@
             <point key="canvasLocation" x="1008" y="586"/>
         </view>
         <view contentMode="scaleToFill" id="G8T-De-5l9" customClass="BodyStatsCard" customModule="higi" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="265"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="915"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p0z-Ei-TSX">
-                    <rect key="frame" x="0.0" y="-165" width="320" height="430"/>
-                    <subviews>
-                        <button opaque="NO" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6RV-5n-cy4">
-                            <rect key="frame" x="4" y="219" width="102" height="102"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                            <state key="normal" title="--/--" backgroundImage="bloodpressure.png">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="bodyStatClicked:" destination="G8T-De-5l9" eventType="touchUpInside" id="Xq8-7Q-XKo"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" tag="1" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xzh-7h-IUd">
-                            <rect key="frame" x="109" y="219" width="102" height="102"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                            <state key="normal" title="--" backgroundImage="pulse.png">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="bodyStatClicked:" destination="G8T-De-5l9" eventType="touchUpInside" id="mzI-jz-1vj"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" tag="2" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="snB-ds-fUQ">
-                            <rect key="frame" x="214" y="219" width="102" height="102"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                            <state key="normal" title="--" backgroundImage="meanarterialpressure.png">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="bodyStatClicked:" destination="G8T-De-5l9" eventType="touchUpInside" id="kQI-qj-Kd6"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" tag="3" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zC9-Ug-n3O">
-                            <rect key="frame" x="4" y="324" width="102" height="102"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                            <state key="normal" title="--" backgroundImage="weight.png">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="bodyStatClicked:" destination="G8T-De-5l9" eventType="touchUpInside" id="if9-ws-AOi"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" tag="4" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ED9-hk-nVf">
-                            <rect key="frame" x="109" y="324" width="102" height="102"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                            <state key="normal" title="--" backgroundImage="bodymassindex.png">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="bodyStatClicked:" destination="G8T-De-5l9" eventType="touchUpInside" id="6SC-OZ-mOn"/>
-                            </connections>
-                        </button>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="BP" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="elS-kj-D3e">
-                            <rect key="frame" x="34" y="295" width="42" height="21"/>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Pulse" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="edx-ad-Dyh">
-                            <rect key="frame" x="139" y="295" width="42" height="21"/>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="MAP" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dUH-AY-CUB">
-                            <rect key="frame" x="244" y="295" width="42" height="21"/>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Weight" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b12-wQ-sj6">
-                            <rect key="frame" x="20" y="399" width="70" height="21"/>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="BMI" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fEa-qF-tce">
-                            <rect key="frame" x="139" y="399" width="42" height="21"/>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <view alpha="0.29999999999999999" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ME2-DG-hGW">
-                            <rect key="frame" x="214" y="324" width="102" height="102"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                    <integer key="value" value="1"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
-                        </view>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ui_kiosk.png" translatesAutoresizingMaskIntoConstraints="NO" id="xnF-t9-D2f">
-                            <rect key="frame" x="240" y="372" width="50" height="50"/>
-                        </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Last check-in" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jsm-J6-Okc">
-                            <rect key="frame" x="219" y="334" width="93" height="21"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                            <color key="textColor" red="0.2666666667" green="0.2666666667" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gWy-yh-SwW">
-                            <rect key="frame" x="219" y="350" width="93" height="21"/>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
-                            <color key="textColor" red="0.2666666667" green="0.2666666667" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="btn_action_black.png" translatesAutoresizingMaskIntoConstraints="NO" id="IIG-nh-f5X">
-                            <rect key="frame" x="292" y="183" width="20" height="20"/>
-                        </imageView>
-                    </subviews>
-                </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Body Stats" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dKe-C6-vhn">
                     <rect key="frame" x="70" y="17" width="179" height="21"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
@@ -298,24 +181,12 @@
                     <state key="normal">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
-                    <connections>
-                        <action selector="bodyStatClicked:" destination="G8T-De-5l9" eventType="touchUpInside" id="ES1-kI-bVf"/>
-                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <connections>
-                <outlet property="bmiButton" destination="ED9-hk-nVf" id="kdi-bT-22I"/>
-                <outlet property="bpButton" destination="6RV-5n-cy4" id="wCj-4o-ZG5"/>
-                <outlet property="lastCheckin" destination="gWy-yh-SwW" id="a2G-bJ-PYa"/>
-                <outlet property="lastCheckinBox" destination="ME2-DG-hGW" id="TDJ-2Z-Bew"/>
-                <outlet property="mapButton" destination="snB-ds-fUQ" id="P1e-T9-IsT"/>
-                <outlet property="pulseButton" destination="Xzh-7h-IUd" id="pGE-FC-e9C"/>
-                <outlet property="weightButton" destination="zC9-Ug-n3O" id="6Sb-fI-eAk"/>
-            </connections>
-            <point key="canvasLocation" x="1008" y="926.5"/>
+            <point key="canvasLocation" x="571" y="1215.5"/>
         </view>
         <view contentMode="scaleToFill" id="mQp-GL-upY" customClass="PulseCard" customModule="higi" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="395"/>
@@ -366,13 +237,13 @@
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m7h-IS-tbn">
                             <rect key="frame" x="137" y="16" width="159" height="32"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jp2-id-opc">
                             <rect key="frame" x="137" y="48" width="159" height="36"/>
                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KZ9-US-Arr">
@@ -393,7 +264,7 @@
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tTu-Nx-yx3">
                             <rect key="frame" x="137" y="45" width="159" height="36"/>
                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ibM-7i-qxv">
@@ -408,7 +279,7 @@
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GXg-mM-gVa">
                             <rect key="frame" x="137" y="13" width="159" height="32"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
@@ -481,15 +352,9 @@
     <resources>
         <image name="activitywidgetblankstate.png" width="1080" height="650"/>
         <image name="banner_nologo.png" width="1080" height="491"/>
-        <image name="bloodpressure.png" width="353" height="353"/>
-        <image name="bodymassindex.png" width="353" height="353"/>
         <image name="btn_action_black.png" width="23" height="23"/>
         <image name="challengewidgetblankstate.png" width="1080" height="650"/>
         <image name="dashboard_errorstate.png" width="1080" height="1000"/>
         <image name="gradient_overlay.png" width="204" height="204"/>
-        <image name="meanarterialpressure.png" width="353" height="353"/>
-        <image name="pulse.png" width="353" height="353"/>
-        <image name="ui_kiosk.png" width="64" height="84"/>
-        <image name="weight.png" width="353" height="353"/>
     </resources>
 </document>
