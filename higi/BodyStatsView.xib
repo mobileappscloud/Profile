@@ -7,7 +7,12 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BodyStatsViewController" customModule="higi" customModuleProvider="target">
             <connections>
+                <outlet property="backButton" destination="pkH-5k-o7W" id="cc7-eU-rSM"/>
+                <outlet property="cardTitle" destination="j3p-dy-V9m" id="j8b-xl-inF"/>
                 <outlet property="graphView" destination="reB-mX-Ff3" id="s2h-tR-nON"/>
+                <outlet property="headerView" destination="UIY-l6-dOw" id="0AF-D5-YNA"/>
+                <outlet property="infoButton" destination="gFQ-fX-Xc3" id="arI-TO-V4T"/>
+                <outlet property="selectedView" destination="LD4-mR-tW5" id="fSo-Di-odC"/>
                 <outlet property="view" destination="D6s-dc-jNs" id="0pR-So-24T"/>
             </connections>
         </placeholder>
@@ -42,6 +47,9 @@
                                     <state key="normal" image="graph_info.png">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
+                                    <connections>
+                                        <action selector="infoButtonClick:" destination="-1" eventType="touchUpInside" id="62z-g3-Y6g"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pkH-5k-o7W">
                                     <rect key="frame" x="17" y="12" width="31" height="30"/>
@@ -50,6 +58,9 @@
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
+                                    <connections>
+                                        <action selector="backButtonClick:" destination="-1" eventType="touchUpInside" id="ISu-Ej-qd2"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -60,6 +71,7 @@
             </subviews>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+            <point key="canvasLocation" x="274" y="229"/>
         </view>
     </objects>
     <resources>

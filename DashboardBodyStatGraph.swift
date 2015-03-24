@@ -3,20 +3,18 @@ import Foundation
 class DashboardBodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpaceDelegate {
     
     var points: [GraphPoint];
+    var altPoints: Array<Array<GraphPoint>>;
     var systolicPoints: [GraphPoint] = [];
     var diastolicPoints: [GraphPoint] = [];
     var plot: NewCPTScatterPlot;
-    var diastolicPlot: NewCPTScatterPlot?;
-    var systolicPlot: NewCPTScatterPlot?;
-    
+
     init(frame: CGRect, points: [GraphPoint]) {
         self.points = points;
         self.points.append(GraphPoint(x: Double(NSDate().timeIntervalSince1970), y: points.last!.y));
         self.diastolicPoints = [];
         self.systolicPoints = [];
+        self.altPoints = Array<Array<GraphPoint>>();
         self.plot = NewCPTScatterPlot(frame: CGRectZero);
-        self.diastolicPlot = nil;
-        self.systolicPlot = nil;
         super.init(frame: frame);
     }
     
@@ -24,12 +22,11 @@ class DashboardBodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPT
         self.points = points;
         self.diastolicPoints = diastolicPoints;
         self.systolicPoints = systolicPoints;
-        self.diastolicPoints.append(GraphPoint(x: Double(NSDate().timeIntervalSince1970), y: points.last!.y));
-        self.systolicPoints.append(GraphPoint(x: Double(NSDate().timeIntervalSince1970), y: points.last!.y));
-        self.points.append(GraphPoint(x: Double(NSDate().timeIntervalSince1970), y: points.last!.y));
+//        self.diastolicPoints.append(GraphPoint(x: Double(NSDate().timeIntervalSince1970), y: points.last!.y));
+//        self.systolicPoints.append(GraphPoint(x: Double(NSDate().timeIntervalSince1970), y: points.last!.y));
+//        self.points.append(GraphPoint(x: Double(NSDate().timeIntervalSince1970), y: points.last!.y));
+        self.altPoints = Array<Array<GraphPoint>>();
         self.plot = NewCPTScatterPlot(frame: CGRectZero);
-        self.diastolicPlot = NewCPTScatterPlot(frame: CGRectZero);
-        self.systolicPlot = NewCPTScatterPlot(frame: CGRectZero);
         
         super.init(frame: frame);
     }
@@ -123,10 +120,34 @@ class DashboardBodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPT
     func setupForBodyStat(color: UIColor) {
         var max = 0.0;
         var min = 9999999.9;
+        var hitMargin = 5;
+        
+        var graph = CPTXYGraph(frame: self.bounds);
+        self.hostedGraph = graph;
+        self.allowPinchScaling = true;
+        
+        graph.paddingLeft = 0;
+        graph.paddingTop = 0;
+        graph.paddingRight = 0;
+        graph.paddingBottom = 0;
+        graph.plotAreaFrame.paddingTop = 20;
+        
+        var symbolLineStyle = CPTMutableLineStyle();
+        symbolLineStyle.lineColor = CPTColor(CGColor: color.CGColor);
+        symbolLineStyle.lineWidth = 2;
+        
+        var altPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
+        altPlotSymbol.fill = CPTFill(color: CPTColor(CGColor: color.CGColor));
+        altPlotSymbol.lineStyle = symbolLineStyle;
+        altPlotSymbol.size = CGSize(width: 7.0, height: 7.0);
+        
+        var lineStyle = CPTMutableLineStyle();
+        lineStyle.lineColor = CPTColor(CGColor: color.CGColor);
+        lineStyle.lineWidth = 1;
         
         for index in 0..<points.count {
             var point = points[index];
-            if (diastolicPoints.count > 0) {
+            if (diastolicPoints.count > 0 && diastolicPoints.count > index) {
                 var point2 = diastolicPoints[index];
                 if (point2.y < min) {
                     min = point2.y;
@@ -136,7 +157,7 @@ class DashboardBodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPT
                     min = point.y;
                 }
             }
-            if (systolicPoints.count > 0) {
+            if (systolicPoints.count > 0 && systolicPoints.count > index) {
                 var point2 = systolicPoints[index];
                 if (point2.y > max) {
                     max = point2.y;
@@ -146,7 +167,19 @@ class DashboardBodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPT
                     max = point.y;
                 }
             }
-            
+            if (diastolicPoints.count > 0 && systolicPoints.count > 0) {
+                var altPlot = NewCPTScatterPlot(frame: CGRectZero);
+                altPlot.interpolation = CPTScatterPlotInterpolationLinear;
+                altPlot.plotSymbolMarginForHitDetection = CGFloat(hitMargin);
+                altPlot.dataSource = self;
+                altPlot.delegate = self;
+                altPlot.setAreaBaseDecimalValue(0);
+                altPlot.plotSymbol = altPlotSymbol;
+                altPlot.dataLineStyle = lineStyle;
+                graph.addPlot(altPlot, toPlotSpace: graph.defaultPlotSpace);
+                
+                altPoints.append([systolicPoints[index], diastolicPoints[index]]);
+            }
         }
         
         var yRange = max - min;
@@ -161,16 +194,6 @@ class DashboardBodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPT
             lastPoint = GraphPoint(x: 0, y: 0);
         }
         
-        var graph = CPTXYGraph(frame: self.bounds);
-        self.hostedGraph = graph;
-        self.allowPinchScaling = true;
-        
-        graph.paddingLeft = 0;
-        graph.paddingTop = 0;
-        graph.paddingRight = 0;
-        graph.paddingBottom = 0;
-        graph.plotAreaFrame.paddingTop = 20;
-        
         var plotSpace = self.hostedGraph.defaultPlotSpace as CPTXYPlotSpace;
         plotSpace.allowsUserInteraction = true;
         plotSpace.xRange = NewCPTPlotRange(location: firstPoint.x - 1, length: lastPoint.x - firstPoint.x + 2);
@@ -184,23 +207,12 @@ class DashboardBodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPT
         plot.areaFill = CPTFill(color: CPTColor(componentRed: 1.0, green: 1.0, blue: 1.0, alpha: 0.5));
         plot.setAreaBaseDecimalValue(0);
         
-        var hitMargin = 5;
-        
         plot.plotSymbolMarginForHitDetection = CGFloat(hitMargin);
         plot.dataSource = self;
         plot.delegate = self;
         
-        var lineStyle = CPTMutableLineStyle();
-        
-        lineStyle.lineColor = CPTColor(CGColor: color.CGColor);
-        lineStyle.lineWidth = 1;
-        
         var noLineStyle = CPTMutableLineStyle();
         noLineStyle.lineWidth = 0;
-        
-        var symbolLineStyle = CPTMutableLineStyle();
-        symbolLineStyle.lineColor = CPTColor(CGColor: color.CGColor);
-        symbolLineStyle.lineWidth = 2;
         
         var plotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
         plotSymbol.fill = CPTFill(color: CPTColor.whiteColor());
@@ -209,7 +221,6 @@ class DashboardBodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPT
         plot.plotSymbol = plotSymbol;
         plot.dataLineStyle = lineStyle;
         
-        graph.addPlot(plot, toPlotSpace: graph.defaultPlotSpace);
         graph.plotAreaFrame.borderLineStyle = nil;
         
         var axisTextStyle = CPTMutableTextStyle();
@@ -255,33 +266,10 @@ class DashboardBodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPT
         
         yAxis.tickDirection = CPTSignPositive;
         yAxis.labelOffset = 0;
-        
-        var altPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
-        altPlotSymbol.fill = CPTFill(color: CPTColor(CGColor: color.CGColor));
-        altPlotSymbol.lineStyle = symbolLineStyle;
-        altPlotSymbol.size = CGSize(width: 7.0, height: 7.0);
-        diastolicPlot!.plotSymbol = altPlotSymbol;
+        yAxis.paddingRight = 20;
 
-        diastolicPlot = NewCPTScatterPlot(frame: CGRectZero);
-        diastolicPlot!.interpolation = CPTScatterPlotInterpolationLinear;
-        diastolicPlot!.plotSymbolMarginForHitDetection = CGFloat(hitMargin);
-        diastolicPlot!.dataSource = self;
-        diastolicPlot!.delegate = self;
-        diastolicPlot!.setAreaBaseDecimalValue(0);
-        diastolicPlot!.plotSymbol = altPlotSymbol;
-        diastolicPlot!.dataLineStyle = noLineStyle;
-        
-        systolicPlot = NewCPTScatterPlot(frame: CGRectZero);
-        systolicPlot!.interpolation = CPTScatterPlotInterpolationLinear;
-        systolicPlot!.setAreaBaseDecimalValue(0);
-        systolicPlot!.plotSymbolMarginForHitDetection = CGFloat(hitMargin);
-        systolicPlot!.dataSource = self;
-        systolicPlot!.delegate = self;
-        systolicPlot!.plotSymbol = altPlotSymbol;
-        systolicPlot!.dataLineStyle = noLineStyle;
-
-        graph.addPlot(diastolicPlot, toPlotSpace: graph.defaultPlotSpace);
-        graph.addPlot(systolicPlot, toPlotSpace: graph.defaultPlotSpace);
+        //added after alt plots so that it is drawn on top
+        graph.addPlot(plot, toPlotSpace: graph.defaultPlotSpace);
         
         plotSpace.yRange = NewCPTPlotRange(location: min - yRange * 0.25, length: yRange * 2.0);
         plotSpace.globalYRange = plotSpace.yRange;
@@ -292,29 +280,24 @@ class DashboardBodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPT
         setRange();
     }
     
-    
     func numberOfRecordsForPlot(plot: CPTPlot!) -> UInt {
         if (plot.isEqual(self.plot)) {
             return UInt(points.count);
-        } else if(plot.isEqual(self.diastolicPlot)) {
-            return UInt(diastolicPoints.count);
-        } else if (plot.isEqual(self.systolicPlot)) {
-            return UInt(systolicPoints.count);
         } else {
-            return 0;
+            return 2;
         }
     }
     
     func numberForPlot(plot: CPTPlot!, field fieldEnum: Int, recordIndex idx: Int) -> NSNumber! {
         var point:GraphPoint;
+        let a = idx;
         if (plot.isEqual(self.plot)) {
             point = points[idx];
-        } else if(plot.isEqual(self.diastolicPlot)) {
-            point = diastolicPoints[idx];
-        } else if (plot.isEqual(self.systolicPlot)) {
-            point = systolicPoints[idx];
         } else {
-            return 0;
+            point = altPoints[0][idx];
+            if (idx == 1 && altPoints.count > 1) {
+                altPoints.removeAtIndex(0);
+            }
         }
 
         if (fieldEnum == 0) {
@@ -344,7 +327,19 @@ class DashboardBodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPT
     }
     
     func scatterPlot(plot: CPTScatterPlot!, plotSymbolWasSelectedAtRecordIndex idx: Int) {
-        (self.superview!.superview as GraphView).pointClicked(idx);
+//        (self.superview!.superview as GraphView).pointClicked(idx);
+        setSelected(idx);
+        pointClicked(idx);
     }
     
+    func setSelected(index: Int) {
+//        self.viewController!.setSelected(points[index]);
+    }
+    
+    func pointClicked(index: Int) {
+        var viewController = Utility.getViewController(self) as BodyStatsViewController?;
+//        if (viewController != nil && index < checkins.count) {
+            viewController!.setSelected(index);
+//        }
+    }
 }

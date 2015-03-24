@@ -1,83 +1,81 @@
 import Foundation
 
-class BodyStatsViewController: BaseViewController, UIGestureRecognizerDelegate, CPTAnimationDelegate {
-    var selected: HigiCheckin! = SessionController.Instance.checkins.last as HigiCheckin!;
+class BodyStatsViewController: BaseViewController {
     
-//    var landView = BodyStatsLandView.instanceFromNib();
+    var selected: HigiCheckin?;
+    
+    var checkins: [HigiCheckin] = SessionController.Instance.checkins;
     
     let titles = ["Blood Pressure", "Pulse", "Weight"];
     
     var type:String!;
     
     @IBOutlet weak var graphView: UIView!
-
+    @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var infoButton: UIButton!
+    @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var selectedView: UIView!
+    @IBOutlet weak var cardTitle: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad();
-//        landView.frame = self.view.frame;
         self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
-        navigationController!.interactivePopGestureRecognizer.enabled = false;
-        navigationController!.interactivePopGestureRecognizer.delegate = self;
+        self.navigationController!.navigationBarHidden = true;
+        
         setupGraph();
-
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
         revealController.panGestureRecognizer().enabled = false;
-        if (selected != nil) {
-            revealController.supportedOrientations = UIInterfaceOrientationMask.Portrait.rawValue | UIInterfaceOrientationMask.LandscapeLeft.rawValue | UIInterfaceOrientationMask.LandscapeRight.rawValue;
-            revealController.shouldRotate = true;
-        }
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated);
-        if (SessionController.Instance.checkins.count > 0) {
-            setSelected(selected);
-        }
+        revealController.supportedOrientations = UIInterfaceOrientationMask.LandscapeRight.rawValue;
+        revealController.shouldRotate = true;
+        UIDevice.currentDevice().setValue(UIInterfaceOrientation.LandscapeRight.rawValue, forKey: "orientation");
     }
     
     override func viewWillDisappear(animated: Bool) {
         revealController.supportedOrientations = UIInterfaceOrientationMask.Portrait.rawValue;
-        revealController.shouldRotate = false;
+        self.navigationController!.navigationBarHidden = false;
         self.view.setNeedsDisplay();
-
-        prepareForRotate();
-        constructScreen(UIInterfaceOrientation.LandscapeLeft);
+        UIDevice.currentDevice().setValue(UIInterfaceOrientation.Portrait.rawValue, forKey: "orientation");
         super.viewWillDisappear(animated);
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews();
-        if (selected != nil) {
-            setSelected(selected);
-        }
+    @IBAction func backButtonClick(sender: AnyObject) {
+        self.navigationController!.popViewControllerAnimated(true);
+    }
+    
+    @IBAction func infoButtonClick(sender: AnyObject) {
+        
     }
     
     func setupGraph() {
-
         var graphPoints: [GraphPoint] = [];
         var diastolicPoints: [GraphPoint] = [];
         var systolicPoints: [GraphPoint] = [];
         
         var color = UIColor.whiteColor();
         var graph:DashboardBodyStatGraph;
-        for checkin in SessionController.Instance.checkins {
-            if (type == "bp" && checkin.systolic != nil && checkin.systolic > 0) {
-                graphPoints.append(GraphPoint(x: Double(checkin.dateTime.timeIntervalSince1970), y: checkin.map));
-                diastolicPoints.append(GraphPoint(x: Double(checkin.dateTime.timeIntervalSince1970), y: Double(checkin.diastolic!)));
-                systolicPoints.append(GraphPoint(x: Double(checkin.dateTime.timeIntervalSince1970), y: Double(checkin.systolic!)));
-                color = Utility.colorFromHexString("#8379B5");
+        for checkin in checkins {
+            let checkinTime = Double(checkin.dateTime.timeIntervalSince1970);
+            if (type == "bp") {
+                if (checkin.map != nil && checkin.map > 0) {
+                    graphPoints.append(GraphPoint(x: checkinTime, y: checkin.map));
+                    if (checkin.diastolic != nil && checkin.diastolic > 0) {
+                        diastolicPoints.append(GraphPoint(x: checkinTime, y: Double(checkin.diastolic!)));
+                    }
+                    if (checkin.systolic != nil && checkin.systolic > 0) {
+                        systolicPoints.append(GraphPoint(x: checkinTime, y: Double(checkin.systolic!)));
+                    }
+                }
             }
             
             if (type == "weight" && checkin.weightKG != nil && checkin.weightKG > 0) {
                 graphPoints.append(GraphPoint(x: Double(checkin.dateTime.timeIntervalSince1970), y: checkin.bmi));
-                color = Utility.colorFromHexString("#EE6C55");
             }
             
             if (type == "pulse" && checkin.pulseBpm != nil && checkin.pulseBpm > 0) {
                 graphPoints.append(GraphPoint(x: Double(checkin.dateTime.timeIntervalSince1970), y: Double(checkin.pulseBpm!)));
-                color = Utility.colorFromHexString("#5FAFDF");
             }
         }
         
@@ -86,59 +84,37 @@ class BodyStatsViewController: BaseViewController, UIGestureRecognizerDelegate, 
 
         if (type == "bp") {
             graph = DashboardBodyStatGraph(frame: CGRect(x: 0, y: 0, width: graphView.frame.size.width, height: graphView.frame.size.height), points: graphPoints, diastolicPoints: diastolicPoints, systolicPoints: systolicPoints);
+            color = Utility.colorFromHexString("#8379B5");
+            headerView.backgroundColor = color;
+            cardTitle.text = "Blood Pressure";
+        } else if (type == "weight") {
+            graph = DashboardBodyStatGraph(frame: CGRect(x: 0, y: 0, width: graphView.frame.size.width, height: graphView.frame.size.height), points: graphPoints);
+            color = Utility.colorFromHexString("#EE6C55");
+            headerView.backgroundColor = color;
+            cardTitle.text = "Weight";
         } else {
             graph = DashboardBodyStatGraph(frame: CGRect(x: 0, y: 0, width: graphView.frame.size.width, height: graphView.frame.size.height), points: graphPoints);
+            color = Utility.colorFromHexString("#5FAFDF");
+            headerView.backgroundColor = color;
+            cardTitle.text = "Pulse";
         }
+        
         graph.setupForBodyStat(color);
         graphView.addSubview(graph);
     }
     
-    func animationDidUpdate(operation: CPTAnimationOperation!) {
-        setSelected(selected);
-    }
-
-    override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
-        super.willRotateToInterfaceOrientation(toInterfaceOrientation, duration: duration);
-        
-        prepareForRotate();
-    }
+//    func setSelected(selected: HigiCheckin) {
+//        self.selected = selected;
+//        
+////        for graphView in graphViews {
+////            graphView.setSelectedCheckin(selected);
+////        }
+//    }
     
-    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
-        super.didRotateFromInterfaceOrientation(fromInterfaceOrientation);
-        constructScreen(fromInterfaceOrientation);
+    func setSelected(index: Int) {
+        let checkin = SessionController.Instance.checkins[index];
+        let i = 0;
     }
-    
-    func prepareForRotate() {
-        if (SessionController.Instance.checkins.count > 0) {
-            self.view.backgroundColor = Utility.colorFromHexString("#FFFFFF");
-        }
-    }
-    
-    func constructScreen(fromInterfaceOrientation: UIInterfaceOrientation) {
-        if (SessionController.Instance.checkins.count > 0) {
-
-            self.view.backgroundColor = Utility.colorFromHexString("#FFFFFF");
-            self.navigationController!.navigationBarHidden = true;
-            var delay: UInt64 = 10;
-            var popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(delay * NSEC_PER_MSEC));
-            dispatch_after(popTime, dispatch_get_main_queue(), {
-                self.setSelected(self.selected);
-                self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
-            });
-        }
-    }
-    
-    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer!) -> Bool {
-        return false;
-    }
-    
-    func setSelected(selected: HigiCheckin) {
-        self.selected = selected;
-//        for graphView in graphViews {
-//            graphView.setSelectedCheckin(selected);
-//        }
-    }
-
 }
 
 

@@ -229,7 +229,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             let cardMarginY:CGFloat = 16;
             var cardPositionY:CGFloat = 60;
             
-            let bloodPressureCard = BodyStatsGraphCard.instanceFromNib("Blood Pressure", lastCheckin: SessionController.Instance.checkins.last!, color: Utility.colorFromHexString("#8379B5"));
+            let bloodPressureCard = BodyStatsGraphCard.instanceFromNib("Blood Pressure", lastCheckin: SessionController.Instance.checkins.last!, color: Utility.colorFromHexString("#8379B5"), type: "bp");
             bloodPressureCard.frame.origin.y = cardPositionY;
             bloodPressureCard.frame.origin.x = cardMarginX;
             bloodPressureCard.tag = 0;
@@ -237,7 +237,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             bloodPressureCard.addGestureRecognizer(bpTouched);
             cardPositionY += bloodPressureCard.frame.size.height + cardMarginY;
             
-            let pulseCard = BodyStatsGraphCard.instanceFromNib("Pulse", lastCheckin: SessionController.Instance.checkins.last!, color: Utility.colorFromHexString("#5FAFDF"));
+            let pulseCard = BodyStatsGraphCard.instanceFromNib("Pulse", lastCheckin: SessionController.Instance.checkins.last!, color: Utility.colorFromHexString("#5FAFDF"), type: "pulse");
             pulseCard.frame.origin.y = cardPositionY;
             pulseCard.frame.origin.x = cardMarginX;
             pulseCard.tag = 1;
@@ -245,7 +245,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             pulseCard.addGestureRecognizer(pulseTouched);
             cardPositionY += pulseCard.frame.size.height + cardMarginY;
             
-            let weightCard = BodyStatsGraphCard.instanceFromNib("Weight", lastCheckin: SessionController.Instance.checkins.last!, color: Utility.colorFromHexString("#EE6C55"));
+            let weightCard = BodyStatsGraphCard.instanceFromNib("Weight", lastCheckin: SessionController.Instance.checkins.last!, color: Utility.colorFromHexString("#EE6C55"), type: "weight");
             weightCard.frame.origin.y = cardPositionY;
             weightCard.frame.origin.x = cardMarginX;
             weightCard.tag = 2;
@@ -305,14 +305,14 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
 
     func gotoPulseGraph(sender: AnyObject) {
         //@todo flurry event here
-        let viewController = BodyStatsViewController();
+        let viewController = BodyStatsViewController(nibName: "BodyStatsView", bundle: nil);
         viewController.type = "pulse";
         self.navigationController!.pushViewController(viewController, animated: true);
     }
     
     func gotoWeightGraph(sender: AnyObject) {
         //@todo flurry event here
-        let viewController = BodyStatsViewController();
+        let viewController = BodyStatsViewController(nibName: "BodyStatsView", bundle: nil);
         viewController.type = "weight";
         self.navigationController!.pushViewController(viewController, animated: true);
     }

@@ -16,23 +16,42 @@ class BodyStatsGraphCard: UIView {
     @IBOutlet weak var firstReadingPanel: UIView!
     @IBOutlet weak var secondReadingPanel: UIView!
     
-    class func instanceFromNib(title: String, lastCheckin: HigiCheckin, color: UIColor) -> BodyStatsGraphCard {
+    class func instanceFromNib(title: String, lastCheckin: HigiCheckin, color: UIColor, type: String) -> BodyStatsGraphCard {
         let card = UINib(nibName: "BodyStatGraphCardView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as BodyStatsGraphCard;
         card.title.text = title;
         let formatter = NSDateFormatter();
-        formatter.dateFormat = "LLL";
+        formatter.dateFormat = "MMMM dd";
         card.date.text = formatter.stringFromDate(lastCheckin.dateTime);
         card.backgroundView.backgroundColor = color;
         
-        card.firstReadingValue.text = "120/80";
-        card.firstReadingValue.textColor = color;
-        card.firstReadingLabel.text = "mmHg";
-        card.firstReadingSubTitle.text = "Blood Pressure";
+        if (type == "bp") {
+            card.firstReadingValue.text = "\(lastCheckin.systolic)/\(lastCheckin.diastolic)";
+            card.firstReadingLabel.text = "mmHg";
+            card.firstReadingSubTitle.text = "Blood Pressure";
+            
+            card.secondReadingValue.text = "\(lastCheckin.map)";
+            card.secondReadingLabel.text = "mmHg";
+            card.secondReadingSubTitle.text = "Mean Arterial Pressure";
+        } else if (type == "weight") {
+            card.firstReadingValue.text = "\(Int(lastCheckin.weightLbs!))";
+            card.firstReadingLabel.text = "lbs";
+            card.firstReadingSubTitle.text = "Weight";
+            
+            card.secondReadingValue.text = "\(lastCheckin.map)";
+            card.secondReadingLabel.text = "mmHg";
+            card.secondReadingSubTitle.text = "Mean Arterial Pressure";
+        } else {
+            card.firstReadingValue.text = "\(lastCheckin.pulseBpm)";
+            card.firstReadingLabel.text = "bpm";
+            card.firstReadingSubTitle.text = "Blood Pressure";
+            
+            card.secondReadingValue.hidden = true;
+            card.secondReadingLabel.hidden = true;
+            card.secondReadingSubTitle.hidden = true;
+        }
         
-        card.secondReadingValue.text = "101";
+        card.firstReadingValue.textColor = color;
         card.secondReadingValue.textColor = color;
-        card.secondReadingLabel.text = "mmHg";
-        card.secondReadingSubTitle.text = "Mean Arterial Pressure";
 
         card.firstReadingPanel.layer.borderColor = Utility.colorFromHexString("#EEEEEE").CGColor;
         card.firstReadingPanel.layer.borderWidth = 1;
