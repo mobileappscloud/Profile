@@ -1,20 +1,25 @@
 import Foundation
 
-class DashboardBodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpaceDelegate {
+class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpaceDelegate {
     
     var points: [GraphPoint];
-    var altPoints: Array<Array<GraphPoint>>;
+    var altPoints: Array<Array<GraphPoint>> = Array<Array<GraphPoint>>();
+    var altPlots: [Int:NewCPTScatterPlot] = [:];
     var systolicPoints: [GraphPoint] = [];
     var diastolicPoints: [GraphPoint] = [];
-    var plot: NewCPTScatterPlot;
-
+    var plot: NewCPTScatterPlot = NewCPTScatterPlot(frame: CGRectZero);
+    var altPointsIndex = 0;
+    var selectedPointIndex = -1;
+    var selectedAltPointIndex = -1;
+    var plotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
+    var selectedPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
+    var altPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
+    var selectedAltPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
+    var unselectedAltPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
+    
     init(frame: CGRect, points: [GraphPoint]) {
         self.points = points;
         self.points.append(GraphPoint(x: Double(NSDate().timeIntervalSince1970), y: points.last!.y));
-        self.diastolicPoints = [];
-        self.systolicPoints = [];
-        self.altPoints = Array<Array<GraphPoint>>();
-        self.plot = NewCPTScatterPlot(frame: CGRectZero);
         super.init(frame: frame);
     }
     
@@ -22,12 +27,10 @@ class DashboardBodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPT
         self.points = points;
         self.diastolicPoints = diastolicPoints;
         self.systolicPoints = systolicPoints;
-//        self.diastolicPoints.append(GraphPoint(x: Double(NSDate().timeIntervalSince1970), y: points.last!.y));
-//        self.systolicPoints.append(GraphPoint(x: Double(NSDate().timeIntervalSince1970), y: points.last!.y));
-//        self.points.append(GraphPoint(x: Double(NSDate().timeIntervalSince1970), y: points.last!.y));
-        self.altPoints = Array<Array<GraphPoint>>();
-        self.plot = NewCPTScatterPlot(frame: CGRectZero);
-        
+        //        self.points.append(GraphPoint(x: Double(NSDate().timeIntervalSince1970), y: points.last!.y));
+        //        self.diastolicPoints.append(GraphPoint(x: Double(NSDate().timeIntervalSince1970), y: points.last!.y));
+        //        self.systolicPoints.append(GraphPoint(x: Double(NSDate().timeIntervalSince1970), y: points.last!.y));
+
         super.init(frame: frame);
     }
     
@@ -86,7 +89,10 @@ class DashboardBodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPT
         plot.interpolation = CPTScatterPlotInterpolationCurved;
 
         var hitMargin = 0;
+
+        plotSymbol.size = CGSize(width: 0, height: 0);
         
+        plot.plotSymbol = plotSymbol;
         plot.plotSymbolMarginForHitDetection = CGFloat(hitMargin);
         plot.dataSource = self;
         plot.delegate = self;
@@ -136,10 +142,19 @@ class DashboardBodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPT
         symbolLineStyle.lineColor = CPTColor(CGColor: color.CGColor);
         symbolLineStyle.lineWidth = 2;
         
-        var altPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
         altPlotSymbol.fill = CPTFill(color: CPTColor(CGColor: color.CGColor));
         altPlotSymbol.lineStyle = symbolLineStyle;
         altPlotSymbol.size = CGSize(width: 7.0, height: 7.0);
+        
+        selectedAltPlotSymbol.fill = CPTFill(color: CPTColor(CGColor: color.CGColor));
+        selectedAltPlotSymbol.lineStyle = symbolLineStyle;
+        selectedAltPlotSymbol.size = CGSize(width: 7.0, height: 7.0);
+        
+        unselectedAltPlotSymbol.fill = CPTFill(color: CPTColor(CGColor: (color.colorWithAlphaComponent(0.3)).CGColor));
+        var unselectedLineStyle = CPTMutableLineStyle();
+        unselectedLineStyle.lineColor = CPTColor(CGColor: (color.colorWithAlphaComponent(0.3)).CGColor);
+        unselectedAltPlotSymbol.lineStyle = unselectedLineStyle;
+        unselectedAltPlotSymbol.size = CGSize(width: 7.0, height: 7.0);
         
         var lineStyle = CPTMutableLineStyle();
         lineStyle.lineColor = CPTColor(CGColor: color.CGColor);
@@ -167,7 +182,8 @@ class DashboardBodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPT
                     max = point.y;
                 }
             }
-            if (diastolicPoints.count > 0 && systolicPoints.count > 0) {
+            
+            if (diastolicPoints.count > 0 && diastolicPoints.count > index && systolicPoints.count > 0 && systolicPoints.count > index) {
                 var altPlot = NewCPTScatterPlot(frame: CGRectZero);
                 altPlot.interpolation = CPTScatterPlotInterpolationLinear;
                 altPlot.plotSymbolMarginForHitDetection = CGFloat(hitMargin);
@@ -176,6 +192,9 @@ class DashboardBodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPT
                 altPlot.setAreaBaseDecimalValue(0);
                 altPlot.plotSymbol = altPlotSymbol;
                 altPlot.dataLineStyle = lineStyle;
+                
+                altPlots[index] = altPlot;
+                
                 graph.addPlot(altPlot, toPlotSpace: graph.defaultPlotSpace);
                 
                 altPoints.append([systolicPoints[index], diastolicPoints[index]]);
@@ -204,7 +223,6 @@ class DashboardBodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPT
         
         plot = NewCPTScatterPlot(frame: CGRectZero);
         plot.interpolation = CPTScatterPlotInterpolationLinear;
-        plot.areaFill = CPTFill(color: CPTColor(componentRed: 1.0, green: 1.0, blue: 1.0, alpha: 0.5));
         plot.setAreaBaseDecimalValue(0);
         
         plot.plotSymbolMarginForHitDetection = CGFloat(hitMargin);
@@ -214,10 +232,14 @@ class DashboardBodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPT
         var noLineStyle = CPTMutableLineStyle();
         noLineStyle.lineWidth = 0;
         
-        var plotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
         plotSymbol.fill = CPTFill(color: CPTColor.whiteColor());
         plotSymbol.lineStyle = symbolLineStyle;
         plotSymbol.size = CGSize(width: 7.0, height: 7.0);
+        
+        selectedPlotSymbol.fill = CPTFill(color: CPTColor(CGColor: color.CGColor));
+        selectedPlotSymbol.lineStyle = symbolLineStyle;
+        selectedPlotSymbol.size = CGSize(width: 7.0, height: 7.0);
+        
         plot.plotSymbol = plotSymbol;
         plot.dataLineStyle = lineStyle;
         
@@ -279,7 +301,7 @@ class DashboardBodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPT
 
         setRange();
     }
-    
+
     func numberOfRecordsForPlot(plot: CPTPlot!) -> UInt {
         if (plot.isEqual(self.plot)) {
             return UInt(points.count);
@@ -287,16 +309,16 @@ class DashboardBodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPT
             return 2;
         }
     }
-    
+
     func numberForPlot(plot: CPTPlot!, field fieldEnum: Int, recordIndex idx: Int) -> NSNumber! {
         var point:GraphPoint;
-        let a = idx;
+        
         if (plot.isEqual(self.plot)) {
             point = points[idx];
         } else {
-            point = altPoints[0][idx];
-            if (idx == 1 && altPoints.count > 1) {
-                altPoints.removeAtIndex(0);
+            point = altPoints[altPointsIndex][idx];
+            if (idx == 1 && altPoints.count - 1 > altPointsIndex) {
+                altPointsIndex++;
             }
         }
 
@@ -327,19 +349,43 @@ class DashboardBodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPT
     }
     
     func scatterPlot(plot: CPTScatterPlot!, plotSymbolWasSelectedAtRecordIndex idx: Int) {
-//        (self.superview!.superview as GraphView).pointClicked(idx);
-        setSelected(idx);
-        pointClicked(idx);
-    }
-    
-    func setSelected(index: Int) {
-//        self.viewController!.setSelected(points[index]);
-    }
-    
-    func pointClicked(index: Int) {
         var viewController = Utility.getViewController(self) as BodyStatsViewController?;
-//        if (viewController != nil && index < checkins.count) {
-            viewController!.setSelected(index);
-//        }
+        viewController!.setSelected(idx);
+        
+        if (plot.isEqual(self.plot)) {
+            selectedPointIndex = idx;
+        } else {
+            selectedPointIndex = getPlotIndex(plot);
+        }
+        
+        self.plot.reloadData();
+        altPointsIndex = 0;
+        for (index, altPlot) in altPlots {
+            altPlot.reloadData();
+        }
     }
+    
+    func symbolForScatterPlot(plot: CPTScatterPlot!, recordIndex idx: UInt) -> CPTPlotSymbol! {
+        if (plot.isEqual(self.plot)) {
+            return selectedPointIndex == Int(idx) ? selectedPlotSymbol : plotSymbol;
+        } else {
+            if (selectedPointIndex == -1) {
+                return altPlotSymbol;
+            } else if (plot.isEqual(altPlots[selectedPointIndex])) {
+                return selectedAltPlotSymbol;
+            } else {
+                return unselectedAltPlotSymbol;
+            }
+        }
+    }
+    
+    func getPlotIndex(plot: CPTScatterPlot) -> Int{
+        for (index, altPlot) in altPlots {
+            if (plot.isEqual(altPlot)) {
+                return index;
+            }
+        }
+        return -1;
+    }
+    
 }

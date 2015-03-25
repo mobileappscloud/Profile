@@ -6,6 +6,8 @@ class BodyStatsViewController: BaseViewController {
     
     var checkins: [HigiCheckin] = SessionController.Instance.checkins;
     
+    var plottedCheckins: [HigiCheckin] = [];
+    
     let titles = ["Blood Pressure", "Pulse", "Weight"];
     
     var type:String!;
@@ -16,6 +18,7 @@ class BodyStatsViewController: BaseViewController {
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var selectedView: UIView!
     @IBOutlet weak var cardTitle: UILabel!
+    @IBOutlet weak var selectedFirstPanelLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -55,7 +58,7 @@ class BodyStatsViewController: BaseViewController {
         var systolicPoints: [GraphPoint] = [];
         
         var color = UIColor.whiteColor();
-        var graph:DashboardBodyStatGraph;
+        var graph:BodyStatGraph;
         for checkin in checkins {
             let checkinTime = Double(checkin.dateTime.timeIntervalSince1970);
             if (type == "bp") {
@@ -67,15 +70,18 @@ class BodyStatsViewController: BaseViewController {
                     if (checkin.systolic != nil && checkin.systolic > 0) {
                         systolicPoints.append(GraphPoint(x: checkinTime, y: Double(checkin.systolic!)));
                     }
+                    plottedCheckins.append(checkin);
                 }
             }
             
             if (type == "weight" && checkin.weightKG != nil && checkin.weightKG > 0) {
                 graphPoints.append(GraphPoint(x: Double(checkin.dateTime.timeIntervalSince1970), y: checkin.bmi));
+                plottedCheckins.append(checkin);
             }
             
             if (type == "pulse" && checkin.pulseBpm != nil && checkin.pulseBpm > 0) {
                 graphPoints.append(GraphPoint(x: Double(checkin.dateTime.timeIntervalSince1970), y: Double(checkin.pulseBpm!)));
+                plottedCheckins.append(checkin);
             }
         }
         
@@ -83,19 +89,22 @@ class BodyStatsViewController: BaseViewController {
         var graphFrame = CGRect(x: 0, y: 0, width: frame.width, height: frame.size.height - 25);
 
         if (type == "bp") {
-            graph = DashboardBodyStatGraph(frame: CGRect(x: 0, y: 0, width: graphView.frame.size.width, height: graphView.frame.size.height), points: graphPoints, diastolicPoints: diastolicPoints, systolicPoints: systolicPoints);
+            graph = BodyStatGraph(frame: CGRect(x: 0, y: 0, width: graphView.frame.size.width, height: graphView.frame.size.height), points: graphPoints, diastolicPoints: diastolicPoints, systolicPoints: systolicPoints);
             color = Utility.colorFromHexString("#8379B5");
             headerView.backgroundColor = color;
+            selectedFirstPanelLabel.textColor = color;
             cardTitle.text = "Blood Pressure";
         } else if (type == "weight") {
-            graph = DashboardBodyStatGraph(frame: CGRect(x: 0, y: 0, width: graphView.frame.size.width, height: graphView.frame.size.height), points: graphPoints);
+            graph = BodyStatGraph(frame: CGRect(x: 0, y: 0, width: graphView.frame.size.width, height: graphView.frame.size.height), points: graphPoints);
             color = Utility.colorFromHexString("#EE6C55");
             headerView.backgroundColor = color;
+            selectedFirstPanelLabel.textColor = color;
             cardTitle.text = "Weight";
         } else {
-            graph = DashboardBodyStatGraph(frame: CGRect(x: 0, y: 0, width: graphView.frame.size.width, height: graphView.frame.size.height), points: graphPoints);
+            graph = BodyStatGraph(frame: CGRect(x: 0, y: 0, width: graphView.frame.size.width, height: graphView.frame.size.height), points: graphPoints);
             color = Utility.colorFromHexString("#5FAFDF");
             headerView.backgroundColor = color;
+            selectedFirstPanelLabel.textColor = color;
             cardTitle.text = "Pulse";
         }
         
@@ -112,9 +121,16 @@ class BodyStatsViewController: BaseViewController {
 //    }
     
     func setSelected(index: Int) {
-        let checkin = SessionController.Instance.checkins[index];
-        let i = 0;
+        let checkin = plottedCheckins[index];
+        if (selectedView.hidden) {
+            selectedView.hidden = false;
+        }
+        if (type == "bp") {
+            selectedFirstPanelLabel.text = "\(checkin.map) mmHg";
+        } else if (type == "weight") {
+            selectedFirstPanelLabel.text = "\(checkin.weightLbs) lbs";
+        } else {
+            selectedFirstPanelLabel.text = "\(checkin.pulseBpm) bpm";
+        }
     }
 }
-
-

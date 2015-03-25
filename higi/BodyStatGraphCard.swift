@@ -62,7 +62,7 @@ class BodyStatsGraphCard: UIView {
     }
     
     func graph(points: [GraphPoint]) {
-        let graph = DashboardBodyStatGraph(frame: CGRect(x: 0, y: 0, width: graphView.frame.size.width, height: graphView.frame.size.height), points: points);
+        let graph = BodyStatGraph(frame: CGRect(x: 0, y: 0, width: graphView.frame.size.width, height: graphView.frame.size.height), points: points);
         graph.setupForDashboard();
         graphView.addSubview(graph);
     }

@@ -166,7 +166,7 @@
             </connections>
             <point key="canvasLocation" x="1008" y="586"/>
         </view>
-        <view contentMode="scaleToFill" id="G8T-De-5l9" customClass="BodyStatsCard" customModule="higi" customModuleProvider="target">
+        <view contentMode="scaleToFill" id="G8T-De-5l9">
             <rect key="frame" x="0.0" y="0.0" width="320" height="915"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>

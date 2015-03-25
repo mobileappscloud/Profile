@@ -18,7 +18,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     
     @IBOutlet var challengesCard: ChallengesCard!
     
-    @IBOutlet weak var bodyStatsCard: BodyStatsCard!
+    @IBOutlet weak var bodyStatsCard: UIView!
     
     @IBOutlet weak var pulseCard: PulseCard!
     
