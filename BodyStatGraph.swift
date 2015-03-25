@@ -16,6 +16,8 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
     var altPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
     var selectedAltPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
     var unselectedAltPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
+    var selectedAltPlotLineStyle = CPTMutableLineStyle();
+    var unselectedAltPlotLineStyle = CPTMutableLineStyle();
     
     init(frame: CGRect, points: [GraphPoint]) {
         self.points = points;
@@ -142,6 +144,9 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
         symbolLineStyle.lineColor = CPTColor(CGColor: color.CGColor);
         symbolLineStyle.lineWidth = 2;
         
+        var unselectedLineStyle = CPTMutableLineStyle();
+        unselectedLineStyle.lineColor = CPTColor(CGColor: (color.colorWithAlphaComponent(0.3)).CGColor);
+        
         altPlotSymbol.fill = CPTFill(color: CPTColor(CGColor: color.CGColor));
         altPlotSymbol.lineStyle = symbolLineStyle;
         altPlotSymbol.size = CGSize(width: 7.0, height: 7.0);
@@ -151,14 +156,17 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
         selectedAltPlotSymbol.size = CGSize(width: 7.0, height: 7.0);
         
         unselectedAltPlotSymbol.fill = CPTFill(color: CPTColor(CGColor: (color.colorWithAlphaComponent(0.3)).CGColor));
-        var unselectedLineStyle = CPTMutableLineStyle();
-        unselectedLineStyle.lineColor = CPTColor(CGColor: (color.colorWithAlphaComponent(0.3)).CGColor);
         unselectedAltPlotSymbol.lineStyle = unselectedLineStyle;
         unselectedAltPlotSymbol.size = CGSize(width: 7.0, height: 7.0);
-        
+
         var lineStyle = CPTMutableLineStyle();
         lineStyle.lineColor = CPTColor(CGColor: color.CGColor);
         lineStyle.lineWidth = 1;
+        selectedAltPlotLineStyle = lineStyle;
+        
+//        unselectedAltPlotLineStyle.lineColor = CPTColor(CGColor: (color.colorWithAlphaComponent(0.3)).CGColor);
+        unselectedAltPlotLineStyle.lineColor = CPTColor(CGColor: UIColor.blackColor().CGColor);
+        unselectedAltPlotLineStyle.lineWidth = 1;
         
         for index in 0..<points.count {
             var point = points[index];
@@ -361,6 +369,11 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
         self.plot.reloadData();
         altPointsIndex = 0;
         for (index, altPlot) in altPlots {
+            if (!plot.isEqual(altPlot) || index == selectedPointIndex) {
+                altPlot.dataLineStyle = selectedAltPlotLineStyle;
+            } else {
+                altPlot.dataLineStyle = unselectedAltPlotLineStyle;
+            }
             altPlot.reloadData();
         }
     }

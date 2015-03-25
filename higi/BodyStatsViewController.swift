@@ -10,7 +10,7 @@ class BodyStatsViewController: BaseViewController {
     
     let titles = ["Blood Pressure", "Pulse", "Weight"];
     
-    var type:String!;
+    var type = "bp";
     
     @IBOutlet weak var graphView: UIView!
     @IBOutlet weak var backButton: UIButton!
