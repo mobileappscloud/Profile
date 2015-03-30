@@ -528,6 +528,14 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
             fridayHours.text = kiosk.hours!.valueForKey("Fri") as? NSString? ?? "Closed";
             saturdayHours.text = kiosk.hours!.valueForKey("Sat") as? NSString? ?? "Closed";
             sundayHours.text = kiosk.hours!.valueForKey("Sun") as? NSString? ?? "Closed";
+        } else {
+            mondayHours.text = "Not available";
+            tuesdayHours.text = "Not available";
+            wednesdayHours.text = "Not available";
+            thursdayHours.text = "Not available";
+            fridayHours.text = "Not available";
+            saturdayHours.text = "Not available";
+            sundayHours.text = "Not available";
         }
         var distance = calcDistance(kiosk.position!);
         if (distance >= 0) {
