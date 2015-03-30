@@ -22,4 +22,9 @@ class PulseCard: UIView {
     @IBOutlet weak var bottomImage: UIImageView!
     @IBOutlet weak var bottomTitle: UILabel!
     @IBOutlet weak var bottomExcerpt: UILabel!
+    
+    @IBOutlet weak var loadingContainer: UIView!
+    
+    @IBOutlet weak var spinner:
+    UIActivityIndicatorView!
 }
