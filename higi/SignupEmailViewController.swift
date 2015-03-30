@@ -123,6 +123,11 @@ class SignupEmailViewController: UIViewController, UITextFieldDelegate {
                         SessionData.Instance.user = user;
                         SessionData.Instance.token = userInfo["token"] as NSString;
                         SessionData.Instance.save();
+<<<<<<< HEAD
+=======
+                        SessionController.Instance.checkins = [];
+                        SessionController.Instance.activities = [];
+>>>>>>> develop
                         
                         self.navigationController!.pushViewController(SignupNameViewController(nibName: "SignupNameView", bundle: nil), animated: true);
                         

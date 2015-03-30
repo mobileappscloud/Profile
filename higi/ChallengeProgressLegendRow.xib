@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ChallengeProgressLegendRow" customModule="higi" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="86"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="400 pts" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Xw-gd-M3u">
+                    <rect key="frame" x="42" y="7" width="234" height="21"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                    <color key="textColor" red="0.26666666666666666" green="0.26666666666666666" blue="0.26666666666666666" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oqr-PQ-QOo">
+                    <rect key="frame" x="42" y="29" width="234" height="21"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                    <color key="textColor" red="0.26666666666666666" green="0.26666666666666666" blue="0.26666666666666666" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2WF-8P-AJw">
+                    <rect key="frame" x="22" y="14" width="12" height="12"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5CV-me-SbU">
+                    <rect key="frame" x="42" y="50" width="234" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <color key="textColor" red="0.26666666666666666" green="0.26666666666666666" blue="0.26666666666666666" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="Oqr-PQ-QOo" secondAttribute="trailing" constant="44" id="8gy-I8-LJ1"/>
+                <constraint firstItem="Oqr-PQ-QOo" firstAttribute="top" secondItem="7Xw-gd-M3u" secondAttribute="bottom" constant="1" id="Vql-7I-eqH"/>
+                <constraint firstItem="5CV-me-SbU" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="42" id="WHj-IT-ca9"/>
+                <constraint firstItem="5CV-me-SbU" firstAttribute="top" secondItem="Oqr-PQ-QOo" secondAttribute="bottom" id="c1u-6B-8sr"/>
+                <constraint firstItem="Oqr-PQ-QOo" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="42" id="duS-91-Mlj"/>
+                <constraint firstAttribute="trailing" secondItem="5CV-me-SbU" secondAttribute="trailing" constant="44" id="oa6-t0-XJu"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="goalPoints" destination="7Xw-gd-M3u" id="Eoo-hF-h8S"/>
+                <outlet property="legendIndex" destination="2WF-8P-AJw" id="ACt-aL-yfl"/>
+                <outlet property="prizeDescription" destination="5CV-me-SbU" id="aGg-04-pwf"/>
+                <outlet property="prizeTitle" destination="Oqr-PQ-QOo" id="igO-wt-fb2"/>
+            </connections>
+            <point key="canvasLocation" x="347" y="315"/>
+        </view>
+    </objects>
+</document>

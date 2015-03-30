@@ -19,10 +19,19 @@ class SessionController {
     
     var pulseArticles: [PulseArticle] = [];
     
+    var kioskList: [KioskInfo]!;
+    
     var healthStore: HKHealthStore!;
     
+    var devices: [String: ActivityDevice] = [:];
+    
+    var earnditError = false;
+    
     func reset() {
-        checkins = [];
+        checkins = nil;
+        activities = nil;
+        challenges = nil;
+        devices = [:];
     }
     
     

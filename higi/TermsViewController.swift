@@ -70,13 +70,30 @@ class TermsViewController: UIViewController {
         
         HigiApi().sendPost("/data/user/\(SessionData.Instance.user.userId)", parameters: contents, success: {operation, responseObject in
             
+<<<<<<< HEAD
                 ApiUtility.retrieveCheckins({ Utility.gotoDashboard(self) });
+=======
+            ApiUtility.retrieveCheckins(self.gotoDashboard);
+            ApiUtility.retrieveActivities(self.gotoDashboard);
+            ApiUtility.retrieveChallenges(self.gotoDashboard);
+            ApiUtility.retrieveDevices(self.gotoDashboard);
+            ApiUtility.grabNextPulseArticles(self.gotoDashboard);
+>>>>>>> develop
             
             }, failure: {operation, error in
                 self.reset();
         });
     }
     
+<<<<<<< HEAD
+=======
+    func gotoDashboard() {
+        if (SessionController.Instance.checkins != nil && SessionController.Instance.activities != nil && SessionController.Instance.challenges != nil && SessionController.Instance.kioskList != nil && SessionController.Instance.pulseArticles.count > 0) {
+            Utility.gotoDashboard(self);
+        }
+    }
+    
+>>>>>>> develop
     @IBAction func decline(sender: AnyObject) {
         SessionController.Instance.reset();
         SessionData.Instance.reset();

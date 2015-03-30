@@ -113,8 +113,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         self.navigationItem.leftBarButtonItem!.customView!.hidden = false;
     }
     
+<<<<<<< HEAD
     func checkinsComplete() {
         Utility.gotoDashboard(self);
+=======
+    func gotoDashboard() {
+        if (SessionController.Instance.checkins != nil && SessionController.Instance.activities != nil && SessionController.Instance.challenges != nil && SessionController.Instance.kioskList != nil && SessionController.Instance.pulseArticles.count > 0) {
+            Utility.gotoDashboard(self);
+        }
+>>>>>>> develop
     }
     
     @IBAction func forgotPasswordClicked(sender: AnyObject) {

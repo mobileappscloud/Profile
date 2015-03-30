@@ -11,6 +11,7 @@ import Foundation
 class GraphView: UIView, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet var graphContainer: UIView!
+    @IBOutlet var highlightContainer: UIView!
     @IBOutlet var highlightText: UILabel!
     @IBOutlet var trendText: UILabel!
     
@@ -42,6 +43,8 @@ class GraphView: UIView, UITableViewDelegate, UITableViewDataSource {
     
     var infoOverlay: InfoOverlayView!;
     
+    var noDataView: UIView!;
+    
     class func createViewFromNib(isPortrait: Bool) -> GraphView {
         if (isPortrait) {
             return UINib(nibName: "PortraitGraph", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as GraphView
@@ -56,7 +59,7 @@ class GraphView: UIView, UITableViewDelegate, UITableViewDataSource {
         self.checkins = checkins;
         self.isPortrait = isPortrait
         self.backgroundColor = delegate.getBackgroundColor();
-        if (checkins.count > 0) {
+        if (self.checkins.count > 0) {
             graph = delegate.createGraph(checkins, isPortrait: isPortrait, frame: CGRect(origin: CGPoint(x: 0, y: 0), size: graphContainer.frame.size));
             if (graph != nil) {
                 graphContainer.addSubview(graph!);
@@ -70,6 +73,7 @@ class GraphView: UIView, UITableViewDelegate, UITableViewDataSource {
             }
             
             if (isPortrait) {
+                checkinTable.tableHeaderView = nil;
                 measureUnit.text = delegate.getUnit();
                 checkinTable.separatorInset = UIEdgeInsetsZero;
                 checkinTable.tableHeaderView?.frame = CGRectZero;
@@ -88,8 +92,6 @@ class GraphView: UIView, UITableViewDelegate, UITableViewDataSource {
                 measureValue.hidden = true;
                 measureClass.hidden = true;
                 measureUnit.text = "Learn more about \(delegate.getTitle())";
-                var noDataView = UINib(nibName: "PortraitGraph", bundle: nil).instantiateWithOwner(nil, options: nil)[1] as UIView;
-                checkinTable.tableHeaderView = noDataView;
                 trendText.text = "";
                 noDataGraph.hidden = false;
                 findStationButton.layer.borderWidth = 1.0;
@@ -97,6 +99,10 @@ class GraphView: UIView, UITableViewDelegate, UITableViewDataSource {
                 
                 checkPulseButton.layer.borderWidth = 1.0;
                 checkPulseButton.layer.borderColor = Utility.colorFromHexString("#76C044").CGColor;
+            } else {
+                highlightContainer.hidden = true;
+                trendText.hidden = true;
+                noDataGraph.hidden = false;
             }
         }
         
@@ -201,6 +207,9 @@ class GraphView: UIView, UITableViewDelegate, UITableViewDataSource {
     }
     
     func setSelectedCheckin(selectedCheckin: HigiCheckin) {
+        if (checkins.count == 0) {
+            return;
+        }
         var selectedIndex = checkins.count - 1;
         for index in 0..<checkins.count {
             if (selectedCheckin.dateTime.compare(checkins[index].dateTime) == NSComparisonResult.OrderedAscending) {
@@ -208,7 +217,7 @@ class GraphView: UIView, UITableViewDelegate, UITableViewDataSource {
                 break;
             }
         }
-        selectedIndex = min(max(selectedIndex, 0), checkins.count - 1);
+        selectedIndex = max(min(selectedIndex, checkins.count - 1), 0);
         var checkin = checkins[selectedIndex];
         if (isPortrait) {
             var  cell = checkinTable.cellForRowAtIndexPath(NSIndexPath(forItem: checkins.count - selectedIndex - 1, inSection: 0)) as? BodyStatCheckinCell;
