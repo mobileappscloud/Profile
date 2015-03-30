@@ -44,6 +44,7 @@ class BodyStatsViewController: BaseViewController, UIScrollViewDelegate, UIGestu
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
         revealController.panGestureRecognizer().enabled = false;
+        revealController.delegate = self;
         if (selected != nil) {
             revealController.supportedOrientations = UIInterfaceOrientationMask.Portrait.rawValue | UIInterfaceOrientationMask.LandscapeLeft.rawValue | UIInterfaceOrientationMask.LandscapeRight.rawValue;
             revealController.shouldRotate = true;
@@ -56,6 +57,16 @@ class BodyStatsViewController: BaseViewController, UIScrollViewDelegate, UIGestu
             setSelected(selected);
         }
         NSFileManager.defaultManager().removeItemAtPath(self.getShareFilePath(), error: nil);
+        if (!SessionData.Instance.seenBodyStats) {
+            SessionData.Instance.seenBodyStats = true;
+            SessionData.Instance.save();
+            var tourController = TourViewController(nibName: "TourView", bundle: nil);
+            tourController.mode = "bodystats";
+            //self.navigationController!.pushViewController(tourController, animated: false);
+            self.presentViewController(tourController, animated: false, completion: nil);
+        } else {
+            
+        }
     }
     
     override func viewWillDisappear(animated: Bool) {

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <deployment defaultVersion="1808" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SettingsViewController" customModule="higi" customModuleProvider="target">
@@ -15,6 +15,8 @@
                 <outlet property="newButton" destination="XYB-D9-hrm" id="Mi6-0N-7K4"/>
                 <outlet property="passcodeSwitch" destination="NM5-yn-kS9" id="Vcc-cP-qee"/>
                 <outlet property="profileImage" destination="2bj-oM-cGN" id="Djq-dq-j3x"/>
+                <outlet property="resetWalkthroughButton" destination="w6f-NS-Dvr" id="KDp-DT-V1V"/>
+                <outlet property="resetWalkthroughLabel" destination="8JA-Ps-Skq" id="eih-cp-P08"/>
                 <outlet property="resizeButton" destination="y4c-Mp-iCv" id="asG-yq-v30"/>
                 <outlet property="scrollView" destination="j3m-4w-Yxe" id="WEl-VL-3Oe"/>
                 <outlet property="versionNumber" destination="Jz5-Iw-hzB" id="grH-Ae-WyY"/>
@@ -35,7 +37,7 @@
                 <imageView userInteractionEnabled="NO" alpha="0.49999999999999994" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2Gx-si-yaz">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                 </imageView>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j3m-4w-Yxe">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j3m-4w-Yxe">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2bj-oM-cGN">
@@ -160,37 +162,8 @@
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
-                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DZi-VW-Cdr">
-                            <rect key="frame" x="0.0" y="405" width="320" height="43"/>
-                            <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w2M-VP-IQD">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <state key="normal">
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <connections>
-                                        <action selector="buttonTouched:" destination="-1" eventType="touchDown" id="6hx-TP-9hN"/>
-                                        <action selector="connectDevices:" destination="-1" eventType="touchUpInside" id="Of4-Mj-Od3"/>
-                                        <action selector="resetColor:" destination="-1" eventType="touchUpOutside" id="D5p-la-yhw"/>
-                                        <action selector="resetColor:" destination="-1" eventType="touchCancel" id="dun-2Z-iwn"/>
-                                    </connections>
-                                </button>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Connect devices" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AM1-kZ-Iqh">
-                                    <rect key="frame" x="20" y="11" width="235" height="21"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ldA-Yv-Hkc">
-                                    <rect key="frame" x="0.0" y="42" width="320" height="1"/>
-                                    <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
-                                </view>
-                            </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </view>
                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Ku-L9-lwk">
-                            <rect key="frame" x="0.0" y="448" width="320" height="26"/>
+                            <rect key="frame" x="0.0" y="405" width="320" height="26"/>
                             <subviews>
                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XzE-dw-2qd">
                                     <rect key="frame" x="0.0" y="25" width="320" height="1"/>
@@ -200,7 +173,7 @@
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pD2-Nd-ndM">
-                            <rect key="frame" x="0.0" y="474" width="320" height="43"/>
+                            <rect key="frame" x="0.0" y="431" width="320" height="43"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nxf-sW-FdG">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -222,6 +195,35 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rxw-97-zM0">
+                                    <rect key="frame" x="0.0" y="42" width="320" height="1"/>
+                                    <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
+                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ryd-pn-Nbz">
+                            <rect key="frame" x="0.0" y="474" width="320" height="43"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w6f-NS-Dvr">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <state key="normal">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="buttonTouched:" destination="-1" eventType="touchDown" id="ICJ-j8-VVT"/>
+                                        <action selector="resetColor:" destination="-1" eventType="touchCancel" id="Van-GQ-wEA"/>
+                                        <action selector="resetColor:" destination="-1" eventType="touchUpOutside" id="jCJ-Qd-hKv"/>
+                                        <action selector="resetWalkthroughs:" destination="-1" eventType="touchUpInside" id="pEA-Eg-uia"/>
+                                    </connections>
+                                </button>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Reset walkthroughs" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8JA-Ps-Skq">
+                                    <rect key="frame" x="20" y="11" width="235" height="21"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uzf-si-ZRq">
                                     <rect key="frame" x="0.0" y="42" width="320" height="1"/>
                                     <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
                                 </view>

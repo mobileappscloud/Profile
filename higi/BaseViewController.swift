@@ -45,7 +45,7 @@ class BaseViewController: UIViewController, SWRevealViewControllerDelegate {
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated);
-        if (revealController == self) {
+        if (revealController != nil) {
             revealController.delegate = nil;
         }
     }

@@ -59,9 +59,9 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     
     var selectedMarker: GMSMarker?;
     
-    var selectedIcon = Utility.scaleImage(UIImage(named: "map_iconwithdot")!, newSize: CGSize(width: 45, height: 45));
+    var selectedIcon = Utility.scaleImage(UIImage(named: "map_iconwithdot.png")!, newSize: CGSize(width: 45, height: 45));
     
-    var unselectedIcon = Utility.scaleImage(UIImage(named: "map_circleicon")!, newSize: CGSize(width: 15, height: 15));
+    var unselectedIcon = Utility.scaleImage(UIImage(named: "map_circleicon.png")!, newSize: CGSize(width: 15, height: 15));
     
     var currentAutoCompleteTask = NSOperationQueue(), currentVisibleKioskTask = NSOperationQueue();
     
@@ -78,7 +78,6 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         var listBarItem = UIBarButtonItem();
         listBarItem.customView = listButton;
         self.navigationItem.rightBarButtonItem = listBarItem;
-        self.revealController.panGestureRecognizer().enabled = false;
         
         searchField = UITextField(frame: CGRect(x: 0, y: 0, width: 95, height: 40));
         searchField.font = UIFont.systemFontOfSize(12);
@@ -169,6 +168,8 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated);
+        self.revealController.panGestureRecognizer().enabled = false;
+
         if (!reminderMode) {
             populateMarkers();
         }
@@ -186,9 +187,6 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         mapView.settings.myLocationButton = true;
         mapView.delegate = self;
         
-        var myLocationButton = mapView.subviews.last as UIView;
-        myLocationButton.frame.origin.x = 10;
-        
         mapContainer.addSubview(mapView);
     }
     
@@ -199,7 +197,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
                 locationManager.requestWhenInUseAuthorization();
                 locationManager.delegate = self;
             }
-            for kiosk in SessionController.Instance.kioskList {
+            for kiosk in SessionData.Instance.kioskList {
                 var marker = GMSMarker(position: kiosk.position!);
                 marker.icon = self.unselectedIcon;
                 markers.append(marker);
@@ -240,13 +238,13 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     func mapView(mapView: GMSMapView!, didTapMarker marker: GMSMarker!) -> Bool {
         if (marker != selectedMarker) {
             var index = find(markers, marker);
-            setSelectedKiosk(SessionController.Instance.kioskList[index!]);
+            setSelectedKiosk(SessionData.Instance.kioskList[index!]);
         }
         return true;
     }
     
     func updateKioskPositions() {
-        if (markers.count == SessionController.Instance.kioskList.count) {
+        if (markers.count == SessionData.Instance.kioskList.count) {
             currentVisibleKioskTask.cancelAllOperations();
             searchField.resignFirstResponder();
             visibleKiosks = [];
@@ -254,8 +252,8 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
             
             currentVisibleKioskTask.addOperationWithBlock({
                 
-                for i in 0..<SessionController.Instance.kioskList.count {
-                    var kiosk = SessionController.Instance.kioskList[i];
+                for i in 0..<SessionData.Instance.kioskList.count {
+                    var kiosk = SessionData.Instance.kioskList[i];
                     if (kiosk.group == "retired" || kiosk.group == "removed") {
                         continue;
                     }
@@ -321,7 +319,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         } else {
             currentAutoCompleteTask.addOperationWithBlock( {
                 let size = self.searchField.text.utf16Count;
-                for kiosk in SessionController.Instance.kioskList {
+                for kiosk in SessionData.Instance.kioskList {
                     if (kiosk.group == "retired" || kiosk.group == "removed") {
                         continue;
                     }
@@ -511,7 +509,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     }
     
     func setSelectedKiosk(kiosk: KioskInfo) {
-        var marker = markers[find(SessionController.Instance.kioskList, kiosk)!];
+        var marker = markers[find(SessionData.Instance.kioskList, kiosk)!];
         marker.icon = selectedIcon;
         if (selectedMarker != nil) {
             selectedMarker!.icon = unselectedIcon;

@@ -290,7 +290,7 @@ class CheckinCard: UIView, UITableViewDataSource, UITableViewDelegate {
             var camera = GMSCameraPosition.cameraWithLatitude(kioskInfo.latitude!, longitude: kioskInfo.longitude!, zoom: 14);
             var mapView = GMSMapView.mapWithFrame(mapContainer.frame, camera: camera);
             mapView.userInteractionEnabled = false;
-            var icon = Utility.scaleImage(UIImage(named: "mapicon_higicard")!, newSize: CGSize(width: 45, height: 45));
+            var icon = Utility.scaleImage(UIImage(named: "mapicon_higicard.png")!, newSize: CGSize(width: 45, height: 45));
             var marker = GMSMarker(position: kioskInfo.position!);
             marker.icon = icon;
             marker.map = mapView;

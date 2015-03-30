@@ -1,6 +1,14 @@
+//
+//  PulseArticleViewController.swift
+//  higi
+//
+//  Created by Dan Harms on 8/6/14.
+//  Copyright (c) 2014 higi, LLC. All rights reserved.
+//
+
 import Foundation
 
-class WebViewController: UIViewController, NSURLConnectionDataDelegate, UIWebViewDelegate {
+class WebViewController: UIViewController, NSURLConnectionDataDelegate {
     
     @IBOutlet weak var webView: UIWebView!
     
@@ -10,13 +18,6 @@ class WebViewController: UIViewController, NSURLConnectionDataDelegate, UIWebVie
     
     var webData: NSMutableData!;
     
-    var headers:[String:String!] = [:];
-    
-    var device: ActivityDevice!;
-    
-    var errorMessage: String!;
-
-    var isGone:Bool = false;
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -31,13 +32,6 @@ class WebViewController: UIViewController, NSURLConnectionDataDelegate, UIWebVie
         
         var urlRequest = NSMutableURLRequest(URL: NSURL(string: url)!);
         
-        if (headers.count > 0) {
-            for (field, value) in headers {
-                urlRequest.addValue(value, forHTTPHeaderField: field);
-            }
-        }
-        webView.delegate = self;
-        
         urlRequest.addValue("mobile-ios", forHTTPHeaderField: "Higi-Source");
         if (loadData) {
             NSURLConnection(request: urlRequest, delegate: self);
@@ -45,33 +39,6 @@ class WebViewController: UIViewController, NSURLConnectionDataDelegate, UIWebVie
             webView.loadRequest(urlRequest);
         }
         
-    }
-    
-    func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-        if (((!isGone && request.URL.absoluteString != nil && request.URL.absoluteString!.hasPrefix("http://www.google.com")))) {
-            webView.stopLoading();
-            var components = NSURLComponents(URL: request.URL, resolvingAgainstBaseURL: false)!;
-            errorMessage = "";
-            let params = split(components.query!.componentsSeparatedByString("%")) {$0 == "&"};
-            for item in components.query!.componentsSeparatedByString("&") {
-                var keyValuePair = item.componentsSeparatedByString("=");
-                let i = keyValuePair[0];
-                if (keyValuePair[0] == "error") {
-                    if (keyValuePair.count > 1 && keyValuePair[1].utf16Count > 0) {
-                        device.connected = false;
-                    }
-//                    break;
-                } else if (keyValuePair[0] == "message") {
-                    errorMessage = keyValuePair[1].stringByReplacingOccurrencesOfString("+", withString: " ", options: nil, range: nil);
-                }
-            }
-            if (errorMessage != "") {
-                UIAlertView(title: "Error", message: "\(errorMessage)", delegate: self, cancelButtonTitle: "OK").show();
-            }
-            goBack(self);
-            return false;
-        }
-        return true;
     }
     
     func connection(connection: NSURLConnection!, didReceiveResponse response: NSURLResponse!) {
@@ -87,9 +54,6 @@ class WebViewController: UIViewController, NSURLConnectionDataDelegate, UIWebVie
     }
     
     func goBack(sender: AnyObject!) {
-        if (!isGone) {
-            self.navigationController!.popViewControllerAnimated(true);
-            isGone = true;
-        }
+        self.navigationController!.popViewControllerAnimated(true);
     }
 }
