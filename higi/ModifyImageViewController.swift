@@ -87,7 +87,7 @@ class ModifyImageViewController: UIViewController {
                 compressionQuality -= 0.1;
             }
             var user = SessionData.Instance.user;
-            HigiApi().sendBytePost("/data/user/\(user.userId)/photo", contentType: "image/jpg", body: imageData, parameters: nil, success: {operation, responseObject in
+            HigiApi().sendBytePost("\(HigiApi.higiApiUrl)/data/user/\(user.userId)/photo", contentType: "image/jpg", body: imageData, parameters: nil, success: {operation, responseObject in
                 user.fullProfileImage = UIImage(data: imageData);
                 user.hasPhoto = true;
                 user.createBlurredImage();
@@ -114,13 +114,13 @@ class ModifyImageViewController: UIViewController {
         contents.setObject(centerY, forKey: "centerY");
         contents.setObject(serverScale, forKey: "scale");
         
-        HigiApi().sendPost("/data/user/\(user.userId)/photoPosition", parameters: contents, success: {operation, responseObject in
+        HigiApi().sendPost("\(HigiApi.higiApiUrl)/data/user/\(user.userId)/photoPosition", parameters: contents, success: {operation, responseObject in
             if (responseObject != nil) {
                 user.photoTime = ((responseObject as NSDictionary)["photoTime"] ?? Int(NSDate().timeIntervalSince1970)) as Int;
             } else {
                 user.photoTime = Int(NSDate().timeIntervalSince1970);
             }
-            user.profileImage = UIImage(data: NSData(contentsOfURL: NSURL(string: "\(HigiApi.baseUrl)/view/\(user.userId)/profile,400.png?t=\(user.photoTime)")!)!);
+            user.profileImage = UIImage(data: NSData(contentsOfURL: NSURL(string: "\(HigiApi.higiApiUrl)/view/\(user.userId)/profile,400.png?t=\(user.photoTime)")!)!);
             if (self.fromSettings) {
                 for viewController in self.navigationController!.viewControllers as [UIViewController] {
                     if (viewController.isKindOfClass(SettingsViewController)) {
@@ -129,7 +129,7 @@ class ModifyImageViewController: UIViewController {
                     }
                 }
             } else {
-                Utility.gotoDashboard(self);
+                ApiUtility.initializeApiDataThenCallback(self.gotoDashboard);
             }
             
             }, failure: {operation, error in
@@ -168,6 +168,12 @@ class ModifyImageViewController: UIViewController {
         self.navigationItem.leftBarButtonItem?.customView?.hidden = false;
         spinner.hidden = true;
         doneButton.hidden = false;
+    }
+    
+    func gotoDashboard() {
+        if (SessionController.Instance.checkins != nil && SessionController.Instance.activities != nil && SessionController.Instance.challenges != nil && SessionController.Instance.kioskList != nil && SessionController.Instance.pulseArticles.count > 0) {
+            Utility.gotoDashboard(self);
+        }
     }
     
 }

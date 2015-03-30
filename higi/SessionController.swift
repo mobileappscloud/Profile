@@ -15,14 +15,27 @@ class SessionController {
         return SessionControllerSharedInstance;
     }
     
-    var checkins: [HigiCheckin] = [];
+    var checkins: [HigiCheckin]!;
+    
+    var activities: [HigiActivity]!;
+    
+    var challenges: [HigiChallenge]!;
     
     var pulseArticles: [PulseArticle] = [];
     
+    var kioskList: [KioskInfo]!;
+    
     var healthStore: HKHealthStore!;
     
+    var devices: [String: ActivityDevice] = [:];
+    
+    var earnditError = false;
+    
     func reset() {
-        checkins = [];
+        checkins = nil;
+        activities = nil;
+        challenges = nil;
+        devices = [:];
     }
     
     

@@ -68,13 +68,23 @@ class TermsViewController: UIViewController {
             contents["privacyAgreed"] = privacy;
         }
         
-        HigiApi().sendPost("/data/user/\(SessionData.Instance.user.userId)", parameters: contents, success: {operation, responseObject in
+        HigiApi().sendPost("\(HigiApi.higiApiUrl)/data/user/\(SessionData.Instance.user.userId)", parameters: contents, success: {operation, responseObject in
             
-                ApiUtility.retrieveCheckins({ Utility.gotoDashboard(self) });
+            ApiUtility.retrieveCheckins(self.gotoDashboard);
+            ApiUtility.retrieveActivities(self.gotoDashboard);
+            ApiUtility.retrieveChallenges(self.gotoDashboard);
+            ApiUtility.retrieveDevices(self.gotoDashboard);
+            ApiUtility.grabNextPulseArticles(self.gotoDashboard);
             
             }, failure: {operation, error in
                 self.reset();
         });
+    }
+    
+    func gotoDashboard() {
+        if (SessionController.Instance.checkins != nil && SessionController.Instance.activities != nil && SessionController.Instance.challenges != nil && SessionController.Instance.kioskList != nil && SessionController.Instance.pulseArticles.count > 0) {
+            Utility.gotoDashboard(self);
+        }
     }
     
     @IBAction func decline(sender: AnyObject) {

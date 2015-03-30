@@ -18,7 +18,7 @@ class SessionData {
     
     var user: HigiUser!;
     
-    var kioskList: [KioskInfo] = [];
+    var kioskListString: String = "";
     
     var seenDashboard, seenBodyStats, seenReminder: Bool!;
     
@@ -46,6 +46,7 @@ class SessionData {
         saveDictionary["seenDashboard"] = seenDashboard;
         saveDictionary["seenBodyStats"] = seenBodyStats;
         saveDictionary["seenReminder"] = seenReminder;
+        saveDictionary["kioskList"] = kioskListString;
         saveDictionary.writeToFile(savePath, atomically: false);
     }
     
@@ -59,10 +60,9 @@ class SessionData {
             seenDashboard = (savedDictionary["seenDashboard"] ?? false) as Bool;
             seenBodyStats = (savedDictionary["seenBodyStats"] ?? false) as Bool;
             seenReminder = (savedDictionary["seenReminder"] ?? false) as Bool;
-            kioskList = [];
+            kioskListString = (savedDictionary["kioskList"] ?? "") as NSString;
         } else {
             reset();
-            kioskList = [];
         }
     }
     

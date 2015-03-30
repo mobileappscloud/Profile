@@ -21,8 +21,6 @@ class SettingsViewController: BaseViewController, UIScrollViewDelegate {
     @IBOutlet weak var changePasscodeLabel: UILabel!
     @IBOutlet weak var changePasscode: UIButton!
     @IBOutlet var passcodeSwitch: UISwitch!
-    @IBOutlet weak var resetWalkthroughLabel: UILabel!
-    @IBOutlet weak var resetWalkthroughButton: UIButton!
     @IBOutlet weak var versionNumber: UILabel!
     
     var user = SessionData.Instance.user;
@@ -61,10 +59,6 @@ class SettingsViewController: BaseViewController, UIScrollViewDelegate {
         resizeButton.enabled = SessionData.Instance.user.hasPhoto;
         blurredImage.image = user.blurredImage;
         profileImage.image = user.profileImage;
-        if (!SessionData.Instance.seenBodyStats && !SessionData.Instance.seenDashboard && !SessionData.Instance.seenReminder) {
-            resetWalkthroughLabel.textColor = Utility.colorFromHexString("#CCCCCC");
-            resetWalkthroughButton.enabled = false;
-        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -93,7 +87,7 @@ class SettingsViewController: BaseViewController, UIScrollViewDelegate {
         notifications.setObject(isOn ? "True" : "False", forKey: "EmailCheckins");
         contents.setObject(notifications, forKey: "Notifications");
         user.emailCheckins = isOn;
-        HigiApi().sendPost("/data/user/\(user.userId)", parameters: contents, success: nil, failure: { operation, error in
+        HigiApi().sendPost("\(HigiApi.higiApiUrl)/data/user/\(user.userId)", parameters: contents, success: nil, failure: { operation, error in
             
             (sender as UISwitch).on = !isOn;
             self.user.emailCheckins = !isOn;
@@ -108,7 +102,7 @@ class SettingsViewController: BaseViewController, UIScrollViewDelegate {
         notifications.setObject(isOn ? "True" : "False", forKey: "EmailHigiNews");
         contents.setObject(notifications, forKey: "Notifications");
         user.emailHigiNews = isOn;
-        HigiApi().sendPost("/data/user/\(user.userId)", parameters: contents, success: nil, failure: { operation, error in
+        HigiApi().sendPost("\(HigiApi.higiApiUrl)/data/user/\(user.userId)", parameters: contents, success: nil, failure: { operation, error in
                 
                 (sender as UISwitch).on = !isOn;
                 self.user.emailHigiNews = !isOn;
@@ -139,17 +133,6 @@ class SettingsViewController: BaseViewController, UIScrollViewDelegate {
         self.navigationController!.pushViewController(ChangePasswordViewController(nibName: "ChangePasswordView", bundle: nil), animated: true);
     }
     
-    @IBAction func resetWalkthroughs(sender: AnyObject) {
-        Flurry.logEvent("ResetWalkthroughs_Pressed");
-        resetColor(sender);
-        SessionData.Instance.seenDashboard = false;
-        SessionData.Instance.seenBodyStats = false;
-        SessionData.Instance.seenReminder = false;
-        SessionData.Instance.save();
-        resetWalkthroughLabel.textColor = Utility.colorFromHexString("#CCCCCC");
-        resetWalkthroughButton.enabled = false;
-    }
-    
     @IBAction func showTerms(sender: AnyObject) {
         resetColor(sender);
         var webController = WebViewController(nibName: "WebView", bundle: nil);
@@ -163,7 +146,6 @@ class SettingsViewController: BaseViewController, UIScrollViewDelegate {
         webController.url = "https://higi.com/privacy";
         self.navigationController!.pushViewController(webController, animated: true);
     }
-    
     
     @IBAction func logout(sender: AnyObject) {
         resetColor(sender);
@@ -180,6 +162,12 @@ class SettingsViewController: BaseViewController, UIScrollViewDelegate {
     
     @IBAction func resetColor(sender: AnyObject) {
         (sender as UIButton).backgroundColor = UIColor.clearColor();
+    }
+    
+    @IBAction func connectDevices(sender: AnyObject) {
+        Flurry.logEvent("ConnectDevice_Pressed");
+        self.navigationController!.pushViewController(ConnectDeviceViewController(nibName: "ConnectDeviceView", bundle: nil), animated: true);
+        (sender as UIButton).backgroundColor = Utility.colorFromHexString("#FFFFFF");
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView!) {
