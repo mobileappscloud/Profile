@@ -20,9 +20,9 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     
     var currentPage = 0;
     var totalPages = 0;
-    let headerHeight:CGFloat = 83;
-    var currentTable:UITableView!;
-    var challenge:HigiChallenge?;
+    let headerHeight: CGFloat = 83;
+    var currentTable: UITableView!;
+    var challenge: HigiChallenge?;
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
@@ -50,12 +50,12 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         invitedChallenges = [];
         totalPages = 0;
         
-        var session = SessionController.Instance;
+        var challenges = SessionController.Instance.challenges;
         let challengeName = challenge != nil ? challenge!.name : "";
         var challengeIndex = -1;
         
-        if (session.challenges.count > 0) {
-            for challenge:HigiChallenge in session.challenges {
+        if (challenges != nil && challenges.count > 0) {
+            for challenge:HigiChallenge in challenges {
                 switch(challenge.userStatus) {
                 case "current":
                     activeChallenges.append(challenge);

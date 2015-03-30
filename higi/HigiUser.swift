@@ -78,6 +78,7 @@ class HigiUser {
         profileImage = UIImage(data: NSData(contentsOfURL: NSURL(string: "\(HigiApi.higiApiUrl)/view/\(userId)/profile,400.png?t=\(photoTime)")!)!);
         fullProfileImage = UIImage(data: NSData(contentsOfURL: NSURL(string: "\(HigiApi.higiApiUrl)/view/\(userId)/profileoriginal.png?t=\(photoTime)")!)!);
         createBlurredImage();
+        NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.PROFILE_PICTURES, object: nil, userInfo: ["success": true]);
     }
     
 }

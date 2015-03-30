@@ -29,7 +29,7 @@ class ChallengeDetailsChatterRow: UITableViewCell {
             row.yourChatBubble.hidden = false;
             row.displayName.textColor = UIColor.whiteColor();
             row.message.textColor = UIColor.whiteColor();
-            row.yourChatBubble.image = row.yourChatBubble.image!.resizableImageWithCapInsets(UIEdgeInsets(top: 17, left: 19, bottom: 26, right: 31));
+            row.yourChatBubble.image = UIImage(named: "chat_bubble_green")!.resizableImageWithCapInsets(UIEdgeInsets(top: 17, left: 19, bottom: 18, right: 32));
             row.message.textAlignment = NSTextAlignment.Right;
             row.time.textAlignment = NSTextAlignment.Right;
             row.displayName.textAlignment = NSTextAlignment.Right;
@@ -38,7 +38,7 @@ class ChallengeDetailsChatterRow: UITableViewCell {
             row.avatar.setImageWithURL(Utility.loadImageFromUrl(participant.imageUrl));
             row.yourChatBubble.hidden = true;
             row.chatBubble.hidden = false;
-            row.chatBubble.image = row.chatBubble.image!.resizableImageWithCapInsets(UIEdgeInsets(top: 19, left: 31, bottom: 27, right: 49));
+            row.chatBubble.image = UIImage(named: "chat_bubble")!.resizableImageWithCapInsets(UIEdgeInsets(top: 19, left: 31, bottom: 23, right: 19));
             row.message.textAlignment = NSTextAlignment.Left;
         }
         if (isTeam) {

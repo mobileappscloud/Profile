@@ -64,7 +64,8 @@ class SignupNameViewController: UIViewController, UITextFieldDelegate {
             HigiApi().sendPost("\(HigiApi.higiApiUrl)/data/user/\(user.userId)", parameters: contents, success: {operation, responseObject in
                 
                     if (self.dashboardNext) {
-                        ApiUtility.initializeApiDataThenCallback(self.gotoDashboard);
+                        ApiUtility.initializeApiData();
+                        Utility.gotoDashboard(self);
                     } else {
                         self.navigationController!.pushViewController(BirthdateViewController(nibName: "BirthdateView", bundle: nil), animated: true);
                     }
@@ -77,12 +78,6 @@ class SignupNameViewController: UIViewController, UITextFieldDelegate {
             reset();
         }
         
-    }
-    
-    func gotoDashboard() {
-        if (SessionController.Instance.checkins != nil && SessionController.Instance.activities != nil && SessionController.Instance.challenges != nil && SessionController.Instance.kioskList != nil && SessionController.Instance.pulseArticles.count > 0) {
-            Utility.gotoDashboard(self);
-        }
     }
     
     func reset() {
