@@ -120,7 +120,6 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     }
     
     func initActivityCard() {
-        
         if (pointsMeter == nil) {
             pointsMeter = UINib(nibName: "PointsMeterView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as PointsMeter;
             activityCard.meterContainer.addSubview(pointsMeter);
@@ -158,15 +157,20 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                 activityCard.frame.origin.y = currentOrigin;
                 currentOrigin += activityCard.frame.size.height + gap;
                 mainScrollView.addSubview(activityCard);
+                activityCard.spinner.startAnimating();
+            } else {
+                activityCard.loadingContainer.hidden = true;
+                activityCard.spinner.stopAnimating();
             }
         } else {
             if (errorCard.superview == nil) {
                 errorCard.frame.origin.y = currentOrigin;
                 currentOrigin += errorCard.frame.size.height + gap;
                 mainScrollView.addSubview(errorCard);
+                activityCard.loadingContainer.hidden = true;
+                activityCard.spinner.stopAnimating();
             }
         }
-        
     }
     
     func initChallengesCard() {
@@ -194,6 +198,8 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         challengesCard.challengeBox.layer.borderColor = Utility.colorFromHexString("#CCCCCC").CGColor;
         
         if (displayedChallenge != nil) {
+            challengesCard.loadingContainer.hidden = true;
+            challengesCard.spinner.stopAnimating();
             challengesCard.challengeBox.hidden = false;
             challengesCard.blankStateImage.hidden = true;
             challengesCard.challengeAvatar.setImageWithURL(NSURL(string: displayedChallenge.imageUrl));
@@ -204,6 +210,8 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             var challengeView = Utility.getChallengeViews(displayedChallenge, frame: CGRect(x: 0, y: 56, width: challengesCard.challengeBox.frame.size.width, height: 180), isComplex: false)[0];
             challengesCard.challengeBox.addSubview(challengeView);
             challengeView.animate();
+            let tap = UIGestureRecognizer(target: self, action: "gotoChallengeDetails:");
+            challengesCard.challengeBox.addGestureRecognizer(tap);
         } else {
             challengesCard.challengeBox.hidden = true;
             challengesCard.blankStateImage.hidden = false;
@@ -213,6 +221,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             challengesCard.frame.origin.y = currentOrigin;
             currentOrigin += challengesCard.frame.size.height + gap;
             mainScrollView.addSubview(challengesCard);
+            challengesCard.spinner.startAnimating();
         }
     }
     
@@ -266,6 +275,8 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     func initPulseCard() {
         var articles = SessionController.Instance.pulseArticles;
         if (articles.count > 2) {
+            pulseCard.spinner.stopAnimating();
+            pulseCard.loadingContainer.hidden = true;
             var topArticle = articles[0], middleArticle = articles[1], bottomArticle = articles[2];
             pulseCard.topImage.setImageWithURL(NSURL(string: topArticle.imageUrl));
             pulseCard.topTitle.text = topArticle.title;
@@ -287,6 +298,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             pulseCard.frame.origin.y = currentOrigin;
             currentOrigin += pulseCard.frame.size.height + gap;
             mainScrollView.addSubview(pulseCard);
+            pulseCard.spinner.startAnimating();
         }
     }
     
