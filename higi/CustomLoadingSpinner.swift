@@ -15,6 +15,7 @@ class CustomLoadingSpinner: UIView {
         progressLayer.fillColor = Utility.colorFromHexString("#76C043").CGColor;
         progressLayer.strokeColor = Utility.colorFromHexString("#76C043").CGColor;
         progressLayer.lineWidth = 3;
+        progressLayer.strokeStart = 0.1;
         progressLayer.strokeEnd = 1;
         
         layer.addSublayer(progressLayer);
@@ -69,30 +70,13 @@ class CustomLoadingSpinner: UIView {
         
         CATransaction.setCompletionBlock({
             self.progressLayer.fillColor = UIColor.clearColor().CGColor;
-//            self.progressLayer.lineWidth 
-//            CATransaction.begin();
-//            
-//            CATransaction.setCompletionBlock({
-//                self.spinAnimation();
-//            });
-            
-//            self.progressLayer.addAnimation(strokeAnimation, forKey: nil);
             self.spinAnimation();
-//            CATransaction.commit();
         });
         
         progressLayer.addAnimation(growAnimationGroup, forKey: "grow");
         
         CATransaction.commit();
-//        let growAnimation = CABasicAnimation(keyPath: "lineWidth");
-//        growAnimation.duration = duration;
-//        growAnimation.fromValue = 20;
-//        growAnimation.toValue = 3;
-//        growAnimation.repeatCount = 1;
-//        growAnimation.timingFunction = timingFunction;
-//        growAnimation.removedOnCompletion = false;
-//        
-//        progressLayer.addAnimation(growAnimation, forKey: "lineWidth");
+
     }
     
     func spinAnimation() {
@@ -101,42 +85,27 @@ class CustomLoadingSpinner: UIView {
         transformAnimation.fromValue = 0;
         transformAnimation.toValue = CGFloat(CGFloat(M_PI * 2));
         transformAnimation.timingFunction = timingFunction
-        transformAnimation.repeatDuration = 1000;
+        transformAnimation.repeatDuration = 9999999;
         
 //        progressLayer.addAnimation(transformAnimation, forKey: "transform.rotation");
         
-        let startHeadAnimation = CABasicAnimation(keyPath: "strokeStart");
-        startHeadAnimation.duration = duration;
-        startHeadAnimation.fromValue = 0;
-        startHeadAnimation.toValue = 0.5;
-        startHeadAnimation.timingFunction = timingFunction;
-        
-        let startTailAnimation = CABasicAnimation(keyPath: "strokeEnd");
-        startTailAnimation.duration = duration;
-        startTailAnimation.fromValue = 0;
-        startTailAnimation.toValue = 1;
-        startTailAnimation.timingFunction = timingFunction;
-        
-        let endHeadAnimation = CABasicAnimation(keyPath: "strokeStart");
-        endHeadAnimation.duration = duration / 2;
-        endHeadAnimation.fromValue = 0.5;
-        endHeadAnimation.toValue = 1;
-        endHeadAnimation.timingFunction = timingFunction;
-        endHeadAnimation.beginTime = 1;
-        
-        let endTailAnimation = CABasicAnimation(keyPath: "strokeEnd");
-        endTailAnimation.duration = duration / 2;
-        endTailAnimation.fromValue = 1;
-        endTailAnimation.toValue = 1;
-        endTailAnimation.timingFunction = timingFunction;
-        endTailAnimation.beginTime = 1;
+        let shrinkAnimation = CABasicAnimation(keyPath: "strokeEnd");
+        shrinkAnimation.duration = duration * 2;
+        shrinkAnimation.fromValue = 0.1;
+        shrinkAnimation.toValue = 0.9;
+        shrinkAnimation.timingFunction = timingFunction;
+
+        let growAnimation = CABasicAnimation(keyPath: "strokeStart");
+        growAnimation.duration = duration;
+        growAnimation.fromValue = 0.9;
+        growAnimation.toValue = 0.1;
+        growAnimation.timingFunction = timingFunction;
         
         let animationGroup = CAAnimationGroup();
         animationGroup.duration = duration + duration / 2;
-//        animationGroup.animations = [startHeadAnimation, startTailAnimation, endHeadAnimation, endTailAnimation];
-        animationGroup.animations = [startHeadAnimation, endHeadAnimation];
-        animationGroup.repeatDuration = 1000;
-        animationGroup.timeOffset = 1000;
+        animationGroup.animations = [shrinkAnimation, growAnimation];
+        animationGroup.repeatDuration = 99999;
+        animationGroup.timeOffset = duration;
         
         progressLayer.addAnimation(animationGroup, forKey: "animate");
     }
