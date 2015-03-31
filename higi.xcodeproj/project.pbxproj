@@ -318,6 +318,7 @@
 		D1B6D6981A8D09FD0006F80C /* ChatterInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B6D6971A8D09FD0006F80C /* ChatterInputViewController.swift */; };
 		D1BA13451A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1BA13441A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib */; };
 		D1BA13471A8D056900E1AFE9 /* ChatterInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1BA13461A8D056900E1AFE9 /* ChatterInputView.xib */; };
+		D1DC365E1AC9E9F000CB124D /* CustomLoadingSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1DC365D1AC9E9F000CB124D /* CustomLoadingSpinner.swift */; };
 		D1DF09A21A8D079800A9ABE5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1DF09A11A8D079800A9ABE5 /* Constants.swift */; };
 		D1E1FF061A76C28F00C8951C /* ChallengeProgressLegendRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E1FF051A76C28F00C8951C /* ChallengeProgressLegendRow.swift */; };
 		D1E1FF081A76C2DB00C8951C /* ChallengeProgressLegendRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1E1FF071A76C2DB00C8951C /* ChallengeProgressLegendRow.xib */; };
@@ -693,6 +694,7 @@
 		D1B6D6971A8D09FD0006F80C /* ChatterInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatterInputViewController.swift; sourceTree = "<group>"; };
 		D1BA13441A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailsParticipantIconView.xib; sourceTree = "<group>"; };
 		D1BA13461A8D056900E1AFE9 /* ChatterInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatterInputView.xib; sourceTree = "<group>"; };
+		D1DC365D1AC9E9F000CB124D /* CustomLoadingSpinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLoadingSpinner.swift; sourceTree = "<group>"; };
 		D1DF09A11A8D079800A9ABE5 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D1E1FF051A76C28F00C8951C /* ChallengeProgressLegendRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeProgressLegendRow.swift; sourceTree = "<group>"; };
 		D1E1FF071A76C2DB00C8951C /* ChallengeProgressLegendRow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeProgressLegendRow.xib; sourceTree = "<group>"; };
@@ -1198,6 +1200,7 @@
 				8F5E7FCA199BC941009067E5 /* Checkin Card */,
 				8F6A243D195A011F0094B73C /* Graphing */,
 				8FF873F519DF5474002A6341 /* Pull Refresh */,
+				D1DC365D1AC9E9F000CB124D /* CustomLoadingSpinner.swift */,
 			);
 			name = "Custom Views";
 			sourceTree = "<group>";
@@ -1890,6 +1893,7 @@
 				8FFB035519FEAED10036228C /* ActivityViewController.swift in Sources */,
 				2BBDBA581A12AC2C005A6815 /* GoalChallengeView.swift in Sources */,
 				8F9C69D91950C8AD00449664 /* KioskInfo.swift in Sources */,
+				D1DC365E1AC9E9F000CB124D /* CustomLoadingSpinner.swift in Sources */,
 				8FC130C71A26464400591C58 /* ActivityGraphHostingView.swift in Sources */,
 				8FDB4B661A096ECF00F57B38 /* HigiActivity.swift in Sources */,
 				8F6A2441195A05200094B73C /* BpGraphHostingView.swift in Sources */,

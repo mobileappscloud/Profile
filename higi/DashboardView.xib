@@ -90,18 +90,6 @@
                 </button>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kip-ke-HFc">
                     <rect key="frame" x="8" y="58" width="304" height="119"/>
-                    <subviews>
-                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="bi6-uQ-msK">
-                            <rect key="frame" x="142" y="50" width="20" height="20"/>
-                            <color key="color" red="0.41960784309999999" green="0.71764705880000002" blue="0.086274509799999996" alpha="1" colorSpace="calibratedRGB"/>
-                        </activityIndicatorView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Loading points" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mCW-cm-KWj">
-                            <rect key="frame" x="80" y="78" width="144" height="21"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                            <color key="textColor" red="0.41960784309999999" green="0.71764705880000002" blue="0.086274509799999996" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>
@@ -113,7 +101,6 @@
                 <outlet property="blankStateImage" destination="Jmp-19-ybW" id="Vit-kO-QU9"/>
                 <outlet property="loadingContainer" destination="kip-ke-HFc" id="fkb-o2-WP9"/>
                 <outlet property="meterContainer" destination="mt7-5r-pdL" id="3mp-PA-389"/>
-                <outlet property="spinner" destination="bi6-uQ-msK" id="CYi-sn-aog"/>
             </connections>
             <point key="canvasLocation" x="1008" y="239.5"/>
         </view>
@@ -174,18 +161,6 @@
                 </view>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mdw-Mj-nR6">
                     <rect key="frame" x="8" y="58" width="304" height="220"/>
-                    <subviews>
-                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="aHS-fS-pMG">
-                            <rect key="frame" x="142" y="50" width="20" height="20"/>
-                            <color key="color" red="0.41960784309999999" green="0.71764705880000002" blue="0.086274509799999996" alpha="1" colorSpace="calibratedRGB"/>
-                        </activityIndicatorView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Loading challenges" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TRx-Ax-bQk">
-                            <rect key="frame" x="80" y="78" width="144" height="21"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                            <color key="textColor" red="0.41960784309999999" green="0.71764705880000002" blue="0.086274509799999996" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>
@@ -198,7 +173,6 @@
                 <outlet property="challengeBox" destination="CQv-F5-yyO" id="hDN-oN-iBk"/>
                 <outlet property="challengeTitle" destination="M5I-Sn-ku5" id="AaS-Uz-65g"/>
                 <outlet property="loadingContainer" destination="Mdw-Mj-nR6" id="jdv-cW-pc5"/>
-                <outlet property="spinner" destination="aHS-fS-pMG" id="sww-f7-R1Q"/>
             </connections>
             <point key="canvasLocation" x="1008" y="586"/>
         </view>
@@ -364,12 +338,6 @@
                             <rect key="frame" x="142" y="50" width="20" height="20"/>
                             <color key="color" red="0.41960784309999999" green="0.71764705880000002" blue="0.086274509799999996" alpha="1" colorSpace="calibratedRGB"/>
                         </activityIndicatorView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Loading pulse" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MYT-9K-tZO">
-                            <rect key="frame" x="80" y="78" width="144" height="21"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                            <color key="textColor" red="0.41960784309999999" green="0.71764705880000002" blue="0.086274509799999996" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
