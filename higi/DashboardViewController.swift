@@ -157,10 +157,14 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                 activityCard.frame.origin.y = currentOrigin;
                 currentOrigin += activityCard.frame.size.height + gap;
                 mainScrollView.addSubview(activityCard);
-                activityCard.spinner.startAnimating();
+                
+                let spinner = CustomLoadingSpinner(frame: CGRectMake(activityCard.loadingContainer.frame.size.width / 2, activityCard.loadingContainer.frame.size.height / 2, 32, 32));
+                
+                activityCard.loadingContainer.addSubview(spinner);
+                
+                spinner.startAnimation();
             } else {
                 activityCard.loadingContainer.hidden = true;
-                activityCard.spinner.stopAnimating();
             }
         } else {
             if (errorCard.superview == nil) {
@@ -168,7 +172,6 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                 currentOrigin += errorCard.frame.size.height + gap;
                 mainScrollView.addSubview(errorCard);
                 activityCard.loadingContainer.hidden = true;
-                activityCard.spinner.stopAnimating();
             }
         }
     }
@@ -199,7 +202,6 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         
         if (displayedChallenge != nil) {
             challengesCard.loadingContainer.hidden = true;
-            challengesCard.spinner.stopAnimating();
             challengesCard.challengeBox.hidden = false;
             challengesCard.blankStateImage.hidden = true;
             challengesCard.challengeAvatar.setImageWithURL(NSURL(string: displayedChallenge.imageUrl));
@@ -221,7 +223,9 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             challengesCard.frame.origin.y = currentOrigin;
             currentOrigin += challengesCard.frame.size.height + gap;
             mainScrollView.addSubview(challengesCard);
-            challengesCard.spinner.startAnimating();
+            let spinner = CustomLoadingSpinner(frame: CGRectMake(activityCard.loadingContainer.frame.size.width / 2, activityCard.loadingContainer.frame.size.height / 2, 32, 32));
+            challengesCard.loadingContainer.addSubview(spinner);
+            spinner.startAnimation();
         }
     }
     
