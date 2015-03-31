@@ -38,6 +38,7 @@ class SessionData {
         seenDashboard = false;
         seenBodyStats = false;
         seenReminder = false;
+        lastUpdate = NSDate();
     }
     
     func save() {
