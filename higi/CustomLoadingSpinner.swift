@@ -19,9 +19,11 @@ class CustomLoadingSpinner: UIView {
         progressLayer.strokeColor = Utility.colorFromHexString("#76C043").CGColor;
         progressLayer.lineWidth = 3;
         
-        UIView.animateWithDuration(duration * 2, delay: 0, options: .CurveLinear | .Repeat, animations: {
-            self.transform = CGAffineTransformRotate(self.transform, CGFloat(M_PI * 2));
-            }, completion: nil);
+//        UIView.animateWithDuration(duration * 4, delay: 0, options: .CurveLinear | .Repeat, animations: {
+//            self.transform = CGAffineTransformRotate(self.transform, CGFloat(M_PI));
+//            }, completion: nil);
+//        
+//        progressLayer.transform = CATransform3DRotate(progressLayer.transform, CGFloat(M_PI), 0, 0, 1);
         
         layer.addSublayer(progressLayer);
     }
@@ -90,10 +92,10 @@ class CustomLoadingSpinner: UIView {
             transformAnimation.duration = duration;
             transformAnimation.fromValue = 0;
             transformAnimation.toValue = CGFloat(M_PI * 2);
-            transformAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut);
+            transformAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear);
             
             let shrinkAnimationGroup = CAAnimationGroup();
-            shrinkAnimationGroup.animations = [shrinkAnimation];
+            shrinkAnimationGroup.animations = [shrinkAnimation, transformAnimation];
             shrinkAnimationGroup.duration = self.duration;
             shrinkAnimationGroup.removedOnCompletion = false;
             
@@ -130,5 +132,9 @@ class CustomLoadingSpinner: UIView {
             
             CATransaction.commit();
         }
+    }
+    
+    func isAnimating() -> Bool {
+        return shouldAnimate;
     }
 }

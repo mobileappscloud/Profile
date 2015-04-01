@@ -153,9 +153,9 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         } else {
             pointsMeter.hidden = true;
             activityCard.blankStateImage.hidden = false;
+//            spinner.stopAnimation();
         }
 //
-        
         if (todaysPoints > 0 || !SessionController.Instance.earnditError) {
             if (activityCard.superview == nil) {
                 activityCard.frame.origin.y = currentOrigin;
@@ -310,10 +310,12 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     }
     
     @IBAction func gotoActivities(sender: AnyObject) {
-        Flurry.logEvent("Activity_Pressed");
-        self.navigationController!.pushViewController(ActivityViewController(nibName: "ActivityView", bundle: nil), animated: true);
-        (self.navigationController as MainNavigationController).drawerController?.tableView.reloadData();
-        (self.navigationController as MainNavigationController).drawerController?.tableView.selectRowAtIndexPath(NSIndexPath(forItem: 1, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None);
+        if (SessionController.Instance.activities != nil) {
+            Flurry.logEvent("Activity_Pressed");
+            self.navigationController!.pushViewController(ActivityViewController(nibName: "ActivityView", bundle: nil), animated: true);
+            (self.navigationController as MainNavigationController).drawerController?.tableView.reloadData();
+            (self.navigationController as MainNavigationController).drawerController?.tableView.selectRowAtIndexPath(NSIndexPath(forItem: 1, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None);
+        }
     }
     
     @IBAction func gotoConnectDevices(sender: AnyObject) {
@@ -322,10 +324,12 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     }
     
     @IBAction func gotoChallenges(sender: AnyObject) {
-        Flurry.logEvent("Challenges_Pressed");
-        self.navigationController!.pushViewController(ChallengesViewController(nibName: "ChallengesView", bundle: nil), animated: true);
-        (self.navigationController as MainNavigationController).drawerController?.tableView.reloadData();
-        (self.navigationController as MainNavigationController).drawerController?.tableView.selectRowAtIndexPath(NSIndexPath(forItem: 2, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None);
+        if (SessionController.Instance.challenges != nil) {
+            Flurry.logEvent("Challenges_Pressed");
+            self.navigationController!.pushViewController(ChallengesViewController(nibName: "ChallengesView", bundle: nil), animated: true);
+            (self.navigationController as MainNavigationController).drawerController?.tableView.reloadData();
+            (self.navigationController as MainNavigationController).drawerController?.tableView.selectRowAtIndexPath(NSIndexPath(forItem: 2, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None);
+        }
     }
     
     @IBAction func gotoChallengeDetails(sender: AnyObject) {
