@@ -19,6 +19,10 @@ class CustomLoadingSpinner: UIView {
         progressLayer.strokeColor = Utility.colorFromHexString("#76C043").CGColor;
         progressLayer.lineWidth = 3;
         
+        UIView.animateWithDuration(duration * 2, delay: 0, options: .CurveLinear | .Repeat, animations: {
+            self.transform = CGAffineTransformRotate(self.transform, CGFloat(M_PI * 2));
+            }, completion: nil);
+        
         layer.addSublayer(progressLayer);
     }
 
