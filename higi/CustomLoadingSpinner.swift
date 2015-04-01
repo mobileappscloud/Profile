@@ -93,31 +93,31 @@ class CustomLoadingSpinner: UIView {
             shrinkAnimation.timingFunction = timingFunction;
             
             let transformAnimation = CABasicAnimation(keyPath: "transform.rotation");
-            transformAnimation.duration = 2 * duration;
+            transformAnimation.duration = duration;
             transformAnimation.fromValue = 0;
             transformAnimation.toValue = CGFloat(M_PI * 2);
             transformAnimation.timingFunction = timingFunction;
             
             let shrinkAnimationGroup = CAAnimationGroup();
             shrinkAnimationGroup.animations = [shrinkAnimation, transformAnimation];
-            shrinkAnimationGroup.duration = self.duration * 2;
+            shrinkAnimationGroup.duration = self.duration;
             
             CATransaction.setCompletionBlock({
                 let growAnimation = CABasicAnimation(keyPath: "strokeStart");
-                growAnimation.duration = self.duration * 2;
+                growAnimation.duration = self.duration;
                 growAnimation.fromValue = 0.9;
                 growAnimation.toValue = 0.1;
                 growAnimation.timingFunction = self.timingFunction;
 
                 let fasterSpinAnimation = CABasicAnimation(keyPath: "transform.rotation");
-                fasterSpinAnimation.duration = self.duration * 2;
+                fasterSpinAnimation.duration = self.duration;
                 fasterSpinAnimation.fromValue = 0;
                 fasterSpinAnimation.toValue = CGFloat(M_PI * 2);
                 fasterSpinAnimation.timingFunction = self.timingFunction
                 
                 let growAnimationGroup = CAAnimationGroup();
                 growAnimationGroup.animations = [growAnimation, fasterSpinAnimation];
-                growAnimationGroup.duration = self.duration * 2;
+                growAnimationGroup.duration = self.duration;
                 
                 CATransaction.begin();
 
