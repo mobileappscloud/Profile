@@ -55,6 +55,7 @@ class CustomLoadingSpinner: UIView {
         
         CATransaction.setCompletionBlock({
             self.progressLayer.fillColor = UIColor.clearColor().CGColor;
+            self.rotateTransaction();
             self.spinAnimation();
         });
         
@@ -64,7 +65,7 @@ class CustomLoadingSpinner: UIView {
 
     }
     
-    func spinAnimation() {
+    func rotateTransaction() {
         let transformAnimation = CABasicAnimation(keyPath: "transform.rotation");
         transformAnimation.duration = 4 * duration;
         transformAnimation.fromValue = 0;
@@ -72,6 +73,10 @@ class CustomLoadingSpinner: UIView {
         transformAnimation.timingFunction = timingFunction
         transformAnimation.repeatDuration = 9999999;
         
+        progressLayer.addAnimation(transformAnimation, forKey: nil);
+    }
+
+    func spinAnimation() {
         CATransaction.begin();
         
         let shrinkAnimation = CABasicAnimation(keyPath: "strokeStart");
@@ -88,7 +93,16 @@ class CustomLoadingSpinner: UIView {
             growAnimation.toValue = 0.1;
             growAnimation.timingFunction = self.timingFunction;
 //            growAnimation.repeatDuration = 99999999;
+
+            CATransaction.begin();
+
+            CATransaction.setCompletionBlock({
+                self.spinAnimation();
+            });
+
             self.progressLayer.addAnimation(growAnimation, forKey: "shrink");
+
+            CATransaction.commit();
         });
         
         progressLayer.addAnimation(shrinkAnimation, forKey: "grow");
