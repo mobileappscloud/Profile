@@ -6,6 +6,8 @@ class CustomLoadingSpinner: UIView {
     let timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut);
     var progressLayer: CAShapeLayer!;
     
+    var shouldAnimate = true;
+    
     override init(frame: CGRect) {
         super.init(frame: frame);
         
@@ -15,7 +17,7 @@ class CustomLoadingSpinner: UIView {
         progressLayer.fillColor = Utility.colorFromHexString("#76C043").CGColor;
         progressLayer.strokeColor = Utility.colorFromHexString("#76C043").CGColor;
         progressLayer.lineWidth = 3;
-        progressLayer.strokeStart = 0.1;
+        progressLayer.strokeStart = 0;
         progressLayer.strokeEnd = 1;
         
         layer.addSublayer(progressLayer);
@@ -65,48 +67,72 @@ class CustomLoadingSpinner: UIView {
 
     }
     
+    func stopAnimation() {
+        shouldAnimate = false;
+    }
+    
     func rotateTransaction() {
         let transformAnimation = CABasicAnimation(keyPath: "transform.rotation");
         transformAnimation.duration = 4 * duration;
         transformAnimation.fromValue = 0;
-        transformAnimation.toValue = CGFloat(CGFloat(M_PI * 2));
+        transformAnimation.toValue = CGFloat(M_PI * 2);
         transformAnimation.timingFunction = timingFunction
-        transformAnimation.repeatDuration = 9999999;
+        transformAnimation.repeatDuration = 999999999999;
         
-        progressLayer.addAnimation(transformAnimation, forKey: nil);
+//        progressLayer.addAnimation(transformAnimation, forKey: nil);
     }
 
     func spinAnimation() {
-        CATransaction.begin();
-        
-        let shrinkAnimation = CABasicAnimation(keyPath: "strokeStart");
-        shrinkAnimation.duration = duration;
-        shrinkAnimation.fromValue = 0.1;
-        shrinkAnimation.toValue = 0.9;
-        shrinkAnimation.timingFunction = timingFunction;
-//        shrinkAnimation.repeatDuration = 9999999;
-        
-        CATransaction.setCompletionBlock({
-            let growAnimation = CABasicAnimation(keyPath: "strokeStart");
-            growAnimation.duration = self.duration;
-            growAnimation.fromValue = 0.9;
-            growAnimation.toValue = 0.1;
-            growAnimation.timingFunction = self.timingFunction;
-//            growAnimation.repeatDuration = 99999999;
-
+        if (shouldAnimate) {
             CATransaction.begin();
-
+            
+            let shrinkAnimation = CABasicAnimation(keyPath: "strokeStart");
+            shrinkAnimation.duration = duration;
+            shrinkAnimation.fromValue = 0.1;
+            shrinkAnimation.toValue = 0.9;
+            shrinkAnimation.timingFunction = timingFunction;
+            
+            let transformAnimation = CABasicAnimation(keyPath: "transform.rotation");
+            transformAnimation.duration = 2 * duration;
+            transformAnimation.fromValue = 0;
+            transformAnimation.toValue = CGFloat(M_PI * 2);
+            transformAnimation.timingFunction = timingFunction;
+            
+            let shrinkAnimationGroup = CAAnimationGroup();
+            shrinkAnimationGroup.animations = [shrinkAnimation, transformAnimation];
+            shrinkAnimationGroup.duration = self.duration * 2;
+            
             CATransaction.setCompletionBlock({
-                self.spinAnimation();
+                let growAnimation = CABasicAnimation(keyPath: "strokeStart");
+                growAnimation.duration = self.duration * 2;
+                growAnimation.fromValue = 0.9;
+                growAnimation.toValue = 0.1;
+                growAnimation.timingFunction = self.timingFunction;
+
+                let fasterSpinAnimation = CABasicAnimation(keyPath: "transform.rotation");
+                fasterSpinAnimation.duration = self.duration * 2;
+                fasterSpinAnimation.fromValue = 0;
+                fasterSpinAnimation.toValue = CGFloat(M_PI * 2);
+                fasterSpinAnimation.timingFunction = self.timingFunction
+                
+                let growAnimationGroup = CAAnimationGroup();
+                growAnimationGroup.animations = [growAnimation, fasterSpinAnimation];
+                growAnimationGroup.duration = self.duration * 2;
+                
+                CATransaction.begin();
+
+                CATransaction.setCompletionBlock({
+                    self.spinAnimation();
+                });
+
+                self.progressLayer.addAnimation(growAnimationGroup, forKey: nil);
+
+                CATransaction.commit();
             });
-
-            self.progressLayer.addAnimation(growAnimation, forKey: "shrink");
-
+            
+            progressLayer.addAnimation(shrinkAnimationGroup, forKey: nil);
+            
             CATransaction.commit();
-        });
-        
-        progressLayer.addAnimation(shrinkAnimation, forKey: "grow");
-        
-        CATransaction.commit();
+        }
     }
 }

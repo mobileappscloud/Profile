@@ -142,28 +142,31 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             }
         }
         
-//        if (todaysPoints > 0) {
+        let spinner = CustomLoadingSpinner(frame: CGRectMake(activityCard.loadingContainer.frame.size.width / 2, activityCard.loadingContainer.frame.size.height / 2, 32, 32));
+        
+        if (todaysPoints > 0) {
 //            pointsMeter.hidden = false;
 //            activityCard.blankStateImage.hidden = true;
 //            pointsMeter.activities = todaysActivity;
 //            pointsMeter.points.text = "\(todaysPoints)";
-//        } else {
-//            pointsMeter.hidden = true;
-//            activityCard.blankStateImage.hidden = false;
-//        }
-//        
+            spinner.stopAnimation();
+        } else {
+            pointsMeter.hidden = true;
+            activityCard.blankStateImage.hidden = false;
+        }
+//
+        
         if (todaysPoints > 0 || !SessionController.Instance.earnditError) {
             if (activityCard.superview == nil) {
                 activityCard.frame.origin.y = currentOrigin;
                 currentOrigin += activityCard.frame.size.height + gap;
                 mainScrollView.addSubview(activityCard);
                 
-                let spinner = CustomLoadingSpinner(frame: CGRectMake(activityCard.loadingContainer.frame.size.width / 2, activityCard.loadingContainer.frame.size.height / 2, 32, 32));
-                
                 activityCard.loadingContainer.addSubview(spinner);
                 
                 spinner.startAnimation();
             } else {
+                spinner.stopAnimation();
 //                activityCard.loadingContainer.hidden = true;
             }
         } else {
