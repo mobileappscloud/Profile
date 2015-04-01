@@ -142,16 +142,16 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             }
         }
         
-        if (todaysPoints > 0) {
-            pointsMeter.hidden = false;
-            activityCard.blankStateImage.hidden = true;
-            pointsMeter.activities = todaysActivity;
-            pointsMeter.points.text = "\(todaysPoints)";
-        } else {
-            pointsMeter.hidden = true;
-            activityCard.blankStateImage.hidden = false;
-        }
-        
+//        if (todaysPoints > 0) {
+//            pointsMeter.hidden = false;
+//            activityCard.blankStateImage.hidden = true;
+//            pointsMeter.activities = todaysActivity;
+//            pointsMeter.points.text = "\(todaysPoints)";
+//        } else {
+//            pointsMeter.hidden = true;
+//            activityCard.blankStateImage.hidden = false;
+//        }
+//        
         if (todaysPoints > 0 || !SessionController.Instance.earnditError) {
             if (activityCard.superview == nil) {
                 activityCard.frame.origin.y = currentOrigin;
@@ -164,7 +164,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                 
                 spinner.startAnimation();
             } else {
-                activityCard.loadingContainer.hidden = true;
+//                activityCard.loadingContainer.hidden = true;
             }
         } else {
             if (errorCard.superview == nil) {

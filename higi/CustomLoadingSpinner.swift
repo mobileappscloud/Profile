@@ -32,24 +32,9 @@ class CustomLoadingSpinner: UIView {
     }
     
     func startAnimation() {
-        growAnimation();
-//        spinAnimation();
-    }
-    
-    func growAnimation() {
         let growAnimationPath = CABasicAnimation(keyPath: "path");
         growAnimationPath.fromValue = UIBezierPath(arcCenter: CGPoint(x: frame.size.width / 2 - 16, y: frame.size.width / 2 - 16), radius: 2, startAngle: 0, endAngle: CGFloat(CGFloat(M_PI * 2)), clockwise: true).CGPath;
         growAnimationPath.toValue = UIBezierPath(arcCenter: CGPoint(x: frame.size.width / 2 - 16, y: frame.size.width / 2 - 16), radius: (frame.size.width) / 2, startAngle: 0, endAngle: CGFloat(CGFloat(M_PI * 2)), clockwise: true).CGPath;
-
-//        progressLayer.addAnimation(growAnimationPath, forKey: nil);
-//        
-//        progressLayer.path = UIBezierPath(arcCenter: CGPoint(x: frame.size.width / 2 - 2, y: frame.size.width / 2 - 2), radius: 2, startAngle: 0, endAngle: CGFloat(CGFloat(M_PI * 2)), clockwise: true).CGPath;
-//        let newPath = UIBezierPath(arcCenter: CGPoint(x: frame.size.width / 2 - 16, y: frame.size.width / 2 - 16), radius: (frame.size.width) / 2, startAngle: 0, endAngle: CGFloat(CGFloat(M_PI * 2)), clockwise: true);
-//        UIView.animateWithDuration(duration, delay: 0, options: .CurveEaseInOut, animations: {
-//            self.progressLayer.path = newPath.CGPath;
-//            }, completion: { success in
-//                let i = 0;
-//        });
 
         let growAnimationBounds = CABasicAnimation(keyPath: "bounds");
         growAnimationBounds.toValue = NSValue(CGRect: CGRectMake(0, 0, (frame.size.width) / 2 - 16, (frame.size.width) / 2 - 16));
@@ -87,26 +72,27 @@ class CustomLoadingSpinner: UIView {
         transformAnimation.timingFunction = timingFunction
         transformAnimation.repeatDuration = 9999999;
         
-//        progressLayer.addAnimation(transformAnimation, forKey: "transform.rotation");
+        CATransaction.begin();
         
-        let shrinkAnimation = CABasicAnimation(keyPath: "strokeEnd");
-        shrinkAnimation.duration = duration * 2;
+        let shrinkAnimation = CABasicAnimation(keyPath: "strokeStart");
+        shrinkAnimation.duration = duration;
         shrinkAnimation.fromValue = 0.1;
         shrinkAnimation.toValue = 0.9;
         shrinkAnimation.timingFunction = timingFunction;
-
-        let growAnimation = CABasicAnimation(keyPath: "strokeStart");
-        growAnimation.duration = duration;
-        growAnimation.fromValue = 0.9;
-        growAnimation.toValue = 0.1;
-        growAnimation.timingFunction = timingFunction;
+//        shrinkAnimation.repeatDuration = 9999999;
         
-        let animationGroup = CAAnimationGroup();
-        animationGroup.duration = duration + duration / 2;
-        animationGroup.animations = [shrinkAnimation, growAnimation];
-        animationGroup.repeatDuration = 99999;
-        animationGroup.timeOffset = duration;
+        CATransaction.setCompletionBlock({
+            let growAnimation = CABasicAnimation(keyPath: "strokeStart");
+            growAnimation.duration = self.duration;
+            growAnimation.fromValue = 0.9;
+            growAnimation.toValue = 0.1;
+            growAnimation.timingFunction = self.timingFunction;
+//            growAnimation.repeatDuration = 99999999;
+            self.progressLayer.addAnimation(growAnimation, forKey: "shrink");
+        });
         
-        progressLayer.addAnimation(animationGroup, forKey: "animate");
+        progressLayer.addAnimation(shrinkAnimation, forKey: "grow");
+        
+        CATransaction.commit();
     }
 }
