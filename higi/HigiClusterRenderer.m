@@ -16,8 +16,8 @@
     if (self = [super init]) {
         _map = googleMap;
         _markerCache = [[NSMutableArray alloc] init];
-        unselectedIcon = [self scaleImage:[UIImage imageNamed:@"map_circleicon"] size:CGRectMake(0, 0, 15, 15)];
-        selectedIcon = [self scaleImage:[UIImage imageNamed:@"map_iconwithdot"] size:CGRectMake(0, 0, 45, 45)];
+        unselectedIcon = [self scaleImage:[UIImage imageNamed:@"map_circleicon"] size:CGRectMake(0, 0, 45, 60)];
+        selectedIcon = [self scaleImage:[UIImage imageNamed:@"map_iconwithdot"] size:CGRectMake(0, 0, 45, 60)];
     }
     return self;
 }

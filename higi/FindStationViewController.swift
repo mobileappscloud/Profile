@@ -57,10 +57,6 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     
     var selectedMarker: GMSMarker?;
     
-    var selectedIcon = Utility.scaleImage(UIImage(named: "map_iconwithdot")!, newSize: CGSize(width: 45, height: 45));
-    
-    var unselectedIcon = Utility.scaleImage(UIImage(named: "map_circleicon")!, newSize: CGSize(width: 15, height: 15));
-    
     var currentAutoCompleteTask = NSOperationQueue(), currentVisibleKioskTask = NSOperationQueue();
     
     var autoCompleteY, visibleY, selectedY: CGFloat!;

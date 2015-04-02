@@ -201,8 +201,6 @@
 		8FD73CB0199025BA00BACCB2 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FD73CAF199025BA00BACCB2 /* libz.dylib */; };
 		8FD73CB2199025C200BACCB2 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FD73CB1199025C200BACCB2 /* OpenGLES.framework */; };
 		8FD73CB4199025D000BACCB2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FD73CB3199025D000BACCB2 /* SystemConfiguration.framework */; };
-		8FD73CBB1990280C00BACCB2 /* map_circleicon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD73CB61990280C00BACCB2 /* map_circleicon@2x.png */; };
-		8FD73CBC1990280C00BACCB2 /* map_iconwithdot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD73CB71990280C00BACCB2 /* map_iconwithdot@2x.png */; };
 		8FD73CBD1990280C00BACCB2 /* map_listviewicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD73CB81990280C00BACCB2 /* map_listviewicon.png */; };
 		8FD73CC11990291300BACCB2 /* nodata_map.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD73CC01990291300BACCB2 /* nodata_map.png */; };
 		8FD73CC31990303000BACCB2 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8FD73CC21990303000BACCB2 /* GoogleMaps.bundle */; };
@@ -318,6 +316,8 @@
 		D1B6D6981A8D09FD0006F80C /* ChatterInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B6D6971A8D09FD0006F80C /* ChatterInputViewController.swift */; };
 		D1BA13451A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1BA13441A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib */; };
 		D1BA13471A8D056900E1AFE9 /* ChatterInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1BA13461A8D056900E1AFE9 /* ChatterInputView.xib */; };
+		D1CDABAC1ACDC9F800222500 /* map_circleicon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D1CDABAA1ACDC9F800222500 /* map_circleicon@2x.png */; };
+		D1CDABAD1ACDC9F800222500 /* map_iconwithdot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D1CDABAB1ACDC9F800222500 /* map_iconwithdot@2x.png */; };
 		D1DC365E1AC9E9F000CB124D /* CustomLoadingSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1DC365D1AC9E9F000CB124D /* CustomLoadingSpinner.swift */; };
 		D1DF09A21A8D079800A9ABE5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1DF09A11A8D079800A9ABE5 /* Constants.swift */; };
 		D1E1FF061A76C28F00C8951C /* ChallengeProgressLegendRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E1FF051A76C28F00C8951C /* ChallengeProgressLegendRow.swift */; };
@@ -558,8 +558,6 @@
 		8FD73CAF199025BA00BACCB2 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		8FD73CB1199025C200BACCB2 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		8FD73CB3199025D000BACCB2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		8FD73CB61990280C00BACCB2 /* map_circleicon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "map_circleicon@2x.png"; path = "images/map_circleicon@2x.png"; sourceTree = "<group>"; };
-		8FD73CB71990280C00BACCB2 /* map_iconwithdot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "map_iconwithdot@2x.png"; path = "images/map_iconwithdot@2x.png"; sourceTree = "<group>"; };
 		8FD73CB81990280C00BACCB2 /* map_listviewicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = map_listviewicon.png; path = images/map_listviewicon.png; sourceTree = "<group>"; };
 		8FD73CC01990291300BACCB2 /* nodata_map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = nodata_map.png; path = images/nodata_map.png; sourceTree = "<group>"; };
 		8FD73CC21990303000BACCB2 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
@@ -694,6 +692,8 @@
 		D1B6D6971A8D09FD0006F80C /* ChatterInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatterInputViewController.swift; sourceTree = "<group>"; };
 		D1BA13441A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailsParticipantIconView.xib; sourceTree = "<group>"; };
 		D1BA13461A8D056900E1AFE9 /* ChatterInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatterInputView.xib; sourceTree = "<group>"; };
+		D1CDABAA1ACDC9F800222500 /* map_circleicon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "map_circleicon@2x.png"; path = "../../../Downloads/map_circleicon@2x.png"; sourceTree = "<group>"; };
+		D1CDABAB1ACDC9F800222500 /* map_iconwithdot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "map_iconwithdot@2x.png"; path = "../../../Downloads/map_iconwithdot@2x.png"; sourceTree = "<group>"; };
 		D1DC365D1AC9E9F000CB124D /* CustomLoadingSpinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLoadingSpinner.swift; sourceTree = "<group>"; };
 		D1DF09A11A8D079800A9ABE5 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D1E1FF051A76C28F00C8951C /* ChallengeProgressLegendRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeProgressLegendRow.swift; sourceTree = "<group>"; };
@@ -1291,11 +1291,11 @@
 		8FD73CB5199027EB00BACCB2 /* FindStation */ = {
 			isa = PBXGroup;
 			children = (
+				D1CDABAA1ACDC9F800222500 /* map_circleicon@2x.png */,
+				D1CDABAB1ACDC9F800222500 /* map_iconwithdot@2x.png */,
 				8F069CB819D319FF00DCC820 /* bg_tap_reminder@2x.png */,
 				8FDCE1C51988072C006428C3 /* btn_close_reminder.png */,
 				8FA5925A19AB921C00622266 /* create_overlay.png */,
-				8FD73CB61990280C00BACCB2 /* map_circleicon@2x.png */,
-				8FD73CB71990280C00BACCB2 /* map_iconwithdot@2x.png */,
 				8FD73CB81990280C00BACCB2 /* map_listviewicon.png */,
 				8F0B29A4198AC20300B0DD29 /* map_mapviewicon.png */,
 				8FCD2D7A19E874FD00AC5A82 /* noResults.png */,
@@ -1612,7 +1612,6 @@
 				D1A9C6FF1A951D0D0008084B /* chatterbutton_pressed.png in Resources */,
 				8F5E7FC9199BC74E009067E5 /* CheckinCardView.xib in Resources */,
 				8F02A13019AE2CBB002FF73E /* dashboard_background@2x.png in Resources */,
-				8FD73CBB1990280C00BACCB2 /* map_circleicon@2x.png in Resources */,
 				8FDCE1CF19880919006428C3 /* bp_overlay.png in Resources */,
 				8F5C390019868B7000F51543 /* cell_selected.png in Resources */,
 				8F1D97A0199558F7003B5645 /* checkmark.png in Resources */,
@@ -1673,6 +1672,7 @@
 				8F5E7FD7199BCD52009067E5 /* graph_sincelastarrow_down_invert.png in Resources */,
 				8F08AFB319895214002EE906 /* higilogo_ocmenu.png in Resources */,
 				8F02A13619AE2CBB002FF73E /* dashboard3@2x.png in Resources */,
+				D1CDABAC1ACDC9F800222500 /* map_circleicon@2x.png in Resources */,
 				8FFB034F19FEA2440036228C /* oc_findastation_active.png in Resources */,
 				8F1D979C1995554C003B5645 /* ModifyImageView.xib in Resources */,
 				8FC7B71319E5E67000D0112F /* dashboard3-568h@2x.png in Resources */,
@@ -1690,10 +1690,10 @@
 				8FDCE1D019880919006428C3 /* map_overlay.png in Resources */,
 				8F5E7FC11999674C009067E5 /* KioskListCellView.xib in Resources */,
 				8F02A14419AE2CF4002FF73E /* bodystats2@2x.png in Resources */,
-				8FD73CBC1990280C00BACCB2 /* map_iconwithdot@2x.png in Resources */,
 				8F2B7E4E198C3058009DE89A /* oc_dashboard.png in Resources */,
 				8F58D98A19C0FE5800C0EC72 /* welcome_01_logo.png in Resources */,
 				D1EEDB981A660F2B0012EFD3 /* ui_chatter.png in Resources */,
+				D1CDABAD1ACDC9F800222500 /* map_iconwithdot@2x.png in Resources */,
 				D1EEDBA31A66E4B10012EFD3 /* ChallengeLeaderboardRow.xib in Resources */,
 				8FFB034D19FEA2440036228C /* oc_challenges.png in Resources */,
 				D1A9C6FE1A951D0D0008084B /* chatterbutton_normal.png in Resources */,
