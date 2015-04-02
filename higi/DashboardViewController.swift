@@ -142,20 +142,20 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             }
         }
         
-        let spinner = CustomLoadingSpinner(frame: CGRectMake(activityCard.loadingContainer.frame.size.width / 2, activityCard.loadingContainer.frame.size.height / 2, 32, 32));
+        let spinner = CustomLoadingSpinner(frame: CGRectMake(activityCard.loadingContainer.frame.size.width / 2 - 16, activityCard.loadingContainer.frame.size.height / 2 - 16, 32, 32));
         
         if (todaysPoints > 0) {
-//            pointsMeter.hidden = false;
-//            activityCard.blankStateImage.hidden = true;
-//            pointsMeter.activities = todaysActivity;
-//            pointsMeter.points.text = "\(todaysPoints)";
+            pointsMeter.hidden = false;
+            activityCard.blankStateImage.hidden = true;
+            pointsMeter.activities = todaysActivity;
+            pointsMeter.points.text = "\(todaysPoints)";
             spinner.stopAnimation();
         } else {
             pointsMeter.hidden = true;
             activityCard.blankStateImage.hidden = false;
-//            spinner.stopAnimation();
+            spinner.stopAnimation();
         }
-//
+
         if (todaysPoints > 0 || !SessionController.Instance.earnditError) {
             if (activityCard.superview == nil) {
                 activityCard.frame.origin.y = currentOrigin;
@@ -167,7 +167,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                 spinner.startAnimation();
             } else {
                 spinner.stopAnimation();
-//                activityCard.loadingContainer.hidden = true;
+                activityCard.loadingContainer.hidden = true;
             }
         } else {
             if (errorCard.superview == nil) {
@@ -202,21 +202,22 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         }
         
         challengesCard.challengeBox.layer.borderColor = Utility.colorFromHexString("#CCCCCC").CGColor;
+        let spinner = CustomLoadingSpinner(frame: CGRectMake(activityCard.loadingContainer.frame.size.width / 2 - 16, activityCard.loadingContainer.frame.size.height / 2 - 16, 32, 32));
         
         if (displayedChallenge != nil) {
             challengesCard.loadingContainer.hidden = true;
+            spinner.stopAnimation();
             challengesCard.challengeBox.hidden = false;
             challengesCard.blankStateImage.hidden = true;
             challengesCard.challengeAvatar.setImageWithURL(NSURL(string: displayedChallenge.imageUrl));
             challengesCard.challengeTitle.text = displayedChallenge.name;
-            if (challengesCard.challengeBox.subviews.count > 0) {
-                (challengesCard.challengeBox.subviews[0] as UIView).removeFromSuperview();
+            if (challengesCard.challengeBox.subviews.count > 3) {
+                (challengesCard.challengeBox.subviews[challengesCard.challengeBox.subviews.count - 1] as UIView).removeFromSuperview();
             }
             var challengeView = Utility.getChallengeViews(displayedChallenge, frame: CGRect(x: 0, y: 56, width: challengesCard.challengeBox.frame.size.width, height: 180), isComplex: false)[0];
             challengesCard.challengeBox.addSubview(challengeView);
+            challengeView.userInteractionEnabled = false;
             challengeView.animate();
-            let tap = UIGestureRecognizer(target: self, action: "gotoChallengeDetails:");
-            challengesCard.challengeBox.addGestureRecognizer(tap);
         } else {
             challengesCard.challengeBox.hidden = true;
             challengesCard.blankStateImage.hidden = false;
@@ -226,7 +227,6 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             challengesCard.frame.origin.y = currentOrigin;
             currentOrigin += challengesCard.frame.size.height + gap;
             mainScrollView.addSubview(challengesCard);
-            let spinner = CustomLoadingSpinner(frame: CGRectMake(activityCard.loadingContainer.frame.size.width / 2, activityCard.loadingContainer.frame.size.height / 2, 32, 32));
             challengesCard.loadingContainer.addSubview(spinner);
             spinner.startAnimation();
         }
