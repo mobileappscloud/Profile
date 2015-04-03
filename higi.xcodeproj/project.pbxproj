@@ -310,14 +310,14 @@
 		D18395C31A69CAD500D290BF /* ChallengesDetailsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18395C21A69CAD500D290BF /* ChallengesDetailsTab.swift */; };
 		D19DDA531A5EF599004F97A3 /* NewCPTAxisLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = D19DDA521A5EF599004F97A3 /* NewCPTAxisLabel.m */; };
 		D19DDA551A5F1705004F97A3 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		D1A713A81ACF2028008DF01A /* map_circleicon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D1A713A61ACF2028008DF01A /* map_circleicon@2x.png */; };
+		D1A713A91ACF2028008DF01A /* map_iconwithdot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D1A713A71ACF2028008DF01A /* map_iconwithdot@2x.png */; };
 		D1A9C6FE1A951D0D0008084B /* chatterbutton_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = D1A9C6FC1A951D0D0008084B /* chatterbutton_normal.png */; };
 		D1A9C6FF1A951D0D0008084B /* chatterbutton_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = D1A9C6FD1A951D0D0008084B /* chatterbutton_pressed.png */; };
 		D1AAA79F1A9E7E0F00A41B3D /* challengesblankstate.png in Resources */ = {isa = PBXBuildFile; fileRef = D1AAA79E1A9E7E0F00A41B3D /* challengesblankstate.png */; };
 		D1B6D6981A8D09FD0006F80C /* ChatterInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B6D6971A8D09FD0006F80C /* ChatterInputViewController.swift */; };
 		D1BA13451A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1BA13441A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib */; };
 		D1BA13471A8D056900E1AFE9 /* ChatterInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1BA13461A8D056900E1AFE9 /* ChatterInputView.xib */; };
-		D1CDABAC1ACDC9F800222500 /* map_circleicon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D1CDABAA1ACDC9F800222500 /* map_circleicon@2x.png */; };
-		D1CDABAD1ACDC9F800222500 /* map_iconwithdot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D1CDABAB1ACDC9F800222500 /* map_iconwithdot@2x.png */; };
 		D1DC365E1AC9E9F000CB124D /* CustomLoadingSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1DC365D1AC9E9F000CB124D /* CustomLoadingSpinner.swift */; };
 		D1DF09A21A8D079800A9ABE5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1DF09A11A8D079800A9ABE5 /* Constants.swift */; };
 		D1E1FF061A76C28F00C8951C /* ChallengeProgressLegendRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E1FF051A76C28F00C8951C /* ChallengeProgressLegendRow.swift */; };
@@ -686,14 +686,14 @@
 		D18395C21A69CAD500D290BF /* ChallengesDetailsTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengesDetailsTab.swift; sourceTree = "<group>"; };
 		D19DDA511A5EF432004F97A3 /* NewCPTAxisLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewCPTAxisLabel.h; sourceTree = "<group>"; };
 		D19DDA521A5EF599004F97A3 /* NewCPTAxisLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewCPTAxisLabel.m; sourceTree = "<group>"; };
+		D1A713A61ACF2028008DF01A /* map_circleicon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "map_circleicon@2x.png"; path = "images/map_circleicon@2x.png"; sourceTree = "<group>"; };
+		D1A713A71ACF2028008DF01A /* map_iconwithdot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "map_iconwithdot@2x.png"; path = "images/map_iconwithdot@2x.png"; sourceTree = "<group>"; };
 		D1A9C6FC1A951D0D0008084B /* chatterbutton_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chatterbutton_normal.png; path = images/chatterbutton_normal.png; sourceTree = "<group>"; };
 		D1A9C6FD1A951D0D0008084B /* chatterbutton_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chatterbutton_pressed.png; path = images/chatterbutton_pressed.png; sourceTree = "<group>"; };
 		D1AAA79E1A9E7E0F00A41B3D /* challengesblankstate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = challengesblankstate.png; path = images/challengesblankstate.png; sourceTree = "<group>"; };
 		D1B6D6971A8D09FD0006F80C /* ChatterInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatterInputViewController.swift; sourceTree = "<group>"; };
 		D1BA13441A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailsParticipantIconView.xib; sourceTree = "<group>"; };
 		D1BA13461A8D056900E1AFE9 /* ChatterInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatterInputView.xib; sourceTree = "<group>"; };
-		D1CDABAA1ACDC9F800222500 /* map_circleicon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "map_circleicon@2x.png"; path = "../../../Downloads/map_circleicon@2x.png"; sourceTree = "<group>"; };
-		D1CDABAB1ACDC9F800222500 /* map_iconwithdot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "map_iconwithdot@2x.png"; path = "../../../Downloads/map_iconwithdot@2x.png"; sourceTree = "<group>"; };
 		D1DC365D1AC9E9F000CB124D /* CustomLoadingSpinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLoadingSpinner.swift; sourceTree = "<group>"; };
 		D1DF09A11A8D079800A9ABE5 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D1E1FF051A76C28F00C8951C /* ChallengeProgressLegendRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeProgressLegendRow.swift; sourceTree = "<group>"; };
@@ -1291,8 +1291,8 @@
 		8FD73CB5199027EB00BACCB2 /* FindStation */ = {
 			isa = PBXGroup;
 			children = (
-				D1CDABAA1ACDC9F800222500 /* map_circleicon@2x.png */,
-				D1CDABAB1ACDC9F800222500 /* map_iconwithdot@2x.png */,
+				D1A713A61ACF2028008DF01A /* map_circleicon@2x.png */,
+				D1A713A71ACF2028008DF01A /* map_iconwithdot@2x.png */,
 				8F069CB819D319FF00DCC820 /* bg_tap_reminder@2x.png */,
 				8FDCE1C51988072C006428C3 /* btn_close_reminder.png */,
 				8FA5925A19AB921C00622266 /* create_overlay.png */,
@@ -1652,6 +1652,7 @@
 				8F5C38CA19818BA900F51543 /* gauge1_high.png in Resources */,
 				D1EEDB9B1A660F2B0012EFD3 /* ui_progress.png in Resources */,
 				8F5E7FE6199C081F009067E5 /* vital_pulse_icon.png in Resources */,
+				D1A713A81ACF2028008DF01A /* map_circleicon@2x.png in Resources */,
 				8F02A12219AE2BF6002FF73E /* btn_back_white@2x.png in Resources */,
 				8FF940A0198A8CCD00D319D7 /* BirthdateView.xib in Resources */,
 				D1E2236E1A7FFE60006330E7 /* ConnectDeviceRow.xib in Resources */,
@@ -1672,7 +1673,6 @@
 				8F5E7FD7199BCD52009067E5 /* graph_sincelastarrow_down_invert.png in Resources */,
 				8F08AFB319895214002EE906 /* higilogo_ocmenu.png in Resources */,
 				8F02A13619AE2CBB002FF73E /* dashboard3@2x.png in Resources */,
-				D1CDABAC1ACDC9F800222500 /* map_circleicon@2x.png in Resources */,
 				8FFB034F19FEA2440036228C /* oc_findastation_active.png in Resources */,
 				8F1D979C1995554C003B5645 /* ModifyImageView.xib in Resources */,
 				8FC7B71319E5E67000D0112F /* dashboard3-568h@2x.png in Resources */,
@@ -1693,7 +1693,6 @@
 				8F2B7E4E198C3058009DE89A /* oc_dashboard.png in Resources */,
 				8F58D98A19C0FE5800C0EC72 /* welcome_01_logo.png in Resources */,
 				D1EEDB981A660F2B0012EFD3 /* ui_chatter.png in Resources */,
-				D1CDABAD1ACDC9F800222500 /* map_iconwithdot@2x.png in Resources */,
 				D1EEDBA31A66E4B10012EFD3 /* ChallengeLeaderboardRow.xib in Resources */,
 				8FFB034D19FEA2440036228C /* oc_challenges.png in Resources */,
 				D1A9C6FE1A951D0D0008084B /* chatterbutton_normal.png in Resources */,
@@ -1769,6 +1768,7 @@
 				D1EEDB9A1A660F2B0012EFD3 /* ui_leaderboards.png in Resources */,
 				8FC7B71219E5E67000D0112F /* dashboard2-568h@2x.png in Resources */,
 				8F3643A719460EB300C0033E /* Images.xcassets in Resources */,
+				D1A713A91ACF2028008DF01A /* map_iconwithdot@2x.png in Resources */,
 				D1BA13471A8D056900E1AFE9 /* ChatterInputView.xib in Resources */,
 				D1E223781A8009CE006330E7 /* ConnectDeviceView.xib in Resources */,
 				8FFF43C219B798380056F412 /* pulse_overlay@2x.png in Resources */,
