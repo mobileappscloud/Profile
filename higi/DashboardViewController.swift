@@ -145,15 +145,15 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         let spinner = CustomLoadingSpinner(frame: CGRectMake(activityCard.loadingContainer.frame.size.width / 2 - 16, activityCard.loadingContainer.frame.size.height / 2 - 16, 32, 32));
         
         if (todaysPoints > 0) {
-            pointsMeter.hidden = false;
-            activityCard.blankStateImage.hidden = true;
-            pointsMeter.activities = todaysActivity;
-            pointsMeter.points.text = "\(todaysPoints)";
-            spinner.stopAnimation();
+//            pointsMeter.hidden = false;
+//            activityCard.blankStateImage.hidden = true;
+//            pointsMeter.activities = todaysActivity;
+//            pointsMeter.points.text = "\(todaysPoints)";
+//            spinner.stopAnimation();
         } else {
             pointsMeter.hidden = true;
             activityCard.blankStateImage.hidden = false;
-            spinner.stopAnimation();
+//            spinner.stopAnimation();
         }
 
         if (todaysPoints > 0 || !SessionController.Instance.earnditError) {
@@ -164,10 +164,10 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                 
                 activityCard.loadingContainer.addSubview(spinner);
                 
-                spinner.startAnimation();
+                spinner.startAnimating();
             } else {
-                spinner.stopAnimation();
-                activityCard.loadingContainer.hidden = true;
+//                spinner.stopAnimation();
+//                activityCard.loadingContainer.hidden = true;
             }
         } else {
             if (errorCard.superview == nil) {
@@ -206,7 +206,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         
         if (displayedChallenge != nil) {
             challengesCard.loadingContainer.hidden = true;
-            spinner.stopAnimation();
+            spinner.stopAnimating();
             challengesCard.challengeBox.hidden = false;
             challengesCard.blankStateImage.hidden = true;
             challengesCard.challengeAvatar.setImageWithURL(NSURL(string: displayedChallenge.imageUrl));
@@ -228,7 +228,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             currentOrigin += challengesCard.frame.size.height + gap;
             mainScrollView.addSubview(challengesCard);
             challengesCard.loadingContainer.addSubview(spinner);
-            spinner.startAnimation();
+//            spinner.startAnimating();
         }
     }
     
