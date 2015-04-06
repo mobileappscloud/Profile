@@ -57,10 +57,6 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     
     var selectedMarker: GMSMarker?;
     
-    var selectedIcon = Utility.scaleImage(UIImage(named: "map_iconwithdot")!, newSize: CGSize(width: 45, height: 45));
-    
-    var unselectedIcon = Utility.scaleImage(UIImage(named: "map_circleicon")!, newSize: CGSize(width: 15, height: 15));
-    
     var currentAutoCompleteTask = NSOperationQueue(), currentVisibleKioskTask = NSOperationQueue();
     
     var autoCompleteY, visibleY, selectedY: CGFloat!;
@@ -528,6 +524,14 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
             fridayHours.text = kiosk.hours!.valueForKey("Fri") as? NSString? ?? "Closed";
             saturdayHours.text = kiosk.hours!.valueForKey("Sat") as? NSString? ?? "Closed";
             sundayHours.text = kiosk.hours!.valueForKey("Sun") as? NSString? ?? "Closed";
+        } else {
+            mondayHours.text = "Not available";
+            tuesdayHours.text = "Not available";
+            wednesdayHours.text = "Not available";
+            thursdayHours.text = "Not available";
+            fridayHours.text = "Not available";
+            saturdayHours.text = "Not available";
+            sundayHours.text = "Not available";
         }
         var distance = calcDistance(kiosk.position!);
         if (distance >= 0) {

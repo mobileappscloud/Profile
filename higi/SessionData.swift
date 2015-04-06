@@ -22,6 +22,8 @@ class SessionData {
     
     var seenDashboard, seenBodyStats, seenReminder: Bool!;
     
+    var lastUpdate: NSDate!;
+    
     let savePath = (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String).stringByAppendingPathComponent("HigiSessionData.plist");
 
     
@@ -36,6 +38,7 @@ class SessionData {
         seenDashboard = false;
         seenBodyStats = false;
         seenReminder = false;
+        lastUpdate = NSDate();
     }
     
     func save() {
@@ -47,6 +50,7 @@ class SessionData {
         saveDictionary["seenBodyStats"] = seenBodyStats;
         saveDictionary["seenReminder"] = seenReminder;
         saveDictionary["kioskList"] = kioskListString;
+        saveDictionary["lastUpdate"] = lastUpdate;
         saveDictionary.writeToFile(savePath, atomically: false);
     }
     
@@ -61,6 +65,7 @@ class SessionData {
             seenBodyStats = (savedDictionary["seenBodyStats"] ?? false) as Bool;
             seenReminder = (savedDictionary["seenReminder"] ?? false) as Bool;
             kioskListString = (savedDictionary["kioskList"] ?? "") as NSString;
+            lastUpdate = (savedDictionary["lastUpdate"] ?? NSDate()) as NSDate;
         } else {
             reset();
         }

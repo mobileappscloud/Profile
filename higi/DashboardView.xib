@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DashboardViewController" customModule="higi" customModuleProvider="target">
@@ -88,6 +88,10 @@
                         <action selector="gotoConnectDevices:" destination="-1" eventType="touchUpInside" id="Phh-rl-nYv"/>
                     </connections>
                 </button>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kip-ke-HFc">
+                    <rect key="frame" x="8" y="58" width="304" height="119"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <nil key="simulatedStatusBarMetrics"/>
@@ -95,6 +99,7 @@
             <connections>
                 <outlet property="attachDevicesButton" destination="QhU-Al-2Rt" id="6EX-ek-rbz"/>
                 <outlet property="blankStateImage" destination="Jmp-19-ybW" id="Vit-kO-QU9"/>
+                <outlet property="loadingContainer" destination="kip-ke-HFc" id="fkb-o2-WP9"/>
                 <outlet property="meterContainer" destination="mt7-5r-pdL" id="3mp-PA-389"/>
             </connections>
             <point key="canvasLocation" x="1008" y="239.5"/>
@@ -154,6 +159,10 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mdw-Mj-nR6">
+                    <rect key="frame" x="8" y="58" width="304" height="220"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <nil key="simulatedStatusBarMetrics"/>
@@ -163,6 +172,7 @@
                 <outlet property="challengeAvatar" destination="uLR-Ii-X0q" id="Idf-V2-7GA"/>
                 <outlet property="challengeBox" destination="CQv-F5-yyO" id="hDN-oN-iBk"/>
                 <outlet property="challengeTitle" destination="M5I-Sn-ku5" id="AaS-Uz-65g"/>
+                <outlet property="loadingContainer" destination="Mdw-Mj-nR6" id="jdv-cW-pc5"/>
             </connections>
             <point key="canvasLocation" x="1008" y="586"/>
         </view>
@@ -321,6 +331,16 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="395"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JzL-Cr-hd0">
+                    <rect key="frame" x="8" y="58" width="304" height="130"/>
+                    <subviews>
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="nbD-mb-XZ0">
+                            <rect key="frame" x="142" y="50" width="20" height="20"/>
+                            <color key="color" red="0.41960784309999999" green="0.71764705880000002" blue="0.086274509799999996" alpha="1" colorSpace="calibratedRGB"/>
+                        </activityIndicatorView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="higi Pulse" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dCM-sF-2lQ">
                     <rect key="frame" x="71" y="17" width="179" height="21"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
@@ -366,13 +386,13 @@
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m7h-IS-tbn">
                             <rect key="frame" x="137" y="16" width="159" height="32"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jp2-id-opc">
                             <rect key="frame" x="137" y="48" width="159" height="36"/>
                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KZ9-US-Arr">
@@ -393,7 +413,7 @@
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tTu-Nx-yx3">
                             <rect key="frame" x="137" y="45" width="159" height="36"/>
                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ibM-7i-qxv">
@@ -408,7 +428,7 @@
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GXg-mM-gVa">
                             <rect key="frame" x="137" y="13" width="159" height="32"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
@@ -440,10 +460,12 @@
                 <outlet property="bottomExcerpt" destination="tTu-Nx-yx3" id="pnb-Da-sQI"/>
                 <outlet property="bottomImage" destination="2Xf-3Q-55y" id="V1c-z0-W0K"/>
                 <outlet property="bottomTitle" destination="GXg-mM-gVa" id="QSK-k6-dcV"/>
+                <outlet property="loadingContainer" destination="JzL-Cr-hd0" id="RkI-WQ-ajj"/>
                 <outlet property="middleArticleContainer" destination="bYu-9H-tTi" id="lgW-DP-2UJ"/>
                 <outlet property="middleExcerpt" destination="jp2-id-opc" id="gTj-Y0-nrF"/>
                 <outlet property="middleImage" destination="u7o-7q-Hrf" id="LFb-wI-vRM"/>
                 <outlet property="middleTitle" destination="m7h-IS-tbn" id="lnM-Vw-Ve4"/>
+                <outlet property="spinner" destination="nbD-mb-XZ0" id="mAE-jb-v11"/>
                 <outlet property="topExcerpt" destination="X7c-Hi-odq" id="sop-yh-FH0"/>
                 <outlet property="topImage" destination="cB0-NQ-aMR" id="5Ze-5Q-zXJ"/>
                 <outlet property="topTitle" destination="2AK-KQ-mxf" id="8Rv-Rg-3wF"/>

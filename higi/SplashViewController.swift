@@ -16,6 +16,9 @@ class SplashViewController: UIViewController, UIAlertViewDelegate {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated);
+        let spinner = CustomLoadingSpinner(frame: CGRectMake(self.view.frame.size.width / 2 - 16, self.view.frame.size.height / 2 - 16, 32, 32));
+            self.view.addSubview(spinner);
+        spinner.startAnimating();
         checkVersion();
     }
     
