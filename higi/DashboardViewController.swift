@@ -64,17 +64,6 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated);
-        if (pointsMeter != nil) {
-            pointsMeter.drawArc();
-        }
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated);
-    }
-    
     func receiveApiNotification(notification: NSNotification) {
         switch (notification.name) {
         case ApiUtility.ACTIVITIES:
@@ -150,6 +139,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             activityCard.blankStateImage.hidden = true;
             pointsMeter.activities = todaysActivity;
             pointsMeter.points.text = "\(todaysPoints)";
+            pointsMeter.drawArc();
         } else {
             pointsMeter.hidden = true;
             activityCard.blankStateImage.hidden = false;
