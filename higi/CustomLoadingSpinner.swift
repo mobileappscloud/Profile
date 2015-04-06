@@ -7,6 +7,8 @@ class CustomLoadingSpinner: UIView {
     
     let lineWidth:CGFloat = 3;
     
+    let maxLineWidth:CGFloat = 10;
+    
     let easingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut);
     
     let linearFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear);
@@ -21,7 +23,9 @@ class CustomLoadingSpinner: UIView {
     
     var strokeVal:CGFloat = 0.9;
     
-    var spinVal = CGFloat(M_PI);
+    var spinVal: CGFloat = 0;
+    
+    var lastSpinVal: CGFloat = 0;
     
     override init(frame: CGRect) {
         super.init(frame: frame);
@@ -32,18 +36,13 @@ class CustomLoadingSpinner: UIView {
         
         progressLayer = CAShapeLayer();
         progressLayer.path = UIBezierPath(arcCenter: centerPoint, radius: radius, startAngle: 0, endAngle: CGFloat(CGFloat(M_PI * 2)), clockwise: true).CGPath;
-        progressLayer.fillColor = UIColor.clearColor().CGColor;
+//        progressLayer.fillColor = UIColor.clearColor().CGColor;
+        progressLayer.fillColor = Utility.colorFromHexString("#76C043").CGColor;
         progressLayer.strokeColor = Utility.colorFromHexString("#76C043").CGColor;
         progressLayer.lineWidth = lineWidth;
         progressLayer.anchorPoint = centerPoint;
-        progressLayer.strokeStart = 0.3;
         
         layer.anchorPoint = CGPoint(x: 0.5, y: 0.5);
-//        UIView.animateWithDuration(duration * 2, delay: 0, options: .CurveLinear | .Repeat, animations: {
-//            self.transform = CGAffineTransformRotate(self.transform, CGFloat(M_PI * 3));
-//            }, completion: nil);
-
-//        startSlowSpin();
         
         layer.addSublayer(progressLayer);
     }
@@ -55,42 +54,31 @@ class CustomLoadingSpinner: UIView {
     func createInstance() ->  CustomLoadingSpinner {
         return UINib(nibName: "CustomSpinner", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as CustomLoadingSpinner;
     }
-
-    func startSlowSpin() {
-        let slowSpin = CABasicAnimation(keyPath: "transform.rotation");
-        slowSpin.duration = duration * 2;
-        slowSpin.fromValue = 0;
-        slowSpin.toValue = CGFloat(M_PI * 2);
-        slowSpin.timingFunction = linearFunction;
-        slowSpin.repeatDuration = CFTimeInterval.infinity;
-        layer.addAnimation(slowSpin, forKey: "slowSpin");
-    }
     
     func startAnimating() {
         var phase = 0;
         var angle:CGFloat = CGFloat(M_PI);
         var startingAngle:CGFloat = 0;
-        let durations = [duration * 1000, duration / 2 * 1000, duration * 1000, duration * 2 * 1000];
-//        CATransaction.begin();
-//        CATransaction.setDisableActions(true);
-//        self.progressLayer.strokeStart = 0.9;
-//        CATransaction.setDisableActions(false);
-//        CATransaction.commit();
-        
+        let durations = [duration, duration, duration * 2, duration];
+
         let startTime = NSDate();
         var phaseStartTime = startTime;
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
             while (true) {
                 let currentTime = NSDate();
-                if (currentTime.timeIntervalSinceDate(phaseStartTime) * 1000 > durations[phase]) {
+                if (currentTime.timeIntervalSinceDate(phaseStartTime) > durations[phase]) {
                     phaseStartTime = currentTime;
                     phase++;
                     startingAngle = angle;
                     if (phase > 3) {
                         phase = 2;
                     }
+                    if (phase == 1) {
+                        self.progressLayer.fillColor = UIColor.clearColor().CGColor;
+//                        self.progressLayer.lineWidth = self.maxLineWidth;
+                    }
                 }
-                var easing:CGFloat = (CGFloat(currentTime.timeIntervalSinceDate(phaseStartTime)) * 1000) / CGFloat(durations[phase] / 2);
+                var easing:CGFloat = (CGFloat(currentTime.timeIntervalSinceDate(phaseStartTime))) / CGFloat(durations[phase] / 2);
                 var drawPercent:CGFloat = 0;
                 if (easing < 1) {
                     drawPercent = 0.5 * CGFloat(pow(easing, 3));
@@ -98,11 +86,8 @@ class CustomLoadingSpinner: UIView {
                     easing -= 2;
                     drawPercent = 0.5 * CGFloat(pow(easing, 3) + 2);
                 }
-                let a = (CGFloat(currentTime.timeIntervalSinceDate(phaseStartTime)) * 1000);
-                let b = ((CGFloat(currentTime.timeIntervalSinceDate(phaseStartTime)) * 1000) % 2000);
-                let c = 2000 * 360;
-                let d = ((CGFloat(currentTime.timeIntervalSinceDate(phaseStartTime)) * 1000) % 2000) / (2000 * 360)
-                self.spinVal = ((CGFloat(currentTime.timeIntervalSinceDate(phaseStartTime)) * 1000) % 2000) / (2000 * 360);
+                self.lastSpinVal = self.spinVal;
+                self.spinVal = ((CGFloat(currentTime.timeIntervalSinceDate(startTime)) % 2) / CGFloat(2)) * CGFloat(M_PI * 2);
                 switch phase {
                 case 0:
                     self.growOutsideAnimation(drawPercent);
@@ -112,33 +97,40 @@ class CustomLoadingSpinner: UIView {
                     self.shrinkArcAnimation(drawPercent);
                 case 3:
                     self.growArcAnimation(drawPercent);
+                    self.spinVal += CGFloat(drawPercent * CGFloat(M_PI * 2));
                 default:
                     let i = 0;
                 }
-//                self.rotateLayer();
-                NSThread.sleepForTimeInterval(0.01);
+                self.rotateAnimation();
+                if (!self.shouldAnimate) {
+                    break;
+                }
+                NSThread.sleepForTimeInterval(0.015);
                 if (!self.shouldAnimate) {
                     break;
                 }
             }
         });
     }
-    
-//    func rotateLayer() {
-//        dispatch_async(dispatch_get_main_queue(), {
-//            CATransaction.begin();
-//            CATransaction.setDisableActions(true);
-//            self.progressLayer.transform = CATransform3DRotate(self.progressLayer.transform, CGFloat(self.spinVal * M_PI), self.centerPoint.x, self.centerPoint.y, 1);
-//            CATransaction.setDisableActions(false);
-//            CATransaction.commit();
-//        });
-//    }
+
+    func rotateAnimation() {
+        //exclude big negative vals
+        if (self.spinVal - self.lastSpinVal > 0) {
+            dispatch_async(dispatch_get_main_queue(), {
+                CATransaction.begin();
+                CATransaction.setDisableActions(true);
+                self.layer.transform = CATransform3DRotate(self.layer.transform, self.spinVal - self.lastSpinVal, 0, 0, 1);
+                CATransaction.setDisableActions(false);
+                CATransaction.commit();
+            });
+        }
+    }
     
     func growArcAnimation(drawPercent: CGFloat) {
         dispatch_async(dispatch_get_main_queue(), {
             CATransaction.begin();
             CATransaction.setDisableActions(true);
-            self.progressLayer.strokeStart = 1 - max(0.1, min(drawPercent, 0.9));
+            self.progressLayer.strokeStart = 1 - max(0.2, min(drawPercent, 0.8));
             CATransaction.setDisableActions(false);
             CATransaction.commit();
         });
@@ -148,18 +140,38 @@ class CustomLoadingSpinner: UIView {
         dispatch_async(dispatch_get_main_queue(), {
             CATransaction.begin();
             CATransaction.setDisableActions(true);
-            self.progressLayer.strokeStart = max(0.1, min(drawPercent, 0.9));
+            self.progressLayer.strokeStart = max(0.2, min(drawPercent, 0.8));
             CATransaction.setDisableActions(false);
             CATransaction.commit();
         });
     }
     
     func growOutsideAnimation(drawPercent: CGFloat) {
-
+        let growRadius = radius * max(0, min(drawPercent, 1));
+        let path = UIBezierPath(arcCenter: centerPoint, radius: growRadius, startAngle: 0, endAngle: CGFloat(CGFloat(M_PI * 2)), clockwise: true).CGPath;
+        dispatch_async(dispatch_get_main_queue(), {
+            CATransaction.begin();
+            CATransaction.setDisableActions(true);
+            self.progressLayer.path = path;
+            CATransaction.setDisableActions(false);
+            CATransaction.commit();
+        });
     }
     
     func growInsideAnimation(drawPercent: CGFloat) {
 
+        let startValue:CGFloat = 15;
+        let innerWidth = lineWidth + (startValue - (startValue * max(0, min(drawPercent, 1))));
+        let growRadius = radius - (startValue - (startValue  * max(0, min(drawPercent, 1))));
+        let path = UIBezierPath(arcCenter: centerPoint, radius: growRadius, startAngle: 0, endAngle: CGFloat(CGFloat(M_PI * 2)), clockwise: true).CGPath;
+        dispatch_async(dispatch_get_main_queue(), {
+            CATransaction.begin();
+            CATransaction.setDisableActions(true);
+            self.progressLayer.lineWidth = innerWidth;
+            self.progressLayer.path = path;
+            CATransaction.setDisableActions(false);
+            CATransaction.commit();
+        });
     }
     
     func stopAnimating() {
