@@ -141,19 +141,18 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                 }
             }
         }
-        
-        let spinner = CustomLoadingSpinner(frame: CGRectMake(activityCard.loadingContainer.frame.size.width / 2 - 16, activityCard.loadingContainer.frame.size.height / 2 - 16, 32, 32));
+
+        activityCard.spinner = CustomLoadingSpinner(frame: CGRectMake(activityCard.loadingContainer.frame.size.width / 2 - 16, activityCard.loadingContainer.frame.size.height / 2 - 16, 32, 32));
+        activityCard.loadingContainer.addSubview(activityCard.spinner);
         
         if (todaysPoints > 0) {
-//            pointsMeter.hidden = false;
-//            activityCard.blankStateImage.hidden = true;
-//            pointsMeter.activities = todaysActivity;
-//            pointsMeter.points.text = "\(todaysPoints)";
-//            spinner.stopAnimation();
+            pointsMeter.hidden = false;
+            activityCard.blankStateImage.hidden = true;
+            pointsMeter.activities = todaysActivity;
+            pointsMeter.points.text = "\(todaysPoints)";
         } else {
             pointsMeter.hidden = true;
             activityCard.blankStateImage.hidden = false;
-//            spinner.stopAnimation();
         }
 
         if (todaysPoints > 0 || !SessionController.Instance.earnditError) {
@@ -161,13 +160,10 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                 activityCard.frame.origin.y = currentOrigin;
                 currentOrigin += activityCard.frame.size.height + gap;
                 mainScrollView.addSubview(activityCard);
-                
-                activityCard.loadingContainer.addSubview(spinner);
-                
-                spinner.startAnimating();
+                activityCard.spinner.startAnimating();
             } else {
-//                spinner.stopAnimation();
-//                activityCard.loadingContainer.hidden = true;
+                activityCard.spinner.stopAnimating();
+                activityCard.loadingContainer.hidden = true;
             }
         } else {
             if (errorCard.superview == nil) {
@@ -175,6 +171,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                 currentOrigin += errorCard.frame.size.height + gap;
                 mainScrollView.addSubview(errorCard);
                 activityCard.loadingContainer.hidden = true;
+                activityCard.spinner.stopAnimating();
             }
         }
     }
@@ -202,11 +199,12 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         }
         
         challengesCard.challengeBox.layer.borderColor = Utility.colorFromHexString("#CCCCCC").CGColor;
-        let spinner = CustomLoadingSpinner(frame: CGRectMake(activityCard.loadingContainer.frame.size.width / 2 - 16, activityCard.loadingContainer.frame.size.height / 2 - 16, 32, 32));
+        challengesCard.spinner = CustomLoadingSpinner(frame: CGRectMake(activityCard.loadingContainer.frame.size.width / 2 - 16, activityCard.loadingContainer.frame.size.height / 2 - 16, 32, 32));
+        challengesCard.loadingContainer.addSubview(challengesCard.spinner);
         
         if (displayedChallenge != nil) {
             challengesCard.loadingContainer.hidden = true;
-            spinner.stopAnimating();
+            challengesCard.spinner.stopAnimating();
             challengesCard.challengeBox.hidden = false;
             challengesCard.blankStateImage.hidden = true;
             challengesCard.challengeAvatar.setImageWithURL(NSURL(string: displayedChallenge.imageUrl));
@@ -227,8 +225,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             challengesCard.frame.origin.y = currentOrigin;
             currentOrigin += challengesCard.frame.size.height + gap;
             mainScrollView.addSubview(challengesCard);
-            challengesCard.loadingContainer.addSubview(spinner);
-            spinner.startAnimating();
+            challengesCard.spinner.startAnimating();
         }
     }
     
