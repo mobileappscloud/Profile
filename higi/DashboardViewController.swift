@@ -228,7 +228,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             currentOrigin += challengesCard.frame.size.height + gap;
             mainScrollView.addSubview(challengesCard);
             challengesCard.loadingContainer.addSubview(spinner);
-//            spinner.startAnimating();
+            spinner.startAnimating();
         }
     }
     

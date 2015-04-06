@@ -5,48 +5,29 @@ class CustomLoadingSpinner: UIView {
     
     let duration:CFTimeInterval = 1;
     
-    let lineWidth:CGFloat = 0;
-    
-    let maxLineWidth:CGFloat = 10;
-    
-    let easingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut);
-    
-    let linearFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear);
+    var lineWidth:CGFloat = 0, maxLineWidth:CGFloat = 0, startingStrokeStart:CGFloat = 0, outerRadius: CGFloat = 0, strokeStart:CGFloat = 0, lastRotation: CGFloat = 0, minSweep: CGFloat = 0.2, radius:CGFloat = 0, rotation: CGFloat = 0;
     
     var progressLayer: CAShapeLayer!;
     
     var shouldAnimate = true;
-    
-    var radius:CGFloat!;
-    
-    var outerRadius: CGFloat = 0;
-    
+
     var centerPoint:CGPoint!;
-    
-    var strokeStart:CGFloat = 0;
-    
-    var spinVal: CGFloat = 0;
-    
-    var lastSpinVal: CGFloat = 0;
-    
-    var linearEasing:CGFloat = 0;
     
     override init(frame: CGRect) {
         super.init(frame: frame);
         
-        var centerCoord:CGFloat = min(frame.size.width, frame.size.height) / 2;
-        centerPoint = CGPoint(x: centerCoord, y: centerCoord)
-        
-        radius = centerCoord * 0.9 - lineWidth;
+        centerPoint = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2)
+
+        radius = (min(frame.size.width, frame.size.height) / 2) - maxLineWidth;
+        maxLineWidth = min(frame.size.width, frame.size.height) * 0.1;
         
         progressLayer = CAShapeLayer();
-        progressLayer.path = UIBezierPath(arcCenter: centerPoint, radius: radius, startAngle: 0, endAngle: CGFloat(CGFloat(M_PI * 2)), clockwise: true).CGPath;
-
+        progressLayer.path = UIBezierPath(arcCenter: centerPoint, radius: 0, startAngle: 0, endAngle: CGFloat(CGFloat(M_PI * 2)), clockwise: true).CGPath;
         progressLayer.strokeColor = Utility.colorFromHexString("#76C043").CGColor;
         progressLayer.anchorPoint = centerPoint;
+        progressLayer.fillColor = UIColor.clearColor().CGColor;
         
         layer.anchorPoint = CGPoint(x: 0.5, y: 0.5);
-        
         layer.addSublayer(progressLayer);
     }
 
@@ -60,9 +41,7 @@ class CustomLoadingSpinner: UIView {
     
     func startAnimating() {
         var phase = 0;
-        var angle:CGFloat = CGFloat(M_PI);
-        var startingAngle:CGFloat = 0;
-        let durations = [duration, duration / 2 , duration * 2, duration];
+        let durations = [duration, duration / 2 , duration, duration * 2];
 
         let startTime = NSDate();
         var phaseStartTime = startTime;
@@ -72,7 +51,7 @@ class CustomLoadingSpinner: UIView {
                 if (currentTime.timeIntervalSinceDate(phaseStartTime) > durations[phase]) {
                     phaseStartTime = currentTime;
                     phase++;
-                    startingAngle = angle;
+                    self.startingStrokeStart = self.strokeStart;
                     if (phase > 3) {
                         phase = 2;
                     }
@@ -89,8 +68,8 @@ class CustomLoadingSpinner: UIView {
                     easing -= 2;
                     drawPercent = 0.5 * CGFloat(pow(easing, 3) + 2);
                 }
-                self.lastSpinVal = self.spinVal;
-                self.spinVal = ((CGFloat(currentTime.timeIntervalSinceDate(startTime)) % 2) / CGFloat(2)) * CGFloat(M_PI * 2);
+                self.lastRotation = self.rotation;
+                self.rotation = ((CGFloat(currentTime.timeIntervalSinceDate(startTime)) % 2) / CGFloat(2)) * CGFloat(M_PI * 2);
                 switch phase {
                 case 0:
                     self.growOutsideAnimation(drawPercent);
@@ -100,12 +79,13 @@ class CustomLoadingSpinner: UIView {
                     self.shrinkArcAnimation(drawPercent);
                 case 3:
                     self.growArcAnimation(drawPercent);
-                    self.spinVal += CGFloat(drawPercent * CGFloat(M_PI * 2));
+                    self.rotation += CGFloat(drawPercent * CGFloat(M_PI * 2));
                 default:
                     let i = 0;
                 }
                 self.rotateAnimation();
-                let path = UIBezierPath(arcCenter: self.centerPoint, radius: self.radius, startAngle: 0, endAngle: CGFloat(CGFloat(M_PI * 2)), clockwise: true).CGPath;
+                let path = UIBezierPath(arcCenter: self.centerPoint, radius: self.outerRadius - self.lineWidth / 2, startAngle: 0, endAngle: CGFloat(CGFloat(M_PI * 2)), clockwise: true).CGPath;
+                
                 dispatch_async(dispatch_get_main_queue(), {
                     CATransaction.begin();
                     CATransaction.setDisableActions(true);
@@ -128,11 +108,11 @@ class CustomLoadingSpinner: UIView {
 
     func rotateAnimation() {
         //exclude big negative vals
-        if (self.spinVal - self.lastSpinVal > 0) {
+        if (self.rotation - self.lastRotation > 0) {
             dispatch_async(dispatch_get_main_queue(), {
                 CATransaction.begin();
                 CATransaction.setDisableActions(true);
-                self.layer.transform = CATransform3DRotate(self.layer.transform, self.spinVal - self.lastSpinVal, 0, 0, 1);
+                self.layer.transform = CATransform3DRotate(self.layer.transform, self.rotation - self.lastRotation, 0, 0, 1);
                 CATransaction.setDisableActions(false);
                 CATransaction.commit();
             });
@@ -140,41 +120,20 @@ class CustomLoadingSpinner: UIView {
     }
     
     func growArcAnimation(drawPercent: CGFloat) {
-        self.strokeStart = 1 - max(0.2, min(drawPercent, 0.8));
+        strokeStart = startingStrokeStart - (startingStrokeStart - minSweep) * drawPercent;
     }
     
     func shrinkArcAnimation(drawPercent: CGFloat) {
-        self.strokeStart = max(0.2, min(drawPercent, 0.8));
+        strokeStart = startingStrokeStart + (1 - minSweep - startingStrokeStart) * drawPercent;
     }
 
     func growOutsideAnimation(drawPercent: CGFloat) {
+        self.lineWidth = radius * drawPercent;
         self.outerRadius = radius * drawPercent;
-        let path = UIBezierPath(arcCenter: centerPoint, radius: growRadius, startAngle: 0, endAngle: CGFloat(CGFloat(M_PI * 2)), clockwise: true).CGPath;
-        dispatch_async(dispatch_get_main_queue(), {
-            CATransaction.begin();
-            CATransaction.setDisableActions(true);
-            self.progressLayer.path = path;
-            self.progressLayer.lineWidth = growRadius;
-            CATransaction.setDisableActions(false);
-            CATransaction.commit();
-        });
     }
-    
+
     func growInsideAnimation(drawPercent: CGFloat) {
-        let innerWidth = lineWidth + ((startValue * 2) - ((startValue * 2) * max(0, min(drawPercent, 1))));
-        let growRadius = radius - (startValue - (startValue  * max(0, min(drawPercent, 1))));
-        let path = UIBezierPath(arcCenter: centerPoint, radius: growRadius, startAngle: 0, endAngle: CGFloat(CGFloat(M_PI * 2)), clockwise: true).CGPath;
-        
-        NSLog("value: %f", Float(growRadius));
-        
-        dispatch_async(dispatch_get_main_queue(), {
-            CATransaction.begin();
-            CATransaction.setDisableActions(true);
-            self.progressLayer.lineWidth = innerWidth;
-            self.progressLayer.path = path;
-            CATransaction.setDisableActions(false);
-            CATransaction.commit();
-        });
+        self.lineWidth = (radius - (radius * 0.8) * drawPercent);
     }
 
     func stopAnimating() {
