@@ -5,7 +5,7 @@ class CustomLoadingSpinner: UIView {
     
     let duration:CFTimeInterval = 1;
     
-    let lineWidth:CGFloat = 3;
+    let lineWidth:CGFloat = 0;
     
     let maxLineWidth:CGFloat = 10;
     
@@ -19,27 +19,30 @@ class CustomLoadingSpinner: UIView {
     
     var radius:CGFloat!;
     
+    var outerRadius: CGFloat = 0;
+    
     var centerPoint:CGPoint!;
     
-    var strokeVal:CGFloat = 0.9;
+    var strokeStart:CGFloat = 0;
     
     var spinVal: CGFloat = 0;
     
     var lastSpinVal: CGFloat = 0;
+    
+    var linearEasing:CGFloat = 0;
     
     override init(frame: CGRect) {
         super.init(frame: frame);
         
         var centerCoord:CGFloat = min(frame.size.width, frame.size.height) / 2;
         centerPoint = CGPoint(x: centerCoord, y: centerCoord)
+        
         radius = centerCoord * 0.9 - lineWidth;
         
         progressLayer = CAShapeLayer();
         progressLayer.path = UIBezierPath(arcCenter: centerPoint, radius: radius, startAngle: 0, endAngle: CGFloat(CGFloat(M_PI * 2)), clockwise: true).CGPath;
-//        progressLayer.fillColor = UIColor.clearColor().CGColor;
-        progressLayer.fillColor = Utility.colorFromHexString("#76C043").CGColor;
+
         progressLayer.strokeColor = Utility.colorFromHexString("#76C043").CGColor;
-        progressLayer.lineWidth = lineWidth;
         progressLayer.anchorPoint = centerPoint;
         
         layer.anchorPoint = CGPoint(x: 0.5, y: 0.5);
@@ -59,7 +62,7 @@ class CustomLoadingSpinner: UIView {
         var phase = 0;
         var angle:CGFloat = CGFloat(M_PI);
         var startingAngle:CGFloat = 0;
-        let durations = [duration, duration, duration * 2, duration];
+        let durations = [duration, duration / 2 , duration * 2, duration];
 
         let startTime = NSDate();
         var phaseStartTime = startTime;
@@ -75,10 +78,10 @@ class CustomLoadingSpinner: UIView {
                     }
                     if (phase == 1) {
                         self.progressLayer.fillColor = UIColor.clearColor().CGColor;
-//                        self.progressLayer.lineWidth = self.maxLineWidth;
                     }
                 }
                 var easing:CGFloat = (CGFloat(currentTime.timeIntervalSinceDate(phaseStartTime))) / CGFloat(durations[phase] / 2);
+
                 var drawPercent:CGFloat = 0;
                 if (easing < 1) {
                     drawPercent = 0.5 * CGFloat(pow(easing, 3));
@@ -102,10 +105,20 @@ class CustomLoadingSpinner: UIView {
                     let i = 0;
                 }
                 self.rotateAnimation();
+                let path = UIBezierPath(arcCenter: self.centerPoint, radius: self.radius, startAngle: 0, endAngle: CGFloat(CGFloat(M_PI * 2)), clockwise: true).CGPath;
+                dispatch_async(dispatch_get_main_queue(), {
+                    CATransaction.begin();
+                    CATransaction.setDisableActions(true);
+                    self.progressLayer.lineWidth = self.lineWidth;
+                    self.progressLayer.path = path;
+                    self.progressLayer.strokeStart = self.strokeStart;
+                    CATransaction.setDisableActions(false);
+                    CATransaction.commit();
+                });
                 if (!self.shouldAnimate) {
                     break;
                 }
-                NSThread.sleepForTimeInterval(0.015);
+                NSThread.sleepForTimeInterval(0.01);
                 if (!self.shouldAnimate) {
                     break;
                 }
@@ -127,43 +140,33 @@ class CustomLoadingSpinner: UIView {
     }
     
     func growArcAnimation(drawPercent: CGFloat) {
-        dispatch_async(dispatch_get_main_queue(), {
-            CATransaction.begin();
-            CATransaction.setDisableActions(true);
-            self.progressLayer.strokeStart = 1 - max(0.2, min(drawPercent, 0.8));
-            CATransaction.setDisableActions(false);
-            CATransaction.commit();
-        });
+        self.strokeStart = 1 - max(0.2, min(drawPercent, 0.8));
     }
     
     func shrinkArcAnimation(drawPercent: CGFloat) {
-        dispatch_async(dispatch_get_main_queue(), {
-            CATransaction.begin();
-            CATransaction.setDisableActions(true);
-            self.progressLayer.strokeStart = max(0.2, min(drawPercent, 0.8));
-            CATransaction.setDisableActions(false);
-            CATransaction.commit();
-        });
+        self.strokeStart = max(0.2, min(drawPercent, 0.8));
     }
-    
+
     func growOutsideAnimation(drawPercent: CGFloat) {
-        let growRadius = radius * max(0, min(drawPercent, 1));
+        self.outerRadius = radius * drawPercent;
         let path = UIBezierPath(arcCenter: centerPoint, radius: growRadius, startAngle: 0, endAngle: CGFloat(CGFloat(M_PI * 2)), clockwise: true).CGPath;
         dispatch_async(dispatch_get_main_queue(), {
             CATransaction.begin();
             CATransaction.setDisableActions(true);
             self.progressLayer.path = path;
+            self.progressLayer.lineWidth = growRadius;
             CATransaction.setDisableActions(false);
             CATransaction.commit();
         });
     }
     
     func growInsideAnimation(drawPercent: CGFloat) {
-
-        let startValue:CGFloat = 15;
-        let innerWidth = lineWidth + (startValue - (startValue * max(0, min(drawPercent, 1))));
+        let innerWidth = lineWidth + ((startValue * 2) - ((startValue * 2) * max(0, min(drawPercent, 1))));
         let growRadius = radius - (startValue - (startValue  * max(0, min(drawPercent, 1))));
         let path = UIBezierPath(arcCenter: centerPoint, radius: growRadius, startAngle: 0, endAngle: CGFloat(CGFloat(M_PI * 2)), clockwise: true).CGPath;
+        
+        NSLog("value: %f", Float(growRadius));
+        
         dispatch_async(dispatch_get_main_queue(), {
             CATransaction.begin();
             CATransaction.setDisableActions(true);
@@ -173,7 +176,7 @@ class CustomLoadingSpinner: UIView {
             CATransaction.commit();
         });
     }
-    
+
     func stopAnimating() {
         shouldAnimate = false;
     }
