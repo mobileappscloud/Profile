@@ -16,12 +16,18 @@ class SplashViewController: UIViewController, UIAlertViewDelegate {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated);
-        let spinner = CustomLoadingSpinner(frame: CGRectMake(self.view.frame.size.width / 2 - 16, self.view.frame.size.height / 2 - 16, 32, 32));
+        let a = view.frame;
+
+        var height = self.view.frame.size.height / 2 - 16
+        if (view.frame.size.height < 568) {
+            height += 50;
+        }
+        let spinner = CustomLoadingSpinner(frame: CGRectMake(self.view.frame.size.width / 2 - 16, height, 32, 32));
             self.view.addSubview(spinner);
         spinner.startAnimating();
         checkVersion();
     }
-    
+
     func moveToNextScreen() {
         if (SessionData.Instance.token == "") {
             var navigationController = MainNavigationController(rootViewController: WelcomeViewController(nibName: "Welcome", bundle: nil));
