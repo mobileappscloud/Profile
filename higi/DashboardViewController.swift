@@ -205,6 +205,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         if (displayedChallenge != nil) {
             challengesCard.loadingContainer.hidden = true;
             challengesCard.spinner.stopAnimating();
+            
             challengesCard.challengeBox.hidden = false;
             challengesCard.blankStateImage.hidden = true;
             challengesCard.challengeAvatar.setImageWithURL(NSURL(string: displayedChallenge.imageUrl));
@@ -219,6 +220,8 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         } else {
             challengesCard.challengeBox.hidden = true;
             challengesCard.blankStateImage.hidden = false;
+            challengesCard.loadingContainer.hidden = false;
+            challengesCard.spinner.stopAnimating();
         }
         
         if ((displayedChallenge != nil || !SessionController.Instance.earnditError) && challengesCard.superview == nil) {
