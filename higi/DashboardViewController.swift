@@ -220,15 +220,18 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         } else {
             challengesCard.challengeBox.hidden = true;
             challengesCard.blankStateImage.hidden = false;
-            challengesCard.loadingContainer.hidden = false;
-            challengesCard.spinner.stopAnimating();
         }
         
-        if ((displayedChallenge != nil || !SessionController.Instance.earnditError) && challengesCard.superview == nil) {
-            challengesCard.frame.origin.y = currentOrigin;
-            currentOrigin += challengesCard.frame.size.height + gap;
-            mainScrollView.addSubview(challengesCard);
-            challengesCard.spinner.startAnimating();
+        if ((displayedChallenge != nil || !SessionController.Instance.earnditError)) {
+            if (challengesCard.superview == nil) {
+                challengesCard.frame.origin.y = currentOrigin;
+                currentOrigin += challengesCard.frame.size.height + gap;
+                mainScrollView.addSubview(challengesCard);
+                challengesCard.spinner.startAnimating();
+            } else {
+                challengesCard.loadingContainer.hidden = true;
+                challengesCard.spinner.stopAnimating();
+            }
         }
     }
     
