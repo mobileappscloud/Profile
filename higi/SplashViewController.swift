@@ -16,8 +16,7 @@ class SplashViewController: UIViewController, UIAlertViewDelegate {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated);
-        let a = view.frame;
-
+        
         var height = self.view.frame.size.height / 2 - 16
         if (view.frame.size.height < 568) {
             height += 50;
