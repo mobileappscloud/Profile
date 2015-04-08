@@ -13,11 +13,10 @@ class SignupEmailViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var signupButton: UIButton!
-    @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var termsView: UIView!
     @IBOutlet weak var termsWebView: UIWebView!
     @IBOutlet weak var declineButton: UIButton!
-    
+    var spinner: CustomLoadingSpinner!
     var setup = false;
     
     override func viewDidLoad() {
@@ -28,6 +27,11 @@ class SignupEmailViewController: UIViewController, UITextFieldDelegate {
         urlRequest.addValue("mobile-ios", forHTTPHeaderField: "Higi-Source");
         termsWebView.loadRequest(urlRequest);
 
+        spinner = CustomLoadingSpinner(frame: CGRectMake(self.view.frame.size.width / 2 - 16, self.view.frame.size.height - 66, 32, 32));
+        spinner.shouldAnimateFull = false;
+        spinner.hidden = true;
+        self.view.addSubview(spinner);
+        self.view.sendSubviewToBack(spinner);
     }
     
     override func viewDidLayoutSubviews() {
@@ -55,6 +59,7 @@ class SignupEmailViewController: UIViewController, UITextFieldDelegate {
         self.navigationItem.hidesBackButton = true;
         email.enabled = false;
         password.enabled = false;
+        spinner.startAnimating();
         spinner.hidden = false;
         signupButton.enabled = false;
         self.navigationItem.leftBarButtonItem!.customView!.hidden = true;
@@ -160,6 +165,7 @@ class SignupEmailViewController: UIViewController, UITextFieldDelegate {
         password.enabled = true;
         signupButton.enabled = true;
         spinner.hidden = true;
+        spinner.stopAnimating();
         self.title = "Sign Up";
         self.navigationItem.leftBarButtonItem!.customView!.hidden = false;
     }

@@ -12,8 +12,7 @@ class BirthdateViewController: UIViewController {
  
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var nextButton: UIButton!
-    @IBOutlet weak var spinner: UIActivityIndicatorView!
-    
+    var spinner: CustomLoadingSpinner!
     var secondTry = false;
     
     override func viewDidLoad() {
@@ -22,11 +21,17 @@ class BirthdateViewController: UIViewController {
         self.navigationItem.hidesBackButton = true;
         
         datePicker.maximumDate = NSDate();
+        
+        spinner = CustomLoadingSpinner(frame: CGRectMake(self.view.frame.size.width / 2 - 16, self.view.frame.size.height - 66, 32, 32));
+        spinner.shouldAnimateFull = false;
+        spinner.hidden = true;
+        self.view.addSubview(spinner);
     }
     
     @IBAction func gotoNext(sender: AnyObject) {
         nextButton.enabled = false;
         datePicker.enabled = false;
+        spinner.startAnimating();
         spinner.hidden = false;
         
         var birthday = datePicker.date;
@@ -66,6 +71,7 @@ class BirthdateViewController: UIViewController {
         nextButton.enabled = true;
         datePicker.enabled = true;
         spinner.hidden = true;
+        spinner.stopAnimating();
         datePicker.setDate(NSDate(), animated: true);
     }
     

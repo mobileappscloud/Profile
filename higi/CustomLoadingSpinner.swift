@@ -3,15 +3,15 @@ import QuartzCore
 
 class CustomLoadingSpinner: UIView {
     
-    let duration:CFTimeInterval = 1;
+    private let duration:CFTimeInterval = 1;
     
-    var lineWidth:CGFloat = 0, maxLineWidth:CGFloat = 0, startingStrokeStart:CGFloat = 0, outerRadius: CGFloat = 0, strokeStart:CGFloat = 0, lastRotation: CGFloat = 0, minSweep: CGFloat = 0.2, radius:CGFloat = 0, rotation: CGFloat = 0;
+    private var lineWidth:CGFloat = 0, maxLineWidth:CGFloat = 0, startingStrokeStart:CGFloat = 0, outerRadius: CGFloat = 0, strokeStart:CGFloat = 0, lastRotation: CGFloat = 0, minSweep: CGFloat = 0.2, radius:CGFloat = 0, rotation: CGFloat = 0;
     
-    var progressLayer: CAShapeLayer!;
+    private var progressLayer: CAShapeLayer!;
     
-    var shouldAnimate = true;
+    internal var shouldAnimate = true, shouldAnimateFull = true;
 
-    var centerPoint:CGPoint!;
+    private var centerPoint:CGPoint!;
     
     override init(frame: CGRect) {
         super.init(frame: frame);
@@ -41,6 +41,12 @@ class CustomLoadingSpinner: UIView {
     
     func startAnimating() {
         var phase = 0;
+        if (!shouldAnimateFull) {
+            phase = 2;
+            progressLayer.path = UIBezierPath(arcCenter: self.centerPoint, radius: radius, startAngle: 0, endAngle: CGFloat(CGFloat(M_PI * 2)), clockwise: true).CGPath;
+            lineWidth = radius * 0.2;
+            outerRadius = radius + self.lineWidth / 2
+        }
         let durations = [duration, duration / 2 , duration, duration * 2];
 
         let startTime = NSDate();

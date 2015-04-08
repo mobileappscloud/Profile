@@ -14,7 +14,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var password : UITextField!
     @IBOutlet var loginButton : UIButton!
     @IBOutlet var forgotPassword: UIButton!
-    @IBOutlet var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet var spinner: CustomLoadingSpinner!
     
     var setup = false;
     
@@ -22,6 +22,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad();
         self.title = "Log In";
         self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
+        
+        spinner = CustomLoadingSpinner(frame: CGRectMake(self.view.frame.size.width / 2 - 16, self.view.frame.size.height - 100, 32, 32));
+        spinner.shouldAnimateFull = false;
+        spinner.hidden = true;
+        self.view.addSubview(spinner);
     }
     
     override func viewDidLayoutSubviews() {
@@ -49,7 +54,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func loginClicked(sender: AnyObject) {
-        activityIndicator.hidden = false;
+        spinner.startAnimating();
+        spinner.hidden = false;
         loginButton.enabled = false;
         email.enabled = false;
         password.enabled = false;
@@ -75,6 +81,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     func signInSuccess(operation: AFHTTPRequestOperation!, responseObject: AnyObject?) {
+        spinner.stopAnimating();
         let responseLogin = responseObject as? NSDictionary;
         if (responseLogin != nil) {
             var login = HigiLogin(dictionary: responseObject as NSDictionary);
@@ -108,7 +115,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     func reset() {
         self.navigationItem.hidesBackButton = true;
-        activityIndicator.hidden = true;
+        spinner.hidden = true;
         loginButton.enabled = true;
         email.enabled = true;
         password.enabled = true;
