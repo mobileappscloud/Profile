@@ -13,7 +13,7 @@ class SignupNameViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var firstName: UITextField!
     @IBOutlet weak var lastName: UITextField!
     @IBOutlet weak var nextButton: UIButton!
-    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    var spinner: CustomLoadingSpinner!
     
     var dashboardNext = false;
     
@@ -29,14 +29,18 @@ class SignupNameViewController: UIViewController, UITextFieldDelegate {
         if (user.lastName != nil) {
             lastName.text = user.lastName;
         }
+        spinner = CustomLoadingSpinner(frame: CGRectMake(self.view.frame.size.width / 2 - 16, self.view.frame.size.height - 66, 32, 32));
+        spinner.shouldAnimateFull = false;
+        spinner.hidden = true;
+        self.view.addSubview(spinner);
     }
     
     @IBAction func gotoNext(sender: AnyObject) {
         nextButton.enabled = false;
         firstName.enabled = false;
         lastName.enabled = false;
+        spinner.startAnimating();
         spinner.hidden = false;
-        
         var problemFound = false;
         
         if (firstName.text.utf16Count == 0) {
@@ -86,6 +90,7 @@ class SignupNameViewController: UIViewController, UITextFieldDelegate {
         lastName.enabled = true;
         nextButton.enabled = true;
         spinner.hidden = true;
+        spinner.stopAnimating();
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {

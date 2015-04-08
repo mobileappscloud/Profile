@@ -121,8 +121,8 @@ class ApiUtility {
     
     class func retrieveActivities(success: (() -> Void)?) {
         SessionData.Instance.lastUpdate = NSDate();
+        let userId = !HigiApi.EARNDIT_DEV ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
         ApiUtility.checkForNewActivities({
-            let userId = !HigiApi.EARNDIT_DEV ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
             var startDateFormatter = NSDateFormatter();
             startDateFormatter.dateFormat = "yyyy-MM-01";
             var endDateFormatter = NSDateFormatter();
@@ -326,10 +326,12 @@ class ApiUtility {
                     if (newKiosk.isMapVisible) {
                         kiosks.append(newKiosk);
                     } else {
-                        for checkin in SessionController.Instance.checkins {
-                            if (checkin.kioskInfo != nil && newKiosk.kioskId == checkin.kioskInfo!.kioskId) {
-                                kiosks.append(newKiosk);
-                                break;
+                        if let checkins = SessionController.Instance.checkins {
+                            for checkin in checkins {
+                                if (checkin.kioskInfo != nil && newKiosk.kioskId == checkin.kioskInfo!.kioskId) {
+                                    kiosks.append(newKiosk);
+                                    break;
+                                }
                             }
                         }
                     }
@@ -338,7 +340,7 @@ class ApiUtility {
         }
         return kiosks;
     }
-    
+
     class func updateHealthKit() {
         if (UIDevice.currentDevice().systemVersion >= "8.0" && HKHealthStore.isHealthDataAvailable()) {
             if (SessionController.Instance.healthStore == nil) {

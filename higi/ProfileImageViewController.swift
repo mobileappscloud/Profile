@@ -13,7 +13,7 @@ class ProfileImageViewController: UIViewController, UIImagePickerControllerDeleg
     @IBOutlet weak var chooseLibraryButton: UIButton!
     @IBOutlet weak var takePhotoButton: UIButton!
     @IBOutlet weak var skipButton: UIButton!
-    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    var spinner: CustomLoadingSpinner!
     
     var fromSettings = false;
     var dashboardSent = false;
@@ -40,6 +40,11 @@ class ProfileImageViewController: UIViewController, UIImagePickerControllerDeleg
         chooseLibraryButton.layer.borderColor = Utility.colorFromHexString("#76C044").CGColor;
         takePhotoButton.layer.borderWidth = 1.0;
         takePhotoButton.layer.borderColor = Utility.colorFromHexString("#76C044").CGColor;
+        
+        spinner = CustomLoadingSpinner(frame: CGRectMake(self.view.frame.size.width / 2 - 16, self.view.frame.size.height - 66, 32, 32));
+        spinner.shouldAnimateFull = false;
+        spinner.hidden = true;
+        self.view.addSubview(spinner);
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -63,6 +68,7 @@ class ProfileImageViewController: UIViewController, UIImagePickerControllerDeleg
     }
     
     @IBAction func skip(sender: AnyObject) {
+        spinner.startAnimating();
         spinner.hidden = false;
         skipButton.hidden = true;
         var user = SessionData.Instance.user;
