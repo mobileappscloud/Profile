@@ -318,7 +318,7 @@ class ApiUtility {
                     if (newKiosk.isMapVisible) {
                         kiosks.append(newKiosk);
                     } else {
-                        if (let checkins = SessionController.Instance.checkins) {
+                        if let checkins = SessionController.Instance.checkins {
                             for checkin in checkins {
                                 if (checkin.kioskInfo != nil && newKiosk.kioskId == checkin.kioskInfo!.kioskId) {
                                     kiosks.append(newKiosk);
