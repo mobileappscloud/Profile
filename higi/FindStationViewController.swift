@@ -494,10 +494,6 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     func setSelectedKiosk(kiosk: KioskInfo) {
         clusterManager.setSelectedMarker(kiosk.position!);
         
-        // this seemed to do the smoothest animation but it was hard to tell
-//        mapView.animateToLocation(kiosk.position!);
-//        mapView.animateToZoom(max(mapView.camera.zoom, 14));
-        
         mapView.animateToCameraPosition(GMSCameraPosition(target: kiosk.position!, zoom: max(mapView.camera.zoom, 14), bearing: mapView.camera.bearing, viewingAngle: mapView.camera.viewingAngle));
         
         searchField.resignFirstResponder();
@@ -553,6 +549,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         if (!firstLocation && keyPath == "myLocation") {
             firstLocation = true;
             mapView.camera = GMSCameraPosition.cameraWithTarget(mapView.myLocation.coordinate, zoom: 11);
+            updateKioskPositions();
         }
     }
     
@@ -565,6 +562,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         super.viewWillDisappear(animated);
         mapView.removeObserver(self, forKeyPath: "myLocation");
     }
+    
     @IBAction func startReminder(sender: AnyObject) {
         reminderOverlay.hidden = true;
         self.fakeNavBar.alpha = 1;
