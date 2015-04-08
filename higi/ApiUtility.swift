@@ -97,7 +97,9 @@ class ApiUtility {
                         }
                     }
                     SessionController.Instance.checkins = checkins;
-                    NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.CHECKINS, object: nil, userInfo: ["success": true]);
+                    dispatch_async(dispatch_get_main_queue(), {
+                        NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.CHECKINS, object: nil, userInfo: ["success": true]);
+                    });
                     ApiUtility.retrieveKioskList(success);
                     
                 });
@@ -139,10 +141,10 @@ class ApiUtility {
                     }
                     
                     SessionController.Instance.activities = activities;
-                        dispatch_async(dispatch_get_main_queue(), {
-                            NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.ACTIVITIES, object: nil, userInfo: ["success": true]);
-                            success?();
-                        });
+                    dispatch_async(dispatch_get_main_queue(), {
+                        NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.ACTIVITIES, object: nil, userInfo: ["success": true]);
+                        success?();
+                    });
                 
                 });
                 }, failure: { operation, error in
@@ -233,16 +235,20 @@ class ApiUtility {
     class func retrieveDevices(success: (() -> Void)?) {
         let userId = !HigiApi.EARNDIT_DEV ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
         HigiApi().sendGet("\(HigiApi.earnditApiUrl)/user/\(userId)/devices", success: {operation, responseObject in
-            var devices: [String:ActivityDevice] = [:];
-            var serverDevices = (responseObject as NSDictionary)["response"] as NSArray;
-            for device: AnyObject in serverDevices {
-                var thisDevice = ActivityDevice(dictionary: device as NSDictionary);
-                devices[thisDevice.name] = thisDevice;
-            }
-            
-            SessionController.Instance.devices = devices;
-            NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.DEVICES, object: nil, userInfo: ["success": true]);
-            success?();
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                var devices: [String:ActivityDevice] = [:];
+                var serverDevices = (responseObject as NSDictionary)["response"] as NSArray;
+                for device: AnyObject in serverDevices {
+                    var thisDevice = ActivityDevice(dictionary: device as NSDictionary);
+                    devices[thisDevice.name] = thisDevice;
+                }
+                
+                SessionController.Instance.devices = devices;
+                dispatch_async(dispatch_get_main_queue(), {
+                    NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.DEVICES, object: nil, userInfo: ["success": true]);
+                    success?();
+                });
+            });
             }, failure: { operation, error in
                 SessionController.Instance.earnditError = true;
                 NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.DEVICES, object: nil, userInfo: ["success": false]);
@@ -254,30 +260,32 @@ class ApiUtility {
     class func retrieveKioskList(success: (() -> Void)?) {
         if (SessionData.Instance.kioskListString != "") {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                SessionController.Instance.kioskList = self.deserializeKiosks(SessionData.Instance.kioskListString);
+                SessionController.Instance.kioskList = ApiUtility.deserializeKiosks(SessionData.Instance.kioskListString);
                 
                 HigiApi().sendGet("\(HigiApi.higiApiUrl)/data/KioskList", success:
                     { operation, responseObject in
                         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                             
-                            let responseString = self.JsonStringify(responseObject);
+                            let responseString = ApiUtility.jsonStringify(responseObject);
                             SessionData.Instance.kioskListString = responseString;
                             SessionData.Instance.save();
-                            SessionController.Instance.kioskList = self.deserializeKiosks(responseString);
+                            SessionController.Instance.kioskList = ApiUtility.deserializeKiosks(responseString);
                         });
                         
                     }, failure: nil);
-                NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.KIOSKS, object: nil, userInfo: ["success": true]);
-                success?();
+                dispatch_async(dispatch_get_main_queue(), {
+                    NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.KIOSKS, object: nil, userInfo: ["success": true]);
+                    success?();
+                });
             });
         } else {
             HigiApi().sendGet("\(HigiApi.higiApiUrl)/data/KioskList", success:
                 { operation, responseObject in
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                         
-                        SessionData.Instance.kioskListString = self.JsonStringify(responseObject);
+                        SessionData.Instance.kioskListString = ApiUtility.jsonStringify(responseObject);
                         SessionData.Instance.save();
-                        SessionController.Instance.kioskList = self.deserializeKiosks(SessionData.Instance.kioskListString);
+                        SessionController.Instance.kioskList = ApiUtility.deserializeKiosks(SessionData.Instance.kioskListString);
                         dispatch_async(dispatch_get_main_queue(), {
                             NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.KIOSKS, object: nil, userInfo: ["success": true]);
                             success?();
@@ -296,7 +304,7 @@ class ApiUtility {
         }
     }
     
-    class func JsonStringify(value: AnyObject) -> String {
+    class func jsonStringify(value: AnyObject) -> String {
         if NSJSONSerialization.isValidJSONObject(value) {
             if let data = NSJSONSerialization.dataWithJSONObject(value, options: nil, error: nil) {
                 if let string = NSString(data: data, encoding: NSUTF8StringEncoding) {
@@ -446,15 +454,19 @@ class ApiUtility {
         var url = "\(HigiApi.webUrl)/pulse/?feed=json&posts_per_rss=15&paged=\(paged)";
         HigiApi().sendGet(url, success: { operation, responseObject in
             
-            var serverArticles = (responseObject as NSDictionary)["posts"] as NSArray;
-            var articles: [PulseArticle] = [];
-            for articleData: AnyObject in serverArticles {
-                articles.append(PulseArticle(dictionary: articleData as NSDictionary));
-            }
-            
-            SessionController.Instance.pulseArticles += articles;
-            NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.PULSE, object: nil, userInfo: ["success": true]);
-            callback?();
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                var serverArticles = (responseObject as NSDictionary)["posts"] as NSArray;
+                var articles: [PulseArticle] = [];
+                for articleData: AnyObject in serverArticles {
+                    articles.append(PulseArticle(dictionary: articleData as NSDictionary));
+                }
+                
+                SessionController.Instance.pulseArticles += articles;
+                dispatch_async(dispatch_get_main_queue(), {
+                    NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.PULSE, object: nil, userInfo: ["success": true]);
+                    callback?();
+                });
+            });
             
             }, failure: {operation, error in
                 NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.PULSE, object: nil, userInfo: ["success": false]);

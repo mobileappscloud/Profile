@@ -228,9 +228,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         if (checkins != nil && checkins.count > 0) {
             var dateFormatter = NSDateFormatter();
             dateFormatter.dateFormat = "MMM d, yyyy";
-            dispatch_async(dispatch_get_main_queue(), {
-                self.bodyStatsCard.lastCheckin.text = "\(dateFormatter.stringFromDate(checkins[checkins.count - 1].dateTime))";
-            });
+            self.bodyStatsCard.lastCheckin.text = "\(dateFormatter.stringFromDate(checkins[checkins.count - 1].dateTime))";
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                 var lastBpCheckin, lastWeightCheckin: HigiCheckin?;
                 for index in lazy(0...checkins.count - 1).reverse() {
