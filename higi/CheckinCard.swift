@@ -238,7 +238,7 @@ class CheckinCard: UIView, UITableViewDataSource, UITableViewDelegate {
             cell.arrow.image = UIImage(named: "graph_sincelastarrow_nochange_invert.png");
             cell.change.text = "No change";
         }
-        if (checkin.bmiClass! == "Overweight") {
+        if (checkin.bmiClass! == "Underweight") {
             cell.gauge.image = UIImage(named: "gauge3_underweight.png");
         } else if (checkin.bmiClass! == "Overweight") {
             cell.gauge.image = UIImage(named: "gauge3_overweight.png");
