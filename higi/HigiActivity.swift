@@ -12,15 +12,13 @@ class HigiActivity {
     
     var points: Int!;
     
-    var description, errorDescription: NSString!;
+    var description, errorDescription, typeCategory, checkinCategory, typeName: NSString!;
     
     var device: ActivityDevice!;
     
     var startTime: NSDate!;
     
-    var type: ActivityType!;
-    
-    init(dictionary: NSDictionary, type: ActivityType) {
+    init(dictionary: NSDictionary) {
         points = dictionary["points"] as Int;
         description = dictionary["description"] as NSString;
         var serverDevice = dictionary["device"] as NSDictionary?;
@@ -32,17 +30,13 @@ class HigiActivity {
         var dateString = dictionary["startTime"] as NSString;
         var time = formatter.dateFromString(dateString);
         startTime = formatter.dateFromString(dictionary["startTime"] as NSString);
-        self.type = type;
+        let typeObject = dictionary["type"] as NSDictionary;
+        typeCategory = typeObject["category"] as? NSString;
+        checkinCategory = typeObject["checkinCategory"] as? NSString;
+        typeName = typeObject["name"] as? NSString;
         var error = dictionary["error"] as? NSDictionary;
         if (error != nil) {
             errorDescription = error!["description"] as NSString;
         }
     }
-    
-}
-
-struct ActivityType {
-    var category: NSString!;
-    var checkinCategory: NSString?;
-    var name: NSString!;
 }
