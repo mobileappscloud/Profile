@@ -24,6 +24,7 @@ class SettingsViewController: BaseViewController, UIScrollViewDelegate {
     @IBOutlet weak var versionNumber: UILabel!
     
     var user = SessionData.Instance.user;
+    var pictureChanged = false;
     
     override func viewDidLoad()  {
         super.viewDidLoad();
@@ -59,6 +60,12 @@ class SettingsViewController: BaseViewController, UIScrollViewDelegate {
         resizeButton.enabled = SessionData.Instance.user.hasPhoto;
         blurredImage.image = user.blurredImage;
         profileImage.image = user.profileImage;
+        
+        if (pictureChanged) {
+            SessionData.Instance.user.profileImage = user.profileImage;
+            SessionData.Instance.user.blurredImage = user.blurredImage;
+            (self.navigationController as MainNavigationController).drawerController.refreshData();
+        }
     }
     
     override func viewDidLayoutSubviews() {

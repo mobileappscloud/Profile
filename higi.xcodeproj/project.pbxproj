@@ -319,7 +319,6 @@
 		D1BA13451A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1BA13441A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib */; };
 		D1BA13471A8D056900E1AFE9 /* ChatterInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1BA13461A8D056900E1AFE9 /* ChatterInputView.xib */; };
 		D1DC365E1AC9E9F000CB124D /* CustomLoadingSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1DC365D1AC9E9F000CB124D /* CustomLoadingSpinner.swift */; };
-		D1DF09A21A8D079800A9ABE5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1DF09A11A8D079800A9ABE5 /* Constants.swift */; };
 		D1E1FF061A76C28F00C8951C /* ChallengeProgressLegendRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E1FF051A76C28F00C8951C /* ChallengeProgressLegendRow.swift */; };
 		D1E1FF081A76C2DB00C8951C /* ChallengeProgressLegendRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1E1FF071A76C2DB00C8951C /* ChallengeProgressLegendRow.xib */; };
 		D1E1FF0A1A76E0AC00C8951C /* ChallengeDetailsRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1E1FF091A76E0AC00C8951C /* ChallengeDetailsRow.xib */; };
@@ -695,7 +694,6 @@
 		D1BA13441A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailsParticipantIconView.xib; sourceTree = "<group>"; };
 		D1BA13461A8D056900E1AFE9 /* ChatterInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatterInputView.xib; sourceTree = "<group>"; };
 		D1DC365D1AC9E9F000CB124D /* CustomLoadingSpinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLoadingSpinner.swift; sourceTree = "<group>"; };
-		D1DF09A11A8D079800A9ABE5 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D1E1FF051A76C28F00C8951C /* ChallengeProgressLegendRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeProgressLegendRow.swift; sourceTree = "<group>"; };
 		D1E1FF071A76C2DB00C8951C /* ChallengeProgressLegendRow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeProgressLegendRow.xib; sourceTree = "<group>"; };
 		D1E1FF091A76E0AC00C8951C /* ChallengeDetailsRow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailsRow.xib; sourceTree = "<group>"; };
@@ -879,7 +877,6 @@
 		8F296306194B8CB900E787FD /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				D1DF09A11A8D079800A9ABE5 /* Constants.swift */,
 				8F524BF7195B829400BFC49D /* CustomFormatter.swift */,
 				8F6D510D1947B2E700F7C769 /* Utility.swift */,
 			);
@@ -937,6 +934,10 @@
 		8F2B7E33198AD8F0009DE89A /* Miscellaneous */ = {
 			isa = PBXGroup;
 			children = (
+				D1E2236F1A7FFF43006330E7 /* ConnectDeviceRow.swift */,
+				D1E223791A8009E6006330E7 /* ConnectDeviceViewController.swift */,
+				D1E2236D1A7FFE60006330E7 /* ConnectDeviceRow.xib */,
+				D1E223771A8009CE006330E7 /* ConnectDeviceView.xib */,
 				8FF940941989A19B00D319D7 /* BaseViewController.swift */,
 				8F296308194B8DE700E787FD /* SplashViewController.swift */,
 				8FA5925C19ABBCEC00622266 /* TourView.xib */,
@@ -1155,14 +1156,10 @@
 				8FEF6F411A6EECBE001EF8A6 /* BodyStatsCard.swift */,
 				8FEF6F451A6EECD5001EF8A6 /* ChallengesCard.swift */,
 				8F5C38EE1982EFDF00F51543 /* CheckinTableViewCell.swift */,
-				D1E2236F1A7FFF43006330E7 /* ConnectDeviceRow.swift */,
-				D1E223791A8009E6006330E7 /* ConnectDeviceViewController.swift */,
 				8FEF6F3B1A6EAACE001EF8A6 /* DashboardViewController.swift */,
 				8FEF6F471A6EECDE001EF8A6 /* PulseCard.swift */,
 				8F5C38F01982F20000F51543 /* CheckinTableViewCell.xib */,
 				8FEF6F391A6EAA58001EF8A6 /* DashboardView.xib */,
-				D1E2236D1A7FFE60006330E7 /* ConnectDeviceRow.xib */,
-				D1E223771A8009CE006330E7 /* ConnectDeviceView.xib */,
 			);
 			name = Dashboard;
 			sourceTree = "<group>";
@@ -1924,7 +1921,6 @@
 				8F2B7E53198C3097009DE89A /* DrawerCell.swift in Sources */,
 				2BBDBA521A12AC2C005A6815 /* ChallengeRowCell.swift in Sources */,
 				8FDB4B641A096E1C00F57B38 /* HigiChallenge.swift in Sources */,
-				D1DF09A21A8D079800A9ABE5 /* Constants.swift in Sources */,
 				8F29630D194B8F4600E787FD /* WelcomeViewController.swift in Sources */,
 				8FDB4B6A1A09741400F57B38 /* ChallengeWinCondition.swift in Sources */,
 				8F2B7E41198C2C27009DE89A /* SWRevealViewController.m in Sources */,
