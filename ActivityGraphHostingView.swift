@@ -13,6 +13,7 @@ class ActivityGraphHostingView: CPTGraphHostingView, CPTBarPlotDataSource {
     var points: [String: [Int]]!;
     var lastDevice = "";
     var totalPlotPoints:[Int] = [0,0,0,0,0,0,0];
+    var devices:[String] = [];
     
     enum Mode {
         case DAY
@@ -29,10 +30,11 @@ class ActivityGraphHostingView: CPTGraphHostingView, CPTBarPlotDataSource {
         fatalError("NSCoding not supported");
     }
     
-    func setupGraph(mode: Mode) {
+    func setupGraph(mode: Mode, devices: [String]) {
         var graph = CPTXYGraph(frame: self.bounds);
         self.hostedGraph = graph;
         self.allowPinchScaling = false;
+        self.devices = devices;
         
         graph.paddingLeft = -10;
         graph.paddingTop = 0;
@@ -84,7 +86,7 @@ class ActivityGraphHostingView: CPTGraphHostingView, CPTBarPlotDataSource {
         var maxPlotPoints = 10;
         var firstPlot = true;
         var plotIndex = 0;
-        for device in Constants.getDevicePriority {
+        for device in devices {
             if (points.indexForKey(device) != nil) {
                 let pointArray = points[device]!;
                 var plot = CPTBarPlot(frame: CGRectZero);
@@ -127,14 +129,9 @@ class ActivityGraphHostingView: CPTGraphHostingView, CPTBarPlotDataSource {
         yAxis.axisLabels = NSSet(array: [label]);
 
         plotSpace.xRange = NewCPTPlotRange(location: -1, length: 8);
-        var a  = Double(maxPlotPoints) * 1.5;
         plotSpace.yRange = NewCPTPlotRange(location: 0, length: Double(maxPlotPoints) * 1.5);
         plotSpace.globalXRange = plotSpace.xRange;
         plotSpace.globalYRange = plotSpace.yRange;
-    }
-    
-    func setUpAxes(labelStyle: CPTMutableTextStyle, xAxis: CPTAxis, yAxis: CPTAxis) {
-        
     }
     
     func getNearestYLabel(points: Int) -> Int {
@@ -142,7 +139,7 @@ class ActivityGraphHostingView: CPTGraphHostingView, CPTBarPlotDataSource {
         if (points < 10) {
             nearestValue = 10;
         } else if (points < 100) {
-            nearestValue = Int(points % 10) * 10;
+            nearestValue = Int(points / 10) * 10;
         } else if (points < 500) {
             nearestValue = Int(points / 100) * 100;
         } else {
@@ -152,10 +149,6 @@ class ActivityGraphHostingView: CPTGraphHostingView, CPTBarPlotDataSource {
     }
     
     func doubleForPlot(plot: CPTPlot!, field fieldEnum: UInt, recordIndex idx: UInt) -> Double {
-        let a = idx;
-        let b = fieldEnum;
-        let pat = plot;
-        
         let index = Int(idx);
         var plotValue = 0;
         if (fieldEnum == 0) {
@@ -164,7 +157,7 @@ class ActivityGraphHostingView: CPTGraphHostingView, CPTBarPlotDataSource {
             var offset = 0;
             var barPlot = plot as CPTBarPlot;
             if (barPlot.barBasesVary) {
-                for device in Constants.getDevicePriority {
+                for device in devices {
                     if (points.indexForKey(device) != nil) {
                         let pointArray = points[device]!;
                         if (plot.name.isEqual(device)) {
@@ -186,7 +179,7 @@ class ActivityGraphHostingView: CPTGraphHostingView, CPTBarPlotDataSource {
         }
         return Double(plotValue);
     }
-    
+
     func numberOfRecordsForPlot(plot: CPTPlot!) -> UInt {
         return 7;
     }

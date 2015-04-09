@@ -49,6 +49,8 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
     
     var legendView:UIView!;
     
+    var devices:[String] = [];
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         self.title = "Activity";
@@ -213,6 +215,14 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
         activitiesByDay = [];
         if (activities != nil) {
             for activity in activities {
+                if (!contains(devices, activity.device.name)) {
+                    if (activity.type.category == "checkin") {
+                        devices.append(activity.device.name);
+                    } else {
+                        devices.insert(activity.device.name, atIndex: 0);
+                    }
+                }
+                
                 var dateString = dateFormatter.stringFromDate(activity.startTime);
                 if (savedDate != dateString) {
                     currentSection++;
@@ -299,9 +309,9 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
             weekGraph.hidden = true;
             monthGraph.hidden = true;
             
-            dayGraph.setupGraph(ActivityGraphHostingView.Mode.DAY);
-            weekGraph.setupGraph(ActivityGraphHostingView.Mode.WEEK);
-            monthGraph.setupGraph(ActivityGraphHostingView.Mode.MONTH);
+            dayGraph.setupGraph(ActivityGraphHostingView.Mode.DAY, devices: devices);
+            weekGraph.setupGraph(ActivityGraphHostingView.Mode.WEEK, devices: devices);
+            monthGraph.setupGraph(ActivityGraphHostingView.Mode.MONTH, devices: devices);
 
             graphContainer.addSubview(dayGraph);
             graphContainer.addSubview(weekGraph);
