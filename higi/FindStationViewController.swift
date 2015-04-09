@@ -536,7 +536,6 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         } else {
             selectedDistance.text = "";
         }
-//        mapView.animateWithCameraUpdate(GMSCameraUpdate.setTarget(kiosk.position!));
     }
     
     func getKioskLogoUrl(kiosk: KioskInfo!) -> NSURL {
@@ -627,10 +626,16 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     
     func markerSelected(marker: GMSMarker) {
         setSelectedKiosk(marker.userData.valueForKey("kiosk") as KioskInfo);
+        updateKioskPositions();
     }
     
     func clusterSelected(cluster: GMSMarker!) {
         mapView.animateWithCameraUpdate(GMSCameraUpdate.setTarget(cluster.position, zoom: mapView.camera.zoom * 1.25));
+        updateKioskPositions();
+    }
+    
+    func onMapPan() {
+        updateKioskPositions();
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
