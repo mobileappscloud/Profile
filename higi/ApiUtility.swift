@@ -227,6 +227,7 @@ class ApiUtility {
                 if (SessionController.Instance.challenges == nil) {
                     SessionController.Instance.challenges = [];
                 }
+                NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.CHALLENGES, object: nil, userInfo: ["success": false]);
                 success?();
         });
         
