@@ -27,7 +27,7 @@ class SignupEmailViewController: UIViewController, UITextFieldDelegate {
         urlRequest.addValue("mobile-ios", forHTTPHeaderField: "Higi-Source");
         termsWebView.loadRequest(urlRequest);
 
-        spinner = CustomLoadingSpinner(frame: CGRectMake(self.view.frame.size.width / 2 - 16, self.view.frame.size.height - 66, 32, 32));
+        spinner = CustomLoadingSpinner(frame: CGRectMake(self.view.frame.size.width / 2 - 16, UIScreen.mainScreen().bounds.size.height - 66, 32, 32));
         spinner.shouldAnimateFull = false;
         spinner.hidden = true;
         self.view.addSubview(spinner);
