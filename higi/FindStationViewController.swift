@@ -184,20 +184,17 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         mapView.delegate = clusterManager;
         clusterManager.delegate = self;
         
-        if (UIDevice.currentDevice().systemVersion >= "8.0") {
+        var myLocationButton = mapView.subviews.last as UIView;
+        myLocationButton.frame.origin.x = 10;
+        mapContainer.addSubview(mapView);
+        
+        if (SessionController.Instance.kioskList != nil) {
+            populateClusterManager();
+        } else {
             locationManager = CLLocationManager();
             locationManager.requestWhenInUseAuthorization();
             locationManager.delegate = self;
         }
-        
-        if (SessionController.Instance.kioskList != nil) {
-            populateClusterManager();
-        }
-        
-        var myLocationButton = mapView.subviews.last as UIView;
-        myLocationButton.frame.origin.x = 10;
-        
-        mapContainer.addSubview(mapView);
     }
     
     func populateClusterManager() {
@@ -645,6 +642,15 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return gestureRecognizer != self.revealController.panGestureRecognizer() && otherGestureRecognizer != self.revealController.panGestureRecognizer();
+    }
+    
+    func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        if (status == CLAuthorizationStatus.AuthorizedAlways || status == CLAuthorizationStatus.AuthorizedWhenInUse) {
+            if let location = manager.location {
+                mapView.animateWithCameraUpdate(GMSCameraUpdate.setTarget(location.coordinate, zoom: mapView.camera.zoom));
+                updateKioskPositions();
+            }
+        }
     }
     
     deinit {
