@@ -125,6 +125,7 @@ class ModifyImageViewController: UIViewController {
                 for viewController in self.navigationController!.viewControllers as [UIViewController] {
                     if (viewController.isKindOfClass(SettingsViewController)) {
                         self.navigationController!.popToViewController(viewController, animated: false);
+                        (viewController as SettingsViewController).pictureChanged = true;
                         break;
                     }
                 }
