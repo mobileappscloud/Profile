@@ -87,11 +87,10 @@ class TourViewController: UIViewController, UIScrollViewDelegate {
     }
     
     @IBAction func closeTour(sender: AnyObject!) {
-        if (sender as UIButton == skip) {
+        if (sender as! UIButton == skip) {
             Flurry.logEvent("\(mode)_Skipped");
         }
-        (sender as UIButton).enabled = false;
-        //self.navigationController!.popViewControllerAnimated(false);
+        (sender as! UIButton).enabled = false;
         self.presentingViewController?.dismissViewControllerAnimated(false, completion: nil);
     }
     

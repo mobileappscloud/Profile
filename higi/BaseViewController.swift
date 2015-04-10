@@ -18,7 +18,7 @@ class BaseViewController: UIViewController, SWRevealViewControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad();
-        revealController = (self.navigationController as MainNavigationController).revealController;
+        revealController = (self.navigationController as! MainNavigationController).revealController;
         revealController.shouldRotate = false;
         revealController.supportedOrientations = UIInterfaceOrientationMask.Portrait.rawValue;
         self.view.addSubview(fakeNavBar);
@@ -51,7 +51,7 @@ class BaseViewController: UIViewController, SWRevealViewControllerDelegate {
     }
     
     func toggleMenu(sender: AnyObject!) {
-        (self.navigationController as MainNavigationController).revealController?.revealToggleAnimated(true);
+        (self.navigationController as! MainNavigationController).revealController?.revealToggleAnimated(true);
     }
     
     func revealController(revealController: SWRevealViewController!, willMoveToPosition position: FrontViewPosition) {

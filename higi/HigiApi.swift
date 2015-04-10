@@ -83,8 +83,8 @@ class HigiApi {
 let BASE_URL = "https://api.higi.com";
 let DEV_BASE_URL = "http://higiapi2.cloudapp.net";
 
-let EARNDIT_URL = "https://earndit.com/higiApi";
-let DEV_EARNDIT_URL = "http://earndit-web-qa2.cloudapp.net/higiApi";
+let EARNDIT_URL = "https://earndit.higi.com/api";
+let DEV_EARNDIT_URL = "http://earndit-web-qa2.cloudapp.net/api";
 
 let WEB_URL = "https://higi.com";
 let DEV_WEB_URL = "https://webqa.superbuddytime.com";

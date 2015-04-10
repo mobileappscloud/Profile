@@ -22,9 +22,9 @@ class ChallengeDetailsChatterRow: UITableViewCell {
     }
     
     class func instanceFromNib(comment: String, participant: ChallengeParticipant, timeSincePosted: String, isYou: Bool, isTeam: Bool) -> ChallengeDetailsChatterRow {
-        let row = UINib(nibName: "ChallengeDetailsChatterRow", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeDetailsChatterRow;
+        let row = UINib(nibName: "ChallengeDetailsChatterRow", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! ChallengeDetailsChatterRow;
         if (isYou) {
-            row.yourAvatar.setImageWithURL(Utility.loadImageFromUrl(participant.imageUrl));
+            row.yourAvatar.setImageWithURL(Utility.loadImageFromUrl(participant.imageUrl as String));
             row.chatBubble.hidden = true;
             row.yourChatBubble.hidden = false;
             row.displayName.textColor = UIColor.whiteColor();
@@ -35,7 +35,7 @@ class ChallengeDetailsChatterRow: UITableViewCell {
             row.displayName.textAlignment = NSTextAlignment.Right;
             row.time.textColor = Utility.colorFromHexString("#DDDDDD");
         } else {
-            row.avatar.setImageWithURL(Utility.loadImageFromUrl(participant.imageUrl));
+            row.avatar.setImageWithURL(Utility.loadImageFromUrl(participant.imageUrl as String));
             row.yourChatBubble.hidden = true;
             row.chatBubble.hidden = false;
             row.chatBubble.image = UIImage(named: "chat_bubble")!.resizableImageWithCapInsets(UIEdgeInsets(top: 19, left: 31, bottom: 23, right: 19));
@@ -44,7 +44,7 @@ class ChallengeDetailsChatterRow: UITableViewCell {
         if (isTeam) {
             row.displayName.text = "\(participant.displayName) - [\(participant.team.name)]";
         } else {
-            row.displayName.text = participant.displayName;
+            row.displayName.text = participant.displayName as String;
         }
         row.message.text = comment;
         row.message.sizeToFit();
@@ -62,6 +62,6 @@ class ChallengeDetailsChatterRow: UITableViewCell {
         let bottomMargin:CGFloat = 10;
         let messageMargin:CGFloat = 10;
         let messageWidth:CGFloat = 164;
-        return labelHeight + topMargin + Utility.heightForTextView(messageWidth, text: comment.comment, fontSize: 12, margin: messageMargin) + labelHeight + bottomMargin;
+        return labelHeight + topMargin + Utility.heightForTextView(messageWidth, text: comment.comment as String, fontSize: 12, margin: messageMargin) + labelHeight + bottomMargin;
     }
 }

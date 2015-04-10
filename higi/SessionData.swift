@@ -24,7 +24,7 @@ class SessionData {
     
     var lastUpdate: NSDate!;
     
-    let savePath = (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String).stringByAppendingPathComponent("HigiSessionData.plist");
+    let savePath = (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String).stringByAppendingPathComponent("HigiSessionData.plist");
 
     init() {
         restore();
@@ -37,6 +37,7 @@ class SessionData {
         seenDashboard = false;
         seenBodyStats = false;
         seenReminder = false;
+        lastUpdate = NSDate();
     }
     
     func save() {
@@ -55,15 +56,15 @@ class SessionData {
     func restore() {
         if (NSFileManager.defaultManager().fileExistsAtPath(savePath)) {
             let savedDictionary = NSDictionary(contentsOfFile: savePath)!;
-            token = savedDictionary["token"] as NSString;
-            pin = savedDictionary["pin"] as NSString;
+            token = savedDictionary["token"] as! String;
+            pin = savedDictionary["pin"] as! String;
             user = HigiUser();
-            user.userId = savedDictionary["userId"] as NSString;
-            seenDashboard = (savedDictionary["seenDashboard"] ?? false) as Bool;
-            seenBodyStats = (savedDictionary["seenBodyStats"] ?? false) as Bool;
-            seenReminder = (savedDictionary["seenReminder"] ?? false) as Bool;
-            kioskListString = (savedDictionary["kioskList"] ?? "") as NSString;
-            lastUpdate = (savedDictionary["lastUpdate"] ?? NSDate()) as NSDate;
+            user.userId = savedDictionary["userId"] as! NSString;
+            seenDashboard = (savedDictionary["seenDashboard"] ?? false) as! Bool;
+            seenBodyStats = (savedDictionary["seenBodyStats"] ?? false) as! Bool;
+            seenReminder = (savedDictionary["seenReminder"] ?? false) as! Bool;
+            kioskListString = (savedDictionary["kioskList"] ?? "") as! String;
+            lastUpdate = (savedDictionary["lastUpdate"] ?? NSDate()) as! NSDate;
         } else {
             reset();
         }

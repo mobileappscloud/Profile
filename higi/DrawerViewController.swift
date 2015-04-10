@@ -44,9 +44,9 @@ class DrawerViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("DrawerCell") as DrawerCell!;
+        var cell = tableView.dequeueReusableCellWithIdentifier("DrawerCell") as! DrawerCell!;
         if (cell == nil) {
-            cell = UINib(nibName: "DrawerCell", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as DrawerCell;
+            cell = UINib(nibName: "DrawerCell", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! DrawerCell;
             var selectedBgView = UIView();
             selectedBgView.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.06)
             cell.selectedBackgroundView = selectedBgView;
@@ -66,12 +66,21 @@ class DrawerViewController: UIViewController, UITableViewDelegate, UITableViewDa
         case 0:
             navController?.popToRootViewControllerAnimated(false);
         case 1:
+            if (SessionController.Instance.activities == nil) {
+                return;
+            }
             Flurry.logEvent("ActivityOffCanvas_Pressed");
             navController?.pushViewController(ActivityViewController(nibName: "ActivityView", bundle: nil), animated: false);
         case 2:
+            if (SessionController.Instance.challenges == nil) {
+                return;
+            }
             Flurry.logEvent("ChallengesOffCanvas_Pressed");
             navController?.pushViewController(ChallengesViewController(nibName: "ChallengesView", bundle: nil), animated: false);
         case 3:
+            if (SessionController.Instance.checkins == nil) {
+                return;
+            }
             Flurry.logEvent("BodystatOffCanvas_Pressed");
             navController?.pushViewController(BodyStatsViewController(), animated: false);
         case 4:
@@ -89,7 +98,7 @@ class DrawerViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         revealController?.revealToggleAnimated(true);
         tableView.reloadData();
-        var cell = tableView.cellForRowAtIndexPath(indexPath) as DrawerCell;
+        var cell = tableView.cellForRowAtIndexPath(indexPath) as! DrawerCell;
         cell.icon.image = UIImage(named: activeIcons[indexPath.item]);
         cell.selected = true;
     }

@@ -31,7 +31,7 @@ class PinCodeViewController: UIViewController, UITextFieldDelegate {
         self.navigationItem.hidesBackButton = true;
         self.navigationController?.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
         if (newCode || modifying || removing) {
-            var backButton = UIButton.buttonWithType(UIButtonType.Custom) as UIButton;
+            var backButton = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton;
             backButton.setBackgroundImage(UIImage(named: "btn_back_white.png"), forState: UIControlState.Normal);
             backButton.addTarget(self, action: "goBack:", forControlEvents: UIControlEvents.TouchUpInside);
             backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
@@ -39,7 +39,7 @@ class PinCodeViewController: UIViewController, UITextFieldDelegate {
             self.navigationItem.leftBarButtonItem = backBarItem;
         }
         backgroundImage.image = SessionData.Instance.user.blurredImage;
-        for circle in circleContainer.subviews as [UIView]{
+        for circle in circleContainer.subviews as! [UIView]{
             circle.layer.cornerRadius = 30;
             circle.layer.borderWidth = 1;
             circle.layer.borderColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.3).CGColor;
@@ -95,23 +95,23 @@ class PinCodeViewController: UIViewController, UITextFieldDelegate {
         SessionController.Instance.askTouchId = true;
     }
     
-    func textField(textField: UITextField!, shouldChangeCharactersInRange range: NSRange, replacementString string: String!) -> Bool {
-        return textField.text.utf16Count < 4 || string.utf16Count == 0;
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        return count(textField.text) < 4 || count(string) == 0;
     }
     
     @IBAction func pinChanged(sender: AnyObject!) {
         
-        for index in 0..<pinField.text.utf16Count {
-            var circle = circleContainer.subviews[index] as UIView;
+        for index in 0..<count(pinField.text) {
+            var circle = circleContainer.subviews[index] as! UIView;
             circle.layer.borderWidth = 20;
-            (circle.subviews.first as UIView).hidden = false;
+            (circle.subviews.first as! UIView).hidden = false;
         }
         
-        if (pinField.text.utf16Count < 4) {
-            for index in pinField.text.utf16Count...3 {
-                var circle = circleContainer.subviews[index] as UIView;
+        if (count(pinField.text) < 4) {
+            for index in count(pinField.text)...3 {
+                var circle = circleContainer.subviews[index] as! UIView;
                 circle.layer.borderWidth = 1;
-                (circle.subviews.first as UIView).hidden = true;
+                (circle.subviews.first as! UIView).hidden = true;
             }
         } else {
             if (newCode) {

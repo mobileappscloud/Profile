@@ -4,7 +4,8 @@
 
 -(void)markerSelected:(GMSMarker*) marker;
 
-
 -(void)clusterSelected:(GMSMarker*) cluster;
+
+-(void)onMapPan;
 
 @end

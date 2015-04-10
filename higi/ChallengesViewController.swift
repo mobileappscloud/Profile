@@ -211,9 +211,9 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("ChallengeRowCell") as ChallengeRowCell!;
+        var cell = tableView.dequeueReusableCellWithIdentifier("ChallengeRowCell") as! ChallengeRowCell!;
         if (cell == nil) {
-            cell = UINib(nibName: "ChallengeRowCell", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeRowCell
+            cell = UINib(nibName: "ChallengeRowCell", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! ChallengeRowCell
         }
         //remove all children before populating scrollview
         for subview in cell.scrollView.subviews {
@@ -232,10 +232,10 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         }
         buildChallengeCell(cell, challenge: challenge);
         if (challenge != nil) {
-            cell.title.text = challenge.name;
-            cell.avatar.setImageWithURL(Utility.loadImageFromUrl(challenge.imageUrl));
+            cell.title.text = challenge.name as String;
+            cell.avatar.setImageWithURL(Utility.loadImageFromUrl(challenge.imageUrl as String));
         }
-        var endDate:NSDate? = challenge.endDate?;
+        var endDate:NSDate? = challenge.endDate;
         if (endDate != nil) {
             let days = Int(endDate!.timeIntervalSinceNow / 60 / 60 / 24) + 1;
             var formatter = NSDateFormatter();
@@ -366,7 +366,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     }
     
     @IBAction func changePage(sender: AnyObject) {
-        var pager = sender as UIPageControl;
+        var pager = sender as! UIPageControl;
         var page = pager.currentPage;
         let previousPage = currentPage;
         title = pageTitles[page];

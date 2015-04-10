@@ -43,16 +43,15 @@
 
 - (void)mapView:(GMSMapView *)mapView idleAtCameraPosition:(GMSCameraPosition *)cameraPosition {
     assert(mapView == _mapView);
-    
-//        CLLocation *previousLocation = [[CLLocation alloc]initWithLatitude:previousCameraPosition.target.latitude longitude:previousCameraPosition.target.longitude];
-//        CLLocation *currentLocation = [[CLLocation alloc]initWithLatitude:cameraPosition.target.latitude longitude:cameraPosition.target.longitude];
-//
-//        CLLocationDistance dist = [previousLocation distanceFromLocation:currentLocation];
+    CLLocation *previousLocation = [[CLLocation alloc]initWithLatitude:previousCameraPosition.target.latitude longitude:previousCameraPosition.target.longitude];
+    CLLocation *currentLocation = [[CLLocation alloc]initWithLatitude:cameraPosition.target.latitude longitude:cameraPosition.target.longitude];
+
     //only cluster on pan of 5dp or more
-//    if (previousCameraPosition == nil || [previousLocation distanceFromLocation:currentLocation] > 4) {
-        previousCameraPosition = [mapView camera];
-        [self cluster];
-//    }
+    if (previousCameraPosition != nil && [previousLocation distanceFromLocation:currentLocation] > 4) {
+        [_delegate onMapPan];
+    }
+    previousCameraPosition = [mapView camera];
+    [self cluster];
 }
 
 -(BOOL) mapView:(GMSMapView *) mapView didTapMarker:(GMSMarker *)marker {
@@ -71,14 +70,14 @@
 + (instancetype)managerWithMapView:(GMSMapView*)googleMap
                          algorithm:(id<GClusterAlgorithm>)algorithm
                           renderer:(id<GClusterRenderer>)renderer {
-    GClusterManager *mgr = [[[self class] alloc] init];
-    if(mgr) {
-        mgr.mapView = googleMap;
-        mgr.clusterAlgorithm = algorithm;
-        mgr.clusterRenderer = renderer;
+    GClusterManager *manager = [[[self class] alloc] init];
+    if (manager) {
+        manager.mapView = googleMap;
+        manager.clusterAlgorithm = algorithm;
+        manager.clusterRenderer = renderer;
     }
     
-    return mgr;
+    return manager;
 }
 
 @end

@@ -26,31 +26,31 @@ class HigiUser {
     }
     
     init(dictionary: NSDictionary) {
-        userId = dictionary["id"] as NSString;
-        firstName = (dictionary["firstName"] ?? "") as NSString;
-        lastName = (dictionary["lastName"] ?? "") as NSString;
-        email = dictionary["email"] as NSString;
-        hasPhoto = (dictionary["hasPhoto"] ?? false) as Bool;
-        currentHigiScore = (dictionary["currentHigiScore"] ?? 0) as Int;
-        photoTime = (dictionary["photoTime"] ?? 0) as Int;
+        userId = dictionary["id"] as! NSString;
+        firstName = (dictionary["firstName"] ?? "") as! NSString;
+        lastName = (dictionary["lastName"] ?? "") as! NSString;
+        email = dictionary["email"] as! NSString;
+        hasPhoto = (dictionary["hasPhoto"] ?? false) as! Bool;
+        currentHigiScore = (dictionary["currentHigiScore"] ?? 0) as! Int;
+        photoTime = (dictionary["photoTime"] ?? 0) as! Int;
         
         profileImage = UIImage(data: NSData(contentsOfURL: NSURL(string: "\(HigiApi.higiApiUrl)/view/\(userId)/profile,400.png?t=\(photoTime)")!)!);
         fullProfileImage = UIImage(data: NSData(contentsOfURL: NSURL(string: "\(HigiApi.higiApiUrl)/view/\(userId)/profileoriginal.png?t=\(photoTime)")!)!);
         
-        var notifications = dictionary["Notifications"] as NSDictionary;
-        emailCheckins = (notifications["EmailCheckins"] as NSString) == "True";
-        emailHigiNews = (notifications["EmailHigiNews"] as NSString) == "True";
+        var notifications = dictionary["Notifications"] as! NSDictionary;
+        emailCheckins = (notifications["EmailCheckins"] as! NSString) == "True";
+        emailHigiNews = (notifications["EmailHigiNews"] as! NSString) == "True";
         
-        var terms = dictionary["terms"] as NSDictionary?;
-        var privacy = dictionary["privacyAgreed"] as NSDictionary?;
+        var terms = dictionary["terms"] as! NSDictionary?;
+        var privacy = dictionary["privacyAgreed"] as! NSDictionary?;
         
         if (terms != nil) {
-            termsFile = terms!["termsFileName"] as NSString;
+            termsFile = terms!["termsFileName"] as! NSString;
         } else {
             termsFile = "";
         }
         if (privacy != nil) {
-            privacyFile = privacy!["privacyFileName"] as NSString;
+            privacyFile = privacy!["privacyFileName"] as! NSString;
         } else {
             privacyFile = "";
         }
@@ -67,7 +67,7 @@ class HigiUser {
         var filter = CIFilter(name: "CIGaussianBlur");
         filter.setValue(inputImage, forKey: kCIInputImageKey);
         filter.setValue(NSNumber(float: 15.0), forKey: "inputRadius");
-        var result = filter.valueForKey(kCIOutputImageKey) as CIImage;
+        var result = filter.valueForKey(kCIOutputImageKey) as! CIImage;
         
         var cgImage = context.createCGImage(result, fromRect: inputImage.extent());
         blurredImage = UIImage(CGImage: cgImage);
