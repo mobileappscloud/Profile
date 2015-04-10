@@ -216,7 +216,7 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
         if (activities != nil) {
             for activity in activities {
                 if (!contains(devices, activity.device.name)) {
-                    if (activity.type.category == "checkin") {
+                    if (activity.typeCategory == "checkin") {
                         devices.append(activity.device.name);
                     } else {
                         devices.insert(activity.device.name, atIndex: 0);

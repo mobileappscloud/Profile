@@ -137,8 +137,7 @@ class ApiUtility {
                     var activities: [HigiActivity] = [];
                     var serverActivities = ((responseObject as NSDictionary)["response"] as NSDictionary)["data"] as NSArray;
                     for activity: AnyObject in serverActivities {
-                        let type = ActivityType(category: ((activity as NSDictionary)["type"] as NSDictionary)["category"] as? NSString, checkinCategory: ((activity as NSDictionary)["type"] as NSDictionary)["checkinCategory"] as? NSString, name: ((activity as NSDictionary)["type"] as NSDictionary)["name"] as? NSString);
-                        activities.append(HigiActivity(dictionary: activity as NSDictionary, type: type));
+                        activities.append(HigiActivity(dictionary: activity as NSDictionary));
                     }
                     
                     SessionController.Instance.activities = activities;
