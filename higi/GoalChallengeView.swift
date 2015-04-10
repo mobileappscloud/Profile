@@ -25,15 +25,15 @@ class GoalChallengeView: ChallengeView {
     }
     
     class func instanceFromNib(frame: CGRect, challenge: HigiChallenge, winConditions: [ChallengeWinCondition], isComplex: Bool) -> GoalChallengeView {
-        let goalView = UINib(nibName: "GoalChallengeView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as GoalChallengeView;
+        let goalView = UINib(nibName: "GoalChallengeView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! GoalChallengeView;
         goalView.frame = frame;
         goalView.autoresizingMask = UIViewAutoresizing.FlexibleWidth;
         let isTeam = winConditions[0].winnerType == "team";
         
         if (isTeam) {
-            goalView.avatar.setImageWithURL(Utility.loadImageFromUrl(challenge.participant.team.imageUrl));
+            goalView.avatar.setImageWithURL(Utility.loadImageFromUrl(challenge.participant.team.imageUrl as String));
         } else {
-            goalView.avatar.setImageWithURL(Utility.loadImageFromUrl(challenge.participant.imageUrl));
+            goalView.avatar.setImageWithURL(Utility.loadImageFromUrl(challenge.participant.imageUrl as String));
         }
         
         goalView.participantPoints = isTeam ? Int(challenge.participant.team.units) : Int(challenge.participant.units);

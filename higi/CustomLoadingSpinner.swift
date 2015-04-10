@@ -36,7 +36,7 @@ class CustomLoadingSpinner: UIView {
     }
     
     func createInstance() ->  CustomLoadingSpinner {
-        return UINib(nibName: "CustomSpinner", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as CustomLoadingSpinner;
+        return UINib(nibName: "CustomSpinner", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! CustomLoadingSpinner;
     }
     
     func startAnimating() {

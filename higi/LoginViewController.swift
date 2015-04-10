@@ -33,7 +33,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLayoutSubviews();
         if (!setup) {
             self.navigationController!.navigationBar.hidden = false;
-            var backButton = UIButton.buttonWithType(UIButtonType.Custom) as UIButton;
+            var backButton = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton;
             backButton.setBackgroundImage(UIImage(named: "btn_back_black.png"), forState: UIControlState.Normal);
             backButton.addTarget(self, action: "goBack:", forControlEvents: UIControlEvents.TouchUpInside);
             backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
@@ -63,12 +63,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         self.navigationItem.leftBarButtonItem!.customView!.hidden = true;
         email.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSForegroundColorAttributeName: UIColor.lightGrayColor()]);
         password.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName: UIColor.lightGrayColor()]);
-        if (email.text.utf16Count == 0 || email.text.rangeOfString("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$", options: NSStringCompareOptions.RegularExpressionSearch, range: nil, locale: nil) == nil) {
+        if (count(email.text) == 0 || email.text.rangeOfString("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$", options: NSStringCompareOptions.RegularExpressionSearch, range: nil, locale: nil) == nil) {
             email.attributedPlaceholder = NSAttributedString(string: "Valid email required", attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)]);
             email.text = "";
             password.text = "";
             reset();
-        } else if (password.text.utf16Count < 6) {
+        } else if (count(password.text) < 6) {
             password.attributedPlaceholder = NSAttributedString(string: "Password must be at least 6 characters", attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)]);
             password.text = "";
             reset();
@@ -84,8 +84,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         spinner.stopAnimating();
         let responseLogin = responseObject as? NSDictionary;
         if (responseLogin != nil) {
-            var login = HigiLogin(dictionary: responseObject as NSDictionary);
-            SessionData.Instance.token = login.token;
+            var login = HigiLogin(dictionary: responseObject as! NSDictionary);
+            SessionData.Instance.token = login.token as String;
             SessionData.Instance.user = login.user;
             SessionData.Instance.save();
             if (login.user != nil) {

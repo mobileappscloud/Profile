@@ -626,7 +626,7 @@
 		8FFB034519FEA2440036228C /* oc_findastation_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oc_findastation_active.png; path = images/oc_findastation_active.png; sourceTree = "<group>"; };
 		8FFB034619FEA2440036228C /* oc_pulse_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oc_pulse_active.png; path = images/oc_pulse_active.png; sourceTree = "<group>"; };
 		8FFB034719FEA2440036228C /* oc_settings_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oc_settings_active.png; path = images/oc_settings_active.png; sourceTree = "<group>"; };
-		8FFB035419FEAED10036228C /* ActivityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
+		8FFB035419FEAED10036228C /* ActivityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 5; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		8FFB035819FEAF2C0036228C /* ActivityView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityView.xib; sourceTree = "<group>"; };
 		8FFF43BA19B798380056F412 /* bmi_overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bmi_overlay@2x.png"; path = "images/bmi_overlay@2x.png"; sourceTree = "<group>"; };
 		8FFF43BB19B798380056F412 /* bp_overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bp_overlay@2x.png"; path = "images/bp_overlay@2x.png"; sourceTree = "<group>"; };

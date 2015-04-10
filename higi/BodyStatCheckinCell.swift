@@ -27,7 +27,7 @@ class BodyStatCheckinCell: UITableViewCell {
     
     @IBAction func bringUpCard(sender: AnyObject) {
         if (parentViewController == nil) {
-            parentViewController = Utility.getViewController(self) as BodyStatsViewController!;
+            parentViewController = Utility.getViewController(self) as! BodyStatsViewController!;
         }
         parentViewController.revealController.shouldRotate = false;
         parentViewController.revealController.supportedOrientations = UIInterfaceOrientationMask.Portrait.rawValue;
@@ -38,7 +38,7 @@ class BodyStatCheckinCell: UITableViewCell {
         self.parentViewController.portView.orientationIndicator.hidden = true;
         self.parentViewController.portView.pager.hidden = true;
         checkinContainer.hidden = false;
-        var checkinCard = UINib(nibName: "CheckinCardView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as CheckinCard;
+        var checkinCard = UINib(nibName: "CheckinCardView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! CheckinCard;
         checkinCard.frame.size = checkinCardContainer.frame.size;
         checkinCard.createTable(checkin, onClose: self.closeCheckinCard, onSelection: self.checkinMeasureSelected);
         checkinCardContainer.addSubview(checkinCard);

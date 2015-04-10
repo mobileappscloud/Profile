@@ -52,7 +52,7 @@ class ActivityGraphHostingView: CPTGraphHostingView, CPTBarPlotDataSource {
         var labelStyle = CPTMutableTextStyle();
         labelStyle.fontSize = 10;
         
-        var axes = graph.axisSet as CPTXYAxisSet;
+        var axes = graph.axisSet as! CPTXYAxisSet;
         var xAxis = axes.xAxis;
         var yAxis = axes.yAxis;
         
@@ -68,7 +68,7 @@ class ActivityGraphHostingView: CPTGraphHostingView, CPTBarPlotDataSource {
         yAxis.axisConstraints = CPTConstraints.constraintWithLowerOffset(5);
         yAxis.labelFormatter = formatter;
         yAxis.labelTextStyle = labelStyle;
-        var plotSpace = graph.defaultPlotSpace as CPTXYPlotSpace;
+        var plotSpace = graph.defaultPlotSpace as! CPTXYPlotSpace;
         plotSpace.allowsUserInteraction = false;
 
         var dateLabels:[NewCPTAxisLabel] = [];
@@ -81,7 +81,7 @@ class ActivityGraphHostingView: CPTGraphHostingView, CPTBarPlotDataSource {
             label.offset = xAxis.labelOffset + xAxis.majorTickLength;
             dateLabels.append(label);
         }
-        xAxis.axisLabels = NSSet(array: dateLabels);
+        xAxis.axisLabels = NSSet(array: dateLabels) as Set<NSObject>;
         
         var maxPlotPoints = 10;
         var firstPlot = true;
@@ -126,7 +126,7 @@ class ActivityGraphHostingView: CPTGraphHostingView, CPTBarPlotDataSource {
         var label = NewCPTAxisLabel(text: String(yLabelValue), textStyle: xAxis.labelTextStyle);
         label.setTickIndex(Double(yLabelValue));
         dateLabels.append(label);
-        yAxis.axisLabels = NSSet(array: [label]);
+        yAxis.axisLabels = NSSet(array: [label]) as Set<NSObject>;
 
         plotSpace.xRange = NewCPTPlotRange(location: -1, length: 8);
         plotSpace.yRange = NewCPTPlotRange(location: 0, length: Double(maxPlotPoints) * 1.5);
@@ -155,7 +155,7 @@ class ActivityGraphHostingView: CPTGraphHostingView, CPTBarPlotDataSource {
             plotValue = Int(idx);
         } else {
             var offset = 0;
-            var barPlot = plot as CPTBarPlot;
+            var barPlot = plot as! CPTBarPlot;
             if (barPlot.barBasesVary) {
                 for device in devices {
                     if (points.indexForKey(device) != nil) {

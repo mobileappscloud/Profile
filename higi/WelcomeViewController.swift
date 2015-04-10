@@ -135,7 +135,7 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
     }
     
     @IBAction func changePage(sender: AnyObject) {
-        var pager = sender as UIPageControl;
+        var pager = sender as! UIPageControl;
         var page = pager.currentPage;
         var frame = self.view.frame;
         frame.origin.x = frame.size.width * CGFloat(page);

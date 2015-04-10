@@ -82,8 +82,8 @@ class BirthdateViewController: UIViewController {
         HigiApi().sendGet("\(HigiApi.higiApiUrl)/data/deleteAccountAge13?userId=\(user.userId)&dob=\(dateFormatter.stringFromDate(datePicker.date))", success: nil, failure: nil);
         SessionController.Instance.reset();
         SessionData.Instance.reset();
-        var splashViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SplashViewController") as UIViewController;
-        (UIApplication.sharedApplication().delegate as AppDelegate).window?.rootViewController = splashViewController;
+        var splashViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SplashViewController") as! UIViewController;
+        (UIApplication.sharedApplication().delegate as! AppDelegate).window?.rootViewController = splashViewController;
     }
     
 }

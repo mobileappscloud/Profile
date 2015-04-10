@@ -29,7 +29,7 @@ class ModifyImageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad();
         if (fromSettings) {
-            (self.navigationController as MainNavigationController).revealController.panGestureRecognizer().enabled = false;
+            (self.navigationController as! MainNavigationController).revealController.panGestureRecognizer().enabled = false;
         }
         self.navigationController!.interactivePopGestureRecognizer.enabled = false;
         self.navigationController!.interactivePopGestureRecognizer.delegate = nil;
@@ -44,7 +44,7 @@ class ModifyImageViewController: UIViewController {
         
         profileImageView.hidden = true;
         
-        var backButton = UIButton.buttonWithType(UIButtonType.Custom) as UIButton;
+        var backButton = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton;
         backButton.setBackgroundImage(UIImage(named: "btn_back_white.png"), forState: UIControlState.Normal);
         backButton.addTarget(self, action: "goBack:", forControlEvents: UIControlEvents.TouchUpInside);
         backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
@@ -116,16 +116,16 @@ class ModifyImageViewController: UIViewController {
         
         HigiApi().sendPost("\(HigiApi.higiApiUrl)/data/user/\(user.userId)/photoPosition", parameters: contents, success: {operation, responseObject in
             if (responseObject != nil) {
-                user.photoTime = ((responseObject as NSDictionary)["photoTime"] ?? Int(NSDate().timeIntervalSince1970)) as Int;
+                user.photoTime = ((responseObject as! NSDictionary)["photoTime"] ?? Int(NSDate().timeIntervalSince1970)) as! Int;
             } else {
                 user.photoTime = Int(NSDate().timeIntervalSince1970);
             }
             user.profileImage = UIImage(data: NSData(contentsOfURL: NSURL(string: "\(HigiApi.higiApiUrl)/view/\(user.userId)/profile,400.png?t=\(user.photoTime)")!)!);
             if (self.fromSettings) {
-                for viewController in self.navigationController!.viewControllers as [UIViewController] {
+                for viewController in self.navigationController!.viewControllers as! [UIViewController] {
                     if (viewController.isKindOfClass(SettingsViewController)) {
                         self.navigationController!.popToViewController(viewController, animated: false);
-                        (viewController as SettingsViewController).pictureChanged = true;
+                        (viewController as! SettingsViewController).pictureChanged = true;
                         break;
                     }
                 }

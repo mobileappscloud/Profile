@@ -28,12 +28,12 @@ class CheckinCard: UIView, UITableViewDataSource, UITableViewDelegate {
         var modifiedName = "";
         if (checkin.kioskInfo != nil) {
             var kioskInfo = checkin.kioskInfo!;
-            address.text = kioskInfo.address1;
-            address2.text = kioskInfo.cityStateZip;
-            modifiedName = kioskInfo.organizations[0];
+            address.text = kioskInfo.address1 as String;
+            address2.text = kioskInfo.cityStateZip as String;
+            modifiedName = kioskInfo.organizations[0] as String;
             
         } else {
-            modifiedName = checkin.sourceVendorId!;
+            modifiedName = checkin.sourceVendorId! as String;
         }
         modifiedName = modifiedName.stringByReplacingOccurrencesOfString(" ", withString: "_").stringByReplacingOccurrencesOfString("'", withString: "").stringByReplacingOccurrencesOfString("&", withString: "");
         var url = "https://webqa.superbuddytime.com/images/retailer-icons/\(modifiedName)_100.png";
@@ -110,10 +110,10 @@ class CheckinCard: UIView, UITableViewDataSource, UITableViewDelegate {
     }
     
     func createBpCell() -> UITableViewCell {
-        var cell = UINib(nibName: "BpCheckinCellView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as BpCheckinCell;
+        var cell = UINib(nibName: "BpCheckinCellView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! BpCheckinCell;
         cell.systolic.text = "\(checkin.systolic!)";
         cell.diastolic.text = "\(checkin.diastolic!)";
-        cell.bpClass.text = checkin.bpClass!;
+        cell.bpClass.text = checkin.bpClass! as String;
         if (checkin.prevBpCheckin != nil) {
             if (checkin.systolic! > checkin.prevBpCheckin!.systolic!) {
                 cell.systolicArrow.image = UIImage(named: "graph_sincelastarrow_up_invert.png");
@@ -153,11 +153,11 @@ class CheckinCard: UIView, UITableViewDataSource, UITableViewDelegate {
     }
     
     func createPulseCell() -> UITableViewCell {
-        var cell = UINib(nibName: "CheckinCellView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as CheckinCell;
+        var cell = UINib(nibName: "CheckinCellView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! CheckinCell;
         cell.title.text = "Pulse";
         cell.title.frame = CGRect(x: 10, y: 15, width: 142, height: 60);
         cell.measure.text = "\(checkin.pulseBpm!)";
-        cell.measureClass.text = checkin.pulseClass!;
+        cell.measureClass.text = checkin.pulseClass! as String;
         cell.icon.image = UIImage(named: "vital_pulse_icon.png");
         if (checkin.prevBpCheckin != nil) {
             if (checkin.pulseBpm! > checkin.prevBpCheckin!.pulseBpm!) {
@@ -185,11 +185,11 @@ class CheckinCard: UIView, UITableViewDataSource, UITableViewDelegate {
     }
     
     func createMapCell() -> UITableViewCell {
-        var cell = UINib(nibName: "TwoLineCheckinCellView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as CheckinCell;
+        var cell = UINib(nibName: "TwoLineCheckinCellView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! CheckinCell;
         cell.title.text = "Mean Arterial Pressure";
         cell.title.sizeToFit();
         cell.measure.text = String(format: "%.1f", checkin.map!);
-        cell.measureClass.text = checkin.bpClass!;
+        cell.measureClass.text = checkin.bpClass! as String;
         cell.icon.image = UIImage(named: "vital_map_icon.png");
         if (checkin.prevBpCheckin != nil) {
             if (checkin.map! > checkin.prevBpCheckin!.map!) {
@@ -217,12 +217,12 @@ class CheckinCard: UIView, UITableViewDataSource, UITableViewDelegate {
     }
     
     func createWeightCell() -> UITableViewCell {
-        var cell = UINib(nibName: "CheckinCellView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as CheckinCell;
+        var cell = UINib(nibName: "CheckinCellView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! CheckinCell;
         cell.title.text = "Weight";
         cell.title.sizeToFit();
         cell.icon.image = UIImage(named: "vital_weight_icon.png");
         cell.measure.text = "\(Int(checkin.weightLbs!))";
-        cell.measureClass.text = checkin.bmiClass!;
+        cell.measureClass.text = checkin.bmiClass! as String;
         if (checkin.prevBmiCheckin != nil) {
             if (checkin.weightLbs! > checkin.prevBmiCheckin!.weightLbs!) {
                 cell.arrow.image = UIImage(named: "graph_sincelastarrow_up_invert.png");
@@ -251,12 +251,12 @@ class CheckinCard: UIView, UITableViewDataSource, UITableViewDelegate {
     }
     
     func createBmiCell() -> UITableViewCell {
-        var cell = UINib(nibName: "TwoLineCheckinCellView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as CheckinCell;
+        var cell = UINib(nibName: "TwoLineCheckinCellView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! CheckinCell;
         cell.title.text = "Body Mass Index";
         cell.title.sizeToFit();
         cell.icon.image = UIImage(named: "vital_bmi_icon.png");
         cell.measure.text = String(format: "%.2f", checkin.bmi!);
-        cell.measureClass.text = checkin.bmiClass!;
+        cell.measureClass.text = checkin.bmiClass! as String;
         if (checkin.prevBmiCheckin != nil) {
             if (checkin.bmi! > checkin.prevBmiCheckin!.bmi!) {
                 cell.arrow.image = UIImage(named: "graph_sincelastarrow_up_invert.png");

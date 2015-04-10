@@ -19,7 +19,7 @@ class BodyStatsLandView: UIView {
     @IBOutlet var scrollView: UIScrollView!
     
     class func instanceFromNib() -> BodyStatsLandView {
-        return UINib(nibName: "BodyStatsLand", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as BodyStatsLandView
+        return UINib(nibName: "BodyStatsLand", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! BodyStatsLandView
     }
     
 }

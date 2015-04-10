@@ -24,7 +24,7 @@ class ConnectDeviceRow: UITableViewCell, UIAlertViewDelegate {
         webView = WebViewController(nibName: "WebView", bundle: nil);
         webView.url = "\(HigiApi.webUrl)/mobileDeviceConnect";
 
-        let headers = ["Higi-Device-Connect-Url": device.connectUrl.stringByReplacingOccurrencesOfString("{redirect}", withString: "http://www.google.com".stringByReplacingPercentEscapesUsingEncoding(16)!), "User-Id": SessionData.Instance.user.userId, "Token": SessionData.Instance.token];
+        let headers = ["Higi-Device-Connect-Url": device.connectUrl.stringByReplacingOccurrencesOfString("{redirect}", withString: "http://www.google.com".stringByReplacingPercentEscapesUsingEncoding(16)!), "User-Id": SessionData.Instance.user.userId as String, "Token": SessionData.Instance.token as String];
         webView.headers = headers;
         webView.device = device;
         parentController.pushViewController(webView, animated: true);
@@ -41,7 +41,7 @@ class ConnectDeviceRow: UITableViewCell, UIAlertViewDelegate {
         } else {
             if (device.disconnectUrl != nil) {
                 self.device.connected = false;
-                HigiApi().sendDelete(device.disconnectUrl, parameters: nil, success: nil,
+                HigiApi().sendDelete(device.disconnectUrl as String, parameters: nil, success: nil,
                     failure: { operation, error in
                         self.device.connected = true;
                         self.connectedToggle.on = true;

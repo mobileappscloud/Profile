@@ -25,9 +25,9 @@ class BpGraphHostingView: BaseCustomGraphHostingView {
         fatalError("NSCoding not supported");
     }
     
-    override func numberForPlot(plot: CPTPlot!, field fieldEnum: Int, recordIndex idx: Int) -> NSNumber! {
+    override func numberForPlot(plot: CPTPlot?, field fieldEnum: UInt, recordIndex idx: UInt) -> NSNumber {
         if (plot == diastolicPlot) {
-            var point = points2[idx];
+            var point = points2[Int(idx)];
             if (fieldEnum == 0) {
                 return NSNumber(double: point.x);
             } else {
@@ -79,7 +79,7 @@ class BpGraphHostingView: BaseCustomGraphHostingView {
         graph.plotAreaFrame.paddingBottom = 10;
         
         
-        var plotSpace = self.hostedGraph.defaultPlotSpace as CPTXYPlotSpace;
+        var plotSpace = self.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace;
         plotSpace.allowsUserInteraction = true;
         plotSpace.xRange = NewCPTPlotRange(location: firstPoint.x - 1, length: lastPoint.x - firstPoint.x + 2);
         plotSpace.yRange = NewCPTPlotRange(location: min - yRange * 0.4, length: yRange * 2.2);
@@ -132,7 +132,7 @@ class BpGraphHostingView: BaseCustomGraphHostingView {
         var gridLineStyle = CPTMutableLineStyle();
         gridLineStyle.lineColor = CPTColor(componentRed: 1, green: 1, blue: 1, alpha: 0.3);
         
-        var xAxis = graph.axisSet.axisForCoordinate(CPTCoordinateX, atIndex: 0) as CPTXYAxis;
+        var xAxis = graph.axisSet.axisForCoordinate(CPTCoordinateX, atIndex: 0) as! CPTXYAxis;
         xAxis.labelTextStyle = axisTextStyle;
         xAxis.majorTickLineStyle = nil;
         xAxis.minorTickLineStyle = nil;
@@ -156,7 +156,7 @@ class BpGraphHostingView: BaseCustomGraphHostingView {
         dateFormatter.dateFormat = "MM/dd/yy";
         xAxis.labelFormatter = CustomFormatter(dateFormatter: dateFormatter);
         
-        var yAxis = graph.axisSet.axisForCoordinate(CPTCoordinateY, atIndex: 0) as CPTXYAxis;
+        var yAxis = graph.axisSet.axisForCoordinate(CPTCoordinateY, atIndex: 0) as! CPTXYAxis;
         
         if (isPortrait) {
             yAxis.preferredNumberOfMajorTicks = 5;
@@ -193,12 +193,12 @@ class BpGraphHostingView: BaseCustomGraphHostingView {
         diastolicPlot.areaFill = graphFill;
         
         self.hostedGraph.addPlot(diastolicPlot, toPlotSpace: self.hostedGraph.defaultPlotSpace);
-        (self.hostedGraph.plotAtIndex(0) as CPTScatterPlot).areaFill = graphFill;
+        (self.hostedGraph.plotAtIndex(0) as! CPTScatterPlot).areaFill = graphFill;
         
         plotSpace.yRange = NewCPTPlotRange(location: min - yRange * 0.1, length: yRange * 2.0);
         plotSpace.globalYRange = plotSpace.yRange;
         
-        ((self.hostedGraph as CPTXYGraph).axisSet.axisForCoordinate(CPTCoordinateY, atIndex: 0) as CPTXYAxis).visibleRange = plotSpace.yRange;
+        ((self.hostedGraph as! CPTXYGraph).axisSet.axisForCoordinate(CPTCoordinateY, atIndex: 0) as! CPTXYAxis).visibleRange = plotSpace.yRange;
         plotSpace.delegate = self;
     }
     override func plotSpace(space: CPTPlotSpace?, willChangePlotRangeTo: CPTPlotRange?, forCoordinate: CPTCoordinate) -> CPTPlotRange {
@@ -209,13 +209,13 @@ class BpGraphHostingView: BaseCustomGraphHostingView {
         var low = -1, high = -1;
         if (points.count == 0 || (range.containsDouble(points[0].x) && range.containsDouble(points[points.count - 1].x))) {
             if (!isPortrait) {
-                (self.superview!.superview!.superview as UIScrollView).scrollEnabled = true;
+                (self.superview!.superview!.superview as! UIScrollView).scrollEnabled = true;
             }
             low = 0;
             high = points.count - 1;
         } else {
             if (!isPortrait) {
-                (self.superview!.superview!.superview as UIScrollView).scrollEnabled = false;
+                (self.superview!.superview!.superview as! UIScrollView).scrollEnabled = false;
             }
             
             var index = 0;
@@ -263,7 +263,7 @@ class BpGraphHostingView: BaseCustomGraphHostingView {
             average2 /= Double(high + 1 - low);
             trend = "\(Int(average + 0.5))/\(Int(average2 + 0.5)) Average  |  \(Int(highest))/\(Int(highest2)) Highest  |  \(Int(lowest))/\(Int(lowest2)) Lowest";
         }
-        var graphView = self.superview!.superview as GraphView;
+        var graphView = self.superview!.superview as! GraphView;
         graphView.updateTrend(trend);
         return range;
     }

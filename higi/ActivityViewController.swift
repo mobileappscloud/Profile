@@ -57,7 +57,7 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
         self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
         
         dateFormatter.dateFormat = "MM/dd/yyyy";
-        pointsMeter = UINib(nibName: "PointsMeterView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as PointsMeter;
+        pointsMeter = UINib(nibName: "PointsMeterView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! PointsMeter;
         pointsMeterContainer.addSubview(pointsMeter);
         populateActivities();
         let activities = SessionController.Instance.activities;
@@ -102,24 +102,24 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("ActivityCell") as ActivityCell!;
+        var cell = tableView.dequeueReusableCellWithIdentifier("ActivityCell") as! ActivityCell!;
         if (cell == nil) {
-            cell = UINib(nibName: "ActivityCellView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ActivityCell;
+            cell = UINib(nibName: "ActivityCellView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! ActivityCell;
         }
         cell.separatorInset = UIEdgeInsetsZero;
         if (UIDevice.currentDevice().systemVersion >= "8.0") {
             cell.layoutMargins = UIEdgeInsetsZero;
         }
         var activity = activitiesByDay[indexPath.section][indexPath.item];
-        cell.title.text = activity.device.name;
-        cell.activity.text = activity.description;
+        cell.title.text = activity.device.name as String;
+        cell.activity.text = activity.description as String;
         cell.points.text = "\(activity.points)";
         cell.coloredPoint.backgroundColor = Utility.colorFromHexString(activity.device.colorCode);
         cell.icon.image = nil;
-        cell.icon.setImageWithURL(NSURL(string: activity.device.iconUrl)!);
+        cell.icon.setImageWithURL(NSURL(string: activity.device.iconUrl as String));
         if (activity.errorDescription != nil) {
             cell.error.hidden = false;
-            cell.error.text = activity.errorDescription;
+            cell.error.text = activity.errorDescription as String;
             cell.contentView.alpha = 0.3;
         } else {
             cell.error.hidden = true;
@@ -129,7 +129,7 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        var header = UINib(nibName: "ActivityCellHeaderView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ActivityCellHeader;
+        var header = UINib(nibName: "ActivityCellHeaderView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! ActivityCellHeader;
         header.date.text = dateFormatter.stringFromDate(activitiesByDay[section][0].startTime);
         var total = 0;
         for activity in activitiesByDay[section] {
@@ -153,18 +153,18 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
         weekButton.setTitleColor(Utility.colorFromHexString("#AAAAAA"), forState: UIControlState.Normal)
         monthButton.titleLabel!.font = UIFont.systemFontOfSize(15);
         monthButton.setTitleColor(Utility.colorFromHexString("#AAAAAA"), forState: UIControlState.Normal)
-        (sender as UIButton).titleLabel!.font = UIFont.boldSystemFontOfSize(15);
-        (sender as UIButton).setTitleColor(Utility.colorFromHexString("#444444"), forState: UIControlState.Normal)
+        (sender as! UIButton).titleLabel!.font = UIFont.boldSystemFontOfSize(15);
+        (sender as! UIButton).setTitleColor(Utility.colorFromHexString("#444444"), forState: UIControlState.Normal)
         dayButton.enabled = true;
         weekButton.enabled = true;
         monthButton.enabled = true;
         dayGraph.hidden = true;
         weekGraph.hidden = true;
         monthGraph.hidden = true;
-        if (sender as UIButton == weekButton) {
+        if (sender as! UIButton == weekButton) {
             Flurry.logEvent("ActivityWeekGraph_Pressed");
             weekGraph.hidden = false;
-        } else if (sender as UIButton == monthButton) {
+        } else if (sender as! UIButton == monthButton) {
             Flurry.logEvent("ActivityMonthGraph_Pressed");
             monthGraph.hidden = false;
         } else {
@@ -215,11 +215,11 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
         activitiesByDay = [];
         if (activities != nil) {
             for activity in activities {
-                if (!contains(devices, activity.device.name)) {
+                if (!contains(devices, activity.device.name as String)) {
                     if (activity.typeCategory == "checkin") {
-                        devices.append(activity.device.name);
+                        devices.append(activity.device.name as String);
                     } else {
-                        devices.insert(activity.device.name, atIndex: 0);
+                        devices.insert(activity.device.name as String, atIndex: 0);
                     }
                 }
                 
@@ -262,12 +262,12 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
         let deviceName = activity.device.name;
         
         if (dayComponents.day < 7) {
-            var dayArray = dayBuckets[deviceName];
+            var dayArray = dayBuckets[deviceName as String];
             if (dayArray == nil) {
                 dayArray = [0, 0, 0, 0, 0, 0, 0];
             }
             dayArray![6 - dayComponents.day] += activity.points;
-            dayBuckets[deviceName] = dayArray;
+            dayBuckets[deviceName as String] = dayArray;
             if (dayComponents.day == 0) {
                 todaysActivities.append(activity);
                 legendDeviceRows.append(ActivityLegend.instanceFromNib(activity.device, points: activity.points));
@@ -278,24 +278,24 @@ class ActivityViewController: BaseViewController, UITableViewDelegate, UITableVi
             weekOffset += 52;
         }
         if (weekOffset < 7) {
-            var weekArray = weekBuckets[deviceName];
+            var weekArray = weekBuckets[deviceName as String];
             if (weekArray == nil) {
                 weekArray = [0, 0, 0, 0, 0, 0, 0];
             }
             weekArray![6 - weekOffset] += activity.points;
-            weekBuckets[deviceName] = weekArray;
+            weekBuckets[deviceName as String] = weekArray;
         }
         
         if (monthOffset < 0) {
             monthOffset += 12;
         }
         if (monthOffset < 7) {
-            var monthArray = monthBuckets[deviceName];
+            var monthArray = monthBuckets[deviceName as String];
             if (monthArray == nil) {
                 monthArray = [0, 0, 0, 0, 0, 0, 0];
             }
             monthArray![ 6 - monthOffset] += activity.points;
-            monthBuckets[deviceName] = monthArray;
+            monthBuckets[deviceName as String] = monthArray;
         }
     }
     

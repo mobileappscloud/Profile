@@ -25,7 +25,7 @@ class BodyStatsCard: UIView {
         bodyStatsViewController.currentPage = sender.tag;
         var viewController = Utility.getViewController(self);
         viewController!.navigationController!.pushViewController(bodyStatsViewController, animated: true);
-        (viewController!.navigationController as MainNavigationController).drawerController?.tableView.reloadData();
-        (viewController!.navigationController as MainNavigationController).drawerController?.tableView.selectRowAtIndexPath(NSIndexPath(forItem: 3, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None);
+        (viewController!.navigationController as! MainNavigationController).drawerController?.tableView.reloadData();
+        (viewController!.navigationController as! MainNavigationController).drawerController?.tableView.selectRowAtIndexPath(NSIndexPath(forItem: 3, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None);
     }
 }

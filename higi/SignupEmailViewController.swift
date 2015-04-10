@@ -40,7 +40,7 @@ class SignupEmailViewController: UIViewController, UITextFieldDelegate {
             self.navigationController!.navigationBar.hidden = false;
             declineButton.layer.borderWidth = 1;
             declineButton.layer.borderColor = UIColor.darkGrayColor().CGColor;
-            var backButton = UIButton.buttonWithType(UIButtonType.Custom) as UIButton;
+            var backButton = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton;
             backButton.setBackgroundImage(UIImage(named: "btn_back_black.png"), forState: UIControlState.Normal);
             backButton.addTarget(self, action: "goBack:", forControlEvents: UIControlEvents.TouchUpInside);
             backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
@@ -64,14 +64,14 @@ class SignupEmailViewController: UIViewController, UITextFieldDelegate {
         signupButton.enabled = false;
         self.navigationItem.leftBarButtonItem!.customView!.hidden = true;
         var problemFound = false;
-        if (email.text.utf16Count == 0 || email.text.rangeOfString("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$", options: NSStringCompareOptions.RegularExpressionSearch, range: nil, locale: nil) == nil) {
+        if (count(email.text) == 0 || email.text.rangeOfString("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$", options: NSStringCompareOptions.RegularExpressionSearch, range: nil, locale: nil) == nil) {
             problemFound = true;
             email.attributedPlaceholder = NSAttributedString(string: "Valid email required", attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)]);
         } else {
             email.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSForegroundColorAttributeName: UIColor.lightGrayColor()]);
         }
         
-        if (password.text.utf16Count < 6) {
+        if (count(password.text) < 6) {
             problemFound = true;
             password.attributedPlaceholder = NSAttributedString(string: "Password must be at least 6 characters", attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)]);
         } else {
@@ -92,16 +92,16 @@ class SignupEmailViewController: UIViewController, UITextFieldDelegate {
         var encodedPassword = CFURLCreateStringByAddingPercentEscapes(nil, password.text, nil, "!*'();:@&=+$,/?%#[]", CFStringBuiltInEncodings.UTF8.rawValue);
         HigiApi().sendGet("\(HigiApi.higiApiUrl)/data/emailUsed/\(encodedEmail)", success: {operation, responseObject in
             
-            if (responseObject as Bool) {
+            if (responseObject as! Bool) {
                 UIAlertView(title: "I knew you looked familiar...", message: "There is already a higi account with this email.", delegate: nil, cancelButtonTitle: "OK").show();
                 self.reset(false);
             } else {
                 HigiApi().sendGet("\(HigiApi.webUrl)/termsinfo", success: {operation, responseObject in
                     
-                    var termsInfo = responseObject as NSDictionary;
+                    var termsInfo = responseObject as! NSDictionary;
                     
-                    var termsFile = (termsInfo["termsFilename"] ?? "termsofuse_v7_08112014") as NSString;
-                    var privacyFile = (termsInfo["privacyFilename"] ?? "privacypolicy_v7_08112014") as NSString;
+                    var termsFile = (termsInfo["termsFilename"] ?? "termsofuse_v7_08112014") as! NSString;
+                    var privacyFile = (termsInfo["privacyFilename"] ?? "privacypolicy_v7_08112014") as! NSString;
                     
                     var dateFormatter = NSDateFormatter();
                     dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ";
@@ -119,14 +119,14 @@ class SignupEmailViewController: UIViewController, UITextFieldDelegate {
                     contents["privacyAgreed"] = privacy;
                     HigiApi().sendPut("\(HigiApi.higiApiUrl)/data/user?password=\(encodedPassword)", parameters: contents, success: {operation, responseObject in
                         
-                        var userInfo = responseObject as NSDictionary;
+                        var userInfo = responseObject as! NSDictionary;
                         
                         var user = HigiUser();
                         
-                        user.userId = userInfo["id"] as NSString;
+                        user.userId = userInfo["id"] as! NSString;
                         
                         SessionData.Instance.user = user;
-                        SessionData.Instance.token = userInfo["token"] as NSString;
+                        SessionData.Instance.token = userInfo["token"] as! String;
                         SessionData.Instance.save();
                         SessionController.Instance.checkins = [];
                         SessionController.Instance.activities = [];
@@ -171,8 +171,8 @@ class SignupEmailViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func decline(sender: AnyObject) {
-        var splashViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SplashViewController") as UIViewController;
-        (UIApplication.sharedApplication().delegate as AppDelegate).window?.rootViewController = splashViewController;
+        var splashViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SplashViewController") as! UIViewController;
+        (UIApplication.sharedApplication().delegate as! AppDelegate).window?.rootViewController = splashViewController;
     }
     
     func goBack(sender: AnyObject!) {

@@ -88,8 +88,8 @@ class TermsViewController: UIViewController {
         SessionController.Instance.reset();
         SessionData.Instance.reset();
         SessionData.Instance.save();
-        var splashViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SplashViewController") as UIViewController;
-        (UIApplication.sharedApplication().delegate as AppDelegate).window?.rootViewController = splashViewController;
+        var splashViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SplashViewController") as! UIViewController;
+        (UIApplication.sharedApplication().delegate as! AppDelegate).window?.rootViewController = splashViewController;
         
     }
     

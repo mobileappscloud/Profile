@@ -25,8 +25,8 @@ class ProfileImageViewController: UIViewController, UIImagePickerControllerDeleg
         self.navigationItem.hidesBackButton = true;
         
         if (fromSettings) {
-            (self.navigationController as MainNavigationController).revealController.panGestureRecognizer().enabled = false;
-            var backButton = UIButton.buttonWithType(UIButtonType.Custom) as UIButton;
+            (self.navigationController as! MainNavigationController).revealController.panGestureRecognizer().enabled = false;
+            var backButton = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton;
             backButton.setBackgroundImage(UIImage(named: "btn_back_black.png"), forState: UIControlState.Normal);
             backButton.addTarget(self, action: "goBack:", forControlEvents: UIControlEvents.TouchUpInside);
             backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
@@ -80,9 +80,9 @@ class ProfileImageViewController: UIViewController, UIImagePickerControllerDeleg
         Utility.gotoDashboard(self);
     }
     
-    func imagePickerController(picker: UIImagePickerController!, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]!) {
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
         picker.dismissViewControllerAnimated(true, completion: nil);
-        var image = (info[UIImagePickerControllerOriginalImage] as UIImage).fixOrientation();
+        var image = (info[UIImagePickerControllerOriginalImage] as! UIImage).fixOrientation();
         var modifyViewController = ModifyImageViewController(nibName: "ModifyImageView", bundle: nil);
         modifyViewController.profileImage = image;
         modifyViewController.fromSettings = fromSettings;

@@ -38,17 +38,17 @@ class ApiUtility {
     class func checkTermsAndPrivacy(viewController: UIViewController, success: (() -> Void)?, failure: (() -> Void)?) {
         HigiApi().sendGet("\(HigiApi.webUrl)/termsinfo", success: {operation, responseObject in
             var user = SessionData.Instance.user;
-            var termsInfo = responseObject as NSDictionary;
-            var termsFile = termsInfo["termsFilename"] as NSString;
-            var privacyFile = termsInfo["privacyFilename"] as NSString;
+            var termsInfo = responseObject as! NSDictionary;
+            var termsFile = termsInfo["termsFilename"] as! NSString;
+            var privacyFile = termsInfo["privacyFilename"] as! NSString;
             var newTerms = termsFile != user.termsFile;
             var newPrivacy = privacyFile != user.privacyFile;
             if (newTerms || newPrivacy) {
                 var termsController = TermsViewController(nibName: "TermsView", bundle: nil);
                 termsController.newTerms = newTerms;
                 termsController.newPrivacy = newPrivacy;
-                termsController.termsFile = termsFile;
-                termsController.privacyFile = privacyFile;
+                termsController.termsFile = termsFile as String;
+                termsController.privacyFile = privacyFile as String;
                 viewController.presentViewController(termsController, animated: true, completion: nil);
             } else if (user.firstName == nil || user.firstName == "" || user.lastName == nil || user.lastName == "") {
                 var nameViewController = SignupNameViewController(nibName: "SignupNameView", bundle: nil);
@@ -79,7 +79,7 @@ class ApiUtility {
         HigiApi().sendGet( "\(HigiApi.higiApiUrl)/data/user/\(SessionData.Instance.user.userId)/checkIn", success:
             { operation, responseObject in
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                    var serverCheckins = responseObject as NSArray;
+                    var serverCheckins = responseObject as! NSArray;
                     var checkins: [HigiCheckin] = [];
                     var lastBpCheckin, lastBmiCheckin: HigiCheckin?;
                     for checkin: AnyObject in serverCheckins {
@@ -135,9 +135,9 @@ class ApiUtility {
             HigiApi().sendGet("\(HigiApi.earnditApiUrl)/user/\(userId)/activities?limit=0&startDate=\(startDateFormatter.stringFromDate(startDate))&endDate=\(endDateFormatter.stringFromDate(endDate))", success: {operation, responseObject in
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                     var activities: [HigiActivity] = [];
-                    var serverActivities = ((responseObject as NSDictionary)["response"] as NSDictionary)["data"] as NSArray;
+                    var serverActivities = ((responseObject as! NSDictionary)["response"] as! NSDictionary)["data"] as! NSArray;
                     for activity: AnyObject in serverActivities {
-                        activities.append(HigiActivity(dictionary: activity as NSDictionary));
+                        activities.append(HigiActivity(dictionary: activity as! NSDictionary));
                     }
                     
                     SessionController.Instance.activities = activities;
@@ -174,46 +174,46 @@ class ApiUtility {
             "&include[comments]=50&include[teams.comments]=50", success: {operation, responseObject in
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                     var challenges: [HigiChallenge] = [];
-                    let serverChallenges = ((responseObject as NSDictionary)["response"] as NSDictionary)["data"] as NSArray;
+                    let serverChallenges = ((responseObject as! NSDictionary)["response"] as! NSDictionary)["data"] as! NSArray;
                     for challenge: AnyObject in serverChallenges {
-                        let serverParticipant = ((challenge as NSDictionary)["userRelation"] as NSDictionary)["participant"] as? NSDictionary;
+                        let serverParticipant = ((challenge as! NSDictionary)["userRelation"] as! NSDictionary)["participant"] as? NSDictionary;
                         var participant: ChallengeParticipant!;
                         if (serverParticipant != nil) {
                             participant = ChallengeParticipant(dictionary: serverParticipant!);
                         }
-                        let serverGravityBoard = ((challenge as NSDictionary)["userRelation"] as NSDictionary)["gravityboard"] as? NSArray;
+                        let serverGravityBoard = ((challenge as! NSDictionary)["userRelation"] as! NSDictionary)["gravityboard"] as? NSArray;
                         var gravityBoard: [GravityParticipant] = [];
                         if (serverGravityBoard != nil) {
                             for boardParticipant: AnyObject in serverGravityBoard! {
-                                gravityBoard.append(GravityParticipant(place: (boardParticipant as NSDictionary)["position"] as? NSString, participant: ChallengeParticipant(dictionary: (boardParticipant as NSDictionary)["participant"] as NSDictionary)));
+                                gravityBoard.append(GravityParticipant(place: (boardParticipant as! NSDictionary)["position"] as? NSString, participant: ChallengeParticipant(dictionary: (boardParticipant as! NSDictionary)["participant"] as! NSDictionary)));
                             }
                         }
-                        let serverParticipants = ((challenge as NSDictionary)["participants"] as NSDictionary)["data"] as? NSArray;
+                        let serverParticipants = ((challenge as! NSDictionary)["participants"] as! NSDictionary)["data"] as? NSArray;
                         var participants:[ChallengeParticipant] = [];
                         if (serverParticipants != nil) {
                             for singleParticipant: AnyObject in serverParticipants! {
-                                participants.append(ChallengeParticipant(dictionary: singleParticipant as NSDictionary));
+                                participants.append(ChallengeParticipant(dictionary: singleParticipant as! NSDictionary));
                             }
                         }
-                        let serverPagingData = (((challenge as NSDictionary)["participants"] as NSDictionary)["paging"] as NSDictionary)["nextUrl"] as? NSString;
+                        let serverPagingData = (((challenge as! NSDictionary)["participants"] as! NSDictionary)["paging"] as! NSDictionary)["nextUrl"] as? NSString;
                         var pagingData = PagingData(nextUrl: serverPagingData);
                         
-                        let serverComments = ((challenge as NSDictionary)["comments"] as NSDictionary)["data"] as? NSArray;
+                        let serverComments = ((challenge as! NSDictionary)["comments"] as! NSDictionary)["data"] as? NSArray;
                         var chatter:Chatter;
                         var comments:[Comments] = [];
                         var commentPagingData = PagingData(nextUrl: "");
                         if (serverComments != nil) {
-                            commentPagingData = PagingData(nextUrl: (((challenge as NSDictionary)["comments"] as NSDictionary)["paging"] as NSDictionary)["nextUrl"] as? NSString);
+                            commentPagingData = PagingData(nextUrl: (((challenge as! NSDictionary)["comments"] as! NSDictionary)["paging"] as! NSDictionary)["nextUrl"] as? NSString);
                             for challengeComment in serverComments! {
-                                let comment = (challengeComment as NSDictionary)["comment"] as NSString;
-                                let timeSinceLastPost = (challengeComment as NSDictionary)["timeSincePosted"] as NSString;
-                                let commentParticipant = ChallengeParticipant(dictionary: (challengeComment as NSDictionary)["participant"] as NSDictionary);
-                                let commentTeam = commentParticipant.team?;
+                                let comment = (challengeComment as! NSDictionary)["comment"] as! NSString;
+                                let timeSinceLastPost = (challengeComment as! NSDictionary)["timeSincePosted"] as! NSString;
+                                let commentParticipant = ChallengeParticipant(dictionary: (challengeComment as! NSDictionary)["participant"] as! NSDictionary);
+                                let commentTeam = commentParticipant.team;
                                 comments.append(Comments(comment: comment, timeSincePosted: timeSinceLastPost, participant: commentParticipant, team: commentTeam))
                             }
                         }
                         chatter = Chatter(comments: comments, paging: commentPagingData);
-                        challenges.append(HigiChallenge(dictionary: challenge as NSDictionary, userStatus: ((challenge as NSDictionary)["userRelation"] as NSDictionary)["status"] as NSString, participant: participant, gravityBoard: gravityBoard, participants: participants, pagingData: pagingData, chatter: chatter));
+                        challenges.append(HigiChallenge(dictionary: challenge as! NSDictionary, userStatus: ((challenge as! NSDictionary)["userRelation"] as! NSDictionary)["status"] as! NSString, participant: participant, gravityBoard: gravityBoard, participants: participants, pagingData: pagingData, chatter: chatter));
                     }
                     
                     SessionController.Instance.challenges = challenges;
@@ -238,10 +238,10 @@ class ApiUtility {
         HigiApi().sendGet("\(HigiApi.earnditApiUrl)/user/\(userId)/devices", success: {operation, responseObject in
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                 var devices: [String:ActivityDevice] = [:];
-                var serverDevices = (responseObject as NSDictionary)["response"] as NSArray;
+                var serverDevices = (responseObject as! NSDictionary)["response"] as! NSArray;
                 for device: AnyObject in serverDevices {
-                    var thisDevice = ActivityDevice(dictionary: device as NSDictionary);
-                    devices[thisDevice.name] = thisDevice;
+                    var thisDevice = ActivityDevice(dictionary: device as! NSDictionary);
+                    devices[thisDevice.name as String] = thisDevice;
                 }
                 
                 SessionController.Instance.devices = devices;
@@ -309,7 +309,7 @@ class ApiUtility {
         if NSJSONSerialization.isValidJSONObject(value) {
             if let data = NSJSONSerialization.dataWithJSONObject(value, options: nil, error: nil) {
                 if let string = NSString(data: data, encoding: NSUTF8StringEncoding) {
-                    return string;
+                    return string as String;
                 }
             }
         }
@@ -318,7 +318,7 @@ class ApiUtility {
     
     class func deserializeKiosks(response: String) -> [KioskInfo] {
         let jsonData = response.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false);
-        let serverKiosks = NSJSONSerialization.JSONObjectWithData(jsonData!, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSArray;
+        let serverKiosks = NSJSONSerialization.JSONObjectWithData(jsonData!, options: NSJSONReadingOptions.MutableContainers, error: nil) as! NSArray;
         var kiosks: [KioskInfo] = [];
         for kiosk: AnyObject in serverKiosks {
             if let kioskData = kiosk as? NSDictionary {
@@ -348,23 +348,23 @@ class ApiUtility {
                 SessionController.Instance.healthStore = HKHealthStore();
             }
             var healthStore = SessionController.Instance.healthStore;
-            healthStore.requestAuthorizationToShareTypes(ApiUtility.dataTypesToWrite(), readTypes: ApiUtility.dataTypesToRead(), completion: { success, error in
+            healthStore.requestAuthorizationToShareTypes(ApiUtility.dataTypesToWrite() as Set<NSObject>, readTypes: ApiUtility.dataTypesToRead() as Set<NSObject>, completion: { success, error in
                 if (success) {
                     dispatch_async(dispatch_get_main_queue(), {
                         
-                        var startDate = NSDate.distantPast() as NSDate;
+                        var startDate = NSDate.distantPast() as! NSDate;
                         
                         healthStore.executeQuery(HKSampleQuery(sampleType: HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBodyMass), predicate: HKQuery.predicateForObjectsFromSource(HKSource.defaultSource()), limit: Int(HKObjectQueryNoLimit), sortDescriptors: nil, resultsHandler: {query, results, error in
                             
-                            if (results != nil && (results as [HKSample]).count > 0) {
-                                var dataResults: [HKSample] = results as [HKSample];
+                            if (results != nil && (results as! [HKSample]).count > 0) {
+                                var dataResults: [HKSample] = results as! [HKSample];
                                 startDate = dataResults.last!.startDate;
                             }
                             
                             healthStore.executeQuery(HKSampleQuery(sampleType: HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate), predicate: HKQuery.predicateForObjectsFromSource(HKSource.defaultSource()), limit: Int(HKObjectQueryNoLimit), sortDescriptors: nil, resultsHandler: {query, results, error in
                                 
-                                if (results != nil && (results as [HKSample]).count > 0) {
-                                    var dataResults: [HKSample] = results as [HKSample];
+                                if (results != nil && (results as! [HKSample]).count > 0) {
+                                    var dataResults: [HKSample] = results as! [HKSample];
                                     if (startDate.compare(dataResults.last!.startDate) == .OrderedAscending) {
                                         startDate = dataResults.last!.startDate;
                                     }
@@ -372,8 +372,8 @@ class ApiUtility {
                                 
                                 healthStore.executeQuery(HKSampleQuery(sampleType: HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBodyMassIndex), predicate: HKQuery.predicateForObjectsFromSource(HKSource.defaultSource()), limit: Int(HKObjectQueryNoLimit), sortDescriptors: nil, resultsHandler: {query, results, error in
                                     
-                                    if (results != nil && (results as [HKSample]).count > 0) {
-                                        var dataResults: [HKSample] = results as [HKSample];
+                                    if (results != nil && (results as! [HKSample]).count > 0) {
+                                        var dataResults: [HKSample] = results as! [HKSample];
                                         if (startDate.compare(dataResults.last!.startDate) == .OrderedAscending) {
                                             startDate = dataResults.last!.startDate;
                                         }
@@ -381,8 +381,8 @@ class ApiUtility {
                                     
                                     healthStore.executeQuery(HKSampleQuery(sampleType: HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBloodPressureSystolic), predicate: HKQuery.predicateForObjectsFromSource(HKSource.defaultSource()), limit: Int(HKObjectQueryNoLimit), sortDescriptors: nil, resultsHandler: {query, results, error in
                                         
-                                        if (results != nil && (results as [HKSample]).count > 0) {
-                                            var dataResults: [HKSample] = results as [HKSample];
+                                        if (results != nil && (results as! [HKSample]).count > 0) {
+                                            var dataResults: [HKSample] = results as! [HKSample];
                                             if (startDate.compare(dataResults.last!.startDate) == .OrderedAscending) {
                                                 startDate = dataResults.last!.startDate;
                                             }
@@ -422,7 +422,7 @@ class ApiUtility {
                 var systolic = HKQuantitySample(type: HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBloodPressureSystolic), quantity: HKQuantity(unit: HKUnit.millimeterOfMercuryUnit(), doubleValue: Double(checkin.systolic!)), startDate: checkin.dateTime, endDate: checkin.dateTime);
                 var diastolic = HKQuantitySample(type: HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBloodPressureDiastolic), quantity: HKQuantity(unit: HKUnit.millimeterOfMercuryUnit(), doubleValue: Double(checkin.diastolic!)), startDate: checkin.dateTime, endDate: checkin.dateTime);
                 var bpSet = NSSet(objects: systolic, diastolic);
-                bpSamples.append(HKCorrelation(type: HKObjectType.correlationTypeForIdentifier(HKCorrelationTypeIdentifierBloodPressure), startDate: checkin.dateTime, endDate: checkin.dateTime, objects: bpSet));
+                bpSamples.append(HKCorrelation(type: HKObjectType.correlationTypeForIdentifier(HKCorrelationTypeIdentifierBloodPressure), startDate: checkin.dateTime, endDate: checkin.dateTime, objects: bpSet as Set<NSObject>));
                 pulseSamples.append(HKQuantitySample(type: HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate), quantity: HKQuantity(unit: HKUnit.countUnit().unitDividedByUnit(HKUnit.minuteUnit()), doubleValue: Double(checkin.pulseBpm!)), startDate: checkin.dateTime, endDate: checkin.dateTime));
             }
             
@@ -458,10 +458,10 @@ class ApiUtility {
         HigiApi().sendGet(url, success: { operation, responseObject in
             
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                var serverArticles = (responseObject as NSDictionary)["posts"] as NSArray;
+                var serverArticles = (responseObject as! NSDictionary)["posts"] as! NSArray;
                 var articles: [PulseArticle] = [];
                 for articleData: AnyObject in serverArticles {
-                    articles.append(PulseArticle(dictionary: articleData as NSDictionary));
+                    articles.append(PulseArticle(dictionary: articleData as! NSDictionary));
                 }
                 
                 SessionController.Instance.pulseArticles += articles;

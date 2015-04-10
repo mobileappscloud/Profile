@@ -64,7 +64,7 @@ class SettingsViewController: BaseViewController, UIScrollViewDelegate {
         if (pictureChanged) {
             SessionData.Instance.user.profileImage = user.profileImage;
             SessionData.Instance.user.blurredImage = user.blurredImage;
-            (self.navigationController as MainNavigationController).drawerController.refreshData();
+            (self.navigationController as! MainNavigationController).drawerController.refreshData();
         }
     }
     
@@ -88,7 +88,7 @@ class SettingsViewController: BaseViewController, UIScrollViewDelegate {
     }
     
     @IBAction func emailCheckins(sender: AnyObject) {
-        var isOn = (sender as UISwitch).on;
+        var isOn = (sender as! UISwitch).on;
         var contents = NSMutableDictionary();
         var notifications = NSMutableDictionary();
         notifications.setObject(isOn ? "True" : "False", forKey: "EmailCheckins");
@@ -96,14 +96,14 @@ class SettingsViewController: BaseViewController, UIScrollViewDelegate {
         user.emailCheckins = isOn;
         HigiApi().sendPost("\(HigiApi.higiApiUrl)/data/user/\(user.userId)", parameters: contents, success: nil, failure: { operation, error in
             
-            (sender as UISwitch).on = !isOn;
+            (sender as! UISwitch).on = !isOn;
             self.user.emailCheckins = !isOn;
             
             });
     }
     
     @IBAction func emailNews(sender: AnyObject) {
-        var isOn = (sender as UISwitch).on;
+        var isOn = (sender as! UISwitch).on;
         var contents = NSMutableDictionary();
         var notifications = NSMutableDictionary();
         notifications.setObject(isOn ? "True" : "False", forKey: "EmailHigiNews");
@@ -111,7 +111,7 @@ class SettingsViewController: BaseViewController, UIScrollViewDelegate {
         user.emailHigiNews = isOn;
         HigiApi().sendPost("\(HigiApi.higiApiUrl)/data/user/\(user.userId)", parameters: contents, success: nil, failure: { operation, error in
                 
-                (sender as UISwitch).on = !isOn;
+                (sender as! UISwitch).on = !isOn;
                 self.user.emailHigiNews = !isOn;
                 
             });
@@ -159,25 +159,25 @@ class SettingsViewController: BaseViewController, UIScrollViewDelegate {
         SessionController.Instance.reset();
         SessionData.Instance.reset();
         SessionData.Instance.save();
-        var splashViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SplashViewController") as UIViewController;
-        (UIApplication.sharedApplication().delegate as AppDelegate).window?.rootViewController = splashViewController;
+        var splashViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SplashViewController") as! UIViewController;
+        (UIApplication.sharedApplication().delegate as! AppDelegate).window?.rootViewController = splashViewController;
     }
     
     @IBAction func buttonTouched(sender: AnyObject) {
-        (sender as UIButton).backgroundColor = Utility.colorFromHexString("#EEEEEE");
+        (sender as! UIButton).backgroundColor = Utility.colorFromHexString("#EEEEEE");
     }
     
     @IBAction func resetColor(sender: AnyObject) {
-        (sender as UIButton).backgroundColor = UIColor.clearColor();
+        (sender as! UIButton).backgroundColor = UIColor.clearColor();
     }
     
     @IBAction func connectDevices(sender: AnyObject) {
         Flurry.logEvent("ConnectDevice_Pressed");
         self.navigationController!.pushViewController(ConnectDeviceViewController(nibName: "ConnectDeviceView", bundle: nil), animated: true);
-        (sender as UIButton).backgroundColor = Utility.colorFromHexString("#FFFFFF");
+        (sender as! UIButton).backgroundColor = Utility.colorFromHexString("#FFFFFF");
     }
     
-    func scrollViewDidScroll(scrollView: UIScrollView!) {
+    func scrollViewDidScroll(scrollView: UIScrollView) {
         updateNavBar();
     }
     

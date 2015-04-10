@@ -24,10 +24,10 @@ class SignupNameViewController: UIViewController, UITextFieldDelegate {
         
         let user = SessionData.Instance.user;
         if (user.firstName != nil) {
-            firstName.text = user.firstName;
+            firstName.text = user.firstName as String;
         }
         if (user.lastName != nil) {
-            lastName.text = user.lastName;
+            lastName.text = user.lastName as String;
         }
         spinner = CustomLoadingSpinner(frame: CGRectMake(self.view.frame.size.width / 2 - 16, UIScreen.mainScreen().bounds.size.height - 66, 32, 32));
         spinner.shouldAnimateFull = false;
@@ -43,12 +43,12 @@ class SignupNameViewController: UIViewController, UITextFieldDelegate {
         spinner.hidden = false;
         var problemFound = false;
         
-        if (firstName.text.utf16Count == 0) {
+        if (count(firstName.text) == 0) {
             problemFound = true;
             firstName.attributedPlaceholder = NSAttributedString(string: "First name is required", attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)]);
         }
         
-        if (lastName.text.utf16Count == 0) {
+        if (count(lastName.text) == 0) {
             problemFound = true;
             lastName.attributedPlaceholder = NSAttributedString(string: "Last name is required", attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)]);
         }

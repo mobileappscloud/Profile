@@ -25,18 +25,18 @@ class ChallengeWinCondition {
     
     
     init(dictionary: NSDictionary) {
-        displayOrder = dictionary["displayOrder"] as Int;
-        name = dictionary["name"] as NSString;
-        description = dictionary["description"] as NSString;
-        winnersCount = dictionary["winnersCount"] as Int;
-        winnerType = dictionary["winnerType"] as NSString;
+        displayOrder = dictionary["displayOrder"] as! Int;
+        name = dictionary["name"] as! NSString;
+        description = dictionary["description"] as! NSString;
+        winnersCount = dictionary["winnersCount"] as! Int;
+        winnerType = dictionary["winnerType"] as! NSString;
         
-        var goalObject = dictionary["goal"] as NSDictionary;
-        goal = Goal(type: goalObject["type"] as NSString, place: (goalObject["place"] ?? 0) as Int, minThreshold: (goalObject["min_threshold"] ?? 0) as Int, maxThreshold: (goalObject["max_threshold"] ?? 0) as Int);
+        var goalObject = dictionary["goal"] as! NSDictionary;
+        goal = Goal(type: goalObject["type"] as! NSString, place: (goalObject["place"] ?? 0) as! Int, minThreshold: (goalObject["min_threshold"] ?? 0) as! Int, maxThreshold: (goalObject["max_threshold"] ?? 0) as! Int);
         
-        var prizeObject = dictionary["prize"] as NSDictionary?;
+        var prizeObject = dictionary["prize"] as! NSDictionary?;
         if (prizeObject != nil) {
-            prizeName = prizeObject!["name"] as NSString;
+            prizeName = prizeObject!["name"] as! NSString;
             prizeImageUrl = prizeObject!["imageUrl"] as? NSString!;
         }
     }

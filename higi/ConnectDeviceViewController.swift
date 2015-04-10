@@ -14,8 +14,8 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
         super.viewDidLoad();
         
         self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
-        (self.navigationController as MainNavigationController).revealController.panGestureRecognizer().enabled = false;
-        var backButton = UIButton.buttonWithType(UIButtonType.Custom) as UIButton;
+        (self.navigationController as! MainNavigationController).revealController.panGestureRecognizer().enabled = false;
+        var backButton = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton;
         backButton.setBackgroundImage(UIImage(named: "btn_back_white.png"), forState: UIControlState.Normal);
         backButton.addTarget(self, action: "goBack:", forControlEvents: UIControlEvents.TouchUpInside);
         backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
@@ -83,15 +83,15 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var row = tableView.dequeueReusableCellWithIdentifier("ConnectDeviceRow") as ConnectDeviceRow!;
+        var row = tableView.dequeueReusableCellWithIdentifier("ConnectDeviceRow") as! ConnectDeviceRow!;
         if (row == nil) {
-            row = UINib(nibName: "ConnectDeviceRow", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ConnectDeviceRow;
+            row = UINib(nibName: "ConnectDeviceRow", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! ConnectDeviceRow;
         }
         let device = devices[indexPath.row]
         row.device = device;
         row.parentController = self.navigationController;
-        row.logo.setImageWithURL(Utility.loadImageFromUrl(device.iconUrl));
-        row.name.text = device.name;
+        row.logo.setImageWithURL(Utility.loadImageFromUrl(device.iconUrl as String));
+        row.name.text = device.name as String;
         row.connectedToggle.on = device.connected;
         row.device = device;
         return row;

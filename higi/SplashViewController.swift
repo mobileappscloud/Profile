@@ -26,7 +26,7 @@ class SplashViewController: UIViewController, UIAlertViewDelegate {
         } else {
             HigiApi().sendGet("\(HigiApi.higiApiUrl)/data/qdata/\(SessionData.Instance.user.userId)?newSession=true", success: { operation, responseObject in
                 
-                var login = HigiLogin(dictionary: responseObject as NSDictionary);
+                var login = HigiLogin(dictionary: responseObject as! NSDictionary);
                 SessionData.Instance.user = login.user;
                 ApiUtility.checkTermsAndPrivacy(self, success: nil, failure: self.errorToWelcome);
                 
@@ -59,7 +59,7 @@ class SplashViewController: UIViewController, UIAlertViewDelegate {
     func checkVersion() {
         HigiApi().sendGet("\(HigiApi.higiApiUrl)/app/mobile/minVersion?p=ios", success: { operation, responseObject in
             
-            var minVersionParts = (responseObject as NSString).componentsSeparatedByString(".") as [String];
+            var minVersionParts = (responseObject as! NSString).componentsSeparatedByString(".") as! [String];
             for i in minVersionParts.count...3 {
                 minVersionParts.append("0");
             }
