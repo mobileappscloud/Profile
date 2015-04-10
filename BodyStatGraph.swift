@@ -29,6 +29,11 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
         self.points = points;
         self.diastolicPoints = diastolicPoints;
         self.systolicPoints = systolicPoints;
+        
+        self.points.sort({ $0.x > $1.x });
+        self.diastolicPoints.sort({ $0.x > $1.x });
+        self.systolicPoints.sort({ $0.x > $1.x });
+        
         //        self.points.append(GraphPoint(x: Double(NSDate().timeIntervalSince1970), y: points.last!.y));
         //        self.diastolicPoints.append(GraphPoint(x: Double(NSDate().timeIntervalSince1970), y: points.last!.y));
         //        self.systolicPoints.append(GraphPoint(x: Double(NSDate().timeIntervalSince1970), y: points.last!.y));
