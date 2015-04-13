@@ -67,12 +67,14 @@ class DrawerViewController: UIViewController, UITableViewDelegate, UITableViewDa
             navController?.popToRootViewControllerAnimated(false);
         case 1:
             if (SessionController.Instance.activities == nil) {
+                tableView.deselectRowAtIndexPath(indexPath, animated: false);
                 return;
             }
             Flurry.logEvent("ActivityOffCanvas_Pressed");
             navController?.pushViewController(ActivityViewController(nibName: "ActivityView", bundle: nil), animated: false);
         case 2:
             if (SessionController.Instance.challenges == nil) {
+                tableView.deselectRowAtIndexPath(indexPath, animated: false);
                 return;
             }
             Flurry.logEvent("ChallengesOffCanvas_Pressed");
