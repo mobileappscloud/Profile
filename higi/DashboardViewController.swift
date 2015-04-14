@@ -230,6 +230,37 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     func initBodyStatsCard() {
         if (SessionController.Instance.checkins != nil) {
             
+            var bloodPressureCheckin: HigiCheckin;
+            var weightCheckin: HigiCheckin;
+            
+            var bps: [HigiCheckin] = [];
+            var weights: [HigiCheckin] = [];
+            
+            let dateFormatter = NSDateFormatter();
+            dateFormatter.dateFormat = "MM/dd/yyyy";
+            
+            var lastBpDate = "", lastBmiDate = "";
+            for checkin in SessionController.Instance.checkins {
+                var bpDate = dateFormatter.stringFromDate(checkin.dateTime);
+                if (checkin.systolic != nil && checkin.systolic > 0) {
+                    if (bpDate != lastBpDate) {
+                        bps.append(checkin);
+                        lastBpDate = bpDate;
+                    } else {
+                        bps[bps.count - 1] = checkin;
+                    }
+                }
+                
+                var bmiDate = dateFormatter.stringFromDate(checkin.dateTime);
+                if (checkin.weightKG != nil && checkin.weightKG > 0) {
+                    if (bmiDate != lastBmiDate) {
+                        weights.append(checkin);
+                        lastBmiDate = bmiDate;
+                    } else {
+                        weights[weights.count - 1] = checkin;
+                    }
+                }
+            }
             let cardMarginX:CGFloat = 8;
             let cardMarginY:CGFloat = 16;
             var cardPositionY:CGFloat = 60;
@@ -238,7 +269,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             let pulseColor = Utility.colorFromHexString("#5FAFDF");
             let weightColor = Utility.colorFromHexString("#EE6C55");
             
-            let bloodPressureCard = BodyStatsGraphCard.instanceFromNib("Blood Pressure", lastCheckin: SessionController.Instance.checkins.last!, color: bloodPressureColor, type: "bp");
+            let bloodPressureCard = BodyStatsGraphCard.instanceFromNib("Blood Pressure", lastCheckin: bps.last!, color: bloodPressureColor, type: "bp");
             
             bloodPressureCard.frame.origin.y = cardPositionY;
             bloodPressureCard.frame.origin.x = cardMarginX;
@@ -246,14 +277,22 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             bloodPressureCard.addGestureRecognizer(bpTouched);
             cardPositionY += bloodPressureCard.frame.size.height + cardMarginY;
             
-            let pulseCard = BodyStatsGraphCard.instanceFromNib("Pulse", lastCheckin: SessionController.Instance.checkins.last!, color: pulseColor, type: "pulse");
+            var firstDivider = UIView(frame: CGRect(x: 0, y: cardPositionY - cardMarginY / 2, width: self.view.frame.size.width, height: 1));
+            firstDivider.backgroundColor = Utility.colorFromHexString("#EEEEEE");
+            bodyStatsCard.addSubview(firstDivider);
+            
+            let pulseCard = BodyStatsGraphCard.instanceFromNib("Pulse", lastCheckin: bps.last!, color: pulseColor, type: "pulse");
             pulseCard.frame.origin.y = cardPositionY;
             pulseCard.frame.origin.x = cardMarginX;
             let pulseTouched = UITapGestureRecognizer(target: self, action: "gotoPulseGraph:");
             pulseCard.addGestureRecognizer(pulseTouched);
             cardPositionY += pulseCard.frame.size.height + cardMarginY;
             
-            let weightCard = BodyStatsGraphCard.instanceFromNib("Weight", lastCheckin: SessionController.Instance.checkins.last!, color: weightColor, type: "weight");
+            var secondDivider = UIView(frame: CGRect(x: 0, y: cardPositionY - cardMarginY / 2, width: self.view.frame.size.width, height: 1));
+            secondDivider.backgroundColor = Utility.colorFromHexString("#EEEEEE");
+            bodyStatsCard.addSubview(secondDivider);
+            
+            let weightCard = BodyStatsGraphCard.instanceFromNib("Weight", lastCheckin: weights.last!, color: weightColor, type: "weight");
             weightCard.frame.origin.y = cardPositionY;
             weightCard.frame.origin.x = cardMarginX;
             let weightTouched = UITapGestureRecognizer(target: self, action: "gotoWeightGraph:");

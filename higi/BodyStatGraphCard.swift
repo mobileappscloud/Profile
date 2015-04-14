@@ -26,12 +26,12 @@ class BodyStatsGraphCard: UIView {
         card.date.text = formatter.stringFromDate(lastCheckin.dateTime);
         
         if (type == "bp") {
-            card.firstReadingValue.text = "\(lastCheckin.systolic)/\(lastCheckin.diastolic)";
+            card.firstReadingValue.text = "\(Int(lastCheckin.systolic!))/\(Int(lastCheckin.diastolic!))";
             card.firstReadingLabel.text = "mmHg";
             card.firstReadingSubTitle.text = "Blood Pressure";
             card.firstReadingValue.textColor = color;
             
-            card.secondReadingValue.text = "\(lastCheckin.map)";
+            card.secondReadingValue.text = "\(Int(lastCheckin.map!))";
             card.secondReadingLabel.text = "mmHg";
             card.secondReadingSubTitle.text = "Mean Arterial Pressure";
             card.secondReadingValue.textColor = color;
@@ -44,7 +44,7 @@ class BodyStatsGraphCard: UIView {
             card.secondReadingLabel.text = "";
             card.secondReadingSubTitle.text = "Body Fat";
         } else {
-            card.firstReadingValue.text = "\(lastCheckin.pulseBpm)";
+            card.firstReadingValue.text = "\(Int(lastCheckin.pulseBpm!))";
             card.firstReadingLabel.text = "bpm";
             card.firstReadingSubTitle.text = "Blood Pressure";
             

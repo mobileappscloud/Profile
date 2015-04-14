@@ -3,19 +3,24 @@ import Foundation
 class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpaceDelegate {
     
     var points: [GraphPoint];
+    
     var altPoints: Array<Array<GraphPoint>> = Array<Array<GraphPoint>>();
+    
     var altPlots: [Int:NewCPTScatterPlot] = [:];
-    var systolicPoints: [GraphPoint] = [];
-    var diastolicPoints: [GraphPoint] = [];
+    
+    var systolicPoints: [GraphPoint] = [], diastolicPoints: [GraphPoint] = [];
+    
     var plot: NewCPTScatterPlot = NewCPTScatterPlot(frame: CGRectZero);
+    
     var selectedPointIndex = -1;
-    var plotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
-    var selectedPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
-    var altPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
-    var selectedAltPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
-    var unselectedAltPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
-    var selectedAltPlotLineStyle = CPTMutableLineStyle();
-    var unselectedAltPlotLineStyle = CPTMutableLineStyle();
+    
+    var plotSymbol = CPTPlotSymbol.ellipsePlotSymbol(), selectedPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol(), altPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol(), selectedAltPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol(), unselectedAltPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
+    
+    var selectedAltPlotLineStyle = CPTMutableLineStyle(), unselectedAltPlotLineStyle = CPTMutableLineStyle();
+    
+    var lastSelectedAltPlotIndex = -1;
+    
+    var firstSelection = true;
     
     init(frame: CGRect, points: [GraphPoint]) {
         self.points = points;
@@ -47,7 +52,6 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
         
         var graph = CPTXYGraph(frame: self.bounds);
         self.hostedGraph = graph;
-        self.allowPinchScaling = false;
         
         graph.paddingLeft = 0;
         graph.paddingTop = 0;
@@ -83,13 +87,11 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
         }
         
         var plotSpace = graph.defaultPlotSpace as! CPTXYPlotSpace;
-        plotSpace.allowsUserInteraction = true;
-        plotSpace.xRange = NewCPTPlotRange(location: firstPoint.x - 1, length: lastPoint.x - firstPoint.x + 2);
+        plotSpace.xRange = NewCPTPlotRange(location: firstPoint.x - 1 - firstPoint.x * 0.1, length: lastPoint.x - firstPoint.x - 2 + firstPoint.x * 0.1);
         plotSpace.yRange = NewCPTPlotRange(location: min - yRange * 0.25, length: yRange * 1.5);
         plotSpace.globalXRange = plotSpace.xRange;
         plotSpace.globalYRange = plotSpace.yRange;
         plotSpace.delegate = self;
-        
         plot = NewCPTScatterPlot(frame: CGRectZero);
         plot.interpolation = CPTScatterPlotInterpolationCurved;
 
@@ -380,28 +382,30 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
         
         if (plot.isEqual(self.plot)) {
             selectedPointIndex = idx;
+        } else {
+            selectedPointIndex = plot.name.toInt()!;
+        }
+
+        if (firstSelection) {
             for (index, altPlot) in altPlots {
                 if (index == selectedPointIndex) {
+                    lastSelectedAltPlotIndex = index;
                     altPlot.dataLineStyle = selectedAltPlotLineStyle;
                 } else {
                     altPlot.dataLineStyle = unselectedAltPlotLineStyle;
                 }
                 altPlot.reloadData();
             }
+            firstSelection = false;
         } else {
-            for (index, altPlot) in altPlots {
-                if (plot.isEqual(altPlot)) {
-                    altPlot.dataLineStyle = selectedAltPlotLineStyle;
-                    selectedPointIndex = index;
-                } else {
-                    altPlot.dataLineStyle = unselectedAltPlotLineStyle;
-                }
-                altPlot.reloadData();
-            }
+            altPlots[selectedPointIndex]?.dataLineStyle = selectedAltPlotLineStyle;
+            altPlots[selectedPointIndex]?.reloadData();
+            altPlots[lastSelectedAltPlotIndex]?.dataLineStyle = unselectedAltPlotLineStyle;
+            altPlots[lastSelectedAltPlotIndex]?.reloadData();
+            lastSelectedAltPlotIndex = selectedPointIndex;
         }
-        
+
         self.plot.reloadData();
-        
     }
     
     func symbolForScatterPlot(plot: CPTScatterPlot!, recordIndex idx: UInt) -> CPTPlotSymbol! {
