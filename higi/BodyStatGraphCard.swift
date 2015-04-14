@@ -13,33 +13,36 @@ class BodyStatsGraphCard: UIView {
     @IBOutlet weak var secondReadingSubTitle: UILabel!
     @IBOutlet weak var graphView: UIView!
     @IBOutlet weak var backgroundView: UIView!
-    @IBOutlet weak var firstReadingPanel: UIView!
-    @IBOutlet weak var secondReadingPanel: UIView!
     
+    var color: UIColor!;
+
     class func instanceFromNib(title: String, lastCheckin: HigiCheckin, color: UIColor, type: String) -> BodyStatsGraphCard {
-        let card = UINib(nibName: "BodyStatGraphCardView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as BodyStatsGraphCard;
+        let card = UINib(nibName: "BodyStatGraphCardView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! BodyStatsGraphCard;
         card.title.text = title;
+        card.title.textColor = color;
+        
         let formatter = NSDateFormatter();
         formatter.dateFormat = "MMMM dd";
         card.date.text = formatter.stringFromDate(lastCheckin.dateTime);
-        card.backgroundView.backgroundColor = color;
         
         if (type == "bp") {
             card.firstReadingValue.text = "\(lastCheckin.systolic)/\(lastCheckin.diastolic)";
             card.firstReadingLabel.text = "mmHg";
             card.firstReadingSubTitle.text = "Blood Pressure";
+            card.firstReadingValue.textColor = color;
             
             card.secondReadingValue.text = "\(lastCheckin.map)";
             card.secondReadingLabel.text = "mmHg";
             card.secondReadingSubTitle.text = "Mean Arterial Pressure";
+            card.secondReadingValue.textColor = color;
         } else if (type == "weight") {
             card.firstReadingValue.text = "\(Int(lastCheckin.weightLbs!))";
             card.firstReadingLabel.text = "lbs";
             card.firstReadingSubTitle.text = "Weight";
             
-            card.secondReadingValue.text = "\(lastCheckin.map)";
-            card.secondReadingLabel.text = "mmHg";
-            card.secondReadingSubTitle.text = "Mean Arterial Pressure";
+            card.secondReadingValue.text = "\(Int(lastCheckin.bmi!))%";
+            card.secondReadingLabel.text = "";
+            card.secondReadingSubTitle.text = "Body Fat";
         } else {
             card.firstReadingValue.text = "\(lastCheckin.pulseBpm)";
             card.firstReadingLabel.text = "bpm";
@@ -52,18 +55,13 @@ class BodyStatsGraphCard: UIView {
         
         card.firstReadingValue.textColor = color;
         card.secondReadingValue.textColor = color;
-
-        card.firstReadingPanel.layer.borderColor = Utility.colorFromHexString("#EEEEEE").CGColor;
-        card.firstReadingPanel.layer.borderWidth = 1;
-        card.secondReadingPanel.layer.borderColor = Utility.colorFromHexString("#EEEEEE").CGColor;
-        card.secondReadingPanel.layer.borderWidth = 1;
         
         return card;
     }
     
-    func graph(points: [GraphPoint]) {
+    func graph(points: [GraphPoint], color: UIColor) {
         let graph = BodyStatGraph(frame: CGRect(x: 0, y: 0, width: graphView.frame.size.width, height: graphView.frame.size.height), points: points);
-        graph.setupForDashboard();
+        graph.setupForDashboard(color);
         graphView.addSubview(graph);
     }
 }

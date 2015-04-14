@@ -8,9 +8,7 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
     var systolicPoints: [GraphPoint] = [];
     var diastolicPoints: [GraphPoint] = [];
     var plot: NewCPTScatterPlot = NewCPTScatterPlot(frame: CGRectZero);
-    var altPointsIndex = 0;
     var selectedPointIndex = -1;
-    var selectedAltPointIndex = -1;
     var plotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
     var selectedPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
     var altPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
@@ -30,10 +28,10 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
         self.diastolicPoints = diastolicPoints;
         self.systolicPoints = systolicPoints;
         
-        self.points.sort({ $0.x > $1.x });
-        self.diastolicPoints.sort({ $0.x > $1.x });
-        self.systolicPoints.sort({ $0.x > $1.x });
-        
+//        self.points.sort({ $0.x < $1.x });
+//        self.diastolicPoints.sort({ $0.x < $1.x });
+//        self.systolicPoints.sort({ $0.x < $1.x });
+//        
         //        self.points.append(GraphPoint(x: Double(NSDate().timeIntervalSince1970), y: points.last!.y));
         //        self.diastolicPoints.append(GraphPoint(x: Double(NSDate().timeIntervalSince1970), y: points.last!.y));
         //        self.systolicPoints.append(GraphPoint(x: Double(NSDate().timeIntervalSince1970), y: points.last!.y));
@@ -45,13 +43,13 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
         fatalError("NSCoding not supported");
     }
     
-    func setupForDashboard() {
+    func setupForDashboard(color: UIColor) {
         
         var graph = CPTXYGraph(frame: self.bounds);
         self.hostedGraph = graph;
         self.allowPinchScaling = false;
         
-        graph.paddingLeft = 10;
+        graph.paddingLeft = 0;
         graph.paddingTop = 0;
         graph.paddingRight = 0;
         graph.paddingBottom = 0;
@@ -84,7 +82,7 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
             yRange++;
         }
         
-        var plotSpace = graph.defaultPlotSpace as CPTXYPlotSpace;
+        var plotSpace = graph.defaultPlotSpace as! CPTXYPlotSpace;
         plotSpace.allowsUserInteraction = true;
         plotSpace.xRange = NewCPTPlotRange(location: firstPoint.x - 1, length: lastPoint.x - firstPoint.x + 2);
         plotSpace.yRange = NewCPTPlotRange(location: min - yRange * 0.25, length: yRange * 1.5);
@@ -105,27 +103,28 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
         plot.delegate = self;
         
         var lineStyle = CPTMutableLineStyle();
-        lineStyle.lineColor = CPTColor.whiteColor();
+        lineStyle.lineColor = CPTColor(CGColor: color.CGColor);
         lineStyle.lineWidth = 1;
         
         plot.dataLineStyle = lineStyle;
         
         graph.addPlot(plot, toPlotSpace: graph.defaultPlotSpace);
         
-        var xAxis = graph.axisSet.axisForCoordinate(CPTCoordinateX, atIndex: 0) as CPTXYAxis;
+        var axisLineStyle = CPTMutableLineStyle();
+        axisLineStyle.lineColor = CPTColor(CGColor: UIColor.lightGrayColor().CGColor);
+        var xAxis = graph.axisSet.axisForCoordinate(CPTCoordinateX, atIndex: 0) as! CPTXYAxis;
         xAxis.visibleRange = plotSpace.xRange;
         xAxis.gridLinesRange = plotSpace.yRange;
         xAxis.axisConstraints = CPTConstraints(lowerOffset: 0);
         xAxis.labelingPolicy = CPTAxisLabelingPolicyNone;
         xAxis.tickDirection = CPTSignPositive;
-        xAxis.hidden = true;
-        
-        var yAxis = graph.axisSet.axisForCoordinate(CPTCoordinateY, atIndex: 0) as CPTXYAxis;
+        xAxis.axisLineStyle = axisLineStyle;
+        var yAxis = graph.axisSet.axisForCoordinate(CPTCoordinateY, atIndex: 0) as! CPTXYAxis;
         yAxis.visibleRange = plotSpace.yRange;
         yAxis.gridLinesRange = plotSpace.xRange;
         yAxis.axisConstraints = CPTConstraints(lowerOffset: 0);
         yAxis.labelingPolicy = CPTAxisLabelingPolicyNone;
-        yAxis.hidden = true;
+        yAxis.axisLineStyle = axisLineStyle;
         
         setRange();
     }
@@ -169,8 +168,8 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
         lineStyle.lineWidth = 1;
         selectedAltPlotLineStyle = lineStyle;
         
-//        unselectedAltPlotLineStyle.lineColor = CPTColor(CGColor: (color.colorWithAlphaComponent(0.3)).CGColor);
-        unselectedAltPlotLineStyle.lineColor = CPTColor(CGColor: UIColor.blackColor().CGColor);
+        unselectedAltPlotLineStyle.lineColor = CPTColor(CGColor: (color.colorWithAlphaComponent(0.3)).CGColor);
+//        unselectedAltPlotLineStyle.lineColor = CPTColor(CGColor: UIColor.blackColor().CGColor);
         unselectedAltPlotLineStyle.lineWidth = 1;
         
         for index in 0..<points.count {
@@ -207,7 +206,7 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
                 altPlot.dataLineStyle = lineStyle;
                 
                 altPlots[index] = altPlot;
-                
+                altPlot.name = "\(index)";
                 graph.addPlot(altPlot, toPlotSpace: graph.defaultPlotSpace);
                 
                 altPoints.append([systolicPoints[index], diastolicPoints[index]]);
@@ -226,16 +225,18 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
             lastPoint = GraphPoint(x: 0, y: 0);
         }
         
-        var plotSpace = self.hostedGraph.defaultPlotSpace as CPTXYPlotSpace;
+        var plotSpace = self.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace;
         plotSpace.allowsUserInteraction = true;
-        plotSpace.xRange = NewCPTPlotRange(location: firstPoint.x - 1, length: lastPoint.x - firstPoint.x + 2);
+        
+        let padding = Double(UIScreen.mainScreen().bounds.size.width * 0.1);
+        plotSpace.xRange = NewCPTPlotRange(location: firstPoint.x - 1 - 100, length: lastPoint.x - firstPoint.x + 2 + padding * 2);
         plotSpace.yRange = NewCPTPlotRange(location: min - yRange * 0.4, length: yRange * 2.2);
         plotSpace.globalXRange = plotSpace.xRange;
         plotSpace.globalYRange = plotSpace.yRange;
         plotSpace.delegate = self;
         
         plot = NewCPTScatterPlot(frame: CGRectZero);
-        plot.interpolation = CPTScatterPlotInterpolationLinear;
+        plot.interpolation = CPTScatterPlotInterpolationCurved;
         plot.setAreaBaseDecimalValue(0);
         
         plot.plotSymbolMarginForHitDetection = CGFloat(hitMargin);
@@ -265,7 +266,7 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
         var gridLineStyle = CPTMutableLineStyle();
         gridLineStyle.lineColor = CPTColor(componentRed: 1, green: 1, blue: 1, alpha: 0.3);
         
-        var xAxis = graph.axisSet.axisForCoordinate(CPTCoordinateX, atIndex: 0) as CPTXYAxis;
+        var xAxis = graph.axisSet.axisForCoordinate(CPTCoordinateX, atIndex: 0) as! CPTXYAxis;
         xAxis.labelTextStyle = axisTextStyle;
         xAxis.majorTickLineStyle = nil;
         xAxis.minorTickLineStyle = nil;
@@ -284,7 +285,7 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
         dateFormatter.dateFormat = "MMM dd";
         xAxis.labelFormatter = CustomFormatter(dateFormatter: dateFormatter);
         
-        var yAxis = graph.axisSet.axisForCoordinate(CPTCoordinateY, atIndex: 0) as CPTXYAxis;
+        var yAxis = graph.axisSet.axisForCoordinate(CPTCoordinateY, atIndex: 0) as! CPTXYAxis;
         
         yAxis.preferredNumberOfMajorTicks = 10;
         yAxis.majorGridLineStyle = gridLineStyle;
@@ -301,18 +302,23 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
         
         yAxis.tickDirection = CPTSignPositive;
         yAxis.labelOffset = 0;
-        yAxis.paddingRight = 20;
-
-        //added after alt plots so that it is drawn on top
+//        let padding = Double(UIScreen.mainScreen().bounds.size.width * 0.1);
+//        plotSpace.xRange = NewCPTPlotRange(location: points[0].x - padding, length: points[points.count - 1].x - points[0].x + 1 + padding * 2);
+//        plotSpace.yRange = NewCPTPlotRange(location: min - yRange * 0.25, length: yRange * 2.0);
+//        
+//        plotSpace.globalXRange = plotSpace.xRange;
+//        plotSpace.globalYRange = plotSpace.yRange;
+//
+//        ((self.hostedGraph as! CPTXYGraph).axisSet.axisForCoordinate(CPTCoordinateX, atIndex: 0) as! CPTXYAxis).visibleRange = plotSpace.xRange;
+//        ((self.hostedGraph as! CPTXYGraph).axisSet.axisForCoordinate(CPTCoordinateY, atIndex: 0) as! CPTXYAxis).visibleRange = plotSpace.yRange;
+//        plotSpace.delegate = self;
+//
+//        //added after alt plots so that it is drawn on top
         graph.addPlot(plot, toPlotSpace: graph.defaultPlotSpace);
-        
-        plotSpace.yRange = NewCPTPlotRange(location: min - yRange * 0.25, length: yRange * 2.0);
-        plotSpace.globalYRange = plotSpace.yRange;
-        
-        ((self.hostedGraph as CPTXYGraph).axisSet.axisForCoordinate(CPTCoordinateY, atIndex: 0) as CPTXYAxis).visibleRange = plotSpace.yRange;
-        plotSpace.delegate = self;
+//
 
-        setRange();
+
+//        setRange();
     }
 
     func numberOfRecordsForPlot(plot: CPTPlot!) -> UInt {
@@ -323,23 +329,28 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
         }
     }
 
-    func numberForPlot(plot: CPTPlot!, field fieldEnum: Int, recordIndex idx: Int) -> NSNumber! {
+    func numberForPlot(plot: CPTPlot!, field fieldEnum: UInt, recordIndex idx: UInt) -> NSNumber! {
         var point:GraphPoint;
         
         if (plot.isEqual(self.plot)) {
-            point = points[idx];
+            point = points[Int(idx)];
+            if (fieldEnum == 0) {
+                return NSNumber(double: point.x);
+            } else {
+                return NSNumber(double: point.y);
+            }
         } else {
-            point = altPoints[altPointsIndex][idx];
-            if (idx == 1 && altPoints.count - 1 > altPointsIndex) {
-                altPointsIndex++;
+            let altIndex = plot.name.toInt();
+            if let altIndex = plot.name.toInt() {
+                point = altPoints[altIndex][Int(idx)];
+                if (fieldEnum == 0) {
+                    return NSNumber(double: point.x);
+                } else {
+                    return NSNumber(double: point.y);
+                }
             }
         }
-
-        if (fieldEnum == 0) {
-            return NSNumber(double: point.x);
-        } else {
-            return NSNumber(double: point.y);
-        }
+        return nil;
     }
     
     func setRange() {
@@ -352,35 +363,45 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
             firstPoint = GraphPoint(x: 0, y: 0);
             lastPoint = GraphPoint(x: 0, y: 0);
         }
-        var plotSpace = self.hostedGraph.defaultPlotSpace as CPTXYPlotSpace;
+        var plotSpace = self.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace;
         var newRange: NewCPTPlotRange;
 
-        newRange = NewCPTPlotRange(location: firstPoint.x, length: lastPoint.x - firstPoint.x + 1);
+        let padding = Double(UIScreen.mainScreen().bounds.size.width * 0.1);
+        
+        newRange = NewCPTPlotRange(location: (padding + firstPoint.x), length: lastPoint.x - firstPoint.x + 1);
 
         plotSpace.xRange = newRange;
         
     }
     
     func scatterPlot(plot: CPTScatterPlot!, plotSymbolWasSelectedAtRecordIndex idx: Int) {
-        var viewController = Utility.getViewController(self) as BodyStatsViewController?;
+        var viewController = Utility.getViewController(self) as! BodyStatsViewController?;
         viewController!.setSelected(idx);
         
         if (plot.isEqual(self.plot)) {
             selectedPointIndex = idx;
+            for (index, altPlot) in altPlots {
+                if (index == selectedPointIndex) {
+                    altPlot.dataLineStyle = selectedAltPlotLineStyle;
+                } else {
+                    altPlot.dataLineStyle = unselectedAltPlotLineStyle;
+                }
+                altPlot.reloadData();
+            }
         } else {
-            selectedPointIndex = getPlotIndex(plot);
+            for (index, altPlot) in altPlots {
+                if (plot.isEqual(altPlot)) {
+                    altPlot.dataLineStyle = selectedAltPlotLineStyle;
+                    selectedPointIndex = index;
+                } else {
+                    altPlot.dataLineStyle = unselectedAltPlotLineStyle;
+                }
+                altPlot.reloadData();
+            }
         }
         
         self.plot.reloadData();
-        altPointsIndex = 0;
-        for (index, altPlot) in altPlots {
-            if (!plot.isEqual(altPlot) || index == selectedPointIndex) {
-                altPlot.dataLineStyle = selectedAltPlotLineStyle;
-            } else {
-                altPlot.dataLineStyle = unselectedAltPlotLineStyle;
-            }
-            altPlot.reloadData();
-        }
+        
     }
     
     func symbolForScatterPlot(plot: CPTScatterPlot!, recordIndex idx: UInt) -> CPTPlotSymbol! {
@@ -395,15 +416,6 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
                 return unselectedAltPlotSymbol;
             }
         }
-    }
-    
-    func getPlotIndex(plot: CPTScatterPlot) -> Int{
-        for (index, altPlot) in altPlots {
-            if (plot.isEqual(altPlot)) {
-                return index;
-            }
-        }
-        return -1;
     }
     
 }

@@ -75,9 +75,6 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             activitiesRefreshed = true;
         case ApiUtility.CHALLENGES:
             if (doneRefreshing) {
-//                if (challengesCard.superview != nil) {
-//                    challengesCard.removeFromSuperview();
-//                }
                 initChallengesCard();
             }
             challengesRefreshed = true;
@@ -237,26 +234,28 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             let cardMarginY:CGFloat = 16;
             var cardPositionY:CGFloat = 60;
             
-            let bloodPressureCard = BodyStatsGraphCard.instanceFromNib("Blood Pressure", lastCheckin: SessionController.Instance.checkins.last!, color: Utility.colorFromHexString("#8379B5"), type: "bp");
+            let bloodPressureColor = Utility.colorFromHexString("#8379B5");
+            let pulseColor = Utility.colorFromHexString("#5FAFDF");
+            let weightColor = Utility.colorFromHexString("#EE6C55");
+            
+            let bloodPressureCard = BodyStatsGraphCard.instanceFromNib("Blood Pressure", lastCheckin: SessionController.Instance.checkins.last!, color: bloodPressureColor, type: "bp");
+            
             bloodPressureCard.frame.origin.y = cardPositionY;
             bloodPressureCard.frame.origin.x = cardMarginX;
-            bloodPressureCard.tag = 0;
             let bpTouched = UITapGestureRecognizer(target: self, action: "gotoBloodPressureGraph:");
             bloodPressureCard.addGestureRecognizer(bpTouched);
             cardPositionY += bloodPressureCard.frame.size.height + cardMarginY;
             
-            let pulseCard = BodyStatsGraphCard.instanceFromNib("Pulse", lastCheckin: SessionController.Instance.checkins.last!, color: Utility.colorFromHexString("#5FAFDF"), type: "pulse");
+            let pulseCard = BodyStatsGraphCard.instanceFromNib("Pulse", lastCheckin: SessionController.Instance.checkins.last!, color: pulseColor, type: "pulse");
             pulseCard.frame.origin.y = cardPositionY;
             pulseCard.frame.origin.x = cardMarginX;
-            pulseCard.tag = 1;
             let pulseTouched = UITapGestureRecognizer(target: self, action: "gotoPulseGraph:");
             pulseCard.addGestureRecognizer(pulseTouched);
             cardPositionY += pulseCard.frame.size.height + cardMarginY;
             
-            let weightCard = BodyStatsGraphCard.instanceFromNib("Weight", lastCheckin: SessionController.Instance.checkins.last!, color: Utility.colorFromHexString("#EE6C55"), type: "weight");
+            let weightCard = BodyStatsGraphCard.instanceFromNib("Weight", lastCheckin: SessionController.Instance.checkins.last!, color: weightColor, type: "weight");
             weightCard.frame.origin.y = cardPositionY;
             weightCard.frame.origin.x = cardMarginX;
-            weightCard.tag = 2;
             let weightTouched = UITapGestureRecognizer(target: self, action: "gotoWeightGraph:");
             weightCard.addGestureRecognizer(weightTouched);
             
@@ -286,9 +285,9 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                         checkinCount++;
                     }
                     dispatch_async(dispatch_get_main_queue(), {
-                        bloodPressureCard.graph(mapPoints);
-                        pulseCard.graph(bpmPoints);
-                        weightCard.graph(weightPoints);
+                        bloodPressureCard.graph(mapPoints, color: bloodPressureColor);
+                        pulseCard.graph(bpmPoints, color: pulseColor);
+                        weightCard.graph(weightPoints, color: weightColor);
                     });
                 });
             }

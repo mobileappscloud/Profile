@@ -12,13 +12,24 @@ class BodyStatsViewController: BaseViewController {
     
     var type = "bp";
     
+    var detailsShowing = false;
+    
+    var graph: BodyStatGraph!;
+    
     @IBOutlet weak var graphView: UIView!
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var infoButton: UIButton!
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var selectedView: UIView!
     @IBOutlet weak var cardTitle: UILabel!
-    @IBOutlet weak var selectedFirstPanelLabel: UILabel!
+    @IBOutlet weak var firstPanelValue: UILabel!
+    @IBOutlet weak var thirdPanelLabel: UILabel!
+    @IBOutlet weak var thirdPanelUnit: UILabel!
+    @IBOutlet weak var thirdPanelValue: UILabel!
+    @IBOutlet weak var secondPanelUnit: UILabel!
+    @IBOutlet weak var secondPanelLabel: UILabel!
+    @IBOutlet weak var secondPanelValue: UILabel!
+    @IBOutlet weak var firstPanelLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -58,29 +69,30 @@ class BodyStatsViewController: BaseViewController {
         var systolicPoints: [GraphPoint] = [];
         
         var color = UIColor.whiteColor();
-        var graph:BodyStatGraph;
         for checkin in checkins {
             let checkinTime = Double(checkin.dateTime.timeIntervalSince1970);
-            if (type == "bp") {
-                if (checkin.map != nil && checkin.map > 0) {
-                    graphPoints.append(GraphPoint(x: checkinTime, y: checkin.map));
-                    if (checkin.diastolic != nil && checkin.diastolic > 0) {
-                        diastolicPoints.append(GraphPoint(x: checkinTime, y: Double(checkin.diastolic!)));
-                    }
-                    if (checkin.systolic != nil && checkin.systolic > 0) {
-                        systolicPoints.append(GraphPoint(x: checkinTime, y: Double(checkin.systolic!)));
-                    }
-                    plottedCheckins.append(checkin);
+            if (type == "bp" && checkin.map != nil && checkin.map > 0) {
+                graphPoints.append(GraphPoint(x: checkinTime, y: checkin.map));
+                if (checkin.diastolic != nil && checkin.diastolic > 0) {
+                    diastolicPoints.append(GraphPoint(x: checkinTime, y: Double(checkin.diastolic!)));
+                } else {
+                    diastolicPoints.append(GraphPoint(x: checkinTime, y: 0));
                 }
-            }
-            
-            if (type == "weight" && checkin.weightKG != nil && checkin.weightKG > 0) {
-                graphPoints.append(GraphPoint(x: Double(checkin.dateTime.timeIntervalSince1970), y: checkin.bmi));
+                if (checkin.systolic != nil && checkin.systolic > 0) {
+                    systolicPoints.append(GraphPoint(x: checkinTime, y: Double(checkin.systolic!)));
+                } else {
+                    systolicPoints.append(GraphPoint(x: checkinTime, y: 0));
+                }
                 plottedCheckins.append(checkin);
             }
             
+            if (type == "weight" && checkin.weightKG != nil && checkin.weightKG > 0) {
+                graphPoints.append(GraphPoint(x: checkinTime, y: checkin.bmi));
+                plottedCheckins.append(checkin);
+            }
+
             if (type == "pulse" && checkin.pulseBpm != nil && checkin.pulseBpm > 0) {
-                graphPoints.append(GraphPoint(x: Double(checkin.dateTime.timeIntervalSince1970), y: Double(checkin.pulseBpm!)));
+                graphPoints.append(GraphPoint(x: checkinTime, y: Double(checkin.pulseBpm!)));
                 plottedCheckins.append(checkin);
             }
         }
@@ -91,58 +103,67 @@ class BodyStatsViewController: BaseViewController {
         if (type == "bp") {
             graph = BodyStatGraph(frame: CGRect(x: 0, y: 0, width: graphView.frame.size.width, height: graphView.frame.size.height), points: graphPoints, diastolicPoints: diastolicPoints, systolicPoints: systolicPoints);
             color = Utility.colorFromHexString("#8379B5");
-            headerView.backgroundColor = color;
-            selectedFirstPanelLabel.textColor = color;
             cardTitle.text = "Blood Pressure";
         } else if (type == "weight") {
             graph = BodyStatGraph(frame: CGRect(x: 0, y: 0, width: graphView.frame.size.width, height: graphView.frame.size.height), points: graphPoints);
             color = Utility.colorFromHexString("#EE6C55");
-            headerView.backgroundColor = color;
-            selectedFirstPanelLabel.textColor = color;
             cardTitle.text = "Weight";
         } else {
             graph = BodyStatGraph(frame: CGRect(x: 0, y: 0, width: graphView.frame.size.width, height: graphView.frame.size.height), points: graphPoints);
             color = Utility.colorFromHexString("#5FAFDF");
-            headerView.backgroundColor = color;
-            selectedFirstPanelLabel.textColor = color;
             cardTitle.text = "Pulse";
         }
+        
+        headerView.backgroundColor = color;
+        firstPanelValue.textColor = color;
+        secondPanelValue.textColor = color;
+        thirdPanelValue.textColor = color;
         
         graph.setupForBodyStat(color);
         graphView.addSubview(graph);
     }
-    
-//    func setSelected(selected: HigiCheckin) {
-//        self.selected = selected;
-//        
-////        for graphView in graphViews {
-////            graphView.setSelectedCheckin(selected);
-////        }
-//    }
-    
+
     func setSelected(index: Int) {
         let checkin = plottedCheckins[index];
         if (selectedView.hidden) {
-            selectedView.hidden = false;
+            UIView.animateWithDuration(0.5, animations: {
+                self.graphView.frame.size.height = 265;
+                self.selectedView.hidden = false;
+                }, completion: { complete in
+                    self.graph.layoutSubviews();
+            });
+            
         }
+        let formatter = NSDateFormatter();
+        formatter.dateFormat = "MM/dd/yyyy";
+        firstPanelValue.text = "\(formatter.stringFromDate(checkin.dateTime))";
+        firstPanelLabel.text = "Date";
         if (type == "bp") {
-            selectedFirstPanelLabel.text = "\(checkin.map) mmHg";
+            secondPanelValue.text = "\(checkin.systolic!)/\(checkin.diastolic!)";
+            secondPanelUnit.text = "mmHg";
+            secondPanelLabel.text = "Blood Pressure";
+            thirdPanelValue.text = "\(Int(checkin.map!))";
+            thirdPanelUnit.text = "mmHg";
+            thirdPanelLabel.text = "Mean Arterial Pressure";
         } else if (type == "weight") {
-            selectedFirstPanelLabel.text = "\(checkin.weightLbs) lbs";
+            secondPanelValue.text = "\(Int(checkin.weightLbs!))";
+            secondPanelUnit.text = "lbs";
+            secondPanelLabel.text = "Weight";
+            thirdPanelValue.text = "\(Int(checkin.bmi!))";
+            thirdPanelUnit.text = "";
+            thirdPanelLabel.text = "Body Mass Index";
         } else {
-            selectedFirstPanelLabel.text = "\(checkin.pulseBpm) bpm";
+            secondPanelValue.text = "\(checkin.pulseBpm!)";
+            secondPanelUnit.text = "bpm";
+            secondPanelLabel.text = "Pulse";
+            thirdPanelValue.text = "";
+            thirdPanelUnit.text = "";
+            thirdPanelLabel.text = "";
         }
     }
     
     func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
         return false;
-    }
-    
-    func setSelected(selected: HigiCheckin) {
-        self.selected = selected;
-        for graphView in graphViews {
-            graphView.setSelectedCheckin(selected);
-        }
     }
     
     func exportData() -> NSURL {
