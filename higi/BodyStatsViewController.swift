@@ -55,6 +55,10 @@ class BodyStatsViewController: BaseViewController {
         super.viewWillDisappear(animated);
     }
     
+    override func prefersStatusBarHidden() -> Bool {
+        return true;
+    }
+    
     @IBAction func backButtonClick(sender: AnyObject) {
         self.navigationController!.popViewControllerAnimated(true);
     }

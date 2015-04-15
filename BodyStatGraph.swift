@@ -64,7 +64,7 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
         var maxY = 0.0;
         var minY = 9999999.9;
         var maxX = 0.0;
-        var minX = 9999999.9;
+        var minX = DBL_MAX;
         
         var index = 0;
         for point in points {
@@ -111,7 +111,7 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
         }
 
         var plotSpace = graph.defaultPlotSpace as! CPTXYPlotSpace;
-        plotSpace.xRange = NewCPTPlotRange(location: firstPoint.x, length: lastPoint.x - firstPoint.x - 2);
+        plotSpace.xRange = NewCPTPlotRange(location: minX - xRange * 0.05, length: xRange * 1.05);
         plotSpace.yRange = NewCPTPlotRange(location: minY - yRange * 0.25, length: yRange * 1.5);
         plotSpace.globalXRange = plotSpace.xRange;
         plotSpace.globalYRange = plotSpace.yRange;
