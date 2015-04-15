@@ -62,7 +62,7 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
         graph.plotAreaFrame.paddingBottom = 10;
         
         var maxY = 0.0;
-        var minY = 9999999.9;
+        var minY = DBL_MAX;
         var maxX = 0.0;
         var minX = DBL_MAX;
         
@@ -163,9 +163,12 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
     }
     
     func setupForBodyStat(color: UIColor) {
-        var max = 0.0;
-        var min = 9999999.9;
-        var hitMargin = 5;
+        var maxY = 0.0;
+        var minY = DBL_MAX;
+        
+        var maxX = 0.0;
+        var minX = DBL_MAX;
+        let hitMargin = 5;
         
         var graph = CPTXYGraph(frame: self.bounds);
         self.hostedGraph = graph;
@@ -209,23 +212,30 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
             var point = points[index];
             if (diastolicPoints.count > 0 && diastolicPoints.count > index) {
                 var point2 = diastolicPoints[index];
-                if (point2.y < min) {
-                    min = point2.y;
+                if (point2.y < minY) {
+                    minY = point2.y;
                 }
             } else {
-                if (point.y < min) {
-                    min = point.y;
+                if (point.y < minY) {
+                    minY = point.y;
                 }
             }
             if (systolicPoints.count > 0 && systolicPoints.count > index) {
                 var point2 = systolicPoints[index];
-                if (point2.y > max) {
-                    max = point2.y;
+                if (point2.y > maxY) {
+                    maxY = point2.y;
                 }
             } else {
-                if (point.y > max) {
-                    max = point.y;
+                if (point.y > maxY) {
+                    maxY = point.y;
                 }
+            }
+            
+            if (point.x > maxX) {
+                maxX = point.x;
+            }
+            if (point.x < minX) {
+                minX = point.x;
             }
             
             if (diastolicPoints.count > 0 && diastolicPoints.count > index && systolicPoints.count > 0 && systolicPoints.count > index) {
@@ -255,7 +265,7 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
 
         }
         
-        var yRange = max - min;
+        var yRange = maxY - minY;
         
         var firstPoint, lastPoint: GraphPoint;
         
@@ -270,8 +280,15 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
         var plotSpace = self.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace;
         plotSpace.allowsUserInteraction = true;
         
-        plotSpace.xRange = NewCPTPlotRange(location: firstPoint.x - 1, length: lastPoint.x - firstPoint.x + 2);
-        plotSpace.yRange = NewCPTPlotRange(location: min - yRange * 0.4, length: yRange * 2.2);
+        var xRange = lastPoint.x - firstPoint.x;
+        if (xRange == 0) {
+            xRange++;
+        }
+
+        let lowerBound = roundToLowest(minY, roundTo: 20);
+        let upperBound = roundToHighest(maxY, roundTo: 20);
+        plotSpace.xRange = NewCPTPlotRange(location: firstPoint.x - xRange * 0.2, length: xRange * 1.3);
+        plotSpace.yRange = NewCPTPlotRange(location: lowerBound, length: upperBound - lowerBound);
         plotSpace.globalXRange = plotSpace.xRange;
         plotSpace.globalYRange = plotSpace.yRange;
         plotSpace.delegate = self;
@@ -305,7 +322,7 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
         axisTextStyle.fontSize = 8;
         
         var gridLineStyle = CPTMutableLineStyle();
-        gridLineStyle.lineColor = CPTColor(componentRed: 1, green: 1, blue: 1, alpha: 0.3);
+        gridLineStyle.lineColor = CPTColor(componentRed: 0, green: 0, blue: 0, alpha: 0.1);
         
         var xAxis = graph.axisSet.axisForCoordinate(CPTCoordinateX, atIndex: 0) as! CPTXYAxis;
         xAxis.labelTextStyle = axisTextStyle;
@@ -317,7 +334,7 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
         xAxis.labelingPolicy = CPTAxisLabelingPolicyEqualDivisions;
 
         xAxis.preferredNumberOfMajorTicks = 10;
-        xAxis.majorGridLineStyle = gridLineStyle;
+//        xAxis.majorGridLineStyle = gridLineStyle;
         xAxis.axisLineStyle = lineStyle;
         xAxis.labelOffset = 0;
         
@@ -328,19 +345,21 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
         
         var yAxis = graph.axisSet.axisForCoordinate(CPTCoordinateY, atIndex: 0) as! CPTXYAxis;
         
-        yAxis.preferredNumberOfMajorTicks = 10;
         yAxis.majorGridLineStyle = gridLineStyle;
         yAxis.axisLineStyle = lineStyle;
-        
         yAxis.labelTextStyle = axisTextStyle;
         yAxis.labelOffset = CGFloat(20);
         yAxis.majorTickLineStyle = nil;
         yAxis.minorTickLineStyle = nil;
         yAxis.visibleRange = plotSpace.yRange;
-        yAxis.gridLinesRange = plotSpace.xRange;
+        yAxis.gridLinesRange = NewCPTPlotRange(location: firstPoint.x - xRange * 0.15, length: xRange * 1.3);
         yAxis.axisConstraints = CPTConstraints(lowerOffset: 0);
+        yAxis.preferredNumberOfMajorTicks = UInt(Int((upperBound - lowerBound) / 20)) + 1;
         yAxis.labelingPolicy = CPTAxisLabelingPolicyEqualDivisions;
-        
+        let numberFormatter = NSNumberFormatter();
+        numberFormatter.numberStyle = NSNumberFormatterStyle.DecimalStyle;
+        numberFormatter.maximumFractionDigits = 0;
+        yAxis.labelFormatter = numberFormatter;
         yAxis.tickDirection = CPTSignPositive;
         yAxis.labelOffset = 0;
 //        let padding = Double(UIScreen.mainScreen().bounds.size.width * 0.1);
@@ -357,11 +376,17 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
 //        //added after alt plots so that it is drawn on top
         graph.addPlot(plot, toPlotSpace: graph.defaultPlotSpace);
 //
-
-
 //        setRange();
     }
 
+    func roundToLowest(number: Double, roundTo: Double) -> Double {
+        return Double(Int(number / roundTo) * Int(roundTo));
+    }
+    
+    func roundToHighest(number: Double, roundTo: Double) -> Double {
+        return roundTo * Double(Int(round(number / roundTo)));
+    }
+    
     func numberOfRecordsForPlot(plot: CPTPlot!) -> UInt {
         if (plot.isEqual(self.plot)) {
             return UInt(points.count);

@@ -103,8 +103,8 @@
                             </subviews>
                             <color key="backgroundColor" red="0.90588235289999997" green="0.90588235289999997" blue="0.90588235289999997" alpha="1" colorSpace="calibratedRGB"/>
                         </view>
-                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="reB-mX-Ff3">
-                            <rect key="frame" x="0.0" y="0.0" width="568" height="268"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="reB-mX-Ff3">
+                            <rect key="frame" x="0.0" y="54" width="568" height="214"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UIY-l6-dOw">
@@ -163,8 +163,12 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="UIY-l6-dOw" firstAttribute="top" secondItem="Mdt-gR-rG5" secondAttribute="top" id="4Dy-n9-zID"/>
+                        <constraint firstAttribute="trailing" secondItem="reB-mX-Ff3" secondAttribute="trailing" id="L9t-MX-oBs"/>
                         <constraint firstAttribute="bottom" secondItem="UIY-l6-dOw" secondAttribute="bottom" constant="266" id="SEG-D3-nFg"/>
+                        <constraint firstAttribute="bottom" secondItem="reB-mX-Ff3" secondAttribute="bottom" constant="52" id="ZJO-aW-lds"/>
                         <constraint firstItem="UIY-l6-dOw" firstAttribute="leading" secondItem="Mdt-gR-rG5" secondAttribute="leading" id="eRW-ZZ-Msk"/>
+                        <constraint firstItem="reB-mX-Ff3" firstAttribute="top" secondItem="UIY-l6-dOw" secondAttribute="bottom" id="o4q-Pr-KGf"/>
+                        <constraint firstItem="reB-mX-Ff3" firstAttribute="leading" secondItem="Mdt-gR-rG5" secondAttribute="leading" id="rMZ-zC-3nv"/>
                         <constraint firstAttribute="trailing" secondItem="UIY-l6-dOw" secondAttribute="trailing" id="tKY-9j-BqW"/>
                     </constraints>
                 </view>

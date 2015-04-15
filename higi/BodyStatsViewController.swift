@@ -169,48 +169,4 @@ class BodyStatsViewController: BaseViewController {
     func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
         return false;
     }
-    
-    func exportData() -> NSURL {
-        var dateFormatter = NSDateFormatter();
-        dateFormatter.dateFormat = "MM/dd/yyy";
-        var contents = "Date,Location,Address of higi Station,Systolic Pressure (mmHg),Diastolic Pressure (mmHg),Pulse (bpm),Mean Arterial Pressure (mmHg), Weight (lbs),Body Mass Index\n";
-        
-        for index in reverse(0..<SessionController.Instance.checkins.count) {
-            var checkin = SessionController.Instance.checkins[index];
-            var address = "", systolic = "", diastolic = "", pulse = "", map = "", weight = "", bmi = "";
-            var organization = checkin.sourceVendorId!;
-            if (checkin.kioskInfo != nil) {
-                organization = checkin.kioskInfo!.organizations[0];
-                address = "\"\(checkin.kioskInfo!.fullAddress)\"";
-            }
-            
-            if (checkin.systolic != nil && checkin.pulseBpm != nil) {
-                systolic = "\(checkin.systolic!)";
-                diastolic = "\(checkin.diastolic!)";
-                pulse = "\(checkin.pulseBpm!)";
-                map = String(format: "%.1f", checkin.map!);
-            }
-            
-            if (checkin.bmi != nil) {
-                bmi = String(format: "%.2f", checkin.bmi!);
-                weight = "\(Int(checkin.weightLbs!))";
-            }
-            
-            var row = "\(dateFormatter.stringFromDate(checkin.dateTime)),\(organization),\(address),\(systolic),\(diastolic),\(pulse),\(map),\(weight),\(bmi)\n";
-            contents += row;
-        }
-        
-        let filePath = getShareFilePath();
-        
-        contents.writeToFile(filePath, atomically: true, encoding: NSUTF8StringEncoding, error: nil);
-        
-        return NSURL(fileURLWithPath: filePath)!;
-        
-    }
-    
-    func getShareFilePath() -> String {
-        var docPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String;
-        return docPath.stringByAppendingPathComponent("higi_results.csv");
-    }
-    
 }
