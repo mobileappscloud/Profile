@@ -2,7 +2,7 @@ import Foundation
 
 class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpaceDelegate {
     
-    var points: [GraphPoint];
+    var points: [GraphPoint], visiblePoints: [GraphPoint] = [];
     
     var altPoints: Array<Array<GraphPoint>> = Array<Array<GraphPoint>>();
     
@@ -21,6 +21,8 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
     var lastSelectedAltPlotIndex = -1;
     
     var firstSelection = true;
+    
+    let pointsToShow = 30;
     
     init(frame: CGRect, points: [GraphPoint]) {
         self.points = points;
@@ -59,36 +61,58 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
         graph.paddingBottom = 0;
         graph.plotAreaFrame.paddingBottom = 10;
         
-        var max = 0.0;
-        var min = 9999999.9;
+        var maxY = 0.0;
+        var minY = 9999999.9;
+        var maxX = 0.0;
+        var minX = 9999999.9;
         
+        var index = 0;
         for point in points {
-            if (point.y > max) {
-                max = point.y;
+            if (point.y > maxY) {
+                maxY = point.y;
             }
-            if (point.y < min) {
-                min = point.y;
+            if (point.y < minY) {
+                minY = point.y;
             }
+            if (point.x > maxX) {
+                maxX = point.x;
+            }
+            if (point.x < minX) {
+                minX = point.x;
+            }
+            if (points.count > pointsToShow) {
+                if (index > points.count - 1 - pointsToShow) {
+                    visiblePoints.append(point);
+                }
+            } else {
+                visiblePoints.append(point);
+            }
+            index++;
         }
         
         var firstPoint, lastPoint: GraphPoint;
         
-        if (points.count > 0) {
-            firstPoint = points[0];
-            lastPoint = points[points.count - 1];
+        if (visiblePoints.count > 0) {
+            firstPoint = visiblePoints[0];
+            lastPoint = visiblePoints[visiblePoints.count - 1];
         } else {
             firstPoint = GraphPoint(x: 0, y: 0);
             lastPoint = GraphPoint(x: 0, y: 0);
         }
         
-        var yRange = max - min;
+        var yRange = maxY - minY;
         if (yRange == 0) {
             yRange++;
         }
-        
+
+        var xRange = maxX - minX;
+        if (xRange == 0) {
+            xRange++;
+        }
+
         var plotSpace = graph.defaultPlotSpace as! CPTXYPlotSpace;
-        plotSpace.xRange = NewCPTPlotRange(location: firstPoint.x - 1 - firstPoint.x * 0.1, length: lastPoint.x - firstPoint.x - 2 + firstPoint.x * 0.1);
-        plotSpace.yRange = NewCPTPlotRange(location: min - yRange * 0.25, length: yRange * 1.5);
+        plotSpace.xRange = NewCPTPlotRange(location: firstPoint.x, length: lastPoint.x - firstPoint.x - 2);
+        plotSpace.yRange = NewCPTPlotRange(location: minY - yRange * 0.25, length: yRange * 1.5);
         plotSpace.globalXRange = plotSpace.xRange;
         plotSpace.globalYRange = plotSpace.yRange;
         plotSpace.delegate = self;
@@ -106,7 +130,7 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
         
         var lineStyle = CPTMutableLineStyle();
         lineStyle.lineColor = CPTColor(CGColor: color.CGColor);
-        lineStyle.lineWidth = 1;
+        lineStyle.lineWidth = 2;
         
         plot.dataLineStyle = lineStyle;
         
@@ -114,13 +138,20 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
         
         var axisLineStyle = CPTMutableLineStyle();
         axisLineStyle.lineColor = CPTColor(CGColor: UIColor.lightGrayColor().CGColor);
+        axisLineStyle.lineWidth = 2;
+        
+        var xAxisLineStyle = CPTMutableLineStyle();
+        xAxisLineStyle.lineColor = CPTColor(CGColor: UIColor.lightGrayColor().CGColor);
+        xAxisLineStyle.lineWidth = 1;
+        
         var xAxis = graph.axisSet.axisForCoordinate(CPTCoordinateX, atIndex: 0) as! CPTXYAxis;
         xAxis.visibleRange = plotSpace.xRange;
         xAxis.gridLinesRange = plotSpace.yRange;
         xAxis.axisConstraints = CPTConstraints(lowerOffset: 0);
         xAxis.labelingPolicy = CPTAxisLabelingPolicyNone;
         xAxis.tickDirection = CPTSignPositive;
-        xAxis.axisLineStyle = axisLineStyle;
+        xAxis.axisLineStyle = xAxisLineStyle;
+        
         var yAxis = graph.axisSet.axisForCoordinate(CPTCoordinateY, atIndex: 0) as! CPTXYAxis;
         yAxis.visibleRange = plotSpace.yRange;
         yAxis.gridLinesRange = plotSpace.xRange;
@@ -128,7 +159,7 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
         yAxis.labelingPolicy = CPTAxisLabelingPolicyNone;
         yAxis.axisLineStyle = axisLineStyle;
         
-        setRange();
+//        setRange();
     }
     
     func setupForBodyStat(color: UIColor) {
@@ -213,15 +244,24 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
                 
                 altPoints.append([systolicPoints[index], diastolicPoints[index]]);
             }
+            
+            if (points.count > pointsToShow) {
+                if (index > points.count - 1 - pointsToShow) {
+                    visiblePoints.append(point);
+                }
+            } else {
+                visiblePoints.append(point);
+            }
+
         }
         
         var yRange = max - min;
         
         var firstPoint, lastPoint: GraphPoint;
         
-        if (points.count > 0) {
-            firstPoint = points[0];
-            lastPoint = points[points.count - 1];
+        if (visiblePoints.count > 0) {
+            firstPoint = visiblePoints[0];
+            lastPoint = visiblePoints[visiblePoints.count - 1];
         } else {
             firstPoint = GraphPoint(x: 0, y: 0);
             lastPoint = GraphPoint(x: 0, y: 0);
@@ -230,8 +270,7 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
         var plotSpace = self.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace;
         plotSpace.allowsUserInteraction = true;
         
-        let padding = Double(UIScreen.mainScreen().bounds.size.width * 0.1);
-        plotSpace.xRange = NewCPTPlotRange(location: firstPoint.x - 1 - 100, length: lastPoint.x - firstPoint.x + 2 + padding * 2);
+        plotSpace.xRange = NewCPTPlotRange(location: firstPoint.x - 1, length: lastPoint.x - firstPoint.x + 2);
         plotSpace.yRange = NewCPTPlotRange(location: min - yRange * 0.4, length: yRange * 2.2);
         plotSpace.globalXRange = plotSpace.xRange;
         plotSpace.globalYRange = plotSpace.yRange;

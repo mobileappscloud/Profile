@@ -308,9 +308,6 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                     var weightPoints:[GraphPoint] = [];
                     
                     for checkin in checkins {
-//                        if (checkinCount >= 30) {
-//                            continue;
-//                        } else {
                             if (checkin.map != nil) {
                                 mapPoints.append(GraphPoint(x: Double(checkin.dateTime.timeIntervalSince1970), y: checkin.map));
                             }
@@ -320,7 +317,6 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                             if (checkin.weightLbs != nil) {
                                 weightPoints.append(GraphPoint(x: Double(checkin.dateTime.timeIntervalSince1970), y: checkin.weightLbs));
                             }
-//                        }
                         checkinCount++;
                     }
                     dispatch_async(dispatch_get_main_queue(), {

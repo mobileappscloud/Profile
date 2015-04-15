@@ -12,7 +12,7 @@ class HigiCheckin {
     
     var checkinId, sourceVendorId, sourceType, sourceId, bmiClass, bpClass, pulseClass: NSString?;
     
-    var weightKG, heightMeters, bmi, map, weightLbs: Double?;
+    var weightKG, heightMeters, bmi, map, fatRatio, weightLbs: Double?;
     
     var systolic, diastolic, score, pulseBpm: Int?;
     
@@ -33,6 +33,7 @@ class HigiCheckin {
         weightKG = dictionary["weightKG"] as? Double;
         heightMeters = dictionary["heightMeters"] as? Double;
         bmi = dictionary["bmi"] as? Double;
+        fatRatio = dictionary["fatRatio"] as? Double;
         systolic = dictionary["systolic"] as? Int;
         diastolic = dictionary["diastolic"] as? Int;
         score = dictionary["score"] as? Int;

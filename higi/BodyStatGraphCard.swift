@@ -14,6 +14,9 @@ class BodyStatsGraphCard: UIView {
     @IBOutlet weak var graphView: UIView!
     @IBOutlet weak var backgroundView: UIView!
     
+    @IBOutlet weak var pulseSubtitle: UILabel!
+    @IBOutlet weak var pulseLabel: UILabel!
+    @IBOutlet weak var pulseValue: UILabel!
     var color: UIColor!;
 
     class func instanceFromNib(title: String, lastCheckin: HigiCheckin, color: UIColor, type: String) -> BodyStatsGraphCard {
@@ -21,36 +24,55 @@ class BodyStatsGraphCard: UIView {
         card.title.text = title;
         card.title.textColor = color;
         
-        let formatter = NSDateFormatter();
-        formatter.dateFormat = "MMMM dd";
-        card.date.text = formatter.stringFromDate(lastCheckin.dateTime);
+        let formatter = NSDateFormatter(), dayFormatter = NSDateFormatter();
+        formatter.dateFormat = "MMMM";
+        dayFormatter.dateFormat = "dd";
+        card.date.text = "\(formatter.stringFromDate(lastCheckin.dateTime)) \(Utility.getRankSuffix(dayFormatter.stringFromDate(lastCheckin.dateTime)))";
         
         if (type == "bp") {
-            card.firstReadingValue.text = "\(Int(lastCheckin.systolic!))/\(Int(lastCheckin.diastolic!))";
+            if let map = lastCheckin.map {
+                card.firstReadingValue.text = "\(Double(round(map * 10) / 10))";
+            } else {
+                card.firstReadingValue.text = "--";
+            }
             card.firstReadingLabel.text = "mmHg";
-            card.firstReadingSubTitle.text = "Blood Pressure";
+            card.firstReadingSubTitle.text = "Mean Arterial Pressure";
             card.firstReadingValue.textColor = color;
             
-            card.secondReadingValue.text = "\(Int(lastCheckin.map!))";
+            card.secondReadingValue.text = "\(Int(lastCheckin.systolic!))/\(Int(lastCheckin.diastolic!))";
             card.secondReadingLabel.text = "mmHg";
-            card.secondReadingSubTitle.text = "Mean Arterial Pressure";
+            card.secondReadingSubTitle.text = "Blood Pressure";
             card.secondReadingValue.textColor = color;
         } else if (type == "weight") {
             card.firstReadingValue.text = "\(Int(lastCheckin.weightLbs!))";
             card.firstReadingLabel.text = "lbs";
             card.firstReadingSubTitle.text = "Weight";
             
-            card.secondReadingValue.text = "\(Int(lastCheckin.bmi!))%";
+            if let fatRatio = lastCheckin.fatRatio {
+                // dirty way round to 2 decimal places
+                card.secondReadingValue.text = "\(Double(round(fatRatio * 100) / 100))%";
+            } else {
+                card.secondReadingValue.text = "--%";
+            }
             card.secondReadingLabel.text = "";
             card.secondReadingSubTitle.text = "Body Fat";
         } else {
-            card.firstReadingValue.text = "\(Int(lastCheckin.pulseBpm!))";
-            card.firstReadingLabel.text = "bpm";
-            card.firstReadingSubTitle.text = "Blood Pressure";
+            card.firstReadingValue.hidden = true;
+            card.firstReadingLabel.hidden = true;
+            card.firstReadingSubTitle.hidden = true;
             
             card.secondReadingValue.hidden = true;
             card.secondReadingLabel.hidden = true;
             card.secondReadingSubTitle.hidden = true;
+            
+            card.pulseValue.hidden = false;
+            card.pulseLabel.hidden = false;
+            card.pulseSubtitle.hidden = false;
+            
+            card.pulseValue.text = "\(Int(lastCheckin.pulseBpm!))";
+            card.pulseValue.textColor = color;
+            card.pulseLabel.text = "bpm";
+            card.pulseSubtitle.text = "Beats Per Minute";
         }
         
         card.firstReadingValue.textColor = color;
