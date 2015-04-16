@@ -20,8 +20,11 @@ class BodyStatsViewController: BaseViewController {
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var infoButton: UIButton!
     @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var firstPanel: UIView!
     @IBOutlet weak var selectedView: UIView!
+    @IBOutlet weak var secondPanel: UIView!
     @IBOutlet weak var cardTitle: UILabel!
+    @IBOutlet weak var thirdPanel: UIView!
     @IBOutlet weak var firstPanelValue: UILabel!
     @IBOutlet weak var thirdPanelLabel: UILabel!
     @IBOutlet weak var thirdPanelUnit: UILabel!
@@ -29,8 +32,12 @@ class BodyStatsViewController: BaseViewController {
     @IBOutlet weak var secondPanelUnit: UILabel!
     @IBOutlet weak var secondPanelLabel: UILabel!
     @IBOutlet weak var secondPanelValue: UILabel!
+    @IBOutlet weak var pulseValue: UILabel!
     @IBOutlet weak var firstPanelLabel: UILabel!
+    @IBOutlet weak var secondPulsePanel: UIView!
+    @IBOutlet weak var pulseDate: UILabel!
     
+    @IBOutlet weak var firstPulsePanel: UIView!
     override func viewDidLoad() {
         super.viewDidLoad();
         self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
@@ -116,6 +123,8 @@ class BodyStatsViewController: BaseViewController {
             graph = BodyStatGraph(frame: CGRect(x: 0, y: 0, width: graphView.frame.size.width, height: graphView.frame.size.height), points: graphPoints);
             color = Utility.colorFromHexString("#5FAFDF");
             cardTitle.text = "Pulse";
+            pulseDate.textColor = color;
+            pulseValue.textColor = color;
         }
         
         headerView.backgroundColor = color;
@@ -141,7 +150,6 @@ class BodyStatsViewController: BaseViewController {
         let formatter = NSDateFormatter();
         formatter.dateFormat = "MM/dd/yyyy";
         firstPanelValue.text = "\(formatter.stringFromDate(checkin.dateTime))";
-        firstPanelLabel.text = "Date";
         if (type == "bp") {
             secondPanelValue.text = "\(checkin.systolic!)/\(checkin.diastolic!)";
             secondPanelUnit.text = "mmHg";
@@ -157,12 +165,15 @@ class BodyStatsViewController: BaseViewController {
             thirdPanelUnit.text = "";
             thirdPanelLabel.text = "Body Mass Index";
         } else {
-            secondPanelValue.text = "\(checkin.pulseBpm!)";
-            secondPanelUnit.text = "bpm";
-            secondPanelLabel.text = "Pulse";
-            thirdPanelValue.text = "";
-            thirdPanelUnit.text = "";
-            thirdPanelLabel.text = "";
+            firstPanel.hidden = true;
+            secondPanel.hidden = true;
+            thirdPanel.hidden = true;
+            
+            firstPulsePanel.hidden = false;
+            secondPulsePanel.hidden = false;
+            
+            pulseDate.text = "\(formatter.stringFromDate(checkin.dateTime))";
+            pulseValue.text = "\(checkin.pulseBpm!)";
         }
     }
     
