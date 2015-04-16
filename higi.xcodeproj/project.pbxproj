@@ -281,6 +281,7 @@
 		D16FD5E91ADDADC200AF9BA5 /* back_button_white.png in Resources */ = {isa = PBXBuildFile; fileRef = D16FD5E81ADDADC200AF9BA5 /* back_button_white.png */; };
 		D17010C91A644414002CBFE8 /* ChallengeDetailsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D17010C71A644414002CBFE8 /* ChallengeDetailsView.xib */; };
 		D17010CA1A644414002CBFE8 /* ChallengeDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17010C81A644414002CBFE8 /* ChallengeDetailsViewController.swift */; };
+		D1740BC41AE0381F00462F6E /* BodyStatsType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1740BC31AE0381F00462F6E /* BodyStatsType.swift */; };
 		D17787221A96873500C78F8B /* activechallenges.png in Resources */ = {isa = PBXBuildFile; fileRef = D177871C1A96873500C78F8B /* activechallenges.png */; };
 		D17787231A96873500C78F8B /* bodystats.png in Resources */ = {isa = PBXBuildFile; fileRef = D177871D1A96873500C78F8B /* bodystats.png */; };
 		D17787241A96873500C78F8B /* higistation.png in Resources */ = {isa = PBXBuildFile; fileRef = D177871E1A96873500C78F8B /* higistation.png */; };
@@ -642,6 +643,7 @@
 		D16FD5E81ADDADC200AF9BA5 /* back_button_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = back_button_white.png; path = images/back_button_white.png; sourceTree = "<group>"; };
 		D17010C71A644414002CBFE8 /* ChallengeDetailsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailsView.xib; sourceTree = "<group>"; };
 		D17010C81A644414002CBFE8 /* ChallengeDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeDetailsViewController.swift; sourceTree = "<group>"; };
+		D1740BC31AE0381F00462F6E /* BodyStatsType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BodyStatsType.swift; sourceTree = "<group>"; };
 		D177871C1A96873500C78F8B /* activechallenges.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = activechallenges.png; path = images/activechallenges.png; sourceTree = "<group>"; };
 		D177871D1A96873500C78F8B /* bodystats.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bodystats.png; path = images/bodystats.png; sourceTree = "<group>"; };
 		D177871E1A96873500C78F8B /* higistation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = higistation.png; path = images/higistation.png; sourceTree = "<group>"; };
@@ -1181,6 +1183,7 @@
 			children = (
 				8F3643A119460EB300C0033E /* BodyStatsViewController.swift */,
 				D1618F921ABB2E26000BDA85 /* BodyStatsView.xib */,
+				D1740BC31AE0381F00462F6E /* BodyStatsType.swift */,
 			);
 			name = "Body Stats";
 			sourceTree = "<group>";
@@ -1889,6 +1892,7 @@
 				D12B37131AA4EC70005B2ABA /* GClusterManager.m in Sources */,
 				8F2B7E43198C2DA0009DE89A /* DrawerViewController.swift in Sources */,
 				8F524BF6195B5ABB00BFC49D /* ConversionUtility.m in Sources */,
+				D1740BC41AE0381F00462F6E /* BodyStatsType.swift in Sources */,
 				D1247BC91AA620F1008A601A /* HigiClusterRenderer.m in Sources */,
 				8F087A901A1BDFC7008E0446 /* ActivityCellHeader.swift in Sources */,
 				8F296311194B911C00E787FD /* SignupNameViewController.swift in Sources */,

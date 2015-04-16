@@ -19,8 +19,9 @@ class BodyStatsGraphCard: UIView {
     @IBOutlet weak var pulseValue: UILabel!
     var color: UIColor!;
 
-    class func instanceFromNib(title: String, lastCheckin: HigiCheckin, color: UIColor, type: String) -> BodyStatsGraphCard {
+    class func instanceFromNib(title: String, lastCheckin: HigiCheckin, type: BodyStatsType) -> BodyStatsGraphCard {
         let card = UINib(nibName: "BodyStatGraphCardView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! BodyStatsGraphCard;
+        let color = Utility.colorFromBodyStatType(type);
         card.title.text = title;
         card.title.textColor = color;
         
@@ -29,7 +30,7 @@ class BodyStatsGraphCard: UIView {
         dayFormatter.dateFormat = "dd";
         card.date.text = "\(formatter.stringFromDate(lastCheckin.dateTime)) \(Utility.getRankSuffix(dayFormatter.stringFromDate(lastCheckin.dateTime)))";
         
-        if (type == "bp") {
+        if (type == BodyStatsType.BloodPressure) {
             if let map = lastCheckin.map {
                 card.firstReadingValue.text = "\(Double(round(map * 10) / 10))";
             } else {
@@ -43,7 +44,7 @@ class BodyStatsGraphCard: UIView {
             card.secondReadingLabel.text = "mmHg";
             card.secondReadingSubTitle.text = "Blood Pressure";
             card.secondReadingValue.textColor = color;
-        } else if (type == "weight") {
+        } else if (type == BodyStatsType.Weight) {
             card.firstReadingValue.text = "\(Int(lastCheckin.weightLbs!))";
             card.firstReadingLabel.text = "lbs";
             card.firstReadingSubTitle.text = "Weight";

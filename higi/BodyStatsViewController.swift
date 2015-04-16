@@ -10,7 +10,7 @@ class BodyStatsViewController: BaseViewController {
     
     let titles = ["Blood Pressure", "Pulse", "Weight"];
     
-    var type = "bp";
+    var type = BodyStatsType.BloodPressure;
     
     var detailsShowing = false;
     
@@ -79,10 +79,10 @@ class BodyStatsViewController: BaseViewController {
         var diastolicPoints: [GraphPoint] = [];
         var systolicPoints: [GraphPoint] = [];
         
-        var color = UIColor.whiteColor();
+        let color = Utility.colorFromBodyStatType(type);
         for checkin in checkins {
             let checkinTime = Double(checkin.dateTime.timeIntervalSince1970);
-            if (type == "bp" && checkin.map != nil && checkin.map > 0) {
+            if (type == BodyStatsType.BloodPressure && checkin.map != nil && checkin.map > 0) {
                 graphPoints.append(GraphPoint(x: checkinTime, y: checkin.map));
                 if (checkin.diastolic != nil && checkin.diastolic > 0) {
                     diastolicPoints.append(GraphPoint(x: checkinTime, y: Double(checkin.diastolic!)));
@@ -97,12 +97,12 @@ class BodyStatsViewController: BaseViewController {
                 plottedCheckins.append(checkin);
             }
             
-            if (type == "weight" && checkin.weightKG != nil && checkin.weightKG > 0) {
+            if (type == BodyStatsType.Weight && checkin.weightKG != nil && checkin.weightKG > 0) {
                 graphPoints.append(GraphPoint(x: checkinTime, y: checkin.bmi));
                 plottedCheckins.append(checkin);
             }
 
-            if (type == "pulse" && checkin.pulseBpm != nil && checkin.pulseBpm > 0) {
+            if (type == BodyStatsType.Pulse && checkin.pulseBpm != nil && checkin.pulseBpm > 0) {
                 graphPoints.append(GraphPoint(x: checkinTime, y: Double(checkin.pulseBpm!)));
                 plottedCheckins.append(checkin);
             }
@@ -111,17 +111,14 @@ class BodyStatsViewController: BaseViewController {
         var frame = CGRect(x: 0, y: 0, width: self.view.frame.size.height, height: self.view.frame.size.width);
         var graphFrame = CGRect(x: 0, y: 0, width: frame.width, height: frame.size.height - 25);
 
-        if (type == "bp") {
+        if (type == BodyStatsType.BloodPressure) {
             graph = BodyStatGraph(frame: CGRect(x: 0, y: 0, width: graphView.frame.size.width, height: graphView.frame.size.height), points: graphPoints, diastolicPoints: diastolicPoints, systolicPoints: systolicPoints);
-            color = Utility.colorFromHexString("#8379B5");
             cardTitle.text = "Blood Pressure";
-        } else if (type == "weight") {
+        } else if (type == BodyStatsType.Weight) {
             graph = BodyStatGraph(frame: CGRect(x: 0, y: 0, width: graphView.frame.size.width, height: graphView.frame.size.height), points: graphPoints);
-            color = Utility.colorFromHexString("#EE6C55");
             cardTitle.text = "Weight";
         } else {
             graph = BodyStatGraph(frame: CGRect(x: 0, y: 0, width: graphView.frame.size.width, height: graphView.frame.size.height), points: graphPoints);
-            color = Utility.colorFromHexString("#5FAFDF");
             cardTitle.text = "Pulse";
             pulseDate.textColor = color;
             pulseValue.textColor = color;
@@ -150,14 +147,14 @@ class BodyStatsViewController: BaseViewController {
         let formatter = NSDateFormatter();
         formatter.dateFormat = "MM/dd/yyyy";
         firstPanelValue.text = "\(formatter.stringFromDate(checkin.dateTime))";
-        if (type == "bp") {
+        if (type == BodyStatsType.BloodPressure) {
             secondPanelValue.text = "\(checkin.systolic!)/\(checkin.diastolic!)";
             secondPanelUnit.text = "mmHg";
             secondPanelLabel.text = "Blood Pressure";
             thirdPanelValue.text = "\(Int(checkin.map!))";
             thirdPanelUnit.text = "mmHg";
             thirdPanelLabel.text = "Mean Arterial Pressure";
-        } else if (type == "weight") {
+        } else if (type == BodyStatsType.Weight) {
             secondPanelValue.text = "\(Int(checkin.weightLbs!))";
             secondPanelUnit.text = "lbs";
             secondPanelLabel.text = "Weight";
