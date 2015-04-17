@@ -82,9 +82,9 @@ class BodyStatsGraphCard: UIView {
         return card;
     }
     
-    func graph(points: [GraphPoint], color: UIColor) {
+    func graph(points: [GraphPoint], type: BodyStatsType) {
         let graph = BodyStatGraph(frame: CGRect(x: 0, y: 0, width: graphView.frame.size.width, height: graphView.frame.size.height), points: points);
-        graph.setupForDashboard(color);
+        graph.setupForDashboard(type);
         graphView.addSubview(graph);
     }
 }

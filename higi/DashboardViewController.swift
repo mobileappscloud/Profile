@@ -320,9 +320,9 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                         checkinCount++;
                     }
                     dispatch_async(dispatch_get_main_queue(), {
-                        bloodPressureCard.graph(mapPoints, color: bloodPressureColor);
-                        pulseCard.graph(bpmPoints, color: pulseColor);
-                        weightCard.graph(weightPoints, color: weightColor);
+                        bloodPressureCard.graph(mapPoints, type: BodyStatsType.BloodPressure);
+                        pulseCard.graph(bpmPoints, type: BodyStatsType.Pulse);
+                        weightCard.graph(weightPoints, type: BodyStatsType.Weight);
                     });
                 });
             }
@@ -341,21 +341,21 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     func gotoBloodPressureGraph(sender: AnyObject) {
         //@todo flurry event here
         let viewController = BodyStatsViewController(nibName: "BodyStatsView", bundle: nil);
-        viewController.type = BodyStatsType.BloodPressure;
+        viewController.selectedType = BodyStatsType.BloodPressure;
         self.navigationController!.pushViewController(viewController, animated: true);
     }
 
     func gotoPulseGraph(sender: AnyObject) {
         //@todo flurry event here
         let viewController = BodyStatsViewController(nibName: "BodyStatsView", bundle: nil);
-        viewController.type = BodyStatsType.Pulse;
+        viewController.selectedType = BodyStatsType.Pulse;
         self.navigationController!.pushViewController(viewController, animated: true);
     }
     
     func gotoWeightGraph(sender: AnyObject) {
         //@todo flurry event here
         let viewController = BodyStatsViewController(nibName: "BodyStatsView", bundle: nil);
-        viewController.type = BodyStatsType.Weight;
+        viewController.selectedType = BodyStatsType.Weight;
         self.navigationController!.pushViewController(viewController, animated: true);
     }
     

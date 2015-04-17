@@ -1,6 +1,6 @@
 import Foundation
 
-class BodyStatsViewController: BaseViewController {
+class BodyStatCard: UIView {
     
     var selected: HigiCheckin?;
     
@@ -8,73 +8,38 @@ class BodyStatsViewController: BaseViewController {
     
     var plottedCheckins: [HigiCheckin] = [];
     
-    let titles = ["Blood Pressure", "Pulse", "Weight"];
-    
     var type = BodyStatsType.BloodPressure;
-    
-    var detailsShowing = false;
     
     var graph: BodyStatGraph!;
     
     @IBOutlet weak var graphView: UIView!
-    @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var infoButton: UIButton!
     @IBOutlet weak var headerView: UIView!
-    @IBOutlet weak var firstPanel: UIView!
     @IBOutlet weak var selectedView: UIView!
-    @IBOutlet weak var secondPanel: UIView!
-    @IBOutlet weak var cardTitle: UILabel!
-    @IBOutlet weak var thirdPanel: UIView!
+    @IBOutlet weak var title: UILabel!
+    
+    @IBOutlet weak var firstPanel: UIView!
     @IBOutlet weak var firstPanelValue: UILabel!
-    @IBOutlet weak var thirdPanelLabel: UILabel!
-    @IBOutlet weak var thirdPanelUnit: UILabel!
-    @IBOutlet weak var thirdPanelValue: UILabel!
+    @IBOutlet weak var firstPanelLabel: UILabel!
+
+    @IBOutlet weak var secondPanel: UIView!
+    @IBOutlet weak var secondPanelValue: UILabel!
     @IBOutlet weak var secondPanelUnit: UILabel!
     @IBOutlet weak var secondPanelLabel: UILabel!
-    @IBOutlet weak var secondPanelValue: UILabel!
-    @IBOutlet weak var pulseValue: UILabel!
-    @IBOutlet weak var firstPanelLabel: UILabel!
-    @IBOutlet weak var secondPulsePanel: UIView!
-    @IBOutlet weak var pulseDate: UILabel!
+
+    @IBOutlet weak var thirdPanel: UIView!
+    @IBOutlet weak var thirdPanelValue: UILabel!
+    @IBOutlet weak var thirdPanelUnit: UILabel!
+    @IBOutlet weak var thirdPanelLabel: UILabel!
     
     @IBOutlet weak var firstPulsePanel: UIView!
-    override func viewDidLoad() {
-        super.viewDidLoad();
-        self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
-        self.navigationController!.navigationBarHidden = true;
+    @IBOutlet weak var secondPulsePanel: UIView!
+    @IBOutlet weak var pulseValue: UILabel!
+    @IBOutlet weak var pulseDate: UILabel!
+    
+    func setupGraph(type: BodyStatsType) {
+        self.type = type;
         
-        setupGraph();
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated);
-        revealController.panGestureRecognizer().enabled = false;
-        revealController.supportedOrientations = UIInterfaceOrientationMask.LandscapeRight.rawValue;
-        revealController.shouldRotate = true;
-        UIDevice.currentDevice().setValue(UIInterfaceOrientation.LandscapeRight.rawValue, forKey: "orientation");
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        revealController.supportedOrientations = UIInterfaceOrientationMask.Portrait.rawValue;
-        self.navigationController!.navigationBarHidden = false;
-        self.view.setNeedsDisplay();
-        UIDevice.currentDevice().setValue(UIInterfaceOrientation.Portrait.rawValue, forKey: "orientation");
-        super.viewWillDisappear(animated);
-    }
-    
-    override func prefersStatusBarHidden() -> Bool {
-        return true;
-    }
-    
-    @IBAction func backButtonClick(sender: AnyObject) {
-        self.navigationController!.popViewControllerAnimated(true);
-    }
-    
-    @IBAction func infoButtonClick(sender: AnyObject) {
-        
-    }
-    
-    func setupGraph() {
         var graphPoints: [GraphPoint] = [];
         var diastolicPoints: [GraphPoint] = [];
         var systolicPoints: [GraphPoint] = [];
@@ -101,38 +66,40 @@ class BodyStatsViewController: BaseViewController {
                 graphPoints.append(GraphPoint(x: checkinTime, y: checkin.bmi));
                 plottedCheckins.append(checkin);
             }
-
+            
             if (type == BodyStatsType.Pulse && checkin.pulseBpm != nil && checkin.pulseBpm > 0) {
                 graphPoints.append(GraphPoint(x: checkinTime, y: Double(checkin.pulseBpm!)));
                 plottedCheckins.append(checkin);
             }
         }
         
-        var frame = CGRect(x: 0, y: 0, width: self.view.frame.size.height, height: self.view.frame.size.width);
+        var frame = CGRect(x: 0, y: 0, width: self.frame.size.height, height: self.frame.size.width);
         var graphFrame = CGRect(x: 0, y: 0, width: frame.width, height: frame.size.height - 25);
-
+        
         if (type == BodyStatsType.BloodPressure) {
             graph = BodyStatGraph(frame: CGRect(x: 0, y: 0, width: graphView.frame.size.width, height: graphView.frame.size.height), points: graphPoints, diastolicPoints: diastolicPoints, systolicPoints: systolicPoints);
-            cardTitle.text = "Blood Pressure";
+            title.text = "Blood Pressure";
         } else if (type == BodyStatsType.Weight) {
             graph = BodyStatGraph(frame: CGRect(x: 0, y: 0, width: graphView.frame.size.width, height: graphView.frame.size.height), points: graphPoints);
-            cardTitle.text = "Weight";
+            title.text = "Weight";
         } else {
             graph = BodyStatGraph(frame: CGRect(x: 0, y: 0, width: graphView.frame.size.width, height: graphView.frame.size.height), points: graphPoints);
-            cardTitle.text = "Pulse";
+            title.text = "Pulse";
             pulseDate.textColor = color;
             pulseValue.textColor = color;
         }
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: "cardClicked:");
+        headerView.addGestureRecognizer(tapRecognizer);
         
         headerView.backgroundColor = color;
         firstPanelValue.textColor = color;
         secondPanelValue.textColor = color;
         thirdPanelValue.textColor = color;
         
-        graph.setupForBodyStat(color);
+        graph.setupForBodyStat(type);
         graphView.addSubview(graph);
     }
-
+    
     func setSelected(index: Int) {
         let checkin = plottedCheckins[index];
         if (selectedView.hidden) {
@@ -174,7 +141,15 @@ class BodyStatsViewController: BaseViewController {
         }
     }
     
-    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
-        return false;
+    func cardClicked() {
+//        (Utility.getViewController(self) as! BodyStatsViewController).cardClicked(self.tag);
+    }
+    
+    @IBAction func backButtonClick(sender: AnyObject) {
+        (Utility.getViewController(self) as! BodyStatsViewController).backButtonClick();
+    }
+    
+    @IBAction func infoButtonClick(sender: AnyObject) {
+        
     }
 }

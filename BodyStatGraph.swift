@@ -20,8 +20,6 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
     
     var lastSelectedAltPlotIndex = -1;
     
-    var firstSelection = true;
-    
     let pointsToShow = 30;
     
     init(frame: CGRect, points: [GraphPoint]) {
@@ -34,15 +32,6 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
         self.points = points;
         self.diastolicPoints = diastolicPoints;
         self.systolicPoints = systolicPoints;
-        
-//        self.points.sort({ $0.x < $1.x });
-//        self.diastolicPoints.sort({ $0.x < $1.x });
-//        self.systolicPoints.sort({ $0.x < $1.x });
-//        
-        //        self.points.append(GraphPoint(x: Double(NSDate().timeIntervalSince1970), y: points.last!.y));
-        //        self.diastolicPoints.append(GraphPoint(x: Double(NSDate().timeIntervalSince1970), y: points.last!.y));
-        //        self.systolicPoints.append(GraphPoint(x: Double(NSDate().timeIntervalSince1970), y: points.last!.y));
-
         super.init(frame: frame);
     }
     
@@ -50,8 +39,8 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
         fatalError("NSCoding not supported");
     }
     
-    func setupForDashboard(color: UIColor) {
-        
+    func setupForDashboard(type: BodyStatsType) {
+        let color = Utility.colorFromBodyStatType(type);
         var graph = CPTXYGraph(frame: self.bounds);
         self.hostedGraph = graph;
         
@@ -162,7 +151,8 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
 //        setRange();
     }
     
-    func setupForBodyStat(color: UIColor) {
+    func setupForBodyStat(type: BodyStatsType) {
+        let color = Utility.colorFromBodyStatType(type);
         var maxY = 0.0;
         var minY = DBL_MAX;
         
@@ -288,7 +278,14 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
         let lowerBound = roundToLowest(minY, roundTo: 20);
         let upperBound = roundToHighest(maxY, roundTo: 20);
         plotSpace.xRange = NewCPTPlotRange(location: firstPoint.x - xRange * 0.2, length: xRange * 1.3);
-        plotSpace.yRange = NewCPTPlotRange(location: lowerBound, length: upperBound - lowerBound);
+        if (type == BodyStatsType.BloodPressure) {
+            plotSpace.yRange = NewCPTPlotRange(location: lowerBound, length: upperBound - lowerBound);
+        } else if (type == BodyStatsType.Weight) {
+            plotSpace.yRange = NewCPTPlotRange(location: minY - yRange * 0.4, length: yRange * 2.2);
+        } else {
+            plotSpace.yRange = NewCPTPlotRange(location: minY - yRange * 0.4, length: yRange * 2.2);
+        }
+        
         plotSpace.globalXRange = plotSpace.xRange;
         plotSpace.globalYRange = plotSpace.yRange;
         plotSpace.delegate = self;
@@ -354,7 +351,9 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
         yAxis.visibleRange = plotSpace.yRange;
         yAxis.gridLinesRange = NewCPTPlotRange(location: firstPoint.x - xRange * 0.15, length: xRange * 1.3);
         yAxis.axisConstraints = CPTConstraints(lowerOffset: 0);
-        yAxis.preferredNumberOfMajorTicks = UInt(Int((upperBound - lowerBound) / 20)) + 1;
+        if (type == BodyStatsType.BloodPressure) {
+            yAxis.preferredNumberOfMajorTicks = UInt(Int((upperBound - lowerBound) / 20)) + 1;
+        }
         yAxis.labelingPolicy = CPTAxisLabelingPolicyEqualDivisions;
         let numberFormatter = NSNumberFormatter();
         numberFormatter.numberStyle = NSNumberFormatterStyle.DecimalStyle;
@@ -377,6 +376,8 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
         graph.addPlot(plot, toPlotSpace: graph.defaultPlotSpace);
 //
 //        setRange();
+        
+        checkinSelected(plot, idx: points.count - 1, first: true);
     }
 
     func roundToLowest(number: Double, roundTo: Double) -> Double {
@@ -441,33 +442,25 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
     }
     
     func scatterPlot(plot: CPTScatterPlot!, plotSymbolWasSelectedAtRecordIndex idx: Int) {
-        var viewController = Utility.getViewController(self) as! BodyStatsViewController?;
-        viewController!.setSelected(idx);
-        
+        checkinSelected(plot, idx: idx, first: false);
+    }
+    
+    func checkinSelected(plot: CPTScatterPlot!, idx: Int, first: Bool) {
+        if (!first) {
+            var viewController = self.superview as! BodyStatCard?;
+            viewController!.setSelected(idx);
+        }
         if (plot.isEqual(self.plot)) {
             selectedPointIndex = idx;
         } else {
             selectedPointIndex = plot.name.toInt()!;
         }
 
-        if (firstSelection) {
-            for (index, altPlot) in altPlots {
-                if (index == selectedPointIndex) {
-                    lastSelectedAltPlotIndex = index;
-                    altPlot.dataLineStyle = selectedAltPlotLineStyle;
-                } else {
-                    altPlot.dataLineStyle = unselectedAltPlotLineStyle;
-                }
-                altPlot.reloadData();
-            }
-            firstSelection = false;
-        } else {
-            altPlots[selectedPointIndex]?.dataLineStyle = selectedAltPlotLineStyle;
-            altPlots[selectedPointIndex]?.reloadData();
-            altPlots[lastSelectedAltPlotIndex]?.dataLineStyle = unselectedAltPlotLineStyle;
-            altPlots[lastSelectedAltPlotIndex]?.reloadData();
-            lastSelectedAltPlotIndex = selectedPointIndex;
-        }
+        altPlots[selectedPointIndex]?.dataLineStyle = selectedAltPlotLineStyle;
+        altPlots[selectedPointIndex]?.reloadData();
+        altPlots[lastSelectedAltPlotIndex]?.dataLineStyle = unselectedAltPlotLineStyle;
+        altPlots[lastSelectedAltPlotIndex]?.reloadData();
+        lastSelectedAltPlotIndex = selectedPointIndex;
 
         self.plot.reloadData();
     }
