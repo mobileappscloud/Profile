@@ -74,6 +74,7 @@ class BodyStatsViewController: BaseViewController {
             for i in 1...count - 2 {
                 let index = count - 1 - i;
                 let card = subViews[index] as! UIView;
+                let a = card.tag;
                 var cardFrame = UIScreen.mainScreen().bounds;
                 cardFrame.size.width = cardFrame.size.width - CGFloat((index) * cardMargin);
                 card.frame = cardFrame;
@@ -90,24 +91,19 @@ class BodyStatsViewController: BaseViewController {
         } else {
             let subViews = self.view.subviews;
             let count = BodyStatsType.allValues.count;
-            for index in 1...count - 1 {
+
+            //send first card to back and update width according to position
+            let firstCard = subViews[subViews.count - 1] as! UIView;
+            firstCard.tag = subViews.count - 1;
+            firstCard.frame = UIScreen.mainScreen().bounds;
+            self.view.insertSubview(firstCard, atIndex: BodyStatsType.allValues.count - 2);
+            
+            for index in 0...count - 1 {
                 let card = subViews[index] as! UIView;
-                var cardFrame = UIScreen.mainScreen().bounds;
-                cardFrame.size.width = cardFrame.size.width - CGFloat((index + 1) * cardMargin);
-                card.frame = cardFrame;
-                card.tag = (index + 1) % count - 1;
+                card.frame.size.width = UIScreen.mainScreen().bounds.size.width - CGFloat((index) * cardMargin);
+                card.tag = count - 1 - index;
             }
-            let firstCard = subViews[0] as! UIView;
-            var firstCardFrame = UIScreen.mainScreen().bounds;
-            firstCardFrame.size.width = firstCardFrame.size.width - 1;
-            firstCard.frame = firstCardFrame;
-            firstCard.tag = count - 1;
-//            let firstCard = subViews[0] as! UIView;
-//            firstCard.tag = count - 1;
-//            firstCard.frame = UIScreen.mainScreen().bounds;
-            self.view.sendSubviewToBack(firstCard);
         }
-//        viewDidLayoutSubviews();
     }
     
     func sendViewsToBack(views: [UIView]) {
