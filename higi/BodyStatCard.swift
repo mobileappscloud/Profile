@@ -37,6 +37,12 @@ class BodyStatCard: UIView {
     @IBOutlet weak var pulseValue: UILabel!
     @IBOutlet weak var pulseDate: UILabel!
     
+    class func instanceFromNib(frame: CGRect) -> BodyStatCard {
+        let view = UINib(nibName: "BodyStatCardView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! BodyStatCard;
+        view.frame = frame;
+        return view;
+    }
+    
     func setupGraph(type: BodyStatsType) {
         self.type = type;
         
