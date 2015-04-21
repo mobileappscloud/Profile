@@ -143,6 +143,18 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         } else {
             pointsMeter.hidden = true;
             activityCard.blankStateImage.hidden = false;
+            var hasDevicesConnected = false;
+            for (deviceName, device) in SessionController.Instance.devices {
+                if (device.connected!) {
+                    hasDevicesConnected = true;
+                    break;
+                }
+            }
+            if (hasDevicesConnected) {
+                activityCard.blankStateImage.image = UIImage(named: "activitywidgetblankstate");
+            } else {
+                activityCard.blankStateImage.image = UIImage(named: "activitywidgetblankstatenodevices");
+            }
         }
 
         if (todaysPoints > 0 || !SessionController.Instance.earnditError) {
