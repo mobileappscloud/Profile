@@ -15,11 +15,11 @@ class PulseArticle {
     var title, excerpt, imageUrl, permalink: NSString;
  
     init(dictionary: NSDictionary) {
-        articleId = dictionary["id"] as! Int;
-        title = (dictionary["title"] as! NSString).stringByConvertingHTMLToPlainText();
-        excerpt = (dictionary["excerpt"] as! NSString).stringByConvertingHTMLToPlainText();
-        imageUrl = dictionary["biggerImageUrl"] as! NSString;
-        permalink = dictionary["permalink"] as! NSString;
+        articleId = dictionary["id"] as Int;
+        title = (dictionary["title"] as NSString).stringByConvertingHTMLToPlainText();
+        excerpt = (dictionary["excerpt"] as NSString).stringByConvertingHTMLToPlainText();
+        imageUrl = dictionary["biggerImageUrl"] as NSString;
+        permalink = dictionary["permalink"] as NSString;
     }
     
 }

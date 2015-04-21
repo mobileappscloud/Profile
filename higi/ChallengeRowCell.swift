@@ -24,7 +24,7 @@ class ChallengeRowCell: UITableViewCell, UIScrollViewDelegate, UIGestureRecogniz
     }
     
     @IBAction func changePage(sender: AnyObject) {
-        var pager = sender as! UIPageControl;
+        var pager = sender as UIPageControl;
         var pageNumber = pager.currentPage;
         
         var frame = scrollView.frame;

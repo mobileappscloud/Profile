@@ -45,11 +45,11 @@ class PulseHomeViewController: BaseViewController, UITableViewDataSource, UITabl
     func fillTopContainer() {
         var article = SessionController.Instance.pulseArticles.first;
         if (article != nil) {
-            headerTitle.text = article!.title as String;
-            headerExcerpt.text = article!.excerpt as String;
+            headerTitle.text = article!.title;
+            headerExcerpt.text = article!.excerpt;
             headerExcerpt.sizeToFit();
             headerImage.clipsToBounds = true;
-            headerImage.setImageWithURL(NSURL(string: article!.imageUrl as String));
+            headerImage.setImageWithURL(NSURL(string: article!.imageUrl));
         }
     }
     
@@ -62,20 +62,20 @@ class PulseHomeViewController: BaseViewController, UITableViewDataSource, UITabl
             loadingArticles = true;
             addMoreArticles();
         }
-        var cell = tableView.dequeueReusableCellWithIdentifier("PulseCell") as! PulseCell!;
+        var cell = tableView.dequeueReusableCellWithIdentifier("PulseCell") as PulseCell!;
         if (cell == nil) {
-            cell = UINib(nibName: "PulseCellView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! PulseCell;
+            cell = UINib(nibName: "PulseCellView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as PulseCell;
         }
         var article = SessionController.Instance.pulseArticles[indexPath.item + 1];
         cell.title.frame.size = CGSize(width: 194, height: 36);
-        cell.title.text = article.title as String;
+        cell.title.text = article.title;
         cell.title.sizeToFit();
-        cell.excerpt.text = article.excerpt as String;
+        cell.excerpt.text = article.excerpt;
         cell.excerpt.sizeToFit();
         cell.spinner.startAnimating();
         cell.articleImage.clipsToBounds = true;
         cell.articleImage.image = nil;
-        cell.articleImage.setImageWithURL(NSURL(string: article.imageUrl as String));
+        cell.articleImage.setImageWithURL(NSURL(string: article.imageUrl));
         return cell;
     }
     
@@ -90,7 +90,7 @@ class PulseHomeViewController: BaseViewController, UITableViewDataSource, UITabl
         self.navigationController!.pushViewController(webController, animated: true);
     }
     
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(scrollView: UIScrollView!) {
         updateNavBar();
     }
     
@@ -164,7 +164,7 @@ class PulseHomeViewController: BaseViewController, UITableViewDataSource, UITabl
     }
     
     func createPullToRefresh() {
-        pullRefreshView = UINib(nibName: "PullRefreshView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! PullRefresh;
+        pullRefreshView = UINib(nibName: "PullRefreshView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as PullRefresh;
         
         refreshControl = UIRefreshControl();
         refreshControl.addTarget(self, action: "refresh", forControlEvents: UIControlEvents.ValueChanged);

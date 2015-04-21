@@ -15,7 +15,7 @@ class BodyStatsPortView: UIView {
     @IBOutlet var orientationIndicator: UIImageView!;
     
     class func instanceFromNib() -> BodyStatsPortView {
-        return UINib(nibName: "BodyStatsPort", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! BodyStatsPortView
+        return UINib(nibName: "BodyStatsPort", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as BodyStatsPortView
     }
     
 }

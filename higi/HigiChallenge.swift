@@ -37,40 +37,40 @@ class HigiChallenge {
         self.participants = participants;
         self.pagingData = pagingData;
         self.chatter = chatter;
-        url = (dictionary["url"] ?? "") as! NSString;
-        name = (dictionary["name"] ?? "") as! NSString;
-        description = dictionary["description"] as! NSString!;
-        shortDescription = (dictionary["shortDescription"] ?? "") as! NSString;
-        var imageUrls =  dictionary["imageUrl"] as! NSDictionary;
+        url = (dictionary["url"] ?? "") as NSString;
+        name = (dictionary["name"] ?? "") as NSString;
+        description = dictionary["description"] as NSString!;
+        shortDescription = (dictionary["shortDescription"] ?? "") as NSString;
+        var imageUrls =  dictionary["imageUrl"] as NSDictionary;
         imageUrl = imageUrls["default"] as? NSString;
-        status = dictionary["status"] as! NSString!;
-        metric = dictionary["metric"] as! NSString!;
+        status = dictionary["status"] as NSString!;
+        metric = dictionary["metric"] as NSString!;
         abbrMetric = metric.stringByReplacingOccurrencesOfString("points", withString: "pts");
-        dailyLimit = dictionary["dailyLimit"] as! Int;
+        dailyLimit = dictionary["dailyLimit"] as Int;
         joinUrl = dictionary["joinUrl"] as? NSString;
         commentsUrl = dictionary["commentsUrl"] as? NSString;
-        entryFee = (dictionary["entryFee"] ?? 0) as! Float;
+        entryFee = (dictionary["entryFee"] ?? 0) as Float;
         var formatter = NSDateFormatter();
         formatter.dateFormat = "yyyy-MM-dd";
-        var startDateString = dictionary["startDate"] as! String;
+        var startDateString = dictionary["startDate"] as NSString;
         startDate = formatter.dateFromString(startDateString);
-        var endDateString = dictionary["endDate"] as! String?;
+        var endDateString = dictionary["endDate"] as NSString?;
         if (endDateString != nil) {
             endDate = formatter.dateFromString(endDateString!);
         }
-        participantsCount = dictionary["participantsCount"] as! Int;
+        participantsCount = dictionary["participantsCount"] as Int;
         terms = (dictionary["terms"] ?? "") as? NSString;
         var conditions = dictionary["winConditions"] as? NSArray;
         if (conditions != nil) {
             for condition: AnyObject in conditions! {
-                winConditions.append(ChallengeWinCondition(dictionary: condition as! NSDictionary));
+                winConditions.append(ChallengeWinCondition(dictionary: condition as NSDictionary));
             }
         }
         
         var serverDevices = dictionary["devices"] as? NSArray;
         if (serverDevices != nil) {
             for device: AnyObject in serverDevices! {
-                devices.append(ActivityDevice(dictionary: device as! NSDictionary));
+                devices.append(ActivityDevice(dictionary: device as NSDictionary));
             }
         }
         
@@ -78,7 +78,7 @@ class HigiChallenge {
         if (serverTeams != nil) {
             teams = [];
             for team: AnyObject in serverTeams! {
-                teams.append(ChallengeTeam(dictionary: team as! NSDictionary));
+                teams.append(ChallengeTeam(dictionary: team as NSDictionary));
             }
             if (teams.count > 0) {
                 teamHighScore = teams[0].units;

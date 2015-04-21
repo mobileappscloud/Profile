@@ -26,13 +26,3 @@
 #import "Flurry.h"
 
 #import "UIImage+Orientation.h"
-
-#import "GClusterManager.h"
-
-#import "ClusterManagerDelegate.h"
-
-#import "NonHierarchicalDistanceBasedAlgorithm.h"
-
-#import "HigiClusterRenderer.h"
-
-#import "ClusterKiosk.h"

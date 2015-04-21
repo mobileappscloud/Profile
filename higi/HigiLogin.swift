@@ -15,8 +15,8 @@ class HigiLogin {
     var user: HigiUser?;
     
     init(dictionary: NSDictionary) {
-        token = (dictionary["Token"] ?? "") as! NSString;
-        user = HigiUser(dictionary: dictionary["User"] as! NSDictionary);
+        token = (dictionary["Token"] ?? "") as NSString;
+        user = HigiUser(dictionary: dictionary["User"] as NSDictionary);
     }
     
 }

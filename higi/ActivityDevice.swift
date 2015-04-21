@@ -15,15 +15,15 @@ class ActivityDevice {
     var connected: Bool!;
     
     init(dictionary: NSDictionary) {
-        name = dictionary["name"] as! NSString;
-        description = dictionary["description"] as! NSString;
-        url = dictionary["url"] as! NSString;
+        name = dictionary["name"] as NSString;
+        description = dictionary["description"] as NSString;
+        url = dictionary["url"] as NSString;
         connectUrl = dictionary["connectUrl"] as? NSString;
         partnerHomepage = dictionary["partnerHomepage"] as? NSString;
-        colorCode = dictionary["colorCode"] as! NSString;
-        var imageUrls = dictionary["imageUrl"] as! NSDictionary;
+        colorCode = dictionary["colorCode"] as NSString;
+        var imageUrls = dictionary["imageUrl"] as NSDictionary;
         iconUrl = imageUrls["icon"] as? NSString;
-        var userRelation = dictionary["userRelation"] as! NSDictionary;
+        var userRelation = dictionary["userRelation"] as NSDictionary;
         connected = userRelation["connected"] as? Bool;
         disconnectUrl = userRelation["disconnectUrl"] as? NSString;
     }

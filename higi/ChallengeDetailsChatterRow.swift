@@ -22,29 +22,29 @@ class ChallengeDetailsChatterRow: UITableViewCell {
     }
     
     class func instanceFromNib(comment: String, participant: ChallengeParticipant, timeSincePosted: String, isYou: Bool, isTeam: Bool) -> ChallengeDetailsChatterRow {
-        let row = UINib(nibName: "ChallengeDetailsChatterRow", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! ChallengeDetailsChatterRow;
+        let row = UINib(nibName: "ChallengeDetailsChatterRow", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeDetailsChatterRow;
         if (isYou) {
-            row.yourAvatar.setImageWithURL(Utility.loadImageFromUrl(participant.imageUrl as String));
+            row.yourAvatar.setImageWithURL(Utility.loadImageFromUrl(participant.imageUrl));
             row.chatBubble.hidden = true;
             row.yourChatBubble.hidden = false;
             row.displayName.textColor = UIColor.whiteColor();
             row.message.textColor = UIColor.whiteColor();
-            row.yourChatBubble.image = UIImage(named: "chat_bubble_green")!.resizableImageWithCapInsets(UIEdgeInsets(top: 17, left: 19, bottom: 18, right: 32));
+            row.yourChatBubble.image = row.yourChatBubble.image!.resizableImageWithCapInsets(UIEdgeInsets(top: 17, left: 19, bottom: 26, right: 31));
             row.message.textAlignment = NSTextAlignment.Right;
             row.time.textAlignment = NSTextAlignment.Right;
             row.displayName.textAlignment = NSTextAlignment.Right;
             row.time.textColor = Utility.colorFromHexString("#DDDDDD");
         } else {
-            row.avatar.setImageWithURL(Utility.loadImageFromUrl(participant.imageUrl as String));
+            row.avatar.setImageWithURL(Utility.loadImageFromUrl(participant.imageUrl));
             row.yourChatBubble.hidden = true;
             row.chatBubble.hidden = false;
-            row.chatBubble.image = UIImage(named: "chat_bubble")!.resizableImageWithCapInsets(UIEdgeInsets(top: 19, left: 31, bottom: 23, right: 19));
+            row.chatBubble.image = row.chatBubble.image!.resizableImageWithCapInsets(UIEdgeInsets(top: 19, left: 31, bottom: 27, right: 49));
             row.message.textAlignment = NSTextAlignment.Left;
         }
         if (isTeam) {
             row.displayName.text = "\(participant.displayName) - [\(participant.team.name)]";
         } else {
-            row.displayName.text = participant.displayName as String;
+            row.displayName.text = participant.displayName;
         }
         row.message.text = comment;
         row.message.sizeToFit();
@@ -62,6 +62,6 @@ class ChallengeDetailsChatterRow: UITableViewCell {
         let bottomMargin:CGFloat = 10;
         let messageMargin:CGFloat = 10;
         let messageWidth:CGFloat = 164;
-        return labelHeight + topMargin + Utility.heightForTextView(messageWidth, text: comment.comment as String, fontSize: 12, margin: messageMargin) + labelHeight + bottomMargin;
+        return labelHeight + topMargin + Utility.heightForTextView(messageWidth, text: comment.comment, fontSize: 12, margin: messageMargin) + labelHeight + bottomMargin;
     }
 }

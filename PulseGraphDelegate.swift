@@ -45,7 +45,7 @@ class PulseGraphDelegate: GraphDelegate {
     }
     
     func getMeasureClass(checkin: HigiCheckin) -> String {
-        return checkin.pulseClass! as String;
+        return checkin.pulseClass!;
     }
     
     func cellForCheckin(checkin: HigiCheckin, cell: BodyStatCheckinCell) {
@@ -63,8 +63,8 @@ class PulseGraphDelegate: GraphDelegate {
     }
     
     func getScreenPoint(graph: CPTGraphHostingView, checkin: HigiCheckin, isPortrait: Bool) -> CGPoint {
-        var xRange = (graph.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace).xRange;
-        var yRange = (graph.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace).yRange;
+        var xRange = (graph.hostedGraph.defaultPlotSpace as CPTXYPlotSpace).xRange;
+        var yRange = (graph.hostedGraph.defaultPlotSpace as CPTXYPlotSpace).yRange;
         var frame = graph.frame;
         var dateX = CGFloat(checkin.dateTime.timeIntervalSince1970);
         var valueY = CGFloat(checkin.pulseBpm!);

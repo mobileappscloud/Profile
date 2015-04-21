@@ -1,6 +1,6 @@
 import Foundation
 
-class CompetitiveChallengeView: ChallengeView, UIScrollViewDelegate {
+class CompetitiveChallengeView: UIView, UIScrollViewDelegate {
     
     
     @IBOutlet weak var row1: UIView!
@@ -8,7 +8,7 @@ class CompetitiveChallengeView: ChallengeView, UIScrollViewDelegate {
     @IBOutlet weak var row3: UIView!
     
     class func instanceFromNib(frame: CGRect, challenge: HigiChallenge, winConditions: [ChallengeWinCondition]) -> CompetitiveChallengeView {
-        let competitiveView = UINib(nibName: "CompetitiveChallengeView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! CompetitiveChallengeView;
+        let competitiveView = UINib(nibName: "CompetitiveChallengeView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as CompetitiveChallengeView;
         competitiveView.frame = frame;
         
         competitiveView.autoresizesSubviews = true;
@@ -49,7 +49,7 @@ class CompetitiveChallengeView: ChallengeView, UIScrollViewDelegate {
             for index in 0...individualGravityBoard.count - 1 {
                 let name = individualGravityBoard[index].participant.displayName;
                 let place = individualGravityBoard[index].place!;
-                let row = ChallengeLeaderboardRow.instanceFromNib(frame, challenge: challenge, participant: individualGravityBoard[index].participant, place: place as String);
+                let row = ChallengeLeaderboardRow.instanceFromNib(frame, challenge: challenge, participant: individualGravityBoard[index].participant, place: place);
                 if (name == challenge.participant.displayName) {
                     row.name.textColor = Utility.colorFromHexString("#76C044");
                     row.place.textColor = Utility.colorFromHexString("#76C044");
@@ -73,38 +73,5 @@ class CompetitiveChallengeView: ChallengeView, UIScrollViewDelegate {
         competitiveView.autoresizingMask = UIViewAutoresizing.FlexibleWidth;
         competitiveView.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize);
         return competitiveView;
-    }
-    
-    override func animate() {
-        let innerRow1 = row1.subviews[0] as! ChallengeLeaderboardRow;
-        var innerRow2: ChallengeLeaderboardRow!;
-        if (row2.subviews.count > 0) {
-            innerRow2 = row2.subviews[0] as! ChallengeLeaderboardRow;
-        }
-        var innerRow3: ChallengeLeaderboardRow!;
-        if (row3.subviews.count > 0) {
-            innerRow3 = row3.subviews[0] as! ChallengeLeaderboardRow;
-        }
-        let width1 = (innerRow1.progress.subviews[0] as! UIView).frame.size.width;
-        (innerRow1.progress.subviews[0] as! UIView).frame.size.width = 0;
-        UIView.animateWithDuration(1.0, delay: 0.0, options: .CurveEaseInOut, animations: {
-            (innerRow1.progress.subviews[0] as! UIView).frame.size.width = width1;
-            }, completion: nil);
-        
-        if (innerRow2 != nil) {
-            let width2 = (innerRow2!.progress.subviews[0] as! UIView).frame.size.width;
-            (innerRow2!.progress.subviews[0] as! UIView).frame.size.width = 0;
-            UIView.animateWithDuration(1.0, delay: 0.1, options: .CurveEaseInOut, animations: {
-                (innerRow2!.progress.subviews[0] as! UIView).frame.size.width = width2;
-                }, completion: nil);
-        }
-        
-        if (innerRow3 != nil) {
-            let width3 = (innerRow3!.progress.subviews[0] as! UIView).frame.size.width;
-            (innerRow3!.progress.subviews[0] as! UIView).frame.size.width = 0;
-            UIView.animateWithDuration(1.0, delay: 0.2, options: .CurveEaseInOut, animations: {
-                (innerRow3!.progress.subviews[0] as! UIView).frame.size.width = width3;
-                }, completion: nil);
-        }
     }
 }

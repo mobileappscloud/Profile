@@ -20,9 +20,9 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     
     var currentPage = 0;
     var totalPages = 0;
-    let headerHeight: CGFloat = 83;
-    var currentTable: UITableView!;
-    var challenge: HigiChallenge?;
+    let headerHeight:CGFloat = 83;
+    var currentTable:UITableView!;
+    var challenge:HigiChallenge?;
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
@@ -50,12 +50,12 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         invitedChallenges = [];
         totalPages = 0;
         
-        var challenges = SessionController.Instance.challenges;
+        var session = SessionController.Instance;
         let challengeName = challenge != nil ? challenge!.name : "";
         var challengeIndex = -1;
         
-        if (challenges != nil && challenges.count > 0) {
-            for challenge:HigiChallenge in challenges {
+        if (session.challenges.count > 0) {
+            for challenge:HigiChallenge in session.challenges {
                 switch(challenge.userStatus) {
                 case "current":
                     activeChallenges.append(challenge);
@@ -211,9 +211,9 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("ChallengeRowCell") as! ChallengeRowCell!;
+        var cell = tableView.dequeueReusableCellWithIdentifier("ChallengeRowCell") as ChallengeRowCell!;
         if (cell == nil) {
-            cell = UINib(nibName: "ChallengeRowCell", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! ChallengeRowCell
+            cell = UINib(nibName: "ChallengeRowCell", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeRowCell
         }
         //remove all children before populating scrollview
         for subview in cell.scrollView.subviews {
@@ -232,10 +232,10 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         }
         buildChallengeCell(cell, challenge: challenge);
         if (challenge != nil) {
-            cell.title.text = challenge.name as String;
-            cell.avatar.setImageWithURL(Utility.loadImageFromUrl(challenge.imageUrl as String));
+            cell.title.text = challenge.name;
+            cell.avatar.setImageWithURL(Utility.loadImageFromUrl(challenge.imageUrl));
         }
-        var endDate:NSDate? = challenge.endDate;
+        var endDate:NSDate? = challenge.endDate?;
         if (endDate != nil) {
             let days = Int(endDate!.timeIntervalSinceNow / 60 / 60 / 24) + 1;
             var formatter = NSDateFormatter();
@@ -366,7 +366,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     }
     
     @IBAction func changePage(sender: AnyObject) {
-        var pager = sender as! UIPageControl;
+        var pager = sender as UIPageControl;
         var page = pager.currentPage;
         let previousPage = currentPage;
         title = pageTitles[page];

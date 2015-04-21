@@ -13,6 +13,5 @@ class ActivityCard: UIView {
     @IBOutlet weak var meterContainer: UIView!
     @IBOutlet weak var attachDevicesButton: UIButton!
     @IBOutlet weak var blankStateImage: UIImageView!
-    @IBOutlet weak var loadingContainer: UIView!
-    var spinner: CustomLoadingSpinner!
+    
 }

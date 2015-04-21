@@ -29,7 +29,7 @@ class BodyStatsViewController: BaseViewController, UIScrollViewDelegate, UIGestu
         self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
         navigationController!.interactivePopGestureRecognizer.enabled = false;
         navigationController!.interactivePopGestureRecognizer.delegate = self;
-        var shareButton = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton;
+        var shareButton = UIButton.buttonWithType(UIButtonType.Custom) as UIButton;
         shareButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
         shareButton.addTarget(self, action: "shareAction:", forControlEvents: UIControlEvents.TouchUpInside);
         shareButton.setBackgroundImage(UIImage(named: "btn_share_white.png"), forState: UIControlState.Normal);
@@ -205,13 +205,13 @@ class BodyStatsViewController: BaseViewController, UIScrollViewDelegate, UIGestu
             landView.button3m.setBackgroundImage(nil, forState: UIControlState.Normal);
             landView.button6m.setBackgroundImage(nil, forState: UIControlState.Normal);
             landView.buttonAll.setBackgroundImage(nil, forState: UIControlState.Normal);
-            (sender as! UIButton).setBackgroundImage(UIImage(named: "graph_timespan_bg"), forState: UIControlState.Normal);
+            (sender as UIButton).setBackgroundImage(UIImage(named: "graph_timespan_bg"), forState: UIControlState.Normal);
             var range = 0;
-            if (sender as! NSObject == landView.button1m) {
+            if (sender as NSObject == landView.button1m) {
                 range = 0;
-            } else if (sender as! NSObject == landView.button3m) {
+            } else if (sender as NSObject == landView.button3m) {
                 range = 1;
-            } else if (sender as! NSObject == landView.button6m) {
+            } else if (sender as NSObject == landView.button6m) {
                 range = 2;
             } else {
                 range = 3;
@@ -237,7 +237,7 @@ class BodyStatsViewController: BaseViewController, UIScrollViewDelegate, UIGestu
     }
     
     @IBAction func changePage(sender: AnyObject) {
-        var pager = sender as! UIPageControl;
+        var pager = sender as UIPageControl;
         var page = pager.currentPage;
         self.title = titles[page];
         landView.titleLabel.text = titles[page];
@@ -337,7 +337,7 @@ class BodyStatsViewController: BaseViewController, UIScrollViewDelegate, UIGestu
         }
     }
     
-    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer!) -> Bool {
         return false;
     }
     
@@ -387,7 +387,7 @@ class BodyStatsViewController: BaseViewController, UIScrollViewDelegate, UIGestu
     }
     
     func getShareFilePath() -> String {
-        var docPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String;
+        var docPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String;
         return docPath.stringByAppendingPathComponent("higi_results.csv");
     }
     

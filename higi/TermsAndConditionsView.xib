@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TermsAndConditionsViewController" customModule="higi" customModuleProvider="target">
@@ -19,11 +19,18 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="higilogo_ocmenu.png" translatesAutoresizingMaskIntoConstraints="NO" id="EFR-Qm-4kc">
+                    <rect key="frame" x="0.0" y="15" width="320" height="49"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="49" id="GaY-84-Xh8"/>
+                    </constraints>
+                </imageView>
                 <webView contentMode="scaleToFill" misplaced="YES" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tnh-Bk-ESG">
                     <rect key="frame" x="8" y="64" width="304" height="444"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </webView>
-                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zaj-VQ-x5j">
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zaj-VQ-x5j">
                     <rect key="frame" x="0.0" y="516" width="320" height="52"/>
                     <color key="backgroundColor" red="0.90588235289999997" green="0.90588235289999997" blue="0.90588235289999997" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
@@ -43,7 +50,7 @@
                         <action selector="closeButtonClick:" destination="-1" eventType="touchUpInside" id="ThK-kV-cCA"/>
                     </connections>
                 </button>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cJi-At-Ko8">
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cJi-At-Ko8">
                     <rect key="frame" x="8" y="523" width="147" height="37"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <state key="normal" title="Decline">
@@ -59,7 +66,7 @@
                         <action selector="declineClick:" destination="-1" eventType="touchUpInside" id="LtT-fM-BDA"/>
                     </connections>
                 </button>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i2U-fv-uox">
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i2U-fv-uox">
                     <rect key="frame" x="165" y="523" width="147" height="37"/>
                     <color key="backgroundColor" red="0.46274509800000002" green="0.75294117650000003" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <state key="normal" title="Accept">
@@ -75,13 +82,6 @@
                         <action selector="acceptClick:" destination="-1" eventType="touchUpInside" id="Dv4-0Y-TbG"/>
                     </connections>
                 </button>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="higilogo_ocmenu.png" translatesAutoresizingMaskIntoConstraints="NO" id="EFR-Qm-4kc">
-                    <rect key="frame" x="0.0" y="15" width="320" height="49"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="49" id="GaY-84-Xh8"/>
-                    </constraints>
-                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
@@ -92,13 +92,9 @@
                 <constraint firstItem="EFR-Qm-4kc" firstAttribute="leading" secondItem="evC-i8-swY" secondAttribute="leading" id="I7R-mW-gjd"/>
                 <constraint firstAttribute="trailing" secondItem="Tnh-Bk-ESG" secondAttribute="trailing" constant="8" id="KED-Pf-jK0"/>
                 <constraint firstItem="EFR-Qm-4kc" firstAttribute="top" secondItem="evC-i8-swY" secondAttribute="top" constant="15" id="MGo-qH-e7A"/>
-                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="63d-2A-gZD" secondAttribute="bottom" constant="8" id="N1y-mj-EB9"/>
                 <constraint firstAttribute="bottom" secondItem="63d-2A-gZD" secondAttribute="bottom" constant="8" id="V3d-wf-yg7"/>
-                <constraint firstAttribute="bottom" secondItem="zaj-VQ-x5j" secondAttribute="bottom" id="Vii-l0-P1u"/>
-                <constraint firstAttribute="bottom" secondItem="cJi-At-Ko8" secondAttribute="bottom" constant="8" id="gCe-u0-P88"/>
                 <constraint firstAttribute="trailing" secondItem="EFR-Qm-4kc" secondAttribute="trailing" id="shL-42-n83"/>
                 <constraint firstItem="Tnh-Bk-ESG" firstAttribute="top" secondItem="EFR-Qm-4kc" secondAttribute="bottom" constant="1" id="tAg-4g-xBk"/>
-                <constraint firstAttribute="bottom" secondItem="i2U-fv-uox" secondAttribute="bottom" constant="8" id="yaO-Hp-awH"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>

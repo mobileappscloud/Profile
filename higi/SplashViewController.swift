@@ -26,13 +26,9 @@ class SplashViewController: UIViewController, UIAlertViewDelegate {
         } else {
             HigiApi().sendGet("/data/qdata/\(SessionData.Instance.user.userId)?newSession=true", success: { operation, responseObject in
                 
-                var login = HigiLogin(dictionary: responseObject as! NSDictionary);
+                var login = HigiLogin(dictionary: responseObject as NSDictionary);
                 SessionData.Instance.user = login.user;
-<<<<<<< HEAD
                 ApiUtility.checkTermsAndPrivacy(self, success: { Utility.gotoDashboard(self) });
-=======
-                ApiUtility.checkTermsAndPrivacy(self, success: nil, failure: self.errorToWelcome);
->>>>>>> develop
                 
                 }, failure: {operation, error in
                     
@@ -45,7 +41,6 @@ class SplashViewController: UIViewController, UIAlertViewDelegate {
     }
     
 <<<<<<< HEAD
-<<<<<<< HEAD
 =======
     func gotoDashboard() {
         if (SessionController.Instance.checkins != nil && SessionController.Instance.activities != nil && SessionController.Instance.challenges != nil && SessionController.Instance.kioskList != nil && SessionController.Instance.pulseArticles.count > 0) {
@@ -53,8 +48,6 @@ class SplashViewController: UIViewController, UIAlertViewDelegate {
         }
     }
     
-=======
->>>>>>> develop
     func errorToWelcome() {
         SessionData.Instance.reset();
         SessionData.Instance.save();
@@ -78,7 +71,7 @@ class SplashViewController: UIViewController, UIAlertViewDelegate {
     func checkVersion() {
         HigiApi().sendGet("\(HigiApi.higiApiUrl)/app/mobile/minVersion?p=ios", success: { operation, responseObject in
             
-            var minVersionParts = (responseObject as! NSString).componentsSeparatedByString(".") as! [String];
+            var minVersionParts = (responseObject as NSString).componentsSeparatedByString(".") as [String];
             for i in minVersionParts.count...3 {
                 minVersionParts.append("0");
             }
@@ -112,5 +105,5 @@ class SplashViewController: UIViewController, UIAlertViewDelegate {
         UIApplication.sharedApplication().openURL(NSURL(string: "itms://itunes.apple.com/us/app/higi/id599485135?mt=8")!);
         exit(0);
     }
-    
+
 }

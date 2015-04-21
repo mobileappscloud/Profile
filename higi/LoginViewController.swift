@@ -14,7 +14,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var password : UITextField!
     @IBOutlet var loginButton : UIButton!
     @IBOutlet var forgotPassword: UIButton!
-    @IBOutlet var spinner: CustomLoadingSpinner!
+    @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
     var setup = false;
     
@@ -22,18 +22,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad();
         self.title = "Log In";
         self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
-        
-        spinner = CustomLoadingSpinner(frame: CGRectMake(self.view.frame.size.width / 2 - 16, UIScreen.mainScreen().bounds.size.height - 100, 32, 32));
-        spinner.shouldAnimateFull = false;
-        spinner.hidden = true;
-        self.view.addSubview(spinner);
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews();
         if (!setup) {
             self.navigationController!.navigationBar.hidden = false;
-            var backButton = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton;
+            var backButton = UIButton.buttonWithType(UIButtonType.Custom) as UIButton;
             backButton.setBackgroundImage(UIImage(named: "btn_back_black.png"), forState: UIControlState.Normal);
             backButton.addTarget(self, action: "goBack:", forControlEvents: UIControlEvents.TouchUpInside);
             backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
@@ -54,8 +49,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func loginClicked(sender: AnyObject) {
-        spinner.startAnimating();
-        spinner.hidden = false;
+        activityIndicator.hidden = false;
         loginButton.enabled = false;
         email.enabled = false;
         password.enabled = false;
@@ -63,12 +57,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         self.navigationItem.leftBarButtonItem!.customView!.hidden = true;
         email.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSForegroundColorAttributeName: UIColor.lightGrayColor()]);
         password.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName: UIColor.lightGrayColor()]);
-        if (count(email.text) == 0 || email.text.rangeOfString("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$", options: NSStringCompareOptions.RegularExpressionSearch, range: nil, locale: nil) == nil) {
+        if (email.text.utf16Count == 0 || email.text.rangeOfString("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$", options: NSStringCompareOptions.RegularExpressionSearch, range: nil, locale: nil) == nil) {
             email.attributedPlaceholder = NSAttributedString(string: "Valid email required", attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)]);
             email.text = "";
             password.text = "";
             reset();
-        } else if (count(password.text) < 6) {
+        } else if (password.text.utf16Count < 6) {
             password.attributedPlaceholder = NSAttributedString(string: "Password must be at least 6 characters", attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)]);
             password.text = "";
             reset();
@@ -81,11 +75,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     func signInSuccess(operation: AFHTTPRequestOperation!, responseObject: AnyObject?) {
-        spinner.stopAnimating();
         let responseLogin = responseObject as? NSDictionary;
         if (responseLogin != nil) {
-            var login = HigiLogin(dictionary: responseObject as! NSDictionary);
-            SessionData.Instance.token = login.token as String;
+            var login = HigiLogin(dictionary: responseObject as NSDictionary);
+            SessionData.Instance.token = login.token;
             SessionData.Instance.user = login.user;
             SessionData.Instance.save();
             if (login.user != nil) {
@@ -112,7 +105,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     func reset() {
         self.navigationItem.hidesBackButton = true;
-        spinner.hidden = true;
+        activityIndicator.hidden = true;
         loginButton.enabled = true;
         email.enabled = true;
         password.enabled = true;

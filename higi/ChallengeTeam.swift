@@ -11,11 +11,11 @@ class ChallengeTeam {
     var place: Int?;
     
     init(dictionary: NSDictionary) {
-        name = dictionary["name"] as! NSString;
-        memberCount = dictionary["membersCount"] as! Int;
-        units = dictionary["units"] as! Double;
-        var imageUrls = dictionary["imageUrl"] as! NSDictionary;
-        imageUrl = imageUrls["default"] as! NSString;
+        name = dictionary["name"] as NSString;
+        memberCount = dictionary["membersCount"] as Int;
+        units = dictionary["units"] as Double;
+        var imageUrls = dictionary["imageUrl"] as NSDictionary;
+        imageUrl = imageUrls["default"] as NSString;
         joinUrl = dictionary["joinUrl"] as? NSString;
     }
     

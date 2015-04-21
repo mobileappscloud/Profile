@@ -13,7 +13,7 @@ class SignupNameViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var firstName: UITextField!
     @IBOutlet weak var lastName: UITextField!
     @IBOutlet weak var nextButton: UIButton!
-    var spinner: CustomLoadingSpinner!
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     var dashboardNext = false;
     
@@ -24,31 +24,27 @@ class SignupNameViewController: UIViewController, UITextFieldDelegate {
         
         let user = SessionData.Instance.user;
         if (user.firstName != nil) {
-            firstName.text = user.firstName as String;
+            firstName.text = user.firstName;
         }
         if (user.lastName != nil) {
-            lastName.text = user.lastName as String;
+            lastName.text = user.lastName;
         }
-        spinner = CustomLoadingSpinner(frame: CGRectMake(self.view.frame.size.width / 2 - 16, UIScreen.mainScreen().bounds.size.height - 66, 32, 32));
-        spinner.shouldAnimateFull = false;
-        spinner.hidden = true;
-        self.view.addSubview(spinner);
     }
     
     @IBAction func gotoNext(sender: AnyObject) {
         nextButton.enabled = false;
         firstName.enabled = false;
         lastName.enabled = false;
-        spinner.startAnimating();
         spinner.hidden = false;
+        
         var problemFound = false;
         
-        if (count(firstName.text) == 0) {
+        if (firstName.text.utf16Count == 0) {
             problemFound = true;
             firstName.attributedPlaceholder = NSAttributedString(string: "First name is required", attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)]);
         }
         
-        if (count(lastName.text) == 0) {
+        if (lastName.text.utf16Count == 0) {
             problemFound = true;
             lastName.attributedPlaceholder = NSAttributedString(string: "Last name is required", attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)]);
         }
@@ -72,8 +68,7 @@ class SignupNameViewController: UIViewController, UITextFieldDelegate {
 >>>>>>> develop
                 
                     if (self.dashboardNext) {
-                        ApiUtility.initializeApiData();
-                        Utility.gotoDashboard(self);
+                        ApiUtility.initializeApiDataThenCallback(self.gotoDashboard);
                     } else {
                         self.navigationController!.pushViewController(BirthdateViewController(nibName: "BirthdateView", bundle: nil), animated: true);
                     }
@@ -88,13 +83,18 @@ class SignupNameViewController: UIViewController, UITextFieldDelegate {
         
     }
     
+    func gotoDashboard() {
+        if (SessionController.Instance.checkins != nil && SessionController.Instance.activities != nil && SessionController.Instance.challenges != nil && SessionController.Instance.kioskList != nil && SessionController.Instance.pulseArticles.count > 0) {
+            Utility.gotoDashboard(self);
+        }
+    }
+    
     func reset() {
         self.navigationItem.hidesBackButton = true;
         firstName.enabled = true;
         lastName.enabled = true;
         nextButton.enabled = true;
         spinner.hidden = true;
-        spinner.stopAnimating();
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {

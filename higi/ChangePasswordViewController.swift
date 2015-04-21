@@ -21,8 +21,8 @@ class ChangePasswordViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad();
         self.title = "Change Password";
         self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
-        (self.navigationController as! MainNavigationController).revealController.panGestureRecognizer().enabled = false;
-        var backButton = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton;
+        (self.navigationController as MainNavigationController).revealController.panGestureRecognizer().enabled = false;
+        var backButton = UIButton.buttonWithType(UIButtonType.Custom) as UIButton;
         backButton.setBackgroundImage(UIImage(named: "btn_back_black.png"), forState: UIControlState.Normal);
         backButton.addTarget(self, action: "goBack:", forControlEvents: UIControlEvents.TouchUpInside);
         backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
@@ -41,7 +41,7 @@ class ChangePasswordViewController: UIViewController, UITextFieldDelegate {
         
         var problem = false;
         
-        if (count(currentPassword.text) < 6) {
+        if (currentPassword.text.utf16Count < 6) {
             currentPassword.attributedPlaceholder = NSAttributedString(string: "Invalid password", attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)]);
             problem = true;
             currentPassword.text = "";
@@ -49,7 +49,7 @@ class ChangePasswordViewController: UIViewController, UITextFieldDelegate {
             confirmPassword.text = "";
         }
         
-        if (count(newPassword.text) < 6) {
+        if (newPassword.text.utf16Count < 6) {
             newPassword.attributedPlaceholder = NSAttributedString(string: "Must be at least 6 characters long", attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)]);
             problem = true;
             newPassword.text = "";

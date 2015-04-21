@@ -71,7 +71,6 @@ class TermsViewController: UIViewController {
         HigiApi().sendPost("/data/user/\(SessionData.Instance.user.userId)", parameters: contents, success: {operation, responseObject in
             
 <<<<<<< HEAD
-<<<<<<< HEAD
                 ApiUtility.retrieveCheckins({ Utility.gotoDashboard(self) });
 =======
             ApiUtility.retrieveCheckins(self.gotoDashboard);
@@ -79,10 +78,6 @@ class TermsViewController: UIViewController {
             ApiUtility.retrieveChallenges(self.gotoDashboard);
             ApiUtility.retrieveDevices(self.gotoDashboard);
             ApiUtility.grabNextPulseArticles(self.gotoDashboard);
->>>>>>> develop
-=======
-            ApiUtility.initializeApiData();
-            Utility.gotoDashboard(self);
 >>>>>>> develop
             
             }, failure: {operation, error in
@@ -103,8 +98,8 @@ class TermsViewController: UIViewController {
         SessionController.Instance.reset();
         SessionData.Instance.reset();
         SessionData.Instance.save();
-        var splashViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SplashViewController") as! UIViewController;
-        (UIApplication.sharedApplication().delegate as! AppDelegate).window?.rootViewController = splashViewController;
+        var splashViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SplashViewController") as UIViewController;
+        (UIApplication.sharedApplication().delegate as AppDelegate).window?.rootViewController = splashViewController;
         
     }
     

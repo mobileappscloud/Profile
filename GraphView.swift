@@ -47,9 +47,9 @@ class GraphView: UIView, UITableViewDelegate, UITableViewDataSource {
     
     class func createViewFromNib(isPortrait: Bool) -> GraphView {
         if (isPortrait) {
-            return UINib(nibName: "PortraitGraph", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! GraphView
+            return UINib(nibName: "PortraitGraph", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as GraphView
         } else {
-            return UINib(nibName: "LandscapeGraph", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! GraphView
+            return UINib(nibName: "LandscapeGraph", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as GraphView
         }
     }
     
@@ -109,7 +109,7 @@ class GraphView: UIView, UITableViewDelegate, UITableViewDataSource {
     }
     
     func pointClicked(index: Int) {
-        var viewController = Utility.getViewController(self) as! BodyStatsViewController?;
+        var viewController = Utility.getViewController(self) as BodyStatsViewController?;
         if (viewController != nil && index < checkins.count) {
             viewController!.setSelected(checkins[index]);
         }
@@ -124,7 +124,7 @@ class GraphView: UIView, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        var viewController = Utility.getViewController(self) as! BodyStatsViewController!;
+        var viewController = Utility.getViewController(self) as BodyStatsViewController!;
         if (viewController != nil) {
             viewController.setSelected(checkins[checkins.count - indexPath.item - 1]);
         }
@@ -132,10 +132,10 @@ class GraphView: UIView, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("BodyStatCell") as! BodyStatCheckinCell!;
+        var cell = tableView.dequeueReusableCellWithIdentifier("BodyStatCell") as BodyStatCheckinCell!;
         if (cell == nil) {
-            cell = UINib(nibName: "CheckinCell", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! BodyStatCheckinCell;
-            cell.parentViewController = Utility.getViewController(self) as! BodyStatsViewController!;
+            cell = UINib(nibName: "CheckinCell", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as BodyStatCheckinCell;
+            cell.parentViewController = Utility.getViewController(self) as BodyStatsViewController!;
             cell.checkinBlur = checkinBlur;
             cell.checkinCardContainer = checkinCardContainer;
             cell.checkinContainer = checkinContainer;
@@ -158,7 +158,7 @@ class GraphView: UIView, UITableViewDelegate, UITableViewDataSource {
     
     @IBAction func infoClicked(sender: AnyObject) {
         Flurry.logEvent("BodystatInfo_Pressed");
-        var viewController = Utility.getViewController(self) as! BaseViewController?;
+        var viewController = Utility.getViewController(self) as BaseViewController?;
         if (viewController != nil) {
             viewController!.revealController.shouldRotate = false;
             viewController!.revealController.supportedOrientations = UIInterfaceOrientationMask.Portrait.rawValue;
@@ -194,7 +194,7 @@ class GraphView: UIView, UITableViewDelegate, UITableViewDataSource {
     }
     
     func closeInfo(sender: AnyObject) {
-        var viewController = Utility.getViewController(self) as! BaseViewController?;
+        var viewController = Utility.getViewController(self) as BaseViewController?;
         if (viewController != nil) {
             viewController!.navigationController!.navigationBarHidden = false;
             viewController!.fakeNavBar.hidden = false;
@@ -242,7 +242,7 @@ class GraphView: UIView, UITableViewDelegate, UITableViewDataSource {
             dateFormatter.dateFormat = "MMMM d, yyyy";
             var dateString = dateFormatter.stringFromDate(checkin.dateTime);
             var highlightString = "\(dateString) \(checkin.sourceVendorId!) ";
-            var boldIndex = count(highlightString) - 1;
+            var boldIndex = countElements(highlightString) - 1;
             
             highlightString += delegate.getHighlightString(checkin);
             
@@ -250,7 +250,7 @@ class GraphView: UIView, UITableViewDelegate, UITableViewDataSource {
             
             var boldAttrs = [NSFontAttributeName : UIFont.boldSystemFontOfSize(18)];
             
-            var boldRange = NSMakeRange(boldIndex, count(highlightString) - boldIndex);
+            var boldRange = NSMakeRange(boldIndex, countElements(highlightString) - boldIndex);
             
             attributedText.setAttributes(boldAttrs, range: boldRange);
             
@@ -258,7 +258,7 @@ class GraphView: UIView, UITableViewDelegate, UITableViewDataSource {
         }
         
         var dateX = CGFloat(checkin.dateTime.timeIntervalSince1970);
-        var xRange = (graph!.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace).xRange;
+        var xRange = (graph!.hostedGraph.defaultPlotSpace as CPTXYPlotSpace).xRange;
         if (Double(dateX) >= xRange.locationDouble && Double(dateX) <= xRange.locationDouble + xRange.lengthDouble) {
             selectedMarker.hidden = false;
             selectedMarker2.hidden = false;
@@ -284,17 +284,17 @@ class GraphView: UIView, UITableViewDelegate, UITableViewDataSource {
     }
     @IBAction func gotoFindStation(sender: AnyObject) {
         Flurry.logEvent("NoDataFindStation_Pressed");
-        var viewController = Utility.getViewController(self) as! BaseViewController?;
+        var viewController = Utility.getViewController(self) as BaseViewController?;
         if (viewController != nil) {
-            (viewController!.navigationController as! MainNavigationController).drawerController?.tableView.selectRowAtIndexPath(NSIndexPath(forItem: 2, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None);
+            (viewController!.navigationController as MainNavigationController).drawerController?.tableView.selectRowAtIndexPath(NSIndexPath(forItem: 2, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None);
             viewController!.navigationController!.pushViewController(FindStationViewController(nibName: "FindStationView", bundle: nil), animated: true);
         }
     }
     @IBAction func gotoPulse(sender: AnyObject) {
         Flurry.logEvent("NoDataPulse_Pressed");
-        var viewController = Utility.getViewController(self) as! BaseViewController?;
+        var viewController = Utility.getViewController(self) as BaseViewController?;
         if (viewController != nil) {
-            (viewController!.navigationController as! MainNavigationController).drawerController?.tableView.selectRowAtIndexPath(NSIndexPath(forItem: 3, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None);
+            (viewController!.navigationController as MainNavigationController).drawerController?.tableView.selectRowAtIndexPath(NSIndexPath(forItem: 3, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None);
             viewController!.navigationController!.pushViewController(PulseHomeViewController(nibName: "PulseHomeView", bundle: nil), animated: true);
         }
     }
