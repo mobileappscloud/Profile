@@ -44,6 +44,9 @@ class BodyStatCard: UIView {
     }
     
     func setupGraph(type: BodyStatsType) {
+        
+        addObserver(self, forKeyPath: "bounds", options: nil, context: nil);
+
         self.type = type;
         
         var graphPoints: [GraphPoint] = [];
@@ -103,6 +106,7 @@ class BodyStatCard: UIView {
         thirdPanelValue.textColor = color;
         
         graph.setupForBodyStat(type);
+        graph.backgroundColor = UIColor.whiteColor();
         graphView.addSubview(graph);
     }
     
@@ -144,6 +148,13 @@ class BodyStatCard: UIView {
             
             pulseDate.text = "\(formatter.stringFromDate(checkin.dateTime))";
             pulseValue.text = "\(checkin.pulseBpm!)";
+        }
+    }
+    
+    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
+        if (keyPath == "bounds") {
+            graphView.frame = self.frame;
+            graphView.layoutIfNeeded();
         }
     }
     
