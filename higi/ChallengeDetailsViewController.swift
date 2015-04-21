@@ -97,7 +97,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func initBackButton() {
         self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
-        var backButton = UIButton.buttonWithType(UIButtonType.Custom) as UIButton;
+        var backButton = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton;
         backButton.setBackgroundImage(UIImage(named: "btn_back_white.png"), forState: UIControlState.Normal);
         backButton.addTarget(self, action: "goBack:", forControlEvents: UIControlEvents.TouchUpInside);
         backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
@@ -175,7 +175,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             //subtract margin from width of second button
             let buttonWidth = (contentView.frame.size.width / 2) - (3/2 * buttonMargin);
             let buttonHeight = toggleButtonHeight - buttonMargin * 2;
-            var button = UIButton.buttonWithType(UIButtonType.Custom) as UIButton;
+            var button = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton;
             button.frame = CGRect(x: buttonX, y: 0, width: buttonWidth, height: buttonHeight);
             button.setBackgroundImage(makeImageWithColor(Utility.colorFromHexString("#76C043")), forState: UIControlState.Selected);
             button.setBackgroundImage(makeImageWithColor(UIColor.blackColor()), forState: UIControlState.Normal);
@@ -201,8 +201,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
 
     func populateHeader() {
-        challengeAvatar.setImageWithURL(Utility.loadImageFromUrl(challenge.imageUrl));
-        challengeTitle.text = challenge.name;
+        challengeAvatar.setImageWithURL(Utility.loadImageFromUrl(challenge.imageUrl as String));
+        challengeTitle.text = challenge.name as String;
         challengeDaysLeft.text = dateDisplayHelper();
         
         headerContainerHeight = headerContainer.frame.size.height;
@@ -229,7 +229,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                     participantPlace.text = getUserRank(false);
                 }
                 setProgressBar(participantProgress, points: Int(participant.units), highScore: Int(challenge.individualHighScore));
-                participantAvatar.setImageWithURL(Utility.loadImageFromUrl(participant.imageUrl));
+                participantAvatar.setImageWithURL(Utility.loadImageFromUrl(participant.imageUrl as String));
             } else {
                 participantPoints.text = "\(Int(participant.team.units)) \(challenge.abbrMetric)";
                 if (challenge.winConditions[0].goal.type == "threshold_reached") {
@@ -238,7 +238,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                     participantPlace.text = getUserRank(true);
                 }
                 setProgressBar(participantProgress, points: Int(participant.team.units), highScore: Int(challenge.teamHighScore));
-                participantAvatar.setImageWithURL(Utility.loadImageFromUrl(participant.team.imageUrl));
+                participantAvatar.setImageWithURL(Utility.loadImageFromUrl(participant.team.imageUrl as String));
             }
             participantPoints.sizeToFit();
         } else {
@@ -254,7 +254,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     @IBAction func joinButtonClick(sender: AnyObject) {
         Flurry.logEvent("ChallengeJoined");
         if (challenge.joinUrl != nil) {
-            showTermsAndConditions(challenge.joinUrl);
+            showTermsAndConditions(challenge.joinUrl as String);
         } else {
             showTeamsPicker();
         }
@@ -262,8 +262,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func dateDisplayHelper() -> String {
         var dateDisplay:String!
-        let startDate:NSDate? = challenge.startDate?
-        let endDate:NSDate? = challenge.endDate?
+        let startDate:NSDate? = challenge.startDate;
+        let endDate:NSDate? = challenge.endDate;
         if (Int(startDate!.timeIntervalSinceNow) > 0) {
             let days = Int(startDate!.timeIntervalSinceNow / 60 / 60 / 24) + 1;
             let s = days == 1 ? "" : "s";
@@ -295,7 +295,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         let userId = !HigiApi.EARNDIT_DEV ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
         var contents = NSMutableDictionary();
         contents.setObject(userId, forKey: "userId");
-        HigiApi().sendPost(joinUrl, parameters: contents, success: {operation, responseObject in
+        HigiApi().sendPost(joinUrl as String, parameters: contents, success: {operation, responseObject in
             ApiUtility.retrieveChallenges(self.refreshChallenge);
             }, failure: { operation, error in
                 let e = error;
@@ -307,7 +307,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
 
     func showTermsAndConditions(joinUrl: String) {
         var termsController = TermsAndConditionsViewController(nibName: "TermsAndConditionsView", bundle: nil);
-        termsController.html = challenge.terms;
+        termsController.html = challenge.terms as String;
         termsController.joinUrl = joinUrl;
         termsController.parent = self;
         termsController.responseRequired = true;
@@ -321,7 +321,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     func showTeamsPicker() {
         let picker = UIActionSheet(title: "Select a team to join", delegate: self, cancelButtonTitle: nil, destructiveButtonTitle: nil);
         for team in challenge.teams {
-            picker.addButtonWithTitle(team.name);
+            picker.addButtonWithTitle(team.name as String);
         }
         picker.addButtonWithTitle("Back");
         picker.cancelButtonIndex = challenge.teams.count;
@@ -330,7 +330,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
         if (buttonIndex != challenge.teams.count) {
-            showTermsAndConditions(self.challenge.teams[buttonIndex].joinUrl);
+            showTermsAndConditions(self.challenge.teams[buttonIndex].joinUrl as String);
         } else {
             joinButton.hidden = false;
             loadingSpinner.hidden = true;
@@ -521,12 +521,12 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
 
     func initDetailsTable() -> ChallengeDetailsTab {
         let rowTextYOffset:CGFloat = 30;
-        let table = UINib(nibName: "ChallengeDetailsTab", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeDetailsTab;
+        let table = UINib(nibName: "ChallengeDetailsTab", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! ChallengeDetailsTab;
         let firstWinCondition = challenge.winConditions[0];
         
         table.descriptionText.text = challenge.shortDescription.stringByDecodingHTMLEntities();
         table.durationText.text = setDateRangeHelper(challenge.startDate, endDate: challenge.endDate);
-        table.typeText.text = "\(goalTypeDisplayHelper(firstWinCondition.goal.type.description, winnerType: firstWinCondition.winnerType)). \(limitDisplayHelper(challenge.dailyLimit, metric: challenge.metric))";
+        table.typeText.text = "\(goalTypeDisplayHelper(firstWinCondition.goal.type.description as String, winnerType: firstWinCondition.winnerType as String)). \(limitDisplayHelper(challenge.dailyLimit, metric: challenge.metric as String))";
         
         let teamCount = challenge.teams != nil ? challenge.teams.count : 0;
         if (teamCount > 0) {
@@ -536,7 +536,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         } else {
             table.teamCountView.removeFromSuperview();
             table.participantCountView.removeFromSuperview();
-            let participantRowView = UINib(nibName: "ChallengeDetailsParticipantIconView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeDetailsParticipantIcon;
+            let participantRowView = UINib(nibName: "ChallengeDetailsParticipantIconView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! ChallengeDetailsParticipantIcon;
             participantRowView.icon.text = "\u{f007}"
             participantRowView.count.text = String(challenge.participantsCount);
             participantRowView.center.x = table.participantRowView.center.x;
@@ -618,7 +618,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func termsClick(sender: AnyObject) {
         var termsController = TermsAndConditionsViewController(nibName: "TermsAndConditionsView", bundle: nil);
-        termsController.html = challenge.terms;
+        termsController.html = challenge.terms as String;
         self.presentViewController(termsController, animated: true, completion: nil);
     }
     
@@ -807,10 +807,10 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func createDetailsPrizeCell(winCondition: ChallengeWinCondition!) -> ChallengeDetailsPrize {
-        var cell = UINib(nibName: "ChallengeDetailsPrizes", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeDetailsPrize;
+        var cell = UINib(nibName: "ChallengeDetailsPrizes", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! ChallengeDetailsPrize;
         if (winCondition != nil && winCondition.prizeName != nil && winCondition.prizeName != "") {
-            cell.title.text = winCondition.prizeName;
-            cell.desc.text = winCondition.description;
+            cell.title.text = winCondition.prizeName as String;
+            cell.desc.text = winCondition.description as String;
         } else {
             cell.title.text = "No prize, doing this simply for the love of the game.";
             cell.desc.text = "";
@@ -928,13 +928,13 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         var participants:[ChallengeParticipant] = [];
         let url = challenge.pagingData != nil ? challenge.pagingData?.nextUrl : nil;
         if (url != nil) {
-            HigiApi().sendGet(url!, success: {operation, responseObject in
+            HigiApi().sendGet(url! as String, success: {operation, responseObject in
                 if (self.isIndividualLeaderboard) {
-                    var serverParticipants = ((responseObject as NSDictionary)["response"] as NSDictionary)["data"] as? NSArray;
+                    var serverParticipants = ((responseObject as! NSDictionary)["response"] as! NSDictionary)["data"] as? NSArray;
                     var participants:[ChallengeParticipant] = [];
                     if (serverParticipants != nil) {
                         for singleParticipant: AnyObject in serverParticipants! {
-                            participants.append(ChallengeParticipant(dictionary: singleParticipant as NSDictionary));
+                            participants.append(ChallengeParticipant(dictionary: singleParticipant as! NSDictionary));
                         }
                     }
                     for singleParticipant in participants {
@@ -954,17 +954,17 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         var comments:[Comments] = [];
         let url = challenge.commentsUrl;
         if (url != nil && url != "") {
-            HigiApi().sendGet(url!, success: {operation, responseObject in
+            HigiApi().sendGet(url as String, success: {operation, responseObject in
                 self.challengeChatterComments = [];
                 var chatter:Chatter;
-                let serverComments = ((responseObject as NSDictionary)["response"] as NSDictionary)["data"] as? NSArray;
+                let serverComments = ((responseObject as! NSDictionary)["response"] as! NSDictionary)["data"] as? NSArray;
                 if (serverComments != nil) {
-                    self.challenge.chatter.paging.nextUrl = ((responseObject as NSDictionary)["response"] as NSDictionary)["paging"] as? NSString;
+                    self.challenge.chatter.paging.nextUrl = ((responseObject as! NSDictionary)["response"] as! NSDictionary)["paging"] as? NSString;
                     for challengeComment in serverComments! {
-                        let comment = (challengeComment as NSDictionary)["comment"] as NSString;
-                        let timeSinceLastPost = (challengeComment as NSDictionary)["timeSincePosted"] as NSString;
-                        let commentParticipant = ChallengeParticipant(dictionary: (challengeComment as NSDictionary)["participant"] as NSDictionary);
-                        let commentTeam = commentParticipant.team?;
+                        let comment = (challengeComment as! NSDictionary)["comment"] as! NSString;
+                        let timeSinceLastPost = (challengeComment as! NSDictionary)["timeSincePosted"] as! NSString;
+                        let commentParticipant = ChallengeParticipant(dictionary: (challengeComment as! NSDictionary)["participant"] as! NSDictionary);
+                        let commentTeam = commentParticipant.team;
                         var pagingData = 0;
                         
                         self.challengeChatterComments.append(Comments(comment: comment, timeSincePosted: timeSinceLastPost, participant: commentParticipant, team: commentTeam))
@@ -982,16 +982,16 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         var comments:[Comments] = [];
         let url = challenge.chatter.paging.nextUrl;
         if (url != nil && url != "") {
-            HigiApi().sendGet(url!, success: {operation, responseObject in
+            HigiApi().sendGet(url as! String, success: {operation, responseObject in
                 var chatter:Chatter;
-                let serverComments = ((responseObject as NSDictionary)["response"] as NSDictionary)["data"] as? NSArray;
+                let serverComments = ((responseObject as! NSDictionary)["response"] as! NSDictionary)["data"] as? NSArray;
                 if (serverComments != nil) {
-                    self.challenge.chatter.paging.nextUrl = ((responseObject as NSDictionary)["response"] as NSDictionary)["paging"] as? NSString;
+                    self.challenge.chatter.paging.nextUrl = ((responseObject as! NSDictionary)["response"] as! NSDictionary)["paging"] as? NSString;
                     for challengeComment in serverComments! {
-                        let comment = (challengeComment as NSDictionary)["comment"] as NSString;
-                        let timeSinceLastPost = (challengeComment as NSDictionary)["timeSincePosted"] as NSString;
-                        let commentParticipant = ChallengeParticipant(dictionary: (challengeComment as NSDictionary)["participant"] as NSDictionary);
-                        let commentTeam = commentParticipant.team?;
+                        let comment = (challengeComment as! NSDictionary)["comment"] as! NSString;
+                        let timeSinceLastPost = (challengeComment as! NSDictionary)["timeSincePosted"] as! NSString;
+                        let commentParticipant = ChallengeParticipant(dictionary: (challengeComment as! NSDictionary)["participant"] as! NSDictionary);
+                        let commentTeam = commentParticipant.team;
                         var pagingData = 0;
                         
                         self.challengeChatterComments.append(Comments(comment: comment, timeSincePosted: timeSinceLastPost, participant: commentParticipant, team: commentTeam))
@@ -1008,7 +1008,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func createLeaderboardCell(index: Int) -> UITableViewCell {
-        var cell = leaderboardTable!.dequeueReusableCellWithIdentifier("ChallengeLeaderboardRow") as ChallengeLeaderboardRow!;
+        var cell = leaderboardTable!.dequeueReusableCellWithIdentifier("ChallengeLeaderboardRow") as! ChallengeLeaderboardRow!;
         if (cell == nil) {
             if (isIndividualLeaderboard) {
                 cell = ChallengeLeaderboardRow.instanceFromNib(CGRect(x: 0, y: 0, width: UIScreen.mainScreen().bounds.size.width, height: 40),challenge: challenge, participant: individualLeaderboardParticipants[index], place: String(index + 1));
@@ -1064,7 +1064,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     func createProgressLegendRow(index: Int) -> UITableViewCell {
         let winConditions = isIndividualProgress ? individualGoalWinConditions : teamGoalWinConditions;
         let points = isIndividualProgress ? challenge.participant.units : challenge.participant.team.units;
-        let cell = ChallengeProgressLegendRow.instanceFromNib(winConditions[winConditions.count - index - 1], userPoints: points,  metric: challenge.abbrMetric, index: index + 1);
+        let cell = ChallengeProgressLegendRow.instanceFromNib(winConditions[winConditions.count - index - 1], userPoints: points,  metric: challenge.abbrMetric as String, index: index + 1);
         return cell;
     }
     
@@ -1082,7 +1082,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func createChatterTable(index: Int) -> UITableViewCell {
         let chatter = challengeChatterComments[index];
-        let cell = ChallengeDetailsChatterRow.instanceFromNib(chatter.comment, participant: chatter.participant, timeSincePosted: chatter.timeSincePosted, isYou: chatter.participant.url == challenge.participant.url, isTeam: challenge.winConditions[0].winnerType == "team");
+        let cell = ChallengeDetailsChatterRow.instanceFromNib(chatter.comment as String, participant: chatter.participant, timeSincePosted: chatter.timeSincePosted as String, isYou: chatter.participant.url == challenge.participant.url, isTeam: challenge.winConditions[0].winnerType == "team");
         cell.backgroundColor = Utility.colorFromHexString("#F4F4F4");
         return cell;
     }
@@ -1093,7 +1093,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         var contents = NSMutableDictionary();
         contents.setObject(userId, forKey: "userId");
         contents.setObject(chatter, forKey: "comment");
-        HigiApi().sendPost(challenge.commentsUrl, parameters: contents, success: {operation, responseObject in
+        HigiApi().sendPost(challenge.commentsUrl as String, parameters: contents, success: {operation, responseObject in
             self.addPlaceholderChatter(chatter);
             self.refreshChatter();
             }, failure: { operation, error in

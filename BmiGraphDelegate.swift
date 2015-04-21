@@ -40,7 +40,7 @@ class BmiGraphDelegate: GraphDelegate {
     }
     
     func getMeasureClass(checkin: HigiCheckin) -> String {
-        return checkin.bmiClass!;
+        return checkin.bmiClass! as String;
     }
     
     func cellForCheckin(checkin: HigiCheckin, cell: BodyStatCheckinCell) {
@@ -58,8 +58,8 @@ class BmiGraphDelegate: GraphDelegate {
     }
     
     func getScreenPoint(graph: CPTGraphHostingView, checkin: HigiCheckin, isPortrait: Bool) -> CGPoint {
-        var xRange = (graph.hostedGraph.defaultPlotSpace as CPTXYPlotSpace).xRange;
-        var yRange = (graph.hostedGraph.defaultPlotSpace as CPTXYPlotSpace).yRange;
+        var xRange = (graph.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace).xRange;
+        var yRange = (graph.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace).yRange;
         var frame = graph.frame;
         var dateX = CGFloat(checkin.dateTime.timeIntervalSince1970);
         var valueY = CGFloat(checkin.bmi!);

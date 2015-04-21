@@ -5,7 +5,7 @@ class Utility {
     class func colorFromHexString(hexString: NSString) -> UIColor {
         var rgbValue: CUnsignedInt;
         rgbValue = 0;
-        var scanner = NSScanner(string: hexString);
+        var scanner = NSScanner(string: hexString as String);
         scanner.scanLocation = 1;
         scanner.scanHexInt(&rgbValue);
         return UIColor(red: (CGFloat)((rgbValue & 0xFF0000) >> 16) / 255.0, green:(CGFloat)((rgbValue & 0xFF00) >> 8) / 255.0, blue:(CGFloat)(rgbValue & 0xFF) / 255.0, alpha:1.0);
@@ -31,7 +31,7 @@ class Utility {
         drawerController.revealController = revealController;
         navController.revealController = revealController;
         navController.drawerController = drawerController;
-        (UIApplication.sharedApplication().delegate as AppDelegate).window?.rootViewController = revealController;
+        (UIApplication.sharedApplication().delegate as! AppDelegate).window?.rootViewController = revealController;
         if (SessionData.Instance.pin != "") {
             revealController.presentViewController(PinCodeViewController(nibName: "PinCodeView", bundle: nil), animated: false, completion: nil);
         }
@@ -57,11 +57,11 @@ class Utility {
     }
     
     class func appVersion() -> String {
-        return NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as String
+        return NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as! String
     }
     
     class func appBuild() -> String {
-        return NSBundle.mainBundle().objectForInfoDictionaryKey(kCFBundleVersionKey as NSString) as String
+        return NSBundle.mainBundle().objectForInfoDictionaryKey(kCFBundleVersionKey as NSString as String) as! String
     }
     
     class func consolodateWinConditions(winConditions: [ChallengeWinCondition]) -> [[ChallengeWinCondition]] {
@@ -88,9 +88,9 @@ class Utility {
         return consolodatedList;
     }
     
-    class func getChallengeViews(challenge: HigiChallenge, frame: CGRect, isComplex: Bool) -> [UIView] {
-        var nib:UIView!;
-        var nibs:[UIView] = [];
+    class func getChallengeViews(challenge: HigiChallenge, frame: CGRect, isComplex: Bool) -> [ChallengeView] {
+        var nib:ChallengeView!;
+        var nibs:[ChallengeView] = [];
         var winConditions:[ChallengeWinCondition] = [];
         
         let consolodatedList = consolodateWinConditions(challenge.winConditions);
@@ -122,7 +122,7 @@ class Utility {
     }
     
     class func loadImageFromUrl(imageUrlString: String) -> NSURL {
-        let imageUrl = NSURL(string: imageUrlString)?;
+        let imageUrl = NSURL(string: imageUrlString);
         if let imageError = imageUrl?.checkResourceIsReachableAndReturnError(NSErrorPointer()) {
             return imageUrl!;
         }
@@ -131,18 +131,18 @@ class Utility {
     
     class func getRankSuffix(rank: NSString) -> String {
         if ( rank == "11" || rank == "12" || rank == "13") {
-            return rank + "th"
+            return rank as String + "th"
         }
         let last = rank.substringFromIndex(rank.length - 1)
         switch(last) {
         case "1":
-            return rank + "st"
+            return rank as String + "st"
         case "2":
-            return rank + "nd"
+            return rank as String + "nd"
         case "3":
-            return rank + "rd"
+            return rank as String + "rd"
         default:
-            return rank + "th"
+            return rank as String + "th"
         }
     }
     

@@ -13,8 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             
     var window: UIWindow?
 
-
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: NSDictionary!) -> Bool {
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         GMSServices.provideAPIKey("AIzaSyB1iNeT8pxcPd4rcwQ-Titp2hA5bLHh3-k");
         Flurry.startSession("2GSDDCY6499XJ8B5GTYZ");
@@ -37,6 +36,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+        if (SessionData.Instance.user != nil && NSDate().timeIntervalSinceDate(SessionData.Instance.lastUpdate) / 60 / 60 > 15) {
+            ApiUtility.initializeApiData();
+        }
     }
     
     func applicationDidBecomeActive(application: UIApplication) {
@@ -49,6 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func checkPin() {
         if (SessionData.Instance.pin != "") {
+            SessionController.Instance.askTouchId = false;
             self.window?.rootViewController!.presentViewController(PinCodeViewController(nibName: "PinCodeView", bundle: nil), animated: false, completion: nil);
             NSRunLoop.currentRunLoop().runMode(NSDefaultRunLoopMode, beforeDate: NSDate(timeIntervalSinceNow: 0.2)); // Run for a bit to make sure lock screen shows up
         }

@@ -25,7 +25,7 @@ class SessionController {
     
     var devices: [String: ActivityDevice] = [:];
     
-    var earnditError = false;
+    var earnditError = false, askTouchId = true;
     
     func reset() {
         checkins = nil;

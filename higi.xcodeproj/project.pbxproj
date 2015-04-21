@@ -194,6 +194,7 @@
 		8FC7B71219E5E67000D0112F /* dashboard2-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FC7B70D19E5E67000D0112F /* dashboard2-568h@2x.png */; };
 		8FC7B71319E5E67000D0112F /* dashboard3-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FC7B70E19E5E67000D0112F /* dashboard3-568h@2x.png */; };
 		8FC7B71519E5E6B900D0112F /* bodystats_background-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FC7B71419E5E6B900D0112F /* bodystats_background-568h@2x.png */; };
+		8FC88AD41AE6DA2B002ED9FB /* activitywidgetblankstatenodevices.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FC88AD31AE6DA2B002ED9FB /* activitywidgetblankstatenodevices.png */; };
 		8FCD2D7B19E874FD00AC5A82 /* noResults.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FCD2D7A19E874FD00AC5A82 /* noResults.png */; };
 		8FCD2D8019EC286900AC5A82 /* UIImage+Orientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FCD2D7F19EC286900AC5A82 /* UIImage+Orientation.m */; };
 		8FCE580D1979B8BA0042CEE2 /* NewCPTScatterPlotDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FCE580C1979B8BA0042CEE2 /* NewCPTScatterPlotDelegate.m */; };
@@ -210,8 +211,6 @@
 		8FD73CB0199025BA00BACCB2 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FD73CAF199025BA00BACCB2 /* libz.dylib */; };
 		8FD73CB2199025C200BACCB2 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FD73CB1199025C200BACCB2 /* OpenGLES.framework */; };
 		8FD73CB4199025D000BACCB2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FD73CB3199025D000BACCB2 /* SystemConfiguration.framework */; };
-		8FD73CBB1990280C00BACCB2 /* map_circleicon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD73CB61990280C00BACCB2 /* map_circleicon@2x.png */; };
-		8FD73CBC1990280C00BACCB2 /* map_iconwithdot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD73CB71990280C00BACCB2 /* map_iconwithdot@2x.png */; };
 		8FD73CBD1990280C00BACCB2 /* map_listviewicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD73CB81990280C00BACCB2 /* map_listviewicon.png */; };
 		8FD73CC11990291300BACCB2 /* nodata_map.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD73CC01990291300BACCB2 /* nodata_map.png */; };
 		8FD73CC31990303000BACCB2 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8FD73CC21990303000BACCB2 /* GoogleMaps.bundle */; };
@@ -237,6 +236,8 @@
 		8FE056E9198FDCA600C81208 /* FindStationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE056E8198FDCA600C81208 /* FindStationViewController.swift */; };
 		8FE0BCCE199175BC00940D39 /* PulseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE0BCCD199175BC00940D39 /* PulseCell.swift */; };
 		8FE0BCD0199175C800940D39 /* PulseCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FE0BCCF199175C800940D39 /* PulseCellView.xib */; };
+		8FEF1B031AA4E8C60036C4FB /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FEF1B021AA4E8C60036C4FB /* LocalAuthentication.framework */; };
+		8FEF1B051AA9173D0036C4FB /* ChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEF1B041AA9173D0036C4FB /* ChallengeView.swift */; };
 		8FEF6F3A1A6EAA58001EF8A6 /* DashboardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FEF6F391A6EAA58001EF8A6 /* DashboardView.xib */; };
 		8FEF6F3C1A6EAACE001EF8A6 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEF6F3B1A6EAACE001EF8A6 /* DashboardViewController.swift */; };
 		8FEF6F3E1A6EB437001EF8A6 /* PointsMeterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FEF6F3D1A6EB437001EF8A6 /* PointsMeterView.xib */; };
@@ -288,7 +289,16 @@
 		D10BA0251A9540D200DB22A3 /* ActivityLegendView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D10BA0241A9540D200DB22A3 /* ActivityLegendView.xib */; };
 		D10BA0271A9541FF00DB22A3 /* ActivityLegend.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10BA0261A9541FF00DB22A3 /* ActivityLegend.swift */; };
 		D10D89501A8C11A9000402D4 /* ChallengeDetailsParticipantIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10D894F1A8C11A9000402D4 /* ChallengeDetailsParticipantIcon.swift */; };
+		D1247BC91AA620F1008A601A /* HigiClusterRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = D1247BC81AA620F1008A601A /* HigiClusterRenderer.m */; };
 		D12780AE1A4A2701002EB56A /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D12780AD1A4A2701002EB56A /* fontawesome-webfont.ttf */; };
+		D12B37061AA4DF02005B2ABA /* ClusterKiosk.m in Sources */ = {isa = PBXBuildFile; fileRef = D12B37051AA4DF02005B2ABA /* ClusterKiosk.m */; };
+		D12B370E1AA4EC57005B2ABA /* SphericalMercatorProjection.m in Sources */ = {isa = PBXBuildFile; fileRef = D12B370D1AA4EC57005B2ABA /* SphericalMercatorProjection.m */; };
+		D12B37131AA4EC70005B2ABA /* GClusterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D12B37121AA4EC70005B2ABA /* GClusterManager.m */; };
+		D12B398B1AA4ECC6005B2ABA /* GQTPointQuadTree.m in Sources */ = {isa = PBXBuildFile; fileRef = D12B39871AA4ECC6005B2ABA /* GQTPointQuadTree.m */; };
+		D12B398C1AA4ECC6005B2ABA /* GQTPointQuadTreeChild.m in Sources */ = {isa = PBXBuildFile; fileRef = D12B39891AA4ECC6005B2ABA /* GQTPointQuadTreeChild.m */; };
+		D12B39981AA4ED08005B2ABA /* GQuadItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D12B39931AA4ED08005B2ABA /* GQuadItem.m */; };
+		D12B39991AA4ED08005B2ABA /* GStaticCluster.m in Sources */ = {isa = PBXBuildFile; fileRef = D12B39951AA4ED08005B2ABA /* GStaticCluster.m */; };
+		D12B399A1AA4ED08005B2ABA /* NonHierarchicalDistanceBasedAlgorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = D12B39971AA4ED08005B2ABA /* NonHierarchicalDistanceBasedAlgorithm.m */; };
 		D149E9451A78221200FBAA15 /* ChallengeDetailsPrizes.xib in Resources */ = {isa = PBXBuildFile; fileRef = D149E9441A78221200FBAA15 /* ChallengeDetailsPrizes.xib */; };
 		D149E9471A7822D900FBAA15 /* ChallengeDetailsPrize.swift in Sources */ = {isa = PBXBuildFile; fileRef = D149E9461A7822D900FBAA15 /* ChallengeDetailsPrize.swift */; };
 		D149E9491A7845A200FBAA15 /* ChallengeDetailsChatterRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D149E9481A7845A200FBAA15 /* ChallengeDetailsChatterRow.xib */; };
@@ -309,13 +319,15 @@
 		D18395C31A69CAD500D290BF /* ChallengesDetailsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18395C21A69CAD500D290BF /* ChallengesDetailsTab.swift */; };
 		D19DDA531A5EF599004F97A3 /* NewCPTAxisLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = D19DDA521A5EF599004F97A3 /* NewCPTAxisLabel.m */; };
 		D19DDA551A5F1705004F97A3 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		D1A713A81ACF2028008DF01A /* map_circleicon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D1A713A61ACF2028008DF01A /* map_circleicon@2x.png */; };
+		D1A713A91ACF2028008DF01A /* map_iconwithdot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D1A713A71ACF2028008DF01A /* map_iconwithdot@2x.png */; };
 		D1A9C6FE1A951D0D0008084B /* chatterbutton_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = D1A9C6FC1A951D0D0008084B /* chatterbutton_normal.png */; };
 		D1A9C6FF1A951D0D0008084B /* chatterbutton_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = D1A9C6FD1A951D0D0008084B /* chatterbutton_pressed.png */; };
 		D1AAA79F1A9E7E0F00A41B3D /* challengesblankstate.png in Resources */ = {isa = PBXBuildFile; fileRef = D1AAA79E1A9E7E0F00A41B3D /* challengesblankstate.png */; };
 		D1B6D6981A8D09FD0006F80C /* ChatterInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B6D6971A8D09FD0006F80C /* ChatterInputViewController.swift */; };
 		D1BA13451A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1BA13441A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib */; };
 		D1BA13471A8D056900E1AFE9 /* ChatterInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1BA13461A8D056900E1AFE9 /* ChatterInputView.xib */; };
-		D1DF09A21A8D079800A9ABE5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1DF09A11A8D079800A9ABE5 /* Constants.swift */; };
+		D1DC365E1AC9E9F000CB124D /* CustomLoadingSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1DC365D1AC9E9F000CB124D /* CustomLoadingSpinner.swift */; };
 		D1E1FF061A76C28F00C8951C /* ChallengeProgressLegendRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E1FF051A76C28F00C8951C /* ChallengeProgressLegendRow.swift */; };
 		D1E1FF081A76C2DB00C8951C /* ChallengeProgressLegendRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1E1FF071A76C2DB00C8951C /* ChallengeProgressLegendRow.xib */; };
 		D1E1FF0A1A76E0AC00C8951C /* ChallengeDetailsRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1E1FF091A76E0AC00C8951C /* ChallengeDetailsRow.xib */; };
@@ -547,6 +559,7 @@
 		8FC7B70D19E5E67000D0112F /* dashboard2-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dashboard2-568h@2x.png"; sourceTree = "<group>"; };
 		8FC7B70E19E5E67000D0112F /* dashboard3-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dashboard3-568h@2x.png"; sourceTree = "<group>"; };
 		8FC7B71419E5E6B900D0112F /* bodystats_background-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bodystats_background-568h@2x.png"; sourceTree = "<group>"; };
+		8FC88AD31AE6DA2B002ED9FB /* activitywidgetblankstatenodevices.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = activitywidgetblankstatenodevices.png; path = images/activitywidgetblankstatenodevices.png; sourceTree = "<group>"; };
 		8FCD2D7A19E874FD00AC5A82 /* noResults.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = noResults.png; path = images/noResults.png; sourceTree = "<group>"; };
 		8FCD2D7E19EC286900AC5A82 /* UIImage+Orientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Orientation.h"; sourceTree = "<group>"; };
 		8FCD2D7F19EC286900AC5A82 /* UIImage+Orientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Orientation.m"; sourceTree = "<group>"; };
@@ -564,8 +577,6 @@
 		8FD73CAF199025BA00BACCB2 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		8FD73CB1199025C200BACCB2 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		8FD73CB3199025D000BACCB2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		8FD73CB61990280C00BACCB2 /* map_circleicon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "map_circleicon@2x.png"; path = "images/map_circleicon@2x.png"; sourceTree = "<group>"; };
-		8FD73CB71990280C00BACCB2 /* map_iconwithdot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "map_iconwithdot@2x.png"; path = "images/map_iconwithdot@2x.png"; sourceTree = "<group>"; };
 		8FD73CB81990280C00BACCB2 /* map_listviewicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = map_listviewicon.png; path = images/map_listviewicon.png; sourceTree = "<group>"; };
 		8FD73CC01990291300BACCB2 /* nodata_map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = nodata_map.png; path = images/nodata_map.png; sourceTree = "<group>"; };
 		8FD73CC21990303000BACCB2 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
@@ -591,6 +602,8 @@
 		8FE056E8198FDCA600C81208 /* FindStationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindStationViewController.swift; sourceTree = "<group>"; };
 		8FE0BCCD199175BC00940D39 /* PulseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PulseCell.swift; sourceTree = "<group>"; };
 		8FE0BCCF199175C800940D39 /* PulseCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PulseCellView.xib; sourceTree = "<group>"; };
+		8FEF1B021AA4E8C60036C4FB /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
+		8FEF1B041AA9173D0036C4FB /* ChallengeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeView.swift; sourceTree = "<group>"; };
 		8FEF6F391A6EAA58001EF8A6 /* DashboardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DashboardView.xib; sourceTree = "<group>"; };
 		8FEF6F3B1A6EAACE001EF8A6 /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 		8FEF6F3D1A6EB437001EF8A6 /* PointsMeterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PointsMeterView.xib; sourceTree = "<group>"; };
@@ -630,7 +643,7 @@
 		8FFB034519FEA2440036228C /* oc_findastation_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oc_findastation_active.png; path = images/oc_findastation_active.png; sourceTree = "<group>"; };
 		8FFB034619FEA2440036228C /* oc_pulse_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oc_pulse_active.png; path = images/oc_pulse_active.png; sourceTree = "<group>"; };
 		8FFB034719FEA2440036228C /* oc_settings_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oc_settings_active.png; path = images/oc_settings_active.png; sourceTree = "<group>"; };
-		8FFB035419FEAED10036228C /* ActivityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
+		8FFB035419FEAED10036228C /* ActivityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 5; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		8FFB035819FEAF2C0036228C /* ActivityView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityView.xib; sourceTree = "<group>"; };
 >>>>>>> develop
 		8FFF43BA19B798380056F412 /* bmi_overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bmi_overlay@2x.png"; path = "images/bmi_overlay@2x.png"; sourceTree = "<group>"; };
@@ -643,7 +656,33 @@
 		D10BA0241A9540D200DB22A3 /* ActivityLegendView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityLegendView.xib; sourceTree = "<group>"; };
 		D10BA0261A9541FF00DB22A3 /* ActivityLegend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityLegend.swift; sourceTree = "<group>"; };
 		D10D894F1A8C11A9000402D4 /* ChallengeDetailsParticipantIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeDetailsParticipantIcon.swift; sourceTree = "<group>"; };
+		D1247BC71AA620C9008A601A /* HigiClusterRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HigiClusterRenderer.h; sourceTree = "<group>"; };
+		D1247BC81AA620F1008A601A /* HigiClusterRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HigiClusterRenderer.m; sourceTree = "<group>"; };
+		D1247BCC1AA662DC008A601A /* ClusterManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClusterManagerDelegate.h; sourceTree = "<group>"; };
 		D12780AD1A4A2701002EB56A /* fontawesome-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fontawesome-webfont.ttf"; sourceTree = "<group>"; };
+		D12B37051AA4DF02005B2ABA /* ClusterKiosk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClusterKiosk.m; sourceTree = "<group>"; };
+		D12B37071AA4DF11005B2ABA /* ClusterKiosk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClusterKiosk.h; sourceTree = "<group>"; };
+		D12B370C1AA4EC57005B2ABA /* SphericalMercatorProjection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SphericalMercatorProjection.h; sourceTree = "<group>"; };
+		D12B370D1AA4EC57005B2ABA /* SphericalMercatorProjection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SphericalMercatorProjection.m; sourceTree = "<group>"; };
+		D12B370F1AA4EC70005B2ABA /* GCluster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCluster.h; sourceTree = "<group>"; };
+		D12B37101AA4EC70005B2ABA /* GClusterItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GClusterItem.h; sourceTree = "<group>"; };
+		D12B37111AA4EC70005B2ABA /* GClusterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GClusterManager.h; sourceTree = "<group>"; };
+		D12B37121AA4EC70005B2ABA /* GClusterManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GClusterManager.m; sourceTree = "<group>"; };
+		D12B39841AA4ECC6005B2ABA /* GQTBounds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTBounds.h; sourceTree = "<group>"; };
+		D12B39851AA4ECC6005B2ABA /* GQTPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTPoint.h; sourceTree = "<group>"; };
+		D12B39861AA4ECC6005B2ABA /* GQTPointQuadTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTPointQuadTree.h; sourceTree = "<group>"; };
+		D12B39871AA4ECC6005B2ABA /* GQTPointQuadTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQTPointQuadTree.m; sourceTree = "<group>"; };
+		D12B39881AA4ECC6005B2ABA /* GQTPointQuadTreeChild.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTPointQuadTreeChild.h; sourceTree = "<group>"; };
+		D12B39891AA4ECC6005B2ABA /* GQTPointQuadTreeChild.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQTPointQuadTreeChild.m; sourceTree = "<group>"; };
+		D12B398A1AA4ECC6005B2ABA /* GQTPointQuadTreeItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTPointQuadTreeItem.h; sourceTree = "<group>"; };
+		D12B398D1AA4ECEB005B2ABA /* GClusterRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GClusterRenderer.h; sourceTree = "<group>"; };
+		D12B39911AA4ED08005B2ABA /* GClusterAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GClusterAlgorithm.h; sourceTree = "<group>"; };
+		D12B39921AA4ED08005B2ABA /* GQuadItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQuadItem.h; sourceTree = "<group>"; };
+		D12B39931AA4ED08005B2ABA /* GQuadItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQuadItem.m; sourceTree = "<group>"; };
+		D12B39941AA4ED08005B2ABA /* GStaticCluster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GStaticCluster.h; sourceTree = "<group>"; };
+		D12B39951AA4ED08005B2ABA /* GStaticCluster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GStaticCluster.m; sourceTree = "<group>"; };
+		D12B39961AA4ED08005B2ABA /* NonHierarchicalDistanceBasedAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NonHierarchicalDistanceBasedAlgorithm.h; sourceTree = "<group>"; };
+		D12B39971AA4ED08005B2ABA /* NonHierarchicalDistanceBasedAlgorithm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NonHierarchicalDistanceBasedAlgorithm.m; sourceTree = "<group>"; };
 		D149E9441A78221200FBAA15 /* ChallengeDetailsPrizes.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailsPrizes.xib; sourceTree = "<group>"; };
 		D149E9461A7822D900FBAA15 /* ChallengeDetailsPrize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeDetailsPrize.swift; sourceTree = "<group>"; };
 		D149E9481A7845A200FBAA15 /* ChallengeDetailsChatterRow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailsChatterRow.xib; sourceTree = "<group>"; };
@@ -664,13 +703,15 @@
 		D18395C21A69CAD500D290BF /* ChallengesDetailsTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengesDetailsTab.swift; sourceTree = "<group>"; };
 		D19DDA511A5EF432004F97A3 /* NewCPTAxisLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewCPTAxisLabel.h; sourceTree = "<group>"; };
 		D19DDA521A5EF599004F97A3 /* NewCPTAxisLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewCPTAxisLabel.m; sourceTree = "<group>"; };
+		D1A713A61ACF2028008DF01A /* map_circleicon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "map_circleicon@2x.png"; path = "images/map_circleicon@2x.png"; sourceTree = "<group>"; };
+		D1A713A71ACF2028008DF01A /* map_iconwithdot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "map_iconwithdot@2x.png"; path = "images/map_iconwithdot@2x.png"; sourceTree = "<group>"; };
 		D1A9C6FC1A951D0D0008084B /* chatterbutton_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chatterbutton_normal.png; path = images/chatterbutton_normal.png; sourceTree = "<group>"; };
 		D1A9C6FD1A951D0D0008084B /* chatterbutton_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chatterbutton_pressed.png; path = images/chatterbutton_pressed.png; sourceTree = "<group>"; };
 		D1AAA79E1A9E7E0F00A41B3D /* challengesblankstate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = challengesblankstate.png; path = images/challengesblankstate.png; sourceTree = "<group>"; };
 		D1B6D6971A8D09FD0006F80C /* ChatterInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatterInputViewController.swift; sourceTree = "<group>"; };
 		D1BA13441A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailsParticipantIconView.xib; sourceTree = "<group>"; };
 		D1BA13461A8D056900E1AFE9 /* ChatterInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatterInputView.xib; sourceTree = "<group>"; };
-		D1DF09A11A8D079800A9ABE5 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		D1DC365D1AC9E9F000CB124D /* CustomLoadingSpinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLoadingSpinner.swift; sourceTree = "<group>"; };
 		D1E1FF051A76C28F00C8951C /* ChallengeProgressLegendRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeProgressLegendRow.swift; sourceTree = "<group>"; };
 		D1E1FF071A76C2DB00C8951C /* ChallengeProgressLegendRow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeProgressLegendRow.xib; sourceTree = "<group>"; };
 		D1E1FF091A76E0AC00C8951C /* ChallengeDetailsRow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailsRow.xib; sourceTree = "<group>"; };
@@ -694,7 +735,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+<<<<<<< HEAD
 				8F1FE63D1A02E1490010DC09 /* HealthKit.framework in Frameworks */,
+=======
+				8FEF1B031AA4E8C60036C4FB /* LocalAuthentication.framework in Frameworks */,
+				8FDB4B611A040B8500F57B38 /* HealthKit.framework in Frameworks */,
+>>>>>>> develop
 				8FD73CB4199025D000BACCB2 /* SystemConfiguration.framework in Frameworks */,
 				8F069CBB19D9D5C200DCC820 /* MapKit.framework in Frameworks */,
 				8F5590A019ABE23C00C9B46E /* EventKitUI.framework in Frameworks */,
@@ -741,6 +787,7 @@
 				2BBDBA4C1A12AC2C005A6815 /* ChallengesView.xib */,
 				2BBDBA4F1A12AC2C005A6815 /* CompetitiveChallengeView.xib */,
 				2BBDBA511A12AC2C005A6815 /* GoalChallengeView.xib */,
+				8FEF1B041AA9173D0036C4FB /* ChallengeView.swift */,
 			);
 			name = Challenges;
 			sourceTree = "<group>";
@@ -748,7 +795,12 @@
 		3735674FA759427E8EA44775 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
 				8F1FE63C1A02E1490010DC09 /* HealthKit.framework */,
+=======
+				8FEF1B021AA4E8C60036C4FB /* LocalAuthentication.framework */,
+				8FDB4B601A040B8500F57B38 /* HealthKit.framework */,
+>>>>>>> develop
 				8F069CBC19D9E20D00DCC820 /* Flurry */,
 				8F069CBA19D9D5C200DCC820 /* MapKit.framework */,
 				8F55909F19ABE23C00C9B46E /* EventKitUI.framework */,
@@ -824,6 +876,9 @@
 		8F296305194B8C9F00E787FD /* Objective-C Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				D12B37081AA4EB5A005B2ABA /* Projection */,
+				D12B36E71AA4DDB6005B2ABA /* QuadTree */,
+				D12B36E61AA4DDAB005B2ABA /* Clustering */,
 				8F3643BC1946687B00C0033E /* BridgingHeader.h */,
 				8F524BF4195B5ABB00BFC49D /* ConversionUtility.h */,
 				8F524BF5195B5ABB00BFC49D /* ConversionUtility.m */,
@@ -852,7 +907,6 @@
 		8F296306194B8CB900E787FD /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				D1DF09A11A8D079800A9ABE5 /* Constants.swift */,
 				8F524BF7195B829400BFC49D /* CustomFormatter.swift */,
 				8F6D510D1947B2E700F7C769 /* Utility.swift */,
 			);
@@ -912,6 +966,10 @@
 		8F2B7E33198AD8F0009DE89A /* Miscellaneous */ = {
 			isa = PBXGroup;
 			children = (
+				D1E2236F1A7FFF43006330E7 /* ConnectDeviceRow.swift */,
+				D1E223791A8009E6006330E7 /* ConnectDeviceViewController.swift */,
+				D1E2236D1A7FFE60006330E7 /* ConnectDeviceRow.xib */,
+				D1E223771A8009CE006330E7 /* ConnectDeviceView.xib */,
 				8FF940941989A19B00D319D7 /* BaseViewController.swift */,
 				8F296308194B8DE700E787FD /* SplashViewController.swift */,
 				8FA5925C19ABBCEC00622266 /* TourView.xib */,
@@ -1074,6 +1132,7 @@
 		8F5C38D719818F0A00F51543 /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
+				8FC88AD31AE6DA2B002ED9FB /* activitywidgetblankstatenodevices.png */,
 				D1E2236B1A7FFB7D006330E7 /* ui_nodevices.png */,
 				8F5F91851A7193E80042D87C /* activitywidgetblankstate.png */,
 				8F5F91861A7193E80042D87C /* challengewidgetblankstate.png */,
@@ -1136,14 +1195,10 @@
 				8FEF6F411A6EECBE001EF8A6 /* BodyStatsCard.swift */,
 				8FEF6F451A6EECD5001EF8A6 /* ChallengesCard.swift */,
 				8F5C38EE1982EFDF00F51543 /* CheckinTableViewCell.swift */,
-				D1E2236F1A7FFF43006330E7 /* ConnectDeviceRow.swift */,
-				D1E223791A8009E6006330E7 /* ConnectDeviceViewController.swift */,
 				8FEF6F3B1A6EAACE001EF8A6 /* DashboardViewController.swift */,
 				8FEF6F471A6EECDE001EF8A6 /* PulseCard.swift */,
 				8F5C38F01982F20000F51543 /* CheckinTableViewCell.xib */,
 				8FEF6F391A6EAA58001EF8A6 /* DashboardView.xib */,
-				D1E2236D1A7FFE60006330E7 /* ConnectDeviceRow.xib */,
-				D1E223771A8009CE006330E7 /* ConnectDeviceView.xib */,
 			);
 			name = Dashboard;
 			sourceTree = "<group>";
@@ -1181,6 +1236,7 @@
 				8F5E7FCA199BC941009067E5 /* Checkin Card */,
 				8F6A243D195A011F0094B73C /* Graphing */,
 				8FF873F519DF5474002A6341 /* Pull Refresh */,
+				D1DC365D1AC9E9F000CB124D /* CustomLoadingSpinner.swift */,
 			);
 			name = "Custom Views";
 			sourceTree = "<group>";
@@ -1275,11 +1331,11 @@
 		8FD73CB5199027EB00BACCB2 /* FindStation */ = {
 			isa = PBXGroup;
 			children = (
+				D1A713A61ACF2028008DF01A /* map_circleicon@2x.png */,
+				D1A713A71ACF2028008DF01A /* map_iconwithdot@2x.png */,
 				8F069CB819D319FF00DCC820 /* bg_tap_reminder@2x.png */,
 				8FDCE1C51988072C006428C3 /* btn_close_reminder.png */,
 				8FA5925A19AB921C00622266 /* create_overlay.png */,
-				8FD73CB61990280C00BACCB2 /* map_circleicon@2x.png */,
-				8FD73CB71990280C00BACCB2 /* map_iconwithdot@2x.png */,
 				8FD73CB81990280C00BACCB2 /* map_listviewicon.png */,
 				8F0B29A4198AC20300B0DD29 /* map_mapviewicon.png */,
 				8FCD2D7A19E874FD00AC5A82 /* noResults.png */,
@@ -1393,6 +1449,69 @@
 				D1BA13441A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib */,
 			);
 			name = "Challenge Details";
+			sourceTree = "<group>";
+		};
+		D12B36E61AA4DDAB005B2ABA /* Clustering */ = {
+			isa = PBXGroup;
+			children = (
+				D12B36E81AA4DDE3005B2ABA /* Algorithms */,
+				D12B36F31AA4DE19005B2ABA /* View */,
+				D12B370F1AA4EC70005B2ABA /* GCluster.h */,
+				D12B37101AA4EC70005B2ABA /* GClusterItem.h */,
+				D12B37111AA4EC70005B2ABA /* GClusterManager.h */,
+				D12B37121AA4EC70005B2ABA /* GClusterManager.m */,
+				D12B37051AA4DF02005B2ABA /* ClusterKiosk.m */,
+				D12B37071AA4DF11005B2ABA /* ClusterKiosk.h */,
+				D1247BCC1AA662DC008A601A /* ClusterManagerDelegate.h */,
+			);
+			name = Clustering;
+			sourceTree = "<group>";
+		};
+		D12B36E71AA4DDB6005B2ABA /* QuadTree */ = {
+			isa = PBXGroup;
+			children = (
+				D12B39841AA4ECC6005B2ABA /* GQTBounds.h */,
+				D12B39851AA4ECC6005B2ABA /* GQTPoint.h */,
+				D12B39861AA4ECC6005B2ABA /* GQTPointQuadTree.h */,
+				D12B39871AA4ECC6005B2ABA /* GQTPointQuadTree.m */,
+				D12B39881AA4ECC6005B2ABA /* GQTPointQuadTreeChild.h */,
+				D12B39891AA4ECC6005B2ABA /* GQTPointQuadTreeChild.m */,
+				D12B398A1AA4ECC6005B2ABA /* GQTPointQuadTreeItem.h */,
+			);
+			name = QuadTree;
+			sourceTree = "<group>";
+		};
+		D12B36E81AA4DDE3005B2ABA /* Algorithms */ = {
+			isa = PBXGroup;
+			children = (
+				D12B39911AA4ED08005B2ABA /* GClusterAlgorithm.h */,
+				D12B39921AA4ED08005B2ABA /* GQuadItem.h */,
+				D12B39931AA4ED08005B2ABA /* GQuadItem.m */,
+				D12B39941AA4ED08005B2ABA /* GStaticCluster.h */,
+				D12B39951AA4ED08005B2ABA /* GStaticCluster.m */,
+				D12B39961AA4ED08005B2ABA /* NonHierarchicalDistanceBasedAlgorithm.h */,
+				D12B39971AA4ED08005B2ABA /* NonHierarchicalDistanceBasedAlgorithm.m */,
+			);
+			name = Algorithms;
+			sourceTree = "<group>";
+		};
+		D12B36F31AA4DE19005B2ABA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D12B398D1AA4ECEB005B2ABA /* GClusterRenderer.h */,
+				D1247BC71AA620C9008A601A /* HigiClusterRenderer.h */,
+				D1247BC81AA620F1008A601A /* HigiClusterRenderer.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		D12B37081AA4EB5A005B2ABA /* Projection */ = {
+			isa = PBXGroup;
+			children = (
+				D12B370C1AA4EC57005B2ABA /* SphericalMercatorProjection.h */,
+				D12B370D1AA4EC57005B2ABA /* SphericalMercatorProjection.m */,
+			);
+			name = Projection;
 			sourceTree = "<group>";
 		};
 		D1AAA7A01A9E7E1800A41B3D /* Activity */ = {
@@ -1535,7 +1654,6 @@
 				D1A9C6FF1A951D0D0008084B /* chatterbutton_pressed.png in Resources */,
 				8F5E7FC9199BC74E009067E5 /* CheckinCardView.xib in Resources */,
 				8F02A13019AE2CBB002FF73E /* dashboard_background@2x.png in Resources */,
-				8FD73CBB1990280C00BACCB2 /* map_circleicon@2x.png in Resources */,
 				8FDCE1CF19880919006428C3 /* bp_overlay.png in Resources */,
 				8F5C390019868B7000F51543 /* cell_selected.png in Resources */,
 				8F1D97A0199558F7003B5645 /* checkmark.png in Resources */,
@@ -1583,6 +1701,7 @@
 				8F5C38CA19818BA900F51543 /* gauge1_high.png in Resources */,
 				D1EEDB9B1A660F2B0012EFD3 /* ui_progress.png in Resources */,
 				8F5E7FE6199C081F009067E5 /* vital_pulse_icon.png in Resources */,
+				D1A713A81ACF2028008DF01A /* map_circleicon@2x.png in Resources */,
 				8F02A12219AE2BF6002FF73E /* btn_back_white@2x.png in Resources */,
 				8FF940A0198A8CCD00D319D7 /* BirthdateView.xib in Resources */,
 				D1E2236E1A7FFE60006330E7 /* ConnectDeviceRow.xib in Resources */,
@@ -1624,7 +1743,6 @@
 				8FDCE1D019880919006428C3 /* map_overlay.png in Resources */,
 				8F5E7FC11999674C009067E5 /* KioskListCellView.xib in Resources */,
 				8F02A14419AE2CF4002FF73E /* bodystats2@2x.png in Resources */,
-				8FD73CBC1990280C00BACCB2 /* map_iconwithdot@2x.png in Resources */,
 				8F2B7E4E198C3058009DE89A /* oc_dashboard.png in Resources */,
 				8F58D98A19C0FE5800C0EC72 /* welcome_01_logo.png in Resources */,
 <<<<<<< HEAD
@@ -1703,6 +1821,10 @@
 				8FFB035919FEAF2C0036228C /* ActivityView.xib in Resources */,
 				D1E1FF081A76C2DB00C8951C /* ChallengeProgressLegendRow.xib in Resources */,
 				D10BA0251A9540D200DB22A3 /* ActivityLegendView.xib in Resources */,
+<<<<<<< HEAD
+>>>>>>> develop
+=======
+				8FC88AD41AE6DA2B002ED9FB /* activitywidgetblankstatenodevices.png in Resources */,
 >>>>>>> develop
 				8FE056E5198FDC5F00C81208 /* SettingsView.xib in Resources */,
 				8F5C38CD19818BA900F51543 /* gauge2_atrisk.png in Resources */,
@@ -1712,6 +1834,7 @@
 				D1EEDB9A1A660F2B0012EFD3 /* ui_leaderboards.png in Resources */,
 				8FC7B71219E5E67000D0112F /* dashboard2-568h@2x.png in Resources */,
 				8F3643A719460EB300C0033E /* Images.xcassets in Resources */,
+				D1A713A91ACF2028008DF01A /* map_iconwithdot@2x.png in Resources */,
 				D1BA13471A8D056900E1AFE9 /* ChatterInputView.xib in Resources */,
 				D1E223781A8009CE006330E7 /* ConnectDeviceView.xib in Resources */,
 				8FFF43C219B798380056F412 /* pulse_overlay@2x.png in Resources */,
@@ -1804,6 +1927,7 @@
 				8FF94098198A8C0A00D319D7 /* BirthdateViewController.swift in Sources */,
 				8F58D98E19C22AB600C0EC72 /* GTMNSString+HTML.m in Sources */,
 				8F2CB58019925631009377A8 /* WebViewController.swift in Sources */,
+				D12B370E1AA4EC57005B2ABA /* SphericalMercatorProjection.m in Sources */,
 				8FF9409A198A8C1800D319D7 /* ProfileImageViewController.swift in Sources */,
 				8F5E7FC5199BC6CB009067E5 /* CheckinCard.swift in Sources */,
 				8FE056E3198FDC3900C81208 /* SettingsViewController.swift in Sources */,
@@ -1813,6 +1937,7 @@
 				D1EEDBA51A66FA570012EFD3 /* ChallengeLeaderboardRow.swift in Sources */,
 				D17010CA1A644414002CBFE8 /* ChallengeDetailsViewController.swift in Sources */,
 				8F9C69D51950C88900449664 /* HigiCheckin.swift in Sources */,
+				D12B39981AA4ED08005B2ABA /* GQuadItem.m in Sources */,
 				8FEF6F421A6EECBE001EF8A6 /* BodyStatsCard.swift in Sources */,
 				8F5E7FBF199965CF009067E5 /* PinCodeViewController.swift in Sources */,
 				8FF951891A018B78005FD632 /* GraphPoint.swift in Sources */,
@@ -1835,15 +1960,19 @@
 =======
 				8F89C2581A01B0B700A3AD09 /* ActivityCell.swift in Sources */,
 				8F7065B41A16B129002FCA10 /* ChallengeParticipant.swift in Sources */,
+				D12B39991AA4ED08005B2ABA /* GStaticCluster.m in Sources */,
 				8FFB035519FEAED10036228C /* ActivityViewController.swift in Sources */,
 				2BBDBA581A12AC2C005A6815 /* GoalChallengeView.swift in Sources */,
 				8F9C69D91950C8AD00449664 /* KioskInfo.swift in Sources */,
+				D1DC365E1AC9E9F000CB124D /* CustomLoadingSpinner.swift in Sources */,
 				8FC130C71A26464400591C58 /* ActivityGraphHostingView.swift in Sources */,
 				8FDB4B661A096ECF00F57B38 /* HigiActivity.swift in Sources */,
 >>>>>>> develop
 				8F6A2441195A05200094B73C /* BpGraphHostingView.swift in Sources */,
 				8FDA6DA319A2979800244D5F /* ChangePasswordViewController.swift in Sources */,
+				D12B398B1AA4ECC6005B2ABA /* GQTPointQuadTree.m in Sources */,
 				8FE0BCCE199175BC00940D39 /* PulseCell.swift in Sources */,
+				8FEF1B051AA9173D0036C4FB /* ChallengeView.swift in Sources */,
 				8F5E7FD0199BC992009067E5 /* CheckinCell.swift in Sources */,
 				8F6A2447195A07740094B73C /* WeightGraphDelegate.swift in Sources */,
 				8F3643A019460EB300C0033E /* AppDelegate.swift in Sources */,
@@ -1854,6 +1983,7 @@
 				8FEF6F441A6EECC9001EF8A6 /* ActivityCard.swift in Sources */,
 				8F6A243C1958EA730094B73C /* NewCPTScatterPlot.m in Sources */,
 				2BC5865E1A16D0AF005A7983 /* ChallengeInvitationView.swift in Sources */,
+				D12B399A1AA4ED08005B2ABA /* NonHierarchicalDistanceBasedAlgorithm.m in Sources */,
 				D18395C31A69CAD500D290BF /* ChallengesDetailsTab.swift in Sources */,
 				2BBDBA551A12AC2C005A6815 /* ChallengesViewController.swift in Sources */,
 				8FA5925F19ABBD3A00622266 /* TourViewController.swift in Sources */,
@@ -1868,7 +1998,10 @@
 =======
 				2BBDBA521A12AC2C005A6815 /* ChallengeRowCell.swift in Sources */,
 				8FDB4B641A096E1C00F57B38 /* HigiChallenge.swift in Sources */,
+<<<<<<< HEAD
 				D1DF09A21A8D079800A9ABE5 /* Constants.swift in Sources */,
+>>>>>>> develop
+=======
 >>>>>>> develop
 				8F29630D194B8F4600E787FD /* WelcomeViewController.swift in Sources */,
 				8F2B7E41198C2C27009DE89A /* SWRevealViewController.m in Sources */,
@@ -1885,10 +2018,14 @@
 				8FEF6F3C1A6EAACE001EF8A6 /* DashboardViewController.swift in Sources */,
 				8F5C39021986918700F51543 /* BodyStatCheckinCell.swift in Sources */,
 				8FCD2D8019EC286900AC5A82 /* UIImage+Orientation.m in Sources */,
+				D12B398C1AA4ECC6005B2ABA /* GQTPointQuadTreeChild.m in Sources */,
 				D10D89501A8C11A9000402D4 /* ChallengeDetailsParticipantIcon.swift in Sources */,
+				D12B37061AA4DF02005B2ABA /* ClusterKiosk.m in Sources */,
 				8F6A2445195A076B0094B73C /* MapGraphDelegate.swift in Sources */,
+				D12B37131AA4EC70005B2ABA /* GClusterManager.m in Sources */,
 				8F2B7E43198C2DA0009DE89A /* DrawerViewController.swift in Sources */,
 				8F524BF6195B5ABB00BFC49D /* ConversionUtility.m in Sources */,
+				D1247BC91AA620F1008A601A /* HigiClusterRenderer.m in Sources */,
 				8F087A901A1BDFC7008E0446 /* ActivityCellHeader.swift in Sources */,
 				8F296311194B911C00E787FD /* SignupNameViewController.swift in Sources */,
 				8FF851C6194F7F2E005C33C6 /* HigiApi.swift in Sources */,

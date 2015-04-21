@@ -69,7 +69,7 @@ class BaseCustomGraphHostingView: CPTGraphHostingView, CPTScatterPlotDataSource,
             yRange++;
         }
         
-        var plotSpace = graph.defaultPlotSpace as CPTXYPlotSpace;
+        var plotSpace = graph.defaultPlotSpace as! CPTXYPlotSpace;
         plotSpace.allowsUserInteraction = true;
         plotSpace.xRange = NewCPTPlotRange(location: firstPoint.x - 1, length: lastPoint.x - firstPoint.x + 2);
         plotSpace.yRange = NewCPTPlotRange(location: min - yRange * 0.25, length: yRange * 2.0);
@@ -122,7 +122,7 @@ class BaseCustomGraphHostingView: CPTGraphHostingView, CPTScatterPlotDataSource,
         var gridLineStyle = CPTMutableLineStyle();
         gridLineStyle.lineColor = CPTColor(componentRed: 1, green: 1, blue: 1, alpha: 0.3);
         
-        var xAxis = graph.axisSet.axisForCoordinate(CPTCoordinateX, atIndex: 0) as CPTXYAxis;
+        var xAxis = graph.axisSet.axisForCoordinate(CPTCoordinateX, atIndex: 0) as! CPTXYAxis;
         xAxis.labelTextStyle = axisTextStyle;
         xAxis.majorTickLineStyle = nil;
         xAxis.minorTickLineStyle = nil;
@@ -146,7 +146,7 @@ class BaseCustomGraphHostingView: CPTGraphHostingView, CPTScatterPlotDataSource,
         dateFormatter.dateFormat = "MM/dd/yy";
         xAxis.labelFormatter = CustomFormatter(dateFormatter: dateFormatter);
         
-        var yAxis = graph.axisSet.axisForCoordinate(CPTCoordinateY, atIndex: 0) as CPTXYAxis;
+        var yAxis = graph.axisSet.axisForCoordinate(CPTCoordinateY, atIndex: 0) as! CPTXYAxis;
         
         if (isPortrait) {
             yAxis.preferredNumberOfMajorTicks = 5;
@@ -176,8 +176,8 @@ class BaseCustomGraphHostingView: CPTGraphHostingView, CPTScatterPlotDataSource,
         return UInt(points.count);
     }
     
-    func numberForPlot(plot: CPTPlot!, field fieldEnum: Int, recordIndex idx: Int) -> NSNumber! {
-        var point = points[idx];
+    func numberForPlot(plot: CPTPlot?, field fieldEnum: UInt, recordIndex idx: UInt) -> NSNumber {
+        var point = points[Int(idx)];
         if (fieldEnum == 0) {
             return NSNumber(double: point.x);
         } else {
@@ -194,13 +194,13 @@ class BaseCustomGraphHostingView: CPTGraphHostingView, CPTScatterPlotDataSource,
         var low = -1, high = -1;
         if (points.count == 0 || (range.containsDouble(points[0].x) && range.containsDouble(points[points.count - 1].x))) {
             if (!isPortrait) {
-                (self.superview!.superview!.superview as UIScrollView).scrollEnabled = true;
+                (self.superview!.superview!.superview as! UIScrollView).scrollEnabled = true;
             }
             low = 0;
             high = points.count - 1;
         } else {
             if (!isPortrait) {
-                (self.superview!.superview!.superview as UIScrollView).scrollEnabled = false;
+                (self.superview!.superview!.superview as! UIScrollView).scrollEnabled = false;
             }
             
             var index = 0;
@@ -238,13 +238,13 @@ class BaseCustomGraphHostingView: CPTGraphHostingView, CPTScatterPlotDataSource,
             average /= Double(high + 1 - low);
             trend = "\(Int(average + 0.5)) Average  |  \(Int(highest)) Highest  |  \(Int(lowest)) Lowest";
         }
-        var graphView = self.superview!.superview as GraphView;
+        var graphView = self.superview!.superview as! GraphView;
         graphView.updateTrend(trend);
         return range;
     }
     
     func plotSpace(space: CPTPlotSpace!, didChangePlotRangeForCoordinate coordinate: CPTCoordinate) {
-        var graphView = self.superview!.superview as GraphView;
+        var graphView = self.superview!.superview as! GraphView;
         graphView.setSelectedCheckin(graphView.checkins[graphView.selected]);
     }
     
@@ -258,7 +258,7 @@ class BaseCustomGraphHostingView: CPTGraphHostingView, CPTScatterPlotDataSource,
             firstPoint = GraphPoint(x: 0, y: 0);
             lastPoint = GraphPoint(x: 0, y: 0);
         }
-        var plotSpace = self.hostedGraph.defaultPlotSpace as CPTXYPlotSpace;
+        var plotSpace = self.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace;
         var newRange: NewCPTPlotRange;
         var monthInSecs = 2592000.0;
         switch (mode) {
@@ -277,8 +277,8 @@ class BaseCustomGraphHostingView: CPTGraphHostingView, CPTScatterPlotDataSource,
 
     }
     
-    func scatterPlot(plot: CPTScatterPlot!, plotSymbolWasSelectedAtRecordIndex idx: Int) {
-        (self.superview!.superview as GraphView).pointClicked(idx);
+    func scatterPlot(plot: CPTScatterPlot?, plotSymbolWasSelectedAtRecordIndex idx: UInt) {
+        (self.superview!.superview as! GraphView).pointClicked(Int(idx));
     }
     
 }

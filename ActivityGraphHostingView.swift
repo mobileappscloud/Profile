@@ -13,6 +13,7 @@ class ActivityGraphHostingView: CPTGraphHostingView, CPTBarPlotDataSource {
     var points: [String: [Int]]!;
     var lastDevice = "";
     var totalPlotPoints:[Int] = [0,0,0,0,0,0,0];
+    var devices:[String] = [];
     
     enum Mode {
         case DAY
@@ -29,10 +30,11 @@ class ActivityGraphHostingView: CPTGraphHostingView, CPTBarPlotDataSource {
         fatalError("NSCoding not supported");
     }
     
-    func setupGraph(mode: Mode) {
+    func setupGraph(mode: Mode, devices: [String]) {
         var graph = CPTXYGraph(frame: self.bounds);
         self.hostedGraph = graph;
         self.allowPinchScaling = false;
+        self.devices = devices;
         
         graph.paddingLeft = -10;
         graph.paddingTop = 0;
@@ -50,7 +52,7 @@ class ActivityGraphHostingView: CPTGraphHostingView, CPTBarPlotDataSource {
         var labelStyle = CPTMutableTextStyle();
         labelStyle.fontSize = 10;
         
-        var axes = graph.axisSet as CPTXYAxisSet;
+        var axes = graph.axisSet as! CPTXYAxisSet;
         var xAxis = axes.xAxis;
         var yAxis = axes.yAxis;
         
@@ -66,7 +68,7 @@ class ActivityGraphHostingView: CPTGraphHostingView, CPTBarPlotDataSource {
         yAxis.axisConstraints = CPTConstraints.constraintWithLowerOffset(5);
         yAxis.labelFormatter = formatter;
         yAxis.labelTextStyle = labelStyle;
-        var plotSpace = graph.defaultPlotSpace as CPTXYPlotSpace;
+        var plotSpace = graph.defaultPlotSpace as! CPTXYPlotSpace;
         plotSpace.allowsUserInteraction = false;
 
         var dateLabels:[NewCPTAxisLabel] = [];
@@ -79,12 +81,12 @@ class ActivityGraphHostingView: CPTGraphHostingView, CPTBarPlotDataSource {
             label.offset = xAxis.labelOffset + xAxis.majorTickLength;
             dateLabels.append(label);
         }
-        xAxis.axisLabels = NSSet(array: dateLabels);
+        xAxis.axisLabels = NSSet(array: dateLabels) as Set<NSObject>;
         
         var maxPlotPoints = 10;
         var firstPlot = true;
         var plotIndex = 0;
-        for device in Constants.getDevicePriority {
+        for device in devices {
             if (points.indexForKey(device) != nil) {
                 let pointArray = points[device]!;
                 var plot = CPTBarPlot(frame: CGRectZero);
@@ -124,17 +126,12 @@ class ActivityGraphHostingView: CPTGraphHostingView, CPTBarPlotDataSource {
         var label = NewCPTAxisLabel(text: String(yLabelValue), textStyle: xAxis.labelTextStyle);
         label.setTickIndex(Double(yLabelValue));
         dateLabels.append(label);
-        yAxis.axisLabels = NSSet(array: [label]);
+        yAxis.axisLabels = NSSet(array: [label]) as Set<NSObject>;
 
         plotSpace.xRange = NewCPTPlotRange(location: -1, length: 8);
-        var a  = Double(maxPlotPoints) * 1.5;
         plotSpace.yRange = NewCPTPlotRange(location: 0, length: Double(maxPlotPoints) * 1.5);
         plotSpace.globalXRange = plotSpace.xRange;
         plotSpace.globalYRange = plotSpace.yRange;
-    }
-    
-    func setUpAxes(labelStyle: CPTMutableTextStyle, xAxis: CPTAxis, yAxis: CPTAxis) {
-        
     }
     
     func getNearestYLabel(points: Int) -> Int {
@@ -142,7 +139,7 @@ class ActivityGraphHostingView: CPTGraphHostingView, CPTBarPlotDataSource {
         if (points < 10) {
             nearestValue = 10;
         } else if (points < 100) {
-            nearestValue = Int(points % 10) * 10;
+            nearestValue = Int(points / 10) * 10;
         } else if (points < 500) {
             nearestValue = Int(points / 100) * 100;
         } else {
@@ -152,19 +149,15 @@ class ActivityGraphHostingView: CPTGraphHostingView, CPTBarPlotDataSource {
     }
     
     func doubleForPlot(plot: CPTPlot!, field fieldEnum: UInt, recordIndex idx: UInt) -> Double {
-        let a = idx;
-        let b = fieldEnum;
-        let pat = plot;
-        
         let index = Int(idx);
         var plotValue = 0;
         if (fieldEnum == 0) {
             plotValue = Int(idx);
         } else {
             var offset = 0;
-            var barPlot = plot as CPTBarPlot;
+            var barPlot = plot as! CPTBarPlot;
             if (barPlot.barBasesVary) {
-                for device in Constants.getDevicePriority {
+                for device in devices {
                     if (points.indexForKey(device) != nil) {
                         let pointArray = points[device]!;
                         if (plot.name.isEqual(device)) {
@@ -186,7 +179,7 @@ class ActivityGraphHostingView: CPTGraphHostingView, CPTBarPlotDataSource {
         }
         return Double(plotValue);
     }
-    
+
     func numberOfRecordsForPlot(plot: CPTPlot!) -> UInt {
         return 7;
     }

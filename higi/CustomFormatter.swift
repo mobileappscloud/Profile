@@ -22,7 +22,7 @@ class CustomFormatter : NSFormatter {
     }
     
     override func stringForObjectValue(obj: AnyObject) -> String? {
-        var date = NSDate(timeIntervalSince1970: obj as Double);
+        var date = NSDate(timeIntervalSince1970: obj as! Double);
         return dateFormatter.stringFromDate(date);
     }
     

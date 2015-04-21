@@ -7,13 +7,18 @@
 //
 
 import Foundation
+import LocalAuthentication
 
 class PinCodeViewController: UIViewController, UITextFieldDelegate {
+    
+    var touchIdCancelledNotification = "TouchIdCancelledNotification"
+    var touchIdSuccessfulNotification = "TouchIdSuccessfulNotification"
     
     @IBOutlet weak var backgroundImage: UIImageView!
     @IBOutlet weak var pinField: UITextField!
     @IBOutlet weak var circleContainer: UIView!
     @IBOutlet weak var topTitle: UILabel!
+    @IBOutlet weak var contents: UIView!
     
     var newCode = false, modifying = false, removing = false, confirming = false;
     
@@ -24,47 +29,93 @@ class PinCodeViewController: UIViewController, UITextFieldDelegate {
         self.navigationItem.hidesBackButton = true;
         self.navigationController?.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
         if (newCode || modifying || removing) {
-            var backButton = UIButton.buttonWithType(UIButtonType.Custom) as UIButton;
+            var backButton = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton;
             backButton.setBackgroundImage(UIImage(named: "btn_back_white.png"), forState: UIControlState.Normal);
             backButton.addTarget(self, action: "goBack:", forControlEvents: UIControlEvents.TouchUpInside);
             backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
             var backBarItem = UIBarButtonItem(customView: backButton);
             self.navigationItem.leftBarButtonItem = backBarItem;
         }
-        pinField.becomeFirstResponder();
         backgroundImage.image = SessionData.Instance.user.blurredImage;
-        for circle in circleContainer.subviews as [UIView]{
+        for circle in circleContainer.subviews as! [UIView]{
             circle.layer.cornerRadius = 30;
             circle.layer.borderWidth = 1;
             circle.layer.borderColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.3).CGColor;
         }
         
         if (newCode) {
-            topTitle.text = "Protect access to your higi app with a passcode.";
+            topTitle.text = "Protect access to your higi app with a passcode";
         } else if (modifying || removing) {
-            topTitle.text = "Enter your passcode again to verify it.";
+            topTitle.text = "Enter your passcode again to verify it";
         } else {
-            topTitle.text = "Enter your passcode to unlock.";
+            topTitle.text = "Enter your passcode to unlock";
+        }
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "checkTouchId", name: UIApplicationWillEnterForegroundNotification, object: nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "applicationWillResignActive", name: UIApplicationWillResignActiveNotification, object: nil);
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:"displayPinView", name: self.touchIdCancelledNotification, object:nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:"closeView", name: self.touchIdSuccessfulNotification, object:nil);
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated);
+        checkTouchId();
+    }
+    
+    func applicationWillResignActive() {
+        if (self.contents.alpha > 0)
+        {
+            self.contents.alpha = 0.0;
+            self.pinField.resignFirstResponder();
         }
     }
     
-    func textField(textField: UITextField!, shouldChangeCharactersInRange range: NSRange, replacementString string: String!) -> Bool {
-        return textField.text.utf16Count < 4 || string.utf16Count == 0;
+    func displayPinView() {
+        dispatch_async(dispatch_get_main_queue(), {
+            self.contents.alpha = 1.0
+            self.pinField.becomeFirstResponder()
+        })
+    }
+    
+    func checkTouchId() {
+        if (UIDevice.currentDevice().systemVersion >= "8.0") {
+            let authenticationContext = LAContext();
+            if (SessionController.Instance.askTouchId && authenticationContext.canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, error: nil)) {
+                authenticationContext.evaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, localizedReason: "Use your fingerprint to access higi", reply: {success, error in
+                    if (success) {
+                        NSNotificationCenter.defaultCenter().postNotificationName(self.touchIdSuccessfulNotification, object: nil);
+                    } else {
+                        NSNotificationCenter.defaultCenter().postNotificationName(self.touchIdCancelledNotification, object: nil);
+                    }
+                });
+            } else {
+                self.contents.alpha = 1.0;
+                self.pinField.becomeFirstResponder();
+            }
+            SessionController.Instance.askTouchId = true;
+        } else {
+            self.contents.alpha = 1.0;
+            self.pinField.becomeFirstResponder();
+        }
+    }
+    
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        return count(textField.text) < 4 || count(string) == 0;
     }
     
     @IBAction func pinChanged(sender: AnyObject!) {
-       
-        for index in 0..<pinField.text.utf16Count {
-            var circle = circleContainer.subviews[index] as UIView;
+        
+        for index in 0..<count(pinField.text) {
+            var circle = circleContainer.subviews[index] as! UIView;
             circle.layer.borderWidth = 20;
-            (circle.subviews.first as UIView).hidden = false;
+            (circle.subviews.first as! UIView).hidden = false;
         }
         
-        if (pinField.text.utf16Count < 4) {
-            for index in pinField.text.utf16Count...3 {
-                var circle = circleContainer.subviews[index] as UIView;
+        if (count(pinField.text) < 4) {
+            for index in count(pinField.text)...3 {
+                var circle = circleContainer.subviews[index] as! UIView;
                 circle.layer.borderWidth = 1;
-                (circle.subviews.first as UIView).hidden = true;
+                (circle.subviews.first as! UIView).hidden = true;
             }
         } else {
             if (newCode) {
@@ -139,5 +190,9 @@ class PinCodeViewController: UIViewController, UITextFieldDelegate {
     override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
         return UIInterfaceOrientation.Portrait;
     }
-
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self);
+    }
+    
 }

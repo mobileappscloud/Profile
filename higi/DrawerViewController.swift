@@ -27,9 +27,9 @@ class DrawerViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("DrawerCell") as DrawerCell!;
+        var cell = tableView.dequeueReusableCellWithIdentifier("DrawerCell") as! DrawerCell!;
         if (cell == nil) {
-            cell = UINib(nibName: "DrawerCell", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as DrawerCell;
+            cell = UINib(nibName: "DrawerCell", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! DrawerCell;
             var selectedBgView = UIView();
             selectedBgView.backgroundColor = Utility.colorFromHexString("#EFEFEF");
             cell.selectedBackgroundView = selectedBgView;
@@ -45,6 +45,26 @@ class DrawerViewController: UIViewController, UITableViewDelegate, UITableViewDa
         case 0:
             navController?.popToRootViewControllerAnimated(false);
         case 1:
+<<<<<<< HEAD
+=======
+            if (SessionController.Instance.activities == nil) {
+                tableView.deselectRowAtIndexPath(indexPath, animated: false);
+                return;
+            }
+            Flurry.logEvent("ActivityOffCanvas_Pressed");
+            navController?.pushViewController(ActivityViewController(nibName: "ActivityView", bundle: nil), animated: false);
+        case 2:
+            if (SessionController.Instance.challenges == nil) {
+                tableView.deselectRowAtIndexPath(indexPath, animated: false);
+                return;
+            }
+            Flurry.logEvent("ChallengesOffCanvas_Pressed");
+            navController?.pushViewController(ChallengesViewController(nibName: "ChallengesView", bundle: nil), animated: false);
+        case 3:
+            if (SessionController.Instance.checkins == nil) {
+                return;
+            }
+>>>>>>> develop
             Flurry.logEvent("BodystatOffCanvas_Pressed");
             navController?.pushViewController(BodyStatsViewController(), animated: false);
         case 2:
@@ -61,7 +81,14 @@ class DrawerViewController: UIViewController, UITableViewDelegate, UITableViewDa
             navController?.popToRootViewControllerAnimated(false);
         }
         revealController?.revealToggleAnimated(true);
+<<<<<<< HEAD
         
+=======
+        tableView.reloadData();
+        var cell = tableView.cellForRowAtIndexPath(indexPath) as! DrawerCell;
+        cell.icon.image = UIImage(named: activeIcons[indexPath.item]);
+        cell.selected = true;
+>>>>>>> develop
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

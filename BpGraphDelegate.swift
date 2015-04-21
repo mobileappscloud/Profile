@@ -42,7 +42,7 @@ class BpGraphDelegate: GraphDelegate {
     }
     
     func getMeasureClass(checkin: HigiCheckin) -> String {
-        return checkin.bpClass!;
+        return checkin.bpClass! as String;
     }
     
     func cellForCheckin(checkin: HigiCheckin, cell: BodyStatCheckinCell) {
@@ -64,8 +64,8 @@ class BpGraphDelegate: GraphDelegate {
     }
     
     func getScreenPoint(graph: CPTGraphHostingView, checkin: HigiCheckin, isPortrait: Bool) -> CGPoint {
-        var xRange = (graph.hostedGraph.defaultPlotSpace as CPTXYPlotSpace).xRange;
-        var yRange = (graph.hostedGraph.defaultPlotSpace as CPTXYPlotSpace).yRange;
+        var xRange = (graph.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace).xRange;
+        var yRange = (graph.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace).yRange;
         var frame = graph.frame;
         var dateX = CGFloat(checkin.dateTime.timeIntervalSince1970);
         var valueY = CGFloat(checkin.systolic!);
@@ -78,8 +78,8 @@ class BpGraphDelegate: GraphDelegate {
     }
     
     func getScreenPoint2(graph: CPTGraphHostingView, checkin: HigiCheckin, isPortrait: Bool) -> CGPoint? {
-        var xRange = (graph.hostedGraph.defaultPlotSpace as CPTXYPlotSpace).xRange;
-        var yRange = (graph.hostedGraph.defaultPlotSpace as CPTXYPlotSpace).yRange;
+        var xRange = (graph.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace).xRange;
+        var yRange = (graph.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace).yRange;
         var frame = graph.frame;
         var dateX = CGFloat(checkin.dateTime.timeIntervalSince1970);
         var valueY = CGFloat(checkin.diastolic!);

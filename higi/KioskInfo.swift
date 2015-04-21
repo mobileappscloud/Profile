@@ -14,7 +14,7 @@ class KioskInfo: Equatable {
     
     var kioskId: Int?;
     
-    var address1, address2, city, state, zip, type, fullAddress, cityStateZip, group: NSString!;
+    var address1, address2, city, state, zip, type, fullAddress, cityStateZip, group, streetAddress: NSString!;
     
     var latitude, longitude: Double?;
     
@@ -27,18 +27,18 @@ class KioskInfo: Equatable {
     init(dictionary: NSDictionary) {
         kioskId = dictionary["KioskId"] as? Int;
         if (dictionary["Organizations"] != nil) {
-            organizations = dictionary["Organizations"] as [NSString];
+            organizations = dictionary["Organizations"] as! [NSString];
             organizations[0] = organizations[0].stringByConvertingHTMLToPlainText();
         } else {
             organizations = [""];
         }
-        address1 = (dictionary["Address1"] ?? "") as NSString;
-        address2 = (dictionary["Address2"] ?? "") as NSString;
-        city = (dictionary["City"] ?? "") as NSString;
-        state = (dictionary["State"] ?? "") as NSString;
-        zip = (dictionary["Zip"] ?? "") as NSString;
+        address1 = (dictionary["Address1"] ?? "") as! NSString;
+        address2 = (dictionary["Address2"] ?? "") as! NSString;
+        city = (dictionary["City"] ?? "") as! NSString;
+        state = (dictionary["State"] ?? "") as! NSString;
+        zip = (dictionary["Zip"] ?? "") as! NSString;
         isMapVisible = (dictionary["MapVisible"] as? NSString) == "true";
-        group =  (dictionary["Groups"] ?? "") as NSString;
+        group =  (dictionary["Groups"] ?? "") as! NSString;
         fullAddress = address1;
         if (address2 != nil && address2!.length > 0) {
             fullAddress = "\(fullAddress), \(address2)";
@@ -46,6 +46,7 @@ class KioskInfo: Equatable {
         fullAddress = "\(fullAddress), \(city), \(state) \(zip)";
         
         cityStateZip = "\(city), \(state) \(zip)";
+        streetAddress = "\(address1), \(cityStateZip)";
         
         var gps = dictionary["GPS"] as? NSDictionary;
         if (gps != nil) {
@@ -57,7 +58,7 @@ class KioskInfo: Equatable {
         var hoursString = dictionary["Hours"] as? NSString;
         if (hoursString != nil && hoursString! != "") {
             hoursString = hoursString?.stringByReplacingOccurrencesOfString("&quot;", withString: "\"").stringByReplacingOccurrencesOfString("-", withString: " - ", options: nil, range: nil);
-            hours = NSJSONSerialization.JSONObjectWithData(hoursString!.dataUsingEncoding(NSUTF8StringEncoding)!, options: NSJSONReadingOptions.MutableContainers, error: NSErrorPointer.null()) as? NSDictionary;
+            hours = NSJSONSerialization.JSONObjectWithData(hoursString!.dataUsingEncoding(NSUTF8StringEncoding)!, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSDictionary;
         }
     }
     

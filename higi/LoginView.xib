@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <<<<<<< HEAD
+<<<<<<< HEAD
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
@@ -9,11 +10,16 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
 >>>>>>> develop
+=======
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+>>>>>>> develop
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController" customModule="higi" customModuleProvider="target">
             <connections>
-                <outlet property="activityIndicator" destination="YGI-Z1-Sph" id="RSx-zd-HJf"/>
                 <outlet property="email" destination="g1D-rk-Ivp" id="O3G-yH-o3g"/>
                 <outlet property="forgotPassword" destination="Fz3-hi-fFe" id="bmB-Ao-gOc"/>
                 <outlet property="loginButton" destination="GzP-45-J6f" id="nNh-2v-7GG"/>
@@ -62,9 +68,6 @@
                         <action selector="loginClicked:" destination="-1" eventType="touchUpInside" id="HpA-dj-RZi"/>
                     </connections>
                 </button>
-                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="YGI-Z1-Sph">
-                    <rect key="frame" x="150" y="501" width="20" height="20"/>
-                </activityIndicatorView>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="g0N-P7-gef">
                     <rect key="frame" x="20" y="175" width="280" height="30"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -76,7 +79,6 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="YGI-Z1-Sph" secondAttribute="bottom" constant="47" id="XEl-dn-4l9"/>
                 <constraint firstAttribute="bottom" secondItem="Fz3-hi-fFe" secondAttribute="bottom" constant="20" id="qEr-3U-FVV"/>
             </constraints>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>

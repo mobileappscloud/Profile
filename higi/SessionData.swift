@@ -22,7 +22,9 @@ class SessionData {
     
     var seenDashboard, seenBodyStats, seenReminder: Bool!;
     
-    let savePath = (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String).stringByAppendingPathComponent("HigiSessionData.plist");
+    var lastUpdate: NSDate!;
+    
+    let savePath = (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String).stringByAppendingPathComponent("HigiSessionData.plist");
 
     
     init() {
@@ -36,6 +38,7 @@ class SessionData {
         seenDashboard = false;
         seenBodyStats = false;
         seenReminder = false;
+        lastUpdate = NSDate();
     }
     
     func save() {
@@ -47,20 +50,22 @@ class SessionData {
         saveDictionary["seenBodyStats"] = seenBodyStats;
         saveDictionary["seenReminder"] = seenReminder;
         saveDictionary["kioskList"] = kioskListString;
+        saveDictionary["lastUpdate"] = lastUpdate;
         saveDictionary.writeToFile(savePath, atomically: false);
     }
     
     func restore() {
         if (NSFileManager.defaultManager().fileExistsAtPath(savePath)) {
             let savedDictionary = NSDictionary(contentsOfFile: savePath)!;
-            token = savedDictionary["token"] as NSString;
-            pin = savedDictionary["pin"] as NSString;
+            token = savedDictionary["token"] as! String;
+            pin = savedDictionary["pin"] as! String;
             user = HigiUser();
-            user.userId = savedDictionary["userId"] as NSString;
-            seenDashboard = (savedDictionary["seenDashboard"] ?? false) as Bool;
-            seenBodyStats = (savedDictionary["seenBodyStats"] ?? false) as Bool;
-            seenReminder = (savedDictionary["seenReminder"] ?? false) as Bool;
-            kioskListString = (savedDictionary["kioskList"] ?? "") as NSString;
+            user.userId = savedDictionary["userId"] as! NSString;
+            seenDashboard = (savedDictionary["seenDashboard"] ?? false) as! Bool;
+            seenBodyStats = (savedDictionary["seenBodyStats"] ?? false) as! Bool;
+            seenReminder = (savedDictionary["seenReminder"] ?? false) as! Bool;
+            kioskListString = (savedDictionary["kioskList"] ?? "") as! String;
+            lastUpdate = (savedDictionary["lastUpdate"] ?? NSDate()) as! NSDate;
         } else {
             reset();
         }

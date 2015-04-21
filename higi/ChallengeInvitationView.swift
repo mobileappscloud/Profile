@@ -18,17 +18,17 @@ class ChallengeInvitationView: UIView {
     @IBOutlet var participantIcon: UILabel!;
     
     class func instanceFromNib(challenge: HigiChallenge) -> ChallengeInvitationView {
-        let invitationView = UINib(nibName: "ChallengeInvitation", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as ChallengeInvitationView;
+        let invitationView = UINib(nibName: "ChallengeInvitation", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! ChallengeInvitationView;
 
         //we can just grab the first one bcuz win conditions prioritized by API
         let winCondition = challenge.winConditions[0];
         
         invitationView.goal.text = winCondition.goal.type == "most_points" ? "Most points" : "Threshold reached";
-        invitationView.type.text = goalTypeDisplayHelper(winCondition.goal.type, winnerType: winCondition.winnerType);
-        invitationView.prize.text = winCondition.prizeName != nil ? winCondition.prizeName : "No prize";
+        invitationView.type.text = goalTypeDisplayHelper(winCondition.goal.type as String, winnerType: winCondition.winnerType as String);
+        invitationView.prize.text = winCondition.prizeName != nil ? winCondition.prizeName as String : "No prize";
         invitationView.participantCount.text = String(challenge.participantsCount)
         invitationView.starting.text = startsInDisplayHelper(challenge.startDate);
-        invitationView.dateRange.text = dateRangeDisplayHelper(challenge.startDate, endDate: challenge.endDate?);
+        invitationView.dateRange.text = dateRangeDisplayHelper(challenge.startDate, endDate: challenge.endDate);
         //unicode values must be set here
         invitationView.calendarIcon.text = "\u{f073}";
         invitationView.participantIcon.text = "\u{f007}";
