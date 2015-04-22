@@ -565,7 +565,6 @@
 		8FEF6F3B1A6EAACE001EF8A6 /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 		8FEF6F3D1A6EB437001EF8A6 /* PointsMeterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PointsMeterView.xib; sourceTree = "<group>"; };
 		8FEF6F3F1A6EB638001EF8A6 /* PointsMeter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PointsMeter.swift; sourceTree = "<group>"; };
-		8FEF6F431A6EECC9001EF8A6 /* ActivityCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityCard.swift; sourceTree = "<group>"; };
 		8FEF6F451A6EECD5001EF8A6 /* ChallengesCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengesCard.swift; sourceTree = "<group>"; };
 		8FEF6F471A6EECDE001EF8A6 /* PulseCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PulseCard.swift; sourceTree = "<group>"; };
 		8FF2E06D194A5E9500A81D8C /* NewCPTPlotRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewCPTPlotRange.m; sourceTree = "<group>"; };
@@ -641,8 +640,7 @@
 		D15372901A841FEA00954569 /* TermsAndConditionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsViewController.swift; sourceTree = "<group>"; };
 		D15372921A84201600954569 /* TermsAndConditionsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TermsAndConditionsView.xib; sourceTree = "<group>"; };
 		D1618F921ABB2E26000BDA85 /* BodyStatCardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BodyStatCardView.xib; sourceTree = "<group>"; };
-		D1618F941ABB2FCC000BDA85 /* ActivityCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ActivityCard.swift; path = higi/ActivityCard.swift; sourceTree = "<group>"; };
-		D1618F961ABB2FEB000BDA85 /* BodyStatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BodyStatsViewController.swift; path = higi/BodyStatsViewController.swift; sourceTree = "<group>"; };
+		D1618F941ABB2FCC000BDA85 /* ActivityCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCard.swift; sourceTree = "<group>"; };
 		D164D3751A7C19A600300F35 /* chat_bubble_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chat_bubble_green.png; path = images/chat_bubble_green.png; sourceTree = "<group>"; };
 		D16FD5E81ADDADC200AF9BA5 /* back_button_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = back_button_white.png; path = images/back_button_white.png; sourceTree = "<group>"; };
 		D17010C71A644414002CBFE8 /* ChallengeDetailsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailsView.xib; sourceTree = "<group>"; };
@@ -989,8 +987,6 @@
 		8F36439119460EB300C0033E = {
 			isa = PBXGroup;
 			children = (
-				D1618F961ABB2FEB000BDA85 /* BodyStatsViewController.swift */,
-				D1618F941ABB2FCC000BDA85 /* ActivityCard.swift */,
 				500FF7A379474030959012D0 /* Pods.xcconfig */,
 				3735674FA759427E8EA44775 /* Frameworks */,
 				8F36439C19460EB300C0033E /* higi */,
@@ -1134,7 +1130,7 @@
 		8F5C38E51981915500F51543 /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
-				8FEF6F431A6EECC9001EF8A6 /* ActivityCard.swift */,
+				D1618F941ABB2FCC000BDA85 /* ActivityCard.swift */,
 				D1CFC9821AB360AF00AC54BB /* BodyStatGraphCard.swift */,
 				8FEF6F451A6EECD5001EF8A6 /* ChallengesCard.swift */,
 				8F5C38EE1982EFDF00F51543 /* CheckinTableViewCell.swift */,
