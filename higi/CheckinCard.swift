@@ -287,7 +287,23 @@ class CheckinCard: UIView, UITableViewDataSource, UITableViewDelegate {
     func setupMap() {
         if (checkin.kioskInfo != nil) {
             var kioskInfo = checkin.kioskInfo!;
-            var camera = GMSCameraPosition.cameraWithLatitude(kioskInfo.latitude!, longitude: kioskInfo.longitude!, zoom: 14);
+            var latitude, longitude: Double!;
+            if (kioskInfo.latitude != nil) {
+                latitude = kioskInfo.latitude!;
+                longitude = kioskInfo.longitude!;
+            } else {
+                var geocoder = CLGeocoder();
+                geocoder.geocodeAddressString(kioskInfo.streetAddress as String, completionHandler: { placemarks, error in
+                    if (placemarks.count > 0) {
+                        latitude = (placemarks[0] as! CLPlacemark).location.coordinate.latitude;
+                        longitude = (placemarks[0] as! CLPlacemark).location.coordinate.longitude;
+                    } else {
+                        latitude = 0;
+                        longitude = 0;
+                    }
+                });
+            }
+            var camera = GMSCameraPosition.cameraWithLatitude(latitude, longitude: longitude, zoom: 14);
             var mapView = GMSMapView.mapWithFrame(mapContainer.frame, camera: camera);
             mapView.userInteractionEnabled = false;
             var icon = Utility.scaleImage(UIImage(named: "mapicon_higicard")!, newSize: CGSize(width: 45, height: 45));

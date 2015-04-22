@@ -43,7 +43,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     
     var locationManager: CLLocationManager!;
     
-    var listOpen = false, autoCompleteOpen = false, selectedPaneOpen = false, firstLocation = false, reminderMode = false;
+    var listOpen = false, autoCompleteOpen = false, selectedPaneOpen = false, reminderMode = false, firstLocation = false;
     
     var mapView: GMSMapView!;
     
@@ -150,9 +150,10 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     
     func receiveApiNotification(notification: NSNotification) {
         populateClusterManager();
-        clusterManager.cluster()
+        clusterManager.cluster();
+        updateKioskPositions();
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews();
         var height = self.view.frame.height;
@@ -188,6 +189,12 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         myLocationButton.frame.origin.x = 10;
         mapContainer.addSubview(mapView);
         
+        if (UIDevice.currentDevice().systemVersion >= "8.0") {
+            locationManager = CLLocationManager();
+            locationManager.requestWhenInUseAuthorization();
+            locationManager.delegate = self;
+        }
+        
         if (SessionController.Instance.kioskList != nil) {
             populateClusterManager();
         } else {
@@ -198,11 +205,6 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     }
     
     func populateClusterManager() {
-        if (UIDevice.currentDevice().systemVersion >= "8.0") {
-            locationManager = CLLocationManager();
-            locationManager.requestWhenInUseAuthorization();
-            locationManager.delegate = self;
-        }
         for kiosk in SessionController.Instance.kioskList {
             let item = ClusterKiosk();
             item.setPosition(kiosk.position!);
@@ -213,6 +215,9 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     }
     
     func updateKioskPositions() {
+        if (SessionController.Instance.kioskList == nil) {
+            return;
+        }
         currentVisibleKioskTask.cancelAllOperations();
         searchField.resignFirstResponder();
         visibleKiosks = [];
@@ -541,24 +546,6 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         return NSURL(string: "https://webqa.superbuddytime.com/images/retailer-icons/\(modifiedName)_100.png")!;
     }
     
-    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<()>) {
-        if (!firstLocation && keyPath == "myLocation") {
-            firstLocation = true;
-            mapView.camera = GMSCameraPosition.cameraWithTarget(mapView.myLocation.coordinate, zoom: 11);
-            updateKioskPositions();
-        }
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated);
-        mapView.addObserver(self, forKeyPath: "myLocation", options: NSKeyValueObservingOptions.New, context: nil);
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated);
-        mapView.removeObserver(self, forKeyPath: "myLocation");
-    }
-    
     @IBAction func startReminder(sender: AnyObject) {
         reminderOverlay.hidden = true;
         self.fakeNavBar.alpha = 1;
@@ -645,12 +632,25 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     }
     
     func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-        if (status == CLAuthorizationStatus.AuthorizedAlways || status == CLAuthorizationStatus.AuthorizedWhenInUse) {
-            if let location = manager.location {
-                mapView.animateWithCameraUpdate(GMSCameraUpdate.setTarget(location.coordinate, zoom: mapView.camera.zoom));
-                updateKioskPositions();
-            }
+        // Handled by observeValueForKeyPath for 7.1 compatibility
+    }
+    
+    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<()>) {
+        if (!firstLocation && keyPath == "myLocation") {
+            firstLocation = true;
+            mapView.camera = GMSCameraPosition.cameraWithTarget(mapView.myLocation.coordinate, zoom: 11);
+            updateKioskPositions();
         }
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated);
+        mapView.addObserver(self, forKeyPath: "myLocation", options: NSKeyValueObservingOptions.New, context: nil);
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated);
+        mapView.removeObserver(self, forKeyPath: "myLocation");
     }
     
     deinit {

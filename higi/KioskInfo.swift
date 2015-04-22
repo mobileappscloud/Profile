@@ -14,7 +14,7 @@ class KioskInfo: Equatable {
     
     var kioskId: Int?;
     
-    var address1, address2, city, state, zip, type, fullAddress, cityStateZip, group: NSString!;
+    var address1, address2, city, state, zip, type, fullAddress, cityStateZip, group, streetAddress: NSString!;
     
     var latitude, longitude: Double?;
     
@@ -46,6 +46,7 @@ class KioskInfo: Equatable {
         fullAddress = "\(fullAddress), \(city), \(state) \(zip)";
         
         cityStateZip = "\(city), \(state) \(zip)";
+        streetAddress = "\(address1), \(cityStateZip)";
         
         var gps = dictionary["GPS"] as? NSDictionary;
         if (gps != nil) {

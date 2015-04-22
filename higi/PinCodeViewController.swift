@@ -24,8 +24,6 @@ class PinCodeViewController: UIViewController, UITextFieldDelegate {
     
     var tempCode: String!;
     
-    let authenticationContext = LAContext();
-    
     override func viewDidLoad() {
         super.viewDidLoad();
         self.navigationItem.hidesBackButton = true;
@@ -80,19 +78,25 @@ class PinCodeViewController: UIViewController, UITextFieldDelegate {
     }
     
     func checkTouchId() {
-        if (SessionController.Instance.askTouchId && self.authenticationContext.canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, error: nil)) {
-            self.authenticationContext.evaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, localizedReason: "Use your fingerprint to access higi", reply: {success, error in
-                if (success) {
-                    NSNotificationCenter.defaultCenter().postNotificationName(self.touchIdSuccessfulNotification, object: nil);
-                } else {
-                    NSNotificationCenter.defaultCenter().postNotificationName(self.touchIdCancelledNotification, object: nil);
-                }
-            });
+        if (UIDevice.currentDevice().systemVersion >= "8.0") {
+            let authenticationContext = LAContext();
+            if (SessionController.Instance.askTouchId && authenticationContext.canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, error: nil)) {
+                authenticationContext.evaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, localizedReason: "Use your fingerprint to access higi", reply: {success, error in
+                    if (success) {
+                        NSNotificationCenter.defaultCenter().postNotificationName(self.touchIdSuccessfulNotification, object: nil);
+                    } else {
+                        NSNotificationCenter.defaultCenter().postNotificationName(self.touchIdCancelledNotification, object: nil);
+                    }
+                });
+            } else {
+                self.contents.alpha = 1.0;
+                self.pinField.becomeFirstResponder();
+            }
+            SessionController.Instance.askTouchId = true;
         } else {
             self.contents.alpha = 1.0;
             self.pinField.becomeFirstResponder();
         }
-        SessionController.Instance.askTouchId = true;
     }
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
