@@ -11,6 +11,19 @@ class Utility {
         return UIColor(red: (CGFloat)((rgbValue & 0xFF0000) >> 16) / 255.0, green:(CGFloat)((rgbValue & 0xFF00) >> 8) / 255.0, blue:(CGFloat)(rgbValue & 0xFF) / 255.0, alpha:1.0);
     }
     
+    class func colorFromBodyStatType(type: BodyStatsType) -> UIColor {
+        switch type {
+        case .BloodPressure:
+            return Utility.colorFromHexString("#8379B5");
+        case .Weight:
+            return Utility.colorFromHexString("#EE6C55");
+        case .Pulse:
+            return Utility.colorFromHexString("#5FAFDF");
+        default:
+            return Utility.colorFromHexString("#FFFFFF");
+        }
+    }
+    
     class func getViewController(view: UIView) -> UIViewController? {
         var responder: UIResponder? = view.nextResponder();
         while (responder != nil) {

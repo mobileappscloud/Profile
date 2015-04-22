@@ -197,6 +197,10 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         
         if (SessionController.Instance.kioskList != nil) {
             populateClusterManager();
+        } else {
+            locationManager = CLLocationManager();
+            locationManager.requestWhenInUseAuthorization();
+            locationManager.delegate = self;
         }
     }
     
