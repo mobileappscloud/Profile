@@ -90,12 +90,13 @@ class BodyStatsViewController: BaseViewController {
     func moveCards(selectedIndex: Int) {
         if (selectedIndex == 0) {
             return;
-        } else if (selectedIndex == BodyStatsType.allValues.count - 1) {
+        } else {
             let subViews = self.view.subviews;
-            let count = BodyStatsType.allValues.count, distance = selectedIndex - 1;
+            let count = BodyStatsType.allValues.count;
+            let distance = count - selectedIndex;
             var viewsToSend:[UIView] = [];
             
-            for index in 1...count - 1 {
+            for index in distance...count - 1 {
                 viewsToSend.append(subViews[index] as! UIView);
             }
             
@@ -121,38 +122,15 @@ class BodyStatsViewController: BaseViewController {
                             }, completion:  { complete in
                                 
                         });
-                        card.tag = (count - index);
-                    }
-            });
-        } else {
-            let subViews = self.view.subviews;
-            let count = BodyStatsType.allValues.count;
-            
-            //send first card to back and update card widths according to position
-            let firstCard = subViews[subViews.count - 1] as! UIView;
-            firstCard.tag = subViews.count - 1;
-            firstCard.frame = UIScreen.mainScreen().bounds;
-            
-            //@TODO handle case when NOT second card is clicked.  loop over 1 - count - 2 and send to back along with firstCard
-            UIView.animateWithDuration(animationDuration, delay: 0, options: .CurveEaseInOut, animations: {
-                firstCard.frame.origin.x = -UIScreen.mainScreen().bounds.size.width;
-                firstCard.layer.shadowPath = UIBezierPath(rect: CGRect(x: -UIScreen.mainScreen().bounds.size.width, y: 0, width: firstCard.frame.size.width, height: UIScreen.mainScreen().bounds.size.height)).CGPath;
-                }, completion:  { complete in
-                    firstCard.frame.origin.x = 0;
-                    firstCard.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: firstCard.frame.size.width, height: UIScreen.mainScreen().bounds.size.height)).CGPath;
-                    self.view.insertSubview(firstCard, atIndex: 0);
-                    for index in 0...count - 2 {
-                        let card = subViews[index] as! UIView;
-                        let newWidth = UIScreen.mainScreen().bounds.size.width - CGFloat((index + 1) * self.cardMargin);
-                        
-                        UIView.animateWithDuration(self.animationDuration, delay: 0, options: .CurveEaseInOut, animations: {
-                            card.frame.size.width = newWidth;
-                            card.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: newWidth, height: UIScreen.mainScreen().bounds.size.height)).CGPath;
-                            }, completion:  { complete in
-                                
-                        });
+                        let a = (count - index) % count;
+                        let b = count - 1 - ((index + 1)) % (count);
+                        let c = selectedIndex;
+                        if (selectedIndex == BodyStatsType.allValues.count - 1) {
+                            card.tag = (count - index) % count;
+                        } else {
+                            card.tag = count - 1 - ((index + 1)) % (count);
+                        }
 
-                        card.tag = index + 1;
                     }
             });
         }
