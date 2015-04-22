@@ -240,27 +240,26 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     }
     
     func initBodyStatsCard() {
-        
-        bodyStatsCard.lastCheckinBox.layer.borderColor = Utility.colorFromHexString("#CCCCCC").CGColor;
-        
-        var checkins = SessionController.Instance.checkins;
-        
-        if (checkins != nil && checkins.count > 0) {
-            var dateFormatter = NSDateFormatter();
-            dateFormatter.dateFormat = "MMM d, yyyy";
-            self.bodyStatsCard.lastCheckin.text = "\(dateFormatter.stringFromDate(checkins[checkins.count - 1].dateTime))";
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                var lastBpCheckin, lastWeightCheckin: HigiCheckin?;
-                for index in lazy(0...checkins.count - 1).reverse() {
-                    if (lastBpCheckin == nil && checkins[index].systolic != nil) {
-                        lastBpCheckin = checkins[index];
-                    }
-                    if (lastWeightCheckin == nil && checkins[index].weightKG != nil) {
-                        lastWeightCheckin = checkins[index];
-                    }
-                    
-                    if (lastBpCheckin != nil && lastWeightCheckin != nil) {
-                        break;
+        if (SessionController.Instance.checkins != nil) {
+            
+            var bloodPressureCheckin: HigiCheckin;
+            var weightCheckin: HigiCheckin;
+            
+            var bps: [HigiCheckin] = [];
+            var weights: [HigiCheckin] = [];
+            
+            let dateFormatter = NSDateFormatter();
+            dateFormatter.dateFormat = "MM/dd/yyyy";
+            
+            var lastBpDate = "", lastBmiDate = "";
+            for checkin in SessionController.Instance.checkins {
+                var bpDate = dateFormatter.stringFromDate(checkin.dateTime);
+                if (checkin.systolic != nil && checkin.systolic > 0) {
+                    if (bpDate != lastBpDate) {
+                        bps.append(checkin);
+                        lastBpDate = bpDate;
+                    } else {
+                        bps[bps.count - 1] = checkin;
                     }
                 }
                 
