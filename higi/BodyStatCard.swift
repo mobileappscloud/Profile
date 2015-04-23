@@ -10,8 +10,13 @@ class BodyStatCard: UIView {
     
     var type = BodyStatsType.BloodPressure;
     
+    var index:Int!;
+    
     var graph: BodyStatGraph!;
     
+    var viewFrame: CGRect!;
+    
+    @IBOutlet weak var view: UIView!
     @IBOutlet weak var graphView: UIView!
     @IBOutlet weak var infoButton: UIButton!
     @IBOutlet weak var headerView: UIView!
@@ -37,23 +42,58 @@ class BodyStatCard: UIView {
     @IBOutlet weak var pulseValue: UILabel!
     @IBOutlet weak var pulseDate: UILabel!
     
-    class func instanceFromNib(frame: CGRect) -> BodyStatCard {
+    class func instanceFromNib(frame: CGRect, type: BodyStatsType) -> BodyStatCard {
         let view = UINib(nibName: "BodyStatCardView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! BodyStatCard;
+        view.type = type;
         view.frame = frame;
+        view.viewFrame = frame;
+        view.graphView.frame.size.width = frame.size.width;
+        
+        let tapRecognizer = UITapGestureRecognizer(target: view, action: "cardClicked:");
+        let swipe = UISwipeGestureRecognizer(target: view, action: "cardClicked:");
+        swipe.direction = UISwipeGestureRecognizerDirection.Left;
+        view.headerView.addGestureRecognizer(tapRecognizer);
+        view.headerView.addGestureRecognizer(swipe);
+        
+        let color = Utility.colorFromBodyStatType(type);
+        view.headerView.backgroundColor = color;
+        view.firstPanelValue.textColor = color;
+        view.secondPanelValue.textColor = color;
+        view.thirdPanelValue.textColor = color;
+        
+        if (type == BodyStatsType.BloodPressure) {
+            view.title.text = "Blood Pressure";
+        } else if (type == BodyStatsType.Weight) {
+            view.title.text = "Weight";
+        } else {
+            view.title.text = "Pulse";
+            view.pulseDate.textColor = color;
+            view.pulseValue.textColor = color;
+        }
+
         return view;
     }
     
-    func setupGraph(type: BodyStatsType) {
+    func resizeFrame(frame: CGRect) {
+//        self.view.frame = frame;
+        viewFrame = frame;
+        graphView.frame.size.width = frame.size.width;
+    }
+    
+    func resizeFrameWithWidth(width: CGFloat) {
+//        self.view.frame.size.width = width;
+        viewFrame.size.width = width;
+        graphView.frame.size.width = width;
+    }
+    
+    func setupGraph() {
         
         addObserver(self, forKeyPath: "bounds", options: nil, context: nil);
 
-        self.type = type;
-        
         var graphPoints: [GraphPoint] = [];
         var diastolicPoints: [GraphPoint] = [];
         var systolicPoints: [GraphPoint] = [];
         
-        let color = Utility.colorFromBodyStatType(type);
         for checkin in checkins {
             let checkinTime = Double(checkin.dateTime.timeIntervalSince1970);
             if (type == BodyStatsType.BloodPressure && checkin.map != nil && checkin.map > 0) {
@@ -86,25 +126,14 @@ class BodyStatCard: UIView {
         var graphFrame = CGRect(x: 0, y: 0, width: frame.width, height: frame.size.height - 25);
         
         if (type == BodyStatsType.BloodPressure) {
-            graph = BodyStatGraph(frame: CGRect(x: 0, y: 0, width: graphView.frame.size.width, height: graphView.frame.size.height), points: graphPoints, diastolicPoints: diastolicPoints, systolicPoints: systolicPoints);
-            title.text = "Blood Pressure";
+//            graph = BodyStatGraph(frame: CGRect(x: 0, y: 0, width: graphView.frame.size.width, height: graphView.frame.size.height), points: graphPoints, diastolicPoints: diastolicPoints, systolicPoints: systolicPoints);
+            graph = BodyStatGraph(frame: CGRect(x: 0, y: 0, width: graphView.frame.size.width, height: graphView.frame.size.height), points: graphPoints);
         } else if (type == BodyStatsType.Weight) {
             graph = BodyStatGraph(frame: CGRect(x: 0, y: 0, width: graphView.frame.size.width, height: graphView.frame.size.height), points: graphPoints);
-            title.text = "Weight";
         } else {
             graph = BodyStatGraph(frame: CGRect(x: 0, y: 0, width: graphView.frame.size.width, height: graphView.frame.size.height), points: graphPoints);
-            title.text = "Pulse";
-            pulseDate.textColor = color;
-            pulseValue.textColor = color;
         }
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: "cardClicked:");
-        headerView.addGestureRecognizer(tapRecognizer);
-        
-        headerView.backgroundColor = color;
-        firstPanelValue.textColor = color;
-        secondPanelValue.textColor = color;
-        thirdPanelValue.textColor = color;
-        
+
         graph.setupForBodyStat(type);
         graph.backgroundColor = UIColor.whiteColor();
         graphView.addSubview(graph);
@@ -151,15 +180,15 @@ class BodyStatCard: UIView {
         }
     }
     
-    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
-        if (keyPath == "bounds") {
-            graphView.frame = self.frame;
-            graphView.layoutIfNeeded();
-        }
-    }
+//    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
+//        if (keyPath == "bounds") {
+//            graphView.frame = self.frame;
+//            graphView.layoutIfNeeded();
+//        }
+//    }
     
-    func cardClicked() {
-//        (Utility.getViewController(self) as! BodyStatsViewController).cardClicked(self.tag);
+    func cardClicked(sender: AnyObject) {
+        (Utility.getViewController(self) as! BodyStatsViewController).cardClicked(index);
     }
     
     @IBAction func backButtonClick(sender: AnyObject) {
@@ -169,4 +198,15 @@ class BodyStatCard: UIView {
     @IBAction func infoButtonClick(sender: AnyObject) {
         
     }
+    
+    deinit {
+//        removeObserver(self, forKeyPath: "bounds");
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews();
+        let a = viewFrame.size.width;
+        graphView.frame.size.width = viewFrame.size.width;
+    }
+
 }
