@@ -41,7 +41,7 @@ class BodyStatsViewController: BaseViewController, UIGestureRecognizerDelegate {
             var cardFrame = UIScreen.mainScreen().bounds;
             cardFrame.size.width = cardFrame.size.width - CGFloat((BodyStatsType.allValues.count - 1 - pos) * cardMargin);
             
-            let card = BodyStatCard.instanceFromNib(cardFrame);
+            let card = BodyStatCard.instanceFromNib(cardFrame, type: type);
             card.backgroundColor = Utility.colorFromBodyStatType(type);
 //            card.setupGraph(type);
             card.index = pos;
