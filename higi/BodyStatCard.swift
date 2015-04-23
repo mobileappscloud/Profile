@@ -74,25 +74,17 @@ class BodyStatCard: UIView {
         return view;
     }
     
-    func resizeFrame(frame: CGRect) {
-//        self.view.frame = frame;
-        viewFrame = frame;
-        graphView.frame.size.width = frame.size.width;
-    }
-    
     func resizeFrameWithWidth(width: CGFloat) {
 //        self.view.frame.size.width = width;
         viewFrame.size.width = width;
         graphView.frame.size.width = width;
+        if (graph != nil) {
+            graph.frame.size.width = width;
+        }
     }
     
     func setupGraph() {
-        
-        addObserver(self, forKeyPath: "bounds", options: nil, context: nil);
-
-        var graphPoints: [GraphPoint] = [];
-        var diastolicPoints: [GraphPoint] = [];
-        var systolicPoints: [GraphPoint] = [];
+        var graphPoints: [GraphPoint] = [], diastolicPoints: [GraphPoint] = [], systolicPoints: [GraphPoint] = [];
         
         for checkin in checkins {
             let checkinTime = Double(checkin.dateTime.timeIntervalSince1970);
@@ -180,13 +172,6 @@ class BodyStatCard: UIView {
         }
     }
     
-//    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
-//        if (keyPath == "bounds") {
-//            graphView.frame = self.frame;
-//            graphView.layoutIfNeeded();
-//        }
-//    }
-    
     func cardClicked(sender: AnyObject) {
         (Utility.getViewController(self) as! BodyStatsViewController).cardClicked(index);
     }
@@ -199,14 +184,13 @@ class BodyStatCard: UIView {
         
     }
     
-    deinit {
-//        removeObserver(self, forKeyPath: "bounds");
-    }
-    
     override func layoutSubviews() {
         super.layoutSubviews();
         let a = viewFrame.size.width;
         graphView.frame.size.width = viewFrame.size.width;
+        if (graph != nil) {
+            graph.frame.size.width = viewFrame.size.width;
+        }
     }
 
 }

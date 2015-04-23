@@ -42,8 +42,7 @@ class BodyStatsViewController: BaseViewController, UIGestureRecognizerDelegate {
             cardFrame.size.width = cardFrame.size.width - CGFloat((BodyStatsType.allValues.count - 1 - pos) * cardMargin);
             
             let card = BodyStatCard.instanceFromNib(cardFrame, type: type);
-            card.backgroundColor = Utility.colorFromBodyStatType(type);
-//            card.setupGraph(type);
+            card.setupGraph();
             card.index = pos;
             
             let drag = UIPanGestureRecognizer(target: self, action: "cardDragged:");
@@ -110,17 +109,17 @@ class BodyStatsViewController: BaseViewController, UIGestureRecognizerDelegate {
                         self.view.insertSubview(card, atIndex: 0);
                     }
 //
-//                    for index in 0...count - 1 {
-//                        let card = subViews[index] as! BodyStatCard;
-//                        let newWidth = UIScreen.mainScreen().bounds.size.width - CGFloat((index + 1) * self.cardMargin);
-//                        UIView.animateWithDuration(self.animationDuration, delay: 0, options: .CurveEaseInOut, animations: {
-//                            card.frame.size.width = newWidth;
-//                            card.resizeFrameWithWidth(newWidth);
-//                            card.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: newWidth, height: UIScreen.mainScreen().bounds.size.height)).CGPath;
-//                            }, completion:  { complete in
-//                                
-//                        });
-//                    }
+                    for index in 0...count - 1 {
+                        let card = subViews[index] as! BodyStatCard;
+                        let newWidth = UIScreen.mainScreen().bounds.size.width - CGFloat((index + 1) * self.cardMargin);
+                        UIView.animateWithDuration(self.animationDuration, delay: 0, options: .CurveEaseInOut, animations: {
+                            card.frame.size.width = newWidth;
+                            card.resizeFrameWithWidth(newWidth);
+                            card.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: newWidth, height: UIScreen.mainScreen().bounds.size.height)).CGPath;
+                            }, completion:  { complete in
+                                
+                        });
+                    }
             });
         }
     }
@@ -145,25 +144,25 @@ class BodyStatsViewController: BaseViewController, UIGestureRecognizerDelegate {
         super.viewDidLayoutSubviews();
         let subViews = self.view.subviews;
         let count = BodyStatsType.allValues.count;
-//        for index in 0...count - 1 {
-//            let card = subViews[index] as! BodyStatCard;
-//            let newWidth = UIScreen.mainScreen().bounds.size.width - CGFloat((index) * self.cardMargin);
-//            card.frame.size.width = newWidth;
-//            card.resizeFrameWithWidth(newWidth);
-//            card.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: newWidth, height: UIScreen.mainScreen().bounds.size.height)).CGPath;
-//            card.index = count - 1 - index;
-//        }
         for index in 0...count - 1 {
             let card = subViews[index] as! BodyStatCard;
             let newWidth = UIScreen.mainScreen().bounds.size.width - CGFloat((index) * self.cardMargin);
-            UIView.animateWithDuration(self.animationDuration, delay: 0, options: .CurveEaseInOut, animations: {
-                card.frame.size.width = newWidth;
-                card.resizeFrameWithWidth(newWidth);
-                card.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: newWidth, height: UIScreen.mainScreen().bounds.size.height)).CGPath;
-                }, completion:  { complete in
-                    
-            });
+            card.frame.size.width = newWidth;
+            card.resizeFrameWithWidth(newWidth);
+            card.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: newWidth, height: UIScreen.mainScreen().bounds.size.height)).CGPath;
             card.index = count - 1 - index;
         }
+//        for index in 0...count - 1 {
+//            let card = subViews[index] as! BodyStatCard;
+//            let newWidth = UIScreen.mainScreen().bounds.size.width - CGFloat((index) * self.cardMargin);
+//            UIView.animateWithDuration(self.animationDuration, delay: 0, options: .CurveEaseInOut, animations: {
+//                card.frame.size.width = newWidth;
+//                card.resizeFrameWithWidth(newWidth);
+//                card.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: newWidth, height: UIScreen.mainScreen().bounds.size.height)).CGPath;
+//                }, completion:  { complete in
+//                    
+//            });
+//            card.index = count - 1 - index;
+//        }
     }
 }
