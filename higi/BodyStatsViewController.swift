@@ -1,6 +1,6 @@
 import Foundation
 
-class BodyStatsViewController: BaseViewController {
+class BodyStatsViewController: BaseViewController, UIGestureRecognizerDelegate {
     
     var selectedType = BodyStatsType.BloodPressure;
     
@@ -11,6 +11,8 @@ class BodyStatsViewController: BaseViewController {
     var views: [UIView] = [];
     
     let animationDuration = 0.5;
+    
+    var recognizer:UISwipeGestureRecognizer!;
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -39,15 +41,14 @@ class BodyStatsViewController: BaseViewController {
             var cardFrame = UIScreen.mainScreen().bounds;
             cardFrame.size.width = cardFrame.size.width - CGFloat((BodyStatsType.allValues.count - 1 - pos) * cardMargin);
             
-            let card = UIView(frame: cardFrame);
+            let card = BodyStatCard.instanceFromNib(cardFrame);
             card.backgroundColor = Utility.colorFromBodyStatType(type);
+//            card.setupGraph(type);
+            card.index = pos;
             
-            //            let card = BodyStatCard.instanceFromNib(cardFrame);
-            //            card.setupGraph(type);
-            
-            card.tag = pos;
-            let tap = UITapGestureRecognizer(target: self, action: "cardClicked:");
-            card.addGestureRecognizer(tap);
+            let drag = UIPanGestureRecognizer(target: self, action: "cardDragged:");
+            drag.delegate = self;
+            card.addGestureRecognizer(drag);
             
             let layer = card.layer;
             layer.shadowOffset = CGSize(width: 1,height: 1);
@@ -60,7 +61,7 @@ class BodyStatsViewController: BaseViewController {
             pos--;
         }
         
-        moveCards(selectedCardPosition);
+        cardClicked(selectedCardPosition);
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -83,11 +84,7 @@ class BodyStatsViewController: BaseViewController {
         self.navigationController!.popViewControllerAnimated(true);
     }
     
-    func cardClicked(sender: AnyObject) {
-        moveCards(sender.view!!.tag);
-    }
-    
-    func moveCards(selectedIndex: Int) {
+    func cardClicked(selectedIndex: Int) {
         if (selectedIndex == 0) {
             return;
         } else {
@@ -112,30 +109,32 @@ class BodyStatsViewController: BaseViewController {
                         card.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: card.frame.size.width, height: UIScreen.mainScreen().bounds.size.height)).CGPath;
                         self.view.insertSubview(card, atIndex: 0);
                     }
-
-                    for index in 0...count - 1 {
-                        let card = subViews[index] as! UIView;
-                        let newWidth = UIScreen.mainScreen().bounds.size.width - CGFloat((index + 1) * self.cardMargin);
-                        UIView.animateWithDuration(self.animationDuration, delay: 0, options: .CurveEaseInOut, animations: {
-                            card.frame.size.width = newWidth;
-                            card.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: newWidth, height: UIScreen.mainScreen().bounds.size.height)).CGPath;
-                            }, completion:  { complete in
-                                
-                        });
-                        let a = (count - index) % count;
-                        let b = count - 1 - ((index + 1)) % (count);
-                        let c = selectedIndex;
-                        if (selectedIndex == BodyStatsType.allValues.count - 1) {
-                            card.tag = (count - index) % count;
-                        } else {
-                            card.tag = count - 1 - ((index + 1)) % (count);
-                        }
-
-                    }
+//
+//                    for index in 0...count - 1 {
+//                        let card = subViews[index] as! BodyStatCard;
+//                        let newWidth = UIScreen.mainScreen().bounds.size.width - CGFloat((index + 1) * self.cardMargin);
+//                        UIView.animateWithDuration(self.animationDuration, delay: 0, options: .CurveEaseInOut, animations: {
+//                            card.frame.size.width = newWidth;
+//                            card.resizeFrameWithWidth(newWidth);
+//                            card.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: newWidth, height: UIScreen.mainScreen().bounds.size.height)).CGPath;
+//                            }, completion:  { complete in
+//                                
+//                        });
+//                    }
             });
         }
     }
+
+    func cardDragged(index: Int) {
+//        let translation = (self as! UIPanGestureRecognizer).translationInView(<#view: UIView#>)
+//        let i = 9;
+    }
     
+    func translationInView(view: UIView) -> CGPoint {
+        let i = 9;
+        return CGPoint(x: 0,y: 0);
+    }
+
     func sendViewsToBack(views: [UIView]) {
         for view in views {
             self.view.sendSubviewToBack(view);
@@ -146,24 +145,25 @@ class BodyStatsViewController: BaseViewController {
         super.viewDidLayoutSubviews();
         let subViews = self.view.subviews;
         let count = BodyStatsType.allValues.count;
+//        for index in 0...count - 1 {
+//            let card = subViews[index] as! BodyStatCard;
+//            let newWidth = UIScreen.mainScreen().bounds.size.width - CGFloat((index) * self.cardMargin);
+//            card.frame.size.width = newWidth;
+//            card.resizeFrameWithWidth(newWidth);
+//            card.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: newWidth, height: UIScreen.mainScreen().bounds.size.height)).CGPath;
+//            card.index = count - 1 - index;
+//        }
         for index in 0...count - 1 {
-            let card = subViews[index] as! UIView;
+            let card = subViews[index] as! BodyStatCard;
             let newWidth = UIScreen.mainScreen().bounds.size.width - CGFloat((index) * self.cardMargin);
-            card.frame.size.width = newWidth;
-            card.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: newWidth, height: UIScreen.mainScreen().bounds.size.height)).CGPath;
-            
-            //            if (index == count - 2) {
-            //                UIView.animateWithDuration(animationDuration, delay: 0, options: .CurveEaseInOut, animations: {
-            //                    card.frame.size.width = newWidth;
-            //                    card.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: newWidth, height: UIScreen.mainScreen().bounds.size.height)).CGPath;
-            //                    }, completion:  { complete in
-            //                        
-            //                });
-            //            } else {
-            //                card.frame.size.width = newWidth;
-            //                card.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: newWidth, height: UIScreen.mainScreen().bounds.size.height)).CGPath;
-            //            }
-            //            card.tag = index + 1;
+            UIView.animateWithDuration(self.animationDuration, delay: 0, options: .CurveEaseInOut, animations: {
+                card.frame.size.width = newWidth;
+                card.resizeFrameWithWidth(newWidth);
+                card.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: newWidth, height: UIScreen.mainScreen().bounds.size.height)).CGPath;
+                }, completion:  { complete in
+                    
+            });
+            card.index = count - 1 - index;
         }
     }
 }
