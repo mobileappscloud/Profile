@@ -447,7 +447,7 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
     
     func checkinSelected(plot: CPTScatterPlot!, idx: Int, first: Bool) {
         if (!first) {
-            var viewController = self.superview as! BodyStatCard?;
+            var viewController = self.superview!.superview!.superview as! BodyStatCard?;
             viewController!.setSelected(idx);
         }
         if (plot.isEqual(self.plot)) {
@@ -478,5 +478,14 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
             }
         }
     }
+
+    override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
+        let index = Int(plot.dataIndexFromInteractionPoint(point));
+        checkinSelected(plot as CPTScatterPlot!, idx: index - 1, first: false);
+        return true;
+    }
     
+    override func canBecomeFirstResponder() -> Bool {
+        return true;
+    }
 }
