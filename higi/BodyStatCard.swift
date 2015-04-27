@@ -20,6 +20,8 @@ class BodyStatCard: UIView {
     
     var viewFrame: CGRect!;
     
+    var detailsOpen = false;
+    
     @IBOutlet weak var view: UIView!
     @IBOutlet weak var graphView: UIView!
     @IBOutlet weak var infoButton: UIButton!
@@ -59,6 +61,9 @@ class BodyStatCard: UIView {
         view.headerView.addGestureRecognizer(tapRecognizer);
         view.headerView.addGestureRecognizer(swipe);
         
+        let selectedTapRecognizer = UITapGestureRecognizer(target: view, action: "selectedTapped:");
+        view.selectedView.addGestureRecognizer(selectedTapRecognizer);
+        
         let color = Utility.colorFromBodyStatType(type);
         view.headerView.backgroundColor = color;
         view.firstPanelValue.textColor = color;
@@ -79,7 +84,6 @@ class BodyStatCard: UIView {
     }
     
     func resizeFrameWithWidth(width: CGFloat) {
-//        self.view.frame.size.width = width;
         viewFrame.size.width = width;
         graphView.frame.size.width = width;
         graphView.frame.size.height = graphViewHeight;
@@ -141,6 +145,15 @@ class BodyStatCard: UIView {
         graphView.addSubview(graph);
 
         setSelected(graphPoints.count - 1);
+    }
+    
+    func selectedTapped(sender: AnyObject) {
+        if (!detailsOpen) {
+            UIView.animateWithDuration(1, delay: 0, options: .CurveEaseInOut, animations: {
+                self.selectedView.frame.origin.y = self.headerView.frame.size.height;
+                }, completion: nil);
+            detailsOpen = true;
+        }
     }
     
     func animateBounce() {
@@ -222,7 +235,10 @@ class BodyStatCard: UIView {
 
     override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
         graphView.frame.size.height = graphViewHeight;
-        if (graphView.frame.contains(point)) {
+        if (selectedView.frame.contains(point)) {
+            selectedTapped(self.view);
+            return true;
+        } else if (graphView.frame.contains(point)) {
             return graph.pointInside(point, withEvent: event);
         }
         return super.pointInside(point, withEvent: event);
