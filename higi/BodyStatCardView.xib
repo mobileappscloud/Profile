@@ -14,12 +14,59 @@
                 <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="Mdt-gR-rG5">
                     <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
                     <subviews>
+                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UIY-l6-dOw">
+                            <rect key="frame" x="0.0" y="0.0" width="568" height="54"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Blood Pressure" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j3p-dy-V9m">
+                                    <rect key="frame" x="56" y="16" width="41" height="21"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wUV-nj-F9j">
+                                    <rect key="frame" x="16" y="11" width="32" height="32"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="32" id="XhW-Vh-aYn"/>
+                                        <constraint firstAttribute="width" constant="32" id="rgm-B3-x1S"/>
+                                    </constraints>
+                                    <state key="normal" backgroundImage="back_button_white.png">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="XhW-Vh-aYn"/>
+                                        </mask>
+                                    </variation>
+                                    <connections>
+                                        <action selector="backButtonClick:" destination="D6s-dc-jNs" eventType="touchUpInside" id="p9C-eU-ckN"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstItem="wUV-nj-F9j" firstAttribute="top" secondItem="UIY-l6-dOw" secondAttribute="top" constant="11" id="28C-BP-a2v"/>
+                                <constraint firstItem="j3p-dy-V9m" firstAttribute="leading" secondItem="wUV-nj-F9j" secondAttribute="trailing" constant="8" id="3Mn-fg-0M4"/>
+                                <constraint firstItem="wUV-nj-F9j" firstAttribute="leading" secondItem="UIY-l6-dOw" secondAttribute="leading" constant="16" id="69Z-sz-Vms"/>
+                                <constraint firstAttribute="bottom" secondItem="wUV-nj-F9j" secondAttribute="bottom" constant="10" id="JDn-gr-9mt"/>
+                                <constraint firstAttribute="bottom" secondItem="j3p-dy-V9m" secondAttribute="bottom" constant="17" id="ZUu-s2-jp6"/>
+                                <constraint firstItem="j3p-dy-V9m" firstAttribute="top" secondItem="UIY-l6-dOw" secondAttribute="top" constant="16" id="hSt-xE-hKE"/>
+                                <constraint firstAttribute="height" constant="54" id="qgq-6n-Ggc"/>
+                            </constraints>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="qgq-6n-Ggc"/>
+                                </mask>
+                            </variation>
+                        </view>
                         <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="reB-mX-Ff3">
                             <rect key="frame" x="0.0" y="54" width="568" height="214"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="214" id="ySQ-vE-sY0"/>
+                            </constraints>
                         </view>
-                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LD4-mR-tW5">
-                            <rect key="frame" x="0.0" y="267" width="568" height="53"/>
+                        <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LD4-mR-tW5">
+                            <rect key="frame" x="0.0" y="320" width="568" height="450"/>
                             <subviews>
                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nOJ-rP-LTo">
                                     <rect key="frame" x="0.0" y="2" width="188" height="51"/>
@@ -37,7 +84,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wUV-3i-F3s">
                                     <rect key="frame" x="190" y="2" width="188" height="51"/>
@@ -61,10 +108,10 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DeW-3o-A3y">
-                                    <rect key="frame" x="380" y="2" width="188" height="51"/>
+                                    <rect key="frame" x="380" y="2" width="162" height="51"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="99" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2G5-03-ezg">
                                             <rect key="frame" x="55" y="8" width="37" height="21"/>
@@ -85,7 +132,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mhp-fw-Kp6">
                                     <rect key="frame" x="0.0" y="1" width="288" height="51"/>
@@ -103,9 +150,9 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
-                                <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uCU-bV-GUi">
+                                <view hidden="YES" contentMode="scaleAspectFit" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uCU-bV-GUi">
                                     <rect key="frame" x="288" y="1" width="288" height="51"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="99" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y8J-i9-uE7">
@@ -127,69 +174,10 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                             </subviews>
                             <color key="backgroundColor" red="0.90588235289999997" green="0.90588235289999997" blue="0.90588235289999997" alpha="1" colorSpace="calibratedRGB"/>
-                        </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UIY-l6-dOw">
-                            <rect key="frame" x="0.0" y="0.0" width="568" height="54"/>
-                            <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Blood Pressure" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j3p-dy-V9m">
-                                    <rect key="frame" x="56" y="16" width="41" height="21"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gFQ-fX-Xc3">
-                                    <rect key="frame" x="105" y="10" width="35" height="35"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="35" id="8Ps-NC-jsu"/>
-                                        <constraint firstAttribute="width" constant="35" id="QMw-Yt-eZa"/>
-                                    </constraints>
-                                    <inset key="contentEdgeInsets" minX="8" minY="8" maxX="8" maxY="8"/>
-                                    <state key="normal" image="graph_info.png">
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wUV-nj-F9j">
-                                    <rect key="frame" x="16" y="11" width="32" height="32"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="32" id="XhW-Vh-aYn"/>
-                                        <constraint firstAttribute="width" constant="32" id="rgm-B3-x1S"/>
-                                    </constraints>
-                                    <state key="normal" backgroundImage="back_button_white.png">
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <variation key="default">
-                                        <mask key="constraints">
-                                            <exclude reference="XhW-Vh-aYn"/>
-                                        </mask>
-                                    </variation>
-                                    <connections>
-                                        <action selector="backButtonClick:" destination="D6s-dc-jNs" eventType="touchUpInside" id="p9C-eU-ckN"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                            <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            <constraints>
-                                <constraint firstAttribute="bottom" secondItem="gFQ-fX-Xc3" secondAttribute="bottom" constant="9" id="0HS-IL-82X"/>
-                                <constraint firstItem="wUV-nj-F9j" firstAttribute="top" secondItem="UIY-l6-dOw" secondAttribute="top" constant="11" id="28C-BP-a2v"/>
-                                <constraint firstItem="j3p-dy-V9m" firstAttribute="leading" secondItem="wUV-nj-F9j" secondAttribute="trailing" constant="8" id="3Mn-fg-0M4"/>
-                                <constraint firstItem="wUV-nj-F9j" firstAttribute="leading" secondItem="UIY-l6-dOw" secondAttribute="leading" constant="16" id="69Z-sz-Vms"/>
-                                <constraint firstAttribute="bottom" secondItem="wUV-nj-F9j" secondAttribute="bottom" constant="10" id="JDn-gr-9mt"/>
-                                <constraint firstAttribute="bottom" secondItem="j3p-dy-V9m" secondAttribute="bottom" constant="17" id="ZUu-s2-jp6"/>
-                                <constraint firstItem="gFQ-fX-Xc3" firstAttribute="top" secondItem="UIY-l6-dOw" secondAttribute="top" constant="10" id="buM-YF-1A3"/>
-                                <constraint firstItem="j3p-dy-V9m" firstAttribute="top" secondItem="UIY-l6-dOw" secondAttribute="top" constant="16" id="hSt-xE-hKE"/>
-                                <constraint firstItem="gFQ-fX-Xc3" firstAttribute="leading" secondItem="j3p-dy-V9m" secondAttribute="trailing" constant="8" id="mc7-jd-cVI"/>
-                                <constraint firstAttribute="height" constant="54" id="qgq-6n-Ggc"/>
-                                <constraint firstItem="gFQ-fX-Xc3" firstAttribute="leading" secondItem="j3p-dy-V9m" secondAttribute="trailing" constant="8" id="vTc-0M-VFO"/>
-                            </constraints>
-                            <variation key="default">
-                                <mask key="constraints">
-                                    <exclude reference="qgq-6n-Ggc"/>
-                                </mask>
-                            </variation>
                         </view>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -216,7 +204,6 @@
                 <outlet property="firstPulsePanel" destination="Mhp-fw-Kp6" id="Kny-ZJ-UDt"/>
                 <outlet property="graphView" destination="reB-mX-Ff3" id="bhB-G1-RVm"/>
                 <outlet property="headerView" destination="UIY-l6-dOw" id="5rs-X3-Zp0"/>
-                <outlet property="infoButton" destination="gFQ-fX-Xc3" id="P75-lC-OjW"/>
                 <outlet property="pulseDate" destination="lBk-dJ-1gE" id="wbt-UI-jvC"/>
                 <outlet property="pulseValue" destination="Y8J-i9-uE7" id="8Yt-W0-vH7"/>
                 <outlet property="secondPanel" destination="wUV-3i-F3s" id="ue4-h8-3of"/>
@@ -224,17 +211,18 @@
                 <outlet property="secondPanelUnit" destination="JyH-MR-DWU" id="OnE-gI-Yqf"/>
                 <outlet property="secondPanelValue" destination="IKn-FA-yus" id="Anp-bZ-bBa"/>
                 <outlet property="secondPulsePanel" destination="uCU-bV-GUi" id="evK-wu-7YM"/>
+                <outlet property="selectedView" destination="LD4-mR-tW5" id="Y7F-Af-dlh"/>
                 <outlet property="thirdPanel" destination="DeW-3o-A3y" id="3cW-d5-S8x"/>
                 <outlet property="thirdPanelLabel" destination="tDq-1q-qw0" id="yva-SD-IvF"/>
                 <outlet property="thirdPanelUnit" destination="JST-Tv-ixM" id="9bO-aL-Wbm"/>
                 <outlet property="thirdPanelValue" destination="2G5-03-ezg" id="aS0-7W-ybG"/>
                 <outlet property="title" destination="j3p-dy-V9m" id="cHX-gV-9U8"/>
+                <outlet property="view" destination="Mdt-gR-rG5" id="29e-Mn-bKb"/>
             </connections>
             <point key="canvasLocation" x="274" y="229"/>
         </view>
     </objects>
     <resources>
         <image name="back_button_white.png" width="34" height="35"/>
-        <image name="graph_info.png" width="44" height="44"/>
     </resources>
 </document>

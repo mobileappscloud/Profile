@@ -1,18 +1,12 @@
 import Foundation
 
-class BodyStatsViewController: BaseViewController, UIGestureRecognizerDelegate {
+class BodyStatsViewController: BaseViewController {
     
     var selectedType = BodyStatsType.BloodPressure;
     
     let cardMargin = 20;
     
-    var firstCard, secondCard, thirdCard: UIView!;
-    
-    var views: [UIView] = [];
-    
     let animationDuration = 0.5;
-    
-    var recognizer:UISwipeGestureRecognizer!;
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -45,9 +39,9 @@ class BodyStatsViewController: BaseViewController, UIGestureRecognizerDelegate {
             card.setupGraph();
             card.index = pos;
             
-            let drag = UIPanGestureRecognizer(target: self, action: "cardDragged:");
-            drag.delegate = self;
-            card.addGestureRecognizer(drag);
+//            let drag = UIPanGestureRecognizer(target: self, action: "cardDragged:");
+//            drag.delegate = self;
+//            card.addGestureRecognizer(drag);
             
             let layer = card.layer;
             layer.shadowOffset = CGSize(width: 1,height: 1);
@@ -62,6 +56,15 @@ class BodyStatsViewController: BaseViewController, UIGestureRecognizerDelegate {
         
         cardClicked(selectedCardPosition);
     }
+
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated);
+        (self.view.subviews[self.view.subviews.count - 1] as! BodyStatCard).animateBounce();
+        
+        for index in 0...self.view.subviews.count - 2 {
+            (self.view.subviews[index] as! BodyStatCard).showSelectedView();
+        }
+    }
     
     override func viewWillDisappear(animated: Bool) {
         revealController.supportedOrientations = UIInterfaceOrientationMask.Portrait.rawValue;
@@ -73,10 +76,6 @@ class BodyStatsViewController: BaseViewController, UIGestureRecognizerDelegate {
     
     override func prefersStatusBarHidden() -> Bool {
         return true;
-    }
-    
-    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
-        return false;
     }
     
     func backButtonClick() {
@@ -127,11 +126,6 @@ class BodyStatsViewController: BaseViewController, UIGestureRecognizerDelegate {
     func cardDragged(index: Int) {
 //        let translation = (self as! UIPanGestureRecognizer).translationInView(<#view: UIView#>)
 //        let i = 9;
-    }
-    
-    func translationInView(view: UIView) -> CGPoint {
-        let i = 9;
-        return CGPoint(x: 0,y: 0);
     }
 
     func sendViewsToBack(views: [UIView]) {

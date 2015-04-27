@@ -10,7 +10,11 @@ class BodyStatCard: UIView {
     
     var type = BodyStatsType.BloodPressure;
     
-    var index:Int!;
+    var index:Int!
+    
+    var selectedViewY:CGFloat = 267;
+    
+    var graphViewHeight:CGFloat!;
     
     var graph: BodyStatGraph!;
     
@@ -70,7 +74,7 @@ class BodyStatCard: UIView {
             view.pulseDate.textColor = color;
             view.pulseValue.textColor = color;
         }
-
+        view.graphViewHeight = view.graphView.frame.size.height;
         return view;
     }
     
@@ -78,6 +82,8 @@ class BodyStatCard: UIView {
 //        self.view.frame.size.width = width;
         viewFrame.size.width = width;
         graphView.frame.size.width = width;
+        graphView.frame.size.height = graphViewHeight;
+        selectedView.frame.size.width = width;
         if (graph != nil) {
             graph.frame.size.width = width;
         }
@@ -126,22 +132,41 @@ class BodyStatCard: UIView {
             graph = BodyStatGraph(frame: CGRect(x: 0, y: 0, width: graphView.frame.size.width, height: graphView.frame.size.height), points: graphPoints);
         }
 
+        let tap = UITapGestureRecognizer(target: self, action: "tapped:");
+        graph.addGestureRecognizer(tap);
+        
         graph.setupForBodyStat(type);
         graph.backgroundColor = UIColor.whiteColor();
+        graph.userInteractionEnabled = true;
         graphView.addSubview(graph);
+
+        setSelected(graphPoints.count - 1);
+    }
+    
+    func animateBounce() {
+        selectedView.frame.origin.y = UIScreen.mainScreen().bounds.height;
+        UIView.animateWithDuration(0.75, delay: 0, options: .CurveEaseInOut, animations: {
+                self.selectedView.frame.origin.y = self.selectedViewY - 10;
+            }, completion: { complete in
+                UIView.animateWithDuration(0.5, delay: 0, options: .CurveEaseInOut, animations: {
+                    self.selectedView.frame.origin.y = self.selectedViewY;
+                    }, completion: nil);
+        });
+    }
+    
+    func showSelectedView() {
+        UIView.animateWithDuration(0.75, delay: 0, options: .CurveEaseInOut, animations: {
+            self.selectedView.frame.origin.y = self.selectedViewY;
+        }, completion: nil);
+        selectedView.frame.origin.y = self.selectedViewY;
+    }
+    
+    func tapped(sender: AnyObject) {
+        let i = 0;
     }
     
     func setSelected(index: Int) {
         let checkin = plottedCheckins[index];
-        if (selectedView.hidden) {
-            UIView.animateWithDuration(0.5, animations: {
-                self.graphView.frame.size.height = 265;
-                self.selectedView.hidden = false;
-                }, completion: { complete in
-                    self.graph.layoutSubviews();
-            });
-            
-        }
         let formatter = NSDateFormatter();
         formatter.dateFormat = "MM/dd/yyyy";
         firstPanelValue.text = "\(formatter.stringFromDate(checkin.dateTime))";
@@ -160,15 +185,14 @@ class BodyStatCard: UIView {
             thirdPanelUnit.text = "";
             thirdPanelLabel.text = "Body Mass Index";
         } else {
-            firstPanel.hidden = true;
-            secondPanel.hidden = true;
             thirdPanel.hidden = true;
             
             firstPulsePanel.hidden = false;
             secondPulsePanel.hidden = false;
             
-            pulseDate.text = "\(formatter.stringFromDate(checkin.dateTime))";
-            pulseValue.text = "\(checkin.pulseBpm!)";
+            secondPanelValue.text = "\(checkin.pulseBpm!)";
+            secondPanelUnit.text = "mmHg";
+            secondPanelLabel.text = "Beats Per Minute";
         }
     }
     
@@ -187,10 +211,20 @@ class BodyStatCard: UIView {
     override func layoutSubviews() {
         super.layoutSubviews();
         let a = viewFrame.size.width;
+        self.view.frame = viewFrame;
         graphView.frame.size.width = viewFrame.size.width;
+        graphView.frame.size.height = graphViewHeight;
+        selectedView.frame.size.width = viewFrame.size.width;
         if (graph != nil) {
             graph.frame.size.width = viewFrame.size.width;
         }
     }
 
+    override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
+        graphView.frame.size.height = graphViewHeight;
+        if (graphView.frame.contains(point)) {
+            return graph.pointInside(point, withEvent: event);
+        }
+        return super.pointInside(point, withEvent: event);
+    }
 }
