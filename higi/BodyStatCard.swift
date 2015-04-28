@@ -128,7 +128,8 @@ class BodyStatCard: UIView {
     
     func setSelected(index: Int) {
         selectedCheckin = plottedCheckins[index];
-//        (Utility.getViewController(self) as! BodyStatsViewController).pointSelected(selectedCheckin!, type: type);
+        let a = (Utility.getViewController(self) as! BodyStatsViewController);
+        (Utility.getViewController(self) as! BodyStatsViewController).pointSelected(selectedCheckin!, type: type);
     }
     
     func cardClicked(sender: AnyObject) {

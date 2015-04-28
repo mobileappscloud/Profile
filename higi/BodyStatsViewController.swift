@@ -8,9 +8,7 @@ class BodyStatsViewController: BaseViewController {
     
     let animationDuration = 0.5;
     
-    var currentDetailsCard: BodyStatDetailCard!;
-    
-    var detailsCards: [BodyStatDetailCard] = [];
+    var detailsCard: BodyStatDetailCard!;
     
     var detailsOpen = false;
 
@@ -46,7 +44,7 @@ class BodyStatsViewController: BaseViewController {
             cardFrame.size.width = cardFrame.size.width - CGFloat((BodyStatsType.allValues.count - 1 - pos) * cardMargin);
             
             let card = BodyStatCard.instanceFromNib(cardFrame, type: type);
-            card.setupGraph();
+//            card.setupGraph();
             card.index = pos;
             
 //            let drag = UIPanGestureRecognizer(target: self, action: "cardDragged:");
@@ -61,19 +59,20 @@ class BodyStatsViewController: BaseViewController {
             layer.shadowPath = UIBezierPath(rect: layer.bounds).CGPath;
             
             self.view.addSubview(card);
+            card.setupGraph();
             pos--;
         }
         
-        currentDetailsCard = initDetailCard(SessionController.Instance.checkins[SessionController.Instance.checkins.count - 1], type: BodyStatsType.BloodPressure);
-        currentDetailsCard.frame.origin.y = 320;
-        self.view.addSubview(currentDetailsCard);
+        detailsCard = initDetailCard(SessionController.Instance.checkins[SessionController.Instance.checkins.count - 1], type: BodyStatsType.BloodPressure);
+        detailsCard.frame.origin.y = 320;
+        self.view.addSubview(detailsCard);
 
         cardClicked(selectedCardPosition);
     }
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated);
-        currentDetailsCard.animateBounce(detailsCardPosY);
+        detailsCard.animateBounce(detailsCardPosY);
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -136,10 +135,10 @@ class BodyStatsViewController: BaseViewController {
     }
 
     func updateDetailCard() {
-        currentDetailsCard.removeFromSuperview();
+        detailsCard.removeFromSuperview();
         let currentCard = self.view.subviews[self.view.subviews.count - 1] as! BodyStatCard;
-        currentDetailsCard = initDetailCard(currentCard.selectedCheckin!, type: currentCard.type);
-        self.view.addSubview(currentDetailsCard);
+        detailsCard = initDetailCard(currentCard.selectedCheckin!, type: currentCard.type);
+        self.view.addSubview(detailsCard);
     }
     
     func initDetailCard(checkin: HigiCheckin, type: BodyStatsType) -> BodyStatDetailCard {
@@ -170,13 +169,15 @@ class BodyStatsViewController: BaseViewController {
     }
     
     func pointSelected(checkin: HigiCheckin, type: BodyStatsType) {
-        
+        if (detailsCard != nil) {
+            detailsCard.setCheckin(checkin, type: type);
+        }
     }
     
     func detailsTapped(sender: AnyObject) {
         if (!detailsOpen) {
             UIView.animateWithDuration(animationDuration, delay: 0, options: .CurveEaseInOut, animations: {
-                self.currentDetailsCard.frame.origin.y = self.cardHeaderViewHeight;
+                self.detailsCard.frame.origin.y = self.cardHeaderViewHeight;
                 }, completion: nil);
             detailsOpen = true;
         }
@@ -186,12 +187,12 @@ class BodyStatsViewController: BaseViewController {
         let swipe = (sender as! UISwipeGestureRecognizer).direction;
         if (detailsOpen && swipe == UISwipeGestureRecognizerDirection.Down) {
             UIView.animateWithDuration(animationDuration, delay: 0, options: .CurveEaseInOut, animations: {
-                self.currentDetailsCard.frame.origin.y = self.detailsCardPosY;
+                self.detailsCard.frame.origin.y = self.detailsCardPosY;
                 }, completion: nil);
             detailsOpen = false;
         } else if (!detailsOpen && swipe == UISwipeGestureRecognizerDirection.Up) {
             UIView.animateWithDuration(animationDuration, delay: 0, options: .CurveEaseInOut, animations: {
-                self.currentDetailsCard.frame.origin.y = self.cardHeaderViewHeight;
+                self.detailsCard.frame.origin.y = self.cardHeaderViewHeight;
                 }, completion: nil);
             detailsOpen = true;
         }
@@ -199,9 +200,9 @@ class BodyStatsViewController: BaseViewController {
     
     func showDetailsCard() {
         UIView.animateWithDuration(animationDuration * 3/2, delay: 0, options: .CurveEaseInOut, animations: {
-            self.currentDetailsCard.frame.origin.y = self.detailsCardPosY;
+            self.detailsCard.frame.origin.y = self.detailsCardPosY;
             }, completion: nil);
-        currentDetailsCard.frame.origin.y = self.detailsCardPosY;
+        detailsCard.frame.origin.y = self.detailsCardPosY;
     }
     
     override func viewDidLayoutSubviews() {
