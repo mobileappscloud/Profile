@@ -259,6 +259,8 @@
 		D101757B1A79693C00CA32DC /* chat_bubble.png in Resources */ = {isa = PBXBuildFile; fileRef = D101757A1A79693C00CA32DC /* chat_bubble.png */; };
 		D10BA0251A9540D200DB22A3 /* ActivityLegendView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D10BA0241A9540D200DB22A3 /* ActivityLegendView.xib */; };
 		D10BA0271A9541FF00DB22A3 /* ActivityLegend.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10BA0261A9541FF00DB22A3 /* ActivityLegend.swift */; };
+		D10D84491AEFF9D200DA3278 /* BodyStatDetailCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D10D84481AEFF9D200DA3278 /* BodyStatDetailCardView.xib */; };
+		D10D844B1AEFFA7A00DA3278 /* BodyStatDetailCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10D844A1AEFFA7A00DA3278 /* BodyStatDetailCard.swift */; };
 		D10D89501A8C11A9000402D4 /* ChallengeDetailsParticipantIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10D894F1A8C11A9000402D4 /* ChallengeDetailsParticipantIcon.swift */; };
 		D1247BC91AA620F1008A601A /* HigiClusterRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = D1247BC81AA620F1008A601A /* HigiClusterRenderer.m */; };
 		D12780AE1A4A2701002EB56A /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D12780AD1A4A2701002EB56A /* fontawesome-webfont.ttf */; };
@@ -605,6 +607,8 @@
 		D101757A1A79693C00CA32DC /* chat_bubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chat_bubble.png; path = images/chat_bubble.png; sourceTree = "<group>"; };
 		D10BA0241A9540D200DB22A3 /* ActivityLegendView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityLegendView.xib; sourceTree = "<group>"; };
 		D10BA0261A9541FF00DB22A3 /* ActivityLegend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityLegend.swift; sourceTree = "<group>"; };
+		D10D84481AEFF9D200DA3278 /* BodyStatDetailCardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BodyStatDetailCardView.xib; sourceTree = "<group>"; };
+		D10D844A1AEFFA7A00DA3278 /* BodyStatDetailCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BodyStatDetailCard.swift; sourceTree = "<group>"; };
 		D10D894F1A8C11A9000402D4 /* ChallengeDetailsParticipantIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeDetailsParticipantIcon.swift; sourceTree = "<group>"; };
 		D1247BC71AA620C9008A601A /* HigiClusterRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HigiClusterRenderer.h; sourceTree = "<group>"; };
 		D1247BC81AA620F1008A601A /* HigiClusterRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HigiClusterRenderer.m; sourceTree = "<group>"; };
@@ -1185,10 +1189,12 @@
 			isa = PBXGroup;
 			children = (
 				8F3643A119460EB300C0033E /* BodyStatsViewController.swift */,
-				D1618F921ABB2E26000BDA85 /* BodyStatCardView.xib */,
 				D1740BC31AE0381F00462F6E /* BodyStatsType.swift */,
 				D1E2DB811AE176760074CBAF /* BodyStatCard.swift */,
+				D10D844A1AEFFA7A00DA3278 /* BodyStatDetailCard.swift */,
+				D1618F921ABB2E26000BDA85 /* BodyStatCardView.xib */,
 				D1E2DB831AE184E50074CBAF /* BodyStatsView.xib */,
+				D10D84481AEFF9D200DA3278 /* BodyStatDetailCardView.xib */,
 			);
 			name = "Body Stats";
 			sourceTree = "<group>";
@@ -1639,6 +1645,7 @@
 				8F2CB5821992563E009377A8 /* WebView.xib in Resources */,
 				8F5C38CB19818BA900F51543 /* gauge1_low.png in Resources */,
 				8F5E7FD7199BCD52009067E5 /* graph_sincelastarrow_down_invert.png in Resources */,
+				D10D84491AEFF9D200DA3278 /* BodyStatDetailCardView.xib in Resources */,
 				8F08AFB319895214002EE906 /* higilogo_ocmenu.png in Resources */,
 				8F02A13619AE2CBB002FF73E /* dashboard3@2x.png in Resources */,
 				D1E2DB841AE184E50074CBAF /* BodyStatsView.xib in Resources */,
@@ -1896,6 +1903,7 @@
 				D12B398C1AA4ECC6005B2ABA /* GQTPointQuadTreeChild.m in Sources */,
 				D1CFC9831AB360AF00AC54BB /* BodyStatGraphCard.swift in Sources */,
 				D10D89501A8C11A9000402D4 /* ChallengeDetailsParticipantIcon.swift in Sources */,
+				D10D844B1AEFFA7A00DA3278 /* BodyStatDetailCard.swift in Sources */,
 				D12B37061AA4DF02005B2ABA /* ClusterKiosk.m in Sources */,
 				D12B37131AA4EC70005B2ABA /* GClusterManager.m in Sources */,
 				8F2B7E43198C2DA0009DE89A /* DrawerViewController.swift in Sources */,
