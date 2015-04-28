@@ -8,6 +8,16 @@ class BodyStatsViewController: BaseViewController {
     
     let animationDuration = 0.5;
     
+    var currentDetailsCard: BodyStatDetailCard!;
+    
+    var detailsCards: [BodyStatDetailCard] = [];
+    
+    var detailsOpen = false;
+
+    var detailsCardPosY:CGFloat = 267;
+    
+    var cardHeaderViewHeight:CGFloat = 54;
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
@@ -54,16 +64,16 @@ class BodyStatsViewController: BaseViewController {
             pos--;
         }
         
+        currentDetailsCard = initDetailCard(SessionController.Instance.checkins[SessionController.Instance.checkins.count - 1], type: BodyStatsType.BloodPressure);
+        currentDetailsCard.frame.origin.y = 320;
+        self.view.addSubview(currentDetailsCard);
+
         cardClicked(selectedCardPosition);
     }
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated);
-        (self.view.subviews[self.view.subviews.count - 1] as! BodyStatCard).animateBounce();
-        
-        for index in 0...self.view.subviews.count - 2 {
-            (self.view.subviews[index] as! BodyStatCard).showSelectedView();
-        }
+        currentDetailsCard.animateBounce(detailsCardPosY);
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -118,11 +128,36 @@ class BodyStatsViewController: BaseViewController {
                             }, completion:  { complete in
                                 
                         });
+                        
                     }
+                    self.updateDetailCard();
             });
         }
     }
 
+    func updateDetailCard() {
+        currentDetailsCard.removeFromSuperview();
+        let currentCard = self.view.subviews[self.view.subviews.count - 1] as! BodyStatCard;
+        currentDetailsCard = initDetailCard(currentCard.selectedCheckin!, type: currentCard.type);
+        self.view.addSubview(currentDetailsCard);
+    }
+    
+    func initDetailCard(checkin: HigiCheckin, type: BodyStatsType) -> BodyStatDetailCard {
+        let card = BodyStatDetailCard.instanceFromNib(checkin, type: type);
+        card.frame.origin.y = detailsOpen ? cardHeaderViewHeight : detailsCardPosY;
+        let selectedTapRecognizer = UITapGestureRecognizer(target: self, action: "detailsTapped:");
+        let swipeDownRecognizer = UISwipeGestureRecognizer(target: self, action: "detailsSwiped:");
+        swipeDownRecognizer.direction = UISwipeGestureRecognizerDirection.Down;
+        let swipeUpRecognizer = UISwipeGestureRecognizer(target: self, action: "detailsSwiped:");
+        swipeUpRecognizer.direction = UISwipeGestureRecognizerDirection.Up;
+        
+        card.addGestureRecognizer(selectedTapRecognizer);
+        card.addGestureRecognizer(swipeDownRecognizer);
+        card.addGestureRecognizer(swipeUpRecognizer);
+        
+        return card;
+    }
+    
     func cardDragged(index: Int) {
 //        let translation = (self as! UIPanGestureRecognizer).translationInView(<#view: UIView#>)
 //        let i = 9;
@@ -132,6 +167,41 @@ class BodyStatsViewController: BaseViewController {
         for view in views {
             self.view.sendSubviewToBack(view);
         }
+    }
+    
+    func pointSelected(checkin: HigiCheckin, type: BodyStatsType) {
+        
+    }
+    
+    func detailsTapped(sender: AnyObject) {
+        if (!detailsOpen) {
+            UIView.animateWithDuration(animationDuration, delay: 0, options: .CurveEaseInOut, animations: {
+                self.currentDetailsCard.frame.origin.y = self.cardHeaderViewHeight;
+                }, completion: nil);
+            detailsOpen = true;
+        }
+    }
+    
+    func detailsSwiped(sender: AnyObject) {
+        let swipe = (sender as! UISwipeGestureRecognizer).direction;
+        if (detailsOpen && swipe == UISwipeGestureRecognizerDirection.Down) {
+            UIView.animateWithDuration(animationDuration, delay: 0, options: .CurveEaseInOut, animations: {
+                self.currentDetailsCard.frame.origin.y = self.detailsCardPosY;
+                }, completion: nil);
+            detailsOpen = false;
+        } else if (!detailsOpen && swipe == UISwipeGestureRecognizerDirection.Up) {
+            UIView.animateWithDuration(animationDuration, delay: 0, options: .CurveEaseInOut, animations: {
+                self.currentDetailsCard.frame.origin.y = self.cardHeaderViewHeight;
+                }, completion: nil);
+            detailsOpen = true;
+        }
+    }
+    
+    func showDetailsCard() {
+        UIView.animateWithDuration(animationDuration * 3/2, delay: 0, options: .CurveEaseInOut, animations: {
+            self.currentDetailsCard.frame.origin.y = self.detailsCardPosY;
+            }, completion: nil);
+        currentDetailsCard.frame.origin.y = self.detailsCardPosY;
     }
     
     override func viewDidLayoutSubviews() {
