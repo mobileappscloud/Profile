@@ -56,8 +56,11 @@ class BodyStatsViewController: BaseViewController {
             layer.shadowOpacity = 0.8;
             layer.shadowPath = UIBezierPath(rect: layer.bounds).CGPath;
             
+//            card.clipsToBounds = true;
+            
             self.view.addSubview(card);
             card.setupGraph();
+            
             pos--;
         }
         
