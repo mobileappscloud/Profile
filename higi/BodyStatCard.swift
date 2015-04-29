@@ -37,6 +37,9 @@ class BodyStatCard: UIView {
         let tapRecognizer = UITapGestureRecognizer(target: view, action: "cardClicked:");
         let swipe = UISwipeGestureRecognizer(target: view, action: "cardClicked:");
         swipe.direction = UISwipeGestureRecognizerDirection.Left;
+        let drag = UIPanGestureRecognizer(target: view, action: "cardDragged:");
+        
+        view.addGestureRecognizer(drag);
         view.headerView.addGestureRecognizer(tapRecognizer);
         view.headerView.addGestureRecognizer(swipe);
         
@@ -128,8 +131,18 @@ class BodyStatCard: UIView {
     
     func setSelected(index: Int) {
         selectedCheckin = plottedCheckins[index];
-        let a = (Utility.getViewController(self) as! BodyStatsViewController);
         (Utility.getViewController(self) as! BodyStatsViewController).pointSelected(selectedCheckin!, type: type);
+    }
+    
+    func cardDragged(sender: AnyObject) {
+        let parent = (Utility.getViewController(self) as! BodyStatsViewController);
+        let drag = (sender as! UIPanGestureRecognizer);
+        if (drag.state == UIGestureRecognizerState.Ended) {
+            parent.doneDragging(index);
+        } else {
+            let translation = drag.translationInView(parent.view);
+            parent.cardDragged(index, translation: translation);
+        }
     }
     
     func cardClicked(sender: AnyObject) {

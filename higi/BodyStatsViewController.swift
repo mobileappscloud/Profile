@@ -12,9 +12,7 @@ class BodyStatsViewController: BaseViewController {
     
     var detailsOpen = false;
 
-    var detailsCardPosY:CGFloat = 267;
-    
-    var cardHeaderViewHeight:CGFloat = 54;
+    var detailsCardPosY:CGFloat = 267, cardHeaderViewHeight:CGFloat = 54, cardDragThreshold:CGFloat = 100;
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -134,6 +132,38 @@ class BodyStatsViewController: BaseViewController {
         }
     }
 
+    func cardDragged(index: Int, translation: CGPoint) {
+        if (index == 0) {
+            var topCard = self.view.subviews[self.view.subviews.count - 2] as! UIView;
+            let a = topCard.frame.origin.x + translation.x;
+            let b = -cardDragThreshold;
+            if (topCard.frame.origin.x + translation.x < -cardDragThreshold) {
+                cardClicked(index + 1);
+            }
+            if (translation.x < 0) {
+                topCard.frame.origin.x += translation.x;
+            } else if (translation.x == 0) {
+                topCard.frame.origin.x = 0;
+            } else {
+                topCard.frame.origin.x = 0;
+            }
+        } else {
+            //            for i in 0...index {
+            //                var card = self.view.subviews[self.view.subviews.count - 1] as! UIView;
+            //                card.center.x += translation.x;
+            //            }
+        }
+    }
+
+    func doneDragging(index: Int) {
+        if (index == 0) {
+            var topCard = self.view.subviews[self.view.subviews.count - 2] as! UIView;
+            if (topCard.frame.origin.x >= -cardDragThreshold) {
+                topCard.frame.origin.x = 0;
+            }
+        }
+    }
+    
     func updateDetailCard() {
         detailsCard.removeFromSuperview();
         let currentCard = self.view.subviews[self.view.subviews.count - 1] as! BodyStatCard;
@@ -154,14 +184,16 @@ class BodyStatsViewController: BaseViewController {
         card.addGestureRecognizer(swipeDownRecognizer);
         card.addGestureRecognizer(swipeUpRecognizer);
         
+        let layer = card.layer;
+        layer.shadowOffset = CGSize(width: 1,height: 1);
+        layer.shadowColor = UIColor.blackColor().CGColor;
+        layer.shadowRadius = 4;
+        layer.shadowOpacity = 0.8;
+        layer.shadowPath = UIBezierPath(rect: layer.bounds).CGPath;
+
         return card;
     }
     
-    func cardDragged(index: Int) {
-//        let translation = (self as! UIPanGestureRecognizer).translationInView(<#view: UIView#>)
-//        let i = 9;
-    }
-
     func sendViewsToBack(views: [UIView]) {
         for view in views {
             self.view.sendSubviewToBack(view);
