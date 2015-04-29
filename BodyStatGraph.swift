@@ -608,7 +608,7 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
         }
 
         if (!first) {
-            var viewController = self.superview!.superview!.superview as! BodyStatCard?;
+            var viewController = self.superview as! BodyStatCard?;
             viewController!.setSelected(selectedPointIndex);
         }
         

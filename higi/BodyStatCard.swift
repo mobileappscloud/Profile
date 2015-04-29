@@ -116,7 +116,8 @@ class BodyStatCard: UIView {
 //            secondaryGraph.setupForBodyStat(type);
             secondaryGraph.backgroundColor = UIColor.whiteColor();
             secondaryGraph.userInteractionEnabled = true;
-            graphView.addSubview(secondaryGraph);
+            secondaryGraph.frame = graphView.frame;
+            addSubview(secondaryGraph);
         } else {
             graph = BodyStatGraph(frame: CGRect(x: 0, y: 0, width: graphView.frame.size.width, height: graphView.frame.size.height), points: graphPoints);
         }
@@ -124,7 +125,8 @@ class BodyStatCard: UIView {
         graph.setupForBodyStat(type);
         graph.backgroundColor = UIColor.whiteColor();
         graph.userInteractionEnabled = true;
-        graphView.addSubview(graph);
+        graph.frame = graphView.frame;
+        addSubview(graph);
 
         setSelected(graphPoints.count - 1);
     }
