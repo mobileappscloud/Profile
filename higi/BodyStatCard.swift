@@ -21,7 +21,6 @@ class BodyStatCard: UIView {
     var toggleBmiOn = true;
     
     @IBOutlet weak var view: UIView!
-    @IBOutlet weak var graphView: UIView!
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var title: UILabel!
     
@@ -32,7 +31,6 @@ class BodyStatCard: UIView {
         view.type = type;
         view.frame = frame;
         view.viewFrame = frame;
-        view.graphView.frame.size.width = frame.size.width;
         
         let tapRecognizer = UITapGestureRecognizer(target: view, action: "cardClicked:");
         let swipe = UISwipeGestureRecognizer(target: view, action: "cardClicked:");
@@ -54,7 +52,6 @@ class BodyStatCard: UIView {
         } else {
             view.title.text = "Pulse";
         }
-        view.graphViewHeight = view.graphView.frame.size.height;
         return view;
     }
     
@@ -103,35 +100,38 @@ class BodyStatCard: UIView {
             }
         }
         
-        var frame = CGRect(x: 0, y: 0, width: self.frame.size.height, height: self.frame.size.width);
-        var graphFrame = CGRect(x: 0, y: 0, width: frame.width, height: frame.size.height - 25);
+
+        let graphY = headerView.frame.size.height;
+        let graphWidth = frame.size.width;
+        let graphHeight:CGFloat = 214;
         
         if (type == BodyStatsType.BloodPressure) {
-            graph = BodyStatGraph(frame: CGRect(x: 0, y: 0, width: graphView.frame.size.width, height: graphView.frame.size.height), points: graphPoints, diastolicPoints: diastolicPoints, systolicPoints: systolicPoints);
+            graph = BodyStatGraph(frame: CGRect(x: 0, y: graphY, width: graphWidth, height: graphHeight), points: graphPoints, diastolicPoints: diastolicPoints, systolicPoints: systolicPoints);
         } else if (type == BodyStatsType.Weight) {
-            graph = BodyStatGraph(frame: CGRect(x: 0, y: 0, width: graphView.frame.size.width, height: graphView.frame.size.height), points: graphPoints);
-            secondaryGraph = BodyStatGraph(frame: CGRect(x: 0, y: 0, width: graphView.frame.size.width, height: graphView.frame.size.height), points: bodyFatPoints);
+            graph = BodyStatGraph(frame: CGRect(x: 0, y: graphY, width: graphWidth, height: graphHeight), points: graphPoints);
+            secondaryGraph = BodyStatGraph(frame: CGRect(x: 0, y: graphY, width: graphWidth, height: graphHeight), points: bodyFatPoints);
             secondaryGraph.setupForBodyStat(type, isBodyFat: true);
             secondaryGraph.backgroundColor = UIColor.whiteColor();
             secondaryGraph.userInteractionEnabled = true;
-            secondaryGraph.frame = graphView.frame;
-            addSubview(secondaryGraph);
+            self.view.addSubview(secondaryGraph);
         } else {
-            graph = BodyStatGraph(frame: CGRect(x: 0, y: 0, width: graphView.frame.size.width, height: graphView.frame.size.height), points: graphPoints);
+            graph = BodyStatGraph(frame: CGRect(x: 0, y: graphY, width: graphWidth, height: graphHeight), points: graphPoints);
         }
-
+        
         graph.setupForBodyStat(type, isBodyFat: false);
         graph.backgroundColor = UIColor.whiteColor();
         graph.userInteractionEnabled = true;
-        graph.frame = graphView.frame;
-        addSubview(graph);
+        
+        self.view.addSubview(graph);
 
         setSelected(graphPoints.count - 1);
     }
     
     func setSelected(index: Int) {
-        selectedCheckin = plottedCheckins[index];
-        (Utility.getViewController(self) as! BodyStatsViewController).pointSelected(selectedCheckin!, type: type);
+        if (index > 0) {
+            selectedCheckin = plottedCheckins[index];
+            (Utility.getViewController(self) as! BodyStatsViewController).pointSelected(selectedCheckin!, type: type);
+        }
     }
     
     func cardDragged(sender: AnyObject) {
@@ -169,12 +169,12 @@ class BodyStatCard: UIView {
             secondaryGraph.frame.size.width = viewFrame.size.width;
         }
     }
-
+    
     override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
         if (graph.frame.contains(point)) {
             return graph.pointInside(point, withEvent: event);
         }
         return super.pointInside(point, withEvent: event);
     }
-
+    
 }
