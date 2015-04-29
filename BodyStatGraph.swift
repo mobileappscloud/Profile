@@ -8,7 +8,7 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
     
     var plot: NewCPTScatterPlot = NewCPTScatterPlot(frame: CGRectZero), altPlot: NewCPTScatterPlot = NewCPTScatterPlot(frame: CGRectZero);
     
-    var selectedPointIndex = -1;
+    var selectedPointIndex = 0;
     
     var plotSymbol = CPTPlotSymbol.ellipsePlotSymbol(), selectedPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol(), altPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol(), selectedAltPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol(), unselectedAltPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
     
@@ -438,7 +438,7 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
         }
 
         if (!first) {
-            var viewController = self.superview as! BodyStatCard?;
+            var viewController = self.superview!.superview as! BodyStatCard?;
             viewController!.setSelected(selectedPointIndex);
         }
         
