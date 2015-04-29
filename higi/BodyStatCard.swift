@@ -39,9 +39,9 @@ class BodyStatCard: UIView {
         swipe.direction = UISwipeGestureRecognizerDirection.Left;
         let drag = UIPanGestureRecognizer(target: view, action: "cardDragged:");
         
+        view.addGestureRecognizer(tapRecognizer);
+        view.addGestureRecognizer(swipe);
         view.addGestureRecognizer(drag);
-        view.headerView.addGestureRecognizer(tapRecognizer);
-        view.headerView.addGestureRecognizer(swipe);
         
         let color = Utility.colorFromBodyStatType(type);
         view.headerView.backgroundColor = color;
@@ -60,8 +60,7 @@ class BodyStatCard: UIView {
     
     func resizeFrameWithWidth(width: CGFloat) {
         viewFrame.size.width = width;
-        graphView.frame.size.width = width;
-        graphView.frame.size.height = graphViewHeight;
+        self.view.frame = viewFrame;
         if (graph != nil) {
             graph.frame.size.width = width;
         }
@@ -112,8 +111,7 @@ class BodyStatCard: UIView {
         } else if (type == BodyStatsType.Weight) {
             graph = BodyStatGraph(frame: CGRect(x: 0, y: 0, width: graphView.frame.size.width, height: graphView.frame.size.height), points: graphPoints);
             secondaryGraph = BodyStatGraph(frame: CGRect(x: 0, y: 0, width: graphView.frame.size.width, height: graphView.frame.size.height), points: bodyFatPoints);
-            secondaryGraph.setupForBodyFat();
-//            secondaryGraph.setupForBodyStat(type);
+            secondaryGraph.setupForBodyStat(type, isBodyFat: true);
             secondaryGraph.backgroundColor = UIColor.whiteColor();
             secondaryGraph.userInteractionEnabled = true;
             secondaryGraph.frame = graphView.frame;
@@ -122,7 +120,7 @@ class BodyStatCard: UIView {
             graph = BodyStatGraph(frame: CGRect(x: 0, y: 0, width: graphView.frame.size.width, height: graphView.frame.size.height), points: graphPoints);
         }
 
-        graph.setupForBodyStat(type);
+        graph.setupForBodyStat(type, isBodyFat: false);
         graph.backgroundColor = UIColor.whiteColor();
         graph.userInteractionEnabled = true;
         graph.frame = graphView.frame;
@@ -155,10 +153,6 @@ class BodyStatCard: UIView {
         (Utility.getViewController(self) as! BodyStatsViewController).backButtonClick();
     }
     
-    @IBAction func infoButtonClick(sender: AnyObject) {
-        
-    }
-    
     @IBAction func toggleClicked(sender: AnyObject) {
         graph.hidden = toggleBmiOn;
         secondaryGraph.hidden = !toggleBmiOn;
@@ -168,8 +162,6 @@ class BodyStatCard: UIView {
     override func layoutSubviews() {
         super.layoutSubviews();
         self.view.frame = viewFrame;
-        graphView.frame.size.width = viewFrame.size.width;
-        graphView.frame.size.height = graphViewHeight;
         if (graph != nil) {
             graph.frame.size.width = viewFrame.size.width;
         }
@@ -179,8 +171,7 @@ class BodyStatCard: UIView {
     }
 
     override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
-        graphView.frame.size.height = graphViewHeight;
-        if (graphView.frame.contains(point)) {
+        if (graph.frame.contains(point)) {
             return graph.pointInside(point, withEvent: event);
         }
         return super.pointInside(point, withEvent: event);

@@ -117,12 +117,12 @@ class BodyStatsViewController: BaseViewController {
                         card.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: card.frame.size.width, height: UIScreen.mainScreen().bounds.size.height)).CGPath;
                         self.view.insertSubview(card, atIndex: 0);
                     }
-//
+
                     for index in 0...count - 1 {
                         let card = subViews[index] as! BodyStatCard;
                         let newWidth = UIScreen.mainScreen().bounds.size.width - CGFloat((index + 1) * self.cardMargin);
                         UIView.animateWithDuration(self.animationDuration, delay: 0, options: .CurveEaseInOut, animations: {
-                            card.frame.size.width = newWidth;
+//                            card.frame.size.width = newWidth;
                             card.resizeFrameWithWidth(newWidth);
                             card.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: newWidth, height: UIScreen.mainScreen().bounds.size.height)).CGPath;
                             }, completion:  { complete in
@@ -143,10 +143,8 @@ class BodyStatsViewController: BaseViewController {
             if (topCard.frame.origin.x + translation.x < -cardDragThreshold) {
                 cardClicked(index + 1);
             }
-            if (translation.x < 0) {
+            if (topCard.frame.origin.x + translation.x < 0) {
                 topCard.frame.origin.x += translation.x;
-            } else if (translation.x == 0) {
-                topCard.frame.origin.x = 0;
             } else {
                 topCard.frame.origin.x = 0;
             }
@@ -234,7 +232,7 @@ class BodyStatsViewController: BaseViewController {
     }
     
     func showDetailsCard() {
-        UIView.animateWithDuration(animationDuration * 3/2, delay: 0, options: .CurveEaseInOut, animations: {
+        UIView.animateWithDuration(0.75, delay: 0, options: .CurveEaseInOut, animations: {
             self.detailsCard.frame.origin.y = self.detailsCardPosY;
             }, completion: nil);
         detailsCard.frame.origin.y = self.detailsCardPosY;
@@ -252,17 +250,5 @@ class BodyStatsViewController: BaseViewController {
             card.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: newWidth, height: UIScreen.mainScreen().bounds.size.height)).CGPath;
             card.index = count - 1 - index;
         }
-//        for index in 0...count - 1 {
-//            let card = subViews[index] as! BodyStatCard;
-//            let newWidth = UIScreen.mainScreen().bounds.size.width - CGFloat((index) * self.cardMargin);
-//            UIView.animateWithDuration(self.animationDuration, delay: 0, options: .CurveEaseInOut, animations: {
-//                card.frame.size.width = newWidth;
-//                card.resizeFrameWithWidth(newWidth);
-//                card.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: newWidth, height: UIScreen.mainScreen().bounds.size.height)).CGPath;
-//                }, completion:  { complete in
-//                    
-//            });
-//            card.index = count - 1 - index;
-//        }
     }
 }
