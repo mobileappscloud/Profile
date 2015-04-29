@@ -4,7 +4,7 @@ class BodyStatsViewController: BaseViewController {
     
     var selectedType = BodyStatsType.BloodPressure;
     
-    let cardMargin = 20;
+    let cardMargin = 30;
     
     let animationDuration = 0.5;
     
@@ -42,12 +42,7 @@ class BodyStatsViewController: BaseViewController {
             cardFrame.size.width = cardFrame.size.width - CGFloat((BodyStatsType.allValues.count - 1 - pos) * cardMargin);
             
             let card = BodyStatCard.instanceFromNib(cardFrame, type: type);
-//            card.setupGraph();
             card.index = pos;
-            
-//            let drag = UIPanGestureRecognizer(target: self, action: "cardDragged:");
-//            drag.delegate = self;
-//            card.addGestureRecognizer(drag);
             
             let layer = card.layer;
             layer.shadowOffset = CGSize(width: 1,height: 1);
@@ -56,8 +51,6 @@ class BodyStatsViewController: BaseViewController {
             layer.shadowOpacity = 0.8;
             layer.shadowPath = UIBezierPath(rect: layer.bounds).CGPath;
             
-//            card.clipsToBounds = true;
-            
             self.view.addSubview(card);
             card.setupGraph();
             
@@ -65,7 +58,7 @@ class BodyStatsViewController: BaseViewController {
         }
         
         detailsCard = initDetailCard(SessionController.Instance.checkins[SessionController.Instance.checkins.count - 1], type: BodyStatsType.BloodPressure);
-        detailsCard.frame.origin.y = 320;
+        detailsCard.frame.origin.y = UIScreen.mainScreen().bounds.height;
         self.view.addSubview(detailsCard);
 
         cardClicked(selectedCardPosition);
@@ -122,7 +115,7 @@ class BodyStatsViewController: BaseViewController {
                         let card = subViews[index] as! BodyStatCard;
                         let newWidth = UIScreen.mainScreen().bounds.size.width - CGFloat((index + 1) * self.cardMargin);
                         UIView.animateWithDuration(self.animationDuration, delay: 0, options: .CurveEaseInOut, animations: {
-//                            card.frame.size.width = newWidth;
+                            card.frame.size.width = newWidth;
                             card.resizeFrameWithWidth(newWidth);
                             card.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: newWidth, height: UIScreen.mainScreen().bounds.size.height)).CGPath;
                             }, completion:  { complete in
@@ -248,6 +241,7 @@ class BodyStatsViewController: BaseViewController {
             card.frame.size.width = newWidth;
             card.resizeFrameWithWidth(newWidth);
             card.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: newWidth, height: UIScreen.mainScreen().bounds.size.height)).CGPath;
+
             card.index = count - 1 - index;
         }
     }

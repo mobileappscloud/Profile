@@ -52,6 +52,7 @@ class BodyStatCard: UIView {
         } else {
             view.title.text = "Pulse";
         }
+
         return view;
     }
     
@@ -128,7 +129,7 @@ class BodyStatCard: UIView {
     }
     
     func setSelected(index: Int) {
-        if (index > 0) {
+        if (index >= 0 && index < plottedCheckins.count) {
             selectedCheckin = plottedCheckins[index];
             (Utility.getViewController(self) as! BodyStatsViewController).pointSelected(selectedCheckin!, type: type);
         }
@@ -172,9 +173,9 @@ class BodyStatCard: UIView {
     
     override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
         if (graph.frame.contains(point)) {
-            return graph.pointInside(point, withEvent: event);
+            graph.selectPlotFromPoint(point);
         }
-        return super.pointInside(point, withEvent: event);
+        return true;
     }
-    
+
 }
