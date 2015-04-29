@@ -348,24 +348,25 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
         yAxis.tickDirection = CPTSignPositive;
         yAxis.labelOffset = 0;
 
-        if (isBodyFat) {
-            let rangeTops = [50, 30, 25, 18];
-            
-            for index in 0...rangeTops.count - 1 {
-                let top = rangeTops[index]
-                let point = getScreenPoint(self, xPoint: CGFloat(points[0].x), yPoint: CGFloat(top));
-                let width = UIScreen.mainScreen().bounds.size.width;
-                let nextVal = index < rangeTops.count - 1 ? rangeTops[index + 1] : 0;
-                let height = top - nextVal;
-                
-                let range = UIView(frame: CGRect(x: CGFloat(point.x), y: CGFloat(nextVal), width: CGFloat(width), height: CGFloat(height)));
-                let a = range.frame;
-                if (index % 2 == 1) {
-                    range.backgroundColor = UIColor.lightGrayColor();
-                }
-                addSubview(range);
-            }
-        }
+//        if (isBodyFat) {
+//            let rangeTops = [50, 30, 25, 18];
+//            
+//            for index in 0...rangeTops.count - 1 {
+//                let top = rangeTops[index]
+//                let point = getScreenPoint(self, xPoint: CGFloat(points[0].x), yPoint: CGFloat(top));
+//                let width = UIScreen.mainScreen().bounds.size.width;
+//                let nextVal = index < rangeTops.count - 1 ? rangeTops[index + 1] : 0;
+//                let height = top - nextVal;
+//                
+//                let range = UIView(frame: CGRect(x: CGFloat(point.x), y: CGFloat(nextVal), width: CGFloat(width), height: CGFloat(height)));
+//                let a = range.frame;
+//                if (index % 2 == 1) {
+//                    range.backgroundColor = UIColor.lightGrayColor();
+//                }
+//                addSubview(range);
+//            }
+//        }
+        
 //        //added after alt plots so that it is drawn on top
         graph.addPlot(plot, toPlotSpace: graph.defaultPlotSpace);
         
@@ -482,10 +483,69 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
         }
     }
 
-    override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
+    func plotSpace(space: CPTPlotSpace?, willChangePlotRangeTo: CPTPlotRange?, forCoordinate: CPTCoordinate) -> CPTPlotRange {
+        var range = ConversionUtility.plotSpace(space, willChangePlotRangeTo: willChangePlotRangeTo, forCoordinate: forCoordinate);
+        if (forCoordinate.value == 1) {
+            return range;
+        }
+        var low = -1, high = -1;
+        if (points.count == 0 || (range.containsDouble(points[0].x) && range.containsDouble(points[points.count - 1].x))) {
+            (self.superview!.superview!.superview as! UIScrollView).scrollEnabled = true;
+            low = 0;
+            high = points.count - 1;
+        } else {
+            (self.superview!.superview!.superview as! UIScrollView).scrollEnabled = false;
+
+            var index = 0;
+            for point: GraphPoint in points {
+                if (range.containsDouble(point.x)) {
+                    if (low == -1) {
+                        low = index;
+                    }
+                    high = index;
+                } else if (low != -1) {
+                    break;
+                }
+                index++;
+            }
+            
+        }
+        if (high == points.count - 1 && low != high) {
+            high--;
+        }
+        var average = 0.0, highest = 0.0, lowest = 9999999.0;
+        if (low > -1) {
+            for index in low...high {
+                var point = points[index];
+                average += point.y;
+                if (point.y > highest) {
+                    highest = point.y;
+                }
+                if (point.y < lowest) {
+                    lowest = point.y;
+                }
+            }
+        }
+        var trend = "";
+        if (average > 0) {
+            average /= Double(high + 1 - low);
+            trend = "\(Int(average + 0.5)) Average  |  \(Int(highest)) Highest  |  \(Int(lowest)) Lowest";
+        }
+        var graphView = self.superview!.superview as! BodyStatGraph;
+//        graphView.updateTrend(trend);
+        return range;
+    }
+    
+//    func plotSpace(space: CPTPlotSpace!, didChangePlotRangeForCoordinate coordinate: CPTCoordinate) {
+//        var graphView = self.superview!.superview as! BodyStatGraph;
+//        graphView.setSelectedCheckin(graphView.checkins[graphView.selected]);
+//        checkinSelected(plot as CPTScatterPlot!, idx: index - 1);
+//    }
+
+    
+    func selectPlotFromPoint(point: CGPoint) {
         let index = Int(plot.dataIndexFromInteractionPoint(point));
-        checkinSelected(plot as CPTScatterPlot!, idx: index - 1, first: false);
-        return true;
+        checkinSelected(plot as CPTScatterPlot!, idx: index, first: false);
     }
     
     override func canBecomeFirstResponder() -> Bool {
