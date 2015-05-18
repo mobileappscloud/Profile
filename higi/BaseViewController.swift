@@ -35,6 +35,12 @@ class BaseViewController: UIViewController, SWRevealViewControllerDelegate {
         navigationItem.leftBarButtonItem = menuToggle;
         navigationItem.hidesBackButton = true;
         
+        var summaryButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30));
+        summaryButton.setBackgroundImage(UIImage(named: "createreminder.png"), forState: UIControlState.Normal);
+        summaryButton.addTarget(self, action: "gotoSummary:", forControlEvents: UIControlEvents.TouchUpInside);
+        var summaryBarItem = UIBarButtonItem();
+        summaryBarItem.customView = summaryButton;
+        self.navigationItem.rightBarButtonItem = summaryBarItem;
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -56,5 +62,11 @@ class BaseViewController: UIViewController, SWRevealViewControllerDelegate {
     
     func revealController(revealController: SWRevealViewController!, willMoveToPosition position: FrontViewPosition) {
         self.view.userInteractionEnabled = position != FrontViewPosition.Right;
+    }
+    
+    func gotoSummary(sender: AnyObject) {
+        Flurry.logEvent("Summary_Pressed");
+        var summaryController = ActivityViewController(nibName: "ActivityView", bundle: nil);
+        self.navigationController!.pushViewController(summaryController, animated: true);
     }
 }

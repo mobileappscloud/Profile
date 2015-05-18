@@ -44,12 +44,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         super.viewDidLoad();
         self.title = "Dashboard";
         self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
-        var reminderButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30));
-        reminderButton.setBackgroundImage(UIImage(named: "createreminder.png"), forState: UIControlState.Normal);
-        reminderButton.addTarget(self, action: "setReminder:", forControlEvents: UIControlEvents.TouchUpInside);
-        var reminderBarItem = UIBarButtonItem();
-        reminderBarItem.customView = reminderButton;
-        self.navigationItem.rightBarButtonItem = reminderBarItem;
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveApiNotification:", name: ApiUtility.ACTIVITIES, object: nil);
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveApiNotification:", name: ApiUtility.CHALLENGES, object: nil);
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveApiNotification:", name: ApiUtility.CHECKINS, object: nil);
@@ -634,13 +629,6 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     
     @IBAction func refreshButtonPressed(sender: AnyObject) {
         mainScrollView.setContentOffset(CGPoint(x: 0, y: -mainScrollView.frame.size.height * 0.195), animated: true);
-    }
-    
-    func setReminder(sender: AnyObject) {
-        Flurry.logEvent("Reminder_Pressed");
-        var reminderController = FindStationViewController(nibName: "FindStationView", bundle: nil);
-        reminderController.reminderMode = true;
-        self.navigationController!.pushViewController(reminderController, animated: true);
     }
     
     deinit {
