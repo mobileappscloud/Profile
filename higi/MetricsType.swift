@@ -1,4 +1,4 @@
-enum BodyStatsType {
+enum MetricsType {
     case BloodPressure
     case Pulse
     case Weight

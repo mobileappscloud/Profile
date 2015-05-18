@@ -53,13 +53,13 @@ class DrawerViewController: UIViewController, UITableViewDelegate, UITableViewDa
             Flurry.logEvent("ChallengesOffCanvas_Pressed");
             self.navController?.pushViewController(ChallengesViewController(nibName: "ChallengesView", bundle: nil), animated: false);
         }));
-        navigationObjects.append(NavigationObject(title: "Body Stats", icon: "oc_bodystats.png", activeIcon: "oc_bodystats_active.png", callback: { (index: NSIndexPath) in
+        navigationObjects.append(NavigationObject(title: "Metrics", icon: "oc_Metrics.png", activeIcon: "oc_Metrics_active.png", callback: { (index: NSIndexPath) in
             if (SessionController.Instance.checkins == nil) {
                 self.tableView.deselectRowAtIndexPath(index, animated: false);
                 return;
             }
-            Flurry.logEvent("BodystatOffCanvas_Pressed");
-            self.navController?.pushViewController(BodyStatsViewController(), animated: false);
+            Flurry.logEvent("MetricsOffCanvas_Pressed");
+            self.navController?.pushViewController(MetricsViewController(), animated: false);
         }));
         navigationObjects.append(NavigationObject(title: "Find a Station", icon: "oc_findastation.png", activeIcon: "oc_findastation_active.png", callback: { (index: NSIndexPath) in
             Flurry.logEvent("FindStationOffCanvas_Pressed");

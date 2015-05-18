@@ -1,6 +1,6 @@
 import Foundation
 
-class BodyStatsGraphCard: UIView {
+class MetricsGraphCard: UIView {
     
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var date: UILabel!
@@ -19,9 +19,9 @@ class BodyStatsGraphCard: UIView {
     @IBOutlet weak var pulseValue: UILabel!
     var color: UIColor!;
 
-    class func instanceFromNib(title: String, lastCheckin: HigiCheckin, type: BodyStatsType) -> BodyStatsGraphCard {
-        let card = UINib(nibName: "BodyStatGraphCardView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! BodyStatsGraphCard;
-        let color = Utility.colorFromBodyStatType(type);
+    class func instanceFromNib(title: String, lastCheckin: HigiCheckin, type: MetricsType) -> MetricsGraphCard {
+        let card = UINib(nibName: "MetricGraphCardView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! MetricsGraphCard;
+        let color = Utility.colorFromMetricType(type);
         card.title.text = title;
         card.title.textColor = color;
         
@@ -30,7 +30,7 @@ class BodyStatsGraphCard: UIView {
         dayFormatter.dateFormat = "dd";
         card.date.text = "\(formatter.stringFromDate(lastCheckin.dateTime)) \(Utility.getRankSuffix(dayFormatter.stringFromDate(lastCheckin.dateTime)))";
         
-        if (type == BodyStatsType.BloodPressure) {
+        if (type == MetricsType.BloodPressure) {
             if let map = lastCheckin.map {
                 card.firstReadingValue.text = "\(Double(round(map * 10) / 10))";
             } else {
@@ -44,7 +44,7 @@ class BodyStatsGraphCard: UIView {
             card.secondReadingLabel.text = "mmHg";
             card.secondReadingSubTitle.text = "Blood Pressure";
             card.secondReadingValue.textColor = color;
-        } else if (type == BodyStatsType.Weight) {
+        } else if (type == MetricsType.Weight) {
             card.firstReadingValue.text = "\(Int(lastCheckin.weightLbs!))";
             card.firstReadingLabel.text = "lbs";
             card.firstReadingSubTitle.text = "Weight";
@@ -82,8 +82,8 @@ class BodyStatsGraphCard: UIView {
         return card;
     }
     
-    func graph(points: [GraphPoint], type: BodyStatsType) {
-        let graph = BodyStatGraph(frame: CGRect(x: 0, y: 0, width: graphView.frame.size.width, height: graphView.frame.size.height), points: points);
+    func graph(points: [GraphPoint], type: MetricsType) {
+        let graph = MetricGraph(frame: CGRect(x: 0, y: 0, width: graphView.frame.size.width, height: graphView.frame.size.height), points: points);
         graph.setupForDashboard(type);
         graphView.addSubview(graph);
     }

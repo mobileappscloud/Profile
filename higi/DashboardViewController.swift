@@ -18,7 +18,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     
     @IBOutlet var challengesCard: ChallengesCard!
     
-    @IBOutlet weak var bodyStatsCard: UIView!
+    @IBOutlet weak var MetricsCard: UIView!
     
     @IBOutlet weak var pulseCard: PulseCard!
     
@@ -75,7 +75,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             challengesRefreshed = true;
         case ApiUtility.CHECKINS:
             if (doneRefreshing) {
-                initBodyStatsCard();
+                initMetricsCard();
             }
             checkinsRefreshed = true;
         case ApiUtility.PULSE:
@@ -94,12 +94,12 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         if (challengesCard.superview != nil) {
             challengesCard.removeFromSuperview();
         }
-        bodyStatsCard.removeFromSuperview();
+        MetricsCard.removeFromSuperview();
         pulseCard.removeFromSuperview();
         currentOrigin = 83;
         initActivityCard();
         initChallengesCard();
-        initBodyStatsCard();
+        initMetricsCard();
         initPulseCard();
         mainScrollView.contentSize.height = currentOrigin;
     }
@@ -234,7 +234,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         }
     }
     
-    func initBodyStatsCard() {
+    func initMetricsCard() {
         if (SessionController.Instance.checkins != nil) {
             
             var bloodPressureCheckin: HigiCheckin;
@@ -272,11 +272,11 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             let cardMarginY:CGFloat = 16;
             var cardPositionY:CGFloat = 60;
             
-            let bloodPressureColor = Utility.colorFromBodyStatType(BodyStatsType.BloodPressure);
-            let pulseColor = Utility.colorFromBodyStatType(BodyStatsType.Pulse);
-            let weightColor = Utility.colorFromBodyStatType(BodyStatsType.Weight);
+            let bloodPressureColor = Utility.colorFromMetricType(MetricsType.BloodPressure);
+            let pulseColor = Utility.colorFromMetricType(MetricsType.Pulse);
+            let weightColor = Utility.colorFromMetricType(MetricsType.Weight);
             
-            let bloodPressureCard = BodyStatsGraphCard.instanceFromNib("Blood Pressure", lastCheckin: bps.last!, type: BodyStatsType.BloodPressure);
+            let bloodPressureCard = MetricsGraphCard.instanceFromNib("Blood Pressure", lastCheckin: bps.last!, type: MetricsType.BloodPressure);
             
             bloodPressureCard.frame.origin.y = cardPositionY;
             bloodPressureCard.frame.origin.x = cardMarginX;
@@ -286,9 +286,9 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             
             var firstDivider = UIView(frame: CGRect(x: 0, y: cardPositionY - cardMarginY / 2, width: self.view.frame.size.width, height: 1));
             firstDivider.backgroundColor = Utility.colorFromHexString("#EEEEEE");
-            bodyStatsCard.addSubview(firstDivider);
+            MetricsCard.addSubview(firstDivider);
             
-            let pulseCard = BodyStatsGraphCard.instanceFromNib("Pulse", lastCheckin: bps.last!, type: BodyStatsType.Pulse);
+            let pulseCard = MetricsGraphCard.instanceFromNib("Pulse", lastCheckin: bps.last!, type: MetricsType.Pulse);
             pulseCard.frame.origin.y = cardPositionY;
             pulseCard.frame.origin.x = cardMarginX;
             let pulseTouched = UITapGestureRecognizer(target: self, action: "gotoPulseGraph:");
@@ -297,9 +297,9 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             
             var secondDivider = UIView(frame: CGRect(x: 0, y: cardPositionY - cardMarginY / 2, width: self.view.frame.size.width, height: 1));
             secondDivider.backgroundColor = Utility.colorFromHexString("#EEEEEE");
-            bodyStatsCard.addSubview(secondDivider);
+            MetricsCard.addSubview(secondDivider);
             
-            let weightCard = BodyStatsGraphCard.instanceFromNib("Weight", lastCheckin: weights.last!, type: BodyStatsType.Weight);
+            let weightCard = MetricsGraphCard.instanceFromNib("Weight", lastCheckin: weights.last!, type: MetricsType.Weight);
             weightCard.frame.origin.y = cardPositionY;
             weightCard.frame.origin.x = cardMarginX;
             let weightTouched = UITapGestureRecognizer(target: self, action: "gotoWeightGraph:");
@@ -327,42 +327,42 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                         checkinCount++;
                     }
                     dispatch_async(dispatch_get_main_queue(), {
-                        bloodPressureCard.graph(mapPoints, type: BodyStatsType.BloodPressure);
-                        pulseCard.graph(bpmPoints, type: BodyStatsType.Pulse);
-                        weightCard.graph(weightPoints, type: BodyStatsType.Weight);
+                        bloodPressureCard.graph(mapPoints, type: MetricsType.BloodPressure);
+                        pulseCard.graph(bpmPoints, type: MetricsType.Pulse);
+                        weightCard.graph(weightPoints, type: MetricsType.Weight);
                     });
                 });
             }
-            bodyStatsCard.addSubview(bloodPressureCard);
-            bodyStatsCard.addSubview(pulseCard);
-            bodyStatsCard.addSubview(weightCard);
+            MetricsCard.addSubview(bloodPressureCard);
+            MetricsCard.addSubview(pulseCard);
+            MetricsCard.addSubview(weightCard);
         }
         
-        if (bodyStatsCard.superview == nil) {
-            bodyStatsCard.frame.origin.y = currentOrigin;
-            currentOrigin += bodyStatsCard.frame.size.height + gap;
-            mainScrollView.addSubview(bodyStatsCard);
+        if (MetricsCard.superview == nil) {
+            MetricsCard.frame.origin.y = currentOrigin;
+            currentOrigin += MetricsCard.frame.size.height + gap;
+            mainScrollView.addSubview(MetricsCard);
         }
     }
     
     func gotoBloodPressureGraph(sender: AnyObject) {
         //@todo flurry event here
-        let viewController = BodyStatsViewController(nibName: "BodyStatsView", bundle: nil);
-        viewController.selectedType = BodyStatsType.BloodPressure;
+        let viewController = MetricsViewController(nibName: "MetricsView", bundle: nil);
+        viewController.selectedType = MetricsType.BloodPressure;
         self.navigationController!.pushViewController(viewController, animated: true);
     }
 
     func gotoPulseGraph(sender: AnyObject) {
         //@todo flurry event here
-        let viewController = BodyStatsViewController(nibName: "BodyStatsView", bundle: nil);
-        viewController.selectedType = BodyStatsType.Pulse;
+        let viewController = MetricsViewController(nibName: "MetricsView", bundle: nil);
+        viewController.selectedType = MetricsType.Pulse;
         self.navigationController!.pushViewController(viewController, animated: true);
     }
     
     func gotoWeightGraph(sender: AnyObject) {
         //@todo flurry event here
-        let viewController = BodyStatsViewController(nibName: "BodyStatsView", bundle: nil);
-        viewController.selectedType = BodyStatsType.Weight;
+        let viewController = MetricsViewController(nibName: "MetricsView", bundle: nil);
+        viewController.selectedType = MetricsType.Weight;
         self.navigationController!.pushViewController(viewController, animated: true);
     }
     

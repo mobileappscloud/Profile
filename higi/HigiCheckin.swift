@@ -63,10 +63,10 @@ class HigiCheckin {
         
     }
     
-    func convertClass(bodyStatClass: NSString?) -> NSString? {
+    func convertClass(MetricClass: NSString?) -> NSString? {
         var retVal: NSString;
-        if (bodyStatClass != nil) {
-            switch (bodyStatClass!) {
+        if (MetricClass != nil) {
+            switch (MetricClass!) {
             case "normal":
                 retVal = "Normal";
             case "low":
@@ -82,7 +82,7 @@ class HigiCheckin {
             case "obese":
                 retVal = "Obese";
             default:
-                retVal = bodyStatClass!;
+                retVal = MetricClass!;
             }
             return retVal;
         } else {

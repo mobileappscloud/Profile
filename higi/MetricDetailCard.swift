@@ -1,6 +1,6 @@
 import Foundation
 
-class BodyStatDetailCard: UIView {
+class MetricDetailCard: UIView {
     @IBOutlet weak var firstPanel: UIView!
     @IBOutlet weak var firstPanelValue: UILabel!
     @IBOutlet weak var firstPanelLabel: UILabel!
@@ -20,10 +20,10 @@ class BodyStatDetailCard: UIView {
     @IBOutlet weak var pulseValue: UILabel!
     @IBOutlet weak var pulseDate: UILabel!
     
-    class func instanceFromNib(checkin: HigiCheckin, type: BodyStatsType) -> BodyStatDetailCard {
-        var view = UINib(nibName: "BodyStatDetailCardView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! BodyStatDetailCard;
+    class func instanceFromNib(checkin: HigiCheckin, type: MetricsType) -> MetricDetailCard {
+        var view = UINib(nibName: "MetricDetailCardView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! MetricDetailCard;
         
-        let color = Utility.colorFromBodyStatType(type);
+        let color = Utility.colorFromMetricType(type);
         view.firstPanelValue.textColor = color;
         view.secondPanelValue.textColor = color;
         view.thirdPanelValue.textColor = color;
@@ -44,18 +44,18 @@ class BodyStatDetailCard: UIView {
         });
     }
     
-    class func initCheckinData(view: BodyStatDetailCard, checkin: HigiCheckin, type: BodyStatsType) -> BodyStatDetailCard {
+    class func initCheckinData(view: MetricDetailCard, checkin: HigiCheckin, type: MetricsType) -> MetricDetailCard {
         let formatter = NSDateFormatter();
         formatter.dateFormat = "MM/dd/yyyy";
         view.firstPanelValue.text = "\(formatter.stringFromDate(checkin.dateTime))";
-        if (type == BodyStatsType.BloodPressure) {
+        if (type == MetricsType.BloodPressure) {
             view.secondPanelValue.text = checkin.systolic != nil ? "\(checkin.systolic!)/\(checkin.diastolic!)" : "";
             view.secondPanelUnit.text = "mmHg";
             view.secondPanelLabel.text = "Blood Pressure";
             view.thirdPanelValue.text = checkin.map != nil ? "\(Int(checkin.map!))" : "";
             view.thirdPanelUnit.text = "mmHg";
             view.thirdPanelLabel.text = "Mean Arterial Pressure";
-        } else if (type == BodyStatsType.Weight) {
+        } else if (type == MetricsType.Weight) {
             view.secondPanelValue.text = checkin.weightLbs != nil ? "\(Int(checkin.weightLbs!))" : "";
             view.secondPanelUnit.text = "lbs";
             view.secondPanelLabel.text = "Weight";
@@ -73,25 +73,25 @@ class BodyStatDetailCard: UIView {
             view.secondPanelValue.text = "\(checkin.pulseBpm!)";
             view.secondPanelUnit.text = "mmHg";
             view.secondPanelLabel.text = "Beats Per Minute";
-            let color = Utility.colorFromBodyStatType(type);
+            let color = Utility.colorFromMetricType(type);
             view.pulseDate.textColor = color;
             view.pulseValue.textColor = color;
         }
         return view;
     }
     
-    func setCheckin(checkin: HigiCheckin, type: BodyStatsType) {
+    func setCheckin(checkin: HigiCheckin, type: MetricsType) {
         let formatter = NSDateFormatter();
         formatter.dateFormat = "MM/dd/yyyy";
         firstPanelValue.text = "\(formatter.stringFromDate(checkin.dateTime))";
-        if (type == BodyStatsType.BloodPressure) {
+        if (type == MetricsType.BloodPressure) {
             secondPanelValue.text = "\(checkin.systolic!)/\(checkin.diastolic!)";
             secondPanelUnit.text = "mmHg";
             secondPanelLabel.text = "Blood Pressure";
             thirdPanelValue.text = "\(Int(checkin.map!))";
             thirdPanelUnit.text = "mmHg";
             thirdPanelLabel.text = "Mean Arterial Pressure";
-        } else if (type == BodyStatsType.Weight) {
+        } else if (type == MetricsType.Weight) {
             secondPanelValue.text = "\(Int(checkin.weightLbs!))";
             secondPanelUnit.text = "lbs";
             secondPanelLabel.text = "Weight";
@@ -109,7 +109,7 @@ class BodyStatDetailCard: UIView {
             secondPanelValue.text = "\(checkin.pulseBpm!)";
             secondPanelUnit.text = "mmHg";
             secondPanelLabel.text = "Beats Per Minute";
-            let color = Utility.colorFromBodyStatType(type);
+            let color = Utility.colorFromMetricType(type);
             pulseDate.textColor = color;
             pulseValue.textColor = color;
         }
