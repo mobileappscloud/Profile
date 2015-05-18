@@ -8,7 +8,7 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
     
     var plot: NewCPTScatterPlot = NewCPTScatterPlot(frame: CGRectZero), altPlot: NewCPTScatterPlot = NewCPTScatterPlot(frame: CGRectZero);
     
-    var selectedPointIndex = 0;
+    var selectedPointIndex = -1;
     
     var plotSymbol = CPTPlotSymbol.ellipsePlotSymbol(), selectedPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol(), altPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol(), selectedAltPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol(), unselectedAltPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
     
@@ -110,12 +110,10 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
         plot = NewCPTScatterPlot(frame: CGRectZero);
         plot.interpolation = CPTScatterPlotInterpolationCurved;
 
-        var hitMargin = 0;
-
         plotSymbol.size = CGSize(width: 0, height: 0);
         
         plot.plotSymbol = plotSymbol;
-        plot.plotSymbolMarginForHitDetection = CGFloat(hitMargin);
+        plot.plotSymbolMarginForHitDetection = CGFloat(0);
         plot.dataSource = self;
         plot.delegate = self;
         
