@@ -22,17 +22,13 @@ class DrawerViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     var revealController: SWRevealViewController?;
     
-    let titles = ["Dashboard", "Activity", "Challenges", "Body Stats", "Find a Station", "higi Pulse", "Settings"];
-    
-    let icons = ["oc_dashboard.png", "oc_activity.png", "oc_challenges.png", "oc_bodystats.png", "oc_findastation.png", "oc_pulse.png", "oc_settings.png"];
-    
-    let activeIcons = ["oc_dashboard_active.png", "oc_activity_active.png", "oc_challenges_active", "oc_bodystats_active.png", "oc_findastation_active.png", "oc_pulse_active.png", "oc_settings_active.png"];
+    var navigationObjects:[NavigationObject] = [];
     
     var arc: CAShapeLayer!, circle: CAShapeLayer!;
     
-    
     override func viewDidLoad() {
         super.viewDidLoad();
+        initNavigationObjects();
         tableView.selectRowAtIndexPath(NSIndexPath(forItem: 0, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None);
         refreshData();
     }
@@ -43,6 +39,50 @@ class DrawerViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.setNeedsStatusBarAppearanceUpdate();
     }
     
+    func initNavigationObjects() {
+        navigationObjects.append(NavigationObject(title: "Dashboard", icon: "oc_dashboard.png", activeIcon: "oc_dashboard_active.png", callback:
+            { (index: NSIndexPath) in
+            self.navController?.popToRootViewControllerAnimated(false);
+        }));
+        
+        navigationObjects.append(NavigationObject(title: "Challenges", icon: "oc_challenges.png", activeIcon: "oc_challenges_active", callback: {
+            (index: NSIndexPath) in
+            if (SessionController.Instance.challenges == nil) {
+                self.tableView.deselectRowAtIndexPath(index, animated: false);
+                return;
+            }
+            Flurry.logEvent("ChallengesOffCanvas_Pressed");
+            self.navController?.pushViewController(ChallengesViewController(nibName: "ChallengesView", bundle: nil), animated: false);
+        }));
+        
+        navigationObjects.append(NavigationObject(title: "Body Stats", icon: "oc_bodystats.png", activeIcon: "oc_bodystats_active.png", callback: { (index: NSIndexPath) in
+            if (SessionController.Instance.checkins == nil) {
+                self.tableView.deselectRowAtIndexPath(index, animated: false);
+                return;
+            }
+            Flurry.logEvent("BodystatOffCanvas_Pressed");
+            self.navController?.pushViewController(BodyStatsViewController(), animated: false);
+        }));
+        
+        navigationObjects.append(NavigationObject(title: "Find a Station", icon: "oc_findastation.png", activeIcon: "oc_findastation_active.png", callback: { (index: NSIndexPath) in
+            Flurry.logEvent("FindStationOffCanvas_Pressed");
+            self.navController?.popToRootViewControllerAnimated(false);
+            self.navController?.pushViewController(FindStationViewController(nibName: "FindStationView", bundle: nil), animated: false);
+        }));
+        
+        navigationObjects.append(NavigationObject(title: "higi Pulse", icon: "oc_pulse.png", activeIcon: "oc_pulse_active.png", callback: {
+            (index: NSIndexPath) in
+            Flurry.logEvent("HigiPulseOffCanvas_Pressed");
+            self.navController?.pushViewController(PulseHomeViewController(nibName: "PulseHomeView", bundle: nil), animated: false);
+        }));
+        
+        navigationObjects.append(NavigationObject(title: "Settings", icon: "oc_settings.png", activeIcon: "oc_settings_active.png", callback: {
+            (index: NSIndexPath) in
+            Flurry.logEvent("SettingsOffCanvas_Pressed");
+            self.navController?.pushViewController(SettingsViewController(nibName: "SettingsView", bundle: nil), animated: false);
+        }));
+    }
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("DrawerCell") as! DrawerCell!;
         if (cell == nil) {
@@ -51,62 +91,27 @@ class DrawerViewController: UIViewController, UITableViewDelegate, UITableViewDa
             selectedBgView.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.06)
             cell.selectedBackgroundView = selectedBgView;
         }
-        cell.title.text = titles[indexPath.item];
+        cell.title.text = navigationObjects[indexPath.item].title;
         if (tableView.indexPathForSelectedRow() != nil && indexPath.item == tableView.indexPathForSelectedRow()!.item) {
-            cell.icon.image = UIImage(named: activeIcons[indexPath.item]);
+            cell.icon.image = UIImage(named: navigationObjects[indexPath.item].activeIcon);
         } else {
-            cell.icon.image = UIImage(named: icons[indexPath.item]);
+            cell.icon.image = UIImage(named: navigationObjects[indexPath.item].icon);
         }
         return cell;
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        navigationObjects[indexPath.row].callback(indexPath);
         
-        switch (indexPath.item) {
-        case 0:
-            navController?.popToRootViewControllerAnimated(false);
-        case 1:
-            if (SessionController.Instance.activities == nil) {
-                tableView.deselectRowAtIndexPath(indexPath, animated: false);
-                return;
-            }
-            Flurry.logEvent("ActivityOffCanvas_Pressed");
-            navController?.pushViewController(ActivityViewController(nibName: "ActivityView", bundle: nil), animated: false);
-        case 2:
-            if (SessionController.Instance.challenges == nil) {
-                tableView.deselectRowAtIndexPath(indexPath, animated: false);
-                return;
-            }
-            Flurry.logEvent("ChallengesOffCanvas_Pressed");
-            navController?.pushViewController(ChallengesViewController(nibName: "ChallengesView", bundle: nil), animated: false);
-        case 3:
-            if (SessionController.Instance.checkins == nil) {
-                return;
-            }
-            Flurry.logEvent("BodystatOffCanvas_Pressed");
-            navController?.pushViewController(BodyStatsViewController(), animated: false);
-        case 4:
-            Flurry.logEvent("FindStationOffCanvas_Pressed");
-            navController?.popToRootViewControllerAnimated(false);
-            navController?.pushViewController(FindStationViewController(nibName: "FindStationView", bundle: nil), animated: false);
-        case 5:
-            Flurry.logEvent("HigiPulseOffCanvas_Pressed");
-            navController?.pushViewController(PulseHomeViewController(nibName: "PulseHomeView", bundle: nil), animated: false);
-        case 6:
-            Flurry.logEvent("SettingsOffCanvas_Pressed");
-            navController?.pushViewController(SettingsViewController(nibName: "SettingsView", bundle: nil), animated: false);
-        default:
-            navController?.popToRootViewControllerAnimated(false);
-        }
         revealController?.revealToggleAnimated(true);
         tableView.reloadData();
         var cell = tableView.cellForRowAtIndexPath(indexPath) as! DrawerCell;
-        cell.icon.image = UIImage(named: activeIcons[indexPath.item]);
+        cell.icon.image = UIImage(named: navigationObjects[indexPath.item].activeIcon);
         cell.selected = true;
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return titles.count;
+        return navigationObjects.count;
     }
     
     func refreshData() {
