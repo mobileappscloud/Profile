@@ -49,17 +49,17 @@ class BodyStatDetailCard: UIView {
         formatter.dateFormat = "MM/dd/yyyy";
         view.firstPanelValue.text = "\(formatter.stringFromDate(checkin.dateTime))";
         if (type == BodyStatsType.BloodPressure) {
-            view.secondPanelValue.text = "\(checkin.systolic!)/\(checkin.diastolic!)";
+            view.secondPanelValue.text = checkin.systolic != nil ? "\(checkin.systolic!)/\(checkin.diastolic!)" : "";
             view.secondPanelUnit.text = "mmHg";
             view.secondPanelLabel.text = "Blood Pressure";
-            view.thirdPanelValue.text = "\(Int(checkin.map!))";
+            view.thirdPanelValue.text = checkin.map != nil ? "\(Int(checkin.map!))" : "";
             view.thirdPanelUnit.text = "mmHg";
             view.thirdPanelLabel.text = "Mean Arterial Pressure";
         } else if (type == BodyStatsType.Weight) {
-            view.secondPanelValue.text = "\(Int(checkin.weightLbs!))";
+            view.secondPanelValue.text = checkin.weightLbs != nil ? "\(Int(checkin.weightLbs!))" : "";
             view.secondPanelUnit.text = "lbs";
             view.secondPanelLabel.text = "Weight";
-            view.thirdPanelValue.text = "\(Int(checkin.bmi!))";
+            view.thirdPanelValue.text = checkin.bmi != nil ? "\(Int(checkin.bmi!))" : "";
             view.thirdPanelUnit.text = "";
             view.thirdPanelLabel.text = "Body Mass Index";
         } else {
