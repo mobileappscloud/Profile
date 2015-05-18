@@ -1,6 +1,6 @@
 import Foundation
 
-class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpaceDelegate {
+class MetricGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpaceDelegate {
     
     var points: [GraphPoint], altPoints: [GraphPoint] = [], visiblePoints: [GraphPoint] = [];
     
@@ -41,8 +41,8 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
         fatalError("NSCoding not supported");
     }
     
-    func setupForDashboard(type: BodyStatsType) {
-        let color = Utility.colorFromBodyStatType(type);
+    func setupForDashboard(type: MetricsType) {
+        let color = Utility.colorFromMetricType(type);
         graph = CPTXYGraph(frame: self.bounds);
         self.hostedGraph = graph;
         
@@ -149,8 +149,8 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
         yAxis.axisLineStyle = axisLineStyle;
     }
     
-    func setupForBodyStat(type: BodyStatsType, isBodyFat: Bool) {
-        let color = Utility.colorFromBodyStatType(type);
+    func setupForMetric(type: MetricsType, isBodyFat: Bool) {
+        let color = Utility.colorFromMetricType(type);
         
         var maxY = 0.0;
         var minY = DBL_MAX;
@@ -335,7 +335,7 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
         yAxis.visibleRange = plotSpace.yRange;
         yAxis.gridLinesRange = NewCPTPlotRange(location: firstPoint.x - xRange * 0.15, length: xRange * 1.3);
         yAxis.axisConstraints = CPTConstraints(lowerOffset: 0);
-        if (type == BodyStatsType.Weight && isBodyFat) {
+        if (type == MetricsType.Weight && isBodyFat) {
             yAxis.preferredNumberOfMajorTicks = UInt(Int((upperBound - lowerBound) / 10)) + 1;
         } else {
             yAxis.preferredNumberOfMajorTicks = UInt(Int((upperBound - lowerBound) / 20)) + 1;
@@ -439,7 +439,7 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
         }
 
         if (!first) {
-            var viewController = self.superview!.superview as! BodyStatCard?;
+            var viewController = self.superview!.superview as! MetricCard?;
             viewController!.setSelected(selectedPointIndex);
         }
         
@@ -447,7 +447,7 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
         self.plot.reloadData();
     }
     
-    func getScreenPoint(graph: BodyStatGraph, xPoint: CGFloat, yPoint: CGFloat)-> CGPoint {
+    func getScreenPoint(graph: MetricGraph, xPoint: CGFloat, yPoint: CGFloat)-> CGPoint {
         var xRange = (graph.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace).xRange;
         var yRange = (graph.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace).yRange;
         var frame = graph.frame;
@@ -531,22 +531,17 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
             average /= Double(high + 1 - low);
             trend = "\(Int(average + 0.5)) Average  |  \(Int(highest)) Highest  |  \(Int(lowest)) Lowest";
         }
-        var graphView = self.superview!.superview as! BodyStatGraph;
+        var graphView = self.superview!.superview as! MetricGraph;
 //        graphView.updateTrend(trend);
         return range;
     }
     
 //    func plotSpace(space: CPTPlotSpace!, didChangePlotRangeForCoordinate coordinate: CPTCoordinate) {
-//        var graphView = self.superview!.superview as! BodyStatGraph;
+//        var graphView = self.superview!.superview as! MetricGraph;
 //        graphView.setSelectedCheckin(graphView.checkins[graphView.selected]);
 //        checkinSelected(plot as CPTScatterPlot!, idx: index - 1);
 //    }
 
-    
-    func selectPlotFromPoint(point: CGPoint) {
-        let index = Int(plot.dataIndexFromInteractionPoint(point));
-        checkinSelected(plot as CPTScatterPlot!, idx: index, first: false);
-    }
     
     override func canBecomeFirstResponder() -> Bool {
         return true;

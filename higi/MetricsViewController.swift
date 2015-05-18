@@ -1,14 +1,14 @@
 import Foundation
 
-class BodyStatsViewController: BaseViewController {
+class MetricsViewController: BaseViewController {
     
-    var selectedType = BodyStatsType.BloodPressure;
+    var selectedType = MetricsType.BloodPressure;
     
     let cardMargin = 30;
     
     let animationDuration = 0.5;
     
-    var detailsCard: BodyStatDetailCard!;
+    var detailsCard: MetricDetailCard!;
     
     var detailsOpen = false;
 
@@ -32,16 +32,16 @@ class BodyStatsViewController: BaseViewController {
         }
         
         var selectedCardPosition = 0;
-        var pos = BodyStatsType.allValues.count - 1;
+        var pos = MetricsType.allValues.count - 1;
         
-        for type in BodyStatsType.allValues.reverse() {
+        for type in MetricsType.allValues.reverse() {
             if (type == selectedType) {
                 selectedCardPosition = pos;
             }
             var cardFrame = UIScreen.mainScreen().bounds;
-            cardFrame.size.width = cardFrame.size.width - CGFloat((BodyStatsType.allValues.count - 1 - pos) * cardMargin);
+            cardFrame.size.width = cardFrame.size.width - CGFloat((MetricsType.allValues.count - 1 - pos) * cardMargin);
             
-            let card = BodyStatCard.instanceFromNib(cardFrame, type: type);
+            let card = MetricCard.instanceFromNib(cardFrame, type: type);
             card.index = pos;
             
             let layer = card.layer;
@@ -53,11 +53,11 @@ class BodyStatsViewController: BaseViewController {
             
             self.view.addSubview(card);
             card.setupGraph();
-            
+//            card.userInteractionEnabled = false;
             pos--;
         }
         
-        detailsCard = initDetailCard(SessionController.Instance.checkins[SessionController.Instance.checkins.count - 1], type: BodyStatsType.BloodPressure);
+        detailsCard = initDetailCard(SessionController.Instance.checkins[SessionController.Instance.checkins.count - 1], type: MetricsType.BloodPressure);
         detailsCard.frame.origin.y = UIScreen.mainScreen().bounds.height;
         self.view.addSubview(detailsCard);
 
@@ -90,7 +90,7 @@ class BodyStatsViewController: BaseViewController {
             return;
         } else {
             let subViews = self.view.subviews;
-            let count = BodyStatsType.allValues.count;
+            let count = MetricsType.allValues.count;
             let distance = count - selectedIndex;
             var viewsToSend:[UIView] = [];
             
@@ -112,10 +112,13 @@ class BodyStatsViewController: BaseViewController {
                     }
 
                     for index in 0...count - 1 {
-                        let card = subViews[index] as! BodyStatCard;
+                        let card = subViews[index] as! MetricCard;
+                        card.frame.origin.x = 0;
+                        card.frame.size.width = UIScreen.mainScreen().bounds.size.width;
                         let newWidth = UIScreen.mainScreen().bounds.size.width - CGFloat((index + 1) * self.cardMargin);
                         UIView.animateWithDuration(self.animationDuration, delay: 0, options: .CurveEaseInOut, animations: {
-                            card.frame.size.width = newWidth;
+//                            card.frame.size.width = newWidth;
+                            
                             card.resizeFrameWithWidth(newWidth);
                             card.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: newWidth, height: UIScreen.mainScreen().bounds.size.height)).CGPath;
                             }, completion:  { complete in
@@ -160,13 +163,13 @@ class BodyStatsViewController: BaseViewController {
     
     func updateDetailCard() {
         detailsCard.removeFromSuperview();
-        let currentCard = self.view.subviews[self.view.subviews.count - 1] as! BodyStatCard;
+        let currentCard = self.view.subviews[self.view.subviews.count - 1] as! MetricCard;
         detailsCard = initDetailCard(currentCard.selectedCheckin!, type: currentCard.type);
         self.view.addSubview(detailsCard);
     }
     
-    func initDetailCard(checkin: HigiCheckin, type: BodyStatsType) -> BodyStatDetailCard {
-        let card = BodyStatDetailCard.instanceFromNib(checkin, type: type);
+    func initDetailCard(checkin: HigiCheckin, type: MetricsType) -> MetricDetailCard {
+        let card = MetricDetailCard.instanceFromNib(checkin, type: type);
         card.frame.origin.y = detailsOpen ? cardHeaderViewHeight : detailsCardPosY;
         let selectedTapRecognizer = UITapGestureRecognizer(target: self, action: "detailsTapped:");
         let swipeDownRecognizer = UISwipeGestureRecognizer(target: self, action: "detailsSwiped:");
@@ -194,7 +197,7 @@ class BodyStatsViewController: BaseViewController {
         }
     }
     
-    func pointSelected(checkin: HigiCheckin, type: BodyStatsType) {
+    func pointSelected(checkin: HigiCheckin, type: MetricsType) {
         if (detailsCard != nil) {
             detailsCard.setCheckin(checkin, type: type);
         }
@@ -234,14 +237,13 @@ class BodyStatsViewController: BaseViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews();
         let subViews = self.view.subviews;
-        let count = BodyStatsType.allValues.count;
+        let count = MetricsType.allValues.count;
         for index in 0...count - 1 {
-            let card = subViews[index] as! BodyStatCard;
+            let card = subViews[index] as! MetricCard;
             let newWidth = UIScreen.mainScreen().bounds.size.width - CGFloat((index) * self.cardMargin);
             card.frame.size.width = newWidth;
             card.resizeFrameWithWidth(newWidth);
             card.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: newWidth, height: UIScreen.mainScreen().bounds.size.height)).CGPath;
-
             card.index = count - 1 - index;
         }
     }

@@ -25,8 +25,8 @@ class TourViewController: UIViewController, UIScrollViewDelegate {
         switch (mode!) {
         case "dashboard":
             loadDashboardTour();
-        case "bodystats":
-            loadBodyStatsTour();
+        case "Metrics":
+            loadMetricsTour();
         default:
             closeTour(nil);
         }
@@ -59,11 +59,11 @@ class TourViewController: UIViewController, UIScrollViewDelegate {
         thirdImage = UIImageView(image: Utility.iphone5Image("dashboard3"));
     }
     
-    func loadBodyStatsTour() {
-        backgroundImage.image = Utility.iphone5Image("bodystats_background");
-        firstImage = UIImageView(image: Utility.iphone5Image("bodystats1"));
-        secondImage = UIImageView(image: Utility.iphone5Image("bodystats2"));
-        thirdImage = UIImageView(image: Utility.iphone5Image("bodystats3"));
+    func loadMetricsTour() {
+        backgroundImage.image = Utility.iphone5Image("Metrics_background");
+        firstImage = UIImageView(image: Utility.iphone5Image("Metrics1"));
+        secondImage = UIImageView(image: Utility.iphone5Image("Metrics2"));
+        thirdImage = UIImageView(image: Utility.iphone5Image("Metrics3"));
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
