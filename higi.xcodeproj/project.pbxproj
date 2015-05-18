@@ -303,6 +303,7 @@
 		D1B6D6981A8D09FD0006F80C /* ChatterInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B6D6971A8D09FD0006F80C /* ChatterInputViewController.swift */; };
 		D1BA13451A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1BA13441A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib */; };
 		D1BA13471A8D056900E1AFE9 /* ChatterInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1BA13461A8D056900E1AFE9 /* ChatterInputView.xib */; };
+		D1C906B11B0A4C5D00220C12 /* NavigationObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1C906B01B0A4C5D00220C12 /* NavigationObject.swift */; };
 		D1CFC9831AB360AF00AC54BB /* BodyStatGraphCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1CFC9821AB360AF00AC54BB /* BodyStatGraphCard.swift */; };
 		D1CFC9851AB3742700AC54BB /* BodyStatGraphCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1CFC9841AB3742700AC54BB /* BodyStatGraphCardView.xib */; };
 		D1DC365E1AC9E9F000CB124D /* CustomLoadingSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1DC365D1AC9E9F000CB124D /* CustomLoadingSpinner.swift */; };
@@ -669,6 +670,7 @@
 		D1B6D6971A8D09FD0006F80C /* ChatterInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatterInputViewController.swift; sourceTree = "<group>"; };
 		D1BA13441A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailsParticipantIconView.xib; sourceTree = "<group>"; };
 		D1BA13461A8D056900E1AFE9 /* ChatterInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatterInputView.xib; sourceTree = "<group>"; };
+		D1C906B01B0A4C5D00220C12 /* NavigationObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationObject.swift; sourceTree = "<group>"; };
 		D1CFC9821AB360AF00AC54BB /* BodyStatGraphCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BodyStatGraphCard.swift; sourceTree = "<group>"; };
 		D1CFC9841AB3742700AC54BB /* BodyStatGraphCardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BodyStatGraphCardView.xib; sourceTree = "<group>"; };
 		D1DC365D1AC9E9F000CB124D /* CustomLoadingSpinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLoadingSpinner.swift; sourceTree = "<group>"; };
@@ -941,6 +943,7 @@
 				8F2B7E42198C2DA0009DE89A /* DrawerViewController.swift */,
 				8F2B7E56198C34D0009DE89A /* RevealView.xib */,
 				8F2B7E54198C3475009DE89A /* RevealViewController.swift */,
+				D1C906B01B0A4C5D00220C12 /* NavigationObject.swift */,
 			);
 			name = Navigation;
 			sourceTree = "<group>";
@@ -1887,6 +1890,7 @@
 				2BBDBA521A12AC2C005A6815 /* ChallengeRowCell.swift in Sources */,
 				8FDB4B641A096E1C00F57B38 /* HigiChallenge.swift in Sources */,
 				8F29630D194B8F4600E787FD /* WelcomeViewController.swift in Sources */,
+				D1C906B11B0A4C5D00220C12 /* NavigationObject.swift in Sources */,
 				8FDB4B6A1A09741400F57B38 /* ChallengeWinCondition.swift in Sources */,
 				8F2B7E41198C2C27009DE89A /* SWRevealViewController.m in Sources */,
 				D1E2DB821AE176760074CBAF /* BodyStatCard.swift in Sources */,
