@@ -24,7 +24,9 @@ class BodyStatGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpace
     
     init(frame: CGRect, points: [GraphPoint]) {
         self.points = points;
-        self.points.append(GraphPoint(x: Double(NSDate().timeIntervalSince1970), y: points.last!.y));
+        if (points.count > 0) {
+            self.points.append(GraphPoint(x: Double(NSDate().timeIntervalSince1970), y: points.last!.y));
+        }
         super.init(frame: frame);
     }
     
