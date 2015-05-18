@@ -53,7 +53,7 @@ class MetricsViewController: BaseViewController {
             
             self.view.addSubview(card);
             card.setupGraph();
-//            card.userInteractionEnabled = false;
+            
             pos--;
         }
         
@@ -113,8 +113,8 @@ class MetricsViewController: BaseViewController {
 
                     for index in 0...count - 1 {
                         let card = subViews[index] as! MetricCard;
-                        card.frame.origin.x = 0;
-                        card.frame.size.width = UIScreen.mainScreen().bounds.size.width;
+//                        card.frame.origin.x = 0;
+//                        card.frame.size.width = UIScreen.mainScreen().bounds.size.width;
                         let newWidth = UIScreen.mainScreen().bounds.size.width - CGFloat((index + 1) * self.cardMargin);
                         UIView.animateWithDuration(self.animationDuration, delay: 0, options: .CurveEaseInOut, animations: {
 //                            card.frame.size.width = newWidth;
