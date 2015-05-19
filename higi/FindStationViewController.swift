@@ -69,7 +69,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
         (self.navigationItem.leftBarButtonItem!.customView! as! UIButton).setBackgroundImage(UIImage(named: "nav_ocmicon_inverted"), forState: UIControlState.Normal);
         listButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30));
-        listButton.setBackgroundImage(UIImage(named: "map_listviewicon.png"), forState: UIControlState.Normal);
+        listButton.setBackgroundImage(UIImage(named: "map_listviewicon"), forState: UIControlState.Normal);
         listButton.addTarget(self, action: "toggleList:", forControlEvents: UIControlEvents.TouchUpInside);
         var listBarItem = UIBarButtonItem();
         listBarItem.customView = listButton;
@@ -80,7 +80,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         searchField.font = UIFont.systemFontOfSize(12);
         searchField.placeholder = "Search by store name, city, zip";
         searchField.leftViewMode = UITextFieldViewMode.Always;
-        searchField.leftView = UIImageView(image: UIImage(named: "search_icon.png"));
+        searchField.leftView = UIImageView(image: UIImage(named: "search_icon"));
         searchField.leftView!.frame = CGRect(x: 0, y: 5, width: 30, height: 20);
         searchField.leftView!.contentMode = UIViewContentMode.ScaleAspectFit;
         searchField.clearButtonMode = UITextFieldViewMode.WhileEditing;
@@ -130,7 +130,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
                 topHelp.layer.borderColor = Utility.colorFromHexString("#9A9A9A").CGColor;
                 topHelp.hidden = false;
                 
-                var stretchedImage = UIImage(named: "bg_tap_reminder.png")!;
+                var stretchedImage = UIImage(named: "bg_tap_reminder")!;
                 stretchedImage = stretchedImage.resizableImageWithCapInsets(UIEdgeInsets(top: 40, left: 5, bottom: 160, right: 100));
                 bottomHelpBackground.image = stretchedImage;
             }
