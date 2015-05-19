@@ -2,25 +2,15 @@ import Foundation
 
 class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDataSource, CPTPlotSpaceDelegate {
     
-    var points: [GraphPoint], altPoints: [GraphPoint] = [], visiblePoints: [GraphPoint] = [];
+    var points: [GraphPoint], altPoints: [GraphPoint] = [], systolicPoints: [GraphPoint] = [], diastolicPoints: [GraphPoint] = [];
     
-    var systolicPoints: [GraphPoint] = [], diastolicPoints: [GraphPoint] = [];
+    var plot, altPlot: NewCPTScatterPlot!;
     
-    var plot: NewCPTScatterPlot = NewCPTScatterPlot(frame: CGRectZero), altPlot: NewCPTScatterPlot = NewCPTScatterPlot(frame: CGRectZero);
+    var plotSymbol, selectedPlotSymbol, altPlotSymbol, selectedAltPlotSymbol, unselectedAltPlotSymbol:CPTPlotSymbol!;
     
-    var selectedPointIndex = -1;
-    
-    var plotSymbol = CPTPlotSymbol.ellipsePlotSymbol(), selectedPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol(), altPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol(), selectedAltPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol(), unselectedAltPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
-    
-    var selectedAltPlotLineStyle = CPTMutableLineStyle(), unselectedAltPlotLineStyle = CPTMutableLineStyle();
-    
-    var lastSelectedAltPlotIndex = -1;
-    
-    let pointsToShow = 30;
+    var lastSelectedAltPlotIndex = -1, selectedPointIndex = -1;
     
     var graph: CPTXYGraph!;
-    
-    let unselectedColor = Utility.colorFromHexString("#b4a6c2");
     
     init(frame: CGRect, points: [GraphPoint]) {
         self.points = points;
@@ -85,6 +75,7 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         
         plot = NewCPTScatterPlot(frame: CGRectZero);
         plot.interpolation = CPTScatterPlotInterpolationCurved;
+        plotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
         plotSymbol.size = CGSize(width: 0, height: 0);
         plot.plotSymbol = plotSymbol;
         plot.plotSymbolMarginForHitDetection = CGFloat(0);
@@ -120,61 +111,48 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         graph.addPlot(plot, toPlotSpace: graph.defaultPlotSpace);
     }
     
-    func initPlotSymbols(color:UIColor) {
-        
-    }
-    
     func setupForMetric(type: MetricsType, isBodyFat: Bool) {
-        let color = Utility.colorFromMetricType(type);
+        let color = Utility.colorFromMetricType(type), unselectedColor = Utility.colorFromHexString("#b4a6c2");
         var maxY = 0.0, minY = DBL_MAX, plotSymbolSize = 7.0;
-        let hitMargin = 5;
-
+        let hitMargin = 5, pointsToShow = 30;
+        
         initGraph();
         self.allowPinchScaling = true;
         graph.plotAreaFrame.paddingTop = 20;
         graph.plotAreaFrame.borderLineStyle = nil;
         
+        plotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
+        plotSymbol.fill = CPTFill(color: CPTColor.whiteColor());
         var symbolLineStyle = CPTMutableLineStyle();
         symbolLineStyle.lineColor = CPTColor(CGColor: color.CGColor);
         symbolLineStyle.lineWidth = 2;
-        
-        var unselectedLineStyle = CPTMutableLineStyle();
-        unselectedLineStyle.lineColor = CPTColor(CGColor: unselectedColor.CGColor);
-        
-        var lineStyle = CPTMutableLineStyle();
-        lineStyle.lineColor = CPTColor(CGColor: color.CGColor);
-        lineStyle.lineWidth = 1;
-        selectedAltPlotLineStyle = lineStyle;
-        
-        var noLineStyle = CPTMutableLineStyle();
-        noLineStyle.lineWidth = 0;
-        
-        plotSymbol.fill = CPTFill(color: CPTColor.whiteColor());
         plotSymbol.lineStyle = symbolLineStyle;
         plotSymbol.size = CGSize(width: plotSymbolSize, height: plotSymbolSize);
         
+        selectedPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
         selectedPlotSymbol.fill = CPTFill(color: CPTColor(CGColor: color.CGColor));
         selectedPlotSymbol.lineStyle = symbolLineStyle;
         selectedPlotSymbol.size = CGSize(width: plotSymbolSize, height: plotSymbolSize);
         
-        unselectedAltPlotLineStyle.lineColor = CPTColor(CGColor: unselectedColor.CGColor);
-        unselectedAltPlotLineStyle.lineWidth = 1;
-        
+        altPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
         altPlotSymbol.fill = CPTFill(color: CPTColor(CGColor: color.CGColor));
         altPlotSymbol.lineStyle = symbolLineStyle;
         altPlotSymbol.size = CGSize(width: plotSymbolSize, height: plotSymbolSize);
         
+        selectedAltPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
         selectedAltPlotSymbol.fill = CPTFill(color: CPTColor(CGColor: color.CGColor));
         selectedAltPlotSymbol.lineStyle = symbolLineStyle;
         selectedAltPlotSymbol.size = CGSize(width: plotSymbolSize, height: plotSymbolSize);
         
+        unselectedAltPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
         unselectedAltPlotSymbol.fill = CPTFill(color: CPTColor(CGColor: unselectedColor.CGColor));
-        unselectedAltPlotSymbol.lineStyle = unselectedLineStyle;
         unselectedAltPlotSymbol.size = CGSize(width: plotSymbolSize, height: plotSymbolSize);
-
+        var unselectedAltPlotLineStyle = CPTMutableLineStyle();
         unselectedAltPlotLineStyle.lineColor = CPTColor(CGColor: unselectedColor.CGColor);
         unselectedAltPlotLineStyle.lineWidth = 1;
+        unselectedAltPlotSymbol.lineStyle = unselectedAltPlotLineStyle;
         
+        var visiblePoints: [GraphPoint] = [];
         for index in 0..<points.count {
             var point = points[index];
             if (diastolicPoints.count > 0 && diastolicPoints.count > index) {
@@ -209,16 +187,20 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
                 visiblePoints.append(point);
             }
         }
-        altPlot = NewCPTScatterPlot(frame: CGRectZero);
-        altPlot.interpolation = CPTScatterPlotInterpolationLinear;
-        altPlot.plotSymbolMarginForHitDetection = CGFloat(hitMargin);
-        altPlot.dataSource = self;
-        altPlot.delegate = self;
-        altPlot.setAreaBaseDecimalValue(0);
-        altPlot.plotSymbol = altPlotSymbol;
-        altPlot.dataLineStyle = noLineStyle;
-        graph.addPlot(altPlot, toPlotSpace: graph.defaultPlotSpace);
-        
+        if (diastolicPoints.count > 0) {
+            altPlot = NewCPTScatterPlot(frame: CGRectZero);
+            altPlot.interpolation = CPTScatterPlotInterpolationLinear;
+            altPlot.plotSymbolMarginForHitDetection = CGFloat(hitMargin);
+            altPlot.dataSource = self;
+            altPlot.delegate = self;
+            altPlot.setAreaBaseDecimalValue(0);
+            altPlot.plotSymbol = altPlotSymbol;
+            var noLineStyle = CPTMutableLineStyle();
+            noLineStyle.lineWidth = 0;
+            altPlot.dataLineStyle = noLineStyle;
+            //add alt plot here so that it's drawn behind main plot
+            graph.addPlot(altPlot, toPlotSpace: graph.defaultPlotSpace);
+        }
         var firstPoint, lastPoint: GraphPoint;
         if (visiblePoints.count > 0) {
             firstPoint = visiblePoints[0];
@@ -244,6 +226,9 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         plot.dataSource = self;
         plot.delegate = self;
         plot.plotSymbol = plotSymbol;
+        var lineStyle = CPTMutableLineStyle();
+        lineStyle.lineColor = CPTColor(CGColor: color.CGColor);
+        lineStyle.lineWidth = 1;
         plot.dataLineStyle = lineStyle;
         
         var axisTextStyle = CPTMutableTextStyle();
@@ -287,13 +272,13 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
             yAxis.preferredNumberOfMajorTicks = UInt(Int((upperBound - lowerBound) / 20)) + 1;
         }
         
-        //added after alt plots so that it is drawn on top
         graph.addPlot(plot, toPlotSpace: graph.defaultPlotSpace);
         
         checkinSelected(plot, idx: points.count - 1, first: true);
     }
 
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+        super.touchesBegan(touches, withEvent: event);
         let i = 0;
     }
     
@@ -356,7 +341,9 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
             var viewController = self.superview!.superview as! MetricCard?;
             viewController!.setSelected(selectedPointIndex);
         }
-        altPlot.reloadData();
+        if (diastolicPoints.count > 0) {
+            altPlot.reloadData();
+        }
         self.plot.reloadData();
     }
     
@@ -386,7 +373,7 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
                 }
             } else {
                 let view = UIView(frame: CGRect(x: screenPoint.x - 0.5, y: screenPoint.y, width: 1, height: CGFloat(point.y - altPoints[Int(idx + 1)].y)));
-                view.backgroundColor = unselectedColor;
+                view.backgroundColor = plotSymbol.lineStyle.lineColor.uiColor;
                 addSubview(view);
                 if (Int(idx) == (selectedPointIndex * 2)) {
                     return selectedAltPlotSymbol;
