@@ -118,14 +118,7 @@ class MetricCard: UIView {
         graph.setupForMetric(type, isBodyFat: false);
         graph.backgroundColor = UIColor.whiteColor();
         graph.userInteractionEnabled = true;
-        
-//        let graphView = UIView(frame: graphContainer.frame);
-//        graphView.addSubview(graph);
-//        self.graphContainer.addSubview(graphView);
-//        
         self.graphContainer.addSubview(graph);
-//        graphContainer.bringSubviewToFront(graph);
-//        self.view.bringSubviewToFront(graphContainer);
         
         setSelected(graphPoints.count - 1);
     }

@@ -120,7 +120,7 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         self.allowPinchScaling = true;
         graph.plotAreaFrame.paddingTop = 20;
         graph.plotAreaFrame.borderLineStyle = nil;
-        
+
         plotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
         plotSymbol.fill = CPTFill(color: CPTColor.whiteColor());
         var symbolLineStyle = CPTMutableLineStyle();
@@ -324,7 +324,6 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         var plotSpace = self.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace;
         let padding = Double(UIScreen.mainScreen().bounds.size.width * 0.1);
         plotSpace.xRange = NewCPTPlotRange(location: (padding + firstPoint.x), length: lastPoint.x - firstPoint.x + 1);
-        
     }
     
     func scatterPlot(plot: CPTScatterPlot!, plotSymbolWasSelectedAtRecordIndex idx: UInt) {
@@ -348,17 +347,12 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
     }
     
     func getScreenPoint(graph: MetricGraph, xPoint: CGFloat, yPoint: CGFloat)-> CGPoint {
-        if (graph.hostedGraph != nil) {
-            var xRange = (graph.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace).xRange;
-            var yRange = (graph.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace).yRange;
-            var frame = graph.frame;
-            let p = CGFloat(yRange.locationDouble);
-            var x = ((xPoint - CGFloat(xRange.locationDouble)) / CGFloat(xRange.lengthDouble)) * frame.size.width;
-            var y = (1.0 - ((yPoint - CGFloat(yRange.locationDouble)) / CGFloat(yRange.lengthDouble))) * (frame.size.height - 30);
-            return CGPoint(x: x, y: y);
-        } else {
-            return CGPoint(x: 0, y: 0);
-        }
+        var xRange = (graph.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace).xRange;
+        var yRange = (graph.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace).yRange;
+        var frame = graph.frame;
+        var x = ((xPoint - CGFloat(xRange.locationDouble)) / CGFloat(xRange.lengthDouble)) * frame.size.width;
+        var y = (1.0 - ((yPoint - CGFloat(yRange.locationDouble)) / CGFloat(yRange.lengthDouble))) * (frame.size.height - 30);
+        return CGPoint(x: x, y: y);
     }
     
     func symbolForScatterPlot(plot: CPTScatterPlot!, recordIndex idx: UInt) -> CPTPlotSymbol! {
