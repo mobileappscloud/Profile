@@ -54,9 +54,8 @@ class GoalChallengeView: ChallengeView {
         drawGoals(goalView, participantPoints: goalView.participantPoints, winConditions: sortedWinConditions, maxGoalValue: goalView.maxPoints, isComplex: isComplex);
         
         //points label + vertical line pointing
-        if (goalView.participantPoints < goalView.maxPoints) {
-            drawParticipantPoints(goalView, participantPoints: goalView.participantPoints, maxGoalValue: goalView.maxPoints);
-        }
+        drawParticipantPoints(goalView, participantPoints: goalView.participantPoints, maxGoalValue: goalView.maxPoints);
+        
         
         return goalView;
     }
@@ -85,8 +84,10 @@ class GoalChallengeView: ChallengeView {
         goalView.pointsLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline);
         goalView.pointsLabel.textColor = Utility.colorFromHexString("#444444");
         
-        goalView.progress.addSubview(goalView.pointsLabel);
-        goalView.progress.addSubview(goalView.verticalLine);
+        if (goalView.participantPoints < goalView.maxPoints) {
+            goalView.progress.addSubview(goalView.pointsLabel);
+            goalView.progress.addSubview(goalView.verticalLine);
+        }
     }
     
     class func drawGoals(goalView: GoalChallengeView, participantPoints: Int, winConditions: [ChallengeWinCondition], maxGoalValue: Int, isComplex: Bool) {
