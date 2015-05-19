@@ -100,9 +100,10 @@ class MetricCard: UIView {
             }
         }
         
-        let graphY = headerView.frame.size.height;
+//        let graphY = headerView.frame.size.height;
+        let graphY:CGFloat = 0;
         let graphWidth = frame.size.width;
-        let graphHeight:CGFloat = 214;
+        let graphHeight:CGFloat = frame.size.height - headerView.frame.size.height - (frame.size.height - 267);
         if (type == MetricsType.BloodPressure) {
             graph = MetricGraph(frame: CGRect(x: 0, y: graphY, width: graphWidth, height: graphHeight), points: graphPoints, diastolicPoints: diastolicPoints, systolicPoints: systolicPoints);
         } else if (type == MetricsType.Weight) {
@@ -110,15 +111,22 @@ class MetricCard: UIView {
             secondaryGraph = MetricGraph(frame: CGRect(x: 0, y: graphY, width: graphWidth, height: graphHeight), points: bodyFatPoints);
             secondaryGraph.setupForMetric(type, isBodyFat: true);
             secondaryGraph.backgroundColor = UIColor.whiteColor();
-            self.view.addSubview(secondaryGraph);
+            self.graphContainer.addSubview(secondaryGraph);
         } else {
             graph = MetricGraph(frame: CGRect(x: 0, y: graphY, width: graphWidth, height: graphHeight), points: graphPoints);
         }
         graph.setupForMetric(type, isBodyFat: false);
         graph.backgroundColor = UIColor.whiteColor();
+        graph.userInteractionEnabled = true;
         
-        self.view.addSubview(graph);
-
+//        let graphView = UIView(frame: graphContainer.frame);
+//        graphView.addSubview(graph);
+//        self.graphContainer.addSubview(graphView);
+//        
+        self.graphContainer.addSubview(graph);
+//        graphContainer.bringSubviewToFront(graph);
+//        self.view.bringSubviewToFront(graphContainer);
+        
         setSelected(graphPoints.count - 1);
     }
     

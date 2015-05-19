@@ -1,6 +1,6 @@
 import Foundation
 
-class MetricGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpaceDelegate {
+class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDataSource, CPTPlotSpaceDelegate {
     
     var points: [GraphPoint], altPoints: [GraphPoint] = [], visiblePoints: [GraphPoint] = [];
     
@@ -152,14 +152,10 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpaceDe
     func setupForMetric(type: MetricsType, isBodyFat: Bool) {
         let color = Utility.colorFromMetricType(type);
         
-        var maxY = 0.0;
-        var minY = DBL_MAX;
-        
-        var maxX = 0.0;
-        var minX = DBL_MAX;
+        var maxY = 0.0, minY = DBL_MAX, maxX = 0.0, minX = DBL_MAX;
         let hitMargin = 5;
         
-        var graph = CPTXYGraph(frame: self.bounds);
+        graph = CPTXYGraph(frame: self.bounds);
         self.hostedGraph = graph;
         self.allowPinchScaling = true;
         
@@ -222,19 +218,16 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpaceDe
                     maxY = point.y;
                 }
             }
-            
             if (point.x > maxX) {
                 maxX = point.x;
             }
             if (point.x < minX) {
                 minX = point.x;
             }
-            
             if (diastolicPoints.count > 0 && diastolicPoints.count > index && systolicPoints.count > 0 && systolicPoints.count > index) {
                 altPoints.append(systolicPoints[index]);
                 altPoints.append(diastolicPoints[index]);
             }
-            
             if (points.count > pointsToShow) {
                 if (index > points.count - 1 - pointsToShow) {
                     visiblePoints.append(point);
@@ -242,7 +235,6 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpaceDe
             } else {
                 visiblePoints.append(point);
             }
-
         }
         altPlot = NewCPTScatterPlot(frame: CGRectZero);
         altPlot.interpolation = CPTScatterPlotInterpolationLinear;
@@ -309,45 +301,16 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpaceDe
         axisTextStyle.fontSize = 8;
 
         var xAxis = graph.axisSet.axisForCoordinate(CPTCoordinateX, atIndex: 0) as! CPTXYAxis;
-        xAxis.labelTextStyle = axisTextStyle;
-        xAxis.majorTickLineStyle = nil;
-        xAxis.minorTickLineStyle = nil;
-        xAxis.visibleRange = plotSpace.xRange;
-        xAxis.axisConstraints = CPTConstraints(lowerOffset: 0);
-        xAxis.labelingPolicy = CPTAxisLabelingPolicyEqualDivisions;
-
-        xAxis.preferredNumberOfMajorTicks = 10;
-        xAxis.axisLineStyle = lineStyle;
-        xAxis.labelOffset = 0;
-        
-        xAxis.tickDirection = CPTSignPositive;
-        var dateFormatter = NSDateFormatter();
-        dateFormatter.dateFormat = "MMM dd";
-        xAxis.labelFormatter = CustomFormatter(dateFormatter: dateFormatter);
+        initXAxis(xAxis, visibleRange: plotSpace.xRange, textStyle: axisTextStyle, lineStyle: lineStyle);
         
         var yAxis = graph.axisSet.axisForCoordinate(CPTCoordinateY, atIndex: 0) as! CPTXYAxis;
-        
-        yAxis.axisLineStyle = lineStyle;
-        yAxis.labelTextStyle = axisTextStyle;
-        yAxis.labelOffset = CGFloat(20);
-        yAxis.majorTickLineStyle = nil;
-        yAxis.minorTickLineStyle = nil;
-        yAxis.visibleRange = plotSpace.yRange;
-        yAxis.gridLinesRange = NewCPTPlotRange(location: firstPoint.x - xRange * 0.15, length: xRange * 1.3);
-        yAxis.axisConstraints = CPTConstraints(lowerOffset: 0);
-        if (type == MetricsType.Weight && isBodyFat) {
+        initYAxis(yAxis, xRange: NewCPTPlotRange(location: firstPoint.x - xRange * 0.15, length: xRange * 1.3), visibleRange: plotSpace.yRange, textStyle: axisTextStyle, lineStyle: lineStyle);
+        if (isBodyFat) {
             yAxis.preferredNumberOfMajorTicks = UInt(Int((upperBound - lowerBound) / 10)) + 1;
         } else {
             yAxis.preferredNumberOfMajorTicks = UInt(Int((upperBound - lowerBound) / 20)) + 1;
         }
-        yAxis.labelingPolicy = CPTAxisLabelingPolicyEqualDivisions;
-        let numberFormatter = NSNumberFormatter();
-        numberFormatter.numberStyle = NSNumberFormatterStyle.DecimalStyle;
-        numberFormatter.maximumFractionDigits = 0;
-        yAxis.labelFormatter = numberFormatter;
-        yAxis.tickDirection = CPTSignPositive;
-        yAxis.labelOffset = 0;
-
+        
 //        if (isBodyFat) {
 //            let rangeTops = [50, 30, 25, 18];
 //            
@@ -373,6 +336,46 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpaceDe
         checkinSelected(plot, idx: points.count - 1, first: true);
     }
 
+    func initXAxis(xAxis: CPTXYAxis, visibleRange: CPTPlotRange, textStyle: CPTMutableTextStyle, lineStyle: CPTMutableLineStyle) {
+        xAxis.labelTextStyle = textStyle;
+        xAxis.majorTickLineStyle = nil;
+        xAxis.minorTickLineStyle = nil;
+        xAxis.visibleRange = visibleRange;
+        xAxis.axisConstraints = CPTConstraints(lowerOffset: 0);
+        xAxis.labelingPolicy = CPTAxisLabelingPolicyEqualDivisions;
+        
+        xAxis.preferredNumberOfMajorTicks = 10;
+        xAxis.axisLineStyle = lineStyle;
+        xAxis.labelOffset = 0;
+        
+        xAxis.tickDirection = CPTSignPositive;
+        var dateFormatter = NSDateFormatter();
+        dateFormatter.dateFormat = "MMM dd";
+        xAxis.labelFormatter = CustomFormatter(dateFormatter: dateFormatter);
+    }
+    
+    func initYAxis(yAxis: CPTXYAxis, xRange: CPTPlotRange, visibleRange: CPTPlotRange, textStyle: CPTMutableTextStyle, lineStyle: CPTMutableLineStyle) {
+        yAxis.axisLineStyle = lineStyle;
+        yAxis.labelTextStyle = textStyle;
+        yAxis.labelOffset = CGFloat(20);
+        yAxis.majorTickLineStyle = nil;
+        yAxis.minorTickLineStyle = nil;
+        yAxis.visibleRange = visibleRange;
+        yAxis.gridLinesRange = xRange;
+        yAxis.axisConstraints = CPTConstraints(lowerOffset: 0);
+        yAxis.labelingPolicy = CPTAxisLabelingPolicyEqualDivisions;
+        let numberFormatter = NSNumberFormatter();
+        numberFormatter.numberStyle = NSNumberFormatterStyle.DecimalStyle;
+        numberFormatter.maximumFractionDigits = 0;
+        yAxis.labelFormatter = numberFormatter;
+        yAxis.tickDirection = CPTSignPositive;
+        yAxis.labelOffset = 0;
+    }
+    
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+        let i = 0;
+    }
+    
     func roundToLowest(number: Double, roundTo: Double) -> Double {
         return Double(Int(number / roundTo) * Int(roundTo));
     }
@@ -384,6 +387,9 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpaceDe
     }
     
     func numberOfRecordsForPlot(plot: CPTPlot!) -> UInt {
+        if (hostedGraph == nil) {
+            self.hostedGraph = graph;
+        }
         if (plot.isEqual(self.plot)) {
             return UInt(points.count);
         } else {
@@ -427,8 +433,8 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpaceDe
         
     }
     
-    func scatterPlot(plot: CPTScatterPlot!, plotSymbolWasSelectedAtRecordIndex idx: Int) {
-        checkinSelected(plot, idx: idx, first: false);
+    func scatterPlot(plot: CPTScatterPlot!, plotSymbolWasSelectedAtRecordIndex idx: UInt) {
+        checkinSelected(plot, idx: Int(idx), first: false);
     }
     
     func checkinSelected(plot: CPTScatterPlot!, idx: Int, first: Bool) {
@@ -437,24 +443,26 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDataSource, CPTPlotSpaceDe
         } else {
             selectedPointIndex = Int(idx / 2);
         }
-
         if (!first) {
             var viewController = self.superview!.superview as! MetricCard?;
             viewController!.setSelected(selectedPointIndex);
         }
-        
         altPlot.reloadData();
         self.plot.reloadData();
     }
     
     func getScreenPoint(graph: MetricGraph, xPoint: CGFloat, yPoint: CGFloat)-> CGPoint {
-        var xRange = (graph.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace).xRange;
-        var yRange = (graph.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace).yRange;
-        var frame = graph.frame;
-        let p = CGFloat(yRange.locationDouble);
-        var x = ((xPoint - CGFloat(xRange.locationDouble)) / CGFloat(xRange.lengthDouble)) * frame.size.width;
-        var y = (1.0 - ((yPoint - CGFloat(yRange.locationDouble)) / CGFloat(yRange.lengthDouble))) * (frame.size.height - 30);
-        return CGPoint(x: x, y: y);
+        if (graph.hostedGraph != nil) {
+            var xRange = (graph.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace).xRange;
+            var yRange = (graph.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace).yRange;
+            var frame = graph.frame;
+            let p = CGFloat(yRange.locationDouble);
+            var x = ((xPoint - CGFloat(xRange.locationDouble)) / CGFloat(xRange.lengthDouble)) * frame.size.width;
+            var y = (1.0 - ((yPoint - CGFloat(yRange.locationDouble)) / CGFloat(yRange.lengthDouble))) * (frame.size.height - 30);
+            return CGPoint(x: x, y: y);
+        } else {
+            return CGPoint(x: 0, y: 0);
+        }
     }
     
     func symbolForScatterPlot(plot: CPTScatterPlot!, recordIndex idx: UInt) -> CPTPlotSymbol! {
