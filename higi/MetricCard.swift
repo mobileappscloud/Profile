@@ -20,6 +20,7 @@ class MetricCard: UIView {
     
     var toggleBmiOn = true;
     
+    @IBOutlet weak var graphContainer: UIView!
     @IBOutlet weak var view: UIView!
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var title: UILabel!
@@ -70,7 +71,6 @@ class MetricCard: UIView {
     
     func setupGraph() {
         var graphPoints: [GraphPoint] = [], diastolicPoints: [GraphPoint] = [], systolicPoints: [GraphPoint] = [], bodyFatPoints: [GraphPoint] = [];
-        
         for checkin in checkins {
             let checkinTime = Double(checkin.dateTime.timeIntervalSince1970);
             if (type == MetricsType.BloodPressure && checkin.map != nil && checkin.map > 0) {
@@ -87,7 +87,6 @@ class MetricCard: UIView {
                 }
                 plottedCheckins.append(checkin);
             }
-            
             if (type == MetricsType.Weight && checkin.weightLbs != nil && checkin.weightLbs > 0) {
                 if (checkin.fatRatio > 0) {
                     bodyFatPoints.append(GraphPoint(x: checkinTime, y: checkin.fatRatio));
@@ -95,7 +94,6 @@ class MetricCard: UIView {
                 graphPoints.append(GraphPoint(x: checkinTime, y: checkin.weightLbs));
                 plottedCheckins.append(checkin);
             }
-            
             if (type == MetricsType.Pulse && checkin.pulseBpm != nil && checkin.pulseBpm > 0) {
                 graphPoints.append(GraphPoint(x: checkinTime, y: Double(checkin.pulseBpm!)));
                 plottedCheckins.append(checkin);
@@ -105,7 +103,6 @@ class MetricCard: UIView {
         let graphY = headerView.frame.size.height;
         let graphWidth = frame.size.width;
         let graphHeight:CGFloat = 214;
-        
         if (type == MetricsType.BloodPressure) {
             graph = MetricGraph(frame: CGRect(x: 0, y: graphY, width: graphWidth, height: graphHeight), points: graphPoints, diastolicPoints: diastolicPoints, systolicPoints: systolicPoints);
         } else if (type == MetricsType.Weight) {
@@ -113,15 +110,12 @@ class MetricCard: UIView {
             secondaryGraph = MetricGraph(frame: CGRect(x: 0, y: graphY, width: graphWidth, height: graphHeight), points: bodyFatPoints);
             secondaryGraph.setupForMetric(type, isBodyFat: true);
             secondaryGraph.backgroundColor = UIColor.whiteColor();
-            secondaryGraph.userInteractionEnabled = true;
             self.view.addSubview(secondaryGraph);
         } else {
             graph = MetricGraph(frame: CGRect(x: 0, y: graphY, width: graphWidth, height: graphHeight), points: graphPoints);
         }
-        
         graph.setupForMetric(type, isBodyFat: false);
         graph.backgroundColor = UIColor.whiteColor();
-        graph.userInteractionEnabled = true;
         
         self.view.addSubview(graph);
 
