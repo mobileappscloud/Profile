@@ -41,23 +41,24 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         fatalError("NSCoding not supported");
     }
     
-    func setupForDashboard(type: MetricsType) {
+    func setupGraph(type: MetricsType, dashboard: Bool) {
         let color = Utility.colorFromMetricType(type);
+    }
+    
+    func initGraph() {
         graph = CPTXYGraph(frame: self.bounds);
         self.hostedGraph = graph;
-        
         graph.paddingLeft = 0;
         graph.paddingTop = 0;
         graph.paddingRight = 0;
         graph.paddingBottom = 0;
+    }
+    
+    func setupForDashboard(type: MetricsType) {
+        let color = Utility.colorFromMetricType(type);
+        var maxY = 0.0, minY = DBL_MAX, maxX = 0.0, minX = DBL_MAX;
+        initGraph();
         graph.plotAreaFrame.paddingBottom = 10;
-        
-        var maxY = 0.0;
-        var minY = DBL_MAX;
-        var maxX = 0.0;
-        var minX = DBL_MAX;
-        
-        var index = 0;
         for point in points {
             if (point.y > maxY) {
                 maxY = point.y;
@@ -71,35 +72,9 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
             if (point.x < minX) {
                 minX = point.x;
             }
-            if (points.count > pointsToShow) {
-                if (index > points.count - 1 - pointsToShow) {
-                    visiblePoints.append(point);
-                }
-            } else {
-                visiblePoints.append(point);
-            }
-            index++;
         }
-        
-        var firstPoint, lastPoint: GraphPoint;
-        
-        if (visiblePoints.count > 0) {
-            firstPoint = visiblePoints[0];
-            lastPoint = visiblePoints[visiblePoints.count - 1];
-        } else {
-            firstPoint = GraphPoint(x: 0, y: 0);
-            lastPoint = GraphPoint(x: 0, y: 0);
-        }
-        
-        var yRange = maxY - minY;
-        if (yRange == 0) {
-            yRange++;
-        }
-
-        var xRange = maxX - minX;
-        if (xRange == 0) {
-            xRange++;
-        }
+        var yRange = maxY - minY != 0 ? maxY - minY : 1;
+        var xRange = maxX - minX != 0 ? maxX - minX : 1;
 
         var plotSpace = graph.defaultPlotSpace as! CPTXYPlotSpace;
         plotSpace.xRange = NewCPTPlotRange(location: minX - xRange * 0.05, length: xRange * 1.05);
@@ -107,38 +82,29 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         plotSpace.globalXRange = plotSpace.xRange;
         plotSpace.globalYRange = plotSpace.yRange;
         plotSpace.delegate = self;
+        
         plot = NewCPTScatterPlot(frame: CGRectZero);
         plot.interpolation = CPTScatterPlotInterpolationCurved;
-
         plotSymbol.size = CGSize(width: 0, height: 0);
-        
         plot.plotSymbol = plotSymbol;
         plot.plotSymbolMarginForHitDetection = CGFloat(0);
         plot.dataSource = self;
         plot.delegate = self;
-        
         var lineStyle = CPTMutableLineStyle();
         lineStyle.lineColor = CPTColor(CGColor: color.CGColor);
         lineStyle.lineWidth = 2;
-        
         plot.dataLineStyle = lineStyle;
-        
-        graph.addPlot(plot, toPlotSpace: graph.defaultPlotSpace);
-        
-        var axisLineStyle = CPTMutableLineStyle();
-        axisLineStyle.lineColor = CPTColor(CGColor: UIColor.lightGrayColor().CGColor);
-        axisLineStyle.lineWidth = 2;
-        
-        var xAxisLineStyle = CPTMutableLineStyle();
-        xAxisLineStyle.lineColor = CPTColor(CGColor: UIColor.lightGrayColor().CGColor);
-        xAxisLineStyle.lineWidth = 1;
+        plotSymbol.size = CGSize(width: 0, height: 0);
+        plot.plotSymbol = plotSymbol;
         
         var xAxis = graph.axisSet.axisForCoordinate(CPTCoordinateX, atIndex: 0) as! CPTXYAxis;
         xAxis.visibleRange = plotSpace.xRange;
         xAxis.gridLinesRange = plotSpace.yRange;
         xAxis.axisConstraints = CPTConstraints(lowerOffset: 0);
         xAxis.labelingPolicy = CPTAxisLabelingPolicyNone;
-        xAxis.tickDirection = CPTSignPositive;
+        var xAxisLineStyle = CPTMutableLineStyle();
+        xAxisLineStyle.lineColor = CPTColor(CGColor: UIColor.lightGrayColor().CGColor);
+        xAxisLineStyle.lineWidth = 1;
         xAxis.axisLineStyle = xAxisLineStyle;
         
         var yAxis = graph.axisSet.axisForCoordinate(CPTCoordinateY, atIndex: 0) as! CPTXYAxis;
@@ -146,24 +112,27 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         yAxis.gridLinesRange = plotSpace.xRange;
         yAxis.axisConstraints = CPTConstraints(lowerOffset: 0);
         yAxis.labelingPolicy = CPTAxisLabelingPolicyNone;
-        yAxis.axisLineStyle = axisLineStyle;
+        var yAxisLineStyle = CPTMutableLineStyle();
+        yAxisLineStyle.lineColor = CPTColor(CGColor: UIColor.lightGrayColor().CGColor);
+        yAxisLineStyle.lineWidth = 2;
+        yAxis.axisLineStyle = yAxisLineStyle;
+        
+        graph.addPlot(plot, toPlotSpace: graph.defaultPlotSpace);
+    }
+    
+    func initPlotSymbols(color:UIColor) {
+        
     }
     
     func setupForMetric(type: MetricsType, isBodyFat: Bool) {
         let color = Utility.colorFromMetricType(type);
-        
-        var maxY = 0.0, minY = DBL_MAX, maxX = 0.0, minX = DBL_MAX;
+        var maxY = 0.0, minY = DBL_MAX, plotSymbolSize = 7.0;
         let hitMargin = 5;
-        
-        graph = CPTXYGraph(frame: self.bounds);
-        self.hostedGraph = graph;
+
+        initGraph();
         self.allowPinchScaling = true;
-        
-        graph.paddingLeft = 0;
-        graph.paddingTop = 0;
-        graph.paddingRight = 0;
-        graph.paddingBottom = 0;
         graph.plotAreaFrame.paddingTop = 20;
+        graph.plotAreaFrame.borderLineStyle = nil;
         
         var symbolLineStyle = CPTMutableLineStyle();
         symbolLineStyle.lineColor = CPTColor(CGColor: color.CGColor);
@@ -172,18 +141,6 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         var unselectedLineStyle = CPTMutableLineStyle();
         unselectedLineStyle.lineColor = CPTColor(CGColor: unselectedColor.CGColor);
         
-        altPlotSymbol.fill = CPTFill(color: CPTColor(CGColor: color.CGColor));
-        altPlotSymbol.lineStyle = symbolLineStyle;
-        altPlotSymbol.size = CGSize(width: 7.0, height: 7.0);
-        
-        selectedAltPlotSymbol.fill = CPTFill(color: CPTColor(CGColor: color.CGColor));
-        selectedAltPlotSymbol.lineStyle = symbolLineStyle;
-        selectedAltPlotSymbol.size = CGSize(width: 7.0, height: 7.0);
-        
-        unselectedAltPlotSymbol.fill = CPTFill(color: CPTColor(CGColor: unselectedColor.CGColor));
-        unselectedAltPlotSymbol.lineStyle = unselectedLineStyle;
-        unselectedAltPlotSymbol.size = CGSize(width: 7.0, height: 7.0);
-
         var lineStyle = CPTMutableLineStyle();
         lineStyle.lineColor = CPTColor(CGColor: color.CGColor);
         lineStyle.lineWidth = 1;
@@ -192,8 +149,30 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         var noLineStyle = CPTMutableLineStyle();
         noLineStyle.lineWidth = 0;
         
+        plotSymbol.fill = CPTFill(color: CPTColor.whiteColor());
+        plotSymbol.lineStyle = symbolLineStyle;
+        plotSymbol.size = CGSize(width: plotSymbolSize, height: plotSymbolSize);
+        
+        selectedPlotSymbol.fill = CPTFill(color: CPTColor(CGColor: color.CGColor));
+        selectedPlotSymbol.lineStyle = symbolLineStyle;
+        selectedPlotSymbol.size = CGSize(width: plotSymbolSize, height: plotSymbolSize);
+        
         unselectedAltPlotLineStyle.lineColor = CPTColor(CGColor: unselectedColor.CGColor);
-//        unselectedAltPlotLineStyle.lineColor = CPTColor(CGColor: UIColor.blackColor().CGColor);
+        unselectedAltPlotLineStyle.lineWidth = 1;
+        
+        altPlotSymbol.fill = CPTFill(color: CPTColor(CGColor: color.CGColor));
+        altPlotSymbol.lineStyle = symbolLineStyle;
+        altPlotSymbol.size = CGSize(width: plotSymbolSize, height: plotSymbolSize);
+        
+        selectedAltPlotSymbol.fill = CPTFill(color: CPTColor(CGColor: color.CGColor));
+        selectedAltPlotSymbol.lineStyle = symbolLineStyle;
+        selectedAltPlotSymbol.size = CGSize(width: plotSymbolSize, height: plotSymbolSize);
+        
+        unselectedAltPlotSymbol.fill = CPTFill(color: CPTColor(CGColor: unselectedColor.CGColor));
+        unselectedAltPlotSymbol.lineStyle = unselectedLineStyle;
+        unselectedAltPlotSymbol.size = CGSize(width: plotSymbolSize, height: plotSymbolSize);
+
+        unselectedAltPlotLineStyle.lineColor = CPTColor(CGColor: unselectedColor.CGColor);
         unselectedAltPlotLineStyle.lineWidth = 1;
         
         for index in 0..<points.count {
@@ -218,12 +197,6 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
                     maxY = point.y;
                 }
             }
-            if (point.x > maxX) {
-                maxX = point.x;
-            }
-            if (point.x < minX) {
-                minX = point.x;
-            }
             if (diastolicPoints.count > 0 && diastolicPoints.count > index && systolicPoints.count > 0 && systolicPoints.count > index) {
                 altPoints.append(systolicPoints[index]);
                 altPoints.append(diastolicPoints[index]);
@@ -246,10 +219,7 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         altPlot.dataLineStyle = noLineStyle;
         graph.addPlot(altPlot, toPlotSpace: graph.defaultPlotSpace);
         
-        var yRange = maxY - minY;
-        
         var firstPoint, lastPoint: GraphPoint;
-        
         if (visiblePoints.count > 0) {
             firstPoint = visiblePoints[0];
             lastPoint = visiblePoints[visiblePoints.count - 1];
@@ -257,20 +227,12 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
             firstPoint = GraphPoint(x: 0, y: 0);
             lastPoint = GraphPoint(x: 0, y: 0);
         }
-        
-        var plotSpace = self.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace;
-        plotSpace.allowsUserInteraction = true;
-        
-        var xRange = lastPoint.x - firstPoint.x;
-        if (xRange == 0) {
-            xRange++;
-        }
-
         let lowerBound = isBodyFat ? 10 : roundToLowest(minY, roundTo: 20);
         let upperBound = isBodyFat ? 50 : roundToHighest(maxY, roundTo: 20);
+        var xRange = lastPoint.x - firstPoint.x != 0 ? lastPoint.x - firstPoint.x : 1;
+        var plotSpace = self.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace;
         plotSpace.xRange = NewCPTPlotRange(location: firstPoint.x - xRange * 0.2, length: xRange * 1.3);
         plotSpace.yRange = NewCPTPlotRange(location: lowerBound, length: upperBound - lowerBound);
-        
         plotSpace.globalXRange = plotSpace.xRange;
         plotSpace.globalYRange = plotSpace.yRange;
         plotSpace.delegate = self;
@@ -278,90 +240,39 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         plot = NewCPTScatterPlot(frame: CGRectZero);
         plot.interpolation = CPTScatterPlotInterpolationCurved;
         plot.setAreaBaseDecimalValue(0);
-        
         plot.plotSymbolMarginForHitDetection = CGFloat(hitMargin);
         plot.dataSource = self;
         plot.delegate = self;
-        
-        plotSymbol.fill = CPTFill(color: CPTColor.whiteColor());
-        plotSymbol.lineStyle = symbolLineStyle;
-        plotSymbol.size = CGSize(width: 7.0, height: 7.0);
-        
-        selectedPlotSymbol.fill = CPTFill(color: CPTColor(CGColor: color.CGColor));
-        selectedPlotSymbol.lineStyle = symbolLineStyle;
-        selectedPlotSymbol.size = CGSize(width: 7.0, height: 7.0);
-        
         plot.plotSymbol = plotSymbol;
         plot.dataLineStyle = lineStyle;
-        
-        graph.plotAreaFrame.borderLineStyle = nil;
         
         var axisTextStyle = CPTMutableTextStyle();
         axisTextStyle.color = CPTColor.grayColor();
         axisTextStyle.fontSize = 8;
 
         var xAxis = graph.axisSet.axisForCoordinate(CPTCoordinateX, atIndex: 0) as! CPTXYAxis;
-        initXAxis(xAxis, visibleRange: plotSpace.xRange, textStyle: axisTextStyle, lineStyle: lineStyle);
-        
-        var yAxis = graph.axisSet.axisForCoordinate(CPTCoordinateY, atIndex: 0) as! CPTXYAxis;
-        initYAxis(yAxis, xRange: NewCPTPlotRange(location: firstPoint.x - xRange * 0.15, length: xRange * 1.3), visibleRange: plotSpace.yRange, textStyle: axisTextStyle, lineStyle: lineStyle);
-        if (isBodyFat) {
-            yAxis.preferredNumberOfMajorTicks = UInt(Int((upperBound - lowerBound) / 10)) + 1;
-        } else {
-            yAxis.preferredNumberOfMajorTicks = UInt(Int((upperBound - lowerBound) / 20)) + 1;
-        }
-        
-//        if (isBodyFat) {
-//            let rangeTops = [50, 30, 25, 18];
-//            
-//            for index in 0...rangeTops.count - 1 {
-//                let top = rangeTops[index]
-//                let point = getScreenPoint(self, xPoint: CGFloat(points[0].x), yPoint: CGFloat(top));
-//                let width = UIScreen.mainScreen().bounds.size.width;
-//                let nextVal = index < rangeTops.count - 1 ? rangeTops[index + 1] : 0;
-//                let height = top - nextVal;
-//                
-//                let range = UIView(frame: CGRect(x: CGFloat(point.x), y: CGFloat(nextVal), width: CGFloat(width), height: CGFloat(height)));
-//                let a = range.frame;
-//                if (index % 2 == 1) {
-//                    range.backgroundColor = UIColor.lightGrayColor();
-//                }
-//                addSubview(range);
-//            }
-//        }
-        
-//        //added after alt plots so that it is drawn on top
-        graph.addPlot(plot, toPlotSpace: graph.defaultPlotSpace);
-        
-        checkinSelected(plot, idx: points.count - 1, first: true);
-    }
-
-    func initXAxis(xAxis: CPTXYAxis, visibleRange: CPTPlotRange, textStyle: CPTMutableTextStyle, lineStyle: CPTMutableLineStyle) {
-        xAxis.labelTextStyle = textStyle;
+        xAxis.labelTextStyle = axisTextStyle;
         xAxis.majorTickLineStyle = nil;
         xAxis.minorTickLineStyle = nil;
-        xAxis.visibleRange = visibleRange;
+        xAxis.visibleRange = plotSpace.xRange;
         xAxis.axisConstraints = CPTConstraints(lowerOffset: 0);
         xAxis.labelingPolicy = CPTAxisLabelingPolicyEqualDivisions;
-        
         xAxis.preferredNumberOfMajorTicks = 10;
         xAxis.axisLineStyle = lineStyle;
         xAxis.labelOffset = 0;
-        
         xAxis.tickDirection = CPTSignPositive;
         var dateFormatter = NSDateFormatter();
         dateFormatter.dateFormat = "MMM dd";
         xAxis.labelFormatter = CustomFormatter(dateFormatter: dateFormatter);
-    }
-    
-    func initYAxis(yAxis: CPTXYAxis, xRange: CPTPlotRange, visibleRange: CPTPlotRange, textStyle: CPTMutableTextStyle, lineStyle: CPTMutableLineStyle) {
+        
+        var yAxis = graph.axisSet.axisForCoordinate(CPTCoordinateY, atIndex: 0) as! CPTXYAxis;
         yAxis.axisLineStyle = lineStyle;
-        yAxis.labelTextStyle = textStyle;
+        yAxis.labelTextStyle = axisTextStyle;
         yAxis.labelOffset = CGFloat(20);
         yAxis.majorTickLineStyle = nil;
         yAxis.minorTickLineStyle = nil;
-        yAxis.visibleRange = visibleRange;
-        yAxis.gridLinesRange = xRange;
+        yAxis.visibleRange = plotSpace.yRange;
+        yAxis.gridLinesRange = plotSpace.xRange;
         yAxis.axisConstraints = CPTConstraints(lowerOffset: 0);
         yAxis.labelingPolicy = CPTAxisLabelingPolicyEqualDivisions;
         let numberFormatter = NSNumberFormatter();
@@ -370,8 +281,18 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         yAxis.labelFormatter = numberFormatter;
         yAxis.tickDirection = CPTSignPositive;
         yAxis.labelOffset = 0;
+        if (isBodyFat) {
+            yAxis.preferredNumberOfMajorTicks = UInt(Int((upperBound - lowerBound) / 10)) + 1;
+        } else {
+            yAxis.preferredNumberOfMajorTicks = UInt(Int((upperBound - lowerBound) / 20)) + 1;
+        }
+        
+        //added after alt plots so that it is drawn on top
+        graph.addPlot(plot, toPlotSpace: graph.defaultPlotSpace);
+        
+        checkinSelected(plot, idx: points.count - 1, first: true);
     }
-    
+
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         let i = 0;
     }
@@ -381,15 +302,10 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
     }
     
     func roundToHighest(number: Double, roundTo: Double) -> Double {
-        let a = Int(ceil(number / roundTo));
-        let b = Double(a);
         return roundTo * Double(Int(ceil(number / roundTo)));
     }
     
     func numberOfRecordsForPlot(plot: CPTPlot!) -> UInt {
-        if (hostedGraph == nil) {
-            self.hostedGraph = graph;
-        }
         if (plot.isEqual(self.plot)) {
             return UInt(points.count);
         } else {
@@ -399,7 +315,6 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
 
     func numberForPlot(plot: CPTPlot!, field fieldEnum: UInt, recordIndex idx: UInt) -> NSNumber! {
         var point:GraphPoint;
-        
         if (plot.isEqual(self.plot)) {
             point = points[Int(idx)];
         } else {
@@ -414,7 +329,6 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
     
     func setRange() {
         var firstPoint, lastPoint: GraphPoint;
-        
         if (points.count > 0) {
             firstPoint = points[0];
             lastPoint = points[points.count - 1];
@@ -423,13 +337,8 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
             lastPoint = GraphPoint(x: 0, y: 0);
         }
         var plotSpace = self.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace;
-        var newRange: NewCPTPlotRange;
-
         let padding = Double(UIScreen.mainScreen().bounds.size.width * 0.1);
-        
-        newRange = NewCPTPlotRange(location: (padding + firstPoint.x), length: lastPoint.x - firstPoint.x + 1);
-
-        plotSpace.xRange = newRange;
+        plotSpace.xRange = NewCPTPlotRange(location: (padding + firstPoint.x), length: lastPoint.x - firstPoint.x + 1);
         
     }
     
@@ -471,10 +380,7 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         } else {
             let point = altPoints[Int(idx)];
             let screenPoint = getScreenPoint(self, xPoint: CGFloat(point.x), yPoint: CGFloat(point.y));
-            
             if (idx % 2 == 1) {
-                
-                
                 if (Int(idx) == ((selectedPointIndex * 2) + 1)) {
                     return selectedAltPlotSymbol;
                 }
@@ -482,7 +388,6 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
                 let view = UIView(frame: CGRect(x: screenPoint.x - 0.5, y: screenPoint.y, width: 1, height: CGFloat(point.y - altPoints[Int(idx + 1)].y)));
                 view.backgroundColor = unselectedColor;
                 addSubview(view);
-                
                 if (Int(idx) == (selectedPointIndex * 2)) {
                     return selectedAltPlotSymbol;
                 }
@@ -516,7 +421,6 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
                 }
                 index++;
             }
-            
         }
         if (high == points.count - 1 && low != high) {
             high--;
@@ -550,8 +454,4 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
 //        checkinSelected(plot as CPTScatterPlot!, idx: index - 1);
 //    }
 
-    
-    override func canBecomeFirstResponder() -> Bool {
-        return true;
-    }
 }
