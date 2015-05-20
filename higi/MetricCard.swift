@@ -59,14 +59,6 @@ class MetricCard: UIView {
     
     func resizeFrameWithWidth(width: CGFloat) {
         viewFrame.size.width = width;
-        self.view.frame.origin.x = 0;
-        self.view.frame = viewFrame;
-        if (graph != nil) {
-            graph.frame.size.width = width;
-        }
-        if (secondaryGraph != nil) {
-            secondaryGraph.frame.size.width = viewFrame.size.width;
-        }
     }
     
     func setupGraph() {
