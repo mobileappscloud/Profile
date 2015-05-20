@@ -274,6 +274,13 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         }
     }
     
+    func gotoActivityGraph(sender: AnyObject) {
+        //@todo flurry event here
+        let viewController = MetricsViewController(nibName: "MetricsView", bundle: nil);
+        viewController.selectedType = MetricsType.DailySummary;
+        self.navigationController!.pushViewController(viewController, animated: true);
+    }
+    
     func gotoBloodPressureGraph(sender: AnyObject) {
         //@todo flurry event here
         let viewController = MetricsViewController(nibName: "MetricsView", bundle: nil);
