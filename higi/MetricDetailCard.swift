@@ -76,8 +76,11 @@ class MetricDetailCard: UIView {
             
             view.firstPulsePanel.hidden = false;
             view.secondPulsePanel.hidden = false;
-            
-            view.secondPanelValue.text = "\(checkin.pulseBpm!)";
+            if (checkin.pulseBpm != nil) {
+                view.secondPanelValue.text = "\(checkin.pulseBpm!)";
+            } else {
+                view.secondPanelValue.text = "";
+            }
             view.secondPanelUnit.text = "mmHg";
             view.secondPanelLabel.text = "Beats Per Minute";
             let color = Utility.colorFromMetricType(type);
@@ -92,17 +95,33 @@ class MetricDetailCard: UIView {
         formatter.dateFormat = "MM/dd/yyyy";
         firstPanelValue.text = "\(formatter.stringFromDate(checkin.dateTime))";
         if (type == MetricsType.BloodPressure) {
-            secondPanelValue.text = "\(checkin.systolic!)/\(checkin.diastolic!)";
+            if (checkin.systolic != nil) {
+                secondPanelValue.text = "\(checkin.systolic!)/\(checkin.diastolic!)";
+            } else {
+                secondPanelValue.text = "";
+            }
             secondPanelUnit.text = "mmHg";
             secondPanelLabel.text = "Blood Pressure";
-            thirdPanelValue.text = "\(Int(checkin.map!))";
+            if (checkin.map != nil) {
+                thirdPanelValue.text = "\(Int(checkin.map!))";
+            } else {
+                thirdPanelValue.text = "";
+            }
             thirdPanelUnit.text = "mmHg";
             thirdPanelLabel.text = "Mean Arterial Pressure";
         } else if (type == MetricsType.Weight) {
-            secondPanelValue.text = "\(Int(checkin.weightLbs!))";
+            if (checkin.weightLbs != nil) {
+                secondPanelValue.text = "\(Int(checkin.weightLbs!))";
+            } else {
+                secondPanelValue.text = "";
+            }
             secondPanelUnit.text = "lbs";
             secondPanelLabel.text = "Weight";
-            thirdPanelValue.text = "\(Int(checkin.bmi!))";
+            if (checkin.bmi != nil) {
+                thirdPanelValue.text = "\(Int(checkin.bmi!))";
+            } else {
+                thirdPanelValue.text = "";
+            }
             thirdPanelUnit.text = "";
             thirdPanelLabel.text = "Body Mass Index";
         } else {
@@ -113,7 +132,11 @@ class MetricDetailCard: UIView {
             firstPulsePanel.hidden = false;
             secondPulsePanel.hidden = false;
             
-            secondPanelValue.text = "\(checkin.pulseBpm!)";
+            if (checkin.pulseBpm != nil) {
+                secondPanelValue.text = "\(checkin.pulseBpm!)";
+            } else {
+                secondPanelValue.text = "";
+            }
             secondPanelUnit.text = "mmHg";
             secondPanelLabel.text = "Beats Per Minute";
             let color = Utility.colorFromMetricType(type);

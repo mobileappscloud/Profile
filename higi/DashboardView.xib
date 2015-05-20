@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DashboardViewController" customModule="higi" customModuleProvider="target">
             <connections>
                 <outlet property="MetricsCard" destination="G8T-De-5l9" id="Hld-06-0zV"/>
-                <outlet property="activityCard" destination="U8d-yS-WcI" id="O22-LI-2vr"/>
                 <outlet property="challengesCard" destination="SkR-F1-95x" id="kbO-Hp-pUG"/>
                 <outlet property="errorCard" destination="j9i-G7-nbm" id="ZxX-jK-VB5"/>
                 <outlet property="headerImage" destination="cHq-ic-aVv" id="B4e-ev-B66"/>
@@ -42,66 +42,6 @@
             <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
             <point key="canvasLocation" x="542" y="405"/>
-        </view>
-        <view contentMode="scaleToFill" id="U8d-yS-WcI" customClass="ActivityCard" customModule="higi" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="237"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Today's Points" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CoD-7D-k6d">
-                    <rect key="frame" x="71" y="14" width="179" height="21"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
-                    <color key="textColor" red="0.2666666667" green="0.2666666667" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <view userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mt7-5r-pdL">
-                    <rect key="frame" x="110" y="58" width="100" height="100"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                </view>
-                <view userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MrK-Tc-6OF">
-                    <rect key="frame" x="0.0" y="191" width="320" height="1"/>
-                    <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                </view>
-                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="activitywidgetblankstate.png" translatesAutoresizingMaskIntoConstraints="NO" id="Jmp-19-ybW">
-                    <rect key="frame" x="8" y="43" width="304" height="149"/>
-                </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="btn_action_black.png" translatesAutoresizingMaskIntoConstraints="NO" id="FZA-bu-XZD">
-                    <rect key="frame" x="292" y="95" width="20" height="20"/>
-                </imageView>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qzx-0i-3nB">
-                    <rect key="frame" x="0.0" y="-2" width="320" height="194"/>
-                    <state key="normal">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="gotoActivities:" destination="-1" eventType="touchUpInside" id="qIE-PN-3rl"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QhU-Al-2Rt">
-                    <rect key="frame" x="0.0" y="191" width="320" height="46"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
-                    <state key="normal" title="Attach more devices!">
-                        <color key="titleColor" red="0.46274509800000002" green="0.75294117650000003" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="gotoConnectDevices:" destination="-1" eventType="touchUpInside" id="Phh-rl-nYv"/>
-                    </connections>
-                </button>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kip-ke-HFc">
-                    <rect key="frame" x="8" y="58" width="304" height="119"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                </view>
-            </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-            <nil key="simulatedStatusBarMetrics"/>
-            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <connections>
-                <outlet property="attachDevicesButton" destination="QhU-Al-2Rt" id="6EX-ek-rbz"/>
-                <outlet property="blankStateImage" destination="Jmp-19-ybW" id="Vit-kO-QU9"/>
-                <outlet property="loadingContainer" destination="kip-ke-HFc" id="fkb-o2-WP9"/>
-                <outlet property="meterContainer" destination="mt7-5r-pdL" id="3mp-PA-389"/>
-            </connections>
-            <point key="canvasLocation" x="1008" y="239.5"/>
         </view>
         <view contentMode="scaleToFill" id="SkR-F1-95x" customClass="ChallengesCard" customModule="higi" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="302"/>
@@ -176,10 +116,10 @@
             <point key="canvasLocation" x="1008" y="586"/>
         </view>
         <view contentMode="scaleToFill" id="G8T-De-5l9">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="430"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="564"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Body Stats" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dKe-C6-vhn">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Metrics" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dKe-C6-vhn">
                     <rect key="frame" x="70" y="17" width="179" height="21"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                     <color key="textColor" red="0.2666666667" green="0.2666666667" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -195,7 +135,7 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="571" y="1018"/>
+            <point key="canvasLocation" x="571" y="1081"/>
         </view>
         <view contentMode="scaleToFill" id="mQp-GL-upY" customClass="PulseCard" customModule="higi" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="395"/>
@@ -371,7 +311,6 @@
         </view>
     </objects>
     <resources>
-        <image name="activitywidgetblankstate.png" width="1080" height="650"/>
         <image name="banner_nologo.png" width="1080" height="491"/>
         <image name="btn_action_black.png" width="23" height="23"/>
         <image name="challengewidgetblankstate.png" width="1080" height="650"/>

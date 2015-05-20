@@ -338,7 +338,7 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
             selectedPointIndex = Int(idx / 2);
         }
         if (!first) {
-            var viewController = self.superview!.superview as! MetricCard?;
+            var viewController = self.superview!.superview!.superview as! MetricCard?;
             viewController!.setSelected(selectedPointIndex);
         }
         if (diastolicPoints.count > 0) {
@@ -428,6 +428,17 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         var graphView = self.superview!.superview as! MetricGraph;
 //        graphView.updateTrend(trend);
         return range;
+    }
+    
+    func selectPlotFromPoint(point: CGPoint) {
+        let index = Int(plot.dataIndexFromInteractionPoint(point));
+        checkinSelected(plot as CPTScatterPlot!, idx: index, first: false);
+    }
+    
+    override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
+        let index = Int(plot.dataIndexFromInteractionPoint(point));
+        checkinSelected(plot as CPTScatterPlot!, idx: index - 1, first: false);
+        return true;
     }
     
 //    func plotSpace(space: CPTPlotSpace!, didChangePlotRangeForCoordinate coordinate: CPTCoordinate) {

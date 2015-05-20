@@ -17,6 +17,7 @@ class MetricsGraphCard: UIView {
     @IBOutlet weak var pulseSubtitle: UILabel!
     @IBOutlet weak var pulseLabel: UILabel!
     @IBOutlet weak var pulseValue: UILabel!
+    
     var color: UIColor!;
 
     class func instanceFromNib(title: String, lastCheckin: HigiCheckin, type: MetricsType) -> MetricsGraphCard {
@@ -57,6 +58,23 @@ class MetricsGraphCard: UIView {
             }
             card.secondReadingLabel.text = "";
             card.secondReadingSubTitle.text = "Body Fat";
+        } else if (type == MetricsType.DailySummary) {
+            card.firstReadingValue.hidden = true;
+            card.firstReadingLabel.hidden = true;
+            card.firstReadingSubTitle.hidden = true;
+            
+            card.secondReadingValue.hidden = true;
+            card.secondReadingLabel.hidden = true;
+            card.secondReadingSubTitle.hidden = true;
+            
+            card.pulseValue.hidden = false;
+            card.pulseLabel.hidden = false;
+            card.pulseSubtitle.hidden = false;
+            
+            card.pulseValue.text = "\(Int(lastCheckin.pulseBpm!))";
+            card.pulseValue.textColor = color;
+            card.pulseLabel.text = "pts";
+            card.pulseSubtitle.text = "Activity Points";
         } else {
             card.firstReadingValue.hidden = true;
             card.firstReadingLabel.hidden = true;
@@ -85,6 +103,7 @@ class MetricsGraphCard: UIView {
     func graph(points: [GraphPoint], type: MetricsType) {
         let graph = MetricGraph(frame: CGRect(x: 0, y: 0, width: graphView.frame.size.width, height: graphView.frame.size.height), points: points);
         graph.setupForDashboard(type);
+        graph.userInteractionEnabled = false;
         graphView.addSubview(graph);
     }
 }

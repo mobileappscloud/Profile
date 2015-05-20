@@ -38,9 +38,9 @@ class MetricCard: UIView {
         swipe.direction = UISwipeGestureRecognizerDirection.Left;
         let drag = UIPanGestureRecognizer(target: view, action: "cardDragged:");
         
-        view.addGestureRecognizer(tapRecognizer);
-        view.addGestureRecognizer(swipe);
-        view.addGestureRecognizer(drag);
+        view.headerView.addGestureRecognizer(tapRecognizer);
+        view.headerView.addGestureRecognizer(swipe);
+        view.headerView.addGestureRecognizer(drag);
         
         let color = Utility.colorFromMetricType(type);
         view.headerView.backgroundColor = color;
@@ -96,7 +96,7 @@ class MetricCard: UIView {
         
 //        let graphY = headerView.frame.size.height;
         let graphY:CGFloat = 0;
-        let graphWidth = frame.size.width;
+        let graphWidth = UIScreen.mainScreen().bounds.size.width;
         let graphHeight:CGFloat = frame.size.height - headerView.frame.size.height - (frame.size.height - 267);
         if (type == MetricsType.BloodPressure) {
             graph = MetricGraph(frame: CGRect(x: 0, y: graphY, width: graphWidth, height: graphHeight), points: graphPoints, diastolicPoints: diastolicPoints, systolicPoints: systolicPoints);
@@ -149,4 +149,18 @@ class MetricCard: UIView {
         toggleBmiOn = !toggleBmiOn;
     }
 
+//    override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
+//        if (graph.frame.contains(point)) {
+//            return graph.pointInside(point, withEvent: event);
+//        }
+//        return super.pointInside(point, withEvent: event);
+//    }
+    
+    override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
+        if (graph.frame.contains(point)) {
+            graph.selectPlotFromPoint(point);
+            return true;
+        }
+        return super.pointInside(point, withEvent: event);
+    }
 }
