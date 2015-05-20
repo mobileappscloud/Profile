@@ -62,6 +62,13 @@ class MetricDetailCard: UIView {
             view.thirdPanelValue.text = checkin.bmi != nil ? "\(Int(checkin.bmi!))" : "";
             view.thirdPanelUnit.text = "";
             view.thirdPanelLabel.text = "Body Mass Index";
+        } else if (type == MetricsType.DailySummary) {
+            view.secondPanelValue.text = "100";
+            view.secondPanelUnit.text = "Points";
+            view.secondPanelLabel.text = "";
+            view.thirdPanelValue.text = "100";
+            view.thirdPanelUnit.text = "Points";
+            view.thirdPanelLabel.text = "";
         } else {
             view.firstPanel.hidden = true;
             view.secondPanel.hidden = true;

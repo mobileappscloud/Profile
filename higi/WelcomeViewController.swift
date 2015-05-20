@@ -72,11 +72,11 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         dashboardView.addSubview(challengeView);
         yPos += imageHeight + imageMargin;
         
-        let MetricsCard = UIImage(named: "Metrics");
-        imageHeight = scaledHeightFromWidth(MetricsCard!, viewWidth: imageWidth);
+        let metricsCard = UIImage(named: "bodystats");
+        imageHeight = scaledHeightFromWidth(metricsCard!, viewWidth: imageWidth);
         MetricsView = UIImageView(frame: CGRect(x: 0, y: yPos, width: imageWidth, height: imageHeight));
         MetricsView.contentMode = UIViewContentMode.ScaleAspectFit;
-        MetricsView.image = MetricsCard;
+        MetricsView.image = metricsCard;
         dashboardView.addSubview(MetricsView);
         yPos += imageHeight + imageMargin;
         

@@ -77,18 +77,20 @@ class MetricCard: UIView {
                 } else {
                     systolicPoints.append(GraphPoint(x: checkinTime, y: 0));
                 }
-                plottedCheckins.append(checkin);
             }
             if (type == MetricsType.Weight && checkin.weightLbs != nil && checkin.weightLbs > 0) {
                 if (checkin.fatRatio > 0) {
                     bodyFatPoints.append(GraphPoint(x: checkinTime, y: checkin.fatRatio));
                 }
                 graphPoints.append(GraphPoint(x: checkinTime, y: checkin.weightLbs));
-                plottedCheckins.append(checkin);
             }
             if (type == MetricsType.Pulse && checkin.pulseBpm != nil && checkin.pulseBpm > 0) {
                 graphPoints.append(GraphPoint(x: checkinTime, y: Double(checkin.pulseBpm!)));
-                plottedCheckins.append(checkin);
+            }
+            plottedCheckins.append(checkin);
+            if (type == MetricsType.DailySummary) {
+                //@todo graph total activity points
+                graphPoints.append(GraphPoint(x: checkinTime, y: Double(100)));
             }
         }
         

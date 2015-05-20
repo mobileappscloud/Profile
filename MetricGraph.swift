@@ -208,6 +208,7 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         } else {
             firstPoint = GraphPoint(x: 0, y: 0);
             lastPoint = GraphPoint(x: 0, y: 0);
+            minY = 0;
         }
         let lowerBound = isBodyFat ? 10 : roundToLowest(minY, roundTo: 20);
         let upperBound = isBodyFat ? 50 : roundToHighest(maxY, roundTo: 20);

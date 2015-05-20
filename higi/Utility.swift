@@ -19,6 +19,8 @@ class Utility {
             return Utility.colorFromHexString("#EE6C55");
         case .Pulse:
             return Utility.colorFromHexString("#5FAFDF");
+        case .DailySummary:
+            return Utility.colorFromHexString("76C043");
         default:
             return Utility.colorFromHexString("#FFFFFF");
         }
@@ -51,14 +53,11 @@ class Utility {
     }
     
     class func scaleImage(image: UIImage, newSize: CGSize) -> UIImage {
-        
         UIGraphicsBeginImageContextWithOptions(newSize, false, image.scale);
         image.drawInRect(CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height));
         var newImage = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
-        
         return newImage;
-        
     }
     
     class func iphone5Image(named: String) -> UIImage {
