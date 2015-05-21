@@ -45,7 +45,9 @@ class MetricCard: UIView {
         let color = Utility.colorFromMetricType(type);
         view.headerView.backgroundColor = color;
         
-        if (type == MetricsType.BloodPressure) {
+        if (type == MetricsType.DailySummary) {
+            view.title.text = "Activity";
+        } else if (type == MetricsType.BloodPressure) {
             view.title.text = "Blood Pressure";
         } else if (type == MetricsType.Weight) {
             view.title.text = "Weight";
@@ -87,10 +89,33 @@ class MetricCard: UIView {
             if (type == MetricsType.Pulse && checkin.pulseBpm != nil && checkin.pulseBpm > 0) {
                 graphPoints.append(GraphPoint(x: checkinTime, y: Double(checkin.pulseBpm!)));
             }
+//            if (type == MetricsType.DailySummary) {
+//                //@todo graph total activity points
+//                graphPoints.append(GraphPoint(x: checkinTime, y: Double(100)));
+//            }
             plottedCheckins.append(checkin);
-            if (type == MetricsType.DailySummary) {
-                //@todo graph total activity points
-                graphPoints.append(GraphPoint(x: checkinTime, y: Double(100)));
+        }
+        
+        if (type == MetricsType.DailySummary) {
+            var dateFormatter = NSDateFormatter();
+            dateFormatter.dateFormat = "MM/dd/yyyy";
+            var totalPoints = 0;
+            if (SessionController.Instance.activities != nil) {
+                var lastDateString = "";
+                var lastDate:Double?;
+                for activity in SessionController.Instance.activities {
+                    let activityDate = Double(activity.startTime.timeIntervalSince1970);
+                    var dateString = dateFormatter.stringFromDate(activity.startTime);
+                    if (lastDateString != dateString && lastDate != nil) {
+                        graphPoints.append(GraphPoint(x: lastDate, y: Double(totalPoints)));
+                        totalPoints = 0;
+                    }
+                    if (activity.errorDescription == nil) {
+                        totalPoints += activity.points;
+                    }
+                    lastDateString = dateString;
+                    lastDate = activityDate;
+                }
             }
         }
         
@@ -158,6 +183,7 @@ class MetricCard: UIView {
     
     override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
         if (graph.frame.contains(point)) {
+            let a = event;
             graph.selectPlotFromPoint(point);
             return true;
         }

@@ -162,7 +162,10 @@ class MetricsViewController: BaseViewController {
     func updateDetailCard() {
         detailsCard.removeFromSuperview();
         let currentCard = self.view.subviews[self.view.subviews.count - 1] as! MetricCard;
-        detailsCard = initDetailCard(currentCard.selectedCheckin!, type: currentCard.type);
+        if (currentCard.type == MetricsType.DailySummary) {
+        } else {
+            detailsCard = initDetailCard(currentCard.selectedCheckin!, type: currentCard.type);
+        }
         self.view.addSubview(detailsCard);
     }
     

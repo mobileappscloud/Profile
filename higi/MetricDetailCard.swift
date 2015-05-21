@@ -76,10 +76,13 @@ class MetricDetailCard: UIView {
             
             view.firstPulsePanel.hidden = false;
             view.secondPulsePanel.hidden = false;
+            
+            view.pulseDate.text = "\(formatter.stringFromDate(checkin.dateTime))";
+            
             if (checkin.pulseBpm != nil) {
-                view.secondPanelValue.text = "\(checkin.pulseBpm!)";
+                view.pulseValue.text = "\(checkin.pulseBpm!)";
             } else {
-                view.secondPanelValue.text = "";
+                view.pulseValue.text = "";
             }
             view.secondPanelUnit.text = "mmHg";
             view.secondPanelLabel.text = "Beats Per Minute";
@@ -132,10 +135,11 @@ class MetricDetailCard: UIView {
             firstPulsePanel.hidden = false;
             secondPulsePanel.hidden = false;
             
+            pulseDate.text = "\(formatter.stringFromDate(checkin.dateTime))";
             if (checkin.pulseBpm != nil) {
-                secondPanelValue.text = "\(checkin.pulseBpm!)";
+                pulseValue.text = "\(checkin.pulseBpm!)";
             } else {
-                secondPanelValue.text = "";
+                pulseValue.text = "";
             }
             secondPanelUnit.text = "mmHg";
             secondPanelLabel.text = "Beats Per Minute";
@@ -143,6 +147,7 @@ class MetricDetailCard: UIView {
             pulseDate.textColor = color;
             pulseValue.textColor = color;
         }
+        layoutIfNeeded();
     }
     
 }

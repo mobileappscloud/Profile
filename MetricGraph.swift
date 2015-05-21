@@ -12,6 +12,8 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
     
     var graph: CPTXYGraph!;
     
+    var altPlotLinesAdded = false;
+    
     init(frame: CGRect, points: [GraphPoint]) {
         self.points = points;
         if (points.count > 0) {
@@ -67,8 +69,8 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         var xRange = maxX - minX != 0 ? maxX - minX : 1;
 
         var plotSpace = graph.defaultPlotSpace as! CPTXYPlotSpace;
-        plotSpace.xRange = NewCPTPlotRange(location: minX - xRange * 0.05, length: xRange * 1.05);
-        plotSpace.yRange = NewCPTPlotRange(location: minY - yRange * 0.25, length: yRange * 1.5);
+        plotSpace.xRange = NewCPTPlotRange(location: max(minX - xRange * 0.05, 0), length: xRange * 1.05);
+        plotSpace.yRange = NewCPTPlotRange(location: max(minY - yRange * 0.25, 0), length: yRange * 1.5);
         plotSpace.globalXRange = plotSpace.xRange;
         plotSpace.globalYRange = plotSpace.yRange;
         plotSpace.delegate = self;
@@ -178,6 +180,15 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
             if (diastolicPoints.count > 0 && diastolicPoints.count > index && systolicPoints.count > 0 && systolicPoints.count > index) {
                 altPoints.append(systolicPoints[index]);
                 altPoints.append(diastolicPoints[index]);
+                
+                let systolicPoint = systolicPoints[index];
+                let diastolicPoint = diastolicPoints[index];
+                let screenSystolicPoint = getScreenPoint(self, xPoint: CGFloat(systolicPoint.x), yPoint: CGFloat(systolicPoint.y));
+                let screenDiastolicPoint = getScreenPoint(self, xPoint: CGFloat(diastolicPoint.x), yPoint: CGFloat(diastolicPoint.y));
+
+                let view = UIView(frame: CGRect(x: screenSystolicPoint.x - 0.5, y: self.frame.size.height - CGFloat(screenSystolicPoint.y) - 24, width: 1, height: CGFloat(screenSystolicPoint.y - screenDiastolicPoint.y)));
+                view.backgroundColor = plotSymbol.lineStyle.lineColor.uiColor;
+                addSubview(view);
             }
             if (points.count > pointsToShow) {
                 if (index > points.count - 1 - pointsToShow) {
@@ -210,8 +221,8 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
             lastPoint = GraphPoint(x: 0, y: 0);
             minY = 0;
         }
-        let lowerBound = isBodyFat ? 10 : roundToLowest(minY, roundTo: 20);
-        let upperBound = isBodyFat ? 50 : roundToHighest(maxY, roundTo: 20);
+        let lowerBound = isBodyFat ? 10 : roundToLowest(minY - 1, roundTo: 20);
+        let upperBound = isBodyFat ? 50 : roundToHighest(maxY + 1, roundTo: 20);
         var xRange = lastPoint.x - firstPoint.x != 0 ? lastPoint.x - firstPoint.x : 1;
         var plotSpace = self.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace;
         plotSpace.xRange = NewCPTPlotRange(location: firstPoint.x - xRange * 0.2, length: xRange * 1.3);
@@ -313,20 +324,6 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         }
     }
     
-    func setRange() {
-        var firstPoint, lastPoint: GraphPoint;
-        if (points.count > 0) {
-            firstPoint = points[0];
-            lastPoint = points[points.count - 1];
-        } else {
-            firstPoint = GraphPoint(x: 0, y: 0);
-            lastPoint = GraphPoint(x: 0, y: 0);
-        }
-        var plotSpace = self.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace;
-        let padding = Double(UIScreen.mainScreen().bounds.size.width * 0.1);
-        plotSpace.xRange = NewCPTPlotRange(location: (padding + firstPoint.x), length: lastPoint.x - firstPoint.x + 1);
-    }
-    
     func scatterPlot(plot: CPTScatterPlot!, plotSymbolWasSelectedAtRecordIndex idx: UInt) {
         checkinSelected(plot, idx: Int(idx), first: false);
     }
@@ -360,16 +357,36 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         if (plot.isEqual(self.plot)) {
             return selectedPointIndex == Int(idx) ? selectedPlotSymbol : plotSymbol;
         } else {
-            let point = altPoints[Int(idx)];
-            let screenPoint = getScreenPoint(self, xPoint: CGFloat(point.x), yPoint: CGFloat(point.y));
             if (idx % 2 == 1) {
                 if (Int(idx) == ((selectedPointIndex * 2) + 1)) {
                     return selectedAltPlotSymbol;
                 }
             } else {
-                let view = UIView(frame: CGRect(x: screenPoint.x - 0.5, y: screenPoint.y, width: 1, height: CGFloat(point.y - altPoints[Int(idx + 1)].y)));
-                view.backgroundColor = plotSymbol.lineStyle.lineColor.uiColor;
-                addSubview(view);
+                if (altPoints.count > 0 && !altPlotLinesAdded) {
+                    let systolicPoint = altPoints[Int(idx)];
+                    let diastolicPoint = altPoints[Int(idx) + 1];
+                    let screenSystolicPoint = getScreenPoint(self, xPoint: CGFloat(systolicPoint.x), yPoint: CGFloat(systolicPoint.y));
+                    let screenDiastolicPoint = getScreenPoint(self, xPoint: CGFloat(diastolicPoint.x), yPoint: CGFloat(diastolicPoint.y));
+
+                    let a = CGFloat(altPoints[Int(idx)].y);
+                    let b = CGFloat(altPoints[Int(idx + 1)].y);
+                    let c = Int(idx);
+                    let d = screenDiastolicPoint.y;
+                    let e = screenSystolicPoint.y;
+                    let f = systolicPoint.y;
+                    let g = diastolicPoint.y;
+                    let h = self.frame.size.height - CGFloat(screenSystolicPoint.y) - 24;
+                    if (idx == 74) {
+                        let t = 0;
+                    }
+                    let view = UIView(frame: CGRect(x: screenSystolicPoint.x - 0.5, y: self.frame.size.height - CGFloat(screenSystolicPoint.y) - 24, width: 1, height: CGFloat(screenSystolicPoint.y - screenDiastolicPoint.y)));
+                    view.backgroundColor = plotSymbol.lineStyle.lineColor.uiColor;
+//                    insertSubview(view, belowSubview: graph);
+                    addSubview(view);
+                    if (Int(idx) == altPoints.count - 2) {
+                        altPlotLinesAdded = true;
+                    }
+                }
                 if (Int(idx) == (selectedPointIndex * 2)) {
                     return selectedAltPlotSymbol;
                 }
@@ -378,68 +395,17 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         }
     }
 
-    func plotSpace(space: CPTPlotSpace?, willChangePlotRangeTo: CPTPlotRange?, forCoordinate: CPTCoordinate) -> CPTPlotRange {
-        var range = ConversionUtility.plotSpace(space, willChangePlotRangeTo: willChangePlotRangeTo, forCoordinate: forCoordinate);
-        if (forCoordinate.value == 1) {
-            return range;
-        }
-        var low = -1, high = -1;
-        if (points.count == 0 || (range.containsDouble(points[0].x) && range.containsDouble(points[points.count - 1].x))) {
-            (self.superview!.superview!.superview as! UIScrollView).scrollEnabled = true;
-            low = 0;
-            high = points.count - 1;
-        } else {
-            (self.superview!.superview!.superview as! UIScrollView).scrollEnabled = false;
-
-            var index = 0;
-            for point: GraphPoint in points {
-                if (range.containsDouble(point.x)) {
-                    if (low == -1) {
-                        low = index;
-                    }
-                    high = index;
-                } else if (low != -1) {
-                    break;
-                }
-                index++;
-            }
-        }
-        if (high == points.count - 1 && low != high) {
-            high--;
-        }
-        var average = 0.0, highest = 0.0, lowest = 9999999.0;
-        if (low > -1) {
-            for index in low...high {
-                var point = points[index];
-                average += point.y;
-                if (point.y > highest) {
-                    highest = point.y;
-                }
-                if (point.y < lowest) {
-                    lowest = point.y;
-                }
-            }
-        }
-        var trend = "";
-        if (average > 0) {
-            average /= Double(high + 1 - low);
-            trend = "\(Int(average + 0.5)) Average  |  \(Int(highest)) Highest  |  \(Int(lowest)) Lowest";
-        }
-        var graphView = self.superview!.superview as! MetricGraph;
-//        graphView.updateTrend(trend);
-        return range;
-    }
     
     func selectPlotFromPoint(point: CGPoint) {
         let index = Int(plot.dataIndexFromInteractionPoint(point));
         checkinSelected(plot as CPTScatterPlot!, idx: index, first: false);
     }
     
-    override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
-        let index = Int(plot.dataIndexFromInteractionPoint(point));
-        checkinSelected(plot as CPTScatterPlot!, idx: index - 1, first: false);
-        return true;
-    }
+//    override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
+//        let index = Int(plot.dataIndexFromInteractionPoint(point));
+//        checkinSelected(plot as CPTScatterPlot!, idx: index - 1, first: false);
+//        return true;
+//    }
     
 //    func plotSpace(space: CPTPlotSpace!, didChangePlotRangeForCoordinate coordinate: CPTCoordinate) {
 //        var graphView = self.superview!.superview as! MetricGraph;
