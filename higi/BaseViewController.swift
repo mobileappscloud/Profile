@@ -66,7 +66,7 @@ class BaseViewController: UIViewController, SWRevealViewControllerDelegate {
     
     func gotoSummary(sender: AnyObject) {
         Flurry.logEvent("Summary_Pressed");
-        var summaryController = ActivityViewController(nibName: "ActivityView", bundle: nil);
+        var summaryController = DailySummaryViewController(nibName: "DailySummaryView", bundle: nil);
         self.navigationController!.pushViewController(summaryController, animated: true);
     }
 }
