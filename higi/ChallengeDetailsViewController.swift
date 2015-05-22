@@ -17,68 +17,39 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     @IBOutlet weak var buttonContainer: UIView!
     @IBOutlet weak var loadingSpinner: UIActivityIndicatorView!
     
-    var challengeName = "";
-    var challenge:HigiChallenge!;
-    var challengeTeamSelected:Int?;
+    var displayLeaderboardTab = false, displayProgressTab = false, displayChatterTab = false, hasTeamGoalComponent = false, hasIndividualGoalComponent = false, hasTeamLeaderboardComponent = false, hasIndividualLeaderboardComponent = false, isIndividualLeaderboard = true, isIndividualProgress = true, showLoadingFooter = false, isLeaving = false, joinAccepted = false;
     
-    var displayLeaderboardTab = false;
-    var displayProgressTab = false;
-    var displayChatterTab = false;
+    var headerContainerHeight:CGFloat = 0, buttonContainerOriginY:CGFloat = 0, headerAvatarOriginX:CGFloat = 0, headerPlaceOriginX:CGFloat = 0, headerProgressOriginX:CGFloat = 0, headerProgressOriginWidth:CGFloat = 0,headerPointsOriginX:CGFloat = 0, actionButtonY:CGFloat = 0, prizesHeight:CGFloat = 0, scrollY: CGFloat = 0;
     
-    var hasTeamGoalComponent = false;
-    var hasIndividualGoalComponent = false;
-    var hasTeamLeaderboardComponent = false;
-    var hasIndividualLeaderboardComponent = false;
+    var individualLeaderboardParticipants:[ChallengeParticipant] = [], teamLeaderboardParticipants:[ChallengeTeam] = [], individualGoalWinConditions:[ChallengeWinCondition] = [], teamGoalWinConditions:[ChallengeWinCondition] = [];
     
-    var isIndividualLeaderboard = true;
-    var isIndividualProgress = true;
+    var leaderboardTable, progressTable: UITableView?, chatterTable: UITableView?;
     
-    var showLoadingFooter = false;
-    
-    var leaderboardTable: UITableView?;
-    var progressTable: UITableView?;
     var detailsTable: ChallengeDetailsTab!;
-    var chatterTable: UITableView?;
 
-    var scrollY: CGFloat = 0;
-    var totalPages = 0;
-    var currentPage = 0;
     var tables:[UITableView] = [];
     
-    var headerContainerHeight:CGFloat = 0;
-    var buttonContainerOriginY:CGFloat = 0;
-    var headerAvatarOriginX:CGFloat = 0;
-    var headerPlaceOriginX:CGFloat = 0;
-    var headerProgressOriginX:CGFloat = 0;
-    var headerProgressOriginWidth:CGFloat = 0;
-    var headerPointsOriginX:CGFloat = 0;
+    var tabButtonLabels:[String] = [], tabButtonIcons:[String] = [];
     
-    var tabButtonLabels:[String] = [];
-    var tabButtonIcons:[String] = [];
-    var leaderboardToggleButtons:[UIButton] = [];
-    var progressToggleButtons:[UIButton] = [];
+    var leaderboardToggleButtons:[UIButton] = [], progressToggleButtons:[UIButton] = [];
+    
     var greenBars:[UIView] = [];
     
-    var individualLeaderboardCount = 50;
-    
-    var prizesHeight:CGFloat = 0;
-
-    var individualLeaderboardParticipants:[ChallengeParticipant] = [];
-    var teamLeaderboardParticipants:[ChallengeTeam] = [];
-
-    var individualGoalWinConditions:[ChallengeWinCondition] = [];
-    var teamGoalWinConditions:[ChallengeWinCondition] = [];
+    var individualLeaderboardCount = 50, totalPages = 0, currentPage = 0;;
     
     var challengeChatterComments:[Comments] = [];
     
-    var isLeaving = false;
-    
     var userChatter:String?;
+    
     var actionButton:UIButton!;
-    var actionButtonY:CGFloat = 0;
+    
     var chatterView:UIView!;
     
-    var joinAccepted = false;
+    var challengeName = "";
+    
+    var challenge:HigiChallenge!;
+    
+    var challengeTeamSelected:Int?;
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -220,7 +191,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             participantPlace.hidden = false;
             joinButton.hidden = true;
             let participant = challenge.participant!;
-            let a = challenge.winConditions[0].winnerType;
             if (challenge.winConditions[0].winnerType == "individual") {
                 participantPoints.text = "\(Int(participant.units)) \(challenge.abbrMetric)";
                 if (challenge.winConditions[0].goal.type == "threshold_reached") {
@@ -1069,10 +1039,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func getProgressLegendRowHeight(index:Int) -> CGFloat {
-        let b = individualGoalWinConditions.count;
         let winConditions = isIndividualProgress ? individualGoalWinConditions : teamGoalWinConditions;
-        let d = winConditions.count - index - 1;
-        let a = winConditions.count;
         return ChallengeProgressLegendRow.heightForRowAtIndex(winConditions[winConditions.count - (index - 1) - 1]);
     }
     
