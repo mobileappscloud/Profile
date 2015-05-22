@@ -290,6 +290,10 @@
 		D175287E1B0F9669006335B4 /* dailysummary_night.png in Resources */ = {isa = PBXBuildFile; fileRef = D175287B1B0F9669006335B4 /* dailysummary_night.png */; };
 		D175287F1B0F9669006335B4 /* dailysummary_morning.png in Resources */ = {isa = PBXBuildFile; fileRef = D175287C1B0F9669006335B4 /* dailysummary_morning.png */; };
 		D17528801B0F9669006335B4 /* dailysummary_afternoon.png in Resources */ = {isa = PBXBuildFile; fileRef = D175287D1B0F9669006335B4 /* dailysummary_afternoon.png */; };
+		D17528821B0FB651006335B4 /* DailySummaryRowView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D17528811B0FB651006335B4 /* DailySummaryRowView.xib */; };
+		D17528841B0FBD49006335B4 /* DailySummaryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17528831B0FBD49006335B4 /* DailySummaryRow.swift */; };
+		D17528861B0FC852006335B4 /* DailySummaryBreakdownView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D17528851B0FC852006335B4 /* DailySummaryBreakdownView.xib */; };
+		D17528881B0FD332006335B4 /* DailySummaryBreakdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17528871B0FD332006335B4 /* DailySummaryBreakdown.swift */; };
 		D17787221A96873500C78F8B /* activechallenges.png in Resources */ = {isa = PBXBuildFile; fileRef = D177871C1A96873500C78F8B /* activechallenges.png */; };
 		D17787231A96873500C78F8B /* bodystats.png in Resources */ = {isa = PBXBuildFile; fileRef = D177871D1A96873500C78F8B /* bodystats.png */; };
 		D17787241A96873500C78F8B /* higistation.png in Resources */ = {isa = PBXBuildFile; fileRef = D177871E1A96873500C78F8B /* higistation.png */; };
@@ -661,6 +665,10 @@
 		D175287B1B0F9669006335B4 /* dailysummary_night.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dailysummary_night.png; path = images/dailysummary_night.png; sourceTree = "<group>"; };
 		D175287C1B0F9669006335B4 /* dailysummary_morning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dailysummary_morning.png; path = images/dailysummary_morning.png; sourceTree = "<group>"; };
 		D175287D1B0F9669006335B4 /* dailysummary_afternoon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dailysummary_afternoon.png; path = images/dailysummary_afternoon.png; sourceTree = "<group>"; };
+		D17528811B0FB651006335B4 /* DailySummaryRowView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DailySummaryRowView.xib; sourceTree = "<group>"; };
+		D17528831B0FBD49006335B4 /* DailySummaryRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailySummaryRow.swift; sourceTree = "<group>"; };
+		D17528851B0FC852006335B4 /* DailySummaryBreakdownView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DailySummaryBreakdownView.xib; sourceTree = "<group>"; };
+		D17528871B0FD332006335B4 /* DailySummaryBreakdown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailySummaryBreakdown.swift; sourceTree = "<group>"; };
 		D177871C1A96873500C78F8B /* activechallenges.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = activechallenges.png; path = images/activechallenges.png; sourceTree = "<group>"; };
 		D177871D1A96873500C78F8B /* bodystats.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bodystats.png; path = images/bodystats.png; sourceTree = "<group>"; };
 		D177871E1A96873500C78F8B /* higistation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = higistation.png; path = images/higistation.png; sourceTree = "<group>"; };
@@ -1376,6 +1384,10 @@
 			children = (
 				D110BAD31B0E7C5500CD1E58 /* DailySummaryViewController.swift */,
 				D110BAD51B0E7CD700CD1E58 /* DailySummaryView.xib */,
+				D17528811B0FB651006335B4 /* DailySummaryRowView.xib */,
+				D17528831B0FBD49006335B4 /* DailySummaryRow.swift */,
+				D17528851B0FC852006335B4 /* DailySummaryBreakdownView.xib */,
+				D17528871B0FD332006335B4 /* DailySummaryBreakdown.swift */,
 			);
 			name = "Daily Summary";
 			sourceTree = "<group>";
@@ -1754,11 +1766,13 @@
 				8FFF43C319B798380056F412 /* weight_overlay@2x.png in Resources */,
 				D164D3761A7C19A600300F35 /* chat_bubble_green.png in Resources */,
 				8FC7B70819E5E60D00D0112F /* bodystats2-568h@2x.png in Resources */,
+				D17528821B0FB651006335B4 /* DailySummaryRowView.xib in Resources */,
 				2BBDBA591A12AC2C005A6815 /* GoalChallengeView.xib in Resources */,
 				8FF873F219DF528E002A6341 /* PullRefreshView.xib in Resources */,
 				8FA5925B19AB921C00622266 /* create_overlay.png in Resources */,
 				8FC7B71119E5E67000D0112F /* dashboard1-568h@2x.png in Resources */,
 				8F5E7FE3199C081F009067E5 /* vital_bmi_icon.png in Resources */,
+				D17528861B0FC852006335B4 /* DailySummaryBreakdownView.xib in Resources */,
 				8F5E7FCC199BC976009067E5 /* BpCheckinCellView.xib in Resources */,
 				D17787241A96873500C78F8B /* higistation.png in Resources */,
 				8F6266C3197F12E900145EDB /* graph_info.png in Resources */,
@@ -1871,6 +1885,7 @@
 				8FF9409A198A8C1800D319D7 /* ProfileImageViewController.swift in Sources */,
 				8F5E7FC5199BC6CB009067E5 /* CheckinCard.swift in Sources */,
 				8FE056E3198FDC3900C81208 /* SettingsViewController.swift in Sources */,
+				D17528841B0FBD49006335B4 /* DailySummaryRow.swift in Sources */,
 				8F6A24361958DDFB0094B73C /* NewCPTMutablePlotRange.m in Sources */,
 				8FEF6F401A6EB638001EF8A6 /* PointsMeter.swift in Sources */,
 				8F9C69D71950C89B00449664 /* HigiUser.swift in Sources */,
@@ -1889,6 +1904,7 @@
 				D10BA0271A9541FF00DB22A3 /* ActivityLegend.swift in Sources */,
 				8FE056E9198FDCA600C81208 /* FindStationViewController.swift in Sources */,
 				2BBDBA561A12AC2C005A6815 /* CompetitiveChallengeView.swift in Sources */,
+				D17528881B0FD332006335B4 /* DailySummaryBreakdown.swift in Sources */,
 				8F6A24311951E5D80094B73C /* ApiUtility.swift in Sources */,
 				8F2B7E55198C3475009DE89A /* RevealViewController.swift in Sources */,
 				8FEF6F481A6EECDE001EF8A6 /* PulseCard.swift in Sources */,

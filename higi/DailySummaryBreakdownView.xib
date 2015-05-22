@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="DailySummaryBreakdown" customModule="higi" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gauge2_high.png" translatesAutoresizingMaskIntoConstraints="NO" id="09g-oG-4Fh">
+                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="50" id="5KQ-eh-5JW"/>
+                        <constraint firstAttribute="height" constant="50" id="vws-TV-PiD"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sKk-d6-b5M">
+                    <rect key="frame" x="58" y="14" width="14" height="21"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Steps" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oyi-e6-woZ">
+                    <rect key="frame" x="80" y="14" width="15" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="15M-aV-qaU">
+                    <rect key="frame" x="103" y="14" width="30" height="21"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="15M-aV-qaU" secondAttribute="bottom" constant="15" id="7G6-hN-u4f"/>
+                <constraint firstAttribute="bottom" secondItem="Oyi-e6-woZ" secondAttribute="bottom" constant="15" id="B2e-Nb-fEe"/>
+                <constraint firstItem="sKk-d6-b5M" firstAttribute="leading" secondItem="09g-oG-4Fh" secondAttribute="trailing" constant="8" id="CKk-uv-4nB"/>
+                <constraint firstItem="15M-aV-qaU" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="14" id="IzZ-OZ-ZMv"/>
+                <constraint firstItem="15M-aV-qaU" firstAttribute="leading" secondItem="Oyi-e6-woZ" secondAttribute="trailing" constant="8" id="JVt-Hu-84p"/>
+                <constraint firstAttribute="bottom" secondItem="sKk-d6-b5M" secondAttribute="bottom" constant="15" id="MMb-Ar-M5R"/>
+                <constraint firstItem="sKk-d6-b5M" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="14" id="MzH-uF-tO4"/>
+                <constraint firstItem="09g-oG-4Fh" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Pda-8w-30a"/>
+                <constraint firstItem="Oyi-e6-woZ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="14" id="QVh-r5-YLA"/>
+                <constraint firstAttribute="bottom" secondItem="09g-oG-4Fh" secondAttribute="bottom" id="Tka-vv-4Wq"/>
+                <constraint firstItem="sKk-d6-b5M" firstAttribute="leading" secondItem="09g-oG-4Fh" secondAttribute="trailing" constant="8" id="ZTW-NU-orW"/>
+                <constraint firstItem="Oyi-e6-woZ" firstAttribute="leading" secondItem="sKk-d6-b5M" secondAttribute="trailing" constant="8" id="iKm-TS-YnH"/>
+                <constraint firstItem="Oyi-e6-woZ" firstAttribute="leading" secondItem="sKk-d6-b5M" secondAttribute="trailing" constant="8" id="kEw-OU-Kg2"/>
+                <constraint firstItem="15M-aV-qaU" firstAttribute="leading" secondItem="Oyi-e6-woZ" secondAttribute="trailing" constant="8" id="qM4-qb-6Oa"/>
+                <constraint firstItem="09g-oG-4Fh" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="zax-Ge-OTF"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="icon" destination="09g-oG-4Fh" id="nkG-AW-Po7"/>
+                <outlet property="metric" destination="Oyi-e6-woZ" id="QZu-i0-rva"/>
+                <outlet property="points" destination="sKk-d6-b5M" id="pmG-o6-F0d"/>
+            </connections>
+            <point key="canvasLocation" x="391" y="304"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="gauge2_high.png" width="184" height="184"/>
+    </resources>
+</document>

@@ -66,7 +66,7 @@ class PointsMeter: UIView {
         } else {
             var arc = CAShapeLayer();
             arc.lineWidth = 12;
-            arc.fillColor = UIColor.whiteColor().CGColor;
+            arc.fillColor = UIColor.clearColor().CGColor;
             arc.strokeColor = Utility.colorFromHexString("#DDDDDD").CGColor;
             var toPath = UIBezierPath();
             var startingPoint = CGPoint(x: center.x, y: center.y + radius);
