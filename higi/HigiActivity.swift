@@ -10,16 +10,24 @@ import Foundation
 
 class HigiActivity {
     
-    var points: Int!;
+    var points, steps, duration, calories: Int!;
     
-    var description, errorDescription, typeCategory, checkinCategory, typeName: NSString!;
+    var description, errorDescription, typeCategory, category, checkinCategory, typeName: NSString!;
     
     var device: ActivityDevice!;
     
     var startTime: NSDate!;
     
+    var distance: Double!;
+    
     init(dictionary: NSDictionary) {
         points = dictionary["points"] as! Int;
+        if let metricsObject = dictionary["metrics"] as? NSDictionary {
+            steps = metricsObject["steps"] as? Int;
+            distance = metricsObject["distance"] as? Double;
+            calories = metricsObject["calories"] as? Int;
+            duration = metricsObject["duration"] as? Int;
+        }
         description = dictionary["description"] as! NSString;
         var serverDevice = dictionary["device"] as! NSDictionary?;
         if (serverDevice != nil) {
@@ -33,6 +41,7 @@ class HigiActivity {
         let typeObject = dictionary["type"] as! NSDictionary;
         typeCategory = typeObject["category"] as? NSString;
         checkinCategory = typeObject["checkinCategory"] as? NSString;
+        category = typeObject["category"] as? NSString;
         typeName = typeObject["name"] as? NSString;
         var error = dictionary["error"] as? NSDictionary;
         if (error != nil) {

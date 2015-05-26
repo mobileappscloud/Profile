@@ -25,7 +25,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="saU-V6-sdy">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="saU-V6-sdy">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <subviews>
                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gM8-YQ-AHK">
@@ -98,6 +98,12 @@
                 </scrollView>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="saU-V6-sdy" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="CY2-xw-UeK"/>
+                <constraint firstAttribute="bottom" secondItem="saU-V6-sdy" secondAttribute="bottom" id="NJu-0V-c5y"/>
+                <constraint firstAttribute="trailing" secondItem="saU-V6-sdy" secondAttribute="trailing" id="tS2-kK-0XZ"/>
+                <constraint firstItem="saU-V6-sdy" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="xYq-7x-ymn"/>
+            </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
             <point key="canvasLocation" x="125" y="250"/>

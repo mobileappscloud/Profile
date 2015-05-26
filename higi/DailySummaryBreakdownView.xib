@@ -58,10 +58,11 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="icon" destination="09g-oG-4Fh" id="nkG-AW-Po7"/>
+                <outlet property="label" destination="15M-aV-qaU" id="xdM-tB-PNi"/>
                 <outlet property="metric" destination="Oyi-e6-woZ" id="QZu-i0-rva"/>
                 <outlet property="points" destination="sKk-d6-b5M" id="pmG-o6-F0d"/>
             </connections>
-            <point key="canvasLocation" x="391" y="304"/>
+            <point key="canvasLocation" x="-33" y="19"/>
         </view>
     </objects>
     <resources>
