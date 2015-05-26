@@ -37,6 +37,7 @@ class HigiApi {
         manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Content-Type");
         manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept");
         manager.requestSerializer.setValue("application/vnd.higi.earndit;version=2", forHTTPHeaderField: "Accept");
+        manager.requestSerializer.timeoutInterval = 20;
         
         if (HigiApi.EARNDIT_DEV) {
             manager.requestSerializer.setValue("rQIpgKhmd0qObDSr5SkHbw", forHTTPHeaderField: "Dev-Token");  // Grant
