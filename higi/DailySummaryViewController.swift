@@ -177,8 +177,6 @@ class DailySummaryViewController: UIViewController {
                 circleLayer.lineWidth = 2.0;
                 circleLayer.strokeEnd = 1;
                 activityRow.progressCircle.layer.addSublayer(circleLayer);
-                
-//                activityRow.progressCircle.backgroundColor = activity.color;
                 activityRow.frame.origin.y = currentOrigin;
                 
                 activityContainer.addSubview(activityRow);
