@@ -17,7 +17,7 @@ class SessionController {
     
     var checkins: [HigiCheckin]!;
     
-    var activities: [HigiActivity]!;
+    var activities: [String: (Int, [HigiActivity])] = [:];
     
     var challenges: [HigiChallenge]!;
     
@@ -33,12 +33,10 @@ class SessionController {
     
     func reset() {
         checkins = nil;
-        activities = nil;
+        activities = [:];
         challenges = nil;
         devices = [:];
     }
-    
-    
 }
 
 let SessionControllerSharedInstance = SessionController();

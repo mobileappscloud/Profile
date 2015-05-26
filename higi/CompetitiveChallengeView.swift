@@ -16,7 +16,7 @@ class CompetitiveChallengeView: ChallengeView, UIScrollViewDelegate {
         let isTeamChallenge = winConditions[0].winnerType == "team";
         
         if (isTeamChallenge) {
-            let gravityTuple = Utility.getTeamGravityBoard(challenge);
+            let gravityTuple = ChallengeUtility.getTeamGravityBoard(challenge);
             let teamGravityBoard = gravityTuple.0;
             let teamRanks = gravityTuple.1;
             

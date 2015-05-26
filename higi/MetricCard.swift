@@ -100,23 +100,23 @@ class MetricCard: UIView {
             var dateFormatter = NSDateFormatter();
             dateFormatter.dateFormat = "MM/dd/yyyy";
             var totalPoints = 0;
-            if (SessionController.Instance.activities != nil) {
-                var lastDateString = "";
-                var lastDate:Double?;
-                for activity in SessionController.Instance.activities {
-                    let activityDate = Double(activity.startTime.timeIntervalSince1970);
-                    var dateString = dateFormatter.stringFromDate(activity.startTime);
-                    if (lastDateString != dateString && lastDate != nil) {
-                        graphPoints.append(GraphPoint(x: lastDate, y: Double(totalPoints)));
-                        totalPoints = 0;
-                    }
-                    if (activity.errorDescription == nil) {
-                        totalPoints += activity.points;
-                    }
-                    lastDateString = dateString;
-                    lastDate = activityDate;
-                }
-            }
+//            if (SessionController.Instance.activities != nil) {
+//                var lastDateString = "";
+//                var lastDate:Double?;
+//                for activity in SessionController.Instance.activities {
+//                    let activityDate = Double(activity.startTime.timeIntervalSince1970);
+//                    var dateString = dateFormatter.stringFromDate(activity.startTime);
+//                    if (lastDateString != dateString && lastDate != nil) {
+//                        graphPoints.append(GraphPoint(x: lastDate, y: Double(totalPoints)));
+//                        totalPoints = 0;
+//                    }
+//                    if (activity.errorDescription == nil) {
+//                        totalPoints += activity.points;
+//                    }
+//                    lastDateString = dateString;
+//                    lastDate = activityDate;
+//                }
+//            }
         }
         
 //        let graphY = headerView.frame.size.height;

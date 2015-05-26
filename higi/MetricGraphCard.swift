@@ -14,9 +14,9 @@ class MetricsGraphCard: UIView {
     @IBOutlet weak var graphView: UIView!
     @IBOutlet weak var backgroundView: UIView!
     
-    @IBOutlet weak var pulseSubtitle: UILabel!
-    @IBOutlet weak var pulseLabel: UILabel!
-    @IBOutlet weak var pulseValue: UILabel!
+    @IBOutlet weak var singleSubtitle: UILabel!
+    @IBOutlet weak var singleLabel: UILabel!
+    @IBOutlet weak var singleValue: UILabel!
     
     var color: UIColor!;
 
@@ -29,7 +29,7 @@ class MetricsGraphCard: UIView {
         let formatter = NSDateFormatter(), dayFormatter = NSDateFormatter();
         formatter.dateFormat = "MMMM";
         dayFormatter.dateFormat = "dd";
-        card.date.text = "\(formatter.stringFromDate(lastCheckin.dateTime)) \(Utility.getRankSuffix(dayFormatter.stringFromDate(lastCheckin.dateTime)))";
+        card.date.text = "\(formatter.stringFromDate(lastCheckin.dateTime)) \(ChallengeUtility.getRankSuffix(dayFormatter.stringFromDate(lastCheckin.dateTime)))";
         
         if (type == MetricsType.BloodPressure) {
             if let map = lastCheckin.map {
@@ -67,14 +67,14 @@ class MetricsGraphCard: UIView {
             card.secondReadingLabel.hidden = true;
             card.secondReadingSubTitle.hidden = true;
             
-            card.pulseValue.hidden = false;
-            card.pulseLabel.hidden = false;
-            card.pulseSubtitle.hidden = false;
+            card.singleValue.hidden = false;
+            card.singleLabel.hidden = false;
+            card.singleSubtitle.hidden = false;
             
-            card.pulseValue.text = "\(Int(lastCheckin.pulseBpm!))";
-            card.pulseValue.textColor = color;
-            card.pulseLabel.text = "pts";
-            card.pulseSubtitle.text = "Activity Points";
+            card.singleValue.text = "\(Int(lastCheckin.pulseBpm!))";
+            card.singleValue.textColor = color;
+            card.singleLabel.text = "pts";
+            card.singleSubtitle.text = "Activity Points";
         } else {
             card.firstReadingValue.hidden = true;
             card.firstReadingLabel.hidden = true;
@@ -84,14 +84,14 @@ class MetricsGraphCard: UIView {
             card.secondReadingLabel.hidden = true;
             card.secondReadingSubTitle.hidden = true;
             
-            card.pulseValue.hidden = false;
-            card.pulseLabel.hidden = false;
-            card.pulseSubtitle.hidden = false;
+            card.singleValue.hidden = false;
+            card.singleLabel.hidden = false;
+            card.singleSubtitle.hidden = false;
             
-            card.pulseValue.text = "\(Int(lastCheckin.pulseBpm!))";
-            card.pulseValue.textColor = color;
-            card.pulseLabel.text = "bpm";
-            card.pulseSubtitle.text = "Beats Per Minute";
+            card.singleValue.text = "\(Int(lastCheckin.pulseBpm!))";
+            card.singleValue.textColor = color;
+            card.singleLabel.text = "bpm";
+            card.singleSubtitle.text = "Beats Per Minute";
         }
         
         card.firstReadingValue.textColor = color;
@@ -109,7 +109,7 @@ class MetricsGraphCard: UIView {
         let formatter = NSDateFormatter(), dayFormatter = NSDateFormatter();
         formatter.dateFormat = "MMMM";
         dayFormatter.dateFormat = "dd";
-        card.date.text = "\(formatter.stringFromDate(lastActivityDate)) \(Utility.getRankSuffix(dayFormatter.stringFromDate(lastActivityDate)))";
+        card.date.text = "\(formatter.stringFromDate(lastActivityDate)) \(ChallengeUtility.getRankSuffix(dayFormatter.stringFromDate(lastActivityDate)))";
         
         if (type == MetricsType.DailySummary) {
             card.firstReadingValue.hidden = true;
@@ -120,14 +120,14 @@ class MetricsGraphCard: UIView {
             card.secondReadingLabel.hidden = true;
             card.secondReadingSubTitle.hidden = true;
             
-            card.pulseValue.hidden = false;
-            card.pulseLabel.hidden = false;
-            card.pulseSubtitle.hidden = false;
+            card.singleValue.hidden = false;
+            card.singleLabel.hidden = false;
+            card.singleSubtitle.hidden = false;
             
-            card.pulseValue.text = "\(totalPoints)";
-            card.pulseValue.textColor = color;
-            card.pulseLabel.text = "pts";
-            card.pulseSubtitle.text = "Activity Points";
+            card.singleValue.text = "\(totalPoints)";
+            card.singleValue.textColor = color;
+            card.singleLabel.text = "pts";
+            card.singleSubtitle.text = "Activity Points";
         }
         
         card.firstReadingValue.textColor = color;

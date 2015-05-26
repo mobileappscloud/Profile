@@ -840,7 +840,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
 
     func getUserRank(isTeam: Bool) -> String {
         if (isTeam) {
-            let gravityTuple = Utility.getTeamGravityBoard(challenge);
+            let gravityTuple = ChallengeUtility.getTeamGravityBoard(challenge);
             let teamGravityBoard = gravityTuple.0;
             let teamRanks = gravityTuple.1;
             
@@ -848,7 +848,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             for index in 0...teamGravityBoard.count - 1 {
                 let name = teamGravityBoard[index].name;
                 if (name == challenge.participant.team.name) {
-                    return Utility.getRankSuffix(String(teamRanks[index]));
+                    return ChallengeUtility.getRankSuffix(String(teamRanks[index]));
                 }
             }
         } else {
@@ -856,7 +856,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             if (gravityBoard != nil && gravityBoard.count > 0) {
                 for index in 0...gravityBoard.count - 1 {
                     if (gravityBoard[index].participant.url == challenge.participant.url) {
-                        return Utility.getRankSuffix(gravityBoard[index].place!);
+                        return ChallengeUtility.getRankSuffix(gravityBoard[index].place!);
                     }
                 }
             }
@@ -1005,7 +1005,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func createProgressGraph() -> UITableViewCell {
         let cell = UITableViewCell(frame: CGRect(x: 0, y: 0, width: UIScreen.mainScreen().bounds.size.width, height: 200));
-        let consolodatedWinConditions = Utility.consolodateWinConditions(challenge.winConditions);
+        let consolodatedWinConditions = ChallengeUtility.consolodateWinConditions(challenge.winConditions);
         var individualGoalViewIndex = 0;
         var teamGoalViewIndex = 0;
         // the win condition for getting 1 point messed up my logic here since we don't have a view for it
@@ -1021,7 +1021,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                 }
             }
         }
-        let nibs = Utility.getChallengeViews(challenge, frame: cell.frame, isComplex: true);
+        let nibs = ChallengeUtility.getChallengeViews(challenge, frame: cell.frame, isComplex: true);
         if (isIndividualProgress) {
             cell.addSubview(nibs[individualGoalViewIndex]);
         } else {

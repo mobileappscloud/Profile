@@ -36,6 +36,8 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     
     var activitiesRemoved = false, challengesRemoved = false, checkinsRemoved = false, devicesRemoved = false;
     
+    var activityCard: MetricsGraphCard!;
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         self.title = "Dashboard";
@@ -60,7 +62,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         switch (notification.name) {
         case ApiUtility.ACTIVITIES:
             if (doneRefreshing) {
-                //@todo update todays points icon in notification, or handle completely in nav class
+                initActivityMetricGraph();
             }
             activitiesRefreshed = true;
         case ApiUtility.CHALLENGES:
@@ -132,7 +134,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             if (challengesCard.challengeBox.subviews.count > 3) {
                 (challengesCard.challengeBox.subviews[challengesCard.challengeBox.subviews.count - 1] as! UIView).removeFromSuperview();
             }
-            var challengeView = Utility.getChallengeViews(displayedChallenge, frame: CGRect(x: 0, y: 56, width: challengesCard.challengeBox.frame.size.width, height: 180), isComplex: false)[0];
+            var challengeView = ChallengeUtility.getChallengeViews(displayedChallenge, frame: CGRect(x: 0, y: 56, width: challengesCard.challengeBox.frame.size.width, height: 180), isComplex: false)[0];
             challengeView.backgroundColor = UIColor.whiteColor();
             challengesCard.challengeBox.addSubview(challengeView);
             challengeView.userInteractionEnabled = false;
@@ -191,7 +193,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             let pulseColor = Utility.colorFromMetricType(MetricsType.Pulse);
             let weightColor = Utility.colorFromMetricType(MetricsType.Weight);
             
-            let activityCard = MetricsGraphCard.instanceFromNib("Activity", lastActivityDate: bps.last!.dateTime, totalPoints: 0, type: MetricsType.DailySummary);
+            activityCard = MetricsGraphCard.instanceFromNib("Activity", lastActivityDate: bps.last!.dateTime, totalPoints: 0, type: MetricsType.DailySummary);
             activityCard.frame.origin.y = cardPositionY;
             activityCard.frame.origin.x = cardMarginX;
             let activityTouched = UITapGestureRecognizer(target: self, action: "gotoActivityGraph:");
@@ -231,7 +233,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             var checkins = SessionController.Instance.checkins;
             if (checkins != nil && checkins.count > 0) {
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                    var mapPoints:[GraphPoint] = [], bpmPoints:[GraphPoint] = [], weightPoints:[GraphPoint] = [], activityPoints:[GraphPoint] = [];
+                    var mapPoints:[GraphPoint] = [], bpmPoints:[GraphPoint] = [], weightPoints:[GraphPoint] = [];
                     
                     for checkin in checkins {
                         if (checkin.map != nil) {
@@ -244,29 +246,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                             weightPoints.append(GraphPoint(x: Double(checkin.dateTime.timeIntervalSince1970), y: checkin.weightLbs));
                         }
                     }
-                    var totalPoints = 0;
-                    if (SessionController.Instance.activities != nil) {
-                        var lastDateString = "";
-                        var lastDate:Double?;
-                        for activity in SessionController.Instance.activities {
-                            let activityDate = Double(activity.startTime.timeIntervalSince1970);
-                            var dateString = dateFormatter.stringFromDate(activity.startTime);
-                            if (lastDateString != dateString && lastDate != nil) {
-                                activityPoints.append(GraphPoint(x: lastDate, y: Double(totalPoints)));
-                                totalPoints = 0;
-                            }
-                            if (activity.errorDescription == nil) {
-                                totalPoints += activity.points;
-                            }
-                            lastDateString = dateString;
-                            lastDate = activityDate;
-                        }
-                        if (activityPoints.count == 0) {
-                            activityPoints.append(GraphPoint(x: NSDate().timeIntervalSince1970, y: Double(0)));
-                        }
-                    }
                     dispatch_async(dispatch_get_main_queue(), {
-                        activityCard.graph(activityPoints, type: MetricsType.DailySummary);
                         bloodPressureCard.graph(mapPoints, type: MetricsType.BloodPressure);
                         pulseCard.graph(bpmPoints, type: MetricsType.Pulse);
                         weightCard.graph(weightPoints, type: MetricsType.Weight);
@@ -282,7 +262,6 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             metricsCard.addSubview(weightCard);
             
             metricsCard.frame.size.height = cardPositionY;
-//            pulseCard.frame.origin.y = metricsCard.frame.origin.y + metricsCard.frame.size.height + gap;
         }
         
         if (metricsCard.superview == nil) {
@@ -292,6 +271,28 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         }
     }
     
+    func initActivityMetricGraph() {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+            var activityPoints:[GraphPoint] = [];
+            let dateString = Constants.dateFormatter.stringFromDate(NSDate());
+            var totalPoints = 0;
+            let a = SessionController.Instance.activities;
+            for (date, (total, activityList)) in SessionController.Instance.activities {
+                if (date == dateString) {
+                    totalPoints = total;
+                }
+                if (activityList.count > 0) {
+                    activityPoints.append(GraphPoint(x: Double(activityList[0].startTime.timeIntervalSince1970), y: Double(total)));
+                }
+            }
+            activityPoints.sort({$0.x < $1.x});
+            dispatch_async(dispatch_get_main_queue(), {
+                self.activityCard.singleValue.text = "\(totalPoints)";
+                self.activityCard.graph(activityPoints, type: MetricsType.DailySummary);
+            });
+        });
+    }
+
     func gotoActivityGraph(sender: AnyObject) {
         //@todo flurry event here
         let viewController = MetricsViewController(nibName: "MetricsView", bundle: nil);

@@ -127,80 +127,76 @@ class DailySummaryViewController: UIViewController {
     }
     
     func initScrollview() {
-        
         let date = NSDate();
         let dateFormatter = NSDateFormatter();
-        dateFormatter.dateFormat = "MM/dd/yyyy";
+        dateFormatter.dateFormat = Constants.dateFormat;
         let dateString = dateFormatter.stringFromDate(date);
-        if (SessionController.Instance.activities != nil) {
-            for activity in SessionController.Instance.activities {
-                let a = dateFormatter.stringFromDate(activity.startTime);
-                if (dateFormatter.stringFromDate(activity.startTime) == dateString) {
-                    let deviceName = String(activity.device.name);
-                    if var dailyActivity = activityDictionary[deviceName] {
-                        let points = activity.errorDescription == nil ? activity.points : 0;
-                        let icon = iconFromActivityType(String(activity.typeCategory));
-//                        if (dailyActivity.name == "higi") {
-
-//                        } else {
-                            dailyActivity.addPoints(points);
-                            dailyActivity.addBreakdown(HigiDailyActivity.ActivityBreakdown(icon: icon, points: points, metric: String(activity.typeName)))
-//                        }
-                        activityDictionary[deviceName] = dailyActivity;
-                    } else {
-                        let points = activity.errorDescription == nil ? activity.points : 0;
-                        let icon = iconFromActivityType(String(activity.typeCategory));
-                        let dailyActivity = HigiDailyActivity(name: String(activity.device.name), color: Utility.colorFromHexString(activity.device.colorCode), points: points, breakdowns: [HigiDailyActivity.ActivityBreakdown(icon: icon, points: activity.points, metric: String(activity.typeName))]);
-                        activityDictionary[deviceName] = dailyActivity;
-                    }
-                }
-            }
-            
-            for (name, activity) in activityDictionary {
-                activities.append(activity);
-                totalPoints += activity.points;
-            }
-            activities.sort(sortByPoints);
-            var currentOrigin = CGFloat(0), gap = CGFloat(5);
-            for activity in activities {
-                let activityRow = UINib(nibName: "DailySummaryRowView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! DailySummaryRow;
-                activityRow.points.text = "\(activity.points)";
-                activityRow.name.text = activity.name;
-                activityRow.name.textColor = activity.color;
-                let proportion = CGFloat(activity.points) / CGFloat(totalPoints);
-                let newHeight = max(activityRow.progressCircle.frame.size.height * proportion, minCircleRadius * 2);
-                let circlePath = UIBezierPath(arcCenter: CGPoint(x: activityRow.progressCircle.frame.size.width / 2.0, y: activityRow.progressCircle.frame.size.height / 2.0), radius: newHeight / 2, startAngle: 0.0, endAngle: CGFloat(M_PI * 2.0), clockwise: true);
-                let circleLayer = CAShapeLayer();
-                circleLayer.path = circlePath.CGPath;
-                circleLayer.fillColor = UIColor.whiteColor().CGColor;
-                circleLayer.strokeColor = activity.color.CGColor;
-                circleLayer.lineWidth = 2.0;
-                circleLayer.strokeEnd = 1;
-                activityRow.progressCircle.layer.addSublayer(circleLayer);
-                activityRow.frame.origin.y = currentOrigin;
-                
-                activityContainer.addSubview(activityRow);
-                currentOrigin += activityRow.frame.size.height + gap;
-                
-                for breakdown in activity.breakdowns {
-                    let breakdownRow = UINib(nibName: "DailySummaryBreakdownView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! DailySummaryBreakdown;
-                    breakdownRow.frame.origin.y = currentOrigin;
-                    breakdownRow.frame.origin.x = activityRow.name.frame.origin.x;
-//                    if (activity.name == "higi") {
-//                        
-//                    } else {
-                        breakdownRow.points.text = "\(breakdown.points)";
-                        var metric = breakdown.metric;
-                        breakdownRow.metric.text = breakdown.metric;
-                        activityContainer.addSubview(breakdownRow);
-                        currentOrigin += breakdownRow.frame.size.height + gap;
-//                    }
+        if let (total, sessionActivities) = SessionController.Instance.activities[dateString] {
+            totalPoints = total;
+//            activities = todaysActivities;
+            var todaysActivities = sessionActivities;
+            todaysActivities.sort(sortByPoints);
+            for activity in todaysActivities {
+                let deviceName = String(activity.device.name);
+                if var dailyActivity = activityDictionary[deviceName] {
+                    let points = activity.errorDescription == nil ? activity.points : 0;
+                    let icon = iconFromActivityType(String(activity.typeCategory));
+                    //                        if (dailyActivity.name == "higi") {
+                    
+                    //                        } else {
+                    dailyActivity.addPoints(points);
+                    dailyActivity.addBreakdown(HigiDailyActivity.ActivityBreakdown(icon: icon, points: points, metric: String(activity.typeName)))
+                    //                        }
+                    activityDictionary[deviceName] = dailyActivity;
+                } else {
+                    let points = activity.errorDescription == nil ? activity.points : 0;
+                    let icon = iconFromActivityType(String(activity.typeCategory));
+                    let dailyActivity = HigiDailyActivity(name: String(activity.device.name), color: Utility.colorFromHexString(activity.device.colorCode), points: points, breakdowns: [HigiDailyActivity.ActivityBreakdown(icon: icon, points: activity.points, metric: String(activity.typeName))]);
+                    activityDictionary[deviceName] = dailyActivity;
                 }
             }
         }
+        
+        var currentOrigin = CGFloat(0), gap = CGFloat(5);
+        for (name, activity) in activityDictionary {
+            let activityRow = UINib(nibName: "DailySummaryRowView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! DailySummaryRow;
+            activityRow.points.text = "\(activity.points)";
+            activityRow.name.text = name;
+            activityRow.name.textColor = activity.color;
+            let proportion = CGFloat(activity.points) / CGFloat(totalPoints);
+            let newHeight = max(activityRow.progressCircle.frame.size.height * proportion, minCircleRadius * 2);
+            let circlePath = UIBezierPath(arcCenter: CGPoint(x: activityRow.progressCircle.frame.size.width / 2.0, y: activityRow.progressCircle.frame.size.height / 2.0), radius: newHeight / 2, startAngle: 0.0, endAngle: CGFloat(M_PI * 2.0), clockwise: true);
+            let circleLayer = CAShapeLayer();
+            circleLayer.path = circlePath.CGPath;
+            circleLayer.fillColor = UIColor.whiteColor().CGColor;
+            circleLayer.strokeColor = activity.color.CGColor;
+            circleLayer.lineWidth = 2.0;
+            circleLayer.strokeEnd = 1;
+            activityRow.progressCircle.layer.addSublayer(circleLayer);
+            activityRow.frame.origin.y = currentOrigin;
+            
+            activityContainer.addSubview(activityRow);
+            currentOrigin += activityRow.frame.size.height + gap;
+            
+            for breakdown in activity.breakdowns {
+                let breakdownRow = UINib(nibName: "DailySummaryBreakdownView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! DailySummaryBreakdown;
+                breakdownRow.frame.origin.y = currentOrigin;
+                breakdownRow.frame.origin.x = activityRow.name.frame.origin.x;
+//                    if (activity.name == "higi") {
+//                        
+//                    } else {
+                    breakdownRow.points.text = "\(breakdown.points)";
+                    var metric = breakdown.metric;
+                    breakdownRow.metric.text = breakdown.metric;
+                    activityContainer.addSubview(breakdownRow);
+                    currentOrigin += breakdownRow.frame.size.height + gap;
+//                    }
+            }
+        }
+    
     }
     
-    func sortByPoints(this: HigiDailyActivity, that: HigiDailyActivity) -> Bool {
+    func sortByPoints(this: HigiActivity, that: HigiActivity) -> Bool {
         return this.points >= that.points;
     }
     

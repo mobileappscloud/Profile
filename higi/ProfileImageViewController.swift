@@ -94,7 +94,7 @@ class ProfileImageViewController: UIViewController, UIImagePickerControllerDeleg
     }
     
     func gotoDashboard() {
-        if (SessionController.Instance.checkins != nil && SessionController.Instance.activities != nil && SessionController.Instance.challenges != nil && SessionController.Instance.kioskList != nil && SessionController.Instance.pulseArticles.count > 0 && !dashboardSent) {
+        if (SessionController.Instance.checkins != nil && SessionController.Instance.challenges != nil && SessionController.Instance.kioskList != nil && SessionController.Instance.pulseArticles.count > 0 && !dashboardSent) {
             Utility.gotoDashboard(self);
             dashboardSent = true;
         }
