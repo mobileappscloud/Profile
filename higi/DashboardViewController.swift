@@ -38,6 +38,8 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     
     var activityCard: MetricsGraphCard!;
     
+    let maxPointsToShow = 30;
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         self.title = "Dashboard";
@@ -239,14 +241,23 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                         if (checkin.map != nil) {
                             mapPoints.append(GraphPoint(x: Double(checkin.dateTime.timeIntervalSince1970), y: checkin.map));
                         }
-                        if (checkin.bmi != nil) {
-                            bpmPoints.append(GraphPoint(x: Double(checkin.dateTime.timeIntervalSince1970), y: checkin.bmi));
+                        if (checkin.pulseBpm != nil) {
+                            bpmPoints.append(GraphPoint(x: Double(checkin.dateTime.timeIntervalSince1970), y: Double(checkin.pulseBpm!)));
                         }
                         if (checkin.weightLbs != nil) {
                             weightPoints.append(GraphPoint(x: Double(checkin.dateTime.timeIntervalSince1970), y: checkin.weightLbs));
                         }
                     }
                     dispatch_async(dispatch_get_main_queue(), {
+                        if (mapPoints.count > self.maxPointsToShow) {
+                            mapPoints = Array(mapPoints.reverse()[0..<self.maxPointsToShow]);
+                        }
+                        if (bpmPoints.count > self.maxPointsToShow) {
+                            bpmPoints = Array(bpmPoints.reverse()[0..<self.maxPointsToShow]);
+                        }
+                        if (weightPoints.count > self.maxPointsToShow) {
+                            weightPoints = Array(weightPoints.reverse()[0..<self.maxPointsToShow]);
+                        }
                         bloodPressureCard.graph(mapPoints, type: MetricsType.BloodPressure);
                         pulseCard.graph(bpmPoints, type: MetricsType.Pulse);
                         weightCard.graph(weightPoints, type: MetricsType.Weight);
@@ -276,7 +287,6 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             var activityPoints:[GraphPoint] = [];
             let dateString = Constants.dateFormatter.stringFromDate(NSDate());
             var totalPoints = 0;
-            let a = SessionController.Instance.activities;
             for (date, (total, activityList)) in SessionController.Instance.activities {
                 if (date == dateString) {
                     totalPoints = total;
@@ -285,7 +295,13 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                     activityPoints.append(GraphPoint(x: Double(activityList[0].startTime.timeIntervalSince1970), y: Double(total)));
                 }
             }
-            activityPoints.sort({$0.x < $1.x});
+            
+            activityPoints.sort({$0.x > $1.x});
+            if (activityPoints.count > self.maxPointsToShow) {
+                activityPoints = Array(activityPoints[0..<self.maxPointsToShow]);
+            }
+            activityPoints = activityPoints.reverse();
+            
             dispatch_async(dispatch_get_main_queue(), {
                 self.activityCard.singleValue.text = "\(totalPoints)";
                 self.activityCard.graph(activityPoints, type: MetricsType.DailySummary);

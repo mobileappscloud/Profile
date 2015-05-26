@@ -15,10 +15,10 @@ class MetricDetailCard: UIView {
     @IBOutlet weak var thirdPanelUnit: UILabel!
     @IBOutlet weak var thirdPanelLabel: UILabel!
     
-    @IBOutlet weak var firstPulsePanel: UIView!
-    @IBOutlet weak var secondPulsePanel: UIView!
-    @IBOutlet weak var pulseValue: UILabel!
-    @IBOutlet weak var pulseDate: UILabel!
+    @IBOutlet weak var firstCenteredPanel: UIView!
+    @IBOutlet weak var secondCenteredPanel: UIView!
+    @IBOutlet weak var centeredValue: UILabel!
+    @IBOutlet weak var centeredDate: UILabel!
     
     class func instanceFromNib(checkin: HigiCheckin, type: MetricsType) -> MetricDetailCard {
         var view = UINib(nibName: "MetricDetailCardView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! MetricDetailCard;
@@ -74,21 +74,21 @@ class MetricDetailCard: UIView {
             view.secondPanel.hidden = true;
             view.thirdPanel.hidden = true;
             
-            view.firstPulsePanel.hidden = false;
-            view.secondPulsePanel.hidden = false;
+            view.firstCenteredPanel.hidden = false;
+            view.secondCenteredPanel.hidden = false;
             
-            view.pulseDate.text = "\(formatter.stringFromDate(checkin.dateTime))";
+            view.centeredDate.text = "\(formatter.stringFromDate(checkin.dateTime))";
             
             if (checkin.pulseBpm != nil) {
-                view.pulseValue.text = "\(checkin.pulseBpm!)";
+                view.centeredValue.text = "\(checkin.pulseBpm!)";
             } else {
-                view.pulseValue.text = "";
+                view.centeredValue.text = "";
             }
             view.secondPanelUnit.text = "mmHg";
             view.secondPanelLabel.text = "Beats Per Minute";
             let color = Utility.colorFromMetricType(type);
-            view.pulseDate.textColor = color;
-            view.pulseValue.textColor = color;
+            view.centeredDate.textColor = color;
+            view.centeredValue.textColor = color;
         }
         return view;
     }
@@ -132,22 +132,43 @@ class MetricDetailCard: UIView {
             secondPanel.hidden = true;
             thirdPanel.hidden = true;
             
-            firstPulsePanel.hidden = false;
-            secondPulsePanel.hidden = false;
+            firstCenteredPanel.hidden = false;
+            secondCenteredPanel.hidden = false;
             
-            pulseDate.text = "\(formatter.stringFromDate(checkin.dateTime))";
+            centeredDate.text = "\(formatter.stringFromDate(checkin.dateTime))";
             if (checkin.pulseBpm != nil) {
-                pulseValue.text = "\(checkin.pulseBpm!)";
+                centeredValue.text = "\(checkin.pulseBpm!)";
             } else {
-                pulseValue.text = "";
+                centeredValue.text = "";
             }
             secondPanelUnit.text = "mmHg";
             secondPanelLabel.text = "Beats Per Minute";
             let color = Utility.colorFromMetricType(type);
-            pulseDate.textColor = color;
-            pulseValue.textColor = color;
+            centeredDate.textColor = color;
+            centeredValue.textColor = color;
         }
-        layoutIfNeeded();
+    }
+    
+    func setActivity(activity: (Double, Int), type: MetricsType) {
+        let formatter = NSDateFormatter();
+        formatter.dateFormat = "MM/dd/yyyy";
+        let date = activity.0;
+        let total = activity.1;
+        firstPanel.hidden = true;
+        secondPanel.hidden = true;
+        thirdPanel.hidden = true;
+        
+        firstCenteredPanel.hidden = false;
+        secondCenteredPanel.hidden = false;
+        
+        centeredDate.text = "\(formatter.stringFromDate(NSDate(timeIntervalSince1970: date)))";
+        centeredValue.text = "\(total)";
+        
+        secondPanelUnit.text = "pts";
+        secondPanelLabel.text = "Activity Points";
+        let color = Utility.colorFromMetricType(type);
+        centeredDate.textColor = color;
+        centeredValue.textColor = color;
     }
     
 }

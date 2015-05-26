@@ -16,9 +16,6 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
     
     init(frame: CGRect, points: [GraphPoint]) {
         self.points = points;
-        if (points.count > 0) {
-            self.points.append(GraphPoint(x: Double(NSDate().timeIntervalSince1970), y: points.last!.y));
-        }
         super.init(frame: frame);
     }
     
@@ -70,7 +67,7 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
 
         var plotSpace = graph.defaultPlotSpace as! CPTXYPlotSpace;
         plotSpace.xRange = NewCPTPlotRange(location: max(minX - xRange * 0.05, 0), length: xRange * 1.05);
-        plotSpace.yRange = NewCPTPlotRange(location: max(minY - yRange * 0.25, 0), length: yRange * 1.5);
+        plotSpace.yRange = NewCPTPlotRange(location: minY - yRange * 0.25, length: yRange * 1.5);
         plotSpace.globalXRange = plotSpace.xRange;
         plotSpace.globalYRange = plotSpace.yRange;
         plotSpace.delegate = self;
@@ -368,20 +365,8 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
                     let screenSystolicPoint = getScreenPoint(self, xPoint: CGFloat(systolicPoint.x), yPoint: CGFloat(systolicPoint.y));
                     let screenDiastolicPoint = getScreenPoint(self, xPoint: CGFloat(diastolicPoint.x), yPoint: CGFloat(diastolicPoint.y));
 
-                    let a = CGFloat(altPoints[Int(idx)].y);
-                    let b = CGFloat(altPoints[Int(idx + 1)].y);
-                    let c = Int(idx);
-                    let d = screenDiastolicPoint.y;
-                    let e = screenSystolicPoint.y;
-                    let f = systolicPoint.y;
-                    let g = diastolicPoint.y;
-                    let h = self.frame.size.height - CGFloat(screenSystolicPoint.y) - 24;
-                    if (idx == 74) {
-                        let t = 0;
-                    }
                     let view = UIView(frame: CGRect(x: screenSystolicPoint.x - 0.5, y: self.frame.size.height - CGFloat(screenSystolicPoint.y) - 24, width: 1, height: CGFloat(screenSystolicPoint.y - screenDiastolicPoint.y)));
                     view.backgroundColor = plotSymbol.lineStyle.lineColor.uiColor;
-//                    insertSubview(view, belowSubview: graph);
                     addSubview(view);
                     if (Int(idx) == altPoints.count - 2) {
                         altPlotLinesAdded = true;

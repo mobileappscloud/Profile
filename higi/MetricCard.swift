@@ -4,9 +4,13 @@ class MetricCard: UIView {
     
     var selectedCheckin: HigiCheckin?;
     
+    var selectedActivity: (Double, Int)?;
+    
     var checkins: [HigiCheckin] = SessionController.Instance.checkins;
     
     var plottedCheckins: [HigiCheckin] = [];
+    
+    var plottedActivities: [(Double, Int)] = [];
     
     var type = MetricsType.BloodPressure;
     
@@ -89,34 +93,25 @@ class MetricCard: UIView {
             if (type == MetricsType.Pulse && checkin.pulseBpm != nil && checkin.pulseBpm > 0) {
                 graphPoints.append(GraphPoint(x: checkinTime, y: Double(checkin.pulseBpm!)));
             }
-//            if (type == MetricsType.DailySummary) {
-//                //@todo graph total activity points
-//                graphPoints.append(GraphPoint(x: checkinTime, y: Double(100)));
-//            }
             plottedCheckins.append(checkin);
         }
         
         if (type == MetricsType.DailySummary) {
-            var dateFormatter = NSDateFormatter();
-            dateFormatter.dateFormat = "MM/dd/yyyy";
+            var activityPoints:[GraphPoint] = [];
+            let dateString = Constants.dateFormatter.stringFromDate(NSDate());
             var totalPoints = 0;
-//            if (SessionController.Instance.activities != nil) {
-//                var lastDateString = "";
-//                var lastDate:Double?;
-//                for activity in SessionController.Instance.activities {
-//                    let activityDate = Double(activity.startTime.timeIntervalSince1970);
-//                    var dateString = dateFormatter.stringFromDate(activity.startTime);
-//                    if (lastDateString != dateString && lastDate != nil) {
-//                        graphPoints.append(GraphPoint(x: lastDate, y: Double(totalPoints)));
-//                        totalPoints = 0;
-//                    }
-//                    if (activity.errorDescription == nil) {
-//                        totalPoints += activity.points;
-//                    }
-//                    lastDateString = dateString;
-//                    lastDate = activityDate;
-//                }
-//            }
+            for (date, (total, activityList)) in SessionController.Instance.activities {
+                if (date == dateString) {
+                    totalPoints = total;
+                }
+                if (activityList.count > 0) {
+                    let activityDate =  Double(activityList[0].startTime.timeIntervalSince1970);
+                    plottedActivities.append((activityDate, total));
+                    graphPoints.append(GraphPoint(x: activityDate, y: Double(total)));
+                }
+            }
+            
+            graphPoints.sort({$0.x < $1.x});
         }
         
 //        let graphY = headerView.frame.size.height;
@@ -143,7 +138,10 @@ class MetricCard: UIView {
     }
     
     func setSelected(index: Int) {
-        if (index >= 0 && index < plottedCheckins.count) {
+        if (type == MetricsType.DailySummary && index >= 0 && index < plottedActivities.count) {
+            selectedActivity = plottedActivities[index];
+            (Utility.getViewController(self) as! MetricsViewController).activitySelected(selectedActivity!, type: type);
+        } else if (index >= 0 && index < plottedCheckins.count) {
             selectedCheckin = plottedCheckins[index];
             (Utility.getViewController(self) as! MetricsViewController).pointSelected(selectedCheckin!, type: type);
         }

@@ -198,6 +198,12 @@ class MetricsViewController: BaseViewController {
         }
     }
     
+    func activitySelected(activity: (Double, Int), type: MetricsType) {
+        if (detailsCard != nil) {
+            detailsCard.setActivity(activity, type: type);
+        }
+    }
+    
     func pointSelected(checkin: HigiCheckin, type: MetricsType) {
         if (detailsCard != nil) {
             detailsCard.setCheckin(checkin, type: type);

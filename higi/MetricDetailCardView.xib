@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -123,17 +123,17 @@
             <color key="backgroundColor" red="0.90588235289999997" green="0.90588235289999997" blue="0.90588235289999997" alpha="1" colorSpace="calibratedRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="centeredDate" destination="ZFb-sT-W0a" id="SX8-47-5Fx"/>
+                <outlet property="centeredValue" destination="5UU-Yk-98e" id="39z-6V-mMH"/>
+                <outlet property="firstCenteredPanel" destination="80A-VU-DEn" id="97c-9E-EI1"/>
                 <outlet property="firstPanel" destination="gQB-gF-aNi" id="bM9-1n-3mD"/>
                 <outlet property="firstPanelLabel" destination="p2r-2F-zAc" id="73f-3N-0bP"/>
                 <outlet property="firstPanelValue" destination="NOr-pT-1vV" id="dxB-d5-Hil"/>
-                <outlet property="firstPulsePanel" destination="80A-VU-DEn" id="PTD-1Z-kMb"/>
-                <outlet property="pulseDate" destination="ZFb-sT-W0a" id="sa1-iD-QPi"/>
-                <outlet property="pulseValue" destination="5UU-Yk-98e" id="IrI-OL-CAb"/>
+                <outlet property="secondCenteredPanel" destination="aRQ-Tn-m3j" id="TIj-MG-rLZ"/>
                 <outlet property="secondPanel" destination="jmX-0c-mjy" id="uXA-H7-pbP"/>
                 <outlet property="secondPanelLabel" destination="m11-ec-q7Z" id="3gb-l7-Q4r"/>
                 <outlet property="secondPanelUnit" destination="OkX-er-Ws2" id="fH3-5l-kct"/>
                 <outlet property="secondPanelValue" destination="WbQ-Um-9LW" id="oSd-5K-vrB"/>
-                <outlet property="secondPulsePanel" destination="aRQ-Tn-m3j" id="N0O-OT-P9K"/>
                 <outlet property="thirdPanel" destination="l0q-9P-5ad" id="QaO-2Z-aTy"/>
                 <outlet property="thirdPanelLabel" destination="tKf-eH-l3V" id="EXs-Cf-0m2"/>
                 <outlet property="thirdPanelUnit" destination="9oB-nb-cOi" id="rnb-BD-vEv"/>
