@@ -116,7 +116,7 @@ class GoalChallengeView: ChallengeView {
         var goalCircle: UIView!;
         if (!isComplex) {
             goalCircle = UIView(frame: CGRect(x: posX, y: posY, width: ViewConstants.circleRadius * 2, height: ViewConstants.circleRadius * 2));
-            let circleColor:UIColor = (participantPoints > thisGoalValue) ? Utility.colorFromHexString("#76C043") : Utility.colorFromHexString("#CDCDCD");
+            let circleColor:UIColor = (participantPoints >= thisGoalValue) ? Utility.colorFromHexString("#76C043") : Utility.colorFromHexString("#CDCDCD");
             goalCircle.backgroundColor = circleColor;
             goalCircle.layer.cornerRadius = ViewConstants.circleRadius;
             goalView.progress.addSubview(goalCircle);
@@ -152,7 +152,7 @@ class GoalChallengeView: ChallengeView {
     
     class func makeComplexGoalNode(posX: CGFloat, posY: CGFloat, thisGoalValue: Int, participantPoints: Int, goalIndex: Int) -> UIView {
         let goalCircle = UILabel(frame: CGRect(x: posX - ViewConstants.circleRadius, y: posY - ViewConstants.circleRadius, width: ViewConstants.circleRadius * 4, height: ViewConstants.circleRadius * 4));
-        let circleColor:UIColor = (participantPoints > thisGoalValue) ? Utility.colorFromHexString("#76C043") : UIColor.lightGrayColor();
+        let circleColor:UIColor = (participantPoints >= thisGoalValue) ? Utility.colorFromHexString("#76C043") : UIColor.lightGrayColor();
         goalCircle.backgroundColor = UIColor.whiteColor();
         goalCircle.layer.cornerRadius = ViewConstants.circleRadius * 2;
         goalCircle.layer.borderWidth = 2;
@@ -189,7 +189,7 @@ class GoalChallengeView: ChallengeView {
         pointsLabel.frame.origin.y += 20;
         var toAnimate: [(UIView, UILabel, Int)] = [];
         for (view, label, points) in nodeViews {
-            if (points <= participantPoints) {
+            if (points < participantPoints) {
                 view.backgroundColor = Utility.colorFromHexString("#CDCDCD");
                 label.transform = CGAffineTransformScale(label.transform, 0.01, 0.01);
                 toAnimate.append((view, label, points));
