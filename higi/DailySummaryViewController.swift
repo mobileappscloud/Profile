@@ -25,7 +25,9 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     
     var totalPoints = 0;
     
-    var minCircleRadius:CGFloat = 6, maxCircleRadius:CGFloat = 32;
+    var minCircleRadius:CGFloat = 6, maxCircleRadius:CGFloat = 32, currentOrigin:CGFloat = 0;
+    
+    var backButton:UIButton!;
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -34,22 +36,19 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         pointsMeterContainer.addSubview(pointsMeter);
         self.automaticallyAdjustsScrollViewInsets = false;
         scrollView.scrollEnabled = true;
-        scrollView.frame = UIScreen.mainScreen().bounds;
-        scrollView.contentSize = CGSize(width: scrollView.frame.size.width, height: scrollView.frame.size.height);
         scrollView.delegate = self;
+        scrollView.setContentOffset(CGPoint(x: 0,y: 0), animated: false);
         
         initBackButton();
         initHeader();
         initSummaryview();
-//        initSummaryview();
 
         pointsMeter.setActivities((totalPoints, activities));
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews();
-        scrollView.frame = UIScreen.mainScreen().bounds;
-        scrollView.contentSize = CGSize(width: scrollView.frame.size.width, height: scrollView.frame.size.height);
+        scrollView.contentSize.height = activityContainer.frame.origin.y + currentOrigin + activityView.frame.origin.y;
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -63,7 +62,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     
     func initBackButton() {
         self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
-        var backButton = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton;
+        backButton = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton;
         backButton.setBackgroundImage(UIImage(named: "btn_back_white.png"), forState: UIControlState.Normal);
         backButton.addTarget(self, action: "goBack:", forControlEvents: UIControlEvents.TouchUpInside);
         backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
@@ -124,7 +123,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
                 activityKeys.append(name);
             }
         }
-        var currentOrigin = CGFloat(0), gap = CGFloat(5);
+        var gap = CGFloat(5);
         for key in activityKeys {
             let (total, activityList) = activitiesByDevice[key]!;
             let activity = activityList[0];
@@ -223,12 +222,6 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             }
             currentOrigin += gap;
         }
-        let a = currentOrigin;
-        let b = headerView.frame.size.height;
-        let c = activityContainer.frame.size.height;
-        let d = activityView.frame.origin.y;
-        let e = activityView.frame.size.height;
-        scrollView.contentSize.height = currentOrigin + headerView.frame.size.height;
     }
     
     func initBreakdownRow(originX: CGFloat, originY: CGFloat, icon: UIImage, points: String, metric: String) -> DailySummaryBreakdown {
@@ -246,9 +239,29 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     }
 
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        let i = 0;
-        let scrollY = max(scrollView.contentOffset.y, 0);
-        headerBackground.frame.origin.y = scrollY * -0.5;
+        let scrollY = scrollView.contentOffset.y;
+        if (scrollY >= 0) {
+            headerBackground.frame.origin.y = scrollY * 0.5;
+            updateNavbar(scrollY);
+        } else {
+            scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false);
+            headerBackground.frame.origin.y = 0;
+        }
+    }
+    
+    func updateNavbar(scrollY: CGFloat) {
+        if (scrollY >= 0) {
+            var alpha = min(scrollY / 75, 1);
+            self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0 - alpha, alpha: 1.0)];
+            if (alpha < 0.5) {
+                self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
+            } else {
+                self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
+            }
+        } else {
+            self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0, alpha: 1)];
+            self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
+        }
     }
     
     func goBack(sender: AnyObject!) {
