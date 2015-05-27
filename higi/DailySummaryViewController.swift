@@ -241,11 +241,11 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     func scrollViewDidScroll(scrollView: UIScrollView) {
         let scrollY = scrollView.contentOffset.y;
         if (scrollY >= 0) {
-            headerBackground.frame.origin.y = scrollY * 0.5;
+            headerBackground.frame.origin.y = scrollY * -0.5;
             updateNavbar(scrollY);
         } else {
-            scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false);
             headerBackground.frame.origin.y = 0;
+            headerView.frame.origin.y = 0;
         }
     }
     
