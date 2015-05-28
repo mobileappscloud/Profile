@@ -60,7 +60,8 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         
     }
     
-    func receiveApiNotification(notification: NSNotification) {
+    override func receiveApiNotification(notification: NSNotification) {
+        super.receiveApiNotification(notification);
         switch (notification.name) {
         case ApiUtility.ACTIVITIES:
             if (doneRefreshing) {
@@ -429,13 +430,11 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             pullRefreshView.circleContainer.alpha = 0.0;
             self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0 - alpha, alpha: 1.0)];
             if (alpha < 0.5) {
-                (self.navigationItem.rightBarButtonItem!.customView as! UIButton).setBackgroundImage(UIImage(named: "createreminder.png"), forState: UIControlState.Normal);
                 toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon"), forState: UIControlState.Normal);
                 self.navigationItem.rightBarButtonItem!.customView!.alpha = 1 - alpha;
                 toggleButton!.alpha = 1 - alpha;
                 self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
             } else {
-                (self.navigationItem.rightBarButtonItem!.customView as! UIButton).setBackgroundImage(UIImage(named: "createreminder_inverted.png"), forState: UIControlState.Normal);
                 toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon_inverted"), forState: UIControlState.Normal);
                 self.navigationItem.rightBarButtonItem!.customView!.alpha = alpha;
                 toggleButton!.alpha = alpha;

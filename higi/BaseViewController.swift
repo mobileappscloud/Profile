@@ -12,6 +12,8 @@ class BaseViewController: UIViewController, SWRevealViewControllerDelegate {
     
     var fakeNavBar = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 64));
     
+    private var pointsMeter: PointsMeter!;
+    
     var toggleButton: UIButton?;
     
     var revealController: RevealViewController!;
@@ -27,6 +29,8 @@ class BaseViewController: UIViewController, SWRevealViewControllerDelegate {
         self.fakeNavBar.alpha = 0;
         self.fakeNavBar.userInteractionEnabled = false;
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveApiNotification:", name: ApiUtility.ACTIVITIES, object: nil);
+        
         toggleButton = UIButton.buttonWithType(UIButtonType.Custom) as? UIButton;
         toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon.png"), forState: UIControlState.Normal);
         toggleButton!.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
@@ -35,11 +39,12 @@ class BaseViewController: UIViewController, SWRevealViewControllerDelegate {
         navigationItem.leftBarButtonItem = menuToggle;
         navigationItem.hidesBackButton = true;
         
-        var summaryButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30));
-        summaryButton.setBackgroundImage(UIImage(named: "createreminder.png"), forState: UIControlState.Normal);
-        summaryButton.addTarget(self, action: "gotoSummary:", forControlEvents: UIControlEvents.TouchUpInside);
         var summaryBarItem = UIBarButtonItem();
-        summaryBarItem.customView = summaryButton;
+        pointsMeter = PointsMeter.create(CGRect(x: 0, y: 0, width: 30, height: 30));
+        let tap = UITapGestureRecognizer(target: self, action: "gotoSummary:");
+        pointsMeter.addGestureRecognizer(tap);
+        pointsMeter.setActivities((0, []));
+        summaryBarItem.customView = pointsMeter;
         self.navigationItem.rightBarButtonItem = summaryBarItem;
     }
     
@@ -56,6 +61,25 @@ class BaseViewController: UIViewController, SWRevealViewControllerDelegate {
         }
     }
     
+    func receiveApiNotification(notification: NSNotification) {
+        switch (notification.name) {
+        case ApiUtility.ACTIVITIES:
+            initDailyPoints();
+        default:
+            break;
+        }
+    }
+    
+    func initDailyPoints() {
+        let dateString = Constants.dateFormatter.stringFromDate(NSDate());
+        if let (total, todaysActivities) = SessionController.Instance.activities[dateString] {
+            pointsMeter.setActivities((total, todaysActivities));
+        } else {
+            pointsMeter.setActivities((0, []));
+        }
+        pointsMeter.drawArc();
+    }
+    
     func toggleMenu(sender: AnyObject!) {
         (self.navigationController as! MainNavigationController).revealController?.revealToggleAnimated(true);
     }
@@ -68,5 +92,9 @@ class BaseViewController: UIViewController, SWRevealViewControllerDelegate {
         Flurry.logEvent("Summary_Pressed");
         var summaryController = DailySummaryViewController(nibName: "DailySummaryView", bundle: nil);
         self.navigationController!.pushViewController(summaryController, animated: true);
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self);
     }
 }

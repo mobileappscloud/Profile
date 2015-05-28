@@ -17,13 +17,30 @@ class PointsMeter: UIView {
 
     let animationDuration = 2.0;
     
-    var lineWidth:CGFloat!, radius: CGFloat = 44.0;
+    var lineWidth, radius:CGFloat!;
     
     var total = 0;
+    
+    var targetFrame: CGRect?;
+    
+    class func create() -> PointsMeter {
+        return UINib(nibName: "PointsMeterView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! PointsMeter;
+    }
+    
+    class func create(frame: CGRect) -> PointsMeter {
+        let view = UINib(nibName: "PointsMeterView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! PointsMeter;
+        view.frame = frame;
+        view.targetFrame = frame;
+        if (frame.size.width < 50) {
+            view.points.font = UIFont.systemFontOfSize(12);
+        }
+        return view;
+    }
     
     func setActivities(dailyActivity: (Int, [HigiActivity])) {
         (total, activities) = dailyActivity;
         lineWidth = self.frame.size.width * 0.06;
+        radius = self.frame.size.width / 2 * 0.9;
         var toPath = UIBezierPath();
         var arc = CAShapeLayer();
         arc.lineWidth = lineWidth;
@@ -37,8 +54,9 @@ class PointsMeter: UIView {
     }
     
     func drawArc() {
-        var center = CGPoint(x: 50.0, y: 50.0);
+        var center = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2);
         var lastEnd = 0.0;
+        let a = self.frame;
         if (activities.count > 0) {
             total = max(total, 100);
             var firstActivity = true;
@@ -85,6 +103,16 @@ class PointsMeter: UIView {
                 lastEnd += increment;
                 firstActivity = false;
             }
+        }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews();
+        if (targetFrame != nil) {
+            points.frame.size.width = targetFrame!.size.width;
+            points.center = CGPoint(x: targetFrame!.size.width / 2 , y: targetFrame!.size.height / 2);
+            meterContainer.frame = targetFrame!;
+            layoutIfNeeded();
         }
     }
 }

@@ -32,7 +32,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad();
         self.title = "Daily Summary";
-        pointsMeter = UINib(nibName: "PointsMeterView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! PointsMeter;
+        pointsMeter = PointsMeter.create();
         pointsMeterContainer.addSubview(pointsMeter);
         self.automaticallyAdjustsScrollViewInsets = false;
         scrollView.scrollEnabled = true;

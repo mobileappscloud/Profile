@@ -148,7 +148,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveApiNotification:", name: ApiUtility.KIOSKS, object: nil);
     }
     
-    func receiveApiNotification(notification: NSNotification) {
+    override func receiveApiNotification(notification: NSNotification) {
         populateClusterManager();
         clusterManager.cluster();
         updateKioskPositions();
