@@ -18,6 +18,8 @@ class BaseViewController: UIViewController, SWRevealViewControllerDelegate {
     
     var revealController: RevealViewController!;
     
+    var pointsSet = false;
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         revealController = (self.navigationController as! MainNavigationController).revealController;
@@ -43,7 +45,14 @@ class BaseViewController: UIViewController, SWRevealViewControllerDelegate {
         pointsMeter = PointsMeter.create(CGRect(x: 0, y: 0, width: 30, height: 30));
         let tap = UITapGestureRecognizer(target: self, action: "gotoSummary:");
         pointsMeter.addGestureRecognizer(tap);
-        pointsMeter.setActivities((0, []));
+        let dateString = Constants.dateFormatter.stringFromDate(NSDate());
+        if let (total, todaysActivities) = SessionController.Instance.activities[dateString] {
+            pointsMeter.setActivities((total, todaysActivities));
+            pointsMeter.drawArc();
+            pointsSet = true;
+        } else {
+            pointsMeter.setActivities((0, []));
+        }
         summaryBarItem.customView = pointsMeter;
         self.navigationItem.rightBarButtonItem = summaryBarItem;
     }
@@ -73,11 +82,11 @@ class BaseViewController: UIViewController, SWRevealViewControllerDelegate {
     func initDailyPoints() {
         let dateString = Constants.dateFormatter.stringFromDate(NSDate());
         if let (total, todaysActivities) = SessionController.Instance.activities[dateString] {
-            pointsMeter.setActivities((total, todaysActivities));
-        } else {
-            pointsMeter.setActivities((0, []));
+            if (!pointsSet) {
+                pointsMeter.setActivities((total, todaysActivities));
+                pointsMeter.drawArc();
+            }
         }
-        pointsMeter.drawArc();
     }
     
     func toggleMenu(sender: AnyObject!) {
