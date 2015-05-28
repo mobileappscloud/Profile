@@ -14,7 +14,7 @@
                 <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="Mdt-gR-rG5">
                     <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
                     <subviews>
-                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UIY-l6-dOw">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UIY-l6-dOw">
                             <rect key="frame" x="0.0" y="0.0" width="568" height="54"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Blood Pressure" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j3p-dy-V9m">
@@ -42,7 +42,7 @@
                                     </connections>
                                 </button>
                                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P2d-EJ-Fzo">
-                                    <rect key="frame" x="488" y="12" width="72" height="30"/>
+                                    <rect key="frame" x="417" y="12" width="72" height="30"/>
                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     <state key="normal" title="BMI">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -52,17 +52,28 @@
                                         <action selector="toggleClicked:" destination="D6s-dc-jNs" eventType="touchUpInside" id="7rb-sy-hDH"/>
                                     </connections>
                                 </button>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="workouticon.png" translatesAutoresizingMaskIntoConstraints="NO" id="sQT-Mg-g6l">
+                                    <rect key="frame" x="530" y="12" width="30" height="30"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="30" id="aAV-xg-l5A"/>
+                                        <constraint firstAttribute="width" constant="30" id="cgT-2g-dmS"/>
+                                    </constraints>
+                                </imageView>
                             </subviews>
                             <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstItem="wUV-nj-F9j" firstAttribute="top" secondItem="UIY-l6-dOw" secondAttribute="top" constant="11" id="28C-BP-a2v"/>
                                 <constraint firstItem="j3p-dy-V9m" firstAttribute="leading" secondItem="wUV-nj-F9j" secondAttribute="trailing" constant="8" id="3Mn-fg-0M4"/>
                                 <constraint firstItem="wUV-nj-F9j" firstAttribute="leading" secondItem="UIY-l6-dOw" secondAttribute="leading" constant="16" id="69Z-sz-Vms"/>
+                                <constraint firstAttribute="bottom" secondItem="P2d-EJ-Fzo" secondAttribute="bottom" constant="12" id="8X5-2d-Unb"/>
+                                <constraint firstItem="sQT-Mg-g6l" firstAttribute="leading" secondItem="P2d-EJ-Fzo" secondAttribute="trailing" constant="41" id="A2C-fP-lYG"/>
+                                <constraint firstItem="sQT-Mg-g6l" firstAttribute="top" secondItem="UIY-l6-dOw" secondAttribute="top" constant="12" id="Dlp-uX-OzW"/>
+                                <constraint firstItem="P2d-EJ-Fzo" firstAttribute="top" secondItem="UIY-l6-dOw" secondAttribute="top" constant="12" id="GBM-YT-Bdy"/>
                                 <constraint firstAttribute="bottom" secondItem="wUV-nj-F9j" secondAttribute="bottom" constant="10" id="JDn-gr-9mt"/>
-                                <constraint firstAttribute="bottom" secondItem="P2d-EJ-Fzo" secondAttribute="bottom" constant="12" id="K3I-3d-Nwx"/>
-                                <constraint firstItem="P2d-EJ-Fzo" firstAttribute="top" secondItem="UIY-l6-dOw" secondAttribute="top" constant="12" id="UVn-ge-zdJ"/>
-                                <constraint firstAttribute="trailing" secondItem="P2d-EJ-Fzo" secondAttribute="trailing" constant="8" id="WAf-hq-Q9H"/>
+                                <constraint firstAttribute="bottom" secondItem="sQT-Mg-g6l" secondAttribute="bottom" constant="12" id="VEh-p2-NTs"/>
+                                <constraint firstItem="sQT-Mg-g6l" firstAttribute="leading" secondItem="P2d-EJ-Fzo" secondAttribute="trailing" constant="41" id="Y1u-Qe-a6q"/>
                                 <constraint firstAttribute="bottom" secondItem="j3p-dy-V9m" secondAttribute="bottom" constant="17" id="ZUu-s2-jp6"/>
+                                <constraint firstAttribute="trailing" secondItem="sQT-Mg-g6l" secondAttribute="trailing" constant="8" id="ZkW-bn-ZpW"/>
                                 <constraint firstItem="j3p-dy-V9m" firstAttribute="top" secondItem="UIY-l6-dOw" secondAttribute="top" constant="16" id="hSt-xE-hKE"/>
                                 <constraint firstAttribute="height" constant="54" id="qgq-6n-Ggc"/>
                             </constraints>
@@ -100,6 +111,7 @@
             <connections>
                 <outlet property="graphContainer" destination="IR2-Ay-lcD" id="xfS-aA-xmq"/>
                 <outlet property="headerView" destination="UIY-l6-dOw" id="5rs-X3-Zp0"/>
+                <outlet property="icon" destination="sQT-Mg-g6l" id="bTs-iq-zrt"/>
                 <outlet property="title" destination="j3p-dy-V9m" id="cHX-gV-9U8"/>
                 <outlet property="toggleButton" destination="P2d-EJ-Fzo" id="C9y-l2-AqI"/>
                 <outlet property="view" destination="Mdt-gR-rG5" id="29e-Mn-bKb"/>
@@ -109,5 +121,6 @@
     </objects>
     <resources>
         <image name="back_button_white.png" width="34" height="35"/>
+        <image name="workouticon.png" width="128" height="128"/>
     </resources>
 </document>

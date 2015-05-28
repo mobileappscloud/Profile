@@ -28,7 +28,7 @@ class MetricCard: UIView {
     @IBOutlet weak var view: UIView!
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var title: UILabel!
-    
+    @IBOutlet weak var icon: UIImageView!
     @IBOutlet weak var toggleButton: UIButton!
     
     class func instanceFromNib(frame: CGRect, type: MetricsType) -> MetricCard {
@@ -51,12 +51,16 @@ class MetricCard: UIView {
         
         if (type == MetricsType.DailySummary) {
             view.title.text = "Activity";
+            view.icon.image = UIImage(named: "workouticon");
         } else if (type == MetricsType.BloodPressure) {
             view.title.text = "Blood Pressure";
+            view.icon.image = UIImage(named: "bloodpressureicon");
         } else if (type == MetricsType.Weight) {
             view.title.text = "Weight";
+            view.icon.image = UIImage(named: "weighticon");
             view.toggleButton.hidden = false;
         } else {
+            view.icon.image = UIImage(named: "pulseicon");
             view.title.text = "Pulse";
         }
 

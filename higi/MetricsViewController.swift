@@ -57,7 +57,7 @@ class MetricsViewController: BaseViewController {
             pos--;
         }
         
-        detailsCard = initDetailCard(SessionController.Instance.checkins[SessionController.Instance.checkins.count - 1], type: MetricsType.BloodPressure);
+        detailsCard = initDetailCard(SessionController.Instance.checkins[SessionController.Instance.checkins.count - 1], type: MetricsType.allValues[0]);
         detailsCard.frame.origin.y = UIScreen.mainScreen().bounds.height;
         self.view.addSubview(detailsCard);
 
