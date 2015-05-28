@@ -3,26 +3,23 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     @IBOutlet var pager: UIPageControl!
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var headerImage: UIImageView!
-    
     @IBOutlet weak var blankState: UIImageView!
-    var activeTable: UITableView?;
-    var upcomingTable: UITableView?;
-    var availableTable: UITableView?;
-    var invitedTable: UITableView?;
+    
+    var activeTable, upcomingTable: UITableView?, availableTable: UITableView?, invitedTable: UITableView?;
     
     var pageTitles:[String] = [];
+    
     var pageDisplayMaster = [false, false, false, false];
     
-    var activeChallenges:[HigiChallenge]!;
-    var upcomingChallenges:[HigiChallenge]!;
-    var availableChallenges:[HigiChallenge]!;
-    var invitedChallenges:[HigiChallenge]!;
+    var activeChallenges, upcomingChallenges, availableChallenges, invitedChallenges:[HigiChallenge]!;
     
-    var currentPage = 0;
-    var totalPages = 0;
+    var currentPage = 0, totalPages = 0;
+    
     let headerHeight: CGFloat = 83;
+    
     var currentTable: UITableView!;
-    var challenge: HigiChallenge?;
+    
+    var clickedChallenge: HigiChallenge?;
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
@@ -51,7 +48,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         totalPages = 0;
         
         var challenges = SessionController.Instance.challenges;
-        let challengeName = challenge != nil ? challenge!.name : "";
+        let challengeName = clickedChallenge != nil ? clickedChallenge!.name : "";
         var challengeIndex = -1;
         
         if (challenges != nil && challenges.count > 0) {
@@ -114,10 +111,10 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
                     totalPages++;
                 }
             }
-            if (challenge != nil) {
+            if (clickedChallenge != nil) {
                 pager.currentPage = actualTableIndex(challengeIndex);
                 changePage(pager);
-                challenge = nil;
+                clickedChallenge = nil;
             }
             if (pageTitles.count > 0) {
                 title = pageTitles[currentPage];
@@ -327,7 +324,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         } else if (invitedTable != nil && table == invitedTable) {
             challenge = invitedChallenges[index];
         }
-        self.challenge = challenge;
+        clickedChallenge = challenge;
         var challengeDetailViewController = ChallengeDetailsViewController(nibName: "ChallengeDetailsView", bundle: nil);
         challengeDetailViewController.challenge = challenge;
         self.navigationController!.pushViewController(challengeDetailViewController, animated: true);

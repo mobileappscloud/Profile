@@ -2,7 +2,6 @@ import Foundation
 
 class CompetitiveChallengeView: ChallengeView, UIScrollViewDelegate {
     
-    
     @IBOutlet weak var row1: UIView!
     @IBOutlet weak var row2: UIView!
     @IBOutlet weak var row3: UIView!
