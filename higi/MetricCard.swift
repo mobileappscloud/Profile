@@ -51,19 +51,18 @@ class MetricCard: UIView {
         
         if (type == MetricsType.DailySummary) {
             view.title.text = "Activity";
-            view.icon.image = UIImage(named: "workouticon");
+            view.icon.image = Utility.imageWithColor(UIImage(named: "workouticon")!, color: UIColor.whiteColor());
         } else if (type == MetricsType.BloodPressure) {
             view.title.text = "Blood Pressure";
-            view.icon.image = UIImage(named: "bloodpressureicon");
+            view.icon.image = Utility.imageWithColor(UIImage(named: "bloodpressureicon")!, color: UIColor.whiteColor());
         } else if (type == MetricsType.Weight) {
             view.title.text = "Weight";
-            view.icon.image = UIImage(named: "weighticon");
+            view.icon.image = Utility.imageWithColor(UIImage(named: "weighticon")!, color: UIColor.whiteColor());
             view.toggleButton.hidden = false;
         } else {
-            view.icon.image = UIImage(named: "pulseicon");
+            view.icon.image = Utility.imageWithColor(UIImage(named: "pulseicon")!, color: UIColor.whiteColor());
             view.title.text = "Pulse";
         }
-
         return view;
     }
     
@@ -191,4 +190,5 @@ class MetricCard: UIView {
         }
         return super.pointInside(point, withEvent: event);
     }
+    
 }

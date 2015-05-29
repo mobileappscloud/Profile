@@ -102,4 +102,19 @@ class Utility {
         
         return attributedString.string;
     }
+    
+    class func imageWithColor(image: UIImage, color: UIColor) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(image.size, false, image.scale);
+        let context = UIGraphicsGetCurrentContext() as CGContextRef;
+        CGContextTranslateCTM(context, 0, image.size.height);
+        CGContextScaleCTM(context, 1.0, -1.0);
+        CGContextSetBlendMode(context, kCGBlendModeNormal);
+        let rect = CGRectMake(0, 0, image.size.width, image.size.height) as CGRect;
+        CGContextClipToMask(context, rect, image.CGImage);
+        color.setFill();
+        CGContextFillRect(context, rect);
+        let newImage = UIGraphicsGetImageFromCurrentImageContext() as UIImage;
+        UIGraphicsEndImageContext();
+        return newImage;
+    }
 }
