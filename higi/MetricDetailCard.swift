@@ -20,17 +20,27 @@ class MetricDetailCard: UIView {
     @IBOutlet weak var centeredValue: UILabel!
     @IBOutlet weak var centeredDate: UILabel!
     
+    var color: UIColor!;
+    
     class func instanceFromNib(checkin: HigiCheckin, type: MetricsType) -> MetricDetailCard {
         var view = UINib(nibName: "MetricDetailCardView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! MetricDetailCard;
-        
-        let color = Utility.colorFromMetricType(type);
-        view.firstPanelValue.textColor = color;
-        view.secondPanelValue.textColor = color;
-        view.thirdPanelValue.textColor = color;
-        
-        view = initCheckinData(view, checkin: checkin, type: type);
-        
+        view.initWithType(type);
+        view.setCheckinData(checkin, type: type);
         return view;
+    }
+    
+    class func instanceFromNib(activity: (Double, Int), type: MetricsType) -> MetricDetailCard {
+        var view = UINib(nibName: "MetricDetailCardView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! MetricDetailCard;
+        view.initWithType(type);
+        view.setActivity(activity, type: type);
+        return view;
+    }
+    
+    func initWithType(type: MetricsType) {
+        color = Utility.colorFromMetricType(type);
+        firstPanelValue.textColor = color;
+        secondPanelValue.textColor = color;
+        thirdPanelValue.textColor = color;
     }
     
     func animateBounce(destination: CGFloat) {
@@ -44,108 +54,40 @@ class MetricDetailCard: UIView {
         });
     }
     
-    class func initCheckinData(view: MetricDetailCard, checkin: HigiCheckin, type: MetricsType) -> MetricDetailCard {
-        let formatter = NSDateFormatter();
-        formatter.dateFormat = "MM/dd/yyyy";
-        view.firstPanelValue.text = "\(formatter.stringFromDate(checkin.dateTime))";
-        if (type == MetricsType.BloodPressure) {
-            view.secondPanelValue.text = checkin.systolic != nil ? "\(checkin.systolic!)/\(checkin.diastolic!)" : "";
-            view.secondPanelUnit.text = "mmHg";
-            view.secondPanelLabel.text = "Blood Pressure";
-            view.thirdPanelValue.text = checkin.map != nil ? "\(Int(checkin.map!))" : "";
-            view.thirdPanelUnit.text = "mmHg";
-            view.thirdPanelLabel.text = "Mean Arterial Pressure";
-        } else if (type == MetricsType.Weight) {
-            view.secondPanelValue.text = checkin.weightLbs != nil ? "\(Int(checkin.weightLbs!))" : "";
-            view.secondPanelUnit.text = "lbs";
-            view.secondPanelLabel.text = "Weight";
-            view.thirdPanelValue.text = checkin.bmi != nil ? "\(Int(checkin.bmi!))" : "";
-            view.thirdPanelUnit.text = "";
-            view.thirdPanelLabel.text = "Body Mass Index";
-        } else if (type == MetricsType.DailySummary) {
-            view.secondPanelValue.text = "100";
-            view.secondPanelUnit.text = "Points";
-            view.secondPanelLabel.text = "";
-            view.thirdPanelValue.text = "100";
-            view.thirdPanelUnit.text = "Points";
-            view.thirdPanelLabel.text = "";
-        } else {
-            view.firstPanel.hidden = true;
-            view.secondPanel.hidden = true;
-            view.thirdPanel.hidden = true;
-            
-            view.firstCenteredPanel.hidden = false;
-            view.secondCenteredPanel.hidden = false;
-            
-            view.centeredDate.text = "\(formatter.stringFromDate(checkin.dateTime))";
-            
-            if (checkin.pulseBpm != nil) {
-                view.centeredValue.text = "\(checkin.pulseBpm!)";
-            } else {
-                view.centeredValue.text = "";
-            }
-            view.secondPanelUnit.text = "mmHg";
-            view.secondPanelLabel.text = "Beats Per Minute";
-            let color = Utility.colorFromMetricType(type);
-            view.centeredDate.textColor = color;
-            view.centeredValue.textColor = color;
-        }
-        return view;
-    }
-    
-    func setCheckin(checkin: HigiCheckin, type: MetricsType) {
+    func setCheckinData(checkin: HigiCheckin, type: MetricsType) {
         let formatter = NSDateFormatter();
         formatter.dateFormat = "MM/dd/yyyy";
         firstPanelValue.text = "\(formatter.stringFromDate(checkin.dateTime))";
         if (type == MetricsType.BloodPressure) {
-            if (checkin.systolic != nil) {
-                secondPanelValue.text = "\(checkin.systolic!)/\(checkin.diastolic!)";
-            } else {
-                secondPanelValue.text = "";
-            }
+            secondPanelValue.text = checkin.systolic != nil ? "\(checkin.systolic!)/\(checkin.diastolic!)" : "";
             secondPanelUnit.text = "mmHg";
             secondPanelLabel.text = "Blood Pressure";
-            if (checkin.map != nil) {
-                thirdPanelValue.text = "\(Int(checkin.map!))";
-            } else {
-                thirdPanelValue.text = "";
-            }
+            thirdPanelValue.text = checkin.map != nil ? "\(Int(checkin.map!))" : "";
             thirdPanelUnit.text = "mmHg";
             thirdPanelLabel.text = "Mean Arterial Pressure";
         } else if (type == MetricsType.Weight) {
-            if (checkin.weightLbs != nil) {
-                secondPanelValue.text = "\(Int(checkin.weightLbs!))";
-            } else {
-                secondPanelValue.text = "";
-            }
+            secondPanelValue.text = checkin.weightLbs != nil ? "\(Int(checkin.weightLbs!))" : "";
             secondPanelUnit.text = "lbs";
             secondPanelLabel.text = "Weight";
-            if (checkin.bmi != nil) {
-                thirdPanelValue.text = "\(Int(checkin.bmi!))";
-            } else {
-                thirdPanelValue.text = "";
-            }
+            thirdPanelValue.text = checkin.bmi != nil ? "\(Int(checkin.bmi!))" : "";
             thirdPanelUnit.text = "";
             thirdPanelLabel.text = "Body Mass Index";
         } else {
             firstPanel.hidden = true;
             secondPanel.hidden = true;
             thirdPanel.hidden = true;
-            
             firstCenteredPanel.hidden = false;
             secondCenteredPanel.hidden = false;
-            
             centeredDate.text = "\(formatter.stringFromDate(checkin.dateTime))";
             if (checkin.pulseBpm != nil) {
-                centeredValue.text = "\(checkin.pulseBpm!)";
+                centeredValue.text = checkin.pulseBpm != nil ? "\(checkin.pulseBpm!)" : "";
             } else {
                 centeredValue.text = "";
             }
-            secondPanelUnit.text = "mmHg";
-            secondPanelLabel.text = "Beats Per Minute";
-            let color = Utility.colorFromMetricType(type);
             centeredDate.textColor = color;
             centeredValue.textColor = color;
+            secondPanelUnit.text = "mmHg";
+            secondPanelLabel.text = "Beats Per Minute";
         }
     }
     
@@ -163,12 +105,11 @@ class MetricDetailCard: UIView {
         
         centeredDate.text = "\(formatter.stringFromDate(NSDate(timeIntervalSince1970: date)))";
         centeredValue.text = "\(total)";
+        centeredDate.textColor = color;
+        centeredValue.textColor = color;
         
         secondPanelUnit.text = "pts";
         secondPanelLabel.text = "Activity Points";
-        let color = Utility.colorFromMetricType(type);
-        centeredDate.textColor = color;
-        centeredValue.textColor = color;
     }
     
 }

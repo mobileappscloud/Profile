@@ -22,118 +22,127 @@ class MetricsGraphCard: UIView {
 
     class func instanceFromNib(title: String, lastCheckin: HigiCheckin, type: MetricsType) -> MetricsGraphCard {
         let card = UINib(nibName: "MetricGraphCardView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! MetricsGraphCard;
-        let color = Utility.colorFromMetricType(type);
-        card.title.text = title;
-        card.title.textColor = color;
-        
-        let formatter = NSDateFormatter(), dayFormatter = NSDateFormatter();
-        formatter.dateFormat = "MMMM";
-        dayFormatter.dateFormat = "dd";
-        card.date.text = "\(formatter.stringFromDate(lastCheckin.dateTime)) \(ChallengeUtility.getRankSuffix(dayFormatter.stringFromDate(lastCheckin.dateTime)))";
-        
-        if (type == MetricsType.BloodPressure) {
-            if let map = lastCheckin.map {
-                card.firstReadingValue.text = "\(Double(round(map * 10) / 10))";
-            } else {
-                card.firstReadingValue.text = "--";
-            }
-            card.firstReadingLabel.text = "mmHg";
-            card.firstReadingSubTitle.text = "Mean Arterial Pressure";
-            card.firstReadingValue.textColor = color;
-            
-            card.secondReadingValue.text = "\(Int(lastCheckin.systolic!))/\(Int(lastCheckin.diastolic!))";
-            card.secondReadingLabel.text = "mmHg";
-            card.secondReadingSubTitle.text = "Blood Pressure";
-            card.secondReadingValue.textColor = color;
-        } else if (type == MetricsType.Weight) {
-            card.firstReadingValue.text = "\(Int(lastCheckin.weightLbs!))";
-            card.firstReadingLabel.text = "lbs";
-            card.firstReadingSubTitle.text = "Weight";
-            
-            if let fatRatio = lastCheckin.fatRatio {
-                // dirty way round to 2 decimal places
-                card.secondReadingValue.text = "\(Double(round(fatRatio * 100) / 100))%";
-            } else {
-                card.secondReadingValue.text = "--%";
-            }
-            card.secondReadingLabel.text = "";
-            card.secondReadingSubTitle.text = "Body Fat";
-        } else if (type == MetricsType.DailySummary) {
-            card.firstReadingValue.hidden = true;
-            card.firstReadingLabel.hidden = true;
-            card.firstReadingSubTitle.hidden = true;
-            
-            card.secondReadingValue.hidden = true;
-            card.secondReadingLabel.hidden = true;
-            card.secondReadingSubTitle.hidden = true;
-            
-            card.singleValue.hidden = false;
-            card.singleLabel.hidden = false;
-            card.singleSubtitle.hidden = false;
-            
-            card.singleValue.text = "\(Int(lastCheckin.pulseBpm!))";
-            card.singleValue.textColor = color;
-            card.singleLabel.text = "pts";
-            card.singleSubtitle.text = "Activity Points";
-        } else {
-            card.firstReadingValue.hidden = true;
-            card.firstReadingLabel.hidden = true;
-            card.firstReadingSubTitle.hidden = true;
-            
-            card.secondReadingValue.hidden = true;
-            card.secondReadingLabel.hidden = true;
-            card.secondReadingSubTitle.hidden = true;
-            
-            card.singleValue.hidden = false;
-            card.singleLabel.hidden = false;
-            card.singleSubtitle.hidden = false;
-            
-            card.singleValue.text = "\(Int(lastCheckin.pulseBpm!))";
-            card.singleValue.textColor = color;
-            card.singleLabel.text = "bpm";
-            card.singleSubtitle.text = "Beats Per Minute";
-        }
-        
-        card.firstReadingValue.textColor = color;
-        card.secondReadingValue.textColor = color;
-        
+        card.initCard(title, type: type);
+        card.setCheckinData(title, checkin: lastCheckin, type: type);
         return card;
     }
     
-    class func instanceFromNib(title: String, lastActivityDate: NSDate, totalPoints: Int, type: MetricsType) -> MetricsGraphCard {
+    class func instanceFromNib(title: String, activity: (NSDate, Int), type: MetricsType) -> MetricsGraphCard {
         let card = UINib(nibName: "MetricGraphCardView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! MetricsGraphCard;
-        let color = Utility.colorFromMetricType(type);
-        card.title.text = title;
-        card.title.textColor = color;
+        card.initCard(title, type: type);
+        card.setActivity(activity);
+        return card;
+    }
+    
+    func initCard(titleString: String, type: MetricsType) {
+        color = Utility.colorFromMetricType(type);
+        title.text = titleString;
+        title.textColor = color;
+    }
+    
+    func setCheckinData(titleString: String, checkin: HigiCheckin, type: MetricsType) {
+        title.text = titleString;
+        title.textColor = color;
         
         let formatter = NSDateFormatter(), dayFormatter = NSDateFormatter();
         formatter.dateFormat = "MMMM";
         dayFormatter.dateFormat = "dd";
-        card.date.text = "\(formatter.stringFromDate(lastActivityDate)) \(ChallengeUtility.getRankSuffix(dayFormatter.stringFromDate(lastActivityDate)))";
+        date.text = "\(formatter.stringFromDate(checkin.dateTime)) \(ChallengeUtility.getRankSuffix(dayFormatter.stringFromDate(checkin.dateTime)))";
         
-        if (type == MetricsType.DailySummary) {
-            card.firstReadingValue.hidden = true;
-            card.firstReadingLabel.hidden = true;
-            card.firstReadingSubTitle.hidden = true;
+        if (type == MetricsType.BloodPressure) {
+            if let map = checkin.map {
+                firstReadingValue.text = "\(Double(round(map * 10) / 10))";
+            } else {
+                firstReadingValue.text = "--";
+            }
+            firstReadingLabel.text = "mmHg";
+            firstReadingSubTitle.text = "Mean Arterial Pressure";
+            firstReadingValue.textColor = color;
             
-            card.secondReadingValue.hidden = true;
-            card.secondReadingLabel.hidden = true;
-            card.secondReadingSubTitle.hidden = true;
+            secondReadingValue.text = checkin.systolic != nil ? "\(Int(checkin.systolic!))/\(Int(checkin.diastolic!))" : "";
+            secondReadingLabel.text = "mmHg";
+            secondReadingSubTitle.text = "Blood Pressure";
+            secondReadingValue.textColor = color;
+        } else if (type == MetricsType.Weight) {
+            firstReadingValue.text = checkin.weightLbs != nil ? "\(Int(checkin.weightLbs!))" : "";
+            firstReadingLabel.text = "lbs";
+            firstReadingSubTitle.text = "Weight";
             
-            card.singleValue.hidden = false;
-            card.singleLabel.hidden = false;
-            card.singleSubtitle.hidden = false;
+            if let fatRatio = checkin.fatRatio {
+                // dirty way round to 2 decimal places
+                secondReadingValue.text = "\(Double(round(fatRatio * 100) / 100))%";
+            } else {
+                secondReadingValue.text = "--%";
+            }
+            secondReadingLabel.text = "";
+            secondReadingSubTitle.text = "Body Fat";
+        } else if (type == MetricsType.DailySummary) {
+            firstReadingValue.hidden = true;
+            firstReadingLabel.hidden = true;
+            firstReadingSubTitle.hidden = true;
             
-            card.singleValue.text = "\(totalPoints)";
-            card.singleValue.textColor = color;
-            card.singleLabel.text = "pts";
-            card.singleSubtitle.text = "Activity Points";
+            secondReadingValue.hidden = true;
+            secondReadingLabel.hidden = true;
+            secondReadingSubTitle.hidden = true;
+            
+            singleValue.hidden = false;
+            singleLabel.hidden = false;
+            singleSubtitle.hidden = false;
+            
+            singleValue.text = checkin.pulseBpm != nil ? "\(Int(checkin.pulseBpm!))" : "";
+            singleValue.textColor = color;
+            singleLabel.text = "pts";
+            singleSubtitle.text = "Activity Points";
+        } else {
+            firstReadingValue.hidden = true;
+            firstReadingLabel.hidden = true;
+            firstReadingSubTitle.hidden = true;
+            
+            secondReadingValue.hidden = true;
+            secondReadingLabel.hidden = true;
+            secondReadingSubTitle.hidden = true;
+            
+            singleValue.hidden = false;
+            singleLabel.hidden = false;
+            singleSubtitle.hidden = false;
+            
+            singleValue.text = checkin.pulseBpm != nil ? "\(Int(checkin.pulseBpm!))" : "";
+            singleValue.textColor = color;
+            singleLabel.text = "bpm";
+            singleSubtitle.text = "Beats Per Minute";
         }
         
-        card.firstReadingValue.textColor = color;
-        card.secondReadingValue.textColor = color;
+        firstReadingValue.textColor = color;
+        secondReadingValue.textColor = color;
+    }
+    
+    func setActivity(activity: (NSDate, Int)) {
+        let activityDate = activity.0;
+        let totalPoints = activity.1;
+        let formatter = NSDateFormatter(), dayFormatter = NSDateFormatter();
+        formatter.dateFormat = "MMMM";
+        dayFormatter.dateFormat = "dd";
+        date.text = "\(formatter.stringFromDate(activityDate)) \(ChallengeUtility.getRankSuffix(dayFormatter.stringFromDate(activityDate)))";
+
+        firstReadingValue.hidden = true;
+        firstReadingLabel.hidden = true;
+        firstReadingSubTitle.hidden = true;
         
-        return card;
+        secondReadingValue.hidden = true;
+        secondReadingLabel.hidden = true;
+        secondReadingSubTitle.hidden = true;
+        
+        singleValue.hidden = false;
+        singleLabel.hidden = false;
+        singleSubtitle.hidden = false;
+        
+        singleValue.text = "\(totalPoints)";
+        singleValue.textColor = color;
+        singleLabel.text = "pts";
+        singleSubtitle.text = "Activity Points";
+        
+        firstReadingValue.textColor = color;
+        secondReadingValue.textColor = color;
     }
     
     func graph(points: [GraphPoint], type: MetricsType) {

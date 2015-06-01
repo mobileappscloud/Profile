@@ -206,7 +206,7 @@ class MetricsViewController: BaseViewController {
     
     func pointSelected(checkin: HigiCheckin, type: MetricsType) {
         if (detailsCard != nil) {
-            detailsCard.setCheckin(checkin, type: type);
+            detailsCard.setCheckinData(checkin, type: type);
         }
     }
     

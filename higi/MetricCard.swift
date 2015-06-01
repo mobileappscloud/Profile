@@ -6,8 +6,6 @@ class MetricCard: UIView {
     
     var selectedActivity: (Double, Int)?;
     
-    var checkins: [HigiCheckin] = SessionController.Instance.checkins;
-    
     var plottedCheckins: [HigiCheckin] = [];
     
     var plottedActivities: [(Double, Int)] = [];
@@ -24,6 +22,8 @@ class MetricCard: UIView {
     
     var toggleBmiOn = true;
     
+    var color: UIColor!;
+    
     @IBOutlet weak var graphContainer: UIView!
     @IBOutlet weak var view: UIView!
     @IBOutlet weak var headerView: UIView!
@@ -33,37 +33,45 @@ class MetricCard: UIView {
     
     class func instanceFromNib(frame: CGRect, type: MetricsType) -> MetricCard {
         let view = UINib(nibName: "MetricCardView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! MetricCard;
-        view.type = type;
-        view.frame = frame;
-        view.viewFrame = frame;
-        
-        let tapRecognizer = UITapGestureRecognizer(target: view, action: "cardClicked:");
-        let swipe = UISwipeGestureRecognizer(target: view, action: "cardClicked:");
-        swipe.direction = UISwipeGestureRecognizerDirection.Left;
-        let drag = UIPanGestureRecognizer(target: view, action: "cardDragged:");
-        
-        view.headerView.addGestureRecognizer(tapRecognizer);
-        view.headerView.addGestureRecognizer(swipe);
-        view.headerView.addGestureRecognizer(drag);
-        
-        let color = Utility.colorFromMetricType(type);
-        view.headerView.backgroundColor = color;
-        
-        if (type == MetricsType.DailySummary) {
-            view.title.text = "Activity";
-            view.icon.image = Utility.imageWithColor(UIImage(named: "workouticon")!, color: UIColor.whiteColor());
-        } else if (type == MetricsType.BloodPressure) {
-            view.title.text = "Blood Pressure";
-            view.icon.image = Utility.imageWithColor(UIImage(named: "bloodpressureicon")!, color: UIColor.whiteColor());
-        } else if (type == MetricsType.Weight) {
-            view.title.text = "Weight";
-            view.icon.image = Utility.imageWithColor(UIImage(named: "weighticon")!, color: UIColor.whiteColor());
-            view.toggleButton.hidden = false;
-        } else {
-            view.icon.image = Utility.imageWithColor(UIImage(named: "pulseicon")!, color: UIColor.whiteColor());
-            view.title.text = "Pulse";
-        }
+        view.initFrame(frame);
+        view.addRecognizers();
+        view.initHeader(type);
         return view;
+    }
+    
+    func initFrame(frame: CGRect) {
+        self.frame = frame;
+        viewFrame = frame;
+    }
+    
+    func addRecognizers() {
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: "cardClicked:");
+        let swipe = UISwipeGestureRecognizer(target: self, action: "cardClicked:");
+        swipe.direction = UISwipeGestureRecognizerDirection.Left;
+        let drag = UIPanGestureRecognizer(target: self, action: "cardDragged:");
+        headerView.addGestureRecognizer(tapRecognizer);
+        headerView.addGestureRecognizer(swipe);
+        headerView.addGestureRecognizer(drag);
+    }
+    
+    func initHeader(type: MetricsType) {
+        self.type = type;
+        color = Utility.colorFromMetricType(type);
+        headerView.backgroundColor = color;
+        if (type == MetricsType.DailySummary) {
+            title.text = "Activity";
+            icon.image = Utility.imageWithColor(UIImage(named: "workouticon")!, color: UIColor.whiteColor());
+        } else if (type == MetricsType.BloodPressure) {
+            title.text = "Blood Pressure";
+            icon.image = Utility.imageWithColor(UIImage(named: "bloodpressureicon")!, color: UIColor.whiteColor());
+        } else if (type == MetricsType.Weight) {
+            title.text = "Weight";
+            icon.image = Utility.imageWithColor(UIImage(named: "weighticon")!, color: UIColor.whiteColor());
+            toggleButton.hidden = false;
+        } else {
+            icon.image = Utility.imageWithColor(UIImage(named: "pulseicon")!, color: UIColor.whiteColor());
+            title.text = "Pulse";
+        }
     }
     
     func resizeFrameWithWidth(width: CGFloat) {
@@ -72,7 +80,7 @@ class MetricCard: UIView {
     
     func setupGraph() {
         var graphPoints: [GraphPoint] = [], diastolicPoints: [GraphPoint] = [], systolicPoints: [GraphPoint] = [], bodyFatPoints: [GraphPoint] = [];
-        for checkin in checkins {
+        for checkin in SessionController.Instance.checkins {
             let checkinTime = Double(checkin.dateTime.timeIntervalSince1970);
             if (type == MetricsType.BloodPressure && checkin.map != nil && checkin.map > 0) {
                 graphPoints.append(GraphPoint(x: checkinTime, y: checkin.map));
@@ -89,7 +97,7 @@ class MetricCard: UIView {
                 }
             }
             if (type == MetricsType.Weight && checkin.weightLbs != nil && checkin.weightLbs > 0) {
-                if (checkin.fatRatio > 0) {
+                if (checkin.fatRatio != nil && checkin.fatRatio > 0) {
                     bodyFatPoints.append(GraphPoint(x: checkinTime, y: checkin.fatRatio));
                 }
                 graphPoints.append(GraphPoint(x: checkinTime, y: checkin.weightLbs));
@@ -118,8 +126,6 @@ class MetricCard: UIView {
             plottedActivities.sort({$0.0 < $1.0});
             graphPoints.sort({$0.x < $1.x});
         }
-        
-//        let graphY = headerView.frame.size.height;
         let graphY:CGFloat = 0;
         let graphWidth = UIScreen.mainScreen().bounds.size.width;
         let graphHeight:CGFloat = frame.size.height - headerView.frame.size.height - (frame.size.height - 267);

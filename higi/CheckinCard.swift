@@ -111,11 +111,11 @@ class CheckinCard: UIView, UITableViewDataSource, UITableViewDelegate {
     
     func createBpCell() -> UITableViewCell {
         var cell = UINib(nibName: "BpCheckinCellView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! BpCheckinCell;
-        cell.systolic.text = "\(checkin.systolic!)";
-        cell.diastolic.text = "\(checkin.diastolic!)";
-        cell.bpClass.text = checkin.bpClass! as String;
+        cell.systolic.text = checkin.systolic != nil ? "\(checkin.systolic!)" : "";
+        cell.diastolic.text = checkin.diastolic != nil ? "\(checkin.diastolic!)" : "";
+        cell.bpClass.text = checkin.bpClass != nil ? checkin.bpClass! as String : "";
         if (checkin.prevBpCheckin != nil) {
-            if (checkin.systolic! > checkin.prevBpCheckin!.systolic!) {
+            if (checkin.systolic != nil && checkin.prevBpCheckin!.systolic != nil && checkin.systolic! > checkin.prevBpCheckin!.systolic!) {
                 cell.systolicArrow.image = UIImage(named: "graph_sincelastarrow_up_invert.png");
                 cell.systolicChange.text = "\(checkin.systolic! - checkin.prevBpCheckin!.systolic!) mm Hg systolic"
             } else if (checkin.systolic! < checkin.prevBpCheckin!.systolic!) {
@@ -258,10 +258,10 @@ class CheckinCard: UIView, UITableViewDataSource, UITableViewDelegate {
         cell.measure.text = String(format: "%.2f", checkin.bmi!);
         cell.measureClass.text = checkin.bmiClass! as String;
         if (checkin.prevBmiCheckin != nil) {
-            if (checkin.bmi! > checkin.prevBmiCheckin!.bmi!) {
+            if (checkin.bmi != nil && checkin.bmi! > checkin.prevBmiCheckin!.bmi!) {
                 cell.arrow.image = UIImage(named: "graph_sincelastarrow_up_invert.png");
                 cell.change.text = String(format: "%01.2f", checkin.bmi! - checkin.prevBmiCheckin!.bmi!);
-            } else if (checkin.bmi! < checkin.prevBmiCheckin!.bmi!) {
+            } else if (checkin.bmi != nil && checkin.bmi! < checkin.prevBmiCheckin!.bmi!) {
                 cell.arrow.image = UIImage(named: "graph_sincelastarrow_down_invert.png");
                 cell.change.text = String(format: "%01.2f", checkin.prevBmiCheckin!.bmi! - checkin.bmi!);
             } else {
