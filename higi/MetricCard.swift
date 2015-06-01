@@ -76,6 +76,7 @@ class MetricCard: UIView {
             let checkinTime = Double(checkin.dateTime.timeIntervalSince1970);
             if (type == MetricsType.BloodPressure && checkin.map != nil && checkin.map > 0) {
                 graphPoints.append(GraphPoint(x: checkinTime, y: checkin.map));
+                plottedCheckins.append(checkin);
                 if (checkin.diastolic != nil && checkin.diastolic > 0) {
                     diastolicPoints.append(GraphPoint(x: checkinTime, y: Double(checkin.diastolic!)));
                 } else {
@@ -92,11 +93,12 @@ class MetricCard: UIView {
                     bodyFatPoints.append(GraphPoint(x: checkinTime, y: checkin.fatRatio));
                 }
                 graphPoints.append(GraphPoint(x: checkinTime, y: checkin.weightLbs));
+                plottedCheckins.append(checkin);
             }
             if (type == MetricsType.Pulse && checkin.pulseBpm != nil && checkin.pulseBpm > 0) {
                 graphPoints.append(GraphPoint(x: checkinTime, y: Double(checkin.pulseBpm!)));
+                plottedCheckins.append(checkin);
             }
-            plottedCheckins.append(checkin);
         }
         
         if (type == MetricsType.DailySummary) {
