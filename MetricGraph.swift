@@ -385,23 +385,10 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
             return unselectedAltPlotSymbol;
         }
     }
-
     
     func selectPlotFromPoint(point: CGPoint) {
+//        let screenPoint = getScreenPoint(self, xPoint: point.x, yPoint: point.y);
         let index = Int(plot.dataIndexFromInteractionPoint(point));
         checkinSelected(plot as CPTScatterPlot!, idx: index, first: false);
     }
-    
-//    override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
-//        let index = Int(plot.dataIndexFromInteractionPoint(point));
-//        checkinSelected(plot as CPTScatterPlot!, idx: index - 1, first: false);
-//        return true;
-//    }
-    
-//    func plotSpace(space: CPTPlotSpace!, didChangePlotRangeForCoordinate coordinate: CPTCoordinate) {
-//        var graphView = self.superview!.superview as! MetricGraph;
-//        graphView.setSelectedCheckin(graphView.checkins[graphView.selected]);
-//        checkinSelected(plot as CPTScatterPlot!, idx: index - 1);
-//    }
-
 }

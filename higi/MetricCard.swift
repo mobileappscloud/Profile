@@ -115,7 +115,7 @@ class MetricCard: UIView {
                     graphPoints.append(GraphPoint(x: activityDate, y: Double(total)));
                 }
             }
-            
+            plottedActivities.sort({$0.0 < $1.0});
             graphPoints.sort({$0.x < $1.x});
         }
         
@@ -177,20 +177,11 @@ class MetricCard: UIView {
         toggleBmiOn = !toggleBmiOn;
     }
 
-//    override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
-//        if (graph.frame.contains(point)) {
-//            return graph.pointInside(point, withEvent: event);
-//        }
-//        return super.pointInside(point, withEvent: event);
-//    }
-    
     override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
-        if (graph.frame.contains(point)) {
-            let a = event;
+        if (point.y > headerView.frame.size.height && point.y < headerView.frame.size.height + graph.frame.size.height) {
             graph.selectPlotFromPoint(point);
-            return true;
         }
-        return super.pointInside(point, withEvent: event);
+        return true;
     }
     
 }
