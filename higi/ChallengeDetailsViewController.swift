@@ -461,7 +461,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             chatterView = UIView(frame: CGRect(x: chatterTable!.frame.origin.x, y: 0, width: UIScreen.mainScreen().bounds.size.width, height: UIScreen.mainScreen().bounds.size.height));
             chatterTable!.frame.origin.x = 0;
             
-            let actionButtonWidth:CGFloat = 40;
+            let actionButtonWidth:CGFloat = 60;
             let actionButtonMargin:CGFloat = 8;
             actionButtonY = UIScreen.mainScreen().bounds.size.height - actionButtonWidth - actionButtonMargin;
             actionButton = UIButton(frame: CGRect(x: UIScreen.mainScreen().bounds.size.width - (actionButtonWidth + actionButtonMargin), y: actionButtonY, width: actionButtonWidth, height: actionButtonWidth));
@@ -525,7 +525,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                 prizeRow.frame.origin.y = yOffset;
                 
                 table.prizesContainer.addSubview(prizeRow);
-                yOffset += prizeRow.height;
+                yOffset += prizeRow.frame.size.height;
             }
         }
         if (yOffset == rowTextYOffset) {
@@ -533,7 +533,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             prizeRow.frame.origin.y = yOffset;
             
             table.prizesContainer.addSubview(prizeRow);
-            yOffset += prizeRow.height;
+            yOffset += prizeRow.frame.size.height;
         }
         prizesHeight = yOffset;
         table.prizesContainer.frame.size.height = yOffset;
@@ -733,7 +733,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         } else if (displayChatterTab && chatterTable != nil && tableView == chatterTable) {
             return getChatterRowHeight(indexPath.row);
         } else {
-            return createDetailsPrizeCell(challenge.winConditions[indexPath.row]).height;
+            return createDetailsPrizeCell(challenge.winConditions[indexPath.row]).frame.size.height;
         }
     }
     
@@ -789,7 +789,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         cell.title.sizeToFit();
         cell.desc.sizeToFit();
     
-        cell.height = cell.desc.frame.origin.y + cell.desc.frame.size.height + 20;
+        cell.frame.size.height = 20 + cell.title.frame.size.height + cell.desc.frame.size.height + 20;
         return cell;
     }
     
@@ -1074,7 +1074,5 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         challengeChatterComments.insert(userChatter, atIndex: 0);
         chatterTable!.reloadData();
         chatterTable!.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true);
-        //@todo scroll to top
     }
-    
 }
