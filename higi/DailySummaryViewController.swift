@@ -53,7 +53,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated);
-        pointsMeter.drawArc();
+        pointsMeter.drawArc(true);
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {

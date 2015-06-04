@@ -4,7 +4,7 @@ class MetricsViewController: BaseViewController {
     
     var selectedType = MetricsType.BloodPressure;
     
-    let cardMargin = 30;
+    let cardMargin = 46;
     
     let animationDuration = 0.5;
     
@@ -12,7 +12,7 @@ class MetricsViewController: BaseViewController {
     
     var detailsOpen = false;
 
-    var detailsCardPosY:CGFloat = 267, cardHeaderViewHeight:CGFloat = 54, cardDragThreshold:CGFloat = 100;
+    let detailsCardPosY:CGFloat = 267, cardHeaderViewHeight:CGFloat = 54, cardDragThreshold:CGFloat = 300;
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -26,42 +26,47 @@ class MetricsViewController: BaseViewController {
         revealController.supportedOrientations = UIInterfaceOrientationMask.LandscapeRight.rawValue;
         revealController.shouldRotate = true;
         UIDevice.currentDevice().setValue(UIInterfaceOrientation.LandscapeRight.rawValue, forKey: "orientation");
-        
         for subView in self.view.subviews {
             subView.removeFromSuperview();
         }
-        
         var selectedCardPosition = 0;
         var pos = MetricsType.allValues.count - 1;
-        
+        var card: MetricCard?;
         for type in MetricsType.allValues.reverse() {
+            var cardFrame = UIScreen.mainScreen().bounds;
+            cardFrame.size.width = cardFrame.size.width - CGFloat((MetricsType.allValues.count - 1 - pos) * cardMargin);
+            switch(type) {
+            case MetricsType.DailySummary:
+                card = MetricCard.instanceFromNib(ActivityMetricDelegate(), frame: cardFrame);
+            case MetricsType.BloodPressure:
+                card = MetricCard.instanceFromNib(BpMetricDelegate(), frame: cardFrame);
+            case MetricsType.Pulse:
+                card = MetricCard.instanceFromNib(PulseMetricDelegate(), frame: cardFrame);
+            case MetricsType.Weight:
+                card = MetricCard.instanceFromNib(WeightMetricDelegate(), frame: cardFrame);
+            default:
+                var i = 0;
+            }
             if (type == selectedType) {
                 selectedCardPosition = pos;
             }
-            var cardFrame = UIScreen.mainScreen().bounds;
-            cardFrame.size.width = cardFrame.size.width - CGFloat((MetricsType.allValues.count - 1 - pos) * cardMargin);
-            
-            let card = MetricCard.instanceFromNib(cardFrame, type: type);
-            card.index = pos;
-            
-            let layer = card.layer;
-            layer.shadowOffset = CGSize(width: 1,height: 1);
-            layer.shadowColor = UIColor.blackColor().CGColor;
-            layer.shadowRadius = 4;
-            layer.shadowOpacity = 0.8;
-            layer.shadowPath = UIBezierPath(rect: layer.bounds).CGPath;
-            
-            self.view.addSubview(card);
-            card.setupGraph();
-            
+            card!.backButton.addTarget(self, action: "backButtonClicked:", forControlEvents: UIControlEvents.TouchUpInside);
+            card!.position = pos;
+            self.view.addSubview(card!);
+            //            card.setupGraph();
             pos--;
         }
-        
-        detailsCard = initDetailCard(SessionController.Instance.checkins[SessionController.Instance.checkins.count - 1], type: MetricsType.allValues[0]);
-        detailsCard.frame.origin.y = UIScreen.mainScreen().bounds.height;
-        self.view.addSubview(detailsCard);
-
-        cardClicked(selectedCardPosition);
+        if (selectedCardPosition != 0) {
+            cardClickedAtIndex(selectedCardPosition);
+        }
+        if (card != nil) {
+            detailsCard = initDetailCard(card!.getSelectedPoint(), type: card!.getType());
+            detailsCard.frame.origin.y = UIScreen.mainScreen().bounds.height;
+            self.view.addSubview(detailsCard);
+        }
+        if (selectedCardPosition != 0) {
+            cardClickedAtIndex(selectedCardPosition);
+        }
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -81,44 +86,39 @@ class MetricsViewController: BaseViewController {
         return true;
     }
     
-    func backButtonClick() {
+    func backButtonClicked(sender: AnyObject) {
         self.navigationController!.popViewControllerAnimated(true);
     }
-    
-    func cardClicked(selectedIndex: Int) {
-        if (selectedIndex == 0) {
+
+    func cardClickedAtIndex(index: Int) {
+        if (index == 0) {
             return;
         } else {
             let subViews = self.view.subviews;
             let count = MetricsType.allValues.count;
-            let distance = count - selectedIndex;
+            let distance = count - index;
             var viewsToSend:[UIView] = [];
-            
             for index in distance...count - 1 {
                 viewsToSend.append(subViews[index] as! UIView);
             }
-            
             UIView.animateWithDuration(animationDuration, delay: 0, options: .CurveEaseInOut, animations: {
                 for card in viewsToSend {
                     card.frame.origin.x = -UIScreen.mainScreen().bounds.size.width;
-                    card.layer.shadowPath = UIBezierPath(rect: CGRect(x: -UIScreen.mainScreen().bounds.size.width, y: 0, width: card.frame.size.width, height: UIScreen.mainScreen().bounds.size.height)).CGPath;
                 }
                 }, completion:  { complete in
                     
                     for card in viewsToSend.reverse() {
                         card.frame.origin.x = 0;
                         card.frame.size.width = UIScreen.mainScreen().bounds.width;
-                        card.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: card.frame.size.width, height: UIScreen.mainScreen().bounds.size.height)).CGPath;
                         self.view.insertSubview(card, atIndex: 0);
                     }
-
+                    
                     for index in 0...count - 1 {
                         let card = subViews[index] as! MetricCard;
                         let newWidth = UIScreen.mainScreen().bounds.size.width - CGFloat((index + 1) * self.cardMargin);
                         UIView.animateWithDuration(self.animationDuration, delay: 0, options: .CurveEaseInOut, animations: {
                             card.frame.size.width = newWidth;
                             card.resizeFrameWithWidth(newWidth);
-                            card.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: newWidth, height: UIScreen.mainScreen().bounds.size.height)).CGPath;
                             }, completion:  { complete in
                                 
                         });
@@ -127,26 +127,36 @@ class MetricsViewController: BaseViewController {
                     self.updateDetailCard();
             });
         }
-    }
 
+    }
+    
     func cardDragged(index: Int, translation: CGPoint) {
         if (index == 0) {
             var topCard = self.view.subviews[self.view.subviews.count - 2] as! UIView;
             let a = topCard.frame.origin.x + translation.x;
             let b = -cardDragThreshold;
             if (topCard.frame.origin.x + translation.x < -cardDragThreshold) {
-                cardClicked(index + 1);
+                cardClickedAtIndex(index + 1);
             }
             if (topCard.frame.origin.x + translation.x < 0) {
                 topCard.frame.origin.x += translation.x;
             } else {
                 topCard.frame.origin.x = 0;
             }
-        } else {
-            //            for i in 0...index {
-            //                var card = self.view.subviews[self.view.subviews.count - 1] as! UIView;
-            //                card.center.x += translation.x;
-            //            }
+        } else if (index != MetricsType.allValues.count - 1) {
+            for i in 0...index {
+                var card = self.view.subviews[self.view.subviews.count - (2 + i)] as! UIView;
+                card.center.x += translation.x;
+                if (card.frame.origin.x + translation.x < -cardDragThreshold) {
+                    cardClickedAtIndex(index + 1);
+                    break;
+                }
+                if (card.frame.origin.x + translation.x < 0) {
+                    card.frame.origin.x += translation.x;
+                } else {
+                    card.frame.origin.x = 0;
+                }
+            }
         }
     }
 
@@ -162,33 +172,21 @@ class MetricsViewController: BaseViewController {
     func updateDetailCard() {
         detailsCard.removeFromSuperview();
         let currentCard = self.view.subviews[self.view.subviews.count - 1] as! MetricCard;
-        if (currentCard.type == MetricsType.DailySummary) {
-        } else {
-            detailsCard = initDetailCard(currentCard.selectedCheckin!, type: currentCard.type);
-        }
+        detailsCard = initDetailCard(currentCard.getSelectedPoint(), type: currentCard.getType());
         self.view.addSubview(detailsCard);
     }
     
-    func initDetailCard(checkin: HigiCheckin, type: MetricsType) -> MetricDetailCard {
-        let card = MetricDetailCard.instanceFromNib(checkin, type: type);
+    func initDetailCard(selection: MetricCard.SelectedPoint, type: MetricsType) -> MetricDetailCard {
+        let card = MetricDetailCard.instanceFromNib(selection, type: type);
         card.frame.origin.y = detailsOpen ? cardHeaderViewHeight : detailsCardPosY;
         let selectedTapRecognizer = UITapGestureRecognizer(target: self, action: "detailsTapped:");
         let swipeDownRecognizer = UISwipeGestureRecognizer(target: self, action: "detailsSwiped:");
         swipeDownRecognizer.direction = UISwipeGestureRecognizerDirection.Down;
         let swipeUpRecognizer = UISwipeGestureRecognizer(target: self, action: "detailsSwiped:");
         swipeUpRecognizer.direction = UISwipeGestureRecognizerDirection.Up;
-        
         card.addGestureRecognizer(selectedTapRecognizer);
         card.addGestureRecognizer(swipeDownRecognizer);
         card.addGestureRecognizer(swipeUpRecognizer);
-        
-        let layer = card.layer;
-        layer.shadowOffset = CGSize(width: 1,height: 1);
-        layer.shadowColor = UIColor.blackColor().CGColor;
-        layer.shadowRadius = 4;
-        layer.shadowOpacity = 0.8;
-        layer.shadowPath = UIBezierPath(rect: layer.bounds).CGPath;
-
         return card;
     }
     
@@ -198,40 +196,41 @@ class MetricsViewController: BaseViewController {
         }
     }
     
-    func activitySelected(activity: (Double, Int), type: MetricsType) {
+    func pointSelected(selection: MetricCard.SelectedPoint) {
         if (detailsCard != nil) {
-            detailsCard.setActivity(activity, type: type);
-        }
-    }
-    
-    func pointSelected(checkin: HigiCheckin, type: MetricsType) {
-        if (detailsCard != nil) {
-            detailsCard.setCheckinData(checkin, type: type);
+            detailsCard.setData(selection);
         }
     }
     
     func detailsTapped(sender: AnyObject) {
         if (!detailsOpen) {
-            UIView.animateWithDuration(animationDuration, delay: 0, options: .CurveEaseInOut, animations: {
-                self.detailsCard.frame.origin.y = self.cardHeaderViewHeight;
-                }, completion: nil);
-            detailsOpen = true;
+            openDetails()
+        } else {
+            closedDetails()
         }
     }
     
     func detailsSwiped(sender: AnyObject) {
         let swipe = (sender as! UISwipeGestureRecognizer).direction;
         if (detailsOpen && swipe == UISwipeGestureRecognizerDirection.Down) {
-            UIView.animateWithDuration(animationDuration, delay: 0, options: .CurveEaseInOut, animations: {
-                self.detailsCard.frame.origin.y = self.detailsCardPosY;
-                }, completion: nil);
-            detailsOpen = false;
+            closedDetails()
         } else if (!detailsOpen && swipe == UISwipeGestureRecognizerDirection.Up) {
-            UIView.animateWithDuration(animationDuration, delay: 0, options: .CurveEaseInOut, animations: {
-                self.detailsCard.frame.origin.y = self.cardHeaderViewHeight;
-                }, completion: nil);
-            detailsOpen = true;
+            openDetails()
         }
+    }
+    
+    func openDetails() {
+        UIView.animateWithDuration(animationDuration, delay: 0, options: .CurveEaseInOut, animations: {
+            self.detailsCard.frame.origin.y = self.cardHeaderViewHeight;
+            }, completion: nil);
+        detailsOpen = true;
+    }
+    
+    func closedDetails() {
+        UIView.animateWithDuration(animationDuration, delay: 0, options: .CurveEaseInOut, animations: {
+            self.detailsCard.frame.origin.y = self.detailsCardPosY;
+            }, completion: nil);
+        detailsOpen = false;
     }
     
     func showDetailsCard() {
@@ -250,8 +249,7 @@ class MetricsViewController: BaseViewController {
             let newWidth = UIScreen.mainScreen().bounds.size.width - CGFloat((index) * self.cardMargin);
             card.frame.size.width = newWidth;
             card.resizeFrameWithWidth(newWidth);
-            card.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: newWidth, height: UIScreen.mainScreen().bounds.size.height)).CGPath;
-            card.index = count - 1 - index;
+            card.position = count - 1 - index;
         }
     }
 }

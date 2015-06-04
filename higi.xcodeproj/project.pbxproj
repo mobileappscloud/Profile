@@ -156,7 +156,6 @@
 		8FA5925B19AB921C00622266 /* create_overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA5925A19AB921C00622266 /* create_overlay.png */; };
 		8FA5925D19ABBCEC00622266 /* TourView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FA5925C19ABBCEC00622266 /* TourView.xib */; };
 		8FA5925F19ABBD3A00622266 /* TourViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA5925E19ABBD3A00622266 /* TourViewController.swift */; };
-		8FC130C71A26464400591C58 /* ActivityGraphHostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC130C61A26464400591C58 /* ActivityGraphHostingView.swift */; };
 		8FC7B70719E5E60D00D0112F /* bodystats1-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FC7B70419E5E60D00D0112F /* bodystats1-568h@2x.png */; };
 		8FC7B70819E5E60D00D0112F /* bodystats2-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FC7B70519E5E60D00D0112F /* bodystats2-568h@2x.png */; };
 		8FC7B70919E5E60D00D0112F /* bodystats3-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FC7B70619E5E60D00D0112F /* bodystats3-568h@2x.png */; };
@@ -317,6 +316,13 @@
 		D1C906B11B0A4C5D00220C12 /* NavigationObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1C906B01B0A4C5D00220C12 /* NavigationObject.swift */; };
 		D1CFC9831AB360AF00AC54BB /* MetricGraphCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1CFC9821AB360AF00AC54BB /* MetricGraphCard.swift */; };
 		D1CFC9851AB3742700AC54BB /* MetricGraphCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1CFC9841AB3742700AC54BB /* MetricGraphCardView.xib */; };
+		D1D32CF91B1F533100AE9B25 /* GraphDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D32CF81B1F533100AE9B25 /* GraphDelegate.swift */; };
+		D1D32CFB1B1F53E500AE9B25 /* BaseGraphHostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D32CFA1B1F53E500AE9B25 /* BaseGraphHostingView.swift */; };
+		D1D32CFD1B1F62C000AE9B25 /* ActivityGraphDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D32CFC1B1F62C000AE9B25 /* ActivityGraphDelegate.swift */; };
+		D1D32D011B1F6CD800AE9B25 /* BPGraphHostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D32D001B1F6CD800AE9B25 /* BPGraphHostingView.swift */; };
+		D1D32D031B1F6CF800AE9B25 /* PulseGraphHostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D32D021B1F6CF800AE9B25 /* PulseGraphHostingView.swift */; };
+		D1D32D051B1F6D0A00AE9B25 /* WeightGraphHostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D32D041B1F6D0A00AE9B25 /* WeightGraphHostingView.swift */; };
+		D1D32D071B1FA0B500AE9B25 /* ActivityMetricDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D32D061B1FA0B500AE9B25 /* ActivityMetricDelegate.swift */; };
 		D1DC365E1AC9E9F000CB124D /* CustomLoadingSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1DC365D1AC9E9F000CB124D /* CustomLoadingSpinner.swift */; };
 		D1E1FF061A76C28F00C8951C /* ChallengeProgressLegendRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E1FF051A76C28F00C8951C /* ChallengeProgressLegendRow.swift */; };
 		D1E1FF081A76C2DB00C8951C /* ChallengeProgressLegendRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1E1FF071A76C2DB00C8951C /* ChallengeProgressLegendRow.xib */; };
@@ -328,7 +334,6 @@
 		D1E2237A1A8009E6006330E7 /* ConnectDeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E223791A8009E6006330E7 /* ConnectDeviceViewController.swift */; };
 		D1E2A6F51AB75EBB00796700 /* MetricGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E2A6F41AB75EBB00796700 /* MetricGraph.swift */; };
 		D1E2DB821AE176760074CBAF /* MetricCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E2DB811AE176760074CBAF /* MetricCard.swift */; };
-		D1E2DB841AE184E50074CBAF /* MetricsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1E2DB831AE184E50074CBAF /* MetricsView.xib */; };
 		D1EEDB951A660F2B0012EFD3 /* challenge_image.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDB8E1A660F2B0012EFD3 /* challenge_image.png */; };
 		D1EEDB981A660F2B0012EFD3 /* ui_chatter.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDB911A660F2B0012EFD3 /* ui_chatter.png */; };
 		D1EEDB991A660F2B0012EFD3 /* ui_details.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDB921A660F2B0012EFD3 /* ui_details.png */; };
@@ -337,6 +342,11 @@
 		D1EEDBA31A66E4B10012EFD3 /* ChallengeLeaderboardRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDBA21A66E4B10012EFD3 /* ChallengeLeaderboardRow.xib */; };
 		D1EEDBA51A66FA570012EFD3 /* ChallengeLeaderboardRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EEDBA41A66FA570012EFD3 /* ChallengeLeaderboardRow.swift */; };
 		D1FC09951A83DE960049B5C0 /* team_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D1FC09941A83DE960049B5C0 /* team_icon.png */; };
+		D1FC72931B20116F0068CF89 /* WeightMetricCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FC72921B20116F0068CF89 /* WeightMetricCard.swift */; };
+		D1FC72951B209CA40068CF89 /* MetricDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FC72941B209CA40068CF89 /* MetricDelegate.swift */; };
+		D1FC72971B20B0DC0068CF89 /* PulseMetricDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FC72961B20B0DC0068CF89 /* PulseMetricDelegate.swift */; };
+		D1FC72991B20B1B70068CF89 /* WeightMetricDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FC72981B20B1B70068CF89 /* WeightMetricDelegate.swift */; };
+		D1FC729B1B20B22B0068CF89 /* BpMetricDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FC729A1B20B22B0068CF89 /* BpMetricDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -513,7 +523,6 @@
 		8FA5925A19AB921C00622266 /* create_overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = create_overlay.png; path = images/create_overlay.png; sourceTree = "<group>"; };
 		8FA5925C19ABBCEC00622266 /* TourView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TourView.xib; sourceTree = "<group>"; };
 		8FA5925E19ABBD3A00622266 /* TourViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TourViewController.swift; sourceTree = "<group>"; };
-		8FC130C61A26464400591C58 /* ActivityGraphHostingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityGraphHostingView.swift; sourceTree = "<group>"; };
 		8FC7B70419E5E60D00D0112F /* bodystats1-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bodystats1-568h@2x.png"; sourceTree = "<group>"; };
 		8FC7B70519E5E60D00D0112F /* bodystats2-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bodystats2-568h@2x.png"; sourceTree = "<group>"; };
 		8FC7B70619E5E60D00D0112F /* bodystats3-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bodystats3-568h@2x.png"; sourceTree = "<group>"; };
@@ -695,6 +704,13 @@
 		D1C906B01B0A4C5D00220C12 /* NavigationObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationObject.swift; sourceTree = "<group>"; };
 		D1CFC9821AB360AF00AC54BB /* MetricGraphCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricGraphCard.swift; sourceTree = "<group>"; };
 		D1CFC9841AB3742700AC54BB /* MetricGraphCardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MetricGraphCardView.xib; sourceTree = "<group>"; };
+		D1D32CF81B1F533100AE9B25 /* GraphDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphDelegate.swift; sourceTree = "<group>"; };
+		D1D32CFA1B1F53E500AE9B25 /* BaseGraphHostingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseGraphHostingView.swift; sourceTree = "<group>"; };
+		D1D32CFC1B1F62C000AE9B25 /* ActivityGraphDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityGraphDelegate.swift; sourceTree = "<group>"; };
+		D1D32D001B1F6CD800AE9B25 /* BPGraphHostingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BPGraphHostingView.swift; sourceTree = "<group>"; };
+		D1D32D021B1F6CF800AE9B25 /* PulseGraphHostingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PulseGraphHostingView.swift; sourceTree = "<group>"; };
+		D1D32D041B1F6D0A00AE9B25 /* WeightGraphHostingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeightGraphHostingView.swift; sourceTree = "<group>"; };
+		D1D32D061B1FA0B500AE9B25 /* ActivityMetricDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityMetricDelegate.swift; sourceTree = "<group>"; };
 		D1DC365D1AC9E9F000CB124D /* CustomLoadingSpinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLoadingSpinner.swift; sourceTree = "<group>"; };
 		D1E1FF051A76C28F00C8951C /* ChallengeProgressLegendRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeProgressLegendRow.swift; sourceTree = "<group>"; };
 		D1E1FF071A76C2DB00C8951C /* ChallengeProgressLegendRow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeProgressLegendRow.xib; sourceTree = "<group>"; };
@@ -706,7 +722,6 @@
 		D1E223791A8009E6006330E7 /* ConnectDeviceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectDeviceViewController.swift; sourceTree = "<group>"; };
 		D1E2A6F41AB75EBB00796700 /* MetricGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricGraph.swift; sourceTree = "<group>"; };
 		D1E2DB811AE176760074CBAF /* MetricCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricCard.swift; sourceTree = "<group>"; };
-		D1E2DB831AE184E50074CBAF /* MetricsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MetricsView.xib; sourceTree = "<group>"; };
 		D1EEDB8E1A660F2B0012EFD3 /* challenge_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = challenge_image.png; path = "../../android-main/app/src/main/res/drawable-nodpi/challenge_image.png"; sourceTree = "<group>"; };
 		D1EEDB911A660F2B0012EFD3 /* ui_chatter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_chatter.png; path = "../../android-main/app/src/main/res/drawable-nodpi/ui_chatter.png"; sourceTree = "<group>"; };
 		D1EEDB921A660F2B0012EFD3 /* ui_details.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_details.png; path = "../../android-main/app/src/main/res/drawable-nodpi/ui_details.png"; sourceTree = "<group>"; };
@@ -715,6 +730,11 @@
 		D1EEDBA21A66E4B10012EFD3 /* ChallengeLeaderboardRow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeLeaderboardRow.xib; sourceTree = "<group>"; };
 		D1EEDBA41A66FA570012EFD3 /* ChallengeLeaderboardRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeLeaderboardRow.swift; sourceTree = "<group>"; };
 		D1FC09941A83DE960049B5C0 /* team_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = team_icon.png; path = images/team_icon.png; sourceTree = "<group>"; };
+		D1FC72921B20116F0068CF89 /* WeightMetricCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeightMetricCard.swift; sourceTree = "<group>"; };
+		D1FC72941B209CA40068CF89 /* MetricDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricDelegate.swift; sourceTree = "<group>"; };
+		D1FC72961B20B0DC0068CF89 /* PulseMetricDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PulseMetricDelegate.swift; sourceTree = "<group>"; };
+		D1FC72981B20B1B70068CF89 /* WeightMetricDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeightMetricDelegate.swift; sourceTree = "<group>"; };
+		D1FC729A1B20B22B0068CF89 /* BpMetricDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BpMetricDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1215,13 +1235,18 @@
 		8F6266AD197EC8C700145EDB /* Metrics */ = {
 			isa = PBXGroup;
 			children = (
+				D1D32D061B1FA0B500AE9B25 /* ActivityMetricDelegate.swift */,
 				8F3643A119460EB300C0033E /* MetricsViewController.swift */,
 				D1740BC31AE0381F00462F6E /* MetricsType.swift */,
 				D1E2DB811AE176760074CBAF /* MetricCard.swift */,
 				D10D844A1AEFFA7A00DA3278 /* MetricDetailCard.swift */,
 				D1618F921ABB2E26000BDA85 /* MetricCardView.xib */,
-				D1E2DB831AE184E50074CBAF /* MetricsView.xib */,
 				D10D84481AEFF9D200DA3278 /* MetricDetailCardView.xib */,
+				D1FC72921B20116F0068CF89 /* WeightMetricCard.swift */,
+				D1FC72941B209CA40068CF89 /* MetricDelegate.swift */,
+				D1FC72961B20B0DC0068CF89 /* PulseMetricDelegate.swift */,
+				D1FC72981B20B1B70068CF89 /* WeightMetricDelegate.swift */,
+				D1FC729A1B20B22B0068CF89 /* BpMetricDelegate.swift */,
 			);
 			name = Metrics;
 			sourceTree = "<group>";
@@ -1276,9 +1301,14 @@
 		8F6A243D195A011F0094B73C /* Graphing */ = {
 			isa = PBXGroup;
 			children = (
-				8FC130C61A26464400591C58 /* ActivityGraphHostingView.swift */,
+				D1D32CFA1B1F53E500AE9B25 /* BaseGraphHostingView.swift */,
 				D1E2A6F41AB75EBB00796700 /* MetricGraph.swift */,
 				8F77DF191A0080550056BE27 /* GraphPoint.swift */,
+				D1D32CF81B1F533100AE9B25 /* GraphDelegate.swift */,
+				D1D32CFC1B1F62C000AE9B25 /* ActivityGraphDelegate.swift */,
+				D1D32D001B1F6CD800AE9B25 /* BPGraphHostingView.swift */,
+				D1D32D021B1F6CF800AE9B25 /* PulseGraphHostingView.swift */,
+				D1D32D041B1F6D0A00AE9B25 /* WeightGraphHostingView.swift */,
 			);
 			name = Graphing;
 			path = ..;
@@ -1698,7 +1728,6 @@
 				D10D84491AEFF9D200DA3278 /* MetricDetailCardView.xib in Resources */,
 				8F08AFB319895214002EE906 /* higilogo_ocmenu.png in Resources */,
 				8F02A13619AE2CBB002FF73E /* dashboard3@2x.png in Resources */,
-				D1E2DB841AE184E50074CBAF /* MetricsView.xib in Resources */,
 				8FFB034F19FEA2440036228C /* oc_findastation_active.png in Resources */,
 				8F1D979C1995554C003B5645 /* ModifyImageView.xib in Resources */,
 				8FC7B71319E5E67000D0112F /* dashboard3-568h@2x.png in Resources */,
@@ -1870,6 +1899,7 @@
 			files = (
 				8F3643A219460EB300C0033E /* MetricsViewController.swift in Sources */,
 				8FF940951989A19B00D319D7 /* BaseViewController.swift in Sources */,
+				D1D32D051B1F6D0A00AE9B25 /* WeightGraphHostingView.swift in Sources */,
 				8F1D979A1995553B003B5645 /* ModifyImageViewController.swift in Sources */,
 				8FDB4B681A09731B00F57B38 /* ActivityDevice.swift in Sources */,
 				8F296316194B9BF700E787FD /* SessionController.swift in Sources */,
@@ -1879,7 +1909,9 @@
 				8FF2E06E194A5E9500A81D8C /* NewCPTPlotRange.m in Sources */,
 				8F5E7FD2199BC99C009067E5 /* BpCheckinCell.swift in Sources */,
 				D15372911A841FEA00954569 /* TermsAndConditionsViewController.swift in Sources */,
+				D1FC72971B20B0DC0068CF89 /* PulseMetricDelegate.swift in Sources */,
 				8F77DF1A1A0080550056BE27 /* GraphPoint.swift in Sources */,
+				D1FC72931B20116F0068CF89 /* WeightMetricCard.swift in Sources */,
 				8FF94098198A8C0A00D319D7 /* BirthdateViewController.swift in Sources */,
 				8F58D98E19C22AB600C0EC72 /* GTMNSString+HTML.m in Sources */,
 				8F2CB58019925631009377A8 /* WebViewController.swift in Sources */,
@@ -1901,10 +1933,12 @@
 				8F5C38F71983094F00F51543 /* NSString+HTML.m in Sources */,
 				8FDA6DA619A4038F00244D5F /* TermsViewController.swift in Sources */,
 				D110BAD41B0E7C5500CD1E58 /* DailySummaryViewController.swift in Sources */,
+				D1D32D011B1F6CD800AE9B25 /* BPGraphHostingView.swift in Sources */,
 				D1B6D6981A8D09FD0006F80C /* ChatterInputViewController.swift in Sources */,
 				D149E9471A7822D900FBAA15 /* ChallengeDetailsPrize.swift in Sources */,
 				8FE056E9198FDCA600C81208 /* FindStationViewController.swift in Sources */,
 				2BBDBA561A12AC2C005A6815 /* CompetitiveChallengeView.swift in Sources */,
+				D1D32D031B1F6CF800AE9B25 /* PulseGraphHostingView.swift in Sources */,
 				D17528881B0FD332006335B4 /* DailySummaryBreakdown.swift in Sources */,
 				8F6A24311951E5D80094B73C /* ApiUtility.swift in Sources */,
 				8F2B7E55198C3475009DE89A /* RevealViewController.swift in Sources */,
@@ -1916,11 +1950,14 @@
 				2BBDBA581A12AC2C005A6815 /* GoalChallengeView.swift in Sources */,
 				8F9C69D91950C8AD00449664 /* KioskInfo.swift in Sources */,
 				D1DC365E1AC9E9F000CB124D /* CustomLoadingSpinner.swift in Sources */,
-				8FC130C71A26464400591C58 /* ActivityGraphHostingView.swift in Sources */,
 				8FDB4B661A096ECF00F57B38 /* HigiActivity.swift in Sources */,
+				D1FC72951B209CA40068CF89 /* MetricDelegate.swift in Sources */,
 				8FDA6DA319A2979800244D5F /* ChangePasswordViewController.swift in Sources */,
+				D1FC729B1B20B22B0068CF89 /* BpMetricDelegate.swift in Sources */,
+				D1D32CF91B1F533100AE9B25 /* GraphDelegate.swift in Sources */,
 				D12B398B1AA4ECC6005B2ABA /* GQTPointQuadTree.m in Sources */,
 				8FE0BCCE199175BC00940D39 /* PulseCell.swift in Sources */,
+				D1FC72991B20B1B70068CF89 /* WeightMetricDelegate.swift in Sources */,
 				8FEF1B051AA9173D0036C4FB /* ChallengeView.swift in Sources */,
 				8F5E7FD0199BC992009067E5 /* CheckinCell.swift in Sources */,
 				8F3643A019460EB300C0033E /* AppDelegate.swift in Sources */,
@@ -1931,6 +1968,7 @@
 				8F6A243C1958EA730094B73C /* NewCPTScatterPlot.m in Sources */,
 				2BC5865E1A16D0AF005A7983 /* ChallengeInvitationView.swift in Sources */,
 				D12B399A1AA4ED08005B2ABA /* NonHierarchicalDistanceBasedAlgorithm.m in Sources */,
+				D1D32CFD1B1F62C000AE9B25 /* ActivityGraphDelegate.swift in Sources */,
 				D18395C31A69CAD500D290BF /* ChallengesDetailsTab.swift in Sources */,
 				2BBDBA551A12AC2C005A6815 /* ChallengesViewController.swift in Sources */,
 				8FA5925F19ABBD3A00622266 /* TourViewController.swift in Sources */,
@@ -1939,6 +1977,7 @@
 				8F6266B7197EE42700145EDB /* MainNavigationController.swift in Sources */,
 				8FE056E1198FDBFE00C81208 /* PulseHomeViewController.swift in Sources */,
 				8F2B7E53198C3097009DE89A /* DrawerCell.swift in Sources */,
+				D1D32CFB1B1F53E500AE9B25 /* BaseGraphHostingView.swift in Sources */,
 				2BBDBA521A12AC2C005A6815 /* ChallengeRowCell.swift in Sources */,
 				8FDB4B641A096E1C00F57B38 /* HigiChallenge.swift in Sources */,
 				8F29630D194B8F4600E787FD /* WelcomeViewController.swift in Sources */,
@@ -1966,6 +2005,7 @@
 				8F524BF6195B5ABB00BFC49D /* ConversionUtility.m in Sources */,
 				D1740BC41AE0381F00462F6E /* MetricsType.swift in Sources */,
 				D1247BC91AA620F1008A601A /* HigiClusterRenderer.m in Sources */,
+				D1D32D071B1FA0B500AE9B25 /* ActivityMetricDelegate.swift in Sources */,
 				D13018401B14D943008DDFAD /* Constants.swift in Sources */,
 				8F296311194B911C00E787FD /* SignupNameViewController.swift in Sources */,
 				8FF851C6194F7F2E005C33C6 /* HigiApi.swift in Sources */,

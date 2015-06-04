@@ -1,28 +1,6 @@
 import Foundation
 
-class MetricCard: UIView {
-    
-    var selectedCheckin: HigiCheckin?;
-    
-    var selectedActivity: (Double, Int)?;
-    
-    var plottedCheckins: [HigiCheckin] = [];
-    
-    var plottedActivities: [(Double, Int)] = [];
-    
-    var type = MetricsType.BloodPressure;
-    
-    var index:Int!
-    
-    var graphViewHeight:CGFloat!;
-    
-    var graph, secondaryGraph: MetricGraph!;
-    
-    var viewFrame: CGRect!;
-    
-    var toggleBmiOn = true;
-    
-    var color: UIColor!;
+class MetricCard: UIView, MetricDelegate {
     
     @IBOutlet weak var graphContainer: UIView!
     @IBOutlet weak var view: UIView!
@@ -31,20 +9,98 @@ class MetricCard: UIView {
     @IBOutlet weak var icon: UIImageView!
     @IBOutlet weak var toggleButton: UIButton!
     
-    class func instanceFromNib(frame: CGRect, type: MetricsType) -> MetricCard {
+    @IBOutlet weak var backButton: UIButton!
+    var viewFrame: CGRect!;
+    
+    var delegate: MetricDelegate!;
+    
+    var position:Int!;
+    
+    var selectedPoint: SelectedPoint!;
+    
+    var selectedCheckin: HigiCheckin!;
+    
+    struct SelectedPoint {
+        var date:String!
+        
+        var firstPanel, secondPanel: Panel!;
+        
+        struct Panel {
+            var value, label, unit: String!;
+            
+            init(value: String, label: String, unit:String) {
+                self.value = value;
+                self.label = label;
+                self.unit = unit;
+            }
+        }
+        
+        init(date: String, panelValue: String, panelLabel: String, panelUnit: String) {
+            self.date = date;
+            self.firstPanel = Panel(value: "", label: "", unit: "");
+            self.secondPanel = Panel(value: panelValue, label: panelLabel, unit: panelUnit);
+        }
+        
+        init(date: String, firstPanelValue: String, firstPanelLabel: String, firstPanelUnit: String, secondPanelValue: String, secondPanelLabel: String, secondPanelUnit: String) {
+            self.date = date;
+            self.firstPanel = Panel(value: firstPanelValue, label: firstPanelLabel, unit: firstPanelUnit);
+            self.secondPanel = Panel(value: secondPanelValue, label: secondPanelLabel, unit: secondPanelUnit);
+        }
+    }
+    
+    class func instanceFromNib(delegate: MetricDelegate, frame: CGRect) -> MetricCard {
         let view = UINib(nibName: "MetricCardView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! MetricCard;
+        view.delegate = delegate;
         view.initFrame(frame);
-        view.addRecognizers();
-        view.initHeader(type);
+        view.initHeader();
+        view.setSelected(NSDate());
         return view;
     }
     
-    func initFrame(frame: CGRect) {
-        self.frame = frame;
-        viewFrame = frame;
+    func getTitle() -> String {
+        return delegate.getTitle();
     }
     
-    func addRecognizers() {
+    func getColor() -> UIColor {
+        return delegate.getColor();
+    }
+    
+    func getIcon() -> UIImage {
+        return delegate.getIcon();
+    }
+    
+    func getType() -> MetricsType {
+        return delegate.getType();
+    }
+    
+    func getSelectedPoint() -> MetricCard.SelectedPoint {
+        return delegate.getSelectedPoint();
+    }
+
+//    func initializeGraphView(delegate: GraphDelegate, frame: CGRect) {
+//        graph = MetricGraph(frame: frame, points: <#[GraphPoint]#>)
+//        graph = MetricGraph(frame: CGRect(x: 0, y: graphY, width: graphWidth, height: graphHeight), points: graphPoints);
+//    
+//        self.graphContainer.addSubview(graph);
+//    }
+
+    func populate() {
+        
+    }
+    
+    func initRegions() {
+        
+    }
+    
+    func setSelected(date: NSDate) {
+        delegate.setSelected(date);
+    }
+    
+    func initHeader() {
+        icon.image = getIcon();
+        title.text = getTitle();
+        headerView.backgroundColor = getColor();
+        //i'd rather this logic be in the view controller but the recognizers weren't playing nicely
         let tapRecognizer = UITapGestureRecognizer(target: self, action: "cardClicked:");
         let swipe = UISwipeGestureRecognizer(target: self, action: "cardClicked:");
         swipe.direction = UISwipeGestureRecognizerDirection.Left;
@@ -53,141 +109,35 @@ class MetricCard: UIView {
         headerView.addGestureRecognizer(swipe);
         headerView.addGestureRecognizer(drag);
     }
-    
-    func initHeader(type: MetricsType) {
-        self.type = type;
-        color = Utility.colorFromMetricType(type);
-        headerView.backgroundColor = color;
-        if (type == MetricsType.DailySummary) {
-            title.text = "Activity";
-            icon.image = Utility.imageWithColor(UIImage(named: "workouticon")!, color: UIColor.whiteColor());
-        } else if (type == MetricsType.BloodPressure) {
-            title.text = "Blood Pressure";
-            icon.image = Utility.imageWithColor(UIImage(named: "bloodpressureicon")!, color: UIColor.whiteColor());
-        } else if (type == MetricsType.Weight) {
-            title.text = "Weight";
-            icon.image = Utility.imageWithColor(UIImage(named: "weighticon")!, color: UIColor.whiteColor());
-            toggleButton.hidden = false;
-        } else {
-            icon.image = Utility.imageWithColor(UIImage(named: "pulseicon")!, color: UIColor.whiteColor());
-            title.text = "Pulse";
-        }
+
+    func initFrame(frame: CGRect) {
+        self.frame = frame;
+        viewFrame = frame;
     }
     
     func resizeFrameWithWidth(width: CGFloat) {
         viewFrame.size.width = width;
     }
     
-    func setupGraph() {
-        var graphPoints: [GraphPoint] = [], diastolicPoints: [GraphPoint] = [], systolicPoints: [GraphPoint] = [], bodyFatPoints: [GraphPoint] = [];
-        for checkin in SessionController.Instance.checkins {
-            let checkinTime = Double(checkin.dateTime.timeIntervalSince1970);
-            if (type == MetricsType.BloodPressure && checkin.map != nil && checkin.map > 0) {
-                graphPoints.append(GraphPoint(x: checkinTime, y: checkin.map));
-                plottedCheckins.append(checkin);
-                if (checkin.diastolic != nil && checkin.diastolic > 0) {
-                    diastolicPoints.append(GraphPoint(x: checkinTime, y: Double(checkin.diastolic!)));
-                } else {
-                    diastolicPoints.append(GraphPoint(x: checkinTime, y: 0));
-                }
-                if (checkin.systolic != nil && checkin.systolic > 0) {
-                    systolicPoints.append(GraphPoint(x: checkinTime, y: Double(checkin.systolic!)));
-                } else {
-                    systolicPoints.append(GraphPoint(x: checkinTime, y: 0));
-                }
-            }
-            if (type == MetricsType.Weight && checkin.weightLbs != nil && checkin.weightLbs > 0) {
-                if (checkin.fatRatio != nil && checkin.fatRatio > 0) {
-                    bodyFatPoints.append(GraphPoint(x: checkinTime, y: checkin.fatRatio));
-                }
-                graphPoints.append(GraphPoint(x: checkinTime, y: checkin.weightLbs));
-                plottedCheckins.append(checkin);
-            }
-            if (type == MetricsType.Pulse && checkin.pulseBpm != nil && checkin.pulseBpm > 0) {
-                graphPoints.append(GraphPoint(x: checkinTime, y: Double(checkin.pulseBpm!)));
-                plottedCheckins.append(checkin);
-            }
-        }
-        
-        if (type == MetricsType.DailySummary) {
-            var activityPoints:[GraphPoint] = [];
-            let dateString = Constants.dateFormatter.stringFromDate(NSDate());
-            var totalPoints = 0;
-            for (date, (total, activityList)) in SessionController.Instance.activities {
-                if (date == dateString) {
-                    totalPoints = total;
-                }
-                if (activityList.count > 0) {
-                    let activityDate =  Double(activityList[0].startTime.timeIntervalSince1970);
-                    plottedActivities.append((activityDate, total));
-                    graphPoints.append(GraphPoint(x: activityDate, y: Double(total)));
-                }
-            }
-            plottedActivities.sort({$0.0 < $1.0});
-            graphPoints.sort({$0.x < $1.x});
-        }
-        let graphY:CGFloat = 0;
-        let graphWidth = UIScreen.mainScreen().bounds.size.width;
-        let graphHeight:CGFloat = frame.size.height - headerView.frame.size.height - (frame.size.height - 267);
-        if (type == MetricsType.BloodPressure) {
-            graph = MetricGraph(frame: CGRect(x: 0, y: graphY, width: graphWidth, height: graphHeight), points: graphPoints, diastolicPoints: diastolicPoints, systolicPoints: systolicPoints);
-        } else if (type == MetricsType.Weight) {
-            graph = MetricGraph(frame: CGRect(x: 0, y: graphY, width: graphWidth, height: graphHeight), points: graphPoints);
-            secondaryGraph = MetricGraph(frame: CGRect(x: 0, y: graphY, width: graphWidth, height: graphHeight), points: bodyFatPoints);
-            secondaryGraph.setupForMetric(type, isBodyFat: true);
-            secondaryGraph.backgroundColor = UIColor.whiteColor();
-            self.graphContainer.addSubview(secondaryGraph);
-        } else {
-            graph = MetricGraph(frame: CGRect(x: 0, y: graphY, width: graphWidth, height: graphHeight), points: graphPoints);
-        }
-        graph.setupForMetric(type, isBodyFat: false);
-        graph.backgroundColor = UIColor.whiteColor();
-        graph.userInteractionEnabled = true;
-        self.graphContainer.addSubview(graph);
-        
-        setSelected(graphPoints.count - 1);
-    }
-    
-    func setSelected(index: Int) {
-        if (type == MetricsType.DailySummary && index >= 0 && index < plottedActivities.count) {
-            selectedActivity = plottedActivities[index];
-            (Utility.getViewController(self) as! MetricsViewController).activitySelected(selectedActivity!, type: type);
-        } else if (index >= 0 && index < plottedCheckins.count) {
-            selectedCheckin = plottedCheckins[index];
-            (Utility.getViewController(self) as! MetricsViewController).pointSelected(selectedCheckin!, type: type);
-        }
+    @IBAction func toggleClicked(sender: AnyObject) {
+//        graph.hidden = toggleBmiOn;
+//        secondaryGraph.hidden = !toggleBmiOn;
+//        toggleBmiOn = !toggleBmiOn;
     }
     
     func cardDragged(sender: AnyObject) {
         let parent = (Utility.getViewController(self) as! MetricsViewController);
         let drag = (sender as! UIPanGestureRecognizer);
         if (drag.state == UIGestureRecognizerState.Ended) {
-            parent.doneDragging(index);
+            parent.doneDragging(position);
         } else {
             let translation = drag.translationInView(parent.view);
-            parent.cardDragged(index, translation: translation);
+            parent.cardDragged(position, translation: translation);
         }
     }
     
     func cardClicked(sender: AnyObject) {
-        (Utility.getViewController(self) as! MetricsViewController).cardClicked(index);
-    }
-    
-    @IBAction func backButtonClick(sender: AnyObject) {
-        (Utility.getViewController(self) as! MetricsViewController).backButtonClick();
-    }
-    
-    @IBAction func toggleClicked(sender: AnyObject) {
-        graph.hidden = toggleBmiOn;
-        secondaryGraph.hidden = !toggleBmiOn;
-        toggleBmiOn = !toggleBmiOn;
+        (Utility.getViewController(self) as! MetricsViewController).cardClickedAtIndex(position);
     }
 
-    override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
-        if (point.y > headerView.frame.size.height && point.y < headerView.frame.size.height + graph.frame.size.height) {
-            graph.selectPlotFromPoint(point);
-        }
-        return true;
-    }
-    
 }

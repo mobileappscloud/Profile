@@ -22,17 +22,10 @@ class MetricDetailCard: UIView {
     
     var color: UIColor!;
     
-    class func instanceFromNib(checkin: HigiCheckin, type: MetricsType) -> MetricDetailCard {
+    class func instanceFromNib(selection: MetricCard.SelectedPoint, type: MetricsType) -> MetricDetailCard {
         var view = UINib(nibName: "MetricDetailCardView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! MetricDetailCard;
         view.initWithType(type);
-        view.setCheckinData(checkin, type: type);
-        return view;
-    }
-    
-    class func instanceFromNib(activity: (Double, Int), type: MetricsType) -> MetricDetailCard {
-        var view = UINib(nibName: "MetricDetailCardView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! MetricDetailCard;
-        view.initWithType(type);
-        view.setActivity(activity, type: type);
+        view.setData(selection);
         return view;
     }
     
@@ -54,62 +47,13 @@ class MetricDetailCard: UIView {
         });
     }
     
-    func setCheckinData(checkin: HigiCheckin, type: MetricsType) {
-        let formatter = NSDateFormatter();
-        formatter.dateFormat = "MM/dd/yyyy";
-        firstPanelValue.text = "\(formatter.stringFromDate(checkin.dateTime))";
-        if (type == MetricsType.BloodPressure) {
-            secondPanelValue.text = checkin.systolic != nil ? "\(checkin.systolic!)/\(checkin.diastolic!)" : "";
-            secondPanelUnit.text = "mmHg";
-            secondPanelLabel.text = "Blood Pressure";
-            thirdPanelValue.text = checkin.map != nil ? "\(Int(checkin.map!))" : "";
-            thirdPanelUnit.text = "mmHg";
-            thirdPanelLabel.text = "Mean Arterial Pressure";
-        } else if (type == MetricsType.Weight) {
-            secondPanelValue.text = checkin.weightLbs != nil ? "\(Int(checkin.weightLbs!))" : "";
-            secondPanelUnit.text = "lbs";
-            secondPanelLabel.text = "Weight";
-            thirdPanelValue.text = checkin.bmi != nil ? "\(Int(checkin.bmi!))" : "";
-            thirdPanelUnit.text = "";
-            thirdPanelLabel.text = "Body Mass Index";
-        } else {
-            firstPanel.hidden = true;
-            secondPanel.hidden = true;
-            thirdPanel.hidden = true;
-            firstCenteredPanel.hidden = false;
-            secondCenteredPanel.hidden = false;
-            centeredDate.text = "\(formatter.stringFromDate(checkin.dateTime))";
-            if (checkin.pulseBpm != nil) {
-                centeredValue.text = checkin.pulseBpm != nil ? "\(checkin.pulseBpm!)" : "";
-            } else {
-                centeredValue.text = "";
-            }
-            centeredDate.textColor = color;
-            centeredValue.textColor = color;
-            secondPanelUnit.text = "mmHg";
-            secondPanelLabel.text = "Beats Per Minute";
-        }
+    func setData(selection: MetricCard.SelectedPoint) {
+        firstPanelValue.text = selection.date;
+        secondPanelValue.text = selection.firstPanel.value;
+        secondPanelUnit.text = selection.firstPanel.unit;
+        secondPanelLabel.text = selection.firstPanel.label;
+        thirdPanelValue.text = selection.secondPanel.value;
+        thirdPanelUnit.text = selection.secondPanel.unit;
+        thirdPanelLabel.text = selection.secondPanel.label;
     }
-    
-    func setActivity(activity: (Double, Int), type: MetricsType) {
-        let formatter = NSDateFormatter();
-        formatter.dateFormat = "MM/dd/yyyy";
-        let date = activity.0;
-        let total = activity.1;
-        firstPanel.hidden = true;
-        secondPanel.hidden = true;
-        thirdPanel.hidden = true;
-        
-        firstCenteredPanel.hidden = false;
-        secondCenteredPanel.hidden = false;
-        
-        centeredDate.text = "\(formatter.stringFromDate(NSDate(timeIntervalSince1970: date)))";
-        centeredValue.text = "\(total)";
-        centeredDate.textColor = color;
-        centeredValue.textColor = color;
-        
-        secondPanelUnit.text = "pts";
-        secondPanelLabel.text = "Activity Points";
-    }
-    
 }

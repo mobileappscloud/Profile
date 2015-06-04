@@ -30,10 +30,6 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         fatalError("NSCoding not supported");
     }
     
-    func setupGraph(type: MetricsType, dashboard: Bool) {
-        let color = Utility.colorFromMetricType(type);
-    }
-    
     func initGraph() {
         graph = CPTXYGraph(frame: self.bounds);
         self.hostedGraph = graph;
@@ -116,8 +112,8 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         }
     }
     
-    func setupForMetric(type: MetricsType, isBodyFat: Bool) {
-        let color = Utility.colorFromMetricType(type), unselectedColor = Utility.colorFromHexString("#b4a6c2");
+    func setupForMetric() {
+        let color = Utility.colorFromHexString("#b4a6c2"), unselectedColor = Utility.colorFromHexString("#b4a6c2");
         var maxY = 0.0, minY = DBL_MAX, plotSymbolSize = 7.0;
         let hitMargin = 5, pointsToShow = 30;
         
@@ -224,12 +220,15 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
             lastPoint = GraphPoint(x: 0, y: 0);
             minY = 0;
         }
-        let lowerBound = isBodyFat ? 10 : roundToLowest(minY - 1, roundTo: 20);
-        let upperBound = isBodyFat ? 50 : roundToHighest(maxY + 1, roundTo: 20);
+//        var tickInterval = roundToHighest(maxY - minY, roundTo: 10);
+        var tickInterval = 20.0;
+        let lowerBound = roundToLowest(round(minY) - (maxY - minY) * 0.25, roundTo: tickInterval);
+        let yRange = roundToHighest((maxY - minY) * 1.5, roundTo: tickInterval);
         var xRange = lastPoint.x - firstPoint.x != 0 ? lastPoint.x - firstPoint.x : 1;
         var plotSpace = self.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace;
         plotSpace.xRange = NewCPTPlotRange(location: firstPoint.x - xRange * 0.2, length: xRange * 1.3);
-        plotSpace.yRange = NewCPTPlotRange(location: lowerBound, length: upperBound - lowerBound);
+        plotSpace.yRange = NewCPTPlotRange(location: lowerBound, length: yRange);
+//        plotSpace.yRange = NewCPTPlotRange(location: round(minY) - (maxY - minY) * 0.25, length: (maxY - minY) * 1.5);
         plotSpace.globalXRange = plotSpace.xRange;
         plotSpace.globalYRange = plotSpace.yRange;
         plotSpace.delegate = self;
@@ -281,12 +280,9 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         yAxis.labelFormatter = numberFormatter;
         yAxis.tickDirection = CPTSignPositive;
         yAxis.labelOffset = 0;
-        if (isBodyFat) {
-            yAxis.preferredNumberOfMajorTicks = UInt(Int((upperBound - lowerBound) / 10)) + 1;
-        } else {
-            yAxis.preferredNumberOfMajorTicks = UInt(Int((upperBound - lowerBound) / 20)) + 1;
-        }
-        
+
+//        yAxis.preferredNumberOfMajorTicks = UInt(Int((yRange) / tickInterval)) + 1;
+        yAxis.preferredNumberOfMajorTicks = 5;
         graph.addPlot(plot, toPlotSpace: graph.defaultPlotSpace);
         
         checkinSelected(plot, idx: points.count - 1, first: true);
@@ -337,13 +333,13 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         } else {
             selectedPointIndex = Int(idx / 2);
         }
-        if (!first) {
-            var viewController = self.superview!.superview!.superview as! MetricCard?;
-            viewController!.setSelected(selectedPointIndex);
-        }
-        if (diastolicPoints.count > 0) {
-            altPlot.reloadData();
-        }
+//        if (!first) {
+//            var viewController = self.superview!.superview!.superview as! MetricCard?;
+//            viewController!.setSelected(selectedPointIndex);
+//        }
+//        if (diastolicPoints.count > 0) {
+//            altPlot.reloadData();
+//        }
         self.plot.reloadData();
     }
     

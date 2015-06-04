@@ -40,27 +40,14 @@ class BaseViewController: UIViewController, SWRevealViewControllerDelegate {
         var menuToggle = UIBarButtonItem(customView: toggleButton!);
         navigationItem.leftBarButtonItem = menuToggle;
         navigationItem.hidesBackButton = true;
-        
-        var summaryBarItem = UIBarButtonItem();
-        pointsMeter = PointsMeter.create(CGRect(x: 0, y: 0, width: 30, height: 30));
-        let tap = UITapGestureRecognizer(target: self, action: "gotoSummary:");
-        pointsMeter.addGestureRecognizer(tap);
-        let dateString = Constants.dateFormatter.stringFromDate(NSDate());
-        if let (total, todaysActivities) = SessionController.Instance.activities[dateString] {
-            pointsMeter.setActivities((total, todaysActivities));
-            pointsMeter.drawArc();
-            pointsSet = true;
-        } else {
-            pointsMeter.setActivities((0, []));
-        }
-        summaryBarItem.customView = pointsMeter;
-        self.navigationItem.rightBarButtonItem = summaryBarItem;
+    
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
         revealController.panGestureRecognizer().enabled = true;
         revealController.delegate = self;
+        initDailyPoints();
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -73,19 +60,30 @@ class BaseViewController: UIViewController, SWRevealViewControllerDelegate {
     func receiveApiNotification(notification: NSNotification) {
         switch (notification.name) {
         case ApiUtility.ACTIVITIES:
-            initDailyPoints();
+            setDailyPoints(true);
         default:
             break;
         }
     }
     
     func initDailyPoints() {
+        var summaryBarItem = UIBarButtonItem();
+        pointsMeter = PointsMeter.create(CGRect(x: 0, y: 0, width: 30, height: 30));
+        let tap = UITapGestureRecognizer(target: self, action: "gotoSummary:");
+        pointsMeter.addGestureRecognizer(tap);
+        summaryBarItem.customView = pointsMeter;
+        self.navigationItem.rightBarButtonItem = summaryBarItem;
+        setDailyPoints(false);
+    }
+    
+    func setDailyPoints(animated: Bool) {
         let dateString = Constants.dateFormatter.stringFromDate(NSDate());
         if let (total, todaysActivities) = SessionController.Instance.activities[dateString] {
-            if (!pointsSet) {
-                pointsMeter.setActivities((total, todaysActivities));
-                pointsMeter.drawArc();
-            }
+            pointsMeter.setActivities((total, todaysActivities));
+            pointsMeter.drawArc(animated);
+        } else {
+            pointsMeter.setActivities((0, []));
+            pointsMeter.drawArc(false);
         }
     }
     

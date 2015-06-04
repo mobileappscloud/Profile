@@ -20,7 +20,7 @@ class Utility {
         case .Pulse:
             return Utility.colorFromHexString("#5FAFDF");
         case .DailySummary:
-            return Utility.colorFromHexString("76C043");
+            return Utility.colorFromHexString("#76C043");
         default:
             return Utility.colorFromHexString("#FFFFFF");
         }
