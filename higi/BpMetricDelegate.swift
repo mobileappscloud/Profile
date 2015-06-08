@@ -47,14 +47,14 @@ class BpMetricDelegate: MetricDelegate {
         return MetricGraphUtility.createBpGraph(CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height));
     }
     
-    func getRanges() -> [(String, (Int, Int))] {
-        var ranges:[(String, (Int, Int))] = [];
-        let low = ("Low", (40, 70));
-        let normal = ("Normal", (70, 110));
-        let high = ("High", (110, 140));
-        ranges.append(low);
-        ranges.append(normal);
-        ranges.append(high);
+    func getRanges() -> [MetricGauge.Range] {
+        let high = MetricGauge.Range(label: "High", color: Utility.colorFromHexString("#ef535a"), interval: (110, 140));
+        let normal = MetricGauge.Range(label: "Normal", color: Utility.colorFromHexString("#88c681"), interval: (70, 110));
+        let low = MetricGauge.Range(label: "At risk", color: Utility.colorFromHexString("#fdd835"), interval: (40, 70));
+        var ranges:[MetricGauge.Range] = [];
+        ranges.append(MetricGauge.Range(label: "High", color: Utility.colorFromHexString("#ef535a"), interval: (110, 140)));
+        ranges.append(MetricGauge.Range(label: "Normal", color: Utility.colorFromHexString("#88c681"), interval: (70, 110)));
+        ranges.append(MetricGauge.Range(label: "At risk", color: Utility.colorFromHexString("#fdd835"), interval: (40, 70)));
         return ranges;
     }
 }

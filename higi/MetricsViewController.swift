@@ -56,9 +56,6 @@ class MetricsViewController: BaseViewController {
             //            card.setupGraph();
             pos--;
         }
-        if (selectedCardPosition != 0) {
-            cardClickedAtIndex(selectedCardPosition);
-        }
         if (card != nil) {
             detailsCard = initDetailCard(card!.getSelectedPoint(), delegate: card!.delegate);
             detailsCard.frame.origin.y = UIScreen.mainScreen().bounds.height;
@@ -94,6 +91,9 @@ class MetricsViewController: BaseViewController {
         if (index == 0) {
             return;
         } else {
+            if (detailsOpen) {
+                closeDetails();
+            }
             let subViews = self.view.subviews;
             let count = MetricsType.allValues.count;
             let distance = count - index;
@@ -201,18 +201,18 @@ class MetricsViewController: BaseViewController {
     
     func detailsTapped(sender: AnyObject) {
         if (!detailsOpen) {
-            openDetails()
+            openDetails();
         } else {
-            closedDetails()
+            closeDetails();
         }
     }
     
     func detailsSwiped(sender: AnyObject) {
         let swipe = (sender as! UISwipeGestureRecognizer).direction;
         if (detailsOpen && swipe == UISwipeGestureRecognizerDirection.Down) {
-            closedDetails()
+            closeDetails();
         } else if (!detailsOpen && swipe == UISwipeGestureRecognizerDirection.Up) {
-            openDetails()
+            openDetails();
         }
     }
     
@@ -223,7 +223,7 @@ class MetricsViewController: BaseViewController {
         detailsOpen = true;
     }
     
-    func closedDetails() {
+    func closeDetails() {
         UIView.animateWithDuration(animationDuration, delay: 0, options: .CurveEaseInOut, animations: {
             self.detailsCard.frame.origin.y = self.detailsCardPosY;
             }, completion: nil);

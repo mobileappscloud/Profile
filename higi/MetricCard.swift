@@ -94,7 +94,7 @@ class MetricCard: UIView, MetricDelegate {
         
     }
     
-    func getRanges() -> [(String, (Int, Int))] {
+    func getRanges() -> [MetricGauge.Range] {
         return delegate.getRanges();
     }
     

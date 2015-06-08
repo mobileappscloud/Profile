@@ -16,5 +16,5 @@ protocol MetricDelegate {
     
     func getGraph(frame: CGRect) -> MetricGraph;
     
-    func getRanges() -> [(String, (Int, Int))];
+    func getRanges() -> [MetricGauge.Range];
 }

@@ -47,14 +47,12 @@ class WeightMetricDelegate: MetricDelegate {
         return MetricGraphUtility.createWeightGraph(CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height));
     }
     
-    func getRanges() -> [(String, (Int, Int))] {
-        var ranges:[(String, (Int, Int))] = [];
-        let low = ("Low", (40, 70));
-        let normal = ("Normal", (70, 110));
-        let high = ("High", (110, 140));
-        ranges.append(low);
-        ranges.append(normal);
-        ranges.append(high);
+    func getRanges() -> [MetricGauge.Range] {
+        var ranges:[MetricGauge.Range] = [];
+        ranges.append(MetricGauge.Range(label: "Obese", color: Utility.colorFromHexString("#ef535a"), interval: (3, 140)));
+        ranges.append(MetricGauge.Range(label: "Overweight", color: Utility.colorFromHexString("#f79a4d"), interval: (20, 30)));
+        ranges.append(MetricGauge.Range(label: "Normal", color: Utility.colorFromHexString("#88c681"), interval: (10, 20)));
+        ranges.append(MetricGauge.Range(label: "Underweight", color: Utility.colorFromHexString("#fdd835"), interval: (0, 10)));
         return ranges;
     }
 }

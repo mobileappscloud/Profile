@@ -28,7 +28,7 @@ class MetricDetailCard: UIView {
     
     class func instanceFromNib(selection: MetricCard.SelectedPoint, delegate: MetricDelegate) -> MetricDetailCard {
         var view = UINib(nibName: "MetricDetailCardView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! MetricDetailCard;
-        view.setup(delegate);
+        view.setup(delegate, userValue: selection.secondPanel.value);
         view.setData(selection);
         view.initPointsMeter();
         return view;
@@ -49,14 +49,15 @@ class MetricDetailCard: UIView {
         firstPanel.addSubview(pointsMeter);
     }
     
-    func setup(delegate: MetricDelegate) {
+    func setup(delegate: MetricDelegate, userValue: String) {
         self.delegate = delegate;
         let color = delegate.getColor();
         firstPanelValue.textColor = color;
         secondPanelValue.textColor = color;
         thirdPanelValue.textColor = color;
         
-        let gauge = MetricGauge.create(CGRect(x: 0, y: 0, width: gaugeContainer.frame.size.width, height: gaugeContainer.frame.size.height), delegate: delegate);
+        let value = userValue.toInt() != nil ? userValue.toInt()! : 0;
+        let gauge = MetricGauge.create(CGRect(x: 0, y: 0, width: gaugeContainer.frame.size.width, height: gaugeContainer.frame.size.height), delegate: delegate, userValue: value);
         gaugeContainer.addSubview(gauge);
     }
     

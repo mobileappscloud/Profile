@@ -44,7 +44,7 @@ class ActivityMetricDelegate: MetricDelegate {
         return MetricGraphUtility.createActivityGraph(CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height));
     }
     
-    func getRanges() -> [(String, (Int, Int))] {
+    func getRanges() -> [MetricGauge.Range] {
         return [];
     }
 }
