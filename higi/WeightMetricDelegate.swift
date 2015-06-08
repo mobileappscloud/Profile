@@ -49,7 +49,7 @@ class WeightMetricDelegate: MetricDelegate {
     
     func getRanges() -> [MetricGauge.Range] {
         var ranges:[MetricGauge.Range] = [];
-        ranges.append(MetricGauge.Range(label: "Obese", color: Utility.colorFromHexString("#ef535a"), interval: (3, 140)));
+        ranges.append(MetricGauge.Range(label: "Obese", color: Utility.colorFromHexString("#ef535a"), interval: (30, 40)));
         ranges.append(MetricGauge.Range(label: "Overweight", color: Utility.colorFromHexString("#f79a4d"), interval: (20, 30)));
         ranges.append(MetricGauge.Range(label: "Normal", color: Utility.colorFromHexString("#88c681"), interval: (10, 20)));
         ranges.append(MetricGauge.Range(label: "Underweight", color: Utility.colorFromHexString("#fdd835"), interval: (0, 10)));
