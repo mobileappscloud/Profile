@@ -347,6 +347,9 @@
 		D1FC72971B20B0DC0068CF89 /* PulseMetricDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FC72961B20B0DC0068CF89 /* PulseMetricDelegate.swift */; };
 		D1FC72991B20B1B70068CF89 /* WeightMetricDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FC72981B20B1B70068CF89 /* WeightMetricDelegate.swift */; };
 		D1FC729B1B20B22B0068CF89 /* BpMetricDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FC729A1B20B22B0068CF89 /* BpMetricDelegate.swift */; };
+		D1FC729D1B20FD9F0068CF89 /* MetricGraphUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FC729C1B20FD9F0068CF89 /* MetricGraphUtility.swift */; };
+		D1FC729F1B223FE80068CF89 /* MetricGauge.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FC729E1B223FE70068CF89 /* MetricGauge.swift */; };
+		D1FC72A11B2240020068CF89 /* MetricGaugeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1FC72A01B2240020068CF89 /* MetricGaugeView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -735,6 +738,9 @@
 		D1FC72961B20B0DC0068CF89 /* PulseMetricDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PulseMetricDelegate.swift; sourceTree = "<group>"; };
 		D1FC72981B20B1B70068CF89 /* WeightMetricDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeightMetricDelegate.swift; sourceTree = "<group>"; };
 		D1FC729A1B20B22B0068CF89 /* BpMetricDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BpMetricDelegate.swift; sourceTree = "<group>"; };
+		D1FC729C1B20FD9F0068CF89 /* MetricGraphUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricGraphUtility.swift; sourceTree = "<group>"; };
+		D1FC729E1B223FE70068CF89 /* MetricGauge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricGauge.swift; sourceTree = "<group>"; };
+		D1FC72A01B2240020068CF89 /* MetricGaugeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MetricGaugeView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -913,13 +919,13 @@
 		8F296307194B8CCA00E787FD /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				8F6266AD197EC8C700145EDB /* Metrics */,
 				2BBDBA491A12AB73005A6815 /* Challenges */,
 				D1229A051A8167F200FB1773 /* Challenge Details */,
 				D110BAD21B0E7C3900CD1E58 /* Daily Summary */,
 				8F5C38E51981915500F51543 /* Dashboard */,
 				8FE056DA198FDB9200C81208 /* Find Station */,
 				8F08AF9B198940C8002EE906 /* Login */,
+				8F6266AD197EC8C700145EDB /* Metrics */,
 				8F2B7E33198AD8F0009DE89A /* Miscellaneous */,
 				8F2B7E44198C2DCB009DE89A /* Navigation */,
 				8FF94096198A8BCC00D319D7 /* Onboarding */,
@@ -1235,7 +1241,6 @@
 		8F6266AD197EC8C700145EDB /* Metrics */ = {
 			isa = PBXGroup;
 			children = (
-				D1D32D061B1FA0B500AE9B25 /* ActivityMetricDelegate.swift */,
 				8F3643A119460EB300C0033E /* MetricsViewController.swift */,
 				D1740BC31AE0381F00462F6E /* MetricsType.swift */,
 				D1E2DB811AE176760074CBAF /* MetricCard.swift */,
@@ -1243,10 +1248,14 @@
 				D1618F921ABB2E26000BDA85 /* MetricCardView.xib */,
 				D10D84481AEFF9D200DA3278 /* MetricDetailCardView.xib */,
 				D1FC72921B20116F0068CF89 /* WeightMetricCard.swift */,
+				D1D32D061B1FA0B500AE9B25 /* ActivityMetricDelegate.swift */,
 				D1FC72941B209CA40068CF89 /* MetricDelegate.swift */,
 				D1FC72961B20B0DC0068CF89 /* PulseMetricDelegate.swift */,
 				D1FC72981B20B1B70068CF89 /* WeightMetricDelegate.swift */,
 				D1FC729A1B20B22B0068CF89 /* BpMetricDelegate.swift */,
+				D1FC729C1B20FD9F0068CF89 /* MetricGraphUtility.swift */,
+				D1FC729E1B223FE70068CF89 /* MetricGauge.swift */,
+				D1FC72A01B2240020068CF89 /* MetricGaugeView.xib */,
 			);
 			name = Metrics;
 			sourceTree = "<group>";
@@ -1668,6 +1677,7 @@
 				8F2B7E5D198C49A9009DE89A /* nav_ocmicon.png in Resources */,
 				D1036CFF1B153477003E7239 /* sleepicon.png in Resources */,
 				8FF94091198960C900D319D7 /* LoginView.xib in Resources */,
+				D1FC72A11B2240020068CF89 /* MetricGaugeView.xib in Resources */,
 				D101757B1A79693C00CA32DC /* chat_bubble.png in Resources */,
 				8F5E7FD9199BCD52009067E5 /* graph_sincelastarrow_up_invert.png in Resources */,
 				8FD964CE19BFB99D00DA3DF8 /* search_icon.png in Resources */,
@@ -1918,6 +1928,7 @@
 				D12B370E1AA4EC57005B2ABA /* SphericalMercatorProjection.m in Sources */,
 				8FF9409A198A8C1800D319D7 /* ProfileImageViewController.swift in Sources */,
 				8F5E7FC5199BC6CB009067E5 /* CheckinCard.swift in Sources */,
+				D1FC729F1B223FE80068CF89 /* MetricGauge.swift in Sources */,
 				8FE056E3198FDC3900C81208 /* SettingsViewController.swift in Sources */,
 				D17528841B0FBD49006335B4 /* DailySummaryRow.swift in Sources */,
 				8F6A24361958DDFB0094B73C /* NewCPTMutablePlotRange.m in Sources */,
@@ -1942,6 +1953,7 @@
 				D17528881B0FD332006335B4 /* DailySummaryBreakdown.swift in Sources */,
 				8F6A24311951E5D80094B73C /* ApiUtility.swift in Sources */,
 				8F2B7E55198C3475009DE89A /* RevealViewController.swift in Sources */,
+				D1FC729D1B20FD9F0068CF89 /* MetricGraphUtility.swift in Sources */,
 				8FEF6F481A6EECDE001EF8A6 /* PulseCard.swift in Sources */,
 				8F5E7FC31999676E009067E5 /* KioskListCell.swift in Sources */,
 				8FCE580D1979B8BA0042CEE2 /* NewCPTScatterPlotDelegate.m in Sources */,

@@ -39,5 +39,12 @@ class ActivityMetricDelegate: MetricDelegate {
         let (date, points) = selectedActivity;
         return MetricCard.SelectedPoint(date: date, panelValue: points, panelLabel: "Activity Points", panelUnit: "pts");
     }
-
+    
+    func getGraph(frame: CGRect) -> MetricGraph {
+        return MetricGraphUtility.createActivityGraph(CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height));
+    }
+    
+    func getRanges() -> [(String, (Int, Int))] {
+        return [];
+    }
 }

@@ -13,4 +13,8 @@ protocol MetricDelegate {
     func setSelected(date: NSDate);
     
     func getSelectedPoint() -> MetricCard.SelectedPoint;
+    
+    func getGraph(frame: CGRect) -> MetricGraph;
+    
+    func getRanges() -> [(String, (Int, Int))];
 }

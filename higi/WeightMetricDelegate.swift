@@ -39,7 +39,22 @@ class WeightMetricDelegate: MetricDelegate {
     func getSelectedPoint() -> MetricCard.SelectedPoint {
         let date = Constants.displayDateFormatter.stringFromDate(selectedCheckin.dateTime);
         let weight = selectedCheckin.weightLbs != nil ? "\(Int(selectedCheckin.weightLbs!))" : "";
-        let bodyFat = selectedCheckin.fatRatio != nil ? "\(Int(selectedCheckin.fatRatio!))%" : "--%";
-        return MetricCard.SelectedPoint(date: date, firstPanelValue: weight, firstPanelLabel: "Weight", firstPanelUnit: "lbs", secondPanelValue: bodyFat, secondPanelLabel: "Body Fat", secondPanelUnit: "")
+        let bodyFat = selectedCheckin.fatRatio != nil ? "\(Int(selectedCheckin.fatRatio!))" : "--";
+        return MetricCard.SelectedPoint(date: date, firstPanelValue: weight, firstPanelLabel: "Weight", firstPanelUnit: "lbs", secondPanelValue: bodyFat, secondPanelLabel: "Body Fat", secondPanelUnit: "%")
+    }
+    
+    func getGraph(frame: CGRect) -> MetricGraph {
+        return MetricGraphUtility.createWeightGraph(CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height));
+    }
+    
+    func getRanges() -> [(String, (Int, Int))] {
+        var ranges:[(String, (Int, Int))] = [];
+        let low = ("Low", (40, 70));
+        let normal = ("Normal", (70, 110));
+        let high = ("High", (110, 140));
+        ranges.append(low);
+        ranges.append(normal);
+        ranges.append(high);
+        return ranges;
     }
 }

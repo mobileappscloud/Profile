@@ -42,4 +42,19 @@ class BpMetricDelegate: MetricDelegate {
         let map = selectedCheckin.map != nil ? "\(Int(selectedCheckin.map!))" : "";
         return MetricCard.SelectedPoint(date: date, firstPanelValue: bp, firstPanelLabel: "Blood Pressure", firstPanelUnit: "mmHg", secondPanelValue: map, secondPanelLabel: "Mean Arterial Pressure", secondPanelUnit: "mmHg")
     }
+    
+    func getGraph(frame: CGRect) -> MetricGraph {
+        return MetricGraphUtility.createBpGraph(CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height));
+    }
+    
+    func getRanges() -> [(String, (Int, Int))] {
+        var ranges:[(String, (Int, Int))] = [];
+        let low = ("Low", (40, 70));
+        let normal = ("Normal", (70, 110));
+        let high = ("High", (110, 140));
+        ranges.append(low);
+        ranges.append(normal);
+        ranges.append(high);
+        return ranges;
+    }
 }

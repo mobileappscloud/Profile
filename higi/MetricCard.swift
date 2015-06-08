@@ -8,8 +8,8 @@ class MetricCard: UIView, MetricDelegate {
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var icon: UIImageView!
     @IBOutlet weak var toggleButton: UIButton!
-    
     @IBOutlet weak var backButton: UIButton!
+    
     var viewFrame: CGRect!;
     
     var delegate: MetricDelegate!;
@@ -52,6 +52,7 @@ class MetricCard: UIView, MetricDelegate {
         let view = UINib(nibName: "MetricCardView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! MetricCard;
         view.delegate = delegate;
         view.initFrame(frame);
+        view.initGraphView();
         view.initHeader();
         view.setSelected(NSDate());
         return view;
@@ -77,12 +78,13 @@ class MetricCard: UIView, MetricDelegate {
         return delegate.getSelectedPoint();
     }
 
-//    func initializeGraphView(delegate: GraphDelegate, frame: CGRect) {
-//        graph = MetricGraph(frame: frame, points: <#[GraphPoint]#>)
-//        graph = MetricGraph(frame: CGRect(x: 0, y: graphY, width: graphWidth, height: graphHeight), points: graphPoints);
-//    
-//        self.graphContainer.addSubview(graph);
-//    }
+    func getGraph(frame: CGRect) -> MetricGraph {
+        return delegate.getGraph(frame);
+    }
+    
+    func initGraphView() {
+        self.graphContainer.addSubview(getGraph(graphContainer.frame));
+    }
 
     func populate() {
         
@@ -90,6 +92,10 @@ class MetricCard: UIView, MetricDelegate {
     
     func initRegions() {
         
+    }
+    
+    func getRanges() -> [(String, (Int, Int))] {
+        return delegate.getRanges();
     }
     
     func setSelected(date: NSDate) {

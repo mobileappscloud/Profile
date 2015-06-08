@@ -15,25 +15,49 @@ class MetricDetailCard: UIView {
     @IBOutlet weak var thirdPanelUnit: UILabel!
     @IBOutlet weak var thirdPanelLabel: UILabel!
     
-    @IBOutlet weak var firstCenteredPanel: UIView!
-    @IBOutlet weak var secondCenteredPanel: UIView!
-    @IBOutlet weak var centeredValue: UILabel!
-    @IBOutlet weak var centeredDate: UILabel!
+    @IBOutlet weak var headerContainer: UIView!
     
-    var color: UIColor!;
+    var delegate: MetricDelegate!;
     
-    class func instanceFromNib(selection: MetricCard.SelectedPoint, type: MetricsType) -> MetricDetailCard {
+    @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var titleUnit: UILabel!
+    @IBOutlet weak var checkinSource: UILabel!
+    @IBOutlet weak var checkinLocation: UILabel!
+    @IBOutlet weak var checkinAddress: UILabel!
+    @IBOutlet weak var gaugeContainer: UIView!
+    
+    class func instanceFromNib(selection: MetricCard.SelectedPoint, delegate: MetricDelegate) -> MetricDetailCard {
         var view = UINib(nibName: "MetricDetailCardView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! MetricDetailCard;
-        view.initWithType(type);
+        view.setup(delegate);
         view.setData(selection);
+        view.initPointsMeter();
         return view;
     }
     
-    func initWithType(type: MetricsType) {
-        color = Utility.colorFromMetricType(type);
+    func initPointsMeter() {
+        let meterSize:CGFloat = 40;
+        let pointsMeter = PointsMeter.create(CGRect(x: 8, y: (firstPanel.frame.size.height - meterSize) / 2, width: meterSize, height: meterSize));
+        let tap = UITapGestureRecognizer(target: self, action: "gotoSummary:");
+        pointsMeter.addGestureRecognizer(tap);
+        if let (total, todaysActivities) = SessionController.Instance.activities[Constants.dateFormatter.stringFromDate(NSDate())] {
+            pointsMeter.setActivities((total, todaysActivities));
+            pointsMeter.drawArc(false);
+        } else {
+            pointsMeter.setActivities((0, []));
+            pointsMeter.drawArc(false);
+        }
+        firstPanel.addSubview(pointsMeter);
+    }
+    
+    func setup(delegate: MetricDelegate) {
+        self.delegate = delegate;
+        let color = delegate.getColor();
         firstPanelValue.textColor = color;
         secondPanelValue.textColor = color;
         thirdPanelValue.textColor = color;
+        
+        let gauge = MetricGauge.create(CGRect(x: 0, y: 0, width: gaugeContainer.frame.size.width, height: gaugeContainer.frame.size.height), delegate: delegate);
+        gaugeContainer.addSubview(gauge);
     }
     
     func animateBounce(destination: CGFloat) {

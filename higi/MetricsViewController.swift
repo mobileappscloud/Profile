@@ -60,7 +60,7 @@ class MetricsViewController: BaseViewController {
             cardClickedAtIndex(selectedCardPosition);
         }
         if (card != nil) {
-            detailsCard = initDetailCard(card!.getSelectedPoint(), type: card!.getType());
+            detailsCard = initDetailCard(card!.getSelectedPoint(), delegate: card!.delegate);
             detailsCard.frame.origin.y = UIScreen.mainScreen().bounds.height;
             self.view.addSubview(detailsCard);
         }
@@ -133,8 +133,6 @@ class MetricsViewController: BaseViewController {
     func cardDragged(index: Int, translation: CGPoint) {
         if (index == 0) {
             var topCard = self.view.subviews[self.view.subviews.count - 2] as! UIView;
-            let a = topCard.frame.origin.x + translation.x;
-            let b = -cardDragThreshold;
             if (topCard.frame.origin.x + translation.x < -cardDragThreshold) {
                 cardClickedAtIndex(index + 1);
             }
@@ -150,8 +148,7 @@ class MetricsViewController: BaseViewController {
                 if (card.frame.origin.x + translation.x < -cardDragThreshold) {
                     cardClickedAtIndex(index + 1);
                     break;
-                }
-                if (card.frame.origin.x + translation.x < 0) {
+                } else if (card.frame.origin.x + translation.x < 0) {
                     card.frame.origin.x += translation.x;
                 } else {
                     card.frame.origin.x = 0;
@@ -172,21 +169,21 @@ class MetricsViewController: BaseViewController {
     func updateDetailCard() {
         detailsCard.removeFromSuperview();
         let currentCard = self.view.subviews[self.view.subviews.count - 1] as! MetricCard;
-        detailsCard = initDetailCard(currentCard.getSelectedPoint(), type: currentCard.getType());
+        detailsCard = initDetailCard(currentCard.getSelectedPoint(), delegate: currentCard.delegate);
         self.view.addSubview(detailsCard);
     }
     
-    func initDetailCard(selection: MetricCard.SelectedPoint, type: MetricsType) -> MetricDetailCard {
-        let card = MetricDetailCard.instanceFromNib(selection, type: type);
+    func initDetailCard(selection: MetricCard.SelectedPoint, delegate: MetricDelegate) -> MetricDetailCard {
+        let card = MetricDetailCard.instanceFromNib(selection, delegate: delegate);
         card.frame.origin.y = detailsOpen ? cardHeaderViewHeight : detailsCardPosY;
         let selectedTapRecognizer = UITapGestureRecognizer(target: self, action: "detailsTapped:");
         let swipeDownRecognizer = UISwipeGestureRecognizer(target: self, action: "detailsSwiped:");
         swipeDownRecognizer.direction = UISwipeGestureRecognizerDirection.Down;
         let swipeUpRecognizer = UISwipeGestureRecognizer(target: self, action: "detailsSwiped:");
         swipeUpRecognizer.direction = UISwipeGestureRecognizerDirection.Up;
-        card.addGestureRecognizer(selectedTapRecognizer);
-        card.addGestureRecognizer(swipeDownRecognizer);
-        card.addGestureRecognizer(swipeUpRecognizer);
+        card.headerContainer.addGestureRecognizer(selectedTapRecognizer);
+        card.headerContainer.addGestureRecognizer(swipeDownRecognizer);
+        card.headerContainer.addGestureRecognizer(swipeUpRecognizer);
         return card;
     }
     

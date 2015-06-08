@@ -40,7 +40,7 @@ class PointsMeter: UIView {
     func setActivities(dailyActivity: (Int, [HigiActivity])) {
         (total, activities) = dailyActivity;
         lineWidth = self.frame.size.width * 0.06;
-        radius = self.frame.size.width / 2 * 0.9;
+        radius = self.frame.size.width / 2 * 0.9 - (lineWidth / 2);
         var toPath = UIBezierPath();
         var arc = CAShapeLayer();
         arc.lineWidth = lineWidth;
@@ -117,6 +117,7 @@ class PointsMeter: UIView {
             points.frame.size.width = targetFrame!.size.width;
             points.center = CGPoint(x: targetFrame!.size.width / 2 , y: targetFrame!.size.height / 2);
             meterContainer.frame = targetFrame!;
+            meterContainer.center = CGPoint(x: targetFrame!.size.width / 2 , y: targetFrame!.size.height / 2);
             layoutIfNeeded();
         }
     }

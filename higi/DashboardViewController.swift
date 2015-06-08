@@ -141,6 +141,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             challengeView.backgroundColor = UIColor.whiteColor();
             challengesCard.challengeBox.addSubview(challengeView);
             challengeView.userInteractionEnabled = false;
+            challengeView.updateConstraintsIfNeeded();
             challengeView.animate();
         } else {
             challengesCard.challengeBox.hidden = true;
@@ -196,7 +197,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             let pulseColor = Utility.colorFromMetricType(MetricsType.Pulse);
             let weightColor = Utility.colorFromMetricType(MetricsType.Weight);
             
-            activityCard = MetricsGraphCard.instanceFromNib("Activity", lastActivityDate: bps.last!.dateTime, totalPoints: 0, type: MetricsType.DailySummary);
+            activityCard = MetricsGraphCard.instanceFromNib("Activity", activity: (bps.last!.dateTime, 0), type: MetricsType.DailySummary);
             activityCard.frame.origin.y = cardPositionY;
             activityCard.frame.origin.x = cardMarginX;
             let activityTouched = UITapGestureRecognizer(target: self, action: "gotoActivityGraph:");
