@@ -117,4 +117,11 @@ class Utility {
         UIGraphicsEndImageContext();
         return newImage;
     }
+    
+    class func growAnimation(view: UIView, startHeight: CGFloat, endHeight: CGFloat) {
+        view.frame.size.height = startHeight;
+        UIView.animateWithDuration(1, animations: {
+            view.frame.size.height = endHeight;
+        }, completion: nil)
+    }
 }
