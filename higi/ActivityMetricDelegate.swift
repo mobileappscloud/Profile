@@ -24,13 +24,11 @@ class ActivityMetricDelegate: MetricDelegate {
         let selectedDate = Double(date.timeIntervalSince1970);
         var minDifference = DBL_MAX;
         for (activityDate, (total, activities)) in SessionController.Instance.activities {
-            let date = Constants.dateFormatter.dateFromString(activityDate)!.timeIntervalSince1970;
-            let difference = abs(date - selectedDate);
+            let interval = Constants.dateFormatter.dateFromString(activityDate)!.timeIntervalSince1970;
+            let difference = abs(interval - selectedDate);
             if (difference < minDifference) {
                 minDifference = difference;
-                selectedActivity = (Constants.displayDateFormatter.stringFromDate(NSDate(timeIntervalSince1970: date)), "\(total)");
-            } else {
-                break;
+                selectedActivity = (Constants.displayDateFormatter.stringFromDate(NSDate(timeIntervalSince1970: interval)), "\(total)");
             }
         }
     }

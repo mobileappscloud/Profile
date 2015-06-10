@@ -30,8 +30,6 @@ class PulseMetricDelegate: MetricDelegate {
             if (difference < minDifference && checkin.pulseBpm != nil) {
                 minDifference = difference;
                 selectedCheckin = checkin;
-            } else {
-                break;
             }
         }
     }

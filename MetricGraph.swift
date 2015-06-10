@@ -456,11 +456,6 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         let i = 0;
     }
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-        super.touchesBegan(touches, withEvent: event);
-        let i = 0;
-    }
-    
     func roundToLowest(number: Double, roundTo: Double) -> Double {
         return Double(Int(number / roundTo) * Int(roundTo));
     }

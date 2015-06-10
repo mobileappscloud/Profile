@@ -30,8 +30,6 @@ class WeightMetricDelegate: MetricDelegate {
             if (difference < minDifference && checkin.weightLbs != nil || checkin.fatRatio != nil) {
                 minDifference = difference;
                 selectedCheckin = checkin;
-            } else {
-                break;
             }
         }
     }
