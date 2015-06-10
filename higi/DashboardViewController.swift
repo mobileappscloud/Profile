@@ -173,7 +173,9 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             } else if (challengesLoaded) {
                 challengesCard.challengeBox.hidden = true;
                 challengesCard.blankStateImage.hidden = false;
-                Utility.growAnimation(challengesCard, startHeight: challengesCard.frame.size.height, endHeight: challengesCard.blankStateImage.frame.origin.y + challengesCard.blankStateImage.frame.size.height + 8);
+                Utility.growAnimation(challengesCard, startHeight: challengesCard.frame.size.height, endHeight: challengesCard.blankStateImage.frame.origin.y + challengesCard.blankStateImage.frame.size.height);
+                challengesCard.loadingContainer.hidden = true;
+                challengesCard.spinner.stopAnimating();
             }
         }
         layoutDashboardItems(dashboardItems);
