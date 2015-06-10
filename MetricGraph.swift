@@ -38,6 +38,11 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         graph.paddingBottom = 0;
     }
     
+    func setup(frame: CGRect, points: [GraphPoint]) {
+        self.points = points;
+        self.frame = frame;
+    }
+    
     func setupForDashboard(type: MetricsType) {
         if (points.count < 1) {
             return;
@@ -346,17 +351,6 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
             if (point.y > maxY) {
                 maxY = point.y;
             }
-//            if (altPoints.count > 0 && altPoints.count > index) {
-            
-//                let systolicPoint = systolicPoints[index];
-//                let diastolicPoint = diastolicPoints[index];
-//                let screenSystolicPoint = getScreenPoint(self, xPoint: CGFloat(systolicPoint.x), yPoint: CGFloat(systolicPoint.y));
-//                let screenDiastolicPoint = getScreenPoint(self, xPoint: CGFloat(diastolicPoint.x), yPoint: CGFloat(diastolicPoint.y));
-//                
-//                let view = UIView(frame: CGRect(x: screenSystolicPoint.x - 0.5, y: self.frame.size.height - CGFloat(screenSystolicPoint.y) - 24, width: 1, height: CGFloat(screenSystolicPoint.y - screenDiastolicPoint.y)));
-//                view.backgroundColor = plotSymbol.lineStyle.lineColor.uiColor;
-//                addSubview(view);
-//            }
             if (points.count > pointsToShow) {
                 if (index > points.count - 1 - pointsToShow) {
                     visiblePoints.append(point);
@@ -502,19 +496,24 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
     }
     
     func checkinSelected(plot: CPTScatterPlot!, idx: Int, first: Bool) {
+        var point:GraphPoint!;
         if (plot.isEqual(self.plot)) {
             selectedPointIndex = idx;
+            point = points[idx];
         } else {
             selectedPointIndex = Int(idx / 2);
+            point = altPoints[idx];
+            altPlot.reloadData();
         }
-//        if (!first) {
-//            var viewController = self.superview!.superview!.superview as! MetricCard?;
-//            viewController!.setSelected(selectedPointIndex);
-//        }
-//        if (diastolicPoints.count > 0) {
-//            altPlot.reloadData();
-//        }
+        if (!first) {
+            var viewController = self.superview!.superview!.superview as! MetricCard?;
+            let a = NSDate(timeIntervalSince1970: point.x);
+            viewController!.setSelected(NSDate(timeIntervalSince1970: point.x));
+        }
         self.plot.reloadData();
+        if (altPoints.count > 0) {
+            self.altPlot.reloadData();
+        }
     }
     
     func plotSpace(space: CPTPlotSpace!, didChangePlotRangeForCoordinate coordinate: CPTCoordinate) {

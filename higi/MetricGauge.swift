@@ -78,6 +78,8 @@ class MetricGauge: UIView {
         }
         
         var strokeStart:CGFloat = 0.0, strokeEnd:CGFloat = 0.0;
+        let x = center.x + radius * cos(startAngle);
+        let y = center.y + radius * sin(startAngle);
         for range in ranges {
             let (begin, end) = range.interval;
             let rangeInterval = (CGFloat(end) - CGFloat(begin)) / (CGFloat(max) - CGFloat(min));
@@ -86,7 +88,12 @@ class MetricGauge: UIView {
             var rangeArc = CAShapeLayer();
             rangeArc.lineWidth = lineWidth;
             rangeArc.fillColor = UIColor.clearColor().CGColor;
-            rangeArc.strokeColor = range.color.CGColor;
+            if (userValue <= end && userValue >= begin) {
+                self.label.text = range.label;
+                rangeArc.strokeColor = range.color.CGColor;
+            } else {
+                rangeArc.strokeColor = UIColor.whiteColor().CGColor;
+            }
             var center = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2);
             rangeArc.strokeStart = strokeStart;
             rangeArc.strokeEnd = strokeEnd;

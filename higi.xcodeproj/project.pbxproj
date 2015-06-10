@@ -350,6 +350,7 @@
 		D1FC729D1B20FD9F0068CF89 /* MetricGraphUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FC729C1B20FD9F0068CF89 /* MetricGraphUtility.swift */; };
 		D1FC729F1B223FE80068CF89 /* MetricGauge.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FC729E1B223FE70068CF89 /* MetricGauge.swift */; };
 		D1FC72A11B2240020068CF89 /* MetricGaugeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1FC72A01B2240020068CF89 /* MetricGaugeView.xib */; };
+		D1FD3FC81B263BBA007D362D /* MetricsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1FD3FC71B263BBA007D362D /* MetricsView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -741,6 +742,7 @@
 		D1FC729C1B20FD9F0068CF89 /* MetricGraphUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricGraphUtility.swift; sourceTree = "<group>"; };
 		D1FC729E1B223FE70068CF89 /* MetricGauge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricGauge.swift; sourceTree = "<group>"; };
 		D1FC72A01B2240020068CF89 /* MetricGaugeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MetricGaugeView.xib; sourceTree = "<group>"; };
+		D1FD3FC71B263BBA007D362D /* MetricsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MetricsView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1241,6 +1243,7 @@
 		8F6266AD197EC8C700145EDB /* Metrics */ = {
 			isa = PBXGroup;
 			children = (
+				D1FD3FC71B263BBA007D362D /* MetricsView.xib */,
 				8F3643A119460EB300C0033E /* MetricsViewController.swift */,
 				D1740BC31AE0381F00462F6E /* MetricsType.swift */,
 				D1E2DB811AE176760074CBAF /* MetricCard.swift */,
@@ -1842,6 +1845,7 @@
 				D1FC09951A83DE960049B5C0 /* team_icon.png in Resources */,
 				8F5F91881A7193E80042D87C /* activitywidgetblankstate.png in Resources */,
 				8F5C38DE1981901600F51543 /* bloodpressure.png in Resources */,
+				D1FD3FC81B263BBA007D362D /* MetricsView.xib in Resources */,
 				8F1D979E199556F3003B5645 /* mask.png in Resources */,
 				8F5E7FDA199BCD52009067E5 /* overlay_close.png in Resources */,
 				8FFB034919FEA2440036228C /* oc_activity_active.png in Resources */,

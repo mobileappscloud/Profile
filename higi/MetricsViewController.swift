@@ -65,10 +65,12 @@ class MetricsViewController: BaseViewController {
             cardClickedAtIndex(selectedCardPosition);
         }
     }
-
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated);
-        detailsCard.animateBounce(detailsCardPosY);
+        if (detailsCard != nil) {
+            detailsCard.animateBounce(detailsCardPosY);
+        }
     }
     
     override func viewWillDisappear(animated: Bool) {

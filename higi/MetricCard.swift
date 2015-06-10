@@ -10,6 +10,8 @@ class MetricCard: UIView, MetricDelegate {
     @IBOutlet weak var toggleButton: UIButton!
     @IBOutlet weak var backButton: UIButton!
     
+    var graph: MetricGraph!;
+    
     var viewFrame: CGRect!;
     
     var delegate: MetricDelegate!;
@@ -19,6 +21,8 @@ class MetricCard: UIView, MetricDelegate {
     var selectedPoint: SelectedPoint!;
     
     var selectedCheckin: HigiCheckin!;
+    
+    var initializing = true;
     
     struct SelectedPoint {
         var date:String!
@@ -58,6 +62,14 @@ class MetricCard: UIView, MetricDelegate {
         return view;
     }
     
+    override func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {
+        if (point.y > 54 && point.y < (graphContainer.frame.origin.y + graphContainer.frame.size.height)) {
+            return graph;
+        } else {
+            return super.hitTest(point, withEvent: event);
+        }
+    }
+    
     func getTitle() -> String {
         return delegate.getTitle();
     }
@@ -83,7 +95,8 @@ class MetricCard: UIView, MetricDelegate {
     }
     
     func initGraphView() {
-        self.graphContainer.addSubview(getGraph(graphContainer.frame));
+        graph = getGraph(graphContainer.frame);
+        self.graphContainer.addSubview(graph);
     }
 
     func populate() {
@@ -100,6 +113,10 @@ class MetricCard: UIView, MetricDelegate {
     
     func setSelected(date: NSDate) {
         delegate.setSelected(date);
+        if (!initializing) {
+            updateDetailsCard();
+        }
+        initializing = false;
     }
     
     func initHeader() {
@@ -146,4 +163,7 @@ class MetricCard: UIView, MetricDelegate {
         (Utility.getViewController(self) as! MetricsViewController).cardClickedAtIndex(position);
     }
 
+    func updateDetailsCard() {
+        (Utility.getViewController(self) as! MetricsViewController).updateDetailCard();
+    }
 }
