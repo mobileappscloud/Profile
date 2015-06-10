@@ -81,4 +81,10 @@ class MetricDetailCard: UIView {
         thirdPanelUnit.text = selection.secondPanel.unit;
         thirdPanelLabel.text = selection.secondPanel.label;
     }
+    
+    func gotoSummary(sender: AnyObject) {
+        Flurry.logEvent("Summary_Pressed");
+        var summaryController = DailySummaryViewController(nibName: "DailySummaryView", bundle: nil);
+        Utility.getViewController(self)!.navigationController!.pushViewController(summaryController, animated: true);
+    }
 }

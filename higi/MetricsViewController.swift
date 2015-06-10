@@ -14,14 +14,10 @@ class MetricsViewController: BaseViewController {
 
     let detailsCardPosY:CGFloat = 267, cardHeaderViewHeight:CGFloat = 54, cardDragThreshold:CGFloat = 300;
     
-    override func viewDidLoad() {
-        super.viewDidLoad();
-        self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
-        self.navigationController!.navigationBarHidden = true;
-    }
-    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
+        self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
+        self.navigationController!.navigationBarHidden = true;
         revealController.panGestureRecognizer().enabled = false;
         revealController.supportedOrientations = UIInterfaceOrientationMask.LandscapeRight.rawValue;
         revealController.shouldRotate = true;

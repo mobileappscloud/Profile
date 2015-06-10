@@ -332,8 +332,6 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         unselectedAltPlotLineStyle.lineColor = CPTColor(CGColor: unselectedColor.CGColor);
         unselectedAltPlotLineStyle.lineWidth = 1;
         unselectedAltPlotSymbol.lineStyle = unselectedAltPlotLineStyle;
-        
-        var visiblePoints: [GraphPoint] = [];
         for index in 0..<altPoints.count {
             var point2 = altPoints[index];
             if (point2.y < minY) {
@@ -351,13 +349,6 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
             if (point.y > maxY) {
                 maxY = point.y;
             }
-            if (points.count > pointsToShow) {
-                if (index > points.count - 1 - pointsToShow) {
-                    visiblePoints.append(point);
-                }
-            } else {
-                visiblePoints.append(point);
-            }
         }
         if (altPoints.count > 0) {
             altPlot = NewCPTScatterPlot(frame: CGRectZero);
@@ -374,9 +365,9 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
             graph.addPlot(altPlot, toPlotSpace: graph.defaultPlotSpace);
         }
         var firstPoint, lastPoint: GraphPoint;
-        if (visiblePoints.count > 0) {
-            firstPoint = visiblePoints[0];
-            lastPoint = visiblePoints[visiblePoints.count - 1];
+        if (points.count > 0) {
+            firstPoint = points[0];
+            lastPoint = points[points.count - 1];
         } else {
             firstPoint = GraphPoint(x: 0, y: 0);
             lastPoint = GraphPoint(x: 0, y: 0);
@@ -384,12 +375,19 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         }
         var tickInterval = 20.0;
         let lowerBound = roundToLowest(round(minY) - (maxY - minY) * 0.25, roundTo: tickInterval);
-        let yRange = roundToHighest((maxY - minY) * 1.5, roundTo: tickInterval);
-        var xRange = lastPoint.x - firstPoint.x != 0 ? lastPoint.x - firstPoint.x : 1;
+        var yRange = roundToHighest((maxY - minY) * 1.5, roundTo: tickInterval);
+        if (lowerBound + yRange <= maxY) {
+            yRange *= 1.5;
+        }
         var plotSpace = self.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace;
-        plotSpace.xRange = NewCPTPlotRange(location: firstPoint.x - xRange * 0.2, length: xRange * 1.3);
+//        plotSpace.xRange = NewCPTPlotRange(location: firstPoint.x - xRange * 0.2, length: xRange * 1.3);
+        var visibleMin = firstPoint;
+        if (points.count > 30) {
+            visibleMin = points[points.count - 31];
+        }
+        plotSpace.xRange = NewCPTPlotRange(location: visibleMin.x - 1, length: lastPoint.x - visibleMin.x + 2);
         plotSpace.yRange = NewCPTPlotRange(location: lowerBound, length: yRange);
-        plotSpace.globalXRange = plotSpace.xRange;
+        plotSpace.globalXRange = NewCPTPlotRange(location: firstPoint.x - 1, length: lastPoint.x - firstPoint.x + 2);
         plotSpace.globalYRange = plotSpace.yRange;
         plotSpace.delegate = self;
         plotSpace.allowsUserInteraction = true;
@@ -414,7 +412,7 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         xAxis.labelTextStyle = axisTextStyle;
         xAxis.majorTickLineStyle = nil;
         xAxis.minorTickLineStyle = nil;
-        xAxis.visibleRange = plotSpace.xRange;
+        xAxis.visibleRange = plotSpace.globalXRange;
         xAxis.axisConstraints = CPTConstraints(lowerOffset: 0);
         xAxis.labelingPolicy = CPTAxisLabelingPolicyEqualDivisions;
         xAxis.preferredNumberOfMajorTicks = 10;
