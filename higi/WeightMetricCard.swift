@@ -13,4 +13,5 @@ class WeightMetricCard: MetricCard {
     override func getIcon() -> UIImage {
         return Utility.imageWithColor(UIImage(named: "weighticon")!, color: UIColor.whiteColor());
     }
+    
 }

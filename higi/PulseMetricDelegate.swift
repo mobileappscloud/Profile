@@ -20,6 +20,10 @@ class PulseMetricDelegate: MetricDelegate {
         return MetricsType.Pulse;
     }
     
+    func getCopyImage() -> UIImage? {
+        return UIImage(named: "pulse_overlay")!;
+    }
+    
     func setSelected(date: NSDate) {
         let selectedDate = Double(date.timeIntervalSince1970);
         var minDifference = DBL_MAX;
@@ -46,9 +50,9 @@ class PulseMetricDelegate: MetricDelegate {
     
     func getRanges() -> [MetricGauge.Range] {
         var ranges:[MetricGauge.Range] = [];
-        ranges.append(MetricGauge.Range(label: "High", color: Utility.colorFromHexString("#ef535a"), interval: (110, 140)));
-        ranges.append(MetricGauge.Range(label: "Normal", color: Utility.colorFromHexString("#88c681"), interval: (70, 110)));
-        ranges.append(MetricGauge.Range(label: "Low", color: Utility.colorFromHexString("#44aad8"), interval: (40, 70)));
+        ranges.append(MetricGauge.Range(label: "Low", color: Utility.colorFromHexString("#44aad8"), interval: (40, 60)));
+        ranges.append(MetricGauge.Range(label: "Normal", color: Utility.colorFromHexString("#88c681"), interval: (60, 100)));
+        ranges.append(MetricGauge.Range(label: "High", color: Utility.colorFromHexString("#ef535a"), interval: (100, 120)));
         return ranges;
     }
 }

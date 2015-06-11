@@ -20,6 +20,10 @@ class BpMetricDelegate: MetricDelegate {
         return MetricsType.BloodPressure;
     }
     
+    func getCopyImage() -> UIImage? {
+        return UIImage(named: "bp_overlay")!;
+    }
+    
     func setSelected(date: NSDate) {
         let selectedDate = Double(date.timeIntervalSince1970);
         var minDifference = DBL_MAX;
@@ -46,13 +50,10 @@ class BpMetricDelegate: MetricDelegate {
     }
     
     func getRanges() -> [MetricGauge.Range] {
-        let high = MetricGauge.Range(label: "High", color: Utility.colorFromHexString("#ef535a"), interval: (110, 140));
-        let normal = MetricGauge.Range(label: "Normal", color: Utility.colorFromHexString("#88c681"), interval: (70, 110));
-        let low = MetricGauge.Range(label: "At risk", color: Utility.colorFromHexString("#fdd835"), interval: (40, 70));
         var ranges:[MetricGauge.Range] = [];
-        ranges.append(MetricGauge.Range(label: "High", color: Utility.colorFromHexString("#ef535a"), interval: (110, 140)));
+        ranges.append(MetricGauge.Range(label: "At risk", color: Utility.colorFromHexString("#fdd835"), interval: (30, 70)));
         ranges.append(MetricGauge.Range(label: "Normal", color: Utility.colorFromHexString("#88c681"), interval: (70, 110)));
-        ranges.append(MetricGauge.Range(label: "At risk", color: Utility.colorFromHexString("#fdd835"), interval: (40, 70)));
+        ranges.append(MetricGauge.Range(label: "High", color: Utility.colorFromHexString("#ef535a"), interval: (110, 150)));
         return ranges;
     }
 }

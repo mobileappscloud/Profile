@@ -119,6 +119,10 @@ class MetricCard: UIView, MetricDelegate {
         initializing = false;
     }
     
+    func getCopyImage() -> UIImage? {
+        return delegate.getCopyImage();
+    }
+    
     func initHeader() {
         icon.image = getIcon();
         title.text = getTitle();

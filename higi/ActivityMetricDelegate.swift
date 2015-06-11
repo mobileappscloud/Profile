@@ -20,6 +20,10 @@ class ActivityMetricDelegate: MetricDelegate {
         return MetricsType.DailySummary;
     }
     
+    func getCopyImage() -> UIImage? {
+        return nil;
+    }
+    
     func setSelected(date: NSDate) {
         let selectedDate = Double(date.timeIntervalSince1970);
         var minDifference = DBL_MAX;

@@ -17,4 +17,6 @@ protocol MetricDelegate {
     func getGraph(frame: CGRect) -> MetricGraph;
     
     func getRanges() -> [MetricGauge.Range];
+    
+    func getCopyImage() -> UIImage?;
 }

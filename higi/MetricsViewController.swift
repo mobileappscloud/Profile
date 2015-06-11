@@ -214,11 +214,18 @@ class MetricsViewController: BaseViewController {
         }
     }
     
+    func openDetailsIfClosed() {
+        if (!detailsOpen) {
+            openDetails();
+        }
+    }
+    
     func openDetails() {
         UIView.animateWithDuration(animationDuration, delay: 0, options: .CurveEaseInOut, animations: {
-            self.detailsCard.frame.origin.y = self.cardHeaderViewHeight;
+            self.detailsCard.frame.origin.y = self.cardHeaderViewHeight - 1;
             }, completion: nil);
         detailsOpen = true;
+        detailsCard.setPanelHeaders(detailsOpen);
     }
     
     func closeDetails() {
@@ -226,6 +233,7 @@ class MetricsViewController: BaseViewController {
             self.detailsCard.frame.origin.y = self.detailsCardPosY;
             }, completion: nil);
         detailsOpen = false;
+        detailsCard.setPanelHeaders(detailsOpen);
     }
     
     func showDetailsCard() {

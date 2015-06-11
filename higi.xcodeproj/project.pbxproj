@@ -264,6 +264,7 @@
 		D10D89501A8C11A9000402D4 /* ChallengeDetailsParticipantIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10D894F1A8C11A9000402D4 /* ChallengeDetailsParticipantIcon.swift */; };
 		D110BAD41B0E7C5500CD1E58 /* DailySummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D110BAD31B0E7C5500CD1E58 /* DailySummaryViewController.swift */; };
 		D110BAD61B0E7CD700CD1E58 /* DailySummaryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D110BAD51B0E7CD700CD1E58 /* DailySummaryView.xib */; };
+		D114B06B1B2A19900073A9CB /* TriangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D114B06A1B2A19900073A9CB /* TriangleView.swift */; };
 		D1247BC91AA620F1008A601A /* HigiClusterRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = D1247BC81AA620F1008A601A /* HigiClusterRenderer.m */; };
 		D12780AE1A4A2701002EB56A /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D12780AD1A4A2701002EB56A /* fontawesome-webfont.ttf */; };
 		D12B37061AA4DF02005B2ABA /* ClusterKiosk.m in Sources */ = {isa = PBXBuildFile; fileRef = D12B37051AA4DF02005B2ABA /* ClusterKiosk.m */; };
@@ -638,6 +639,7 @@
 		D10D894F1A8C11A9000402D4 /* ChallengeDetailsParticipantIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeDetailsParticipantIcon.swift; sourceTree = "<group>"; };
 		D110BAD31B0E7C5500CD1E58 /* DailySummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailySummaryViewController.swift; sourceTree = "<group>"; };
 		D110BAD51B0E7CD700CD1E58 /* DailySummaryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DailySummaryView.xib; sourceTree = "<group>"; };
+		D114B06A1B2A19900073A9CB /* TriangleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriangleView.swift; sourceTree = "<group>"; };
 		D1247BC71AA620C9008A601A /* HigiClusterRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HigiClusterRenderer.h; sourceTree = "<group>"; };
 		D1247BC81AA620F1008A601A /* HigiClusterRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HigiClusterRenderer.m; sourceTree = "<group>"; };
 		D1247BCC1AA662DC008A601A /* ClusterManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClusterManagerDelegate.h; sourceTree = "<group>"; };
@@ -1259,6 +1261,7 @@
 				D1FC729C1B20FD9F0068CF89 /* MetricGraphUtility.swift */,
 				D1FC729E1B223FE70068CF89 /* MetricGauge.swift */,
 				D1FC72A01B2240020068CF89 /* MetricGaugeView.xib */,
+				D114B06A1B2A19900073A9CB /* TriangleView.swift */,
 			);
 			name = Metrics;
 			sourceTree = "<group>";
@@ -1973,6 +1976,7 @@
 				D1D32CF91B1F533100AE9B25 /* GraphDelegate.swift in Sources */,
 				D12B398B1AA4ECC6005B2ABA /* GQTPointQuadTree.m in Sources */,
 				8FE0BCCE199175BC00940D39 /* PulseCell.swift in Sources */,
+				D114B06B1B2A19900073A9CB /* TriangleView.swift in Sources */,
 				D1FC72991B20B1B70068CF89 /* WeightMetricDelegate.swift in Sources */,
 				8FEF1B051AA9173D0036C4FB /* ChallengeView.swift in Sources */,
 				8F5E7FD0199BC992009067E5 /* CheckinCell.swift in Sources */,

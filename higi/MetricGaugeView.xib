@@ -11,23 +11,43 @@
             <rect key="frame" x="0.0" y="-6" width="200" height="180"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="99.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K9n-ge-jwg">
-                    <rect key="frame" x="0.0" y="72" width="200" height="32"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="42"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="63T-Vi-6Hy">
+                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="63T-Vi-6Hy">
                     <rect key="frame" x="0.0" y="0.0" width="200" height="180"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cl2-qD-MAO">
-                            <rect key="frame" x="0.0" y="105" width="200" height="20"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cl2-qD-MAO">
+                            <rect key="frame" x="0.0" y="106" width="200" height="20"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KGm-5J-Iod">
+                            <rect key="frame" x="0.0" y="53" width="200" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="99.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K9n-ge-jwg">
+                            <rect key="frame" x="0.0" y="74" width="200" height="32"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="32"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="KGm-5J-Iod" firstAttribute="leading" secondItem="63T-Vi-6Hy" secondAttribute="leading" id="0aJ-UC-jIW"/>
+                        <constraint firstItem="K9n-ge-jwg" firstAttribute="top" secondItem="KGm-5J-Iod" secondAttribute="bottom" id="47h-wI-BLU"/>
+                        <constraint firstAttribute="trailing" secondItem="KGm-5J-Iod" secondAttribute="trailing" id="4gG-qb-AKv"/>
+                        <constraint firstItem="K9n-ge-jwg" firstAttribute="leading" secondItem="63T-Vi-6Hy" secondAttribute="leading" id="90r-Fv-iyf"/>
+                        <constraint firstAttribute="trailing" secondItem="cl2-qD-MAO" secondAttribute="trailing" id="DFt-ls-j33"/>
+                        <constraint firstAttribute="trailing" secondItem="K9n-ge-jwg" secondAttribute="trailing" id="FW3-bj-9up"/>
+                        <constraint firstItem="cl2-qD-MAO" firstAttribute="leading" secondItem="63T-Vi-6Hy" secondAttribute="leading" id="HQP-oB-u5e"/>
+                        <constraint firstItem="cl2-qD-MAO" firstAttribute="top" secondItem="K9n-ge-jwg" secondAttribute="bottom" id="JE0-8A-2BS"/>
+                        <constraint firstAttribute="centerX" secondItem="K9n-ge-jwg" secondAttribute="centerX" id="MJ4-Pa-1jU"/>
+                        <constraint firstItem="K9n-ge-jwg" firstAttribute="top" secondItem="KGm-5J-Iod" secondAttribute="bottom" id="XTh-cT-Gw8"/>
+                        <constraint firstItem="cl2-qD-MAO" firstAttribute="top" secondItem="K9n-ge-jwg" secondAttribute="bottom" id="mKp-rp-dZO"/>
+                        <constraint firstAttribute="centerY" secondItem="K9n-ge-jwg" secondAttribute="centerY" id="mzz-0a-TRt"/>
+                    </constraints>
                 </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -35,6 +55,7 @@
             <connections>
                 <outlet property="gaugeContainer" destination="63T-Vi-6Hy" id="jLt-3P-SwL"/>
                 <outlet property="label" destination="cl2-qD-MAO" id="MdO-Dh-FRX"/>
+                <outlet property="unit" destination="KGm-5J-Iod" id="T6D-e8-qxJ"/>
                 <outlet property="value" destination="K9n-ge-jwg" id="Isr-Xv-iOP"/>
             </connections>
             <point key="canvasLocation" x="211" y="286"/>
