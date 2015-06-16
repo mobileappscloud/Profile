@@ -39,7 +39,12 @@ class MetricsViewController: BaseViewController {
             case MetricsType.Pulse:
                 card = MetricCard.instanceFromNib(PulseMetricDelegate(), frame: cardFrame);
             case MetricsType.Weight:
-                card = MetricCard.instanceFromNib(WeightMetricDelegate(), frame: cardFrame);
+                let delegate = WeightMetricDelegate();
+                card = MetricCard.instanceFromNib(delegate, frame: cardFrame);
+                card!.toggleButton.hidden = false;
+                card!.secondaryGraph = delegate.getSecondaryGraph(card!.graphContainer.frame);
+                card!.secondaryGraph.hidden = true;
+                card!.graphContainer.addSubview(card!.secondaryGraph);
             default:
                 var i = 0;
             }
@@ -49,7 +54,6 @@ class MetricsViewController: BaseViewController {
             card!.backButton.addTarget(self, action: "backButtonClicked:", forControlEvents: UIControlEvents.TouchUpInside);
             card!.position = pos;
             self.view.addSubview(card!);
-            //            card.setupGraph();
             pos--;
         }
         if (card != nil) {

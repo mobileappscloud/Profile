@@ -13,12 +13,12 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
     var graph: CPTXYGraph!;
     
     var altPlotLinesAdded = false;
-    
+
     init(frame: CGRect, points: [GraphPoint]) {
         self.points = points;
         super.init(frame: frame);
     }
-    
+
     init(frame: CGRect, points: [GraphPoint], altPoints: [GraphPoint]) {
         self.points = points;
         self.altPoints = altPoints;

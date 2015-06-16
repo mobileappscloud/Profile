@@ -31,7 +31,7 @@ class WeightMetricDelegate: MetricDelegate {
             let checkin = SessionController.Instance.checkins[SessionController.Instance.checkins.count - i - 1];
             let checkinDate = Double(checkin.dateTime.timeIntervalSince1970);
             let difference = abs(checkinDate - selectedDate);
-            if (difference < minDifference && checkin.weightLbs != nil || checkin.fatRatio != nil) {
+            if (difference < minDifference && (checkin.weightLbs != nil || checkin.fatRatio != nil)) {
                 minDifference = difference;
                 selectedCheckin = checkin;
             }
@@ -47,6 +47,11 @@ class WeightMetricDelegate: MetricDelegate {
     
     func getGraph(frame: CGRect) -> MetricGraph {
         return MetricGraphUtility.createWeightGraph(CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height));
+    }
+    
+    func getSecondaryGraph(frame: CGRect) -> MetricGraph {
+        let graph = MetricGraphUtility.createBodyFatGraph(CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height));
+        return graph;
     }
     
     func getRanges() -> [MetricGauge.Range] {

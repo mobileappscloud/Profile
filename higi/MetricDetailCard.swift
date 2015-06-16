@@ -77,7 +77,7 @@ class MetricDetailCard: UIView {
         triangleIndicator.transform = CGAffineTransformRotate(self.transform, CGFloat(M_PI));
         addSubview(triangleIndicator);
         
-        if (delegate.getType() == MetricsType.BloodPressure) {
+        if (delegate.getType() == MetricsType.BloodPressure || delegate.getType() == MetricsType.Weight) {
             let secondPanelTap = UITapGestureRecognizer(target: self, action: "secondPanelClicked:");
             secondPanel.addGestureRecognizer(secondPanelTap);
             let thirdPanelTap = UITapGestureRecognizer(target: self, action: "thirdPanelClicked:");

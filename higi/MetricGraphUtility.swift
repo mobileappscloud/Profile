@@ -51,6 +51,17 @@ class MetricGraphUtility {
         return graphWithPoints(frame, points: points, color: Utility.colorFromMetricType(MetricsType.Weight));
     }
     
+    class func createBodyFatGraph(frame: CGRect) -> MetricGraph {
+        var points:[GraphPoint] = [];
+        for checkin in SessionController.Instance.checkins {
+            let checkinTime = Double(checkin.dateTime.timeIntervalSince1970);
+            if (checkin.fatRatio != nil && checkin.fatRatio > 0) {
+                points.append(GraphPoint(x: checkinTime, y: checkin.fatRatio));
+            }
+        }
+        return graphWithPoints(frame, points: points, color: Utility.colorFromMetricType(MetricsType.Weight));
+    }
+    
     class func createPulseGraph(frame: CGRect) -> MetricGraph {
         var points:[GraphPoint] = [];
         for checkin in SessionController.Instance.checkins {

@@ -10,7 +10,7 @@ class MetricCard: UIView, MetricDelegate {
     @IBOutlet weak var toggleButton: UIButton!
     @IBOutlet weak var backButton: UIButton!
     
-    var graph: MetricGraph!;
+    var graph, secondaryGraph: MetricGraph!;
     
     var viewFrame: CGRect!;
     
@@ -22,7 +22,7 @@ class MetricCard: UIView, MetricDelegate {
     
     var selectedCheckin: HigiCheckin!;
     
-    var initializing = true;
+    var initializing = true, toggleOn = true;
     
     struct SelectedPoint {
         var date:String!
@@ -64,7 +64,11 @@ class MetricCard: UIView, MetricDelegate {
     
     override func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {
         if (point.y > 54 && point.y < (graphContainer.frame.origin.y + graphContainer.frame.size.height)) {
-            return graph;
+            if (!graph.hidden) {
+                return graph;
+            } else {
+                return secondaryGraph;
+            }
         } else {
             return super.hitTest(point, withEvent: event);
         }
@@ -147,9 +151,9 @@ class MetricCard: UIView, MetricDelegate {
     }
     
     @IBAction func toggleClicked(sender: AnyObject) {
-//        graph.hidden = toggleBmiOn;
-//        secondaryGraph.hidden = !toggleBmiOn;
-//        toggleBmiOn = !toggleBmiOn;
+        graph.hidden = toggleOn;
+        secondaryGraph.hidden = !toggleOn;
+        toggleOn = !toggleOn;
     }
     
     func cardDragged(sender: AnyObject) {
