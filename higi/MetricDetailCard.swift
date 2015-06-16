@@ -29,6 +29,8 @@ class MetricDetailCard: UIView {
     
     var gauge: MetricGauge!;
     
+    var meter: PointsMeter!;
+    
     let triangleHeight:CGFloat = 20;
     
     var thirdPanelSelected = true;
@@ -37,24 +39,7 @@ class MetricDetailCard: UIView {
         var view = UINib(nibName: "MetricDetailCardView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! MetricDetailCard;
         view.setup(delegate, userValue: selection.secondPanel.value);
         view.setData(selection);
-        view.initPointsMeter();
         return view;
-    }
-    
-    func initPointsMeter() {
-        let meterSize:CGFloat = 40;
-        let pointsMeter = PointsMeter.create(CGRect(x: 8, y: (firstPanel.frame.size.height - meterSize) / 2, width: meterSize, height: meterSize));
-        let tap = UITapGestureRecognizer(target: self, action: "gotoSummary:");
-        pointsMeter.addGestureRecognizer(tap);
-        if let (total, todaysActivities) = SessionController.Instance.activities[Constants.dateFormatter.stringFromDate(NSDate())] {
-            pointsMeter.setActivities((total, todaysActivities));
-            pointsMeter.drawArc(false);
-        } else {
-            pointsMeter.setActivities((0, []));
-            pointsMeter.drawArc(false);
-        }
-        pointsMeter.setDarkText();
-        firstPanel.addSubview(pointsMeter);
     }
     
     func setup(delegate: MetricDelegate, userValue: String) {
@@ -65,13 +50,33 @@ class MetricDetailCard: UIView {
         thirdPanelValue.textColor = color;
         
         let value = userValue.toInt() != nil ? userValue.toInt()! : 0;
-        if (delegate.getRanges().count > 0) {
+        if (delegate.getType() == MetricsType.DailySummary) {
+            if (gauge != nil && gauge.superview != nil) {
+                gauge.removeFromSuperview();
+            }
+            meter = PointsMeter.create(CGRect(x: 0, y: 0, width: gaugeContainer.frame.size.width, height: gaugeContainer.frame.size.height));
+            let dateString = Constants.dateFormatter.stringFromDate(Constants.displayDateFormatter.dateFromString(delegate.getSelectedPoint().date)!);
+            if (SessionController.Instance.activities[dateString] != nil) {
+                meter.setActivities(SessionController.Instance.activities[dateString]!);
+            } else {
+                meter.setActivities((0, []));
+            }
+            gaugeContainer.addSubview(meter);
+            meter.drawArc(false);
+            meter.setDarkText();
+            let tap = UITapGestureRecognizer(target: self, action: "gotoDailySummary:");
+            meter.addGestureRecognizer(tap);
+        } else if (delegate.getRanges().count > 0) {
+            if (meter != nil && meter.superview != nil) {
+                meter.removeFromSuperview();
+            }
             gauge = MetricGauge.create(CGRect(x: 0, y: 0, width: gaugeContainer.frame.size.width, height: gaugeContainer.frame.size.height), delegate: delegate, userValue: value);
             gaugeContainer.addSubview(gauge);
         }
         triangleIndicator = TriangleView(frame: CGRect(x: thirdPanel.frame.origin.x + thirdPanel.frame.size.width / 2, y: thirdPanel.frame.size.height - 2, width: triangleHeight, height: triangleHeight));
         triangleIndicator.transform = CGAffineTransformRotate(self.transform, CGFloat(M_PI));
         addSubview(triangleIndicator);
+        
         if (delegate.getType() == MetricsType.BloodPressure) {
             let secondPanelTap = UITapGestureRecognizer(target: self, action: "secondPanelClicked:");
             secondPanel.addGestureRecognizer(secondPanelTap);
@@ -150,9 +155,11 @@ class MetricDetailCard: UIView {
         thirdPanelHeader.hidden = !isOpen;
     }
     
-    func gotoSummary(sender: AnyObject) {
+    func gotoDailySummary(sender: AnyObject) {
         Flurry.logEvent("Summary_Pressed");
         var summaryController = DailySummaryViewController(nibName: "DailySummaryView", bundle: nil);
+        let dateString = Constants.dateFormatter.stringFromDate(Constants.displayDateFormatter.dateFromString(delegate.getSelectedPoint().date)!);
+        summaryController.dateString = dateString;
         Utility.getViewController(self)!.navigationController!.pushViewController(summaryController, animated: true);
     }
 }

@@ -29,6 +29,8 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     
     var backButton:UIButton!;
     
+    var dateString: String!;
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         self.title = "Daily Summary";
@@ -72,7 +74,12 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func initHeader() {
-        let date = NSDate();
+        var date:NSDate!;
+        if (dateString == nil) {
+            date = NSDate();
+        } else {
+            date = Constants.dateFormatter.dateFromString(dateString);
+        }
         let dateFormatter = NSDateFormatter();
         dateFormatter.dateFormat = "dd";
         let monthYearFormatter = NSDateFormatter();
@@ -84,7 +91,8 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         dateNumber.text = dateFormatter.stringFromDate(date);
         dayOfWeek.text = dayOfWeekFormatter.stringFromDate(date);
         monthYear.text = monthYearFormatter.stringFromDate(date);
-        let hour = hourFormatter.stringFromDate(date).toInt();
+        //Greeting should reflect current day's time even if we are looking at past daily summary
+        let hour = hourFormatter.stringFromDate(NSDate()).toInt();
         if (hour >= 4 && hour < 12) {
             greeting.text = "Good Morning!";
             headerBackground.image = UIImage(named: "dailysummary_morning");
@@ -98,7 +106,9 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func initSummaryview() {
-        let dateString = Constants.dateFormatter.stringFromDate(NSDate());
+        if (dateString == nil) {
+            dateString = Constants.dateFormatter.stringFromDate(NSDate());
+        }
         if let (points, sessionActivities) = SessionController.Instance.activities[dateString] {
             totalPoints = points;
             activities = sessionActivities;

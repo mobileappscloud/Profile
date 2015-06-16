@@ -26,6 +26,21 @@ class Utility {
         }
     }
     
+    class func colorFromActivityType(type: String) -> UIColor {
+        switch type {
+        case "steps":
+            return Utility.colorFromHexString("#8379B5");
+        case "bike":
+            return Utility.colorFromHexString("#EE6C55");
+        case "checkin":
+            return Utility.colorFromHexString("#5FAFDF");
+        case "bragging":
+            return Utility.colorFromHexString("#76C043");
+        default:
+            return Utility.colorFromHexString("#EE6C55");
+        }
+    }
+    
     class func getViewController(view: UIView) -> UIViewController? {
         var responder: UIResponder? = view.nextResponder();
         while (responder != nil) {

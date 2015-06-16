@@ -15,13 +15,19 @@ class PointsMeter: UIView {
     
     private var activities: [HigiActivity] = [];
 
-    let animationDuration = 1.0;
+    private var combinedActivities: [(type: String, total: Int)] = [];
     
-    var lineWidth, radius:CGFloat!;
+    private let animationDuration = 1.0;
     
-    var total = 0;
+    private var lineWidth, radius:CGFloat!;
     
-    var targetFrame: CGRect?;
+    private var total = 0;
+    
+    private var targetFrame: CGRect?;
+    
+    private var activitiesByType:[String: (Int, [HigiActivity])] = [:];
+    
+    private var activityTypes: [String] = [];
     
     class func create() -> PointsMeter {
         return UINib(nibName: "PointsMeterView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! PointsMeter;
@@ -52,22 +58,42 @@ class PointsMeter: UIView {
         arc.path = toPath.CGPath;
         self.meterContainer.layer.addSublayer(arc);
         self.points.text = "\(total)";
+        for activity in activities {
+            let type = String(activity.typeName);
+            if let (totalPoints, activityList) = activitiesByType[type] {
+                var previousActivities = activityList;
+                previousActivities.append(activity);
+                var points = totalPoints;
+                if (activity.points > 0 && activity.errorDescription == nil) {
+                    points += activity.points!;
+                }
+                activitiesByType[type] = (points, previousActivities);
+            } else {
+                var points = 0;
+                if (activity.points > 0 && activity.errorDescription == nil) {
+                    points += activity.points!;
+                }
+                activitiesByType[type] = (points, [activity]);
+                activityTypes.append(type);
+            }
+        }
     }
     
     func drawArc(animated: Bool) {
         var center = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2);
         var lastEnd = 0.0;
-        if (activities.count > 0) {
+        if (activityTypes.count > 0) {
             total = max(total, 100);
             var firstActivity = true;
             var toPath = UIBezierPath();
-            for activity in activities {
+            for type in activityTypes {
+                let (points, activity) = activitiesByType[type]!;
                 var arc = CAShapeLayer();
                 arc.lineWidth = lineWidth;
                 arc.fillColor = UIColor.clearColor().CGColor;
-                arc.strokeColor = Utility.colorFromHexString(activity.device.colorCode).CGColor;
-                
-                var increment = Double(activity.points) / Double(total);
+                arc.strokeColor = Utility.colorFromActivityType(type).CGColor;
+
+                var increment = Double(points) / Double(total);
                 if (firstActivity) {
                     var startAngle = M_PI / 2;
                     toPath.addArcWithCenter(center, radius: radius, startAngle: CGFloat(startAngle), endAngle: CGFloat(startAngle + 2 * M_PI), clockwise: true);
