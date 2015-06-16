@@ -3,11 +3,11 @@ import Foundation
 class ActivityGraphDelegate : GraphDelegate {
     
     func getColor() -> UIColor {
-        return Utility.colorFromMetricType(MetricsType.DailySummary);
+        return MetricsType.DailySummary.getColor();
     }
     
     func getTitle() -> String {
-        return "Activity";
+        return MetricsType.DailySummary.getTitle();
     }
     
     func createGraphWithCheckins(frame: CGRect, checkins: [HigiCheckin]) -> BaseGraphHostingView? {

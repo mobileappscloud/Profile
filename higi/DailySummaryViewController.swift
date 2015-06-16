@@ -142,7 +142,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             activityRow.points.text = "\(total)";
             activityRow.name.text = String(activity.device.name);
             if (activity.device.name == "higi") {
-                activityRow.name.text = "higi Station";
+                activityRow.name.text = "Health";
             }
             activityRow.name.textColor = color;
             let proportion = CGFloat(activity.points) / CGFloat(totalPoints);

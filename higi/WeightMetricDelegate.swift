@@ -5,11 +5,11 @@ class WeightMetricDelegate: MetricDelegate {
     var selectedCheckin: HigiCheckin!;
 
     func getTitle() -> String {
-        return "Weight";
+        return getType().getTitle();
     }
     
     func getColor() -> UIColor {
-        return Utility.colorFromMetricType(getType());
+        return getType().getColor();
     }
     
     func getIcon() -> UIImage {

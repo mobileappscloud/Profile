@@ -11,34 +11,6 @@ class Utility {
         return UIColor(red: (CGFloat)((rgbValue & 0xFF0000) >> 16) / 255.0, green:(CGFloat)((rgbValue & 0xFF00) >> 8) / 255.0, blue:(CGFloat)(rgbValue & 0xFF) / 255.0, alpha:1.0);
     }
     
-    class func colorFromMetricType(type: MetricsType) -> UIColor {
-        switch type {
-        case .BloodPressure:
-            return Utility.colorFromHexString("#8379B5");
-        case .Weight:
-            return Utility.colorFromHexString("#EE6C55");
-        case .Pulse:
-            return Utility.colorFromHexString("#5FAFDF");
-        case .DailySummary:
-            return Utility.colorFromHexString("#76C043");
-        default:
-            return Utility.colorFromHexString("#FFFFFF");
-        }
-    }
-    
-    class func colorFromActivityType(type: String) -> UIColor {
-        switch type {
-        case "health":
-            return Utility.colorFromHexString("3acec7");
-        case "fitness":
-            return Utility.colorFromHexString("#ba77ff");
-        case "lifestyle":
-            return Utility.colorFromHexString("#fc3767");
-        default:
-            return Utility.colorFromHexString("#EE6C55");
-        }
-    }
-    
     class func getViewController(view: UIView) -> UIViewController? {
         var responder: UIResponder? = view.nextResponder();
         while (responder != nil) {

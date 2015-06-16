@@ -20,30 +20,27 @@ class MetricsGraphCard: UIView {
     
     var color: UIColor!;
 
-    class func instanceFromNib(title: String, lastCheckin: HigiCheckin, type: MetricsType) -> MetricsGraphCard {
+    class func instanceFromNib(lastCheckin: HigiCheckin, type: MetricsType) -> MetricsGraphCard {
         let card = UINib(nibName: "MetricGraphCardView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! MetricsGraphCard;
-        card.initCard(title, type: type);
-        card.setCheckinData(title, checkin: lastCheckin, type: type);
+        card.initCard(type);
+        card.setCheckinData(lastCheckin, type: type);
         return card;
     }
     
-    class func instanceFromNib(title: String, activity: (NSDate, Int), type: MetricsType) -> MetricsGraphCard {
+    class func instanceFromNib(activity: (NSDate, Int), type: MetricsType) -> MetricsGraphCard {
         let card = UINib(nibName: "MetricGraphCardView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! MetricsGraphCard;
-        card.initCard(title, type: type);
+        card.initCard(type);
         card.setActivity(activity);
         return card;
     }
     
-    func initCard(titleString: String, type: MetricsType) {
-        color = Utility.colorFromMetricType(type);
-        title.text = titleString;
+    func initCard(type: MetricsType) {
+        color = type.getColor();
+        title.text = type.getTitle();
         title.textColor = color;
     }
     
-    func setCheckinData(titleString: String, checkin: HigiCheckin, type: MetricsType) {
-        title.text = titleString;
-        title.textColor = color;
-        
+    func setCheckinData(checkin: HigiCheckin, type: MetricsType) {
         let formatter = NSDateFormatter(), dayFormatter = NSDateFormatter();
         formatter.dateFormat = "MMMM";
         dayFormatter.dateFormat = "dd";

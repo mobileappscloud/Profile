@@ -3,15 +3,14 @@ import Foundation
 class WeightMetricCard: MetricCard {
     
     override func getTitle() -> String {
-        return "Weight";
+        return MetricsType.Weight.getTitle();
     }
     
     override func getColor() -> UIColor {
-        return Utility.colorFromMetricType(MetricsType.Weight);
+        return MetricsType.Weight.getColor();
     }
     
     override func getIcon() -> UIImage {
         return Utility.imageWithColor(UIImage(named: "weighticon")!, color: UIColor.whiteColor());
     }
-    
 }

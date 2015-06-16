@@ -15,7 +15,7 @@ class MetricGraphUtility {
                 points.append(GraphPoint(x: activityDate, y: Double(total)));
             }
         }
-        return graphWithPoints(frame, points: points, color: Utility.colorFromMetricType(MetricsType.DailySummary));
+        return graphWithPoints(frame, points: points, color: MetricsType.DailySummary.getColor());
     }
 
     class func createBpGraph(frame: CGRect) -> MetricGraph {
@@ -34,7 +34,7 @@ class MetricGraphUtility {
             }
 
         }
-        return graphWithPoints(frame, points: points, altPoints: altPoints, color: Utility.colorFromMetricType(MetricsType.BloodPressure));
+        return graphWithPoints(frame, points: points, altPoints: altPoints, color: MetricsType.BloodPressure.getColor());
     }
     
     class func createWeightGraph(frame: CGRect) -> MetricGraph {
@@ -48,7 +48,7 @@ class MetricGraphUtility {
                 points.append(GraphPoint(x: checkinTime, y: checkin.weightLbs));
             }
         }
-        return graphWithPoints(frame, points: points, color: Utility.colorFromMetricType(MetricsType.Weight));
+        return graphWithPoints(frame, points: points, color: MetricsType.Weight.getColor());
     }
     
     class func createBodyFatGraph(frame: CGRect) -> MetricGraph {
@@ -59,7 +59,7 @@ class MetricGraphUtility {
                 points.append(GraphPoint(x: checkinTime, y: checkin.fatRatio));
             }
         }
-        return graphWithPoints(frame, points: points, color: Utility.colorFromMetricType(MetricsType.Weight));
+        return graphWithPoints(frame, points: points, color: MetricsType.Weight.getColor());
     }
     
     class func createPulseGraph(frame: CGRect) -> MetricGraph {
@@ -70,7 +70,7 @@ class MetricGraphUtility {
                 points.append(GraphPoint(x: checkinTime, y: Double(checkin.pulseBpm!)));
             }
         }
-        return graphWithPoints(frame, points: points, color: Utility.colorFromMetricType(MetricsType.Pulse));
+        return graphWithPoints(frame, points: points, color: MetricsType.Pulse.getColor());
     }
     
     class func graphWithPoints(frame: CGRect, points: [GraphPoint], color: UIColor) -> MetricGraph {

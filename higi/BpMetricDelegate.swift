@@ -5,11 +5,11 @@ class BpMetricDelegate: MetricDelegate {
     var selectedCheckin: HigiCheckin!;
 
     func getTitle() -> String {
-        return "Blood Pressure";
+        return getType().getTitle();
     }
     
     func getColor() -> UIColor {
-        return Utility.colorFromMetricType(getType());
+        return getType().getColor();
     }
     
     func getIcon() -> UIImage {

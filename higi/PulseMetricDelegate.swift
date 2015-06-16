@@ -5,11 +5,11 @@ class PulseMetricDelegate: MetricDelegate {
     var selectedCheckin: HigiCheckin!;
     
     func getTitle() -> String {
-        return "Pulse";
+        return getType().getTitle();
     }
     
     func getColor() -> UIColor {
-        return Utility.colorFromMetricType(getType());
+        return getType().getColor();
     }
     
     func getIcon() -> UIImage {

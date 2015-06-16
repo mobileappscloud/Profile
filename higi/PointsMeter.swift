@@ -91,7 +91,7 @@ class PointsMeter: UIView {
                 var arc = CAShapeLayer();
                 arc.lineWidth = lineWidth;
                 arc.fillColor = UIColor.clearColor().CGColor;
-                arc.strokeColor = Utility.colorFromActivityType(type).CGColor;
+                arc.strokeColor = ActivityCategory.categoryFromString(type).getColor().CGColor;
 
                 var increment = Double(points) / Double(total);
                 if (firstActivity) {

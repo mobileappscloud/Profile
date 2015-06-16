@@ -47,7 +47,7 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         if (points.count < 1) {
             return;
         } else {
-            let color = Utility.colorFromMetricType(type);
+            let color = type.getColor();
             var maxY = 0.0, minY = DBL_MAX, maxX = 0.0, minX = DBL_MAX;
             initGraph();
             graph.plotAreaFrame.paddingBottom = 10;

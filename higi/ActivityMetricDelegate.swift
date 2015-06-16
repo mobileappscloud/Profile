@@ -5,11 +5,11 @@ class ActivityMetricDelegate: MetricDelegate {
     var selectedActivity: (date: String, points: String)!;
     
     func getTitle() -> String {
-        return "Activity";
+        return getType().getTitle();
     }
     
     func getColor() -> UIColor {
-        return Utility.colorFromMetricType(getType());
+        return getType().getColor();
     }
     
     func getIcon() -> UIImage {
