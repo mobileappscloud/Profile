@@ -41,10 +41,12 @@ class MetricsViewController: BaseViewController {
             case MetricsType.Weight:
                 let delegate = WeightMetricDelegate();
                 card = MetricCard.instanceFromNib(delegate, frame: cardFrame);
-                card!.toggleButton.hidden = false;
-                card!.secondaryGraph = delegate.getSecondaryGraph(card!.graphContainer.frame);
-                card!.secondaryGraph.hidden = true;
-                card!.graphContainer.addSubview(card!.secondaryGraph);
+                if let secondaryGraph = delegate.getSecondaryGraph(card!.graphContainer.frame) {
+                    card!.secondaryGraph = secondaryGraph;
+                    card!.secondaryGraph.hidden = true;
+                    card!.toggleButton.hidden = false;
+                    card!.graphContainer.addSubview(secondaryGraph);
+                }
             default:
                 var i = 0;
             }

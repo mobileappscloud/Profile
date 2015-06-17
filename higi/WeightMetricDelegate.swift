@@ -49,7 +49,7 @@ class WeightMetricDelegate: MetricDelegate {
         return MetricGraphUtility.createWeightGraph(CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height));
     }
     
-    func getSecondaryGraph(frame: CGRect) -> MetricGraph {
+    func getSecondaryGraph(frame: CGRect) -> MetricGraph? {
         let graph = MetricGraphUtility.createBodyFatGraph(CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height));
         return graph;
     }

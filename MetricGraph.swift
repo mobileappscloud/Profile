@@ -489,6 +489,9 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
     }
     
     func checkinSelected(plot: CPTScatterPlot!, idx: Int, first: Bool) {
+        if (idx < 0) {
+            return;
+        }
         var point:GraphPoint!;
         if (plot.isEqual(self.plot)) {
             selectedPointIndex = idx;
