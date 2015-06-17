@@ -31,8 +31,15 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     
     var dateString: String!;
     
+    var previousShouldRotate: Bool!;
+    
+    var previousSupportedOrientations: UInt!;
+    
+    var previousActualOrientation: Int!;
+    
     override func viewDidLoad() {
         super.viewDidLoad();
+        self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
         self.title = "Daily Summary";
         pointsMeter = PointsMeter.create();
         pointsMeterContainer.addSubview(pointsMeter);
@@ -46,6 +53,26 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         initSummaryview();
 
         pointsMeter.setActivities((totalPoints, activities));
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated);
+        let revealController = (navigationController as! MainNavigationController).revealController;
+        previousActualOrientation = self.interfaceOrientation.rawValue;
+        previousSupportedOrientations = revealController.supportedOrientations;
+        previousShouldRotate = revealController.shouldRotate;
+        revealController.panGestureRecognizer().enabled = false;
+        revealController.supportedOrientations = UIInterfaceOrientationMask.Portrait.rawValue | UIInterfaceOrientationMask.LandscapeLeft.rawValue | UIInterfaceOrientationMask.LandscapeRight.rawValue;
+        revealController.shouldRotate = true;
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        let revealController = (self.navigationController as! MainNavigationController).revealController;
+        revealController.supportedOrientations = previousSupportedOrientations;
+        self.navigationController!.navigationBarHidden = false;
+        UIDevice.currentDevice().setValue(previousActualOrientation, forKey: "orientation");
+        revealController.shouldRotate = previousShouldRotate;
+        super.viewWillDisappear(animated);
     }
     
     override func viewDidLayoutSubviews() {

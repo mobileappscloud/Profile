@@ -20,6 +20,8 @@ class BaseViewController: UIViewController, SWRevealViewControllerDelegate {
     
     var pointsSet = false;
     
+    var shouldShowDailyPoints = true;
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         revealController = (self.navigationController as! MainNavigationController).revealController;
@@ -31,8 +33,9 @@ class BaseViewController: UIViewController, SWRevealViewControllerDelegate {
         self.fakeNavBar.alpha = 0;
         self.fakeNavBar.userInteractionEnabled = false;
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveApiNotification:", name: ApiUtility.ACTIVITIES, object: nil);
-        
+        if (shouldShowDailyPoints) {
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveApiNotification:", name: ApiUtility.ACTIVITIES, object: nil);
+        }
         toggleButton = UIButton.buttonWithType(UIButtonType.Custom) as? UIButton;
         toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon.png"), forState: UIControlState.Normal);
         toggleButton!.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
@@ -47,7 +50,9 @@ class BaseViewController: UIViewController, SWRevealViewControllerDelegate {
         super.viewWillAppear(animated);
         revealController.panGestureRecognizer().enabled = true;
         revealController.delegate = self;
-        initDailyPoints();
+        if (shouldShowDailyPoints) {
+            initDailyPoints();
+        }
     }
     
     override func viewWillDisappear(animated: Bool) {

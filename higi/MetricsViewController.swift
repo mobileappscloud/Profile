@@ -1,6 +1,6 @@
 import Foundation
 
-class MetricsViewController: BaseViewController {
+class MetricsViewController: UIViewController {
     
     var selectedType = MetricsType.BloodPressure;
     
@@ -10,14 +10,27 @@ class MetricsViewController: BaseViewController {
     
     var detailsCard: MetricDetailCard!;
     
-    var detailsOpen = false;
+    var detailsOpen = false, previousShouldRotate: Bool!;
 
     let detailsCardPosY:CGFloat = 267, cardHeaderViewHeight:CGFloat = 54, cardDragThreshold:CGFloat = 300;
+    
+    var previousSupportedOrientations: UInt!;
+    
+    var previousActualOrientation: Int!;
+    
+    override func viewDidLoad() {
+        super.viewDidLoad();
+        let revealController = (self.navigationController as! MainNavigationController).revealController;
+        previousSupportedOrientations = revealController.supportedOrientations;
+        previousShouldRotate = revealController.shouldRotate;
+        previousActualOrientation = self.interfaceOrientation.rawValue;
+    }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
         self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
         self.navigationController!.navigationBarHidden = true;
+        let revealController = (self.navigationController as! MainNavigationController).revealController;
         revealController.panGestureRecognizer().enabled = false;
         revealController.supportedOrientations = UIInterfaceOrientationMask.LandscapeRight.rawValue;
         revealController.shouldRotate = true;
@@ -76,10 +89,7 @@ class MetricsViewController: BaseViewController {
     }
     
     override func viewWillDisappear(animated: Bool) {
-        revealController.supportedOrientations = UIInterfaceOrientationMask.Portrait.rawValue;
         self.navigationController!.navigationBarHidden = false;
-        self.view.setNeedsDisplay();
-        UIDevice.currentDevice().setValue(UIInterfaceOrientation.Portrait.rawValue, forKey: "orientation");
         super.viewWillDisappear(animated);
     }
     
@@ -88,7 +98,11 @@ class MetricsViewController: BaseViewController {
     }
     
     func backButtonClicked(sender: AnyObject) {
+        let revealController = (self.navigationController as! MainNavigationController).revealController;
+        revealController.supportedOrientations = previousSupportedOrientations;
+        UIDevice.currentDevice().setValue(previousActualOrientation, forKey: "orientation");
         self.navigationController!.popViewControllerAnimated(true);
+        revealController.shouldRotate = previousShouldRotate;
     }
 
     func cardClickedAtIndex(index: Int) {
