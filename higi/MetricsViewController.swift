@@ -84,7 +84,7 @@ class MetricsViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated);
         if (detailsCard != nil) {
-            detailsCard.animateBounce(detailsCardPosY);
+            detailsCard.animateBounceIn(detailsCardPosY);
         }
     }
     
@@ -204,7 +204,7 @@ class MetricsViewController: UIViewController {
         card.headerContainer.addGestureRecognizer(swipeUpRecognizer);
         return card;
     }
-    
+
     func sendViewsToBack(views: [UIView]) {
         for view in views {
             self.view.sendSubviewToBack(view);

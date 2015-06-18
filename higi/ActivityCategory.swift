@@ -20,16 +20,42 @@ enum ActivityCategory {
         }
     }
     
+    func getString() -> String {
+        switch(self) {
+        case Fitness:
+            return "Fitness";
+        case Health:
+            return "Health";
+        case Lifestyle:
+            return "Lifestyle";
+        default:
+            return "Lifestyle";
+        }
+    }
+    
     static func categoryFromString(category: String) -> ActivityCategory {
         switch(category) {
-        case "checkin":
+        case "Health":
             return Health;
-        case "steps":
+        case "Fitness":
             return Fitness;
-        case "lifestyle":
+        case "Lifestyle":
             return Lifestyle;
         default:
+            return Lifestyle;
+        }
+    }
+    
+    static func categoryFromActivity(activity: HigiActivity) -> ActivityCategory {
+        if (activity.category == "checkin") {
+            if (activity.checkinCategory == "health") {
+                return Health;
+            } else if (activity.checkinCategory == "lifestyle") {
+                return Lifestyle;
+            }
+        } else {
             return Fitness;
         }
+        return Lifestyle;
     }
 }

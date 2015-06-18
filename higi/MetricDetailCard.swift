@@ -89,7 +89,7 @@ class MetricDetailCard: UIView {
         }
     }
     
-    func animateBounce(destination: CGFloat) {
+    func animateBounceIn(destination: CGFloat) {
         self.frame.origin.y = UIScreen.mainScreen().bounds.height;
         UIView.animateWithDuration(0.5, delay: 0, options: .CurveEaseInOut, animations: {
             self.frame.origin.y = destination;
@@ -105,6 +105,30 @@ class MetricDetailCard: UIView {
                                     }, completion: { complete in
                                         UIView.animateWithDuration(0.25, delay: 0, options: .CurveEaseInOut, animations: {
                                             self.frame.origin.y = destination;
+                                            }, completion: nil);
+                                });
+                        });
+                });
+        });
+    }
+    
+    func animateBounceOut() {
+        let height = UIScreen.mainScreen().bounds.height;
+        self.frame.origin.y = UIScreen.mainScreen().bounds.height;
+        UIView.animateWithDuration(0.5, delay: 0, options: .CurveEaseInOut, animations: {
+            self.frame.origin.y = height;
+            }, completion: { complete in
+                UIView.animateWithDuration(0.25, delay: 0, options: .CurveEaseInOut, animations: {
+                    self.frame.origin.y = height - 10;
+                    }, completion: { complete in
+                        UIView.animateWithDuration(0.25, delay: 0, options: .CurveEaseInOut, animations: {
+                            self.frame.origin.y = height;
+                            }, completion: { complete in
+                                UIView.animateWithDuration(0.25, delay: 0, options: .CurveEaseInOut, animations: {
+                                    self.frame.origin.y = height - 4;
+                                    }, completion: { complete in
+                                        UIView.animateWithDuration(0.25, delay: 0, options: .CurveEaseInOut, animations: {
+                                            self.frame.origin.y = height;
                                             }, completion: nil);
                                 });
                         });

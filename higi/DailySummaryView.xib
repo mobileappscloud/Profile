@@ -17,6 +17,7 @@
                 <outlet property="monthYear" destination="pC6-Ra-DKE" id="O0F-2a-Bep"/>
                 <outlet property="pointsMeterContainer" destination="ALO-8D-NRz" id="YNt-Jz-Uiq"/>
                 <outlet property="scrollView" destination="saU-V6-sdy" id="mMm-g4-8jS"/>
+                <outlet property="scrollviewMainContentView" destination="gM8-YQ-AHK" id="qoJ-ib-ZSc"/>
                 <outlet property="view" destination="iN0-l3-epB" id="HUi-x0-2sv"/>
             </connections>
         </placeholder>
@@ -25,13 +26,16 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fza-yF-sCR">
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fza-yF-sCR">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="230"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="230" id="qYz-gS-C0l"/>
+                    </constraints>
                 </imageView>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="saU-V6-sdy">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="saU-V6-sdy">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <subviews>
-                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gM8-YQ-AHK">
+                        <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gM8-YQ-AHK">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             <subviews>
                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ud4-sd-hWk">
@@ -73,7 +77,7 @@
                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tY1-gC-aQC">
-                                    <rect key="frame" x="0.0" y="230" width="320" height="337"/>
+                                    <rect key="frame" x="0.0" y="230" width="320" height="338"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="krl-nO-BBx">
                                             <rect key="frame" x="70" y="0.0" width="1" height="60"/>
@@ -95,18 +99,34 @@
                             </subviews>
                         </view>
                     </subviews>
+                    <constraints>
+                        <constraint firstItem="gM8-YQ-AHK" firstAttribute="leading" secondItem="saU-V6-sdy" secondAttribute="leading" id="9z1-W6-bjd"/>
+                        <constraint firstItem="gM8-YQ-AHK" firstAttribute="top" secondItem="saU-V6-sdy" secondAttribute="top" id="lUa-EY-ae2"/>
+                        <constraint firstAttribute="trailing" secondItem="gM8-YQ-AHK" secondAttribute="trailing" id="pXb-rb-hkr"/>
+                        <constraint firstAttribute="bottom" secondItem="gM8-YQ-AHK" secondAttribute="bottom" id="zYQ-dC-stN"/>
+                    </constraints>
                 </scrollView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstAttribute="trailing" secondItem="fza-yF-sCR" secondAttribute="trailing" id="2Bp-vd-ZzA"/>
+                <constraint firstAttribute="bottom" secondItem="saU-V6-sdy" secondAttribute="bottom" id="9ad-rb-Fmz"/>
                 <constraint firstItem="saU-V6-sdy" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="CY2-xw-UeK"/>
+                <constraint firstItem="saU-V6-sdy" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="L4M-zF-uqt"/>
                 <constraint firstAttribute="bottom" secondItem="saU-V6-sdy" secondAttribute="bottom" id="NJu-0V-c5y"/>
+                <constraint firstItem="fza-yF-sCR" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="OtA-ka-fF4"/>
+                <constraint firstItem="fza-yF-sCR" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Sdt-HO-bK7"/>
+                <constraint firstItem="fza-yF-sCR" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="fob-ca-Wte"/>
+                <constraint firstItem="fza-yF-sCR" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="gc3-aA-GNf"/>
+                <constraint firstItem="saU-V6-sdy" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="gyw-SL-v6F"/>
+                <constraint firstAttribute="trailing" secondItem="fza-yF-sCR" secondAttribute="trailing" id="lhm-jG-5R1"/>
+                <constraint firstAttribute="trailing" secondItem="saU-V6-sdy" secondAttribute="trailing" id="sn1-Dg-xqL"/>
                 <constraint firstAttribute="trailing" secondItem="saU-V6-sdy" secondAttribute="trailing" id="tS2-kK-0XZ"/>
                 <constraint firstItem="saU-V6-sdy" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="xYq-7x-ymn"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-            <point key="canvasLocation" x="125" y="250"/>
+            <point key="canvasLocation" x="23" y="185"/>
         </view>
     </objects>
 </document>

@@ -15,17 +15,18 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     
     @IBOutlet weak var activityContainer: UIView!
     
+    @IBOutlet weak var scrollviewMainContentView: UIView!
     var pointsMeter:PointsMeter!;
 
     var activities: [HigiActivity] = [];
     
     var activityKeys: [String] = [];
     
-    var activitiesByDevice:[String: (Int, [HigiActivity])] = [:];
+    var activitiesByType:[String: (Int, [HigiActivity])] = [:];
     
     var totalPoints = 0;
     
-    var minCircleRadius:CGFloat = 6, maxCircleRadius:CGFloat = 32, currentOrigin:CGFloat = 0;
+    var minCircleRadius:CGFloat = 6, maxCircleRadius:CGFloat = 32, currentOrigin:CGFloat = 0, imageAspectRatio:CGFloat!;
     
     var backButton:UIButton!;
     
@@ -47,6 +48,8 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         scrollView.scrollEnabled = true;
         scrollView.delegate = self;
         scrollView.setContentOffset(CGPoint(x: 0,y: 0), animated: false);
+        
+        imageAspectRatio = headerBackground.frame.size.width / headerBackground.frame.size.height;
         
         initBackButton();
         initHeader();
@@ -142,35 +145,33 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             activities.sort(sortByPoints);
         }
         for activity in activities {
-            let name = String(activity.device.name);
-            if let (total, activityList) = activitiesByDevice[name] {
+            let type = ActivityCategory.categoryFromActivity(activity).getString();
+            if let (total, activityList) = activitiesByType[type] {
                 var previousActivities = activityList;
                 previousActivities.append(activity);
                 var points = total;
                 if (activity.points > 0 && activity.errorDescription == nil) {
                     points += activity.points!;
                 }
-                activitiesByDevice[name] = (points, previousActivities);
+                activitiesByType[type] = (points, previousActivities);
             } else {
                 var points = 0;
                 if (activity.points > 0 && activity.errorDescription == nil) {
                     points += activity.points!;
                 }
-                activitiesByDevice[name] = (points, [activity]);
-                activityKeys.append(name);
+                activitiesByType[type] = (points, [activity]);
+                activityKeys.append(type);
             }
         }
         var gap = CGFloat(5);
         for key in activityKeys {
-            let (total, activityList) = activitiesByDevice[key]!;
+            let (total, activityList) = activitiesByType[key]!;
             let activity = activityList[0];
-            let color = Utility.colorFromHexString(activity.device.colorCode);
+            let category = ActivityCategory.categoryFromString(key);
+            let color = category.getColor();
             let activityRow = UINib(nibName: "DailySummaryRowView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! DailySummaryRow;
             activityRow.points.text = "\(total)";
-            activityRow.name.text = String(activity.device.name);
-            if (activity.device.name == "higi") {
-                activityRow.name.text = "Health";
-            }
+            activityRow.name.text = String(category.getString());
             activityRow.name.textColor = color;
             let proportion = CGFloat(activity.points) / CGFloat(totalPoints);
             let newHeight = max(maxCircleRadius * proportion, minCircleRadius * 2);
@@ -188,55 +189,53 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             currentOrigin += activityRow.frame.size.height;
             
             for subActivity in activityList {
-                if (subActivity.category == "checkin") {
-                    if (activity.checkinCategory == "location") {
-                        let breakdownRow = initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, icon: UIImage(named: "workouticon")!, points: "", metric: "Went to \(subActivity.typeName)");
-                        activityContainer.addSubview(breakdownRow);
-                        currentOrigin += breakdownRow.frame.size.height;
-                    } else {
-                        var lastSystolic = 0, lastDiastolic = 0, lastPulse = 0;
-                        var lastBodyFat = 0.0, lastWeight = 0.0;
-                        for checkin in SessionController.Instance.checkins {
-                            if (Constants.dateFormatter.stringFromDate(checkin.dateTime) == dateString) {
-                                if (lastDiastolic == 0 && checkin.diastolic != nil && checkin.diastolic > 0) {
-                                    lastDiastolic = checkin.diastolic!;
-                                }
-                                if (lastSystolic == 0 && checkin.systolic != nil && checkin.systolic > 0) {
-                                    lastSystolic = checkin.systolic!;
-                                }
-                                if (lastPulse == 0 && checkin.pulseBpm != nil && checkin.pulseBpm > 0) {
-                                    lastPulse = checkin.pulseBpm!;
-                                }
-                                if (lastWeight == 0 && checkin.weightLbs != nil && checkin.weightLbs > 0) {
-                                    lastWeight = checkin.weightLbs!;
-                                }
-                                if (lastBodyFat == 0 && checkin.fatRatio != nil && checkin.fatRatio > 0) {
-                                    lastBodyFat = checkin.fatRatio!;
-                                }
+                if (key == ActivityCategory.Lifestyle.getString()) {
+                    let breakdownRow = initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, icon: UIImage(named: "workouticon")!, points: "", metric: "\(subActivity.device.name) \(subActivity.typeName)");
+                    activityContainer.addSubview(breakdownRow);
+                    currentOrigin += breakdownRow.frame.size.height;
+                } else if (key == ActivityCategory.Health.getString()) {
+                    var lastSystolic = 0, lastDiastolic = 0, lastPulse = 0;
+                    var lastBodyFat = 0.0, lastWeight = 0.0;
+                    for checkin in SessionController.Instance.checkins {
+                        if (Constants.dateFormatter.stringFromDate(checkin.dateTime) == dateString) {
+                            if (lastDiastolic == 0 && checkin.diastolic != nil && checkin.diastolic > 0) {
+                                lastDiastolic = checkin.diastolic!;
+                            }
+                            if (lastSystolic == 0 && checkin.systolic != nil && checkin.systolic > 0) {
+                                lastSystolic = checkin.systolic!;
+                            }
+                            if (lastPulse == 0 && checkin.pulseBpm != nil && checkin.pulseBpm > 0) {
+                                lastPulse = checkin.pulseBpm!;
+                            }
+                            if (lastWeight == 0 && checkin.weightLbs != nil && checkin.weightLbs > 0) {
+                                lastWeight = checkin.weightLbs!;
+                            }
+                            if (lastBodyFat == 0 && checkin.fatRatio != nil && checkin.fatRatio > 0) {
+                                lastBodyFat = checkin.fatRatio!;
                             }
                         }
-                        if (lastDiastolic > 0) {
-                            let breakdownRow = initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, icon: UIImage(named: "bloodpressureicon")!, points: "\(lastSystolic)/\(lastDiastolic)", metric: "mmHg");
-                            activityContainer.addSubview(breakdownRow);
-                            currentOrigin += breakdownRow.frame.size.height;
-                        }
-                        if (lastPulse > 0) {
-                            let breakdownRow = initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, icon: UIImage(named: "pulseicon")!, points: "\(lastPulse)", metric: "bpm");
-                            activityContainer.addSubview(breakdownRow);
-                            currentOrigin += breakdownRow.frame.size.height;
-                        }
-                        if (lastWeight > 0) {
-                            let breakdownRow = initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, icon: UIImage(named: "weighticon")!, points: "\(Int(lastWeight))", metric: "lbs");
-                            activityContainer.addSubview(breakdownRow);
-                            currentOrigin += breakdownRow.frame.size.height;
-                        }
-                        if (lastBodyFat > 0) {
-                            let breakdownRow = initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, icon: UIImage(named: "workouticon")!, points: "\(lastBodyFat)%", metric: "");
-                            activityContainer.addSubview(breakdownRow);
-                            currentOrigin += breakdownRow.frame.size.height;
-                        }
                     }
-                } else {
+                    if (lastDiastolic > 0) {
+                        let breakdownRow = initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, icon: UIImage(named: "bloodpressureicon")!, points: "\(lastSystolic)/\(lastDiastolic)", metric: "mmHg");
+                        activityContainer.addSubview(breakdownRow);
+                        currentOrigin += breakdownRow.frame.size.height;
+                    }
+                    if (lastPulse > 0) {
+                        let breakdownRow = initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, icon: UIImage(named: "pulseicon")!, points: "\(lastPulse)", metric: "bpm");
+                        activityContainer.addSubview(breakdownRow);
+                        currentOrigin += breakdownRow.frame.size.height;
+                    }
+                    if (lastWeight > 0) {
+                        let breakdownRow = initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, icon: UIImage(named: "weighticon")!, points: "\(Int(lastWeight))", metric: "lbs");
+                        activityContainer.addSubview(breakdownRow);
+                        currentOrigin += breakdownRow.frame.size.height;
+                    }
+                    if (lastBodyFat > 0) {
+                        let breakdownRow = initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, icon: UIImage(named: "workouticon")!, points: "\(lastBodyFat)%", metric: "");
+                        activityContainer.addSubview(breakdownRow);
+                        currentOrigin += breakdownRow.frame.size.height;
+                    }
+                } else if (key == ActivityCategory.Fitness.getString()) {
                     let breakdownRow = UINib(nibName: "DailySummaryBreakdownView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! DailySummaryBreakdown;
                     breakdownRow.frame.origin.y = currentOrigin;
                     breakdownRow.frame.origin.x = activityRow.name.frame.origin.x;
@@ -286,6 +285,11 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
+    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
+        super.didRotateFromInterfaceOrientation(fromInterfaceOrientation);
+        viewWillLayoutSubviews();
+    }
+    
     func updateNavbar(scrollY: CGFloat) {
         if (scrollY >= 0) {
             var alpha = min(scrollY / 75, 1);
@@ -303,5 +307,10 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     
     func goBack(sender: AnyObject!) {
         self.navigationController!.popViewControllerAnimated(true);
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews();
+        activityView.frame.size.width = scrollView.frame.size.width;
     }
 }
