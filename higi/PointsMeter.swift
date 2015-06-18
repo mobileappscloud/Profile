@@ -142,6 +142,10 @@ class PointsMeter: UIView {
         self.points.textColor = Utility.colorFromHexString("#444444");
     }
     
+    func setLightText() {
+        self.points.textColor = Utility.colorFromHexString("#FFFFFF");
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews();
         if (targetFrame != nil) {

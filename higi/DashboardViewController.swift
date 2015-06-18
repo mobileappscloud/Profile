@@ -467,11 +467,13 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                 toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon"), forState: UIControlState.Normal);
                 self.navigationItem.rightBarButtonItem!.customView!.alpha = 1 - alpha;
                 toggleButton!.alpha = 1 - alpha;
+                pointsMeter.setLightText();
                 self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
             } else {
                 toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon_inverted"), forState: UIControlState.Normal);
                 self.navigationItem.rightBarButtonItem!.customView!.alpha = alpha;
                 toggleButton!.alpha = alpha;
+                pointsMeter.setDarkText();
                 self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
             }
         } else {    // Pull refresh

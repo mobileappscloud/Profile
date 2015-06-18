@@ -12,7 +12,7 @@ class BaseViewController: UIViewController, SWRevealViewControllerDelegate {
     
     var fakeNavBar = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 64));
     
-    private var pointsMeter: PointsMeter!;
+    var pointsMeter: PointsMeter!;
     
     var toggleButton: UIButton?;
     
