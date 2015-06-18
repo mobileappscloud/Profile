@@ -58,8 +58,9 @@ class PointsMeter: UIView {
         arc.path = toPath.CGPath;
         self.meterContainer.layer.addSublayer(arc);
         self.points.text = "\(total)";
+        activitiesByType.removeAll(keepCapacity: false);
         for activity in activities {
-            let type = String(activity.typeName);
+            let type = ActivityCategory.categoryFromActivity(activity).getString();
             if let (totalPoints, activityList) = activitiesByType[type] {
                 var previousActivities = activityList;
                 previousActivities.append(activity);
