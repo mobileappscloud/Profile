@@ -77,4 +77,20 @@ class WeightMetricDelegate: MetricDelegate {
         }
         return ranges;
     }
+    
+    func getSelectedValue(tab:Int) -> String {
+        if (tab == 0) {
+            return selectedCheckin.weightLbs != nil ? "\(Int(selectedCheckin.weightLbs!))" : "--";
+        } else {
+            return selectedCheckin.fatRatio != nil ? "\(Int(selectedCheckin.fatRatio!))%" : "--";
+        }
+    }
+    
+    func getSelectedUnit(tab: Int) -> String {
+        if (tab == 0) {
+            return "lbs";
+        } else {
+            return "";
+        }
+    }
 }

@@ -98,6 +98,14 @@ class MetricCard: UIView, MetricDelegate {
         return delegate.getGraph(frame);
     }
     
+    func getSelectedValue(tab: Int) -> String {
+        return getSelectedValue(tab);
+    }
+    
+    func getSelectedUnit(tab: Int) -> String {
+        return getSelectedUnit(tab);
+    }
+    
     func initGraphView() {
         graph = getGraph(graphContainer.frame);
         self.graphContainer.addSubview(graph);

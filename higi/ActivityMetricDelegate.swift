@@ -49,4 +49,12 @@ class ActivityMetricDelegate: MetricDelegate {
     func getRanges(tab:Int) -> [MetricGauge.Range] {
         return [];
     }
+    
+    func getSelectedValue(tab: Int) -> String {
+        return "";
+    }
+    
+    func getSelectedUnit(tab: Int) -> String {
+        return "";
+    }
 }

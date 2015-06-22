@@ -164,7 +164,7 @@ class PinCodeViewController: UIViewController, UITextFieldDelegate {
     }
     
     func closeView() {
-        if (newCode || modifying || removing) {
+        if (self.navigationController != nil) {
             self.navigationController!.popViewControllerAnimated(newCode || removing);
         } else {
             self.dismissViewControllerAnimated(false, completion: nil);

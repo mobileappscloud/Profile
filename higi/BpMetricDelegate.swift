@@ -4,9 +4,11 @@ class BpMetricDelegate: MetricDelegate {
     
     var selectedCheckin: HigiCheckin!;
 
-    var systolicRanges:[MetricGauge.Range] = [MetricGauge.Range(label: "Normal", color: Utility.colorFromHexString("#88c681"), interval: (90, 120)), MetricGauge.Range(label: "At risk", color: Utility.colorFromHexString("#fdd835"), interval: (120, 140)), MetricGauge.Range(label: "High", color: Utility.colorFromHexString("#ef535a"), interval: (140, 200))];
-    
-    var diastolicRanges:[MetricGauge.Range] = [MetricGauge.Range(label: "Normal", color: Utility.colorFromHexString("#88c681"), interval: (60, 80)), MetricGauge.Range(label: "At risk", color: Utility.colorFromHexString("#fdd835"), interval: (80, 90)), MetricGauge.Range(label: "High", color: Utility.colorFromHexString("#ef535a"), interval: (90, 120))];
+    struct BpRanges {
+        static let systolicRanges:[MetricGauge.Range] = [MetricGauge.Range(label: "Normal", color: Utility.colorFromHexString("#88c681"), interval: (90, 120)), MetricGauge.Range(label: "At risk", color: Utility.colorFromHexString("#fdd835"), interval: (120, 140)), MetricGauge.Range(label: "High", color: Utility.colorFromHexString("#ef535a"), interval: (140, 200))];
+        
+        static let diastolicRanges:[MetricGauge.Range] = [MetricGauge.Range(label: "Normal", color: Utility.colorFromHexString("#88c681"), interval: (60, 80)), MetricGauge.Range(label: "At risk", color: Utility.colorFromHexString("#fdd835"), interval: (80, 90)), MetricGauge.Range(label: "High", color: Utility.colorFromHexString("#ef535a"), interval: (90, 120))];
+    }
     
     func getTitle() -> String {
         return getType().getTitle();
@@ -63,34 +65,26 @@ class BpMetricDelegate: MetricDelegate {
     
     func getRanges(tab: Int) -> [MetricGauge.Range] {
         var ranges:[MetricGauge.Range] = [];
-        var value = 0;
         if (tab == 0) {
             let systolic = selectedCheckin.systolic!;
             let diastolic = selectedCheckin.diastolic!;
-            for i in 0...systolicRanges.count - 1 {
-                let systolicRange = systolicRanges[i];
-                let diastolicRange = diastolicRanges[i];
+            for i in 0...BpRanges.systolicRanges.count - 1 {
+                let systolicRange = BpRanges.systolicRanges[i];
+                let diastolicRange = BpRanges.diastolicRanges[i];
                 let containsSystolic = systolicRange.contains(systolic);
                 let containsDiastolic = diastolicRange.contains(diastolic);
                 if (containsSystolic && containsDiastolic) {
                     if ((systolic - systolicRange.lowerBound) / (systolicRange.upperBound - systolicRange.lowerBound) >
                         (diastolic - diastolicRange.lowerBound) / (diastolicRange.upperBound - diastolicRange.lowerBound)) {
-                            ranges = systolicRanges;
-                            value = systolic;
+                            ranges = BpRanges.systolicRanges;
                     } else {
-                        ranges = diastolicRanges;
-                        value = diastolic;
+                        ranges = BpRanges.diastolicRanges;
                     }
                 } else if (containsSystolic) {
-                    ranges = systolicRanges;
-                    break;
+                    ranges = BpRanges.systolicRanges;
                 } else if (containsDiastolic) {
-                    ranges = diastolicRanges;
-                    break;
+                    ranges = BpRanges.diastolicRanges;
                 }
-            }
-            if (ranges.count == 0) {
-                
             }
         } else if (tab == 1) {
             ranges.append(MetricGauge.Range(label: "Low", color: Utility.colorFromHexString("#44aad8"), interval: (30, 70)));
@@ -98,5 +92,41 @@ class BpMetricDelegate: MetricDelegate {
             ranges.append(MetricGauge.Range(label: "High", color: Utility.colorFromHexString("#ef535a"), interval: (110, 150)));
         }
         return ranges;
+    }
+    
+    func getSelectedValue(tab: Int) -> String {
+        if (tab == 0) {
+            return selectedCheckin.systolic != nil ? "\(selectedCheckin.systolic!)/\(selectedCheckin.diastolic!)" : "--";
+        } else {
+            return selectedCheckin.map != nil ? "\(Int(selectedCheckin.map!))" : "--";
+        }
+    }
+    
+    func getSelectedUnit(tab: Int) -> String {
+        return "mmHg";
+    }
+    
+    class func valueIsSystolic(systolic: Int, diastolic: Int) -> Bool {
+        var isSystolic = true;
+        var ranges:[MetricGauge.Range] = [];
+        for i in 0...BpRanges.systolicRanges.count - 1 {
+            let systolicRange = BpRanges.systolicRanges[i];
+            let diastolicRange = BpRanges.diastolicRanges[i];
+            let containsSystolic = systolicRange.contains(systolic);
+            let containsDiastolic = diastolicRange.contains(diastolic);
+            if (containsSystolic && containsDiastolic) {
+                if ((systolic - systolicRange.lowerBound) / (systolicRange.upperBound - systolicRange.lowerBound) >
+                    (diastolic - diastolicRange.lowerBound) / (diastolicRange.upperBound - diastolicRange.lowerBound)) {
+                        isSystolic = true;
+                } else {
+                    isSystolic = false;
+                }
+            } else if (containsSystolic) {
+                isSystolic = true;
+            } else if (containsDiastolic) {
+                isSystolic = false;
+            }
+        }
+        return isSystolic;
     }
 }

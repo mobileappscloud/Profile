@@ -38,17 +38,28 @@ class MetricGauge: UIView {
     
     let sweepAngle = 2 * M_PI * 2 / 3;
     
-    class func create(frame: CGRect, delegate: MetricDelegate, userValue: Int, unit: String, tab: Int) -> MetricGauge {
+    class func create(frame: CGRect, delegate: MetricDelegate, tab: Int) -> MetricGauge {
         let gauge = UINib(nibName: "MetricGaugeView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! MetricGauge;
-        gauge.setup(frame, delegate: delegate, userValue: userValue, unit: unit, tab: tab);
+        gauge.setup(frame, delegate: delegate, tab: tab);
         return gauge;
     }
     
-    func setup(frame: CGRect, delegate: MetricDelegate, userValue: Int, unit: String, tab:Int) {
-        self.value.text = "\(userValue)";
+    func setup(frame: CGRect, delegate: MetricDelegate, tab:Int) {
+        var userValue = 0;
+        if delegate.getSelectedValue(tab).toInt() != nil {
+            userValue = delegate.getSelectedValue(tab).toInt()!;
+        } else if (delegate.getType() == MetricsType.BloodPressure) {
+            let valueArray = split(delegate.getSelectedValue(tab)) {$0 == "/"};
+            if (valueArray.count > 1) {
+                let systolic = valueArray[0].toInt()!;
+                let diastolic = valueArray[1].toInt()!;
+                userValue = BpMetricDelegate.valueIsSystolic(systolic, diastolic: diastolic) ? systolic : diastolic;
+            }
+        }
+        self.value.text = "\(delegate.getSelectedValue(tab))";
         self.frame = frame;
         gaugeContainer.frame = frame;
-        self.unit.text = unit;
+        self.unit.text = delegate.getSelectedUnit(tab);
         self.delegate = delegate;
         lineWidth = frame.size.width * 0.1;
         radius = (frame.size.width / 2 - (lineWidth / 2)) * 0.9;
@@ -88,7 +99,6 @@ class MetricGauge: UIView {
                 valueSet = true;
             }
             rangeArc.strokeColor = range.color.CGColor;
-            
             if (begin < rangeMin) {
                 rangeMin = begin;
                 lowRange = range;

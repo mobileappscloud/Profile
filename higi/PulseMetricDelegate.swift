@@ -55,4 +55,12 @@ class PulseMetricDelegate: MetricDelegate {
         ranges.append(MetricGauge.Range(label: "High", color: Utility.colorFromHexString("#ef535a"), interval: (100, 120)));
         return ranges;
     }
+    
+    func getSelectedValue(tab:Int) -> String {
+        return selectedCheckin.pulseBpm != nil ? "\(selectedCheckin.pulseBpm!)" : "--";
+    }
+    
+    func getSelectedUnit(tab: Int) -> String {
+        return "bpm";
+    }
 }
