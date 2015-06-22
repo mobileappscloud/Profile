@@ -168,7 +168,7 @@ class ApiUtility {
     
     class func checkForNewActivities(success: (() -> Void)?) {
         let userId = !HigiApi.EARNDIT_DEV ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
-        HigiApi().sendPost("\(HigiApi.earnditApiUrl)/user/\(userId)/lookForNewActivities", parameters: nil, success: {operation, responseObject in
+        HigiApi().sendPost("\(HigiApi.earnditApiUrl)/user/\(userId)/activities/lookForNew", parameters: nil, success: {operation, responseObject in
             success?();
             }, failure: { operation, error in
                 success?();

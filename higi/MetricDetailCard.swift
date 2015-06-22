@@ -13,11 +13,6 @@ class MetricDetailCard: UIView {
     @IBOutlet weak var thirdPanelLabel: UILabel!
     @IBOutlet weak var headerContainer: UIView!
     @IBOutlet weak var copyScrollview: UIScrollView!
-    @IBOutlet weak var title: UILabel!
-    @IBOutlet weak var titleUnit: UILabel!
-    @IBOutlet weak var checkinSource: UILabel!
-    @IBOutlet weak var checkinLocation: UILabel!
-    @IBOutlet weak var checkinAddress: UILabel!
     @IBOutlet weak var gaugeContainer: UIView!
     @IBOutlet weak var copyImage: UIImageView!
     @IBOutlet weak var secondPanelHeader: UILabel!
@@ -37,11 +32,11 @@ class MetricDetailCard: UIView {
     
     class func instanceFromNib(selection: MetricCard.SelectedPoint, delegate: MetricDelegate) -> MetricDetailCard {
         var view = UINib(nibName: "MetricDetailCardView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! MetricDetailCard;
-        view.setup(delegate, userValue: selection.secondPanel.value);
         view.setData(selection);
+        view.setup(delegate, userValue: selection.secondPanel.value);
         return view;
     }
-    
+
     func setup(delegate: MetricDelegate, userValue: String) {
         self.delegate = delegate;
         let color = delegate.getColor();
@@ -49,6 +44,7 @@ class MetricDetailCard: UIView {
         secondPanelValue.textColor = color;
         thirdPanelValue.textColor = color;
         
+        let tab = thirdPanelSelected ? 1 : 0;
         let value = userValue.toInt() != nil ? userValue.toInt()! : 0;
         if (delegate.getType() == MetricsType.DailySummary) {
             if (gauge != nil && gauge.superview != nil) {
@@ -66,11 +62,11 @@ class MetricDetailCard: UIView {
             meter.setDarkText();
             let tap = UITapGestureRecognizer(target: self, action: "gotoDailySummary:");
             meter.addGestureRecognizer(tap);
-        } else if (delegate.getRanges().count > 0) {
+        } else if (delegate.getRanges(tab).count > 0) {
             if (meter != nil && meter.superview != nil) {
                 meter.removeFromSuperview();
             }
-            gauge = MetricGauge.create(CGRect(x: 0, y: 0, width: gaugeContainer.frame.size.width, height: gaugeContainer.frame.size.height), delegate: delegate, userValue: value);
+            gauge = MetricGauge.create(CGRect(x: 0, y: 0, width: gaugeContainer.frame.size.width, height: gaugeContainer.frame.size.height), delegate: delegate, userValue: value, unit: thirdPanelUnit.text!, tab: tab);
             gaugeContainer.addSubview(gauge);
         }
         triangleIndicator = TriangleView(frame: CGRect(x: thirdPanel.frame.origin.x + thirdPanel.frame.size.width / 2, y: thirdPanel.frame.size.height - 2, width: triangleHeight, height: triangleHeight));
@@ -140,7 +136,12 @@ class MetricDetailCard: UIView {
         (Utility.getViewController(self) as! MetricsViewController).openDetailsIfClosed();
         if (thirdPanelSelected) {
             triangleIndicator.frame = CGRect(x: secondPanel.frame.origin.x + secondPanel.frame.size.width / 2 - triangleHeight / 2, y: secondPanel.frame.size.height - 2, width: triangleHeight, height: triangleHeight);
-//            gauge = MetricGauge.create(CGRect(x: 0, y: 0, width: gaugeContainer.frame.size.width, height: gaugeContainer.frame.size.height), delegate: delegate, userValue: value);
+            if (gauge.superview != nil) {
+                let value = secondPanelValue.text?.toInt() != nil ? secondPanelValue.text!.toInt()! : 0;
+                gauge.removeFromSuperview();
+                gauge = MetricGauge.create(CGRect(x: 0, y: 0, width: gaugeContainer.frame.size.width, height: gaugeContainer.frame.size.height), delegate: delegate, userValue: value, unit: secondPanelUnit.text!, tab: 0);
+                gaugeContainer.addSubview(gauge);
+            }
         }
         thirdPanelSelected = false;
     }
@@ -149,7 +150,12 @@ class MetricDetailCard: UIView {
         (Utility.getViewController(self) as! MetricsViewController).openDetailsIfClosed();
         if (!thirdPanelSelected) {
             triangleIndicator.frame = CGRect(x: thirdPanel.frame.origin.x + thirdPanel.frame.size.width / 2 - triangleHeight / 2, y: thirdPanel.frame.size.height - 2, width: triangleHeight, height: triangleHeight);
-//            gauge = MetricGauge.create(CGRect(x: 0, y: 0, width: gaugeContainer.frame.size.width, height: gaugeContainer.frame.size.height), delegate: delegate, userValue: value);
+            if (gauge.superview != nil) {
+                let value = thirdPanelValue.text?.toInt() != nil ? thirdPanelValue.text!.toInt()! : 0;
+                gauge.removeFromSuperview();
+                gauge = MetricGauge.create(CGRect(x: 0, y: 0, width: gaugeContainer.frame.size.width, height: gaugeContainer.frame.size.height), delegate: delegate, userValue: value, unit: thirdPanelUnit.text!, tab: 1);
+                gaugeContainer.addSubview(gauge);
+            }
         }
         thirdPanelSelected = true;
     }

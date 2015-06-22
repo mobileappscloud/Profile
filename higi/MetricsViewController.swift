@@ -10,7 +10,7 @@ class MetricsViewController: UIViewController {
     
     var detailsCard: MetricDetailCard!;
     
-    var detailsOpen = false, previousShouldRotate: Bool!;
+    var detailsOpen = false, detailsGone = false, previousShouldRotate: Bool!;
 
     let detailsCardPosY:CGFloat = 267, cardHeaderViewHeight:CGFloat = 54, cardDragThreshold:CGFloat = 300;
     
@@ -189,6 +189,10 @@ class MetricsViewController: UIViewController {
         let currentCard = self.view.subviews[self.view.subviews.count - 1] as! MetricCard;
         detailsCard = initDetailCard(currentCard.getSelectedPoint(), delegate: currentCard.delegate);
         self.view.addSubview(detailsCard);
+        if (detailsGone) {
+            detailsCard.animateBounceIn(detailsCardPosY);
+            detailsGone = false;
+        }
     }
     
     func initDetailCard(selection: MetricCard.SelectedPoint, delegate: MetricDelegate) -> MetricDetailCard {

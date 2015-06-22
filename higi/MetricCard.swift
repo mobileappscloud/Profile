@@ -111,8 +111,8 @@ class MetricCard: UIView, MetricDelegate {
         
     }
     
-    func getRanges() -> [MetricGauge.Range] {
-        return delegate.getRanges();
+    func getRanges(tab:Int) -> [MetricGauge.Range] {
+        return delegate.getRanges(tab);
     }
     
     func setSelected(date: NSDate) {

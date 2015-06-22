@@ -29,15 +29,6 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         fatalError("NSCoding not supported");
     }
     
-    func initGraph() {
-        graph = CPTXYGraph(frame: self.bounds);
-        self.hostedGraph = graph;
-        graph.paddingLeft = 0;
-        graph.paddingTop = 0;
-        graph.paddingRight = 0;
-        graph.paddingBottom = 0;
-    }
-    
     func setup(frame: CGRect, points: [GraphPoint]) {
         self.points = points;
         self.frame = frame;
@@ -49,7 +40,12 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         } else {
             let color = type.getColor();
             var maxY = 0.0, minY = DBL_MAX, maxX = 0.0, minX = DBL_MAX;
-            initGraph();
+            graph = CPTXYGraph(frame: self.bounds);
+            self.hostedGraph = graph;
+            graph.paddingLeft = 0;
+            graph.paddingTop = 0;
+            graph.paddingRight = 0;
+            graph.paddingBottom = 0;
             graph.plotAreaFrame.paddingBottom = 10;
             for point in points {
                 if (point.y > maxY) {
@@ -116,190 +112,20 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         }
     }
     
-//    func setupForMetric() {
-//        let color = Utility.colorFromHexString("#b4a6c2"), unselectedColor = Utility.colorFromHexString("#b4a6c2");
-//        var maxY = 0.0, minY = DBL_MAX, plotSymbolSize = 7.0;
-//        let hitMargin = 5, pointsToShow = 30;
-//        
-//        initGraph();
-//        self.allowPinchScaling = true;
-//        graph.plotAreaFrame.paddingTop = 20;
-//        graph.plotAreaFrame.borderLineStyle = nil;
-//
-//        plotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
-//        plotSymbol.fill = CPTFill(color: CPTColor.whiteColor());
-//        var symbolLineStyle = CPTMutableLineStyle();
-//        symbolLineStyle.lineColor = CPTColor(CGColor: color.CGColor);
-//        symbolLineStyle.lineWidth = 2;
-//        plotSymbol.lineStyle = symbolLineStyle;
-//        plotSymbol.size = CGSize(width: plotSymbolSize, height: plotSymbolSize);
-//        
-//        selectedPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
-//        selectedPlotSymbol.fill = CPTFill(color: CPTColor(CGColor: color.CGColor));
-//        selectedPlotSymbol.lineStyle = symbolLineStyle;
-//        selectedPlotSymbol.size = CGSize(width: plotSymbolSize, height: plotSymbolSize);
-//        
-//        altPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
-//        altPlotSymbol.fill = CPTFill(color: CPTColor(CGColor: color.CGColor));
-//        altPlotSymbol.lineStyle = symbolLineStyle;
-//        altPlotSymbol.size = CGSize(width: plotSymbolSize, height: plotSymbolSize);
-//        
-//        selectedAltPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
-//        selectedAltPlotSymbol.fill = CPTFill(color: CPTColor(CGColor: color.CGColor));
-//        selectedAltPlotSymbol.lineStyle = symbolLineStyle;
-//        selectedAltPlotSymbol.size = CGSize(width: plotSymbolSize, height: plotSymbolSize);
-//        
-//        unselectedAltPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
-//        unselectedAltPlotSymbol.fill = CPTFill(color: CPTColor(CGColor: unselectedColor.CGColor));
-//        unselectedAltPlotSymbol.size = CGSize(width: plotSymbolSize, height: plotSymbolSize);
-//        var unselectedAltPlotLineStyle = CPTMutableLineStyle();
-//        unselectedAltPlotLineStyle.lineColor = CPTColor(CGColor: unselectedColor.CGColor);
-//        unselectedAltPlotLineStyle.lineWidth = 1;
-//        unselectedAltPlotSymbol.lineStyle = unselectedAltPlotLineStyle;
-//        
-//        var visiblePoints: [GraphPoint] = [];
-//        for index in 0..<points.count {
-//            var point = points[index];
-//            if (diastolicPoints.count > 0 && diastolicPoints.count > index) {
-//                var point2 = diastolicPoints[index];
-//                if (point2.y < minY) {
-//                    minY = point2.y;
-//                }
-//            } else {
-//                if (point.y < minY) {
-//                    minY = point.y;
-//                }
-//            }
-//            if (systolicPoints.count > 0 && systolicPoints.count > index) {
-//                var point2 = systolicPoints[index];
-//                if (point2.y > maxY) {
-//                    maxY = point2.y;
-//                }
-//            } else {
-//                if (point.y > maxY) {
-//                    maxY = point.y;
-//                }
-//            }
-//            if (diastolicPoints.count > 0 && diastolicPoints.count > index && systolicPoints.count > 0 && systolicPoints.count > index) {
-//                altPoints.append(systolicPoints[index]);
-//                altPoints.append(diastolicPoints[index]);
-//                
-//                let systolicPoint = systolicPoints[index];
-//                let diastolicPoint = diastolicPoints[index];
-//                let screenSystolicPoint = getScreenPoint(self, xPoint: CGFloat(systolicPoint.x), yPoint: CGFloat(systolicPoint.y));
-//                let screenDiastolicPoint = getScreenPoint(self, xPoint: CGFloat(diastolicPoint.x), yPoint: CGFloat(diastolicPoint.y));
-//
-//                let view = UIView(frame: CGRect(x: screenSystolicPoint.x - 0.5, y: self.frame.size.height - CGFloat(screenSystolicPoint.y) - 24, width: 1, height: CGFloat(screenSystolicPoint.y - screenDiastolicPoint.y)));
-//                view.backgroundColor = plotSymbol.lineStyle.lineColor.uiColor;
-//                addSubview(view);
-//            }
-//            if (points.count > pointsToShow) {
-//                if (index > points.count - 1 - pointsToShow) {
-//                    visiblePoints.append(point);
-//                }
-//            } else {
-//                visiblePoints.append(point);
-//            }
-//        }
-//        if (diastolicPoints.count > 0) {
-//            altPlot = NewCPTScatterPlot(frame: CGRectZero);
-//            altPlot.interpolation = CPTScatterPlotInterpolationLinear;
-//            altPlot.plotSymbolMarginForHitDetection = CGFloat(hitMargin);
-//            altPlot.dataSource = self;
-//            altPlot.delegate = self;
-//            altPlot.setAreaBaseDecimalValue(0);
-//            altPlot.plotSymbol = altPlotSymbol;
-//            var noLineStyle = CPTMutableLineStyle();
-//            noLineStyle.lineWidth = 0;
-//            altPlot.dataLineStyle = noLineStyle;
-//            //add alt plot here so that it's drawn behind main plot
-//            graph.addPlot(altPlot, toPlotSpace: graph.defaultPlotSpace);
-//        }
-//        var firstPoint, lastPoint: GraphPoint;
-//        if (visiblePoints.count > 0) {
-//            firstPoint = visiblePoints[0];
-//            lastPoint = visiblePoints[visiblePoints.count - 1];
-//        } else {
-//            firstPoint = GraphPoint(x: 0, y: 0);
-//            lastPoint = GraphPoint(x: 0, y: 0);
-//            minY = 0;
-//        }
-////        var tickInterval = roundToHighest(maxY - minY, roundTo: 10);
-//        var tickInterval = 20.0;
-//        let lowerBound = roundToLowest(round(minY) - (maxY - minY) * 0.25, roundTo: tickInterval);
-//        let yRange = roundToHighest((maxY - minY) * 1.5, roundTo: tickInterval);
-//        var xRange = lastPoint.x - firstPoint.x != 0 ? lastPoint.x - firstPoint.x : 1;
-//        var plotSpace = self.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace;
-//        plotSpace.xRange = NewCPTPlotRange(location: firstPoint.x - xRange * 0.2, length: xRange * 1.3);
-//        plotSpace.yRange = NewCPTPlotRange(location: lowerBound, length: yRange);
-////        plotSpace.yRange = NewCPTPlotRange(location: round(minY) - (maxY - minY) * 0.25, length: (maxY - minY) * 1.5);
-//        plotSpace.globalXRange = plotSpace.xRange;
-//        plotSpace.globalYRange = plotSpace.yRange;
-//        plotSpace.delegate = self;
-//        
-//        plot = NewCPTScatterPlot(frame: frame);
-//        plot.interpolation = CPTScatterPlotInterpolationCurved;
-//        plot.setAreaBaseDecimalValue(0);
-//        plot.plotSymbolMarginForHitDetection = CGFloat(hitMargin);
-//        plot.dataSource = self;
-//        plot.delegate = self;
-//        plot.plotSymbol = plotSymbol;
-//        var lineStyle = CPTMutableLineStyle();
-//        lineStyle.lineColor = CPTColor(CGColor: color.CGColor);
-//        lineStyle.lineWidth = 1;
-//        plot.dataLineStyle = lineStyle;
-//        
-//        var axisTextStyle = CPTMutableTextStyle();
-//        axisTextStyle.color = CPTColor.grayColor();
-//        axisTextStyle.fontSize = 8;
-//
-//        var xAxis = graph.axisSet.axisForCoordinate(CPTCoordinateX, atIndex: 0) as! CPTXYAxis;
-//        xAxis.labelTextStyle = axisTextStyle;
-//        xAxis.majorTickLineStyle = nil;
-//        xAxis.minorTickLineStyle = nil;
-//        xAxis.visibleRange = plotSpace.xRange;
-//        xAxis.axisConstraints = CPTConstraints(lowerOffset: 0);
-//        xAxis.labelingPolicy = CPTAxisLabelingPolicyEqualDivisions;
-//        xAxis.preferredNumberOfMajorTicks = 10;
-//        xAxis.axisLineStyle = lineStyle;
-//        xAxis.labelOffset = 0;
-//        xAxis.tickDirection = CPTSignPositive;
-//        var dateFormatter = NSDateFormatter();
-//        dateFormatter.dateFormat = "MMM dd";
-//        xAxis.labelFormatter = CustomFormatter(dateFormatter: dateFormatter);
-//        
-//        var yAxis = graph.axisSet.axisForCoordinate(CPTCoordinateY, atIndex: 0) as! CPTXYAxis;
-//        yAxis.axisLineStyle = lineStyle;
-//        yAxis.labelTextStyle = axisTextStyle;
-//        yAxis.labelOffset = CGFloat(20);
-//        yAxis.majorTickLineStyle = nil;
-//        yAxis.minorTickLineStyle = nil;
-//        yAxis.visibleRange = plotSpace.yRange;
-//        yAxis.gridLinesRange = plotSpace.xRange;
-//        yAxis.axisConstraints = CPTConstraints(lowerOffset: 0);
-//        yAxis.labelingPolicy = CPTAxisLabelingPolicyEqualDivisions;
-//        let numberFormatter = NSNumberFormatter();
-//        numberFormatter.numberStyle = NSNumberFormatterStyle.DecimalStyle;
-//        numberFormatter.maximumFractionDigits = 0;
-//        yAxis.labelFormatter = numberFormatter;
-//        yAxis.tickDirection = CPTSignPositive;
-//        yAxis.labelOffset = 0;
-//
-////        yAxis.preferredNumberOfMajorTicks = UInt(Int((yRange) / tickInterval)) + 1;
-//        yAxis.preferredNumberOfMajorTicks = 5;
-//        graph.addPlot(plot, toPlotSpace: graph.defaultPlotSpace);
-//        
-//        checkinSelected(plot, idx: points.count - 1, first: true);
-//    }
-
-    func setupBareBones(color: UIColor) {
+    func setupForMetric(color: UIColor) {
         let unselectedColor = Utility.colorFromHexString("#b4a6c2");
         var maxY = 0.0, minY = DBL_MAX, plotSymbolSize = 7.0;
         let hitMargin = 5, pointsToShow = 30;
         
-        initGraph();
+        graph = CPTXYGraph(frame: self.bounds);
+        self.hostedGraph = graph;
+        graph.paddingLeft = 0;
+        graph.paddingTop = 0;
+        graph.paddingRight = 0;
+        graph.paddingBottom = 0;
         self.allowPinchScaling = true;
         graph.plotAreaFrame.paddingTop = 20;
+
         graph.plotAreaFrame.borderLineStyle = nil;
         
         plotSymbol = CPTPlotSymbol.ellipsePlotSymbol();

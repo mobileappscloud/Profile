@@ -20,27 +20,35 @@ class MetricGauge: UIView {
         
         var interval: (Int, Int)!;
         
+        var lowerBound, upperBound: Int!;
+        
         init(label: String, color: UIColor, interval: (Int, Int)) {
             self.label = label;
             self.color = color;
             self.interval = interval;
+            self.lowerBound = interval.0;
+            self.upperBound = interval.1;
+        }
+        
+        func contains(value: Int) -> Bool {
+            return value >= lowerBound && value < upperBound;
         }
     }
     var delegate: MetricDelegate!;
     
     let sweepAngle = 2 * M_PI * 2 / 3;
     
-    class func create(frame: CGRect, delegate: MetricDelegate, userValue: Int) -> MetricGauge {
+    class func create(frame: CGRect, delegate: MetricDelegate, userValue: Int, unit: String, tab: Int) -> MetricGauge {
         let gauge = UINib(nibName: "MetricGaugeView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! MetricGauge;
-        gauge.setup(frame, delegate: delegate, userValue: userValue);
+        gauge.setup(frame, delegate: delegate, userValue: userValue, unit: unit, tab: tab);
         return gauge;
     }
     
-    func setup(frame: CGRect, delegate: MetricDelegate, userValue: Int) {
+    func setup(frame: CGRect, delegate: MetricDelegate, userValue: Int, unit: String, tab:Int) {
         self.value.text = "\(userValue)";
         self.frame = frame;
         gaugeContainer.frame = frame;
-        unit.text = delegate.getSelectedPoint().secondPanel.unit;
+        self.unit.text = unit;
         self.delegate = delegate;
         lineWidth = frame.size.width * 0.1;
         radius = (frame.size.width / 2 - (lineWidth / 2)) * 0.9;
@@ -59,7 +67,7 @@ class MetricGauge: UIView {
         arc.path = toPath.CGPath;
         gaugeContainer.layer.addSublayer(arc);
         
-        let ranges = delegate.getRanges();
+        let ranges = delegate.getRanges(tab);
         var strokeStart:CGFloat = 0.0, strokeEnd:CGFloat = 0.0;
         var valueSet = false;
         var lowRange, highRange: Range!;
@@ -77,12 +85,8 @@ class MetricGauge: UIView {
             if (userValue < end && userValue >= begin) {
                 self.label.text = range.label;
                 self.label.textColor = range.color;
-//                rangeArc.strokeColor = range.color.CGColor;
                 valueSet = true;
-            } else {
-//                rangeArc.strokeColor = UIColor.whiteColor().CGColor;
             }
-            
             rangeArc.strokeColor = range.color.CGColor;
             
             if (begin < rangeMin) {
@@ -143,11 +147,13 @@ class MetricGauge: UIView {
         if (userValue < rangeMin) {
             if (!valueSet) {
                 self.label.text = lowRange.label;
+                self.label.textColor = lowRange.color;
             }
             ratio = 0;
         } else if (userValue > rangeMax) {
             if (!valueSet) {
                 self.label.text = highRange.label;
+                self.label.textColor = highRange.color;
             }
             ratio = 1;
         } else {
@@ -155,7 +161,7 @@ class MetricGauge: UIView {
         }
         let angle = CGFloat(startAngle) + CGFloat(sweepAngle) * ratio;
         let triangleHeight:CGFloat = 20;
-        var triangleX = center.x + radius * cos(angle) - triangleHeight / 2;
+        let triangleX = center.x + radius * cos(angle) - triangleHeight / 2;
         let triangleY = center.y + radius * sin(angle);
         let triangle = TriangleView(frame: CGRect(x: triangleX, y: triangleY, width: triangleHeight, height: triangleHeight));
         triangle.transform = CGAffineTransformRotate(self.transform, angle - 3 * CGFloat(M_PI) / 2);
