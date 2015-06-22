@@ -5,8 +5,8 @@ class MetricGauge: UIView {
     @IBOutlet weak var gaugeContainer: UIView!
     @IBOutlet weak var value: UILabel!
     @IBOutlet weak var label: UILabel!
-    
     @IBOutlet weak var unit: UILabel!
+    
     var lineWidth, radius: CGFloat!;
     
     var ranges: [Range] = [];
@@ -37,6 +37,8 @@ class MetricGauge: UIView {
     var delegate: MetricDelegate!;
     
     let sweepAngle = 2 * M_PI * 2 / 3;
+    
+    var drawAngle: Double!;
     
     class func create(frame: CGRect, delegate: MetricDelegate, tab: Int) -> MetricGauge {
         let gauge = UINib(nibName: "MetricGaugeView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! MetricGauge;
@@ -79,12 +81,13 @@ class MetricGauge: UIView {
         gaugeContainer.layer.addSublayer(arc);
         
         let ranges = delegate.getRanges(tab);
+        drawAngle = sweepAngle / Double(ranges.count);
         var strokeStart:CGFloat = 0.0, strokeEnd:CGFloat = 0.0;
         var valueSet = false;
-        var lowRange, highRange: Range!;
+        var userRange, lowRange, highRange: Range!;
         rangeMax = 0;
         rangeMin = 99999;
-        var i = 0;
+        var rangeIndex = 0, i = 0;
         for range in ranges {
             let (begin, end) = range.interval;
             let rangeInterval = 1 / CGFloat(ranges.count);
@@ -93,10 +96,12 @@ class MetricGauge: UIView {
             var rangeArc = CAShapeLayer();
             rangeArc.lineWidth = lineWidth;
             rangeArc.fillColor = UIColor.clearColor().CGColor;
-            if (userValue < end && userValue >= begin) {
+            if (range.contains(userValue)) {
                 self.label.text = range.label;
                 self.label.textColor = range.color;
                 valueSet = true;
+                userRange = range;
+                rangeIndex = i;
             }
             rangeArc.strokeColor = range.color.CGColor;
             if (begin < rangeMin) {
@@ -158,23 +163,33 @@ class MetricGauge: UIView {
             if (!valueSet) {
                 self.label.text = lowRange.label;
                 self.label.textColor = lowRange.color;
+                userRange = lowRange;
+                rangeIndex = 0;
             }
             ratio = 0;
         } else if (userValue > rangeMax) {
             if (!valueSet) {
                 self.label.text = highRange.label;
                 self.label.textColor = highRange.color;
+                userRange = highRange;
+                rangeIndex = ranges.count - 1;
             }
             ratio = 1;
         } else {
             ratio = CGFloat(userValue) / CGFloat(rangeMax + rangeMin);
         }
+        drawMarker(startAngle + CGFloat(drawAngle) * CGFloat(rangeIndex), value: userValue, range: userRange);
+    }
+    
+    func drawMarker(startAngle:CGFloat, value: Int, range: Range) {
+        let valueAngle = CGFloat(value - range.lowerBound) / CGFloat(range.upperBound - range.lowerBound) * CGFloat(drawAngle) + startAngle;
+        let ratio = min(CGFloat(value) / CGFloat(rangeMax + rangeMin), 1);
         let angle = CGFloat(startAngle) + CGFloat(sweepAngle) * ratio;
         let triangleHeight:CGFloat = 20;
-        let triangleX = center.x + radius * cos(angle) - triangleHeight / 2;
-        let triangleY = center.y + radius * sin(angle);
+        let triangleX = center.x + radius * cos(valueAngle) - triangleHeight / 2;
+        let triangleY = center.y + radius * sin(valueAngle);
         let triangle = TriangleView(frame: CGRect(x: triangleX, y: triangleY, width: triangleHeight, height: triangleHeight));
-        triangle.transform = CGAffineTransformRotate(self.transform, angle - 3 * CGFloat(M_PI) / 2);
+        triangle.transform = CGAffineTransformRotate(self.transform, valueAngle - 3 * CGFloat(M_PI) / 2);
         addSubview(triangle);
     }
     

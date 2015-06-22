@@ -82,7 +82,7 @@ class WeightMetricDelegate: MetricDelegate {
         if (tab == 0) {
             return selectedCheckin.weightLbs != nil ? "\(Int(selectedCheckin.weightLbs!))" : "--";
         } else {
-            return selectedCheckin.fatRatio != nil ? "\(Int(selectedCheckin.fatRatio!))%" : "--";
+            return selectedCheckin.fatRatio != nil ? "\(Int(selectedCheckin.fatRatio!))" : "--";
         }
     }
     
