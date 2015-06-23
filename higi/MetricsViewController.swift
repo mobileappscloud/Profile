@@ -187,10 +187,18 @@ class MetricsViewController: UIViewController {
             if (topCard.frame.origin.x >= -cardDragThreshold) {
                 topCard.frame.origin.x = 0;
             }
+        } else {
+            var draggedCard = self.view.subviews[self.view.subviews.count - (2 + index)] as! UIView;
+            if (draggedCard.frame.origin.x >= -cardDragThreshold) {
+                for i in 0...index {
+                    var card = self.view.subviews[self.view.subviews.count - (2 + i)] as! UIView;
+                    card.frame.origin.x = 0;
+                }
+            }
         }
         detailsCard.headerContainer.alpha = 1;
     }
-    
+
     func updateDetailCard() {
         detailsCard.removeFromSuperview();
         let currentCard = self.view.subviews[self.view.subviews.count - 1] as! MetricCard;
