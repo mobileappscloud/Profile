@@ -30,9 +30,6 @@ class ChatterInputViewController: UIViewController, UITextViewDelegate {
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         let currentText:NSString = textView.text;
         let updatedText = currentText.stringByReplacingCharactersInRange(range, withString:text);
-        let a = textView.textColor == UIColor.lightGrayColor();
-        let b = count(updatedText);
-        
         if (text == "\n") {
             if (textView.text != "Talk some smack!") {
                 textView.resignFirstResponder();
