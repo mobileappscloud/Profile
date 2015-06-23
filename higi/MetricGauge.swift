@@ -183,13 +183,12 @@ class MetricGauge: UIView {
     
     func drawMarker(startAngle:CGFloat, value: Int, range: Range) {
         let valueAngle = CGFloat(value - range.lowerBound) / CGFloat(range.upperBound - range.lowerBound) * CGFloat(drawAngle) + startAngle;
-        let ratio = min(CGFloat(value) / CGFloat(rangeMax + rangeMin), 1);
-        let angle = CGFloat(startAngle) + CGFloat(sweepAngle) * ratio;
         let triangleHeight:CGFloat = 20;
         let triangleX = center.x + radius * cos(valueAngle) - triangleHeight / 2;
         let triangleY = center.y + radius * sin(valueAngle);
         let triangle = TriangleView(frame: CGRect(x: triangleX, y: triangleY, width: triangleHeight, height: triangleHeight));
-        triangle.transform = CGAffineTransformRotate(self.transform, valueAngle - 3 * CGFloat(M_PI) / 2);
+        let transformAngle = valueAngle - 3 * CGFloat(M_PI) / 2;
+        triangle.transform = CGAffineTransformRotate(self.transform, transformAngle);
         addSubview(triangle);
     }
     

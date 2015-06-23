@@ -44,11 +44,15 @@ class BpMetricDelegate: MetricDelegate {
         }
     }
     
-    func getSelectedPoint() -> MetricCard.SelectedPoint {
-        let date = Constants.displayDateFormatter.stringFromDate(selectedCheckin.dateTime);
-        let bp = selectedCheckin.systolic != nil ? "\(selectedCheckin.systolic!)/\(selectedCheckin.diastolic!)" : "";
-        let map = selectedCheckin.map != nil ? "\(Int(selectedCheckin.map!))" : "";
-        return MetricCard.SelectedPoint(date: date, firstPanelValue: bp, firstPanelLabel: "Blood Pressure", firstPanelUnit: "mmHg", secondPanelValue: map, secondPanelLabel: "Mean Arterial Pressure", secondPanelUnit: "mmHg")
+    func getSelectedPoint() -> MetricCard.SelectedPoint? {
+        if (selectedCheckin == nil) {
+            return nil;
+        } else {
+            let date = Constants.displayDateFormatter.stringFromDate(selectedCheckin.dateTime);
+            let bp = selectedCheckin.systolic != nil ? "\(selectedCheckin.systolic!)/\(selectedCheckin.diastolic!)" : "";
+            let map = selectedCheckin.map != nil ? "\(Int(selectedCheckin.map!))" : "";
+                return MetricCard.SelectedPoint(date: date, firstPanelValue: bp, firstPanelLabel: "Blood Pressure", firstPanelUnit: "mmHg", secondPanelValue: map, secondPanelLabel: "Mean Arterial Pressure", secondPanelUnit: "mmHg");
+        }
     }
     
     func getGraph(frame: CGRect) -> MetricGraph {

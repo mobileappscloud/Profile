@@ -90,7 +90,7 @@ class MetricCard: UIView, MetricDelegate {
         return delegate.getType();
     }
     
-    func getSelectedPoint() -> MetricCard.SelectedPoint {
+    func getSelectedPoint() -> MetricCard.SelectedPoint? {
         return delegate.getSelectedPoint();
     }
 

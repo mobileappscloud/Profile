@@ -30,10 +30,17 @@ class MetricDetailCard: UIView {
     
     var thirdPanelSelected = true;
     
-    class func instanceFromNib(selection: MetricCard.SelectedPoint, delegate: MetricDelegate) -> MetricDetailCard {
+    var blankState = false;
+    
+    class func instanceFromNib(card: MetricCard) -> MetricDetailCard {
         var view = UINib(nibName: "MetricDetailCardView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! MetricDetailCard;
-        view.setData(selection);
-        view.setup(delegate);
+        if (card.getSelectedPoint() != nil) {
+            view.setData(card.getSelectedPoint()!);
+            view.setup(card.delegate);
+        } else {
+            view.blankState = true;
+//            view.animateBounceOut();
+        }
         return view;
     }
 
@@ -51,7 +58,7 @@ class MetricDetailCard: UIView {
                 gauge.removeFromSuperview();
             }
             meter = PointsMeter.create(CGRect(x: 0, y: 0, width: gaugeContainer.frame.size.width, height: gaugeContainer.frame.size.height));
-            let dateString = Constants.dateFormatter.stringFromDate(Constants.displayDateFormatter.dateFromString(delegate.getSelectedPoint().date)!);
+            let dateString = Constants.dateFormatter.stringFromDate(Constants.displayDateFormatter.dateFromString(delegate.getSelectedPoint()!.date)!);
             if (SessionController.Instance.activities[dateString] != nil) {
                 meter.setActivities(SessionController.Instance.activities[dateString]!);
             } else {
@@ -110,7 +117,6 @@ class MetricDetailCard: UIView {
     
     func animateBounceOut() {
         let height = UIScreen.mainScreen().bounds.height;
-        self.frame.origin.y = UIScreen.mainScreen().bounds.height;
         UIView.animateWithDuration(0.5, delay: 0, options: .CurveEaseInOut, animations: {
             self.frame.origin.y = height;
             }, completion: { complete in
@@ -189,7 +195,7 @@ class MetricDetailCard: UIView {
     func gotoDailySummary(sender: AnyObject) {
         Flurry.logEvent("Summary_Pressed");
         var summaryController = DailySummaryViewController(nibName: "DailySummaryView", bundle: nil);
-        let dateString = Constants.dateFormatter.stringFromDate(Constants.displayDateFormatter.dateFromString(delegate.getSelectedPoint().date)!);
+        let dateString = Constants.dateFormatter.stringFromDate(Constants.displayDateFormatter.dateFromString(delegate.getSelectedPoint()!.date)!);
         summaryController.dateString = dateString;
         Utility.getViewController(self)!.navigationController!.pushViewController(summaryController, animated: true);
     }

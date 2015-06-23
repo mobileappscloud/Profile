@@ -38,11 +38,15 @@ class WeightMetricDelegate: MetricDelegate {
         }
     }
     
-    func getSelectedPoint() -> MetricCard.SelectedPoint {
+    func getSelectedPoint() -> MetricCard.SelectedPoint? {
+        if (selectedCheckin == nil) {
+            return nil;
+        } else {
         let date = Constants.displayDateFormatter.stringFromDate(selectedCheckin.dateTime);
         let weight = selectedCheckin.weightLbs != nil ? "\(Int(selectedCheckin.weightLbs!))" : "";
         let bodyFat = selectedCheckin.fatRatio != nil ? "\(Int(selectedCheckin.fatRatio!))" : "--";
-        return MetricCard.SelectedPoint(date: date, firstPanelValue: weight, firstPanelLabel: "Weight", firstPanelUnit: "lbs", secondPanelValue: bodyFat, secondPanelLabel: "Body Fat", secondPanelUnit: "%")
+            return MetricCard.SelectedPoint(date: date, firstPanelValue: weight, firstPanelLabel: "Weight", firstPanelUnit: "lbs", secondPanelValue: bodyFat, secondPanelLabel: "Body Fat", secondPanelUnit: "%");
+        }
     }
     
     func getGraph(frame: CGRect) -> MetricGraph {

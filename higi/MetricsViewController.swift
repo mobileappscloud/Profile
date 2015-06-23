@@ -35,6 +35,26 @@ class MetricsViewController: UIViewController {
         revealController.supportedOrientations = UIInterfaceOrientationMask.LandscapeRight.rawValue;
         revealController.shouldRotate = true;
         UIDevice.currentDevice().setValue(UIInterfaceOrientation.LandscapeRight.rawValue, forKey: "orientation");
+        initCards();
+    }
+
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated);
+        if (detailsCard != nil && !detailsCard.blankState) {
+            detailsCard.animateBounceIn(detailsCardPosY);
+        }
+    }
+
+    override func viewWillDisappear(animated: Bool) {
+        self.navigationController!.navigationBarHidden = false;
+        super.viewWillDisappear(animated);
+    }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true;
+    }
+    
+    func initCards() {
         for subView in self.view.subviews {
             subView.removeFromSuperview();
         }
@@ -72,29 +92,13 @@ class MetricsViewController: UIViewController {
             pos--;
         }
         if (card != nil) {
-            detailsCard = initDetailCard(card!.getSelectedPoint(), delegate: card!.delegate);
+            detailsCard = initDetailCard(card!);
             detailsCard.frame.origin.y = UIScreen.mainScreen().bounds.height;
             self.view.addSubview(detailsCard);
         }
         if (selectedCardPosition != 0) {
             cardClickedAtIndex(selectedCardPosition);
         }
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated);
-        if (detailsCard != nil) {
-            detailsCard.animateBounceIn(detailsCardPosY);
-        }
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        self.navigationController!.navigationBarHidden = false;
-        super.viewWillDisappear(animated);
-    }
-    
-    override func prefersStatusBarHidden() -> Bool {
-        return true;
     }
     
     func backButtonClicked(sender: AnyObject) {
@@ -145,10 +149,11 @@ class MetricsViewController: UIViewController {
                     self.updateDetailCard();
             });
         }
-
+        detailsCard.headerContainer.alpha = 1;
     }
     
     func cardDragged(index: Int, translation: CGPoint) {
+        detailsCard.headerContainer.alpha = (UIScreen.mainScreen().bounds.size.width + translation.x) / UIScreen.mainScreen().bounds.size.width * 0.5;
         if (index == 0) {
             var topCard = self.view.subviews[self.view.subviews.count - 2] as! UIView;
             if (topCard.frame.origin.x + translation.x < -cardDragThreshold) {
@@ -167,12 +172,13 @@ class MetricsViewController: UIViewController {
                     cardClickedAtIndex(index + 1);
                     break;
                 } else if (card.frame.origin.x + translation.x < 0) {
-                    card.frame.origin.x += translation.x;
+                    card.frame.origin.x += CGFloat(translation.x) + (CGFloat(index - i) * CGFloat(translation.x));
                 } else {
                     card.frame.origin.x = 0;
                 }
             }
         }
+        detailsCard.headerContainer.alpha = (UIScreen.mainScreen().bounds.size.width + translation.x) / UIScreen.mainScreen().bounds.size.width * 0.5;
     }
 
     func doneDragging(index: Int) {
@@ -182,31 +188,35 @@ class MetricsViewController: UIViewController {
                 topCard.frame.origin.x = 0;
             }
         }
+        detailsCard.headerContainer.alpha = 1;
     }
     
     func updateDetailCard() {
         detailsCard.removeFromSuperview();
         let currentCard = self.view.subviews[self.view.subviews.count - 1] as! MetricCard;
-        detailsCard = initDetailCard(currentCard.getSelectedPoint(), delegate: currentCard.delegate);
+        detailsCard = initDetailCard(currentCard);
         self.view.addSubview(detailsCard);
-        if (detailsGone) {
+        if (detailsGone && !detailsCard.blankState) {
             detailsCard.animateBounceIn(detailsCardPosY);
             detailsGone = false;
+        } else if (!detailsGone && detailsCard.blankState) {
+            detailsCard.animateBounceOut();
+            detailsGone = true;
         }
     }
     
-    func initDetailCard(selection: MetricCard.SelectedPoint, delegate: MetricDelegate) -> MetricDetailCard {
-        let card = MetricDetailCard.instanceFromNib(selection, delegate: delegate);
-        card.frame.origin.y = detailsOpen ? cardHeaderViewHeight : detailsCardPosY;
+    func initDetailCard(card: MetricCard) -> MetricDetailCard {
+        let detailCard = MetricDetailCard.instanceFromNib(card);
+        detailCard.frame.origin.y = detailsOpen ? cardHeaderViewHeight : detailsCardPosY;
         let selectedTapRecognizer = UITapGestureRecognizer(target: self, action: "detailsTapped:");
         let swipeDownRecognizer = UISwipeGestureRecognizer(target: self, action: "detailsSwiped:");
         swipeDownRecognizer.direction = UISwipeGestureRecognizerDirection.Down;
         let swipeUpRecognizer = UISwipeGestureRecognizer(target: self, action: "detailsSwiped:");
         swipeUpRecognizer.direction = UISwipeGestureRecognizerDirection.Up;
-        card.headerContainer.addGestureRecognizer(selectedTapRecognizer);
-        card.headerContainer.addGestureRecognizer(swipeDownRecognizer);
-        card.headerContainer.addGestureRecognizer(swipeUpRecognizer);
-        return card;
+        detailCard.headerContainer.addGestureRecognizer(selectedTapRecognizer);
+        detailCard.headerContainer.addGestureRecognizer(swipeDownRecognizer);
+        detailCard.headerContainer.addGestureRecognizer(swipeUpRecognizer);
+        return detailCard;
     }
 
     func sendViewsToBack(views: [UIView]) {

@@ -239,7 +239,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                 let pulseColor = MetricsType.Pulse.getColor();
                 let weightColor = MetricsType.Weight.getColor();
                 
-                activityCard = MetricsGraphCard.instanceFromNib((bps.last!.dateTime, 0), type: MetricsType.DailySummary);
+                activityCard = MetricsGraphCard.instanceFromNib(0, type: MetricsType.DailySummary);
                 activityCard.frame.origin.y = cardPositionY;
                 activityCard.frame.origin.x = cardMarginX;
                 let activityTouched = UITapGestureRecognizer(target: self, action: "gotoActivityGraph:");
@@ -249,7 +249,12 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                 var firstDivider = UIView(frame: CGRect(x: 0, y: cardPositionY - cardMarginY / 2, width: self.view.frame.size.width, height: 1));
                 firstDivider.backgroundColor = Utility.colorFromHexString("#EEEEEE");
                 
-                let bloodPressureCard = MetricsGraphCard.instanceFromNib(bps.last!, type: MetricsType.BloodPressure);
+                var bloodPressureCard:MetricsGraphCard!
+                if (bps.count > 0) {
+                    bloodPressureCard = MetricsGraphCard.instanceFromNib(bps.last!, type: MetricsType.BloodPressure);
+                } else {
+                    bloodPressureCard = MetricsGraphCard.instanceFromNib(nil, type: MetricsType.BloodPressure);
+                }
                 bloodPressureCard.frame.origin.y = cardPositionY;
                 bloodPressureCard.frame.origin.x = cardMarginX;
                 let bpTouched = UITapGestureRecognizer(target: self, action: "gotoBloodPressureGraph:");
@@ -259,7 +264,12 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                 var secondDivider = UIView(frame: CGRect(x: 0, y: cardPositionY - cardMarginY / 2, width: self.view.frame.size.width, height: 1));
                 secondDivider.backgroundColor = Utility.colorFromHexString("#EEEEEE");
                 
-                let pulseCard = MetricsGraphCard.instanceFromNib(bps.last!, type: MetricsType.Pulse);
+                var pulseCard:MetricsGraphCard!
+                if (bps.count > 0) {
+                    pulseCard = MetricsGraphCard.instanceFromNib(bps.last!, type: MetricsType.Pulse);
+                } else {
+                    pulseCard = MetricsGraphCard.instanceFromNib(nil, type: MetricsType.Pulse);
+                }
                 pulseCard.frame.origin.y = cardPositionY;
                 pulseCard.frame.origin.x = cardMarginX;
                 let pulseTouched = UITapGestureRecognizer(target: self, action: "gotoPulseGraph:");
@@ -269,7 +279,12 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                 var thirdDivider = UIView(frame: CGRect(x: 0, y: cardPositionY - cardMarginY / 2, width: self.view.frame.size.width, height: 1));
                 thirdDivider.backgroundColor = Utility.colorFromHexString("#EEEEEE");
                 
-                let weightCard = MetricsGraphCard.instanceFromNib(weights.last!, type: MetricsType.Weight);
+                var weightCard:MetricsGraphCard!;
+                if (weights.count > 0) {
+                    weightCard = MetricsGraphCard.instanceFromNib(weights.last!, type: MetricsType.Weight);
+                } else {
+                    weightCard = MetricsGraphCard.instanceFromNib(nil, type: MetricsType.Weight);
+                }
                 weightCard.frame.origin.y = cardPositionY;
                 weightCard.frame.origin.x = cardMarginX;
                 let weightTouched = UITapGestureRecognizer(target: self, action: "gotoWeightGraph:");

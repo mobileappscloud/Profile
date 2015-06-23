@@ -37,9 +37,13 @@ class ActivityMetricDelegate: MetricDelegate {
         }
     }
     
-    func getSelectedPoint() -> MetricCard.SelectedPoint {
-        let (date, points) = selectedActivity;
-        return MetricCard.SelectedPoint(date: date, panelValue: points, panelLabel: "Activity Points", panelUnit: "pts");
+    func getSelectedPoint() -> MetricCard.SelectedPoint? {
+        if (selectedActivity == nil) {
+            return nil;
+        } else {
+            let (date, points) = selectedActivity;
+            return MetricCard.SelectedPoint(date: date, panelValue: points, panelLabel: "Activity Points", panelUnit: "pts");
+        }
     }
     
     func getGraph(frame: CGRect) -> MetricGraph {

@@ -38,10 +38,14 @@ class PulseMetricDelegate: MetricDelegate {
         }
     }
     
-    func getSelectedPoint() -> MetricCard.SelectedPoint {
-        let date = Constants.displayDateFormatter.stringFromDate(selectedCheckin.dateTime);
-        let pulse = selectedCheckin.pulseBpm != nil ? "\(Int(selectedCheckin.pulseBpm!))" : "";
-        return MetricCard.SelectedPoint(date: date, panelValue: pulse, panelLabel: "Beats Per Minute", panelUnit: "bpm");
+    func getSelectedPoint() -> MetricCard.SelectedPoint? {
+        if (selectedCheckin == nil) {
+            return nil;
+        } else {
+            let date = Constants.displayDateFormatter.stringFromDate(selectedCheckin.dateTime);
+            let pulse = selectedCheckin.pulseBpm != nil ? "\(Int(selectedCheckin.pulseBpm!))" : "";
+            return MetricCard.SelectedPoint(date: date, panelValue: pulse, panelLabel: "Beats Per Minute", panelUnit: "bpm");
+        }
     }
     
     func getGraph(frame: CGRect) -> MetricGraph {

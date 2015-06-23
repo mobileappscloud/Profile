@@ -20,17 +20,22 @@ class MetricsGraphCard: UIView {
     
     var color: UIColor!;
 
-    class func instanceFromNib(lastCheckin: HigiCheckin, type: MetricsType) -> MetricsGraphCard {
+    class func instanceFromNib(lastCheckin: HigiCheckin?, type: MetricsType) -> MetricsGraphCard {
         let card = UINib(nibName: "MetricGraphCardView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! MetricsGraphCard;
         card.initCard(type);
-        card.setCheckinData(lastCheckin, type: type);
+        if (lastCheckin != nil) {
+            card.setCheckinData(lastCheckin!, type: type);
+        } else {
+            card.initBlankState(type);
+        }
+        
         return card;
     }
     
-    class func instanceFromNib(activity: (NSDate, Int), type: MetricsType) -> MetricsGraphCard {
+    class func instanceFromNib(activityPoints: Int, type: MetricsType) -> MetricsGraphCard {
         let card = UINib(nibName: "MetricGraphCardView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! MetricsGraphCard;
         card.initCard(type);
-        card.setActivity(activity);
+        card.setActivity(activityPoints);
         return card;
     }
     
@@ -38,6 +43,57 @@ class MetricsGraphCard: UIView {
         color = type.getColor();
         title.text = type.getTitle();
         title.textColor = color;
+    }
+    
+    func initBlankState(type: MetricsType) {
+        if (type == MetricsType.BloodPressure) {
+            firstReadingValue.text = "--";
+            firstReadingLabel.text = "mmHg";
+            firstReadingSubTitle.text = "Mean Arterial Pressure";
+            firstReadingValue.textColor = color;
+            secondReadingValue.text = "--";
+            secondReadingLabel.text = "mmHg";
+            secondReadingSubTitle.text = "Blood Pressure";
+            secondReadingValue.textColor = color;
+        } else if (type == MetricsType.Weight) {
+            firstReadingValue.text = "--";
+            firstReadingLabel.text = "lbs";
+            firstReadingSubTitle.text = "Weight";
+            secondReadingValue.text = "--%";
+            secondReadingLabel.text = "";
+            secondReadingSubTitle.text = "Body Fat";
+        } else if (type == MetricsType.DailySummary) {
+            firstReadingValue.hidden = true;
+            firstReadingLabel.hidden = true;
+            firstReadingSubTitle.hidden = true;
+            secondReadingValue.hidden = true;
+            secondReadingLabel.hidden = true;
+            secondReadingSubTitle.hidden = true;
+            singleValue.hidden = false;
+            singleLabel.hidden = false;
+            singleSubtitle.hidden = false;
+            singleValue.text = "--";
+            singleValue.textColor = color;
+            singleLabel.text = "pts";
+            singleSubtitle.text = "Activity Points";
+        } else {
+            firstReadingValue.hidden = true;
+            firstReadingLabel.hidden = true;
+            firstReadingSubTitle.hidden = true;
+            secondReadingValue.hidden = true;
+            secondReadingLabel.hidden = true;
+            secondReadingSubTitle.hidden = true;
+            singleValue.hidden = false;
+            singleLabel.hidden = false;
+            singleSubtitle.hidden = false;
+            singleValue.text = "--";
+            singleValue.textColor = color;
+            singleLabel.text = "bpm";
+            singleSubtitle.text = "Beats Per Minute";
+        }
+        
+        firstReadingValue.textColor = color;
+        secondReadingValue.textColor = color;
     }
     
     func setCheckinData(checkin: HigiCheckin, type: MetricsType) {
@@ -56,12 +112,12 @@ class MetricsGraphCard: UIView {
             firstReadingSubTitle.text = "Mean Arterial Pressure";
             firstReadingValue.textColor = color;
             
-            secondReadingValue.text = checkin.systolic != nil ? "\(Int(checkin.systolic!))/\(Int(checkin.diastolic!))" : "";
+            secondReadingValue.text = checkin.systolic != nil ? "\(Int(checkin.systolic!))/\(Int(checkin.diastolic!))" : "--";
             secondReadingLabel.text = "mmHg";
             secondReadingSubTitle.text = "Blood Pressure";
             secondReadingValue.textColor = color;
         } else if (type == MetricsType.Weight) {
-            firstReadingValue.text = checkin.weightLbs != nil ? "\(Int(checkin.weightLbs!))" : "";
+            firstReadingValue.text = checkin.weightLbs != nil ? "\(Int(checkin.weightLbs!))" : "--";
             firstReadingLabel.text = "lbs";
             firstReadingSubTitle.text = "Weight";
             
@@ -86,7 +142,7 @@ class MetricsGraphCard: UIView {
             singleLabel.hidden = false;
             singleSubtitle.hidden = false;
             
-            singleValue.text = checkin.pulseBpm != nil ? "\(Int(checkin.pulseBpm!))" : "";
+            singleValue.text = checkin.pulseBpm != nil ? "\(Int(checkin.pulseBpm!))" : "--";
             singleValue.textColor = color;
             singleLabel.text = "pts";
             singleSubtitle.text = "Activity Points";
@@ -103,7 +159,7 @@ class MetricsGraphCard: UIView {
             singleLabel.hidden = false;
             singleSubtitle.hidden = false;
             
-            singleValue.text = checkin.pulseBpm != nil ? "\(Int(checkin.pulseBpm!))" : "";
+            singleValue.text = checkin.pulseBpm != nil ? "\(Int(checkin.pulseBpm!))" : "--";
             singleValue.textColor = color;
             singleLabel.text = "bpm";
             singleSubtitle.text = "Beats Per Minute";
@@ -113,14 +169,8 @@ class MetricsGraphCard: UIView {
         secondReadingValue.textColor = color;
     }
     
-    func setActivity(activity: (NSDate, Int)) {
-        let activityDate = activity.0;
-        let totalPoints = activity.1;
-        let formatter = NSDateFormatter(), dayFormatter = NSDateFormatter();
-        formatter.dateFormat = "MMMM";
-        dayFormatter.dateFormat = "dd";
-        date.text = "\(formatter.stringFromDate(activityDate)) \(ChallengeUtility.getRankSuffix(dayFormatter.stringFromDate(activityDate)))";
-
+    func setActivity(activityPoints: Int) {
+        date.text = "";
         firstReadingValue.hidden = true;
         firstReadingLabel.hidden = true;
         firstReadingSubTitle.hidden = true;
@@ -133,7 +183,7 @@ class MetricsGraphCard: UIView {
         singleLabel.hidden = false;
         singleSubtitle.hidden = false;
         
-        singleValue.text = "\(totalPoints)";
+        singleValue.text = "\(activityPoints)";
         singleValue.textColor = color;
         singleLabel.text = "pts";
         singleSubtitle.text = "Activity Points";

@@ -59,6 +59,7 @@ class PointsMeter: UIView {
         self.meterContainer.layer.addSublayer(arc);
         self.points.text = "\(total)";
         activitiesByType.removeAll(keepCapacity: false);
+        activityTypes.removeAll(keepCapacity: false);
         for activity in activities {
             let type = ActivityCategory.categoryFromActivity(activity).getString();
             if let (totalPoints, activityList) = activitiesByType[type] {
@@ -83,7 +84,7 @@ class PointsMeter: UIView {
     func drawArc(animated: Bool) {
         var center = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2);
         var lastEnd = 0.0;
-        if (activityTypes.count > 0) {
+        if (activitiesByType.count > 0) {
             total = max(total, 100);
             var firstActivity = true;
             var toPath = UIBezierPath();
