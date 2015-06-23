@@ -6,11 +6,11 @@ class MetricsViewController: UIViewController {
     
     let cardMargin = 46;
     
-    let animationDuration = 0.5;
+    let animationDuration = 0.5, detailsOpenAnimationDuration = 0.25;
     
     var detailsCard: MetricDetailCard!;
     
-    var detailsOpen = false, detailsGone = false, previousShouldRotate: Bool!;
+    var cardsTransitioning = false, detailsOpen = false, detailsGone = false, previousShouldRotate: Bool!;
 
     let detailsCardPosY:CGFloat = 267, cardHeaderViewHeight:CGFloat = 54, cardDragThreshold:CGFloat = 300;
     
@@ -153,11 +153,13 @@ class MetricsViewController: UIViewController {
     }
     
     func cardDragged(index: Int, translation: CGPoint) {
-        detailsCard.headerContainer.alpha = (UIScreen.mainScreen().bounds.size.width + translation.x) / UIScreen.mainScreen().bounds.size.width * 0.5;
         if (index == 0) {
             var topCard = self.view.subviews[self.view.subviews.count - 2] as! UIView;
             if (topCard.frame.origin.x + translation.x < -cardDragThreshold) {
-                cardClickedAtIndex(index + 1);
+                if (!cardsTransitioning) {
+                    cardClickedAtIndex(index + 1);
+                    cardsTransitioning = true;
+                }
             }
             if (topCard.frame.origin.x + translation.x < 0) {
                 topCard.frame.origin.x += translation.x;
@@ -169,7 +171,10 @@ class MetricsViewController: UIViewController {
                 var card = self.view.subviews[self.view.subviews.count - (2 + i)] as! UIView;
                 card.center.x += translation.x;
                 if (card.frame.origin.x + translation.x < -cardDragThreshold) {
-                    cardClickedAtIndex(index + 1);
+                    if (!cardsTransitioning) {
+                        cardClickedAtIndex(index + 1);
+                        cardsTransitioning = true;
+                    }
                     break;
                 } else if (card.frame.origin.x + translation.x < 0) {
                     card.frame.origin.x += CGFloat(translation.x) + (CGFloat(index - i) * CGFloat(translation.x));
@@ -197,6 +202,7 @@ class MetricsViewController: UIViewController {
             }
         }
         detailsCard.headerContainer.alpha = 1;
+        cardsTransitioning = false;
     }
 
     func updateDetailCard() {
@@ -212,7 +218,7 @@ class MetricsViewController: UIViewController {
             detailsGone = true;
         }
     }
-    
+
     func initDetailCard(card: MetricCard) -> MetricDetailCard {
         let detailCard = MetricDetailCard.instanceFromNib(card);
         detailCard.frame.origin.y = detailsOpen ? cardHeaderViewHeight : detailsCardPosY;
@@ -263,7 +269,7 @@ class MetricsViewController: UIViewController {
     }
     
     func openDetails() {
-        UIView.animateWithDuration(animationDuration, delay: 0, options: .CurveEaseInOut, animations: {
+        UIView.animateWithDuration(detailsOpenAnimationDuration, delay: 0, options: .CurveEaseInOut, animations: {
             self.detailsCard.frame.origin.y = self.cardHeaderViewHeight - 1;
             }, completion: nil);
         detailsOpen = true;
@@ -271,7 +277,7 @@ class MetricsViewController: UIViewController {
     }
     
     func closeDetails() {
-        UIView.animateWithDuration(animationDuration, delay: 0, options: .CurveEaseInOut, animations: {
+        UIView.animateWithDuration(detailsOpenAnimationDuration, delay: 0, options: .CurveEaseInOut, animations: {
             self.detailsCard.frame.origin.y = self.detailsCardPosY;
             }, completion: nil);
         detailsOpen = false;
