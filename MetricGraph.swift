@@ -113,6 +113,9 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
     }
     
     func setupForMetric(color: UIColor) {
+        if (points.count == 0) {
+            return;
+        }
         let unselectedColor = Utility.colorFromHexString("#b4a6c2");
         var maxY = 0.0, minY = DBL_MAX, plotSymbolSize = 7.0;
         let hitMargin = 5, pointsToShow = 30;
@@ -200,13 +203,20 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
             minY = 0;
         }
         var tickInterval = 20.0;
-        let lowerBound = roundToLowest(round(minY) - (maxY - minY) * 0.25, roundTo: tickInterval);
+        var interval = (maxY - minY) * 0.25;
+        if (interval == 0) {
+            interval = minY * 0.25;
+        }
+        let a = round(minY) - interval;
+        let lowerBound = roundToLowest(round(minY) - interval, roundTo: tickInterval);
         var yRange = roundToHighest((maxY - minY) * 1.5, roundTo: tickInterval);
+        if (yRange < 10) {
+            yRange = 10;
+        }
         if (lowerBound + yRange <= maxY) {
-            yRange *= 1.5;
+            yRange = (maxY - lowerBound) * 1.5;
         }
         var plotSpace = self.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace;
-//        plotSpace.xRange = NewCPTPlotRange(location: firstPoint.x - xRange * 0.2, length: xRange * 1.3);
         var visibleMin = firstPoint;
         if (points.count > 30) {
             visibleMin = points[points.count - 31];
