@@ -168,7 +168,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
                 activityKeys.append(type);
             }
         }
-        var gap = CGFloat(5);
+        var gap = CGFloat(4);
         for key in activityKeys {
             let (total, activityList) = activitiesByType[key]!;
             let activity = activityList[0];
@@ -192,15 +192,16 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             
             activityContainer.addSubview(activityRow);
             currentOrigin += activityRow.frame.size.height - 4;
-            let titleMargin:CGFloat = 4;
+            let titleMargin:CGFloat = 2;
             for subActivity in activityList {
                 let name = subActivity.device.name == "higi" ? "higi Station Check In" : "\(subActivity.device.name)";
                 let titleRow = initTitleRow(activityRow.name.frame.origin.x, originY: currentOrigin, points: subActivity.points, device: name, color: color);
                 activityContainer.addSubview(titleRow);
                 titleRows.append(titleRow);
                 currentOrigin += titleRow.frame.size.height + titleMargin;
+                var isDuplicate = subActivity.errorDescription != nil;
                 if (key == ActivityCategory.Lifestyle.getString()) {
-                    let breakdownRow = initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, icon: UIImage(named: "workouticon")!, text: "\(subActivity.device.name) \(subActivity.typeName)", duplicate: false);
+                    let breakdownRow = initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, text: "Gym \(subActivity.typeName)", duplicate: isDuplicate);
                     activityContainer.addSubview(breakdownRow);
                     currentOrigin += breakdownRow.frame.size.height;
                 } else if (key == ActivityCategory.Health.getString()) {
@@ -226,51 +227,59 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
                         }
                     }
                     if (lastDiastolic > 0) {
-                        let breakdownRow = initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, icon: UIImage(named: "bloodpressureicon")!, text: "\(lastSystolic)/\(lastDiastolic) mmHg BP", duplicate: false);
+                        let breakdownRow = initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, text: "\(lastSystolic)/\(lastDiastolic) mmHg BP", duplicate: isDuplicate);
                         activityContainer.addSubview(breakdownRow);
                         currentOrigin += breakdownRow.frame.size.height;
                     }
                     if (lastPulse > 0) {
-                        let breakdownRow = initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, icon: UIImage(named: "pulseicon")!, text: "\(lastPulse) bpm Pulse", duplicate: false);
+                        let breakdownRow = initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, text: "\(lastPulse) bpm Pulse", duplicate: isDuplicate);
                         activityContainer.addSubview(breakdownRow);
                         currentOrigin += breakdownRow.frame.size.height;
                     }
                     if (lastWeight > 0) {
-                        let breakdownRow = initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, icon: UIImage(named: "weighticon")!, text: "\(Int(lastWeight)) lbs Weight", duplicate: false);
+                        let breakdownRow = initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, text: "\(Int(lastWeight)) lbs Weight", duplicate: isDuplicate);
                         activityContainer.addSubview(breakdownRow);
                         currentOrigin += breakdownRow.frame.size.height;
                     }
                     if (lastBodyFat > 0) {
-                        let breakdownRow = initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, icon: UIImage(named: "workouticon")!, text: "\(lastBodyFat)% Body Fat", duplicate: false);
+                        let breakdownRow = initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, text: "\(lastBodyFat)% Body Fat", duplicate: isDuplicate);
                         activityContainer.addSubview(breakdownRow);
                         currentOrigin += breakdownRow.frame.size.height;
                     }
                 } else if (key == ActivityCategory.Fitness.getString()) {
-                    let breakdownRow = UINib(nibName: "DailySummaryBreakdownView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! DailySummaryBreakdown;
-                    breakdownRow.frame.origin.y = currentOrigin;
-                    breakdownRow.frame.origin.x = activityRow.name.frame.origin.x;
+                    var text = "";
                     if (activity.steps > 0) {
-                        breakdownRow.desc.text = "Walked \(subActivity.steps) steps";
+                        text = "Walked \(subActivity.steps) steps";
                     } else if (activity.distance > 0) {
-                        breakdownRow.desc.text = "Walked \(subActivity.distance) miles";
+                        text = "Walked \(subActivity.distance) miles";
                     } else {
-                        breakdownRow.desc.text = "Rode \(subActivity.distance) miles";
+                        text = "Rode \(subActivity.distance) miles";
                     }
+                    let breakdownRow = initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, text: text, duplicate: isDuplicate);
                     activityContainer.addSubview(breakdownRow);
                     currentOrigin += breakdownRow.frame.size.height;
                 }
+                if (isDuplicate) {
+                    let labelHeight:CGFloat = 20;
+                    let duplicateLabel = UILabel(frame: CGRect(x: activityRow.name.frame.origin.x, y: currentOrigin, width: scrollView.frame.size.width - activityRow.frame.origin.x, height: labelHeight));
+                    duplicateLabel.text = "\(subActivity.errorDescription)";
+                    duplicateLabel.textColor = UIColor.lightGrayColor();
+                    duplicateLabel.font = UIFont.italicSystemFontOfSize(15);
+                    activityContainer.addSubview(duplicateLabel);
+                    currentOrigin += labelHeight;
+                }
+                currentOrigin += gap;
             }
-            currentOrigin += gap;
         }
     }
     
-    func initBreakdownRow(originX: CGFloat, originY: CGFloat, icon: UIImage, text: String, duplicate: Bool) -> DailySummaryBreakdown {
+    func initBreakdownRow(originX: CGFloat, originY: CGFloat, text: String, duplicate: Bool) -> DailySummaryBreakdown {
         let breakdownRow = UINib(nibName: "DailySummaryBreakdownView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! DailySummaryBreakdown;
         breakdownRow.frame.origin.y = originY;
         breakdownRow.frame.origin.x = originX;
         breakdownRow.desc.text = text;
         if (duplicate) {
-            breakdownRow.desc.textColor = Utility.colorFromHexString("#EEEEEE");
+            breakdownRow.desc.textColor = UIColor.lightGrayColor();
         }
         return breakdownRow;
     }
