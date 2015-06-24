@@ -34,7 +34,6 @@ class PulseHomeViewController: BaseViewController, UITableViewDataSource, UITabl
         fillTopContainer();
         
         createPullToRefresh();
-        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -111,10 +110,12 @@ class PulseHomeViewController: BaseViewController, UITableViewDataSource, UITabl
                 toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon"), forState: UIControlState.Normal);
                 toggleButton!.alpha = 1 - alpha;
                 self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
+                self.pointsMeter.setLightText();
             } else {
                 toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon_inverted"), forState: UIControlState.Normal);
                 toggleButton!.alpha = alpha;
                 self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
+                self.pointsMeter.setDarkText();
             }
         } else {
             self.fakeNavBar.alpha = 0;

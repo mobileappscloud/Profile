@@ -75,6 +75,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         listBarItem.customView = listButton;
         self.navigationItem.rightBarButtonItem = listBarItem;
         self.revealController.panGestureRecognizer().enabled = false;
+        shouldShowDailyPoints = false;
         
         searchField = UITextField(frame: CGRect(x: 0, y: 0, width: 95, height: 40));
         searchField.font = UIFont.systemFontOfSize(12);

@@ -321,8 +321,10 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0 - alpha, alpha: 1.0)];
             if (alpha < 0.5) {
                 self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
+                backButton.setBackgroundImage(UIImage(named: "btn_back_white.png"), forState: UIControlState.Normal);
             } else {
                 self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
+                backButton.setBackgroundImage(UIImage(named: "btn_back_black.png"), forState: UIControlState.Normal);
             }
         } else {
             self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0, alpha: 1)];
