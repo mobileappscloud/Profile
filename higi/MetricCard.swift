@@ -124,7 +124,7 @@ class MetricCard: UIView, MetricDelegate {
                 let lowerBound = graph.getScreenPoint(graph, xPoint: 0, yPoint: CGFloat(range.lowerBound));
                 let upperBound = graph.getScreenPoint(graph, xPoint: 0, yPoint: CGFloat(range.upperBound));
                 if (upperBound.y >= 0 && lowerBound.y < graphContainer.frame.size.height) {
-                    let view = UIView(frame: CGRect(x: 0, y: upperBound.y, width: graphContainer.frame.size.width, height: lowerBound.y - upperBound.y));
+                    let view = UIView(frame: CGRect(x: 0, y: upperBound.y + graph.graph.plotAreaFrame.paddingTop, width: graphContainer.frame.size.width, height: lowerBound.y - upperBound.y));
                     let label = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.size.width - 10, height: view.frame.size.height));
                     label.text = range.label;
                     label.textAlignment = NSTextAlignment.Right;

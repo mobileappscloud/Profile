@@ -149,7 +149,6 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             if (activity.device.name == "higi") {
                 type = ActivityCategory.Health.getString();
             }
-            
             //TEMPORARY
             if let (total, activityList) = activitiesByType[type] {
                 var previousActivities = activityList;

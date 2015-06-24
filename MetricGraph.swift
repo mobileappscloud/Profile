@@ -389,7 +389,7 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
     
     func plotSpace(space: CPTPlotSpace!, willChangePlotRangeTo newRange: CPTPlotRange!, forCoordinate coordinate: CPTCoordinate) -> CPTPlotRange! {
         if (coordinate.value == 1) {
-            return (space as! CPTXYPlotSpace).yRange
+            return (space as! CPTXYPlotSpace).yRange;
         }
         return newRange;
     }
