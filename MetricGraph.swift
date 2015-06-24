@@ -124,7 +124,7 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
             return;
         }
         let unselectedColor = Utility.colorFromHexString("#b4a6c2");
-        var maxY = 0.0, minY = DBL_MAX, plotSymbolSize = 9.0;
+        var maxY = 0.0, minY = DBL_MAX, plotSymbolSize = 8.0;
         let hitMargin = 5, pointsToShow = 30;
         
         graph = CPTXYGraph(frame: self.bounds);
@@ -188,7 +188,7 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         }
         if (altPoints.count > 0) {
             altPlot = NewCPTScatterPlot(frame: CGRectZero);
-            altPlot.interpolation = CPTScatterPlotInterpolationLinear;
+            altPlot.interpolation = CPTScatterPlotInterpolationCurved;
             altPlot.plotSymbolMarginForHitDetection = CGFloat(hitMargin);
             altPlot.dataSource = self;
             altPlot.delegate = self;
@@ -196,7 +196,8 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
             altPlot.plotSymbol = altPlotSymbol;
             var noLineStyle = CPTMutableLineStyle();
             noLineStyle.lineWidth = 0;
-            altPlot.dataLineStyle = noLineStyle;
+//            altPlot.dataLineStyle = noLineStyle;
+            altPlot.dataLineStyle = unselectedAltPlotLineStyle;
             //add alt plot here so that it's drawn behind main plot
             graph.addPlot(altPlot, toPlotSpace: graph.defaultPlotSpace);
         }
@@ -367,17 +368,17 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
                 }
             } else {
                 if (altPoints.count > 0 && !altPlotLinesAdded) {
-                    let systolicPoint = altPoints[Int(idx)];
-                    let diastolicPoint = altPoints[Int(idx) + 1];
-                    let screenSystolicPoint = getScreenPoint(self, xPoint: CGFloat(systolicPoint.x), yPoint: CGFloat(systolicPoint.y));
-                    let screenDiastolicPoint = getScreenPoint(self, xPoint: CGFloat(diastolicPoint.x), yPoint: CGFloat(diastolicPoint.y));
-
-                    let view = UIView(frame: CGRect(x: screenSystolicPoint.x - 0.5, y: self.frame.size.height - CGFloat(screenSystolicPoint.y) - 24, width: 1, height: CGFloat(screenSystolicPoint.y - screenDiastolicPoint.y)));
-                    view.backgroundColor = plotSymbol.lineStyle.lineColor.uiColor;
-                    addSubview(view);
-                    if (Int(idx) == altPoints.count - 2) {
-                        altPlotLinesAdded = true;
-                    }
+//                    let systolicPoint = altPoints[Int(idx)];
+//                    let diastolicPoint = altPoints[Int(idx) + 1];
+//                    let screenSystolicPoint = getScreenPoint(self, xPoint: CGFloat(systolicPoint.x), yPoint: CGFloat(systolicPoint.y));
+//                    let screenDiastolicPoint = getScreenPoint(self, xPoint: CGFloat(diastolicPoint.x), yPoint: CGFloat(diastolicPoint.y));
+//
+//                    let view = UIView(frame: CGRect(x: screenSystolicPoint.x - 0.5, y: self.frame.size.height - CGFloat(screenSystolicPoint.y) - 24, width: 1, height: CGFloat(screenSystolicPoint.y - screenDiastolicPoint.y)));
+//                    view.backgroundColor = plotSymbol.lineStyle.lineColor.uiColor;
+//                    addSubview(view);
+//                    if (Int(idx) == altPoints.count - 2) {
+//                        altPlotLinesAdded = true;
+//                    }
                 }
                 if (Int(idx) == (selectedPointIndex * 2)) {
                     return selectedAltPlotSymbol;
