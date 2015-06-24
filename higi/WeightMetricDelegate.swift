@@ -61,6 +61,9 @@ class WeightMetricDelegate: MetricDelegate {
     func getRanges(tab:Int) -> [MetricGauge.Range] {
         var ranges:[MetricGauge.Range] = [];
         if (tab == 0) {
+            if selectedCheckin == nil {
+                setSelected(NSDate());
+            }
             if let height = selectedCheckin.heightInches {
                 let factor:Double = (height * height) / 703.0;
                 ranges.append(MetricGauge.Range(label: "Underweight", color: Utility.colorFromHexString("#fdd835"), interval: (Int(factor * 10), Int(factor * 18.5))));

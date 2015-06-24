@@ -348,10 +348,6 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         }
     }
     
-    func plotSpace(space: CPTPlotSpace!, didChangePlotRangeForCoordinate coordinate: CPTCoordinate) {
-       let i = 0;
-    }
-    
     func getScreenPoint(graph: MetricGraph, xPoint: CGFloat, yPoint: CGFloat)-> CGPoint {
         var xRange = (graph.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace).xRange;
         var yRange = (graph.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace).yRange;

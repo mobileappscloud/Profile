@@ -57,6 +57,7 @@ class MetricCard: UIView, MetricDelegate {
         view.delegate = delegate;
         view.initFrame(frame);
         view.initGraphView();
+        view.initRegions();
         view.initHeader();
         view.setSelected(NSDate());
         return view;
@@ -116,7 +117,32 @@ class MetricCard: UIView, MetricDelegate {
     }
     
     func initRegions() {
-        
+        if (delegate.getType() == MetricsType.Pulse || delegate.getType() == MetricsType.Weight) {
+            let ranges = delegate.getRanges(0);
+            var i = 0;
+            for range in ranges {
+                let lowerBound = graph.getScreenPoint(graph, xPoint: 0, yPoint: CGFloat(range.lowerBound));
+                let upperBound = graph.getScreenPoint(graph, xPoint: 0, yPoint: CGFloat(range.upperBound));
+                let height = lowerBound.y - upperBound.y;
+                if (upperBound.y >= 0 && lowerBound.y < graphContainer.frame.size.height) {
+                    let view = UIView(frame: CGRect(x: 0, y: upperBound.y, width: graphContainer.frame.size.width - 10, height: lowerBound.y - upperBound.y));
+                    let label = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height));
+                    label.text = range.label;
+                    label.textAlignment = NSTextAlignment.Right;
+                    label.backgroundColor = UIColor.clearColor();
+                    if (i % 2 == 0) {
+                        label.textColor = Utility.colorFromHexString("#EEEEEE");
+                        view.backgroundColor = UIColor.whiteColor();
+                    } else {
+                        label.textColor = UIColor.whiteColor();
+                        view.backgroundColor = Utility.colorFromHexString("#EEEEEE");
+                    }
+                    view.addSubview(label);
+                    self.graphContainer.insertSubview(view, belowSubview: graph);
+                    i++;
+                }
+            }
+        }
     }
     
     func getRanges(tab:Int) -> [MetricGauge.Range] {
