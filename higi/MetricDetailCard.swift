@@ -196,6 +196,7 @@ class MetricDetailCard: UIView {
     
     func gotoDailySummary(sender: AnyObject) {
         Flurry.logEvent("Summary_Pressed");
+        (Utility.getViewController(self) as! MetricsViewController).selectedType = MetricsType.DailySummary;
         var summaryController = DailySummaryViewController(nibName: "DailySummaryView", bundle: nil);
         let dateString = Constants.dateFormatter.stringFromDate(Constants.displayDateFormatter.dateFromString(delegate.getSelectedPoint()!.date)!);
         summaryController.dateString = dateString;
