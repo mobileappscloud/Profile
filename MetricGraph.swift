@@ -391,8 +391,14 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         }
     }
     
+    func plotSpace(space: CPTPlotSpace!, willChangePlotRangeTo newRange: CPTPlotRange!, forCoordinate coordinate: CPTCoordinate) -> CPTPlotRange! {
+        if (coordinate.value == 1) {
+            return (space as! CPTXYPlotSpace).yRange
+        }
+        return newRange;
+    }
+    
     func selectPlotFromPoint(point: CGPoint) {
-//        let screenPoint = getScreenPoint(self, xPoint: point.x, yPoint: point.y);
         let index = Int(plot.dataIndexFromInteractionPoint(point));
         checkinSelected(plot as CPTScatterPlot!, idx: index, first: false);
     }
