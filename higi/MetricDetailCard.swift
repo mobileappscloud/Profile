@@ -39,7 +39,6 @@ class MetricDetailCard: UIView {
             view.setup(card.delegate);
         } else {
             view.blankState = true;
-//            view.animateBounceOut();
         }
         return view;
     }
@@ -50,6 +49,11 @@ class MetricDetailCard: UIView {
         firstPanelValue.textColor = color;
         secondPanelValue.textColor = color;
         thirdPanelValue.textColor = color;
+        
+        if (delegate.getCopyImage() != nil) {
+            copyScrollview.contentSize = copyImage.frame.size;
+            copyImage.image = delegate.getCopyImage();
+        }
         
         let tab = thirdPanelSelected ? 1 : 0;
         var value: Int;
@@ -69,6 +73,8 @@ class MetricDetailCard: UIView {
             meter.setDarkText();
             let tap = UITapGestureRecognizer(target: self, action: "gotoDailySummary:");
             meter.addGestureRecognizer(tap);
+            
+            
         } else if (delegate.getRanges(tab).count > 0) {
             if (meter != nil && meter.superview != nil) {
                 meter.removeFromSuperview();
@@ -85,10 +91,6 @@ class MetricDetailCard: UIView {
             secondPanel.addGestureRecognizer(secondPanelTap);
             let thirdPanelTap = UITapGestureRecognizer(target: self, action: "thirdPanelClicked:");
             thirdPanel.addGestureRecognizer(thirdPanelTap);
-        }
-        if (delegate.getCopyImage() != nil) {
-            copyScrollview.contentSize = copyImage.frame.size;
-            copyImage.image = delegate.getCopyImage();
         }
     }
     

@@ -62,7 +62,7 @@ class WeightMetricDelegate: MetricDelegate {
         var ranges:[MetricGauge.Range] = [];
         if (tab == 0) {
             if selectedCheckin == nil {
-                setSelected(NSDate());
+                return [];
             }
             if let height = selectedCheckin.heightInches {
                 let factor:Double = (height * height) / 703.0;

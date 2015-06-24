@@ -250,6 +250,8 @@
 		8FFF43C319B798380056F412 /* weight_overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFF43BE19B798380056F412 /* weight_overlay@2x.png */; };
 		C05CB27FD2A34A3BA2F46E97 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C0A91AD3D5DE44B7872F95D7 /* libPods.a */; };
 		D101757B1A79693C00CA32DC /* chat_bubble.png in Resources */ = {isa = PBXBuildFile; fileRef = D101757A1A79693C00CA32DC /* chat_bubble.png */; };
+		D1020A291B3B130C001F2D81 /* BreakdownTitleRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1020A281B3B130C001F2D81 /* BreakdownTitleRow.swift */; };
+		D1020A2B1B3B1327001F2D81 /* BreakdownTitleRowView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1020A2A1B3B1327001F2D81 /* BreakdownTitleRowView.xib */; };
 		D1036CFC1B153477003E7239 /* stepsicon.png in Resources */ = {isa = PBXBuildFile; fileRef = D1036CF31B153476003E7239 /* stepsicon.png */; };
 		D1036CFD1B153477003E7239 /* glucoseicon.png in Resources */ = {isa = PBXBuildFile; fileRef = D1036CF41B153476003E7239 /* glucoseicon.png */; };
 		D1036CFE1B153477003E7239 /* weighticon.png in Resources */ = {isa = PBXBuildFile; fileRef = D1036CF51B153476003E7239 /* weighticon.png */; };
@@ -626,6 +628,8 @@
 		8FFF43BE19B798380056F412 /* weight_overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "weight_overlay@2x.png"; path = "images/weight_overlay@2x.png"; sourceTree = "<group>"; };
 		C0A91AD3D5DE44B7872F95D7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D101757A1A79693C00CA32DC /* chat_bubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chat_bubble.png; path = images/chat_bubble.png; sourceTree = "<group>"; };
+		D1020A281B3B130C001F2D81 /* BreakdownTitleRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BreakdownTitleRow.swift; sourceTree = "<group>"; };
+		D1020A2A1B3B1327001F2D81 /* BreakdownTitleRowView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BreakdownTitleRowView.xib; sourceTree = "<group>"; };
 		D1036CF31B153476003E7239 /* stepsicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = stepsicon.png; path = images/stepsicon.png; sourceTree = "<group>"; };
 		D1036CF41B153476003E7239 /* glucoseicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = glucoseicon.png; path = images/glucoseicon.png; sourceTree = "<group>"; };
 		D1036CF51B153476003E7239 /* weighticon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = weighticon.png; path = images/weighticon.png; sourceTree = "<group>"; };
@@ -1425,6 +1429,8 @@
 				D17528851B0FC852006335B4 /* DailySummaryBreakdownView.xib */,
 				D17528871B0FD332006335B4 /* DailySummaryBreakdown.swift */,
 				D13D36521B30D78E00F18A42 /* ActivityCategory.swift */,
+				D1020A281B3B130C001F2D81 /* BreakdownTitleRow.swift */,
+				D1020A2A1B3B1327001F2D81 /* BreakdownTitleRowView.xib */,
 			);
 			name = "Daily Summary";
 			sourceTree = "<group>";
@@ -1698,6 +1704,7 @@
 				D1E2236C1A7FFB7D006330E7 /* ui_nodevices.png in Resources */,
 				8FFB034B19FEA2440036228C /* oc_bodystats_active.png in Resources */,
 				D1CFC9851AB3742700AC54BB /* MetricGraphCardView.xib in Resources */,
+				D1020A2B1B3B1327001F2D81 /* BreakdownTitleRowView.xib in Resources */,
 				D175287F1B0F9669006335B4 /* dailysummary_morning.png in Resources */,
 				8F069CC219DAFCFF00DCC820 /* higi_logo_innercircle@2x.png in Resources */,
 				8FC7B71519E5E6B900D0112F /* bodystats_background-568h@2x.png in Resources */,
@@ -2020,6 +2027,7 @@
 				8FEF6F3C1A6EAACE001EF8A6 /* DashboardViewController.swift in Sources */,
 				8FCD2D8019EC286900AC5A82 /* UIImage+Orientation.m in Sources */,
 				D12B398C1AA4ECC6005B2ABA /* GQTPointQuadTreeChild.m in Sources */,
+				D1020A291B3B130C001F2D81 /* BreakdownTitleRow.swift in Sources */,
 				D1CFC9831AB360AF00AC54BB /* MetricGraphCard.swift in Sources */,
 				D10D89501A8C11A9000402D4 /* ChallengeDetailsParticipantIcon.swift in Sources */,
 				D10D844B1AEFFA7A00DA3278 /* MetricDetailCard.swift in Sources */,

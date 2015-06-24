@@ -10,12 +10,11 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var dateNumber: UILabel!
     @IBOutlet weak var greeting: UILabel!
     @IBOutlet weak var headerBackground: UIImageView!
-    
     @IBOutlet weak var scrollView: UIScrollView!
-    
     @IBOutlet weak var activityContainer: UIView!
-    
     @IBOutlet weak var scrollviewMainContentView: UIView!
+    
+    var titleRows:[UIView] = [];
     var pointsMeter:PointsMeter!;
 
     var activities: [HigiActivity] = [];
@@ -145,7 +144,13 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             activities.sort(sortByPoints);
         }
         for activity in activities {
-            let type = ActivityCategory.categoryFromActivity(activity).getString();
+            var type = ActivityCategory.categoryFromActivity(activity).getString();
+            //TEMPORARY
+            if (activity.device.name == "higi") {
+                type = ActivityCategory.Health.getString();
+            }
+            
+            //TEMPORARY
             if let (total, activityList) = activitiesByType[type] {
                 var previousActivities = activityList;
                 previousActivities.append(activity);
@@ -183,14 +188,19 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             circleLayer.lineWidth = 2.0;
             circleLayer.strokeEnd = 1;
             activityRow.progressCircle.layer.addSublayer(circleLayer);
-            activityRow.frame.origin.y = currentOrigin;
+            activityRow.frame.origin.y = currentOrigin
             
             activityContainer.addSubview(activityRow);
-            currentOrigin += activityRow.frame.size.height;
-            
+            currentOrigin += activityRow.frame.size.height - 4;
+            let titleMargin:CGFloat = 4;
             for subActivity in activityList {
+                let name = subActivity.device.name == "higi" ? "higi Station Check In" : "\(subActivity.device.name)";
+                let titleRow = initTitleRow(activityRow.name.frame.origin.x, originY: currentOrigin, points: subActivity.points, device: name, color: color);
+                activityContainer.addSubview(titleRow);
+                titleRows.append(titleRow);
+                currentOrigin += titleRow.frame.size.height + titleMargin;
                 if (key == ActivityCategory.Lifestyle.getString()) {
-                    let breakdownRow = initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, icon: UIImage(named: "workouticon")!, points: "", metric: "\(subActivity.device.name) \(subActivity.typeName)");
+                    let breakdownRow = initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, icon: UIImage(named: "workouticon")!, text: "\(subActivity.device.name) \(subActivity.typeName)", duplicate: false);
                     activityContainer.addSubview(breakdownRow);
                     currentOrigin += breakdownRow.frame.size.height;
                 } else if (key == ActivityCategory.Health.getString()) {
@@ -216,22 +226,22 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
                         }
                     }
                     if (lastDiastolic > 0) {
-                        let breakdownRow = initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, icon: UIImage(named: "bloodpressureicon")!, points: "\(lastSystolic)/\(lastDiastolic)", metric: "mmHg");
+                        let breakdownRow = initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, icon: UIImage(named: "bloodpressureicon")!, text: "\(lastSystolic)/\(lastDiastolic) mmHg BP", duplicate: false);
                         activityContainer.addSubview(breakdownRow);
                         currentOrigin += breakdownRow.frame.size.height;
                     }
                     if (lastPulse > 0) {
-                        let breakdownRow = initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, icon: UIImage(named: "pulseicon")!, points: "\(lastPulse)", metric: "bpm");
+                        let breakdownRow = initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, icon: UIImage(named: "pulseicon")!, text: "\(lastPulse) bpm Pulse", duplicate: false);
                         activityContainer.addSubview(breakdownRow);
                         currentOrigin += breakdownRow.frame.size.height;
                     }
                     if (lastWeight > 0) {
-                        let breakdownRow = initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, icon: UIImage(named: "weighticon")!, points: "\(Int(lastWeight))", metric: "lbs");
+                        let breakdownRow = initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, icon: UIImage(named: "weighticon")!, text: "\(Int(lastWeight)) lbs Weight", duplicate: false);
                         activityContainer.addSubview(breakdownRow);
                         currentOrigin += breakdownRow.frame.size.height;
                     }
                     if (lastBodyFat > 0) {
-                        let breakdownRow = initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, icon: UIImage(named: "workouticon")!, points: "\(lastBodyFat)%", metric: "");
+                        let breakdownRow = initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, icon: UIImage(named: "workouticon")!, text: "\(lastBodyFat)% Body Fat", duplicate: false);
                         activityContainer.addSubview(breakdownRow);
                         currentOrigin += breakdownRow.frame.size.height;
                     }
@@ -240,17 +250,11 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
                     breakdownRow.frame.origin.y = currentOrigin;
                     breakdownRow.frame.origin.x = activityRow.name.frame.origin.x;
                     if (activity.steps > 0) {
-                        breakdownRow.icon.image = UIImage(named: "stepsicon");
-                        breakdownRow.metric.text = "steps";
-                        breakdownRow.points.text = "\(subActivity.steps)";
+                        breakdownRow.desc.text = "Walked \(subActivity.steps) steps";
                     } else if (activity.distance > 0) {
-                        breakdownRow.icon.image = UIImage(named: "runicon");
-                        breakdownRow.metric.text = "miles";
-                        breakdownRow.points.text = "\(subActivity.distance)";
+                        breakdownRow.desc.text = "Walked \(subActivity.distance) miles";
                     } else {
-                        breakdownRow.icon.image = UIImage(named: "bikeicon");
-                        breakdownRow.metric.text = "miles";
-                        breakdownRow.points.text = "\(subActivity.distance)";
+                        breakdownRow.desc.text = "Rode \(subActivity.distance) miles";
                     }
                     activityContainer.addSubview(breakdownRow);
                     currentOrigin += breakdownRow.frame.size.height;
@@ -260,14 +264,26 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    func initBreakdownRow(originX: CGFloat, originY: CGFloat, icon: UIImage, points: String, metric: String) -> DailySummaryBreakdown {
+    func initBreakdownRow(originX: CGFloat, originY: CGFloat, icon: UIImage, text: String, duplicate: Bool) -> DailySummaryBreakdown {
         let breakdownRow = UINib(nibName: "DailySummaryBreakdownView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! DailySummaryBreakdown;
         breakdownRow.frame.origin.y = originY;
         breakdownRow.frame.origin.x = originX;
-        breakdownRow.icon.image = icon;
-        breakdownRow.points.text = points;
-        breakdownRow.metric.text = metric;
+        breakdownRow.desc.text = text;
+        if (duplicate) {
+            breakdownRow.desc.textColor = Utility.colorFromHexString("#EEEEEE");
+        }
         return breakdownRow;
+    }
+    
+    func initTitleRow(originX: CGFloat, originY: CGFloat, points: Int, device: String, color: UIColor) -> BreakdownTitleRow {
+        let titleRow = UINib(nibName: "BreakdownTitleRowView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! BreakdownTitleRow;
+        titleRow.frame.origin.x = originX;
+        titleRow.frame.origin.y = originY;
+        titleRow.frame.size.width = UIScreen.mainScreen().bounds.size.width - originX;
+        titleRow.points.text = "\(points)";
+        titleRow.device.text = device;
+        titleRow.points.textColor = color;
+        return titleRow;
     }
     
     func sortByPoints(this: HigiActivity, that: HigiActivity) -> Bool {
@@ -312,5 +328,8 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews();
         activityView.frame.size.width = scrollView.frame.size.width;
+        for row in titleRows {
+            row.frame.size.width = scrollView.frame.size.width - row.frame.origin.x;
+        }
     }
 }

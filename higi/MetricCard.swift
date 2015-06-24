@@ -117,16 +117,15 @@ class MetricCard: UIView, MetricDelegate {
     }
     
     func initRegions() {
-        if (delegate.getType() == MetricsType.Pulse || delegate.getType() == MetricsType.Weight) {
+        if (graph.points.count > 0 && delegate.getType() == MetricsType.Pulse || delegate.getType() == MetricsType.Weight) {
             let ranges = delegate.getRanges(0);
             var i = 0;
             for range in ranges {
                 let lowerBound = graph.getScreenPoint(graph, xPoint: 0, yPoint: CGFloat(range.lowerBound));
                 let upperBound = graph.getScreenPoint(graph, xPoint: 0, yPoint: CGFloat(range.upperBound));
-                let height = lowerBound.y - upperBound.y;
                 if (upperBound.y >= 0 && lowerBound.y < graphContainer.frame.size.height) {
-                    let view = UIView(frame: CGRect(x: 0, y: upperBound.y, width: graphContainer.frame.size.width - 10, height: lowerBound.y - upperBound.y));
-                    let label = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height));
+                    let view = UIView(frame: CGRect(x: 0, y: upperBound.y, width: graphContainer.frame.size.width, height: lowerBound.y - upperBound.y));
+                    let label = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.size.width - 10, height: view.frame.size.height));
                     label.text = range.label;
                     label.textAlignment = NSTextAlignment.Right;
                     label.backgroundColor = UIColor.clearColor();
