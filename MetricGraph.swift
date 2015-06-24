@@ -124,7 +124,7 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
             return;
         }
         let unselectedColor = Utility.colorFromHexString("#b4a6c2");
-        var maxY = 0.0, minY = DBL_MAX, plotSymbolSize = 7.0;
+        var maxY = 0.0, minY = DBL_MAX, plotSymbolSize = 9.0;
         let hitMargin = 5, pointsToShow = 30;
         
         graph = CPTXYGraph(frame: self.bounds);
@@ -240,7 +240,7 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         plot.plotSymbol = plotSymbol;
         var lineStyle = CPTMutableLineStyle();
         lineStyle.lineColor = CPTColor(CGColor: color.CGColor);
-        lineStyle.lineWidth = 1;
+        lineStyle.lineWidth = 2;
         plot.dataLineStyle = lineStyle;
         
         var axisTextStyle = CPTMutableTextStyle();

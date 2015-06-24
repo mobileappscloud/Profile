@@ -83,7 +83,7 @@
                     CGPoint cp1 = controlPoints1[i];
                     CGPoint cp2 = controlPoints2[i];
                     
-                    CGPathAddCurveToPoint(dataLinePath, NULL, MAX(MIN(cp1.x, viewPoint.x), lastPoint.x), cp1.y, MAX(MIN(MAX(cp1.x, cp2.x), viewPoint.x), lastPoint.x), cp2.y, viewPoint.x, viewPoint.y);
+                    CGPathAddCurveToPoint(dataLinePath, NULL, MAX(MIN(cp1.x, viewPoint.x), lastPoint.x), MAX(MIN(cp1.y, viewPoint.y), lastPoint.y), MAX(MIN(MAX(cp1.x, cp2.x), viewPoint.x), lastPoint.x), MAX(MIN(MAX(cp1.y, cp2.y), viewPoint.y), lastPoint.y), viewPoint.x, viewPoint.y);
                 }
                 lastPoint = viewPoint;
             }
