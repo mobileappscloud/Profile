@@ -109,6 +109,10 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                 challengesCard.spinner.stopAnimating();
                 challengesCard.removeFromSuperview();
             }
+            if (metricsCard.superview != nil) {
+                metricsSpinner.stopAnimating();
+                metricsCard.removeFromSuperview();
+            }
             if (errorCard.superview == nil) {
                 errorCard.frame.origin.y = contentOriginY;
                 mainScrollView.addSubview(errorCard);

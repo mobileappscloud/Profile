@@ -308,6 +308,7 @@
 		D1E2237A1A8009E6006330E7 /* ConnectDeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E223791A8009E6006330E7 /* ConnectDeviceViewController.swift */; };
 		D1E2A6F51AB75EBB00796700 /* MetricGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E2A6F41AB75EBB00796700 /* MetricGraph.swift */; };
 		D1E2DB821AE176760074CBAF /* MetricCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E2DB811AE176760074CBAF /* MetricCard.swift */; };
+		D1EE80F41B3BBAAD00B13CB8 /* SummaryViewUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EE80F31B3BBAAD00B13CB8 /* SummaryViewUtility.swift */; };
 		D1EEDB951A660F2B0012EFD3 /* challenge_image.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDB8E1A660F2B0012EFD3 /* challenge_image.png */; };
 		D1EEDB981A660F2B0012EFD3 /* ui_chatter.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDB911A660F2B0012EFD3 /* ui_chatter.png */; };
 		D1EEDB991A660F2B0012EFD3 /* ui_details.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDB921A660F2B0012EFD3 /* ui_details.png */; };
@@ -674,6 +675,7 @@
 		D1E223791A8009E6006330E7 /* ConnectDeviceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectDeviceViewController.swift; sourceTree = "<group>"; };
 		D1E2A6F41AB75EBB00796700 /* MetricGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricGraph.swift; sourceTree = "<group>"; };
 		D1E2DB811AE176760074CBAF /* MetricCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricCard.swift; sourceTree = "<group>"; };
+		D1EE80F31B3BBAAD00B13CB8 /* SummaryViewUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SummaryViewUtility.swift; sourceTree = "<group>"; };
 		D1EEDB8E1A660F2B0012EFD3 /* challenge_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = challenge_image.png; path = "../../android-main/app/src/main/res/drawable-nodpi/challenge_image.png"; sourceTree = "<group>"; };
 		D1EEDB911A660F2B0012EFD3 /* ui_chatter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_chatter.png; path = "../../android-main/app/src/main/res/drawable-nodpi/ui_chatter.png"; sourceTree = "<group>"; };
 		D1EEDB921A660F2B0012EFD3 /* ui_details.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_details.png; path = "../../android-main/app/src/main/res/drawable-nodpi/ui_details.png"; sourceTree = "<group>"; };
@@ -1341,6 +1343,7 @@
 				D13D36521B30D78E00F18A42 /* ActivityCategory.swift */,
 				D1020A281B3B130C001F2D81 /* BreakdownTitleRow.swift */,
 				D1020A2A1B3B1327001F2D81 /* BreakdownTitleRowView.xib */,
+				D1EE80F31B3BBAAD00B13CB8 /* SummaryViewUtility.swift */,
 			);
 			name = "Daily Summary";
 			sourceTree = "<group>";
@@ -1912,6 +1915,7 @@
 				D10D89501A8C11A9000402D4 /* ChallengeDetailsParticipantIcon.swift in Sources */,
 				D10D844B1AEFFA7A00DA3278 /* MetricDetailCard.swift in Sources */,
 				D12B37061AA4DF02005B2ABA /* ClusterKiosk.m in Sources */,
+				D1EE80F41B3BBAAD00B13CB8 /* SummaryViewUtility.swift in Sources */,
 				D12B37131AA4EC70005B2ABA /* GClusterManager.m in Sources */,
 				8F2B7E43198C2DA0009DE89A /* DrawerViewController.swift in Sources */,
 				8F524BF6195B5ABB00BFC49D /* ConversionUtility.m in Sources */,

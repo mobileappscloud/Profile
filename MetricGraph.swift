@@ -135,9 +135,11 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         graph.paddingBottom = 0;
         self.allowPinchScaling = true;
         graph.plotAreaFrame.paddingTop = 20;
-
+        graph.plotAreaFrame.paddingRight = 20;
         graph.plotAreaFrame.borderLineStyle = nil;
-        
+        graph.plotAreaFrame.borderWidth = 0;
+        graph.borderWidth = 0;
+        graph.borderLineStyle = nil;
         plotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
         plotSymbol.fill = CPTFill(color: CPTColor.whiteColor());
         var symbolLineStyle = CPTMutableLineStyle();
@@ -188,15 +190,12 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         }
         if (altPoints.count > 0) {
             altPlot = NewCPTScatterPlot(frame: CGRectZero);
-            altPlot.interpolation = CPTScatterPlotInterpolationCurved;
+            altPlot.interpolation = CPTScatterPlotInterpolationLinear;
             altPlot.plotSymbolMarginForHitDetection = CGFloat(hitMargin);
             altPlot.dataSource = self;
             altPlot.delegate = self;
             altPlot.setAreaBaseDecimalValue(0);
             altPlot.plotSymbol = altPlotSymbol;
-            var noLineStyle = CPTMutableLineStyle();
-            noLineStyle.lineWidth = 0;
-//            altPlot.dataLineStyle = noLineStyle;
             altPlot.dataLineStyle = unselectedAltPlotLineStyle;
             //add alt plot here so that it's drawn behind main plot
             graph.addPlot(altPlot, toPlotSpace: graph.defaultPlotSpace);
@@ -225,9 +224,9 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         if (points.count > 30) {
             visibleMin = points[points.count - 31];
         }
-        plotSpace.xRange = NewCPTPlotRange(location: visibleMin.x - 1, length: lastPoint.x - visibleMin.x + 2);
+        plotSpace.xRange = NewCPTPlotRange(location: visibleMin.x - 1, length: lastPoint.x - visibleMin.x + 2 * 86400) ;
         plotSpace.yRange = NewCPTPlotRange(location: lowerBound, length: yRange);
-        plotSpace.globalXRange = NewCPTPlotRange(location: firstPoint.x - 1, length: lastPoint.x - firstPoint.x + 2);
+        plotSpace.globalXRange = NewCPTPlotRange(location: firstPoint.x - 1, length: lastPoint.x - firstPoint.x + 2 * 86400);
         plotSpace.globalYRange = plotSpace.yRange;
         plotSpace.delegate = self;
         plotSpace.allowsUserInteraction = true;

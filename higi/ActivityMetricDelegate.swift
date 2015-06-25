@@ -21,7 +21,8 @@ class ActivityMetricDelegate: MetricDelegate {
     }
     
     func getCopyImage() -> UIImage? {
-        return UIImage(named: "pulse_overlay")!;
+//        return UIImage(named: "pulse_overlay")!;
+        return nil;
     }
     
     func setSelected(date: NSDate) {
