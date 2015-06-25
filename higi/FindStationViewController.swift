@@ -43,7 +43,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     
     var locationManager: CLLocationManager!;
     
-    var listOpen = false, autoCompleteOpen = false, selectedPaneOpen = false, reminderMode = false, firstLocation = false;
+    var listOpen = false, autoCompleteOpen = false, selectedPaneOpen = false, reminderMode = true, firstLocation = false;
     
     var mapView: GMSMapView!;
     
