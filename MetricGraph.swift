@@ -211,7 +211,7 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         }
         var tickInterval = 20.0;
         var interval = (maxY - minY) * 0.25;
-        if (interval == 0) {
+        if (interval < 1) {
             interval = minY * 0.25;
         }
         let lowerBound = roundToLowest(round(minY) - interval, roundTo: tickInterval);
@@ -224,7 +224,7 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         if (points.count > 30) {
             visibleMin = points[points.count - 31];
         }
-        plotSpace.xRange = NewCPTPlotRange(location: visibleMin.x - 1, length: lastPoint.x - visibleMin.x + 2 * 86400) ;
+        plotSpace.xRange = NewCPTPlotRange(location: visibleMin.x - 1, length: lastPoint.x - visibleMin.x + 2 * 86400);
         plotSpace.yRange = NewCPTPlotRange(location: lowerBound, length: yRange);
         plotSpace.globalXRange = NewCPTPlotRange(location: firstPoint.x - 1, length: lastPoint.x - firstPoint.x + 2 * 86400);
         plotSpace.globalYRange = plotSpace.yRange;
@@ -255,7 +255,7 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         xAxis.axisConstraints = CPTConstraints(lowerOffset: 0);
         xAxis.labelingPolicy = CPTAxisLabelingPolicyEqualDivisions;
         xAxis.preferredNumberOfMajorTicks = 10;
-        xAxis.axisLineStyle = lineStyle;
+        xAxis.axisLineStyle = nil;
         xAxis.labelOffset = 0;
         xAxis.tickDirection = CPTSignPositive;
         var dateFormatter = NSDateFormatter();
@@ -263,7 +263,7 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         xAxis.labelFormatter = CustomFormatter(dateFormatter: dateFormatter);
         
         var yAxis = graph.axisSet.axisForCoordinate(CPTCoordinateY, atIndex: 0) as! CPTXYAxis;
-        yAxis.axisLineStyle = lineStyle;
+        yAxis.axisLineStyle = nil;
         yAxis.labelTextStyle = axisTextStyle;
         yAxis.labelOffset = CGFloat(20);
         yAxis.majorTickLineStyle = nil;

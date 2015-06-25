@@ -145,11 +145,11 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         }
         for activity in activities {
             var type = ActivityCategory.categoryFromActivity(activity).getString();
-            //TEMPORARY
+            //<TEMPORARY>
             if (activity.device.name == "higi") {
                 type = ActivityCategory.Health.getString();
             }
-            //TEMPORARY
+            //</TEMPORARY>
             if let (total, activityList) = activitiesByType[type] {
                 var previousActivities = activityList;
                 previousActivities.append(activity);
@@ -189,6 +189,13 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             activityRow.progressCircle.layer.addSublayer(circleLayer);
             activityRow.frame.origin.y = currentOrigin
             
+            var todaysCheckins:[HigiCheckin] = [];
+            for checkin in SessionController.Instance.checkins {
+                if (Constants.dateFormatter.stringFromDate(checkin.dateTime) == dateString) {
+                    todaysCheckins.append(checkin);
+                }
+            }
+            var checkinIndex = 0;
             activityContainer.addSubview(activityRow);
             currentOrigin += activityRow.frame.size.height - 4;
             let titleMargin:CGFloat = 2;
@@ -204,46 +211,29 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
                     activityContainer.addSubview(breakdownRow);
                     currentOrigin += breakdownRow.frame.size.height;
                 } else if (key == ActivityCategory.Health.getString()) {
-                    var lastSystolic = 0, lastDiastolic = 0, lastPulse = 0;
-                    var lastBodyFat = 0.0, lastWeight = 0.0;
-                    for checkin in SessionController.Instance.checkins {
-                        if (Constants.dateFormatter.stringFromDate(checkin.dateTime) == dateString) {
-                            if (lastDiastolic == 0 && checkin.diastolic != nil && checkin.diastolic > 0) {
-                                lastDiastolic = checkin.diastolic!;
-                            }
-                            if (lastSystolic == 0 && checkin.systolic != nil && checkin.systolic > 0) {
-                                lastSystolic = checkin.systolic!;
-                            }
-                            if (lastPulse == 0 && checkin.pulseBpm != nil && checkin.pulseBpm > 0) {
-                                lastPulse = checkin.pulseBpm!;
-                            }
-                            if (lastWeight == 0 && checkin.weightLbs != nil && checkin.weightLbs > 0) {
-                                lastWeight = checkin.weightLbs!;
-                            }
-                            if (lastBodyFat == 0 && checkin.fatRatio != nil && checkin.fatRatio > 0) {
-                                lastBodyFat = checkin.fatRatio!;
-                            }
+                    if (checkinIndex < todaysCheckins.count) {
+                        let checkin = todaysCheckins[checkinIndex];
+                        if (checkin.diastolic != nil && checkin.diastolic > 0) {
+                            let breakdownRow = SummaryViewUtility.initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, text: "\(checkin.systolic!)/\(checkin.diastolic!) mmHg BP", duplicate: isDuplicate);
+                            activityContainer.addSubview(breakdownRow);
+                            currentOrigin += breakdownRow.frame.size.height;
                         }
-                    }
-                    if (lastDiastolic > 0) {
-                        let breakdownRow = SummaryViewUtility.initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, text: "\(lastSystolic)/\(lastDiastolic) mmHg BP", duplicate: isDuplicate);
-                        activityContainer.addSubview(breakdownRow);
-                        currentOrigin += breakdownRow.frame.size.height;
-                    }
-                    if (lastPulse > 0) {
-                        let breakdownRow = SummaryViewUtility.initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, text: "\(lastPulse) bpm Pulse", duplicate: isDuplicate);
-                        activityContainer.addSubview(breakdownRow);
-                        currentOrigin += breakdownRow.frame.size.height;
-                    }
-                    if (lastWeight > 0) {
-                        let breakdownRow = SummaryViewUtility.initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, text: "\(Int(lastWeight)) lbs Weight", duplicate: isDuplicate);
-                        activityContainer.addSubview(breakdownRow);
-                        currentOrigin += breakdownRow.frame.size.height;
-                    }
-                    if (lastBodyFat > 0) {
-                        let breakdownRow = SummaryViewUtility.initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, text: "\(lastBodyFat)% Body Fat", duplicate: isDuplicate);
-                        activityContainer.addSubview(breakdownRow);
-                        currentOrigin += breakdownRow.frame.size.height;
+                        if (checkin.pulseBpm != nil && checkin.pulseBpm > 0) {
+                            let breakdownRow = SummaryViewUtility.initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, text: "\(checkin.pulseBpm!) bpm Pulse", duplicate: isDuplicate);
+                            activityContainer.addSubview(breakdownRow);
+                            currentOrigin += breakdownRow.frame.size.height;
+                        }
+                        if (checkin.weightLbs != nil && checkin.weightLbs > 0) {
+                            let breakdownRow = SummaryViewUtility.initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, text: "\(Int(checkin.weightLbs!)) lbs Weight", duplicate: isDuplicate);
+                            activityContainer.addSubview(breakdownRow);
+                            currentOrigin += breakdownRow.frame.size.height;
+                        }
+                        if (checkin.fatRatio != nil && checkin.fatRatio > 0) {
+                            let breakdownRow = SummaryViewUtility.initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, text: "\(checkin.fatRatio!)% Body Fat", duplicate: isDuplicate);
+                            activityContainer.addSubview(breakdownRow);
+                            currentOrigin += breakdownRow.frame.size.height;
+                        }
+                        checkinIndex++;
                     }
                 } else if (key == ActivityCategory.Fitness.getString()) {
                     var text = "";
