@@ -25,7 +25,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     
     var totalPoints = 0;
     
-    var minCircleRadius:CGFloat = 6, maxCircleRadius:CGFloat = 32, currentOrigin:CGFloat = 0, imageAspectRatio:CGFloat!;
+    var minCircleRadius:CGFloat = 4, maxCircleRadius:CGFloat = 36, currentOrigin:CGFloat = 0, imageAspectRatio:CGFloat!;
     
     var backButton:UIButton!;
     
@@ -173,7 +173,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             activityRow.name.text = String(category.getString());
             activityRow.name.textColor = color;
             let proportion = CGFloat(activity.points) / CGFloat(totalPoints);
-            let newHeight = max(maxCircleRadius * proportion, minCircleRadius * 2);
+            let newHeight = max(maxCircleRadius * proportion * 2, minCircleRadius * 2);
             let circlePath = UIBezierPath(arcCenter: CGPoint(x: activityRow.progressCircle.frame.size.width / 2.0, y: activityRow.progressCircle.frame.size.height / 2.0), radius: newHeight / 2, startAngle: 0.0, endAngle: CGFloat(M_PI * 2.0), clockwise: true);
             let circleLayer = CAShapeLayer();
             circleLayer.path = circlePath.CGPath;
