@@ -58,7 +58,7 @@ class MetricDetailCard: UIView {
             if (gauge != nil && gauge.superview != nil) {
                 gauge.removeFromSuperview();
             }
-            meter = PointsMeter.create(CGRect(x: 0, y: 0, width: gaugeContainer.frame.size.width, height: gaugeContainer.frame.size.height));
+            meter = PointsMeter.create(CGRect(x: 0, y: 0, width: gaugeContainer.frame.size.width - 10, height: gaugeContainer.frame.size.height - 10));
             let dateString = Constants.dateFormatter.stringFromDate(Constants.displayDateFormatter.dateFromString(delegate.getSelectedPoint()!.date)!);
             if (SessionController.Instance.activities[dateString] != nil) {
                 meter.setActivities(SessionController.Instance.activities[dateString]!);
