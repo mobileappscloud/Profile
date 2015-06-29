@@ -428,6 +428,13 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         self.navigationController!.pushViewController(ConnectDeviceViewController(nibName: "ConnectDeviceView", bundle: nil), animated: true);
     }
     
+    
+    @IBAction func gotoMetrics(sender: AnyObject) {
+        Flurry.logEvent("Metrics_Pressed");
+        var metricsViewController = MetricsViewController(nibName: "MetricsView", bundle: nil);
+        self.navigationController!.pushViewController(metricsViewController, animated: true);
+    }
+    
     @IBAction func gotoChallenges(sender: AnyObject) {
         if (SessionController.Instance.challenges != nil) {
             Flurry.logEvent("Challenges_Pressed");
