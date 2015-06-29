@@ -222,14 +222,10 @@ class MetricsViewController: UIViewController {
     func initDetailCard(card: MetricCard) -> MetricDetailCard {
         let detailCard = MetricDetailCard.instanceFromNib(card);
         detailCard.frame.origin.y = detailsOpen ? cardHeaderViewHeight : detailsCardPosY;
-        let selectedTapRecognizer = UITapGestureRecognizer(target: self, action: "detailsTapped:");
-        let swipeDownRecognizer = UISwipeGestureRecognizer(target: self, action: "detailsSwiped:");
-        swipeDownRecognizer.direction = UISwipeGestureRecognizerDirection.Down;
-        let swipeUpRecognizer = UISwipeGestureRecognizer(target: self, action: "detailsSwiped:");
-        swipeUpRecognizer.direction = UISwipeGestureRecognizerDirection.Up;
-        detailCard.headerContainer.addGestureRecognizer(selectedTapRecognizer);
-        detailCard.headerContainer.addGestureRecognizer(swipeDownRecognizer);
-        detailCard.headerContainer.addGestureRecognizer(swipeUpRecognizer);
+        let tap = UITapGestureRecognizer(target: self, action: "detailsTapped:");
+        let drag = UIPanGestureRecognizer(target: self, action: "detailDragged:");
+        detailCard.headerContainer.addGestureRecognizer(drag);
+        detailCard.headerContainer.addGestureRecognizer(tap);
         return detailCard;
     }
 
@@ -242,6 +238,24 @@ class MetricsViewController: UIViewController {
     func pointSelected(selection: MetricCard.SelectedPoint) {
         if (detailsCard != nil) {
             detailsCard.setData(selection);
+        }
+    }
+    
+    func detailDragged(sender: AnyObject) {
+        let drag = (sender as! UIPanGestureRecognizer);
+        let translation = drag.translationInView(detailsCard);
+        if (detailsCard.frame.origin.y + translation.y <= cardHeaderViewHeight) {
+            openDetails();
+        } else if (detailsCard.frame.origin.y + translation.y >= self.detailsCardPosY) {
+            closeDetails();
+        } else if (drag.state == UIGestureRecognizerState.Ended) {
+            if (detailsOpen) {
+                closeDetails();
+            } else {
+                openDetails();
+            }
+        } else {
+            detailsCard.center.y += translation.y;
         }
     }
     
