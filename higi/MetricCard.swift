@@ -107,18 +107,19 @@ class MetricCard: UIView, MetricDelegate {
         return getSelectedUnit(tab);
     }
     
+    func shouldShowRegions() -> Bool {
+        return delegate.shouldShowRegions();
+    }
+    
     func initGraphView() {
         graph = getGraph(graphContainer.frame);
         self.graphContainer.addSubview(graph);
     }
-
-    func populate() {
-        
-    }
     
     func initRegions() {
-        if (graph.points.count > 0 && delegate.getType() == MetricsType.Pulse || delegate.getType() == MetricsType.Weight) {
-            let ranges = delegate.getRanges(0);
+        if (graph.points.count > 0 && delegate.shouldShowRegions()) {
+            let tab = delegate.getType() == MetricsType.BloodPressure ? 1 : 0;
+            let ranges = delegate.getRanges(tab);
             var i = 0;
             for range in ranges {
                 let lowerBound = graph.getScreenPoint(graph, xPoint: 0, yPoint: CGFloat(range.lowerBound));

@@ -103,4 +103,8 @@ class WeightMetricDelegate: MetricDelegate {
             return "";
         }
     }
+    
+    func shouldShowRegions() -> Bool {
+        return true;
+    }
 }

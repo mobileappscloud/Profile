@@ -133,4 +133,8 @@ class BpMetricDelegate: MetricDelegate {
         }
         return isSystolic;
     }
+    
+    func shouldShowRegions() -> Bool {
+        return true;
+    }
 }

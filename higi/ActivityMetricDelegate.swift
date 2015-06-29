@@ -62,4 +62,8 @@ class ActivityMetricDelegate: MetricDelegate {
     func getSelectedUnit(tab: Int) -> String {
         return "";
     }
+    
+    func shouldShowRegions() -> Bool {
+        return false;
+    }
 }

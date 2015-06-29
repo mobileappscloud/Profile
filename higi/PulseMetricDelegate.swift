@@ -67,4 +67,8 @@ class PulseMetricDelegate: MetricDelegate {
     func getSelectedUnit(tab: Int) -> String {
         return "bpm";
     }
+    
+    func shouldShowRegions() -> Bool {
+        return true;
+    }
 }
