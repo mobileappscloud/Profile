@@ -2,7 +2,7 @@ import Foundation
 
 class MetricsViewController: UIViewController {
     
-    var selectedType = MetricsType.BloodPressure;
+    var selectedType = MetricsType.allValues[0];
     
     let cardMargin = 46;
     
