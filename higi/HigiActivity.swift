@@ -20,6 +20,8 @@ class HigiActivity {
     
     var distance: Double!;
     
+    var healthChecks: [String] = [];
+    
     init(dictionary: NSDictionary) {
         points = dictionary["points"] as! Int;
         if let metricsObject = dictionary["metrics"] as? NSDictionary {
@@ -29,9 +31,13 @@ class HigiActivity {
             duration = metricsObject["duration"] as? Int;
         }
         description = dictionary["description"] as! NSString;
-        var serverDevice = dictionary["device"] as! NSDictionary?;
-        if (serverDevice != nil) {
-            device = ActivityDevice(dictionary: serverDevice!);
+        if let serverDevice = dictionary["device"] as? NSDictionary {
+            device = ActivityDevice(dictionary: serverDevice);
+        }
+        if let checks = dictionary["healthCheckins"] as? NSArray {
+            if (checks.count > 0) {
+                healthChecks = checks as! [String];
+            }
         }
         var formatter = NSDateFormatter();
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss";
