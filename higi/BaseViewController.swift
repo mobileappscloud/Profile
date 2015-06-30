@@ -78,7 +78,8 @@ class BaseViewController: UIViewController, SWRevealViewControllerDelegate {
         pointsMeter.addGestureRecognizer(tap);
         summaryBarItem.customView = pointsMeter;
         self.navigationItem.rightBarButtonItem = summaryBarItem;
-        pointsMeter.hidden = true;
+        setDailyPoints(false);
+        pointsMeter.hidden = !SessionController.Instance.loadedActivities;
     }
     
     func setDailyPoints(animated: Bool) {

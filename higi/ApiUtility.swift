@@ -154,12 +154,13 @@ class ApiUtility {
                         NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.ACTIVITIES, object: nil, userInfo: ["success": true]);
                         success?();
                     });
-                
+                    SessionController.Instance.loadedActivities = true;
                 });
                 }, failure: { operation, error in
                     SessionController.Instance.earnditError = true;
                     NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.ACTIVITIES, object: nil, userInfo: ["success": false]);
                     SessionController.Instance.activities = [:];
+                    SessionController.Instance.loadedActivities = true;
                     success?();
             });
         });
