@@ -75,7 +75,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         listBarItem.customView = listButton;
         self.navigationItem.rightBarButtonItem = listBarItem;
         self.revealController.panGestureRecognizer().enabled = false;
-        shouldShowDailyPoints = false;
+        self.shouldShowDailyPoints = false;
         
         searchField = UITextField(frame: CGRect(x: 0, y: 0, width: 95, height: 40));
         searchField.font = UIFont.systemFontOfSize(12);
@@ -117,10 +117,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         }
         
         if (reminderMode) {
-            reminderOverlay.hidden = false;
             reminderButton.hidden = false;
-            self.fakeNavBar.alpha = 0;
-            self.navigationController!.navigationBarHidden = true;
             getStarted.layer.borderWidth = 1;
             getStarted.layer.borderColor = Utility.colorFromHexString("#CCCCCC").CGColor;
             cancel.layer.borderWidth = 1;
