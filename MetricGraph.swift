@@ -237,7 +237,12 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         if (points.count > 30) {
             visibleMin = points[points.count - 31];
         }
-        let marginX:Double = (lastPoint.x - visibleMin.x) * 0.1;
+        var marginX:Double = (lastPoint.x - visibleMin.x) * 0.1;
+        if (marginX == 0) {
+            marginX = 2 * 86400;
+        }
+        let a = visibleMin.x - marginX;
+        let b = lastPoint.x - visibleMin.x + marginX * 2;
         plotSpace.xRange = NewCPTPlotRange(location: visibleMin.x - marginX, length: lastPoint.x - visibleMin.x + marginX * 2);
         plotSpace.yRange = NewCPTPlotRange(location: lowerBound, length: yRange);
         plotSpace.globalXRange = NewCPTPlotRange(location: firstPoint.x - marginX, length: lastPoint.x - firstPoint.x + marginX * 2);

@@ -20,6 +20,8 @@ protocol MetricDelegate {
     
     func getCopyImage(tab: Int) -> UIImage?;
     
+    func getBlankStateImage() -> UIImage;
+    
     func getSelectedValue(tab: Int) -> String;
     
     func getSelectedUnit(tab: Int) -> String;

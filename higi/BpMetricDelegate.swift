@@ -34,6 +34,10 @@ class BpMetricDelegate: MetricDelegate {
         }
     }
     
+    func getBlankStateImage() -> UIImage {
+        return UIImage(named: "bp_overlay")!;
+    }
+    
     func setSelected(date: NSDate) {
         let selectedDate = Double(Constants.dateFormatter.dateFromString(Constants.dateFormatter.stringFromDate(date))!.timeIntervalSince1970);
         var minDifference = DBL_MAX;

@@ -107,13 +107,23 @@ class MetricCard: UIView, MetricDelegate {
         return getSelectedUnit(tab);
     }
     
+    func getBlankStateImage() -> UIImage {
+        return delegate.getBlankStateImage();
+    }
+    
     func shouldShowRegions() -> Bool {
         return delegate.shouldShowRegions();
     }
     
     func initGraphView() {
         graph = getGraph(graphContainer.frame);
-        self.graphContainer.addSubview(graph);
+        if (graph.points.count > 0) {
+            self.graphContainer.addSubview(graph);
+        } else {
+            let image = UIImageView(frame: graphContainer.frame);
+            image.image = delegate.getBlankStateImage();
+            self.graphContainer.addSubview(image);
+        }
     }
     
     func initRegions() {

@@ -56,7 +56,7 @@ class MetricGraphUtility {
                 points.append(GraphPoint(x: checkinTime, y: checkin.fatRatio));
             }
         }
-        if (points.count > 1) {
+        if (points.count > 0) {
             return graphWithPoints(frame, points: points, color: MetricsType.Weight.getColor());
         } else {
             return nil;
