@@ -20,7 +20,7 @@ class ActivityMetricDelegate: MetricDelegate {
         return MetricsType.DailySummary;
     }
     
-    func getCopyImage() -> UIImage? {
+    func getCopyImage(tab: Int) -> UIImage? {
 //        return UIImage(named: "pulse_overlay")!;
         return nil;
     }

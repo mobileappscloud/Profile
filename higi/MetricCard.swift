@@ -157,8 +157,8 @@ class MetricCard: UIView, MetricDelegate {
         initializing = false;
     }
     
-    func getCopyImage() -> UIImage? {
-        return delegate.getCopyImage();
+    func getCopyImage(tab: Int) -> UIImage? {
+        return delegate.getCopyImage(tab);
     }
     
     func initHeader() {

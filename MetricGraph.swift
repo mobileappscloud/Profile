@@ -188,15 +188,28 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
                 maxY = point.y;
             }
         }
-        if (altPoints.count > 0) {
+        if (altPoints.count > 1) {
             altPlot = NewCPTScatterPlot(frame: CGRectZero);
-            altPlot.interpolation = CPTScatterPlotInterpolationLinear;
+            if (altPoints[0].x == altPoints[1].x) {
+                altPlot.interpolation = CPTScatterPlotInterpolationLinear;
+                altPlot.dataLineStyle = unselectedAltPlotLineStyle;
+            } else if (altPoints[0].y == altPoints[1].y) {
+                altPlot.interpolation = CPTScatterPlotInterpolationCurved;
+                let dottedLineStyle = CPTMutableLineStyle();
+                dottedLineStyle.lineColor = CPTColor(CGColor: Utility.colorFromHexString("#EEEEEE").CGColor);
+                dottedLineStyle.lineWidth = 2.0;
+                dottedLineStyle.dashPattern = [2];
+                altPlot.dataLineStyle = dottedLineStyle;
+                altPlot.plotSymbol = nil;
+            } else {
+                altPlot.interpolation = CPTScatterPlotInterpolationCurved;
+                altPlot.plotSymbol = altPlotSymbol;
+                altPlot.dataLineStyle = symbolLineStyle;
+            }
             altPlot.plotSymbolMarginForHitDetection = CGFloat(hitMargin);
             altPlot.dataSource = self;
             altPlot.delegate = self;
             altPlot.setAreaBaseDecimalValue(0);
-            altPlot.plotSymbol = altPlotSymbol;
-            altPlot.dataLineStyle = unselectedAltPlotLineStyle;
             //add alt plot here so that it's drawn behind main plot
             graph.addPlot(altPlot, toPlotSpace: graph.defaultPlotSpace);
         }
@@ -367,19 +380,6 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
                     return selectedAltPlotSymbol;
                 }
             } else {
-                if (altPoints.count > 0 && !altPlotLinesAdded) {
-//                    let systolicPoint = altPoints[Int(idx)];
-//                    let diastolicPoint = altPoints[Int(idx) + 1];
-//                    let screenSystolicPoint = getScreenPoint(self, xPoint: CGFloat(systolicPoint.x), yPoint: CGFloat(systolicPoint.y));
-//                    let screenDiastolicPoint = getScreenPoint(self, xPoint: CGFloat(diastolicPoint.x), yPoint: CGFloat(diastolicPoint.y));
-//
-//                    let view = UIView(frame: CGRect(x: screenSystolicPoint.x - 0.5, y: self.frame.size.height - CGFloat(screenSystolicPoint.y) - 24, width: 1, height: CGFloat(screenSystolicPoint.y - screenDiastolicPoint.y)));
-//                    view.backgroundColor = plotSymbol.lineStyle.lineColor.uiColor;
-//                    addSubview(view);
-//                    if (Int(idx) == altPoints.count - 2) {
-//                        altPlotLinesAdded = true;
-//                    }
-                }
                 if (Int(idx) == (selectedPointIndex * 2)) {
                     return selectedAltPlotSymbol;
                 }

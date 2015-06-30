@@ -20,7 +20,7 @@ class PulseMetricDelegate: MetricDelegate {
         return MetricsType.Pulse;
     }
     
-    func getCopyImage() -> UIImage? {
+    func getCopyImage(tab: Int) -> UIImage? {
         return UIImage(named: "pulse_overlay")!;
     }
     

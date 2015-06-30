@@ -26,8 +26,12 @@ class BpMetricDelegate: MetricDelegate {
         return MetricsType.BloodPressure;
     }
     
-    func getCopyImage() -> UIImage? {
-        return UIImage(named: "bp_overlay")!;
+    func getCopyImage(tab: Int) -> UIImage? {
+        if (tab == 0) {
+            return UIImage(named: "bp_overlay")!;
+        } else {
+            return UIImage(named: "map_overlay")!;
+        }
     }
     
     func setSelected(date: NSDate) {

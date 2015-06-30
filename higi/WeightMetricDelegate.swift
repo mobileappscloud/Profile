@@ -20,8 +20,12 @@ class WeightMetricDelegate: MetricDelegate {
         return MetricsType.Weight;
     }
     
-    func getCopyImage() -> UIImage? {
-        return UIImage(named: "weight_overlay")!;
+    func getCopyImage(tab: Int) -> UIImage? {
+        if tab == 0 {
+            return UIImage(named: "weight_overlay")!;
+        } else {
+            return UIImage(named: "bmi_overlay")!;
+        }
     }
     
     func setSelected(date: NSDate) {

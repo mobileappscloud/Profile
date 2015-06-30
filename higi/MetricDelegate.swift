@@ -18,7 +18,7 @@ protocol MetricDelegate {
     
     func getRanges(tab: Int) -> [MetricGauge.Range];
     
-    func getCopyImage() -> UIImage?;
+    func getCopyImage(tab: Int) -> UIImage?;
     
     func getSelectedValue(tab: Int) -> String;
     
