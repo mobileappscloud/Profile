@@ -48,6 +48,11 @@ class MetricGauge: UIView {
     
     func setup(frame: CGRect, delegate: MetricDelegate, tab:Int) {
         var userValue = 0;
+        var value = delegate.getSelectedValue(tab);
+        
+//        if count(value) > 1 && Array(value)[count(value) - 1] == "%" {
+//            value = value.substringToIndex(advance(value.startIndex, count(value) - 1));
+//        }
         if delegate.getSelectedValue(tab).toInt() != nil {
             userValue = delegate.getSelectedValue(tab).toInt()!;
         } else if (delegate.getType() == MetricsType.BloodPressure) {
@@ -182,7 +187,8 @@ class MetricGauge: UIView {
     }
     
     func drawMarker(startAngle:CGFloat, value: Int, range: Range) {
-        let valueAngle = CGFloat(value - range.lowerBound) / CGFloat(range.upperBound - range.lowerBound) * CGFloat(drawAngle) + startAngle;
+        var valueAngle = CGFloat(value - range.lowerBound) / CGFloat(range.upperBound - range.lowerBound) * CGFloat(drawAngle) + startAngle;
+        valueAngle = min(max(valueAngle, startAngle), CGFloat(sweepAngle) + startAngle);
         let triangleHeight:CGFloat = 20;
         let triangleX = center.x + radius * cos(valueAngle) - triangleHeight / 2;
         let triangleY = center.y + radius * sin(valueAngle);

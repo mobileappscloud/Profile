@@ -44,8 +44,8 @@ class WeightMetricDelegate: MetricDelegate {
         } else {
         let date = Constants.displayDateFormatter.stringFromDate(selectedCheckin.dateTime);
         let weight = selectedCheckin.weightLbs != nil ? "\(Int(selectedCheckin.weightLbs!))" : "";
-        let bodyFat = selectedCheckin.fatRatio != nil ? "\(Int(selectedCheckin.fatRatio!))" : "--";
-            return MetricCard.SelectedPoint(date: date, firstPanelValue: weight, firstPanelLabel: "Weight", firstPanelUnit: "lbs", secondPanelValue: bodyFat, secondPanelLabel: "Body Fat", secondPanelUnit: "%");
+        let bodyFat = selectedCheckin.fatRatio != nil ? "\(selectedCheckin.fatRatio!)%" : "--";
+            return MetricCard.SelectedPoint(date: date, firstPanelValue: weight, firstPanelLabel: "Weight", firstPanelUnit: "lbs", secondPanelValue: bodyFat, secondPanelLabel: "Body Fat", secondPanelUnit: "");
         }
     }
     
@@ -92,7 +92,7 @@ class WeightMetricDelegate: MetricDelegate {
         if (tab == 0) {
             return selectedCheckin.weightLbs != nil ? "\(Int(selectedCheckin.weightLbs!))" : "--";
         } else {
-            return selectedCheckin.fatRatio != nil ? "\(Int(selectedCheckin.fatRatio!))" : "--";
+            return selectedCheckin.fatRatio != nil ? "\(selectedCheckin.fatRatio!)%" : "--";
         }
     }
     

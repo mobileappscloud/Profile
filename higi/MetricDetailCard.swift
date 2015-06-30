@@ -34,11 +34,13 @@ class MetricDetailCard: UIView {
     
     var blankState = false;
     
+    var selected:MetricCard.SelectedPoint!;
+    
     class func instanceFromNib(card: MetricCard) -> MetricDetailCard {
         var view = UINib(nibName: "MetricDetailCardView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! MetricDetailCard;
         if (card.getSelectedPoint() != nil) {
-            view.setData(card.getSelectedPoint()!);
             view.setup(card.delegate);
+            view.setData(card.getSelectedPoint()!);
         } else {
             view.blankState = true;
         }
@@ -149,9 +151,8 @@ class MetricDetailCard: UIView {
         if (thirdPanelSelected) {
             triangleIndicator.frame = CGRect(x: secondPanel.frame.origin.x + secondPanel.frame.size.width / 2 - triangleHeight / 2, y: secondPanel.frame.size.height - 2, width: triangleHeight, height: triangleHeight);
             if (gauge.superview != nil) {
-                let tab = 0;
                 gauge.removeFromSuperview();
-                gauge = MetricGauge.create(CGRect(x: 0, y: 0, width: gaugeContainer.frame.size.width, height: gaugeContainer.frame.size.height), delegate: delegate, tab: tab);
+                gauge = MetricGauge.create(CGRect(x: 0, y: 0, width: gaugeContainer.frame.size.width, height: gaugeContainer.frame.size.height), delegate: delegate, tab: 0);
                 gaugeContainer.addSubview(gauge);
             }
         }
@@ -163,9 +164,7 @@ class MetricDetailCard: UIView {
         if (!thirdPanelSelected) {
             triangleIndicator.frame = CGRect(x: thirdPanel.frame.origin.x + thirdPanel.frame.size.width / 2 - triangleHeight / 2, y: thirdPanel.frame.size.height - 2, width: triangleHeight, height: triangleHeight);
             if (gauge.superview != nil) {
-                let value = thirdPanelValue.text?.toInt() != nil ? thirdPanelValue.text!.toInt()! : 0;
                 gauge.removeFromSuperview();
-                let tab = 1;
                 gauge = MetricGauge.create(CGRect(x: 0, y: 0, width: gaugeContainer.frame.size.width, height: gaugeContainer.frame.size.height), delegate: delegate, tab: 1);
                 gaugeContainer.addSubview(gauge);
             }
@@ -174,16 +173,38 @@ class MetricDetailCard: UIView {
     }
     
     func setData(selection: MetricCard.SelectedPoint) {
+        selected = selection;
         firstPanelValue.text = selection.date;
-        secondPanelValue.text = selection.firstPanel.value;
         secondPanelUnit.text = selection.firstPanel.unit;
         secondPanelLabel.text = selection.firstPanel.label;
-        thirdPanelValue.text = selection.secondPanel.value;
         thirdPanelUnit.text = selection.secondPanel.unit;
         thirdPanelLabel.text = selection.secondPanel.label;
         
         secondPanelHeader.text = selection.firstPanel.label;
         thirdPanelHeader.text = selection.secondPanel.label;
+        
+        if selected.firstPanel.unit == "" && selection.firstPanel.value != "" {
+            let label = UILabel(frame: CGRect(x: secondPanelValue.frame.origin.x, y: secondPanelValue.frame.origin.y, width: thirdPanel.frame.size.width - (2 * secondPanelValue.frame.origin.x), height: secondPanelValue.frame.size.height));
+            label.text = selection.firstPanel.value;
+            label.textAlignment = NSTextAlignment.Center;
+            label.textColor = delegate.getColor();
+            secondPanel.addSubview(label);
+            secondPanel.sendSubviewToBack(label);
+            secondPanelValue.hidden = true;
+        } else {
+            secondPanelValue.text = selection.secondPanel.value;
+        }
+        if selected.secondPanel.unit == "" && selection.secondPanel.value != "" {
+            let label = UILabel(frame: CGRect(x: thirdPanelValue.frame.origin.x, y: thirdPanelValue.frame.origin.y, width: thirdPanel.frame.size.width - (2 * thirdPanelValue.frame.origin.x), height: thirdPanelValue.frame.size.height));
+            label.text = selection.secondPanel.value;
+            label.textAlignment = NSTextAlignment.Center;
+            label.textColor = delegate.getColor();
+            thirdPanel.addSubview(label);
+            thirdPanel.sendSubviewToBack(label);
+            thirdPanelValue.hidden = true;
+        } else {
+            thirdPanelValue.text = selection.secondPanel.value;
+        }
     }
     
     func setPanelHeaders(isOpen: Bool) {
@@ -215,11 +236,6 @@ class MetricDetailCard: UIView {
         }
         for activity in activities {
             var type = ActivityCategory.categoryFromActivity(activity).getString();
-            //TEMPORARY
-            if (activity.device.name == "higi") {
-                type = ActivityCategory.Health.getString();
-            }
-            //TEMPORARY
             if let (total, activityList) = activitiesByType[type] {
                 var previousActivities = activityList;
                 previousActivities.append(activity);
