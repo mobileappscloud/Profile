@@ -184,7 +184,7 @@ class MetricDetailCard: UIView {
         thirdPanelHeader.text = selection.secondPanel.label;
         
         if selected.firstPanel.unit == "" && selection.firstPanel.value != "" {
-            let label = UILabel(frame: CGRect(x: secondPanelValue.frame.origin.x, y: secondPanelValue.frame.origin.y, width: thirdPanel.frame.size.width - (2 * secondPanelValue.frame.origin.x), height: secondPanelValue.frame.size.height));
+            let label = UILabel(frame: CGRect(x: secondPanelValue.frame.origin.x, y: secondPanelValue.frame.origin.y, width: secondPanelValue.frame.size.width - (2 * secondPanelValue.frame.origin.x), height: secondPanelValue.frame.size.height));
             label.text = selection.firstPanel.value;
             label.textAlignment = NSTextAlignment.Center;
             label.textColor = delegate.getColor();
@@ -192,7 +192,7 @@ class MetricDetailCard: UIView {
             secondPanel.sendSubviewToBack(label);
             secondPanelValue.hidden = true;
         } else {
-            secondPanelValue.text = selection.secondPanel.value;
+            secondPanelValue.text = selection.firstPanel.value;
         }
         if selected.secondPanel.unit == "" && selection.secondPanel.value != "" {
             let label = UILabel(frame: CGRect(x: thirdPanelValue.frame.origin.x, y: thirdPanelValue.frame.origin.y, width: thirdPanel.frame.size.width - (2 * thirdPanelValue.frame.origin.x), height: thirdPanelValue.frame.size.height));
