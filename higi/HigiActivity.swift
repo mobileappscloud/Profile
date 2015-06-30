@@ -34,7 +34,7 @@ class HigiActivity {
         if let serverDevice = dictionary["device"] as? NSDictionary {
             device = ActivityDevice(dictionary: serverDevice);
         }
-        if let checks = dictionary["healthCheckins"] as? NSArray {
+        if let checks = dictionary["healthChecks"] as? NSArray {
             if (checks.count > 0) {
                 healthChecks = checks as! [String];
             }

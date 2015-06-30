@@ -279,7 +279,7 @@ class MetricDetailCard: UIView {
                 currentOrigin += titleRow.frame.size.height + titleMargin;
                 var isDuplicate = subActivity.errorDescription != nil;
                 if (key == ActivityCategory.Lifestyle.getString()) {
-                    let breakdownRow = SummaryViewUtility.initBreakdownRow(activityRow.frame.origin.x, originY: currentOrigin, text: "Gym \(subActivity.typeName)", duplicate: isDuplicate);
+                    let breakdownRow = SummaryViewUtility.initBreakdownRow(activityRow.frame.origin.x, originY: currentOrigin, text: "\(subActivity.description)", duplicate: isDuplicate);
                     copyScrollview.addSubview(breakdownRow);
                     currentOrigin += breakdownRow.frame.size.height;
                 } else if (key == ActivityCategory.Health.getString()) {

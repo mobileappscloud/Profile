@@ -25,7 +25,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     
     var totalPoints = 0;
     
-    var minCircleRadius:CGFloat = 4, maxCircleRadius:CGFloat = 36, currentOrigin:CGFloat = 0, imageAspectRatio:CGFloat!;
+    var minCircleRadius:CGFloat = 4, maxCircleRadius:CGFloat = 24, currentOrigin:CGFloat = 0, imageAspectRatio:CGFloat!;
     
     var backButton:UIButton!;
     
@@ -173,8 +173,8 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             activityRow.name.text = String(category.getString());
             activityRow.name.textColor = color;
             let proportion = CGFloat(activity.points) / CGFloat(totalPoints);
-            let newHeight = max(maxCircleRadius * proportion * 2, minCircleRadius * 2);
-            let circlePath = UIBezierPath(arcCenter: CGPoint(x: activityRow.progressCircle.frame.size.width / 2.0, y: activityRow.progressCircle.frame.size.height / 2.0), radius: newHeight / 2, startAngle: 0.0, endAngle: CGFloat(M_PI * 2.0), clockwise: true);
+            let newHeight = max(maxCircleRadius * proportion, minCircleRadius);
+            let circlePath = UIBezierPath(arcCenter: CGPoint(x: activityRow.progressCircle.frame.size.width / 2.0, y: activityRow.progressCircle.frame.size.height / 2.0), radius: newHeight, startAngle: 0.0, endAngle: CGFloat(M_PI * 2.0), clockwise: true);
             let circleLayer = CAShapeLayer();
             circleLayer.path = circlePath.CGPath;
             circleLayer.fillColor = UIColor.whiteColor().CGColor;
@@ -202,7 +202,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
                 currentOrigin += titleRow.frame.size.height + titleMargin;
                 var isDuplicate = subActivity.errorDescription != nil;
                 if (key == ActivityCategory.Lifestyle.getString()) {
-                    let breakdownRow = SummaryViewUtility.initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, text: "Gym \(subActivity.typeName)", duplicate: isDuplicate);
+                    let breakdownRow = SummaryViewUtility.initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, text: "\(subActivity.description)", duplicate: isDuplicate);
                     activityContainer.addSubview(breakdownRow);
                     currentOrigin += breakdownRow.frame.size.height;
                 } else if (key == ActivityCategory.Health.getString()) {
@@ -270,19 +270,21 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func updateNavbar(scrollY: CGFloat) {
-        if (scrollY >= 0 && !isLeaving) {
-            var alpha = min(scrollY / 75, 1);
-            self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0 - alpha, alpha: 1.0)];
-            if (alpha < 0.5) {
-                self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
-                backButton.setBackgroundImage(UIImage(named: "btn_back_white.png"), forState: UIControlState.Normal);
+        if (!isLeaving) {
+            if (scrollY >= 0) {
+                var alpha = min(scrollY / 75, 1);
+                self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0 - alpha, alpha: 1.0)];
+                if (alpha < 0.5) {
+                    self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
+                    backButton.setBackgroundImage(UIImage(named: "btn_back_white.png"), forState: UIControlState.Normal);
+                } else {
+                    self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
+                    backButton.setBackgroundImage(UIImage(named: "btn_back_black.png"), forState: UIControlState.Normal);
+                }
             } else {
-                self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
-                backButton.setBackgroundImage(UIImage(named: "btn_back_black.png"), forState: UIControlState.Normal);
+                self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0, alpha: 1)];
+                self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
             }
-        } else {
-            self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0, alpha: 1)];
-            self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
         }
     }
     
