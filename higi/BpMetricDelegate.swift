@@ -31,7 +31,7 @@ class BpMetricDelegate: MetricDelegate {
     }
     
     func setSelected(date: NSDate) {
-        let selectedDate = Double(date.timeIntervalSince1970);
+        let selectedDate = Double(Constants.dateFormatter.dateFromString(Constants.dateFormatter.stringFromDate(date))!.timeIntervalSince1970);
         var minDifference = DBL_MAX;
         for i in 0...SessionController.Instance.checkins.count - 1 {
             let checkin = SessionController.Instance.checkins[SessionController.Instance.checkins.count - i - 1];
