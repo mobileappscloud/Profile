@@ -284,50 +284,7 @@ class MetricDetailCard: UIView {
                 let titleRow = SummaryViewUtility.initTitleRow(activityRow.frame.origin.x, originY: currentOrigin, width: copyScrollview.frame.size.width - activityRow.frame.origin.x, points: subActivity.points, device: name, color: color);
                 copyScrollview.addSubview(titleRow);
                 currentOrigin += titleRow.frame.size.height + titleMargin;
-                var isDuplicate = subActivity.errorDescription != nil;
-                if (key == ActivityCategory.Lifestyle.getString()) {
-                    let breakdownRow = SummaryViewUtility.initBreakdownRow(activityRow.frame.origin.x, originY: currentOrigin, text: "\(subActivity.description)", duplicate: isDuplicate);
-                    copyScrollview.addSubview(breakdownRow);
-                    currentOrigin += breakdownRow.frame.size.height;
-                } else if (key == ActivityCategory.Health.getString()) {
-                    if (checkinIndex < todaysCheckins.count) {
-                        let checkin = todaysCheckins[checkinIndex];
-                        if (checkin.diastolic != nil && checkin.diastolic > 0) {
-                            let breakdownRow = SummaryViewUtility.initBreakdownRow(activityRow.frame.origin.x, originY: currentOrigin, text: "\(checkin.systolic!)/\(checkin.diastolic!) mmHg BP", duplicate: isDuplicate);
-                            copyScrollview.addSubview(breakdownRow);
-                            currentOrigin += breakdownRow.frame.size.height;
-                        }
-                        if (checkin.pulseBpm != nil && checkin.pulseBpm > 0) {
-                            let breakdownRow = SummaryViewUtility.initBreakdownRow(activityRow.frame.origin.x, originY: currentOrigin, text: "\(checkin.pulseBpm!) bpm Pulse", duplicate: isDuplicate);
-                            copyScrollview.addSubview(breakdownRow);
-                            currentOrigin += breakdownRow.frame.size.height;
-                        }
-                        if (checkin.weightLbs != nil && checkin.weightLbs > 0) {
-                            let breakdownRow = SummaryViewUtility.initBreakdownRow(activityRow.frame.origin.x, originY: currentOrigin, text: "\(Int(checkin.weightLbs!)) lbs Weight", duplicate: isDuplicate);
-                            copyScrollview.addSubview(breakdownRow);
-                            currentOrigin += breakdownRow.frame.size.height;
-                        }
-                        if (checkin.fatRatio != nil && checkin.fatRatio > 0) {
-                            let breakdownRow = SummaryViewUtility.initBreakdownRow(activityRow.frame.origin.x, originY: currentOrigin, text: "\(checkin.fatRatio!)% Body Fat", duplicate: isDuplicate);
-                            copyScrollview.addSubview(breakdownRow);
-                            currentOrigin += breakdownRow.frame.size.height;
-                        }
-                        checkinIndex++;
-                    }
-                } else if (key == ActivityCategory.Fitness.getString()) {
-                    var text = "";
-                    if (activity.steps > 0) {
-                        text = "Walked \(subActivity.steps) steps";
-                    } else if (activity.distance > 0) {
-                        text = "Walked \(subActivity.distance) miles";
-                    } else {
-                        text = "Rode \(subActivity.distance) miles";
-                    }
-                    let breakdownRow = SummaryViewUtility.initBreakdownRow(activityRow.frame.origin.x, originY: currentOrigin, text: text, duplicate: isDuplicate);
-                    copyScrollview.addSubview(breakdownRow);
-                    currentOrigin += breakdownRow.frame.size.height;
-                }
-                if (isDuplicate) {
+                if (subActivity.errorDescription != nil) {
                     let duplicateLabel = SummaryViewUtility.initDuplicateLabel(activityRow.frame.origin.x, originY: currentOrigin, width: copyScrollview.frame.size.width - activityRow.frame.origin.x, text: "\(subActivity.errorDescription)");
                     copyScrollview.addSubview(duplicateLabel);
                     currentOrigin += duplicateLabel.frame.size.height;

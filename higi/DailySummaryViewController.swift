@@ -182,7 +182,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             circleLayer.lineWidth = 2.0;
             circleLayer.strokeEnd = 1;
             activityRow.progressCircle.layer.addSublayer(circleLayer);
-            activityRow.frame.origin.y = currentOrigin
+            activityRow.frame.origin.y = currentOrigin;
             
             var todaysCheckins:[HigiCheckin] = [];
             for checkin in SessionController.Instance.checkins {
