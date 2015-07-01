@@ -136,7 +136,7 @@ class MetricCard: UIView, MetricDelegate {
                     region.removeFromSuperview();
                 }
             }
-            let tab = delegate.getType() == MetricsType.BloodPressure ? 1 : 0;
+            let tab = 1;
             let ranges = delegate.getRanges(tab);
             var i = 0;
             for range in ranges {
