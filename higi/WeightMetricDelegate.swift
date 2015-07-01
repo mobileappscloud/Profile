@@ -41,15 +41,17 @@ class WeightMetricDelegate: MetricDelegate {
             let checkinDate = Utility.dateToNearestDay(checkin.dateTime).timeIntervalSince1970;
             let difference = abs(checkinDate - selectedDate);
             if weightMode {
-                if (difference < minDifference && (checkin.weightLbs != nil)) {
-                    minDifference = difference;
-                    selectedWeightCheckin = checkin;
+                if difference < minDifference {
+                    if checkin.weightLbs != nil && checkin.weightLbs > 0 {
+                        minDifference = difference;
+                        selectedWeightCheckin = checkin;
+                    }
                     if (selectedFatCheckin == nil && checkin.fatRatio != nil) {
                         selectedFatCheckin = checkin;
                     }
                 }
             } else {
-                if (difference < minDifference && (checkin.fatRatio != nil)) {
+                if (difference < minDifference && checkin.fatRatio != nil) {
                     minDifference = difference;
                     selectedFatCheckin = checkin;
                 }
@@ -61,11 +63,13 @@ class WeightMetricDelegate: MetricDelegate {
         if ((weightMode && selectedWeightCheckin == nil) || (!weightMode && selectedFatCheckin == nil)){
             return nil;
         } else {
-            let date = Constants.displayDateFormatter.stringFromDate(selectedWeightCheckin.dateTime);
-            let weight = selectedWeightCheckin.weightLbs != nil ? "\(Int(selectedWeightCheckin.weightLbs!))" : "--";
             if weightMode {
+                let weight = selectedWeightCheckin.weightLbs != nil ? "\(Int(selectedWeightCheckin.weightLbs!))" : "--";
+                let date = Constants.displayDateFormatter.stringFromDate(selectedWeightCheckin.dateTime);
                 return MetricCard.SelectedPoint(date: date, firstPanelValue: "", firstPanelLabel: "", firstPanelUnit: "", secondPanelValue: weight, secondPanelLabel: "Weight", secondPanelUnit: "lbs");
             } else {
+                let date = Constants.displayDateFormatter.stringFromDate(selectedFatCheckin.dateTime);
+                let weight = selectedFatCheckin.weightLbs != nil ? "\(Int(selectedFatCheckin.weightLbs!))" : "--";
                 let bodyFat = selectedFatCheckin.fatRatio != nil ? "\(selectedFatCheckin.fatRatio!)%" : "--";
                 return MetricCard.SelectedPoint(date: date, firstPanelValue: weight, firstPanelLabel: "Weight", firstPanelUnit: "lbs", secondPanelValue: bodyFat, secondPanelLabel: "Body Fat", secondPanelUnit: "");
             }

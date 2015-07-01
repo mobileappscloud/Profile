@@ -34,9 +34,9 @@ class MetricGraphUtility {
                         altPoints.append(GraphPoint(x: checkinTime, y: 0));
                         altPoints.append(GraphPoint(x: checkinTime, y: 0));
                     }
+                    lastBpDate = dateString;
                 }
             }
-            lastBpDate = dateString;
         }
         return graphWithPoints(frame, points: points, altPoints: altPoints, color: MetricsType.BloodPressure.getColor());
     }
@@ -50,9 +50,9 @@ class MetricGraphUtility {
                 let checkinTime = Utility.dateToNearestDay(checkin.dateTime).timeIntervalSince1970;
                 if (checkin.weightLbs != nil && checkin.weightLbs > 0) {
                     points.append(GraphPoint(x: checkinTime, y: checkin.weightLbs));
+                    lastWeightDate = dateString;
                 }
             }
-            lastWeightDate = dateString;
         }
         return graphWithPoints(frame, points: points, color: MetricsType.Weight.getColor());
     }
@@ -66,9 +66,9 @@ class MetricGraphUtility {
                 let checkinTime = Utility.dateToNearestDay(checkin.dateTime).timeIntervalSince1970;
                 if (checkin.fatRatio != nil && checkin.fatRatio > 0) {
                     points.append(GraphPoint(x: checkinTime, y: checkin.fatRatio));
+                    lastFatDate = dateString;
                 }
             }
-            lastFatDate = dateString;
         }
         if (points.count > 0) {
             return graphWithPoints(frame, points: points, color: MetricsType.Weight.getColor());
@@ -86,9 +86,9 @@ class MetricGraphUtility {
                 let checkinTime = Utility.dateToNearestDay(checkin.dateTime).timeIntervalSince1970;
                 if (checkin.pulseBpm != nil && checkin.pulseBpm > 0) {
                     points.append(GraphPoint(x: checkinTime, y: Double(checkin.pulseBpm!)));
+                    lastPulseDate = dateString;
                 }
             }
-            lastPulseDate = dateString;
         }
         return graphWithPoints(frame, points: points, color: MetricsType.Pulse.getColor());
     }
