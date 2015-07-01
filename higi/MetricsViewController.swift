@@ -242,21 +242,27 @@ class MetricsViewController: UIViewController {
     }
     
     func detailDragged(sender: AnyObject) {
-        let drag = (sender as! UIPanGestureRecognizer);
-        let translation = drag.translationInView(detailsCard);
-        if (detailsCard.frame.origin.y + translation.y <= cardHeaderViewHeight) {
+        let translation = (sender as! UIPanGestureRecognizer).translationInView(self.view).y;
+        if (detailsCard.frame.origin.y + translation <= cardHeaderViewHeight) {
             openDetails();
-        } else if (detailsCard.frame.origin.y + translation.y >= self.detailsCardPosY) {
+        } else if (detailsCard.frame.origin.y + translation >= self.detailsCardPosY) {
             closeDetails();
-        } else if (drag.state == UIGestureRecognizerState.Ended) {
+        } else if (sender.state == UIGestureRecognizerState.Ended) {
             if (detailsOpen) {
                 closeDetails();
             } else {
                 openDetails();
             }
-        } else {
-            detailsCard.center.y += translation.y;
+        } else if (sender.state != UIGestureRecognizerState.Began) {
+            let translation = (sender as! UIPanGestureRecognizer).translationInView(self.view).y;
+            detailsCard.frame.origin.y += translation;
+            if (detailsCard.frame.origin.y + translation <= cardHeaderViewHeight) {
+                openDetails();
+            } else if (detailsCard.frame.origin.y + translation >= self.detailsCardPosY) {
+                closeDetails();
+            }
         }
+        sender.setTranslation(CGPointZero, inView: self.view);
     }
     
     func detailsTapped(sender: AnyObject) {

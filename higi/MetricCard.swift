@@ -142,7 +142,6 @@ class MetricCard: UIView, MetricDelegate {
             for range in ranges {
                 let lowerBound = baseGraph.getScreenPoint(0, yPoint: CGFloat(range.lowerBound));
                 let upperBound = baseGraph.getScreenPoint(0, yPoint: CGFloat(range.upperBound));
-                let a = graphContainer.frame.size.height;
                 if (upperBound.y >= 0 && lowerBound.y < graphContainer.frame.size.height) {
                     let view = UIView(frame: CGRect(x: 0, y: upperBound.y + graph.graph.plotAreaFrame.paddingTop, width: graphContainer.frame.size.width, height: lowerBound.y - upperBound.y));
                     let label = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.size.width - 10, height: view.frame.size.height));
