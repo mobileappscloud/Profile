@@ -11,7 +11,7 @@ class MetricGraphUtility {
                 totalPoints = total;
             }
             if (activityList.count > 0) {
-                let activityDate =  Double(activityList[0].startTime.timeIntervalSince1970);
+                let activityDate = Double(activityList[0].startTime.timeIntervalSince1970);
                 points.append(GraphPoint(x: activityDate, y: Double(total)));
             }
         }
@@ -20,41 +20,55 @@ class MetricGraphUtility {
 
     class func createBpGraph(frame: CGRect) -> MetricGraph {
         var points:[GraphPoint] = [], altPoints:[GraphPoint] = [];
-        for checkin in SessionController.Instance.checkins {
-            let checkinTime = Double(checkin.dateTime.timeIntervalSince1970);
-            if (checkin.map != nil && checkin.map > 0) {
-                points.append(GraphPoint(x: checkinTime, y: checkin.map));
-                if (checkin.diastolic != nil && checkin.diastolic > 0) {
-                    altPoints.append(GraphPoint(x: checkinTime, y: Double(checkin.diastolic!)));
-                    altPoints.append(GraphPoint(x: checkinTime, y: Double(checkin.systolic!)));
-                } else {
-                    altPoints.append(GraphPoint(x: checkinTime, y: 0));
-                    altPoints.append(GraphPoint(x: checkinTime, y: 0));
+        var lastBpDate = "";
+        for checkin in SessionController.Instance.checkins.reverse() {
+            let dateString = Constants.dateFormatter.stringFromDate(checkin.dateTime);
+            if (dateString != lastBpDate) {
+                let checkinTime = Utility.dateToNearestDay(checkin.dateTime).timeIntervalSince1970;
+                if (checkin.map != nil && checkin.map > 0) {
+                    points.append(GraphPoint(x: checkinTime, y: checkin.map));
+                    if (checkin.diastolic != nil && checkin.diastolic > 0) {
+                        altPoints.append(GraphPoint(x: checkinTime, y: Double(checkin.diastolic!)));
+                        altPoints.append(GraphPoint(x: checkinTime, y: Double(checkin.systolic!)));
+                    } else {
+                        altPoints.append(GraphPoint(x: checkinTime, y: 0));
+                        altPoints.append(GraphPoint(x: checkinTime, y: 0));
+                    }
                 }
             }
-
+            lastBpDate = dateString;
         }
         return graphWithPoints(frame, points: points, altPoints: altPoints, color: MetricsType.BloodPressure.getColor());
     }
     
     class func createWeightGraph(frame: CGRect) -> MetricGraph {
         var points:[GraphPoint] = [];
-        for checkin in SessionController.Instance.checkins {
-            let checkinTime = Double(checkin.dateTime.timeIntervalSince1970);
-            if (checkin.weightLbs != nil && checkin.weightLbs > 0) {
-                points.append(GraphPoint(x: checkinTime, y: checkin.weightLbs));
+        var lastWeightDate = "";
+        for checkin in SessionController.Instance.checkins.reverse() {
+            let dateString = Constants.dateFormatter.stringFromDate(checkin.dateTime);
+            if (dateString != lastWeightDate) {
+                let checkinTime = Utility.dateToNearestDay(checkin.dateTime).timeIntervalSince1970;
+                if (checkin.weightLbs != nil && checkin.weightLbs > 0) {
+                    points.append(GraphPoint(x: checkinTime, y: checkin.weightLbs));
+                }
             }
+            lastWeightDate = dateString;
         }
         return graphWithPoints(frame, points: points, color: MetricsType.Weight.getColor());
     }
     
     class func createBodyFatGraph(frame: CGRect) -> MetricGraph? {
         var points:[GraphPoint] = [];
-        for checkin in SessionController.Instance.checkins {
-            let checkinTime = Double(checkin.dateTime.timeIntervalSince1970);
-            if (checkin.fatRatio != nil && checkin.fatRatio > 0) {
-                points.append(GraphPoint(x: checkinTime, y: checkin.fatRatio));
+        var lastFatDate = "";
+        for checkin in SessionController.Instance.checkins.reverse() {
+            let dateString = Constants.dateFormatter.stringFromDate(checkin.dateTime);
+            if (dateString != lastFatDate) {
+                let checkinTime = Utility.dateToNearestDay(checkin.dateTime).timeIntervalSince1970;
+                if (checkin.fatRatio != nil && checkin.fatRatio > 0) {
+                    points.append(GraphPoint(x: checkinTime, y: checkin.fatRatio));
+                }
             }
+            lastFatDate = dateString;
         }
         if (points.count > 0) {
             return graphWithPoints(frame, points: points, color: MetricsType.Weight.getColor());
@@ -65,11 +79,16 @@ class MetricGraphUtility {
     
     class func createPulseGraph(frame: CGRect) -> MetricGraph {
         var points:[GraphPoint] = [];
-        for checkin in SessionController.Instance.checkins {
-            let checkinTime = Double(checkin.dateTime.timeIntervalSince1970);
-            if (checkin.pulseBpm != nil && checkin.pulseBpm > 0) {
-                points.append(GraphPoint(x: checkinTime, y: Double(checkin.pulseBpm!)));
+        var lastPulseDate = "";
+        for checkin in SessionController.Instance.checkins.reverse() {
+            let dateString = Constants.dateFormatter.stringFromDate(checkin.dateTime);
+            if (dateString != lastPulseDate) {
+                let checkinTime = Utility.dateToNearestDay(checkin.dateTime).timeIntervalSince1970;
+                if (checkin.pulseBpm != nil && checkin.pulseBpm > 0) {
+                    points.append(GraphPoint(x: checkinTime, y: Double(checkin.pulseBpm!)));
+                }
             }
+            lastPulseDate = dateString;
         }
         return graphWithPoints(frame, points: points, color: MetricsType.Pulse.getColor());
     }

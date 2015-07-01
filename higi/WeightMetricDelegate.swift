@@ -35,11 +35,10 @@ class WeightMetricDelegate: MetricDelegate {
     }
     
     func setSelected(date: NSDate) {
-        let selectedDate = Double(Constants.dateFormatter.dateFromString(Constants.dateFormatter.stringFromDate(date))!.timeIntervalSince1970);
+        let selectedDate = Utility.dateToNearestDay(date).timeIntervalSince1970;
         var minDifference = DBL_MAX;
-        for i in 0...SessionController.Instance.checkins.count - 1 {
-            let checkin = SessionController.Instance.checkins[SessionController.Instance.checkins.count - i - 1];
-            let checkinDate = Double(checkin.dateTime.timeIntervalSince1970);
+        for checkin in SessionController.Instance.checkins.reverse() {
+            let checkinDate = Utility.dateToNearestDay(checkin.dateTime).timeIntervalSince1970;
             let difference = abs(checkinDate - selectedDate);
             if weightMode {
                 if (difference < minDifference && (checkin.weightLbs != nil)) {

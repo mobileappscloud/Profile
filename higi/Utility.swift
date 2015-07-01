@@ -118,4 +118,8 @@ class Utility {
             ),
             dispatch_get_main_queue(), closure)
     }
+    
+    class func dateToNearestDay(date: NSDate) -> NSDate {
+        return Constants.dateFormatter.dateFromString(Constants.dateFormatter.stringFromDate(date))!;
+    }
 }
