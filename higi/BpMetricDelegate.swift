@@ -58,7 +58,7 @@ class BpMetricDelegate: MetricDelegate {
         } else {
             let date = Constants.displayDateFormatter.stringFromDate(selectedCheckin.dateTime);
             let bp = selectedCheckin.systolic != nil ? "\(selectedCheckin.systolic!)/\(selectedCheckin.diastolic!)" : "";
-            let map = selectedCheckin.map != nil ? "\(Int(selectedCheckin.map!))" : "";
+            let map = selectedCheckin.map != nil ? String(format: "%.1f", arguments: [selectedCheckin.map!]) : "";
                 return MetricCard.SelectedPoint(date: date, firstPanelValue: bp, firstPanelLabel: "Blood Pressure", firstPanelUnit: "mmHg", secondPanelValue: map, secondPanelLabel: "Mean Arterial Pressure", secondPanelUnit: "mmHg");
         }
     }
@@ -110,7 +110,7 @@ class BpMetricDelegate: MetricDelegate {
         if (tab == 0) {
             return selectedCheckin.systolic != nil ? "\(selectedCheckin.systolic!)/\(selectedCheckin.diastolic!)" : "--";
         } else {
-            return selectedCheckin.map != nil ? "\(Int(selectedCheckin.map!))" : "--";
+            return selectedCheckin.map != nil ? String(format: "%.1f", arguments: [selectedCheckin.map!]) : "--";
         }
     }
     
