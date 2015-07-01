@@ -298,6 +298,10 @@ class MetricsViewController: UIViewController {
         detailsCard.setPanelHeaders(detailsOpen);
     }
     
+    func setDetailsHeader() {
+        detailsCard.setPanelHeaders(detailsOpen);
+    }
+    
     func showDetailsCard() {
         UIView.animateWithDuration(0.75, delay: 0, options: .CurveEaseInOut, animations: {
             self.detailsCard.frame.origin.y = self.detailsCardPosY;

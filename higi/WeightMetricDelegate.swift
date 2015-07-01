@@ -4,6 +4,8 @@ class WeightMetricDelegate: MetricDelegate {
     
     var selectedCheckin: HigiCheckin!;
 
+    var weightMode = true;
+    
     func getTitle() -> String {
         return getType().getTitle();
     }
@@ -21,7 +23,7 @@ class WeightMetricDelegate: MetricDelegate {
     }
     
     func getCopyImage(tab: Int) -> UIImage? {
-        if tab == 0 {
+        if weightMode {
             return UIImage(named: "weight_overlay")!;
         } else {
             return UIImage(named: "bmi_overlay")!;
@@ -47,13 +49,17 @@ class WeightMetricDelegate: MetricDelegate {
     }
     
     func getSelectedPoint() -> MetricCard.SelectedPoint? {
-        if (selectedCheckin == nil) {
+        if selectedCheckin == nil {
             return nil;
         } else {
-        let date = Constants.displayDateFormatter.stringFromDate(selectedCheckin.dateTime);
-        let weight = selectedCheckin.weightLbs != nil ? "\(Int(selectedCheckin.weightLbs!))" : "";
-        let bodyFat = selectedCheckin.fatRatio != nil ? "\(selectedCheckin.fatRatio!)%" : "--";
-            return MetricCard.SelectedPoint(date: date, firstPanelValue: weight, firstPanelLabel: "Weight", firstPanelUnit: "lbs", secondPanelValue: bodyFat, secondPanelLabel: "Body Fat", secondPanelUnit: "");
+            let date = Constants.displayDateFormatter.stringFromDate(selectedCheckin.dateTime);
+            if weightMode {
+                let weight = selectedCheckin.weightLbs != nil ? "\(Int(selectedCheckin.weightLbs!))" : "";
+                return MetricCard.SelectedPoint(date: date, firstPanelValue: "", firstPanelLabel: "", firstPanelUnit: "", secondPanelValue: weight, secondPanelLabel: "Weight", secondPanelUnit: "lbs");
+            } else {
+                let bodyFat = selectedCheckin.fatRatio != nil ? "\(selectedCheckin.fatRatio!)%" : "--";
+                return MetricCard.SelectedPoint(date: date, firstPanelValue: "", firstPanelLabel: "", firstPanelUnit: "", secondPanelValue: bodyFat, secondPanelLabel: "Body Fat", secondPanelUnit: "");
+            }
         }
     }
     
@@ -68,10 +74,10 @@ class WeightMetricDelegate: MetricDelegate {
     
     func getRanges(tab:Int) -> [MetricGauge.Range] {
         var ranges:[MetricGauge.Range] = [];
-        if (tab == 0) {
+        if weightMode {
             if selectedCheckin == nil {
                 setSelected(NSDate());
-                if (selectedCheckin == nil) {
+                if selectedCheckin == nil {
                     return [];
                 }
             }
@@ -82,8 +88,8 @@ class WeightMetricDelegate: MetricDelegate {
                 ranges.append(MetricGauge.Range(label: "Overweight", color: Utility.colorFromHexString("#f79a4d"), interval: (Int(factor * 25), Int(factor * 30))));
                 ranges.append(MetricGauge.Range(label: "Obese", color: Utility.colorFromHexString("#ef535a"), interval: (Int(factor * 30), Int(factor * 50))));
             }
-        } else if (tab == 1) {
-            if (SessionData.Instance.user.gender == "m") {
+        } else {
+            if SessionData.Instance.user.gender == "m" {
                 ranges.append(MetricGauge.Range(label: "Healthy", color: Utility.colorFromHexString("#88c681"), interval: (5, 18)));
                 ranges.append(MetricGauge.Range(label: "Acceptable", color: Utility.colorFromHexString("#fdd835"), interval: (18, 25)));
                 ranges.append(MetricGauge.Range(label: "At risk", color: Utility.colorFromHexString("#f79a4d"), interval: (25, 40)));
@@ -97,16 +103,24 @@ class WeightMetricDelegate: MetricDelegate {
     }
     
     func getSelectedValue(tab:Int) -> String {
-        if (tab == 0) {
-            return selectedCheckin.weightLbs != nil ? "\(Int(selectedCheckin.weightLbs!))" : "--";
+        if tab == 1 {
+            if weightMode {
+                return selectedCheckin.weightLbs != nil ? "\(Int(selectedCheckin.weightLbs!))" : "--";
+            } else {
+                return selectedCheckin.fatRatio != nil ? "\(selectedCheckin.fatRatio!)%" : "--";
+            }
         } else {
-            return selectedCheckin.fatRatio != nil ? "\(selectedCheckin.fatRatio!)%" : "--";
+            return "";
         }
     }
     
     func getSelectedUnit(tab: Int) -> String {
-        if (tab == 0) {
-            return "lbs";
+        if tab == 1 {
+            if weightMode {
+                return "lbs";
+            } else {
+                return "";
+            }
         } else {
             return "";
         }
@@ -114,5 +128,9 @@ class WeightMetricDelegate: MetricDelegate {
     
     func shouldShowRegions() -> Bool {
         return true;
+    }
+    
+    func togglePanel(weight: Bool) {
+        weightMode = !weightMode;
     }
 }

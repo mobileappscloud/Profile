@@ -61,7 +61,6 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
                     minX = round(point.x);
                 }
             }
-
             var yRange = maxY - minY > 1 ? maxY - minY : 1;
             var xRange = maxX - minX > 1 ? maxX - minX : 1;
             var plotSpace = graph.defaultPlotSpace as! CPTXYPlotSpace;
@@ -239,10 +238,8 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         }
         var marginX:Double = (lastPoint.x - visibleMin.x) * 0.1;
         if (marginX == 0) {
-            marginX = 2 * 86400;
+            marginX = 4 * 86400;
         }
-        let a = visibleMin.x - marginX;
-        let b = lastPoint.x - visibleMin.x + marginX * 2;
         plotSpace.xRange = NewCPTPlotRange(location: visibleMin.x - marginX, length: lastPoint.x - visibleMin.x + marginX * 2);
         plotSpace.yRange = NewCPTPlotRange(location: lowerBound, length: yRange);
         plotSpace.globalXRange = NewCPTPlotRange(location: firstPoint.x - marginX, length: lastPoint.x - firstPoint.x + marginX * 2);
@@ -367,9 +364,9 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         }
     }
     
-    func getScreenPoint(graph: MetricGraph, xPoint: CGFloat, yPoint: CGFloat)-> CGPoint {
-        var xRange = (graph.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace).xRange;
-        var yRange = (graph.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace).yRange;
+    func getScreenPoint(xPoint: CGFloat, yPoint: CGFloat)-> CGPoint {
+        var xRange = (self.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace).xRange;
+        var yRange = (self.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace).yRange;
         var frame = graph.frame;
         var x = ((xPoint - CGFloat(xRange.locationDouble)) / CGFloat(xRange.lengthDouble)) * frame.size.width;
         var y = (1.0 - ((yPoint - CGFloat(yRange.locationDouble)) / CGFloat(yRange.lengthDouble))) * (frame.size.height - 30);

@@ -24,6 +24,8 @@ class MetricCard: UIView, MetricDelegate {
     
     var initializing = true, toggleOn = true;
     
+    var regions: [UIView] = [];
+    
     struct SelectedPoint {
         var date:String!
         
@@ -57,7 +59,7 @@ class MetricCard: UIView, MetricDelegate {
         view.delegate = delegate;
         view.initFrame(frame);
         view.initGraphView();
-        view.initRegions();
+        view.initRegions(true);
         view.initHeader();
         view.setSelected(NSDate());
         return view;
@@ -126,14 +128,21 @@ class MetricCard: UIView, MetricDelegate {
         }
     }
     
-    func initRegions() {
-        if (graph.points.count > 0 && delegate.shouldShowRegions()) {
+    func initRegions(isPrimaryGraph: Bool) {
+        let baseGraph = isPrimaryGraph ? graph : secondaryGraph;
+        if (baseGraph.points.count > 0 && delegate.shouldShowRegions()) {
+            if regions.count > 0 {
+                for region in regions {
+                    region.removeFromSuperview();
+                }
+            }
             let tab = delegate.getType() == MetricsType.BloodPressure ? 1 : 0;
             let ranges = delegate.getRanges(tab);
             var i = 0;
             for range in ranges {
-                let lowerBound = graph.getScreenPoint(graph, xPoint: 0, yPoint: CGFloat(range.lowerBound));
-                let upperBound = graph.getScreenPoint(graph, xPoint: 0, yPoint: CGFloat(range.upperBound));
+                let lowerBound = baseGraph.getScreenPoint(0, yPoint: CGFloat(range.lowerBound));
+                let upperBound = baseGraph.getScreenPoint(0, yPoint: CGFloat(range.upperBound));
+                let a = graphContainer.frame.size.height;
                 if (upperBound.y >= 0 && lowerBound.y < graphContainer.frame.size.height) {
                     let view = UIView(frame: CGRect(x: 0, y: upperBound.y + graph.graph.plotAreaFrame.paddingTop, width: graphContainer.frame.size.width, height: lowerBound.y - upperBound.y));
                     let label = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.size.width - 10, height: view.frame.size.height));
@@ -148,7 +157,8 @@ class MetricCard: UIView, MetricDelegate {
                         view.backgroundColor = Utility.colorFromHexString("#EEEEEE");
                     }
                     view.addSubview(label);
-                    self.graphContainer.insertSubview(view, belowSubview: graph);
+                    regions.append(view);
+                    self.graphContainer.insertSubview(view, belowSubview: baseGraph);
                     i++;
                 }
             }
@@ -197,6 +207,12 @@ class MetricCard: UIView, MetricDelegate {
     @IBAction func toggleClicked(sender: AnyObject) {
         graph.hidden = toggleOn;
         secondaryGraph.hidden = !toggleOn;
+        if delegate.getType() == MetricsType.Weight {
+            (delegate as! WeightMetricDelegate).togglePanel(toggleOn);
+            updateDetailsCard();
+            (Utility.getViewController(self) as! MetricsViewController).setDetailsHeader();
+            initRegions(!toggleOn);
+        }
         toggleOn = !toggleOn;
     }
     
@@ -206,8 +222,7 @@ class MetricCard: UIView, MetricDelegate {
         if (drag.state == UIGestureRecognizerState.Ended) {
             parent.doneDragging(position);
         } else {
-            let translation = drag.translationInView(parent.view);
-            parent.cardDragged(position, translation: translation);
+            parent.cardDragged(position, translation: drag.translationInView(parent.view));
         }
     }
     
