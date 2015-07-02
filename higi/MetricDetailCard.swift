@@ -14,7 +14,6 @@ class MetricDetailCard: UIView {
     @IBOutlet weak var headerContainer: UIView!
     @IBOutlet weak var copyScrollview: UIScrollView!
     @IBOutlet weak var gaugeContainer: UIView!
-    @IBOutlet weak var copyImage: UIImageView!
     @IBOutlet weak var secondPanelHeader: UILabel!
     @IBOutlet weak var thirdPanelHeader: UILabel!
 
@@ -35,6 +34,8 @@ class MetricDetailCard: UIView {
     var blankState = false;
     
     var selected:MetricCard.SelectedPoint!;
+    
+    var copyImage: UIImageView!
     
     class func instanceFromNib(card: MetricCard) -> MetricDetailCard {
         var view = UINib(nibName: "MetricDetailCardView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! MetricDetailCard;
@@ -95,9 +96,17 @@ class MetricDetailCard: UIView {
     }
     
     func updateCopyImage(tab: Int) {
-        if (delegate.getCopyImage(tab) != nil) {
-            copyScrollview.contentSize.height = copyScrollViewHeight + copyImage.frame.size.height;
-            copyImage.image = delegate.getCopyImage(tab);
+        if let image = delegate.getCopyImage(tab) {
+            let height = image.size.height;
+            let width = image.size.width;
+            let newHeight = (height / width) * copyScrollview.frame.size.width;
+            if copyImage != nil && copyImage.superview != nil {
+                copyImage.removeFromSuperview();
+            }
+            copyImage = UIImageView(frame: CGRect(x: 0, y: copyImageOrigin, width: copyScrollview.frame.size.width, height: newHeight));
+            copyImage.image = Utility.scaleImage(image, newSize: CGSize(width: copyScrollview.frame.size.width, height: newHeight));
+            copyScrollview.contentSize.height = copyScrollViewHeight + copyImage.frame.size.height + copyImage.frame.origin.y;
+            copyScrollview.addSubview(copyImage);
         } else {
             copyScrollview.contentSize.height = copyScrollViewHeight;
         }
@@ -292,6 +301,7 @@ class MetricDetailCard: UIView {
                 currentOrigin += gap;
             }
         }
+        copyImageOrigin = currentOrigin;
         copyScrollViewHeight = copyScrollview.frame.origin.y + currentOrigin + 40;
     }
 
