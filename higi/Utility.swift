@@ -119,7 +119,18 @@ class Utility {
             dispatch_get_main_queue(), closure)
     }
     
-    class func dateToNearestDay(date: NSDate) -> NSDate {
+    class func dateWithDateComponentOnly(date: NSDate) -> NSDate {
         return Constants.dateFormatter.dateFromString(Constants.dateFormatter.stringFromDate(date))!;
+    }
+    
+    class func stringIndexOf(haystack: String, needle: Character) -> Int {
+        var i = 0;
+        for char in Array(haystack) {
+            if char == needle {
+                return i;
+            }
+            i++;
+        }
+        return -1;
     }
 }

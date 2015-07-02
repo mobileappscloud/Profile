@@ -24,7 +24,7 @@ class MetricGraphUtility {
         for checkin in SessionController.Instance.checkins.reverse() {
             let dateString = Constants.dateFormatter.stringFromDate(checkin.dateTime);
             if (dateString != lastBpDate) {
-                let checkinTime = Utility.dateToNearestDay(checkin.dateTime).timeIntervalSince1970;
+                let checkinTime = Utility.dateWithDateComponentOnly(checkin.dateTime).timeIntervalSince1970;
                 if (checkin.map != nil && checkin.map > 0) {
                     points.append(GraphPoint(x: checkinTime, y: checkin.map));
                     if (checkin.diastolic != nil && checkin.diastolic > 0) {
@@ -47,7 +47,7 @@ class MetricGraphUtility {
         for checkin in SessionController.Instance.checkins.reverse() {
             let dateString = Constants.dateFormatter.stringFromDate(checkin.dateTime);
             if (dateString != lastWeightDate) {
-                let checkinTime = Utility.dateToNearestDay(checkin.dateTime).timeIntervalSince1970;
+                let checkinTime = Utility.dateWithDateComponentOnly(checkin.dateTime).timeIntervalSince1970;
                 if (checkin.weightLbs != nil && checkin.weightLbs > 0) {
                     points.append(GraphPoint(x: checkinTime, y: checkin.weightLbs));
                     lastWeightDate = dateString;
@@ -63,7 +63,7 @@ class MetricGraphUtility {
         for checkin in SessionController.Instance.checkins.reverse() {
             let dateString = Constants.dateFormatter.stringFromDate(checkin.dateTime);
             if (dateString != lastFatDate) {
-                let checkinTime = Utility.dateToNearestDay(checkin.dateTime).timeIntervalSince1970;
+                let checkinTime = Utility.dateWithDateComponentOnly(checkin.dateTime).timeIntervalSince1970;
                 if (checkin.fatRatio != nil && checkin.fatRatio > 0) {
                     points.append(GraphPoint(x: checkinTime, y: checkin.fatRatio));
                     lastFatDate = dateString;
@@ -83,7 +83,7 @@ class MetricGraphUtility {
         for checkin in SessionController.Instance.checkins.reverse() {
             let dateString = Constants.dateFormatter.stringFromDate(checkin.dateTime);
             if (dateString != lastPulseDate) {
-                let checkinTime = Utility.dateToNearestDay(checkin.dateTime).timeIntervalSince1970;
+                let checkinTime = Utility.dateWithDateComponentOnly(checkin.dateTime).timeIntervalSince1970;
                 if (checkin.pulseBpm != nil && checkin.pulseBpm > 0) {
                     points.append(GraphPoint(x: checkinTime, y: Double(checkin.pulseBpm!)));
                     lastPulseDate = dateString;

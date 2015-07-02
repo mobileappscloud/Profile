@@ -29,10 +29,10 @@ class PulseMetricDelegate: MetricDelegate {
     }
     
     func setSelected(date: NSDate) {
-        let selectedDate = Utility.dateToNearestDay(date).timeIntervalSince1970;
+        let selectedDate = Utility.dateWithDateComponentOnly(date).timeIntervalSince1970;
         var minDifference = DBL_MAX;
         for checkin in SessionController.Instance.checkins.reverse() {
-            let checkinDate = Utility.dateToNearestDay(checkin.dateTime).timeIntervalSince1970;
+            let checkinDate = Utility.dateWithDateComponentOnly(checkin.dateTime).timeIntervalSince1970;
             let difference = abs(checkinDate - selectedDate);
             if (difference < minDifference && checkin.pulseBpm != nil) {
                 minDifference = difference;
