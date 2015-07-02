@@ -98,9 +98,9 @@ class DrawerViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         navigationObjects[indexPath.row].callback(indexPath);
         revealController?.revealToggleAnimated(true);
-        tableView.reloadData();
-        var cell = tableView.cellForRowAtIndexPath(indexPath) as! DrawerCell;
         if navigationObjects[indexPath.item].title != "Metrics" {
+            tableView.reloadData();
+            var cell = tableView.cellForRowAtIndexPath(indexPath) as! DrawerCell;
             cell.icon.image = UIImage(named: navigationObjects[indexPath.item].activeIcon);
             cell.selected = true;
         }
