@@ -55,42 +55,31 @@ class MetricGauge: UIView {
     func setup(frame: CGRect, delegate: MetricDelegate, tab:Int) {
         userValue = 0;
         var value = delegate.getSelectedValue(tab);
-        if value.toInt() != nil {
-            userValue = value.toInt()!;
-        } else if (delegate.getType() == MetricsType.BloodPressure) {
-            let valueArray = split(value) {$0 == "/"};
+        if delegate.getType() == MetricsType.Weight && Utility.stringIndexOf(value, needle: "%") > 0 {
+            //in the form 20.00%
+            let valueArray = split(value) {$0 == "."};
             if (valueArray.count > 1) {
-                let systolic = valueArray[0].toInt()!;
-                let diastolic = valueArray[1].toInt()!;
-                userValue = BpMetricDelegate.valueIsSystolic(systolic, diastolic: diastolic) ? systolic : diastolic;
+                userValue = valueArray[0].toInt()!;
             }
+        } else if (delegate.getType() == MetricsType.BloodPressure) {
+            //in the form 120/80
+            if Utility.stringIndexOf(value, needle: "/") > 0 {
+                let valueArray = split(value) {$0 == "/"};
+                if (valueArray.count > 1) {
+                    let systolic = valueArray[0].toInt()!;
+                    let diastolic = valueArray[1].toInt()!;
+                    userValue = BpMetricDelegate.valueIsSystolic(systolic, diastolic: diastolic) ? systolic : diastolic;
+                }
+            } else if Utility.stringIndexOf(value, needle: ".") > 0 {
+                //in the form 80.0
+                let valueArray = split(value) {$0 == "."};
+                if (valueArray.count > 1) {
+                    userValue = valueArray[0].toInt()!;
+                }
+            }
+        } else if value.toInt() != nil {
+            userValue = value.toInt()!;
         }
-
-//        if delegate.getType() == MetricsType.Weight && Utility.stringIndexOf(value, needle: "%") > 0 {
-//            //in the form 20.00%
-//            let valueArray = split(value) {$0 == "."};
-//            if (valueArray.count > 1) {
-//                userValue = valueArray[0].toInt()!;
-//            }
-//        } else if (delegate.getType() == MetricsType.BloodPressure) {
-//            //in the form 120/80
-//            if Utility.stringIndexOf(value, needle: "/") > 0 {
-//                let valueArray = split(value) {$0 == "/"};
-//                if (valueArray.count > 1) {
-//                    let systolic = valueArray[0].toInt()!;
-//                    let diastolic = valueArray[1].toInt()!;
-//                    userValue = BpMetricDelegate.valueIsSystolic(systolic, diastolic: diastolic) ? systolic : diastolic;
-//                }
-//            } else if Utility.stringIndexOf(value, needle: ".") > 0 {
-//                //in the form 80.0
-//                let valueArray = split(value) {$0 == "."};
-//                if (valueArray.count > 1) {
-//                    userValue = valueArray[0].toInt()!;
-//                }
-//            }
-//        } else if value.toInt() != nil {
-//            userValue = value.toInt()!;
-//        }
 
         self.value.text = "\(value)";
         self.frame = frame;
