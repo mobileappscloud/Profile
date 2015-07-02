@@ -430,9 +430,11 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     
     
     @IBAction func gotoMetrics(sender: AnyObject) {
-        Flurry.logEvent("Metrics_Pressed");
-        var metricsViewController = MetricsViewController(nibName: "MetricsView", bundle: nil);
-        self.navigationController!.pushViewController(metricsViewController, animated: true);
+        if (SessionController.Instance.checkins != nil && SessionController.Instance.loadedActivities) {
+            Flurry.logEvent("Metrics_Pressed");
+            var metricsViewController = MetricsViewController(nibName: "MetricsView", bundle: nil);
+            self.navigationController!.pushViewController(metricsViewController, animated: true);
+        }
     }
     
     @IBAction func gotoChallenges(sender: AnyObject) {
