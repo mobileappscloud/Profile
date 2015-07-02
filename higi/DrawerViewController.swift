@@ -100,8 +100,10 @@ class DrawerViewController: UIViewController, UITableViewDelegate, UITableViewDa
         revealController?.revealToggleAnimated(true);
         tableView.reloadData();
         var cell = tableView.cellForRowAtIndexPath(indexPath) as! DrawerCell;
-        cell.icon.image = UIImage(named: navigationObjects[indexPath.item].activeIcon);
-        cell.selected = true;
+        if navigationObjects[indexPath.item].title != "Metrics" {
+            cell.icon.image = UIImage(named: navigationObjects[indexPath.item].activeIcon);
+            cell.selected = true;
+        }
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
