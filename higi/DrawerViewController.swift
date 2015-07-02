@@ -87,7 +87,7 @@ class DrawerViewController: UIViewController, UITableViewDelegate, UITableViewDa
             cell.selectedBackgroundView = selectedBgView;
         }
         cell.title.text = navigationObjects[indexPath.item].title;
-        if (tableView.indexPathForSelectedRow() != nil && indexPath.item == tableView.indexPathForSelectedRow()!.item) {
+        if (tableView.indexPathForSelectedRow() != nil && indexPath.item == tableView.indexPathForSelectedRow()!.item && navigationObjects[indexPath.item].title != "Metrics") {
             cell.icon.image = UIImage(named: navigationObjects[indexPath.item].activeIcon);
         } else {
             cell.icon.image = UIImage(named: navigationObjects[indexPath.item].icon);
