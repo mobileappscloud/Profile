@@ -80,7 +80,7 @@
                                 </mask>
                             </variation>
                         </view>
-                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IR2-Ay-lcD">
+                        <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IR2-Ay-lcD">
                             <rect key="frame" x="0.0" y="53" width="568" height="215"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>

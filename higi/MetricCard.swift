@@ -129,8 +129,16 @@ class MetricCard: UIView, MetricDelegate {
     }
     
     func initRegions(isPrimaryGraph: Bool) {
+        let screenWidth = max(UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height);
+        let screenHeight = min(UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height);
         let baseGraph = isPrimaryGraph ? graph : secondaryGraph;
-        if (baseGraph.points.count > 0 && delegate.shouldShowRegions()) {
+        if (delegate.getType() == MetricsType.DailySummary) {
+            let lineY = baseGraph.getScreenPoint(0, yPoint: 100).y;
+            let view = UIView(frame: CGRect(x: 0, y: lineY, width: screenWidth, height: 2));
+            view.backgroundColor = Utility.colorFromHexString("#EEEEEE");
+            
+            self.graphContainer.insertSubview(view, belowSubview: baseGraph);
+        } else if (baseGraph.points.count > 0 && delegate.shouldShowRegions()) {
             if regions.count > 0 {
                 for region in regions {
                     region.removeFromSuperview();
@@ -142,8 +150,8 @@ class MetricCard: UIView, MetricDelegate {
             for range in ranges {
                 let lowerBound = baseGraph.getScreenPoint(0, yPoint: CGFloat(range.lowerBound));
                 let upperBound = baseGraph.getScreenPoint(0, yPoint: CGFloat(range.upperBound));
-                if (upperBound.y >= 0 && lowerBound.y < graphContainer.frame.size.height) {
-                    let view = UIView(frame: CGRect(x: 0, y: upperBound.y + graph.graph.plotAreaFrame.paddingTop, width: graphContainer.frame.size.width, height: lowerBound.y - upperBound.y));
+                if (upperBound.y >= 0 || lowerBound.y < graphContainer.frame.size.height) {
+                    let view = UIView(frame: CGRect(x: 0, y: upperBound.y + graph.graph.plotAreaFrame.paddingTop, width: screenWidth, height: lowerBound.y - upperBound.y));
                     let label = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.size.width - 10, height: view.frame.size.height));
                     label.text = range.label;
                     label.textAlignment = NSTextAlignment.Right;
@@ -201,6 +209,7 @@ class MetricCard: UIView, MetricDelegate {
     
     func resizeFrameWithWidth(width: CGFloat) {
         viewFrame.size.width = width;
+        
     }
     
     @IBAction func toggleClicked(sender: AnyObject) {

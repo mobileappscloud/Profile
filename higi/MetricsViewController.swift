@@ -14,6 +14,8 @@ class MetricsViewController: UIViewController {
 
     let detailsCardPosY:CGFloat = 267, cardHeaderViewHeight:CGFloat = 54, cardDragThreshold:CGFloat = 300;
     
+    var screenWidth:CGFloat!, screenHeight: CGFloat!;
+    
     var previousSupportedOrientations: UInt!;
     
     var previousActualOrientation: Int!;
@@ -24,6 +26,8 @@ class MetricsViewController: UIViewController {
         previousSupportedOrientations = revealController.supportedOrientations;
         previousShouldRotate = revealController.shouldRotate;
         previousActualOrientation = self.interfaceOrientation.rawValue;
+        screenWidth = max(UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height);
+        screenHeight = min(UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height);
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -62,7 +66,7 @@ class MetricsViewController: UIViewController {
         var pos = MetricsType.allValues.count - 1;
         var card: MetricCard?;
         for type in MetricsType.allValues.reverse() {
-            var cardFrame = UIScreen.mainScreen().bounds;
+            var cardFrame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight);
             cardFrame.size.width = cardFrame.size.width - CGFloat((MetricsType.allValues.count - 1 - pos) * cardMargin);
             switch(type) {
             case MetricsType.DailySummary:
@@ -93,7 +97,7 @@ class MetricsViewController: UIViewController {
         }
         if (card != nil) {
             detailsCard = initDetailCard(card!);
-            detailsCard.frame.origin.y = UIScreen.mainScreen().bounds.height;
+            detailsCard.frame.origin.y = screenHeight;
             self.view.addSubview(detailsCard);
         }
         if (selectedCardPosition != 0) {
@@ -125,19 +129,19 @@ class MetricsViewController: UIViewController {
             }
             UIView.animateWithDuration(animationDuration, delay: 0, options: .CurveEaseInOut, animations: {
                 for card in viewsToSend {
-                    card.frame.origin.x = -UIScreen.mainScreen().bounds.size.width;
+                    card.frame.origin.x = -self.screenWidth;
                 }
                 }, completion:  { complete in
                     
                     for card in viewsToSend.reverse() {
                         card.frame.origin.x = 0;
-                        card.frame.size.width = UIScreen.mainScreen().bounds.width;
+                        card.frame.size.width = self.screenWidth;
                         self.view.insertSubview(card, atIndex: 0);
                     }
                     
                     for index in 0...count - 1 {
                         let card = subViews[index] as! MetricCard;
-                        let newWidth = UIScreen.mainScreen().bounds.size.width - CGFloat((index + 1) * self.cardMargin);
+                        let newWidth = self.screenWidth - CGFloat((index + 1) * self.cardMargin);
                         UIView.animateWithDuration(self.animationDuration, delay: 0, options: .CurveEaseInOut, animations: {
                             card.frame.size.width = newWidth;
                             card.resizeFrameWithWidth(newWidth);
@@ -183,7 +187,7 @@ class MetricsViewController: UIViewController {
                 }
             }
         }
-        detailsCard.headerContainer.alpha = (UIScreen.mainScreen().bounds.size.width + translation.x) / UIScreen.mainScreen().bounds.size.width * 0.5;
+        detailsCard.headerContainer.alpha = (screenWidth + translation.x) / screenWidth * 0.5;
     }
 
     func doneDragging(index: Int) {
@@ -321,10 +325,17 @@ class MetricsViewController: UIViewController {
         let count = MetricsType.allValues.count;
         for index in 0...count - 1 {
             let card = subViews[index] as! MetricCard;
-            let newWidth = UIScreen.mainScreen().bounds.size.width - CGFloat((index) * self.cardMargin);
+            let newWidth = screenWidth - CGFloat((index) * self.cardMargin);
             card.frame.size.width = newWidth;
             card.resizeFrameWithWidth(newWidth);
             card.position = count - 1 - index;
+            card.graphContainer.frame.size.width = screenWidth;
+            if card.graph != nil {
+                card.graph.frame.size.width = screenWidth;
+            }
+            if card.secondaryGraph != nil {
+                card.secondaryGraph.frame.size.width = screenWidth;
+            }
         }
     }
 }
