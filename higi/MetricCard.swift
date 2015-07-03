@@ -229,9 +229,10 @@ class MetricCard: UIView, MetricDelegate {
         let drag = (sender as! UIPanGestureRecognizer);
         if (drag.state == UIGestureRecognizerState.Ended) {
             parent.doneDragging(position);
-        } else {
+        } else if (sender.state != UIGestureRecognizerState.Began) {
             parent.cardDragged(position, translation: drag.translationInView(parent.view));
         }
+        sender.setTranslation(CGPointZero, inView: parent.view);
     }
     
     func cardClicked(sender: AnyObject) {

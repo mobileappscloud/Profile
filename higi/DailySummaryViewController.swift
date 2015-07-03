@@ -25,7 +25,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     
     var totalPoints = 0;
     
-    var minCircleRadius:CGFloat = 4, maxCircleRadius:CGFloat = 24, currentOrigin:CGFloat = 0, imageAspectRatio:CGFloat!;
+    var minCircleRadius:CGFloat = 6, maxCircleRadius:CGFloat = 24, currentOrigin:CGFloat = 0, imageAspectRatio:CGFloat!;
     
     var backButton:UIButton!;
     
@@ -231,15 +231,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
                         checkinIndex++;
                     }
                 } else if (key == ActivityCategory.Fitness.getString()) {
-                    var text = "";
-                    if (activity.steps > 0) {
-                        text = "Walked \(subActivity.steps) steps";
-                    } else if (activity.distance > 0) {
-                        text = "Walked \(subActivity.distance) miles";
-                    } else {
-                        text = "Rode \(subActivity.distance) miles";
-                    }
-                    let breakdownRow = SummaryViewUtility.initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, text: text, duplicate: isDuplicate);
+                    let breakdownRow = SummaryViewUtility.initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, text: "\(activity.description)", duplicate: isDuplicate);
                     activityContainer.addSubview(breakdownRow);
                     currentOrigin += breakdownRow.frame.size.height;
                 }

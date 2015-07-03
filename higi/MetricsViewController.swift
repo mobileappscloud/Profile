@@ -12,7 +12,7 @@ class MetricsViewController: UIViewController {
     
     var cardsTransitioning = false, detailsOpen = false, detailsGone = false, previousShouldRotate: Bool!;
 
-    let detailsCardPosY:CGFloat = 267, cardHeaderViewHeight:CGFloat = 54, cardDragThreshold:CGFloat = 300;
+    let detailsCardPosY:CGFloat = 267, cardHeaderViewHeight:CGFloat = 54, cardDragThreshold:CGFloat = 300, detailDragThreshold:CGFloat = 50;
     
     var screenWidth:CGFloat!, screenHeight: CGFloat!;
     
@@ -107,10 +107,15 @@ class MetricsViewController: UIViewController {
     
     func backButtonClicked(sender: AnyObject) {
         let revealController = (self.navigationController as! MainNavigationController).revealController;
-        revealController.supportedOrientations = previousSupportedOrientations;
-        UIDevice.currentDevice().setValue(previousActualOrientation, forKey: "orientation");
+//        revealController.supportedOrientations = previousSupportedOrientations;
+//        revealController.shouldRotate = true;
+//        UIDevice.currentDevice().setValue(previousActualOrientation, forKey: "orientation");
+//        revealController.shouldRotate = previousShouldRotate;
+        revealController.supportedOrientations = UIInterfaceOrientationMask.Portrait.rawValue;
+        revealController.shouldRotate = true;
+        UIDevice.currentDevice().setValue(UIInterfaceOrientation.Portrait.rawValue, forKey: "orientation");
+        
         self.navigationController!.popViewControllerAnimated(true);
-        revealController.shouldRotate = previousShouldRotate;
     }
 
     func cardClickedAtIndex(index: Int) {
@@ -252,10 +257,17 @@ class MetricsViewController: UIViewController {
         } else if (detailsCard.frame.origin.y + translation >= self.detailsCardPosY) {
             closeDetails();
         } else if (sender.state == UIGestureRecognizerState.Ended) {
-            if (detailsOpen) {
+            let a = detailsCard.frame.origin.y;
+            let b = cardHeaderViewHeight + detailDragThreshold;
+            let c = self.detailsCardPosY - detailDragThreshold
+            if ((detailsOpen && detailsCard.frame.origin.y >= cardHeaderViewHeight + detailDragThreshold) ) {
                 closeDetails();
-            } else {
+            } else if (!detailsOpen && detailsCard.frame.origin.y <= self.detailsCardPosY - detailDragThreshold) {
                 openDetails();
+            } else if detailsOpen {
+                openDetails();
+            } else {
+                closeDetails();
             }
         } else if (sender.state != UIGestureRecognizerState.Began) {
             let translation = (sender as! UIPanGestureRecognizer).translationInView(self.view).y;
