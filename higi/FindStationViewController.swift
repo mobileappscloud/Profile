@@ -86,6 +86,10 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         searchField.leftView!.contentMode = UIViewContentMode.ScaleAspectFit;
         searchField.clearButtonMode = UITextFieldViewMode.WhileEditing;
         searchField.delegate = self;
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated);
         
         mapContainer.frame = CGRect(x: 64, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height - 64);
         
@@ -144,6 +148,8 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         setupMap();
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveApiNotification:", name: ApiUtility.KIOSKS, object: nil);
+        
+        mapView.addObserver(self, forKeyPath: "myLocation", options: NSKeyValueObservingOptions.New, context: nil);
     }
     
     override func receiveApiNotification(notification: NSNotification) {
@@ -639,11 +645,6 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
             mapView.camera = GMSCameraPosition.cameraWithTarget(mapView.myLocation.coordinate, zoom: 11);
             updateKioskPositions();
         }
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated);
-        mapView.addObserver(self, forKeyPath: "myLocation", options: NSKeyValueObservingOptions.New, context: nil);
     }
     
     override func viewWillDisappear(animated: Bool) {
