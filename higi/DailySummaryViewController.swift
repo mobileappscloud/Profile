@@ -15,6 +15,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var scrollviewMainContentView: UIView!
     
     var titleRows:[UIView] = [];
+    
     var pointsMeter:PointsMeter!;
 
     var activities: [HigiActivity] = [];
@@ -25,7 +26,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     
     var totalPoints = 0;
     
-    var minCircleRadius:CGFloat = 6, maxCircleRadius:CGFloat = 24, currentOrigin:CGFloat = 0, imageAspectRatio:CGFloat!;
+    var minCircleRadius:CGFloat = 6, maxCircleRadius:CGFloat = 22, currentOrigin:CGFloat = 0, imageAspectRatio:CGFloat!;
     
     var backButton:UIButton!;
     
@@ -37,11 +38,13 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     
     var previousActualOrientation: Int!;
     
+    var fakeNavBar:UIView!;
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
         self.title = "Daily Summary";
-        pointsMeter = PointsMeter.create();
+        pointsMeter = PointsMeter.create(CGRect(x: 0, y: 0, width: pointsMeterContainer.frame.size.width, height: pointsMeterContainer.frame.size.height));
         pointsMeterContainer.addSubview(pointsMeter);
         self.automaticallyAdjustsScrollViewInsets = false;
         scrollView.scrollEnabled = true;
@@ -91,6 +94,10 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         return activities.count;
     }
     
+    override func prefersStatusBarHidden() -> Bool {
+        return false;
+    }
+    
     func initBackButton() {
         self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
         backButton = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton;
@@ -132,6 +139,9 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             greeting.text = "Good Evening!";
             headerBackground.image = UIImage(named: "dailysummary_night");
         }
+        fakeNavBar = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.mainScreen().bounds.width, height: 55));
+        fakeNavBar.backgroundColor = UIColor.whiteColor();
+        view.addSubview(fakeNavBar);
     }
     
     func initSummaryview() {
@@ -195,8 +205,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             currentOrigin += activityRow.frame.size.height - 4;
             let titleMargin:CGFloat = 6;
             for subActivity in activityList {
-                let name = subActivity.device.name == "higi" ? "higi Station Check In" : "\(subActivity.device.name)";
-                let titleRow = SummaryViewUtility.initTitleRow(activityRow.name.frame.origin.x, originY: currentOrigin, width: UIScreen.mainScreen().bounds.size.width - activityRow.name.frame.origin.x, points: subActivity.points, device: name, color: color);
+                let titleRow = SummaryViewUtility.initTitleRow(activityRow.name.frame.origin.x, originY: currentOrigin, width: UIScreen.mainScreen().bounds.size.width - activityRow.name.frame.origin.x, points: subActivity.points, device: "\(subActivity.device.name)", color: color);
                 activityContainer.addSubview(titleRow);
                 titleRows.append(titleRow);
                 currentOrigin += titleRow.frame.size.height + titleMargin;
@@ -265,7 +274,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         if (!isLeaving) {
             if (scrollY >= 0) {
                 var alpha = min(scrollY / 75, 1);
-                self.navigationController?.navigationBar.backgroundColor = UIColor(red: 255, green: 255, blue: 255, alpha: alpha);
+                fakeNavBar.backgroundColor = UIColor(red: 255, green: 255, blue: 255, alpha: alpha);
                 self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0 - alpha, alpha: 1.0)];
                 if (alpha < 0.5) {
                     self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
@@ -275,7 +284,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
                     backButton.setBackgroundImage(UIImage(named: "btn_back_black.png"), forState: UIControlState.Normal);
                 }
             } else {
-                self.navigationController?.navigationBar.backgroundColor = UIColor.whiteColor();
+                fakeNavBar.backgroundColor = UIColor.whiteColor();
                 self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0, alpha: 1)];
                 self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
             }

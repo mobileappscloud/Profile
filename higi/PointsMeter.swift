@@ -29,6 +29,8 @@ class PointsMeter: UIView {
     
     private var activityTypes: [String] = [];
     
+    private var lightArc = false;
+    
     class func create() -> PointsMeter {
         return UINib(nibName: "PointsMeterView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! PointsMeter;
     }
@@ -51,7 +53,11 @@ class PointsMeter: UIView {
         var arc = CAShapeLayer();
         arc.lineWidth = lineWidth;
         arc.fillColor = UIColor.clearColor().CGColor;
-        arc.strokeColor = Utility.colorFromHexString("#EEEEEE").CGColor;
+        if lightArc {
+            arc.strokeColor = UIColor.whiteColor().CGColor;
+        } else {
+            arc.strokeColor = Utility.colorFromHexString("#EEEEEE").CGColor;
+        }
         var center = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2);
         toPath.addArcWithCenter(center, radius: radius, startAngle: CGFloat(0), endAngle: CGFloat(2 * M_PI), clockwise: true);
         toPath.closePath();
@@ -145,6 +151,10 @@ class PointsMeter: UIView {
     
     func setLightText() {
         self.points.textColor = Utility.colorFromHexString("#FFFFFF");
+    }
+    
+    func setLightArc() {
+        lightArc = true;
     }
     
     override func layoutSubviews() {

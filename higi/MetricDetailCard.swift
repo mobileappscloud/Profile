@@ -61,7 +61,8 @@ class MetricDetailCard: UIView {
             if (gauge != nil && gauge.superview != nil) {
                 gauge.removeFromSuperview();
             }
-            meter = PointsMeter.create(CGRect(x: 0, y: 0, width: gaugeContainer.frame.size.width - 10, height: gaugeContainer.frame.size.height - 10));
+            meter = PointsMeter.create(CGRect(x: 0, y: 0, width: gaugeContainer.frame.size.width - 25, height: gaugeContainer.frame.size.height - 25));
+            meter.setLightArc();
             let dateString = Constants.dateFormatter.stringFromDate(Constants.displayDateFormatter.dateFromString(delegate.getSelectedPoint()!.date)!);
             if (SessionController.Instance.activities[dateString] != nil) {
                 meter.setActivities(SessionController.Instance.activities[dateString]!);
@@ -279,8 +280,7 @@ class MetricDetailCard: UIView {
             activityRow.text = String(category.getString());
             activityRow.textColor = color;
             copyScrollview.addSubview(activityRow);
-            currentOrigin += activityRow.frame.size.height - 4;
-            let titleMargin:CGFloat = 6;
+            currentOrigin += activityRow.frame.size.height;
             var todaysCheckins:[HigiCheckin] = [];
             for checkin in SessionController.Instance.checkins {
                 if (Constants.dateFormatter.stringFromDate(checkin.dateTime) == dateString) {
@@ -290,12 +290,12 @@ class MetricDetailCard: UIView {
             var checkinIndex = 0;
             for subActivity in activityList {
                 if (subActivity.errorDescription == nil && subActivity.points > 0) {
-                    let name = subActivity.device.name == "higi" ? "higi Station Check In" : "\(subActivity.device.name)";
-                    let titleRow = SummaryViewUtility.initTitleRow(activityRow.frame.origin.x, originY: currentOrigin, width: copyScrollview.frame.size.width - activityRow.frame.origin.x, points: subActivity.points, device: name, color: color);
+                    let titleRow = SummaryViewUtility.initTitleRow(activityRow.frame.origin.x, originY: currentOrigin, width: copyScrollview.frame.size.width - activityRow.frame.origin.x, points: subActivity.points, device: "\(subActivity.device.name)", color: color);
                     copyScrollview.addSubview(titleRow);
-                    currentOrigin += titleRow.frame.size.height + titleMargin + gap;
+                    currentOrigin += titleRow.frame.size.height;
                 }
             }
+            currentOrigin += gap;
         }
         copyImageOrigin = currentOrigin;
         copyScrollViewHeight = copyScrollview.frame.origin.y + currentOrigin + 40;

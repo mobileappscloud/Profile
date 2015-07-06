@@ -17,9 +17,9 @@
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Walked 39 miles" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sKk-d6-b5M">
-                    <rect key="frame" x="30" y="0.0" width="286" height="22"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Walked 39 miles" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sKk-d6-b5M">
+                    <rect key="frame" x="34" y="0.0" width="286" height="22"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" red="0.26666666666666666" green="0.26666666666666666" blue="0.26666666666666666" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -28,9 +28,9 @@
             <constraints>
                 <constraint firstItem="sKk-d6-b5M" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="7BF-7V-yOb"/>
                 <constraint firstItem="56E-1Z-UWh" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="9on-oh-EDG"/>
-                <constraint firstItem="sKk-d6-b5M" firstAttribute="leading" secondItem="56E-1Z-UWh" secondAttribute="trailing" constant="4" id="EGA-1F-SFi"/>
+                <constraint firstItem="sKk-d6-b5M" firstAttribute="leading" secondItem="56E-1Z-UWh" secondAttribute="trailing" constant="8" id="EGA-1F-SFi"/>
                 <constraint firstAttribute="bottom" secondItem="sKk-d6-b5M" secondAttribute="bottom" id="RBM-rC-286"/>
-                <constraint firstItem="sKk-d6-b5M" firstAttribute="leading" secondItem="56E-1Z-UWh" secondAttribute="trailing" constant="4" id="TxU-0n-Wik"/>
+                <constraint firstItem="sKk-d6-b5M" firstAttribute="leading" secondItem="56E-1Z-UWh" secondAttribute="trailing" constant="8" id="TxU-0n-Wik"/>
                 <constraint firstItem="56E-1Z-UWh" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="ZyY-gc-RaR"/>
                 <constraint firstAttribute="bottom" secondItem="56E-1Z-UWh" secondAttribute="bottom" id="yF5-cu-DgE"/>
             </constraints>

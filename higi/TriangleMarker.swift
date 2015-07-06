@@ -45,7 +45,7 @@ class TriangleMarker : UIView {
     func drawMarker() {
         let triangleHeight:CGFloat = 20;
         let angleDelta = CGFloat(M_PI) / 30;
-        let innerRadius = radius - lineWidth;
+        let innerRadius = radius - lineWidth - 5;
         let context = UIGraphicsGetCurrentContext();
         CGContextSetFillColorWithColor(context, UIColor.whiteColor().CGColor);
         CGContextMoveToPoint(context, center.x + radius * cos(valueAngle), center.y + radius * sin(valueAngle));

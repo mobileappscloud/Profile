@@ -10,9 +10,9 @@ enum ActivityCategory {
     func getColor() -> UIColor {
         switch(self) {
         case Fitness:
-            return Utility.colorFromHexString("#3acec7")
-        case Health:
             return Utility.colorFromHexString("#ba77ff");
+        case Health:
+            return Utility.colorFromHexString("#3acec7");
         case Lifestyle:
             return Utility.colorFromHexString("#fc3767");
         default:
