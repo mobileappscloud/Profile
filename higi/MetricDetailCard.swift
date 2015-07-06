@@ -280,7 +280,7 @@ class MetricDetailCard: UIView {
             activityRow.textColor = color;
             copyScrollview.addSubview(activityRow);
             currentOrigin += activityRow.frame.size.height - 4;
-            let titleMargin:CGFloat = 2;
+            let titleMargin:CGFloat = 6;
             var todaysCheckins:[HigiCheckin] = [];
             for checkin in SessionController.Instance.checkins {
                 if (Constants.dateFormatter.stringFromDate(checkin.dateTime) == dateString) {
@@ -289,16 +289,12 @@ class MetricDetailCard: UIView {
             }
             var checkinIndex = 0;
             for subActivity in activityList {
-                let name = subActivity.device.name == "higi" ? "higi Station Check In" : "\(subActivity.device.name)";
-                let titleRow = SummaryViewUtility.initTitleRow(activityRow.frame.origin.x, originY: currentOrigin, width: copyScrollview.frame.size.width - activityRow.frame.origin.x, points: subActivity.points, device: name, color: color);
-                copyScrollview.addSubview(titleRow);
-                currentOrigin += titleRow.frame.size.height + titleMargin;
-                if (subActivity.errorDescription != nil) {
-                    let duplicateLabel = SummaryViewUtility.initDuplicateLabel(activityRow.frame.origin.x, originY: currentOrigin, width: copyScrollview.frame.size.width - activityRow.frame.origin.x, text: "\(subActivity.errorDescription)");
-                    copyScrollview.addSubview(duplicateLabel);
-                    currentOrigin += duplicateLabel.frame.size.height;
+                if (subActivity.errorDescription == nil && subActivity.points > 0) {
+                    let name = subActivity.device.name == "higi" ? "higi Station Check In" : "\(subActivity.device.name)";
+                    let titleRow = SummaryViewUtility.initTitleRow(activityRow.frame.origin.x, originY: currentOrigin, width: copyScrollview.frame.size.width - activityRow.frame.origin.x, points: subActivity.points, device: name, color: color);
+                    copyScrollview.addSubview(titleRow);
+                    currentOrigin += titleRow.frame.size.height + titleMargin + gap;
                 }
-                currentOrigin += gap;
             }
         }
         copyImageOrigin = currentOrigin;

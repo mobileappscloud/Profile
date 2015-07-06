@@ -132,7 +132,7 @@ class MetricCard: UIView, MetricDelegate {
         let screenWidth = max(UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height);
         let screenHeight = min(UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height);
         let baseGraph = isPrimaryGraph ? graph : secondaryGraph;
-        if (delegate.getType() == MetricsType.DailySummary) {
+        if (delegate.getType() == MetricsType.DailySummary && baseGraph.points.count > 0) {
             let lineY = baseGraph.getScreenPoint(0, yPoint: 100).y;
             let view = UIView(frame: CGRect(x: 0, y: lineY, width: screenWidth, height: 2));
             view.backgroundColor = Utility.colorFromHexString("#EEEEEE");

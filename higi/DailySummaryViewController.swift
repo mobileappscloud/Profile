@@ -193,7 +193,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             var checkinIndex = 0;
             activityContainer.addSubview(activityRow);
             currentOrigin += activityRow.frame.size.height - 4;
-            let titleMargin:CGFloat = 2;
+            let titleMargin:CGFloat = 6;
             for subActivity in activityList {
                 let name = subActivity.device.name == "higi" ? "higi Station Check In" : "\(subActivity.device.name)";
                 let titleRow = SummaryViewUtility.initTitleRow(activityRow.name.frame.origin.x, originY: currentOrigin, width: UIScreen.mainScreen().bounds.size.width - activityRow.name.frame.origin.x, points: subActivity.points, device: name, color: color);
@@ -224,7 +224,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
                             currentOrigin += breakdownRow.frame.size.height;
                         }
                         if (checkin.fatRatio != nil && checkin.fatRatio > 0) {
-                            let breakdownRow = SummaryViewUtility.initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, text: "\(checkin.fatRatio!)% Body Fat", duplicate: isDuplicate);
+                            let breakdownRow = SummaryViewUtility.initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, text: "\(Double(round(checkin.fatRatio! * 100) / 100))% Body Fat", duplicate: isDuplicate);
                             activityContainer.addSubview(breakdownRow);
                             currentOrigin += breakdownRow.frame.size.height;
                         }
