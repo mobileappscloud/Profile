@@ -29,25 +29,34 @@ class PointsMeter: UIView {
     
     private var activityTypes: [String] = [];
     
-    private var lightArc = false;
+    private var lightArc = false, thickArc = false;
     
     class func create() -> PointsMeter {
         return UINib(nibName: "PointsMeterView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! PointsMeter;
     }
     
     class func create(frame: CGRect) -> PointsMeter {
-        let view = UINib(nibName: "PointsMeterView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! PointsMeter;
-        view.frame = frame;
-        view.targetFrame = frame;
+        let meter = UINib(nibName: "PointsMeterView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! PointsMeter;
+        meter.frame = frame;
+        meter.targetFrame = frame;
         if (frame.size.width < 50) {
-            view.points.font = UIFont.systemFontOfSize(12);
+            meter.points.font = UIFont.systemFontOfSize(12);
         }
-        return view;
+        return meter;
+    }
+    
+    class func create(frame: CGRect, thickArc: Bool) -> PointsMeter {
+        let meter = create(frame);
+        meter.thickArc = thickArc;
+        return meter;
     }
     
     func setActivities(dailyActivity: (Int, [HigiActivity])) {
         (total, activities) = dailyActivity;
         lineWidth = self.frame.size.width * 0.06;
+        if thickArc {
+            lineWidth = lineWidth * 1.5;
+        }
         radius = self.frame.size.width / 2 * 0.9 - (lineWidth / 2);
         var toPath = UIBezierPath();
         var arc = CAShapeLayer();

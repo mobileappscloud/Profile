@@ -61,7 +61,7 @@ class MetricDetailCard: UIView {
             if (gauge != nil && gauge.superview != nil) {
                 gauge.removeFromSuperview();
             }
-            meter = PointsMeter.create(CGRect(x: 0, y: 0, width: gaugeContainer.frame.size.width - 25, height: gaugeContainer.frame.size.height - 25));
+            meter = PointsMeter.create(CGRect(x: 0, y: 0, width: gaugeContainer.frame.size.width - 50, height: gaugeContainer.frame.size.height - 50), thickArc: true);
             meter.setLightArc();
             let dateString = Constants.dateFormatter.stringFromDate(Constants.displayDateFormatter.dateFromString(delegate.getSelectedPoint()!.date)!);
             if (SessionController.Instance.activities[dateString] != nil) {
@@ -276,9 +276,10 @@ class MetricDetailCard: UIView {
             let activity = activityList[0];
             let category = ActivityCategory.categoryFromString(key);
             let color = category.getColor();
-            let activityRow = UILabel(frame: CGRect(x: 0, y: currentOrigin, width: copyScrollview.frame.size.width, height: 20));
-            activityRow.text = String(category.getString());
-            activityRow.textColor = color;
+            let activityRow = SummaryViewUtility.initTitleRow(0, originY: currentOrigin, width: copyScrollview.frame.size.width, points: activity.points, device: String(category.getString()), color: color);
+            activityRow.device.font = UIFont.boldSystemFontOfSize(20);
+            activityRow.points.font = UIFont.boldSystemFontOfSize(20);
+            activityRow.device.textColor = color;
             copyScrollview.addSubview(activityRow);
             currentOrigin += activityRow.frame.size.height;
             var todaysCheckins:[HigiCheckin] = [];
@@ -290,7 +291,9 @@ class MetricDetailCard: UIView {
             var checkinIndex = 0;
             for subActivity in activityList {
                 if (subActivity.errorDescription == nil && subActivity.points > 0) {
-                    let titleRow = SummaryViewUtility.initTitleRow(activityRow.frame.origin.x, originY: currentOrigin, width: copyScrollview.frame.size.width - activityRow.frame.origin.x, points: subActivity.points, device: "\(subActivity.device.name)", color: color);
+                    let titleRow = SummaryViewUtility.initTitleRow(activityRow.frame.origin.x, originY: currentOrigin, width: copyScrollview.frame.size.width - activityRow.frame.origin.x, points: subActivity.points, device: "\(subActivity.device.name)", color: Utility.colorFromHexString("#444444"));
+                    titleRow.device.font = UIFont.systemFontOfSize(16);
+                    titleRow.points.font = UIFont.systemFontOfSize(16);
                     copyScrollview.addSubview(titleRow);
                     currentOrigin += titleRow.frame.size.height;
                 }
