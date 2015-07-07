@@ -46,6 +46,7 @@ class MetricsGraphCard: UIView {
     }
     
     func initBlankState(type: MetricsType) {
+        date.text = "";
         if (type == MetricsType.BloodPressure) {
             firstReadingValue.text = "--";
             firstReadingLabel.text = "mmHg";
