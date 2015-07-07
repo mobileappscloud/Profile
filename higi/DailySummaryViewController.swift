@@ -174,6 +174,18 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             }
         }
         var gap = CGFloat(4);
+        
+        var todaysCheckins:[HigiCheckin] = [];
+        var addedCheckins = false;
+        for checkin in SessionController.Instance.checkins {
+            if (Constants.dateFormatter.stringFromDate(checkin.dateTime) == self.dateString) {
+                todaysCheckins.append(checkin);
+                addedCheckins = true;
+            } else if addedCheckins {
+                break;
+            }
+        }
+        
         for key in activityKeys {
             let (total, activityList) = activitiesByType[key]!;
             let activity = activityList[0];
@@ -194,13 +206,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             circleLayer.strokeEnd = 1;
             activityRow.progressCircle.layer.addSublayer(circleLayer);
             activityRow.frame.origin.y = currentOrigin;
-            
-            var todaysCheckins:[HigiCheckin] = [];
-            for checkin in SessionController.Instance.checkins {
-                if (Constants.dateFormatter.stringFromDate(checkin.dateTime) == dateString) {
-                    todaysCheckins.append(checkin);
-                }
-            }
+
             var checkinIndex = 0;
             activityContainer.addSubview(activityRow);
             currentOrigin += activityRow.frame.size.height - 4;
