@@ -36,9 +36,11 @@ class MetricsViewController: UIViewController {
         self.navigationController!.navigationBarHidden = true;
         let revealController = (self.navigationController as! MainNavigationController).revealController;
         revealController.panGestureRecognizer().enabled = false;
-        revealController.supportedOrientations = UIInterfaceOrientationMask.LandscapeRight.rawValue;
         revealController.shouldRotate = true;
-        UIDevice.currentDevice().setValue(UIInterfaceOrientation.LandscapeRight.rawValue, forKey: "orientation");
+        if (self.interfaceOrientation.rawValue == UIInterfaceOrientation.Portrait.rawValue) {
+            revealController.supportedOrientations = UIInterfaceOrientationMask.LandscapeRight.rawValue | UIInterfaceOrientationMask.LandscapeLeft.rawValue;
+            UIDevice.currentDevice().setValue(UIInterfaceOrientation.LandscapeRight.rawValue, forKey: "orientation");
+        }
         initCards();
     }
 
@@ -107,13 +109,10 @@ class MetricsViewController: UIViewController {
     
     func backButtonClicked(sender: AnyObject) {
         let revealController = (self.navigationController as! MainNavigationController).revealController;
-//        revealController.supportedOrientations = previousSupportedOrientations;
-//        revealController.shouldRotate = true;
-//        UIDevice.currentDevice().setValue(previousActualOrientation, forKey: "orientation");
-//        revealController.shouldRotate = previousShouldRotate;
-        revealController.supportedOrientations = UIInterfaceOrientationMask.Portrait.rawValue;
+        revealController.supportedOrientations = previousSupportedOrientations;
         revealController.shouldRotate = true;
-        UIDevice.currentDevice().setValue(UIInterfaceOrientation.Portrait.rawValue, forKey: "orientation");
+        UIDevice.currentDevice().setValue(previousActualOrientation, forKey: "orientation");
+        revealController.shouldRotate = previousShouldRotate;
         
         self.navigationController!.popViewControllerAnimated(true);
     }
@@ -257,9 +256,6 @@ class MetricsViewController: UIViewController {
         } else if (detailsCard.frame.origin.y + translation >= self.detailsCardPosY) {
             closeDetails();
         } else if (sender.state == UIGestureRecognizerState.Ended) {
-            let a = detailsCard.frame.origin.y;
-            let b = cardHeaderViewHeight + detailDragThreshold;
-            let c = self.detailsCardPosY - detailDragThreshold
             if ((detailsOpen && detailsCard.frame.origin.y >= cardHeaderViewHeight + detailDragThreshold) ) {
                 closeDetails();
             } else if (!detailsOpen && detailsCard.frame.origin.y <= self.detailsCardPosY - detailDragThreshold) {
