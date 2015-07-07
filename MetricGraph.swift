@@ -228,12 +228,7 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
             minY = 0;
         }
         var tickInterval = 20.0;
-        var lowerBound = 0.0;
-//        if (maxY - minY < 20) {
-//            lowerBound = minY - (maxY - minY) * 0.25;
-//        } else {
-            lowerBound = roundToLowest(round(minY) - (maxY - minY) * 0.25, roundTo: tickInterval);
-//        }
+        var lowerBound = roundToLowest(round(minY) - (maxY - minY) * 0.25, roundTo: tickInterval);
         if (lowerBound >= minY - 10) {
             lowerBound = minY * 0.25;
         }
