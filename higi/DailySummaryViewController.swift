@@ -139,7 +139,8 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             greeting.text = "Good Evening!";
             headerBackground.image = UIImage(named: "dailysummary_night");
         }
-        fakeNavBar = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.mainScreen().bounds.width, height: 55));
+        let screenWidth = max(UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height);
+        fakeNavBar = UIView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 64));
         fakeNavBar.backgroundColor = UIColor.whiteColor();
         view.addSubview(fakeNavBar);
     }
@@ -240,7 +241,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
                         checkinIndex++;
                     }
                 } else if (key == ActivityCategory.Fitness.getString()) {
-                    let breakdownRow = SummaryViewUtility.initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, text: "\(activity.description)", duplicate: isDuplicate);
+                    let breakdownRow = SummaryViewUtility.initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, text: "\(subActivity.description)", duplicate: isDuplicate);
                     activityContainer.addSubview(breakdownRow);
                     currentOrigin += breakdownRow.frame.size.height;
                 }
