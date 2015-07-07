@@ -30,7 +30,7 @@ class HigiUser {
         firstName = (dictionary["firstName"] ?? "") as! NSString;
         lastName = (dictionary["lastName"] ?? "") as! NSString;
         email = dictionary["email"] as! NSString;
-        gender = dictionary["gender"] as! NSString;
+        gender = (dictionary["gender"] ?? "") as! NSString;
         hasPhoto = (dictionary["hasPhoto"] ?? false) as! Bool;
         currentHigiScore = (dictionary["currentHigiScore"] ?? 0) as! Int;
         photoTime = (dictionary["photoTime"] ?? 0) as! Int;
