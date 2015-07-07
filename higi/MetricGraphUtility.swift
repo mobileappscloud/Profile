@@ -58,8 +58,22 @@ class MetricGraphUtility {
     }
     
     class func createBodyFatGraph(frame: CGRect) -> MetricGraph? {
-        var points:[GraphPoint] = [];
-        var lastFatDate = "";
+        var points:[GraphPoint] = [], altPoints:[GraphPoint] = [];
+        var lastFatDate = "", lastWeightDate = "";
+        
+        var heaviest = 1.0, thinnest = 100.0, fattest = 1.0;
+        for checkin in SessionController.Instance.checkins.reverse() {
+            if (checkin.weightLbs != nil && checkin.weightLbs > heaviest) {
+                heaviest = checkin.weightLbs!;
+            }
+            if (checkin.fatRatio != nil && checkin.fatRatio > fattest) {
+                fattest = checkin.fatRatio!;
+            }
+            if (checkin.fatRatio != nil && checkin.fatRatio < thinnest) {
+                thinnest = checkin.fatRatio!;
+            }
+        }
+        
         for checkin in SessionController.Instance.checkins.reverse() {
             let dateString = Constants.dateFormatter.stringFromDate(checkin.dateTime);
             if (dateString != lastFatDate) {
@@ -68,10 +82,14 @@ class MetricGraphUtility {
                     points.append(GraphPoint(x: checkinTime, y: checkin.fatRatio));
                     lastFatDate = dateString;
                 }
+                if (checkin.weightLbs != nil && checkin.weightLbs > 0) {
+                    altPoints.append(GraphPoint(x: checkinTime, y: 10 + (checkin.weightLbs! / heaviest) * fattest * (1 + (fattest - thinnest) / 150.0)));
+                    lastWeightDate = dateString;
+                }
             }
         }
         if (points.count > 0) {
-            return graphWithPoints(frame, points: points, color: MetricsType.Weight.getColor());
+            return graphWithPoints(frame, points: points, altPoints: altPoints, color: MetricsType.Weight.getColor());
         } else {
             return nil;
         }

@@ -12,8 +12,8 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
     
     var graph: CPTXYGraph!;
     
-    var altPlotLinesAdded = false;
-
+    var shouldShowAltSymbol = false;
+    
     init(frame: CGRect, points: [GraphPoint]) {
         self.points = points;
         super.init(frame: frame);
@@ -192,6 +192,8 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
             if (altPoints[0].x == altPoints[1].x) {
                 altPlot.interpolation = CPTScatterPlotInterpolationLinear;
                 altPlot.dataLineStyle = unselectedAltPlotLineStyle;
+                altPlot.delegate = self;
+                shouldShowAltSymbol = true;
             } else if (altPoints[0].y == altPoints[1].y) {
                 altPlot.interpolation = CPTScatterPlotInterpolationCurved;
                 let dottedLineStyle = CPTMutableLineStyle();
@@ -200,14 +202,18 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
                 dottedLineStyle.dashPattern = [2];
                 altPlot.dataLineStyle = dottedLineStyle;
                 altPlot.plotSymbol = nil;
+                altPlot.delegate = self;
+                shouldShowAltSymbol = false;
             } else {
                 altPlot.interpolation = CPTScatterPlotInterpolationCurved;
-                altPlot.plotSymbol = altPlotSymbol;
+                let noSymbol = CPTPlotSymbol.ellipsePlotSymbol();
+                noSymbol.size = CGSize(width: 0, height: 0);
+                altPlot.plotSymbol = noSymbol;
                 altPlot.dataLineStyle = symbolLineStyle;
+                shouldShowAltSymbol = false;
             }
             altPlot.plotSymbolMarginForHitDetection = CGFloat(hitMargin);
             altPlot.dataSource = self;
-            altPlot.delegate = self;
             altPlot.setAreaBaseDecimalValue(0);
             //add alt plot here so that it's drawn behind main plot
             graph.addPlot(altPlot, toPlotSpace: graph.defaultPlotSpace);
@@ -222,11 +228,15 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
             minY = 0;
         }
         var tickInterval = 20.0;
-        var interval = (maxY - minY) * 0.25;
-        if (interval < 1) {
-            interval = minY * 0.25;
+        var lowerBound = 0.0;
+//        if (maxY - minY < 20) {
+//            lowerBound = minY - (maxY - minY) * 0.25;
+//        } else {
+            lowerBound = roundToLowest(round(minY) - (maxY - minY) * 0.25, roundTo: tickInterval);
+//        }
+        if (lowerBound >= minY - 10) {
+            lowerBound = minY * 0.25;
         }
-        let lowerBound = roundToLowest(round(minY) - interval, roundTo: tickInterval);
         var yRange = roundToHighest((maxY - minY) * 1.5, roundTo: tickInterval);
         if (lowerBound + yRange <= maxY) {
             yRange = (maxY - lowerBound) * 1.5;
@@ -386,7 +396,13 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
                     return selectedAltPlotSymbol;
                 }
             }
-            return unselectedAltPlotSymbol;
+            if (shouldShowAltSymbol) {
+                return unselectedAltPlotSymbol;
+            } else {
+                let noSymbol = CPTPlotSymbol.ellipsePlotSymbol();
+                noSymbol.size = CGSize(width: 0, height: 0);
+                return noSymbol;
+            }
         }
     }
     
