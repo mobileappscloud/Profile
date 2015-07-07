@@ -47,6 +47,8 @@ class BpMetricDelegate: MetricDelegate {
             if (difference < minDifference && checkin.systolic != nil) {
                 minDifference = difference;
                 selectedCheckin = checkin;
+            } else if (difference > minDifference) {
+                break;
             }
         }
     }

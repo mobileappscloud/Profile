@@ -49,6 +49,8 @@ class WeightMetricDelegate: MetricDelegate {
                     if (selectedFatCheckin == nil && checkin.fatRatio != nil) {
                         selectedFatCheckin = checkin;
                     }
+                } else if (difference > minDifference) {
+                    break;
                 }
             } else {
                 if (difference < minDifference && checkin.fatRatio != nil) {

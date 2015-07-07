@@ -22,7 +22,6 @@ class ActivityMetricDelegate: MetricDelegate {
     
     func getCopyImage(tab: Int) -> UIImage? {
         return UIImage(named: "pulse_overlay")!;
-//        return nil;
     }
     
     func getBlankStateImage() -> UIImage {
@@ -32,7 +31,6 @@ class ActivityMetricDelegate: MetricDelegate {
     func setSelected(date: NSDate) {
         let selectedDate = Double(Constants.dateFormatter.dateFromString(Constants.dateFormatter.stringFromDate(date))!.timeIntervalSince1970);
         var minDifference = DBL_MAX;
-        let a = SessionController.Instance.activities;
         for (activityDate, (total, activities)) in SessionController.Instance.activities {
             let interval = Constants.dateFormatter.dateFromString(activityDate)!.timeIntervalSince1970;
             let difference = abs(interval - selectedDate);
