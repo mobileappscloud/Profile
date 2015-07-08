@@ -20,7 +20,7 @@ class SessionData {
     
     var kioskListString: String = "";
     
-    var seenDashboard, seenBodyStats, seenReminder: Bool!;
+    var seenDashboard, seenMetrics, seenReminder: Bool!;
     
     var lastUpdate: NSDate!;
     
@@ -35,7 +35,7 @@ class SessionData {
         pin = "";
         user = nil;
         seenDashboard = false;
-        seenBodyStats = false;
+        seenMetrics = false;
         seenReminder = false;
         lastUpdate = NSDate();
     }
@@ -46,7 +46,7 @@ class SessionData {
         saveDictionary["pin"] = pin;
         saveDictionary["userId"] = user != nil ? user.userId : "";
         saveDictionary["seenDashboard"] = seenDashboard;
-        saveDictionary["seenBodyStats"] = seenBodyStats;
+        saveDictionary["seenMetrics"] = seenMetrics;
         saveDictionary["seenReminder"] = seenReminder;
         saveDictionary["kioskList"] = kioskListString;
         saveDictionary["lastUpdate"] = lastUpdate;
@@ -61,7 +61,7 @@ class SessionData {
             user = HigiUser();
             user.userId = savedDictionary["userId"] as! NSString;
             seenDashboard = (savedDictionary["seenDashboard"] ?? false) as! Bool;
-            seenBodyStats = (savedDictionary["seenBodyStats"] ?? false) as! Bool;
+            seenMetrics = (savedDictionary["seenMetrics"] ?? false) as! Bool;
             seenReminder = (savedDictionary["seenReminder"] ?? false) as! Bool;
             kioskListString = (savedDictionary["kioskList"] ?? "") as! String;
             lastUpdate = (savedDictionary["lastUpdate"] ?? NSDate()) as! NSDate;

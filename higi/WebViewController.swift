@@ -48,6 +48,11 @@ class WebViewController: UIViewController, NSURLConnectionDataDelegate, UIWebVie
     }
     
     func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        if (request.allHTTPHeaderFields?.indexForKey("Higi-Source") == nil) {
+            let mutableRequest = NSMutableURLRequest(URL: request.URL!);
+            mutableRequest.addValue("mobile-ios", forHTTPHeaderField: "Higi-Source");
+            webView.loadRequest(mutableRequest);
+        }
         if (((!isGone && request.URL!.absoluteString != nil && request.URL!.absoluteString!.hasPrefix("http://www.google.com")))) {
             webView.stopLoading();
             var components = NSURLComponents(URL: request.URL!, resolvingAgainstBaseURL: false)!;
@@ -60,7 +65,6 @@ class WebViewController: UIViewController, NSURLConnectionDataDelegate, UIWebVie
                     if (keyValuePair.count > 1 && count(keyValuePair[1]) > 0) {
                         device.connected = false;
                     }
-//                    break;
                 } else if (keyValuePair[0] == "message") {
                     errorMessage = keyValuePair[1].stringByReplacingOccurrencesOfString("+", withString: " ", options: nil, range: nil);
                 }

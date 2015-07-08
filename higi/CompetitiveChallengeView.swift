@@ -2,7 +2,6 @@ import Foundation
 
 class CompetitiveChallengeView: ChallengeView, UIScrollViewDelegate {
     
-    
     @IBOutlet weak var row1: UIView!
     @IBOutlet weak var row2: UIView!
     @IBOutlet weak var row3: UIView!
@@ -16,7 +15,7 @@ class CompetitiveChallengeView: ChallengeView, UIScrollViewDelegate {
         let isTeamChallenge = winConditions[0].winnerType == "team";
         
         if (isTeamChallenge) {
-            let gravityTuple = Utility.getTeamGravityBoard(challenge);
+            let gravityTuple = ChallengeUtility.getTeamGravityBoard(challenge);
             let teamGravityBoard = gravityTuple.0;
             let teamRanks = gravityTuple.1;
             

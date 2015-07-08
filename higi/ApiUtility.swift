@@ -60,7 +60,6 @@ class ApiUtility {
             }
             
             }, failure: {operation, error in
-                var i = 0;
                 failure?();
         });
     }
@@ -134,10 +133,20 @@ class ApiUtility {
             
             HigiApi().sendGet("\(HigiApi.earnditApiUrl)/user/\(userId)/activities?limit=0&startDate=\(startDateFormatter.stringFromDate(startDate))&endDate=\(endDateFormatter.stringFromDate(endDate))", success: {operation, responseObject in
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                    var activities: [HigiActivity] = [];
+                    var activities: [String: (Int, [HigiActivity])] = [:];
                     var serverActivities = ((responseObject as! NSDictionary)["response"] as! NSDictionary)["data"] as! NSArray;
-                    for activity: AnyObject in serverActivities {
-                        activities.append(HigiActivity(dictionary: activity as! NSDictionary));
+                    for serverActivity: AnyObject in serverActivities {
+                        let activity = HigiActivity(dictionary: serverActivity as! NSDictionary);
+                        let dateString = Constants.dateFormatter.stringFromDate(activity.startTime);
+                        if var (total, processedActivities) = activities[dateString] {
+                            let points = activity.errorDescription == nil ? activity.points + total : total;
+                            processedActivities.append(activity);
+                            activities[dateString] = (points, processedActivities);
+                        } else {
+                            let points = activity.errorDescription == nil ? activity.points : 0;
+                            let processedActivities = [activity];
+                            activities[dateString] = (points, processedActivities);
+                        }
                     }
                     
                     SessionController.Instance.activities = activities;
@@ -145,12 +154,13 @@ class ApiUtility {
                         NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.ACTIVITIES, object: nil, userInfo: ["success": true]);
                         success?();
                     });
-                
+                    SessionController.Instance.loadedActivities = true;
                 });
                 }, failure: { operation, error in
                     SessionController.Instance.earnditError = true;
                     NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.ACTIVITIES, object: nil, userInfo: ["success": false]);
-                    SessionController.Instance.activities = [];
+                    SessionController.Instance.activities = [:];
+                    SessionController.Instance.loadedActivities = true;
                     success?();
             });
         });
@@ -159,11 +169,9 @@ class ApiUtility {
     
     class func checkForNewActivities(success: (() -> Void)?) {
         let userId = !HigiApi.EARNDIT_DEV ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
-        HigiApi().sendPost("\(HigiApi.earnditApiUrl)/user/\(userId)/lookForNewActivities", parameters: nil, success: {operation, responseObject in
-            var i=0;    // Still won't allow optional method be the only thing in the body
+        HigiApi().sendPost("\(HigiApi.earnditApiUrl)/user/\(userId)/activities/lookForNew", parameters: nil, success: {operation, responseObject in
             success?();
             }, failure: { operation, error in
-                var i=0;
                 success?();
         });
     }

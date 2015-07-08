@@ -32,5 +32,4 @@ class MainNavigationController: UINavigationController {
     override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
         return UIInterfaceOrientation.Portrait;
     }
-
 }

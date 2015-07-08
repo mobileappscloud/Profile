@@ -12,7 +12,7 @@ class HigiCheckin {
     
     var checkinId, sourceVendorId, sourceType, sourceId, bmiClass, bpClass, pulseClass: NSString?;
     
-    var weightKG, heightMeters, bmi, map, fatRatio, weightLbs: Double?;
+    var weightKG, heightMeters, heightInches, bmi, map, fatRatio, weightLbs: Double?;
     
     var systolic, diastolic, score, pulseBpm: Int?;
     
@@ -32,6 +32,9 @@ class HigiCheckin {
         pulseClass = dictionary["pulseClass"] as? NSString;
         weightKG = dictionary["weightKG"] as? Double;
         heightMeters = dictionary["heightMeters"] as? Double;
+        if (heightMeters != nil) {
+            heightInches = heightMeters! * 39.3701;
+        }
         bmi = dictionary["bmi"] as? Double;
         fatRatio = dictionary["fatRatio"] as? Double;
         systolic = dictionary["systolic"] as? Int;
@@ -63,10 +66,10 @@ class HigiCheckin {
         
     }
     
-    func convertClass(bodyStatClass: NSString?) -> NSString? {
+    func convertClass(MetricClass: NSString?) -> NSString? {
         var retVal: NSString;
-        if (bodyStatClass != nil) {
-            switch (bodyStatClass!) {
+        if (MetricClass != nil) {
+            switch (MetricClass!) {
             case "normal":
                 retVal = "Normal";
             case "low":
@@ -82,7 +85,7 @@ class HigiCheckin {
             case "obese":
                 retVal = "Obese";
             default:
-                retVal = bodyStatClass!;
+                retVal = MetricClass!;
             }
             return retVal;
         } else {

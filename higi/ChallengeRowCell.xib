@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
@@ -14,23 +14,47 @@
             <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fhS-10-ORM" id="ggG-Ox-512">
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="top" ambiguous="YES" misplaced="YES" directionalLockEnabled="YES" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lGb-gk-1XT">
+                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bRp-j1-sav">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="54"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="higi_logo_innercircle.png" translatesAutoresizingMaskIntoConstraints="NO" id="U7Y-O7-h3b">
+                                <rect key="frame" x="12" y="12" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="6d9-tB-83R"/>
+                                    <constraint firstAttribute="width" constant="30" id="YqB-E4-FY6"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="84d left" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="do3-VF-y8L">
+                                <rect key="frame" x="232" y="8" width="80" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="0.39786537247474751" green="0.39786537247474751" blue="0.39786537247474751" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Sweeping the Nation Challenge Long description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rWV-YR-WqJ">
+                                <rect key="frame" x="55" y="16" width="257" height="21"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="rWV-YR-WqJ" firstAttribute="leading" secondItem="U7Y-O7-h3b" secondAttribute="trailing" constant="12" id="41i-z7-ub4"/>
+                            <constraint firstItem="U7Y-O7-h3b" firstAttribute="top" secondItem="bRp-j1-sav" secondAttribute="top" constant="12" id="DnE-FR-jhR"/>
+                            <constraint firstItem="do3-VF-y8L" firstAttribute="top" secondItem="bRp-j1-sav" secondAttribute="top" constant="8" id="DsT-AA-euX"/>
+                            <constraint firstAttribute="bottom" secondItem="U7Y-O7-h3b" secondAttribute="bottom" constant="12" id="FoF-kc-nnv"/>
+                            <constraint firstItem="U7Y-O7-h3b" firstAttribute="leading" secondItem="bRp-j1-sav" secondAttribute="leading" constant="12" id="IcA-U1-TdN"/>
+                            <constraint firstAttribute="trailing" secondItem="do3-VF-y8L" secondAttribute="trailing" constant="8" id="Imf-yL-pXj"/>
+                            <constraint firstAttribute="centerY" secondItem="rWV-YR-WqJ" secondAttribute="centerY" id="Wqb-wX-LSd"/>
+                            <constraint firstAttribute="bottom" secondItem="do3-VF-y8L" secondAttribute="bottom" constant="29" id="ePy-oj-RBP"/>
+                            <constraint firstItem="rWV-YR-WqJ" firstAttribute="leading" secondItem="U7Y-O7-h3b" secondAttribute="trailing" constant="12" id="pq8-w3-t84"/>
+                        </constraints>
+                    </view>
+                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="top" fixedFrame="YES" directionalLockEnabled="YES" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lGb-gk-1XT">
                         <rect key="frame" x="0.0" y="53" width="320" height="174"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </scrollView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Sweeping the Nation Challenge" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rWV-YR-WqJ">
-                        <rect key="frame" x="52" y="22" width="257" height="21"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="do3-VF-y8L">
-                        <rect key="frame" x="232" y="1" width="80" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <color key="textColor" red="0.39786537247474751" green="0.39786537247474751" blue="0.39786537247474751" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <pageControl contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" hidesForSinglePage="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xdd-7h-crl">
                         <color key="pageIndicatorTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="currentPageIndicatorTintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -38,25 +62,10 @@
                             <action selector="changePage:" destination="fhS-10-ORM" eventType="valueChanged" id="lJ0-wb-pCa"/>
                         </connections>
                     </pageControl>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="higi_logo_innercircle.png" translatesAutoresizingMaskIntoConstraints="NO" id="U7Y-O7-h3b">
-                        <rect key="frame" x="14" y="15" width="30" height="30"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="30" id="6d9-tB-83R"/>
-                            <constraint firstAttribute="width" constant="30" id="YqB-E4-FY6"/>
-                        </constraints>
-                    </imageView>
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 <constraints>
-                    <constraint firstAttribute="trailingMargin" secondItem="rWV-YR-WqJ" secondAttribute="trailing" constant="3" id="H09-91-PtP"/>
-                    <constraint firstItem="lGb-gk-1XT" firstAttribute="top" secondItem="U7Y-O7-h3b" secondAttribute="bottom" constant="7" id="K5D-00-sbp"/>
-                    <constraint firstItem="U7Y-O7-h3b" firstAttribute="leading" secondItem="ggG-Ox-512" secondAttribute="leadingMargin" constant="7" id="Mt4-zd-7xm"/>
-                    <constraint firstItem="lGb-gk-1XT" firstAttribute="top" secondItem="rWV-YR-WqJ" secondAttribute="bottom" constant="10" id="QNH-fE-mRK"/>
-                    <constraint firstItem="rWV-YR-WqJ" firstAttribute="leading" secondItem="U7Y-O7-h3b" secondAttribute="trailing" constant="7" id="RK3-PV-7bm"/>
-                    <constraint firstItem="U7Y-O7-h3b" firstAttribute="top" secondItem="ggG-Ox-512" secondAttribute="topMargin" constant="7" id="Ur8-4h-1uA"/>
-                    <constraint firstItem="rWV-YR-WqJ" firstAttribute="top" secondItem="ggG-Ox-512" secondAttribute="topMargin" constant="13" id="aYS-xh-5ex"/>
                     <constraint firstAttribute="bottomMargin" secondItem="Xdd-7h-crl" secondAttribute="bottom" id="dxW-bJ-bJe"/>
-                    <constraint firstItem="rWV-YR-WqJ" firstAttribute="leading" secondItem="U7Y-O7-h3b" secondAttribute="trailing" constant="7" id="jGN-gD-Seq"/>
                     <constraint firstAttribute="centerX" secondItem="Xdd-7h-crl" secondAttribute="centerX" id="pWk-Ri-jCx"/>
                 </constraints>
             </tableViewCellContentView>
