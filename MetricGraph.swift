@@ -303,13 +303,6 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         graph.addPlot(plot, toPlotSpace: graph.defaultPlotSpace);
         
         checkinSelected(plot, idx: points.count - 1, first: true);
-        
-        let tap = UITapGestureRecognizer(target: self, action: "graphTapped:");
-        self.addGestureRecognizer(tap);
-    }
-    
-    func graphTapped(sender: AnyObject) {
-        let i = 0;
     }
     
     func roundToLowest(number: Double, roundTo: Double) -> Double {
@@ -340,6 +333,20 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         } else {
             return NSNumber(double: point.y);
         }
+    }
+    
+    func symbolFromXValue(xValue: Double) {
+        var minDifference = DBL_MAX;
+        var i = 0;
+        for point in points {
+            let difference = abs(xValue - point.x)
+            if difference < minDifference {
+                minDifference = difference;
+                selectedPointIndex = i;
+            }
+            i++;
+        }
+        self.plot.reloadData();
     }
     
     func scatterPlot(plot: CPTScatterPlot!, plotSymbolWasSelectedAtRecordIndex idx: UInt) {
