@@ -291,23 +291,30 @@ class CheckinCard: UIView, UITableViewDataSource, UITableViewDelegate {
             if (kioskInfo.latitude != nil) {
                 latitude = kioskInfo.latitude!;
                 longitude = kioskInfo.longitude!;
+                placeMap(latitude, longitude: longitude);
             } else {
+                latitude = 0;
+                longitude = 0;
                 var geocoder = CLGeocoder();
                 geocoder.geocodeAddressString(kioskInfo.streetAddress as String, completionHandler: { placemarks, error in
                     if (placemarks.count > 0) {
                         latitude = (placemarks[0] as! CLPlacemark).location.coordinate.latitude;
                         longitude = (placemarks[0] as! CLPlacemark).location.coordinate.longitude;
-                    } else {
-                        latitude = 0;
-                        longitude = 0;
                     }
+                    self.placeMap(latitude, longitude: longitude);
                 });
             }
+            
+        }
+    }
+    
+    func placeMap(latitude: Double, longitude: Double) {
+        if (latitude != 0 && longitude != 0) {
             var camera = GMSCameraPosition.cameraWithLatitude(latitude, longitude: longitude, zoom: 14);
             var mapView = GMSMapView.mapWithFrame(mapContainer.frame, camera: camera);
             mapView.userInteractionEnabled = false;
             var icon = Utility.scaleImage(UIImage(named: "mapicon_higicard")!, newSize: CGSize(width: 45, height: 45));
-            var marker = GMSMarker(position: kioskInfo.position!);
+            var marker = GMSMarker(position: CLLocationCoordinate2D(latitude: latitude, longitude: longitude));
             marker.icon = icon;
             marker.map = mapView;
             mapContainer.addSubview(mapView);
