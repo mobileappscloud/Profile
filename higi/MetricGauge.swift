@@ -40,7 +40,7 @@ class MetricGauge: UIView {
     
     var drawAngle: Double!;
     
-    var markerAngle: CGFloat!;
+    var startAngle: CGFloat = 0.0;
     
     var userValue: Int!;
     
@@ -92,7 +92,7 @@ class MetricGauge: UIView {
         var center = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2);
         
         //expression too complex for Swift in one line
-        var startAngle = CGFloat((M_PI * 2 - sweepAngle) / 2);
+        startAngle = CGFloat((M_PI * 2 - sweepAngle) / 2);
         startAngle += CGFloat(M_PI / 2);
         
         let ranges = delegate.getRanges(tab);
@@ -193,13 +193,13 @@ class MetricGauge: UIView {
         } else {
             ratio = CGFloat(userValue) / CGFloat(rangeMax + rangeMin);
         }
-        markerAngle = startAngle + CGFloat(drawAngle) * CGFloat(rangeIndex);
+        
         drawMarker(startAngle + CGFloat(drawAngle) * CGFloat(rangeIndex), value: userValue, range: userRange);
     }
     
-    func drawMarker(startAngle:CGFloat, value: Int, range: Range) {
-        var valueAngle = CGFloat(value - range.lowerBound) / CGFloat(range.upperBound - range.lowerBound) * CGFloat(drawAngle) + startAngle;
-        valueAngle = min(max(valueAngle, startAngle), CGFloat(sweepAngle) + startAngle);
+    func drawMarker(markerAngle:CGFloat, value: Int, range: Range) {
+        var valueAngle = CGFloat(value - range.lowerBound) / CGFloat(range.upperBound - range.lowerBound) * CGFloat(drawAngle) + markerAngle;
+        valueAngle = min(max(valueAngle, markerAngle), startAngle + CGFloat(sweepAngle));
 
         let triangleFrame = CGRect(x: 0, y: 0, width: gaugeContainer.frame.size.width, height: gaugeContainer.frame.size.height);
         
