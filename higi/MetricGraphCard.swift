@@ -100,7 +100,7 @@ class MetricsGraphCard: UIView {
     func setCheckinData(checkin: HigiCheckin, type: MetricsType) {
         let formatter = NSDateFormatter(), dayFormatter = NSDateFormatter();
         formatter.dateFormat = "MMMM";
-        dayFormatter.dateFormat = "dd";
+        dayFormatter.dateFormat = "d";
         date.text = "\(formatter.stringFromDate(checkin.dateTime)) \(ChallengeUtility.getRankSuffix(dayFormatter.stringFromDate(checkin.dateTime)))";
         
         if (type == MetricsType.BloodPressure) {
