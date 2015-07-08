@@ -226,11 +226,11 @@ class MetricCard: UIView, MetricDelegate {
             initRegions(!toggleOn);
         }
         if toggleOn {
-            title.text = delegate.getTitle();
-            toggleButton.setTitle("Switch to Body Fat%", forState: UIControlState.Normal);
-        } else {
             title.text = "Body Fat%";
             toggleButton.setTitle("Switch to Weight", forState: UIControlState.Normal);
+        } else {
+            title.text = delegate.getTitle();
+            toggleButton.setTitle("Switch to Body Fat%", forState: UIControlState.Normal);
         }
         toggleOn = !toggleOn;
     }
