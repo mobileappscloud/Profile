@@ -80,7 +80,7 @@ class WeightMetricDelegate: MetricDelegate {
             } else {
                 let date = Constants.displayDateFormatter.stringFromDate(selectedFatCheckin.dateTime);
                 let weight = selectedFatCheckin.weightLbs != nil ? "\(Int(selectedFatCheckin.weightLbs!))" : "--";
-                let bodyFat = selectedFatCheckin.fatRatio != nil ? "\(Double(round(selectedFatCheckin.fatRatio! * 100) / 100))%" : "--";
+                let bodyFat = selectedFatCheckin.fatRatio != nil ? String(format: "%.2f", selectedFatCheckin.fatRatio!) + "%" : "--";
                 return MetricCard.SelectedPoint(date: date, firstPanelValue: weight, firstPanelLabel: "Weight", firstPanelUnit: "lbs", secondPanelValue: bodyFat, secondPanelLabel: "Body Fat", secondPanelUnit: "");
             }
         }
@@ -128,7 +128,7 @@ class WeightMetricDelegate: MetricDelegate {
     
     func getSelectedValue(tab:Int) -> String {
         if tab == 1 && !weightMode {
-            return selectedFatCheckin.fatRatio != nil ? "\(Double(round(selectedFatCheckin.fatRatio! * 100) / 100))%" : "--";
+            return selectedFatCheckin.fatRatio != nil ? String(format: "%.2f", selectedFatCheckin.fatRatio!) + "%" : "--";
         } else {
             return selectedWeightCheckin.weightLbs != nil ? "\(Int(selectedWeightCheckin.weightLbs!))" : "--";
         }
