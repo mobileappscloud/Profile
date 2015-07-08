@@ -26,6 +26,7 @@ class MetricsViewController: UIViewController {
         previousSupportedOrientations = revealController.supportedOrientations;
         previousShouldRotate = revealController.shouldRotate;
         previousActualOrientation = self.interfaceOrientation.rawValue;
+        
         screenWidth = max(UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height);
         screenHeight = min(UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height);
     }
@@ -37,10 +38,10 @@ class MetricsViewController: UIViewController {
         let revealController = (self.navigationController as! MainNavigationController).revealController;
         revealController.panGestureRecognizer().enabled = false;
         revealController.shouldRotate = true;
-        if (self.interfaceOrientation.rawValue == UIInterfaceOrientation.Portrait.rawValue) {
-            revealController.supportedOrientations = UIInterfaceOrientationMask.LandscapeRight.rawValue | UIInterfaceOrientationMask.LandscapeLeft.rawValue;
-            UIDevice.currentDevice().setValue(UIInterfaceOrientation.LandscapeRight.rawValue, forKey: "orientation");
-        }
+        revealController.supportedOrientations = UIInterfaceOrientationMask.LandscapeRight.rawValue;
+        revealController.preferredOrientation = UIInterfaceOrientation.LandscapeRight;
+        UIDevice.currentDevice().setValue(UIInterfaceOrientation.LandscapeRight.rawValue, forKey: "orientation");
+        UIViewController.attemptRotationToDeviceOrientation();
         initCards();
     }
 
@@ -58,6 +59,18 @@ class MetricsViewController: UIViewController {
     
     override func prefersStatusBarHidden() -> Bool {
         return true;
+    }
+    
+    override func shouldAutorotate() -> Bool {
+        return true;
+    }
+    
+    override func supportedInterfaceOrientations() -> Int {
+        return UIInterfaceOrientation.LandscapeRight.rawValue | UIInterfaceOrientation.LandscapeLeft.rawValue;
+    }
+    
+    override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
+        return UIInterfaceOrientation.LandscapeRight;
     }
     
     func initCards() {
@@ -84,6 +97,7 @@ class MetricsViewController: UIViewController {
                     card!.secondaryGraph = secondaryGraph;
                     card!.secondaryGraph.hidden = true;
                     card!.toggleButton.hidden = false;
+                    card!.triangleView.hidden = false;
                     card!.graphContainer.addSubview(secondaryGraph);
                 }
             default:
@@ -112,6 +126,7 @@ class MetricsViewController: UIViewController {
         revealController.supportedOrientations = previousSupportedOrientations;
         revealController.shouldRotate = true;
         UIDevice.currentDevice().setValue(previousActualOrientation, forKey: "orientation");
+        UIViewController.attemptRotationToDeviceOrientation();
         revealController.shouldRotate = previousShouldRotate;
         
         self.navigationController!.popViewControllerAnimated(true);

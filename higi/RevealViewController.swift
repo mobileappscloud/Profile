@@ -15,6 +15,8 @@ class RevealViewController: SWRevealViewController {
     
     var supportedOrientations = UIInterfaceOrientationMask.Portrait.rawValue;
     
+    var preferredOrientation = UIInterfaceOrientation.Portrait;
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         self.view.addGestureRecognizer(self.panGestureRecognizer());
@@ -33,8 +35,6 @@ class RevealViewController: SWRevealViewController {
     }
     
     override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
-        return UIInterfaceOrientation.Portrait;
+        return preferredOrientation;
     }
-    
-    
 }
