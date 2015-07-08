@@ -76,16 +76,14 @@ class MetricGraphUtility {
         
         for checkin in SessionController.Instance.checkins.reverse() {
             let dateString = Constants.dateFormatter.stringFromDate(checkin.dateTime);
-            if (dateString != lastFatDate) {
-                let checkinTime = Utility.dateWithDateComponentOnly(checkin.dateTime).timeIntervalSince1970;
-                if (checkin.fatRatio != nil && checkin.fatRatio > 0) {
-                    points.append(GraphPoint(x: checkinTime, y: checkin.fatRatio));
-                    lastFatDate = dateString;
-                }
-                if (checkin.weightLbs != nil && checkin.weightLbs > 0) {
-                    altPoints.append(GraphPoint(x: checkinTime, y: 10 + (checkin.weightLbs! / heaviest) * fattest * (1 + (fattest - thinnest) / 150.0)));
-                    lastWeightDate = dateString;
-                }
+            let checkinTime = Utility.dateWithDateComponentOnly(checkin.dateTime).timeIntervalSince1970;
+            if (dateString != lastFatDate && checkin.fatRatio != nil && checkin.fatRatio > 0) {
+                points.append(GraphPoint(x: checkinTime, y: checkin.fatRatio));
+                lastFatDate = dateString;
+            }
+            if (dateString != lastWeightDate && checkin.weightLbs != nil && checkin.weightLbs > 0) {
+                altPoints.append(GraphPoint(x: checkinTime, y: 10 + (checkin.weightLbs! / heaviest) * fattest * (1 + (fattest - thinnest) / 150.0)));
+                lastWeightDate = dateString;
             }
         }
         if (points.count > 0) {

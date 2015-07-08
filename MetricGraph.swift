@@ -387,24 +387,26 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
     
     func symbolForScatterPlot(plot: CPTScatterPlot!, recordIndex idx: UInt) -> CPTPlotSymbol! {
         if (plot.isEqual(self.plot)) {
-            return selectedPointIndex == Int(idx) ? selectedPlotSymbol : plotSymbol;
-        } else {
-            if (idx % 2 == 1) {
-                if (Int(idx) == ((selectedPointIndex * 2) + 1)) {
-                    return selectedAltPlotSymbol;
-                }
+            if selectedPointIndex == Int(idx) {
+                return selectedPlotSymbol;
             } else {
-                if (Int(idx) == (selectedPointIndex * 2)) {
+                return plotSymbol;
+            }
+        } else {
+            if (shouldShowAltSymbol) {
+                if (idx % 2 == 1) {
+                    if (Int(idx) == ((selectedPointIndex * 2) + 1)) {
+                        return selectedAltPlotSymbol;
+                    }
+                } else if (Int(idx) == (selectedPointIndex * 2)) {
                     return selectedAltPlotSymbol;
                 }
-            }
-            if (shouldShowAltSymbol) {
-                return unselectedAltPlotSymbol;
             } else {
                 let noSymbol = CPTPlotSymbol.ellipsePlotSymbol();
                 noSymbol.size = CGSize(width: 0, height: 0);
                 return noSymbol;
             }
+            return unselectedAltPlotSymbol;
         }
     }
     
