@@ -76,7 +76,7 @@ class MetricDetailCard: UIView {
             meter.addGestureRecognizer(tap);
             
             initSummaryview(dateString);
-        } else if (delegate.getRanges(tab).count > 0) {
+        } else {
             if (meter != nil && meter.superview != nil) {
                 meter.removeFromSuperview();
             }
