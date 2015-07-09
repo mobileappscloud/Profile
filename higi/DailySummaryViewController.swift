@@ -298,6 +298,11 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
+    override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
+            scrollView.setContentOffset(CGPoint(x: 0,y: 0), animated: false);
+            updateNavbar(0);
+    }
+    
     func goBack(sender: AnyObject!) {
         isLeaving = true;
         self.navigationController!.popViewControllerAnimated(true);
