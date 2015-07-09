@@ -13,8 +13,6 @@ class MetricCard: UIView, MetricDelegate {
     
     var graph, secondaryGraph: MetricGraph!;
     
-    var viewFrame: CGRect!;
-    
     var delegate: MetricDelegate!;
     
     var position:Int!;
@@ -123,9 +121,13 @@ class MetricCard: UIView, MetricDelegate {
         if (graph.points.count > 0) {
             self.graphContainer.addSubview(graph);
         } else {
-            let image = UIImageView(frame: graphContainer.frame);
-            image.image = delegate.getBlankStateImage();
-            self.graphContainer.addSubview(image);
+            let image = delegate.getBlankStateImage();
+            let height = image.size.height;
+            let width = image.size.width;
+            let newWidth = (width / height) * graphContainer.frame.size.height;
+            var blankStateImage = UIImageView(frame: CGRect(x: (graphContainer.frame.size.width - newWidth) / 2, y: 0, width: newWidth, height: graphContainer.frame.size.height));
+            blankStateImage.image = Utility.scaleImage(image, newSize: CGSize(width: newWidth, height: graphContainer.frame.size.height));
+            self.graphContainer.addSubview(blankStateImage);
         }
     }
     
@@ -204,16 +206,9 @@ class MetricCard: UIView, MetricDelegate {
     }
 
     func initFrame(frame: CGRect) {
-        self.frame = frame;
-        viewFrame = frame;
         let triangle = TriangleView(frame: CGRect(x: 0, y: 0, width: triangleView.frame.size.width, height: triangleView.frame.size.height));
         triangle.transform = CGAffineTransformMakeRotation(CGFloat(M_PI_2));
         triangleView.addSubview(triangle);
-    }
-    
-    func resizeFrameWithWidth(width: CGFloat) {
-        viewFrame.size.width = width;
-        
     }
     
     @IBAction func toggleClicked(sender: AnyObject) {

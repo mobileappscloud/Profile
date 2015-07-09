@@ -163,7 +163,6 @@ class MetricsViewController: UIViewController {
                         let newWidth = self.screenWidth - CGFloat((index + 1) * self.cardMargin);
                         UIView.animateWithDuration(self.animationDuration, delay: 0, options: .CurveEaseInOut, animations: {
                             card.frame.size.width = newWidth;
-                            card.resizeFrameWithWidth(newWidth);
                             }, completion:  { complete in
                                 
                         });
@@ -233,10 +232,14 @@ class MetricsViewController: UIViewController {
         let currentCard = self.view.subviews[self.view.subviews.count - 1] as! MetricCard;
         detailsCard = initDetailCard(currentCard);
         self.view.addSubview(detailsCard);
-        if (detailsGone && !detailsCard.blankState) {
-            detailsCard.animateBounceIn(detailsCardPosY);
-            detailsGone = false;
-        } else if (!detailsGone && detailsCard.blankState) {
+        if (detailsGone) {
+            if detailsCard.blankState {
+                detailsCard.frame.origin.y = screenHeight;
+            } else {
+                detailsCard.animateBounceIn(detailsCardPosY);
+                detailsGone = false;
+            }
+        } else if detailsCard.blankState {
             detailsCard.animateBounceOut();
             detailsGone = true;
         }
@@ -349,8 +352,9 @@ class MetricsViewController: UIViewController {
         for index in 0...count - 1 {
             let card = subViews[index] as! MetricCard;
             let newWidth = screenWidth - CGFloat((index) * self.cardMargin);
-            card.frame.size.width = newWidth;
-            card.resizeFrameWithWidth(newWidth);
+            UIView.animateWithDuration(animationDuration, delay: 0, options: .CurveEaseInOut, animations: {
+                card.frame.size.width = newWidth;
+                }, completion: nil);
             card.position = count - 1 - index;
             card.graphContainer.frame.size.width = screenWidth;
             if card.graph != nil {
