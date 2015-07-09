@@ -38,17 +38,6 @@
                                         </mask>
                                     </variation>
                                 </button>
-                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P2d-EJ-Fzo">
-                                    <rect key="frame" x="417" y="12" width="72" height="30"/>
-                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                    <state key="normal" title="BMI">
-                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <connections>
-                                        <action selector="toggleClicked:" destination="D6s-dc-jNs" eventType="touchUpInside" id="7rb-sy-hDH"/>
-                                    </connections>
-                                </button>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="workouticon.png" translatesAutoresizingMaskIntoConstraints="NO" id="sQT-Mg-g6l">
                                     <rect key="frame" x="530" y="12" width="30" height="30"/>
                                     <constraints>
@@ -56,22 +45,40 @@
                                         <constraint firstAttribute="width" constant="30" id="cgT-2g-dmS"/>
                                     </constraints>
                                 </imageView>
+                                <view hidden="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mVp-td-bsa">
+                                    <rect key="frame" x="101" y="22" width="15" height="10"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P2d-EJ-Fzo">
+                                    <rect key="frame" x="124" y="12" width="135" height="30"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                    <state key="normal" title="Switch to Body Fat %">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="toggleClicked:" destination="D6s-dc-jNs" eventType="touchUpInside" id="7rb-sy-hDH"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstItem="wUV-nj-F9j" firstAttribute="top" secondItem="UIY-l6-dOw" secondAttribute="top" constant="11" id="28C-BP-a2v"/>
                                 <constraint firstItem="j3p-dy-V9m" firstAttribute="leading" secondItem="wUV-nj-F9j" secondAttribute="trailing" constant="8" id="3Mn-fg-0M4"/>
+                                <constraint firstItem="P2d-EJ-Fzo" firstAttribute="leading" secondItem="j3p-dy-V9m" secondAttribute="trailing" constant="27" id="3Nr-U5-uuN"/>
                                 <constraint firstItem="wUV-nj-F9j" firstAttribute="leading" secondItem="UIY-l6-dOw" secondAttribute="leading" constant="16" id="69Z-sz-Vms"/>
-                                <constraint firstAttribute="bottom" secondItem="P2d-EJ-Fzo" secondAttribute="bottom" constant="12" id="8X5-2d-Unb"/>
-                                <constraint firstItem="sQT-Mg-g6l" firstAttribute="leading" secondItem="P2d-EJ-Fzo" secondAttribute="trailing" constant="41" id="A2C-fP-lYG"/>
+                                <constraint firstItem="P2d-EJ-Fzo" firstAttribute="top" secondItem="UIY-l6-dOw" secondAttribute="top" constant="12" id="8kR-6S-ycc"/>
                                 <constraint firstItem="sQT-Mg-g6l" firstAttribute="top" secondItem="UIY-l6-dOw" secondAttribute="top" constant="12" id="Dlp-uX-OzW"/>
-                                <constraint firstItem="P2d-EJ-Fzo" firstAttribute="top" secondItem="UIY-l6-dOw" secondAttribute="top" constant="12" id="GBM-YT-Bdy"/>
                                 <constraint firstAttribute="bottom" secondItem="wUV-nj-F9j" secondAttribute="bottom" constant="10" id="JDn-gr-9mt"/>
+                                <constraint firstAttribute="bottom" secondItem="P2d-EJ-Fzo" secondAttribute="bottom" constant="12" id="PPk-ZU-7GC"/>
                                 <constraint firstAttribute="bottom" secondItem="sQT-Mg-g6l" secondAttribute="bottom" constant="12" id="VEh-p2-NTs"/>
-                                <constraint firstItem="sQT-Mg-g6l" firstAttribute="leading" secondItem="P2d-EJ-Fzo" secondAttribute="trailing" constant="41" id="Y1u-Qe-a6q"/>
                                 <constraint firstAttribute="bottom" secondItem="j3p-dy-V9m" secondAttribute="bottom" constant="17" id="ZUu-s2-jp6"/>
                                 <constraint firstAttribute="trailing" secondItem="sQT-Mg-g6l" secondAttribute="trailing" constant="8" id="ZkW-bn-ZpW"/>
+                                <constraint firstItem="mVp-td-bsa" firstAttribute="top" secondItem="UIY-l6-dOw" secondAttribute="top" constant="22" id="awC-vW-wT3"/>
+                                <constraint firstAttribute="bottom" secondItem="mVp-td-bsa" secondAttribute="bottom" constant="22" id="dQv-zG-fvy"/>
                                 <constraint firstItem="j3p-dy-V9m" firstAttribute="top" secondItem="UIY-l6-dOw" secondAttribute="top" constant="16" id="hSt-xE-hKE"/>
+                                <constraint firstItem="mVp-td-bsa" firstAttribute="leading" secondItem="j3p-dy-V9m" secondAttribute="trailing" constant="4" id="oSB-8K-pNA"/>
                                 <constraint firstAttribute="height" constant="54" id="qgq-6n-Ggc"/>
                             </constraints>
                             <variation key="default">
@@ -112,6 +119,7 @@
                 <outlet property="icon" destination="sQT-Mg-g6l" id="bTs-iq-zrt"/>
                 <outlet property="title" destination="j3p-dy-V9m" id="cHX-gV-9U8"/>
                 <outlet property="toggleButton" destination="P2d-EJ-Fzo" id="C9y-l2-AqI"/>
+                <outlet property="triangleView" destination="mVp-td-bsa" id="SeC-fq-AZS"/>
                 <outlet property="view" destination="Mdt-gR-rG5" id="29e-Mn-bKb"/>
             </connections>
             <point key="canvasLocation" x="274" y="229"/>

@@ -9,6 +9,7 @@ class MetricCard: UIView, MetricDelegate {
     @IBOutlet weak var icon: UIImageView!
     @IBOutlet weak var toggleButton: UIButton!
     @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var triangleView: UIView!
     
     var graph, secondaryGraph: MetricGraph!;
     
@@ -205,6 +206,9 @@ class MetricCard: UIView, MetricDelegate {
     func initFrame(frame: CGRect) {
         self.frame = frame;
         viewFrame = frame;
+        let triangle = TriangleView(frame: CGRect(x: 0, y: 0, width: triangleView.frame.size.width, height: triangleView.frame.size.height));
+        triangle.transform = CGAffineTransformMakeRotation(CGFloat(M_PI_2));
+        triangleView.addSubview(triangle);
     }
     
     func resizeFrameWithWidth(width: CGFloat) {
@@ -220,6 +224,13 @@ class MetricCard: UIView, MetricDelegate {
             updateDetailsCard();
             (Utility.getViewController(self) as! MetricsViewController).setDetailsHeader();
             initRegions(!toggleOn);
+        }
+        if toggleOn {
+            title.text = "Body Fat%";
+            toggleButton.setTitle("Switch to Weight", forState: UIControlState.Normal);
+        } else {
+            title.text = delegate.getTitle();
+            toggleButton.setTitle("Switch to Body Fat%", forState: UIControlState.Normal);
         }
         toggleOn = !toggleOn;
     }

@@ -4,6 +4,8 @@ class WeightMetricDelegate: MetricDelegate {
     
     var selectedWeightCheckin, selectedFatCheckin: HigiCheckin!;
 
+    var graph, secondaryGraph: MetricGraph!;
+    
     var weightMode = true;
     
     func getTitle() -> String {
@@ -36,27 +38,33 @@ class WeightMetricDelegate: MetricDelegate {
     
     func setSelected(date: NSDate) {
         let selectedDate = Utility.dateWithDateComponentOnly(date).timeIntervalSince1970;
-        var minDifference = DBL_MAX;
+        var minFatDifference = DBL_MAX, minWeightDifference = DBL_MAX;
         for checkin in SessionController.Instance.checkins.reverse() {
             let checkinDate = Utility.dateWithDateComponentOnly(checkin.dateTime).timeIntervalSince1970;
             let difference = abs(checkinDate - selectedDate);
-            if weightMode {
-                if difference < minDifference {
-                    if checkin.weightLbs != nil && checkin.weightLbs > 0 {
-                        minDifference = difference;
-                        selectedWeightCheckin = checkin;
-                    }
-                    if (selectedFatCheckin == nil && checkin.fatRatio != nil) {
-                        selectedFatCheckin = checkin;
-                    }
-                } else if (difference > minDifference) {
-                    break;
+            if difference < minWeightDifference {
+                if checkin.weightLbs != nil && checkin.weightLbs > 0 {
+                    minWeightDifference = difference;
+                    selectedWeightCheckin = checkin;
                 }
-            } else {
-                if (difference < minDifference && checkin.fatRatio != nil) {
-                    minDifference = difference;
+            }
+            if difference < minFatDifference {
+                if (checkin.fatRatio != nil && checkin.fatRatio > 0) {
+                    minFatDifference = difference;
                     selectedFatCheckin = checkin;
                 }
+            }
+            if (difference > minFatDifference && difference > minWeightDifference) {
+                break;
+            }
+        }
+        if weightMode {
+            if secondaryGraph != nil {
+                secondaryGraph.symbolFromXValue(Utility.dateWithDateComponentOnly(selectedFatCheckin.dateTime).timeIntervalSince1970);
+            }
+        } else {
+            if graph != nil {
+                graph.symbolFromXValue(Utility.dateWithDateComponentOnly(selectedWeightCheckin.dateTime).timeIntervalSince1970);
             }
         }
     }
@@ -72,19 +80,20 @@ class WeightMetricDelegate: MetricDelegate {
             } else {
                 let date = Constants.displayDateFormatter.stringFromDate(selectedFatCheckin.dateTime);
                 let weight = selectedFatCheckin.weightLbs != nil ? "\(Int(selectedFatCheckin.weightLbs!))" : "--";
-                let bodyFat = selectedFatCheckin.fatRatio != nil ? "\(Double(round(selectedFatCheckin.fatRatio! * 100) / 100))%" : "--";
+                let bodyFat = selectedFatCheckin.fatRatio != nil ? String(format: "%.2f", selectedFatCheckin.fatRatio!) + "%" : "--";
                 return MetricCard.SelectedPoint(date: date, firstPanelValue: weight, firstPanelLabel: "Weight", firstPanelUnit: "lbs", secondPanelValue: bodyFat, secondPanelLabel: "Body Fat", secondPanelUnit: "");
             }
         }
     }
     
     func getGraph(frame: CGRect) -> MetricGraph {
-        return MetricGraphUtility.createWeightGraph(CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height));
+        graph = MetricGraphUtility.createWeightGraph(CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height));
+        return graph;
     }
     
     func getSecondaryGraph(frame: CGRect) -> MetricGraph? {
-        let graph = MetricGraphUtility.createBodyFatGraph(CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height));
-        return graph;
+        secondaryGraph = MetricGraphUtility.createBodyFatGraph(CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height));
+        return secondaryGraph;
     }
     
     func getRanges(tab:Int) -> [MetricGauge.Range] {
@@ -119,7 +128,7 @@ class WeightMetricDelegate: MetricDelegate {
     
     func getSelectedValue(tab:Int) -> String {
         if tab == 1 && !weightMode {
-            return selectedFatCheckin.fatRatio != nil ? "\(Double(round(selectedFatCheckin.fatRatio! * 100) / 100))%" : "--";
+            return selectedFatCheckin.fatRatio != nil ? String(format: "%.2f", selectedFatCheckin.fatRatio!) + "%" : "--";
         } else {
             return selectedWeightCheckin.weightLbs != nil ? "\(Int(selectedWeightCheckin.weightLbs!))" : "--";
         }

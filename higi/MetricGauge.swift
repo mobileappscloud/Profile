@@ -40,7 +40,7 @@ class MetricGauge: UIView {
     
     var drawAngle: Double!;
     
-    var markerAngle: CGFloat!;
+    var startAngle: CGFloat = 0.0;
     
     var userValue: Int!;
     
@@ -92,114 +92,129 @@ class MetricGauge: UIView {
         var center = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2);
         
         //expression too complex for Swift in one line
-        var startAngle = CGFloat((M_PI * 2 - sweepAngle) / 2);
+        startAngle = CGFloat((M_PI * 2 - sweepAngle) / 2);
         startAngle += CGFloat(M_PI / 2);
         
         let ranges = delegate.getRanges(tab);
-        drawAngle = sweepAngle / Double(ranges.count);
-        var strokeStart:CGFloat = 0.0, strokeEnd:CGFloat = 0.0;
-        var valueSet = false;
-        var lowRange, highRange: Range!;
-        rangeMax = 0;
-        rangeMin = 99999;
-        var rangeIndex = 0, i = 0;
-        for range in ranges {
-            let (begin, end) = range.interval;
-            let rangeInterval = 1 / CGFloat(ranges.count);
-            strokeEnd = strokeStart + rangeInterval;
+        if ranges.count == 0 {
             var toPath = UIBezierPath();
             var rangeArc = CAShapeLayer();
             rangeArc.lineWidth = lineWidth;
             rangeArc.fillColor = UIColor.clearColor().CGColor;
-            if (range.contains(userValue)) {
-                self.label.text = range.label;
-                self.label.textColor = range.color;
-                valueSet = true;
-                userRange = range;
-                rangeIndex = i;
-            }
-            rangeArc.strokeColor = range.color.CGColor;
-            if (begin < rangeMin) {
-                rangeMin = begin;
-                lowRange = range;
-            }
-            if (end > rangeMax) {
-                rangeMax = end;
-                highRange = range;
-            }
+            rangeArc.strokeColor = UIColor.whiteColor().CGColor;
             var center = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2);
-            rangeArc.strokeStart = strokeStart;
-            rangeArc.strokeEnd = strokeEnd;
-            strokeStart = strokeEnd;
+            rangeArc.strokeStart = 0;
+            rangeArc.strokeEnd = 1;
             toPath.addArcWithCenter(center, radius: radius, startAngle: startAngle, endAngle: CGFloat(sweepAngle) + startAngle, clockwise: true);
             rangeArc.path = toPath.CGPath;
             gaugeContainer.layer.addSublayer(rangeArc);
-            if (i < ranges.count - 1) {
-                let rangeVal = CGFloat(i + 1);
-                let labelWidth:CGFloat = 100;
-                let labelMargin:CGFloat = 10;
-                let angle = CGFloat(startAngle) + (CGFloat(sweepAngle)) * strokeEnd;
-                var x = center.x + radius * cos(angle);
-                let y = center.y + radius * sin(angle) - (lineWidth + labelMargin) * 2;
-                var textAlign = NSTextAlignment.Left;
-                if (rangeVal < CGFloat(ranges.count) / 2) {
-                    textAlign = NSTextAlignment.Right;
-                    x = x - labelWidth - labelMargin;
-                } else if (rangeVal == CGFloat(ranges.count) / 2) {
-                    textAlign = NSTextAlignment.Center;
-                    x -= labelWidth / 2;
-                } else {
-                    x += labelMargin;
-                }
-                let label = UILabel(frame: CGRect(x: x, y: y, width: labelWidth, height: 50));
-                label.textAlignment = textAlign;
-                label.text = "\(end)";
-                label.font = UIFont.systemFontOfSize(10);
-                gaugeContainer.addSubview(label);
-                
+            self.label.text = "";
+        } else {
+            drawAngle = sweepAngle / Double(ranges.count);
+            var strokeStart:CGFloat = 0.0, strokeEnd:CGFloat = 0.0;
+            var valueSet = false;
+            var lowRange, highRange: Range!;
+            rangeMax = 0;
+            rangeMin = 99999;
+            var rangeIndex = 0, i = 0;
+            for range in ranges {
+                let (begin, end) = range.interval;
+                let rangeInterval = 1 / CGFloat(ranges.count);
+                strokeEnd = strokeStart + rangeInterval;
                 var toPath = UIBezierPath();
                 var rangeArc = CAShapeLayer();
                 rangeArc.lineWidth = lineWidth;
                 rangeArc.fillColor = UIColor.clearColor().CGColor;
-                rangeArc.strokeColor = UIColor.lightGrayColor().CGColor;
+                if (range.contains(userValue)) {
+                    self.label.text = range.label;
+                    self.label.textColor = range.color;
+                    valueSet = true;
+                    userRange = range;
+                    rangeIndex = i;
+                }
+                rangeArc.strokeColor = range.color.CGColor;
+                if (begin < rangeMin) {
+                    rangeMin = begin;
+                    lowRange = range;
+                }
+                if (end > rangeMax) {
+                    rangeMax = end;
+                    highRange = range;
+                }
                 var center = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2);
                 rangeArc.strokeStart = strokeStart;
-                rangeArc.strokeEnd = strokeStart + 0.001;
+                rangeArc.strokeEnd = strokeEnd;
                 strokeStart = strokeEnd;
                 toPath.addArcWithCenter(center, radius: radius, startAngle: startAngle, endAngle: CGFloat(sweepAngle) + startAngle, clockwise: true);
                 rangeArc.path = toPath.CGPath;
                 gaugeContainer.layer.addSublayer(rangeArc);
-                strokeStart += 0.001;
+                if (i < ranges.count - 1) {
+                    let rangeVal = CGFloat(i + 1);
+                    let labelWidth:CGFloat = 100;
+                    let labelMargin:CGFloat = 10;
+                    let angle = CGFloat(startAngle) + (CGFloat(sweepAngle)) * strokeEnd;
+                    var x = center.x + radius * cos(angle);
+                    let y = center.y + radius * sin(angle) - (lineWidth + labelMargin) * 2;
+                    var textAlign = NSTextAlignment.Left;
+                    if (rangeVal < CGFloat(ranges.count) / 2) {
+                        textAlign = NSTextAlignment.Right;
+                        x = x - labelWidth - labelMargin;
+                    } else if (rangeVal == CGFloat(ranges.count) / 2) {
+                        textAlign = NSTextAlignment.Center;
+                        x -= labelWidth / 2;
+                    } else {
+                        x += labelMargin;
+                    }
+                    let label = UILabel(frame: CGRect(x: x, y: y, width: labelWidth, height: 50));
+                    label.textAlignment = textAlign;
+                    label.text = "\(end)";
+                    label.font = UIFont.systemFontOfSize(10);
+                    gaugeContainer.addSubview(label);
+                    
+                    var toPath = UIBezierPath();
+                    var rangeArc = CAShapeLayer();
+                    rangeArc.lineWidth = lineWidth;
+                    rangeArc.fillColor = UIColor.clearColor().CGColor;
+                    rangeArc.strokeColor = UIColor.lightGrayColor().CGColor;
+                    var center = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2);
+                    rangeArc.strokeStart = strokeStart;
+                    rangeArc.strokeEnd = strokeStart + 0.001;
+                    strokeStart = strokeEnd;
+                    toPath.addArcWithCenter(center, radius: radius, startAngle: startAngle, endAngle: CGFloat(sweepAngle) + startAngle, clockwise: true);
+                    rangeArc.path = toPath.CGPath;
+                    gaugeContainer.layer.addSublayer(rangeArc);
+                    strokeStart += 0.001;
+                }
+                i++;
             }
-            i++;
+            var ratio:CGFloat!;
+            if (userValue < rangeMin) {
+                if (!valueSet) {
+                    self.label.text = lowRange.label;
+                    self.label.textColor = lowRange.color;
+                    userRange = lowRange;
+                    rangeIndex = 0;
+                }
+                ratio = 0;
+            } else if (userValue > rangeMax) {
+                if (!valueSet) {
+                    self.label.text = highRange.label;
+                    self.label.textColor = highRange.color;
+                    userRange = highRange;
+                    rangeIndex = ranges.count - 1;
+                }
+                ratio = 1;
+            } else {
+                ratio = CGFloat(userValue) / CGFloat(rangeMax + rangeMin);
+            }
+            
+            drawMarker(startAngle + CGFloat(drawAngle) * CGFloat(rangeIndex), value: userValue, range: userRange);
         }
-        var ratio:CGFloat!;
-        if (userValue < rangeMin) {
-            if (!valueSet) {
-                self.label.text = lowRange.label;
-                self.label.textColor = lowRange.color;
-                userRange = lowRange;
-                rangeIndex = 0;
-            }
-            ratio = 0;
-        } else if (userValue > rangeMax) {
-            if (!valueSet) {
-                self.label.text = highRange.label;
-                self.label.textColor = highRange.color;
-                userRange = highRange;
-                rangeIndex = ranges.count - 1;
-            }
-            ratio = 1;
-        } else {
-            ratio = CGFloat(userValue) / CGFloat(rangeMax + rangeMin);
-        }
-        markerAngle = startAngle + CGFloat(drawAngle) * CGFloat(rangeIndex);
-        drawMarker(startAngle + CGFloat(drawAngle) * CGFloat(rangeIndex), value: userValue, range: userRange);
     }
     
-    func drawMarker(startAngle:CGFloat, value: Int, range: Range) {
-        var valueAngle = CGFloat(value - range.lowerBound) / CGFloat(range.upperBound - range.lowerBound) * CGFloat(drawAngle) + startAngle;
-        valueAngle = min(max(valueAngle, startAngle), CGFloat(sweepAngle) + startAngle);
+    func drawMarker(markerAngle:CGFloat, value: Int, range: Range) {
+        var valueAngle = CGFloat(value - range.lowerBound) / CGFloat(range.upperBound - range.lowerBound) * CGFloat(drawAngle) + markerAngle;
+        valueAngle = min(max(valueAngle, markerAngle), startAngle + CGFloat(sweepAngle));
 
         let triangleFrame = CGRect(x: 0, y: 0, width: gaugeContainer.frame.size.width, height: gaugeContainer.frame.size.height);
         

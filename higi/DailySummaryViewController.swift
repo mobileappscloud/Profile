@@ -240,7 +240,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
                             currentOrigin += breakdownRow.frame.size.height;
                         }
                         if (checkin.fatRatio != nil && checkin.fatRatio > 0) {
-                            let breakdownRow = SummaryViewUtility.initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, text: "\(Double(round(checkin.fatRatio! * 100) / 100))% Body Fat", duplicate: isDuplicate);
+                            let breakdownRow = SummaryViewUtility.initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, text: String(format: "%.2f", checkin.fatRatio!) + "% Body Fat", duplicate: isDuplicate);
                             activityContainer.addSubview(breakdownRow);
                             currentOrigin += breakdownRow.frame.size.height;
                         }
@@ -296,6 +296,11 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
                 self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
             }
         }
+    }
+    
+    override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
+            scrollView.setContentOffset(CGPoint(x: 0,y: 0), animated: false);
+            updateNavbar(0);
     }
     
     func goBack(sender: AnyObject!) {
