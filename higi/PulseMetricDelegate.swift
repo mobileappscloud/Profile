@@ -73,6 +73,28 @@ class PulseMetricDelegate: MetricDelegate {
         return "bpm";
     }
     
+    func getSelectedClass(tab: Int) -> String {
+        if selectedCheckin != nil && selectedCheckin.pulseClass != nil {
+            return selectedCheckin.pulseClass as! String;
+        }
+        return "";
+    }
+
+    func colorFromClass(className: String, tab: Int) -> UIColor {
+        var color: UIColor;
+        switch (className) {
+        case "Normal":
+            color = Utility.colorFromHexString("#88c681");
+        case "Low":
+            color = Utility.colorFromHexString("#44aad8");
+        case "High":
+            color = Utility.colorFromHexString("#ef535a");
+        default:
+            color = UIColor.whiteColor();
+        }
+        return color;
+    }
+    
     func shouldShowRegions() -> Bool {
         return true;
     }

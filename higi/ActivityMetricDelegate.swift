@@ -66,6 +66,15 @@ class ActivityMetricDelegate: MetricDelegate {
         return "";
     }
     
+    
+    func getSelectedClass(tab: Int) -> String {
+        return "";
+    }
+    
+    func colorFromClass(className: String, tab: Int) -> UIColor {
+        return UIColor.clearColor();
+    }
+    
     func shouldShowRegions() -> Bool {
         return false;
     }

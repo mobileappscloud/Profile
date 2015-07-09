@@ -10,7 +10,7 @@ import Foundation
 
 class HigiCheckin {
     
-    var checkinId, sourceVendorId, sourceType, sourceId, bmiClass, bpClass, pulseClass: NSString?;
+    var checkinId, sourceVendorId, sourceType, sourceId, bmiClass, fatClass, bpClass, mapClass, pulseClass: NSString?;
     
     var weightKG, heightMeters, heightInches, bmi, map, fatRatio, weightLbs: Double?;
     
@@ -37,6 +37,7 @@ class HigiCheckin {
         }
         bmi = dictionary["bmi"] as? Double;
         fatRatio = dictionary["fatRatio"] as? Double;
+        fatClass = dictionary["fatClass"] as? NSString;
         systolic = dictionary["systolic"] as? Int;
         diastolic = dictionary["diastolic"] as? Int;
         score = dictionary["score"] as? Int;
@@ -46,6 +47,14 @@ class HigiCheckin {
         dateTime = NSDate(timeIntervalSince1970: date!.doubleValue / 1000);
         if (systolic != nil) {
             map = (Double(diastolic!) * 2.0 + Double(systolic!)) / 3.0;
+            //mapClass = convertClass(mapClass);	TODO uncomment when implemented on API
+            if (map < 70) {
+                mapClass = "Low";
+            } else if (map < 110) {
+                mapClass = "Normal";
+            } else {
+                mapClass = "High";
+            }
         }
         if (weightKG != nil) {
             weightLbs = weightKG! * 2.20462;
@@ -53,7 +62,8 @@ class HigiCheckin {
         bpClass = convertClass(bpClass);
         bmiClass = convertClass(bmiClass);
         pulseClass = convertClass(pulseClass);
-        
+        fatClass = convertClass(fatClass);
+        mapClass = convertClass(mapClass);
         var infoDict: NSDictionary? = dictionary["kioskInfo"] as? NSDictionary;
         if (infoDict != nil) {
             kioskInfo = KioskInfo(dictionary: infoDict!);
@@ -84,6 +94,10 @@ class HigiCheckin {
                 retVal = "Overweight";
             case "obese":
                 retVal = "Obese";
+            case "acceptable":
+                retVal = "Acceptable";
+            case "healthy":
+                retVal = "Healthy";
             default:
                 retVal = MetricClass!;
             }

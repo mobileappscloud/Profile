@@ -108,6 +108,14 @@ class MetricCard: UIView, MetricDelegate {
         return getSelectedUnit(tab);
     }
     
+    func getSelectedClass(tab: Int) -> String {
+        return delegate.getSelectedClass(tab);
+    }
+    
+    func colorFromClass(className: String, tab: Int) -> UIColor {
+        return delegate.colorFromClass(className, tab: tab);
+    }
+    
     func getBlankStateImage() -> UIImage {
         return delegate.getBlankStateImage();
     }

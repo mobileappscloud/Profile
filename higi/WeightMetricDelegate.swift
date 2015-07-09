@@ -142,6 +142,42 @@ class WeightMetricDelegate: MetricDelegate {
         }
     }
     
+    func getSelectedClass(tab: Int) -> String {
+        if tab == 1 && !weightMode {
+            if selectedFatCheckin != nil && selectedFatCheckin.fatClass != nil {
+                return selectedFatCheckin.fatClass as! String;
+            }
+        } else {
+            if selectedWeightCheckin != nil && selectedWeightCheckin.bmiClass != nil {
+                return selectedWeightCheckin.bmiClass as! String;
+            }
+        }
+        return "";
+    }
+    
+    func colorFromClass(className: String, tab: Int) -> UIColor {
+        var color: UIColor;
+        switch (className) {
+        case "Healthy":
+            color = Utility.colorFromHexString("#88c681");
+        case "Acceptable":
+            color = Utility.colorFromHexString("#fdd835");
+        case "At risk":
+            color = Utility.colorFromHexString("#f79a4d");
+        case "Underweight":
+            color = Utility.colorFromHexString("#fdd835");
+        case "Normal":
+            color = Utility.colorFromHexString("#88c681");
+        case "Overweight":
+            color = Utility.colorFromHexString("#f79a4d");
+        case "Obese":
+            color = Utility.colorFromHexString("#ef535a");
+        default:
+            color = UIColor.whiteColor();
+        }
+        return color;
+    }
+    
     func shouldShowRegions() -> Bool {
         return true;
     }

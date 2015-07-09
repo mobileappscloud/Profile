@@ -26,5 +26,9 @@ protocol MetricDelegate {
     
     func getSelectedUnit(tab: Int) -> String;
     
+    func getSelectedClass(tab: Int) -> String;
+    
+    func colorFromClass(className: String, tab: Int) -> UIColor;
+    
     func shouldShowRegions() -> Bool;
 }

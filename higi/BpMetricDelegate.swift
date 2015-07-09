@@ -119,6 +119,38 @@ class BpMetricDelegate: MetricDelegate {
         return "mmHg";
     }
     
+    func getSelectedClass(tab: Int) -> String {
+        if tab == 0 {
+            if selectedCheckin != nil && selectedCheckin.pulseClass != nil {
+                return selectedCheckin.bpClass as! String;
+            }
+        } else {
+            if selectedCheckin != nil && selectedCheckin.mapClass != nil {
+                return selectedCheckin.mapClass as! String;
+            }
+        }
+        return "";
+    }
+    
+    func colorFromClass(className: String, tab: Int) -> UIColor {
+        var color: UIColor;
+        switch (className) {
+        case "Normal":
+            if tab == 0 {
+                color = Utility.colorFromHexString("#88c681");
+            } else {
+                color = Utility.colorFromHexString("#44aad8")
+            }
+        case "Low":
+            color = Utility.colorFromHexString("#44aad8");
+        case "High":
+            color = Utility.colorFromHexString("#ef535a");
+        default:
+            color = UIColor.whiteColor();
+        }
+        return color;
+    }
+    
     class func valueIsSystolic(systolic: Int, diastolic: Int) -> Bool {
         var isSystolic = true;
         var ranges:[MetricGauge.Range] = [];
