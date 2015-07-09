@@ -6,8 +6,6 @@ class WebViewController: UIViewController, NSURLConnectionDataDelegate, UIWebVie
     
     var url: NSString!;
     
-    var loadData = false;
-    
     var webData: NSMutableData!;
     
     var headers:[String:String!] = [:];
@@ -16,7 +14,7 @@ class WebViewController: UIViewController, NSURLConnectionDataDelegate, UIWebVie
     
     var errorMessage: String!;
 
-    var isGone:Bool = false;
+    var loadData = false, isGone = false, isPulseArticle = false;
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -48,7 +46,8 @@ class WebViewController: UIViewController, NSURLConnectionDataDelegate, UIWebVie
     }
     
     func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-        if (request.allHTTPHeaderFields?.indexForKey("Higi-Source") == nil) {
+        //i would prefer to fix this so that it doesn't break pulse instead of just avoiding it altogether
+        if (!isPulseArticle && request.allHTTPHeaderFields?.indexForKey("Higi-Source") == nil) {
             let mutableRequest = NSMutableURLRequest(URL: request.URL!);
             mutableRequest.addValue("mobile-ios", forHTTPHeaderField: "Higi-Source");
             webView.loadRequest(mutableRequest);

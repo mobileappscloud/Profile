@@ -470,6 +470,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         }
         var webView = WebViewController(nibName: "WebView", bundle: nil);
         var article: PulseArticle!;
+        webView.isPulseArticle = true;
         webView.url = SessionController.Instance.pulseArticles[sender.tag!].permalink;
         self.navigationController?.pushViewController(webView, animated: true);
         (self.navigationController as! MainNavigationController).drawerController?.tableView.reloadData();

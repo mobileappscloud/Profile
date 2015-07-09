@@ -86,6 +86,7 @@ class PulseHomeViewController: BaseViewController, UITableViewDataSource, UITabl
     func gotoArticle(article: PulseArticle) {
         var webController = WebViewController(nibName: "WebView", bundle: nil);
         webController.url = article.permalink;
+        webController.isPulseArticle = true;
         self.navigationController!.pushViewController(webController, animated: true);
     }
     
