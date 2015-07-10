@@ -234,6 +234,11 @@
 		D10D84491AEFF9D200DA3278 /* MetricDetailCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D10D84481AEFF9D200DA3278 /* MetricDetailCardView.xib */; };
 		D10D844B1AEFFA7A00DA3278 /* MetricDetailCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10D844A1AEFFA7A00DA3278 /* MetricDetailCard.swift */; };
 		D10D89501A8C11A9000402D4 /* ChallengeDetailsParticipantIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10D894F1A8C11A9000402D4 /* ChallengeDetailsParticipantIcon.swift */; };
+		D10E52431B5048560007EF10 /* ui_details.png in Resources */ = {isa = PBXBuildFile; fileRef = D10E52421B5048560007EF10 /* ui_details.png */; };
+		D10E52451B5048760007EF10 /* ui_progress.png in Resources */ = {isa = PBXBuildFile; fileRef = D10E52441B5048760007EF10 /* ui_progress.png */; };
+		D10E52491B5048CA0007EF10 /* challenge_image.png in Resources */ = {isa = PBXBuildFile; fileRef = D10E52461B5048CA0007EF10 /* challenge_image.png */; };
+		D10E524A1B5048CA0007EF10 /* ui_chatter.png in Resources */ = {isa = PBXBuildFile; fileRef = D10E52471B5048CA0007EF10 /* ui_chatter.png */; };
+		D10E524B1B5048CA0007EF10 /* ui_leaderboards.png in Resources */ = {isa = PBXBuildFile; fileRef = D10E52481B5048CA0007EF10 /* ui_leaderboards.png */; };
 		D110BAD41B0E7C5500CD1E58 /* DailySummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D110BAD31B0E7C5500CD1E58 /* DailySummaryViewController.swift */; };
 		D110BAD61B0E7CD700CD1E58 /* DailySummaryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D110BAD51B0E7CD700CD1E58 /* DailySummaryView.xib */; };
 		D114B06B1B2A19900073A9CB /* TriangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D114B06A1B2A19900073A9CB /* TriangleView.swift */; };
@@ -309,11 +314,6 @@
 		D1E2A6F51AB75EBB00796700 /* MetricGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E2A6F41AB75EBB00796700 /* MetricGraph.swift */; };
 		D1E2DB821AE176760074CBAF /* MetricCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E2DB811AE176760074CBAF /* MetricCard.swift */; };
 		D1EE80F41B3BBAAD00B13CB8 /* SummaryViewUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EE80F31B3BBAAD00B13CB8 /* SummaryViewUtility.swift */; };
-		D1EEDB951A660F2B0012EFD3 /* challenge_image.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDB8E1A660F2B0012EFD3 /* challenge_image.png */; };
-		D1EEDB981A660F2B0012EFD3 /* ui_chatter.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDB911A660F2B0012EFD3 /* ui_chatter.png */; };
-		D1EEDB991A660F2B0012EFD3 /* ui_details.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDB921A660F2B0012EFD3 /* ui_details.png */; };
-		D1EEDB9A1A660F2B0012EFD3 /* ui_leaderboards.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDB931A660F2B0012EFD3 /* ui_leaderboards.png */; };
-		D1EEDB9B1A660F2B0012EFD3 /* ui_progress.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDB941A660F2B0012EFD3 /* ui_progress.png */; };
 		D1EEDBA31A66E4B10012EFD3 /* ChallengeLeaderboardRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDBA21A66E4B10012EFD3 /* ChallengeLeaderboardRow.xib */; };
 		D1EEDBA51A66FA570012EFD3 /* ChallengeLeaderboardRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EEDBA41A66FA570012EFD3 /* ChallengeLeaderboardRow.swift */; };
 		D1EFDC531B45D48400A340DD /* TriangleMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EFDC521B45D48400A340DD /* TriangleMarker.swift */; };
@@ -584,6 +584,11 @@
 		D10D84481AEFF9D200DA3278 /* MetricDetailCardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MetricDetailCardView.xib; sourceTree = "<group>"; };
 		D10D844A1AEFFA7A00DA3278 /* MetricDetailCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricDetailCard.swift; sourceTree = "<group>"; };
 		D10D894F1A8C11A9000402D4 /* ChallengeDetailsParticipantIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeDetailsParticipantIcon.swift; sourceTree = "<group>"; };
+		D10E52421B5048560007EF10 /* ui_details.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_details.png; path = images/ui_details.png; sourceTree = "<group>"; };
+		D10E52441B5048760007EF10 /* ui_progress.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_progress.png; path = images/ui_progress.png; sourceTree = "<group>"; };
+		D10E52461B5048CA0007EF10 /* challenge_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = challenge_image.png; path = images/challenge_image.png; sourceTree = "<group>"; };
+		D10E52471B5048CA0007EF10 /* ui_chatter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_chatter.png; path = images/ui_chatter.png; sourceTree = "<group>"; };
+		D10E52481B5048CA0007EF10 /* ui_leaderboards.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_leaderboards.png; path = images/ui_leaderboards.png; sourceTree = "<group>"; };
 		D110BAD31B0E7C5500CD1E58 /* DailySummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailySummaryViewController.swift; sourceTree = "<group>"; };
 		D110BAD51B0E7CD700CD1E58 /* DailySummaryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DailySummaryView.xib; sourceTree = "<group>"; };
 		D114B06A1B2A19900073A9CB /* TriangleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriangleView.swift; sourceTree = "<group>"; };
@@ -677,11 +682,6 @@
 		D1E2A6F41AB75EBB00796700 /* MetricGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricGraph.swift; sourceTree = "<group>"; };
 		D1E2DB811AE176760074CBAF /* MetricCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricCard.swift; sourceTree = "<group>"; };
 		D1EE80F31B3BBAAD00B13CB8 /* SummaryViewUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SummaryViewUtility.swift; sourceTree = "<group>"; };
-		D1EEDB8E1A660F2B0012EFD3 /* challenge_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = challenge_image.png; path = "../../android-main/app/src/main/res/drawable-nodpi/challenge_image.png"; sourceTree = "<group>"; };
-		D1EEDB911A660F2B0012EFD3 /* ui_chatter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_chatter.png; path = "../../android-main/app/src/main/res/drawable-nodpi/ui_chatter.png"; sourceTree = "<group>"; };
-		D1EEDB921A660F2B0012EFD3 /* ui_details.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_details.png; path = "../../android-main/app/src/main/res/drawable-nodpi/ui_details.png"; sourceTree = "<group>"; };
-		D1EEDB931A660F2B0012EFD3 /* ui_leaderboards.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_leaderboards.png; path = "../../android-main/app/src/main/res/drawable-nodpi/ui_leaderboards.png"; sourceTree = "<group>"; };
-		D1EEDB941A660F2B0012EFD3 /* ui_progress.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_progress.png; path = "../../android-main/app/src/main/res/drawable-nodpi/ui_progress.png"; sourceTree = "<group>"; };
 		D1EEDBA21A66E4B10012EFD3 /* ChallengeLeaderboardRow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeLeaderboardRow.xib; sourceTree = "<group>"; };
 		D1EEDBA41A66FA570012EFD3 /* ChallengeLeaderboardRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeLeaderboardRow.swift; sourceTree = "<group>"; };
 		D1EFDC521B45D48400A340DD /* TriangleMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriangleMarker.swift; sourceTree = "<group>"; };
@@ -1475,16 +1475,16 @@
 		D1FC09931A83DE600049B5C0 /* Challenge Details */ = {
 			isa = PBXGroup;
 			children = (
-				D1EEDB8E1A660F2B0012EFD3 /* challenge_image.png */,
+				D10E52461B5048CA0007EF10 /* challenge_image.png */,
+				D10E52471B5048CA0007EF10 /* ui_chatter.png */,
+				D10E52481B5048CA0007EF10 /* ui_leaderboards.png */,
+				D10E52441B5048760007EF10 /* ui_progress.png */,
+				D10E52421B5048560007EF10 /* ui_details.png */,
 				D1A9C6FC1A951D0D0008084B /* chatterbutton_normal.png */,
 				D1A9C6FD1A951D0D0008084B /* chatterbutton_pressed.png */,
 				D1FC09941A83DE960049B5C0 /* team_icon.png */,
 				D164D3751A7C19A600300F35 /* chat_bubble_green.png */,
 				D101757A1A79693C00CA32DC /* chat_bubble.png */,
-				D1EEDB911A660F2B0012EFD3 /* ui_chatter.png */,
-				D1EEDB921A660F2B0012EFD3 /* ui_details.png */,
-				D1EEDB931A660F2B0012EFD3 /* ui_leaderboards.png */,
-				D1EEDB941A660F2B0012EFD3 /* ui_progress.png */,
 			);
 			name = "Challenge Details";
 			sourceTree = "<group>";
@@ -1588,7 +1588,6 @@
 				8F6ACCBE199C1B4E00D5E157 /* TwoLineCheckinCellView.xib in Resources */,
 				8F02A12019AE2BF6002FF73E /* btn_back_black@2x.png in Resources */,
 				D17787231A96873500C78F8B /* bodystats.png in Resources */,
-				D1EEDB991A660F2B0012EFD3 /* ui_details.png in Resources */,
 				8FF9409E198A8CB600D319D7 /* SignupNameView.xib in Resources */,
 				8F5C38D219818BA900F51543 /* gauge3_overweight.png in Resources */,
 				8F5C38CC19818BA900F51543 /* gauge1_normal.png in Resources */,
@@ -1604,6 +1603,7 @@
 				8F2B7E5D198C49A9009DE89A /* nav_ocmicon.png in Resources */,
 				D1036CFF1B153477003E7239 /* sleepicon.png in Resources */,
 				8FF94091198960C900D319D7 /* LoginView.xib in Resources */,
+				D10E524A1B5048CA0007EF10 /* ui_chatter.png in Resources */,
 				D1FC72A11B2240020068CF89 /* MetricGaugeView.xib in Resources */,
 				D101757B1A79693C00CA32DC /* chat_bubble.png in Resources */,
 				8F5E7FD9199BCD52009067E5 /* graph_sincelastarrow_up_invert.png in Resources */,
@@ -1637,14 +1637,13 @@
 				8F5C38EB1982DBB900F51543 /* onboarding_avatar.png in Resources */,
 				8FFB035119FEA2440036228C /* oc_settings_active.png in Resources */,
 				8F5C38CA19818BA900F51543 /* gauge1_high.png in Resources */,
-				D1EEDB9B1A660F2B0012EFD3 /* ui_progress.png in Resources */,
 				8F5E7FE6199C081F009067E5 /* vital_pulse_icon.png in Resources */,
 				D1A713A81ACF2028008DF01A /* map_circleicon.png in Resources */,
 				8F02A12219AE2BF6002FF73E /* btn_back_white@2x.png in Resources */,
 				8FF940A0198A8CCD00D319D7 /* BirthdateView.xib in Resources */,
 				D1E2236E1A7FFE60006330E7 /* ConnectDeviceRow.xib in Resources */,
 				8F02A12519AE2BF6002FF73E /* btn_share_white.png in Resources */,
-				D1EEDB951A660F2B0012EFD3 /* challenge_image.png in Resources */,
+				D10E52491B5048CA0007EF10 /* challenge_image.png in Resources */,
 				8FDA6DA819A4039D00244D5F /* TermsView.xib in Resources */,
 				8F5E7FBD199965C0009067E5 /* PinCodeView.xib in Resources */,
 				8FDCE1D119880919006428C3 /* pulse_overlay.png in Resources */,
@@ -1663,6 +1662,7 @@
 				8F08AFB319895214002EE906 /* higilogo_ocmenu.png in Resources */,
 				8FFB034F19FEA2440036228C /* oc_findastation_active.png in Resources */,
 				8F1D979C1995554C003B5645 /* ModifyImageView.xib in Resources */,
+				D10E524B1B5048CA0007EF10 /* ui_leaderboards.png in Resources */,
 				D17528801B0F9669006335B4 /* dailysummary_afternoon.png in Resources */,
 				D12780AE1A4A2701002EB56A /* fontawesome-webfont.ttf in Resources */,
 				8FE0BCD0199175C800940D39 /* PulseCellView.xib in Resources */,
@@ -1679,7 +1679,6 @@
 				8F5E7FC11999674C009067E5 /* KioskListCellView.xib in Resources */,
 				8F2B7E4E198C3058009DE89A /* oc_dashboard.png in Resources */,
 				8F58D98A19C0FE5800C0EC72 /* welcome_01_logo.png in Resources */,
-				D1EEDB981A660F2B0012EFD3 /* ui_chatter.png in Resources */,
 				D1EEDBA31A66E4B10012EFD3 /* ChallengeLeaderboardRow.xib in Resources */,
 				8FFB034D19FEA2440036228C /* oc_challenges.png in Resources */,
 				D1036D011B153477003E7239 /* pulseicon.png in Resources */,
@@ -1709,6 +1708,7 @@
 				8F5C38E91981B2B300F51543 /* createreminder_inverted.png in Resources */,
 				8F5C38CF19818BA900F51543 /* gauge2_normal.png in Resources */,
 				8F5F918C1A7193FC0042D87C /* activitypageblankstate.png in Resources */,
+				D10E52431B5048560007EF10 /* ui_details.png in Resources */,
 				8F6ACCC0199D687D00D5E157 /* mapicon_higicard.png in Resources */,
 				8F2CB58B19942E96009377A8 /* noservicemessage.png in Resources */,
 				D175287E1B0F9669006335B4 /* dailysummary_night.png in Resources */,
@@ -1734,7 +1734,6 @@
 				8F5C38CD19818BA900F51543 /* gauge2_atrisk.png in Resources */,
 				8F5E7FCE199BC986009067E5 /* CheckinCellView.xib in Resources */,
 				D17C0A8D1A9FC5520010971C /* unpluggederrorstate.png in Resources */,
-				D1EEDB9A1A660F2B0012EFD3 /* ui_leaderboards.png in Resources */,
 				8F3643A719460EB300C0033E /* Images.xcassets in Resources */,
 				D1A713A91ACF2028008DF01A /* map_iconwithdot.png in Resources */,
 				D1BA13471A8D056900E1AFE9 /* ChatterInputView.xib in Resources */,
@@ -1757,6 +1756,7 @@
 				D1036CFD1B153477003E7239 /* glucoseicon.png in Resources */,
 				2BBDBA531A12AC2C005A6815 /* ChallengeRowCell.xib in Resources */,
 				8F5F91821A701A0E0042D87C /* btn_action_black@2x.png in Resources */,
+				D10E52451B5048760007EF10 /* ui_progress.png in Resources */,
 				8FF9409C198A8C9200D319D7 /* SignupEmailView.xib in Resources */,
 				8F2B7E46198C2E28009DE89A /* DrawerView.xib in Resources */,
 				8F2B7E5C198C49A9009DE89A /* nav_ocmicon_inverted.png in Resources */,
