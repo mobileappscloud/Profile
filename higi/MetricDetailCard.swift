@@ -90,7 +90,7 @@ class MetricDetailCard: UIView {
             gauge = MetricGauge.create(CGRect(x: 0, y: 0, width: gaugeContainer.frame.size.width, height: gaugeContainer.frame.size.height), delegate: delegate, tab: tab);
             gaugeContainer.addSubview(gauge);
         }
-        triangleIndicator = TriangleView(frame: CGRect(x: thirdPanel.frame.origin.x + thirdPanel.frame.size.width / 2, y: thirdPanel.frame.size.height - 2, width: triangleHeight, height: triangleHeight));
+        triangleIndicator = TriangleView(frame: CGRect(x: screenWidth - thirdPanel.frame.size.width / 2, y: thirdPanel.frame.size.height - 2, width: triangleHeight, height: triangleHeight));
         triangleIndicator.transform = CGAffineTransformRotate(self.transform, CGFloat(M_PI));
         addSubview(triangleIndicator);
         
