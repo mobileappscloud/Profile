@@ -14,31 +14,57 @@
                 <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qPb-ca-ir9">
                     <rect key="frame" x="0.0" y="53" width="480" height="398"/>
                     <subviews>
-                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Oeg-z8-5j9">
+                        <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aMj-Wh-nzq">
+                            <rect key="frame" x="239" y="0.0" width="1" height="398"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="1" id="dc3-1v-YcH"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Oeg-z8-5j9">
                             <rect key="frame" x="240" y="0.0" width="240" height="268"/>
                             <subviews>
-                                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="emr-lp-6ft">
+                                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="emr-lp-6ft">
                                     <rect key="frame" x="0.0" y="20" width="240" height="248"/>
                                 </scrollView>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="emr-lp-6ft" firstAttribute="leading" secondItem="Oeg-z8-5j9" secondAttribute="leading" id="6fy-G4-t78"/>
+                                <constraint firstAttribute="trailing" secondItem="emr-lp-6ft" secondAttribute="trailing" id="pre-XX-lLi"/>
+                                <constraint firstItem="emr-lp-6ft" firstAttribute="top" secondItem="Oeg-z8-5j9" secondAttribute="top" constant="20" id="rB8-4M-W3X"/>
+                            </constraints>
                         </view>
-                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a0a-Ni-kXk">
-                            <rect key="frame" x="0.0" y="0.0" width="240" height="268"/>
+                        <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a0a-Ni-kXk">
+                            <rect key="frame" x="0.0" y="0.0" width="239" height="268"/>
                             <subviews>
                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CoJ-eg-jO5">
                                     <rect key="frame" x="47" y="281" width="195" height="50"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
-                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5bj-0M-1yB">
-                                    <rect key="frame" x="20" y="29" width="200" height="182"/>
+                                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5bj-0M-1yB">
+                                    <rect key="frame" x="20" y="0.0" width="200" height="211"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="centerX" secondItem="5bj-0M-1yB" secondAttribute="centerX" id="YlG-Jm-zcO"/>
+                            </constraints>
                         </view>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="a0a-Ni-kXk" firstAttribute="leading" secondItem="qPb-ca-ir9" secondAttribute="leading" id="0av-sj-n4D"/>
+                        <constraint firstItem="aMj-Wh-nzq" firstAttribute="top" secondItem="qPb-ca-ir9" secondAttribute="top" id="0rk-2X-Sg0"/>
+                        <constraint firstAttribute="bottom" secondItem="aMj-Wh-nzq" secondAttribute="bottom" id="0sF-0V-Lb9"/>
+                        <constraint firstItem="aMj-Wh-nzq" firstAttribute="leading" secondItem="a0a-Ni-kXk" secondAttribute="trailing" id="Dzu-kL-3zc"/>
+                        <constraint firstItem="a0a-Ni-kXk" firstAttribute="top" secondItem="qPb-ca-ir9" secondAttribute="top" id="Jfv-TU-gXB"/>
+                        <constraint firstAttribute="centerX" secondItem="aMj-Wh-nzq" secondAttribute="centerX" id="Vpp-Z5-dWa"/>
+                        <constraint firstItem="Oeg-z8-5j9" firstAttribute="leading" secondItem="aMj-Wh-nzq" secondAttribute="trailing" id="lCw-iB-UgG"/>
+                        <constraint firstItem="Oeg-z8-5j9" firstAttribute="top" secondItem="qPb-ca-ir9" secondAttribute="top" id="lUd-MO-Dur"/>
+                        <constraint firstAttribute="trailing" secondItem="Oeg-z8-5j9" secondAttribute="trailing" id="zTA-bF-7GC"/>
+                    </constraints>
                 </view>
                 <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Pv-Hs-gui">
                     <rect key="frame" x="0.0" y="0.0" width="480" height="53"/>
