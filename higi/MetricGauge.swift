@@ -116,6 +116,9 @@ class MetricGauge: UIView {
         } else {
             drawAngle = sweepAngle / Double(ranges.count);
             var strokeStart:CGFloat = 0.0, strokeEnd:CGFloat = 0.0;
+            var lowRange, highRange: Range!;
+            rangeMax = 0;
+            rangeMin = 99999;
             var rangeIndex = 0, i = 0;
             for range in ranges {
                 let (begin, end) = range.interval;
@@ -130,6 +133,14 @@ class MetricGauge: UIView {
                     rangeIndex = i;
                 }
                 rangeArc.strokeColor = range.color.CGColor;
+                if (begin < rangeMin) {
+                    rangeMin = begin;
+                    lowRange = range;
+                }
+                if (end > rangeMax) {
+                    rangeMax = end;
+                    highRange = range;
+                }
                 var center = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2);
                 rangeArc.strokeStart = strokeStart;
                 rangeArc.strokeEnd = strokeEnd;
@@ -175,6 +186,13 @@ class MetricGauge: UIView {
                     strokeStart += 0.001;
                 }
                 i++;
+            }
+            if (userValue < rangeMin) {
+                userRange = lowRange;
+                rangeIndex = 0;
+            } else if (userValue > rangeMax) {
+                userRange = highRange;
+                rangeIndex = ranges.count - 1;
             }
             drawMarker(startAngle + CGFloat(drawAngle) * CGFloat(rangeIndex), value: userValue, range: userRange);
         }

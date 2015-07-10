@@ -134,19 +134,28 @@ class BpMetricDelegate: MetricDelegate {
     
     func colorFromClass(className: String, tab: Int) -> UIColor {
         var color: UIColor;
-        switch (className) {
-        case "Normal":
-            if tab == 0 {
-                color = Utility.colorFromHexString("#88c681");
-            } else {
-                color = Utility.colorFromHexString("#44aad8")
+        if tab == 0 {
+            switch (className) {
+                case "Normal":
+                    color = Utility.colorFromHexString("#88c681");
+                case "At risk":
+                    color = Utility.colorFromHexString("#fdd835");
+                case "High":
+                    color = Utility.colorFromHexString("#ef535a");
+                default:
+                    color = UIColor.whiteColor();
             }
-        case "Low":
-            color = Utility.colorFromHexString("#44aad8");
-        case "High":
-            color = Utility.colorFromHexString("#ef535a");
-        default:
-            color = UIColor.whiteColor();
+        } else {
+            switch (className) {
+                case "Normal":
+                    color = Utility.colorFromHexString("#88c681");
+                case "Low":
+                    color = Utility.colorFromHexString("#44aad8");
+                case "High":
+                    color = Utility.colorFromHexString("#ef535a");
+                default:
+                    color = UIColor.whiteColor();
+            }
         }
         return color;
     }

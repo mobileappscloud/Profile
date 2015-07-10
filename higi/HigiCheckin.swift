@@ -87,7 +87,7 @@ class HigiCheckin {
             case "high":
                 retVal = "High";
             case "atrisk":
-                retVal = "At Risk";
+                retVal = "At risk";
             case "underweight":
                 retVal = "Underweight";
             case "overweight":
