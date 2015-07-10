@@ -12,6 +12,7 @@ class MetricDetailCard: UIView {
     @IBOutlet weak var thirdPanelUnit: UILabel!
     @IBOutlet weak var thirdPanelLabel: UILabel!
     @IBOutlet weak var headerContainer: UIView!
+    @IBOutlet weak var bodyContainer: UIView!
     @IBOutlet weak var copyScrollview: UIScrollView!
     @IBOutlet weak var gaugeContainer: UIView!
     @IBOutlet weak var secondPanelHeader: UILabel!
@@ -49,6 +50,12 @@ class MetricDetailCard: UIView {
     }
 
     func setup(delegate: MetricDelegate) {
+        let screenWidth = max(UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height);
+        
+        self.frame.size.width = screenWidth;
+        headerContainer.frame.size.width = screenWidth;
+        bodyContainer.frame.size.width = screenWidth;
+        
         self.delegate = delegate;
         let color = delegate.getColor();
         firstPanelValue.textColor = color;
