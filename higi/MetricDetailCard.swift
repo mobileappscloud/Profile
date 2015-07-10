@@ -115,7 +115,7 @@ class MetricDetailCard: UIView {
             }
             copyImage = UIImageView(frame: CGRect(x: 0, y: copyImageOrigin, width: copyScrollview.frame.size.width, height: newHeight));
             copyImage.image = Utility.scaleImage(image, newSize: CGSize(width: copyScrollview.frame.size.width, height: newHeight));
-            copyScrollview.contentSize.height = copyScrollViewHeight + copyImage.frame.size.height + copyImage.frame.origin.y;
+            copyScrollview.contentSize.height = copyImageOrigin + copyImage.frame.origin.y + newHeight;
             copyScrollview.addSubview(copyImage);
         } else {
             copyScrollview.contentSize.height = copyScrollViewHeight;
