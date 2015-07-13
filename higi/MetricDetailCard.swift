@@ -102,10 +102,11 @@ class MetricDetailCard: UIView {
             let thirdPanelTap = UITapGestureRecognizer(target: self, action: "thirdPanelClicked:");
             thirdPanel.addGestureRecognizer(thirdPanelTap);
         }
-        updateCopyImage(tab);
+        updateCopyImage();
     }
     
-    func updateCopyImage(tab: Int) {
+    func updateCopyImage() {
+        let tab = thirdPanelSelected ? 1 : 0;
         if let image = delegate.getCopyImage(tab) {
             let height = image.size.height;
             let width = image.size.width;
@@ -178,7 +179,7 @@ class MetricDetailCard: UIView {
                 gauge = MetricGauge.create(CGRect(x: 0, y: 0, width: gaugeContainer.frame.size.width, height: gaugeContainer.frame.size.height), delegate: delegate, tab: tab);
                 gaugeContainer.addSubview(gauge);
             }
-            updateCopyImage(tab);
+            updateCopyImage();
         }
         thirdPanelSelected = false;
     }
@@ -193,7 +194,7 @@ class MetricDetailCard: UIView {
                 gauge = MetricGauge.create(CGRect(x: 0, y: 0, width: gaugeContainer.frame.size.width, height: gaugeContainer.frame.size.height), delegate: delegate, tab: 1);
                 gaugeContainer.addSubview(gauge);
             }
-            updateCopyImage(tab);
+            updateCopyImage();
         }
         thirdPanelSelected = true;
     }
