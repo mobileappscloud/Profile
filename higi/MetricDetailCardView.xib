@@ -42,13 +42,18 @@
                                     <rect key="frame" x="47" y="281" width="195" height="50"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
-                                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5bj-0M-1yB">
-                                    <rect key="frame" x="20" y="0.0" width="200" height="211"/>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5bj-0M-1yB">
+                                    <rect key="frame" x="20" y="32" width="200" height="200"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="200" id="jCW-ej-5XN"/>
+                                        <constraint firstAttribute="width" constant="200" id="ve0-Vj-Hhy"/>
+                                    </constraints>
                                 </view>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
+                                <constraint firstItem="5bj-0M-1yB" firstAttribute="top" secondItem="a0a-Ni-kXk" secondAttribute="top" constant="32" id="RNB-g2-Pbo"/>
                                 <constraint firstAttribute="centerX" secondItem="5bj-0M-1yB" secondAttribute="centerX" id="YlG-Jm-zcO"/>
                             </constraints>
                         </view>

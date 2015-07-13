@@ -324,6 +324,7 @@ class MetricsViewController: UIViewController {
             }, completion: nil);
         detailsOpen = true;
         detailsCard.setPanelHeaders(detailsOpen);
+        detailsCard.updateCopyImage();
     }
     
     func closeDetails() {
