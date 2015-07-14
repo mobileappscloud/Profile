@@ -112,7 +112,6 @@ class MetricGauge: UIView {
             toPath.addArcWithCenter(center, radius: radius, startAngle: startAngle, endAngle: CGFloat(sweepAngle) + startAngle, clockwise: true);
             rangeArc.path = toPath.CGPath;
             gaugeContainer.layer.addSublayer(rangeArc);
-            self.label.text = "";
         } else {
             drawAngle = sweepAngle / Double(ranges.count);
             var strokeStart:CGFloat = 0.0, strokeEnd:CGFloat = 0.0;
