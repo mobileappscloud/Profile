@@ -200,27 +200,34 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         }
         if (SessionController.Instance.checkins != nil) {
             var bloodPressureCheckin: HigiCheckin, weightCheckin: HigiCheckin;
-            var bps: [HigiCheckin] = [], weights: [HigiCheckin] = [];
+            var bps: [HigiCheckin] = [], weights: [HigiCheckin] = [], pulses: [HigiCheckin] = [];
             let dateFormatter = NSDateFormatter();
             dateFormatter.dateFormat = "MM/dd/yyyy";
-            var lastBpDate = "", lastBmiDate = "";
+            var lastBpDate = "", lastBmiDate = "", lastPulseDate = "";
             for checkin in SessionController.Instance.checkins {
-                var bpDate = dateFormatter.stringFromDate(checkin.dateTime);
+                let checkinDate = dateFormatter.stringFromDate(checkin.dateTime);
                 if (checkin.systolic != nil && checkin.systolic > 0) {
-                    if (bpDate != lastBpDate) {
+                    if (checkinDate != lastBpDate) {
                         bps.append(checkin);
-                        lastBpDate = bpDate;
+                        lastBpDate = checkinDate;
                     } else {
                         bps[bps.count - 1] = checkin;
                     }
                 }
-                var bmiDate = dateFormatter.stringFromDate(checkin.dateTime);
                 if (checkin.weightKG != nil && checkin.weightKG > 0) {
-                    if (bmiDate != lastBmiDate) {
+                    if (checkinDate != lastBmiDate) {
                         weights.append(checkin);
-                        lastBmiDate = bmiDate;
+                        lastBmiDate = checkinDate;
                     } else {
                         weights[weights.count - 1] = checkin;
+                    }
+                }
+                if (checkin.pulseBpm != nil && checkin.pulseBpm > 0) {
+                    if (checkinDate != lastPulseDate) {
+                        pulses.append(checkin);
+                        lastPulseDate = checkinDate;
+                    } else {
+                        pulses[pulses.count - 1] = checkin;
                     }
                 }
             }
@@ -258,8 +265,8 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             secondDivider.backgroundColor = Utility.colorFromHexString("#EEEEEE");
             
             var pulseCard:MetricsGraphCard!
-            if (bps.count > 0) {
-                pulseCard = MetricsGraphCard.instanceFromNib(bps.last!, type: MetricsType.Pulse);
+            if (pulses.count > 0) {
+                pulseCard = MetricsGraphCard.instanceFromNib(pulses.last!, type: MetricsType.Pulse);
             } else {
                 pulseCard = MetricsGraphCard.instanceFromNib(nil, type: MetricsType.Pulse);
             }
