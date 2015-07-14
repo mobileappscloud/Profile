@@ -70,7 +70,7 @@ class Utility {
     }
 
     class func heightForTextView(width: CGFloat, text: String, fontSize: CGFloat, margin: CGFloat) -> CGFloat {
-        let label:UILabel = UILabel(frame: CGRectMake(0, 0, width, CGFloat.max));
+        let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.max));
         label.numberOfLines = 0;
         label.lineBreakMode = NSLineBreakMode.ByWordWrapping;
         label.font = UIFont.systemFontOfSize(fontSize);

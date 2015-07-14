@@ -11,13 +11,16 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="22"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="•" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="56E-1Z-UWh">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="•" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="56E-1Z-UWh">
                     <rect key="frame" x="0.0" y="0.0" width="26" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="22" id="FeH-GY-Epv"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="30"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Walked 39 miles" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sKk-d6-b5M">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Walked 39 miles" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sKk-d6-b5M">
                     <rect key="frame" x="34" y="0.0" width="286" height="22"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" red="0.26666666666666666" green="0.26666666666666666" blue="0.26666666666666666" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -31,11 +34,13 @@
                 <constraint firstItem="sKk-d6-b5M" firstAttribute="leading" secondItem="56E-1Z-UWh" secondAttribute="trailing" constant="8" id="EGA-1F-SFi"/>
                 <constraint firstAttribute="bottom" secondItem="sKk-d6-b5M" secondAttribute="bottom" id="RBM-rC-286"/>
                 <constraint firstItem="sKk-d6-b5M" firstAttribute="leading" secondItem="56E-1Z-UWh" secondAttribute="trailing" constant="8" id="TxU-0n-Wik"/>
+                <constraint firstAttribute="trailing" secondItem="sKk-d6-b5M" secondAttribute="trailing" id="YZa-aa-OZl"/>
                 <constraint firstItem="56E-1Z-UWh" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="ZyY-gc-RaR"/>
                 <constraint firstAttribute="bottom" secondItem="56E-1Z-UWh" secondAttribute="bottom" id="yF5-cu-DgE"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="bulletPoint" destination="56E-1Z-UWh" id="JI2-tg-fdv"/>
                 <outlet property="desc" destination="sKk-d6-b5M" id="7IT-lX-Vio"/>
             </connections>
             <point key="canvasLocation" x="-60" y="30"/>
