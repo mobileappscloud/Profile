@@ -308,22 +308,24 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
         scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false);
         updateNavbar(0);
-        if toInterfaceOrientation == UIInterfaceOrientation.Portrait {
-            for row in descriptionRows {
-                let rowWidth:CGFloat = UIScreen.mainScreen().bounds.size.height - row.frame.origin.x;
-                row.frame.size.width = rowWidth;
-                row.desc.sizeToFit();
-                if (row.desc.frame.size.width > rowWidth) {
+        if descriptionRows.count > 0 {
+            //assuming all these rows start at the same x value, so first value will suffice
+            let rowWidth:CGFloat = min(UIScreen.mainScreen().bounds.size.height, UIScreen.mainScreen().bounds.size.width)  - descriptionRows[0].frame.origin.x;
+            if toInterfaceOrientation == UIInterfaceOrientation.Portrait {
+                for row in descriptionRows {
+                    row.frame.size.width = rowWidth;
+                    row.desc.sizeToFit();
+                    if (row.desc.frame.size.width > rowWidth) {
+                        row.frame.size.height = Utility.heightForTextView(rowWidth, text: row.description, fontSize: row.desc.font.pointSize, margin: 0) / 2;
+                        row.desc.sizeToFit();
+                    }
+                }
+            } else {
+                for row in descriptionRows {
+                    row.frame.size.width = rowWidth;
                     row.frame.size.height = Utility.heightForTextView(rowWidth, text: row.description, fontSize: row.desc.font.pointSize, margin: 0) / 2;
                     row.desc.sizeToFit();
                 }
-            }
-        } else {
-            for row in descriptionRows {
-                let rowWidth:CGFloat = UIScreen.mainScreen().bounds.size.height - row.frame.origin.x;
-                row.frame.size.width = rowWidth;
-                row.frame.size.height = Utility.heightForTextView(rowWidth, text: row.description, fontSize: row.desc.font.pointSize, margin: 0) / 2;
-                row.desc.sizeToFit();
             }
         }
         if (descriptionRows.count > 0) {
