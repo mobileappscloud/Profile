@@ -14,7 +14,9 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var activityContainer: UIView!
     @IBOutlet weak var scrollviewMainContentView: UIView!
     
-    var titleRows:[UIView] = [];
+    var rows:[UIView] = [], titleRows:[UIView] = [];
+    
+    var margins:[CGFloat] = [];
     
     var descriptionRows:[DailySummaryBreakdown] = [];
     
@@ -25,6 +27,8 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     var activityKeys: [String] = [];
     
     var activitiesByType:[String: (Int, [HigiActivity])] = [:];
+    
+    var todaysCheckins:[HigiCheckin] = [];
     
     var totalPoints = 0;
     
@@ -176,7 +180,6 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             }
         }
         
-        var todaysCheckins:[HigiCheckin] = [];
         var addedCheckins = false;
         for checkin in SessionController.Instance.checkins {
             if (Constants.dateFormatter.stringFromDate(checkin.dateTime) == self.dateString) {
@@ -186,17 +189,19 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
                 break;
             }
         }
-        
+        layoutActivityView();
+    }
+
+    func layoutActivityView() {
         for key in activityKeys {
             let (total, activityList) = activitiesByType[key]!;
-            let activity = activityList[0];
             let category = ActivityCategory.categoryFromString(key);
             let color = category.getColor();
             let activityRow = UINib(nibName: "DailySummaryRowView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! DailySummaryRow;
             activityRow.points.text = "\(total)";
             activityRow.name.text = String(category.getString());
             activityRow.name.textColor = color;
-            let proportion = CGFloat(activity.points) / CGFloat(totalPoints);
+            let proportion = CGFloat(total) / CGFloat(totalPoints);
             let newHeight = max(maxCircleRadius * proportion, minCircleRadius);
             let circlePath = UIBezierPath(arcCenter: CGPoint(x: activityRow.progressCircle.frame.size.width / 2.0, y: activityRow.progressCircle.frame.size.height / 2.0), radius: newHeight, startAngle: 0.0, endAngle: CGFloat(M_PI * 2.0), clockwise: true);
             let circleLayer = CAShapeLayer();
@@ -207,67 +212,98 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             circleLayer.strokeEnd = 1;
             activityRow.progressCircle.layer.addSublayer(circleLayer);
             activityRow.frame.origin.y = currentOrigin;
-
+            
+            let rowMargin:CGFloat = -4;
+            rows.append(activityRow);
+            margins.append(rowMargin);
+            
             var checkinIndex = 0;
             activityContainer.addSubview(activityRow);
-            currentOrigin += activityRow.frame.size.height - 4;
+            currentOrigin += activityRow.frame.size.height + rowMargin;
             let titleMargin:CGFloat = 6;
+            let rowWidth = UIScreen.mainScreen().bounds.size.width - activityRow.name.frame.origin.x;
             for subActivity in activityList {
-                let titleRow = SummaryViewUtility.initTitleRow(activityRow.name.frame.origin.x, originY: currentOrigin, width: UIScreen.mainScreen().bounds.size.width - activityRow.name.frame.origin.x, points: subActivity.points, device: "\(subActivity.device.name)", color: color);
+                let titleRow = SummaryViewUtility.initTitleRow(activityRow.name.frame.origin.x, originY: currentOrigin, width: rowWidth, points: subActivity.points, device: "\(subActivity.device.name)", color: color);
                 activityContainer.addSubview(titleRow);
                 titleRows.append(titleRow);
+                
+                rows.append(titleRow);
+                margins.append(titleMargin);
+                
                 currentOrigin += titleRow.frame.size.height + titleMargin;
                 var isDuplicate = subActivity.errorDescription != nil;
                 if (key == ActivityCategory.Lifestyle.getString()) {
-                    let breakdownRow = SummaryViewUtility.initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, text: "\(subActivity.description)", duplicate: isDuplicate);
+                    let breakdownRow = SummaryViewUtility.initBreakdownRow(CGRect(x: activityRow.name.frame.origin.x, y: currentOrigin, width: rowWidth, height: CGFloat.max), text: "\(subActivity.description)", duplicate: isDuplicate);
                     activityContainer.addSubview(breakdownRow);
                     currentOrigin += breakdownRow.frame.size.height;
                     descriptionRows.append(breakdownRow);
+                    
+                    rows.append(breakdownRow);
+                    margins.append(0);
                 } else if (key == ActivityCategory.Health.getString()) {
                     if (checkinIndex < todaysCheckins.count) {
                         let checkin = todaysCheckins[checkinIndex];
                         if (checkin.diastolic != nil && checkin.diastolic > 0) {
-                            let breakdownRow = SummaryViewUtility.initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, text: "\(checkin.systolic!)/\(checkin.diastolic!) mmHg BP", duplicate: isDuplicate);
+                            let breakdownRow = SummaryViewUtility.initBreakdownRow(CGRect(x: activityRow.name.frame.origin.x, y: currentOrigin, width: rowWidth, height: CGFloat.max), text: "\(checkin.systolic!)/\(checkin.diastolic!) mmHg BP", duplicate: isDuplicate);
                             activityContainer.addSubview(breakdownRow);
                             currentOrigin += breakdownRow.frame.size.height;
                             descriptionRows.append(breakdownRow);
+                            
+                            rows.append(breakdownRow);
+                            margins.append(0);
                         }
                         if (checkin.pulseBpm != nil && checkin.pulseBpm > 0) {
-                            let breakdownRow = SummaryViewUtility.initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, text: "\(checkin.pulseBpm!) bpm Pulse", duplicate: isDuplicate);
+                            let breakdownRow = SummaryViewUtility.initBreakdownRow(CGRect(x: activityRow.name.frame.origin.x, y: currentOrigin, width: rowWidth, height: CGFloat.max), text: "\(checkin.pulseBpm!) bpm Pulse", duplicate: isDuplicate);
                             activityContainer.addSubview(breakdownRow);
                             currentOrigin += breakdownRow.frame.size.height;
                             descriptionRows.append(breakdownRow);
+                            
+                            rows.append(breakdownRow);
+                            margins.append(0);
                         }
                         if (checkin.weightLbs != nil && checkin.weightLbs > 0) {
-                            let breakdownRow = SummaryViewUtility.initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, text: "\(Int(checkin.weightLbs!)) lbs Weight", duplicate: isDuplicate);
+                            let breakdownRow = SummaryViewUtility.initBreakdownRow(CGRect(x: activityRow.name.frame.origin.x, y: currentOrigin, width: rowWidth, height: CGFloat.max), text: "\(Int(checkin.weightLbs!)) lbs Weight", duplicate: isDuplicate);
                             activityContainer.addSubview(breakdownRow);
                             currentOrigin += breakdownRow.frame.size.height;
                             descriptionRows.append(breakdownRow);
+                            
+                            rows.append(breakdownRow);
+                            margins.append(0);
                         }
                         if (checkin.fatRatio != nil && checkin.fatRatio > 0) {
-                            let breakdownRow = SummaryViewUtility.initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, text: String(format: "%.2f", checkin.fatRatio!) + "% Body Fat", duplicate: isDuplicate);
+                            let breakdownRow = SummaryViewUtility.initBreakdownRow(CGRect(x: activityRow.name.frame.origin.x, y: currentOrigin, width: rowWidth, height: CGFloat.max), text: String(format: "%.2f", checkin.fatRatio!) + "% Body Fat", duplicate: isDuplicate);
                             activityContainer.addSubview(breakdownRow);
                             currentOrigin += breakdownRow.frame.size.height;
                             descriptionRows.append(breakdownRow);
+                            
+                            rows.append(breakdownRow);
+                            margins.append(0);
                         }
                         checkinIndex++;
                     }
                 } else if (key == ActivityCategory.Fitness.getString()) {
-                    let breakdownRow = SummaryViewUtility.initBreakdownRow(activityRow.name.frame.origin.x, originY: currentOrigin, text: "\(subActivity.description)", duplicate: isDuplicate);
+                    let breakdownRow = SummaryViewUtility.initBreakdownRow(CGRect(x: activityRow.name.frame.origin.x, y: currentOrigin, width: rowWidth, height: CGFloat.max), text: "\(subActivity.description)", duplicate: isDuplicate);
                     activityContainer.addSubview(breakdownRow);
                     currentOrigin += breakdownRow.frame.size.height;
                     descriptionRows.append(breakdownRow);
+                    
+                    rows.append(breakdownRow);
+                    margins.append(0);
                 }
                 if (isDuplicate) {
                     let duplicateLabel = SummaryViewUtility.initDuplicateLabel(activityRow.name.frame.origin.x, originY: currentOrigin, width: scrollView.frame.size.width - activityRow.frame.origin.x, text: "\(subActivity.errorDescription)");
                     activityContainer.addSubview(duplicateLabel);
                     currentOrigin += duplicateLabel.frame.size.height;
+                    
+                    rows.append(duplicateLabel);
+                    margins.append(0);
                 }
                 currentOrigin += gap;
             }
         }
+//        resizeActivityRows(self.interfaceOrientation == UIInterfaceOrientation.Portrait);
     }
-
+    
     func scrollViewDidScroll(scrollView: UIScrollView) {
         let scrollY = scrollView.contentOffset.y;
         if (scrollY >= 0) {
@@ -308,39 +344,40 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
         scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false);
         updateNavbar(0);
+        resizeActivityRows(toInterfaceOrientation == UIInterfaceOrientation.Portrait);
+    }
+    
+    func resizeActivityRows(forPortrait: Bool) {
+        var rowWidth:CGFloat = max(UIScreen.mainScreen().bounds.size.height, UIScreen.mainScreen().bounds.size.width);
+        if forPortrait {
+            rowWidth = min(UIScreen.mainScreen().bounds.size.height, UIScreen.mainScreen().bounds.size.width);
+        }
         if descriptionRows.count > 0 {
-            //assuming all these rows start at the same x value, so first value will suffice
-            let rowWidth:CGFloat = min(UIScreen.mainScreen().bounds.size.height, UIScreen.mainScreen().bounds.size.width)  - descriptionRows[0].frame.origin.x;
-            if toInterfaceOrientation == UIInterfaceOrientation.Portrait {
-                for row in descriptionRows {
-                    row.frame.size.width = rowWidth;
-                    row.desc.sizeToFit();
-                    if (row.desc.frame.size.width > rowWidth) {
-                        row.frame.size.height = Utility.heightForTextView(rowWidth, text: row.description, fontSize: row.desc.font.pointSize, margin: 0) / 2;
-                        row.desc.sizeToFit();
-                    }
-                }
-            } else {
-                for row in descriptionRows {
-                    row.frame.size.width = rowWidth;
-                    row.frame.size.height = Utility.heightForTextView(rowWidth, text: row.description, fontSize: row.desc.font.pointSize, margin: 0) / 2;
-                    row.desc.sizeToFit();
-                }
+            rowWidth -= descriptionRows[0].frame.origin.x;
+            for row in descriptionRows {
+                row.frame.size.width = rowWidth;
+                row.frame.size.height = Utility.heightForTextView(rowWidth, text: row.desc.text!, fontSize: row.desc.font.pointSize, margin: 0);
+                row.desc.sizeToFit();
             }
         }
-        if (descriptionRows.count > 0) {
-            let lastRow = descriptionRows.last!;
-            currentOrigin = lastRow.frame.origin.y + lastRow.frame.size.height + gap;
+        
+        var i = 0;
+        var originY:CGFloat = 0;
+        for row in rows {
+            row.frame.origin.y = originY;
+            originY += row.frame.size.height + margins[i];
+            i++;
         }
     }
     
     func goBack(sender: AnyObject!) {
         isLeaving = true;
-        self.navigationController!.popViewControllerAnimated(true);
+        self.navigationController!.popViewControllerAnimated(false);
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews();
+        let a = activityContainer.frame.origin.y + currentOrigin + activityView.frame.origin.y;
         scrollView.contentSize.height = activityContainer.frame.origin.y + currentOrigin + activityView.frame.origin.y;
         activityView.frame.size.width = scrollView.frame.size.width;
         for row in titleRows {
