@@ -283,10 +283,9 @@ class MetricDetailCard: UIView {
         var gap = CGFloat(4);
         for key in activityKeys {
             let (total, activityList) = activitiesByType[key]!;
-            let activity = activityList[0];
             let category = ActivityCategory.categoryFromString(key);
             let color = category.getColor();
-            let activityRow = SummaryViewUtility.initTitleRow(0, originY: currentOrigin, width: copyScrollview.frame.size.width, points: activity.points, device: String(category.getString()), color: color);
+            let activityRow = SummaryViewUtility.initTitleRow(0, originY: currentOrigin, width: copyScrollview.frame.size.width, points: total, device: String(category.getString()), color: color);
             activityRow.device.font = UIFont.boldSystemFontOfSize(20);
             activityRow.points.font = UIFont.boldSystemFontOfSize(20);
             activityRow.device.textColor = color;
