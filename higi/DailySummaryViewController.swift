@@ -58,11 +58,13 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         scrollView.setContentOffset(CGPoint(x: 0,y: 0), animated: false);
         
         imageAspectRatio = headerBackground.frame.size.width / headerBackground.frame.size.height;
-
+        
         initBackButton();
         initHeader();
         initSummaryview();
-
+        
+        scrollView.contentSize = activityContainer.frame.size;
+        
         pointsMeter.setActivities((totalPoints, activities));
     }
     
@@ -75,6 +77,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         revealController.panGestureRecognizer().enabled = false;
         revealController.supportedOrientations = UIInterfaceOrientationMask.Portrait.rawValue | UIInterfaceOrientationMask.LandscapeLeft.rawValue | UIInterfaceOrientationMask.LandscapeRight.rawValue;
         revealController.shouldRotate = true;
+        
         activityView.frame.size.width = UIScreen.mainScreen().bounds.size.width;
         for row in titleRows {
             row.frame.size.width = UIScreen.mainScreen().bounds.size.width - row.frame.origin.x;
@@ -301,9 +304,8 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
                 currentOrigin += gap;
             }
         }
-//        resizeActivityRows(self.interfaceOrientation == UIInterfaceOrientation.Portrait);
     }
-    
+
     func scrollViewDidScroll(scrollView: UIScrollView) {
         let scrollY = scrollView.contentOffset.y;
         if (scrollY >= 0) {
@@ -348,11 +350,11 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func resizeActivityRows(forPortrait: Bool) {
-        var rowWidth:CGFloat = max(UIScreen.mainScreen().bounds.size.height, UIScreen.mainScreen().bounds.size.width);
-        if forPortrait {
-            rowWidth = min(UIScreen.mainScreen().bounds.size.height, UIScreen.mainScreen().bounds.size.width);
-        }
         if descriptionRows.count > 0 {
+            var rowWidth:CGFloat = max(UIScreen.mainScreen().bounds.size.height, UIScreen.mainScreen().bounds.size.width);
+            if forPortrait {
+                rowWidth = min(UIScreen.mainScreen().bounds.size.height, UIScreen.mainScreen().bounds.size.width);
+            }
             rowWidth -= descriptionRows[0].frame.origin.x;
             for row in descriptionRows {
                 row.frame.size.width = rowWidth;
@@ -360,7 +362,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
                 row.desc.sizeToFit();
             }
         }
-        
+
         var i = 0;
         var originY:CGFloat = 0;
         for row in rows {
@@ -377,7 +379,6 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews();
-        let a = activityContainer.frame.origin.y + currentOrigin + activityView.frame.origin.y;
         scrollView.contentSize.height = activityContainer.frame.origin.y + currentOrigin + activityView.frame.origin.y;
         activityView.frame.size.width = scrollView.frame.size.width;
         for row in titleRows {
