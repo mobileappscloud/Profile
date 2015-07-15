@@ -295,12 +295,6 @@
 		D1C906B11B0A4C5D00220C12 /* NavigationObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1C906B01B0A4C5D00220C12 /* NavigationObject.swift */; };
 		D1CFC9831AB360AF00AC54BB /* MetricGraphCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1CFC9821AB360AF00AC54BB /* MetricGraphCard.swift */; };
 		D1CFC9851AB3742700AC54BB /* MetricGraphCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1CFC9841AB3742700AC54BB /* MetricGraphCardView.xib */; };
-		D1D32CF91B1F533100AE9B25 /* GraphDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D32CF81B1F533100AE9B25 /* GraphDelegate.swift */; };
-		D1D32CFB1B1F53E500AE9B25 /* BaseGraphHostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D32CFA1B1F53E500AE9B25 /* BaseGraphHostingView.swift */; };
-		D1D32CFD1B1F62C000AE9B25 /* ActivityGraphDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D32CFC1B1F62C000AE9B25 /* ActivityGraphDelegate.swift */; };
-		D1D32D011B1F6CD800AE9B25 /* BPGraphHostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D32D001B1F6CD800AE9B25 /* BPGraphHostingView.swift */; };
-		D1D32D031B1F6CF800AE9B25 /* PulseGraphHostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D32D021B1F6CF800AE9B25 /* PulseGraphHostingView.swift */; };
-		D1D32D051B1F6D0A00AE9B25 /* WeightGraphHostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D32D041B1F6D0A00AE9B25 /* WeightGraphHostingView.swift */; };
 		D1D32D071B1FA0B500AE9B25 /* ActivityMetricDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D32D061B1FA0B500AE9B25 /* ActivityMetricDelegate.swift */; };
 		D1DC365E1AC9E9F000CB124D /* CustomLoadingSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1DC365D1AC9E9F000CB124D /* CustomLoadingSpinner.swift */; };
 		D1E1FF061A76C28F00C8951C /* ChallengeProgressLegendRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E1FF051A76C28F00C8951C /* ChallengeProgressLegendRow.swift */; };
@@ -663,12 +657,6 @@
 		D1C906B01B0A4C5D00220C12 /* NavigationObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationObject.swift; sourceTree = "<group>"; };
 		D1CFC9821AB360AF00AC54BB /* MetricGraphCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricGraphCard.swift; sourceTree = "<group>"; };
 		D1CFC9841AB3742700AC54BB /* MetricGraphCardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MetricGraphCardView.xib; sourceTree = "<group>"; };
-		D1D32CF81B1F533100AE9B25 /* GraphDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphDelegate.swift; sourceTree = "<group>"; };
-		D1D32CFA1B1F53E500AE9B25 /* BaseGraphHostingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseGraphHostingView.swift; sourceTree = "<group>"; };
-		D1D32CFC1B1F62C000AE9B25 /* ActivityGraphDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityGraphDelegate.swift; sourceTree = "<group>"; };
-		D1D32D001B1F6CD800AE9B25 /* BPGraphHostingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BPGraphHostingView.swift; sourceTree = "<group>"; };
-		D1D32D021B1F6CF800AE9B25 /* PulseGraphHostingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PulseGraphHostingView.swift; sourceTree = "<group>"; };
-		D1D32D041B1F6D0A00AE9B25 /* WeightGraphHostingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeightGraphHostingView.swift; sourceTree = "<group>"; };
 		D1D32D061B1FA0B500AE9B25 /* ActivityMetricDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityMetricDelegate.swift; sourceTree = "<group>"; };
 		D1DC365D1AC9E9F000CB124D /* CustomLoadingSpinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLoadingSpinner.swift; sourceTree = "<group>"; };
 		D1E1FF051A76C28F00C8951C /* ChallengeProgressLegendRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeProgressLegendRow.swift; sourceTree = "<group>"; };
@@ -739,19 +727,19 @@
 			isa = PBXGroup;
 			children = (
 				2BC5865D1A16D0AF005A7983 /* ChallengeInvitationView.swift */,
-				D1EEDBA41A66FA570012EFD3 /* ChallengeLeaderboardRow.swift */,
-				2BBDBA4A1A12AC2C005A6815 /* ChallengeRowCell.swift */,
-				2BBDBA4D1A12AC2C005A6815 /* ChallengesViewController.swift */,
-				2BBDBA4E1A12AC2C005A6815 /* CompetitiveChallengeView.swift */,
-				2BBDBA501A12AC2C005A6815 /* GoalChallengeView.swift */,
 				2BC5865B1A16C63B005A7983 /* ChallengeInvitation.xib */,
+				D1EEDBA41A66FA570012EFD3 /* ChallengeLeaderboardRow.swift */,
 				D1EEDBA21A66E4B10012EFD3 /* ChallengeLeaderboardRow.xib */,
+				2BBDBA4A1A12AC2C005A6815 /* ChallengeRowCell.swift */,
 				2BBDBA4B1A12AC2C005A6815 /* ChallengeRowCell.xib */,
-				2BBDBA4C1A12AC2C005A6815 /* ChallengesView.xib */,
-				2BBDBA4F1A12AC2C005A6815 /* CompetitiveChallengeView.xib */,
-				2BBDBA511A12AC2C005A6815 /* GoalChallengeView.xib */,
-				8FEF1B041AA9173D0036C4FB /* ChallengeView.swift */,
 				D130183D1B14D2C9008DDFAD /* ChallengeUtility.swift */,
+				8FEF1B041AA9173D0036C4FB /* ChallengeView.swift */,
+				2BBDBA4D1A12AC2C005A6815 /* ChallengesViewController.swift */,
+				2BBDBA4C1A12AC2C005A6815 /* ChallengesView.xib */,
+				2BBDBA4E1A12AC2C005A6815 /* CompetitiveChallengeView.swift */,
+				2BBDBA4F1A12AC2C005A6815 /* CompetitiveChallengeView.xib */,
+				2BBDBA501A12AC2C005A6815 /* GoalChallengeView.swift */,
+				2BBDBA511A12AC2C005A6815 /* GoalChallengeView.xib */,
 			);
 			name = Challenges;
 			sourceTree = "<group>";
@@ -1127,14 +1115,14 @@
 		8F5C38E51981915500F51543 /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
-				D1CFC9821AB360AF00AC54BB /* MetricGraphCard.swift */,
-				8FEF6F451A6EECD5001EF8A6 /* ChallengesCard.swift */,
-				8F5C38EE1982EFDF00F51543 /* CheckinTableViewCell.swift */,
 				8FEF6F3B1A6EAACE001EF8A6 /* DashboardViewController.swift */,
-				8FEF6F471A6EECDE001EF8A6 /* PulseCard.swift */,
-				D1CFC9841AB3742700AC54BB /* MetricGraphCardView.xib */,
-				8F5C38F01982F20000F51543 /* CheckinTableViewCell.xib */,
 				8FEF6F391A6EAA58001EF8A6 /* DashboardView.xib */,
+				D1CFC9821AB360AF00AC54BB /* MetricGraphCard.swift */,
+				D1CFC9841AB3742700AC54BB /* MetricGraphCardView.xib */,
+				8F5C38EE1982EFDF00F51543 /* CheckinTableViewCell.swift */,
+				8F5C38F01982F20000F51543 /* CheckinTableViewCell.xib */,
+				8FEF6F451A6EECD5001EF8A6 /* ChallengesCard.swift */,
+				8FEF6F471A6EECDE001EF8A6 /* PulseCard.swift */,
 			);
 			name = Dashboard;
 			sourceTree = "<group>";
@@ -1171,8 +1159,11 @@
 			children = (
 				8F5E7FCA199BC941009067E5 /* Checkin Card */,
 				8F6A243D195A011F0094B73C /* Graphing */,
+				D1147DEB1B56076B0005E10A /* Loading */,
+				D1147DE91B56073D0005E10A /* Meter Gauge */,
+				D1147DE81B5606E90005E10A /* Points Meter */,
 				8FF873F519DF5474002A6341 /* Pull Refresh */,
-				D1DC365D1AC9E9F000CB124D /* CustomLoadingSpinner.swift */,
+				D1147DEA1B5607500005E10A /* Triangle */,
 			);
 			name = "Custom Views";
 			sourceTree = "<group>";
@@ -1180,24 +1171,20 @@
 		8F6266AD197EC8C700145EDB /* Metrics */ = {
 			isa = PBXGroup;
 			children = (
-				D1FD3FC71B263BBA007D362D /* MetricsView.xib */,
-				8F3643A119460EB300C0033E /* MetricsViewController.swift */,
-				D1740BC31AE0381F00462F6E /* MetricsType.swift */,
-				D1E2DB811AE176760074CBAF /* MetricCard.swift */,
-				D10D844A1AEFFA7A00DA3278 /* MetricDetailCard.swift */,
-				D1618F921ABB2E26000BDA85 /* MetricCardView.xib */,
-				D10D84481AEFF9D200DA3278 /* MetricDetailCardView.xib */,
-				D1FC72921B20116F0068CF89 /* WeightMetricCard.swift */,
 				D1D32D061B1FA0B500AE9B25 /* ActivityMetricDelegate.swift */,
-				D1FC72941B209CA40068CF89 /* MetricDelegate.swift */,
-				D1FC72961B20B0DC0068CF89 /* PulseMetricDelegate.swift */,
-				D1FC72981B20B1B70068CF89 /* WeightMetricDelegate.swift */,
 				D1FC729A1B20B22B0068CF89 /* BpMetricDelegate.swift */,
+				D1E2DB811AE176760074CBAF /* MetricCard.swift */,
+				D1618F921ABB2E26000BDA85 /* MetricCardView.xib */,
+				D10D844A1AEFFA7A00DA3278 /* MetricDetailCard.swift */,
+				D10D84481AEFF9D200DA3278 /* MetricDetailCardView.xib */,
+				D1FC72941B209CA40068CF89 /* MetricDelegate.swift */,
 				D1FC729C1B20FD9F0068CF89 /* MetricGraphUtility.swift */,
-				D1FC729E1B223FE70068CF89 /* MetricGauge.swift */,
-				D1FC72A01B2240020068CF89 /* MetricGaugeView.xib */,
-				D114B06A1B2A19900073A9CB /* TriangleView.swift */,
-				D1EFDC521B45D48400A340DD /* TriangleMarker.swift */,
+				D1740BC31AE0381F00462F6E /* MetricsType.swift */,
+				8F3643A119460EB300C0033E /* MetricsViewController.swift */,
+				D1FD3FC71B263BBA007D362D /* MetricsView.xib */,
+				D1FC72961B20B0DC0068CF89 /* PulseMetricDelegate.swift */,
+				D1FC72921B20116F0068CF89 /* WeightMetricCard.swift */,
+				D1FC72981B20B1B70068CF89 /* WeightMetricDelegate.swift */,
 			);
 			name = Metrics;
 			sourceTree = "<group>";
@@ -1237,14 +1224,8 @@
 		8F6A243D195A011F0094B73C /* Graphing */ = {
 			isa = PBXGroup;
 			children = (
-				D1D32CFA1B1F53E500AE9B25 /* BaseGraphHostingView.swift */,
 				D1E2A6F41AB75EBB00796700 /* MetricGraph.swift */,
 				8F77DF191A0080550056BE27 /* GraphPoint.swift */,
-				D1D32CF81B1F533100AE9B25 /* GraphDelegate.swift */,
-				D1D32CFC1B1F62C000AE9B25 /* ActivityGraphDelegate.swift */,
-				D1D32D001B1F6CD800AE9B25 /* BPGraphHostingView.swift */,
-				D1D32D021B1F6CF800AE9B25 /* PulseGraphHostingView.swift */,
-				D1D32D041B1F6D0A00AE9B25 /* WeightGraphHostingView.swift */,
 			);
 			name = Graphing;
 			path = ..;
@@ -1335,40 +1316,73 @@
 		D110BAD21B0E7C3900CD1E58 /* Daily Summary */ = {
 			isa = PBXGroup;
 			children = (
-				8FEF6F3D1A6EB437001EF8A6 /* PointsMeterView.xib */,
-				8FEF6F3F1A6EB638001EF8A6 /* PointsMeter.swift */,
-				D110BAD31B0E7C5500CD1E58 /* DailySummaryViewController.swift */,
-				D110BAD51B0E7CD700CD1E58 /* DailySummaryView.xib */,
-				D17528811B0FB651006335B4 /* DailySummaryRowView.xib */,
-				D17528831B0FBD49006335B4 /* DailySummaryRow.swift */,
-				D17528851B0FC852006335B4 /* DailySummaryBreakdownView.xib */,
-				D17528871B0FD332006335B4 /* DailySummaryBreakdown.swift */,
 				D13D36521B30D78E00F18A42 /* ActivityCategory.swift */,
 				D1020A281B3B130C001F2D81 /* BreakdownTitleRow.swift */,
 				D1020A2A1B3B1327001F2D81 /* BreakdownTitleRowView.xib */,
+				D17528871B0FD332006335B4 /* DailySummaryBreakdown.swift */,
+				D17528851B0FC852006335B4 /* DailySummaryBreakdownView.xib */,
+				D17528831B0FBD49006335B4 /* DailySummaryRow.swift */,
+				D17528811B0FB651006335B4 /* DailySummaryRowView.xib */,
+				D110BAD31B0E7C5500CD1E58 /* DailySummaryViewController.swift */,
+				D110BAD51B0E7CD700CD1E58 /* DailySummaryView.xib */,
 				D1EE80F31B3BBAAD00B13CB8 /* SummaryViewUtility.swift */,
 			);
 			name = "Daily Summary";
 			sourceTree = "<group>";
 		};
+		D1147DE81B5606E90005E10A /* Points Meter */ = {
+			isa = PBXGroup;
+			children = (
+				8FEF6F3D1A6EB437001EF8A6 /* PointsMeterView.xib */,
+				8FEF6F3F1A6EB638001EF8A6 /* PointsMeter.swift */,
+			);
+			name = "Points Meter";
+			sourceTree = "<group>";
+		};
+		D1147DE91B56073D0005E10A /* Meter Gauge */ = {
+			isa = PBXGroup;
+			children = (
+				D1FC729E1B223FE70068CF89 /* MetricGauge.swift */,
+				D1FC72A01B2240020068CF89 /* MetricGaugeView.xib */,
+			);
+			name = "Meter Gauge";
+			sourceTree = "<group>";
+		};
+		D1147DEA1B5607500005E10A /* Triangle */ = {
+			isa = PBXGroup;
+			children = (
+				D114B06A1B2A19900073A9CB /* TriangleView.swift */,
+				D1EFDC521B45D48400A340DD /* TriangleMarker.swift */,
+			);
+			name = Triangle;
+			sourceTree = "<group>";
+		};
+		D1147DEB1B56076B0005E10A /* Loading */ = {
+			isa = PBXGroup;
+			children = (
+				D1DC365D1AC9E9F000CB124D /* CustomLoadingSpinner.swift */,
+			);
+			name = Loading;
+			sourceTree = "<group>";
+		};
 		D1229A051A8167F200FB1773 /* Challenge Details */ = {
 			isa = PBXGroup;
 			children = (
-				D1B6D6971A8D09FD0006F80C /* ChatterInputViewController.swift */,
 				D149E94A1A78471A00FBAA15 /* ChallengeDetailsChatterRow.swift */,
-				D149E9461A7822D900FBAA15 /* ChallengeDetailsPrize.swift */,
-				D17010C81A644414002CBFE8 /* ChallengeDetailsViewController.swift */,
-				D1E1FF051A76C28F00C8951C /* ChallengeProgressLegendRow.swift */,
-				D10D894F1A8C11A9000402D4 /* ChallengeDetailsParticipantIcon.swift */,
-				D18395C21A69CAD500D290BF /* ChallengesDetailsTab.swift */,
 				D149E9481A7845A200FBAA15 /* ChallengeDetailsChatterRow.xib */,
-				D1BA13461A8D056900E1AFE9 /* ChatterInputView.xib */,
-				D149E9441A78221200FBAA15 /* ChallengeDetailsPrizes.xib */,
-				D1E1FF091A76E0AC00C8951C /* ChallengeDetailsRow.xib */,
-				D18395C01A69BC9E00D290BF /* ChallengeDetailsTab.xib */,
-				D17010C71A644414002CBFE8 /* ChallengeDetailsView.xib */,
-				D1E1FF071A76C2DB00C8951C /* ChallengeProgressLegendRow.xib */,
+				D10D894F1A8C11A9000402D4 /* ChallengeDetailsParticipantIcon.swift */,
 				D1BA13441A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib */,
+				D149E9461A7822D900FBAA15 /* ChallengeDetailsPrize.swift */,
+				D149E9441A78221200FBAA15 /* ChallengeDetailsPrizes.xib */,
+				D17010C81A644414002CBFE8 /* ChallengeDetailsViewController.swift */,
+				D17010C71A644414002CBFE8 /* ChallengeDetailsView.xib */,
+				D1E1FF051A76C28F00C8951C /* ChallengeProgressLegendRow.swift */,
+				D1E1FF071A76C2DB00C8951C /* ChallengeProgressLegendRow.xib */,
+				D18395C21A69CAD500D290BF /* ChallengesDetailsTab.swift */,
+				D18395C01A69BC9E00D290BF /* ChallengeDetailsTab.xib */,
+				D1E1FF091A76E0AC00C8951C /* ChallengeDetailsRow.xib */,
+				D1B6D6971A8D09FD0006F80C /* ChatterInputViewController.swift */,
+				D1BA13461A8D056900E1AFE9 /* ChatterInputView.xib */,
 			);
 			name = "Challenge Details";
 			sourceTree = "<group>";
@@ -1812,7 +1826,6 @@
 			files = (
 				8F3643A219460EB300C0033E /* MetricsViewController.swift in Sources */,
 				8FF940951989A19B00D319D7 /* BaseViewController.swift in Sources */,
-				D1D32D051B1F6D0A00AE9B25 /* WeightGraphHostingView.swift in Sources */,
 				8F1D979A1995553B003B5645 /* ModifyImageViewController.swift in Sources */,
 				8FDB4B681A09731B00F57B38 /* ActivityDevice.swift in Sources */,
 				8F296316194B9BF700E787FD /* SessionController.swift in Sources */,
@@ -1848,12 +1861,10 @@
 				8F5C38F71983094F00F51543 /* NSString+HTML.m in Sources */,
 				8FDA6DA619A4038F00244D5F /* TermsViewController.swift in Sources */,
 				D110BAD41B0E7C5500CD1E58 /* DailySummaryViewController.swift in Sources */,
-				D1D32D011B1F6CD800AE9B25 /* BPGraphHostingView.swift in Sources */,
 				D1B6D6981A8D09FD0006F80C /* ChatterInputViewController.swift in Sources */,
 				D149E9471A7822D900FBAA15 /* ChallengeDetailsPrize.swift in Sources */,
 				8FE056E9198FDCA600C81208 /* FindStationViewController.swift in Sources */,
 				2BBDBA561A12AC2C005A6815 /* CompetitiveChallengeView.swift in Sources */,
-				D1D32D031B1F6CF800AE9B25 /* PulseGraphHostingView.swift in Sources */,
 				D17528881B0FD332006335B4 /* DailySummaryBreakdown.swift in Sources */,
 				8F6A24311951E5D80094B73C /* ApiUtility.swift in Sources */,
 				8F2B7E55198C3475009DE89A /* RevealViewController.swift in Sources */,
@@ -1870,7 +1881,6 @@
 				D1FC72951B209CA40068CF89 /* MetricDelegate.swift in Sources */,
 				8FDA6DA319A2979800244D5F /* ChangePasswordViewController.swift in Sources */,
 				D1FC729B1B20B22B0068CF89 /* BpMetricDelegate.swift in Sources */,
-				D1D32CF91B1F533100AE9B25 /* GraphDelegate.swift in Sources */,
 				D12B398B1AA4ECC6005B2ABA /* GQTPointQuadTree.m in Sources */,
 				8FE0BCCE199175BC00940D39 /* PulseCell.swift in Sources */,
 				D114B06B1B2A19900073A9CB /* TriangleView.swift in Sources */,
@@ -1885,7 +1895,6 @@
 				8F6A243C1958EA730094B73C /* NewCPTScatterPlot.m in Sources */,
 				2BC5865E1A16D0AF005A7983 /* ChallengeInvitationView.swift in Sources */,
 				D12B399A1AA4ED08005B2ABA /* NonHierarchicalDistanceBasedAlgorithm.m in Sources */,
-				D1D32CFD1B1F62C000AE9B25 /* ActivityGraphDelegate.swift in Sources */,
 				D18395C31A69CAD500D290BF /* ChallengesDetailsTab.swift in Sources */,
 				2BBDBA551A12AC2C005A6815 /* ChallengesViewController.swift in Sources */,
 				8FA5925F19ABBD3A00622266 /* TourViewController.swift in Sources */,
@@ -1894,7 +1903,6 @@
 				8F6266B7197EE42700145EDB /* MainNavigationController.swift in Sources */,
 				8FE056E1198FDBFE00C81208 /* PulseHomeViewController.swift in Sources */,
 				8F2B7E53198C3097009DE89A /* DrawerCell.swift in Sources */,
-				D1D32CFB1B1F53E500AE9B25 /* BaseGraphHostingView.swift in Sources */,
 				2BBDBA521A12AC2C005A6815 /* ChallengeRowCell.swift in Sources */,
 				8FDB4B641A096E1C00F57B38 /* HigiChallenge.swift in Sources */,
 				8F29630D194B8F4600E787FD /* WelcomeViewController.swift in Sources */,

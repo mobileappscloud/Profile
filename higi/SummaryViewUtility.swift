@@ -6,14 +6,17 @@ class SummaryViewUtility {
         return this.points >= that.points;
     }
     
-    class func initBreakdownRow(originX: CGFloat, originY: CGFloat, text: String, duplicate: Bool) -> DailySummaryBreakdown {
+    class func initBreakdownRow(frame: CGRect, text: String, duplicate: Bool) -> DailySummaryBreakdown {
         let breakdownRow = UINib(nibName: "DailySummaryBreakdownView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! DailySummaryBreakdown;
-        breakdownRow.frame.origin.y = originY;
-        breakdownRow.frame.origin.x = originX;
+        breakdownRow.frame = frame;
         breakdownRow.desc.text = text;
         if (duplicate) {
             breakdownRow.desc.textColor = UIColor.lightGrayColor();
         }
+        breakdownRow.frame.size.height = Utility.heightForTextView(frame.size.width, text: text, fontSize: breakdownRow.desc.font.pointSize, margin: 0);
+        breakdownRow.desc.sizeToFit();
+
+        breakdownRow.frame.origin.y = frame.origin.y;
         return breakdownRow;
     }
     
