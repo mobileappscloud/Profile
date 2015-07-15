@@ -28,8 +28,6 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     
     var activitiesByType:[String: (Int, [HigiActivity])] = [:];
     
-    var todaysCheckins:[HigiCheckin] = [];
-    
     var totalPoints = 0;
     
     var minCircleRadius:CGFloat = 6, maxCircleRadius:CGFloat = 22, currentOrigin:CGFloat = 0, gap:CGFloat = 4, imageAspectRatio:CGFloat!;
@@ -183,15 +181,6 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             }
         }
         
-        var addedCheckins = false;
-        for checkin in SessionController.Instance.checkins {
-            if (Constants.dateFormatter.stringFromDate(checkin.dateTime) == self.dateString) {
-                todaysCheckins.append(checkin);
-                addedCheckins = true;
-            } else if addedCheckins {
-                break;
-            }
-        }
         layoutActivityView();
     }
 
@@ -244,8 +233,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
                     rows.append(breakdownRow);
                     margins.append(0);
                 } else if (key == ActivityCategory.Health.getString()) {
-                    if (checkinIndex < todaysCheckins.count) {
-                        let checkin = todaysCheckins[checkinIndex];
+                    if let checkin = findCheckin(subActivity) {
                         if (checkin.diastolic != nil && checkin.diastolic > 0) {
                             let breakdownRow = SummaryViewUtility.initBreakdownRow(CGRect(x: activityRow.name.frame.origin.x, y: currentOrigin, width: rowWidth, height: CGFloat.max), text: "\(checkin.systolic!)/\(checkin.diastolic!) mmHg BP", duplicate: isDuplicate);
                             activityContainer.addSubview(breakdownRow);
@@ -282,7 +270,6 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
                             rows.append(breakdownRow);
                             margins.append(0);
                         }
-                        checkinIndex++;
                     }
                 } else if (key == ActivityCategory.Fitness.getString()) {
                     let breakdownRow = SummaryViewUtility.initBreakdownRow(CGRect(x: activityRow.name.frame.origin.x, y: currentOrigin, width: rowWidth, height: CGFloat.max), text: "\(subActivity.description)", duplicate: isDuplicate);
@@ -306,6 +293,59 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         }
     }
 
+    func findCheckin(activity: HigiActivity ) -> HigiCheckin? {
+        if SessionController.Instance.checkins != nil {
+            let formatter = NSDateFormatter();
+            formatter.dateFormat = "yyyyMMddHHmm";
+            for checkin in SessionController.Instance.checkins.reverse() {
+                let date1 = formatter.stringFromDate(activity.startTime);
+                let date2 = formatter.stringFromDate(checkin.dateTime);
+                if date1 == date2 {
+                    let tests = activity.healthChecks;
+                    var earnditTotal = 0, higiTotal = 0;
+                        for test in tests {
+                            switch (test) {
+                                case "bloodPressure", "systolicPressure", "diastolicPressure":
+                                    if (earnditTotal % 2 == 0) {
+                                        earnditTotal += 1;
+                                    }
+                                    break;
+                                case "heartRate":
+                                    earnditTotal += 2;
+                                    break;
+                                case "weight":
+                                    earnditTotal += 4;
+                                    break;
+                                case "bodyFatPercentage":
+                                    earnditTotal += 8;
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                        if checkin.systolic != nil && checkin.systolic > 0 {
+                            higiTotal += 1;
+                        }
+                        if checkin.pulseBpm != nil && checkin.pulseBpm > 0 {
+                            higiTotal += 2;
+                        }
+                        if checkin.weightLbs != nil && checkin.weightLbs > 0 {
+                            higiTotal += 4;
+                        }
+                        if checkin.fatRatio != nil && checkin.fatRatio > 0 {
+                            higiTotal += 8;
+                        }
+                        if earnditTotal == higiTotal {
+                            return checkin;
+                        }
+                } else if activity.startTime.timeIntervalSince1970 > checkin.dateTime.timeIntervalSince1970 {
+                    break;
+                }
+            }
+        }
+        return nil;
+    }
+    
     func scrollViewDidScroll(scrollView: UIScrollView) {
         let scrollY = scrollView.contentOffset.y;
         if (scrollY >= 0) {

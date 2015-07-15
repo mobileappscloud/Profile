@@ -44,14 +44,23 @@ class HigiActivity {
         var dateString = dictionary["startTime"] as! String;
         var time = formatter.dateFromString(dateString);
         startTime = formatter.dateFromString(dictionary["startTime"] as! String);
+        if let serverOffset = dictionary["timezoneOffset"] as? String {
+            if let timezoneOffset = serverOffset.toInt() {
+                if timezoneOffset != 0 {
+                    var offset = Double(NSTimeZone.localTimeZone().secondsFromGMT);
+                    offset -= Double(timezoneOffset * 60);
+                    startTime = NSDate(timeIntervalSince1970: startTime.timeIntervalSince1970 + offset);
+                    let i = 0;
+                }
+            }
+        }
         let typeObject = dictionary["type"] as! NSDictionary;
         typeCategory = typeObject["category"] as? NSString;
         checkinCategory = typeObject["checkinCategory"] as? NSString;
         category = typeObject["category"] as? NSString;
         typeName = typeObject["name"] as? NSString;
-        var error = dictionary["error"] as? NSDictionary;
-        if (error != nil) {
-            errorDescription = error!["description"] as! NSString;
+        if let error = dictionary["error"] as? NSDictionary {
+            errorDescription = error["description"] as! NSString;
         }
     }
 }
