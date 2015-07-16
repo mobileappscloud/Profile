@@ -58,9 +58,7 @@ class MetricCard: UIView, MetricDelegate {
         view.delegate = delegate;
         view.initFrame(frame);
         view.initGraphView();
-        view.initRegions(true);
         view.initHeader();
-        view.setSelected(NSDate());
         return view;
     }
     
@@ -137,6 +135,8 @@ class MetricCard: UIView, MetricDelegate {
             blankStateImage.image = Utility.scaleImage(image, newSize: CGSize(width: newWidth, height: graphContainer.frame.size.height));
             self.graphContainer.addSubview(blankStateImage);
         }
+        initRegions(true);
+        setSelected(NSDate());
     }
     
     func initRegions(isPrimaryGraph: Bool) {

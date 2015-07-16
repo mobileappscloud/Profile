@@ -289,7 +289,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             weightCard.frame.origin.x = cardMarginX;
             let weightTouched = UITapGestureRecognizer(target: self, action: "gotoWeightGraph:");
             weightCard.addGestureRecognizer(weightTouched);
-            cardPositionY += weightCard.frame.size.height + cardMarginY;
+            cardPositionY += weightCard.frame.size.height + cardMarginY / 2;
             
             var checkins = SessionController.Instance.checkins;
             if (checkins != nil && checkins.count > 0) {

@@ -50,7 +50,6 @@ class HigiActivity {
                     var offset = Double(NSTimeZone.localTimeZone().secondsFromGMT);
                     offset -= Double(timezoneOffset * 60);
                     startTime = NSDate(timeIntervalSince1970: startTime.timeIntervalSince1970 + offset);
-                    let i = 0;
                 }
             }
         }
