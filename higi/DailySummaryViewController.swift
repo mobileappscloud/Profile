@@ -215,14 +215,16 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             let titleMargin:CGFloat = 6;
             let rowWidth = UIScreen.mainScreen().bounds.size.width - activityRow.name.frame.origin.x;
             for subActivity in activityList {
-                let titleRow = SummaryViewUtility.initTitleRow(activityRow.name.frame.origin.x, originY: currentOrigin, width: rowWidth, points: subActivity.points, device: "\(subActivity.device.name)", color: color);
-                activityContainer.addSubview(titleRow);
-                titleRows.append(titleRow);
-                
-                rows.append(titleRow);
-                margins.append(titleMargin);
-                
-                currentOrigin += titleRow.frame.size.height + titleMargin;
+                if key != ActivityCategory.Health.getString() {
+                    let titleRow = SummaryViewUtility.initTitleRow(activityRow.name.frame.origin.x, originY: currentOrigin, width: rowWidth, points: subActivity.points, device: "\(subActivity.device.name)", color: color);
+                    activityContainer.addSubview(titleRow);
+                    titleRows.append(titleRow);
+                    
+                    rows.append(titleRow);
+                    margins.append(titleMargin);
+                    
+                    currentOrigin += titleRow.frame.size.height + titleMargin;
+                }
                 var isDuplicate = subActivity.errorDescription != nil;
                 if (key == ActivityCategory.Lifestyle.getString()) {
                     let breakdownRow = SummaryViewUtility.initBreakdownRow(CGRect(x: activityRow.name.frame.origin.x, y: currentOrigin, width: rowWidth, height: CGFloat.max), text: "\(subActivity.description)", duplicate: isDuplicate);
@@ -234,41 +236,68 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
                     margins.append(0);
                 } else if (key == ActivityCategory.Health.getString()) {
                     if let checkin = findCheckin(subActivity) {
-                        if (checkin.diastolic != nil && checkin.diastolic > 0) {
-                            let breakdownRow = SummaryViewUtility.initBreakdownRow(CGRect(x: activityRow.name.frame.origin.x, y: currentOrigin, width: rowWidth, height: CGFloat.max), text: "\(checkin.systolic!)/\(checkin.diastolic!) mmHg BP", duplicate: isDuplicate);
-                            activityContainer.addSubview(breakdownRow);
-                            currentOrigin += breakdownRow.frame.size.height;
-                            descriptionRows.append(breakdownRow);
+                        let grayedAlpha: CGFloat = 0.5;
+                        if subActivity.points > 0 || (checkin.diastolic != nil || checkin.pulseBpm != nil || checkin.weightLbs != nil || checkin.fatRatio != nil) {
+                            let titleRow = SummaryViewUtility.initTitleRow(activityRow.name.frame.origin.x, originY: currentOrigin, width: rowWidth, points: subActivity.points, device: "\(subActivity.device.name)", color: color);
+                            if subActivity.points == 0 {
+                                titleRow.alpha = grayedAlpha;
+                            }
+                            activityContainer.addSubview(titleRow);
+                            titleRows.append(titleRow);
                             
-                            rows.append(breakdownRow);
-                            margins.append(0);
-                        }
-                        if (checkin.pulseBpm != nil && checkin.pulseBpm > 0) {
-                            let breakdownRow = SummaryViewUtility.initBreakdownRow(CGRect(x: activityRow.name.frame.origin.x, y: currentOrigin, width: rowWidth, height: CGFloat.max), text: "\(checkin.pulseBpm!) bpm Pulse", duplicate: isDuplicate);
-                            activityContainer.addSubview(breakdownRow);
-                            currentOrigin += breakdownRow.frame.size.height;
-                            descriptionRows.append(breakdownRow);
+                            rows.append(titleRow);
+                            margins.append(titleMargin);
                             
-                            rows.append(breakdownRow);
-                            margins.append(0);
-                        }
-                        if (checkin.weightLbs != nil && checkin.weightLbs > 0) {
-                            let breakdownRow = SummaryViewUtility.initBreakdownRow(CGRect(x: activityRow.name.frame.origin.x, y: currentOrigin, width: rowWidth, height: CGFloat.max), text: "\(Int(checkin.weightLbs!)) lbs Weight", duplicate: isDuplicate);
-                            activityContainer.addSubview(breakdownRow);
-                            currentOrigin += breakdownRow.frame.size.height;
-                            descriptionRows.append(breakdownRow);
+                            currentOrigin += titleRow.frame.size.height + titleMargin;
                             
-                            rows.append(breakdownRow);
-                            margins.append(0);
-                        }
-                        if (checkin.fatRatio != nil && checkin.fatRatio > 0) {
-                            let breakdownRow = SummaryViewUtility.initBreakdownRow(CGRect(x: activityRow.name.frame.origin.x, y: currentOrigin, width: rowWidth, height: CGFloat.max), text: String(format: "%.2f", checkin.fatRatio!) + "% Body Fat", duplicate: isDuplicate);
-                            activityContainer.addSubview(breakdownRow);
-                            currentOrigin += breakdownRow.frame.size.height;
-                            descriptionRows.append(breakdownRow);
-                            
-                            rows.append(breakdownRow);
-                            margins.append(0);
+                            if (checkin.diastolic != nil && checkin.diastolic > 0) {
+                                let breakdownRow = SummaryViewUtility.initBreakdownRow(CGRect(x: activityRow.name.frame.origin.x, y: currentOrigin, width: rowWidth, height: CGFloat.max), text: "\(checkin.systolic!)/\(checkin.diastolic!) mmHg BP", duplicate: isDuplicate);
+                                if subActivity.points == 0 {
+                                    breakdownRow.alpha = grayedAlpha;
+                                }
+                                activityContainer.addSubview(breakdownRow);
+                                currentOrigin += breakdownRow.frame.size.height;
+                                descriptionRows.append(breakdownRow);
+                                
+                                rows.append(breakdownRow);
+                                margins.append(0);
+                            }
+                            if (checkin.pulseBpm != nil && checkin.pulseBpm > 0) {
+                                let breakdownRow = SummaryViewUtility.initBreakdownRow(CGRect(x: activityRow.name.frame.origin.x, y: currentOrigin, width: rowWidth, height: CGFloat.max), text: "\(checkin.pulseBpm!) bpm Pulse", duplicate: isDuplicate);
+                                if subActivity.points == 0 {
+                                    breakdownRow.alpha = grayedAlpha;
+                                }
+                                activityContainer.addSubview(breakdownRow);
+                                currentOrigin += breakdownRow.frame.size.height;
+                                descriptionRows.append(breakdownRow);
+                                
+                                rows.append(breakdownRow);
+                                margins.append(0);
+                            }
+                            if (checkin.weightLbs != nil && checkin.weightLbs > 0) {
+                                let breakdownRow = SummaryViewUtility.initBreakdownRow(CGRect(x: activityRow.name.frame.origin.x, y: currentOrigin, width: rowWidth, height: CGFloat.max), text: "\(Int(checkin.weightLbs!)) lbs Weight", duplicate: isDuplicate);
+                                if subActivity.points == 0 {
+                                    breakdownRow.alpha = grayedAlpha;
+                                }
+                                activityContainer.addSubview(breakdownRow);
+                                currentOrigin += breakdownRow.frame.size.height;
+                                descriptionRows.append(breakdownRow);
+                                
+                                rows.append(breakdownRow);
+                                margins.append(0);
+                            }
+                            if (checkin.fatRatio != nil && checkin.fatRatio > 0) {
+                                let breakdownRow = SummaryViewUtility.initBreakdownRow(CGRect(x: activityRow.name.frame.origin.x, y: currentOrigin, width: rowWidth, height: CGFloat.max), text: String(format: "%.2f", checkin.fatRatio!) + "% Body Fat", duplicate: isDuplicate);
+                                if subActivity.points == 0 {
+                                    breakdownRow.alpha = grayedAlpha;
+                                }
+                                activityContainer.addSubview(breakdownRow);
+                                currentOrigin += breakdownRow.frame.size.height;
+                                descriptionRows.append(breakdownRow);
+                                
+                                rows.append(breakdownRow);
+                                margins.append(0);
+                            }
                         }
                     }
                 } else if (key == ActivityCategory.Fitness.getString()) {
