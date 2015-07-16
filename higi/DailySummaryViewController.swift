@@ -237,7 +237,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
                 } else if (key == ActivityCategory.Health.getString()) {
                     if let checkin = findCheckin(subActivity) {
                         let grayedAlpha: CGFloat = 0.5;
-                        if subActivity.points > 0 || (checkin.diastolic != nil || checkin.pulseBpm != nil || checkin.weightLbs != nil || checkin.fatRatio != nil) {
+                        if subActivity.points > 0 || checkin.diastolic != nil || checkin.pulseBpm != nil || checkin.weightLbs != nil || checkin.fatRatio != nil {
                             let titleRow = SummaryViewUtility.initTitleRow(activityRow.name.frame.origin.x, originY: currentOrigin, width: rowWidth, points: subActivity.points, device: "\(subActivity.device.name)", color: color);
                             if subActivity.points == 0 {
                                 titleRow.alpha = grayedAlpha;

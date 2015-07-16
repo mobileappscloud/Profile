@@ -47,7 +47,7 @@ class HigiActivity {
         if let serverOffset = dictionary["timezoneOffset"] as? String {
             if let timezoneOffset = serverOffset.toInt() {
                 if timezoneOffset != 0 {
-                    var offset = Double(NSTimeZone.localTimeZone().secondsFromGMT);
+                    var offset = Double(NSTimeZone.localTimeZone().secondsFromGMTForDate(startTime));
                     offset -= Double(timezoneOffset * 60);
                     startTime = NSDate(timeIntervalSince1970: startTime.timeIntervalSince1970 + offset);
                 }
