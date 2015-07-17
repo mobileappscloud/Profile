@@ -21,7 +21,7 @@ class PulseMetricDelegate: MetricDelegate {
     }
     
     func getCopyImage(tab: Int) -> UIImage? {
-        return UIImage(named: "pulse_overlay")!;
+        return UIImage(named: "pulse_copy")!;
     }
     
     func getBlankStateImage() -> UIImage {

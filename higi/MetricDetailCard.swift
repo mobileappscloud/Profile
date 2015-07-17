@@ -102,11 +102,15 @@ class MetricDetailCard: UIView {
             let thirdPanelTap = UITapGestureRecognizer(target: self, action: "thirdPanelClicked:");
             thirdPanel.addGestureRecognizer(thirdPanelTap);
         }
-        updateCopyImage();
+        updateCopyImage(1);
     }
     
-    func updateCopyImage() {
+    func updateCopyImageIfNeeded() {
         let tab = thirdPanelSelected ? 1 : 0;
+        updateCopyImage(tab);
+    }
+    
+    func updateCopyImage(tab: Int) {
         if let image = delegate.getCopyImage(tab) {
             let height = image.size.height;
             let width = image.size.width;
@@ -179,7 +183,7 @@ class MetricDetailCard: UIView {
                 gauge = MetricGauge.create(CGRect(x: 0, y: 0, width: gaugeContainer.frame.size.width, height: gaugeContainer.frame.size.height), delegate: delegate, tab: tab);
                 gaugeContainer.addSubview(gauge);
             }
-            updateCopyImage();
+            updateCopyImage(tab);
         }
         thirdPanelSelected = false;
     }
@@ -194,7 +198,7 @@ class MetricDetailCard: UIView {
                 gauge = MetricGauge.create(CGRect(x: 0, y: 0, width: gaugeContainer.frame.size.width, height: gaugeContainer.frame.size.height), delegate: delegate, tab: 1);
                 gaugeContainer.addSubview(gauge);
             }
-            updateCopyImage();
+            updateCopyImage(tab);
         }
         thirdPanelSelected = true;
     }
@@ -309,6 +313,7 @@ class MetricDetailCard: UIView {
             }
             currentOrigin += gap;
         }
+        currentOrigin += gap * 2;
         copyImageOrigin = currentOrigin;
         copyScrollViewHeight = copyScrollview.frame.origin.y + currentOrigin + 40;
     }

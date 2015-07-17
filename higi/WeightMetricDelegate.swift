@@ -25,10 +25,10 @@ class WeightMetricDelegate: MetricDelegate {
     }
     
     func getCopyImage(tab: Int) -> UIImage? {
-        if weightMode {
-            return UIImage(named: "weight_overlay")!;
+        if weightMode || tab == 0 {
+            return UIImage(named: "weight_copy")!;
         } else {
-            return UIImage(named: "bmi_overlay")!;
+            return UIImage(named: "bodyfat_copy")!;
         }
     }
     

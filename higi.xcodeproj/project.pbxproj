@@ -166,11 +166,6 @@
 		8FDB4B681A09731B00F57B38 /* ActivityDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDB4B671A09731B00F57B38 /* ActivityDevice.swift */; };
 		8FDB4B6A1A09741400F57B38 /* ChallengeWinCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDB4B691A09741400F57B38 /* ChallengeWinCondition.swift */; };
 		8FDCE1C61988072C006428C3 /* btn_close_reminder.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FDCE1C51988072C006428C3 /* btn_close_reminder.png */; };
-		8FDCE1CE19880919006428C3 /* bmi_overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FDCE1C919880919006428C3 /* bmi_overlay.png */; };
-		8FDCE1CF19880919006428C3 /* bp_overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FDCE1CA19880919006428C3 /* bp_overlay.png */; };
-		8FDCE1D019880919006428C3 /* map_overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FDCE1CB19880919006428C3 /* map_overlay.png */; };
-		8FDCE1D119880919006428C3 /* pulse_overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FDCE1CC19880919006428C3 /* pulse_overlay.png */; };
-		8FDCE1D219880919006428C3 /* weight_overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FDCE1CD19880919006428C3 /* weight_overlay.png */; };
 		8FE056DF198FDBDC00C81208 /* PulseHomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FE056DE198FDBDC00C81208 /* PulseHomeView.xib */; };
 		8FE056E1198FDBFE00C81208 /* PulseHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE056E0198FDBFE00C81208 /* PulseHomeViewController.swift */; };
 		8FE056E3198FDC3900C81208 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE056E2198FDC3900C81208 /* SettingsViewController.swift */; };
@@ -213,11 +208,6 @@
 		8FFB034F19FEA2440036228C /* oc_findastation_active.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFB034519FEA2440036228C /* oc_findastation_active.png */; };
 		8FFB035019FEA2440036228C /* oc_pulse_active.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFB034619FEA2440036228C /* oc_pulse_active.png */; };
 		8FFB035119FEA2440036228C /* oc_settings_active.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFB034719FEA2440036228C /* oc_settings_active.png */; };
-		8FFF43BF19B798380056F412 /* bmi_overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFF43BA19B798380056F412 /* bmi_overlay@2x.png */; };
-		8FFF43C019B798380056F412 /* bp_overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFF43BB19B798380056F412 /* bp_overlay@2x.png */; };
-		8FFF43C119B798380056F412 /* map_overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFF43BC19B798380056F412 /* map_overlay@2x.png */; };
-		8FFF43C219B798380056F412 /* pulse_overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFF43BD19B798380056F412 /* pulse_overlay@2x.png */; };
-		8FFF43C319B798380056F412 /* weight_overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFF43BE19B798380056F412 /* weight_overlay@2x.png */; };
 		C05CB27FD2A34A3BA2F46E97 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C0A91AD3D5DE44B7872F95D7 /* libPods.a */; };
 		D101757B1A79693C00CA32DC /* chat_bubble.png in Resources */ = {isa = PBXBuildFile; fileRef = D101757A1A79693C00CA32DC /* chat_bubble.png */; };
 		D1020A291B3B130C001F2D81 /* BreakdownTitleRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1020A281B3B130C001F2D81 /* BreakdownTitleRow.swift */; };
@@ -266,6 +256,12 @@
 		D16FD5E91ADDADC200AF9BA5 /* back_button_white.png in Resources */ = {isa = PBXBuildFile; fileRef = D16FD5E81ADDADC200AF9BA5 /* back_button_white.png */; };
 		D17010C91A644414002CBFE8 /* ChallengeDetailsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D17010C71A644414002CBFE8 /* ChallengeDetailsView.xib */; };
 		D17010CA1A644414002CBFE8 /* ChallengeDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17010C81A644414002CBFE8 /* ChallengeDetailsViewController.swift */; };
+		D17334401B594FCD0089BBFD /* bloodpressure_copy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D173343A1B594FCD0089BBFD /* bloodpressure_copy@2x.png */; };
+		D17334411B594FCD0089BBFD /* weight_copy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D173343B1B594FCD0089BBFD /* weight_copy@2x.png */; };
+		D17334421B594FCD0089BBFD /* pulse_copy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D173343C1B594FCD0089BBFD /* pulse_copy@2x.png */; };
+		D17334431B594FCD0089BBFD /* MAP_copy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D173343D1B594FCD0089BBFD /* MAP_copy@2x.png */; };
+		D17334441B594FCD0089BBFD /* bodyfat_copy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D173343E1B594FCD0089BBFD /* bodyfat_copy@2x.png */; };
+		D17334451B594FCD0089BBFD /* activities_copy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D173343F1B594FCD0089BBFD /* activities_copy@2x.png */; };
 		D1740BC41AE0381F00462F6E /* MetricsType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1740BC31AE0381F00462F6E /* MetricsType.swift */; };
 		D175287E1B0F9669006335B4 /* dailysummary_night.png in Resources */ = {isa = PBXBuildFile; fileRef = D175287B1B0F9669006335B4 /* dailysummary_night.png */; };
 		D175287F1B0F9669006335B4 /* dailysummary_morning.png in Resources */ = {isa = PBXBuildFile; fileRef = D175287C1B0F9669006335B4 /* dailysummary_morning.png */; };
@@ -509,11 +505,6 @@
 		8FDB4B671A09731B00F57B38 /* ActivityDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityDevice.swift; sourceTree = "<group>"; };
 		8FDB4B691A09741400F57B38 /* ChallengeWinCondition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeWinCondition.swift; sourceTree = "<group>"; };
 		8FDCE1C51988072C006428C3 /* btn_close_reminder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = btn_close_reminder.png; path = images/btn_close_reminder.png; sourceTree = "<group>"; };
-		8FDCE1C919880919006428C3 /* bmi_overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bmi_overlay.png; path = images/bmi_overlay.png; sourceTree = "<group>"; };
-		8FDCE1CA19880919006428C3 /* bp_overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bp_overlay.png; path = images/bp_overlay.png; sourceTree = "<group>"; };
-		8FDCE1CB19880919006428C3 /* map_overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = map_overlay.png; path = images/map_overlay.png; sourceTree = "<group>"; };
-		8FDCE1CC19880919006428C3 /* pulse_overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pulse_overlay.png; path = images/pulse_overlay.png; sourceTree = "<group>"; };
-		8FDCE1CD19880919006428C3 /* weight_overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = weight_overlay.png; path = images/weight_overlay.png; sourceTree = "<group>"; };
 		8FE056DE198FDBDC00C81208 /* PulseHomeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PulseHomeView.xib; sourceTree = "<group>"; };
 		8FE056E0198FDBFE00C81208 /* PulseHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PulseHomeViewController.swift; sourceTree = "<group>"; };
 		8FE056E2198FDC3900C81208 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -557,11 +548,6 @@
 		8FFB034519FEA2440036228C /* oc_findastation_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oc_findastation_active.png; path = images/oc_findastation_active.png; sourceTree = "<group>"; };
 		8FFB034619FEA2440036228C /* oc_pulse_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oc_pulse_active.png; path = images/oc_pulse_active.png; sourceTree = "<group>"; };
 		8FFB034719FEA2440036228C /* oc_settings_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oc_settings_active.png; path = images/oc_settings_active.png; sourceTree = "<group>"; };
-		8FFF43BA19B798380056F412 /* bmi_overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bmi_overlay@2x.png"; path = "images/bmi_overlay@2x.png"; sourceTree = "<group>"; };
-		8FFF43BB19B798380056F412 /* bp_overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bp_overlay@2x.png"; path = "images/bp_overlay@2x.png"; sourceTree = "<group>"; };
-		8FFF43BC19B798380056F412 /* map_overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "map_overlay@2x.png"; path = "images/map_overlay@2x.png"; sourceTree = "<group>"; };
-		8FFF43BD19B798380056F412 /* pulse_overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pulse_overlay@2x.png"; path = "images/pulse_overlay@2x.png"; sourceTree = "<group>"; };
-		8FFF43BE19B798380056F412 /* weight_overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "weight_overlay@2x.png"; path = "images/weight_overlay@2x.png"; sourceTree = "<group>"; };
 		C0A91AD3D5DE44B7872F95D7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D101757A1A79693C00CA32DC /* chat_bubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chat_bubble.png; path = images/chat_bubble.png; sourceTree = "<group>"; };
 		D1020A281B3B130C001F2D81 /* BreakdownTitleRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BreakdownTitleRow.swift; sourceTree = "<group>"; };
@@ -627,6 +613,12 @@
 		D16FD5E81ADDADC200AF9BA5 /* back_button_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = back_button_white.png; path = images/back_button_white.png; sourceTree = "<group>"; };
 		D17010C71A644414002CBFE8 /* ChallengeDetailsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailsView.xib; sourceTree = "<group>"; };
 		D17010C81A644414002CBFE8 /* ChallengeDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeDetailsViewController.swift; sourceTree = "<group>"; };
+		D173343A1B594FCD0089BBFD /* bloodpressure_copy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bloodpressure_copy@2x.png"; path = "images/bloodpressure_copy@2x.png"; sourceTree = "<group>"; };
+		D173343B1B594FCD0089BBFD /* weight_copy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "weight_copy@2x.png"; path = "images/weight_copy@2x.png"; sourceTree = "<group>"; };
+		D173343C1B594FCD0089BBFD /* pulse_copy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pulse_copy@2x.png"; path = "images/pulse_copy@2x.png"; sourceTree = "<group>"; };
+		D173343D1B594FCD0089BBFD /* MAP_copy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "MAP_copy@2x.png"; path = "images/MAP_copy@2x.png"; sourceTree = "<group>"; };
+		D173343E1B594FCD0089BBFD /* bodyfat_copy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bodyfat_copy@2x.png"; path = "images/bodyfat_copy@2x.png"; sourceTree = "<group>"; };
+		D173343F1B594FCD0089BBFD /* activities_copy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "activities_copy@2x.png"; path = "images/activities_copy@2x.png"; sourceTree = "<group>"; };
 		D1740BC31AE0381F00462F6E /* MetricsType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricsType.swift; sourceTree = "<group>"; };
 		D175287B1B0F9669006335B4 /* dailysummary_night.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dailysummary_night.png; path = images/dailysummary_night.png; sourceTree = "<group>"; };
 		D175287C1B0F9669006335B4 /* dailysummary_morning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dailysummary_morning.png; path = images/dailysummary_morning.png; sourceTree = "<group>"; };
@@ -895,11 +887,11 @@
 				D1FC09931A83DE600049B5C0 /* Challenge Details */,
 				D1EEDB8D1A660E900012EFD3 /* Challenge */,
 				D175287A1B0F9651006335B4 /* Daily Summary */,
-				8F6266CD197F131100145EDB /* Body Stats */,
 				8F5C38D819818F3A00F51543 /* Checkin */,
 				8F5C38D619818EE000F51543 /* Common */,
 				8F5C38D719818F0A00F51543 /* Dashboard */,
 				8FD73CB5199027EB00BACCB2 /* FindStation */,
+				D17334391B594FAF0089BBFD /* Metrics */,
 				8F2B7E47198C3023009DE89A /* Navigation */,
 				8F2CB58419928C75009377A8 /* Onboarding */,
 				8F6266CC197F130A00145EDB /* Welcome */,
@@ -1203,24 +1195,6 @@
 			name = Welcome;
 			sourceTree = "<group>";
 		};
-		8F6266CD197F131100145EDB /* Body Stats */ = {
-			isa = PBXGroup;
-			children = (
-				D16FD5E81ADDADC200AF9BA5 /* back_button_white.png */,
-				8FDCE1C919880919006428C3 /* bmi_overlay.png */,
-				8FFF43BA19B798380056F412 /* bmi_overlay@2x.png */,
-				8FDCE1CA19880919006428C3 /* bp_overlay.png */,
-				8FFF43BB19B798380056F412 /* bp_overlay@2x.png */,
-				8FDCE1CB19880919006428C3 /* map_overlay.png */,
-				8FFF43BC19B798380056F412 /* map_overlay@2x.png */,
-				8FDCE1CC19880919006428C3 /* pulse_overlay.png */,
-				8FFF43BD19B798380056F412 /* pulse_overlay@2x.png */,
-				8FDCE1CD19880919006428C3 /* weight_overlay.png */,
-				8FFF43BE19B798380056F412 /* weight_overlay@2x.png */,
-			);
-			name = "Body Stats";
-			sourceTree = "<group>";
-		};
 		8F6A243D195A011F0094B73C /* Graphing */ = {
 			isa = PBXGroup;
 			children = (
@@ -1450,6 +1424,20 @@
 			name = Projection;
 			sourceTree = "<group>";
 		};
+		D17334391B594FAF0089BBFD /* Metrics */ = {
+			isa = PBXGroup;
+			children = (
+				D173343A1B594FCD0089BBFD /* bloodpressure_copy@2x.png */,
+				D173343B1B594FCD0089BBFD /* weight_copy@2x.png */,
+				D173343C1B594FCD0089BBFD /* pulse_copy@2x.png */,
+				D173343D1B594FCD0089BBFD /* MAP_copy@2x.png */,
+				D173343E1B594FCD0089BBFD /* bodyfat_copy@2x.png */,
+				D173343F1B594FCD0089BBFD /* activities_copy@2x.png */,
+				D16FD5E81ADDADC200AF9BA5 /* back_button_white.png */,
+			);
+			name = Metrics;
+			sourceTree = "<group>";
+		};
 		D175287A1B0F9651006335B4 /* Daily Summary */ = {
 			isa = PBXGroup;
 			children = (
@@ -1609,7 +1597,6 @@
 				8FDCE1C61988072C006428C3 /* btn_close_reminder.png in Resources */,
 				D1A9C6FF1A951D0D0008084B /* chatterbutton_pressed.png in Resources */,
 				8F5E7FC9199BC74E009067E5 /* CheckinCardView.xib in Resources */,
-				8FDCE1CF19880919006428C3 /* bp_overlay.png in Resources */,
 				8F1D97A0199558F7003B5645 /* checkmark.png in Resources */,
 				8FEF6F3A1A6EAA58001EF8A6 /* DashboardView.xib in Resources */,
 				8F5F918A1A7193E80042D87C /* dashboard_errorstate.png in Resources */,
@@ -1637,11 +1624,11 @@
 				D110BAD61B0E7CD700CD1E58 /* DailySummaryView.xib in Resources */,
 				8F2B7E59198C3D90009DE89A /* DrawerCell.xib in Resources */,
 				8FD964CA19BE4A2B00DA3DF8 /* gradient_overlay.png in Resources */,
+				D17334421B594FCD0089BBFD /* pulse_copy@2x.png in Resources */,
 				8FE056E7198FDC9800C81208 /* FindStationView.xib in Resources */,
 				8FFB034A19FEA2440036228C /* oc_activity.png in Resources */,
 				2BC5865C1A16C63B005A7983 /* ChallengeInvitation.xib in Resources */,
 				8F5C38E01981901600F51543 /* checkincheckmark.png in Resources */,
-				8FFF43BF19B798380056F412 /* bmi_overlay@2x.png in Resources */,
 				D1BA13451A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib in Resources */,
 				8F5C38CE19818BA900F51543 /* gauge2_high.png in Resources */,
 				D1036D031B153477003E7239 /* workouticon.png in Resources */,
@@ -1660,13 +1647,11 @@
 				D10E52491B5048CA0007EF10 /* challenge_image.png in Resources */,
 				8FDA6DA819A4039D00244D5F /* TermsView.xib in Resources */,
 				8F5E7FBD199965C0009067E5 /* PinCodeView.xib in Resources */,
-				8FDCE1D119880919006428C3 /* pulse_overlay.png in Resources */,
 				D17787251A96873500C78F8B /* iphone.png in Resources */,
 				D17787261A96873500C78F8B /* pulse_article.png in Resources */,
 				D16FD5E91ADDADC200AF9BA5 /* back_button_white.png in Resources */,
 				8F0B29A5198AC20300B0DD29 /* map_mapviewicon.png in Resources */,
 				8FEF6F3E1A6EB437001EF8A6 /* PointsMeterView.xib in Resources */,
-				8FFF43C019B798380056F412 /* bp_overlay@2x.png in Resources */,
 				D149E9451A78221200FBAA15 /* ChallengeDetailsPrizes.xib in Resources */,
 				8F2CB5821992563E009377A8 /* WebView.xib in Resources */,
 				8F5C38CB19818BA900F51543 /* gauge1_low.png in Resources */,
@@ -1682,14 +1667,11 @@
 				8FE0BCD0199175C800940D39 /* PulseCellView.xib in Resources */,
 				8F2B7E4D198C3058009DE89A /* oc_bodystats.png in Resources */,
 				8F5E7FE5199C081F009067E5 /* vital_map_icon.png in Resources */,
-				8FDCE1D219880919006428C3 /* weight_overlay.png in Resources */,
 				D1618F931ABB2E26000BDA85 /* MetricCardView.xib in Resources */,
 				D1036D021B153477003E7239 /* cyclingicon.png in Resources */,
-				8FFF43C119B798380056F412 /* map_overlay@2x.png in Resources */,
 				2BBDBA571A12AC2C005A6815 /* CompetitiveChallengeView.xib in Resources */,
 				8FA5925D19ABBCEC00622266 /* TourView.xib in Resources */,
 				D17787221A96873500C78F8B /* activechallenges.png in Resources */,
-				8FDCE1D019880919006428C3 /* map_overlay.png in Resources */,
 				8F5E7FC11999674C009067E5 /* KioskListCellView.xib in Resources */,
 				8F2B7E4E198C3058009DE89A /* oc_dashboard.png in Resources */,
 				8F58D98A19C0FE5800C0EC72 /* welcome_01_logo.png in Resources */,
@@ -1702,13 +1684,13 @@
 				8F02A11F19AE2BF6002FF73E /* btn_back_black.png in Resources */,
 				D18395C11A69BC9E00D290BF /* ChallengeDetailsTab.xib in Resources */,
 				8FE056DF198FDBDC00C81208 /* PulseHomeView.xib in Resources */,
+				D17334411B594FCD0089BBFD /* weight_copy@2x.png in Resources */,
 				8F02A12319AE2BF6002FF73E /* btn_share_black.png in Resources */,
 				8FD73CC31990303000BACCB2 /* GoogleMaps.bundle in Resources */,
 				8FDA6DA119A2978B00244D5F /* ChangePasswordView.xib in Resources */,
 				8F5C38F11982F20000F51543 /* CheckinTableViewCell.xib in Resources */,
 				8F5E7FE4199C081F009067E5 /* vital_bp_icon.png in Resources */,
 				8F5C38D319818BA900F51543 /* gauge3_underweight.png in Resources */,
-				8FDCE1CE19880919006428C3 /* bmi_overlay.png in Resources */,
 				8F5E7FD8199BCD52009067E5 /* graph_sincelastarrow_nochange_invert.png in Resources */,
 				8F2B7E4F198C3058009DE89A /* oc_findastation.png in Resources */,
 				D149E9491A7845A200FBAA15 /* ChallengeDetailsChatterRow.xib in Resources */,
@@ -1718,15 +1700,16 @@
 				8F5F91811A701A0E0042D87C /* btn_action_black.png in Resources */,
 				8F5E7FDC199BD089009067E5 /* gen_checkin.png in Resources */,
 				8FF9409319899AEA00D319D7 /* createreminder.png in Resources */,
+				D17334451B594FCD0089BBFD /* activities_copy@2x.png in Resources */,
 				2BBDBA541A12AC2C005A6815 /* ChallengesView.xib in Resources */,
 				8F5C38E91981B2B300F51543 /* createreminder_inverted.png in Resources */,
 				8F5C38CF19818BA900F51543 /* gauge2_normal.png in Resources */,
 				8F5F918C1A7193FC0042D87C /* activitypageblankstate.png in Resources */,
 				D10E52431B5048560007EF10 /* ui_details.png in Resources */,
 				8F6ACCC0199D687D00D5E157 /* mapicon_higicard.png in Resources */,
+				D17334441B594FCD0089BBFD /* bodyfat_copy@2x.png in Resources */,
 				8F2CB58B19942E96009377A8 /* noservicemessage.png in Resources */,
 				D175287E1B0F9669006335B4 /* dailysummary_night.png in Resources */,
-				8FFF43C319B798380056F412 /* weight_overlay@2x.png in Resources */,
 				D164D3761A7C19A600300F35 /* chat_bubble_green.png in Resources */,
 				D17528821B0FB651006335B4 /* DailySummaryRowView.xib in Resources */,
 				2BBDBA591A12AC2C005A6815 /* GoalChallengeView.xib in Resources */,
@@ -1745,6 +1728,7 @@
 				D1E1FF081A76C2DB00C8951C /* ChallengeProgressLegendRow.xib in Resources */,
 				8FC88AD41AE6DA2B002ED9FB /* activitywidgetblankstatenodevices.png in Resources */,
 				8FE056E5198FDC5F00C81208 /* SettingsView.xib in Resources */,
+				D17334431B594FCD0089BBFD /* MAP_copy@2x.png in Resources */,
 				8F5C38CD19818BA900F51543 /* gauge2_atrisk.png in Resources */,
 				8F5E7FCE199BC986009067E5 /* CheckinCellView.xib in Resources */,
 				D17C0A8D1A9FC5520010971C /* unpluggederrorstate.png in Resources */,
@@ -1752,7 +1736,7 @@
 				D1A713A91ACF2028008DF01A /* map_iconwithdot@2x.png in Resources */,
 				D1BA13471A8D056900E1AFE9 /* ChatterInputView.xib in Resources */,
 				D1E223781A8009CE006330E7 /* ConnectDeviceView.xib in Resources */,
-				8FFF43C219B798380056F412 /* pulse_overlay@2x.png in Resources */,
+				D17334401B594FCD0089BBFD /* bloodpressure_copy@2x.png in Resources */,
 				8F211EFA1A1E85AE00A256C0 /* oc_dropdownmenu_up.png in Resources */,
 				D1036D041B153477003E7239 /* runicon.png in Resources */,
 				D1FC09951A83DE960049B5C0 /* team_icon.png in Resources */,

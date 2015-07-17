@@ -28,9 +28,9 @@ class BpMetricDelegate: MetricDelegate {
     
     func getCopyImage(tab: Int) -> UIImage? {
         if (tab == 0) {
-            return UIImage(named: "bp_overlay")!;
+            return UIImage(named: "bloodpressure_copy")!;
         } else {
-            return UIImage(named: "map_overlay")!;
+            return UIImage(named: "map_copy")!;
         }
     }
     
