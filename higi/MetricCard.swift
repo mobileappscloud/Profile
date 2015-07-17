@@ -190,7 +190,7 @@ class MetricCard: UIView, MetricDelegate {
     func setSelected(date: NSDate) {
         delegate.setSelected(date);
         if (!initializing) {
-            updateDetailsCard();
+            setDetailsCardPoint();
         }
         initializing = false;
     }
@@ -224,7 +224,7 @@ class MetricCard: UIView, MetricDelegate {
         secondaryGraph.hidden = !toggleOn;
         if delegate.getType() == MetricsType.Weight {
             (delegate as! WeightMetricDelegate).togglePanel(toggleOn);
-            updateDetailsCard();
+            setDetailsCardPoint();
             (Utility.getViewController(self) as! MetricsViewController).setDetailsHeader();
             initRegions(!toggleOn);
         }
@@ -253,7 +253,7 @@ class MetricCard: UIView, MetricDelegate {
         (Utility.getViewController(self) as! MetricsViewController).cardClickedAtIndex(position);
     }
 
-    func updateDetailsCard() {
-        (Utility.getViewController(self) as! MetricsViewController).updateDetailCard();
+    func setDetailsCardPoint() {
+        (Utility.getViewController(self) as! MetricsViewController).setDetailsCardPoint();
     }
 }

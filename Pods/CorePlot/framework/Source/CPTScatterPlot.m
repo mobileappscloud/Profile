@@ -576,6 +576,8 @@ NSString *const CPTScatterPlotBindingPlotSymbols = @"plotSymbols"; ///< Plot sym
                 if ( isnan(minimumDistanceSquared) || (distanceSquared < minimumDistanceSquared) ) {
                     minimumDistanceSquared = distanceSquared;
                     result                 = (NSInteger)i;
+                } else {
+//                    break;
                 }
             }
         }

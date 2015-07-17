@@ -292,12 +292,7 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         yAxis.labelOffset = CGFloat(20);
         yAxis.majorTickLineStyle = nil;
         yAxis.minorTickLineStyle = nil;
-//        if lowerBound == 0 {
-//            let offset:Double = 40.0;
-//            yAxis.visibleRange = NewCPTPlotRange(location: -offset, length: yRange + offset);
-//        } else {
-            yAxis.visibleRange = plotSpace.yRange;
-//        }
+        yAxis.visibleRange = plotSpace.yRange;
         yAxis.gridLinesRange = plotSpace.xRange;
         yAxis.axisConstraints = CPTConstraints(lowerOffset: 0);
         yAxis.labelingPolicy = CPTAxisLabelingPolicyEqualDivisions;
@@ -365,6 +360,7 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         if (idx < 0) {
             return;
         }
+                
         var point:GraphPoint!;
         if (plot.isEqual(self.plot)) {
             selectedPointIndex = idx;
@@ -374,10 +370,12 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
             point = altPoints[idx];
             altPlot.reloadData();
         }
+        
         if (!first) {
             var viewController = self.superview!.superview!.superview as! MetricCard?;
             viewController!.setSelected(NSDate(timeIntervalSince1970: point.x));
         }
+        
         self.plot.reloadData();
         if (altPoints.count > 0) {
             self.altPlot.reloadData();
