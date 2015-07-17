@@ -182,8 +182,16 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     }
     
     func initMetricsCard() {
-        if (SessionController.Instance.earnditError && SessionController.Instance.challenges.count == 0) {
-            dashboardItems = [errorCard, metricsCard, pulseCard];
+        if (SessionController.Instance.earnditError) {
+            if (SessionController.Instance.challenges.count == 0) {
+                dashboardItems = [errorCard, metricsCard, pulseCard];
+            } else {
+                dashboardItems = [errorCard, challengesCard, metricsCard, pulseCard];
+            }
+            if (errorCard.superview == nil) {
+                errorCard.frame.origin.y = contentOriginY;
+                mainScrollView.addSubview(errorCard);
+            }
         } else {
             if (errorCard.superview != nil) {
                 errorCard.removeFromSuperview();
