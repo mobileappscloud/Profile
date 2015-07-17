@@ -61,8 +61,6 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         initHeader();
         initSummaryview();
         
-        scrollView.contentSize = activityContainer.frame.size;
-        
         pointsMeter.setActivities((totalPoints, activities));
     }
     
@@ -90,6 +88,11 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         UIDevice.currentDevice().setValue(previousActualOrientation, forKey: "orientation");
         revealController.shouldRotate = previousShouldRotate;
         super.viewWillDisappear(animated);
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews();
+        scrollView.contentSize.height = activityContainer.frame.origin.y + currentOrigin + activityView.frame.origin.y;
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -455,7 +458,6 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews();
-        scrollView.contentSize.height = activityContainer.frame.origin.y + currentOrigin + activityView.frame.origin.y;
         activityView.frame.size.width = scrollView.frame.size.width;
         for row in titleRows {
             row.frame.size.width = scrollView.frame.size.width - row.frame.origin.x;
