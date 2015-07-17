@@ -228,8 +228,8 @@ class MetricsViewController: UIViewController {
     }
 
     func updateDetailCard() {
+        let currentCard = getCurrentCard();
         detailsCard.removeFromSuperview();
-        let currentCard = self.view.subviews[self.view.subviews.count - 1] as! MetricCard;
         detailsCard = initDetailCard(currentCard);
         self.view.addSubview(detailsCard);
         if (detailsGone) {
@@ -243,6 +243,14 @@ class MetricsViewController: UIViewController {
             detailsCard.animateBounceOut();
             detailsGone = true;
         }
+    }
+
+    func setDetailsCardPoint() {
+        detailsCard.setData(getCurrentCard().delegate.getSelectedPoint()!);
+    }
+    
+    func getCurrentCard() -> MetricCard {
+        return self.view.subviews[self.view.subviews.count - 2] as! MetricCard;
     }
 
     func initDetailCard(card: MetricCard) -> MetricDetailCard {

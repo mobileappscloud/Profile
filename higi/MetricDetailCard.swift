@@ -34,8 +34,6 @@ class MetricDetailCard: UIView {
     
     var blankState = false;
     
-    var selected:MetricCard.SelectedPoint!;
-    
     var copyImage: UIImageView!
     
     class func instanceFromNib(card: MetricCard) -> MetricDetailCard {
@@ -204,7 +202,6 @@ class MetricDetailCard: UIView {
     }
     
     func setData(selection: MetricCard.SelectedPoint) {
-        selected = selection;
         firstPanelValue.text = selection.date;
         secondPanelUnit.text = selection.firstPanel.unit;
         secondPanelLabel.text = selection.firstPanel.label;
@@ -214,7 +211,7 @@ class MetricDetailCard: UIView {
         secondPanelHeader.text = selection.firstPanel.label;
         thirdPanelHeader.text = selection.secondPanel.label;
         
-        if selected.firstPanel.unit == "" && selection.firstPanel.value != "" {
+        if selection.firstPanel.unit == "" && selection.firstPanel.value != "" {
             let label = UILabel(frame: CGRect(x: secondPanelValue.frame.origin.x, y: secondPanelValue.frame.origin.y, width: secondPanelValue.frame.size.width - (2 * secondPanelValue.frame.origin.x), height: secondPanelValue.frame.size.height));
             label.text = selection.firstPanel.value;
             label.textAlignment = NSTextAlignment.Center;
@@ -225,8 +222,9 @@ class MetricDetailCard: UIView {
         } else {
             secondPanelValue.text = selection.firstPanel.value;
         }
-        if selected.secondPanel.unit == "" && selection.secondPanel.value != "" {
+        if selection.secondPanel.unit == "" && selection.secondPanel.value != "" {
             let label = UILabel(frame: CGRect(x: thirdPanelValue.frame.origin.x, y: thirdPanelValue.frame.origin.y, width: thirdPanel.frame.size.width - (2 * thirdPanelValue.frame.origin.x), height: thirdPanelValue.frame.size.height));
+            label.backgroundColor = UIColor.whiteColor();
             label.text = selection.secondPanel.value;
             label.textAlignment = NSTextAlignment.Center;
             label.textColor = delegate.getColor();

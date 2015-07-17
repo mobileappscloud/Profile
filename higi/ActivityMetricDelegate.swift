@@ -27,7 +27,7 @@ class ActivityMetricDelegate: MetricDelegate {
     }
     
     func getBlankStateImage() -> UIImage {
-        return UIImage(named: "bmi_overlay")!;
+        return UIImage(named: "activities_copy")!;
     }
     
     func setSelected(date: NSDate) {
