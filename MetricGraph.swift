@@ -232,9 +232,12 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         if (lowerBound >= minY - 10) {
             lowerBound = minY * 0.25;
         }
-        var yRange = roundToHighest((maxY - minY) * 1.5, roundTo: tickInterval);
+        if ((minY - lowerBound < tickInterval) && (maxY - minY > tickInterval)) {
+            lowerBound = -tickInterval;
+        }
+        var yRange = roundToHighest((maxY - minY) * 1.25, roundTo: tickInterval);
         if (lowerBound + yRange <= maxY) {
-            yRange = (maxY - lowerBound) * 1.5;
+            yRange = roundToHighest(maxY - lowerBound + tickInterval, roundTo: tickInterval);
         }
         var plotSpace = self.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace;
         var visibleMin = firstPoint;
@@ -289,7 +292,12 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         yAxis.labelOffset = CGFloat(20);
         yAxis.majorTickLineStyle = nil;
         yAxis.minorTickLineStyle = nil;
-        yAxis.visibleRange = plotSpace.yRange;
+//        if lowerBound == 0 {
+//            let offset:Double = 40.0;
+//            yAxis.visibleRange = NewCPTPlotRange(location: -offset, length: yRange + offset);
+//        } else {
+            yAxis.visibleRange = plotSpace.yRange;
+//        }
         yAxis.gridLinesRange = plotSpace.xRange;
         yAxis.axisConstraints = CPTConstraints(lowerOffset: 0);
         yAxis.labelingPolicy = CPTAxisLabelingPolicyEqualDivisions;
