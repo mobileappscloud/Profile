@@ -213,6 +213,7 @@ class MetricDetailCard: UIView {
         
         if selection.firstPanel.unit == "" && selection.firstPanel.value != "" {
             let label = UILabel(frame: CGRect(x: secondPanelValue.frame.origin.x, y: secondPanelValue.frame.origin.y, width: secondPanelValue.frame.size.width - (2 * secondPanelValue.frame.origin.x), height: secondPanelValue.frame.size.height));
+            label.backgroundColor = UIColor.whiteColor();
             label.text = selection.firstPanel.value;
             label.textAlignment = NSTextAlignment.Center;
             label.textColor = delegate.getColor();
