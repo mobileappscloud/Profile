@@ -18,6 +18,8 @@ class MetricDetailCard: UIView {
     @IBOutlet weak var secondPanelHeader: UILabel!
     @IBOutlet weak var thirdPanelHeader: UILabel!
 
+    var secondPanelExtraLabel: UILabel!, thirdPanelExtraLabel: UILabel!;
+    
     var delegate: MetricDelegate!;
     
     var triangleIndicator: TriangleView!;
@@ -201,7 +203,7 @@ class MetricDetailCard: UIView {
         thirdPanelSelected = true;
     }
     
-    func setData(selection: MetricCard.SelectedPoint) {
+    func setData(selection: SelectedPoint) {
         firstPanelValue.text = selection.date;
         secondPanelUnit.text = selection.firstPanel.unit;
         secondPanelLabel.text = selection.firstPanel.label;
@@ -212,28 +214,40 @@ class MetricDetailCard: UIView {
         thirdPanelHeader.text = selection.secondPanel.label;
         
         if selection.firstPanel.unit == "" && selection.firstPanel.value != "" {
-            let label = UILabel(frame: CGRect(x: secondPanelValue.frame.origin.x, y: secondPanelValue.frame.origin.y, width: secondPanelValue.frame.size.width - (2 * secondPanelValue.frame.origin.x), height: secondPanelValue.frame.size.height));
-            label.backgroundColor = UIColor.whiteColor();
-            label.text = selection.firstPanel.value;
-            label.textAlignment = NSTextAlignment.Center;
-            label.textColor = delegate.getColor();
-            secondPanel.addSubview(label);
-            secondPanel.sendSubviewToBack(label);
+            if secondPanelExtraLabel == nil {
+                secondPanelExtraLabel.backgroundColor = UIColor.whiteColor();
+                secondPanelExtraLabel.text = selection.firstPanel.value;
+                secondPanelExtraLabel.textAlignment = NSTextAlignment.Center;
+                secondPanelExtraLabel.textColor = delegate.getColor();
+                secondPanel.addSubview(secondPanelExtraLabel);
+            }
+            secondPanelExtraLabel.hidden = false;
+            secondPanelExtraLabel.text = selection.firstPanel.value;
             secondPanelValue.hidden = true;
         } else {
+            secondPanelValue.hidden = false;
             secondPanelValue.text = selection.firstPanel.value;
+            if secondPanelExtraLabel != nil {
+                secondPanelExtraLabel.hidden = true;
+            }
         }
         if selection.secondPanel.unit == "" && selection.secondPanel.value != "" {
-            let label = UILabel(frame: CGRect(x: thirdPanelValue.frame.origin.x, y: thirdPanelValue.frame.origin.y, width: thirdPanel.frame.size.width - (2 * thirdPanelValue.frame.origin.x), height: thirdPanelValue.frame.size.height));
-            label.backgroundColor = UIColor.whiteColor();
-            label.text = selection.secondPanel.value;
-            label.textAlignment = NSTextAlignment.Center;
-            label.textColor = delegate.getColor();
-            thirdPanel.addSubview(label);
-            thirdPanel.sendSubviewToBack(label);
+            if thirdPanelExtraLabel == nil {
+                thirdPanelExtraLabel = UILabel(frame: CGRect(x: thirdPanelValue.frame.origin.x, y: thirdPanelValue.frame.origin.y, width: thirdPanel.frame.size.width - (2 * thirdPanelValue.frame.origin.x), height: thirdPanelValue.frame.size.height));
+                thirdPanelExtraLabel.backgroundColor = UIColor.whiteColor();
+                thirdPanelExtraLabel.textAlignment = NSTextAlignment.Center;
+                thirdPanelExtraLabel.textColor = delegate.getColor();
+                thirdPanel.addSubview(thirdPanelExtraLabel);
+            }
+            thirdPanelExtraLabel.hidden = false;
+            thirdPanelExtraLabel.text = selection.secondPanel.value;
             thirdPanelValue.hidden = true;
         } else {
             thirdPanelValue.text = selection.secondPanel.value;
+            thirdPanelValue.hidden = false;
+            if thirdPanelExtraLabel != nil {
+                thirdPanelExtraLabel.hidden = true;
+            }
         }
     }
     

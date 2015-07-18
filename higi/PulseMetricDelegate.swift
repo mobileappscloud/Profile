@@ -43,13 +43,13 @@ class PulseMetricDelegate: MetricDelegate {
         }
     }
     
-    func getSelectedPoint() -> MetricCard.SelectedPoint? {
+    func getSelectedPoint() -> SelectedPoint? {
         if (selectedCheckin == nil) {
             return nil;
         } else {
             let date = Constants.displayDateFormatter.stringFromDate(selectedCheckin.dateTime);
             let pulse = selectedCheckin.pulseBpm != nil ? "\(Int(selectedCheckin.pulseBpm!))" : "";
-            return MetricCard.SelectedPoint(date: date, panelValue: pulse, panelLabel: "Beats Per Minute", panelUnit: "bpm");
+            return SelectedPoint(date: date, panelValue: pulse, panelLabel: "Beats Per Minute", panelUnit: "bpm");
         }
     }
     
