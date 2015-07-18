@@ -196,16 +196,25 @@ class MetricCard: UIView, MetricDelegate {
         secondaryGraph.hidden = !toggleOn;
         if delegate.getType() == MetricsType.Weight {
             (delegate as! WeightMetricDelegate).togglePanel(toggleOn);
+            
+            if toggleOn {
+                title.text = "Body Fat%";
+                toggleButton.setTitle("Switch to Weight", forState: UIControlState.Normal);
+                let detailsCard = (Utility.getViewController(self) as! MetricsViewController).detailsCard;
+                if (Utility.getViewController(self) as! MetricsViewController).detailsOpen {
+                    detailsCard.thirdPanelClicked(self);
+                } else {
+                    detailsCard.thirdPanelSelected = true;
+                }
+            } else {
+                title.text = delegate.getTitle();
+                toggleButton.setTitle("Switch to Body Fat%", forState: UIControlState.Normal);
+            }
+            
             setDetailsCardPoint();
             (Utility.getViewController(self) as! MetricsViewController).setDetailsHeader();
             initRegions(!toggleOn);
-        }
-        if toggleOn {
-            title.text = "Body Fat%";
-            toggleButton.setTitle("Switch to Weight", forState: UIControlState.Normal);
-        } else {
-            title.text = delegate.getTitle();
-            toggleButton.setTitle("Switch to Body Fat%", forState: UIControlState.Normal);
+            
         }
         toggleOn = !toggleOn;
     }

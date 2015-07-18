@@ -89,8 +89,14 @@ class MetricDetailCard: UIView {
             if (meter != nil && meter.superview != nil) {
                 meter.removeFromSuperview();
             }
+            if (gauge != nil && gauge.superview != nil) {
+                gauge.removeFromSuperview();
+            }
             gauge = MetricGauge.create(CGRect(x: 0, y: 0, width: gaugeContainer.frame.size.width, height: gaugeContainer.frame.size.height), delegate: delegate, tab: tab);
             gaugeContainer.addSubview(gauge);
+        }
+        if (triangleIndicator != nil && triangleIndicator.superview != nil) {
+            triangleIndicator.removeFromSuperview();
         }
         triangleIndicator = TriangleView(frame: CGRect(x: screenWidth - thirdPanel.frame.size.width / 2, y: thirdPanel.frame.size.height - 2, width: triangleHeight, height: triangleHeight));
         triangleIndicator.transform = CGAffineTransformRotate(self.transform, CGFloat(M_PI));
@@ -249,6 +255,7 @@ class MetricDetailCard: UIView {
                 thirdPanelExtraLabel.hidden = true;
             }
         }
+        setup(delegate);
     }
     
     func setPanelHeaders(isOpen: Bool) {
@@ -261,6 +268,13 @@ class MetricDetailCard: UIView {
         
         secondPanelHeader.hidden = !isOpen;
         thirdPanelHeader.hidden = !isOpen;
+        
+        if secondPanelExtraLabel != nil {
+            secondPanelExtraLabel.hidden = isOpen;
+        }
+        if thirdPanelExtraLabel != nil {
+            thirdPanelExtraLabel.hidden = isOpen;
+        }
     }
     
     func initSummaryview(date: String?) {
