@@ -38,6 +38,8 @@ class MetricDetailCard: UIView {
     
     var copyImage: UIImageView!
     
+    var activityRows:[BreakdownTitleRow] = [];
+    
     class func instanceFromNib(card: MetricCard) -> MetricDetailCard {
         var view = UINib(nibName: "MetricDetailCardView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! MetricDetailCard;
         if (card.getSelectedPoint() != nil) {
@@ -65,6 +67,9 @@ class MetricDetailCard: UIView {
         let tab = thirdPanelSelected ? 1 : 0;
         var value: Int;
         if (delegate.getType() == MetricsType.DailySummary) {
+            if (meter != nil && meter.superview != nil) {
+                meter.removeFromSuperview();
+            }
             if (gauge != nil && gauge.superview != nil) {
                 gauge.removeFromSuperview();
             }
@@ -278,6 +283,11 @@ class MetricDetailCard: UIView {
     }
     
     func initSummaryview(date: String?) {
+        if activityRows.count > 0 {
+            for row in activityRows {
+                row.removeFromSuperview();
+            }
+        }
         var activities: [HigiActivity] = [];
         var activityKeys: [String] = [];
         var activitiesByType:[String: (Int, [HigiActivity])] = [:];
@@ -321,6 +331,7 @@ class MetricDetailCard: UIView {
             activityRow.points.font = UIFont.boldSystemFontOfSize(20);
             activityRow.device.textColor = color;
             copyScrollview.addSubview(activityRow);
+            activityRows.append(activityRow);
             currentOrigin += activityRow.frame.size.height;
             var todaysCheckins:[HigiCheckin] = [];
             for checkin in SessionController.Instance.checkins {
@@ -335,6 +346,7 @@ class MetricDetailCard: UIView {
                     titleRow.device.font = UIFont.systemFontOfSize(16);
                     titleRow.points.font = UIFont.systemFontOfSize(16);
                     copyScrollview.addSubview(titleRow);
+                    activityRows.append(titleRow);
                     currentOrigin += titleRow.frame.size.height;
                 }
             }
