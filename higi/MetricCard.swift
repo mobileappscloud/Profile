@@ -128,28 +128,45 @@ class MetricCard: UIView, MetricDelegate {
                 }
             }
             let tab = 1;
+            let labelMinHeight:CGFloat = 20;
+            var lastVisibleY:CGFloat = CGFloat.max;
+            
             let ranges = delegate.getRanges(tab);
             var i = 0;
+            
             for range in ranges {
                 let lowerBound = baseGraph.getScreenPoint(0, yPoint: CGFloat(range.lowerBound));
                 let upperBound = baseGraph.getScreenPoint(0, yPoint: CGFloat(range.upperBound));
                 if (upperBound.y >= 0 || lowerBound.y < graphContainer.frame.size.height) {
+                    lastVisibleY = lowerBound.y;
                     let view = UIView(frame: CGRect(x: 0, y: upperBound.y + graph.graph.plotAreaFrame.paddingTop, width: screenWidth, height: lowerBound.y - upperBound.y));
-                    let label = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.size.width - 10, height: view.frame.size.height));
-                    label.text = range.label;
-                    label.textAlignment = NSTextAlignment.Right;
-                    label.backgroundColor = UIColor.clearColor();
-                    if (i % 2 == 0) {
-                        label.textColor = Utility.colorFromHexString("#EEEEEE");
-                        view.backgroundColor = UIColor.whiteColor();
-                    } else {
-                        label.textColor = UIColor.whiteColor();
-                        view.backgroundColor = Utility.colorFromHexString("#EEEEEE");
+//                    let labelHeight:CGFloat = min(view.frame.size.height, view.frame.size.height - lastVisibleY);
+                    var labelHeight = view.frame.size.height;
+                    var labelY:CGFloat = 0;
+                    if lowerBound.y > graphContainer.frame.size.height {
+                        labelHeight = graphContainer.frame.size.height - upperBound.y - 20;
+                    } else if upperBound.y < 0 {
+                        labelHeight = lowerBound.y;
+                        labelY = view.frame.size.height - labelHeight;
                     }
-                    view.addSubview(label);
+                    if labelHeight >= labelMinHeight || (lowerBound.y < graphContainer.frame.size.height && upperBound.y > 0) {
+                        let label = UILabel(frame: CGRect(x: 0, y: labelY, width: view.frame.size.width - 10, height: labelHeight));
+                        label.text = range.label;
+                        label.textAlignment = NSTextAlignment.Right;
+                        label.backgroundColor = UIColor.clearColor();
+                        if (i % 2 == 0) {
+                            label.textColor = Utility.colorFromHexString("#EEEEEE");
+                            view.backgroundColor = UIColor.whiteColor();
+                        } else {
+                            label.textColor = UIColor.whiteColor();
+                            view.backgroundColor = Utility.colorFromHexString("#EEEEEE");
+                        }
+                        view.addSubview(label);
+                    }
                     regions.append(view);
                     self.graphContainer.insertSubview(view, belowSubview: baseGraph);
                     i++;
+                    lastVisibleY = lowerBound.y;
                 }
             }
         }
