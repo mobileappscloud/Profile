@@ -140,7 +140,6 @@ class MetricCard: UIView, MetricDelegate {
                 if (upperBound.y >= 0 || lowerBound.y < graphContainer.frame.size.height) {
                     lastVisibleY = lowerBound.y;
                     let view = UIView(frame: CGRect(x: 0, y: upperBound.y + graph.graph.plotAreaFrame.paddingTop, width: screenWidth, height: lowerBound.y - upperBound.y));
-//                    let labelHeight:CGFloat = min(view.frame.size.height, view.frame.size.height - lastVisibleY);
                     var labelHeight = view.frame.size.height;
                     var labelY:CGFloat = 0;
                     if lowerBound.y > graphContainer.frame.size.height {

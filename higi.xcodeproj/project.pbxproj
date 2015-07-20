@@ -260,7 +260,7 @@
 		D17334401B594FCD0089BBFD /* bloodpressure_copy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D173343A1B594FCD0089BBFD /* bloodpressure_copy@2x.png */; };
 		D17334411B594FCD0089BBFD /* weight_copy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D173343B1B594FCD0089BBFD /* weight_copy@2x.png */; };
 		D17334421B594FCD0089BBFD /* pulse_copy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D173343C1B594FCD0089BBFD /* pulse_copy@2x.png */; };
-		D17334431B594FCD0089BBFD /* MAP_copy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D173343D1B594FCD0089BBFD /* MAP_copy@2x.png */; };
+		D17334431B594FCD0089BBFD /* map_copy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D173343D1B594FCD0089BBFD /* map_copy@2x.png */; };
 		D17334441B594FCD0089BBFD /* bodyfat_copy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D173343E1B594FCD0089BBFD /* bodyfat_copy@2x.png */; };
 		D17334451B594FCD0089BBFD /* activities_copy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D173343F1B594FCD0089BBFD /* activities_copy@2x.png */; };
 		D17334471B596CF90089BBFD /* metrics.png in Resources */ = {isa = PBXBuildFile; fileRef = D17334461B596CF90089BBFD /* metrics.png */; };
@@ -617,7 +617,7 @@
 		D173343A1B594FCD0089BBFD /* bloodpressure_copy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bloodpressure_copy@2x.png"; path = "images/bloodpressure_copy@2x.png"; sourceTree = "<group>"; };
 		D173343B1B594FCD0089BBFD /* weight_copy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "weight_copy@2x.png"; path = "images/weight_copy@2x.png"; sourceTree = "<group>"; };
 		D173343C1B594FCD0089BBFD /* pulse_copy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pulse_copy@2x.png"; path = "images/pulse_copy@2x.png"; sourceTree = "<group>"; };
-		D173343D1B594FCD0089BBFD /* MAP_copy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "MAP_copy@2x.png"; path = "images/MAP_copy@2x.png"; sourceTree = "<group>"; };
+		D173343D1B594FCD0089BBFD /* map_copy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "map_copy@2x.png"; path = "images/map_copy@2x.png"; sourceTree = "<group>"; };
 		D173343E1B594FCD0089BBFD /* bodyfat_copy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bodyfat_copy@2x.png"; path = "images/bodyfat_copy@2x.png"; sourceTree = "<group>"; };
 		D173343F1B594FCD0089BBFD /* activities_copy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "activities_copy@2x.png"; path = "images/activities_copy@2x.png"; sourceTree = "<group>"; };
 		D17334461B596CF90089BBFD /* metrics.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = metrics.png; path = images/metrics.png; sourceTree = "<group>"; };
@@ -1430,7 +1430,7 @@
 				D173343A1B594FCD0089BBFD /* bloodpressure_copy@2x.png */,
 				D173343B1B594FCD0089BBFD /* weight_copy@2x.png */,
 				D173343C1B594FCD0089BBFD /* pulse_copy@2x.png */,
-				D173343D1B594FCD0089BBFD /* MAP_copy@2x.png */,
+				D173343D1B594FCD0089BBFD /* map_copy@2x.png */,
 				D173343E1B594FCD0089BBFD /* bodyfat_copy@2x.png */,
 				D173343F1B594FCD0089BBFD /* activities_copy@2x.png */,
 				D16FD5E81ADDADC200AF9BA5 /* back_button_white.png */,
@@ -1727,7 +1727,7 @@
 				D1E1FF081A76C2DB00C8951C /* ChallengeProgressLegendRow.xib in Resources */,
 				8FC88AD41AE6DA2B002ED9FB /* activitywidgetblankstatenodevices.png in Resources */,
 				8FE056E5198FDC5F00C81208 /* SettingsView.xib in Resources */,
-				D17334431B594FCD0089BBFD /* MAP_copy@2x.png in Resources */,
+				D17334431B594FCD0089BBFD /* map_copy@2x.png in Resources */,
 				8F5C38CD19818BA900F51543 /* gauge2_atrisk.png in Resources */,
 				8F5E7FCE199BC986009067E5 /* CheckinCellView.xib in Resources */,
 				D17C0A8D1A9FC5520010971C /* unpluggederrorstate.png in Resources */,
