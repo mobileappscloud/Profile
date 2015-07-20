@@ -161,11 +161,12 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             activities = sessionActivities;
             activities.sort(SummaryViewUtility.sortByPoints);
         }
-        var activitiesByDevice: [String: Bool] = [:];
+        var activitiesByDevice: [String: String] = [:];
         for activity in activities {
             var type = ActivityCategory.categoryFromActivity(activity).getString();
             if let (total, activityList) = activitiesByType[type] {
-                if activitiesByDevice[String(activity.device.name)] == nil {
+                let a = activitiesByDevice[String(activity.device.name)];
+                if activitiesByDevice[String(activity.device.name)] == nil || type == ActivityCategory.Health.getString() {
                     var previousActivities = activityList;
                     previousActivities.append(activity);
                     var points = total;
@@ -173,7 +174,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
                         points += activity.points!;
                     }
                     activitiesByType[type] = (points, previousActivities);
-                    activitiesByDevice[String(activity.device.name)] = true;
+                    activitiesByDevice[String(activity.device.name)] = type;
                 }
             } else {
                 var points = 0;
@@ -182,7 +183,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
                 }
                 activitiesByType[type] = (points, [activity]);
                 activityKeys.append(type);
-                activitiesByDevice[String(activity.device.name)] = true;
+                activitiesByDevice[String(activity.device.name)] = type;
             }
         }
         
