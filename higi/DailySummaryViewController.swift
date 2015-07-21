@@ -242,21 +242,25 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
                     rows.append(breakdownRow);
                     margins.append(0);
                 } else if key == ActivityCategory.Health.getString() {
+                    let grayedAlpha: CGFloat = 0.5;
+                    var hasCheckinData = false;
                     if let checkin = findCheckin(subActivity) {
-                        let grayedAlpha: CGFloat = 0.5;
-                        if subActivity.points > 0 || checkin.diastolic != nil || checkin.pulseBpm != nil || checkin.weightLbs != nil || checkin.fatRatio != nil {
-                            let titleRow = SummaryViewUtility.initTitleRow(activityRow.name.frame.origin.x, originY: currentOrigin, width: rowWidth, points: subActivity.points, device: "\(subActivity.device.name)", color: color);
-                            if subActivity.points == 0 {
-                                titleRow.alpha = grayedAlpha;
-                            }
-                            activityContainer.addSubview(titleRow);
-                            titleRows.append(titleRow);
-                            
-                            rows.append(titleRow);
-                            margins.append(titleMargin);
-                            
-                            currentOrigin += titleRow.frame.size.height + titleMargin;
-                            
+                        hasCheckinData = true;
+                    }
+                    if subActivity.points > 0 || hasCheckinData {
+                        let titleRow = SummaryViewUtility.initTitleRow(activityRow.name.frame.origin.x, originY: currentOrigin, width: rowWidth, points: subActivity.points, device: "\(subActivity.device.name)", color: color);
+                        if subActivity.points == 0 {
+                            titleRow.alpha = grayedAlpha;
+                        }
+                        activityContainer.addSubview(titleRow);
+                        titleRows.append(titleRow);
+                        
+                        rows.append(titleRow);
+                        margins.append(titleMargin);
+                        
+                        currentOrigin += titleRow.frame.size.height + titleMargin;
+                        
+                        if let checkin = findCheckin(subActivity) {
                             if checkin.diastolic != nil && checkin.diastolic > 0 {
                                 let breakdownRow = SummaryViewUtility.initBreakdownRow(CGRect(x: activityRow.name.frame.origin.x, y: currentOrigin, width: rowWidth, height: CGFloat.max), text: "\(checkin.systolic!)/\(checkin.diastolic!) mmHg BP", duplicate: isDuplicate);
                                 if subActivity.points == 0 {
