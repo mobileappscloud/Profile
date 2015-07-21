@@ -115,6 +115,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     func reset() {
         self.navigationItem.hidesBackButton = true;
+        spinner.stopAnimating();
         spinner.hidden = true;
         loginButton.enabled = true;
         email.enabled = true;
