@@ -230,7 +230,8 @@ class MetricsViewController: UIViewController {
     func updateDetailCard() {
         let currentCard = getCurrentCard();
         detailsCard.removeFromSuperview();
-        detailsCard = initDetailCard(currentCard);
+        detailsCard.updateCard(currentCard);
+
         self.view.addSubview(detailsCard);
         if (detailsGone) {
             if detailsCard.blankState {
