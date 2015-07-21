@@ -251,6 +251,7 @@
 		D149E94B1A78471A00FBAA15 /* ChallengeDetailsChatterRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D149E94A1A78471A00FBAA15 /* ChallengeDetailsChatterRow.swift */; };
 		D15372911A841FEA00954569 /* TermsAndConditionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15372901A841FEA00954569 /* TermsAndConditionsViewController.swift */; };
 		D15372931A84201600954569 /* TermsAndConditionsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D15372921A84201600954569 /* TermsAndConditionsView.xib */; };
+		D158BB081B59B4E000FA9CAF /* SelectedPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D158BB071B59B4E000FA9CAF /* SelectedPoint.swift */; };
 		D1618F931ABB2E26000BDA85 /* MetricCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1618F921ABB2E26000BDA85 /* MetricCardView.xib */; };
 		D164D3761A7C19A600300F35 /* chat_bubble_green.png in Resources */ = {isa = PBXBuildFile; fileRef = D164D3751A7C19A600300F35 /* chat_bubble_green.png */; };
 		D16FD5E91ADDADC200AF9BA5 /* back_button_white.png in Resources */ = {isa = PBXBuildFile; fileRef = D16FD5E81ADDADC200AF9BA5 /* back_button_white.png */; };
@@ -259,7 +260,7 @@
 		D17334401B594FCD0089BBFD /* bloodpressure_copy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D173343A1B594FCD0089BBFD /* bloodpressure_copy@2x.png */; };
 		D17334411B594FCD0089BBFD /* weight_copy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D173343B1B594FCD0089BBFD /* weight_copy@2x.png */; };
 		D17334421B594FCD0089BBFD /* pulse_copy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D173343C1B594FCD0089BBFD /* pulse_copy@2x.png */; };
-		D17334431B594FCD0089BBFD /* MAP_copy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D173343D1B594FCD0089BBFD /* MAP_copy@2x.png */; };
+		D17334431B594FCD0089BBFD /* map_copy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D173343D1B594FCD0089BBFD /* map_copy@2x.png */; };
 		D17334441B594FCD0089BBFD /* bodyfat_copy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D173343E1B594FCD0089BBFD /* bodyfat_copy@2x.png */; };
 		D17334451B594FCD0089BBFD /* activities_copy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D173343F1B594FCD0089BBFD /* activities_copy@2x.png */; };
 		D17334471B596CF90089BBFD /* metrics.png in Resources */ = {isa = PBXBuildFile; fileRef = D17334461B596CF90089BBFD /* metrics.png */; };
@@ -607,6 +608,7 @@
 		D149E94A1A78471A00FBAA15 /* ChallengeDetailsChatterRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeDetailsChatterRow.swift; sourceTree = "<group>"; };
 		D15372901A841FEA00954569 /* TermsAndConditionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsViewController.swift; sourceTree = "<group>"; };
 		D15372921A84201600954569 /* TermsAndConditionsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TermsAndConditionsView.xib; sourceTree = "<group>"; };
+		D158BB071B59B4E000FA9CAF /* SelectedPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedPoint.swift; sourceTree = "<group>"; };
 		D1618F921ABB2E26000BDA85 /* MetricCardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MetricCardView.xib; sourceTree = "<group>"; };
 		D164D3751A7C19A600300F35 /* chat_bubble_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chat_bubble_green.png; path = images/chat_bubble_green.png; sourceTree = "<group>"; };
 		D16FD5E81ADDADC200AF9BA5 /* back_button_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = back_button_white.png; path = images/back_button_white.png; sourceTree = "<group>"; };
@@ -615,7 +617,7 @@
 		D173343A1B594FCD0089BBFD /* bloodpressure_copy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bloodpressure_copy@2x.png"; path = "images/bloodpressure_copy@2x.png"; sourceTree = "<group>"; };
 		D173343B1B594FCD0089BBFD /* weight_copy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "weight_copy@2x.png"; path = "images/weight_copy@2x.png"; sourceTree = "<group>"; };
 		D173343C1B594FCD0089BBFD /* pulse_copy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pulse_copy@2x.png"; path = "images/pulse_copy@2x.png"; sourceTree = "<group>"; };
-		D173343D1B594FCD0089BBFD /* MAP_copy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "MAP_copy@2x.png"; path = "images/MAP_copy@2x.png"; sourceTree = "<group>"; };
+		D173343D1B594FCD0089BBFD /* map_copy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "map_copy@2x.png"; path = "images/map_copy@2x.png"; sourceTree = "<group>"; };
 		D173343E1B594FCD0089BBFD /* bodyfat_copy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bodyfat_copy@2x.png"; path = "images/bodyfat_copy@2x.png"; sourceTree = "<group>"; };
 		D173343F1B594FCD0089BBFD /* activities_copy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "activities_copy@2x.png"; path = "images/activities_copy@2x.png"; sourceTree = "<group>"; };
 		D17334461B596CF90089BBFD /* metrics.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = metrics.png; path = images/metrics.png; sourceTree = "<group>"; };
@@ -1175,6 +1177,7 @@
 				D1FC72961B20B0DC0068CF89 /* PulseMetricDelegate.swift */,
 				D1FC72921B20116F0068CF89 /* WeightMetricCard.swift */,
 				D1FC72981B20B1B70068CF89 /* WeightMetricDelegate.swift */,
+				D158BB071B59B4E000FA9CAF /* SelectedPoint.swift */,
 			);
 			name = Metrics;
 			sourceTree = "<group>";
@@ -1427,7 +1430,7 @@
 				D173343A1B594FCD0089BBFD /* bloodpressure_copy@2x.png */,
 				D173343B1B594FCD0089BBFD /* weight_copy@2x.png */,
 				D173343C1B594FCD0089BBFD /* pulse_copy@2x.png */,
-				D173343D1B594FCD0089BBFD /* MAP_copy@2x.png */,
+				D173343D1B594FCD0089BBFD /* map_copy@2x.png */,
 				D173343E1B594FCD0089BBFD /* bodyfat_copy@2x.png */,
 				D173343F1B594FCD0089BBFD /* activities_copy@2x.png */,
 				D16FD5E81ADDADC200AF9BA5 /* back_button_white.png */,
@@ -1724,7 +1727,7 @@
 				D1E1FF081A76C2DB00C8951C /* ChallengeProgressLegendRow.xib in Resources */,
 				8FC88AD41AE6DA2B002ED9FB /* activitywidgetblankstatenodevices.png in Resources */,
 				8FE056E5198FDC5F00C81208 /* SettingsView.xib in Resources */,
-				D17334431B594FCD0089BBFD /* MAP_copy@2x.png in Resources */,
+				D17334431B594FCD0089BBFD /* map_copy@2x.png in Resources */,
 				8F5C38CD19818BA900F51543 /* gauge2_atrisk.png in Resources */,
 				8F5E7FCE199BC986009067E5 /* CheckinCellView.xib in Resources */,
 				D17C0A8D1A9FC5520010971C /* unpluggederrorstate.png in Resources */,
@@ -1843,6 +1846,7 @@
 				D110BAD41B0E7C5500CD1E58 /* DailySummaryViewController.swift in Sources */,
 				D1B6D6981A8D09FD0006F80C /* ChatterInputViewController.swift in Sources */,
 				D149E9471A7822D900FBAA15 /* ChallengeDetailsPrize.swift in Sources */,
+				D158BB081B59B4E000FA9CAF /* SelectedPoint.swift in Sources */,
 				8FE056E9198FDCA600C81208 /* FindStationViewController.swift in Sources */,
 				2BBDBA561A12AC2C005A6815 /* CompetitiveChallengeView.swift in Sources */,
 				D17528881B0FD332006335B4 /* DailySummaryBreakdown.swift in Sources */,

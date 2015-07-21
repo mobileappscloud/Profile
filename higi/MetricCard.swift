@@ -25,34 +25,6 @@ class MetricCard: UIView, MetricDelegate {
     
     var regions: [UIView] = [];
     
-    struct SelectedPoint {
-        var date:String!
-        
-        var firstPanel, secondPanel: Panel!;
-        
-        struct Panel {
-            var value, label, unit: String!;
-            
-            init(value: String, label: String, unit:String) {
-                self.value = value;
-                self.label = label;
-                self.unit = unit;
-            }
-        }
-        
-        init(date: String, panelValue: String, panelLabel: String, panelUnit: String) {
-            self.date = date;
-            self.firstPanel = Panel(value: "", label: "", unit: "");
-            self.secondPanel = Panel(value: panelValue, label: panelLabel, unit: panelUnit);
-        }
-        
-        init(date: String, firstPanelValue: String, firstPanelLabel: String, firstPanelUnit: String, secondPanelValue: String, secondPanelLabel: String, secondPanelUnit: String) {
-            self.date = date;
-            self.firstPanel = Panel(value: firstPanelValue, label: firstPanelLabel, unit: firstPanelUnit);
-            self.secondPanel = Panel(value: secondPanelValue, label: secondPanelLabel, unit: secondPanelUnit);
-        }
-    }
-    
     class func instanceFromNib(delegate: MetricDelegate, frame: CGRect) -> MetricCard {
         let view = UINib(nibName: "MetricCardView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! MetricCard;
         view.delegate = delegate;
@@ -90,7 +62,7 @@ class MetricCard: UIView, MetricDelegate {
         return delegate.getType();
     }
     
-    func getSelectedPoint() -> MetricCard.SelectedPoint? {
+    func getSelectedPoint() -> SelectedPoint? {
         return delegate.getSelectedPoint();
     }
 
@@ -156,28 +128,44 @@ class MetricCard: UIView, MetricDelegate {
                 }
             }
             let tab = 1;
+            let labelMinHeight:CGFloat = 20;
+            var lastVisibleY:CGFloat = CGFloat.max;
+            
             let ranges = delegate.getRanges(tab);
             var i = 0;
+            
             for range in ranges {
                 let lowerBound = baseGraph.getScreenPoint(0, yPoint: CGFloat(range.lowerBound));
                 let upperBound = baseGraph.getScreenPoint(0, yPoint: CGFloat(range.upperBound));
                 if (upperBound.y >= 0 || lowerBound.y < graphContainer.frame.size.height) {
+                    lastVisibleY = lowerBound.y;
                     let view = UIView(frame: CGRect(x: 0, y: upperBound.y + graph.graph.plotAreaFrame.paddingTop, width: screenWidth, height: lowerBound.y - upperBound.y));
-                    let label = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.size.width - 10, height: view.frame.size.height));
-                    label.text = range.label;
-                    label.textAlignment = NSTextAlignment.Right;
-                    label.backgroundColor = UIColor.clearColor();
-                    if (i % 2 == 0) {
-                        label.textColor = Utility.colorFromHexString("#EEEEEE");
-                        view.backgroundColor = UIColor.whiteColor();
-                    } else {
-                        label.textColor = UIColor.whiteColor();
-                        view.backgroundColor = Utility.colorFromHexString("#EEEEEE");
+                    var labelHeight = view.frame.size.height;
+                    var labelY:CGFloat = 0;
+                    if lowerBound.y > graphContainer.frame.size.height {
+                        labelHeight = graphContainer.frame.size.height - upperBound.y - 20;
+                    } else if upperBound.y < 0 {
+                        labelHeight = lowerBound.y;
+                        labelY = view.frame.size.height - labelHeight;
                     }
-                    view.addSubview(label);
+                    if labelHeight >= labelMinHeight || (lowerBound.y < graphContainer.frame.size.height && upperBound.y > 0) {
+                        let label = UILabel(frame: CGRect(x: 0, y: labelY, width: view.frame.size.width - 10, height: labelHeight));
+                        label.text = range.label;
+                        label.textAlignment = NSTextAlignment.Right;
+                        label.backgroundColor = UIColor.clearColor();
+                        if (i % 2 == 0) {
+                            label.textColor = Utility.colorFromHexString("#EEEEEE");
+                            view.backgroundColor = UIColor.whiteColor();
+                        } else {
+                            label.textColor = UIColor.whiteColor();
+                            view.backgroundColor = Utility.colorFromHexString("#EEEEEE");
+                        }
+                        view.addSubview(label);
+                    }
                     regions.append(view);
                     self.graphContainer.insertSubview(view, belowSubview: baseGraph);
                     i++;
+                    lastVisibleY = lowerBound.y;
                 }
             }
         }
@@ -224,16 +212,25 @@ class MetricCard: UIView, MetricDelegate {
         secondaryGraph.hidden = !toggleOn;
         if delegate.getType() == MetricsType.Weight {
             (delegate as! WeightMetricDelegate).togglePanel(toggleOn);
+            
+            if toggleOn {
+                title.text = "Body Fat%";
+                toggleButton.setTitle("Switch to Weight", forState: UIControlState.Normal);
+                let detailsCard = (Utility.getViewController(self) as! MetricsViewController).detailsCard;
+                if (Utility.getViewController(self) as! MetricsViewController).detailsOpen {
+                    detailsCard.thirdPanelClicked(self);
+                } else {
+                    detailsCard.thirdPanelSelected = true;
+                }
+            } else {
+                title.text = delegate.getTitle();
+                toggleButton.setTitle("Switch to Body Fat%", forState: UIControlState.Normal);
+            }
+            
             setDetailsCardPoint();
             (Utility.getViewController(self) as! MetricsViewController).setDetailsHeader();
             initRegions(!toggleOn);
-        }
-        if toggleOn {
-            title.text = "Body Fat%";
-            toggleButton.setTitle("Switch to Weight", forState: UIControlState.Normal);
-        } else {
-            title.text = delegate.getTitle();
-            toggleButton.setTitle("Switch to Body Fat%", forState: UIControlState.Normal);
+            
         }
         toggleOn = !toggleOn;
     }

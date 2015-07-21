@@ -269,7 +269,7 @@ class MetricsViewController: UIViewController {
         }
     }
     
-    func pointSelected(selection: MetricCard.SelectedPoint) {
+    func pointSelected(selection: SelectedPoint) {
         if (detailsCard != nil) {
             detailsCard.setData(selection);
         }
