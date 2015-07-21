@@ -8,3 +8,5 @@ build/
 *xcuserdata*
 
 higi/ChallengeProgressLegendRow.xib
+
+.idea/*
