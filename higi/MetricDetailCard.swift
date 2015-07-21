@@ -40,17 +40,23 @@ class MetricDetailCard: UIView {
     
     var activityRows:[BreakdownTitleRow] = [];
     
+    let scrollViewPadding:CGFloat = 20;
+    
     class func instanceFromNib(card: MetricCard) -> MetricDetailCard {
         var view = UINib(nibName: "MetricDetailCardView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! MetricDetailCard;
-        if (card.getSelectedPoint() != nil) {
-            view.setup(card.delegate);
-            view.setData(card.getSelectedPoint()!);
-        } else {
-            view.blankState = true;
-        }
+        view.updateCard(card);
         return view;
     }
 
+    func updateCard(card: MetricCard) {
+        if (card.getSelectedPoint() != nil) {
+            setup(card.delegate);
+            setData(card.getSelectedPoint()!);
+        } else {
+            blankState = true;
+        }
+    }
+    
     func setup(delegate: MetricDelegate) {
         let screenWidth = max(UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height);
         
@@ -63,6 +69,13 @@ class MetricDetailCard: UIView {
         firstPanelValue.textColor = color;
         secondPanelValue.textColor = color;
         thirdPanelValue.textColor = color;
+        
+        if activityRows.count > 0 {
+            for row in activityRows {
+                row.removeFromSuperview();
+            }
+        }
+        copyImageOrigin = scrollViewPadding;
         
         let tab = thirdPanelSelected ? 1 : 0;
         var value: Int;
@@ -131,7 +144,7 @@ class MetricDetailCard: UIView {
             }
             copyImage = UIImageView(frame: CGRect(x: 0, y: copyImageOrigin, width: copyScrollview.frame.size.width, height: newHeight));
             copyImage.image = Utility.scaleImage(image, newSize: CGSize(width: copyScrollview.frame.size.width, height: newHeight));
-            copyScrollview.contentSize.height = copyImageOrigin + copyImage.frame.origin.y + newHeight + 40;
+            copyScrollview.contentSize.height = copyImageOrigin + copyImage.frame.origin.y + newHeight + scrollViewPadding;
             copyScrollview.addSubview(copyImage);
         } else {
             copyScrollview.contentSize.height = copyScrollViewHeight;
@@ -186,17 +199,19 @@ class MetricDetailCard: UIView {
     
     func secondPanelClicked(sender: AnyObject) {
         (Utility.getViewController(self) as! MetricsViewController).openDetailsIfClosed();
-        if (thirdPanelSelected) {
-            let tab = 0;
-            triangleIndicator.frame = CGRect(x: secondPanel.frame.origin.x + secondPanel.frame.size.width / 2 - triangleHeight / 2, y: secondPanel.frame.size.height - 2, width: triangleHeight, height: triangleHeight);
-            if (gauge.superview != nil) {
-                gauge.removeFromSuperview();
-                gauge = MetricGauge.create(CGRect(x: 0, y: 0, width: gaugeContainer.frame.size.width, height: gaugeContainer.frame.size.height), delegate: delegate, tab: tab);
-                gaugeContainer.addSubview(gauge);
+        if secondPanelValue.text != "" {
+            if (thirdPanelSelected) {
+                let tab = 0;
+                triangleIndicator.frame = CGRect(x: secondPanel.frame.origin.x + secondPanel.frame.size.width / 2 - triangleHeight / 2, y: secondPanel.frame.size.height - 2, width: triangleHeight, height: triangleHeight);
+                if (gauge.superview != nil) {
+                    gauge.removeFromSuperview();
+                    gauge = MetricGauge.create(CGRect(x: 0, y: 0, width: gaugeContainer.frame.size.width, height: gaugeContainer.frame.size.height), delegate: delegate, tab: tab);
+                    gaugeContainer.addSubview(gauge);
+                }
+                updateCopyImage(tab);
             }
-            updateCopyImage(tab);
+            thirdPanelSelected = false;
         }
-        thirdPanelSelected = false;
     }
     
     func thirdPanelClicked(sender: AnyObject) {
@@ -230,13 +245,15 @@ class MetricDetailCard: UIView {
                 secondPanelExtraLabel.text = selection.firstPanel.value;
                 secondPanelExtraLabel.textAlignment = NSTextAlignment.Center;
                 secondPanelExtraLabel.textColor = delegate.getColor();
-                secondPanel.addSubview(secondPanelExtraLabel);
+                secondPanelValue.addSubview(secondPanelExtraLabel);
             }
             secondPanelExtraLabel.hidden = false;
             secondPanelExtraLabel.text = selection.firstPanel.value;
-            secondPanelValue.hidden = true;
+            secondPanel.hidden = true;
+        } else if selection.firstPanel.unit == "" && selection.firstPanel.value == "" {
+            secondPanel.hidden = true;
         } else {
-            secondPanelValue.hidden = false;
+            secondPanel.hidden = false;
             secondPanelValue.text = selection.firstPanel.value;
             if secondPanelExtraLabel != nil {
                 secondPanelExtraLabel.hidden = true;
@@ -253,9 +270,11 @@ class MetricDetailCard: UIView {
             thirdPanelExtraLabel.hidden = false;
             thirdPanelExtraLabel.text = selection.secondPanel.value;
             thirdPanelValue.hidden = true;
+        } else if selection.secondPanel.unit == "" && selection.secondPanel.value == "" {
+            thirdPanel.hidden = true;
         } else {
             thirdPanelValue.text = selection.secondPanel.value;
-            thirdPanelValue.hidden = false;
+            thirdPanel.hidden = false;
             if thirdPanelExtraLabel != nil {
                 thirdPanelExtraLabel.hidden = true;
             }
@@ -283,16 +302,11 @@ class MetricDetailCard: UIView {
     }
     
     func initSummaryview(date: String?) {
-        if activityRows.count > 0 {
-            for row in activityRows {
-                row.removeFromSuperview();
-            }
-        }
         var activities: [HigiActivity] = [];
         var activityKeys: [String] = [];
         var activitiesByType:[String: (Int, [HigiActivity])] = [:];
         var totalPoints = 0;
-        var minCircleRadius:CGFloat = 6, maxCircleRadius:CGFloat = 32, currentOrigin:CGFloat = 0;
+        var minCircleRadius:CGFloat = 6, maxCircleRadius:CGFloat = 32, currentOrigin:CGFloat = scrollViewPadding;
         var dateString = date;
         if (dateString == nil) {
             dateString = Constants.dateFormatter.stringFromDate(NSDate());
@@ -354,7 +368,7 @@ class MetricDetailCard: UIView {
         }
         currentOrigin += gap * 2;
         copyImageOrigin = currentOrigin;
-        copyScrollViewHeight = copyScrollview.frame.origin.y + currentOrigin + 40;
+        copyScrollViewHeight = copyScrollview.frame.origin.y + currentOrigin;
     }
 
     func gotoDailySummary(sender: AnyObject) {
