@@ -169,6 +169,7 @@ class ModifyImageViewController: UIViewController {
         self.navigationItem.hidesBackButton = true;
         self.navigationItem.leftBarButtonItem?.customView?.hidden = false;
         spinner.hidden = true;
+        spinner.stopAnimating();
         doneButton.hidden = false;
     }
     
