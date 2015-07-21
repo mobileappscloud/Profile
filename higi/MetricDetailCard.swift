@@ -252,9 +252,13 @@ class MetricDetailCard: UIView {
             secondPanel.hidden = true;
         } else if selection.firstPanel.unit == "" && selection.firstPanel.value == "" {
             secondPanel.hidden = true;
+            if secondPanelExtraLabel != nil {
+                secondPanelExtraLabel.hidden = true;
+            }
         } else {
             secondPanel.hidden = false;
             secondPanelValue.text = selection.firstPanel.value;
+            secondPanelValue.hidden = false;
             if secondPanelExtraLabel != nil {
                 secondPanelExtraLabel.hidden = true;
             }
@@ -272,9 +276,13 @@ class MetricDetailCard: UIView {
             thirdPanelValue.hidden = true;
         } else if selection.secondPanel.unit == "" && selection.secondPanel.value == "" {
             thirdPanel.hidden = true;
+            if thirdPanelExtraLabel != nil {
+                thirdPanelExtraLabel.hidden = true;
+            }
         } else {
             thirdPanelValue.text = selection.secondPanel.value;
             thirdPanel.hidden = false;
+            thirdPanelValue.hidden = false;
             if thirdPanelExtraLabel != nil {
                 thirdPanelExtraLabel.hidden = true;
             }
