@@ -35,7 +35,7 @@ class BpMetricDelegate: MetricDelegate {
     }
     
     func getBlankStateImage() -> UIImage {
-        return UIImage(named: "bp_overlay")!;
+        return UIImage(named: "bloodpressure_copy")!;
     }
     
     func setSelected(date: NSDate) {

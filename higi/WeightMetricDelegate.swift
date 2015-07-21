@@ -33,7 +33,7 @@ class WeightMetricDelegate: MetricDelegate {
     }
     
     func getBlankStateImage() -> UIImage {
-        return UIImage(named: "weight_overlay")!;
+        return UIImage(named: "bodyfat_copy")!;
     }
     
     func setSelected(date: NSDate) {
