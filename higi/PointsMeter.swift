@@ -31,6 +31,8 @@ class PointsMeter: UIView {
     
     private var lightArc = false, thickArc = false;
     
+    private var subLayers: [CAShapeLayer] = [];
+    
     class func create() -> PointsMeter {
         return UINib(nibName: "PointsMeterView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! PointsMeter;
     }
@@ -97,6 +99,12 @@ class PointsMeter: UIView {
     }
     
     func drawArc(animated: Bool) {
+        if subLayers.count > 0 {
+            for subLayer in subLayers {
+                subLayer.removeFromSuperlayer();
+            }
+            subLayers.removeAll(keepCapacity: false);
+        }
         var center = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2);
         var lastEnd = 0.0;
         if (activitiesByType.count > 0) {
@@ -118,7 +126,7 @@ class PointsMeter: UIView {
                 }
                 arc.path = toPath.CGPath;
                 self.meterContainer.layer.addSublayer(arc);
-
+                subLayers.append(arc);
                 if (animated) {
                     CATransaction.begin();
                     CATransaction.setDisableActions(true);

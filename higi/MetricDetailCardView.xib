@@ -12,10 +12,10 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qPb-ca-ir9">
-                    <rect key="frame" x="0.0" y="53" width="480" height="398"/>
+                    <rect key="frame" x="0.0" y="53" width="480" height="267"/>
                     <subviews>
                         <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aMj-Wh-nzq">
-                            <rect key="frame" x="239" y="0.0" width="1" height="398"/>
+                            <rect key="frame" x="239" y="0.0" width="1" height="268"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="1" id="dc3-1v-YcH"/>
@@ -42,19 +42,49 @@
                                     <rect key="frame" x="47" y="281" width="195" height="50"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
+                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SgB-1A-Nnr">
+                                    <rect key="frame" x="19" y="34" width="200" height="200"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5bj-0M-1yB">
-                                    <rect key="frame" x="20" y="32" width="200" height="200"/>
+                                    <rect key="frame" x="20" y="24" width="200" height="180"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="200" id="jCW-ej-5XN"/>
+                                        <constraint firstAttribute="height" constant="180" id="jCW-ej-5XN"/>
                                         <constraint firstAttribute="width" constant="200" id="ve0-Vj-Hhy"/>
                                     </constraints>
+                                </view>
+                                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KcR-5x-DTT">
+                                    <rect key="frame" x="29" y="160" width="180" height="44"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="2301 South Dr. Martin Luther King Jr. Dr." lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oAU-CE-Ko7">
+                                            <rect key="frame" x="0.0" y="16" width="180" height="16"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UHe-f7-NBi">
+                                            <rect key="frame" x="0.0" y="32" width="180" height="16"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DkT-xF-2qQ">
+                                            <rect key="frame" x="0.0" y="0.0" width="180" height="16"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstItem="5bj-0M-1yB" firstAttribute="top" secondItem="a0a-Ni-kXk" secondAttribute="top" constant="32" id="RNB-g2-Pbo"/>
+                                <constraint firstItem="KcR-5x-DTT" firstAttribute="top" secondItem="a0a-Ni-kXk" secondAttribute="top" constant="160" id="Coh-V5-7EX"/>
+                                <constraint firstItem="5bj-0M-1yB" firstAttribute="top" secondItem="a0a-Ni-kXk" secondAttribute="top" constant="24" id="RNB-g2-Pbo"/>
                                 <constraint firstAttribute="centerX" secondItem="5bj-0M-1yB" secondAttribute="centerX" id="YlG-Jm-zcO"/>
+                                <constraint firstAttribute="centerX" secondItem="KcR-5x-DTT" secondAttribute="centerX" id="tBn-aC-hGA"/>
                             </constraints>
                         </view>
                     </subviews>
@@ -198,11 +228,16 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="bodyContainer" destination="qPb-ca-ir9" id="vWt-EI-yHn"/>
+                <outlet property="checkinAddressContainer" destination="KcR-5x-DTT" id="vYF-Zl-uXy"/>
+                <outlet property="checkinCityStateZip" destination="UHe-f7-NBi" id="NGu-gQ-HKk"/>
+                <outlet property="checkinLocation" destination="DkT-xF-2qQ" id="pwl-R9-eIM"/>
+                <outlet property="checkinStreetAddress" destination="oAU-CE-Ko7" id="G7m-Df-PI2"/>
                 <outlet property="copyScrollview" destination="emr-lp-6ft" id="xqe-Rc-eL0"/>
                 <outlet property="firstPanel" destination="gQB-gF-aNi" id="bM9-1n-3mD"/>
                 <outlet property="firstPanelValue" destination="NOr-pT-1vV" id="dxB-d5-Hil"/>
                 <outlet property="gaugeContainer" destination="5bj-0M-1yB" id="j2Z-hi-PCq"/>
                 <outlet property="headerContainer" destination="4Pv-Hs-gui" id="z9F-BH-Gl3"/>
+                <outlet property="meterContainer" destination="SgB-1A-Nnr" id="Wtt-ot-tku"/>
                 <outlet property="secondPanel" destination="jmX-0c-mjy" id="uXA-H7-pbP"/>
                 <outlet property="secondPanelHeader" destination="ksh-x6-v7h" id="MNr-UT-qPR"/>
                 <outlet property="secondPanelLabel" destination="m11-ec-q7Z" id="3gb-l7-Q4r"/>
