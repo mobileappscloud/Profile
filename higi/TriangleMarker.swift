@@ -17,11 +17,14 @@ class TriangleMarker : UIView {
         backgroundColor = UIColor.clearColor()
     }
     
-    func initMarker(valueAngle:CGFloat, center: CGPoint, radius: CGFloat, lineWidth: CGFloat) {
-        self.valueAngle = valueAngle;
+    func initMarker(center: CGPoint, radius: CGFloat, lineWidth: CGFloat) {
         self.centerPoint = center;
         self.radius = radius;
         self.lineWidth = lineWidth;
+    }
+    
+    func drawAtAngle(valueAngle:CGFloat) {
+        self.valueAngle = valueAngle;
     }
     
     required init(coder aDecoder: NSCoder) {

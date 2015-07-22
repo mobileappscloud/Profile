@@ -20,7 +20,7 @@ class PulseMetricDelegate: MetricDelegate {
         return MetricsType.Pulse;
     }
     
-    func getCopyImage(tab: Int) -> UIImage? {
+    func getCopyImage(tab: Int) -> UIImage {
         return UIImage(named: "pulse_copy")!;
     }
     
@@ -49,7 +49,7 @@ class PulseMetricDelegate: MetricDelegate {
         } else {
             let date = Constants.displayDateFormatter.stringFromDate(selectedCheckin.dateTime);
             let pulse = selectedCheckin.pulseBpm != nil ? "\(Int(selectedCheckin.pulseBpm!))" : "";
-            return SelectedPoint(date: date, panelValue: pulse, panelLabel: "Beats Per Minute", panelUnit: "bpm");
+            return SelectedPoint(date: date, panelValue: pulse, panelLabel: "Beats Per Minute", panelUnit: "bpm", kioskInfo: selectedCheckin.kioskInfo);
         }
     }
     
@@ -66,6 +66,9 @@ class PulseMetricDelegate: MetricDelegate {
     }
     
     func getSelectedValue(tab:Int) -> String {
+        if selectedCheckin == nil {
+            return "--";
+        }
         return selectedCheckin.pulseBpm != nil ? "\(selectedCheckin.pulseBpm!)" : "--";
     }
     

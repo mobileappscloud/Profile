@@ -7,11 +7,17 @@ class MetricGauge: UIView {
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var unit: UILabel!
     
-    var lineWidth, radius: CGFloat!;
+    private var lineWidth, radius: CGFloat!;
     
-    var ranges: [Range] = [];
+    private var ranges: [Range] = [];
     
-    var rangeMax, rangeMin: Int!;
+    private var rangeMax, rangeMin: Int!;
+    
+    private var subLayers: [CAShapeLayer] = [];
+    
+    private var labels: [UILabel] = [];
+    
+    private var triangle: TriangleMarker!;
     
     struct Range {
         var label: String!;
@@ -48,11 +54,17 @@ class MetricGauge: UIView {
     
     class func create(frame: CGRect, delegate: MetricDelegate, tab: Int) -> MetricGauge {
         let gauge = UINib(nibName: "MetricGaugeView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! MetricGauge;
-        gauge.setup(frame, delegate: delegate, tab: tab);
+        gauge.initFrame(frame);
+        gauge.setData(delegate, tab: tab);
         return gauge;
     }
     
-    func setup(frame: CGRect, delegate: MetricDelegate, tab:Int) {
+    func initFrame(frame:CGRect) {
+        self.frame = frame;
+        gaugeContainer.frame = frame;
+    }
+
+    func setData(delegate: MetricDelegate, tab:Int) {
         userValue = 0;
         var value = delegate.getSelectedValue(tab);
         if delegate.getType() == MetricsType.Weight && Utility.stringIndexOf(value, needle: "%") > 0 {
@@ -99,6 +111,19 @@ class MetricGauge: UIView {
         self.label.text = rangeClass;
         self.label.textColor = delegate.colorFromClass(rangeClass, tab: tab);
         
+        if subLayers.count > 0 {
+            for subLayer in subLayers {
+                subLayer.removeFromSuperlayer();
+            }
+            subLayers.removeAll(keepCapacity: false);
+        }
+        if labels.count > 0 {
+            for label in labels {
+                label.removeFromSuperview();
+            }
+            labels.removeAll(keepCapacity: false);
+        }
+        
         let ranges = delegate.getRanges(tab);
         if ranges.count == 0 {
             var toPath = UIBezierPath();
@@ -112,6 +137,7 @@ class MetricGauge: UIView {
             toPath.addArcWithCenter(center, radius: radius, startAngle: startAngle, endAngle: CGFloat(sweepAngle) + startAngle, clockwise: true);
             rangeArc.path = toPath.CGPath;
             gaugeContainer.layer.addSublayer(rangeArc);
+            subLayers.append(rangeArc);
         } else {
             drawAngle = sweepAngle / Double(ranges.count);
             var strokeStart:CGFloat = 0.0, strokeEnd:CGFloat = 0.0;
@@ -147,6 +173,7 @@ class MetricGauge: UIView {
                 toPath.addArcWithCenter(center, radius: radius, startAngle: startAngle, endAngle: CGFloat(sweepAngle) + startAngle, clockwise: true);
                 rangeArc.path = toPath.CGPath;
                 gaugeContainer.layer.addSublayer(rangeArc);
+                subLayers.append(rangeArc);
                 if (i < ranges.count - 1) {
                     let rangeVal = CGFloat(i + 1);
                     let labelWidth:CGFloat = 100;
@@ -169,6 +196,7 @@ class MetricGauge: UIView {
                     label.text = "\(end)";
                     label.font = UIFont.systemFontOfSize(10);
                     gaugeContainer.addSubview(label);
+                    labels.append(label);
                     
                     var toPath = UIBezierPath();
                     var rangeArc = CAShapeLayer();
@@ -200,12 +228,16 @@ class MetricGauge: UIView {
     func drawMarker(markerAngle:CGFloat, value: Int, range: Range) {
         var valueAngle = CGFloat(value - range.lowerBound) / CGFloat(range.upperBound - range.lowerBound) * CGFloat(drawAngle) + markerAngle;
         valueAngle = min(max(valueAngle, markerAngle), startAngle + CGFloat(sweepAngle));
-
-        let triangleFrame = CGRect(x: 0, y: 0, width: gaugeContainer.frame.size.width, height: gaugeContainer.frame.size.height);
         
-        let triangle = TriangleMarker(frame: triangleFrame);
-        triangle.initMarker(valueAngle, center: center, radius: radius, lineWidth: lineWidth);
+        if triangle != nil && triangle.superview != nil {
+            triangle.removeFromSuperview();
+        }
+        let triangleFrame = CGRect(x: 0, y: 0, width: gaugeContainer.frame.size.width, height: gaugeContainer.frame.size.height);
+        triangle = TriangleMarker(frame: triangleFrame);
+        triangle.initMarker(center, radius: radius, lineWidth: lineWidth);
         gaugeContainer.addSubview(triangle);
+        
+        triangle.drawAtAngle(valueAngle);
     }
     
     override func layoutSubviews() {
@@ -221,5 +253,4 @@ class MetricGauge: UIView {
         unit.center.x = frame.size.width / 2;
         drawRect(frame);
     }
-    
 }

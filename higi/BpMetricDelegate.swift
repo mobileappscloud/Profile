@@ -26,7 +26,7 @@ class BpMetricDelegate: MetricDelegate {
         return MetricsType.BloodPressure;
     }
     
-    func getCopyImage(tab: Int) -> UIImage? {
+    func getCopyImage(tab: Int) -> UIImage {
         if (tab == 0) {
             return UIImage(named: "bloodpressure_copy")!;
         } else {
@@ -60,7 +60,7 @@ class BpMetricDelegate: MetricDelegate {
             let date = Constants.displayDateFormatter.stringFromDate(selectedCheckin.dateTime);
             let bp = selectedCheckin.systolic != nil ? "\(selectedCheckin.systolic!)/\(selectedCheckin.diastolic!)" : "";
             let map = selectedCheckin.map != nil ? String(format: "%.1f", arguments: [selectedCheckin.map!]) : "";
-                return SelectedPoint(date: date, firstPanelValue: bp, firstPanelLabel: "Blood Pressure", firstPanelUnit: "mmHg", secondPanelValue: map, secondPanelLabel: "Mean Arterial Pressure", secondPanelUnit: "mmHg");
+                return SelectedPoint(date: date, firstPanelValue: bp, firstPanelLabel: "Blood Pressure", firstPanelUnit: "mmHg", secondPanelValue: map, secondPanelLabel: "Mean Arterial Pressure", secondPanelUnit: "mmHg", kioskInfo: selectedCheckin.kioskInfo);
         }
     }
     
@@ -108,6 +108,9 @@ class BpMetricDelegate: MetricDelegate {
     }
     
     func getSelectedValue(tab: Int) -> String {
+        if selectedCheckin == nil {
+            return "--";
+        }
         if (tab == 0) {
             return selectedCheckin.systolic != nil ? "\(selectedCheckin.systolic!)/\(selectedCheckin.diastolic!)" : "--";
         } else {
