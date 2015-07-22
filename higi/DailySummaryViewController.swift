@@ -442,7 +442,9 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             rowWidth -= descriptionRows[0].frame.origin.x;
             for row in descriptionRows {
                 row.frame.size.width = rowWidth;
-                row.frame.size.height = Utility.heightForTextView(rowWidth, text: row.desc.text!, fontSize: row.desc.font.pointSize, margin: 0);
+                let a = row.desc.text!;
+                let b = Utility.heightForTextView(rowWidth, text: row.desc.text!, fontSize: row.desc.font.pointSize, margin: 0);
+                row.frame.size.height = Utility.heightForTextView(rowWidth - 10, text: row.desc.text!, fontSize: row.desc.font.pointSize, margin: 0);
                 row.desc.sizeToFit();
             }
         }
