@@ -16,8 +16,14 @@ class Constants {
         formatter.dateFormat = DISPLAY_DATE_FORMAT;
         return formatter;
     }
+    
+    class var higiGreen : String {
+        return HIGI_GREEN;
+    }
 }
 
 let KEY_DATE_FORMAT = "yyyyMMdd";
 
 let DISPLAY_DATE_FORMAT = "MM/dd/yyyy";
+
+let HIGI_GREEN = "#76C043";
