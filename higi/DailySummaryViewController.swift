@@ -187,28 +187,110 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             }
         }
         
-        layoutActivityView();
+        if activitiesByDevice.count == 0 {
+            layoutBlankState();
+        } else {
+            layoutActivityView();
+        }
     }
 
+    func layoutBlankState() {
+        let totalPoints = 140, higiPoints = 100, foursquarePoints = 15, activityTrackerPoints = 50;
+        let higiTitle = "higi Station", foursquareTitle = "Foursquare", activityTrackerTitle = "Activity Tracker";
+        
+        let higiText = "Join the millions of people that are tracking their health through higi. You can earn up to 100 points by visiting a higi Station and getting your blood pressure, pulse, weight, and BMI stats.";
+        let activityTrackerText = "Higi makes it fun and rewarding to track your steps. Simply connection your favorite activity tracker and start getting rewarded for your jogs around the block."
+        let foursquareText = "Wanna get rewarded for going to the gym or walking your dog at the park? Just connect your Foursquare account with higi and we will reward your 15 points for every time you check into a gym or park.";
+        
+        let higiCallToAction = "Find a station!", activityTrackerCallToAction = "Connect a device!", foursquareCallToAction = "Connect a device!";
+        
+        let higiButtonTarget:Selector = "higiCallToActionClicked:", activityTrackerButtonTarget:Selector = "activityTrackerCallToActionClicked:", foursquareButtonTarget:Selector = "foursquareCallToActionClicked:";
+        
+        let color = Utility.colorFromHexString("#444444");
+        
+        let titleMargin:CGFloat = -4, rowMargin:CGFloat = 4, buttonMargin: CGFloat = 16, textOffset: CGFloat = 26, alpha: CGFloat = 0.6;
+        
+        let higiTitleRow = initActivityRow(higiTitle, points: higiPoints, totalPoints: totalPoints, color: color, alpha: alpha);
+        higiTitleRow.frame.origin.y = currentOrigin;
+        
+        let rowWidth = UIScreen.mainScreen().bounds.size.width - higiTitleRow.name.frame.origin.x;
+        let rowX = higiTitleRow.name.frame.origin.x;
+        rows.append(higiTitleRow);
+        margins.append(rowMargin);
+        activityContainer.addSubview(higiTitleRow);
+        currentOrigin += higiTitleRow.frame.size.height + titleMargin;
+        
+        let higiTextRow = SummaryViewUtility.initBreakdownRow(CGRect(x: rowX - textOffset, y: currentOrigin, width: rowWidth, height: CGFloat.max), text: higiText, duplicate: false);
+        higiTextRow.bulletPoint.hidden = true;
+        higiTextRow.alpha = alpha;
+        
+        activityContainer.addSubview(higiTextRow);
+        currentOrigin += higiTextRow.frame.size.height + buttonMargin;
+        descriptionRows.append(higiTextRow);
+        rows.append(higiTextRow);
+        margins.append(buttonMargin);
+        
+        let higiButton = initCallToActionButton(rowX, text: higiCallToAction, action: higiButtonTarget);
+        activityContainer.addSubview(higiButton);
+        currentOrigin += higiButton.frame.size.height + buttonMargin;
+        rows.append(higiButton);
+        margins.append(buttonMargin);
+        
+        let activityTrackerTitleRow = initActivityRow(activityTrackerTitle, points: activityTrackerPoints, totalPoints: totalPoints, color: color, alpha: alpha);
+        activityTrackerTitleRow.frame.origin.y = currentOrigin;
+        
+        rows.append(activityTrackerTitleRow);
+        margins.append(rowMargin);
+        activityContainer.addSubview(activityTrackerTitleRow);
+        currentOrigin += activityTrackerTitleRow.frame.size.height + titleMargin;
+        
+        let activityTrackerTextRow = SummaryViewUtility.initBreakdownRow(CGRect(x: rowX - textOffset, y: currentOrigin, width: rowWidth, height: CGFloat.max), text: activityTrackerText, duplicate: false);
+        activityTrackerTextRow.bulletPoint.hidden = true;
+        activityTrackerTextRow.alpha = alpha;
+        
+        activityContainer.addSubview(activityTrackerTextRow);
+        currentOrigin += activityTrackerTextRow.frame.size.height + buttonMargin;
+        descriptionRows.append(activityTrackerTextRow);
+        rows.append(activityTrackerTextRow);
+        margins.append(buttonMargin);
+        
+        let activityTrackerButton = initCallToActionButton(rowX, text: activityTrackerCallToAction, action: activityTrackerButtonTarget);
+        activityContainer.addSubview(activityTrackerButton);
+        currentOrigin += activityTrackerButton.frame.size.height + buttonMargin;
+        rows.append(activityTrackerButton);
+        margins.append(buttonMargin);
+        
+        let foursquareTitleRow = initActivityRow(foursquareTitle, points: foursquarePoints, totalPoints: totalPoints, color: color, alpha: alpha);
+        foursquareTitleRow.frame.origin.y = currentOrigin;
+        
+        rows.append(foursquareTitleRow);
+        margins.append(rowMargin);
+        activityContainer.addSubview(foursquareTitleRow);
+        currentOrigin += foursquareTitleRow.frame.size.height + titleMargin;
+        
+        let foursquareTextRow = SummaryViewUtility.initBreakdownRow(CGRect(x: rowX - textOffset, y: currentOrigin, width: rowWidth, height: CGFloat.max), text: foursquareText, duplicate: false);
+        foursquareTextRow.bulletPoint.hidden = true;
+        foursquareTextRow.alpha = alpha;
+        
+        activityContainer.addSubview(foursquareTextRow);
+        currentOrigin += foursquareTextRow.frame.size.height + buttonMargin;
+        descriptionRows.append(foursquareTextRow);
+        rows.append(foursquareTextRow);
+        margins.append(buttonMargin);
+        
+        let foursquareButton = initCallToActionButton(rowX, text: foursquareCallToAction, action: foursquareButtonTarget);
+        activityContainer.addSubview(foursquareButton);
+        currentOrigin += foursquareButton.frame.size.height + buttonMargin;
+        rows.append(foursquareButton);
+        margins.append(buttonMargin);
+    }
+    
     func layoutActivityView() {
         for key in activityKeys {
             let (total, activityList) = activitiesByType[key]!;
             let category = ActivityCategory.categoryFromString(key);
             let color = category.getColor();
-            let activityRow = UINib(nibName: "DailySummaryRowView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! DailySummaryRow;
-            activityRow.points.text = "\(total)";
-            activityRow.name.text = String(category.getString());
-            activityRow.name.textColor = color;
-            let proportion = CGFloat(total) / CGFloat(totalPoints);
-            let newHeight = max(maxCircleRadius * proportion, minCircleRadius);
-            let circlePath = UIBezierPath(arcCenter: CGPoint(x: activityRow.progressCircle.frame.size.width / 2.0, y: activityRow.progressCircle.frame.size.height / 2.0), radius: newHeight, startAngle: 0.0, endAngle: CGFloat(M_PI * 2.0), clockwise: true);
-            let circleLayer = CAShapeLayer();
-            circleLayer.path = circlePath.CGPath;
-            circleLayer.fillColor = UIColor.whiteColor().CGColor;
-            circleLayer.strokeColor = color.CGColor;
-            circleLayer.lineWidth = 2.0;
-            circleLayer.strokeEnd = 1;
-            activityRow.progressCircle.layer.addSublayer(circleLayer);
+            let activityRow = initActivityRow(String(category.getString()), points: total, totalPoints: totalPoints, color: color, alpha: 1);
             activityRow.frame.origin.y = currentOrigin;
             
             let rowMargin:CGFloat = -4;
@@ -334,6 +416,40 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         }
     }
 
+    func initActivityRow(title: String, points: Int, totalPoints: Int, color: UIColor, alpha: CGFloat) -> DailySummaryRow {
+        let activityRow = UINib(nibName: "DailySummaryRowView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! DailySummaryRow;
+        activityRow.points.text = "\(points)";
+        activityRow.points.alpha = alpha;
+        activityRow.name.text = title;
+        activityRow.name.textColor = color;
+        activityRow.name.alpha = alpha + 0.1;
+        let proportion = CGFloat(points) / CGFloat(totalPoints);
+        let newHeight = max(maxCircleRadius * proportion, minCircleRadius);
+        let circlePath = UIBezierPath(arcCenter: CGPoint(x: activityRow.progressCircle.frame.size.width / 2.0, y: activityRow.progressCircle.frame.size.height / 2.0), radius: newHeight, startAngle: 0.0, endAngle: CGFloat(M_PI * 2.0), clockwise: true);
+        let circleLayer = CAShapeLayer();
+        circleLayer.path = circlePath.CGPath;
+        circleLayer.fillColor = UIColor.whiteColor().CGColor;
+        circleLayer.strokeColor = color.colorWithAlphaComponent(alpha + 0.1).CGColor;
+        circleLayer.lineWidth = 2.0;
+        circleLayer.strokeEnd = 1;
+        activityRow.progressCircle.layer.addSublayer(circleLayer);
+        activityRow.frame.origin.y = currentOrigin;
+        
+        return activityRow;
+    }
+    
+    func initCallToActionButton(x: CGFloat, text: String, action: Selector) -> UIButton {
+        let buttonWidth: CGFloat = 140, buttonHeight: CGFloat = 40;
+        let button = UIButton(frame: CGRect(x: x, y: currentOrigin, width: buttonWidth, height: buttonHeight));
+        button.setTitle(text, forState: UIControlState.Normal);
+        button.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal);
+        button.titleLabel?.font = UIFont.boldSystemFontOfSize(14);
+        button.backgroundColor = Utility.colorFromHexString(Constants.higiGreen);
+        button.layer.cornerRadius = 4;
+        button.addTarget(self, action: action, forControlEvents: UIControlEvents.TouchUpInside);
+        return button;
+    }
+    
     func findCheckin(activity: HigiActivity ) -> HigiCheckin? {
         if SessionController.Instance.checkins != nil {
             let formatter = NSDateFormatter();
@@ -439,8 +555,6 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             rowWidth -= descriptionRows[0].frame.origin.x;
             for row in descriptionRows {
                 row.frame.size.width = rowWidth;
-                let a = row.desc.text!;
-                let b = Utility.heightForTextView(rowWidth, text: row.desc.text!, fontSize: row.desc.font.pointSize, margin: 0);
                 row.frame.size.height = Utility.heightForTextView(rowWidth - 10, text: row.desc.text!, fontSize: row.desc.font.pointSize, margin: 0);
                 row.desc.sizeToFit();
             }
@@ -453,6 +567,21 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             originY += row.frame.size.height + margins[i];
             i++;
         }
+    }
+    
+    func higiCallToActionClicked(sender: AnyObject!) {
+        Flurry.logEvent("FindStation_Pressed");
+        self.navigationController!.pushViewController(FindStationViewController(nibName: "FindStationView", bundle: nil), animated: true);
+    }
+    
+    func activityTrackerCallToActionClicked(sender: AnyObject!) {
+        Flurry.logEvent("ConnectDevice_Pressed");
+        self.navigationController!.pushViewController(ConnectDeviceViewController(nibName: "ConnectDeviceView", bundle: nil), animated: true);
+    }
+    
+    func foursquareCallToActionClicked(sender: AnyObject!) {
+        Flurry.logEvent("ConnectDevice_Pressed");
+        self.navigationController!.pushViewController(ConnectDeviceViewController(nibName: "ConnectDeviceView", bundle: nil), animated: true);
     }
     
     func goBack(sender: AnyObject!) {
