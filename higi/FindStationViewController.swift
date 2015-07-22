@@ -152,6 +152,19 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         mapView.addObserver(self, forKeyPath: "myLocation", options: NSKeyValueObservingOptions.New, context: nil);
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated);
+        if (UIDevice.currentDevice().systemVersion >= "8.0") {
+            locationManager = CLLocationManager();
+            locationManager.requestWhenInUseAuthorization();
+            locationManager.delegate = self;
+        }
+        
+        if (SessionController.Instance.kioskList != nil) {
+            populateClusterManager();
+        }
+    }
+    
     override func receiveApiNotification(notification: NSNotification) {
         populateClusterManager();
         clusterManager.cluster();
@@ -192,23 +205,12 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         var myLocationButton = mapView.subviews.last as! UIView;
         myLocationButton.frame.origin.x = 10;
         mapContainer.addSubview(mapView);
-        
-        if (UIDevice.currentDevice().systemVersion >= "8.0") {
-            locationManager = CLLocationManager();
-            locationManager.requestWhenInUseAuthorization();
-            locationManager.delegate = self;
-        }
-        
-        if (SessionController.Instance.kioskList != nil) {
-            populateClusterManager();
-        } else {
-            locationManager = CLLocationManager();
-            locationManager.requestWhenInUseAuthorization();
-            locationManager.delegate = self;
-        }
     }
     
     func populateClusterManager() {
+        if (SessionController.Instance.kioskList == nil) {
+            return;
+        }
         for kiosk in SessionController.Instance.kioskList {
             let item = ClusterKiosk();
             item.setPosition(kiosk.position!);
