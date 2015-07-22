@@ -49,6 +49,7 @@ class MetricsViewController: UIViewController {
         super.viewDidAppear(animated);
         if (detailsCard != nil && !detailsCard.blankState) {
             detailsCard.animateBounceIn(detailsCardPosY);
+            detailsGone = false;
         }
     }
 
