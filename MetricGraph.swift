@@ -124,7 +124,7 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         }
         let unselectedColor = Utility.colorFromHexString("#b4a6c2");
         var maxY = 0.0, minY = DBL_MAX, plotSymbolSize = 8.0;
-        let hitMargin = 5, pointsToShow = 30;
+        let hitMargin = 20, pointsToShow = 30;
         
         graph = CPTXYGraph(frame: self.bounds);
         self.hostedGraph = graph;
