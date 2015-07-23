@@ -4,14 +4,9 @@ class MetricGraphUtility {
     
     class func createActivityGraph(frame: CGRect) -> MetricGraph {
         var points:[GraphPoint] = [];
-        let dateString = Constants.dateFormatter.stringFromDate(NSDate());
-        var totalPoints = 0;
         for (date, (total, activityList)) in SessionController.Instance.activities {
-            if (date == dateString) {
-                totalPoints = total;
-            }
             if (activityList.count > 0) {
-                let activityDate = Double(activityList[0].startTime.timeIntervalSince1970);
+                let activityDate = Double(Constants.dateFormatter.dateFromString(date)!.timeIntervalSince1970);
                 points.append(GraphPoint(x: activityDate, y: Double(total)));
             }
         }

@@ -74,7 +74,7 @@ class WeightMetricDelegate: MetricDelegate {
             return nil;
         } else {
             if weightMode {
-                let date = Constants.displayDateFormatter.stringFromDate(selectedWeightCheckin.dateTime);
+                let date = Constants.dateFormatter.stringFromDate(selectedWeightCheckin.dateTime);
                 let weight = selectedWeightCheckin.weightLbs != nil ? "\(Int(selectedWeightCheckin.weightLbs!))" : "--";
                 let firstLabel = "";
                 let firstUnit = "";
@@ -88,7 +88,7 @@ class WeightMetricDelegate: MetricDelegate {
                 }
                 return SelectedPoint(date: date, firstPanelValue: "", firstPanelLabel: firstLabel, firstPanelUnit: firstUnit, secondPanelValue: weight, secondPanelLabel: secondLabel, secondPanelUnit: secondUnit, device: device);
             } else {
-                let date = Constants.displayDateFormatter.stringFromDate(selectedFatCheckin.dateTime);
+                let date = Constants.dateFormatter.stringFromDate(selectedFatCheckin.dateTime);
                 let weight = selectedFatCheckin.weightLbs != nil ? "\(Int(selectedFatCheckin.weightLbs!))" : "--";
                 let bodyFat = selectedFatCheckin.fatRatio != nil ? String(format: "%.2f", selectedFatCheckin.fatRatio!) + "%" : "--";
                 let firstLabel = "Weight";
