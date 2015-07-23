@@ -193,15 +193,16 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             }
         }
         
-//        if SessionController.Instance.checkins.count == 0 && SessionController.Instance.activities.count == 0 {
-            layoutBlankState();
-//        } else {
-//            layoutActivityView();
-//        }
+        if SessionController.Instance.checkins.count == 0 && SessionController.Instance.activities.count == 0 {
+                layoutBlankState();
+            } else {
+                layoutActivityView();
+            }
+        }
     }
 
     func layoutBlankState() {
-        let higiPoints = 100, foursquarePoints = 15, activityTrackerPoints = 50;
+        let totalPoints = 140, higiPoints = 100, foursquarePoints = 15, activityTrackerPoints = 50;
         let higiTitle = "higi Station", foursquareTitle = "Foursquare", activityTrackerTitle = "Activity Tracker";
         
         let higiText = "Join the millions of people that are tracking their health through higi. You can earn up to 100 points by visiting a higi Station and getting your blood pressure, pulse, weight, and BMI stats. \n";
@@ -431,7 +432,9 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         activityRow.name.text = title;
         activityRow.name.textColor = color;
         activityRow.name.alpha = alpha + 0.1;
+
         let proportion = CGFloat(points) / CGFloat(largestActivityPoints);
+
         let newHeight = max(maxCircleRadius * proportion, minCircleRadius);
         let circlePath = UIBezierPath(arcCenter: CGPoint(x: activityRow.progressCircle.frame.size.width / 2.0, y: activityRow.progressCircle.frame.size.height / 2.0), radius: newHeight, startAngle: 0.0, endAngle: CGFloat(M_PI * 2.0), clockwise: true);
         let circleLayer = CAShapeLayer();
