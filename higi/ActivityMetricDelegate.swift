@@ -58,7 +58,7 @@ class ActivityMetricDelegate: MetricDelegate {
             return nil;
         } else {
             let (date, points) = selectedActivity;
-            return SelectedPoint(date: date, panelValue: points, panelLabel: "Activity Points", panelUnit: "pts", kioskInfo: nil);
+            return SelectedPoint(date: date, panelValue: points, panelLabel: "Activity Points", panelUnit: "pts", device: "");
         }
     }
     
