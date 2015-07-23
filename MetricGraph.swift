@@ -239,6 +239,9 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         if (lowerBound + yRange <= maxY) {
             yRange = roundToHighest(maxY - lowerBound + tickInterval, roundTo: tickInterval);
         }
+        if (maxY - yRange < tickInterval) {
+            yRange += tickInterval;
+        }
         var plotSpace = self.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace;
         var visibleMin = firstPoint;
         if (points.count > 30) {
