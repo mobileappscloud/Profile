@@ -36,6 +36,7 @@ class SessionController {
         activities = [:];
         challenges = nil;
         devices = [:];
+        SessionController.Instance.loadedActivities = false;
     }
 }
 

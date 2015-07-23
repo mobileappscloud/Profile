@@ -23,6 +23,8 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
         self.navigationItem.leftBarButtonItem = backBarItem;
         self.navigationItem.hidesBackButton = true;
         
+        shouldShowDailyPoints = false;
+        
         self.title = "Connect a device";
         table.delegate = self;
         table.dataSource = self;
@@ -68,12 +70,10 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
                 if (alpha < 0.5) {
                     toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon"), forState: UIControlState.Normal);
                     toggleButton!.alpha = 1 - alpha;
-                    pointsMeter.setLightText();
                     self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
                 } else {
                     toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon_inverted"), forState: UIControlState.Normal);
                     toggleButton!.alpha = alpha;
-                    pointsMeter.setDarkText();
                     self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
                 }
             } else {

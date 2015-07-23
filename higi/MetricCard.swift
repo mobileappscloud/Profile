@@ -183,7 +183,7 @@ class MetricCard: UIView, MetricDelegate {
         initializing = false;
     }
     
-    func getCopyImage(tab: Int) -> UIImage? {
+    func getCopyImage(tab: Int) -> UIImage {
         return delegate.getCopyImage(tab);
     }
     
@@ -212,25 +212,23 @@ class MetricCard: UIView, MetricDelegate {
         secondaryGraph.hidden = !toggleOn;
         if delegate.getType() == MetricsType.Weight {
             (delegate as! WeightMetricDelegate).togglePanel(toggleOn);
-            
+            let detailsCard = (Utility.getViewController(self) as! MetricsViewController).detailsCard;
             if toggleOn {
                 title.text = "Body Fat%";
                 toggleButton.setTitle("Switch to Weight", forState: UIControlState.Normal);
-                let detailsCard = (Utility.getViewController(self) as! MetricsViewController).detailsCard;
-                if (Utility.getViewController(self) as! MetricsViewController).detailsOpen {
-                    detailsCard.thirdPanelClicked(self);
-                } else {
-                    detailsCard.thirdPanelSelected = true;
-                }
             } else {
                 title.text = delegate.getTitle();
                 toggleButton.setTitle("Switch to Body Fat%", forState: UIControlState.Normal);
             }
-            
+            if (Utility.getViewController(self) as! MetricsViewController).detailsOpen {
+                detailsCard.thirdPanelClicked(self);
+            } else {
+                detailsCard.thirdPanelSelected = true;
+            }
+            detailsCard.updateCopyImage(detailsCard.getCurrentTab());
             setDetailsCardPoint();
             (Utility.getViewController(self) as! MetricsViewController).setDetailsHeader();
             initRegions(!toggleOn);
-            
         }
         toggleOn = !toggleOn;
     }

@@ -19,7 +19,7 @@ class SplashViewController: UIViewController, UIAlertViewDelegate {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated);
         checkVersion();
-        self.spinner = CustomLoadingSpinner(frame: CGRectMake(self.view.frame.size.width / 2 - 16, UIScreen.mainScreen().bounds.size.height - 66, 32, 32));
+        self.spinner = CustomLoadingSpinner(frame: CGRectMake(self.view.frame.size.width / 2 - 16, UIScreen.mainScreen().bounds.size.height / 2 + 32, 32, 32));
         Utility.delay(3) {
             self.view.addSubview(self.spinner)
             self.spinner.startAnimating();
@@ -33,12 +33,14 @@ class SplashViewController: UIViewController, UIAlertViewDelegate {
         } else {
             HigiApi().sendGet("\(HigiApi.higiApiUrl)/data/qdata/\(SessionData.Instance.user.userId)?newSession=true", success: { operation, responseObject in
                 
+                self.spinner.stopAnimating();
+                
                 var login = HigiLogin(dictionary: responseObject as! NSDictionary);
                 SessionData.Instance.user = login.user;
                 ApiUtility.checkTermsAndPrivacy(self, success: nil, failure: self.errorToWelcome);
                 
                 }, failure: {operation, error in
-                    
+                    self.spinner.stopAnimating();
                     self.errorToWelcome();
             });
         }

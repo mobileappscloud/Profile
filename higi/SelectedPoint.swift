@@ -4,6 +4,8 @@ class SelectedPoint {
     
     var firstPanel, secondPanel: Panel!;
     
+    var kioskInfo: KioskInfo?;
+    
     struct Panel {
         var value, label, unit: String!;
         
@@ -14,15 +16,17 @@ class SelectedPoint {
         }
     }
     
-    init(date: String, panelValue: String, panelLabel: String, panelUnit: String) {
+    init(date: String, panelValue: String, panelLabel: String, panelUnit: String, kioskInfo: KioskInfo?) {
         self.date = date;
         self.firstPanel = Panel(value: "", label: "", unit: "");
         self.secondPanel = Panel(value: panelValue, label: panelLabel, unit: panelUnit);
+        self.kioskInfo = kioskInfo;
     }
     
-    init(date: String, firstPanelValue: String, firstPanelLabel: String, firstPanelUnit: String, secondPanelValue: String, secondPanelLabel: String, secondPanelUnit: String) {
+    init(date: String, firstPanelValue: String, firstPanelLabel: String, firstPanelUnit: String, secondPanelValue: String, secondPanelLabel: String, secondPanelUnit: String, kioskInfo: KioskInfo?) {
         self.date = date;
         self.firstPanel = Panel(value: firstPanelValue, label: firstPanelLabel, unit: firstPanelUnit);
         self.secondPanel = Panel(value: secondPanelValue, label: secondPanelLabel, unit: secondPanelUnit);
+        self.kioskInfo = kioskInfo;
     }
 }

@@ -15,12 +15,15 @@ class MetricDetailCard: UIView {
     @IBOutlet weak var bodyContainer: UIView!
     @IBOutlet weak var copyScrollview: UIScrollView!
     @IBOutlet weak var gaugeContainer: UIView!
+    @IBOutlet weak var meterContainer: UIView!
     @IBOutlet weak var secondPanelHeader: UILabel!
     @IBOutlet weak var thirdPanelHeader: UILabel!
+    @IBOutlet weak var checkinLocation: UILabel!
+    @IBOutlet weak var checkinStreetAddress: UILabel!
+    @IBOutlet weak var checkinCityStateZip: UILabel!
+    @IBOutlet weak var checkinAddressContainer: UIView!
 
     var secondPanelExtraLabel: UILabel!, thirdPanelExtraLabel: UILabel!;
-    
-    var delegate: MetricDelegate!;
     
     var triangleIndicator: TriangleView!;
     
@@ -28,114 +31,85 @@ class MetricDetailCard: UIView {
     
     var meter: PointsMeter!;
     
+    var delegate: MetricDelegate!;
+    
     let triangleHeight:CGFloat = 20;
     
-    var copyImageOrigin:CGFloat = 0, copyScrollViewHeight: CGFloat = 0;
+    var copyImageOrigin:CGFloat = 0, copyScrollViewHeight: CGFloat = 0, screenWidth:CGFloat!;
     
-    var thirdPanelSelected = true;
+    var thirdPanelSelected = true, blankState = false, shouldShowCenteredSecondPanel = false, shouldShowCenteredThirdPanel = false;
     
-    var blankState = false;
-    
-    var copyImage: UIImageView!
+    var firstCopyImage: UIImageView!, secondCopyImage: UIImageView!;
     
     var activityRows:[BreakdownTitleRow] = [];
     
+    let scrollViewPadding:CGFloat = 20;
+    
     class func instanceFromNib(card: MetricCard) -> MetricDetailCard {
         var view = UINib(nibName: "MetricDetailCardView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! MetricDetailCard;
-        if (card.getSelectedPoint() != nil) {
-            view.setup(card.delegate);
-            view.setData(card.getSelectedPoint()!);
-        } else {
-            view.blankState = true;
-        }
+        view.setupView(card.delegate);
+        view.updateCard(card);
         return view;
     }
 
-    func setup(delegate: MetricDelegate) {
-        let screenWidth = max(UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height);
-        
-        self.frame.size.width = screenWidth;
-        headerContainer.frame.size.width = screenWidth;
-        bodyContainer.frame.size.width = screenWidth;
-        
-        self.delegate = delegate;
-        let color = delegate.getColor();
-        firstPanelValue.textColor = color;
-        secondPanelValue.textColor = color;
-        thirdPanelValue.textColor = color;
-        
-        let tab = thirdPanelSelected ? 1 : 0;
-        var value: Int;
-        if (delegate.getType() == MetricsType.DailySummary) {
-            if (meter != nil && meter.superview != nil) {
-                meter.removeFromSuperview();
-            }
-            if (gauge != nil && gauge.superview != nil) {
-                gauge.removeFromSuperview();
-            }
-            let meterWidth = gaugeContainer.frame.size.width - 50;
-            let meterHeight = gaugeContainer.frame.size.height - 50;
-            meter = PointsMeter.create(CGRect(x: (gaugeContainer.frame.size.width - meterWidth) / 2, y: 0, width: meterWidth, height: meterHeight), thickArc: true);
-            meter.setLightArc();
-            let dateString = Constants.dateFormatter.stringFromDate(Constants.displayDateFormatter.dateFromString(delegate.getSelectedPoint()!.date)!);
-            if (SessionController.Instance.activities[dateString] != nil) {
-                meter.setActivities(SessionController.Instance.activities[dateString]!);
-            } else {
-                meter.setActivities((0, []));
-            }
-            gaugeContainer.addSubview(meter);
-            meter.drawArc(false);
-            meter.setDarkText();
-            let tap = UITapGestureRecognizer(target: self, action: "gotoDailySummary:");
-            meter.addGestureRecognizer(tap);
-            
-            initSummaryview(dateString);
+    func updateCard(card: MetricCard) {
+        if let selected = card.getSelectedPoint() {
+            setData(selected);
         } else {
-            if (meter != nil && meter.superview != nil) {
-                meter.removeFromSuperview();
-            }
-            if (gauge != nil && gauge.superview != nil) {
-                gauge.removeFromSuperview();
-            }
-            gauge = MetricGauge.create(CGRect(x: 0, y: 0, width: gaugeContainer.frame.size.width, height: gaugeContainer.frame.size.height), delegate: delegate, tab: tab);
-            gaugeContainer.addSubview(gauge);
+            blankState = true;
         }
-        if (triangleIndicator != nil && triangleIndicator.superview != nil) {
-            triangleIndicator.removeFromSuperview();
-        }
-        triangleIndicator = TriangleView(frame: CGRect(x: screenWidth - thirdPanel.frame.size.width / 2, y: thirdPanel.frame.size.height - 2, width: triangleHeight, height: triangleHeight));
-        triangleIndicator.transform = CGAffineTransformRotate(self.transform, CGFloat(M_PI));
-        addSubview(triangleIndicator);
-        
-        if (delegate.getType() == MetricsType.BloodPressure || (delegate.getType() == MetricsType.Weight && !(delegate as! WeightMetricDelegate).weightMode)) {
-            let secondPanelTap = UITapGestureRecognizer(target: self, action: "secondPanelClicked:");
-            secondPanel.addGestureRecognizer(secondPanelTap);
-            let thirdPanelTap = UITapGestureRecognizer(target: self, action: "thirdPanelClicked:");
-            thirdPanel.addGestureRecognizer(thirdPanelTap);
-        }
-        updateCopyImage(1);
     }
     
     func updateCopyImageIfNeeded() {
         let tab = thirdPanelSelected ? 1 : 0;
-        updateCopyImage(tab);
+        switchCopyImage(tab);
+    }
+    
+    func switchCopyImage(tab: Int) {
+        if firstCopyImage != nil && secondCopyImage != nil {
+            if tab == 0 {
+                firstCopyImage.hidden = false;
+                secondCopyImage.hidden = true;
+                self.copyScrollview.contentSize.height = self.copyImageOrigin + self.firstCopyImage.frame.origin.y + firstCopyImage.frame.size.height + self.scrollViewPadding;
+            } else {
+                firstCopyImage.hidden = true;
+                secondCopyImage.hidden = false;
+                self.copyScrollview.contentSize.height = self.copyImageOrigin + self.firstCopyImage.frame.origin.y + secondCopyImage.frame.size.height + self.scrollViewPadding;
+            }
+            if (delegate.getType() == MetricsType.DailySummary) {
+                secondCopyImage.frame.origin.y = copyImageOrigin;
+            }
+        }
     }
     
     func updateCopyImage(tab: Int) {
-        if let image = delegate.getCopyImage(tab) {
-            let height = image.size.height;
-            let width = image.size.width;
-            let newHeight = (height / width) * copyScrollview.frame.size.width;
-            if copyImage != nil && copyImage.superview != nil {
-                copyImage.removeFromSuperview();
-            }
-            copyImage = UIImageView(frame: CGRect(x: 0, y: copyImageOrigin, width: copyScrollview.frame.size.width, height: newHeight));
-            copyImage.image = Utility.scaleImage(image, newSize: CGSize(width: copyScrollview.frame.size.width, height: newHeight));
-            copyScrollview.contentSize.height = copyImageOrigin + copyImage.frame.origin.y + newHeight + 40;
-            copyScrollview.addSubview(copyImage);
-        } else {
-            copyScrollview.contentSize.height = copyScrollViewHeight;
+        if firstCopyImage != nil {
+            firstCopyImage.removeFromSuperview();
         }
+        if secondCopyImage != nil {
+            secondCopyImage.removeFromSuperview();
+        }
+        let firstImage = delegate.getCopyImage(0);
+        let secondImage = delegate.getCopyImage(1);
+        
+        let newFirstHeight = (firstImage.size.height / firstImage.size.width) * copyScrollview.frame.size.width;
+        let newSecondHeight = (secondImage.size.height / secondImage.size.width) * copyScrollview.frame.size.width;
+        let newWidth = copyScrollview.frame.size.width;
+
+        firstCopyImage = UIImageView(frame: CGRect(x: 0, y: copyImageOrigin, width: newWidth, height: newFirstHeight));
+        firstCopyImage.hidden = true;
+        secondCopyImage = UIImageView(frame: CGRect(x: 0, y: copyImageOrigin, width: newWidth, height: newSecondHeight));
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+            let firstScaledImage = Utility.scaleImage(firstImage, newSize: CGSize(width: newWidth, height: newFirstHeight));
+            let secondScaledImage = Utility.scaleImage(secondImage, newSize: CGSize(width: newWidth, height: newSecondHeight));
+            dispatch_async(dispatch_get_main_queue(), {
+                self.firstCopyImage.image = firstScaledImage;
+                self.secondCopyImage.image = secondScaledImage;
+                self.copyScrollview.contentSize.height = self.copyImageOrigin + self.firstCopyImage.frame.origin.y + newSecondHeight + self.scrollViewPadding;
+                self.copyScrollview.addSubview(self.firstCopyImage);
+                self.copyScrollview.addSubview(self.secondCopyImage);
+            });
+        });
     }
     
     func animateBounceIn(destination: CGFloat) {
@@ -184,37 +158,91 @@ class MetricDetailCard: UIView {
         });
     }
     
+    func getCurrentTab() -> Int {
+        return thirdPanelSelected ? 1 : 0;
+    }
+    
     func secondPanelClicked(sender: AnyObject) {
         (Utility.getViewController(self) as! MetricsViewController).openDetailsIfClosed();
-        if (thirdPanelSelected) {
-            let tab = 0;
-            triangleIndicator.frame = CGRect(x: secondPanel.frame.origin.x + secondPanel.frame.size.width / 2 - triangleHeight / 2, y: secondPanel.frame.size.height - 2, width: triangleHeight, height: triangleHeight);
-            if (gauge.superview != nil) {
-                gauge.removeFromSuperview();
-                gauge = MetricGauge.create(CGRect(x: 0, y: 0, width: gaugeContainer.frame.size.width, height: gaugeContainer.frame.size.height), delegate: delegate, tab: tab);
-                gaugeContainer.addSubview(gauge);
+        if secondPanelValue.text != "" {
+            if (thirdPanelSelected) {
+                moveToSecondPanel();
             }
-            updateCopyImage(tab);
+            thirdPanelSelected = false;
         }
-        thirdPanelSelected = false;
     }
     
     func thirdPanelClicked(sender: AnyObject) {
         (Utility.getViewController(self) as! MetricsViewController).openDetailsIfClosed();
         if (!thirdPanelSelected) {
-            let tab = 1;
-            triangleIndicator.frame = CGRect(x: thirdPanel.frame.origin.x + thirdPanel.frame.size.width / 2 - triangleHeight / 2, y: thirdPanel.frame.size.height - 2, width: triangleHeight, height: triangleHeight);
-            if (gauge.superview != nil) {
-                gauge.removeFromSuperview();
-                gauge = MetricGauge.create(CGRect(x: 0, y: 0, width: gaugeContainer.frame.size.width, height: gaugeContainer.frame.size.height), delegate: delegate, tab: 1);
-                gaugeContainer.addSubview(gauge);
-            }
-            updateCopyImage(tab);
+            moveToThirdPanel();
         }
         thirdPanelSelected = true;
     }
     
+    func moveToSecondPanel() {
+        if triangleIndicator != nil {
+            triangleIndicator.frame = CGRect(x: secondPanel.frame.origin.x + secondPanel.frame.size.width / 2 - triangleHeight / 2, y: secondPanel.frame.size.height - 2, width: triangleHeight, height: triangleHeight);
+        }
+        let tab = 0;
+        if gauge != nil {
+            gauge.setData(delegate, tab: tab);
+        }
+        switchCopyImage(tab);
+    }
+    
+    func moveToThirdPanel() {
+        if triangleIndicator != nil {
+        triangleIndicator.frame = CGRect(x: screenWidth - thirdPanel.frame.size.width / 2 - triangleHeight / 2, y: thirdPanel.frame.size.height - 2, width: triangleHeight, height: triangleHeight);
+        }
+        let tab = 1;
+        if gauge != nil {
+            gauge.setData(delegate, tab: tab);
+        }
+        switchCopyImage(tab);
+    }
+    
+    func setupView(delegate: MetricDelegate) {
+        self.delegate = delegate;
+        
+        screenWidth = max(UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height);
+        
+        self.frame.size.width = screenWidth;
+        headerContainer.frame.size.width = screenWidth;
+        bodyContainer.frame.size.width = screenWidth;
+        
+        let secondPanelTap = UITapGestureRecognizer(target: self, action: "secondPanelClicked:");
+        secondPanel.addGestureRecognizer(secondPanelTap);
+        let thirdPanelTap = UITapGestureRecognizer(target: self, action: "thirdPanelClicked:");
+        thirdPanel.addGestureRecognizer(thirdPanelTap);
+        
+        setMetricType(delegate);
+    }
+    
+    func setMetricType(delegate: MetricDelegate) {
+        self.delegate = delegate;
+        let color = delegate.getColor();
+        
+        firstPanelValue.textColor = color;
+        secondPanelValue.textColor = color;
+        thirdPanelValue.textColor = color;
+                
+        if let selected = delegate.getSelectedPoint() {
+            setData(selected);
+            blankState = false;
+        } else {
+            blankState = true;
+        }
+        
+        thirdPanelSelected = true;
+        moveToThirdPanel();
+        
+        updateCopyImage(1);
+    }
+    
     func setData(selection: SelectedPoint) {
+        let tab = thirdPanelSelected ? 1 : 0;
+        
         firstPanelValue.text = selection.date;
         secondPanelUnit.text = selection.firstPanel.unit;
         secondPanelLabel.text = selection.firstPanel.label;
@@ -226,41 +254,104 @@ class MetricDetailCard: UIView {
         
         if selection.firstPanel.unit == "" && selection.firstPanel.value != "" {
             if secondPanelExtraLabel == nil {
-                secondPanelExtraLabel.backgroundColor = UIColor.whiteColor();
-                secondPanelExtraLabel.text = selection.firstPanel.value;
-                secondPanelExtraLabel.textAlignment = NSTextAlignment.Center;
-                secondPanelExtraLabel.textColor = delegate.getColor();
-                secondPanel.addSubview(secondPanelExtraLabel);
+                secondPanelExtraLabel = initCenteredLabel(CGRect(x: secondPanel.frame.origin.x, y: secondPanelValue.frame.origin.y, width: secondPanel.frame.size.width - (2 * secondPanelValue.frame.origin.x), height: secondPanelValue.frame.size.height));
+                secondPanelValue.addSubview(secondPanelExtraLabel);
             }
             secondPanelExtraLabel.hidden = false;
+            shouldShowCenteredSecondPanel = true;
             secondPanelExtraLabel.text = selection.firstPanel.value;
-            secondPanelValue.hidden = true;
-        } else {
-            secondPanelValue.hidden = false;
-            secondPanelValue.text = selection.firstPanel.value;
+            secondPanel.hidden = true;
+        } else if selection.firstPanel.unit == "" && selection.firstPanel.value == "" {
+            secondPanel.hidden = true;
             if secondPanelExtraLabel != nil {
                 secondPanelExtraLabel.hidden = true;
             }
+            shouldShowCenteredSecondPanel = false;
+        } else {
+            secondPanel.hidden = false;
+            secondPanelValue.text = selection.firstPanel.value;
+            secondPanelValue.hidden = false;
+            if secondPanelExtraLabel != nil {
+                secondPanelExtraLabel.hidden = true;
+            }
+            shouldShowCenteredSecondPanel = false;
         }
         if selection.secondPanel.unit == "" && selection.secondPanel.value != "" {
             if thirdPanelExtraLabel == nil {
-                thirdPanelExtraLabel = UILabel(frame: CGRect(x: thirdPanelValue.frame.origin.x, y: thirdPanelValue.frame.origin.y, width: thirdPanel.frame.size.width - (2 * thirdPanelValue.frame.origin.x), height: thirdPanelValue.frame.size.height));
-                thirdPanelExtraLabel.backgroundColor = UIColor.whiteColor();
-                thirdPanelExtraLabel.textAlignment = NSTextAlignment.Center;
-                thirdPanelExtraLabel.textColor = delegate.getColor();
+                thirdPanelExtraLabel = initCenteredLabel(CGRect(x: thirdPanelValue.frame.origin.x, y: thirdPanelValue.frame.origin.y, width: thirdPanel.frame.size.width - (2 * thirdPanelValue.frame.origin.x), height: thirdPanelValue.frame.size.height));
                 thirdPanel.addSubview(thirdPanelExtraLabel);
             }
             thirdPanelExtraLabel.hidden = false;
             thirdPanelExtraLabel.text = selection.secondPanel.value;
             thirdPanelValue.hidden = true;
+            shouldShowCenteredThirdPanel = true;
+        } else if selection.secondPanel.unit == "" && selection.secondPanel.value == "" {
+            thirdPanel.hidden = true;
+            if thirdPanelExtraLabel != nil {
+                thirdPanelExtraLabel.hidden = true;
+            }
+            shouldShowCenteredThirdPanel = false;
+
         } else {
             thirdPanelValue.text = selection.secondPanel.value;
+            thirdPanel.hidden = false;
             thirdPanelValue.hidden = false;
             if thirdPanelExtraLabel != nil {
                 thirdPanelExtraLabel.hidden = true;
             }
+            shouldShowCenteredThirdPanel = false;
         }
-        setup(delegate);
+
+        if activityRows.count > 0 {
+            for row in activityRows {
+                row.removeFromSuperview();
+            }
+        }
+        copyImageOrigin = scrollViewPadding;
+
+        if (delegate.getType() == MetricsType.DailySummary) {
+            meterContainer.hidden = false;
+            gaugeContainer.hidden = true;
+            checkinAddressContainer.hidden = true;
+            if meter == nil {
+                meter = initMeterView();
+                meterContainer.addSubview(meter);
+            }
+            let dateString = Constants.dateFormatter.stringFromDate(Constants.displayDateFormatter.dateFromString(delegate.getSelectedPoint()!.date)!);
+            if (SessionController.Instance.activities[dateString] != nil) {
+                meter.setActivities(SessionController.Instance.activities[dateString]!);
+            } else {
+                meter.setActivities((0, []));
+            }
+            meter.drawArc(false);
+            initSummaryview(dateString);
+        } else {
+            meterContainer.hidden = true;
+            gaugeContainer.hidden = false;
+            if let kioskInfo = selection.kioskInfo {
+                checkinAddressContainer.hidden = false;
+                checkinLocation.text = "higi Station at \(kioskInfo.organizations[0])";
+                checkinStreetAddress.text = "\(kioskInfo.address1)";
+                checkinCityStateZip.text = "\(kioskInfo.cityStateZip)";
+            }
+            if gauge == nil {
+                gauge = MetricGauge.create(CGRect(x: 0, y: 0, width: gaugeContainer.frame.size.width, height: gaugeContainer.frame.size.height), delegate: delegate, tab: tab);
+                gaugeContainer.addSubview(gauge);
+            } else {
+                gauge.setData(delegate, tab: tab);
+            }
+        }
+        addPanelTriangle();
+        
+        switchCopyImage(tab);
+    }
+
+    func addPanelTriangle() {
+        if triangleIndicator == nil {
+            triangleIndicator = TriangleView(frame: CGRect(x: screenWidth - thirdPanel.frame.size.width / 2, y: thirdPanel.frame.size.height - 2, width: triangleHeight, height: triangleHeight));
+            triangleIndicator.transform = CGAffineTransformRotate(self.transform, CGFloat(M_PI));
+            addSubview(triangleIndicator);
+        }
     }
     
     func setPanelHeaders(isOpen: Bool) {
@@ -275,24 +366,40 @@ class MetricDetailCard: UIView {
         thirdPanelHeader.hidden = !isOpen;
         
         if secondPanelExtraLabel != nil {
-            secondPanelExtraLabel.hidden = isOpen;
+            secondPanelExtraLabel.hidden = !shouldShowCenteredSecondPanel || isOpen;
         }
+        
         if thirdPanelExtraLabel != nil {
-            thirdPanelExtraLabel.hidden = isOpen;
+            thirdPanelExtraLabel.hidden = !shouldShowCenteredThirdPanel || isOpen;
         }
     }
     
+    func initMeterView() -> PointsMeter {
+        let meterWidth = meterContainer.frame.size.width - 50;
+        let meterHeight = meterContainer.frame.size.height - 50;
+        let meter = PointsMeter.create(CGRect(x: (meterContainer.frame.size.width - meterWidth) / 2, y: 0, width: meterWidth, height: meterHeight), thickArc: true);
+        meter.setLightArc();
+        meterContainer.addSubview(meter);
+        meter.setDarkText();
+        let tap = UITapGestureRecognizer(target: self, action: "gotoDailySummary:");
+        meter.addGestureRecognizer(tap);
+        return meter;
+    }
+    
+    func initCenteredLabel(frame: CGRect) -> UILabel {
+        let label = UILabel(frame: frame);
+        label.backgroundColor = UIColor.whiteColor();
+        label.textAlignment = NSTextAlignment.Center;
+        label.textColor = delegate.getColor();
+        return label;
+    }
+    
     func initSummaryview(date: String?) {
-        if activityRows.count > 0 {
-            for row in activityRows {
-                row.removeFromSuperview();
-            }
-        }
         var activities: [HigiActivity] = [];
         var activityKeys: [String] = [];
         var activitiesByType:[String: (Int, [HigiActivity])] = [:];
         var totalPoints = 0;
-        var minCircleRadius:CGFloat = 6, maxCircleRadius:CGFloat = 32, currentOrigin:CGFloat = 0;
+        var minCircleRadius:CGFloat = 6, maxCircleRadius:CGFloat = 32, currentOrigin:CGFloat = scrollViewPadding;
         var dateString = date;
         if (dateString == nil) {
             dateString = Constants.dateFormatter.stringFromDate(NSDate());
@@ -354,7 +461,7 @@ class MetricDetailCard: UIView {
         }
         currentOrigin += gap * 2;
         copyImageOrigin = currentOrigin;
-        copyScrollViewHeight = copyScrollview.frame.origin.y + currentOrigin + 40;
+        copyScrollViewHeight = copyScrollview.frame.origin.y + currentOrigin;
     }
 
     func gotoDailySummary(sender: AnyObject) {

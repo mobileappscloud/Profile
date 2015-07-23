@@ -22,7 +22,7 @@ class ActivityMetricDelegate: MetricDelegate {
         return MetricsType.DailySummary;
     }
     
-    func getCopyImage(tab: Int) -> UIImage? {
+    func getCopyImage(tab: Int) -> UIImage {
         return UIImage(named: "activities_copy")!;
     }
     
@@ -58,7 +58,7 @@ class ActivityMetricDelegate: MetricDelegate {
             return nil;
         } else {
             let (date, points) = selectedActivity;
-            return SelectedPoint(date: date, panelValue: points, panelLabel: "Activity Points", panelUnit: "pts");
+            return SelectedPoint(date: date, panelValue: points, panelLabel: "Activity Points", panelUnit: "pts", kioskInfo: nil);
         }
     }
     

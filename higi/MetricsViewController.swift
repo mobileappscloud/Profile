@@ -49,6 +49,7 @@ class MetricsViewController: UIViewController {
         super.viewDidAppear(animated);
         if (detailsCard != nil && !detailsCard.blankState) {
             detailsCard.animateBounceIn(detailsCardPosY);
+            detailsGone = false;
         }
     }
 
@@ -114,6 +115,7 @@ class MetricsViewController: UIViewController {
         if (card != nil) {
             detailsCard = initDetailCard(card!);
             detailsCard.frame.origin.y = screenHeight;
+            detailsGone = true;
             self.view.addSubview(detailsCard);
         }
         if (selectedCardPosition != 0) {
@@ -139,6 +141,7 @@ class MetricsViewController: UIViewController {
             if (detailsOpen) {
                 closeDetails();
             }
+            detailsCard.headerContainer.alpha = 0.5;
             let subViews = self.view.subviews;
             let count = MetricsType.allValues.count;
             let distance = count - index;
@@ -169,9 +172,9 @@ class MetricsViewController: UIViewController {
                         
                     }
                     self.updateDetailCard();
+                    self.detailsCard.headerContainer.alpha = 1;
             });
         }
-        detailsCard.headerContainer.alpha = 1;
     }
     
     func cardDragged(index: Int, translation: CGPoint) {
@@ -229,12 +232,12 @@ class MetricsViewController: UIViewController {
 
     func updateDetailCard() {
         let currentCard = getCurrentCard();
-        detailsCard.removeFromSuperview();
-        detailsCard = initDetailCard(currentCard);
-        self.view.addSubview(detailsCard);
+        detailsCard.setMetricType(getCurrentCard().delegate);
+
         if (detailsGone) {
             if detailsCard.blankState {
                 detailsCard.frame.origin.y = screenHeight;
+                detailsGone = true;
             } else {
                 detailsCard.animateBounceIn(detailsCardPosY);
                 detailsGone = false;
@@ -246,7 +249,9 @@ class MetricsViewController: UIViewController {
     }
 
     func setDetailsCardPoint() {
-        detailsCard.setData(getCurrentCard().delegate.getSelectedPoint()!);
+        if (detailsCard != nil) {
+            detailsCard.updateCard(getCurrentCard());
+        }
     }
     
     func getCurrentCard() -> MetricCard {
@@ -258,6 +263,7 @@ class MetricsViewController: UIViewController {
         detailCard.frame.origin.y = detailsOpen ? cardHeaderViewHeight : detailsCardPosY;
         let tap = UITapGestureRecognizer(target: self, action: "detailsTapped:");
         let drag = UIPanGestureRecognizer(target: self, action: "detailDragged:");
+        
         detailCard.headerContainer.addGestureRecognizer(drag);
         detailCard.headerContainer.addGestureRecognizer(tap);
         return detailCard;
@@ -266,12 +272,6 @@ class MetricsViewController: UIViewController {
     func sendViewsToBack(views: [UIView]) {
         for view in views {
             self.view.sendSubviewToBack(view);
-        }
-    }
-    
-    func pointSelected(selection: SelectedPoint) {
-        if (detailsCard != nil) {
-            detailsCard.setData(selection);
         }
     }
     
