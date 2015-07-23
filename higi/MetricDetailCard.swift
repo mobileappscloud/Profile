@@ -333,6 +333,11 @@ class MetricDetailCard: UIView {
                 checkinLocation.text = "higi Station at \(kioskInfo.organizations[0])";
                 checkinStreetAddress.text = "\(kioskInfo.address1)";
                 checkinCityStateZip.text = "\(kioskInfo.cityStateZip)";
+            } else if let device = selection.device {
+                checkinAddressContainer.hidden = false;
+                checkinLocation.text = device;
+                checkinStreetAddress.text = "";
+                checkinCityStateZip.text = "";
             }
             if gauge == nil {
                 gauge = MetricGauge.create(CGRect(x: 0, y: 0, width: gaugeContainer.frame.size.width, height: gaugeContainer.frame.size.height), delegate: delegate, tab: tab);

@@ -60,10 +60,16 @@ class BpMetricDelegate: MetricDelegate {
             let date = Constants.displayDateFormatter.stringFromDate(selectedCheckin.dateTime);
             let bp = selectedCheckin.systolic != nil ? "\(selectedCheckin.systolic!)/\(selectedCheckin.diastolic!)" : "";
             let map = selectedCheckin.map != nil ? String(format: "%.1f", arguments: [selectedCheckin.map!]) : "";
-                return SelectedPoint(date: date, firstPanelValue: bp, firstPanelLabel: "Blood Pressure", firstPanelUnit: "mmHg", secondPanelValue: map, secondPanelLabel: "Mean Arterial Pressure", secondPanelUnit: "mmHg", kioskInfo: selectedCheckin.kioskInfo);
+            var device = "";
+            if let kioskInfo = selectedCheckin.kioskInfo {
+                return SelectedPoint(date: date, firstPanelValue: bp, firstPanelLabel: "Blood Pressure", firstPanelUnit: "mmHg", secondPanelValue: map, secondPanelLabel: "Mean Arterial Pressure", secondPanelUnit: "mmHg", kioskInfo: kioskInfo);
+            } else if let vendorId = selectedCheckin.sourceVendorId {
+                device = "\(vendorId)";
+            }
+            return SelectedPoint(date: date, firstPanelValue: bp, firstPanelLabel: "Blood Pressure", firstPanelUnit: "mmHg", secondPanelValue: map, secondPanelLabel: "Mean Arterial Pressure", secondPanelUnit: "mmHg", device: device);
         }
     }
-    
+
     func getGraph(frame: CGRect) -> MetricGraph {
         return MetricGraphUtility.createBpGraph(CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height));
     }

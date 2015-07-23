@@ -76,12 +76,32 @@ class WeightMetricDelegate: MetricDelegate {
             if weightMode {
                 let date = Constants.displayDateFormatter.stringFromDate(selectedWeightCheckin.dateTime);
                 let weight = selectedWeightCheckin.weightLbs != nil ? "\(Int(selectedWeightCheckin.weightLbs!))" : "--";
-                return SelectedPoint(date: date, firstPanelValue: "", firstPanelLabel: "", firstPanelUnit: "", secondPanelValue: weight, secondPanelLabel: "Weight", secondPanelUnit: "lbs", kioskInfo: selectedWeightCheckin.kioskInfo);
+                let firstLabel = "";
+                let firstUnit = "";
+                let secondLabel = "Weight";
+                let secondUnit = "lbs";
+                var device = "";
+                if let kioskInfo = selectedWeightCheckin.kioskInfo {
+                    return SelectedPoint(date: date, firstPanelValue: "", firstPanelLabel: firstLabel, firstPanelUnit: firstUnit, secondPanelValue: weight, secondPanelLabel: secondLabel, secondPanelUnit: secondUnit, kioskInfo: kioskInfo);
+                } else if let vendorId = selectedWeightCheckin.sourceVendorId {
+                    device = "\(vendorId)";
+                }
+                return SelectedPoint(date: date, firstPanelValue: "", firstPanelLabel: firstLabel, firstPanelUnit: firstUnit, secondPanelValue: weight, secondPanelLabel: secondLabel, secondPanelUnit: secondUnit, device: device);
             } else {
                 let date = Constants.displayDateFormatter.stringFromDate(selectedFatCheckin.dateTime);
                 let weight = selectedFatCheckin.weightLbs != nil ? "\(Int(selectedFatCheckin.weightLbs!))" : "--";
                 let bodyFat = selectedFatCheckin.fatRatio != nil ? String(format: "%.2f", selectedFatCheckin.fatRatio!) + "%" : "--";
-                return SelectedPoint(date: date, firstPanelValue: weight, firstPanelLabel: "Weight", firstPanelUnit: "lbs", secondPanelValue: bodyFat, secondPanelLabel: "Body Fat", secondPanelUnit: "", kioskInfo: selectedWeightCheckin.kioskInfo);
+                let firstLabel = "Weight";
+                let firstUnit = "lbs";
+                let secondLabel = "Body Fat";
+                let secondUnit = "";
+                var device = "";
+                if let kioskInfo = selectedWeightCheckin.kioskInfo {
+                    return SelectedPoint(date: date, firstPanelValue: weight, firstPanelLabel: firstLabel, firstPanelUnit: firstUnit, secondPanelValue: bodyFat, secondPanelLabel: secondLabel, secondPanelUnit: secondUnit, kioskInfo: kioskInfo);
+                } else if let vendorId = selectedFatCheckin.sourceVendorId {
+                    device = "\(vendorId)";
+                }
+                return SelectedPoint(date: date, firstPanelValue: weight, firstPanelLabel: firstLabel, firstPanelUnit: firstUnit, secondPanelValue: bodyFat, secondPanelLabel: secondLabel, secondPanelUnit: secondUnit, device: device);
             }
         }
     }
