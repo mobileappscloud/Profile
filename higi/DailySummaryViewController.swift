@@ -470,41 +470,41 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
                 if date1 == date2 {
                     let tests = activity.healthChecks;
                     var earnditTotal = 0, higiTotal = 0;
-                        for test in tests {
-                            switch (test) {
-                                case "bloodPressure", "systolicPressure", "diastolicPressure":
-                                    if (earnditTotal % 2 == 0) {
-                                        earnditTotal += 1;
-                                    }
-                                    break;
-                                case "heartRate":
-                                    earnditTotal += 2;
-                                    break;
-                                case "weight":
-                                    earnditTotal += 4;
-                                    break;
-                                case "bodyFatPercentage":
-                                    earnditTotal += 8;
-                                    break;
-                                default:
-                                    break;
-                            }
+                    for test in tests {
+                        switch (test) {
+                            case "bloodPressure", "systolicPressure", "diastolicPressure":
+                                if (earnditTotal % 2 == 0) {
+                                    earnditTotal += 1;
+                                }
+                                break;
+                            case "heartRate":
+                                earnditTotal += 2;
+                                break;
+                            case "weight":
+                                earnditTotal += 4;
+                                break;
+                            case "bodyFatPercentage":
+                                earnditTotal += 8;
+                                break;
+                            default:
+                                break;
                         }
-                        if checkin.systolic != nil && checkin.systolic > 0 {
-                            higiTotal += 1;
-                        }
-                        if checkin.pulseBpm != nil && checkin.pulseBpm > 0 {
-                            higiTotal += 2;
-                        }
-                        if checkin.weightLbs != nil && checkin.weightLbs > 0 {
-                            higiTotal += 4;
-                        }
-                        if checkin.fatRatio != nil && checkin.fatRatio > 0 {
-                            higiTotal += 8;
-                        }
-                        if earnditTotal == higiTotal {
-                            return checkin;
-                        }
+                    }
+                    if checkin.systolic != nil && checkin.systolic > 0 {
+                        higiTotal += 1;
+                    }
+                    if checkin.pulseBpm != nil && checkin.pulseBpm > 0 {
+                        higiTotal += 2;
+                    }
+                    if checkin.weightLbs != nil && checkin.weightLbs > 0 {
+                        higiTotal += 4;
+                    }
+                    if checkin.fatRatio != nil && checkin.fatRatio > 0 {
+                        higiTotal += 8;
+                    }
+                    if earnditTotal == higiTotal {
+                        return checkin;
+                    }
                 } else if activity.startTime.timeIntervalSince1970 > checkin.dateTime.timeIntervalSince1970 {
                     break;
                 }
