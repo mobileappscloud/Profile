@@ -194,7 +194,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         }
         
         if SessionController.Instance.checkins.count == 0 && SessionController.Instance.activities.count == 0 {
-                layoutBlankState();
+            layoutBlankState();
         } else {
             layoutActivityView();
         }
