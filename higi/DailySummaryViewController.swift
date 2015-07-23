@@ -195,9 +195,8 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         
         if SessionController.Instance.checkins.count == 0 && SessionController.Instance.activities.count == 0 {
                 layoutBlankState();
-            } else {
-                layoutActivityView();
-            }
+        } else {
+            layoutActivityView();
         }
     }
 
@@ -206,7 +205,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         let higiTitle = "higi Station", foursquareTitle = "Foursquare", activityTrackerTitle = "Activity Tracker";
         
         let higiText = "Join the millions of people that are tracking their health through higi. You can earn up to 100 points by visiting a higi Station and getting your blood pressure, pulse, weight, and BMI stats. \n";
-        let activityTrackerText = "Higi makes it fun and rewarding to track your steps. Simply connect your favorite activity tracker and start getting rewarded for your jogs around the block."
+        let activityTrackerText = "Higi makes it fun and rewarding to track your steps. Simply connect your favorite activity tracker and start getting rewarded for your jogs around the block.";
         let foursquareText = "Wanna get rewarded for going to the gym or walking your dog at the park? Just connect your Foursquare account with higi and we will reward your 15 points for every time you check into a gym or park.";
         
         let higiCallToAction = "Find a station!", activityTrackerCallToAction = "Connect a device!", foursquareCallToAction = "Connect a device!";
