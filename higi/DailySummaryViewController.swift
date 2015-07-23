@@ -28,9 +28,9 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     
     var activitiesByType:[String: (Int, [HigiActivity])] = [:];
     
-    var totalPoints = 0;
+    var totalPoints = 0, largestActivityPoints = 0;
     
-    var minCircleRadius:CGFloat = 6, maxCircleRadius:CGFloat = 22, currentOrigin:CGFloat = 0, gap:CGFloat = 4, imageAspectRatio:CGFloat!;
+    var minCircleRadius:CGFloat = 8, maxCircleRadius:CGFloat = 20, currentOrigin:CGFloat = 0, gap:CGFloat = 4, imageAspectRatio:CGFloat!;
     
     var backButton:UIButton!;
     
@@ -166,6 +166,9 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         }
         var activitiesByDevice: [String: String] = [:];
         for activity in activities {
+            if activity.points > largestActivityPoints {
+                largestActivityPoints = activity.points;
+            }
             var type = ActivityCategory.categoryFromActivity(activity).getString();
             if let (total, activityList) = activitiesByType[type] {
                 let a = activitiesByDevice[String(activity.device.name)];
@@ -190,19 +193,19 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             }
         }
         
-        if activitiesByDevice.count == 0 {
+//        if SessionController.Instance.checkins.count == 0 && SessionController.Instance.activities.count == 0 {
             layoutBlankState();
-        } else {
-            layoutActivityView();
-        }
+//        } else {
+//            layoutActivityView();
+//        }
     }
 
     func layoutBlankState() {
-        let totalPoints = 140, higiPoints = 100, foursquarePoints = 15, activityTrackerPoints = 50;
+        let higiPoints = 100, foursquarePoints = 15, activityTrackerPoints = 50;
         let higiTitle = "higi Station", foursquareTitle = "Foursquare", activityTrackerTitle = "Activity Tracker";
         
-        let higiText = "Join the millions of people that are tracking their health through higi. You can earn up to 100 points by visiting a higi Station and getting your blood pressure, pulse, weight, and BMI stats.";
-        let activityTrackerText = "Higi makes it fun and rewarding to track your steps. Simply connection your favorite activity tracker and start getting rewarded for your jogs around the block."
+        let higiText = "Join the millions of people that are tracking their health through higi. You can earn up to 100 points by visiting a higi Station and getting your blood pressure, pulse, weight, and BMI stats. \n";
+        let activityTrackerText = "Higi makes it fun and rewarding to track your steps. Simply connect your favorite activity tracker and start getting rewarded for your jogs around the block."
         let foursquareText = "Wanna get rewarded for going to the gym or walking your dog at the park? Just connect your Foursquare account with higi and we will reward your 15 points for every time you check into a gym or park.";
         
         let higiCallToAction = "Find a station!", activityTrackerCallToAction = "Connect a device!", foursquareCallToAction = "Connect a device!";
@@ -211,9 +214,11 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         
         let color = Utility.colorFromHexString("#444444");
         
-        let titleMargin:CGFloat = -4, rowMargin:CGFloat = 4, buttonMargin: CGFloat = 16, textOffset: CGFloat = 26, alpha: CGFloat = 0.6;
+        let titleMargin:CGFloat = -4, rowMargin:CGFloat = 4, buttonMargin: CGFloat = 16, textOffset: CGFloat = 16, alpha: CGFloat = 0.6;
         
-        let higiTitleRow = initActivityRow(higiTitle, points: higiPoints, totalPoints: totalPoints, color: color, alpha: alpha);
+        largestActivityPoints = 100;
+        
+        let higiTitleRow = initActivityRow(higiTitle, points: higiPoints, totalPoints: largestActivityPoints, color: color, alpha: alpha);
         higiTitleRow.frame.origin.y = currentOrigin;
         
         let rowWidth = UIScreen.mainScreen().bounds.size.width - higiTitleRow.name.frame.origin.x;
@@ -239,7 +244,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         rows.append(higiButton);
         margins.append(buttonMargin);
         
-        let activityTrackerTitleRow = initActivityRow(activityTrackerTitle, points: activityTrackerPoints, totalPoints: totalPoints, color: color, alpha: alpha);
+        let activityTrackerTitleRow = initActivityRow(activityTrackerTitle, points: activityTrackerPoints, totalPoints: largestActivityPoints, color: color, alpha: alpha);
         activityTrackerTitleRow.frame.origin.y = currentOrigin;
         
         rows.append(activityTrackerTitleRow);
@@ -263,7 +268,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         rows.append(activityTrackerButton);
         margins.append(buttonMargin);
         
-        let foursquareTitleRow = initActivityRow(foursquareTitle, points: foursquarePoints, totalPoints: totalPoints, color: color, alpha: alpha);
+        let foursquareTitleRow = initActivityRow(foursquareTitle, points: foursquarePoints, totalPoints: largestActivityPoints, color: color, alpha: alpha);
         foursquareTitleRow.frame.origin.y = currentOrigin;
         
         rows.append(foursquareTitleRow);
@@ -426,7 +431,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         activityRow.name.text = title;
         activityRow.name.textColor = color;
         activityRow.name.alpha = alpha + 0.1;
-        let proportion = CGFloat(points) / CGFloat(totalPoints);
+        let proportion = CGFloat(points) / CGFloat(largestActivityPoints);
         let newHeight = max(maxCircleRadius * proportion, minCircleRadius);
         let circlePath = UIBezierPath(arcCenter: CGPoint(x: activityRow.progressCircle.frame.size.width / 2.0, y: activityRow.progressCircle.frame.size.height / 2.0), radius: newHeight, startAngle: 0.0, endAngle: CGFloat(M_PI * 2.0), clockwise: true);
         let circleLayer = CAShapeLayer();
