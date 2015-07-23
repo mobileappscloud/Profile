@@ -243,7 +243,7 @@ class MetricDetailCard: UIView {
     func setData(selection: SelectedPoint) {
         let tab = thirdPanelSelected ? 1 : 0;
         
-        firstPanelValue.text = selection.date;
+        firstPanelValue.text = Constants.displayDateFormatter.stringFromDate(Constants.dateFormatter.dateFromString(selection.date!)!);
         secondPanelUnit.text = selection.firstPanel.unit;
         secondPanelLabel.text = selection.firstPanel.label;
         thirdPanelUnit.text = selection.secondPanel.unit;
@@ -445,13 +445,7 @@ class MetricDetailCard: UIView {
             copyScrollview.addSubview(activityRow);
             activityRows.append(activityRow);
             currentOrigin += activityRow.frame.size.height;
-            var todaysCheckins:[HigiCheckin] = [];
-            for checkin in SessionController.Instance.checkins {
-                if (Constants.dateFormatter.stringFromDate(checkin.dateTime) == dateString) {
-                    todaysCheckins.append(checkin);
-                }
-            }
-            var checkinIndex = 0;
+            
             for subActivity in activityList {
                 if (subActivity.errorDescription == nil && subActivity.points > 0) {
                     let titleRow = SummaryViewUtility.initTitleRow(activityRow.frame.origin.x, originY: currentOrigin, width: copyScrollview.frame.size.width - activityRow.frame.origin.x, points: subActivity.points, device: "\(subActivity.device.name)", color: Utility.colorFromHexString("#444444"));

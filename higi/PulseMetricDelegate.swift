@@ -47,7 +47,7 @@ class PulseMetricDelegate: MetricDelegate {
         if (selectedCheckin == nil) {
             return nil;
         } else {
-            let date = Constants.displayDateFormatter.stringFromDate(selectedCheckin.dateTime);
+            let date = Constants.dateFormatter.stringFromDate(selectedCheckin.dateTime);
             let pulse = selectedCheckin.pulseBpm != nil ? "\(Int(selectedCheckin.pulseBpm!))" : "";
             var device = "";
             if let kioskInfo = selectedCheckin.kioskInfo {
