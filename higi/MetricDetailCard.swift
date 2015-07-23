@@ -317,7 +317,7 @@ class MetricDetailCard: UIView {
                 meter = initMeterView();
                 meterContainer.addSubview(meter);
             }
-            let dateString = Constants.dateFormatter.stringFromDate(Constants.displayDateFormatter.dateFromString(delegate.getSelectedPoint()!.date)!);
+            let dateString = delegate.getSelectedPoint()!.date!;
             if (SessionController.Instance.activities[dateString] != nil) {
                 meter.setActivities(SessionController.Instance.activities[dateString]!);
             } else {

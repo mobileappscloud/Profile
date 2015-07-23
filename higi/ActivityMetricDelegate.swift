@@ -33,10 +33,10 @@ class ActivityMetricDelegate: MetricDelegate {
     func setSelected(date: NSDate) {
         if sortedDates.count == 0 {
             sortedDates = SessionController.Instance.activities.keys.array;
-            sortedDates.sort(sortByDate);
+            sortedDates.sort({$0 > $1});
         }
         var lastDate = "";
-        let selectedDate = Double(Constants.dateFormatter.dateFromString(Constants.dateFormatter.stringFromDate(date))!.timeIntervalSince1970);
+        let selectedDate = date.timeIntervalSince1970;
         var minDifference = DBL_MAX;
         for activityDate in sortedDates {
             let interval = Constants.dateFormatter.dateFromString(activityDate)!.timeIntervalSince1970;
@@ -49,7 +49,7 @@ class ActivityMetricDelegate: MetricDelegate {
             }
         }
         if let (points, list) = SessionController.Instance.activities[lastDate] {
-            selectedActivity = (Constants.displayDateFormatter.stringFromDate(Constants.dateFormatter.dateFromString(lastDate)!), "\(points)");
+            selectedActivity = (lastDate, "\(points)");
         }
     }
     
@@ -90,8 +90,5 @@ class ActivityMetricDelegate: MetricDelegate {
     func shouldShowRegions() -> Bool {
         return false;
     }
-    
-    func sortByDate(this: String, that: String) -> Bool {
-        return Constants.dateFormatter.dateFromString(this)?.timeIntervalSince1970 >= Constants.dateFormatter.dateFromString(that)?.timeIntervalSince1970;
-    }
+
 }
