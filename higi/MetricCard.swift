@@ -25,13 +25,22 @@ class MetricCard: UIView, MetricDelegate {
     
     var regions: [UIView] = [];
     
-    class func instanceFromNib(delegate: MetricDelegate, frame: CGRect) -> MetricCard {
+    var points: [GraphPoint] = [], altPoints: [GraphPoint] = [];
+    
+    class func instanceFromNib(delegate: MetricDelegate, frame: CGRect, points: [GraphPoint], altPoints: [GraphPoint]) -> MetricCard {
         let view = UINib(nibName: "MetricCardView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! MetricCard;
-        view.delegate = delegate;
-        view.initFrame(frame);
-        view.initGraphView();
-        view.initHeader();
+        view.setup(delegate, frame: frame, points: points, altPoints: altPoints);
         return view;
+    }
+
+    func setup(delegate: MetricDelegate, frame: CGRect, points: [GraphPoint], altPoints:[GraphPoint]) {
+        self.delegate = delegate;
+        self.points = points;
+        self.altPoints = altPoints;
+        
+        initFrame(frame);
+        initGraphView();
+        initHeader();
     }
     
     override func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {
@@ -67,7 +76,7 @@ class MetricCard: UIView, MetricDelegate {
     }
 
     func getGraph(frame: CGRect) -> MetricGraph {
-        return delegate.getGraph(frame);
+        return MetricGraphUtility.graphWithPoints(CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), points: points, altPoints: altPoints, color: delegate.getColor());
     }
     
     func getSelectedValue(tab: Int) -> String {
@@ -95,7 +104,9 @@ class MetricCard: UIView, MetricDelegate {
     }
     
     func initGraphView() {
+        let a = NSDate().timeIntervalSince1970
         graph = getGraph(graphContainer.frame);
+        let b = NSDate().timeIntervalSince1970 - a;
         if (graph.points.count > 0) {
             self.graphContainer.addSubview(graph);
         } else {
@@ -107,8 +118,12 @@ class MetricCard: UIView, MetricDelegate {
             blankStateImage.image = Utility.scaleImage(image, newSize: CGSize(width: newWidth, height: graphContainer.frame.size.height));
             self.graphContainer.addSubview(blankStateImage);
         }
+        let c = NSDate().timeIntervalSince1970 - a;
         initRegions(true);
+        let d = NSDate().timeIntervalSince1970 - a;
         setSelected(NSDate());
+        let e = NSDate().timeIntervalSince1970 - a;
+        let i = 0;
     }
     
     func initRegions(isPrimaryGraph: Bool) {
@@ -232,7 +247,7 @@ class MetricCard: UIView, MetricDelegate {
         }
         toggleOn = !toggleOn;
     }
-    
+
     func cardDragged(sender: AnyObject) {
         let parent = (Utility.getViewController(self) as! MetricsViewController);
         let drag = (sender as! UIPanGestureRecognizer);
