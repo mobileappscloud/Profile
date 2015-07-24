@@ -111,9 +111,8 @@ class WeightMetricDelegate: MetricDelegate {
         return graph;
     }
     
-    func getSecondaryGraph(frame: CGRect) -> MetricGraph? {
-        secondaryGraph = MetricGraphUtility.createBodyFatGraph(CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height));
-        return secondaryGraph;
+    func getSecondaryGraph(frame: CGRect, points: [GraphPoint], altPoints:[GraphPoint]) -> MetricGraph? {
+        return MetricGraphUtility.graphWithPoints(CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), points: points, altPoints: altPoints, color:  getColor());
     }
     
     func getRanges(tab:Int) -> [MetricGauge.Range] {

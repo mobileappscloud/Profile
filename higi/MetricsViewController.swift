@@ -75,6 +75,59 @@ class MetricsViewController: UIViewController {
     }
     
     func initCards() {
+        var heaviest = 1.0, thinnest = 100.0, fattest = 1.0;
+        for checkin in SessionController.Instance.checkins {
+            if (checkin.weightLbs != nil && checkin.weightLbs > heaviest) {
+                heaviest = checkin.weightLbs!;
+            }
+            if (checkin.fatRatio != nil && checkin.fatRatio > fattest) {
+                fattest = checkin.fatRatio!;
+            }
+            if (checkin.fatRatio != nil && checkin.fatRatio < thinnest) {
+                thinnest = checkin.fatRatio!;
+            }
+        }
+        var bpPoints:[GraphPoint] = [], bpAltPoints:[GraphPoint] = [], pulsePoints:[GraphPoint] = [], weightPoints:[GraphPoint] = [], fatPoints:[GraphPoint] = [], fatAltPoints:[GraphPoint] = [];
+        var lastBpDate = "", lastPulseDate = "", lastWeightDate = "", lastFatDate = "";
+        let vak = SessionController.Instance.checkins.count;
+        let normalizeFactor = (1 + (fattest - thinnest) / 150.0);
+        for checkin in SessionController.Instance.checkins {
+            let a = NSDate().timeIntervalSince1970;
+            let dateString = Constants.dateFormatter.stringFromDate(checkin.dateTime);
+            let checkinTime = Utility.dateWithDateComponentOnly(checkin.dateTime).timeIntervalSince1970;
+            if (dateString != lastBpDate && checkin.map != nil && checkin.map > 0) {
+                bpPoints.append(GraphPoint(x: checkinTime, y: checkin.map));
+                if (checkin.diastolic != nil && checkin.diastolic > 0) {
+                    bpAltPoints.append(GraphPoint(x: checkinTime, y: Double(checkin.diastolic!)));
+                    bpAltPoints.append(GraphPoint(x: checkinTime, y: Double(checkin.systolic!)));
+                } else {
+                    bpAltPoints.append(GraphPoint(x: checkinTime, y: 0));
+                    bpAltPoints.append(GraphPoint(x: checkinTime, y: 0));
+                }
+                lastBpDate = dateString;
+            }
+            if (dateString != lastPulseDate && checkin.pulseBpm != nil && checkin.pulseBpm > 0) {
+                pulsePoints.append(GraphPoint(x: checkinTime, y: Double(checkin.pulseBpm!)));
+                lastPulseDate = dateString;
+            }
+            if (dateString != lastWeightDate && checkin.weightLbs != nil && checkin.weightLbs > 0) {
+                weightPoints.append(GraphPoint(x: checkinTime, y: checkin.weightLbs));
+                fatAltPoints.append(GraphPoint(x: checkinTime, y: 10 + (checkin.weightLbs! / heaviest) * fattest * normalizeFactor));
+                lastWeightDate = dateString;
+            }
+            if (dateString != lastFatDate && checkin.fatRatio != nil && checkin.fatRatio > 0) {
+                fatPoints.append(GraphPoint(x: checkinTime, y: checkin.fatRatio));
+                lastFatDate = dateString;
+            }
+        }
+        var activityPoints:[GraphPoint] = [];
+        for (date, (total, activityList)) in SessionController.Instance.activities {
+            if (activityList.count > 0) {
+                let activityDate = Double(Constants.dateFormatter.dateFromString(date)!.timeIntervalSince1970);
+                activityPoints.append(GraphPoint(x: activityDate, y: Double(total)));
+            }
+        }
+        activityPoints.sort({$0.x < $1.x});
         for subView in self.view.subviews {
             subView.removeFromSuperview();
         }
@@ -86,15 +139,15 @@ class MetricsViewController: UIViewController {
             cardFrame.size.width = cardFrame.size.width - CGFloat((MetricsType.allValues.count - 1 - pos) * cardMargin);
             switch(type) {
             case MetricsType.DailySummary:
-                card = MetricCard.instanceFromNib(ActivityMetricDelegate(), frame: cardFrame);
+                card = MetricCard.instanceFromNib(ActivityMetricDelegate(), frame: cardFrame, points: activityPoints, altPoints: []);
             case MetricsType.BloodPressure:
-                card = MetricCard.instanceFromNib(BpMetricDelegate(), frame: cardFrame);
+                card = MetricCard.instanceFromNib(BpMetricDelegate(), frame: cardFrame, points: bpPoints, altPoints: bpAltPoints);
             case MetricsType.Pulse:
-                card = MetricCard.instanceFromNib(PulseMetricDelegate(), frame: cardFrame);
+                card = MetricCard.instanceFromNib(PulseMetricDelegate(), frame: cardFrame, points: pulsePoints, altPoints: []);
             case MetricsType.Weight:
                 let delegate = WeightMetricDelegate();
-                card = MetricCard.instanceFromNib(delegate, frame: cardFrame);
-                if let secondaryGraph = delegate.getSecondaryGraph(card!.graphContainer.frame) {
+                card = MetricCard.instanceFromNib(delegate, frame: cardFrame, points: weightPoints, altPoints: []);
+                if let secondaryGraph = delegate.getSecondaryGraph(card!.graphContainer.frame, points: fatPoints, altPoints: fatAltPoints) {
                     card!.secondaryGraph = secondaryGraph;
                     card!.secondaryGraph.hidden = true;
                     card!.toggleButton.hidden = false;

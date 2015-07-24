@@ -10,13 +10,15 @@ class MetricGraphUtility {
                 points.append(GraphPoint(x: activityDate, y: Double(total)));
             }
         }
+        points.sort({$0.x < $1.x});
         return graphWithPoints(frame, points: points, color: MetricsType.DailySummary.getColor());
     }
 
     class func createBpGraph(frame: CGRect) -> MetricGraph {
+        let a = NSDate().timeIntervalSince1970;
         var points:[GraphPoint] = [], altPoints:[GraphPoint] = [];
         var lastBpDate = "";
-        for checkin in SessionController.Instance.checkins.reverse() {
+        for checkin in SessionController.Instance.checkins {
             let dateString = Constants.dateFormatter.stringFromDate(checkin.dateTime);
             if (dateString != lastBpDate) {
                 let checkinTime = Utility.dateWithDateComponentOnly(checkin.dateTime).timeIntervalSince1970;
@@ -33,13 +35,14 @@ class MetricGraphUtility {
                 }
             }
         }
+        let c = NSDate().timeIntervalSince1970 - a;
         return graphWithPoints(frame, points: points, altPoints: altPoints, color: MetricsType.BloodPressure.getColor());
     }
     
     class func createWeightGraph(frame: CGRect) -> MetricGraph {
         var points:[GraphPoint] = [];
         var lastWeightDate = "";
-        for checkin in SessionController.Instance.checkins.reverse() {
+        for checkin in SessionController.Instance.checkins {
             let dateString = Constants.dateFormatter.stringFromDate(checkin.dateTime);
             if (dateString != lastWeightDate) {
                 let checkinTime = Utility.dateWithDateComponentOnly(checkin.dateTime).timeIntervalSince1970;
@@ -57,7 +60,7 @@ class MetricGraphUtility {
         var lastFatDate = "", lastWeightDate = "";
         
         var heaviest = 1.0, thinnest = 100.0, fattest = 1.0;
-        for checkin in SessionController.Instance.checkins.reverse() {
+        for checkin in SessionController.Instance.checkins {
             if (checkin.weightLbs != nil && checkin.weightLbs > heaviest) {
                 heaviest = checkin.weightLbs!;
             }
@@ -69,7 +72,7 @@ class MetricGraphUtility {
             }
         }
         
-        for checkin in SessionController.Instance.checkins.reverse() {
+        for checkin in SessionController.Instance.checkins {
             let dateString = Constants.dateFormatter.stringFromDate(checkin.dateTime);
             let checkinTime = Utility.dateWithDateComponentOnly(checkin.dateTime).timeIntervalSince1970;
             if (dateString != lastFatDate && checkin.fatRatio != nil && checkin.fatRatio > 0) {
@@ -91,7 +94,7 @@ class MetricGraphUtility {
     class func createPulseGraph(frame: CGRect) -> MetricGraph {
         var points:[GraphPoint] = [];
         var lastPulseDate = "";
-        for checkin in SessionController.Instance.checkins.reverse() {
+        for checkin in SessionController.Instance.checkins {
             let dateString = Constants.dateFormatter.stringFromDate(checkin.dateTime);
             if (dateString != lastPulseDate) {
                 let checkinTime = Utility.dateWithDateComponentOnly(checkin.dateTime).timeIntervalSince1970;
@@ -105,19 +108,13 @@ class MetricGraphUtility {
     }
     
     class func graphWithPoints(frame: CGRect, points: [GraphPoint], color: UIColor) -> MetricGraph {
-        var graphPoints = points;
-        graphPoints.sort({$0.x < $1.x});
-        let graph = MetricGraph(frame: frame, points: graphPoints);
+        let graph = MetricGraph(frame: frame, points: points);
         graph.setupForMetric(color);
         return graph;
     }
     
     class func graphWithPoints(frame: CGRect, points: [GraphPoint], altPoints: [GraphPoint], color: UIColor) -> MetricGraph {
-        var graphPoints = points;
-        var graphAltPoints = altPoints;
-        graphPoints.sort({$0.x < $1.x});
-        graphAltPoints.sort({$0.x < $1.x});
-        let graph = MetricGraph(frame: frame, points: graphPoints, altPoints: graphAltPoints);
+        let graph = MetricGraph(frame: frame, points: points, altPoints: altPoints);
         graph.setupForMetric(color);
         return graph;
     }
