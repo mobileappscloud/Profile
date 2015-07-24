@@ -120,7 +120,9 @@ class MetricCard: UIView, MetricDelegate {
     }
 
     func initGraphView() {
+        let a = NSDate().timeIntervalSince1970
         graph = getGraph(graphContainer.frame);
+        let b = NSDate().timeIntervalSince1970 - a;
         if (graph.points.count > 0) {
             self.graphContainer.addSubview(graph);
         } else {
@@ -147,8 +149,12 @@ class MetricCard: UIView, MetricDelegate {
             blankStateContainer.hidden = false;
             graphContainer.hidden = true;
         }
+        let c = NSDate().timeIntervalSince1970 - a;
         initRegions(true);
+        let d = NSDate().timeIntervalSince1970 - a;
         setSelected(NSDate());
+        let e = NSDate().timeIntervalSince1970 - a;
+        let i = 0;
     }
     
     func initRegions(isPrimaryGraph: Bool) {
