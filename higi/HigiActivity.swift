@@ -52,6 +52,8 @@ class HigiActivity {
                     startTime = NSDate(timeIntervalSince1970: startTime.timeIntervalSince1970 + offset);
                 }
             }
+        } else {
+            startTime = NSDate(timeIntervalSince1970: startTime.timeIntervalSince1970 + Double(NSTimeZone.localTimeZone().secondsFromGMT));
         }
         let typeObject = dictionary["type"] as! NSDictionary;
         typeCategory = typeObject["category"] as? NSString;

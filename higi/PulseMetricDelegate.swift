@@ -47,9 +47,15 @@ class PulseMetricDelegate: MetricDelegate {
         if (selectedCheckin == nil) {
             return nil;
         } else {
-            let date = Constants.displayDateFormatter.stringFromDate(selectedCheckin.dateTime);
+            let date = Constants.dateFormatter.stringFromDate(selectedCheckin.dateTime);
             let pulse = selectedCheckin.pulseBpm != nil ? "\(Int(selectedCheckin.pulseBpm!))" : "";
-            return SelectedPoint(date: date, panelValue: pulse, panelLabel: "Beats Per Minute", panelUnit: "bpm", kioskInfo: selectedCheckin.kioskInfo);
+            var device = "";
+            if let kioskInfo = selectedCheckin.kioskInfo {
+                return SelectedPoint(date: date, panelValue: pulse, panelLabel: "Beats Per Minute", panelUnit: "bpm", kioskInfo: kioskInfo);
+            } else if let vendorId = selectedCheckin.sourceVendorId {
+                device = "\(vendorId)";
+            }
+            return SelectedPoint(date: date, panelValue: pulse, panelLabel: "Beats Per Minute", panelUnit: "bpm", device: device);
         }
     }
     

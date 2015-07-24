@@ -124,7 +124,7 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         }
         let unselectedColor = Utility.colorFromHexString("#b4a6c2");
         var maxY = 0.0, minY = DBL_MAX, plotSymbolSize = 8.0;
-        let hitMargin = 5, pointsToShow = 30;
+        let hitMargin = 20, pointsToShow = 30;
         
         graph = CPTXYGraph(frame: self.bounds);
         self.hostedGraph = graph;
@@ -238,6 +238,9 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         var yRange = roundToHighest((maxY - minY) * 1.25, roundTo: tickInterval);
         if (lowerBound + yRange <= maxY) {
             yRange = roundToHighest(maxY - lowerBound + tickInterval, roundTo: tickInterval);
+        }
+        if (maxY - yRange < tickInterval) {
+            yRange += tickInterval;
         }
         var plotSpace = self.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace;
         var visibleMin = firstPoint;
