@@ -430,6 +430,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
                 currentOrigin += gap;
             }
         }
+        resizeActivityRows(self.interfaceOrientation.rawValue == UIInterfaceOrientation.Portrait.rawValue);
     }
 
     func initActivityRow(title: String, points: Int, totalPoints: Int, color: UIColor, alpha: CGFloat) -> DailySummaryRow {
@@ -585,6 +586,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             originY += row.frame.size.height + margins[i];
             i++;
         }
+        scrollView.contentSize.height = originY;
     }
     
     func higiCallToActionClicked(sender: AnyObject!) {
