@@ -467,7 +467,7 @@ class MetricDetailCard: UIView {
         Flurry.logEvent("Summary_Pressed");
         (Utility.getViewController(self) as! MetricsViewController).selectedType = MetricsType.DailySummary;
         var summaryController = DailySummaryViewController(nibName: "DailySummaryView", bundle: nil);
-        let dateString = Constants.dateFormatter.stringFromDate(Constants.displayDateFormatter.dateFromString(delegate.getSelectedPoint()!.date)!);
+        let dateString = delegate.getSelectedPoint()!.date;
         summaryController.dateString = dateString;
         Utility.getViewController(self)!.navigationController!.pushViewController(summaryController, animated: true);
     }
