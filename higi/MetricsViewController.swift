@@ -171,9 +171,6 @@ class MetricsViewController: UIViewController {
             detailsGone = true;
             self.view.addSubview(detailsCard);
         }
-//        if (selectedCardPosition != 0) {
-//            cardClickedAtIndex(selectedCardPosition);
-//        }
     }
     
     func backButtonClicked(sender: AnyObject) {
