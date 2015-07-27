@@ -56,6 +56,7 @@ class MetricsViewController: UIViewController {
     override func viewWillDisappear(animated: Bool) {
         self.navigationController!.navigationBarHidden = false;
         super.viewWillDisappear(animated);
+        prepareOrientationForLeaving();
     }
     
     override func prefersStatusBarHidden() -> Bool {
@@ -413,7 +414,7 @@ class MetricsViewController: UIViewController {
         UIViewController.attemptRotationToDeviceOrientation();
         revealController.shouldRotate = previousShouldRotate;
     }
-
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews();
         let subViews = self.view.subviews;
