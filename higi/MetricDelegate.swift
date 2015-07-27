@@ -22,6 +22,8 @@ protocol MetricDelegate {
     
     func getBlankStateImage() -> UIImage;
     
+    func getBlankStateText() -> String;
+    
     func getSelectedValue(tab: Int) -> String;
     
     func getSelectedUnit(tab: Int) -> String;

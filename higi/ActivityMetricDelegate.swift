@@ -27,7 +27,11 @@ class ActivityMetricDelegate: MetricDelegate {
     }
     
     func getBlankStateImage() -> UIImage {
-        return UIImage(named: "activities_copy")!;
+        return UIImage(named: "fitnessband")!;
+    }
+    
+    func getBlankStateText() -> String {
+        return "It looks like you don’t have any higi points. Higi points are rewarded for tracking your health. Be it tracking your vitals with our higi Station or connecting your favorite activity trackers, higi wants to reward you for keeping tabs on your health.";
     }
     
     func setSelected(date: NSDate) {
