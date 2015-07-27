@@ -149,7 +149,7 @@
                             <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="UIY-l6-dOw" firstAttribute="top" secondItem="Mdt-gR-rG5" secondAttribute="top" id="671-1W-yQ3"/>
                         <constraint firstAttribute="trailing" secondItem="UIY-l6-dOw" secondAttribute="trailing" id="P6u-23-eTj"/>
@@ -187,7 +187,7 @@
     </objects>
     <resources>
         <image name="back_button_white.png" width="34" height="35"/>
-        <image name="higistation.png" width="900" height="660"/>
+        <image name="higistation.png" width="450" height="330"/>
         <image name="workouticon.png" width="128" height="128"/>
     </resources>
 </document>

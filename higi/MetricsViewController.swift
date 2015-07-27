@@ -18,7 +18,7 @@ class MetricsViewController: UIViewController {
     
     var previousSupportedOrientations: UInt!;
     
-    var previousActualOrientation: Int!;
+    var previousActualOrientation: Int!, selectedCardPosition = 0;
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -51,6 +51,7 @@ class MetricsViewController: UIViewController {
             detailsCard.animateBounceIn(detailsCardPosY);
             detailsGone = false;
         }
+        cardClickedAtIndex(selectedCardPosition);
     }
 
     override func viewWillDisappear(animated: Bool) {
@@ -131,7 +132,6 @@ class MetricsViewController: UIViewController {
         for subView in self.view.subviews {
             subView.removeFromSuperview();
         }
-        var selectedCardPosition = 0;
         var pos = MetricsType.allValues.count - 1;
         var card: MetricCard?;
         for type in MetricsType.allValues.reverse() {
@@ -171,9 +171,9 @@ class MetricsViewController: UIViewController {
             detailsGone = true;
             self.view.addSubview(detailsCard);
         }
-        if (selectedCardPosition != 0) {
-            cardClickedAtIndex(selectedCardPosition);
-        }
+//        if (selectedCardPosition != 0) {
+//            cardClickedAtIndex(selectedCardPosition);
+//        }
     }
     
     func backButtonClicked(sender: AnyObject) {
@@ -192,9 +192,9 @@ class MetricsViewController: UIViewController {
             let subViews = self.view.subviews;
             let count = MetricsType.allValues.count;
             let distance = count - index;
-            var viewsToSend:[UIView] = [];
+            var viewsToSend:[MetricCard] = [];
             for index in distance...count - 1 {
-                viewsToSend.append(subViews[index] as! UIView);
+                viewsToSend.append(subViews[index] as! MetricCard);
             }
             UIView.animateWithDuration(animationDuration, delay: 0, options: .CurveEaseInOut, animations: {
                 for card in viewsToSend {
@@ -204,19 +204,20 @@ class MetricsViewController: UIViewController {
                     
                     for card in viewsToSend.reverse() {
                         card.frame.origin.x = 0;
-                        card.frame.size.width = self.screenWidth;
+                        card.headerView.frame.size.width = self.screenWidth;
                         self.view.insertSubview(card, atIndex: 0);
+                        card.headerView.layoutIfNeeded();
                     }
                     
                     for index in 0...count - 1 {
                         let card = subViews[index] as! MetricCard;
                         let newWidth = self.screenWidth - CGFloat((index + 1) * self.cardMargin);
                         UIView.animateWithDuration(self.animationDuration, delay: 0, options: .CurveEaseInOut, animations: {
+                            card.headerView.frame.size.width = newWidth;
                             card.frame.size.width = newWidth;
                             }, completion:  { complete in
-                                
+//                                card.frame.size.width = newWidth;
                         });
-                        
                     }
                     self.updateDetailCard();
                     self.detailsCard.headerContainer.alpha = 1;
@@ -418,7 +419,7 @@ class MetricsViewController: UIViewController {
         UIViewController.attemptRotationToDeviceOrientation();
         revealController.shouldRotate = previousShouldRotate;
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews();
         let subViews = self.view.subviews;
@@ -426,17 +427,9 @@ class MetricsViewController: UIViewController {
         for index in 0...count - 1 {
             let card = subViews[index] as! MetricCard;
             let newWidth = screenWidth - CGFloat((index) * self.cardMargin);
-            UIView.animateWithDuration(animationDuration, delay: 0, options: .CurveEaseInOut, animations: {
-                card.frame.size.width = newWidth;
-                }, completion: nil);
+            card.frame.size.width = newWidth;
+            card.headerView.frame.size.width = newWidth;
             card.position = count - 1 - index;
-            card.graphContainer.frame.size.width = screenWidth;
-            if card.graph != nil {
-                card.graph.frame.size.width = screenWidth;
-            }
-            if card.secondaryGraph != nil {
-                card.secondaryGraph.frame.size.width = screenWidth;
-            }
         }
     }
 }
