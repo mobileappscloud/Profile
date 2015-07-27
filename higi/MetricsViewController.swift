@@ -51,6 +51,7 @@ class MetricsViewController: UIViewController {
             detailsCard.animateBounceIn(detailsCardPosY);
             detailsGone = false;
         }
+        cardClickedAtIndex(selectedCardPosition);
     }
 
     override func viewWillDisappear(animated: Bool) {
@@ -167,7 +168,9 @@ class MetricsViewController: UIViewController {
             detailsGone = true;
             self.view.addSubview(detailsCard);
         }
-        cardClickedAtIndex(selectedCardPosition);
+//        if (selectedCardPosition != 0) {
+//            cardClickedAtIndex(selectedCardPosition);
+//        }
     }
     
     func backButtonClicked(sender: AnyObject) {
@@ -199,7 +202,6 @@ class MetricsViewController: UIViewController {
                     for card in viewsToSend.reverse() {
                         card.frame.origin.x = 0;
                         card.headerView.frame.size.width = self.screenWidth;
-                        card.frame.size.width = self.screenWidth;
                         self.view.insertSubview(card, atIndex: 0);
                         card.headerView.layoutIfNeeded();
                     }
@@ -413,7 +415,7 @@ class MetricsViewController: UIViewController {
         UIViewController.attemptRotationToDeviceOrientation();
         revealController.shouldRotate = previousShouldRotate;
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews();
         let subViews = self.view.subviews;
@@ -424,13 +426,6 @@ class MetricsViewController: UIViewController {
             card.frame.size.width = newWidth;
             card.headerView.frame.size.width = newWidth;
             card.position = count - 1 - index;
-            card.graphContainer.frame.size.width = screenWidth;
-            if card.graph != nil {
-                card.graph.frame.size.width = screenWidth;
-            }
-            if card.secondaryGraph != nil {
-                card.secondaryGraph.frame.size.width = screenWidth;
-            }
         }
     }
 }
