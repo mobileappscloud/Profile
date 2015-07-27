@@ -166,12 +166,8 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         }
         var activitiesByDevice: [String: String] = [:];
         for activity in activities {
-            if activity.points > largestActivityPoints {
-                largestActivityPoints = activity.points;
-            }
             var type = ActivityCategory.categoryFromActivity(activity).getString();
             if let (total, activityList) = activitiesByType[type] {
-                let a = activitiesByDevice[String(activity.device.name)];
                 if activitiesByDevice[String(activity.device.name)] == nil || type == ActivityCategory.Health.getString() {
                     var previousActivities = activityList;
                     previousActivities.append(activity);
@@ -196,8 +192,20 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         if SessionController.Instance.checkins.count == 0 && SessionController.Instance.activities.count == 0 {
             layoutBlankState();
         } else {
+            for (type, (total, activityList)) in activitiesByType {
+                if total > largestActivityPoints {
+                    largestActivityPoints = total;
+                }
+            }
+            activityKeys.sort(sortByValue);
             layoutActivityView();
         }
+    }
+
+    func sortByValue(key1: String, key2: String) -> Bool {
+        let (total1, list1) = activitiesByType[key1]!;
+        let (total2, list2) = activitiesByType[key2]!;
+        return total1 > total2;
     }
 
     func layoutBlankState() {
