@@ -301,7 +301,7 @@
 		D1EEDBA31A66E4B10012EFD3 /* ChallengeLeaderboardRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDBA21A66E4B10012EFD3 /* ChallengeLeaderboardRow.xib */; };
 		D1EEDBA51A66FA570012EFD3 /* ChallengeLeaderboardRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EEDBA41A66FA570012EFD3 /* ChallengeLeaderboardRow.swift */; };
 		D1EFDC531B45D48400A340DD /* TriangleMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EFDC521B45D48400A340DD /* TriangleMarker.swift */; };
-		D1F10C211B62E3DB0086E728 /* fitnessband.png in Resources */ = {isa = PBXBuildFile; fileRef = D1F10C201B62E3DB0086E728 /* fitnessband.png */; };
+		D1F10C211B62E3DB0086E728 /* fitnessband@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D1F10C201B62E3DB0086E728 /* fitnessband@2x.png */; };
 		D1FC09951A83DE960049B5C0 /* team_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D1FC09941A83DE960049B5C0 /* team_icon.png */; };
 		D1FC72931B20116F0068CF89 /* WeightMetricCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FC72921B20116F0068CF89 /* WeightMetricCard.swift */; };
 		D1FC72951B209CA40068CF89 /* MetricDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FC72941B209CA40068CF89 /* MetricDelegate.swift */; };
@@ -654,7 +654,7 @@
 		D1EEDBA21A66E4B10012EFD3 /* ChallengeLeaderboardRow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeLeaderboardRow.xib; sourceTree = "<group>"; };
 		D1EEDBA41A66FA570012EFD3 /* ChallengeLeaderboardRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeLeaderboardRow.swift; sourceTree = "<group>"; };
 		D1EFDC521B45D48400A340DD /* TriangleMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriangleMarker.swift; sourceTree = "<group>"; };
-		D1F10C201B62E3DB0086E728 /* fitnessband.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fitnessband.png; path = images/fitnessband.png; sourceTree = "<group>"; };
+		D1F10C201B62E3DB0086E728 /* fitnessband@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fitnessband@2x.png"; path = "images/fitnessband@2x.png"; sourceTree = "<group>"; };
 		D1FC09941A83DE960049B5C0 /* team_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = team_icon.png; path = images/team_icon.png; sourceTree = "<group>"; };
 		D1FC72921B20116F0068CF89 /* WeightMetricCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeightMetricCard.swift; sourceTree = "<group>"; };
 		D1FC72941B209CA40068CF89 /* MetricDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricDelegate.swift; sourceTree = "<group>"; };
@@ -1403,7 +1403,7 @@
 		D17334391B594FAF0089BBFD /* Metrics */ = {
 			isa = PBXGroup;
 			children = (
-				D1F10C201B62E3DB0086E728 /* fitnessband.png */,
+				D1F10C201B62E3DB0086E728 /* fitnessband@2x.png */,
 				D173343A1B594FCD0089BBFD /* bloodpressure_copy@2x.png */,
 				D173343B1B594FCD0089BBFD /* weight_copy@2x.png */,
 				D173343C1B594FCD0089BBFD /* pulse_copy@2x.png */,
@@ -1577,7 +1577,7 @@
 				8F3643A519460EB300C0033E /* Main.storyboard in Resources */,
 				D17334471B596CF90089BBFD /* metrics.png in Resources */,
 				8F2B7E5D198C49A9009DE89A /* nav_ocmicon.png in Resources */,
-				D1F10C211B62E3DB0086E728 /* fitnessband.png in Resources */,
+				D1F10C211B62E3DB0086E728 /* fitnessband@2x.png in Resources */,
 				D1036CFF1B153477003E7239 /* sleepicon.png in Resources */,
 				8FF94091198960C900D319D7 /* LoginView.xib in Resources */,
 				D10E524A1B5048CA0007EF10 /* ui_chatter.png in Resources */,
@@ -1695,6 +1695,7 @@
 				8FA5925B19AB921C00622266 /* create_overlay.png in Resources */,
 				8F5E7FE3199C081F009067E5 /* vital_bmi_icon.png in Resources */,
 				D17528861B0FC852006335B4 /* DailySummaryBreakdownView.xib in Resources */,
+				8F5E7FCC199BC976009067E5 /* BpCheckinCellView.xib in Resources */,
 				D17787241A96873500C78F8B /* higistation@2x.png in Resources */,
 				8FF9518B1A01AC69005FD632 /* banner_nologo.png in Resources */,
 				8F2B7E51198C3058009DE89A /* oc_settings.png in Resources */,
