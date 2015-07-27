@@ -56,6 +56,7 @@ class MetricsViewController: UIViewController {
     override func viewWillDisappear(animated: Bool) {
         self.navigationController!.navigationBarHidden = false;
         super.viewWillDisappear(animated);
+        prepareOrientationForLeaving();
     }
     
     override func prefersStatusBarHidden() -> Bool {
@@ -177,16 +178,10 @@ class MetricsViewController: UIViewController {
     }
     
     func backButtonClicked(sender: AnyObject) {
-        let revealController = (self.navigationController as! MainNavigationController).revealController;
-        revealController.supportedOrientations = previousSupportedOrientations;
-        revealController.shouldRotate = true;
-        UIDevice.currentDevice().setValue(previousActualOrientation, forKey: "orientation");
-        UIViewController.attemptRotationToDeviceOrientation();
-        revealController.shouldRotate = previousShouldRotate;
-        
+        prepareOrientationForLeaving();
         self.navigationController!.popViewControllerAnimated(true);
     }
-
+    
     func cardClickedAtIndex(index: Int) {
         if (index == 0) {
             return;
@@ -405,6 +400,24 @@ class MetricsViewController: UIViewController {
             self.detailsCard.frame.origin.y = self.detailsCardPosY;
             }, completion: nil);
         detailsCard.frame.origin.y = self.detailsCardPosY;
+    }
+    
+    func prepareForPortraitOrientation() {
+        let revealController = (self.navigationController as! MainNavigationController).revealController;
+        revealController.supportedOrientations = UIInterfaceOrientationMask.Portrait.rawValue;
+        revealController.shouldRotate = true;
+        UIDevice.currentDevice().setValue(UIInterfaceOrientation.Portrait.rawValue, forKey: "orientation");
+        UIViewController.attemptRotationToDeviceOrientation();
+        revealController.shouldRotate = false;
+    }
+    
+    func prepareOrientationForLeaving() {
+        let revealController = (self.navigationController as! MainNavigationController).revealController;
+        revealController.supportedOrientations = previousSupportedOrientations;
+        revealController.shouldRotate = true;
+        UIDevice.currentDevice().setValue(previousActualOrientation, forKey: "orientation");
+        UIViewController.attemptRotationToDeviceOrientation();
+        revealController.shouldRotate = previousShouldRotate;
     }
     
     override func viewDidLayoutSubviews() {
