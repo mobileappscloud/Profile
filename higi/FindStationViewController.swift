@@ -652,6 +652,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated);
         mapView.removeObserver(self, forKeyPath: "myLocation");
+        firstLocation = false;
     }
     
     deinit {
