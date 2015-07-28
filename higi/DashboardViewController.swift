@@ -168,7 +168,6 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                 challengeView.updateConstraintsIfNeeded();
                 challengeView.animate();
                 
-                challengesCard.loadingContainer.hidden = true;
                 challengesCard.spinner.stopAnimating();
             } else if (challengesLoaded) {
                 challengesCard.challengeBox.hidden = true;
