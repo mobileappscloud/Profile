@@ -404,7 +404,7 @@ class MetricsViewController: UIViewController {
         UIViewController.attemptRotationToDeviceOrientation();
         revealController.shouldRotate = false;
     }
-    
+
     func prepareOrientationForLeaving() {
         let revealController = (self.navigationController as! MainNavigationController).revealController;
         revealController.supportedOrientations = previousSupportedOrientations;
