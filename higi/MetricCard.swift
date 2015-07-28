@@ -156,11 +156,25 @@ class MetricCard: UIView, MetricDelegate {
         let screenHeight = min(UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height);
         let baseGraph = isPrimaryGraph ? graph : secondaryGraph;
         if (delegate.getType() == MetricsType.DailySummary && baseGraph.points.count > 0) {
-            let lineY = baseGraph.getScreenPoint(0, yPoint: 100).y;
-            let view = UIView(frame: CGRect(x: 0, y: lineY, width: screenWidth, height: 2));
-            view.backgroundColor = Utility.colorFromHexString("#EEEEEE");
+            var frame = graphContainer.frame;
+            let lineY = baseGraph.getScreenPoint(0, yPoint: 100).y - frame.origin.y;
             
-            self.graphContainer.insertSubview(view, belowSubview: baseGraph);
+            let path = CGPathCreateMutable();
+            CGPathMoveToPoint(path, nil, 0, lineY);
+            CGPathAddLineToPoint(path, nil, screenWidth, lineY);
+            
+            let shapeLayer = CAShapeLayer();
+            shapeLayer.lineWidth = 1;
+            shapeLayer.lineDashPattern = [NSNumber(integer: 10), NSNumber(integer: 5)];
+            shapeLayer.fillColor = UIColor.clearColor().CGColor;
+            shapeLayer.strokeColor = Utility.colorFromHexString("#eeeeee").CGColor;
+            shapeLayer.frame = graphContainer.frame;
+            shapeLayer.position = graphContainer.center;
+            shapeLayer.path = path;
+ 
+            graphContainer.layer.insertSublayer(shapeLayer, atIndex: 0);
+            
+            
         } else if (baseGraph.points.count > 0 && delegate.shouldShowRegions()) {
             if regions.count > 0 {
                 for region in regions {
