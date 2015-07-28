@@ -229,16 +229,20 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         }
         var tickInterval = 20.0;
         var lowerBound = roundToLowest(round(minY) - (maxY - minY) * 0.25, roundTo: tickInterval);
+        //make sure lowerbound is low enough to include min
         if (lowerBound >= minY - 10) {
             lowerBound = minY * 0.25;
         }
+        //make sure lowest points are not cut off by the x axis, (but don't do it for range with little variance between max and min like body fat)
         if ((minY - lowerBound < tickInterval) && (maxY - minY > tickInterval)) {
             lowerBound = -tickInterval;
         }
         var yRange = roundToHighest((maxY - minY) * 1.25, roundTo: tickInterval);
+        //make sure yRange includes max point (needed when max and min are large and close together)
         if (lowerBound + yRange <= maxY) {
             yRange = roundToHighest(maxY - lowerBound + tickInterval, roundTo: tickInterval);
         }
+        //make sure top most points have enough padding
         if (maxY - yRange < tickInterval) {
             yRange += tickInterval;
         }
