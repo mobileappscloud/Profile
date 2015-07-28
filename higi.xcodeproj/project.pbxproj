@@ -93,12 +93,6 @@
 		8F5E7FBF199965CF009067E5 /* PinCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5E7FBE199965CF009067E5 /* PinCodeViewController.swift */; };
 		8F5E7FC11999674C009067E5 /* KioskListCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F5E7FC01999674C009067E5 /* KioskListCellView.xib */; };
 		8F5E7FC31999676E009067E5 /* KioskListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5E7FC21999676E009067E5 /* KioskListCell.swift */; };
-		8F5E7FC5199BC6CB009067E5 /* CheckinCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5E7FC4199BC6CB009067E5 /* CheckinCard.swift */; };
-		8F5E7FC9199BC74E009067E5 /* CheckinCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F5E7FC8199BC74E009067E5 /* CheckinCardView.xib */; };
-		8F5E7FCC199BC976009067E5 /* BpCheckinCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F5E7FCB199BC976009067E5 /* BpCheckinCellView.xib */; };
-		8F5E7FCE199BC986009067E5 /* CheckinCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F5E7FCD199BC986009067E5 /* CheckinCellView.xib */; };
-		8F5E7FD0199BC992009067E5 /* CheckinCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5E7FCF199BC992009067E5 /* CheckinCell.swift */; };
-		8F5E7FD2199BC99C009067E5 /* BpCheckinCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5E7FD1199BC99C009067E5 /* BpCheckinCell.swift */; };
 		8F5E7FD7199BCD52009067E5 /* graph_sincelastarrow_down_invert.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5E7FD3199BCD52009067E5 /* graph_sincelastarrow_down_invert.png */; };
 		8F5E7FD8199BCD52009067E5 /* graph_sincelastarrow_nochange_invert.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5E7FD4199BCD52009067E5 /* graph_sincelastarrow_nochange_invert.png */; };
 		8F5E7FD9199BCD52009067E5 /* graph_sincelastarrow_up_invert.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5E7FD5199BCD52009067E5 /* graph_sincelastarrow_up_invert.png */; };
@@ -119,7 +113,6 @@
 		8F6A24311951E5D80094B73C /* ApiUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6A24301951E5D80094B73C /* ApiUtility.swift */; };
 		8F6A24361958DDFB0094B73C /* NewCPTMutablePlotRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F6A24351958DDFB0094B73C /* NewCPTMutablePlotRange.m */; };
 		8F6A243C1958EA730094B73C /* NewCPTScatterPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F6A243B1958EA730094B73C /* NewCPTScatterPlot.m */; };
-		8F6ACCBE199C1B4E00D5E157 /* TwoLineCheckinCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F6ACCBD199C1B4E00D5E157 /* TwoLineCheckinCellView.xib */; };
 		8F6ACCC0199D687D00D5E157 /* mapicon_higicard.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F6ACCBF199D687D00D5E157 /* mapicon_higicard.png */; };
 		8F6D510E1947B2E700F7C769 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6D510D1947B2E700F7C769 /* Utility.swift */; };
 		8F6D51751948E53100F7C769 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F6D51741948E53100F7C769 /* Accelerate.framework */; };
@@ -430,12 +423,6 @@
 		8F5E7FBE199965CF009067E5 /* PinCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinCodeViewController.swift; sourceTree = "<group>"; };
 		8F5E7FC01999674C009067E5 /* KioskListCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KioskListCellView.xib; sourceTree = "<group>"; };
 		8F5E7FC21999676E009067E5 /* KioskListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KioskListCell.swift; sourceTree = "<group>"; };
-		8F5E7FC4199BC6CB009067E5 /* CheckinCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckinCard.swift; sourceTree = "<group>"; };
-		8F5E7FC8199BC74E009067E5 /* CheckinCardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CheckinCardView.xib; sourceTree = "<group>"; };
-		8F5E7FCB199BC976009067E5 /* BpCheckinCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BpCheckinCellView.xib; sourceTree = "<group>"; };
-		8F5E7FCD199BC986009067E5 /* CheckinCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CheckinCellView.xib; sourceTree = "<group>"; };
-		8F5E7FCF199BC992009067E5 /* CheckinCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckinCell.swift; sourceTree = "<group>"; };
-		8F5E7FD1199BC99C009067E5 /* BpCheckinCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BpCheckinCell.swift; sourceTree = "<group>"; };
 		8F5E7FD3199BCD52009067E5 /* graph_sincelastarrow_down_invert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = graph_sincelastarrow_down_invert.png; path = images/graph_sincelastarrow_down_invert.png; sourceTree = "<group>"; };
 		8F5E7FD4199BCD52009067E5 /* graph_sincelastarrow_nochange_invert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = graph_sincelastarrow_nochange_invert.png; path = images/graph_sincelastarrow_nochange_invert.png; sourceTree = "<group>"; };
 		8F5E7FD5199BCD52009067E5 /* graph_sincelastarrow_up_invert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = graph_sincelastarrow_up_invert.png; path = images/graph_sincelastarrow_up_invert.png; sourceTree = "<group>"; };
@@ -458,7 +445,6 @@
 		8F6A24351958DDFB0094B73C /* NewCPTMutablePlotRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewCPTMutablePlotRange.m; sourceTree = "<group>"; };
 		8F6A243A1958EA730094B73C /* NewCPTScatterPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewCPTScatterPlot.h; sourceTree = "<group>"; };
 		8F6A243B1958EA730094B73C /* NewCPTScatterPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewCPTScatterPlot.m; sourceTree = "<group>"; };
-		8F6ACCBD199C1B4E00D5E157 /* TwoLineCheckinCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TwoLineCheckinCellView.xib; sourceTree = "<group>"; };
 		8F6ACCBF199D687D00D5E157 /* mapicon_higicard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mapicon_higicard.png; path = images/mapicon_higicard.png; sourceTree = "<group>"; };
 		8F6D510D1947B2E700F7C769 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		8F6D51741948E53100F7C769 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
@@ -1136,24 +1122,9 @@
 			name = Security;
 			sourceTree = "<group>";
 		};
-		8F5E7FCA199BC941009067E5 /* Checkin Card */ = {
-			isa = PBXGroup;
-			children = (
-				8F5E7FD1199BC99C009067E5 /* BpCheckinCell.swift */,
-				8F5E7FCB199BC976009067E5 /* BpCheckinCellView.xib */,
-				8F5E7FC4199BC6CB009067E5 /* CheckinCard.swift */,
-				8F5E7FC8199BC74E009067E5 /* CheckinCardView.xib */,
-				8F5E7FCF199BC992009067E5 /* CheckinCell.swift */,
-				8F5E7FCD199BC986009067E5 /* CheckinCellView.xib */,
-				8F6ACCBD199C1B4E00D5E157 /* TwoLineCheckinCellView.xib */,
-			);
-			name = "Checkin Card";
-			sourceTree = "<group>";
-		};
 		8F5E7FDD199C0011009067E5 /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
-				8F5E7FCA199BC941009067E5 /* Checkin Card */,
 				8F6A243D195A011F0094B73C /* Graphing */,
 				D1147DEB1B56076B0005E10A /* Loading */,
 				D1147DE91B56073D0005E10A /* Meter Gauge */,
@@ -1593,7 +1564,6 @@
 				8F02A12119AE2BF6002FF73E /* btn_back_white.png in Resources */,
 				8FF940A2198A8CE400D319D7 /* ProfileImageView.xib in Resources */,
 				8F5C38D019818BA900F51543 /* gauge3_normal.png in Resources */,
-				8F6ACCBE199C1B4E00D5E157 /* TwoLineCheckinCellView.xib in Resources */,
 				8F02A12019AE2BF6002FF73E /* btn_back_black@2x.png in Resources */,
 				8FF9409E198A8CB600D319D7 /* SignupNameView.xib in Resources */,
 				8F5C38D219818BA900F51543 /* gauge3_overweight.png in Resources */,
@@ -1601,7 +1571,6 @@
 				8F5F91891A7193E80042D87C /* challengewidgetblankstate.png in Resources */,
 				8FDCE1C61988072C006428C3 /* btn_close_reminder.png in Resources */,
 				D1A9C6FF1A951D0D0008084B /* chatterbutton_pressed.png in Resources */,
-				8F5E7FC9199BC74E009067E5 /* CheckinCardView.xib in Resources */,
 				8F1D97A0199558F7003B5645 /* checkmark.png in Resources */,
 				8FEF6F3A1A6EAA58001EF8A6 /* DashboardView.xib in Resources */,
 				8F5F918A1A7193E80042D87C /* dashboard_errorstate.png in Resources */,
@@ -1726,7 +1695,6 @@
 				8FA5925B19AB921C00622266 /* create_overlay.png in Resources */,
 				8F5E7FE3199C081F009067E5 /* vital_bmi_icon.png in Resources */,
 				D17528861B0FC852006335B4 /* DailySummaryBreakdownView.xib in Resources */,
-				8F5E7FCC199BC976009067E5 /* BpCheckinCellView.xib in Resources */,
 				D17787241A96873500C78F8B /* higistation@2x.png in Resources */,
 				8FF9518B1A01AC69005FD632 /* banner_nologo.png in Resources */,
 				8F2B7E51198C3058009DE89A /* oc_settings.png in Resources */,
@@ -1737,7 +1705,6 @@
 				8FE056E5198FDC5F00C81208 /* SettingsView.xib in Resources */,
 				D17334431B594FCD0089BBFD /* map_copy@2x.png in Resources */,
 				8F5C38CD19818BA900F51543 /* gauge2_atrisk.png in Resources */,
-				8F5E7FCE199BC986009067E5 /* CheckinCellView.xib in Resources */,
 				D17C0A8D1A9FC5520010971C /* unpluggederrorstate.png in Resources */,
 				8F3643A719460EB300C0033E /* Images.xcassets in Resources */,
 				D1A713A91ACF2028008DF01A /* map_iconwithdot@2x.png in Resources */,
@@ -1824,7 +1791,6 @@
 				D1E2237A1A8009E6006330E7 /* ConnectDeviceViewController.swift in Sources */,
 				8F9C69DB1950C8B700449664 /* PulseArticle.swift in Sources */,
 				8FF2E06E194A5E9500A81D8C /* NewCPTPlotRange.m in Sources */,
-				8F5E7FD2199BC99C009067E5 /* BpCheckinCell.swift in Sources */,
 				D15372911A841FEA00954569 /* TermsAndConditionsViewController.swift in Sources */,
 				D1FC72971B20B0DC0068CF89 /* PulseMetricDelegate.swift in Sources */,
 				8F77DF1A1A0080550056BE27 /* GraphPoint.swift in Sources */,
@@ -1834,7 +1800,6 @@
 				8F2CB58019925631009377A8 /* WebViewController.swift in Sources */,
 				D12B370E1AA4EC57005B2ABA /* SphericalMercatorProjection.m in Sources */,
 				8FF9409A198A8C1800D319D7 /* ProfileImageViewController.swift in Sources */,
-				8F5E7FC5199BC6CB009067E5 /* CheckinCard.swift in Sources */,
 				D1FC729F1B223FE80068CF89 /* MetricGauge.swift in Sources */,
 				8FE056E3198FDC3900C81208 /* SettingsViewController.swift in Sources */,
 				D13D36531B30D78E00F18A42 /* ActivityCategory.swift in Sources */,
@@ -1878,7 +1843,6 @@
 				D114B06B1B2A19900073A9CB /* TriangleView.swift in Sources */,
 				D1FC72991B20B1B70068CF89 /* WeightMetricDelegate.swift in Sources */,
 				8FEF1B051AA9173D0036C4FB /* ChallengeView.swift in Sources */,
-				8F5E7FD0199BC992009067E5 /* CheckinCell.swift in Sources */,
 				8F3643A019460EB300C0033E /* AppDelegate.swift in Sources */,
 				8F7065B81A16B46A002FCA10 /* ChallengeTeam.swift in Sources */,
 				8F6D510E1947B2E700F7C769 /* Utility.swift in Sources */,
