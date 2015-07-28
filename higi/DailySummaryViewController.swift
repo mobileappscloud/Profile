@@ -179,7 +179,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         for activity in activities {
             var type = ActivityCategory.categoryFromActivity(activity).getString();
             if let (total, activityList) = activitiesByType[type] {
-                if activitiesByDevice[String(activity.device.name)] == nil || type == ActivityCategory.Health.getString() {
+                if activitiesByDevice[String(activity.device.name)] == nil || type == ActivityCategory.Health.getString() || type == ActivityCategory.Lifestyle.getString() {
                     var previousActivities = activityList;
                     previousActivities.append(activity);
                     var points = total;
