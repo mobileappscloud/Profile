@@ -413,7 +413,7 @@ class MetricsViewController: UIViewController {
         UIViewController.attemptRotationToDeviceOrientation();
         revealController.shouldRotate = previousShouldRotate;
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews();
         let subViews = self.view.subviews;
