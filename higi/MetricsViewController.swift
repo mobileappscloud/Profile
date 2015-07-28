@@ -213,9 +213,8 @@ class MetricsViewController: UIViewController {
                         UIView.animateWithDuration(self.animationDuration, delay: 0, options: .CurveEaseInOut, animations: {
                             card.headerView.frame.size.width = newWidth;
                             card.frame.size.width = newWidth;
-                            }, completion:  { complete in
-//                                card.frame.size.width = newWidth;
-                        });
+                            card.icon.frame.origin.x = newWidth - 8 - card.icon.frame.size.width;
+                            }, completion:  nil );
                     }
                     self.updateDetailCard();
                     self.detailsCard.headerContainer.alpha = 1;
