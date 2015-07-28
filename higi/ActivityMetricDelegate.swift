@@ -66,10 +66,6 @@ class ActivityMetricDelegate: MetricDelegate {
         }
     }
     
-    func getGraph(frame: CGRect) -> MetricGraph {
-        return MetricGraphUtility.createActivityGraph(CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height));
-    }
-    
     func getRanges(tab:Int) -> [MetricGauge.Range] {
         return [];
     }
