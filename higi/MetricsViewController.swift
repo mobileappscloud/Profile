@@ -18,7 +18,7 @@ class MetricsViewController: UIViewController {
     
     var previousSupportedOrientations: UInt!;
     
-    var previousActualOrientation: Int!;
+    var previousActualOrientation: Int!, selectedCardPosition = 0;
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -75,10 +75,62 @@ class MetricsViewController: UIViewController {
     }
     
     func initCards() {
+        var heaviest = 1.0, thinnest = 100.0, fattest = 1.0;
+        for checkin in SessionController.Instance.checkins {
+            if (checkin.weightLbs != nil && checkin.weightLbs > heaviest) {
+                heaviest = checkin.weightLbs!;
+            }
+            if (checkin.fatRatio != nil && checkin.fatRatio > fattest) {
+                fattest = checkin.fatRatio!;
+            }
+            if (checkin.fatRatio != nil && checkin.fatRatio < thinnest) {
+                thinnest = checkin.fatRatio!;
+            }
+        }
+        var bpPoints:[GraphPoint] = [], bpAltPoints:[GraphPoint] = [], pulsePoints:[GraphPoint] = [], weightPoints:[GraphPoint] = [], fatPoints:[GraphPoint] = [], fatAltPoints:[GraphPoint] = [];
+        var lastBpDate = "", lastPulseDate = "", lastWeightDate = "", lastFatDate = "";
+        let vak = SessionController.Instance.checkins.count;
+        let normalizeFactor = (1 + (fattest - thinnest) / 150.0);
+        for checkin in SessionController.Instance.checkins {
+            let a = NSDate().timeIntervalSince1970;
+            let dateString = Constants.dateFormatter.stringFromDate(checkin.dateTime);
+            let checkinTime = Utility.dateWithDateComponentOnly(checkin.dateTime).timeIntervalSince1970;
+            if (dateString != lastBpDate && checkin.map != nil && checkin.map > 0) {
+                bpPoints.append(GraphPoint(x: checkinTime, y: checkin.map));
+                if (checkin.diastolic != nil && checkin.diastolic > 0) {
+                    bpAltPoints.append(GraphPoint(x: checkinTime, y: Double(checkin.diastolic!)));
+                    bpAltPoints.append(GraphPoint(x: checkinTime, y: Double(checkin.systolic!)));
+                } else {
+                    bpAltPoints.append(GraphPoint(x: checkinTime, y: 0));
+                    bpAltPoints.append(GraphPoint(x: checkinTime, y: 0));
+                }
+                lastBpDate = dateString;
+            }
+            if (dateString != lastPulseDate && checkin.pulseBpm != nil && checkin.pulseBpm > 0) {
+                pulsePoints.append(GraphPoint(x: checkinTime, y: Double(checkin.pulseBpm!)));
+                lastPulseDate = dateString;
+            }
+            if (dateString != lastWeightDate && checkin.weightLbs != nil && checkin.weightLbs > 0) {
+                weightPoints.append(GraphPoint(x: checkinTime, y: checkin.weightLbs));
+                fatAltPoints.append(GraphPoint(x: checkinTime, y: 10 + (checkin.weightLbs! / heaviest) * fattest * normalizeFactor));
+                lastWeightDate = dateString;
+            }
+            if (dateString != lastFatDate && checkin.fatRatio != nil && checkin.fatRatio > 0) {
+                fatPoints.append(GraphPoint(x: checkinTime, y: checkin.fatRatio));
+                lastFatDate = dateString;
+            }
+        }
+        var activityPoints:[GraphPoint] = [];
+        for (date, (total, activityList)) in SessionController.Instance.activities {
+            if (activityList.count > 0) {
+                let activityDate = Double(Constants.dateFormatter.dateFromString(date)!.timeIntervalSince1970);
+                activityPoints.append(GraphPoint(x: activityDate, y: Double(total)));
+            }
+        }
+        activityPoints.sort({$0.x < $1.x});
         for subView in self.view.subviews {
             subView.removeFromSuperview();
         }
-        var selectedCardPosition = 0;
         var pos = MetricsType.allValues.count - 1;
         var card: MetricCard?;
         for type in MetricsType.allValues.reverse() {
@@ -86,15 +138,15 @@ class MetricsViewController: UIViewController {
             cardFrame.size.width = cardFrame.size.width - CGFloat((MetricsType.allValues.count - 1 - pos) * cardMargin);
             switch(type) {
             case MetricsType.DailySummary:
-                card = MetricCard.instanceFromNib(ActivityMetricDelegate(), frame: cardFrame);
+                card = MetricCard.instanceFromNib(ActivityMetricDelegate(), frame: cardFrame, points: activityPoints, altPoints: []);
             case MetricsType.BloodPressure:
-                card = MetricCard.instanceFromNib(BpMetricDelegate(), frame: cardFrame);
+                card = MetricCard.instanceFromNib(BpMetricDelegate(), frame: cardFrame, points: bpPoints, altPoints: bpAltPoints);
             case MetricsType.Pulse:
-                card = MetricCard.instanceFromNib(PulseMetricDelegate(), frame: cardFrame);
+                card = MetricCard.instanceFromNib(PulseMetricDelegate(), frame: cardFrame, points: pulsePoints, altPoints: []);
             case MetricsType.Weight:
                 let delegate = WeightMetricDelegate();
-                card = MetricCard.instanceFromNib(delegate, frame: cardFrame);
-                if let secondaryGraph = delegate.getSecondaryGraph(card!.graphContainer.frame) {
+                card = MetricCard.instanceFromNib(delegate, frame: cardFrame, points: weightPoints, altPoints: []);
+                if let secondaryGraph = delegate.getSecondaryGraph(card!.graphContainer.frame, points: fatPoints, altPoints: fatAltPoints) {
                     card!.secondaryGraph = secondaryGraph;
                     card!.secondaryGraph.hidden = true;
                     card!.toggleButton.hidden = false;
@@ -118,22 +170,14 @@ class MetricsViewController: UIViewController {
             detailsGone = true;
             self.view.addSubview(detailsCard);
         }
-        if (selectedCardPosition != 0) {
-            cardClickedAtIndex(selectedCardPosition);
-        }
+        cardClickedAtIndex(selectedCardPosition);
     }
     
     func backButtonClicked(sender: AnyObject) {
-        let revealController = (self.navigationController as! MainNavigationController).revealController;
-        revealController.supportedOrientations = previousSupportedOrientations;
-        revealController.shouldRotate = true;
-        UIDevice.currentDevice().setValue(previousActualOrientation, forKey: "orientation");
-        UIViewController.attemptRotationToDeviceOrientation();
-        revealController.shouldRotate = previousShouldRotate;
-        
+        prepareOrientationForLeaving();
         self.navigationController!.popViewControllerAnimated(true);
     }
-
+    
     func cardClickedAtIndex(index: Int) {
         if (index == 0) {
             return;
@@ -145,9 +189,9 @@ class MetricsViewController: UIViewController {
             let subViews = self.view.subviews;
             let count = MetricsType.allValues.count;
             let distance = count - index;
-            var viewsToSend:[UIView] = [];
+            var viewsToSend:[MetricCard] = [];
             for index in distance...count - 1 {
-                viewsToSend.append(subViews[index] as! UIView);
+                viewsToSend.append(subViews[index] as! MetricCard);
             }
             UIView.animateWithDuration(animationDuration, delay: 0, options: .CurveEaseInOut, animations: {
                 for card in viewsToSend {
@@ -157,19 +201,21 @@ class MetricsViewController: UIViewController {
                     
                     for card in viewsToSend.reverse() {
                         card.frame.origin.x = 0;
+                        card.headerView.frame.size.width = self.screenWidth;
                         card.frame.size.width = self.screenWidth;
                         self.view.insertSubview(card, atIndex: 0);
+                        card.headerView.layoutIfNeeded();
                     }
                     
                     for index in 0...count - 1 {
                         let card = subViews[index] as! MetricCard;
                         let newWidth = self.screenWidth - CGFloat((index + 1) * self.cardMargin);
                         UIView.animateWithDuration(self.animationDuration, delay: 0, options: .CurveEaseInOut, animations: {
+                            card.headerView.frame.size.width = newWidth;
                             card.frame.size.width = newWidth;
                             }, completion:  { complete in
-                                
+//                                card.frame.size.width = newWidth;
                         });
-                        
                     }
                     self.updateDetailCard();
                     self.detailsCard.headerContainer.alpha = 1;
@@ -354,6 +400,24 @@ class MetricsViewController: UIViewController {
         detailsCard.frame.origin.y = self.detailsCardPosY;
     }
     
+    func prepareForPortraitOrientation() {
+        let revealController = (self.navigationController as! MainNavigationController).revealController;
+        revealController.supportedOrientations = UIInterfaceOrientationMask.Portrait.rawValue;
+        revealController.shouldRotate = true;
+        UIDevice.currentDevice().setValue(UIInterfaceOrientation.Portrait.rawValue, forKey: "orientation");
+        UIViewController.attemptRotationToDeviceOrientation();
+        revealController.shouldRotate = false;
+    }
+    
+    func prepareOrientationForLeaving() {
+        let revealController = (self.navigationController as! MainNavigationController).revealController;
+        revealController.supportedOrientations = previousSupportedOrientations;
+        revealController.shouldRotate = true;
+        UIDevice.currentDevice().setValue(previousActualOrientation, forKey: "orientation");
+        UIViewController.attemptRotationToDeviceOrientation();
+        revealController.shouldRotate = previousShouldRotate;
+    }
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews();
         let subViews = self.view.subviews;
@@ -361,9 +425,8 @@ class MetricsViewController: UIViewController {
         for index in 0...count - 1 {
             let card = subViews[index] as! MetricCard;
             let newWidth = screenWidth - CGFloat((index) * self.cardMargin);
-            UIView.animateWithDuration(animationDuration, delay: 0, options: .CurveEaseInOut, animations: {
-                card.frame.size.width = newWidth;
-                }, completion: nil);
+            card.frame.size.width = newWidth;
+            card.headerView.frame.size.width = newWidth;
             card.position = count - 1 - index;
             card.graphContainer.frame.size.width = screenWidth;
             if card.graph != nil {

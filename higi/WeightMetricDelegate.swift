@@ -33,7 +33,11 @@ class WeightMetricDelegate: MetricDelegate {
     }
     
     func getBlankStateImage() -> UIImage {
-        return UIImage(named: "bodyfat_copy")!;
+        return UIImage(named: "higistation")!;
+    }
+    
+    func getBlankStateText() -> String {
+        return "It looks like you don’t have any weight readings with us. You can start tracking your weight by visiting your local higi Station. And get this, higi will reward your 50 points for each weight check. If you don’t have a higi Station nearby, you can sync your favorite wireless weight scale with higi to start tracking your weight loss and get rewarded for it!";
     }
     
     func setSelected(date: NSDate) {
@@ -111,9 +115,8 @@ class WeightMetricDelegate: MetricDelegate {
         return graph;
     }
     
-    func getSecondaryGraph(frame: CGRect) -> MetricGraph? {
-        secondaryGraph = MetricGraphUtility.createBodyFatGraph(CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height));
-        return secondaryGraph;
+    func getSecondaryGraph(frame: CGRect, points: [GraphPoint], altPoints:[GraphPoint]) -> MetricGraph? {
+        return MetricGraphUtility.graphWithPoints(CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), points: points, altPoints: altPoints, color:  getColor());
     }
     
     func getRanges(tab:Int) -> [MetricGauge.Range] {

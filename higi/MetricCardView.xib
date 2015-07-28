@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -50,7 +50,7 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P2d-EJ-Fzo">
-                                    <rect key="frame" x="124" y="12" width="135" height="30"/>
+                                    <rect key="frame" x="124" y="0.0" width="135" height="54"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                     <state key="normal" title="Switch to Body Fat %">
@@ -68,10 +68,10 @@
                                 <constraint firstItem="j3p-dy-V9m" firstAttribute="leading" secondItem="wUV-nj-F9j" secondAttribute="trailing" constant="8" id="3Mn-fg-0M4"/>
                                 <constraint firstItem="P2d-EJ-Fzo" firstAttribute="leading" secondItem="j3p-dy-V9m" secondAttribute="trailing" constant="27" id="3Nr-U5-uuN"/>
                                 <constraint firstItem="wUV-nj-F9j" firstAttribute="leading" secondItem="UIY-l6-dOw" secondAttribute="leading" constant="16" id="69Z-sz-Vms"/>
-                                <constraint firstItem="P2d-EJ-Fzo" firstAttribute="top" secondItem="UIY-l6-dOw" secondAttribute="top" constant="12" id="8kR-6S-ycc"/>
+                                <constraint firstItem="P2d-EJ-Fzo" firstAttribute="top" secondItem="UIY-l6-dOw" secondAttribute="top" id="8kR-6S-ycc"/>
                                 <constraint firstItem="sQT-Mg-g6l" firstAttribute="top" secondItem="UIY-l6-dOw" secondAttribute="top" constant="12" id="Dlp-uX-OzW"/>
                                 <constraint firstAttribute="bottom" secondItem="wUV-nj-F9j" secondAttribute="bottom" constant="10" id="JDn-gr-9mt"/>
-                                <constraint firstAttribute="bottom" secondItem="P2d-EJ-Fzo" secondAttribute="bottom" constant="12" id="PPk-ZU-7GC"/>
+                                <constraint firstAttribute="bottom" secondItem="P2d-EJ-Fzo" secondAttribute="bottom" id="PPk-ZU-7GC"/>
                                 <constraint firstAttribute="bottom" secondItem="sQT-Mg-g6l" secondAttribute="bottom" constant="12" id="VEh-p2-NTs"/>
                                 <constraint firstAttribute="bottom" secondItem="j3p-dy-V9m" secondAttribute="bottom" constant="17" id="ZUu-s2-jp6"/>
                                 <constraint firstAttribute="trailing" secondItem="sQT-Mg-g6l" secondAttribute="trailing" constant="8" id="ZkW-bn-ZpW"/>
@@ -87,16 +87,69 @@
                                 </mask>
                             </variation>
                         </view>
-                        <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IR2-Ay-lcD">
-                            <rect key="frame" x="0.0" y="53" width="568" height="215"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </view>
                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4dE-Vo-XNh">
                             <rect key="frame" x="0.0" y="263" width="568" height="57"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
+                        <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IR2-Ay-lcD">
+                            <rect key="frame" x="0.0" y="53" width="568" height="215"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
+                        <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jnr-Y1-7Iu">
+                            <rect key="frame" x="0.0" y="53" width="568" height="267"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="higistation.png" translatesAutoresizingMaskIntoConstraints="NO" id="OLZ-r5-Mp5">
+                                    <rect key="frame" x="34" y="43" width="150" height="157"/>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gDL-4i-yTY">
+                                    <rect key="frame" x="200" y="43" width="250" height="21"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" red="0.26666666666666666" green="0.26666666666666666" blue="0.26666666666666666" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Desc" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="31k-JS-3qz">
+                                    <rect key="frame" x="200" y="67" width="324" height="133"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <color key="textColor" red="0.26666666666666666" green="0.26666666666666666" blue="0.26666666666666666" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xSZ-25-aq6">
+                                    <rect key="frame" x="200" y="208" width="150" height="40"/>
+                                    <color key="backgroundColor" red="0.46274509800000002" green="0.75294117650000003" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <state key="normal" title="Find a higi Station">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="4"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </button>
+                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7ig-vc-wfq">
+                                    <rect key="frame" x="390" y="208" width="150" height="40"/>
+                                    <color key="backgroundColor" red="0.46274509800000002" green="0.75294117650000003" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <state key="normal" title="Find a higi Station">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="4"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </button>
+                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Or" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BvL-1R-acW">
+                                    <rect key="frame" x="358" y="217" width="24" height="21"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <color key="textColor" red="0.26666666666666666" green="0.26666666666666666" blue="0.26666666666666666" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </view>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="UIY-l6-dOw" firstAttribute="top" secondItem="Mdt-gR-rG5" secondAttribute="top" id="671-1W-yQ3"/>
                         <constraint firstAttribute="trailing" secondItem="UIY-l6-dOw" secondAttribute="trailing" id="P6u-23-eTj"/>
@@ -114,9 +167,16 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="backButton" destination="wUV-nj-F9j" id="Tjz-gi-JTF"/>
+                <outlet property="blankStateButton" destination="xSZ-25-aq6" id="com-uU-oRa"/>
+                <outlet property="blankStateContainer" destination="Jnr-Y1-7Iu" id="3eC-iW-cFW"/>
+                <outlet property="blankStateImage" destination="OLZ-r5-Mp5" id="q1X-Ae-VIf"/>
+                <outlet property="blankStateText" destination="31k-JS-3qz" id="RXB-3h-57s"/>
+                <outlet property="blankStateTitle" destination="gDL-4i-yTY" id="f5U-uZ-Eqv"/>
                 <outlet property="graphContainer" destination="IR2-Ay-lcD" id="xfS-aA-xmq"/>
                 <outlet property="headerView" destination="UIY-l6-dOw" id="5rs-X3-Zp0"/>
                 <outlet property="icon" destination="sQT-Mg-g6l" id="bTs-iq-zrt"/>
+                <outlet property="orLabel" destination="BvL-1R-acW" id="Kfg-Wz-LmM"/>
+                <outlet property="secondBlankStateButton" destination="7ig-vc-wfq" id="s96-jE-Qef"/>
                 <outlet property="title" destination="j3p-dy-V9m" id="cHX-gV-9U8"/>
                 <outlet property="toggleButton" destination="P2d-EJ-Fzo" id="C9y-l2-AqI"/>
                 <outlet property="triangleView" destination="mVp-td-bsa" id="SeC-fq-AZS"/>
@@ -127,6 +187,7 @@
     </objects>
     <resources>
         <image name="back_button_white.png" width="34" height="35"/>
+        <image name="higistation.png" width="450" height="330"/>
         <image name="workouticon.png" width="128" height="128"/>
     </resources>
 </document>

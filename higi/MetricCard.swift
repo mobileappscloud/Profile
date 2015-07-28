@@ -10,6 +10,13 @@ class MetricCard: UIView, MetricDelegate {
     @IBOutlet weak var toggleButton: UIButton!
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var triangleView: UIView!
+    @IBOutlet weak var blankStateContainer: UIView!
+    @IBOutlet weak var blankStateImage: UIImageView!
+    @IBOutlet weak var blankStateTitle: UILabel!
+    @IBOutlet weak var blankStateText: UILabel!
+    @IBOutlet weak var blankStateButton: UIButton!
+    @IBOutlet weak var orLabel: UILabel!
+    @IBOutlet weak var secondBlankStateButton: UIButton!
     
     var graph, secondaryGraph: MetricGraph!;
     
@@ -21,29 +28,43 @@ class MetricCard: UIView, MetricDelegate {
     
     var selectedCheckin: HigiCheckin!;
     
-    var initializing = true, toggleOn = true;
+    var initializing = true, toggleOn = true, blankState = false;
     
     var regions: [UIView] = [];
     
-    class func instanceFromNib(delegate: MetricDelegate, frame: CGRect) -> MetricCard {
+    var points: [GraphPoint] = [], altPoints: [GraphPoint] = [];
+    
+    class func instanceFromNib(delegate: MetricDelegate, frame: CGRect, points: [GraphPoint], altPoints: [GraphPoint]) -> MetricCard {
         let view = UINib(nibName: "MetricCardView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! MetricCard;
-        view.delegate = delegate;
-        view.initFrame(frame);
-        view.initGraphView();
-        view.initHeader();
+        view.setup(delegate, frame: frame, points: points, altPoints: altPoints);
         return view;
+    }
+
+    func setup(delegate: MetricDelegate, frame: CGRect, points: [GraphPoint], altPoints:[GraphPoint]) {
+        self.delegate = delegate;
+        self.points = points;
+        self.altPoints = altPoints;
+        
+        initFrame(frame);
+        initGraphView();
+        initHeader();
     }
     
     override func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {
-        if (point.y > 54 && point.y < (graphContainer.frame.origin.y + graphContainer.frame.size.height)) {
+        if blankState {
+            if containsPoint(blankStateButton.frame, point: point) {
+                return blankStateButton;
+            } else if containsPoint(secondBlankStateButton.frame, point: point) {
+                return secondBlankStateButton;
+            }
+        } else if (point.y > 54 && point.y < (graphContainer.frame.origin.y + graphContainer.frame.size.height)) {
             if (!graph.hidden) {
                 return graph;
             } else {
                 return secondaryGraph;
             }
-        } else {
-            return super.hitTest(point, withEvent: event);
         }
+        return super.hitTest(point, withEvent: event);
     }
     
     func getTitle() -> String {
@@ -67,15 +88,15 @@ class MetricCard: UIView, MetricDelegate {
     }
 
     func getGraph(frame: CGRect) -> MetricGraph {
-        return delegate.getGraph(frame);
+        return MetricGraphUtility.graphWithPoints(CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), points: points, altPoints: altPoints, color: delegate.getColor());
     }
     
     func getSelectedValue(tab: Int) -> String {
-        return getSelectedValue(tab);
+        return delegate.getSelectedValue(tab);
     }
     
     func getSelectedUnit(tab: Int) -> String {
-        return getSelectedUnit(tab);
+        return delegate.getSelectedUnit(tab);
     }
     
     func getSelectedClass(tab: Int) -> String {
@@ -90,22 +111,41 @@ class MetricCard: UIView, MetricDelegate {
         return delegate.getBlankStateImage();
     }
     
+    func getBlankStateText() -> String {
+        return delegate.getBlankStateText();
+    }
+    
     func shouldShowRegions() -> Bool {
         return delegate.shouldShowRegions();
     }
-    
+
     func initGraphView() {
         graph = getGraph(graphContainer.frame);
         if (graph.points.count > 0) {
             self.graphContainer.addSubview(graph);
         } else {
+            blankState = true;
             let image = delegate.getBlankStateImage();
             let height = image.size.height;
             let width = image.size.width;
-            let newWidth = (width / height) * graphContainer.frame.size.height;
-            var blankStateImage = UIImageView(frame: CGRect(x: (graphContainer.frame.size.width - newWidth) / 2, y: 0, width: newWidth, height: graphContainer.frame.size.height));
-            blankStateImage.image = Utility.scaleImage(image, newSize: CGSize(width: newWidth, height: graphContainer.frame.size.height));
-            self.graphContainer.addSubview(blankStateImage);
+            let newHeight = (height / width) * blankStateImage.frame.size.width;
+            blankStateImage.image = Utility.scaleImage(image, newSize: CGSize(width: blankStateImage.frame.size.width, height: newHeight));
+            blankStateTitle.text = "Welcome!";
+            blankStateText.text = getBlankStateText();
+            blankStateText.frame.size.height = Utility.heightForTextView(UIScreen.mainScreen().bounds.width - blankStateText.frame.origin.x, text: getBlankStateText(), fontSize: blankStateText.font.pointSize, margin: 0);
+            blankStateText.sizeToFit();
+            if delegate.getType() == MetricsType.DailySummary {
+                secondBlankStateButton.addTarget(self, action: "findStationButtonClicked:", forControlEvents: UIControlEvents.TouchUpInside);
+                blankStateButton.setTitle("Connect a Device", forState: UIControlState.Normal);
+                secondBlankStateButton.setTitle("Find a Station", forState: UIControlState.Normal);
+                blankStateButton.addTarget(self, action: "connectDeviceButtonClicked:", forControlEvents: UIControlEvents.TouchUpInside);
+                orLabel.hidden = false;
+                secondBlankStateButton.hidden = false;
+            } else {
+                blankStateButton.addTarget(self, action: "findStationButtonClicked:", forControlEvents: UIControlEvents.TouchUpInside);
+            }
+            blankStateContainer.hidden = false;
+            graphContainer.hidden = true;
         }
         initRegions(true);
         setSelected(NSDate());
@@ -232,7 +272,7 @@ class MetricCard: UIView, MetricDelegate {
         }
         toggleOn = !toggleOn;
     }
-    
+
     func cardDragged(sender: AnyObject) {
         let parent = (Utility.getViewController(self) as! MetricsViewController);
         let drag = (sender as! UIPanGestureRecognizer);
@@ -250,5 +290,24 @@ class MetricCard: UIView, MetricDelegate {
 
     func setDetailsCardPoint() {
         (Utility.getViewController(self) as! MetricsViewController).setDetailsCardPoint();
+    }
+
+    func connectDeviceButtonClicked(sender: AnyObject) {
+        Flurry.logEvent("ConnectDevice_Pressed");
+        let devicesController = (Utility.getViewController(self) as! MetricsViewController);
+        devicesController.prepareForPortraitOrientation();
+        devicesController.navigationController!.pushViewController(ConnectDeviceViewController(nibName: "ConnectDeviceView", bundle: nil), animated: true);
+    }
+    
+    func findStationButtonClicked(sender: AnyObject) {
+        Flurry.logEvent("FindStation_Pressed");
+        let metricViewController = (Utility.getViewController(self) as! MetricsViewController);
+        metricViewController.prepareForPortraitOrientation();
+        metricViewController.navigationController!.pushViewController(FindStationViewController(nibName: "FindStationView", bundle: nil), animated: true);
+    }
+
+    func containsPoint(frame: CGRect, point: CGPoint) -> Bool {
+        let translatedPoint = CGPoint(x: point.x, y: point.y - headerView.frame.size.height);
+        return (translatedPoint.x >= frame.origin.x) && (translatedPoint.x <= frame.size.width + frame.origin.x) && (translatedPoint.y >= frame.origin.y) && (translatedPoint.y <= frame.origin.y + frame.size.height);
     }
 }

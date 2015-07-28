@@ -25,7 +25,11 @@ class PulseMetricDelegate: MetricDelegate {
     }
     
     func getBlankStateImage() -> UIImage {
-        return UIImage(named: "pulse_copy")!;
+        return UIImage(named: "higistation")!;
+    }
+    
+    func getBlankStateText() -> String {
+        return "It looks like you don’t have any pulse readings with us. You can start tracking your pulse by visiting your local higi Station. And get this, higi will reward your 50 points for each BP / Pulse check-in.";
     }
     
     func setSelected(date: NSDate) {
