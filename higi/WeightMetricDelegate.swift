@@ -41,11 +41,11 @@ class WeightMetricDelegate: MetricDelegate {
     }
     
     func setSelected(date: NSDate) {
-        let selectedDate = Utility.dateWithDateComponentOnly(date).timeIntervalSince1970;
+        let selectedDate = date.timeIntervalSince1970;
         var minFatDifference = DBL_MAX, minWeightDifference = DBL_MAX;
         for checkin in SessionController.Instance.checkins.reverse() {
-            let checkinDate = Utility.dateWithDateComponentOnly(checkin.dateTime).timeIntervalSince1970;
-            let difference = abs(checkinDate - selectedDate);
+            let checkinTime = checkin.dateTime.timeIntervalSince1970;
+            let difference = abs(checkinTime - selectedDate);
             if difference < minWeightDifference {
                 if checkin.weightLbs != nil && checkin.weightLbs > 0 {
                     minWeightDifference = difference;
@@ -64,11 +64,11 @@ class WeightMetricDelegate: MetricDelegate {
         }
         if weightMode {
             if secondaryGraph != nil {
-                secondaryGraph.symbolFromXValue(Utility.dateWithDateComponentOnly(selectedFatCheckin.dateTime).timeIntervalSince1970);
+                secondaryGraph.symbolFromXValue(selectedFatCheckin.dateTime.timeIntervalSince1970);
             }
         } else {
             if graph != nil {
-                graph.symbolFromXValue(Utility.dateWithDateComponentOnly(selectedWeightCheckin.dateTime).timeIntervalSince1970);
+                graph.symbolFromXValue(selectedWeightCheckin.dateTime.timeIntervalSince1970);
             }
         }
     }
@@ -108,11 +108,6 @@ class WeightMetricDelegate: MetricDelegate {
                 return SelectedPoint(date: date, firstPanelValue: weight, firstPanelLabel: firstLabel, firstPanelUnit: firstUnit, secondPanelValue: bodyFat, secondPanelLabel: secondLabel, secondPanelUnit: secondUnit, device: device);
             }
         }
-    }
-    
-    func getGraph(frame: CGRect) -> MetricGraph {
-        graph = MetricGraphUtility.createWeightGraph(CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height));
-        return graph;
     }
     
     func getSecondaryGraph(frame: CGRect, points: [GraphPoint], altPoints:[GraphPoint]) -> MetricGraph? {

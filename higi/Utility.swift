@@ -105,6 +105,7 @@ class Utility {
     
     class func growAnimation(view: UIView, startHeight: CGFloat, endHeight: CGFloat) {
         view.frame.size.height = startHeight;
+        view.layoutIfNeeded();
         UIView.animateWithDuration(1, animations: {
             view.frame.size.height = endHeight;
         }, completion: nil)
@@ -117,10 +118,6 @@ class Utility {
                 Int64(delay * Double(NSEC_PER_SEC))
             ),
             dispatch_get_main_queue(), closure)
-    }
-    
-    class func dateWithDateComponentOnly(date: NSDate) -> NSDate {
-        return Constants.dateFormatter.dateFromString(Constants.dateFormatter.stringFromDate(date))!;
     }
     
     class func stringIndexOf(haystack: String, needle: Character) -> Int {

@@ -88,36 +88,33 @@ class MetricsViewController: UIViewController {
             }
         }
         var bpPoints:[GraphPoint] = [], bpAltPoints:[GraphPoint] = [], pulsePoints:[GraphPoint] = [], weightPoints:[GraphPoint] = [], fatPoints:[GraphPoint] = [], fatAltPoints:[GraphPoint] = [];
-        var lastBpDate = "", lastPulseDate = "", lastWeightDate = "", lastFatDate = "";
-        let vak = SessionController.Instance.checkins.count;
+        var lastBpDate:NSTimeInterval = 0, lastPulseDate:NSTimeInterval = 0, lastWeightDate:NSTimeInterval = 0, lastFatDate:NSTimeInterval = 0;
         let normalizeFactor = (1 + (fattest - thinnest) / 150.0);
         for checkin in SessionController.Instance.checkins {
-            let a = NSDate().timeIntervalSince1970;
-            let dateString = Constants.dateFormatter.stringFromDate(checkin.dateTime);
-            let checkinTime = Utility.dateWithDateComponentOnly(checkin.dateTime).timeIntervalSince1970;
-            if (dateString != lastBpDate && checkin.map != nil && checkin.map > 0) {
+            let checkinTime = checkin.dateTime.timeIntervalSince1970;
+            if (checkin.map != nil && checkinTime != lastBpDate) {
                 bpPoints.append(GraphPoint(x: checkinTime, y: checkin.map));
-                if (checkin.diastolic != nil && checkin.diastolic > 0) {
-                    bpAltPoints.append(GraphPoint(x: checkinTime, y: Double(checkin.diastolic!)));
+                if let diastolic = checkin.diastolic {
+                    bpAltPoints.append(GraphPoint(x: checkinTime, y: Double(diastolic)));
                     bpAltPoints.append(GraphPoint(x: checkinTime, y: Double(checkin.systolic!)));
                 } else {
                     bpAltPoints.append(GraphPoint(x: checkinTime, y: 0));
                     bpAltPoints.append(GraphPoint(x: checkinTime, y: 0));
                 }
-                lastBpDate = dateString;
+                lastBpDate = checkinTime;
             }
-            if (dateString != lastPulseDate && checkin.pulseBpm != nil && checkin.pulseBpm > 0) {
+            if (checkin.pulseBpm != nil && checkinTime != lastPulseDate) {
                 pulsePoints.append(GraphPoint(x: checkinTime, y: Double(checkin.pulseBpm!)));
-                lastPulseDate = dateString;
+                lastPulseDate = checkinTime;
             }
-            if (dateString != lastWeightDate && checkin.weightLbs != nil && checkin.weightLbs > 0) {
+            if (checkin.weightLbs != nil && checkinTime != lastWeightDate) {
                 weightPoints.append(GraphPoint(x: checkinTime, y: checkin.weightLbs));
                 fatAltPoints.append(GraphPoint(x: checkinTime, y: 10 + (checkin.weightLbs! / heaviest) * fattest * normalizeFactor));
-                lastWeightDate = dateString;
+                lastWeightDate = checkinTime;
             }
-            if (dateString != lastFatDate && checkin.fatRatio != nil && checkin.fatRatio > 0) {
+            if (checkin.fatRatio != nil && checkinTime != lastFatDate) {
                 fatPoints.append(GraphPoint(x: checkinTime, y: checkin.fatRatio));
-                lastFatDate = dateString;
+                lastFatDate = checkinTime;
             }
         }
         var activityPoints:[GraphPoint] = [];
@@ -213,9 +210,8 @@ class MetricsViewController: UIViewController {
                         UIView.animateWithDuration(self.animationDuration, delay: 0, options: .CurveEaseInOut, animations: {
                             card.headerView.frame.size.width = newWidth;
                             card.frame.size.width = newWidth;
-                            }, completion:  { complete in
-//                                card.frame.size.width = newWidth;
-                        });
+                            card.icon.frame.origin.x = newWidth - 8 - card.icon.frame.size.width;
+                            }, completion:  nil );
                     }
                     self.updateDetailCard();
                     self.detailsCard.headerContainer.alpha = 1;
@@ -408,7 +404,7 @@ class MetricsViewController: UIViewController {
         UIViewController.attemptRotationToDeviceOrientation();
         revealController.shouldRotate = false;
     }
-    
+
     func prepareOrientationForLeaving() {
         let revealController = (self.navigationController as! MainNavigationController).revealController;
         revealController.supportedOrientations = previousSupportedOrientations;

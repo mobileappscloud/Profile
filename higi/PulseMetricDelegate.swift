@@ -33,11 +33,11 @@ class PulseMetricDelegate: MetricDelegate {
     }
     
     func setSelected(date: NSDate) {
-        let selectedDate = Utility.dateWithDateComponentOnly(date).timeIntervalSince1970;
+        let selectedDate = date.timeIntervalSince1970;
         var minDifference = DBL_MAX;
         for checkin in SessionController.Instance.checkins.reverse() {
-            let checkinDate = Utility.dateWithDateComponentOnly(checkin.dateTime).timeIntervalSince1970;
-            let difference = abs(checkinDate - selectedDate);
+            let checkinTime = checkin.dateTime.timeIntervalSince1970;
+            let difference = abs(checkinTime - selectedDate);
             if (difference < minDifference && checkin.pulseBpm != nil) {
                 minDifference = difference;
                 selectedCheckin = checkin;
@@ -62,11 +62,7 @@ class PulseMetricDelegate: MetricDelegate {
             return SelectedPoint(date: date, panelValue: pulse, panelLabel: "Beats Per Minute", panelUnit: "bpm", device: device);
         }
     }
-    
-    func getGraph(frame: CGRect) -> MetricGraph {
-        return MetricGraphUtility.createPulseGraph(CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height));
-    }
-    
+
     func getRanges(tab:Int) -> [MetricGauge.Range] {
         var ranges:[MetricGauge.Range] = [];
         ranges.append(MetricGauge.Range(label: "Low", color: Utility.colorFromHexString("#44aad8"), interval: (40, 60)));

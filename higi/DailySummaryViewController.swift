@@ -44,6 +44,14 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     
     var fakeNavBar:UIView!;
     
+    var timeOfDay:TimeOfDay!;
+    
+    enum TimeOfDay {
+        case Morning;
+        case Afternoon;
+        case Evening;
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
@@ -140,12 +148,15 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         //Greeting should reflect current day's time even if we are looking at past daily summary
         let hour = hourFormatter.stringFromDate(NSDate()).toInt();
         if (hour >= 4 && hour < 12) {
+            timeOfDay = TimeOfDay.Morning;
             greeting.text = "Good Morning!";
             headerBackground.image = UIImage(named: "dailysummary_morning");
         } else if (hour >= 12 && hour < 17) {
+            timeOfDay = TimeOfDay.Afternoon;
             greeting.text = "Good Afternoon!";
             headerBackground.image = UIImage(named: "dailysummary_afternoon");
         } else {
+            timeOfDay = TimeOfDay.Evening;
             greeting.text = "Good Evening!";
             headerBackground.image = UIImage(named: "dailysummary_night");
         }
@@ -168,7 +179,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         for activity in activities {
             var type = ActivityCategory.categoryFromActivity(activity).getString();
             if let (total, activityList) = activitiesByType[type] {
-                if activitiesByDevice[String(activity.device.name)] == nil || type == ActivityCategory.Health.getString() {
+                if activitiesByDevice[String(activity.device.name)] == nil || type == ActivityCategory.Health.getString() || type == ActivityCategory.Lifestyle.getString() {
                     var previousActivities = activityList;
                     previousActivities.append(activity);
                     var points = total;
@@ -189,7 +200,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             }
         }
         
-        if SessionController.Instance.checkins.count == 0 && SessionController.Instance.activities.count == 0 {
+        if totalPoints == 0 {
             layoutBlankState();
         } else {
             for (type, (total, activityList)) in activitiesByType {
@@ -209,95 +220,75 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     }
 
     func layoutBlankState() {
-        let totalPoints = 140, higiPoints = 100, foursquarePoints = 15, activityTrackerPoints = 50;
-        let higiTitle = "higi Station", foursquareTitle = "Foursquare", activityTrackerTitle = "Activity Tracker";
+        let totalPoints = 140, higiPoints = 100, foursquarePoints = 15, morningPoints = 15, afternoonPoints = 15, activityTrackerPoints = 50;
         
-        let higiText = "Join the millions of people that are tracking their health through higi. You can earn up to 100 points by visiting a higi Station and getting your blood pressure, pulse, weight, and BMI stats. \n";
-        let activityTrackerText = "Higi makes it fun and rewarding to track your steps. Simply connect your favorite activity tracker and start getting rewarded for your jogs around the block.";
-        let foursquareText = "Wanna get rewarded for going to the gym or walking your dog at the park? Just connect your Foursquare account with higi and we will reward your 15 points for every time you check into a gym or park.";
+        let higiTitle = "higi Station", foursquareTitle = "Foursquare", activityTrackerTitle = "Activity Tracker", morningTitle = "Can you beat 15?", afternoonTitle = "Can you beat 15?";
         
-        let higiCallToAction = "Find a station!", activityTrackerCallToAction = "Connect a device!", foursquareCallToAction = "Connect a device!";
+        let higiText = "Join the millions of people that are tracking their health through higi. You can earn up to 100 points by visiting a higi Station and getting your blood pressure, pulse, weight, and BMI stats. \n\n", activityTrackerText = "Higi makes it fun and rewarding to track your steps. Simply connect your favorite activity tracker and start getting rewarded for your jogs around the block. \n", foursquareText = "Wanna get rewarded for going to the gym or walking your dog at the park? Just connect your Foursquare account with higi and we will reward your 15 points for every time you check into a gym or park. \n", morningText = "Think you can earn more points than the average higi user? They average just over 15 points per day. If you are hoping to beat that, try visiting a higi Station today and make sure your activity tracker is connected to higi.  \n", afternoonText = "Think you can earn more points than the average higi user? They average just over 15 points per day. If you are hoping to beat that, try visiting a higi Station today and make sure your activity tracker is connected to higi.  \n";
         
-        let higiButtonTarget:Selector = "higiCallToActionClicked:", activityTrackerButtonTarget:Selector = "activityTrackerCallToActionClicked:", foursquareButtonTarget:Selector = "foursquareCallToActionClicked:";
+        let higiCallToAction = "Find a station!", activityTrackerCallToAction = "Connect a device!", foursquareCallToAction = "Connect a device!", morningCallToAction = "Find a station!", afternoonCallToAction = "Find a station!";
         
+        let higiButtonTarget:Selector = "higiCallToActionClicked:", activityTrackerButtonTarget:Selector = "activityTrackerCallToActionClicked:", foursquareButtonTarget:Selector = "foursquareCallToActionClicked:", morningButtonTarget:Selector = "higiCallToActionClicked:", afternoonButtonTarget:Selector = "higiCallToActionClicked:";
+        
+        let noActivities = SessionController.Instance.activities.count == 0;
+        let noCheckins = SessionController.Instance.checkins.count == 0;
+        let noDevices = (noActivities && noCheckins) || (!noActivities && noCheckins);
+        
+        largestActivityPoints = 0;
+        
+        if noCheckins {
+            createBlankStateRow(higiTitle, points: higiPoints, text: higiText, buttonCta: higiCallToAction, target: higiButtonTarget);
+        }
+        
+        if noActivities {
+            createBlankStateRow(activityTrackerTitle, points: activityTrackerPoints, text: activityTrackerText, buttonCta: activityTrackerCallToAction, target: activityTrackerButtonTarget);
+        }
+        
+        if noDevices {
+            createBlankStateRow(foursquareTitle, points: foursquarePoints, text: foursquareText, buttonCta: foursquareCallToAction, target: foursquareButtonTarget);
+        }
+        
+        if !noDevices && !noCheckins {
+            if timeOfDay == TimeOfDay.Morning {
+                createBlankStateRow(morningTitle, points: morningPoints, text: morningText, buttonCta: morningCallToAction, target: morningButtonTarget);
+            } else {
+                createBlankStateRow(afternoonTitle, points: afternoonPoints, text: afternoonText, buttonCta: afternoonCallToAction, target: afternoonButtonTarget);
+            }
+        }
+    }
+    
+    func createBlankStateRow(title: String, points: Int, text: String, buttonCta: String, target: Selector) {
         let color = Utility.colorFromHexString("#444444");
-        
         let titleMargin:CGFloat = -4, rowMargin:CGFloat = 4, buttonMargin: CGFloat = 16, textOffset: CGFloat = 16, alpha: CGFloat = 0.6;
         
-        largestActivityPoints = 100;
+        if largestActivityPoints < points {
+            largestActivityPoints = points;
+        }
+        let titleRow = initActivityRow(title, points: points, totalPoints: largestActivityPoints, color: color, alpha: alpha);
+        titleRow.frame.origin.y = currentOrigin;
         
-        let higiTitleRow = initActivityRow(higiTitle, points: higiPoints, totalPoints: largestActivityPoints, color: color, alpha: alpha);
-        higiTitleRow.frame.origin.y = currentOrigin;
+        let rowWidth = UIScreen.mainScreen().bounds.size.width - titleRow.name.frame.origin.x;
+        let rowX = titleRow.name.frame.origin.x;
         
-        let rowWidth = UIScreen.mainScreen().bounds.size.width - higiTitleRow.name.frame.origin.x;
-        let rowX = higiTitleRow.name.frame.origin.x;
-        rows.append(higiTitleRow);
+        rows.append(titleRow);
         margins.append(rowMargin);
-        activityContainer.addSubview(higiTitleRow);
-        currentOrigin += higiTitleRow.frame.size.height + titleMargin;
+        activityContainer.addSubview(titleRow);
+        currentOrigin += titleRow.frame.size.height + titleMargin;
         
-        let higiTextRow = SummaryViewUtility.initBreakdownRow(CGRect(x: rowX - textOffset, y: currentOrigin, width: rowWidth, height: CGFloat.max), text: higiText, duplicate: false);
-        higiTextRow.bulletPoint.hidden = true;
-        higiTextRow.alpha = alpha;
+        let textRow = SummaryViewUtility.initBreakdownRow(CGRect(x: rowX - textOffset, y: currentOrigin, width: rowWidth, height: CGFloat.max), text: text, duplicate: false);
+        textRow.bulletPoint.hidden = true;
+        textRow.alpha = alpha;
         
-        activityContainer.addSubview(higiTextRow);
-        currentOrigin += higiTextRow.frame.size.height + buttonMargin;
-        descriptionRows.append(higiTextRow);
-        rows.append(higiTextRow);
+        activityContainer.addSubview(textRow);
+        currentOrigin += textRow.frame.size.height + buttonMargin;
+        descriptionRows.append(textRow);
+        rows.append(textRow);
         margins.append(buttonMargin);
         
-        let higiButton = initCallToActionButton(rowX, text: higiCallToAction, action: higiButtonTarget);
-        activityContainer.addSubview(higiButton);
-        currentOrigin += higiButton.frame.size.height + buttonMargin;
-        rows.append(higiButton);
-        margins.append(buttonMargin);
-        
-        let activityTrackerTitleRow = initActivityRow(activityTrackerTitle, points: activityTrackerPoints, totalPoints: largestActivityPoints, color: color, alpha: alpha);
-        activityTrackerTitleRow.frame.origin.y = currentOrigin;
-        
-        rows.append(activityTrackerTitleRow);
-        margins.append(rowMargin);
-        activityContainer.addSubview(activityTrackerTitleRow);
-        currentOrigin += activityTrackerTitleRow.frame.size.height + titleMargin;
-        
-        let activityTrackerTextRow = SummaryViewUtility.initBreakdownRow(CGRect(x: rowX - textOffset, y: currentOrigin, width: rowWidth, height: CGFloat.max), text: activityTrackerText, duplicate: false);
-        activityTrackerTextRow.bulletPoint.hidden = true;
-        activityTrackerTextRow.alpha = alpha;
-        
-        activityContainer.addSubview(activityTrackerTextRow);
-        currentOrigin += activityTrackerTextRow.frame.size.height + buttonMargin;
-        descriptionRows.append(activityTrackerTextRow);
-        rows.append(activityTrackerTextRow);
-        margins.append(buttonMargin);
-        
-        let activityTrackerButton = initCallToActionButton(rowX, text: activityTrackerCallToAction, action: activityTrackerButtonTarget);
-        activityContainer.addSubview(activityTrackerButton);
-        currentOrigin += activityTrackerButton.frame.size.height + buttonMargin;
-        rows.append(activityTrackerButton);
-        margins.append(buttonMargin);
-        
-        let foursquareTitleRow = initActivityRow(foursquareTitle, points: foursquarePoints, totalPoints: largestActivityPoints, color: color, alpha: alpha);
-        foursquareTitleRow.frame.origin.y = currentOrigin;
-        
-        rows.append(foursquareTitleRow);
-        margins.append(rowMargin);
-        activityContainer.addSubview(foursquareTitleRow);
-        currentOrigin += foursquareTitleRow.frame.size.height + titleMargin;
-        
-        let foursquareTextRow = SummaryViewUtility.initBreakdownRow(CGRect(x: rowX - textOffset, y: currentOrigin, width: rowWidth, height: CGFloat.max), text: foursquareText, duplicate: false);
-        foursquareTextRow.bulletPoint.hidden = true;
-        foursquareTextRow.alpha = alpha;
-        
-        activityContainer.addSubview(foursquareTextRow);
-        currentOrigin += foursquareTextRow.frame.size.height + buttonMargin;
-        descriptionRows.append(foursquareTextRow);
-        rows.append(foursquareTextRow);
-        margins.append(buttonMargin);
-        
-        let foursquareButton = initCallToActionButton(rowX, text: foursquareCallToAction, action: foursquareButtonTarget);
-        activityContainer.addSubview(foursquareButton);
-        currentOrigin += foursquareButton.frame.size.height + buttonMargin;
-        rows.append(foursquareButton);
+        let button = initCallToActionButton(rowX, text: buttonCta, action: target);
+        activityContainer.addSubview(button);
+        currentOrigin += button.frame.size.height + buttonMargin;
+        rows.append(button);
         margins.append(buttonMargin);
     }
     

@@ -2,13 +2,13 @@ import Foundation
 
 class ChallengeUtility {
     class func getChallengeViews(challenge: HigiChallenge, frame: CGRect, isComplex: Bool) -> [ChallengeView] {
-        var nib:ChallengeView!;
         var nibs:[ChallengeView] = [];
         var winConditions:[ChallengeWinCondition] = [];
         
         let consolodatedList = consolodateWinConditions(challenge.winConditions);
         
         for index in 0...consolodatedList.count - 1 {
+            var nib:ChallengeView!;
             let firstWinCondition = consolodatedList[index][0];
             let goalType = firstWinCondition.goal.type;
             let winnerType = firstWinCondition.winnerType;
