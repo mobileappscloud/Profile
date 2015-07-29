@@ -45,16 +45,4 @@ enum ActivityCategory {
             return Lifestyle;
         }
     }
-    
-    static func categoryFromActivity(activity: HigiActivity) -> ActivityCategory {
-        if (activity.category == "checkin") {
-            if (activity.healthChecks.count > 0) {
-                return Health;
-            } else {
-                return Lifestyle;
-            }
-        } else {
-            return Fitness;
-        }
-    }
 }

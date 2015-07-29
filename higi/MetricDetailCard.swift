@@ -415,7 +415,7 @@ class MetricDetailCard: UIView {
             activities.sort(SummaryViewUtility.sortByPoints);
         }
         for activity in activities {
-            var type = ActivityCategory.categoryFromActivity(activity).getString();
+            var type = activity.type.getString();
             if let (total, activityList) = activitiesByType[type] {
                 var previousActivities = activityList;
                 previousActivities.append(activity);

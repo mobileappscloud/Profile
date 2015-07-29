@@ -78,7 +78,7 @@ class PointsMeter: UIView {
         activitiesByType.removeAll(keepCapacity: false);
         activityTypes.removeAll(keepCapacity: false);
         for activity in activities {
-            let type = ActivityCategory.categoryFromActivity(activity).getString();
+            let type = activity.type.getString();
             if let (totalPoints, activityList) = activitiesByType[type] {
                 var previousActivities = activityList;
                 previousActivities.append(activity);
