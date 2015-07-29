@@ -23,9 +23,6 @@ class ChallengeProgressLegendRow: UITableViewCell {
         row.prizeTitle.text = winCondition.prizeName as? String ?? "";
         row.prizeDescription.text = winCondition.description as String;
         row.goalPoints.text = "\(String(thisGoalValue)) \(metric)";
-//        row.prizeDescription.numberOfLines = 0;
-//        row.prizeDescription.frame = CGRect(x: 42, y: 48, width: 234, height: 800);
-//        row.prizeDescription.sizeToFit();
         return row;
     }
 
