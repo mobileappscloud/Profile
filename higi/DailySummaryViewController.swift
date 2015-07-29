@@ -558,15 +558,16 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     
     func resizeActivityRows(forPortrait: Bool) {
         if descriptionRows.count > 0 {
-            var rowWidth:CGFloat = max(UIScreen.mainScreen().bounds.size.height, UIScreen.mainScreen().bounds.size.width);
+            var rowWidth:CGFloat = max(UIScreen.mainScreen().bounds.size.height, UIScreen.mainScreen().bounds.size.width) - 10;
             if forPortrait {
-                rowWidth = min(UIScreen.mainScreen().bounds.size.height, UIScreen.mainScreen().bounds.size.width);
+                rowWidth = min(UIScreen.mainScreen().bounds.size.height, UIScreen.mainScreen().bounds.size.width) - 10;
             }
             rowWidth -= descriptionRows[0].frame.origin.x;
             for row in descriptionRows {
                 row.frame.size.width = rowWidth;
-                row.frame.size.height = Utility.heightForTextView(rowWidth - 10, text: row.desc.text!, fontSize: row.desc.font.pointSize, margin: 0);
-                row.desc.sizeToFit();
+                let a = Utility.heightForTextView(rowWidth - 20, text: row.desc.text!, fontSize: row.desc.font.pointSize, margin: 0);
+                row.frame.size.height = Utility.heightForTextView(rowWidth - 20, text: row.desc.text!, fontSize: row.desc.font.pointSize, margin: 0);
+//                row.desc.sizeToFit();
             }
         }
 
@@ -574,6 +575,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         var originY:CGFloat = 0;
         for row in rows {
             row.frame.origin.y = originY;
+            let a = row.frame.size.height;
             originY += row.frame.size.height + margins[i];
             i++;
         }

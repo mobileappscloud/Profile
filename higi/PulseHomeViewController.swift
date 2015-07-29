@@ -24,6 +24,8 @@ class PulseHomeViewController: BaseViewController, UITableViewDataSource, UITabl
     
     var pullRefreshView: PullRefresh!;
     
+    var prevArticles:[PulseArticle] = [];
+    
     override func viewDidLoad()  {
         super.viewDidLoad();
         self.title = "Pulse";
@@ -140,6 +142,9 @@ class PulseHomeViewController: BaseViewController, UITableViewDataSource, UITabl
     
     func addMoreArticles() {
         ApiUtility.grabNextPulseArticles({
+            if SessionController.Instance.pulseArticles.count < self.prevArticles.count {
+                SessionController.Instance.pulseArticles = self.prevArticles;
+            }
             self.tableView.reloadData();
             self.loadingArticles = false;
             if (self.refreshControl.refreshing) {
@@ -249,6 +254,7 @@ class PulseHomeViewController: BaseViewController, UITableViewDataSource, UITabl
             });
         });
         
+        prevArticles = SessionController.Instance.pulseArticles;
         SessionController.Instance.pulseArticles = [];
         addMoreArticles();
     }
