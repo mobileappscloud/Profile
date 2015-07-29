@@ -393,6 +393,8 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         var xRange = (self.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace).xRange;
         var yRange = (self.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace).yRange;
         var frame = graph.frame;
+        var location = yRange.locationDouble;
+        var length = yRange.lengthDouble;
         var x = ((xPoint - CGFloat(xRange.locationDouble)) / CGFloat(xRange.lengthDouble)) * frame.size.width;
         var y = (1.0 - ((yPoint - CGFloat(yRange.locationDouble)) / CGFloat(yRange.lengthDouble))) * (frame.size.height - 20);
         return CGPoint(x: x, y: y);
