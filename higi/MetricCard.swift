@@ -124,31 +124,51 @@ class MetricCard: UIView, MetricDelegate {
         if (graph.points.count > 0) {
             self.graphContainer.addSubview(graph);
         } else {
-            blankState = true;
-            let image = delegate.getBlankStateImage();
-            let height = image.size.height;
-            let width = image.size.width;
-            let newHeight = (height / width) * blankStateImage.frame.size.width;
-            blankStateImage.image = Utility.scaleImage(image, newSize: CGSize(width: blankStateImage.frame.size.width, height: newHeight));
-            blankStateTitle.text = "Welcome!";
-            blankStateText.text = getBlankStateText();
-            blankStateText.frame.size.height = Utility.heightForTextView(UIScreen.mainScreen().bounds.width - blankStateText.frame.origin.x, text: getBlankStateText(), fontSize: blankStateText.font.pointSize, margin: 0);
-            blankStateText.sizeToFit();
-            if delegate.getType() == MetricsType.DailySummary {
-                secondBlankStateButton.addTarget(self, action: "findStationButtonClicked:", forControlEvents: UIControlEvents.TouchUpInside);
-                blankStateButton.setTitle("Connect a Device", forState: UIControlState.Normal);
-                secondBlankStateButton.setTitle("Find a Station", forState: UIControlState.Normal);
-                blankStateButton.addTarget(self, action: "connectDeviceButtonClicked:", forControlEvents: UIControlEvents.TouchUpInside);
-                orLabel.hidden = false;
-                secondBlankStateButton.hidden = false;
-            } else {
-                blankStateButton.addTarget(self, action: "findStationButtonClicked:", forControlEvents: UIControlEvents.TouchUpInside);
-            }
-            blankStateContainer.hidden = false;
-            graphContainer.hidden = true;
+            layoutBlankStateView();
         }
         initRegions(true);
         setSelected(NSDate());
+    }
+    
+    func layoutBlankStateView() {
+        blankState = true;
+        
+        blankStateImage.frame.size.width = UIScreen.mainScreen().bounds.width;
+        
+        let image = delegate.getBlankStateImage();
+        let height = image.size.height;
+        let width = image.size.width;
+        let newHeight = (height / width) * blankStateImage.frame.size.width;
+        
+        blankStateImage.image = Utility.scaleImage(image, newSize: CGSize(width: blankStateImage.frame.size.width, height: newHeight));
+        blankStateTitle.text = "Welcome!";
+        blankStateText.text = getBlankStateText();
+        
+        if delegate.getType() == MetricsType.DailySummary {
+            secondBlankStateButton.addTarget(self, action: "findStationButtonClicked:", forControlEvents: UIControlEvents.TouchUpInside);
+            blankStateButton.setTitle("Connect a Device", forState: UIControlState.Normal);
+            secondBlankStateButton.setTitle("Find a Station", forState: UIControlState.Normal);
+            blankStateButton.addTarget(self, action: "connectDeviceButtonClicked:", forControlEvents: UIControlEvents.TouchUpInside);
+            orLabel.hidden = false;
+            secondBlankStateButton.hidden = false;
+        } else {
+            blankStateButton.addTarget(self, action: "findStationButtonClicked:", forControlEvents: UIControlEvents.TouchUpInside);
+        }
+        
+        blankStateContainer.hidden = false;
+        graphContainer.hidden = true;
+        
+        if UIScreen.mainScreen().bounds.width < 568 {
+            let buttonWidth: CGFloat = 100, margin: CGFloat = 8;
+            blankStateTitle.font = UIFont.systemFontOfSize(15);
+            blankStateText.font = UIFont.systemFontOfSize(12);
+            blankStateButton.frame.size.width = buttonWidth;
+            blankStateButton.titleLabel?.font = UIFont.systemFontOfSize(12);
+            secondBlankStateButton.frame.size.width = buttonWidth;
+            secondBlankStateButton.titleLabel?.font = UIFont.systemFontOfSize(12);
+            orLabel.frame.origin.x = blankStateButton.frame.origin.x + buttonWidth + margin;
+            secondBlankStateButton.frame.origin.x = margin + orLabel.frame.origin.x;
+        }
     }
     
     func initRegions(isPrimaryGraph: Bool) {
