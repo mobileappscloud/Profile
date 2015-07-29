@@ -565,9 +565,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             rowWidth -= descriptionRows[0].frame.origin.x;
             for row in descriptionRows {
                 row.frame.size.width = rowWidth;
-                let a = Utility.heightForTextView(rowWidth - 20, text: row.desc.text!, fontSize: row.desc.font.pointSize, margin: 0);
                 row.frame.size.height = Utility.heightForTextView(rowWidth - 20, text: row.desc.text!, fontSize: row.desc.font.pointSize, margin: 0);
-//                row.desc.sizeToFit();
             }
         }
 
@@ -575,11 +573,15 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         var originY:CGFloat = 0;
         for row in rows {
             row.frame.origin.y = originY;
-            let a = row.frame.size.height;
             originY += row.frame.size.height + margins[i];
             i++;
         }
-        scrollView.contentSize.height = originY;
+        if descriptionRows.count > 0 && margins.count > 0 {
+            let row = descriptionRows.last!;
+            currentOrigin = row.frame.origin.y + row.frame.size.height + margins.last! + 8;
+        } else {
+            currentOrigin = originY;
+        }
     }
     
     func higiCallToActionClicked(sender: AnyObject!) {
