@@ -267,7 +267,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         let titleRow = initActivityRow(title, points: points, totalPoints: largestActivityPoints, color: color, alpha: alpha);
         titleRow.frame.origin.y = currentOrigin;
         
-        let rowWidth = UIScreen.mainScreen().bounds.size.width - titleRow.name.frame.origin.x;
+        let rowWidth = UIScreen.mainScreen().bounds.size.width - titleRow.name.frame.origin.x - 10;
         let rowX = titleRow.name.frame.origin.x;
         
         rows.append(titleRow);
