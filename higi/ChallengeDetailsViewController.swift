@@ -1009,7 +1009,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         var individualGoalViewIndex = 0;
         var teamGoalViewIndex = 0;
         // the win condition for getting 1 point messed up my logic here since we don't have a view for it
-        var ignoreOnePointGoalWinCondition = false;
+        var ignoreOnePointGoalWinCondition = false, isTeam = false;
         for index in 0...consolodatedWinConditions.count - 1 {
             let winConditionList = consolodatedWinConditions[index];
             let firstWinCondition = winConditionList[0];
@@ -1018,6 +1018,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                     individualGoalViewIndex = index;
                 } else {
                     teamGoalViewIndex = index;
+                    isTeam = true;
                 }
             }
         }
@@ -1028,6 +1029,20 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             cell.addSubview(nibs[teamGoalViewIndex])
         }
         cell.backgroundColor = Utility.colorFromHexString("#F4F4F4");
+        let imageHeight:CGFloat = 30, xMargin:CGFloat = 8, yMargin:CGFloat = 4;
+        let icon = UIImageView(frame: CGRect(x: xMargin, y: yMargin, width: imageHeight, height: imageHeight));
+        let label = UILabel(frame: CGRect(x: xMargin + imageHeight + xMargin, y: yMargin, width: UIScreen.mainScreen().bounds.size.width, height: imageHeight));
+        if isTeam {
+            icon.setImageWithURL(Utility.loadImageFromUrl(challenge.participant.team.imageUrl as String));
+            label.text = "\(challenge.participant.team.name)";
+        } else {
+            icon.setImageWithURL(Utility.loadImageFromUrl(challenge.participant.imageUrl as String));
+            label.text = "\(challenge.participant.displayName)";
+        }
+        label.font = UIFont.boldSystemFontOfSize(12);
+        label.textColor = Utility.colorFromHexString("#444444");
+        cell.addSubview(icon);
+        cell.addSubview(label);
         return cell;
     }
     

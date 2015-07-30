@@ -30,10 +30,14 @@ class GoalChallengeView: ChallengeView {
         goalView.autoresizingMask = UIViewAutoresizing.FlexibleWidth;
         let isTeam = winConditions[0].winnerType == "team";
         
-        if (isTeam) {
-            goalView.avatar.setImageWithURL(Utility.loadImageFromUrl(challenge.participant.team.imageUrl as String));
+        if isComplex {
+            goalView.avatar.hidden = true;
         } else {
-            goalView.avatar.setImageWithURL(Utility.loadImageFromUrl(challenge.participant.imageUrl as String));
+            if (isTeam) {
+                goalView.avatar.setImageWithURL(Utility.loadImageFromUrl(challenge.participant.team.imageUrl as String));
+            } else {
+                goalView.avatar.setImageWithURL(Utility.loadImageFromUrl(challenge.participant.imageUrl as String));
+            }
         }
         
         goalView.participantPoints = isTeam ? Int(challenge.participant.team.units) : Int(challenge.participant.units);

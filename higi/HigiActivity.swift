@@ -18,9 +18,11 @@ class HigiActivity {
     
     var startTime: NSDate!;
     
-    var distance: Double!;
+    var distance: Double!, offset: Double = 0.0;
     
     var healthChecks: [String] = [];
+    
+    var type: ActivityCategory!;
     
     init(dictionary: NSDictionary) {
         points = dictionary["points"] as! Int;
@@ -39,6 +41,25 @@ class HigiActivity {
                 healthChecks = checks as! [String];
             }
         }
+        let typeObject = dictionary["type"] as! NSDictionary;
+        typeCategory = typeObject["category"] as? NSString;
+        checkinCategory = typeObject["checkinCategory"] as? NSString;
+        category = typeObject["category"] as? NSString;
+        typeName = typeObject["name"] as? NSString;
+        
+        if (category == "checkin") {
+            if (healthChecks.count > 0) {
+                type = ActivityCategory.Health;
+            } else {
+                type = ActivityCategory.Lifestyle;
+            }
+        } else {
+            type = ActivityCategory.Fitness;
+        }
+
+        if let error = dictionary["error"] as? NSDictionary {
+            errorDescription = error["description"] as! NSString;
+        }
         var formatter = NSDateFormatter();
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss";
         var dateString = dictionary["startTime"] as! String;
@@ -47,21 +68,15 @@ class HigiActivity {
         if let serverOffset = dictionary["timezoneOffset"] as? String {
             if let timezoneOffset = serverOffset.toInt() {
                 if timezoneOffset != 0 {
-                    var offset = Double(NSTimeZone.localTimeZone().secondsFromGMTForDate(startTime));
+                    offset = Double(NSTimeZone.localTimeZone().secondsFromGMTForDate(startTime));
                     offset -= Double(timezoneOffset * 60);
                     startTime = NSDate(timeIntervalSince1970: startTime.timeIntervalSince1970 + offset);
                 }
             }
-        } else {
+            // must set category and health checks before determining type/category
+        } else if type == ActivityCategory.Health {
+            offset = Double(NSTimeZone.localTimeZone().secondsFromGMT);
             startTime = NSDate(timeIntervalSince1970: startTime.timeIntervalSince1970 + Double(NSTimeZone.localTimeZone().secondsFromGMT));
-        }
-        let typeObject = dictionary["type"] as! NSDictionary;
-        typeCategory = typeObject["category"] as? NSString;
-        checkinCategory = typeObject["checkinCategory"] as? NSString;
-        category = typeObject["category"] as? NSString;
-        typeName = typeObject["name"] as? NSString;
-        if let error = dictionary["error"] as? NSDictionary {
-            errorDescription = error["description"] as! NSString;
         }
     }
 }

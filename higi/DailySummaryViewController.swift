@@ -177,7 +177,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         }
         var activitiesByDevice: [String: String] = [:];
         for activity in activities {
-            var type = ActivityCategory.categoryFromActivity(activity).getString();
+            var type = activity.type.getString();
             if let (total, activityList) = activitiesByType[type] {
                 if activitiesByDevice[String(activity.device.name)] == nil || type == ActivityCategory.Health.getString() || type == ActivityCategory.Lifestyle.getString() {
                     var previousActivities = activityList;
@@ -558,15 +558,14 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     
     func resizeActivityRows(forPortrait: Bool) {
         if descriptionRows.count > 0 {
-            var rowWidth:CGFloat = max(UIScreen.mainScreen().bounds.size.height, UIScreen.mainScreen().bounds.size.width);
+            var rowWidth:CGFloat = max(UIScreen.mainScreen().bounds.size.height, UIScreen.mainScreen().bounds.size.width) - 10;
             if forPortrait {
-                rowWidth = min(UIScreen.mainScreen().bounds.size.height, UIScreen.mainScreen().bounds.size.width);
+                rowWidth = min(UIScreen.mainScreen().bounds.size.height, UIScreen.mainScreen().bounds.size.width) - 10;
             }
             rowWidth -= descriptionRows[0].frame.origin.x;
             for row in descriptionRows {
                 row.frame.size.width = rowWidth;
-                row.frame.size.height = Utility.heightForTextView(rowWidth - 10, text: row.desc.text!, fontSize: row.desc.font.pointSize, margin: 0);
-                row.desc.sizeToFit();
+                row.frame.size.height = Utility.heightForTextView(rowWidth - 20, text: row.desc.text!, fontSize: row.desc.font.pointSize, margin: 0);
             }
         }
 
@@ -577,7 +576,12 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             originY += row.frame.size.height + margins[i];
             i++;
         }
-        scrollView.contentSize.height = originY;
+        if descriptionRows.count > 0 && margins.count > 0 {
+            let row = descriptionRows.last!;
+            currentOrigin = row.frame.origin.y + row.frame.size.height + margins.last! + 8;
+        } else {
+            currentOrigin = originY;
+        }
     }
     
     func higiCallToActionClicked(sender: AnyObject!) {
