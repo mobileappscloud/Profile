@@ -576,8 +576,8 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             originY += row.frame.size.height + margins[i];
             i++;
         }
-        if descriptionRows.count > 0 && margins.count > 0 {
-            let row = descriptionRows.last!;
+        if rows.count > 0 && margins.count > 0 {
+            let row = rows.last!;
             currentOrigin = row.frame.origin.y + row.frame.size.height + margins.last! + 8;
         } else {
             currentOrigin = originY;
