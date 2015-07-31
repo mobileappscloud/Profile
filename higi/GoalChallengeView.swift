@@ -66,7 +66,7 @@ class GoalChallengeView: ChallengeView {
     class func drawParticipantProgress(goalView: GoalChallengeView, participantPoints: Int, maxGoalValue: Int) {
         let barWidth = min((goalView.progress.frame.width) * CGFloat(participantPoints) / CGFloat(maxGoalValue), goalView.progress.frame.width);
         goalView.progressBar = UIView(frame: CGRect(x: 0, y: goalView.progress.frame.height / 2 - ViewConstants.goalBarHeight / 2, width: barWidth, height: ViewConstants.goalBarHeight));
-        goalView.progressBar.backgroundColor = Utility.colorFromHexString("#76C043");
+        goalView.progressBar.backgroundColor = Utility.colorFromHexString(Constants.higiGreen);
         goalView.progressBar.layer.cornerRadius = 2;
         goalView.progress.addSubview(goalView.progressBar);
     }
@@ -120,7 +120,7 @@ class GoalChallengeView: ChallengeView {
         var goalCircle: UIView!;
         if (!isComplex) {
             goalCircle = UIView(frame: CGRect(x: posX, y: posY, width: ViewConstants.circleRadius * 2, height: ViewConstants.circleRadius * 2));
-            let circleColor:UIColor = (participantPoints >= thisGoalValue) ? Utility.colorFromHexString("#76C043") : Utility.colorFromHexString("#CDCDCD");
+            let circleColor:UIColor = (participantPoints >= thisGoalValue) ? Utility.colorFromHexString(Constants.higiGreen) : Utility.colorFromHexString("#CDCDCD");
             goalCircle.backgroundColor = circleColor;
             goalCircle.layer.cornerRadius = ViewConstants.circleRadius;
             goalView.progress.addSubview(goalCircle);
@@ -156,7 +156,7 @@ class GoalChallengeView: ChallengeView {
     
     class func makeComplexGoalNode(posX: CGFloat, posY: CGFloat, thisGoalValue: Int, participantPoints: Int, goalIndex: Int) -> UIView {
         let goalCircle = UILabel(frame: CGRect(x: posX - ViewConstants.circleRadius, y: posY - ViewConstants.circleRadius, width: ViewConstants.circleRadius * 4, height: ViewConstants.circleRadius * 4));
-        let circleColor:UIColor = (participantPoints >= thisGoalValue) ? Utility.colorFromHexString("#76C043") : UIColor.lightGrayColor();
+        let circleColor:UIColor = (participantPoints >= thisGoalValue) ? Utility.colorFromHexString(Constants.higiGreen) : UIColor.lightGrayColor();
         goalCircle.backgroundColor = UIColor.whiteColor();
         goalCircle.layer.cornerRadius = ViewConstants.circleRadius * 2;
         goalCircle.layer.borderWidth = 2;
@@ -223,7 +223,7 @@ class GoalChallengeView: ChallengeView {
                     var toKeep: [(UIView, UILabel, Int)] = [];
                     for (view, label, points) in toAnimate {
                         if (Int(currentPoints) >= points) {
-                            view.backgroundColor = Utility.colorFromHexString("#76C043");
+                            view.backgroundColor = Utility.colorFromHexString(Constants.higiGreen);
                             UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseIn, animations: {
                                 view.frame.size.width = ViewConstants.circleRadius * 3;
                                 view.frame.size.height = ViewConstants.circleRadius * 3;

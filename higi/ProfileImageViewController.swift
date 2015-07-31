@@ -37,9 +37,9 @@ class ProfileImageViewController: UIViewController, UIImagePickerControllerDeleg
         }
         
         chooseLibraryButton.layer.borderWidth = 1.0;
-        chooseLibraryButton.layer.borderColor = Utility.colorFromHexString("#76C044").CGColor;
+        chooseLibraryButton.layer.borderColor = Utility.colorFromHexString(Constants.higiGreen).CGColor;
         takePhotoButton.layer.borderWidth = 1.0;
-        takePhotoButton.layer.borderColor = Utility.colorFromHexString("#76C044").CGColor;
+        takePhotoButton.layer.borderColor = Utility.colorFromHexString(Constants.higiGreen).CGColor;
         
         spinner = CustomLoadingSpinner(frame: CGRectMake(self.view.frame.size.width / 2 - 16, UIScreen.mainScreen().bounds.size.height - 66, 32, 32));
         spinner.shouldAnimateFull = false;
