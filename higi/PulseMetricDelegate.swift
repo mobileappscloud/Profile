@@ -29,7 +29,7 @@ class PulseMetricDelegate: MetricDelegate {
     }
     
     func getBlankStateText() -> String {
-        return "Welcome! It looks like you don’t have any pulse readings with us. You can start tracking your pulse by visiting your local higi Station. And get this, higi will reward your 50 points for each BP / Pulse check-in.";
+        return "Welcome! Unfortunately, you don’t have any pulse readings with us. Swing by a higi Station or connect your favorite pulse tracker and we will reward you 50 points for each Pulse / BP check-in.";
     }
     
     func setSelected(date: NSDate) {
