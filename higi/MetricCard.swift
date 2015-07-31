@@ -10,14 +10,6 @@ class MetricCard: UIView, MetricDelegate {
     @IBOutlet weak var toggleButton: UIButton!
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var triangleView: UIView!
-    @IBOutlet weak var blankStateContainer: UIView!
-    @IBOutlet weak var blankStateImage: UIImageView!
-    @IBOutlet weak var blankStateText: UILabel!
-    @IBOutlet weak var blankStateButton: UIButton!
-    @IBOutlet weak var secondBlankStateButton: UIButton!
-    @IBOutlet weak var secondBlankStateImage: UIImageView!
-    @IBOutlet weak var firstBlankContainer: UIView!
-    @IBOutlet weak var secondBlankContainer: UIView!
 
     var graph, secondaryGraph: MetricGraph!;
     
@@ -34,6 +26,8 @@ class MetricCard: UIView, MetricDelegate {
     var regions: [UIView] = [];
     
     var points: [GraphPoint] = [], altPoints: [GraphPoint] = [];
+    
+    var firstCtaButton, secondCtaButton: UIButton!;
     
     class func instanceFromNib(delegate: MetricDelegate, frame: CGRect, points: [GraphPoint], altPoints: [GraphPoint]) -> MetricCard {
         let nib = UINib(nibName: "MetricCardView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! MetricCard;
@@ -53,10 +47,10 @@ class MetricCard: UIView, MetricDelegate {
     
     override func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {
         if blankState {
-            if containsPoint(blankStateButton.frame, point: point) {
-                return blankStateButton;
-            } else if containsPoint(secondBlankStateButton.frame, point: point) {
-                return secondBlankStateButton;
+            if containsPoint(firstCtaButton.frame, point: point) {
+                return firstCtaButton;
+            } else if containsPoint(secondCtaButton.frame, point: point) {
+                return secondCtaButton;
             }
         } else if (point.y > 54 && point.y < (graphContainer.frame.origin.y + graphContainer.frame.size.height)) {
             if (!graph.hidden) {
@@ -132,29 +126,68 @@ class MetricCard: UIView, MetricDelegate {
     }
     
     func layoutBlankStateView() {
-        blankState = true;
-
-        let image = blankStateImage.image!;
+        let messageMarginX:CGFloat = 34, messageMarginY:CGFloat = 8, messageHeight: CGFloat = 90, imageHeight:CGFloat = 75, imageWidth:CGFloat = 150, imageMargin:CGFloat = 0, buttonWidth:CGFloat = 150, buttonHeight:CGFloat = 40, buttonMargin:CGFloat = 8, screenWidth = max(UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height), screenHeight = min(UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height);
+        
+        let container = UIView(frame: CGRect(x: 0, y: headerView.frame.size.height, width: screenWidth, height: screenHeight - headerView.frame.size.height));
+        container.backgroundColor = Utility.colorFromHexString("#EFEFEF");
+        
+        let message = UILabel(frame: CGRect(x: messageMarginX, y: messageMarginY, width: screenWidth - messageMarginX * 2, height: messageHeight));
+        message.text = getBlankStateText();
+        message.textColor = Utility.colorFromHexString("#444444");
+        message.font = UIFont.systemFontOfSize(14);
+        message.lineBreakMode = NSLineBreakMode.ByWordWrapping;
+        message.numberOfLines = 0;
+        
+        let kioskImage = UIImageView(frame: CGRect(x: (screenWidth - buttonWidth) / 2, y: messageMarginY + messageHeight + imageMargin, width: imageWidth, height: imageHeight));
+        let image = UIImage(named: "higistation")!;
         let height = image.size.height;
         let width = image.size.width;
-        let newHeight = (height / width) * blankStateImage.frame.size.width;
-        blankStateImage.image = Utility.scaleImage(image, newSize: CGSize(width: blankStateImage.frame.size.width, height: newHeight));
-        blankStateText.text = getBlankStateText();
-        blankStateButton.addTarget(self, action: "findStationButtonClicked:", forControlEvents: UIControlEvents.TouchUpInside);
+        let newHeight = (height / width) * kioskImage.frame.size.width;
+        kioskImage.image = Utility.scaleImage(image, newSize: CGSize(width: kioskImage.frame.size.width, height: newHeight));
+        kioskImage.frame.size.height = newHeight;
+        
+        let kioskButton = UIButton(frame: CGRect(x: (screenWidth - buttonWidth) / 2, y: kioskImage.frame.origin.y + kioskImage.frame.size.height + buttonMargin, width: buttonWidth, height: buttonHeight));
+        kioskButton.setTitle("Find a station!", forState: UIControlState.Normal);
+        kioskButton.addTarget(self, action: "findStationButtonClicked:", forControlEvents: UIControlEvents.TouchUpInside);
+        kioskButton.backgroundColor = Utility.colorFromHexString(Constants.higiGreen);
+        kioskButton.layer.cornerRadius = 4;
+        kioskButton.titleLabel?.font = UIFont.systemFontOfSize(14);
+        
         if delegate.getType() == MetricsType.DailySummary {
-            let image = secondBlankStateImage.image!;
+            let deviceImage = UIImageView(frame: CGRect(x: ((screenWidth * 3 / 2) - imageWidth) / 2, y: messageMarginY + messageHeight + imageMargin, width: imageWidth, height: imageHeight));
+            let image = UIImage(named: "fitnessband")!;
             let height = image.size.height;
             let width = image.size.width;
-            let newHeight = (height / width) * blankStateImage.frame.size.width;
-            secondBlankStateImage.image = Utility.scaleImage(image, newSize: CGSize(width: blankStateImage.frame.size.width, height: newHeight));
-            secondBlankStateButton.addTarget(self, action: "connectDeviceButtonClicked:", forControlEvents: UIControlEvents.TouchUpInside);
-            secondBlankStateButton.hidden = false;
-            secondBlankStateImage.hidden = false;
-        } else {
-            firstBlankContainer.frame.size.width = UIScreen.mainScreen().bounds.size.width - firstBlankContainer.frame.origin.x * 2;
-//            secondBlankContainer
+            let newHeight = (height / width) * deviceImage.frame.size.width;
+            deviceImage.image = Utility.scaleImage(image, newSize: CGSize(width: deviceImage.frame.size.width, height: newHeight));
+            deviceImage.frame.size.height = newHeight;
+            deviceImage.frame.origin.y = kioskImage.frame.origin.y + ((kioskImage.frame.size.height - newHeight) / 2);
+            
+            let deviceButton = UIButton(frame: CGRect(x: ((screenWidth * 3 / 2) - buttonWidth) / 2, y: kioskImage.frame.origin.y + kioskImage.frame.size.height + buttonMargin, width: buttonWidth, height: buttonHeight));
+            deviceButton.setTitle("Find a station!", forState: UIControlState.Normal);
+            deviceButton.addTarget(self, action: "findStationButtonClicked:", forControlEvents: UIControlEvents.TouchUpInside);
+            deviceButton.backgroundColor = Utility.colorFromHexString(Constants.higiGreen);
+            deviceButton.layer.cornerRadius = 4;
+            deviceButton.titleLabel?.font = UIFont.systemFontOfSize(14);
+            
+            kioskImage.frame.origin.x = (screenWidth / 2 - imageWidth) / 2;
+            kioskButton.frame.origin.x = (screenWidth / 2 - buttonWidth) / 2;
+            
+            container.addSubview(deviceImage);
+            container.addSubview(deviceButton);
         }
-        blankStateContainer.hidden = false;
+        
+        if screenWidth < 568 {
+            message.font = UIFont.systemFontOfSize(13);
+            let newMargin:CGFloat = 12;
+            message.frame = CGRect(x: newMargin, y: messageMarginY, width: screenWidth - newMargin * 2, height: messageHeight);
+        }
+        
+        container.addSubview(kioskImage);
+        container.addSubview(message);
+        container.addSubview(kioskButton);
+        
+        cardContainer.addSubview(container);
         graphContainer.hidden = true;
     }
     
@@ -167,7 +200,6 @@ class MetricCard: UIView, MetricDelegate {
             
             let path = CGPathCreateMutable();
             CGPathMoveToPoint(path, nil, 0, lineY);
-            let screenWidth = max(UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height);
             CGPathAddLineToPoint(path, nil, screenWidth, lineY);
             
             let shapeLayer = CAShapeLayer();
@@ -328,20 +360,5 @@ class MetricCard: UIView, MetricDelegate {
     func containsPoint(frame: CGRect, point: CGPoint) -> Bool {
         let translatedPoint = CGPoint(x: point.x, y: point.y - headerView.frame.size.height);
         return (translatedPoint.x >= frame.origin.x) && (translatedPoint.x <= frame.size.width + frame.origin.x) && (translatedPoint.y >= frame.origin.y) && (translatedPoint.y <= frame.origin.y + frame.size.height);
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews();
-        if blankState && delegate.getType() != MetricsType.DailySummary {
-            var imageFrame = blankStateImage.frame;
-            var buttonFrame = blankStateButton.frame;
-            
-            let screenWidth = UIScreen.mainScreen().bounds.size.width;
-//            blankStateButton.center.x = screenWidth / 2;
-//            blankStateImage.center.x = screenWidth / 2;
-
-            blankStateButton.frame.origin.x = (screenWidth - blankStateButton.frame.size.width) / 2;
-            blankStateImage.frame.origin.x = (screenWidth - blankStateImage.frame.size.width) / 2;
-        }
     }
 }
