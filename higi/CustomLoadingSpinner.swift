@@ -40,6 +40,7 @@ class CustomLoadingSpinner: UIView {
     }
     
     func startAnimating() {
+        shouldAnimate = true;
         var phase = 0;
         if (!shouldAnimateFull) {
             phase = 2;
