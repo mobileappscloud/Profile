@@ -138,54 +138,42 @@ class MetricCard: UIView, MetricDelegate {
         message.lineBreakMode = NSLineBreakMode.ByWordWrapping;
         message.numberOfLines = 0;
         
-        let kioskImage = UIImageView(frame: CGRect(x: (screenWidth - buttonWidth) / 2, y: messageMarginY + messageHeight + imageMargin, width: imageWidth, height: imageHeight));
-        let image = UIImage(named: "higistation")!;
-        let height = image.size.height;
-        let width = image.size.width;
-        let newHeight = (height / width) * kioskImage.frame.size.width;
+        let kioskImage = UIImageView(frame: CGRect(x: (screenWidth / 2 - imageWidth) / 2, y: messageMarginY + messageHeight + imageMargin, width: imageWidth, height: imageHeight));
+        var image = UIImage(named: "higistation")!;
+        var height = image.size.height;
+        var width = image.size.width;
+        var newHeight = (height / width) * kioskImage.frame.size.width;
         kioskImage.image = Utility.scaleImage(image, newSize: CGSize(width: kioskImage.frame.size.width, height: newHeight));
         kioskImage.frame.size.height = newHeight;
         
-        let kioskButton = UIButton(frame: CGRect(x: (screenWidth - buttonWidth) / 2, y: kioskImage.frame.origin.y + kioskImage.frame.size.height + buttonMargin, width: buttonWidth, height: buttonHeight));
+        let kioskButton = UIButton(frame: CGRect(x: (screenWidth / 2 - buttonWidth) / 2, y: kioskImage.frame.origin.y + kioskImage.frame.size.height + buttonMargin, width: buttonWidth, height: buttonHeight));
         kioskButton.setTitle("Find a station!", forState: UIControlState.Normal);
         kioskButton.addTarget(self, action: "findStationButtonClicked:", forControlEvents: UIControlEvents.TouchUpInside);
         kioskButton.backgroundColor = Utility.colorFromHexString(Constants.higiGreen);
         kioskButton.layer.cornerRadius = 4;
         kioskButton.titleLabel?.font = UIFont.systemFontOfSize(14);
         
-        if delegate.getType() == MetricsType.DailySummary {
-            let deviceImage = UIImageView(frame: CGRect(x: ((screenWidth * 3 / 2) - imageWidth) / 2, y: messageMarginY + messageHeight + imageMargin, width: imageWidth, height: imageHeight));
-            let image = UIImage(named: "fitnessband")!;
-            let height = image.size.height;
-            let width = image.size.width;
-            let newHeight = (height / width) * deviceImage.frame.size.width;
-            deviceImage.image = Utility.scaleImage(image, newSize: CGSize(width: deviceImage.frame.size.width, height: newHeight));
-            deviceImage.frame.size.height = newHeight;
-            deviceImage.frame.origin.y = kioskImage.frame.origin.y + ((kioskImage.frame.size.height - newHeight) / 2);
-            
-            let deviceButton = UIButton(frame: CGRect(x: ((screenWidth * 3 / 2) - buttonWidth) / 2, y: kioskImage.frame.origin.y + kioskImage.frame.size.height + buttonMargin, width: buttonWidth, height: buttonHeight));
-            deviceButton.setTitle("Find a station!", forState: UIControlState.Normal);
-            deviceButton.addTarget(self, action: "findStationButtonClicked:", forControlEvents: UIControlEvents.TouchUpInside);
-            deviceButton.backgroundColor = Utility.colorFromHexString(Constants.higiGreen);
-            deviceButton.layer.cornerRadius = 4;
-            deviceButton.titleLabel?.font = UIFont.systemFontOfSize(14);
-            
-            kioskImage.frame.origin.x = (screenWidth / 2 - imageWidth) / 2;
-            kioskButton.frame.origin.x = (screenWidth / 2 - buttonWidth) / 2;
-            
-            container.addSubview(deviceImage);
-            container.addSubview(deviceButton);
-        }
+        let deviceImage = UIImageView(frame: CGRect(x: ((screenWidth * 3 / 2) - imageWidth) / 2, y: messageMarginY + messageHeight + imageMargin, width: imageWidth, height: imageHeight));
+        image = UIImage(named: "fitnessband")!;
+        height = image.size.height;
+        width = image.size.width;
+        newHeight = (image.size.height / image.size.width) * deviceImage.frame.size.width;
+        deviceImage.image = Utility.scaleImage(image, newSize: CGSize(width: deviceImage.frame.size.width, height: newHeight));
+        deviceImage.frame.size.height = newHeight;
+        deviceImage.frame.origin.y = kioskImage.frame.origin.y + ((kioskImage.frame.size.height - newHeight) / 2);
         
-        if screenWidth < 568 {
-            message.font = UIFont.systemFontOfSize(13);
-            let newMargin:CGFloat = 12;
-            message.frame = CGRect(x: newMargin, y: messageMarginY, width: screenWidth - newMargin * 2, height: messageHeight);
-        }
-        
-        container.addSubview(kioskImage);
+        let deviceButton = UIButton(frame: CGRect(x: ((screenWidth * 3 / 2) - buttonWidth) / 2, y: kioskImage.frame.origin.y + kioskImage.frame.size.height + buttonMargin, width: buttonWidth, height: buttonHeight));
+        deviceButton.setTitle("Connect a device!", forState: UIControlState.Normal);
+        deviceButton.addTarget(self, action: "connectDeviceButtonClicked:", forControlEvents: UIControlEvents.TouchUpInside);
+        deviceButton.backgroundColor = Utility.colorFromHexString(Constants.higiGreen);
+        deviceButton.layer.cornerRadius = 4;
+        deviceButton.titleLabel?.font = UIFont.systemFontOfSize(14);
+
         container.addSubview(message);
+        container.addSubview(kioskImage);
         container.addSubview(kioskButton);
+        container.addSubview(deviceImage);
+        container.addSubview(deviceButton);
         
         cardContainer.addSubview(container);
         graphContainer.hidden = true;
