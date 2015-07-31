@@ -26,7 +26,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     
     var displayedChallenge: HigiChallenge!;
     
-    var doneRefreshing = true, activitiesRefreshed = true, challengesRefreshed = true, checkinsRefreshed = true, devicesRefreshed = true, metricsRefreshed = false, activitiesLoaded = false, challengesLoaded = false, metricsLoaded = false;
+    var doneRefreshing = true, activitiesRefreshed = true, challengesRefreshed = true, checkinsRefreshed = true, devicesRefreshed = true, metricsRefreshed = false, activitiesLoaded = false, challengesLoaded = false, metricsLoaded = false, challengeCardPlaced = false, metricsCardPlaced = false, pulseCardPlaced = false;
     
     var activityCard: MetricsGraphCard!;
     
@@ -112,12 +112,18 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             if (errorCard.superview == nil) {
                 errorCard.frame.origin.y = contentOriginY;
                 mainScrollView.addSubview(errorCard);
+                Utility.growAnimation(errorCard, startHeight: challengesCard.frame.size.height, endHeight: errorCard.frame.size.height);
             }
         } else {
-            if (errorCard.superview != nil) {
-                errorCard.removeFromSuperview();
+            if SessionController.Instance.earnditError {
+                dashboardItems = [errorCard, challengesCard, metricsCard, pulseCard];
+                Utility.growAnimation(errorCard, startHeight: challengesCard.frame.size.height, endHeight: errorCard.frame.size.height);
+            } else {
+                dashboardItems = [challengesCard, metricsCard, pulseCard];
+                if (errorCard.superview != nil) {
+                    errorCard.removeFromSuperview();
+                }
             }
-            dashboardItems = [challengesCard, metricsCard, pulseCard];
             challengesCard.challengeBox.layer.borderColor = Utility.colorFromHexString("#CCCCCC").CGColor;
             if (challengesCard.spinner == nil) {
                 challengesCard.spinner = CustomLoadingSpinner(frame: CGRectMake(challengesCard.loadingContainer.frame.size.width / 2 - 16, challengesCard.loadingContainer.frame.size.height / 2 - 16, 32, 32));
@@ -177,12 +183,13 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                 challengesCard.spinner.stopAnimating();
             }
         }
-        layoutDashboardItems(dashboardItems);
+        layoutDashboardItems(dashboardItems, animated: challengeCardPlaced);
+        challengeCardPlaced = true;
     }
     
     func initMetricsCard() {
         if (SessionController.Instance.earnditError) {
-            if (SessionController.Instance.challenges.count == 0) {
+            if (SessionController.Instance.challenges == nil || SessionController.Instance.challenges.count == 0) {
                 dashboardItems = [errorCard, metricsCard, pulseCard];
             } else {
                 dashboardItems = [errorCard, challengesCard, metricsCard, pulseCard];
@@ -368,7 +375,8 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             Utility.growAnimation(metricsCard, startHeight: metricsCard.frame.size.height, endHeight: cardPositionY);
         }
         
-        layoutDashboardItems(dashboardItems);
+        layoutDashboardItems(dashboardItems, animated: metricsCardPlaced);
+        metricsCardPlaced = true;
     }
     
     func initPulseCard() {
@@ -399,7 +407,8 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             mainScrollView.addSubview(pulseCard);
             pulseCard.spinner.startAnimating();
         }
-        layoutDashboardItems(dashboardItems);
+        layoutDashboardItems(dashboardItems, animated: pulseCardPlaced);
+        pulseCardPlaced = true;
     }
 
     func gotoActivityGraph(sender: AnyObject) {
@@ -653,10 +662,16 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         });
     }
     
-    func layoutDashboardItems(items:[UIView]) {
+    func layoutDashboardItems(items:[UIView], animated: Bool) {
         currentOrigin = contentOriginY;
         for item in dashboardItems {
-            item.frame.origin.y = currentOrigin;
+            if animated {
+                UIView.animateWithDuration(1, animations: {
+                    item.frame.origin.y = self.currentOrigin;
+                });
+            } else {
+                item.frame.origin.y = currentOrigin;
+            }
             currentOrigin += item.frame.size.height + gap;
         }
         mainScrollView.contentSize.height = currentOrigin;

@@ -316,7 +316,7 @@
             </connections>
             <point key="canvasLocation" x="1008" y="1311.5"/>
         </view>
-        <view contentMode="scaleToFill" id="j9i-G7-nbm">
+        <view clipsSubviews="YES" contentMode="scaleToFill" id="j9i-G7-nbm">
             <rect key="frame" x="0.0" y="0.0" width="320" height="345"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
