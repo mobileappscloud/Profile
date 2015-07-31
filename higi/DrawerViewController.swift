@@ -127,7 +127,7 @@ class DrawerViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 arc = CAShapeLayer();
                 arc.lineWidth = 14;
                 arc.fillColor = UIColor.whiteColor().CGColor;
-                arc.strokeColor = Utility.colorFromHexString("#76C044").CGColor;
+                arc.strokeColor = Utility.colorFromHexString(Constants.higiGreen).CGColor;
                 
                 var toPath = UIBezierPath();
                 var center = CGPoint(x: 50.0, y: 50.0);

@@ -24,7 +24,7 @@ class TermsViewController: UIViewController {
         super.viewDidLoad();
         self.navigationController?.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
         declineButton.layer.borderWidth = 1;
-        declineButton.layer.borderColor = Utility.colorFromHexString("#76C044").CGColor;
+        declineButton.layer.borderColor = Utility.colorFromHexString(Constants.higiGreen).CGColor;
         var url = "";
         if (newTerms && newPrivacy) {
             termsTitle.text = "The higi Terms of Use and Privacy Policy have changed.";
