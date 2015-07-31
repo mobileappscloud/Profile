@@ -465,7 +465,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             let formatter = NSDateFormatter();
             formatter.dateFormat = "yyyyMMddHHmm";
             for checkin in SessionController.Instance.checkins.reverse() {
-                let date1 = formatter.stringFromDate(activity.startTime);
+                let date1 = formatter.stringFromDate(activity.utcStartTime);
                 let date2 = formatter.stringFromDate(checkin.dateTime);
                 if date1 == date2 {
                     let tests = activity.healthChecks;
