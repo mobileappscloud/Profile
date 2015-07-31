@@ -419,17 +419,19 @@ class MetricsViewController: UIViewController {
         let subViews = self.view.subviews;
         let count = MetricsType.allValues.count;
         for index in 0...count - 1 {
-            let card = subViews[index] as! MetricCard;
-            let newWidth = screenWidth - CGFloat((index) * self.cardMargin);
-            card.frame.size.width = newWidth;
-            card.headerView.frame.size.width = newWidth;
-            card.position = count - 1 - index;
-            card.graphContainer.frame.size.width = screenWidth;
-            if card.graph != nil {
-                card.graph.frame.size.width = screenWidth;
-            }
-            if card.secondaryGraph != nil {
-                card.secondaryGraph.frame.size.width = screenWidth;
+            if index < subViews.count - 1 {
+                let card = subViews[index] as! MetricCard;
+                let newWidth = screenWidth - CGFloat((index) * self.cardMargin);
+                card.frame.size.width = newWidth;
+                card.headerView.frame.size.width = newWidth;
+                card.position = count - 1 - index;
+                card.graphContainer.frame.size.width = screenWidth;
+                if card.graph != nil {
+                    card.graph.frame.size.width = screenWidth;
+                }
+                if card.secondaryGraph != nil {
+                    card.secondaryGraph.frame.size.width = screenWidth;
+                }
             }
         }
     }
