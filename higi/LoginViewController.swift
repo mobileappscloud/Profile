@@ -124,8 +124,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     func gotoDashboard() {
-        spinner.stopAnimating();
         if (SessionController.Instance.checkins != nil && SessionController.Instance.challenges != nil && SessionController.Instance.kioskList != nil && SessionController.Instance.pulseArticles.count > 0) {
+            spinner.stopAnimating();
             Utility.gotoDashboard(self);
         }
     }
