@@ -188,6 +188,7 @@ class MetricCard: UIView, MetricDelegate {
             
             let path = CGPathCreateMutable();
             CGPathMoveToPoint(path, nil, 0, lineY);
+            let screenWidth = max(UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height);
             CGPathAddLineToPoint(path, nil, screenWidth, lineY);
             
             let shapeLayer = CAShapeLayer();
@@ -348,5 +349,20 @@ class MetricCard: UIView, MetricDelegate {
     func containsPoint(frame: CGRect, point: CGPoint) -> Bool {
         let translatedPoint = CGPoint(x: point.x, y: point.y - headerView.frame.size.height);
         return (translatedPoint.x >= frame.origin.x) && (translatedPoint.x <= frame.size.width + frame.origin.x) && (translatedPoint.y >= frame.origin.y) && (translatedPoint.y <= frame.origin.y + frame.size.height);
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews();
+        if blankState && delegate.getType() != MetricsType.DailySummary {
+            var imageFrame = blankStateImage.frame;
+            var buttonFrame = blankStateButton.frame;
+            
+            let screenWidth = UIScreen.mainScreen().bounds.size.width;
+//            blankStateButton.center.x = screenWidth / 2;
+//            blankStateImage.center.x = screenWidth / 2;
+
+            blankStateButton.frame.origin.x = (screenWidth - blankStateButton.frame.size.width) / 2;
+            blankStateImage.frame.origin.x = (screenWidth - blankStateImage.frame.size.width) / 2;
+        }
     }
 }
