@@ -31,7 +31,7 @@ class ActivityMetricDelegate: MetricDelegate {
     }
     
     func getBlankStateText() -> String {
-        return "It looks like you don’t have any higi points. Higi points are rewarded for tracking your health. Be it tracking your vitals with our higi Station or connecting your favorite activity trackers, higi wants to reward you for keeping tabs on your health.";
+        return "Welcome! It looks like you don’t have any higi points. Be it checking your vitals at a higi Station or counting steps with an activity tracker, higi wants to reward you for keeping tabs on your health. ";
     }
     
     func setSelected(date: NSDate) {

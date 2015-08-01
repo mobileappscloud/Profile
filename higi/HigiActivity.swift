@@ -16,7 +16,7 @@ class HigiActivity {
     
     var device: ActivityDevice!;
     
-    var startTime: NSDate!;
+    var startTime: NSDate!, utcStartTime: NSDate!;
     
     var distance: Double!, offset: Double = 0.0;
     
@@ -70,13 +70,13 @@ class HigiActivity {
                 if timezoneOffset != 0 {
                     offset = Double(NSTimeZone.localTimeZone().secondsFromGMTForDate(startTime));
                     offset -= Double(timezoneOffset * 60);
-                    startTime = NSDate(timeIntervalSince1970: startTime.timeIntervalSince1970 + offset);
+                    utcStartTime = NSDate(timeIntervalSince1970: startTime.timeIntervalSince1970 + offset);
                 }
             }
             // must set category and health checks before determining type/category
         } else if type == ActivityCategory.Health {
             offset = Double(NSTimeZone.localTimeZone().secondsFromGMT);
-            startTime = NSDate(timeIntervalSince1970: startTime.timeIntervalSince1970 + Double(NSTimeZone.localTimeZone().secondsFromGMT));
+            utcStartTime = NSDate(timeIntervalSince1970: startTime.timeIntervalSince1970 + Double(NSTimeZone.localTimeZone().secondsFromGMT));
         }
     }
 }

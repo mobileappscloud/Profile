@@ -39,7 +39,7 @@ class BpMetricDelegate: MetricDelegate {
     }
     
     func getBlankStateText() -> String {
-        return "It looks like you don’t have any blood pressure readings with us. You can start tracking your BP by visiting your local higi Station. And get this, higi will reward your 50 points for each BP check. If you don’t have a higi Station nearby, you can sync your favorite BP cuff with higi to start tracking your BP and get rewarded for it!";
+        return "Welcome! It looks like you don’t have any blood pressure readings with us. Join the millions who track their BP with higi by visiting a higi Station or connecting your wireless BP monitor.";
     }
     
     func setSelected(date: NSDate) {

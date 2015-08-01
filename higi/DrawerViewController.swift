@@ -59,7 +59,7 @@ class DrawerViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
             Flurry.logEvent("MetricsOffCanvas_Pressed");
             self.tableView.deselectRowAtIndexPath(index, animated: false);
-            self.navController?.pushViewController(MetricsViewController(), animated: false);
+            self.navController?.pushViewController(MetricsViewController(), animated: true);
         }));
         navigationObjects.append(NavigationObject(title: "Find a Station", icon: "oc_findastation.png", activeIcon: "oc_findastation_active.png", callback: { (index: NSIndexPath) in
             Flurry.logEvent("FindStationOffCanvas_Pressed");
@@ -127,7 +127,7 @@ class DrawerViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 arc = CAShapeLayer();
                 arc.lineWidth = 14;
                 arc.fillColor = UIColor.whiteColor().CGColor;
-                arc.strokeColor = Utility.colorFromHexString("#76C044").CGColor;
+                arc.strokeColor = Utility.colorFromHexString(Constants.higiGreen).CGColor;
                 
                 var toPath = UIBezierPath();
                 var center = CGPoint(x: 50.0, y: 50.0);

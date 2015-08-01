@@ -267,7 +267,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         let titleRow = initActivityRow(title, points: points, totalPoints: largestActivityPoints, color: color, alpha: alpha);
         titleRow.frame.origin.y = currentOrigin;
         
-        let rowWidth = UIScreen.mainScreen().bounds.size.width - titleRow.name.frame.origin.x;
+        let rowWidth = UIScreen.mainScreen().bounds.size.width - titleRow.name.frame.origin.x - 10;
         let rowX = titleRow.name.frame.origin.x;
         
         rows.append(titleRow);
@@ -465,7 +465,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             let formatter = NSDateFormatter();
             formatter.dateFormat = "yyyyMMddHHmm";
             for checkin in SessionController.Instance.checkins.reverse() {
-                let date1 = formatter.stringFromDate(activity.startTime);
+                let date1 = formatter.stringFromDate(activity.utcStartTime);
                 let date2 = formatter.stringFromDate(checkin.dateTime);
                 if date1 == date2 {
                     let tests = activity.healthChecks;
@@ -576,8 +576,8 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             originY += row.frame.size.height + margins[i];
             i++;
         }
-        if descriptionRows.count > 0 && margins.count > 0 {
-            let row = descriptionRows.last!;
+        if rows.count > 0 && margins.count > 0 {
+            let row = rows.last!;
             currentOrigin = row.frame.origin.y + row.frame.size.height + margins.last! + 8;
         } else {
             currentOrigin = originY;

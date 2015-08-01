@@ -23,7 +23,7 @@ class CustomLoadingSpinner: UIView {
         
         progressLayer = CAShapeLayer();
         progressLayer.path = UIBezierPath(arcCenter: centerPoint, radius: 0, startAngle: 0, endAngle: CGFloat(CGFloat(M_PI * 2)), clockwise: true).CGPath;
-        progressLayer.strokeColor = Utility.colorFromHexString("#76C043").CGColor;
+        progressLayer.strokeColor = Utility.colorFromHexString(Constants.higiGreen).CGColor;
         progressLayer.anchorPoint = centerPoint;
         progressLayer.fillColor = UIColor.clearColor().CGColor;
         
@@ -40,6 +40,7 @@ class CustomLoadingSpinner: UIView {
     }
     
     func startAnimating() {
+        shouldAnimate = true;
         var phase = 0;
         if (!shouldAnimateFull) {
             phase = 2;

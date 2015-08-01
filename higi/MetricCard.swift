@@ -3,21 +3,14 @@ import Foundation
 class MetricCard: UIView, MetricDelegate {
     
     @IBOutlet weak var graphContainer: UIView!
-    @IBOutlet weak var view: UIView!
+    @IBOutlet weak var cardContainer: UIView!
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var icon: UIImageView!
     @IBOutlet weak var toggleButton: UIButton!
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var triangleView: UIView!
-    @IBOutlet weak var blankStateContainer: UIView!
-    @IBOutlet weak var blankStateImage: UIImageView!
-    @IBOutlet weak var blankStateTitle: UILabel!
-    @IBOutlet weak var blankStateText: UILabel!
-    @IBOutlet weak var blankStateButton: UIButton!
-    @IBOutlet weak var orLabel: UILabel!
-    @IBOutlet weak var secondBlankStateButton: UIButton!
-    
+
     var graph, secondaryGraph: MetricGraph!;
     
     var delegate: MetricDelegate!;
@@ -34,10 +27,12 @@ class MetricCard: UIView, MetricDelegate {
     
     var points: [GraphPoint] = [], altPoints: [GraphPoint] = [];
     
+    var firstCtaButton, secondCtaButton: UIButton!;
+    
     class func instanceFromNib(delegate: MetricDelegate, frame: CGRect, points: [GraphPoint], altPoints: [GraphPoint]) -> MetricCard {
-        let view = UINib(nibName: "MetricCardView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! MetricCard;
-        view.setup(delegate, frame: frame, points: points, altPoints: altPoints);
-        return view;
+        let nib = UINib(nibName: "MetricCardView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! MetricCard;
+        nib.setup(delegate, frame: frame, points: points, altPoints: altPoints);
+        return nib;
     }
 
     func setup(delegate: MetricDelegate, frame: CGRect, points: [GraphPoint], altPoints:[GraphPoint]) {
@@ -52,10 +47,10 @@ class MetricCard: UIView, MetricDelegate {
     
     override func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {
         if blankState {
-            if containsPoint(blankStateButton.frame, point: point) {
-                return blankStateButton;
-            } else if containsPoint(secondBlankStateButton.frame, point: point) {
-                return secondBlankStateButton;
+            if containsPoint(firstCtaButton.frame, point: point) {
+                return firstCtaButton;
+            } else if containsPoint(secondCtaButton.frame, point: point) {
+                return secondCtaButton;
             }
         } else if (point.y > 54 && point.y < (graphContainer.frame.origin.y + graphContainer.frame.size.height)) {
             if (!graph.hidden) {
@@ -131,49 +126,61 @@ class MetricCard: UIView, MetricDelegate {
     }
     
     func layoutBlankStateView() {
-        blankState = true;
+        let messageMarginX:CGFloat = 34, messageMarginY:CGFloat = 8, messageHeight: CGFloat = 90, imageHeight:CGFloat = 75, imageWidth:CGFloat = 150, imageMargin:CGFloat = 0, buttonWidth:CGFloat = 150, buttonHeight:CGFloat = 40, buttonMargin:CGFloat = 8, screenWidth = max(UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height), screenHeight = min(UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height);
         
-        blankStateImage.frame.size.width = UIScreen.mainScreen().bounds.width;
+        let container = UIView(frame: CGRect(x: 0, y: headerView.frame.size.height, width: screenWidth, height: screenHeight - headerView.frame.size.height));
+        container.backgroundColor = Utility.colorFromHexString("#EFEFEF");
         
-        let image = delegate.getBlankStateImage();
-        let height = image.size.height;
-        let width = image.size.width;
-        let newHeight = (height / width) * blankStateImage.frame.size.width;
+        let message = UILabel(frame: CGRect(x: messageMarginX, y: messageMarginY, width: screenWidth - messageMarginX * 2, height: messageHeight));
+        message.text = getBlankStateText();
+        message.textColor = Utility.colorFromHexString("#444444");
+        message.font = UIFont.systemFontOfSize(14);
+        message.lineBreakMode = NSLineBreakMode.ByWordWrapping;
+        message.numberOfLines = 0;
         
-        blankStateImage.image = Utility.scaleImage(image, newSize: CGSize(width: blankStateImage.frame.size.width, height: newHeight));
-        blankStateTitle.text = "Welcome!";
-        blankStateText.text = getBlankStateText();
+        let kioskImage = UIImageView(frame: CGRect(x: (screenWidth / 2 - imageWidth) / 2, y: messageMarginY + messageHeight + imageMargin, width: imageWidth, height: imageHeight));
+        var image = UIImage(named: "higistation")!;
+        var height = image.size.height;
+        var width = image.size.width;
+        var newHeight = (height / width) * kioskImage.frame.size.width;
+        kioskImage.image = Utility.scaleImage(image, newSize: CGSize(width: kioskImage.frame.size.width, height: newHeight));
+        kioskImage.frame.size.height = newHeight;
         
-        if delegate.getType() == MetricsType.DailySummary {
-            secondBlankStateButton.addTarget(self, action: "findStationButtonClicked:", forControlEvents: UIControlEvents.TouchUpInside);
-            blankStateButton.setTitle("Connect a Device", forState: UIControlState.Normal);
-            secondBlankStateButton.setTitle("Find a Station", forState: UIControlState.Normal);
-            blankStateButton.addTarget(self, action: "connectDeviceButtonClicked:", forControlEvents: UIControlEvents.TouchUpInside);
-            orLabel.hidden = false;
-            secondBlankStateButton.hidden = false;
-        } else {
-            blankStateButton.addTarget(self, action: "findStationButtonClicked:", forControlEvents: UIControlEvents.TouchUpInside);
-        }
+        let kioskButton = UIButton(frame: CGRect(x: (screenWidth / 2 - buttonWidth) / 2, y: kioskImage.frame.origin.y + kioskImage.frame.size.height + buttonMargin, width: buttonWidth, height: buttonHeight));
+        kioskButton.setTitle("Find a station!", forState: UIControlState.Normal);
+        kioskButton.addTarget(self, action: "findStationButtonClicked:", forControlEvents: UIControlEvents.TouchUpInside);
+        kioskButton.backgroundColor = Utility.colorFromHexString(Constants.higiGreen);
+        kioskButton.layer.cornerRadius = 4;
+        kioskButton.titleLabel?.font = UIFont.systemFontOfSize(14);
         
-        blankStateContainer.hidden = false;
+        let deviceImage = UIImageView(frame: CGRect(x: ((screenWidth * 3 / 2) - imageWidth) / 2, y: messageMarginY + messageHeight + imageMargin, width: imageWidth, height: imageHeight));
+        image = UIImage(named: "fitnessband")!;
+        height = image.size.height;
+        width = image.size.width;
+        newHeight = (image.size.height / image.size.width) * deviceImage.frame.size.width;
+        deviceImage.image = Utility.scaleImage(image, newSize: CGSize(width: deviceImage.frame.size.width, height: newHeight));
+        deviceImage.frame.size.height = newHeight;
+        deviceImage.frame.origin.y = kioskImage.frame.origin.y + ((kioskImage.frame.size.height - newHeight) / 2);
+        
+        let deviceButton = UIButton(frame: CGRect(x: ((screenWidth * 3 / 2) - buttonWidth) / 2, y: kioskImage.frame.origin.y + kioskImage.frame.size.height + buttonMargin, width: buttonWidth, height: buttonHeight));
+        deviceButton.setTitle("Connect a device!", forState: UIControlState.Normal);
+        deviceButton.addTarget(self, action: "connectDeviceButtonClicked:", forControlEvents: UIControlEvents.TouchUpInside);
+        deviceButton.backgroundColor = Utility.colorFromHexString(Constants.higiGreen);
+        deviceButton.layer.cornerRadius = 4;
+        deviceButton.titleLabel?.font = UIFont.systemFontOfSize(14);
+
+        container.addSubview(message);
+        container.addSubview(kioskImage);
+        container.addSubview(kioskButton);
+        container.addSubview(deviceImage);
+        container.addSubview(deviceButton);
+        
+        cardContainer.addSubview(container);
         graphContainer.hidden = true;
-        
-        if UIScreen.mainScreen().bounds.width < 568 {
-            let buttonWidth: CGFloat = 100, margin: CGFloat = 8;
-            blankStateTitle.font = UIFont.systemFontOfSize(15);
-            blankStateText.font = UIFont.systemFontOfSize(12);
-            blankStateButton.frame.size.width = buttonWidth;
-            blankStateButton.titleLabel?.font = UIFont.systemFontOfSize(12);
-            secondBlankStateButton.frame.size.width = buttonWidth;
-            secondBlankStateButton.titleLabel?.font = UIFont.systemFontOfSize(12);
-            orLabel.frame.origin.x = blankStateButton.frame.origin.x + buttonWidth + margin;
-            secondBlankStateButton.frame.origin.x = margin + orLabel.frame.origin.x;
-        }
     }
     
     func initRegions(isPrimaryGraph: Bool) {
         let screenWidth = max(UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height);
-        let screenHeight = min(UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height);
         let baseGraph = isPrimaryGraph ? graph : secondaryGraph;
         if (delegate.getType() == MetricsType.DailySummary && baseGraph.points.count > 0) {
             var frame = graphContainer.frame;
@@ -193,8 +200,6 @@ class MetricCard: UIView, MetricDelegate {
             shapeLayer.path = path;
  
             graphContainer.layer.insertSublayer(shapeLayer, atIndex: 0);
-            
-            
         } else if (baseGraph.points.count > 0 && delegate.shouldShowRegions()) {
             if regions.count > 0 {
                 for region in regions {
@@ -213,31 +218,31 @@ class MetricCard: UIView, MetricDelegate {
                 let upperBound = baseGraph.getScreenPoint(0, yPoint: CGFloat(range.upperBound));
                 if (upperBound.y >= 0 || lowerBound.y < graphContainer.frame.size.height) {
                     lastVisibleY = lowerBound.y;
-                    let view = UIView(frame: CGRect(x: 0, y: upperBound.y + graph.graph.plotAreaFrame.paddingTop, width: screenWidth, height: lowerBound.y - upperBound.y));
-                    var labelHeight = view.frame.size.height;
+                    let region = UIView(frame: CGRect(x: 0, y: upperBound.y + graph.graph.plotAreaFrame.paddingTop, width: screenWidth, height: lowerBound.y - upperBound.y));
+                    var labelHeight = region.frame.size.height;
                     var labelY:CGFloat = 0;
                     if lowerBound.y > graphContainer.frame.size.height {
                         labelHeight = graphContainer.frame.size.height - upperBound.y - 20;
                     } else if upperBound.y < 0 {
                         labelHeight = lowerBound.y;
-                        labelY = view.frame.size.height - labelHeight;
+                        labelY = region.frame.size.height - labelHeight;
                     }
                     if labelHeight >= labelMinHeight || (lowerBound.y < graphContainer.frame.size.height && upperBound.y > 0) {
-                        let label = UILabel(frame: CGRect(x: 0, y: labelY, width: view.frame.size.width - 10, height: labelHeight));
+                        let label = UILabel(frame: CGRect(x: 0, y: labelY, width: region.frame.size.width - 10, height: labelHeight));
                         label.text = range.label;
                         label.textAlignment = NSTextAlignment.Right;
                         label.backgroundColor = UIColor.clearColor();
                         if (i % 2 == 0) {
                             label.textColor = Utility.colorFromHexString("#EEEEEE");
-                            view.backgroundColor = UIColor.whiteColor();
+                            region.backgroundColor = UIColor.whiteColor();
                         } else {
                             label.textColor = UIColor.whiteColor();
-                            view.backgroundColor = Utility.colorFromHexString("#EEEEEE");
+                            region.backgroundColor = Utility.colorFromHexString("#EEEEEE");
                         }
-                        view.addSubview(label);
+                        region.addSubview(label);
                     }
-                    regions.append(view);
-                    self.graphContainer.insertSubview(view, belowSubview: baseGraph);
+                    regions.append(region);
+                    self.graphContainer.insertSubview(region, belowSubview: baseGraph);
                     i++;
                     lastVisibleY = lowerBound.y;
                 }
