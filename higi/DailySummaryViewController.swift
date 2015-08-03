@@ -135,14 +135,16 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             date = Constants.dateFormatter.dateFromString(dateString);
         }
         let dateFormatter = NSDateFormatter();
-        dateFormatter.dateFormat = "dd";
+        dateFormatter.dateFormat = "d";
         let monthYearFormatter = NSDateFormatter();
         monthYearFormatter.dateFormat = "MMMM yyyy";
         let dayOfWeekFormatter = NSDateFormatter();
         dayOfWeekFormatter.dateFormat = "EEEE";
         let hourFormatter = NSDateFormatter();
         hourFormatter.dateFormat = "HH";
-        dateNumber.text = dateFormatter.stringFromDate(date);
+        let dateNumberText = dateFormatter.stringFromDate(date);
+        dateNumber.text = dateNumberText;
+        dateNumber.frame.size.width = Utility.widthForTextView(dateNumber.frame.size.height, text: dateNumberText, fontSize: dateNumber.font.pointSize, margin: 0);
         dayOfWeek.text = dayOfWeekFormatter.stringFromDate(date);
         monthYear.text = monthYearFormatter.stringFromDate(date);
         //Greeting should reflect current day's time even if we are looking at past daily summary
