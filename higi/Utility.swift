@@ -80,6 +80,17 @@ class Utility {
         return label.frame.height + margin;
     }
     
+    class func widthForTextView(height: CGFloat, text: String, fontSize: CGFloat, margin: CGFloat) -> CGFloat {
+        let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: CGFloat.max, height: height));
+        label.numberOfLines = 0;
+        label.lineBreakMode = NSLineBreakMode.ByWordWrapping;
+        label.font = UIFont.systemFontOfSize(fontSize);
+        label.text = text;
+        
+        label.sizeToFit();
+        return label.frame.height + margin;
+    }
+    
     class func htmlDecodeString(encodedString: String) -> String {
         let encodedData = encodedString.dataUsingEncoding(NSUTF8StringEncoding)!
         let attributedOptions = [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType]

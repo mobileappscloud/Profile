@@ -135,14 +135,16 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             date = Constants.dateFormatter.dateFromString(dateString);
         }
         let dateFormatter = NSDateFormatter();
-        dateFormatter.dateFormat = "dd";
+        dateFormatter.dateFormat = "d";
         let monthYearFormatter = NSDateFormatter();
         monthYearFormatter.dateFormat = "MMMM yyyy";
         let dayOfWeekFormatter = NSDateFormatter();
         dayOfWeekFormatter.dateFormat = "EEEE";
         let hourFormatter = NSDateFormatter();
         hourFormatter.dateFormat = "HH";
-        dateNumber.text = dateFormatter.stringFromDate(date);
+        let dateNumberText = dateFormatter.stringFromDate(date);
+        dateNumber.text = dateNumberText;
+        dateNumber.frame.size.width = Utility.widthForTextView(dateNumber.frame.size.height, text: dateNumberText, fontSize: dateNumber.font.pointSize, margin: 0);
         dayOfWeek.text = dayOfWeekFormatter.stringFromDate(date);
         monthYear.text = monthYearFormatter.stringFromDate(date);
         //Greeting should reflect current day's time even if we are looking at past daily summary
@@ -222,33 +224,34 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     func layoutBlankState() {
         let totalPoints = 140, higiPoints = 100, foursquarePoints = 15, morningPoints = 15, afternoonPoints = 15, activityTrackerPoints = 50;
         
-        let higiTitle = "higi Station", foursquareTitle = "Foursquare", activityTrackerTitle = "Activity Tracker", morningTitle = "Can you beat 15?", afternoonTitle = "Can you beat 15?";
+        let higiTitle = "higi Station", foursquareTitle = "Foursquare", activityTrackerTitle = "Activity Tracker", morningTitle = "", afternoonTitle = "";
         
-        let higiText = "Join the millions of people that are tracking their health through higi. You can earn up to 100 points by visiting a higi Station and getting your blood pressure, pulse, weight, and BMI stats. \n\n", activityTrackerText = "Higi makes it fun and rewarding to track your steps. Simply connect your favorite activity tracker and start getting rewarded for your jogs around the block. \n", foursquareText = "Wanna get rewarded for going to the gym or walking your dog at the park? Just connect your Foursquare account with higi and we will reward your 15 points for every time you check into a gym or park. \n", morningText = "Think you can earn more points than the average higi user? They average just over 15 points per day. If you are hoping to beat that, try visiting a higi Station today and make sure your activity tracker is connected to higi.  \n", afternoonText = "Think you can earn more points than the average higi user? They average just over 15 points per day. If you are hoping to beat that, try visiting a higi Station today and make sure your activity tracker is connected to higi.  \n";
+        let higiText = "Join the millions of people that are tracking their health through higi. You can earn up to 100 points by visiting a higi Station and getting your blood pressure, pulse, weight, and BMI stats. \n\n", activityTrackerText = "Higi makes it fun and rewarding to track your steps. Simply connect your favorite activity tracker and start getting rewarded for your jogs around the block. \n", foursquareText = "Wanna get rewarded for going to the gym or walking your dog at the park? Just connect your Foursquare account with higi and we will reward your 15 points for every time you check into a gym or park. \n", morningText = "Think you can earn more points than the average higi user? They average just over 15 points per day. If you are hoping to beat that, try visiting a higi Station today and make sure your activity tracker is connected to higi.  \n", afternoonText = "Think you can earn more points than the average higi user? They average just over 15 points per day. If you are hoping to beat that, try visiting a higi Station or sync your activity tracker with higi to see how many points you’ve earned today.  \n";
         
-        let higiCallToAction = "Find a station!", activityTrackerCallToAction = "Connect a device!", foursquareCallToAction = "Connect a device!", morningCallToAction = "Find a station!", afternoonCallToAction = "Find a station!";
+        let higiCallToAction = "Find a station", activityTrackerCallToAction = "Connect a device", foursquareCallToAction = "Connect a device", morningCallToAction = "Find a station", afternoonCallToAction = "Find a station";
         
         let higiButtonTarget:Selector = "higiCallToActionClicked:", activityTrackerButtonTarget:Selector = "activityTrackerCallToActionClicked:", foursquareButtonTarget:Selector = "foursquareCallToActionClicked:", morningButtonTarget:Selector = "higiCallToActionClicked:", afternoonButtonTarget:Selector = "higiCallToActionClicked:";
         
         let noActivities = SessionController.Instance.activities.count == 0;
         let noCheckins = SessionController.Instance.checkins.count == 0;
-        let noDevices = (noActivities && noCheckins) || (!noActivities && noCheckins);
+        var noDevices = true;
+        var devices = SessionController.Instance.devices;
+        for (key, device) in devices {
+            if (devices[key] != nil && devices[key]!.connected!) {
+                noDevices = false;
+                break;
+            }
+        }
         
         largestActivityPoints = 0;
         
-        if noCheckins {
+        if noCheckins && noActivities {
             createBlankStateRow(higiTitle, points: higiPoints, text: higiText, buttonCta: higiCallToAction, target: higiButtonTarget);
-        }
-        
-        if noActivities {
-            createBlankStateRow(activityTrackerTitle, points: activityTrackerPoints, text: activityTrackerText, buttonCta: activityTrackerCallToAction, target: activityTrackerButtonTarget);
-        }
-        
-        if noDevices {
+            createBlankStateRow(activityTrackerTitle, points: activityTrackerPoints, text: activityTrackerText, buttonCta: activityTrackerCallToAction, target: higiButtonTarget);
             createBlankStateRow(foursquareTitle, points: foursquarePoints, text: foursquareText, buttonCta: foursquareCallToAction, target: foursquareButtonTarget);
-        }
-        
-        if !noDevices && !noCheckins {
+        } else if noDevices {
+            createBlankStateRow(activityTrackerTitle, points: activityTrackerPoints, text: activityTrackerText, buttonCta: activityTrackerCallToAction, target: activityTrackerButtonTarget);
+        } else {
             if timeOfDay == TimeOfDay.Morning {
                 createBlankStateRow(morningTitle, points: morningPoints, text: morningText, buttonCta: morningCallToAction, target: morningButtonTarget);
             } else {
