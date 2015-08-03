@@ -320,32 +320,6 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                             weightPoints.append(GraphPoint(x: Double(checkin.dateTime.timeIntervalSince1970), y: checkin.weightLbs));
                         }
                     }
-                    if (SessionController.Instance.earnditError) {
-                        self.activityCard.singleValue.text = "--";
-                    } else {
-                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                            var activityPoints:[GraphPoint] = [];
-                            let dateString = Constants.dateFormatter.stringFromDate(NSDate());
-                            var totalPoints = 0;
-                            for (date, (total, activityList)) in SessionController.Instance.activities {
-                                if (date == dateString) {
-                                    totalPoints = total;
-                                }
-                                if (activityList.count > 0) {
-                                    activityPoints.append(GraphPoint(x: Double(activityList[0].startTime.timeIntervalSince1970), y: Double(total)));
-                                }
-                            }
-                            activityPoints.sort({$0.x > $1.x});
-                            if (activityPoints.count > self.maxPointsToShow) {
-                                activityPoints = Array(activityPoints[0..<self.maxPointsToShow]);
-                            }
-                            activityPoints = activityPoints.reverse();
-                            dispatch_async(dispatch_get_main_queue(), {
-                                self.activityCard.singleValue.text = "\(totalPoints)";
-                                self.activityCard.graph(activityPoints, type: MetricsType.DailySummary);
-                            });
-                        });
-                    }
                     dispatch_async(dispatch_get_main_queue(), {
                         if (mapPoints.count > self.maxPointsToShow) {
                             mapPoints = Array(mapPoints.reverse()[0..<self.maxPointsToShow]);
@@ -359,6 +333,32 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                         bloodPressureCard.graph(mapPoints, type: MetricsType.BloodPressure);
                         pulseCard.graph(bpmPoints, type: MetricsType.Pulse);
                         weightCard.graph(weightPoints, type: MetricsType.Weight);
+                    });
+                });
+            }
+            if (SessionController.Instance.earnditError) {
+                self.activityCard.singleValue.text = "--";
+            } else {
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                    var activityPoints:[GraphPoint] = [];
+                    let dateString = Constants.dateFormatter.stringFromDate(NSDate());
+                    var totalPoints = 0;
+                    for (date, (total, activityList)) in SessionController.Instance.activities {
+                        if (date == dateString) {
+                            totalPoints = total;
+                        }
+                        if (activityList.count > 0) {
+                            activityPoints.append(GraphPoint(x: Double(activityList[0].startTime.timeIntervalSince1970), y: Double(total)));
+                        }
+                    }
+                    activityPoints.sort({$0.x > $1.x});
+                    if (activityPoints.count > self.maxPointsToShow) {
+                        activityPoints = Array(activityPoints[0..<self.maxPointsToShow]);
+                    }
+                    activityPoints = activityPoints.reverse();
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.activityCard.singleValue.text = "\(totalPoints)";
+                        self.activityCard.graph(activityPoints, type: MetricsType.DailySummary);
                     });
                 });
             }
