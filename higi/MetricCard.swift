@@ -128,7 +128,7 @@ class MetricCard: UIView, MetricDelegate {
     func layoutBlankStateView() {
         let messageMarginX:CGFloat = 34, messageMarginY:CGFloat = 8, messageHeight: CGFloat = 90, imageHeight:CGFloat = 75, imageWidth:CGFloat = 150, imageMargin:CGFloat = 0, buttonWidth:CGFloat = 150, buttonHeight:CGFloat = 40, buttonMargin:CGFloat = 8, screenWidth = max(UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height), screenHeight = min(UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height);
         
-        let container = UIView(frame: CGRect(x: 0, y: headerView.frame.size.height, width: screenWidth, height: screenHeight - headerView.frame.size.height));
+        let container = UIView(frame: CGRect(x: 0, y: headerView.frame.size.height - 1, width: screenWidth, height: screenHeight - headerView.frame.size.height));
         container.backgroundColor = Utility.colorFromHexString("#EFEFEF");
         
         let message = UILabel(frame: CGRect(x: messageMarginX, y: messageMarginY, width: screenWidth - messageMarginX * 2, height: messageHeight));
@@ -147,7 +147,7 @@ class MetricCard: UIView, MetricDelegate {
         kioskImage.frame.size.height = newHeight;
         
         let kioskButton = UIButton(frame: CGRect(x: (screenWidth / 2 - buttonWidth) / 2, y: kioskImage.frame.origin.y + kioskImage.frame.size.height + buttonMargin, width: buttonWidth, height: buttonHeight));
-        kioskButton.setTitle("Find a station!", forState: UIControlState.Normal);
+        kioskButton.setTitle("Find a station", forState: UIControlState.Normal);
         kioskButton.addTarget(self, action: "findStationButtonClicked:", forControlEvents: UIControlEvents.TouchUpInside);
         kioskButton.backgroundColor = Utility.colorFromHexString(Constants.higiGreen);
         kioskButton.layer.cornerRadius = 4;
@@ -163,7 +163,7 @@ class MetricCard: UIView, MetricDelegate {
         deviceImage.frame.origin.y = kioskImage.frame.origin.y + ((kioskImage.frame.size.height - newHeight) / 2);
         
         let deviceButton = UIButton(frame: CGRect(x: ((screenWidth * 3 / 2) - buttonWidth) / 2, y: kioskImage.frame.origin.y + kioskImage.frame.size.height + buttonMargin, width: buttonWidth, height: buttonHeight));
-        deviceButton.setTitle("Connect a device!", forState: UIControlState.Normal);
+        deviceButton.setTitle("Connect a device", forState: UIControlState.Normal);
         deviceButton.addTarget(self, action: "connectDeviceButtonClicked:", forControlEvents: UIControlEvents.TouchUpInside);
         deviceButton.backgroundColor = Utility.colorFromHexString(Constants.higiGreen);
         deviceButton.layer.cornerRadius = 4;
