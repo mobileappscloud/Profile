@@ -146,8 +146,10 @@ class MetricsViewController: UIViewController {
                 if let secondaryGraph = delegate.getSecondaryGraph(card!.graphContainer.frame, points: fatPoints, altPoints: fatAltPoints) {
                     card!.secondaryGraph = secondaryGraph;
                     card!.secondaryGraph.hidden = true;
-                    card!.toggleButton.hidden = false;
-                    card!.triangleView.hidden = false;
+                    if secondaryGraph.points.count > 0 {
+                        card!.toggleButton.hidden = false;
+                        card!.triangleView.hidden = false;
+                    }
                     card!.graphContainer.addSubview(secondaryGraph);
                 }
             default:
