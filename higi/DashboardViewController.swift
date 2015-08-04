@@ -335,6 +335,10 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                         weightCard.graph(weightPoints, type: MetricsType.Weight);
                     });
                 });
+            } else {
+                bloodPressureCard.graph([], type: MetricsType.BloodPressure);
+                pulseCard.graph([], type: MetricsType.Pulse);
+                weightCard.graph([], type: MetricsType.Weight);
             }
             if (SessionController.Instance.earnditError) {
                 self.activityCard.singleValue.text = "--";
