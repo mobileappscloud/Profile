@@ -40,6 +40,7 @@ class PulseHomeViewController: BaseViewController, UITableViewDataSource, UITabl
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
+        (self.navigationController as! MainNavigationController).drawerController?.selectRowAtIndex(4);
         updateNavBar();
     }
     

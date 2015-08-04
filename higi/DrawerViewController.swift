@@ -110,6 +110,10 @@ class DrawerViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return navigationObjects.count;
     }
     
+    func selectRowAtIndex(index: Int) {
+        tableView.selectRowAtIndexPath(NSIndexPath(forRow: index, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None);
+    }
+    
     func refreshData() {
         blurryBackground.image = SessionData.Instance.user.blurredImage;
         profileImage.image = SessionData.Instance.user.profileImage;
