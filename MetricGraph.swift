@@ -44,19 +44,24 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         graph.paddingRight = 0;
         graph.paddingBottom = 0;
         graph.plotAreaFrame.paddingBottom = 10;
-        for point in points {
-            if (point.y > maxY) {
-                maxY = point.y;
+        if points.count > 0 {
+            for point in points {
+                if (point.y > maxY) {
+                    maxY = point.y;
+                }
+                if (point.y < minY) {
+                    minY = round(point.y);
+                }
+                if (point.x > maxX) {
+                    maxX = point.x;
+                }
+                if (point.x < minX) {
+                    minX = round(point.x);
+                }
             }
-            if (point.y < minY) {
-                minY = round(point.y);
-            }
-            if (point.x > maxX) {
-                maxX = point.x;
-            }
-            if (point.x < minX) {
-                minX = round(point.x);
-            }
+        } else {
+            minX = 0;
+            minY = 0;
         }
         var yRange = maxY - minY > 1 ? maxY - minY : 1;
         var xRange = maxX - minX > 1 ? maxX - minX : 1;
