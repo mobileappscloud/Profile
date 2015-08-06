@@ -30,6 +30,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
+        (self.navigationController as! MainNavigationController).drawerController?.selectRowAtIndex(1);
         //fix for changing orientation bug when coming back from landscape screen
         screenWidth = min(UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height);
         scrollView.frame.size.width = screenWidth;

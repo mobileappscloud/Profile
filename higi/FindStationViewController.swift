@@ -90,7 +90,8 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
-        
+        (self.navigationController as! MainNavigationController).drawerController?.selectRowAtIndex(3);
+
         mapContainer.frame = CGRect(x: 64, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height - 64);
         
         searchField.addTarget(self, action: "textFieldChanged", forControlEvents: UIControlEvents.EditingChanged);

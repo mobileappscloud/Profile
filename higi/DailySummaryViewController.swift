@@ -86,6 +86,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         for row in titleRows {
             row.frame.size.width = UIScreen.mainScreen().bounds.size.width - row.frame.origin.x;
         }
+        scrollView.setContentOffset(CGPoint(x: 0,y: 0), animated: false);
         updateNavbar(0);
     }
     
@@ -230,7 +231,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         
         let higiCallToAction = "Find a station", activityTrackerCallToAction = "Connect a device", foursquareCallToAction = "Connect a device", morningCallToAction = "Find a station", afternoonCallToAction = "Find a station";
         
-        let higiButtonTarget:Selector = "higiCallToActionClicked:", activityTrackerButtonTarget:Selector = "activityTrackerCallToActionClicked:", foursquareButtonTarget:Selector = "foursquareCallToActionClicked:", morningButtonTarget:Selector = "higiCallToActionClicked:", afternoonButtonTarget:Selector = "higiCallToActionClicked:";
+        let higiButtonTarget:Selector = "higiCallToActionClicked:", activityTrackerButtonTarget:Selector = "activityTrackerCallToActionClicked:", foursquareButtonTarget:Selector = "foursquareCallToActionClicked:", morningButtonTarget:Selector = "morningCallToActionClicked:", afternoonButtonTarget:Selector = "afternoonCallToActionClicked:";
         
         let noActivities = SessionController.Instance.activities.count == 0;
         let noCheckins = SessionController.Instance.checkins.count == 0;
@@ -247,7 +248,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         
         if noCheckins && noActivities {
             createBlankStateRow(higiTitle, points: higiPoints, text: higiText, buttonCta: higiCallToAction, target: higiButtonTarget);
-            createBlankStateRow(activityTrackerTitle, points: activityTrackerPoints, text: activityTrackerText, buttonCta: activityTrackerCallToAction, target: higiButtonTarget);
+            createBlankStateRow(activityTrackerTitle, points: activityTrackerPoints, text: activityTrackerText, buttonCta: activityTrackerCallToAction, target: activityTrackerButtonTarget);
             createBlankStateRow(foursquareTitle, points: foursquarePoints, text: foursquareText, buttonCta: foursquareCallToAction, target: foursquareButtonTarget);
         } else if noDevices {
             createBlankStateRow(activityTrackerTitle, points: activityTrackerPoints, text: activityTrackerText, buttonCta: activityTrackerCallToAction, target: activityTrackerButtonTarget);
@@ -460,6 +461,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         button.backgroundColor = Utility.colorFromHexString(Constants.higiGreen);
         button.layer.cornerRadius = 4;
         button.addTarget(self, action: action, forControlEvents: UIControlEvents.TouchUpInside);
+        button.userInteractionEnabled = true;
         return button;
     }
     
@@ -600,6 +602,16 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     func foursquareCallToActionClicked(sender: AnyObject!) {
         Flurry.logEvent("ConnectDevice_Pressed");
         self.navigationController!.pushViewController(ConnectDeviceViewController(nibName: "ConnectDeviceView", bundle: nil), animated: true);
+    }
+    
+    func morningCallToActionClicked(sender: AnyObject!) {
+        Flurry.logEvent("FindStation_Pressed");
+        self.navigationController!.pushViewController(FindStationViewController(nibName: "FindStationView", bundle: nil), animated: true);
+    }
+    
+    func afternoonCallToActionClicked(sender: AnyObject!) {
+        Flurry.logEvent("FindStation_Pressed");
+        self.navigationController!.pushViewController(FindStationViewController(nibName: "FindStationView", bundle: nil), animated: true);
     }
     
     func goBack(sender: AnyObject!) {

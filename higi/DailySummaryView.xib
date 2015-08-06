@@ -36,7 +36,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <subviews>
                         <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gM8-YQ-AHK">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="999"/>
                             <subviews>
                                 <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ud4-sd-hWk">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="230"/>
@@ -85,14 +85,14 @@
                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tY1-gC-aQC">
-                                    <rect key="frame" x="0.0" y="230" width="320" height="338"/>
+                                    <rect key="frame" x="0.0" y="230" width="320" height="999"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="krl-nO-BBx">
                                             <rect key="frame" x="78" y="0.0" width="1" height="60"/>
                                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
                                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4ve-ZI-e51">
-                                            <rect key="frame" x="0.0" y="28" width="320" height="310"/>
+                                            <rect key="frame" x="0.0" y="28" width="320" height="999"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l7q-vQ-8pa">
                                                     <rect key="frame" x="78" y="0.0" width="1" height="9999"/>

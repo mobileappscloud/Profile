@@ -266,4 +266,9 @@ class GoalChallengeView: ChallengeView {
             
         });
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews();
+        avatar.center.y = progress.center.y;
+    }
 }

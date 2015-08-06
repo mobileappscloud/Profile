@@ -52,6 +52,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
+        (self.navigationController as! MainNavigationController).drawerController?.selectRowAtIndex(0);
         updateNavbar();
     }
     
@@ -335,6 +336,10 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                         weightCard.graph(weightPoints, type: MetricsType.Weight);
                     });
                 });
+            } else {
+                bloodPressureCard.graph([], type: MetricsType.BloodPressure);
+                pulseCard.graph([], type: MetricsType.Pulse);
+                weightCard.graph([], type: MetricsType.Weight);
             }
             if (SessionController.Instance.earnditError) {
                 self.activityCard.singleValue.text = "--";
