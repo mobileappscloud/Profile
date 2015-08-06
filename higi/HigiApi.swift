@@ -85,7 +85,7 @@ let BASE_URL = "https://api.higi.com";
 let DEV_BASE_URL = "http://higiapi2.cloudapp.net";
 
 let EARNDIT_URL = "https://earndit.higi.com/api";
-let DEV_EARNDIT_URL = "http://earndit-qa.superbuddytime.com/";
+let DEV_EARNDIT_URL = "https://earndit-qa.superbuddytime.com/api";
 
 let WEB_URL = "https://higi.com";
 let DEV_WEB_URL = "https://webqa.superbuddytime.com";
