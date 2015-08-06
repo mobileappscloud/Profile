@@ -14,6 +14,10 @@ class ActivityMetricDelegate: MetricDelegate {
         return getType().getColor();
     }
     
+    func getSecondaryColor() -> UIColor? {
+        return nil;
+    }
+    
     func getIcon() -> UIImage {
         return Utility.imageWithColor(UIImage(named: "workouticon")!, color: UIColor.whiteColor());
     }

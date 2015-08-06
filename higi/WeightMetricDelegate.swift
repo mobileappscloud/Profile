@@ -16,6 +16,10 @@ class WeightMetricDelegate: MetricDelegate {
         return getType().getColor();
     }
     
+    func getSecondaryColor() -> UIColor? {
+        return Utility.colorFromHexString("#f7ada4");
+    }
+    
     func getIcon() -> UIImage {
         return Utility.imageWithColor(UIImage(named: "weighticon")!, color: UIColor.whiteColor());
     }
@@ -111,7 +115,7 @@ class WeightMetricDelegate: MetricDelegate {
     }
     
     func getSecondaryGraph(frame: CGRect, points: [GraphPoint], altPoints:[GraphPoint]) -> MetricGraph? {
-        return MetricGraphUtility.graphWithPoints(CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), points: points, altPoints: altPoints, color:  getColor());
+        return MetricGraphUtility.graphWithPoints(CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), points: points, altPoints: altPoints, color:  getColor(), secondaryColor: getSecondaryColor());
     }
     
     func getRanges(tab:Int) -> [MetricGauge.Range] {
