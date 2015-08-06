@@ -12,6 +12,10 @@ class PulseMetricDelegate: MetricDelegate {
         return getType().getColor();
     }
     
+    func getSecondaryColor() -> UIColor? {
+        return nil;
+    }
+    
     func getIcon() -> UIImage {
         return Utility.imageWithColor(UIImage(named: "pulseicon")!, color: UIColor.whiteColor());
     }

@@ -18,6 +18,10 @@ class BpMetricDelegate: MetricDelegate {
         return getType().getColor();
     }
     
+    func getSecondaryColor() -> UIColor? {
+        return Utility.colorFromHexString("#b4a6c2")
+    }
+    
     func getIcon() -> UIImage {
         return Utility.imageWithColor(UIImage(named: "bloodpressureicon")!, color: UIColor.whiteColor());
     }

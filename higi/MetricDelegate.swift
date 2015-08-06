@@ -6,6 +6,8 @@ protocol MetricDelegate {
     
     func getColor() -> UIColor;
     
+    func getSecondaryColor() -> UIColor?;
+    
     func getIcon() -> UIImage;
     
     func getType() -> MetricsType;
