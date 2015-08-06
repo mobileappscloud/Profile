@@ -158,12 +158,12 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         altPlotSymbol.lineStyle = symbolLineStyle;
         altPlotSymbol.size = CGSize(width: plotSymbolSize, height: plotSymbolSize);
         
-        selectedAltPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
+        selectedAltPlotSymbol = CPTPlotSymbol.dashPlotSymbol();
         selectedAltPlotSymbol.fill = CPTFill(color: CPTColor(CGColor: color.CGColor));
         selectedAltPlotSymbol.lineStyle = symbolLineStyle;
         selectedAltPlotSymbol.size = CGSize(width: plotSymbolSize, height: plotSymbolSize);
         
-        unselectedAltPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
+        unselectedAltPlotSymbol = CPTPlotSymbol.dashPlotSymbol();
         unselectedAltPlotSymbol.fill = CPTFill(color: CPTColor(CGColor: unselectedColor.CGColor));
         unselectedAltPlotSymbol.size = CGSize(width: plotSymbolSize, height: plotSymbolSize);
         var unselectedAltPlotLineStyle = CPTMutableLineStyle();

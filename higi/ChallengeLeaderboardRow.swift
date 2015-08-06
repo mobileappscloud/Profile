@@ -32,7 +32,7 @@ class ChallengeLeaderboardRow: UITableViewCell {
     
     class func setProgressBar(view: UIView, points: Int, highScore: Int) {
         let width = view.frame.size.width;
-        let proportion = min(CGFloat(points)/CGFloat(highScore), 1);
+        let proportion = highScore != 0 ? min(CGFloat(points)/CGFloat(highScore), 1) : CGFloat(0);
         let newWidth = proportion * width;
         let barHeight:CGFloat = 4;
         let bar = UIView(frame: CGRect(x: 0, y: view.frame.origin.y - barHeight / 2, width: newWidth, height: barHeight));

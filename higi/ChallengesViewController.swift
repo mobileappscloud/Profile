@@ -137,6 +137,9 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         }
         pager.numberOfPages = totalPages;
         self.navigationController?.navigationBar.addSubview(pager);
+        if totalPages <= 1 {
+            pager.hidden = true;
+        }
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
