@@ -22,6 +22,7 @@ class GoalChallengeView: ChallengeView {
         static let goalBarHeight:CGFloat = 4;
         static let verticalLineHeight:CGFloat = 15;
         static let labelHeight:CGFloat = 15;
+        static let imageDim:CGFloat = 30;
     }
     
     class func instanceFromNib(frame: CGRect, challenge: HigiChallenge, winConditions: [ChallengeWinCondition], isComplex: Bool) -> GoalChallengeView {
@@ -56,7 +57,6 @@ class GoalChallengeView: ChallengeView {
         drawParticipantProgress(goalView, participantPoints: goalView.participantPoints, maxGoalValue: goalView.maxPoints);
         
         drawGoals(goalView, participantPoints: goalView.participantPoints, winConditions: sortedWinConditions, maxGoalValue: goalView.maxPoints, isComplex: isComplex);
-        
         
         drawParticipantPoints(goalView, participantPoints: goalView.participantPoints, maxGoalValue: goalView.maxPoints);
         
@@ -124,13 +124,13 @@ class GoalChallengeView: ChallengeView {
             goalCircle.backgroundColor = circleColor;
             goalCircle.layer.cornerRadius = ViewConstants.circleRadius;
             goalView.progress.addSubview(goalCircle);
-            labelMargin = isBottom ? -1.0 * ViewConstants.labelMargin + ViewConstants.circleRadius/2: ViewConstants.labelMargin + ViewConstants.circleRadius;
+            labelMargin = isBottom ? -1.0 * ViewConstants.labelMargin + ViewConstants.circleRadius / 2: ViewConstants.labelMargin + ViewConstants.circleRadius;
         } else {
             
             goalCircle = makeComplexGoalNode(posX, posY: posY, thisGoalValue: thisGoalValue, participantPoints: participantPoints, goalIndex: goalIndex);
             goalView.progress.addSubview(goalCircle);
             
-            labelMargin = isBottom ? -1.0 * ViewConstants.labelMargin - ViewConstants.circleRadius/2: ViewConstants.labelMargin + ViewConstants.circleRadius * 2;
+            labelMargin = isBottom ? -1.0 * ViewConstants.labelMargin - ViewConstants.circleRadius / 2: ViewConstants.labelMargin + ViewConstants.circleRadius * 2;
         }
         var text = String(Int(thisGoalValue));
         let labelPosX = posX + ViewConstants.circleRadius;
@@ -138,10 +138,11 @@ class GoalChallengeView: ChallengeView {
         var goalLabel:UILabel;
         
         if (thisGoalValue == maxGoalValue) {
-            goalLabel = UILabel(frame: CGRectMake(0, labelPosY - labelMargin/2, goalView.frame.width - goalView.progress.frame.origin.x - 5, labelMargin));
+            let margin = Utility.widthForTextView(labelMargin, text: "\(thisGoalValue)", fontSize: 12, margin: 0);
+            goalLabel = UILabel(frame: CGRect(x: 0, y: labelPosY - labelMargin / 2, width: goalView.frame.width - goalView.progress.frame.origin.x - margin, height: labelMargin));
             goalLabel.textAlignment = NSTextAlignment.Right;
         } else {
-            goalLabel = UILabel(frame: CGRectMake(goalView.progress.frame.width/2, labelPosY - labelMargin/2, goalView.progress.frame.width, labelMargin));
+            goalLabel = UILabel(frame: CGRectMake(goalView.progress.frame.width / 2, labelPosY - labelMargin / 2, goalView.progress.frame.width, labelMargin));
             goalLabel.center = CGPointMake(labelPosX, labelPosY);
             goalLabel.textAlignment = NSTextAlignment.Center;
         }
@@ -270,5 +271,7 @@ class GoalChallengeView: ChallengeView {
     override func layoutSubviews() {
         super.layoutSubviews();
         avatar.center.y = progress.center.y;
+        avatar.frame.size.height = ViewConstants.imageDim;
+        avatar.frame.size.width = ViewConstants.imageDim;
     }
 }
