@@ -1,21 +1,22 @@
 import Foundation
 
 class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
-    var devices:[ActivityDevice] = [];
     
     @IBOutlet weak var headerImage: UIImageView!
     @IBOutlet weak var table: UITableView!
     
-    var active = false;
+    var devices:[ActivityDevice] = [];
     
-    var viewLoading = true;
+    var backButton:UIButton!;
+    
+    var active = false, viewLoading = true;
     
     override func viewDidLoad() {
         super.viewDidLoad();
         
         self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
         (self.navigationController as! MainNavigationController).revealController.panGestureRecognizer().enabled = false;
-        var backButton = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton;
+        backButton = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton;
         backButton.setBackgroundImage(UIImage(named: "btn_back_white.png"), forState: UIControlState.Normal);
         backButton.addTarget(self, action: "goBack:", forControlEvents: UIControlEvents.TouchUpInside);
         backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
@@ -71,10 +72,12 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
                     toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon"), forState: UIControlState.Normal);
                     toggleButton!.alpha = 1 - alpha;
                     self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
+                    backButton.setBackgroundImage(UIImage(named: "btn_back_white.png"), forState: UIControlState.Normal);
                 } else {
                     toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon_inverted"), forState: UIControlState.Normal);
                     toggleButton!.alpha = alpha;
                     self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
+                    backButton.setBackgroundImage(UIImage(named: "btn_back_black.png"), forState: UIControlState.Normal);
                 }
             } else {
                 self.fakeNavBar.alpha = 0;
