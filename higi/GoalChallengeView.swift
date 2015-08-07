@@ -3,9 +3,12 @@ import Foundation
 class GoalChallengeView: ChallengeView {
     
     @IBOutlet var avatar: UIImageView!
-    @IBOutlet var rank: UILabel!
+    
+    @IBOutlet weak var secondaryAvatar: UIImageView!
+    @IBOutlet weak var name: UILabel!
     @IBOutlet var progress: UIView!
     
+    @IBOutlet weak var complexContainer: UIView!
     var participantPoints: Int!;
     
     var verticalLine, progressBar: UIView!;
@@ -33,6 +36,14 @@ class GoalChallengeView: ChallengeView {
         
         if isComplex {
             goalView.avatar.hidden = true;
+            goalView.complexContainer.hidden = false;
+            if (isTeam) {
+                goalView.secondaryAvatar.setImageWithURL(Utility.loadImageFromUrl(challenge.participant.team.imageUrl as String));
+                goalView.name.text = "\(challenge.participant.team.name)";
+            } else {
+                goalView.secondaryAvatar.setImageWithURL(Utility.loadImageFromUrl(challenge.participant.imageUrl as String));
+                goalView.name.text = "\(challenge.participant.displayName)";
+            }
         } else {
             if (isTeam) {
                 goalView.avatar.setImageWithURL(Utility.loadImageFromUrl(challenge.participant.team.imageUrl as String));

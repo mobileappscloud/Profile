@@ -6,7 +6,7 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
     
     var plot, altPlot: NewCPTScatterPlot!;
     
-    var plotSymbol, selectedPlotSymbol, altPlotSymbol, selectedAltPlotSymbol, unselectedAltPlotSymbol:CPTPlotSymbol!;
+    var plotSymbol, selectedPlotSymbol, selectedAltPlotSymbol, unselectedAltPlotSymbol:CPTPlotSymbol!;
     
     var lastSelectedAltPlotIndex = -1, selectedPointIndex = -1;
     
@@ -157,11 +157,6 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         selectedPlotSymbol.lineStyle = symbolLineStyle;
         selectedPlotSymbol.size = CGSize(width: plotSymbolSize, height: plotSymbolSize);
         
-        altPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
-        altPlotSymbol.fill = CPTFill(color: CPTColor(CGColor: color.CGColor));
-        altPlotSymbol.lineStyle = symbolLineStyle;
-        altPlotSymbol.size = CGSize(width: plotSymbolSize, height: plotSymbolSize);
-        
         selectedAltPlotSymbol = CPTPlotSymbol.dashPlotSymbol();
         selectedAltPlotSymbol.fill = CPTFill(color: CPTColor(CGColor: color.CGColor));
         selectedAltPlotSymbol.lineStyle = symbolLineStyle;
@@ -235,11 +230,11 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
             lastPoint = GraphPoint(x: 0, y: 0);
             minY = 0;
         }
-        var tickInterval = 20.0;
+        let tickInterval = 10.0;
 
-        var yRange = maxY - minY;
-        var lowerBound = roundToLowest(minY - (yRange * 0.75), roundTo: tickInterval);
-        var distance = roundToHighest((maxY - minY) + (yRange * 1.25), roundTo: tickInterval);
+        var yRange = maxY - minY > 0 ? maxY - minY : tickInterval;
+        var lowerBound = roundToLowest(minY - (yRange * 0.4), roundTo: tickInterval);
+        var distance = roundToHighest(yRange * 1.8, roundTo: tickInterval);
         var plotSpace = self.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace;
         var visibleMin = firstPoint;
         if (points.count > 30) {

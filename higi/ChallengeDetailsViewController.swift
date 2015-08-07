@@ -1029,20 +1029,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             cell.addSubview(nibs[teamGoalViewIndex])
         }
         cell.backgroundColor = Utility.colorFromHexString("#F4F4F4");
-        let imageHeight:CGFloat = 30, xMargin:CGFloat = 8, yMargin:CGFloat = 4;
-        let icon = UIImageView(frame: CGRect(x: xMargin, y: yMargin, width: imageHeight, height: imageHeight));
-        let label = UILabel(frame: CGRect(x: xMargin + imageHeight + xMargin, y: yMargin, width: UIScreen.mainScreen().bounds.size.width, height: imageHeight));
-        if isTeam {
-            icon.setImageWithURL(Utility.loadImageFromUrl(challenge.participant.team.imageUrl as String));
-            label.text = "\(challenge.participant.team.name)";
-        } else {
-            icon.setImageWithURL(Utility.loadImageFromUrl(challenge.participant.imageUrl as String));
-            label.text = "\(challenge.participant.displayName)";
-        }
-        label.font = UIFont.boldSystemFontOfSize(12);
-        label.textColor = Utility.colorFromHexString("#444444");
-        cell.addSubview(icon);
-        cell.addSubview(label);
         return cell;
     }
     
