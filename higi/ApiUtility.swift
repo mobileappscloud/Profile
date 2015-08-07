@@ -120,7 +120,7 @@ class ApiUtility {
     
     class func retrieveActivities(success: (() -> Void)?) {
         SessionData.Instance.lastUpdate = NSDate();
-        let userId = !HigiApi.EARNDIT_DEV ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
+        let userId = SessionData.Instance.user.userId;
         ApiUtility.checkForNewActivities({
             var startDateFormatter = NSDateFormatter();
             startDateFormatter.dateFormat = "yyyy-MM-01";
@@ -168,7 +168,7 @@ class ApiUtility {
     }
     
     class func checkForNewActivities(success: (() -> Void)?) {
-        let userId = !HigiApi.EARNDIT_DEV ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
+        let userId = SessionData.Instance.user.userId;
         HigiApi().sendPost("\(HigiApi.earnditApiUrl)/user/\(userId)/activities/lookForNew", parameters: nil, success: {operation, responseObject in
             success?();
             }, failure: { operation, error in
@@ -177,7 +177,7 @@ class ApiUtility {
     }
     
     class func retrieveChallenges(success: (() -> Void)?) {
-        let userId = !HigiApi.EARNDIT_DEV ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
+        let userId = SessionData.Instance.user.userId;
         HigiApi().sendGet("\(HigiApi.earnditApiUrl)/user/\(userId)/challenges?&include[gravityboard]=3&include[participants]=50" +
             "&include[comments]=50&include[teams.comments]=50", success: {operation, responseObject in
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
@@ -242,7 +242,7 @@ class ApiUtility {
     }
     
     class func retrieveDevices(success: (() -> Void)?) {
-        let userId = !HigiApi.EARNDIT_DEV ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
+        let userId = SessionData.Instance.user.userId;
         HigiApi().sendGet("\(HigiApi.earnditApiUrl)/user/\(userId)/devices", success: {operation, responseObject in
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                 var devices: [String:ActivityDevice] = [:];
