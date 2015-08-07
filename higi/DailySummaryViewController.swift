@@ -317,7 +317,6 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             currentOrigin += activityRow.frame.size.height + rowMargin;
             let titleMargin:CGFloat = 6;
             let rowWidth = UIScreen.mainScreen().bounds.size.width - activityRow.name.frame.origin.x;
-            var activitiesByDevice:[String: Bool] = [:];
             for subActivity in activityList {
                 if key != ActivityCategory.Health.getString() {
                     let titleRow = SummaryViewUtility.initTitleRow(activityRow.name.frame.origin.x, originY: currentOrigin, width: rowWidth, points: subActivity.points, device: "\(subActivity.device.name)", color: color);
@@ -416,7 +415,6 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
                     
                     rows.append(breakdownRow);
                     margins.append(0);
-                    activitiesByDevice[String(subActivity.device.name)] = true;
                 }
                 if isDuplicate {
                     let duplicateLabel = SummaryViewUtility.initDuplicateLabel(activityRow.name.frame.origin.x, originY: currentOrigin, width: scrollView.frame.size.width - activityRow.frame.origin.x, text: "\(subActivity.errorDescription)");
