@@ -262,7 +262,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         joinButton.hidden = true;
         loadingSpinner.hidden = false;
         let joinUrl =  challenge.joinUrl;
-        let userId = !HigiApi.EARNDIT_DEV ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
+        let userId = SessionData.Instance.user.userId;
         var contents = NSMutableDictionary();
         contents.setObject(userId, forKey: "userId");
         HigiApi().sendPost(joinUrl as String, parameters: contents, success: {operation, responseObject in
@@ -1071,7 +1071,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
 
     func sendUserChatter(chatter: String) {
         Flurry.logEvent("ChatterSent");
-        let userId = !HigiApi.EARNDIT_DEV ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
+        let userId = SessionData.Instance.user.userId;
         var contents = NSMutableDictionary();
         contents.setObject(userId, forKey: "userId");
         contents.setObject(chatter, forKey: "comment");
