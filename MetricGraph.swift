@@ -6,7 +6,7 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
     
     var plot, altPlot: NewCPTScatterPlot!;
     
-    var plotSymbol, selectedPlotSymbol, altPlotSymbol, selectedAltPlotSymbol, unselectedAltPlotSymbol:CPTPlotSymbol!;
+    var plotSymbol, selectedPlotSymbol, selectedAltPlotSymbol, unselectedAltPlotSymbol:CPTPlotSymbol!;
     
     var lastSelectedAltPlotIndex = -1, selectedPointIndex = -1;
     
@@ -156,11 +156,6 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         selectedPlotSymbol.fill = CPTFill(color: CPTColor(CGColor: color.CGColor));
         selectedPlotSymbol.lineStyle = symbolLineStyle;
         selectedPlotSymbol.size = CGSize(width: plotSymbolSize, height: plotSymbolSize);
-        
-        altPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
-        altPlotSymbol.fill = CPTFill(color: CPTColor(CGColor: color.CGColor));
-        altPlotSymbol.lineStyle = symbolLineStyle;
-        altPlotSymbol.size = CGSize(width: plotSymbolSize, height: plotSymbolSize);
         
         selectedAltPlotSymbol = CPTPlotSymbol.dashPlotSymbol();
         selectedAltPlotSymbol.fill = CPTFill(color: CPTColor(CGColor: color.CGColor));
