@@ -235,11 +235,11 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
             lastPoint = GraphPoint(x: 0, y: 0);
             minY = 0;
         }
-        var tickInterval = 20.0;
+        let tickInterval = 10.0;
 
-        var yRange = maxY - minY;
-        var lowerBound = roundToLowest(minY - (yRange * 0.75), roundTo: tickInterval);
-        var distance = roundToHighest((maxY - minY) + (yRange * 1.25), roundTo: tickInterval);
+        var yRange = maxY - minY > 0 ? maxY - minY : tickInterval;
+        var lowerBound = roundToLowest(minY - (yRange * 0.4), roundTo: tickInterval);
+        var distance = roundToHighest(yRange * 1.8, roundTo: tickInterval);
         var plotSpace = self.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace;
         var visibleMin = firstPoint;
         if (points.count > 30) {
