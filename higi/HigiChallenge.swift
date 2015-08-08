@@ -58,7 +58,7 @@ class HigiChallenge {
         if (endDateString != nil) {
             endDate = formatter.dateFromString(endDateString!);
         }
-        participantsCount = dictionary["participantsCount"] as! Int;
+        participantsCount = (dictionary["participantsCount"] as! String).toInt()!;
         terms = (dictionary["terms"] ?? "") as? NSString;
         var conditions = dictionary["winConditions"] as? NSArray;
         if (conditions != nil) {
