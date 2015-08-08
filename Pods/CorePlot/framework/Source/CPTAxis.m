@@ -21,8 +21,6 @@
 #import "CPTTextLayer.h"
 #import "CPTUtilities.h"
 #import "NSCoderExtensions.h"
-#import "CPTXYPlotSpace.h"
-#import "CPTPlotRange.h"
 
 /** @defgroup axisAnimation Axes
  *  @brief Axis properties that can be animated using Core Animation.
@@ -1469,13 +1467,9 @@ NSDecimal niceLength(NSDecimal length)
     CPTPlotArea *thePlotArea          = self.plotArea;
 
     for ( NSDecimalNumber *tickLocation in locations ) {
-        
         NSDecimal locationDecimal = tickLocation.decimalValue;
-        NSDecimalNumber *locationNumber = [NSDecimalNumber decimalNumberWithDecimal:locationDecimal];
-        CPTPlotRange *xRange = ((CPTXYPlotSpace *)self.plotSpace).xRange;
-        CPTPlotRange *yRange = ((CPTXYPlotSpace *)self.plotSpace).yRange;
-        
-        if ((labeledRange && ![labeledRange contains:locationDecimal]) || xRange.minLimitDouble == locationNumber.doubleValue || fabs(xRange.maxLimitDouble - locationNumber.doubleValue) < 2 || yRange.minLimitDouble == locationNumber.doubleValue) {
+
+        if ( labeledRange && ![labeledRange contains:locationDecimal] ) {
             continue;
         }
 

@@ -325,6 +325,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		050DEC7CD1A48655D167F1FB /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		2BBDBA4A1A12AC2C005A6815 /* ChallengeRowCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeRowCell.swift; sourceTree = "<group>"; };
 		2BBDBA4B1A12AC2C005A6815 /* ChallengeRowCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeRowCell.xib; sourceTree = "<group>"; };
 		2BBDBA4C1A12AC2C005A6815 /* ChallengesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengesView.xib; sourceTree = "<group>"; };
@@ -337,7 +338,7 @@
 		2BC5865D1A16D0AF005A7983 /* ChallengeInvitationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeInvitationView.swift; sourceTree = "<group>"; };
 		32E39E451B756D4200BA50F9 /* Info_prod.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info_prod.plist; sourceTree = "<group>"; };
 		32E39E461B756D4200BA50F9 /* Info_qa.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info_qa.plist; sourceTree = "<group>"; };
-		500FF7A379474030959012D0 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		686C1AF8577725DC02942F86 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		8F02A11719AE2BF6002FF73E /* btn_back_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_back_black.png; sourceTree = "<group>"; };
 		8F02A11819AE2BF6002FF73E /* btn_back_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_back_black@2x.png"; sourceTree = "<group>"; };
 		8F02A11919AE2BF6002FF73E /* btn_back_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_back_white.png; sourceTree = "<group>"; };
@@ -536,6 +537,8 @@
 		8FFB034619FEA2440036228C /* oc_pulse_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oc_pulse_active.png; path = images/oc_pulse_active.png; sourceTree = "<group>"; };
 		8FFB034719FEA2440036228C /* oc_settings_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oc_settings_active.png; path = images/oc_settings_active.png; sourceTree = "<group>"; };
 		C0A91AD3D5DE44B7872F95D7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA81E88E614AB0586948CB5B /* Pods.debug qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods.debug qa.xcconfig"; path = "Pods/Target Support Files/Pods/Pods.debug qa.xcconfig"; sourceTree = "<group>"; };
+		CEFCE3FD10CF65C7794E0141 /* Pods.release qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods.release qa.xcconfig"; path = "Pods/Target Support Files/Pods/Pods.release qa.xcconfig"; sourceTree = "<group>"; };
 		D101757A1A79693C00CA32DC /* chat_bubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chat_bubble.png; path = images/chat_bubble.png; sourceTree = "<group>"; };
 		D1020A281B3B130C001F2D81 /* BreakdownTitleRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BreakdownTitleRow.swift; sourceTree = "<group>"; };
 		D1020A2A1B3B1327001F2D81 /* BreakdownTitleRowView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BreakdownTitleRowView.xib; sourceTree = "<group>"; };
@@ -968,11 +971,11 @@
 		8F36439119460EB300C0033E = {
 			isa = PBXGroup;
 			children = (
-				500FF7A379474030959012D0 /* Pods.xcconfig */,
 				3735674FA759427E8EA44775 /* Frameworks */,
 				8F36439C19460EB300C0033E /* higi */,
 				8F3643AF19460EB300C0033E /* higiTests */,
 				8F36439B19460EB300C0033E /* Products */,
+				F14FC40D2EC046CA8525DDF1 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1466,6 +1469,17 @@
 			name = "Challenge Details";
 			sourceTree = "<group>";
 		};
+		F14FC40D2EC046CA8525DDF1 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				050DEC7CD1A48655D167F1FB /* Pods.debug.xcconfig */,
+				CA81E88E614AB0586948CB5B /* Pods.debug qa.xcconfig */,
+				686C1AF8577725DC02942F86 /* Pods.release.xcconfig */,
+				CEFCE3FD10CF65C7794E0141 /* Pods.release qa.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1770,7 +1784,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1968,7 +1982,7 @@
 		};
 		32E39E4A1B756D6900BA50F9 /* Debug QA */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 500FF7A379474030959012D0 /* Pods.xcconfig */;
+			baseConfigurationReference = CA81E88E614AB0586948CB5B /* Pods.debug qa.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1982,9 +1996,8 @@
 				);
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = (
-					"\"${PODS_ROOT}/Headers\"",
-					"\"${PODS_ROOT}/Headers/AFNetworking\"",
-					"\"$(PROJECT_DIR)/CorePlot/CorePlotHeaders\"",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
 				);
 				INFOPLIST_FILE = higi/Info_qa.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
@@ -1992,7 +2005,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flurry",
-					"${PROJECT_DIR}/Pods",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2058,7 +2070,7 @@
 		};
 		32E39E4D1B756D6F00BA50F9 /* Release QA */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 500FF7A379474030959012D0 /* Pods.xcconfig */;
+			baseConfigurationReference = CEFCE3FD10CF65C7794E0141 /* Pods.release qa.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -2072,9 +2084,8 @@
 				);
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = (
-					"\"${PODS_ROOT}/Headers\"",
-					"\"${PODS_ROOT}/Headers/AFNetworking\"",
-					"\"$(PROJECT_DIR)/CorePlot/CorePlotHeaders\"",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
 				);
 				INFOPLIST_FILE = higi/Info_qa.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
@@ -2082,7 +2093,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flurry",
-					"${PROJECT_DIR}/Pods",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2186,7 +2196,7 @@
 		};
 		8F3643B719460EB300C0033E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 500FF7A379474030959012D0 /* Pods.xcconfig */;
+			baseConfigurationReference = 050DEC7CD1A48655D167F1FB /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -2200,9 +2210,8 @@
 				);
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = (
-					"\"${PODS_ROOT}/Headers\"",
-					"\"${PODS_ROOT}/Headers/AFNetworking\"",
-					"\"$(PROJECT_DIR)/CorePlot/CorePlotHeaders\"",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
 				);
 				INFOPLIST_FILE = higi/Info_prod.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
@@ -2210,7 +2219,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flurry",
-					"${PROJECT_DIR}/Pods",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2221,7 +2229,7 @@
 		};
 		8F3643B819460EB300C0033E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 500FF7A379474030959012D0 /* Pods.xcconfig */;
+			baseConfigurationReference = 686C1AF8577725DC02942F86 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -2235,9 +2243,8 @@
 				);
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = (
-					"\"${PODS_ROOT}/Headers\"",
-					"\"${PODS_ROOT}/Headers/AFNetworking\"",
-					"\"$(PROJECT_DIR)/CorePlot/CorePlotHeaders\"",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
 				);
 				INFOPLIST_FILE = higi/Info_prod.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
@@ -2245,7 +2252,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flurry",
-					"${PROJECT_DIR}/Pods",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
