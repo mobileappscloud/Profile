@@ -25,13 +25,14 @@ class HigiApi {
         manager = AFHTTPRequestOperationManager(baseURL: NSURL(string: HigiApi.higiApiUrl));
         manager.requestSerializer = AFJSONRequestSerializer(writingOptions: NSJSONWritingOptions.allZeros);
         manager.responseSerializer = AFJSONResponseSerializer(readingOptions: NSJSONReadingOptions.AllowFragments);
+        manager.requestSerializer.timeoutInterval = 20;
+        
         manager.requestSerializer.setValue(API_KEY, forHTTPHeaderField: "ApiToken");
         manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Content-Type");
         manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept");
         manager.requestSerializer.setValue("application/vnd.higi.earndit;version=2", forHTTPHeaderField: "Accept");
-        manager.requestSerializer.timeoutInterval = 20;
-        
         manager.requestSerializer.setValue("iOSv\(Utility.appVersion()).\(Utility.appBuild())", forHTTPHeaderField: "X-Consumer-Id");
+        
         if (!SessionData.Instance.token.isEmpty) {
             manager.requestSerializer.setValue(SessionData.Instance.token, forHTTPHeaderField: "Token");
         }
