@@ -47,12 +47,7 @@ class WebViewController: UIViewController, NSURLConnectionDataDelegate, UIWebVie
     
     func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         
-        if (request.allHTTPHeaderFields?.indexForKey("Higi-Source") == nil) {
-            let url = request.URL?.absoluteString;
-            let host = request.URL?.host;
-            if (url == "about:blank" || host == "s7.addthis.com") {
-                return false;
-            }
+        if (request.allHTTPHeaderFields?.indexForKey("Higi-Source") == nil && request.URL?.absoluteString == request.mainDocumentURL?.absoluteString) {
             dispatch_async(dispatch_get_main_queue(), {
                 if let mutableRequest = request.mutableCopy() as? NSMutableURLRequest {
                     mutableRequest.addValue("mobile-ios", forHTTPHeaderField: "Higi-Source");
