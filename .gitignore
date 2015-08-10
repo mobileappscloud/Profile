@@ -10,3 +10,4 @@ build/
 higi/ChallengeProgressLegendRow.xib
 
 .idea/*
+higi.xcodeproj/xcuserdata*
