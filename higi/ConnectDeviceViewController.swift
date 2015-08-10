@@ -91,6 +91,8 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
         var row = tableView.dequeueReusableCellWithIdentifier("ConnectDeviceRow") as! ConnectDeviceRow!;
         if (row == nil) {
             row = UINib(nibName: "ConnectDeviceRow", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! ConnectDeviceRow;
+        } else {
+            row.logo.image = nil;
         }
         let device = devices[indexPath.row]
         row.device = device;
