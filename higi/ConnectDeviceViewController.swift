@@ -97,6 +97,7 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
         let device = devices[indexPath.row]
         row.device = device;
         row.parentController = self.navigationController;
+        row.logo.image = nil;
         row.logo.setImageWithURL(Utility.loadImageFromUrl(device.iconUrl as String));
         row.name.text = device.name as String;
         row.connectedToggle.on = device.connected;
