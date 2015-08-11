@@ -618,7 +618,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     
     func goBack(sender: AnyObject!) {
         isLeaving = true;
-        self.navigationController!.popViewControllerAnimated(false);
+        self.navigationController!.popViewControllerAnimated(true);
     }
     
     override func viewWillLayoutSubviews() {

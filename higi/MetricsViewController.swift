@@ -29,6 +29,7 @@ class MetricsViewController: UIViewController {
         
         screenWidth = max(UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height);
         screenHeight = min(UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height);
+        initCards();
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -42,12 +43,12 @@ class MetricsViewController: UIViewController {
         revealController.preferredOrientation = UIInterfaceOrientation.LandscapeRight;
         UIDevice.currentDevice().setValue(UIInterfaceOrientation.LandscapeRight.rawValue, forKey: "orientation");
         UIViewController.attemptRotationToDeviceOrientation();
-        initCards();
+        
     }
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated);
-        if (detailsCard != nil && !detailsCard.blankState) {
+        if (detailsCard != nil && !detailsCard.blankState && !detailsOpen) {
             detailsCard.animateBounceIn(detailsCardPosY);
             detailsGone = false;
         }
