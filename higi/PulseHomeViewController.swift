@@ -40,6 +40,7 @@ class PulseHomeViewController: BaseViewController, UITableViewDataSource, UITabl
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
+        (self.navigationController as! MainNavigationController).drawerController?.selectRowAtIndex(4);
         updateNavBar();
     }
     
@@ -88,7 +89,6 @@ class PulseHomeViewController: BaseViewController, UITableViewDataSource, UITabl
     func gotoArticle(article: PulseArticle) {
         var webController = WebViewController(nibName: "WebView", bundle: nil);
         webController.url = article.permalink;
-        webController.isPulseArticle = true;
         self.navigationController!.pushViewController(webController, animated: true);
     }
     

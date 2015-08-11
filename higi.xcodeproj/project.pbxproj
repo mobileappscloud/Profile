@@ -17,6 +17,8 @@
 		2BBDBA591A12AC2C005A6815 /* GoalChallengeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BBDBA511A12AC2C005A6815 /* GoalChallengeView.xib */; };
 		2BC5865C1A16C63B005A7983 /* ChallengeInvitation.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BC5865B1A16C63B005A7983 /* ChallengeInvitation.xib */; };
 		2BC5865E1A16D0AF005A7983 /* ChallengeInvitationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC5865D1A16D0AF005A7983 /* ChallengeInvitationView.swift */; };
+		32E39E471B756D4200BA50F9 /* Info_prod.plist in Resources */ = {isa = PBXBuildFile; fileRef = 32E39E451B756D4200BA50F9 /* Info_prod.plist */; };
+		32E39E481B756D4200BA50F9 /* Info_qa.plist in Resources */ = {isa = PBXBuildFile; fileRef = 32E39E461B756D4200BA50F9 /* Info_qa.plist */; };
 		8F02A11F19AE2BF6002FF73E /* btn_back_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A11719AE2BF6002FF73E /* btn_back_black.png */; };
 		8F02A12019AE2BF6002FF73E /* btn_back_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A11819AE2BF6002FF73E /* btn_back_black@2x.png */; };
 		8F02A12119AE2BF6002FF73E /* btn_back_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A11919AE2BF6002FF73E /* btn_back_white.png */; };
@@ -176,8 +178,6 @@
 		8FEF6F461A6EECD5001EF8A6 /* ChallengesCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEF6F451A6EECD5001EF8A6 /* ChallengesCard.swift */; };
 		8FEF6F481A6EECDE001EF8A6 /* PulseCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEF6F471A6EECDE001EF8A6 /* PulseCard.swift */; };
 		8FF2E06E194A5E9500A81D8C /* NewCPTPlotRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF2E06D194A5E9500A81D8C /* NewCPTPlotRange.m */; };
-		8FF851C1194F7DD7005C33C6 /* Config-prod.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8FF851C0194F7DD7005C33C6 /* Config-prod.plist */; };
-		8FF851C3194F7DE2005C33C6 /* Config-qa.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8FF851C2194F7DE2005C33C6 /* Config-qa.plist */; };
 		8FF851C6194F7F2E005C33C6 /* HigiApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF851C5194F7F2E005C33C6 /* HigiApi.swift */; };
 		8FF873F219DF528E002A6341 /* PullRefreshView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FF873F119DF528E002A6341 /* PullRefreshView.xib */; };
 		8FF873F419DF5394002A6341 /* PullRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF873F319DF5394002A6341 /* PullRefresh.swift */; };
@@ -325,6 +325,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		050DEC7CD1A48655D167F1FB /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		2BBDBA4A1A12AC2C005A6815 /* ChallengeRowCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeRowCell.swift; sourceTree = "<group>"; };
 		2BBDBA4B1A12AC2C005A6815 /* ChallengeRowCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeRowCell.xib; sourceTree = "<group>"; };
 		2BBDBA4C1A12AC2C005A6815 /* ChallengesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengesView.xib; sourceTree = "<group>"; };
@@ -335,7 +336,9 @@
 		2BBDBA511A12AC2C005A6815 /* GoalChallengeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoalChallengeView.xib; sourceTree = "<group>"; };
 		2BC5865B1A16C63B005A7983 /* ChallengeInvitation.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeInvitation.xib; sourceTree = "<group>"; };
 		2BC5865D1A16D0AF005A7983 /* ChallengeInvitationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeInvitationView.swift; sourceTree = "<group>"; };
-		500FF7A379474030959012D0 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		32E39E451B756D4200BA50F9 /* Info_prod.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info_prod.plist; sourceTree = "<group>"; };
+		32E39E461B756D4200BA50F9 /* Info_qa.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info_qa.plist; sourceTree = "<group>"; };
+		686C1AF8577725DC02942F86 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		8F02A11719AE2BF6002FF73E /* btn_back_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_back_black.png; sourceTree = "<group>"; };
 		8F02A11819AE2BF6002FF73E /* btn_back_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_back_black@2x.png"; sourceTree = "<group>"; };
 		8F02A11919AE2BF6002FF73E /* btn_back_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_back_white.png; sourceTree = "<group>"; };
@@ -385,7 +388,6 @@
 		8F2CB5881993E68C009377A8 /* SessionData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionData.swift; sourceTree = "<group>"; };
 		8F2CB58A19942E96009377A8 /* noservicemessage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = noservicemessage.png; path = images/noservicemessage.png; sourceTree = "<group>"; };
 		8F36439A19460EB300C0033E /* higi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = higi.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		8F36439E19460EB300C0033E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8F36439F19460EB300C0033E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8F3643A119460EB300C0033E /* MetricsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricsViewController.swift; sourceTree = "<group>"; };
 		8F3643A419460EB300C0033E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -511,8 +513,6 @@
 		8FEF6F471A6EECDE001EF8A6 /* PulseCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PulseCard.swift; sourceTree = "<group>"; };
 		8FF2E06D194A5E9500A81D8C /* NewCPTPlotRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewCPTPlotRange.m; sourceTree = "<group>"; };
 		8FF2E06F194A5EAD00A81D8C /* NewCPTPlotRange.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewCPTPlotRange.h; sourceTree = "<group>"; };
-		8FF851C0194F7DD7005C33C6 /* Config-prod.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Config-prod.plist"; sourceTree = "<group>"; };
-		8FF851C2194F7DE2005C33C6 /* Config-qa.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Config-qa.plist"; sourceTree = "<group>"; };
 		8FF851C5194F7F2E005C33C6 /* HigiApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HigiApi.swift; sourceTree = "<group>"; };
 		8FF873F119DF528E002A6341 /* PullRefreshView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PullRefreshView.xib; sourceTree = "<group>"; };
 		8FF873F319DF5394002A6341 /* PullRefresh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PullRefresh.swift; sourceTree = "<group>"; };
@@ -537,6 +537,8 @@
 		8FFB034619FEA2440036228C /* oc_pulse_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oc_pulse_active.png; path = images/oc_pulse_active.png; sourceTree = "<group>"; };
 		8FFB034719FEA2440036228C /* oc_settings_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oc_settings_active.png; path = images/oc_settings_active.png; sourceTree = "<group>"; };
 		C0A91AD3D5DE44B7872F95D7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA81E88E614AB0586948CB5B /* Pods.debug qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods.debug qa.xcconfig"; path = "Pods/Target Support Files/Pods/Pods.debug qa.xcconfig"; sourceTree = "<group>"; };
+		CEFCE3FD10CF65C7794E0141 /* Pods.release qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods.release qa.xcconfig"; path = "Pods/Target Support Files/Pods/Pods.release qa.xcconfig"; sourceTree = "<group>"; };
 		D101757A1A79693C00CA32DC /* chat_bubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chat_bubble.png; path = images/chat_bubble.png; sourceTree = "<group>"; };
 		D1020A281B3B130C001F2D81 /* BreakdownTitleRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BreakdownTitleRow.swift; sourceTree = "<group>"; };
 		D1020A2A1B3B1327001F2D81 /* BreakdownTitleRowView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BreakdownTitleRowView.xib; sourceTree = "<group>"; };
@@ -969,11 +971,11 @@
 		8F36439119460EB300C0033E = {
 			isa = PBXGroup;
 			children = (
-				500FF7A379474030959012D0 /* Pods.xcconfig */,
 				3735674FA759427E8EA44775 /* Frameworks */,
 				8F36439C19460EB300C0033E /* higi */,
 				8F3643AF19460EB300C0033E /* higiTests */,
 				8F36439B19460EB300C0033E /* Products */,
+				F14FC40D2EC046CA8525DDF1 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1009,10 +1011,9 @@
 		8F36439D19460EB300C0033E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				32E39E451B756D4200BA50F9 /* Info_prod.plist */,
+				32E39E461B756D4200BA50F9 /* Info_qa.plist */,
 				D12780AD1A4A2701002EB56A /* fontawesome-webfont.ttf */,
-				8F36439E19460EB300C0033E /* Info.plist */,
-				8FF851C0194F7DD7005C33C6 /* Config-prod.plist */,
-				8FF851C2194F7DE2005C33C6 /* Config-qa.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1468,6 +1469,17 @@
 			name = "Challenge Details";
 			sourceTree = "<group>";
 		};
+		F14FC40D2EC046CA8525DDF1 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				050DEC7CD1A48655D167F1FB /* Pods.debug.xcconfig */,
+				CA81E88E614AB0586948CB5B /* Pods.debug qa.xcconfig */,
+				686C1AF8577725DC02942F86 /* Pods.release.xcconfig */,
+				CEFCE3FD10CF65C7794E0141 /* Pods.release qa.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1610,7 +1622,6 @@
 				D1036D031B153477003E7239 /* workouticon.png in Resources */,
 				8F02A12619AE2BF6002FF73E /* btn_share_white@2x.png in Resources */,
 				8F08AF9D198940E8002EE906 /* Welcome.xib in Resources */,
-				8FF851C1194F7DD7005C33C6 /* Config-prod.plist in Resources */,
 				8F5C38EB1982DBB900F51543 /* onboarding_avatar.png in Resources */,
 				8FFB035119FEA2440036228C /* oc_settings_active.png in Resources */,
 				8F5C38CA19818BA900F51543 /* gauge1_high.png in Resources */,
@@ -1655,13 +1666,13 @@
 				8FFB034D19FEA2440036228C /* oc_challenges.png in Resources */,
 				D1036D011B153477003E7239 /* pulseicon.png in Resources */,
 				D1A9C6FE1A951D0D0008084B /* chatterbutton_normal.png in Resources */,
-				8FF851C3194F7DE2005C33C6 /* Config-qa.plist in Resources */,
 				8F5C38D119818BA900F51543 /* gauge3_obese.png in Resources */,
 				8F02A11F19AE2BF6002FF73E /* btn_back_black.png in Resources */,
 				D18395C11A69BC9E00D290BF /* ChallengeDetailsTab.xib in Resources */,
 				8FE056DF198FDBDC00C81208 /* PulseHomeView.xib in Resources */,
 				D17334411B594FCD0089BBFD /* weight_copy@2x.png in Resources */,
 				8F02A12319AE2BF6002FF73E /* btn_share_black.png in Resources */,
+				32E39E471B756D4200BA50F9 /* Info_prod.plist in Resources */,
 				8FD73CC31990303000BACCB2 /* GoogleMaps.bundle in Resources */,
 				8FDA6DA119A2978B00244D5F /* ChangePasswordView.xib in Resources */,
 				8F5C38F11982F20000F51543 /* CheckinTableViewCell.xib in Resources */,
@@ -1677,6 +1688,7 @@
 				8F5E7FDC199BD089009067E5 /* gen_checkin.png in Resources */,
 				8FF9409319899AEA00D319D7 /* createreminder.png in Resources */,
 				D1EDF3FF1B5ECCCC00BF5B91 /* activities.png in Resources */,
+				32E39E481B756D4200BA50F9 /* Info_qa.plist in Resources */,
 				D17334451B594FCD0089BBFD /* activities_copy@2x.png in Resources */,
 				2BBDBA541A12AC2C005A6815 /* ChallengesView.xib in Resources */,
 				8F5C38E91981B2B300F51543 /* createreminder_inverted.png in Resources */,
@@ -1772,7 +1784,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1926,6 +1938,185 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		32E39E491B756D6900BA50F9 /* Debug QA */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				METAL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = "Debug QA";
+		};
+		32E39E4A1B756D6900BA50F9 /* Debug QA */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CA81E88E614AB0586948CB5B /* Pods.debug qa.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				BUILD_NUMBER = 19;
+				CODE_SIGN_ENTITLEMENTS = higi/higi.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: higi llc (5D5W9WNYL2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: higi llc (5D5W9WNYL2)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				GCC_VERSION = "";
+				HEADER_SEARCH_PATHS = (
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+				);
+				INFOPLIST_FILE = higi/Info_qa.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Flurry",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = higi/BridgingHeader.h;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = "Debug QA";
+		};
+		32E39E4B1B756D6900BA50F9 /* Debug QA */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/higi.app/higi";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = higiTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				METAL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+			};
+			name = "Debug QA";
+		};
+		32E39E4C1B756D6F00BA50F9 /* Release QA */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				METAL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Release QA";
+		};
+		32E39E4D1B756D6F00BA50F9 /* Release QA */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CEFCE3FD10CF65C7794E0141 /* Pods.release qa.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				BUILD_NUMBER = 19;
+				CODE_SIGN_ENTITLEMENTS = higi/higi.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: higi llc (5D5W9WNYL2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: higi llc (5D5W9WNYL2)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				GCC_VERSION = "";
+				HEADER_SEARCH_PATHS = (
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+				);
+				INFOPLIST_FILE = higi/Info_qa.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Flurry",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = higi/BridgingHeader.h;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = "Release QA";
+		};
+		32E39E4E1B756D6F00BA50F9 /* Release QA */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/higi.app/higi";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = higiTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				METAL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+			};
+			name = "Release QA";
+		};
 		8F3643B419460EB300C0033E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2005,30 +2196,28 @@
 		};
 		8F3643B719460EB300C0033E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 500FF7A379474030959012D0 /* Pods.xcconfig */;
+			baseConfigurationReference = 050DEC7CD1A48655D167F1FB /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				BUILD_NUMBER = 19;
 				CODE_SIGN_ENTITLEMENTS = higi/higi.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CUSTOM_SUFFIX = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: higi llc (5D5W9WNYL2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: higi llc (5D5W9WNYL2)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = (
-					"\"${PODS_ROOT}/Headers\"",
-					"\"${PODS_ROOT}/Headers/AFNetworking\"",
-					"\"$(PROJECT_DIR)/CorePlot/CorePlotHeaders\"",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
 				);
-				INFOPLIST_FILE = higi/Info.plist;
+				INFOPLIST_FILE = higi/Info_prod.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/CorePlot",
 					"$(PROJECT_DIR)/Flurry",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2040,30 +2229,28 @@
 		};
 		8F3643B819460EB300C0033E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 500FF7A379474030959012D0 /* Pods.xcconfig */;
+			baseConfigurationReference = 686C1AF8577725DC02942F86 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				BUILD_NUMBER = 19;
 				CODE_SIGN_ENTITLEMENTS = higi/higi.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CUSTOM_SUFFIX = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: higi llc (5D5W9WNYL2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: higi llc (5D5W9WNYL2)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = (
-					"\"${PODS_ROOT}/Headers\"",
-					"\"${PODS_ROOT}/Headers/AFNetworking\"",
-					"\"$(PROJECT_DIR)/CorePlot/CorePlotHeaders\"",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
 				);
-				INFOPLIST_FILE = higi/Info.plist;
+				INFOPLIST_FILE = higi/Info_prod.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/CorePlot",
 					"$(PROJECT_DIR)/Flurry",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2116,7 +2303,9 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8F3643B419460EB300C0033E /* Debug */,
+				32E39E491B756D6900BA50F9 /* Debug QA */,
 				8F3643B519460EB300C0033E /* Release */,
+				32E39E4C1B756D6F00BA50F9 /* Release QA */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -2125,7 +2314,9 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8F3643B719460EB300C0033E /* Debug */,
+				32E39E4A1B756D6900BA50F9 /* Debug QA */,
 				8F3643B819460EB300C0033E /* Release */,
+				32E39E4D1B756D6F00BA50F9 /* Release QA */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -2134,7 +2325,9 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8F3643BA19460EB300C0033E /* Debug */,
+				32E39E4B1B756D6900BA50F9 /* Debug QA */,
 				8F3643BB19460EB300C0033E /* Release */,
+				32E39E4E1B756D6F00BA50F9 /* Release QA */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

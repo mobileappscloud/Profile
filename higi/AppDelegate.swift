@@ -19,6 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Flurry.startSession("2GSDDCY6499XJ8B5GTYZ");
         Flurry.setCrashReportingEnabled(true);
         SessionData.Instance.restore();
+        
+        window?.makeKeyAndVisible();
+        
         return true
     }
 

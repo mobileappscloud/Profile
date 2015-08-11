@@ -414,16 +414,33 @@ class MetricDetailCard: UIView {
             activities = sessionActivities;
             activities.sort(SummaryViewUtility.sortByPoints);
         }
+
+        var activitiesByDevice: [String: Int] = [:];
+        var subActivities:[String: (Int, [HigiActivity])] = [:];
         for activity in activities {
             var type = activity.type.getString();
             if let (total, activityList) = activitiesByType[type] {
-                var previousActivities = activityList;
-                previousActivities.append(activity);
-                var points = total;
-                if (activity.points > 0 && activity.errorDescription == nil) {
-                    points += activity.points!;
+                if let devicePoints = activitiesByDevice[String(activity.device.name)] {
+                    var previousActivities = activityList;
+                    previousActivities.append(activity);
+                    var points = total;
+                    var newDevicePoints = devicePoints;
+                    if (activity.points > 0 && activity.errorDescription == nil) {
+                        points += activity.points!;
+                        newDevicePoints += activity.points!;
+                    }
+                    activitiesByType[type] = (points, previousActivities);
+                    activitiesByDevice[String(activity.device.name)] = newDevicePoints;
+                } else {
+                    var previousActivities = activityList;
+                    previousActivities.append(activity);
+                    var points = total;
+                    if (activity.points > 0 && activity.errorDescription == nil) {
+                        points += activity.points!;
+                    }
+                    activitiesByType[type] = (points, previousActivities);
+                    activitiesByDevice[String(activity.device.name)] = activity.points!;
                 }
-                activitiesByType[type] = (points, previousActivities);
             } else {
                 var points = 0;
                 if (activity.points > 0 && activity.errorDescription == nil) {
@@ -431,8 +448,10 @@ class MetricDetailCard: UIView {
                 }
                 activitiesByType[type] = (points, [activity]);
                 activityKeys.append(type);
+                activitiesByDevice[String(activity.device.name)] = points;
             }
         }
+        
         var gap = CGFloat(4);
         for key in activityKeys {
             let (total, activityList) = activitiesByType[key]!;
@@ -445,15 +464,19 @@ class MetricDetailCard: UIView {
             copyScrollview.addSubview(activityRow);
             activityRows.append(activityRow);
             currentOrigin += activityRow.frame.size.height;
-            
+            var seenDevices: [String: Bool] = [:];
             for subActivity in activityList {
+                let deviceName = String(subActivity.device.name);
                 if (subActivity.errorDescription == nil && subActivity.points > 0) {
-                    let titleRow = SummaryViewUtility.initTitleRow(activityRow.frame.origin.x, originY: currentOrigin, width: copyScrollview.frame.size.width - activityRow.frame.origin.x, points: subActivity.points, device: "\(subActivity.device.name)", color: Utility.colorFromHexString("#444444"));
-                    titleRow.device.font = UIFont.systemFontOfSize(16);
-                    titleRow.points.font = UIFont.systemFontOfSize(16);
-                    copyScrollview.addSubview(titleRow);
-                    activityRows.append(titleRow);
-                    currentOrigin += titleRow.frame.size.height;
+                    if seenDevices[deviceName] == nil {
+                        let titleRow = SummaryViewUtility.initTitleRow(activityRow.frame.origin.x, originY: currentOrigin, width: copyScrollview.frame.size.width - activityRow.frame.origin.x, points: activitiesByDevice[String(subActivity.device.name)]!, device: "\(subActivity.device.name)", color: Utility.colorFromHexString("#444444"));
+                        titleRow.device.font = UIFont.systemFontOfSize(16);
+                        titleRow.points.font = UIFont.systemFontOfSize(16);
+                        copyScrollview.addSubview(titleRow);
+                        activityRows.append(titleRow);
+                        currentOrigin += titleRow.frame.size.height;
+                        seenDevices[deviceName] = true;
+                    }
                 }
             }
             currentOrigin += gap;

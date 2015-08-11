@@ -90,7 +90,8 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
-        
+        (self.navigationController as! MainNavigationController).drawerController?.selectRowAtIndex(3);
+
         mapContainer.frame = CGRect(x: 64, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height - 64);
         
         searchField.addTarget(self, action: "textFieldChanged", forControlEvents: UIControlEvents.EditingChanged);
@@ -549,7 +550,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     func getKioskLogoUrl(kiosk: KioskInfo!) -> NSURL {
         var modifiedName = kiosk.organizations[0];
         modifiedName = modifiedName.stringByReplacingOccurrencesOfString(" ", withString: "_").stringByReplacingOccurrencesOfString("'", withString: "").stringByReplacingOccurrencesOfString("&", withString: "");
-        return NSURL(string: "https://webqa.superbuddytime.com/images/retailer-icons/\(modifiedName)_100.png")!;
+        return NSURL(string: "http://az646341.vo.msecnd.net/retailer-icons/\(modifiedName)_100.png")!;
     }
     
     @IBAction func startReminder(sender: AnyObject) {

@@ -262,7 +262,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         joinButton.hidden = true;
         loadingSpinner.hidden = false;
         let joinUrl =  challenge.joinUrl;
-        let userId = !HigiApi.EARNDIT_DEV ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
+        let userId = SessionData.Instance.user.userId;
         var contents = NSMutableDictionary();
         contents.setObject(userId, forKey: "userId");
         HigiApi().sendPost(joinUrl as String, parameters: contents, success: {operation, responseObject in
@@ -1029,20 +1029,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             cell.addSubview(nibs[teamGoalViewIndex])
         }
         cell.backgroundColor = Utility.colorFromHexString("#F4F4F4");
-        let imageHeight:CGFloat = 30, xMargin:CGFloat = 8, yMargin:CGFloat = 4;
-        let icon = UIImageView(frame: CGRect(x: xMargin, y: yMargin, width: imageHeight, height: imageHeight));
-        let label = UILabel(frame: CGRect(x: xMargin + imageHeight + xMargin, y: yMargin, width: UIScreen.mainScreen().bounds.size.width, height: imageHeight));
-        if isTeam {
-            icon.setImageWithURL(Utility.loadImageFromUrl(challenge.participant.team.imageUrl as String));
-            label.text = "\(challenge.participant.team.name)";
-        } else {
-            icon.setImageWithURL(Utility.loadImageFromUrl(challenge.participant.imageUrl as String));
-            label.text = "\(challenge.participant.displayName)";
-        }
-        label.font = UIFont.boldSystemFontOfSize(12);
-        label.textColor = Utility.colorFromHexString("#444444");
-        cell.addSubview(icon);
-        cell.addSubview(label);
         return cell;
     }
     
@@ -1071,7 +1057,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
 
     func sendUserChatter(chatter: String) {
         Flurry.logEvent("ChatterSent");
-        let userId = !HigiApi.EARNDIT_DEV ? SessionData.Instance.user.userId : "rQIpgKhmd0qObDSr5SkHbw";
+        let userId = SessionData.Instance.user.userId;
         var contents = NSMutableDictionary();
         contents.setObject(userId, forKey: "userId");
         contents.setObject(chatter, forKey: "comment");

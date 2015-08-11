@@ -70,6 +70,10 @@ class MetricCard: UIView, MetricDelegate {
         return delegate.getColor();
     }
     
+    func getSecondaryColor() -> UIColor? {
+        return delegate.getSecondaryColor();
+    }
+    
     func getIcon() -> UIImage {
         return delegate.getIcon();
     }
@@ -83,7 +87,7 @@ class MetricCard: UIView, MetricDelegate {
     }
 
     func getGraph(frame: CGRect) -> MetricGraph {
-        return MetricGraphUtility.graphWithPoints(CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), points: points, altPoints: altPoints, color: delegate.getColor());
+        return MetricGraphUtility.graphWithPoints(CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), points: points, altPoints: altPoints, color: delegate.getColor(), secondaryColor: delegate.getSecondaryColor());
     }
     
     func getSelectedValue(tab: Int) -> String {

@@ -374,39 +374,38 @@ CGFloat firstPositiveRoot(CGFloat a, CGFloat b, CGFloat c);
 
 -(void)setXRange:(CPTPlotRange *)range
 {
-    if (range != nil) {
+    NSParameterAssert(range);
 
-        if ( ![range isEqualToRange:xRange] ) {
-            CPTPlotRange *constrainedRange;
+    if ( ![range isEqualToRange:xRange] ) {
+        CPTPlotRange *constrainedRange;
 
-            if ( self.allowsMomentumX ) {
-                constrainedRange = range;
+        if ( self.allowsMomentumX ) {
+            constrainedRange = range;
+        }
+        else {
+            constrainedRange = [self constrainRange:range toGlobalRange:self.globalXRange];
+        }
+
+        id<CPTPlotSpaceDelegate> theDelegate = self.delegate;
+        if ( [theDelegate respondsToSelector:@selector(plotSpace:willChangePlotRangeTo:forCoordinate:)] ) {
+            constrainedRange = [theDelegate plotSpace:self willChangePlotRangeTo:constrainedRange forCoordinate:CPTCoordinateX];
+        }
+
+        if ( ![constrainedRange isEqualToRange:xRange] ) {
+            [xRange release];
+            xRange = [constrainedRange copy];
+
+            [[NSNotificationCenter defaultCenter] postNotificationName:CPTPlotSpaceCoordinateMappingDidChangeNotification
+                                                                object:self];
+
+            if ( [theDelegate respondsToSelector:@selector(plotSpace:didChangePlotRangeForCoordinate:)] ) {
+                [theDelegate plotSpace:self didChangePlotRangeForCoordinate:CPTCoordinateX];
             }
-            else {
-                constrainedRange = [self constrainRange:range toGlobalRange:self.globalXRange];
-            }
 
-            id<CPTPlotSpaceDelegate> theDelegate = self.delegate;
-            if ( [theDelegate respondsToSelector:@selector(plotSpace:willChangePlotRangeTo:forCoordinate:)] ) {
-                constrainedRange = [theDelegate plotSpace:self willChangePlotRangeTo:constrainedRange forCoordinate:CPTCoordinateX];
-            }
-
-            if ( ![constrainedRange isEqualToRange:xRange] ) {
-                [xRange release];
-                xRange = [constrainedRange copy];
-
-                [[NSNotificationCenter defaultCenter] postNotificationName:CPTPlotSpaceCoordinateMappingDidChangeNotification
-                                                                    object:self];
-
-                if ( [theDelegate respondsToSelector:@selector(plotSpace:didChangePlotRangeForCoordinate:)] ) {
-                    [theDelegate plotSpace:self didChangePlotRangeForCoordinate:CPTCoordinateX];
-                }
-
-                CPTGraph *theGraph = self.graph;
-                if ( theGraph ) {
-                    [[NSNotificationCenter defaultCenter] postNotificationName:CPTGraphNeedsRedrawNotification
-                                                                        object:theGraph];
-                }
+            CPTGraph *theGraph = self.graph;
+            if ( theGraph ) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:CPTGraphNeedsRedrawNotification
+                                                                    object:theGraph];
             }
         }
     }

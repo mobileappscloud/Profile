@@ -14,7 +14,7 @@ class WebViewController: UIViewController, NSURLConnectionDataDelegate, UIWebVie
     
     var errorMessage: String!;
 
-    var loadData = false, isGone = false, isPulseArticle = false;
+    var loadData = false, isGone = false;
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -46,11 +46,21 @@ class WebViewController: UIViewController, NSURLConnectionDataDelegate, UIWebVie
     }
     
     func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-        //i would prefer to fix this so that it doesn't break pulse instead of just avoiding it altogether
-        if (!isPulseArticle && request.allHTTPHeaderFields?.indexForKey("Higi-Source") == nil) {
-            let mutableRequest = NSMutableURLRequest(URL: request.URL!);
-            mutableRequest.addValue("mobile-ios", forHTTPHeaderField: "Higi-Source");
-            webView.loadRequest(mutableRequest);
+        
+        if (request.allHTTPHeaderFields?.indexForKey("Higi-Source") == nil && request.URL?.absoluteString == request.mainDocumentURL?.absoluteString) {
+            dispatch_async(dispatch_get_main_queue(), {
+                if let mutableRequest = request.mutableCopy() as? NSMutableURLRequest {
+                    mutableRequest.addValue("mobile-ios", forHTTPHeaderField: "Higi-Source");
+                
+                    if (self.loadData) {
+                        NSURLConnection(request: mutableRequest, delegate: self);
+                    } else {
+                        webView.loadRequest(mutableRequest);
+                    }
+                }
+            });
+            
+            return false;
         }
         if (((!isGone && request.URL!.absoluteString != nil && request.URL!.absoluteString!.hasPrefix("http://www.google.com")))) {
             webView.stopLoading();
@@ -72,7 +82,6 @@ class WebViewController: UIViewController, NSURLConnectionDataDelegate, UIWebVie
                 UIAlertView(title: "Error", message: "\(errorMessage)", delegate: self, cancelButtonTitle: "OK").show();
             }
             goBack(self);
-            return false;
         }
         return true;
     }

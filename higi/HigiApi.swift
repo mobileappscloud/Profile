@@ -3,46 +3,40 @@ import Foundation
 
 class HigiApi {
     
-    class var PRODUCTION: Bool {
-        return true;
-    }
-    
-    class var EARNDIT_DEV: Bool {
-        return false;
-    }
-    
     var manager: AFHTTPRequestOperationManager;
     
     class var higiApiUrl: String {
-        return HigiApi.PRODUCTION ? BASE_URL : DEV_BASE_URL;
+        return NSBundle.mainBundle().objectForInfoDictionaryKey("HigiUrl") as! String;
     }
     
     class var earnditApiUrl: String {
-        return HigiApi.PRODUCTION ? EARNDIT_URL : DEV_EARNDIT_URL;
+        return NSBundle.mainBundle().objectForInfoDictionaryKey("EarnditUrl") as! String;
     }
     
     class var webUrl: String {
-        return HigiApi.PRODUCTION ? WEB_URL : DEV_WEB_URL;
+        return NSBundle.mainBundle().objectForInfoDictionaryKey("WebUrl")  as! String;
     }
     
     class var apiKey: String {
         return API_KEY;
     }
     
+    class var apiVersion: String {
+        return API_VERSION;
+    }
+    
     init() {
-        manager = AFHTTPRequestOperationManager(baseURL: NSURL(string: BASE_URL));
+        manager = AFHTTPRequestOperationManager(baseURL: NSURL(string: HigiApi.higiApiUrl));
         manager.requestSerializer = AFJSONRequestSerializer(writingOptions: NSJSONWritingOptions.allZeros);
         manager.responseSerializer = AFJSONResponseSerializer(readingOptions: NSJSONReadingOptions.AllowFragments);
+        manager.requestSerializer.timeoutInterval = 30;
+        
         manager.requestSerializer.setValue(API_KEY, forHTTPHeaderField: "ApiToken");
         manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Content-Type");
         manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept");
-        manager.requestSerializer.setValue("application/vnd.higi.earndit;version=2", forHTTPHeaderField: "Accept");
-        manager.requestSerializer.timeoutInterval = 20;
-        
-        if (HigiApi.EARNDIT_DEV) {
-            manager.requestSerializer.setValue("rQIpgKhmd0qObDSr5SkHbw", forHTTPHeaderField: "Dev-Token");  // Grant
-        }
+        manager.requestSerializer.setValue("application/vnd.higi.earndit;version=" + HigiApi.apiVersion, forHTTPHeaderField: "Accept");
         manager.requestSerializer.setValue("iOSv\(Utility.appVersion()).\(Utility.appBuild())", forHTTPHeaderField: "X-Consumer-Id");
+        
         if (!SessionData.Instance.token.isEmpty) {
             manager.requestSerializer.setValue(SessionData.Instance.token, forHTTPHeaderField: "Token");
         }
@@ -69,7 +63,7 @@ class HigiApi {
         request.HTTPMethod = "POST";
         request.setValue(contentType, forHTTPHeaderField: "Content-Type");
         request.setValue(HigiApi.apiKey, forHTTPHeaderField: "ApiToken");
-        request.setValue("application/vnd.higi.earndit;version=2", forHTTPHeaderField: "Accept");
+        request.setValue("application/vnd.higi.earndit;version=" + HigiApi.apiVersion, forHTTPHeaderField: "Accept");
         if (!SessionData.Instance.token.isEmpty) {
             request.setValue(SessionData.Instance.token, forHTTPHeaderField: "Token");
         }
@@ -81,13 +75,6 @@ class HigiApi {
     }
 }
 
-let BASE_URL = "https://api.higi.com";
-let DEV_BASE_URL = "http://higiapi2.cloudapp.net";
-
-let EARNDIT_URL = "https://earndit.higi.com/api";
-let DEV_EARNDIT_URL = "http://earndit-qa.superbuddytime.com/";
-
-let WEB_URL = "https://higi.com";
-let DEV_WEB_URL = "https://webqa.superbuddytime.com";
+let API_VERSION = "2.1.1";
 
 let API_KEY = "SyNAqa1DNkeph3P6pvMw8kCdbAh0mMNaJ0quimRPHNZH5jKvzBZulRhn31mGfPfUIZ7l2HBazU9tMeWMJ7eNPn35ZVxw9liS3mQ20Bj780MBAA==";

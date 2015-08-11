@@ -6,7 +6,7 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
     
     var plot, altPlot: NewCPTScatterPlot!;
     
-    var plotSymbol, selectedPlotSymbol, altPlotSymbol, selectedAltPlotSymbol, unselectedAltPlotSymbol:CPTPlotSymbol!;
+    var plotSymbol, selectedPlotSymbol, selectedAltPlotSymbol, unselectedAltPlotSymbol:CPTPlotSymbol!;
     
     var lastSelectedAltPlotIndex = -1, selectedPointIndex = -1;
     
@@ -35,18 +35,16 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
     }
     
     func setupForDashboard(type: MetricsType) {
-        if (points.count < 1) {
-            return;
-        } else {
-            let color = type.getColor();
-            var maxY = 0.0, minY = DBL_MAX, maxX = 0.0, minX = DBL_MAX;
-            graph = CPTXYGraph(frame: self.bounds);
-            self.hostedGraph = graph;
-            graph.paddingLeft = 0;
-            graph.paddingTop = 0;
-            graph.paddingRight = 0;
-            graph.paddingBottom = 0;
-            graph.plotAreaFrame.paddingBottom = 10;
+        let color = type.getColor();
+        var maxY = 0.0, minY = DBL_MAX, maxX = 0.0, minX = DBL_MAX;
+        graph = CPTXYGraph(frame: self.bounds);
+        self.hostedGraph = graph;
+        graph.paddingLeft = 0;
+        graph.paddingTop = 0;
+        graph.paddingRight = 0;
+        graph.paddingBottom = 0;
+        graph.plotAreaFrame.paddingBottom = 10;
+        if points.count > 0 {
             for point in points {
                 if (point.y > maxY) {
                     maxY = point.y;
@@ -61,68 +59,70 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
                     minX = round(point.x);
                 }
             }
-            var yRange = maxY - minY > 1 ? maxY - minY : 1;
-            var xRange = maxX - minX > 1 ? maxX - minX : 1;
-            var plotSpace = graph.defaultPlotSpace as! CPTXYPlotSpace;
-            plotSpace.xRange = NewCPTPlotRange(location: max(round(minX) - xRange * 0.05, 0), length: xRange * 1.05);
-            plotSpace.yRange = NewCPTPlotRange(location: round(minY) - yRange * 0.25, length: yRange * 1.5);
-            plotSpace.globalXRange = plotSpace.xRange;
-            plotSpace.globalYRange = plotSpace.yRange;
-            plotSpace.delegate = self;
-            
-            plot = NewCPTScatterPlot(frame: CGRectZero);
-            plot.interpolation = CPTScatterPlotInterpolationCurved;
-            if (points.count > 1) {
-                plotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
-                plotSymbol.size = CGSize(width: 0, height: 0);
-            } else {
-                let plotSymbolSize = 7.0;
-                var symbolLineStyle = CPTMutableLineStyle();
-                symbolLineStyle.lineColor = CPTColor(CGColor: color.CGColor);
-                symbolLineStyle.lineWidth = 2;
-                plotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
-                plotSymbol.fill = CPTFill(color: CPTColor(CGColor: color.CGColor));
-                plotSymbol.lineStyle = symbolLineStyle;
-                plotSymbol.size = CGSize(width: plotSymbolSize, height: plotSymbolSize);
-            }
-            plot.plotSymbol = plotSymbol;
-            plot.plotSymbolMarginForHitDetection = CGFloat(0);
-            plot.dataSource = self;
-            plot.delegate = self;
-            var lineStyle = CPTMutableLineStyle();
-            lineStyle.lineColor = CPTColor(CGColor: color.CGColor);
-            lineStyle.lineWidth = 2;
-            plot.dataLineStyle = lineStyle;
-            
-            var xAxis = graph.axisSet.axisForCoordinate(CPTCoordinateX, atIndex: 0) as! CPTXYAxis;
-            xAxis.visibleRange = plotSpace.xRange;
-            xAxis.gridLinesRange = plotSpace.yRange;
-            xAxis.axisConstraints = CPTConstraints(lowerOffset: 0);
-            xAxis.labelingPolicy = CPTAxisLabelingPolicyNone;
-            var xAxisLineStyle = CPTMutableLineStyle();
-            xAxisLineStyle.lineColor = CPTColor(CGColor: UIColor.lightGrayColor().CGColor);
-            xAxisLineStyle.lineWidth = 1;
-            xAxis.axisLineStyle = xAxisLineStyle;
-            
-            var yAxis = graph.axisSet.axisForCoordinate(CPTCoordinateY, atIndex: 0) as! CPTXYAxis;
-            yAxis.visibleRange = plotSpace.yRange;
-            yAxis.gridLinesRange = plotSpace.xRange;
-            yAxis.axisConstraints = CPTConstraints(lowerOffset: 0);
-            yAxis.labelingPolicy = CPTAxisLabelingPolicyNone;
-            var yAxisLineStyle = CPTMutableLineStyle();
-            yAxisLineStyle.lineColor = CPTColor(CGColor: UIColor.lightGrayColor().CGColor);
-            yAxisLineStyle.lineWidth = 2;
-            yAxis.axisLineStyle = yAxisLineStyle;
-            
-            graph.addPlot(plot, toPlotSpace: graph.defaultPlotSpace);
+        } else {
+            minX = 0;
+            minY = 0;
         }
+        var yRange = maxY - minY > 1 ? maxY - minY : 1;
+        var xRange = maxX - minX > 1 ? maxX - minX : 1;
+        var plotSpace = graph.defaultPlotSpace as! CPTXYPlotSpace;
+        plotSpace.xRange = NewCPTPlotRange(location: max(round(minX) - xRange * 0.05, 0), length: xRange * 1.05);
+        plotSpace.yRange = NewCPTPlotRange(location: round(minY) - yRange * 0.25, length: yRange * 1.5);
+        plotSpace.globalXRange = plotSpace.xRange;
+        plotSpace.globalYRange = plotSpace.yRange;
+        plotSpace.delegate = self;
+        
+        plot = NewCPTScatterPlot(frame: CGRectZero);
+        plot.interpolation = CPTScatterPlotInterpolationCurved;
+        if (points.count > 1) {
+            plotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
+            plotSymbol.size = CGSize(width: 0, height: 0);
+        } else {
+            let plotSymbolSize = 7.0;
+            var symbolLineStyle = CPTMutableLineStyle();
+            symbolLineStyle.lineColor = CPTColor(CGColor: color.CGColor);
+            symbolLineStyle.lineWidth = 2;
+            plotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
+            plotSymbol.fill = CPTFill(color: CPTColor(CGColor: color.CGColor));
+            plotSymbol.lineStyle = symbolLineStyle;
+            plotSymbol.size = CGSize(width: plotSymbolSize, height: plotSymbolSize);
+        }
+        plot.plotSymbol = plotSymbol;
+        plot.plotSymbolMarginForHitDetection = CGFloat(0);
+        plot.dataSource = self;
+        plot.delegate = self;
+        var lineStyle = CPTMutableLineStyle();
+        lineStyle.lineColor = CPTColor(CGColor: color.CGColor);
+        lineStyle.lineWidth = 2;
+        plot.dataLineStyle = lineStyle;
+        
+        var xAxis = graph.axisSet.axisForCoordinate(CPTCoordinateX, atIndex: 0) as! CPTXYAxis;
+        xAxis.visibleRange = plotSpace.xRange;
+        xAxis.gridLinesRange = plotSpace.yRange;
+        xAxis.axisConstraints = CPTConstraints(lowerOffset: 0);
+        xAxis.labelingPolicy = CPTAxisLabelingPolicyNone;
+        var xAxisLineStyle = CPTMutableLineStyle();
+        xAxisLineStyle.lineColor = CPTColor(CGColor: UIColor.lightGrayColor().CGColor);
+        xAxisLineStyle.lineWidth = 1;
+        xAxis.axisLineStyle = xAxisLineStyle;
+        
+        var yAxis = graph.axisSet.axisForCoordinate(CPTCoordinateY, atIndex: 0) as! CPTXYAxis;
+        yAxis.visibleRange = plotSpace.yRange;
+        yAxis.gridLinesRange = plotSpace.xRange;
+        yAxis.axisConstraints = CPTConstraints(lowerOffset: 0);
+        yAxis.labelingPolicy = CPTAxisLabelingPolicyNone;
+        var yAxisLineStyle = CPTMutableLineStyle();
+        yAxisLineStyle.lineColor = CPTColor(CGColor: UIColor.lightGrayColor().CGColor);
+        yAxisLineStyle.lineWidth = 2;
+        yAxis.axisLineStyle = yAxisLineStyle;
+        
+        graph.addPlot(plot, toPlotSpace: graph.defaultPlotSpace);
     }
     
-    func setupForMetric(color: UIColor) {
+    func setupForMetric(color: UIColor, secondaryColor: UIColor?) {
         if (points.count == 0) {
             return;
         }
-        let unselectedColor = Utility.colorFromHexString("#b4a6c2");
         var maxY = 0.0, minY = DBL_MAX, plotSymbolSize = 8.0;
         let hitMargin = 20, pointsToShow = 30;
         
@@ -144,6 +144,11 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         var symbolLineStyle = CPTMutableLineStyle();
         symbolLineStyle.lineColor = CPTColor(CGColor: color.CGColor);
         symbolLineStyle.lineWidth = 2;
+        
+        var altSymbolLineStyle = CPTMutableLineStyle();
+        altSymbolLineStyle.lineColor = CPTColor(CGColor: color.CGColor);
+        altSymbolLineStyle.lineWidth = 2;
+        
         plotSymbol.lineStyle = symbolLineStyle;
         plotSymbol.size = CGSize(width: plotSymbolSize, height: plotSymbolSize);
         
@@ -152,21 +157,19 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         selectedPlotSymbol.lineStyle = symbolLineStyle;
         selectedPlotSymbol.size = CGSize(width: plotSymbolSize, height: plotSymbolSize);
         
-        altPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
-        altPlotSymbol.fill = CPTFill(color: CPTColor(CGColor: color.CGColor));
-        altPlotSymbol.lineStyle = symbolLineStyle;
-        altPlotSymbol.size = CGSize(width: plotSymbolSize, height: plotSymbolSize);
-        
-        selectedAltPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
+        selectedAltPlotSymbol = CPTPlotSymbol.dashPlotSymbol();
         selectedAltPlotSymbol.fill = CPTFill(color: CPTColor(CGColor: color.CGColor));
         selectedAltPlotSymbol.lineStyle = symbolLineStyle;
         selectedAltPlotSymbol.size = CGSize(width: plotSymbolSize, height: plotSymbolSize);
         
-        unselectedAltPlotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
-        unselectedAltPlotSymbol.fill = CPTFill(color: CPTColor(CGColor: unselectedColor.CGColor));
+        unselectedAltPlotSymbol = CPTPlotSymbol.dashPlotSymbol();
         unselectedAltPlotSymbol.size = CGSize(width: plotSymbolSize, height: plotSymbolSize);
         var unselectedAltPlotLineStyle = CPTMutableLineStyle();
-        unselectedAltPlotLineStyle.lineColor = CPTColor(CGColor: unselectedColor.CGColor);
+        if secondaryColor != nil {
+            unselectedAltPlotLineStyle.lineColor = CPTColor(CGColor: secondaryColor!.CGColor);
+            unselectedAltPlotSymbol.fill = CPTFill(color: CPTColor(CGColor: secondaryColor!.CGColor));
+            altSymbolLineStyle.lineColor = CPTColor(CGColor: secondaryColor!.CGColor);
+        }
         unselectedAltPlotLineStyle.lineWidth = 1;
         unselectedAltPlotSymbol.lineStyle = unselectedAltPlotLineStyle;
         for index in 0..<altPoints.count {
@@ -209,7 +212,7 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
                 let noSymbol = CPTPlotSymbol.ellipsePlotSymbol();
                 noSymbol.size = CGSize(width: 0, height: 0);
                 altPlot.plotSymbol = noSymbol;
-                altPlot.dataLineStyle = symbolLineStyle;
+                altPlot.dataLineStyle = altSymbolLineStyle;
                 shouldShowAltSymbol = false;
             }
             altPlot.plotSymbolMarginForHitDetection = CGFloat(hitMargin);
@@ -227,25 +230,11 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
             lastPoint = GraphPoint(x: 0, y: 0);
             minY = 0;
         }
-        var tickInterval = 20.0;
-        var lowerBound = roundToLowest(round(minY) - (maxY - minY) * 0.25, roundTo: tickInterval);
-        //make sure lowerbound is low enough to include min
-        if (lowerBound >= minY - 10) {
-            lowerBound = minY * 0.25;
-        }
-        //make sure lowest points are not cut off by the x axis, (but don't do it for range with little variance between max and min like body fat)
-        if ((minY - lowerBound < tickInterval) && (maxY - minY > tickInterval)) {
-            lowerBound = -tickInterval;
-        }
-        var yRange = roundToHighest((maxY - minY) * 1.25, roundTo: tickInterval);
-        //make sure yRange includes max point (needed when max and min are large and close together)
-        if (lowerBound + yRange <= maxY) {
-            yRange = roundToHighest(maxY - lowerBound + tickInterval, roundTo: tickInterval);
-        }
-        //make sure top most points have enough padding
-        if (maxY - yRange < tickInterval) {
-            yRange += tickInterval;
-        }
+        let tickInterval = 10.0;
+
+        var yRange = maxY - minY > 0 ? maxY - minY : tickInterval;
+        var lowerBound = roundToLowest(minY - (yRange * 0.4), roundTo: tickInterval);
+        var distance = roundToHighest(yRange * 1.8, roundTo: tickInterval);
         var plotSpace = self.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace;
         var visibleMin = firstPoint;
         if (points.count > 30) {
@@ -256,7 +245,7 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
             marginX = 4 * 86400;
         }
         plotSpace.xRange = NewCPTPlotRange(location: visibleMin.x - marginX, length: lastPoint.x - visibleMin.x + marginX * 2);
-        plotSpace.yRange = NewCPTPlotRange(location: lowerBound, length: yRange);
+        plotSpace.yRange = NewCPTPlotRange(location: lowerBound, length: distance);
         plotSpace.globalXRange = NewCPTPlotRange(location: firstPoint.x - marginX, length: lastPoint.x - firstPoint.x + marginX * 2);
         plotSpace.globalYRange = plotSpace.yRange;
         plotSpace.delegate = self;

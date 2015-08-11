@@ -86,6 +86,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         for row in titleRows {
             row.frame.size.width = UIScreen.mainScreen().bounds.size.width - row.frame.origin.x;
         }
+        scrollView.setContentOffset(CGPoint(x: 0,y: 0), animated: false);
         updateNavbar(0);
     }
     
@@ -226,11 +227,11 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         
         let higiTitle = "higi Station", foursquareTitle = "Foursquare", activityTrackerTitle = "Activity Tracker", morningTitle = "", afternoonTitle = "";
         
-        let higiText = "Join the millions of people that are tracking their health through higi. You can earn up to 100 points by visiting a higi Station and getting your blood pressure, pulse, weight, and BMI stats. \n\n", activityTrackerText = "Higi makes it fun and rewarding to track your steps. Simply connect your favorite activity tracker and start getting rewarded for your jogs around the block. \n", foursquareText = "Wanna get rewarded for going to the gym or walking your dog at the park? Just connect your Foursquare account with higi and we will reward your 15 points for every time you check into a gym or park. \n", morningText = "Think you can earn more points than the average higi user? They average just over 15 points per day. If you are hoping to beat that, try visiting a higi Station today and make sure your activity tracker is connected to higi.  \n", afternoonText = "Think you can earn more points than the average higi user? They average just over 15 points per day. If you are hoping to beat that, try visiting a higi Station or sync your activity tracker with higi to see how many points you’ve earned today.  \n";
+        let higiText = "Join the millions of people that are tracking their health through higi. You can earn up to 100 points by visiting a higi Station and getting your blood pressure, pulse, weight, and BMI stats. \n\n", activityTrackerText = "Higi makes it fun and rewarding to track your steps. Simply connect your favorite activity tracker and start getting rewarded for your jogs around the block. \n", altActivityTrackerText = "Wanna get rewarded for biking to work or running on the treadmill at the gym? Just connect your favorite activity tracker and start earning points today. \n", foursquareText = "Wanna get rewarded for going to the gym or walking your dog at the park? Just connect your Foursquare account with higi and we will reward your 15 points for every time you check into a gym or park. \n", morningText = "Think you can earn more points than the average higi user? They average just over 15 points per day. If you are hoping to beat that, try visiting a higi Station today and make sure your activity tracker is connected to higi.  \n", afternoonText = "Think you can earn more points than the average higi user? They average just over 15 points per day. If you are hoping to beat that, try visiting a higi Station or sync your activity tracker with higi to see how many points you’ve earned today.  \n";
         
         let higiCallToAction = "Find a station", activityTrackerCallToAction = "Connect a device", foursquareCallToAction = "Connect a device", morningCallToAction = "Find a station", afternoonCallToAction = "Find a station";
         
-        let higiButtonTarget:Selector = "higiCallToActionClicked:", activityTrackerButtonTarget:Selector = "activityTrackerCallToActionClicked:", foursquareButtonTarget:Selector = "foursquareCallToActionClicked:", morningButtonTarget:Selector = "higiCallToActionClicked:", afternoonButtonTarget:Selector = "higiCallToActionClicked:";
+        let higiButtonTarget:Selector = "higiCallToActionClicked:", activityTrackerButtonTarget:Selector = "activityTrackerCallToActionClicked:", foursquareButtonTarget:Selector = "foursquareCallToActionClicked:", morningButtonTarget:Selector = "morningCallToActionClicked:", afternoonButtonTarget:Selector = "afternoonCallToActionClicked:";
         
         let noActivities = SessionController.Instance.activities.count == 0;
         let noCheckins = SessionController.Instance.checkins.count == 0;
@@ -245,22 +246,24 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         
         largestActivityPoints = 0;
         
-        if noCheckins && noActivities {
+        if noCheckins {
             createBlankStateRow(higiTitle, points: higiPoints, text: higiText, buttonCta: higiCallToAction, target: higiButtonTarget);
-            createBlankStateRow(activityTrackerTitle, points: activityTrackerPoints, text: activityTrackerText, buttonCta: activityTrackerCallToAction, target: higiButtonTarget);
-            createBlankStateRow(foursquareTitle, points: foursquarePoints, text: foursquareText, buttonCta: foursquareCallToAction, target: foursquareButtonTarget);
+            if noActivities {
+                createBlankStateRow(activityTrackerTitle, points: activityTrackerPoints, text: activityTrackerText, buttonCta: activityTrackerCallToAction, target: activityTrackerButtonTarget);
+                createBlankStateRow(foursquareTitle, points: foursquarePoints, text: foursquareText, buttonCta: foursquareCallToAction, target: foursquareButtonTarget);
+            }
         } else if noDevices {
-            createBlankStateRow(activityTrackerTitle, points: activityTrackerPoints, text: activityTrackerText, buttonCta: activityTrackerCallToAction, target: activityTrackerButtonTarget);
+            createBlankStateRow(activityTrackerTitle, points: activityTrackerPoints, text: altActivityTrackerText, buttonCta: activityTrackerCallToAction, target: activityTrackerButtonTarget);
         } else {
             if timeOfDay == TimeOfDay.Morning {
-                createBlankStateRow(morningTitle, points: morningPoints, text: morningText, buttonCta: morningCallToAction, target: morningButtonTarget);
+                createBlankStateRow(morningTitle, points: morningPoints, text: morningText, buttonCta: nil, target: nil);
             } else {
-                createBlankStateRow(afternoonTitle, points: afternoonPoints, text: afternoonText, buttonCta: afternoonCallToAction, target: afternoonButtonTarget);
+                createBlankStateRow(afternoonTitle, points: afternoonPoints, text: afternoonText, buttonCta: nil, target: nil);
             }
         }
     }
     
-    func createBlankStateRow(title: String, points: Int, text: String, buttonCta: String, target: Selector) {
+    func createBlankStateRow(title: String, points: Int, text: String, buttonCta: String?, target: Selector?) {
         let color = Utility.colorFromHexString("#444444");
         let titleMargin:CGFloat = -4, rowMargin:CGFloat = 4, buttonMargin: CGFloat = 16, textOffset: CGFloat = 16, alpha: CGFloat = 0.6;
         
@@ -288,11 +291,13 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         rows.append(textRow);
         margins.append(buttonMargin);
         
-        let button = initCallToActionButton(rowX, text: buttonCta, action: target);
-        activityContainer.addSubview(button);
-        currentOrigin += button.frame.size.height + buttonMargin;
-        rows.append(button);
-        margins.append(buttonMargin);
+        if buttonCta != nil && target != nil {
+            let button = initCallToActionButton(rowX, text: buttonCta!, action: target!);
+            activityContainer.addSubview(button);
+            currentOrigin += button.frame.size.height + buttonMargin;
+            rows.append(button);
+            margins.append(buttonMargin);
+        }
     }
     
     func layoutActivityView() {
@@ -312,7 +317,6 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             currentOrigin += activityRow.frame.size.height + rowMargin;
             let titleMargin:CGFloat = 6;
             let rowWidth = UIScreen.mainScreen().bounds.size.width - activityRow.name.frame.origin.x;
-            var activitiesByDevice:[String: Bool] = [:];
             for subActivity in activityList {
                 if key != ActivityCategory.Health.getString() {
                     let titleRow = SummaryViewUtility.initTitleRow(activityRow.name.frame.origin.x, originY: currentOrigin, width: rowWidth, points: subActivity.points, device: "\(subActivity.device.name)", color: color);
@@ -411,7 +415,6 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
                     
                     rows.append(breakdownRow);
                     margins.append(0);
-                    activitiesByDevice[String(subActivity.device.name)] = true;
                 }
                 if isDuplicate {
                     let duplicateLabel = SummaryViewUtility.initDuplicateLabel(activityRow.name.frame.origin.x, originY: currentOrigin, width: scrollView.frame.size.width - activityRow.frame.origin.x, text: "\(subActivity.errorDescription)");
@@ -460,6 +463,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         button.backgroundColor = Utility.colorFromHexString(Constants.higiGreen);
         button.layer.cornerRadius = 4;
         button.addTarget(self, action: action, forControlEvents: UIControlEvents.TouchUpInside);
+        button.userInteractionEnabled = true;
         return button;
     }
     
@@ -600,6 +604,16 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     func foursquareCallToActionClicked(sender: AnyObject!) {
         Flurry.logEvent("ConnectDevice_Pressed");
         self.navigationController!.pushViewController(ConnectDeviceViewController(nibName: "ConnectDeviceView", bundle: nil), animated: true);
+    }
+    
+    func morningCallToActionClicked(sender: AnyObject!) {
+        Flurry.logEvent("FindStation_Pressed");
+        self.navigationController!.pushViewController(FindStationViewController(nibName: "FindStationView", bundle: nil), animated: true);
+    }
+    
+    func afternoonCallToActionClicked(sender: AnyObject!) {
+        Flurry.logEvent("FindStation_Pressed");
+        self.navigationController!.pushViewController(FindStationViewController(nibName: "FindStationView", bundle: nil), animated: true);
     }
     
     func goBack(sender: AnyObject!) {
