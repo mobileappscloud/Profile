@@ -16,7 +16,8 @@ class ChallengeTeam {
         units = dictionary["units"] as! Double;
         var imageUrls = dictionary["imageUrl"] as! NSDictionary;
         imageUrl = imageUrls["default"] as! NSString;
-        joinUrl = dictionary["joinUrl"] as? NSString;
+        let userRelation = dictionary["userRelation"] as! NSDictionary;
+        joinUrl = userRelation["joinUrl"] as? NSString;
     }
     
 }

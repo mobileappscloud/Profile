@@ -21,6 +21,10 @@ class HigiApi {
         return API_KEY;
     }
     
+    class var apiVersion: String {
+        return API_VERSION;
+    }
+    
     init() {
         manager = AFHTTPRequestOperationManager(baseURL: NSURL(string: HigiApi.higiApiUrl));
         manager.requestSerializer = AFJSONRequestSerializer(writingOptions: NSJSONWritingOptions.allZeros);
@@ -30,7 +34,7 @@ class HigiApi {
         manager.requestSerializer.setValue(API_KEY, forHTTPHeaderField: "ApiToken");
         manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Content-Type");
         manager.requestSerializer.setValue("application/json", forHTTPHeaderField: "Accept");
-        manager.requestSerializer.setValue("application/vnd.higi.earndit;version=2", forHTTPHeaderField: "Accept");
+        manager.requestSerializer.setValue("application/vnd.higi.earndit;version=" + HigiApi.apiVersion, forHTTPHeaderField: "Accept");
         manager.requestSerializer.setValue("iOSv\(Utility.appVersion()).\(Utility.appBuild())", forHTTPHeaderField: "X-Consumer-Id");
         
         if (!SessionData.Instance.token.isEmpty) {
@@ -59,7 +63,7 @@ class HigiApi {
         request.HTTPMethod = "POST";
         request.setValue(contentType, forHTTPHeaderField: "Content-Type");
         request.setValue(HigiApi.apiKey, forHTTPHeaderField: "ApiToken");
-        request.setValue("application/vnd.higi.earndit;version=2", forHTTPHeaderField: "Accept");
+        request.setValue("application/vnd.higi.earndit;version=" + HigiApi.apiVersion, forHTTPHeaderField: "Accept");
         if (!SessionData.Instance.token.isEmpty) {
             request.setValue(SessionData.Instance.token, forHTTPHeaderField: "Token");
         }
@@ -71,6 +75,6 @@ class HigiApi {
     }
 }
 
-
+let API_VERSION = "2.1.1";
 
 let API_KEY = "SyNAqa1DNkeph3P6pvMw8kCdbAh0mMNaJ0quimRPHNZH5jKvzBZulRhn31mGfPfUIZ7l2HBazU9tMeWMJ7eNPn35ZVxw9liS3mQ20Bj780MBAA==";
