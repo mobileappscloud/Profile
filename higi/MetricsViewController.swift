@@ -93,7 +93,8 @@ class MetricsViewController: UIViewController {
         let normalizeFactor = (1 + (fattest - thinnest) / 150.0);
         for checkin in SessionController.Instance.checkins {
             let checkinTime = checkin.dateTime.timeIntervalSince1970;
-            if (checkin.map != nil && checkinTime != lastBpDate) {
+            let checkinDate = checkinTime - (checkinTime % 86400);
+            if (checkin.map != nil && checkinDate != lastBpDate) {
                 bpPoints.append(GraphPoint(x: checkinTime, y: checkin.map));
                 if let diastolic = checkin.diastolic {
                     bpAltPoints.append(GraphPoint(x: checkinTime, y: Double(diastolic)));
@@ -102,20 +103,20 @@ class MetricsViewController: UIViewController {
                     bpAltPoints.append(GraphPoint(x: checkinTime, y: 0));
                     bpAltPoints.append(GraphPoint(x: checkinTime, y: 0));
                 }
-                lastBpDate = checkinTime;
+                lastBpDate = checkinDate;
             }
-            if (checkin.pulseBpm != nil && checkinTime != lastPulseDate) {
+            if (checkin.pulseBpm != nil && checkinDate != lastPulseDate) {
                 pulsePoints.append(GraphPoint(x: checkinTime, y: Double(checkin.pulseBpm!)));
-                lastPulseDate = checkinTime;
+                lastPulseDate = checkinDate;
             }
-            if (checkin.weightLbs != nil && checkinTime != lastWeightDate) {
+            if (checkin.weightLbs != nil && checkinDate != lastWeightDate) {
                 weightPoints.append(GraphPoint(x: checkinTime, y: checkin.weightLbs));
                 fatAltPoints.append(GraphPoint(x: checkinTime, y: 10 + (checkin.weightLbs! / heaviest) * fattest * normalizeFactor));
-                lastWeightDate = checkinTime;
+                lastWeightDate = checkinDate;
             }
-            if (checkin.fatRatio != nil && checkinTime != lastFatDate) {
+            if (checkin.fatRatio != nil && checkinDate != lastFatDate) {
                 fatPoints.append(GraphPoint(x: checkinTime, y: checkin.fatRatio));
-                lastFatDate = checkinTime;
+                lastFatDate = checkinDate;
             }
         }
         var activityPoints:[GraphPoint] = [];
