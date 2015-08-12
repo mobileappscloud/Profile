@@ -134,7 +134,8 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         graph.paddingBottom = 0;
         self.allowPinchScaling = true;
         graph.plotAreaFrame.paddingTop = 20;
-        graph.plotAreaFrame.paddingRight = 0;
+        graph.plotAreaFrame.paddingRight = 20;
+        graph.plotAreaFrame.paddingLeft = 20;
         graph.plotAreaFrame.borderLineStyle = nil;
         graph.plotAreaFrame.borderWidth = 0;
         graph.borderWidth = 0;
@@ -271,15 +272,15 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         xAxis.labelTextStyle = axisTextStyle;
         xAxis.majorTickLineStyle = nil;
         xAxis.minorTickLineStyle = nil;
-        xAxis.visibleRange = plotSpace.globalXRange;
+        xAxis.visibleRange = NewCPTPlotRange(location: firstPoint.x, length: lastPoint.x - firstPoint.x);
         xAxis.axisConstraints = CPTConstraints(lowerOffset: 0);
         xAxis.labelingPolicy = CPTAxisLabelingPolicyEqualDivisions;
-        xAxis.preferredNumberOfMajorTicks = 10;
+        xAxis.preferredNumberOfMajorTicks = 5;
         xAxis.axisLineStyle = nil;
         xAxis.labelOffset = 0;
         xAxis.tickDirection = CPTSignPositive;
         var dateFormatter = NSDateFormatter();
-        dateFormatter.dateFormat = "MMM dd";
+        dateFormatter.dateFormat = "MM/dd/YY";
         xAxis.labelFormatter = CustomFormatter(dateFormatter: dateFormatter);
         
         var yAxis = graph.axisSet.axisForCoordinate(CPTCoordinateY, atIndex: 0) as! CPTXYAxis;
@@ -290,7 +291,7 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         yAxis.minorTickLineStyle = nil;
         yAxis.visibleRange = plotSpace.yRange;
         yAxis.gridLinesRange = plotSpace.xRange;
-        yAxis.axisConstraints = CPTConstraints(lowerOffset: 0);
+        yAxis.axisConstraints = CPTConstraints(lowerOffset: -20);
         yAxis.labelingPolicy = CPTAxisLabelingPolicyEqualDivisions;
         let numberFormatter = NSNumberFormatter();
         numberFormatter.numberStyle = NSNumberFormatterStyle.DecimalStyle;
@@ -299,6 +300,8 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         yAxis.tickDirection = CPTSignPositive;
         yAxis.labelOffset = 0;
         yAxis.preferredNumberOfMajorTicks = 5;
+        //hide first tick mark
+        yAxis.labelExclusionRanges = [NewCPTPlotRange(location: lowerBound - 1, length: 2)];
         graph.addPlot(plot, toPlotSpace: graph.defaultPlotSpace);
         
         checkinSelected(plot, idx: points.count - 1, first: true);
