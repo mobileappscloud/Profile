@@ -467,7 +467,7 @@ class MetricDetailCard: UIView {
             var seenDevices: [String: Bool] = [:];
             for subActivity in activityList {
                 let deviceName = String(subActivity.device.name);
-                if (subActivity.errorDescription == nil && subActivity.points > 0) {
+                if (subActivity.points > 0 || (key != ActivityCategory.Health.getString() && subActivity.errorDescription == nil)) {
                     if seenDevices[deviceName] == nil {
                         let titleRow = SummaryViewUtility.initTitleRow(activityRow.frame.origin.x, originY: currentOrigin, width: copyScrollview.frame.size.width - activityRow.frame.origin.x, points: activitiesByDevice[String(subActivity.device.name)]!, device: "\(subActivity.device.name)", color: Utility.colorFromHexString("#444444"));
                         titleRow.device.font = UIFont.systemFontOfSize(16);

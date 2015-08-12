@@ -203,7 +203,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             }
         }
         
-        if totalPoints == 0 {
+        if activities.count == 0 {
             layoutBlankState();
         } else {
             for (type, (total, activityList)) in activitiesByType {
