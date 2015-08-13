@@ -170,6 +170,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                     Utility.growAnimation(challengesCard.challengeBox, startHeight: challengesCard.challengeBox.frame.size.height, endHeight: challengeView.frame.size.height + challengeViewHeader + challengeViewHeader);
                     Utility.growAnimation(challengesCard, startHeight: challengesCard.frame.size.height, endHeight: challengesCard.challengeBox.frame.origin.y + challengeView.frame.size.height + challengeViewHeader);
                 }
+                challengesCard.challengeBox.frame.size.height = challengeView.frame.size.height;
                 challengesCard.challengeBox.addSubview(challengeView);
                 challengeView.userInteractionEnabled = false;
                 challengeView.updateConstraintsIfNeeded();
