@@ -233,7 +233,6 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         
         let higiButtonTarget:Selector = "higiCallToActionClicked:", activityTrackerButtonTarget:Selector = "activityTrackerCallToActionClicked:", foursquareButtonTarget:Selector = "foursquareCallToActionClicked:", morningButtonTarget:Selector = "morningCallToActionClicked:", afternoonButtonTarget:Selector = "afternoonCallToActionClicked:";
         
-        let noActivities = SessionController.Instance.activities.count == 0;
         let noCheckins = SessionController.Instance.checkins.count == 0;
         var noDevices = true;
         var devices = SessionController.Instance.devices;
@@ -245,10 +244,10 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         }
         
         largestActivityPoints = 0;
-        
+
         if noCheckins {
             createBlankStateRow(higiTitle, points: higiPoints, text: higiText, buttonCta: higiCallToAction, target: higiButtonTarget);
-            if noActivities {
+            if noDevices {
                 createBlankStateRow(activityTrackerTitle, points: activityTrackerPoints, text: activityTrackerText, buttonCta: activityTrackerCallToAction, target: activityTrackerButtonTarget);
                 createBlankStateRow(foursquareTitle, points: foursquarePoints, text: foursquareText, buttonCta: foursquareCallToAction, target: foursquareButtonTarget);
             }
