@@ -22,6 +22,8 @@ class KioskInfo: Equatable {
     
     var position: CLLocationCoordinate2D?;
     
+    var location: CLLocation?;
+    
     var hours: NSDictionary?;
     
     init(dictionary: NSDictionary) {
@@ -53,6 +55,7 @@ class KioskInfo: Equatable {
             latitude = gps!["Latitude"] as? Double;
             longitude = gps!["Longitude"] as? Double;
             position = CLLocationCoordinate2D(latitude: latitude!, longitude: longitude!);
+            location = CLLocation(latitude: latitude!, longitude: longitude!);
         }
         
         var hoursString = dictionary["Hours"] as? NSString;

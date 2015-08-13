@@ -12,6 +12,10 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
                             
     var window: UIWindow?
+    
+    var locationManager: CLLocationManager!;
+    
+    var locationDelegate: LocationDelegate!;
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -21,6 +25,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SessionData.Instance.restore();
         
         window?.makeKeyAndVisible();
+        
+        if (UIApplication.instancesRespondToSelector(Selector("registerUserNotificationSettings:"))) {
+            application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: UIUserNotificationType.Sound | UIUserNotificationType.Alert | UIUserNotificationType.Badge, categories: nil));
+        }
+        
+        if (UIApplication.sharedApplication().backgroundRefreshStatus == UIBackgroundRefreshStatus.Available) {
+            locationManager = CLLocationManager();
+            locationDelegate = LocationDelegate();
+            locationManager.delegate = locationDelegate;
+            locationManager.pausesLocationUpdatesAutomatically = true;
+            locationManager.startMonitoringSignificantLocationChanges();
+        }
         
         return true
     }

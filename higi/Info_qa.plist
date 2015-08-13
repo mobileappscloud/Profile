@@ -17,11 +17,15 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.2.0</string>
+	<string>2.2.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>${BUILD_NUMBER}</string>
+	<key>EarnditUrl</key>
+	<string>https://earndit-qa.superbuddytime.com/api</string>
+	<key>HigiUrl</key>
+	<string>http://higiapi2.cloudapp.net</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationWhenInUseUsageDescription</key>
@@ -42,10 +46,6 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
-	<key>HigiUrl</key>
-	<string>http://higiapi2.cloudapp.net</string>
-	<key>EarnditUrl</key>
-	<string>https://earndit-qa.superbuddytime.com/api</string>
 	<key>WebUrl</key>
 	<string>https://webqa.superbuddytime.com</string>
 </dict>
