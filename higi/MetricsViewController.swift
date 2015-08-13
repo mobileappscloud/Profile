@@ -90,7 +90,7 @@ class MetricsViewController: UIViewController {
         var bpPoints:[GraphPoint] = [], bpAltPoints:[GraphPoint] = [], pulsePoints:[GraphPoint] = [], weightPoints:[GraphPoint] = [], fatPoints:[GraphPoint] = [], fatAltPoints:[GraphPoint] = [];
         var lastBpDate:NSTimeInterval = 0, lastPulseDate:NSTimeInterval = 0, lastWeightDate:NSTimeInterval = 0, lastFatDate:NSTimeInterval = 0;
         let normalizeFactor = (1 + (fattest - thinnest) / 150.0);
-        for checkin in SessionController.Instance.checkins {
+        for checkin in SessionController.Instance.checkins.reverse() {
             let checkinTime = checkin.dateTime.timeIntervalSince1970;
             let checkinDate = checkinTime - (checkinTime % 86400);
             if (checkin.map != nil && checkinDate != lastBpDate) {
@@ -125,7 +125,7 @@ class MetricsViewController: UIViewController {
                 activityPoints.append(GraphPoint(x: activityDate, y: Double(total)));
             }
         }
-        activityPoints.sort({$0.x < $1.x});
+        activityPoints.sort({$0.x > $1.x});
         for subView in self.view.subviews {
             subView.removeFromSuperview();
         }
