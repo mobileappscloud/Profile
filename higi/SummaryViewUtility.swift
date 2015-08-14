@@ -36,7 +36,7 @@ class SummaryViewUtility {
         let label = UILabel(frame: CGRect(x: originX, y: originY, width: width, height: labelHeight));
         label.text = text;
         label.textColor = UIColor.lightGrayColor();
-        label.font = UIFont.italicSystemFontOfSize(15);
+        label.font = UIFont.italicSystemFontOfSize(12);
         return label;
     }
 }
