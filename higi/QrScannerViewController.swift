@@ -102,6 +102,6 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     }
     
     func goBack(sender: AnyObject!) {
-        self.dismissViewControllerAnimated(false, completion: nil);
+        self.navigationController!.popViewControllerAnimated(false);
     }
 }
