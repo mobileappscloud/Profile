@@ -810,32 +810,47 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             }
 
             proportion = min(CGFloat(points) / CGFloat(largestGoal), 1);
+
+            let newWidth = proportion * width;
+            
+            let clearBar = UIView(frame: CGRect(x: 0, y: posY, width: width, height: barHeight));
+            clearBar.backgroundColor = UIColor(white: 0.5, alpha: 0.5);
+            clearBar.layer.cornerRadius = barHeight / 2;
+            view.addSubview(clearBar);
+            
+            let greenBar = UIView(frame: CGRect(x: 0, y: posY, width: newWidth, height: barHeight));
+            greenBar.backgroundColor = Utility.colorFromHexString(Constants.higiGreen);
+            greenBar.layer.cornerRadius = barHeight / 2;
+            
+            view.addSubview(greenBar);
+
             for winCondition in individualGoalWinConditions {
                 let goalVal = winCondition.goal.minThreshold;
                 let posX = min(width, CGFloat(goalVal) / CGFloat(largestGoal) * width) - nodeHeight / 2;
                 //** idk why this is / 4 instead of /2 ... auto-layout?
                 let goalCircle = UIView(frame: CGRect(x: posX, y: posY - nodeHeight / 4 , width: nodeHeight, height: nodeHeight));
-                let circleColor:UIColor = Double(points) > Double(goalVal) ? Utility.colorFromHexString(Constants.higiGreen) : UIColor(white: 0.5, alpha: 1);
+                let circleColor:UIColor = Double(points) >= Double(goalVal) ? Utility.colorFromHexString(Constants.higiGreen) : UIColor(white: 0.5, alpha: 1);
                 goalCircle.backgroundColor = circleColor;
                 goalCircle.layer.cornerRadius = nodeHeight / 2;
                 view.addSubview(goalCircle);
             }
         } else {
             proportion = highScore != 0 ? min(CGFloat(points)/CGFloat(highScore), 1) : 0;
+            let newWidth = proportion * width;
+            
+            let clearBar = UIView(frame: CGRect(x: 0, y: posY, width: width, height: barHeight));
+            clearBar.backgroundColor = UIColor(white: 0.5, alpha: 0.5);
+            clearBar.layer.cornerRadius = barHeight / 2;
+            view.addSubview(clearBar);
+            
+            let greenBar = UIView(frame: CGRect(x: 0, y: posY, width: newWidth, height: barHeight));
+            greenBar.backgroundColor = Utility.colorFromHexString(Constants.higiGreen);
+            greenBar.layer.cornerRadius = barHeight / 2;
+            
+            view.addSubview(greenBar);
         }
         
-        let newWidth = proportion * width;
         
-        let clearBar = UIView(frame: CGRect(x: 0, y: posY, width: width, height: barHeight));
-        clearBar.backgroundColor = UIColor(white: 0.5, alpha: 0.5);
-        clearBar.layer.cornerRadius = barHeight / 2;
-        view.addSubview(clearBar);
-        
-        let greenBar = UIView(frame: CGRect(x: 0, y: posY, width: newWidth, height: barHeight));
-        greenBar.backgroundColor = Utility.colorFromHexString(Constants.higiGreen);
-        greenBar.layer.cornerRadius = barHeight / 2;
-        
-        view.addSubview(greenBar);
     }
 
     func getUserRank(isTeam: Bool) -> String {

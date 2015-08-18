@@ -169,7 +169,7 @@ class ApiUtility {
     
     class func checkForNewActivities(success: (() -> Void)?) {
         let userId = SessionData.Instance.user.userId;
-        HigiApi().sendPost("\(HigiApi.earnditApiUrl)/user/\(userId)/activities/lookForNew", parameters: nil, success: {operation, responseObject in
+        HigiApi().sendPost("\(HigiApi.earnditApiUrl)/user/\(userId)/lookForNewActivities", parameters: nil, success: {operation, responseObject in
             success?();
             }, failure: { operation, error in
                 success?();

@@ -224,8 +224,8 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         }
         var firstPoint, lastPoint: GraphPoint;
         if (points.count > 0) {
-            firstPoint = points[0];
-            lastPoint = points[points.count - 1];
+            firstPoint = points[points.count - 1];
+            lastPoint = points[0];
         } else {
             firstPoint = GraphPoint(x: 0, y: 0);
             lastPoint = GraphPoint(x: 0, y: 0);
@@ -236,15 +236,18 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         var yRange = maxY - minY > 0 ? maxY - minY : tickInterval;
         var lowerBound = roundToLowest(minY - (yRange * 0.4), roundTo: tickInterval);
         var distance = roundToHighest(yRange * 1.8, roundTo: tickInterval);
-        var plotSpace = self.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace;
+        if lowerBound + distance < maxY {
+            distance = maxY - lowerBound + tickInterval;
+        }
         var visibleMin = firstPoint;
         if (points.count > 30) {
-            visibleMin = points[points.count - 31];
+            visibleMin = points[30];
         }
         var marginX:Double = (lastPoint.x - visibleMin.x) * 0.1;
         if (marginX == 0) {
             marginX = 4 * 86400;
         }
+        var plotSpace = self.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace;
         plotSpace.xRange = NewCPTPlotRange(location: visibleMin.x - marginX, length: lastPoint.x - visibleMin.x + marginX * 2);
         plotSpace.yRange = NewCPTPlotRange(location: lowerBound, length: distance);
         plotSpace.globalXRange = NewCPTPlotRange(location: firstPoint.x - marginX, length: lastPoint.x - firstPoint.x + marginX * 2);
@@ -304,7 +307,7 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         yAxis.labelExclusionRanges = [NewCPTPlotRange(location: lowerBound - 1, length: 2)];
         graph.addPlot(plot, toPlotSpace: graph.defaultPlotSpace);
         
-        checkinSelected(plot, idx: points.count - 1, first: true);
+        checkinSelected(plot, idx: 0, first: true);
     }
     
     func roundToLowest(number: Double, roundTo: Double) -> Double {

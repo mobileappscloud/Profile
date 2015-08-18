@@ -30,7 +30,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     
     var totalPoints = 0, largestActivityPoints = 0;
     
-    var minCircleRadius:CGFloat = 8, maxCircleRadius:CGFloat = 20, currentOrigin:CGFloat = 0, gap:CGFloat = 4, imageAspectRatio:CGFloat!;
+    var minCircleRadius:CGFloat = 8, maxCircleRadius:CGFloat = 20, currentOrigin:CGFloat = 0, imageAspectRatio:CGFloat!;
     
     var backButton:UIButton!;
     
@@ -182,22 +182,16 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         for activity in activities {
             var type = activity.type.getString();
             if let (total, activityList) = activitiesByType[type] {
-                if activitiesByDevice[String(activity.device.name)] == nil || type == ActivityCategory.Health.getString() || type == ActivityCategory.Lifestyle.getString() {
-                    var previousActivities = activityList;
-                    previousActivities.append(activity);
-                    var points = total;
-                    if (activity.points > 0 && activity.errorDescription == nil) {
-                        points += activity.points!;
-                    }
-                    activitiesByType[type] = (points, previousActivities);
-                    activitiesByDevice[String(activity.device.name)] = type;
-                }
-            } else {
-                var points = 0;
+                var previousActivities = activityList;
+                previousActivities.append(activity);
+                var points = total;
                 if (activity.points > 0 && activity.errorDescription == nil) {
                     points += activity.points!;
                 }
-                activitiesByType[type] = (points, [activity]);
+                activitiesByType[type] = (points, previousActivities);
+                activitiesByDevice[String(activity.device.name)] = type;
+            } else {
+                activitiesByType[type] = (activity.points!, [activity]);
                 activityKeys.append(type);
                 activitiesByDevice[String(activity.device.name)] = type;
             }
@@ -233,7 +227,6 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         
         let higiButtonTarget:Selector = "higiCallToActionClicked:", activityTrackerButtonTarget:Selector = "activityTrackerCallToActionClicked:", foursquareButtonTarget:Selector = "foursquareCallToActionClicked:", morningButtonTarget:Selector = "morningCallToActionClicked:", afternoonButtonTarget:Selector = "afternoonCallToActionClicked:";
         
-        let noActivities = SessionController.Instance.activities.count == 0;
         let noCheckins = SessionController.Instance.checkins.count == 0;
         var noDevices = true;
         var devices = SessionController.Instance.devices;
@@ -245,10 +238,10 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         }
         
         largestActivityPoints = 0;
-        
+
         if noCheckins {
             createBlankStateRow(higiTitle, points: higiPoints, text: higiText, buttonCta: higiCallToAction, target: higiButtonTarget);
-            if noActivities {
+            if noDevices {
                 createBlankStateRow(activityTrackerTitle, points: activityTrackerPoints, text: activityTrackerText, buttonCta: activityTrackerCallToAction, target: activityTrackerButtonTarget);
                 createBlankStateRow(foursquareTitle, points: foursquarePoints, text: foursquareText, buttonCta: foursquareCallToAction, target: foursquareButtonTarget);
             }
@@ -315,7 +308,6 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             var checkinIndex = 0;
             activityContainer.addSubview(activityRow);
             currentOrigin += activityRow.frame.size.height + rowMargin;
-            let titleMargin:CGFloat = 6;
             let rowWidth = UIScreen.mainScreen().bounds.size.width - activityRow.name.frame.origin.x;
             for subActivity in activityList {
                 if key != ActivityCategory.Health.getString() {
@@ -324,9 +316,9 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
                     titleRows.append(titleRow);
                     
                     rows.append(titleRow);
-                    margins.append(titleMargin);
+                    margins.append(0);
                     
-                    currentOrigin += titleRow.frame.size.height + titleMargin;
+                    currentOrigin += titleRow.frame.size.height;
                 }
                 var isDuplicate = subActivity.errorDescription != nil;
                 if key == ActivityCategory.Lifestyle.getString() {
@@ -352,9 +344,9 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
                         titleRows.append(titleRow);
                         
                         rows.append(titleRow);
-                        margins.append(titleMargin);
+                        margins.append(0);
                         
-                        currentOrigin += titleRow.frame.size.height + titleMargin;
+                        currentOrigin += titleRow.frame.size.height;
                         
                         if let checkin = findCheckin(subActivity) {
                             if checkin.diastolic != nil && checkin.diastolic > 0 {
@@ -424,7 +416,11 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
                     rows.append(duplicateLabel);
                     margins.append(0);
                 }
-                currentOrigin += gap;
+                let titleBottomMargin:CGFloat = 15;
+                if margins.count > 0 {
+                    margins[margins.count - 1] = titleBottomMargin
+                }
+                currentOrigin += titleBottomMargin;
             }
         }
         resizeActivityRows(self.interfaceOrientation.rawValue == UIInterfaceOrientation.Portrait.rawValue);
