@@ -37,9 +37,9 @@ class ProfileImageViewController: UIViewController, UIImagePickerControllerDeleg
         }
         
         chooseLibraryButton.layer.borderWidth = 1.0;
-        chooseLibraryButton.layer.borderColor = Utility.colorFromHexString("#76C044").CGColor;
+        chooseLibraryButton.layer.borderColor = Utility.colorFromHexString(Constants.higiGreen).CGColor;
         takePhotoButton.layer.borderWidth = 1.0;
-        takePhotoButton.layer.borderColor = Utility.colorFromHexString("#76C044").CGColor;
+        takePhotoButton.layer.borderColor = Utility.colorFromHexString(Constants.higiGreen).CGColor;
         
         spinner = CustomLoadingSpinner(frame: CGRectMake(self.view.frame.size.width / 2 - 16, UIScreen.mainScreen().bounds.size.height - 66, 32, 32));
         spinner.shouldAnimateFull = false;
@@ -94,7 +94,7 @@ class ProfileImageViewController: UIViewController, UIImagePickerControllerDeleg
     }
     
     func gotoDashboard() {
-        if (SessionController.Instance.checkins != nil && SessionController.Instance.activities != nil && SessionController.Instance.challenges != nil && SessionController.Instance.kioskList != nil && SessionController.Instance.pulseArticles.count > 0 && !dashboardSent) {
+        if (SessionController.Instance.checkins != nil && SessionController.Instance.challenges != nil && SessionController.Instance.kioskList != nil && SessionController.Instance.pulseArticles.count > 0 && !dashboardSent) {
             Utility.gotoDashboard(self);
             dashboardSent = true;
         }

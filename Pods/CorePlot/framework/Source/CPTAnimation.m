@@ -355,7 +355,8 @@ static CPTAnimation *instance = nil;
                         if ( [tweenedValue isKindOfClass:decimalClass] ) {
                             NSDecimal buffer = [(NSDecimalNumber *)tweenedValue decimalValue];
 
-                            IMP setterMethod = [boundObject methodForSelector:boundSetter];
+                            typedef void (*SetterType)(id, SEL, NSDecimal);
+                            SetterType setterMethod = (SetterType)[boundObject methodForSelector:boundSetter];
                             setterMethod(boundObject, boundSetter, buffer);
                         }
                         else if ( [tweenedValue isKindOfClass:valueClass] ) {
@@ -375,8 +376,11 @@ static CPTAnimation *instance = nil;
                             free(buffer);
                         }
                         else {
-                            IMP setterMethod = [boundObject methodForSelector:boundSetter];
-                            setterMethod(boundObject, boundSetter, tweenedValue);
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+                            id<NSObject> theObject = boundObject;
+                            [theObject performSelector:boundSetter withObject:tweenedValue];
+#pragma clang diagnostic pop
                         }
 
                         if ( [animationDelegate respondsToSelector:@selector(animationDidUpdate:)] ) {

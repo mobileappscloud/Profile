@@ -43,7 +43,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     
     var locationManager: CLLocationManager!;
     
-    var listOpen = false, autoCompleteOpen = false, selectedPaneOpen = false, reminderMode = false, firstLocation = false;
+    var listOpen = false, autoCompleteOpen = false, selectedPaneOpen = false, reminderMode = true, firstLocation = false;
     
     var mapView: GMSMapView!;
     
@@ -69,23 +69,29 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
         (self.navigationItem.leftBarButtonItem!.customView! as! UIButton).setBackgroundImage(UIImage(named: "nav_ocmicon_inverted"), forState: UIControlState.Normal);
         listButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30));
-        listButton.setBackgroundImage(UIImage(named: "map_listviewicon.png"), forState: UIControlState.Normal);
+        listButton.setBackgroundImage(UIImage(named: "map_listviewicon"), forState: UIControlState.Normal);
         listButton.addTarget(self, action: "toggleList:", forControlEvents: UIControlEvents.TouchUpInside);
         var listBarItem = UIBarButtonItem();
         listBarItem.customView = listButton;
         self.navigationItem.rightBarButtonItem = listBarItem;
         self.revealController.panGestureRecognizer().enabled = false;
+        self.shouldShowDailyPoints = false;
         
         searchField = UITextField(frame: CGRect(x: 0, y: 0, width: 95, height: 40));
         searchField.font = UIFont.systemFontOfSize(12);
         searchField.placeholder = "Search by store name, city, zip";
         searchField.leftViewMode = UITextFieldViewMode.Always;
-        searchField.leftView = UIImageView(image: UIImage(named: "search_icon.png"));
+        searchField.leftView = UIImageView(image: UIImage(named: "search_icon"));
         searchField.leftView!.frame = CGRect(x: 0, y: 5, width: 30, height: 20);
         searchField.leftView!.contentMode = UIViewContentMode.ScaleAspectFit;
         searchField.clearButtonMode = UITextFieldViewMode.WhileEditing;
         searchField.delegate = self;
-        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated);
+        (self.navigationController as! MainNavigationController).drawerController?.selectRowAtIndex(3);
+
         mapContainer.frame = CGRect(x: 64, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height - 64);
         
         searchField.addTarget(self, action: "textFieldChanged", forControlEvents: UIControlEvents.EditingChanged);
@@ -116,10 +122,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         }
         
         if (reminderMode) {
-            reminderOverlay.hidden = false;
             reminderButton.hidden = false;
-            self.fakeNavBar.alpha = 0;
-            self.navigationController!.navigationBarHidden = true;
             getStarted.layer.borderWidth = 1;
             getStarted.layer.borderColor = Utility.colorFromHexString("#CCCCCC").CGColor;
             cancel.layer.borderWidth = 1;
@@ -130,7 +133,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
                 topHelp.layer.borderColor = Utility.colorFromHexString("#9A9A9A").CGColor;
                 topHelp.hidden = false;
                 
-                var stretchedImage = UIImage(named: "bg_tap_reminder.png")!;
+                var stretchedImage = UIImage(named: "bg_tap_reminder")!;
                 stretchedImage = stretchedImage.resizableImageWithCapInsets(UIEdgeInsets(top: 40, left: 5, bottom: 160, right: 100));
                 bottomHelpBackground.image = stretchedImage;
             }
@@ -146,9 +149,24 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         setupMap();
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveApiNotification:", name: ApiUtility.KIOSKS, object: nil);
+        
+        mapView.addObserver(self, forKeyPath: "myLocation", options: NSKeyValueObservingOptions.New, context: nil);
     }
     
-    func receiveApiNotification(notification: NSNotification) {
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated);
+        if (UIDevice.currentDevice().systemVersion >= "8.0") {
+            locationManager = CLLocationManager();
+            locationManager.requestWhenInUseAuthorization();
+            locationManager.delegate = self;
+        }
+        
+        if (SessionController.Instance.kioskList != nil) {
+            populateClusterManager();
+        }
+    }
+    
+    override func receiveApiNotification(notification: NSNotification) {
         populateClusterManager();
         clusterManager.cluster();
         updateKioskPositions();
@@ -188,19 +206,12 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         var myLocationButton = mapView.subviews.last as! UIView;
         myLocationButton.frame.origin.x = 10;
         mapContainer.addSubview(mapView);
-        
-        if (UIDevice.currentDevice().systemVersion >= "8.0") {
-            locationManager = CLLocationManager();
-            locationManager.requestWhenInUseAuthorization();
-            locationManager.delegate = self;
-        }
-        
-        if (SessionController.Instance.kioskList != nil) {
-            populateClusterManager();
-        }
     }
     
     func populateClusterManager() {
+        if (SessionController.Instance.kioskList == nil) {
+            return;
+        }
         for kiosk in SessionController.Instance.kioskList {
             let item = ClusterKiosk();
             item.setPosition(kiosk.position!);
@@ -539,7 +550,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     func getKioskLogoUrl(kiosk: KioskInfo!) -> NSURL {
         var modifiedName = kiosk.organizations[0];
         modifiedName = modifiedName.stringByReplacingOccurrencesOfString(" ", withString: "_").stringByReplacingOccurrencesOfString("'", withString: "").stringByReplacingOccurrencesOfString("&", withString: "");
-        return NSURL(string: "https://webqa.superbuddytime.com/images/retailer-icons/\(modifiedName)_100.png")!;
+        return NSURL(string: "http://az646341.vo.msecnd.net/retailer-icons/\(modifiedName)_100.png")!;
     }
     
     @IBAction func startReminder(sender: AnyObject) {
@@ -639,14 +650,10 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         }
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated);
-        mapView.addObserver(self, forKeyPath: "myLocation", options: NSKeyValueObservingOptions.New, context: nil);
-    }
-    
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated);
         mapView.removeObserver(self, forKeyPath: "myLocation");
+        firstLocation = false;
     }
     
     deinit {

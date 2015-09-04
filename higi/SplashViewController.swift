@@ -10,6 +10,8 @@ import Foundation
 
 class SplashViewController: UIViewController, UIAlertViewDelegate {
     
+    private var spinner: CustomLoadingSpinner!;
+    
     override func viewDidLoad() {
         super.viewDidLoad();
     }
@@ -17,8 +19,13 @@ class SplashViewController: UIViewController, UIAlertViewDelegate {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated);
         checkVersion();
+        self.spinner = CustomLoadingSpinner(frame: CGRectMake(self.view.frame.size.width / 2 - 16, UIScreen.mainScreen().bounds.size.height / 2 + 32, 32, 32));
+        Utility.delay(3) {
+            self.view.addSubview(self.spinner)
+            self.spinner.startAnimating();
+        };
     }
-    
+
     func moveToNextScreen() {
         if (SessionData.Instance.token == "") {
             var navigationController = MainNavigationController(rootViewController: WelcomeViewController(nibName: "Welcome", bundle: nil));
@@ -31,13 +38,14 @@ class SplashViewController: UIViewController, UIAlertViewDelegate {
                 ApiUtility.checkTermsAndPrivacy(self, success: nil, failure: self.errorToWelcome);
                 
                 }, failure: {operation, error in
-                    
                     self.errorToWelcome();
             });
         }
     }
     
     func errorToWelcome() {
+        spinner.stopAnimating();
+        spinner.hidden = true;
         SessionData.Instance.reset();
         SessionData.Instance.save();
         var navigationController = MainNavigationController(rootViewController: WelcomeViewController(nibName: "Welcome", bundle: nil));

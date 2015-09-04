@@ -3,9 +3,12 @@ import Foundation
 class GoalChallengeView: ChallengeView {
     
     @IBOutlet var avatar: UIImageView!
-    @IBOutlet var rank: UILabel!
+    
+    @IBOutlet weak var secondaryAvatar: UIImageView!
+    @IBOutlet weak var name: UILabel!
     @IBOutlet var progress: UIView!
     
+    @IBOutlet weak var complexContainer: UIView!
     var participantPoints: Int!;
     
     var verticalLine, progressBar: UIView!;
@@ -22,6 +25,7 @@ class GoalChallengeView: ChallengeView {
         static let goalBarHeight:CGFloat = 4;
         static let verticalLineHeight:CGFloat = 15;
         static let labelHeight:CGFloat = 15;
+        static let imageDim:CGFloat = 30;
     }
     
     class func instanceFromNib(frame: CGRect, challenge: HigiChallenge, winConditions: [ChallengeWinCondition], isComplex: Bool) -> GoalChallengeView {
@@ -30,10 +34,22 @@ class GoalChallengeView: ChallengeView {
         goalView.autoresizingMask = UIViewAutoresizing.FlexibleWidth;
         let isTeam = winConditions[0].winnerType == "team";
         
-        if (isTeam) {
-            goalView.avatar.setImageWithURL(Utility.loadImageFromUrl(challenge.participant.team.imageUrl as String));
+        if isComplex {
+            goalView.avatar.hidden = true;
+            goalView.complexContainer.hidden = false;
+            if (isTeam) {
+                goalView.secondaryAvatar.setImageWithURL(Utility.loadImageFromUrl(challenge.participant.team.imageUrl as String));
+                goalView.name.text = "\(challenge.participant.team.name)";
+            } else {
+                goalView.secondaryAvatar.setImageWithURL(Utility.loadImageFromUrl(challenge.participant.imageUrl as String));
+                goalView.name.text = "\(challenge.participant.displayName)";
+            }
         } else {
-            goalView.avatar.setImageWithURL(Utility.loadImageFromUrl(challenge.participant.imageUrl as String));
+            if (isTeam) {
+                goalView.avatar.setImageWithURL(Utility.loadImageFromUrl(challenge.participant.team.imageUrl as String));
+            } else {
+                goalView.avatar.setImageWithURL(Utility.loadImageFromUrl(challenge.participant.imageUrl as String));
+            }
         }
         
         goalView.participantPoints = isTeam ? Int(challenge.participant.team.units) : Int(challenge.participant.units);
@@ -53,7 +69,6 @@ class GoalChallengeView: ChallengeView {
         
         drawGoals(goalView, participantPoints: goalView.participantPoints, winConditions: sortedWinConditions, maxGoalValue: goalView.maxPoints, isComplex: isComplex);
         
-        
         drawParticipantPoints(goalView, participantPoints: goalView.participantPoints, maxGoalValue: goalView.maxPoints);
         
         return goalView;
@@ -62,7 +77,7 @@ class GoalChallengeView: ChallengeView {
     class func drawParticipantProgress(goalView: GoalChallengeView, participantPoints: Int, maxGoalValue: Int) {
         let barWidth = min((goalView.progress.frame.width) * CGFloat(participantPoints) / CGFloat(maxGoalValue), goalView.progress.frame.width);
         goalView.progressBar = UIView(frame: CGRect(x: 0, y: goalView.progress.frame.height / 2 - ViewConstants.goalBarHeight / 2, width: barWidth, height: ViewConstants.goalBarHeight));
-        goalView.progressBar.backgroundColor = Utility.colorFromHexString("#76C043");
+        goalView.progressBar.backgroundColor = Utility.colorFromHexString(Constants.higiGreen);
         goalView.progressBar.layer.cornerRadius = 2;
         goalView.progress.addSubview(goalView.progressBar);
     }
@@ -116,17 +131,17 @@ class GoalChallengeView: ChallengeView {
         var goalCircle: UIView!;
         if (!isComplex) {
             goalCircle = UIView(frame: CGRect(x: posX, y: posY, width: ViewConstants.circleRadius * 2, height: ViewConstants.circleRadius * 2));
-            let circleColor:UIColor = (participantPoints > thisGoalValue) ? Utility.colorFromHexString("#76C043") : Utility.colorFromHexString("#CDCDCD");
+            let circleColor:UIColor = (participantPoints >= thisGoalValue) ? Utility.colorFromHexString(Constants.higiGreen) : Utility.colorFromHexString("#CDCDCD");
             goalCircle.backgroundColor = circleColor;
             goalCircle.layer.cornerRadius = ViewConstants.circleRadius;
             goalView.progress.addSubview(goalCircle);
-            labelMargin = isBottom ? -1.0 * ViewConstants.labelMargin + ViewConstants.circleRadius/2: ViewConstants.labelMargin + ViewConstants.circleRadius;
+            labelMargin = isBottom ? -1.0 * ViewConstants.labelMargin + ViewConstants.circleRadius / 2: ViewConstants.labelMargin + ViewConstants.circleRadius;
         } else {
             
             goalCircle = makeComplexGoalNode(posX, posY: posY, thisGoalValue: thisGoalValue, participantPoints: participantPoints, goalIndex: goalIndex);
             goalView.progress.addSubview(goalCircle);
             
-            labelMargin = isBottom ? -1.0 * ViewConstants.labelMargin - ViewConstants.circleRadius/2: ViewConstants.labelMargin + ViewConstants.circleRadius * 2;
+            labelMargin = isBottom ? -1.0 * ViewConstants.labelMargin - ViewConstants.circleRadius / 2: ViewConstants.labelMargin + ViewConstants.circleRadius * 2;
         }
         var text = String(Int(thisGoalValue));
         let labelPosX = posX + ViewConstants.circleRadius;
@@ -134,10 +149,11 @@ class GoalChallengeView: ChallengeView {
         var goalLabel:UILabel;
         
         if (thisGoalValue == maxGoalValue) {
-            goalLabel = UILabel(frame: CGRectMake(0, labelPosY - labelMargin/2, goalView.frame.width - goalView.progress.frame.origin.x - 5, labelMargin));
+            let margin = Utility.widthForTextView(labelMargin, text: "\(thisGoalValue)", fontSize: 12, margin: 0);
+            goalLabel = UILabel(frame: CGRect(x: 0, y: labelPosY - labelMargin / 2, width: goalView.frame.width - goalView.progress.frame.origin.x - margin, height: labelMargin));
             goalLabel.textAlignment = NSTextAlignment.Right;
         } else {
-            goalLabel = UILabel(frame: CGRectMake(goalView.progress.frame.width/2, labelPosY - labelMargin/2, goalView.progress.frame.width, labelMargin));
+            goalLabel = UILabel(frame: CGRectMake(goalView.progress.frame.width / 2, labelPosY - labelMargin / 2, goalView.progress.frame.width, labelMargin));
             goalLabel.center = CGPointMake(labelPosX, labelPosY);
             goalLabel.textAlignment = NSTextAlignment.Center;
         }
@@ -152,7 +168,7 @@ class GoalChallengeView: ChallengeView {
     
     class func makeComplexGoalNode(posX: CGFloat, posY: CGFloat, thisGoalValue: Int, participantPoints: Int, goalIndex: Int) -> UIView {
         let goalCircle = UILabel(frame: CGRect(x: posX - ViewConstants.circleRadius, y: posY - ViewConstants.circleRadius, width: ViewConstants.circleRadius * 4, height: ViewConstants.circleRadius * 4));
-        let circleColor:UIColor = (participantPoints > thisGoalValue) ? Utility.colorFromHexString("#76C043") : UIColor.lightGrayColor();
+        let circleColor:UIColor = (participantPoints >= thisGoalValue) ? Utility.colorFromHexString(Constants.higiGreen) : UIColor.lightGrayColor();
         goalCircle.backgroundColor = UIColor.whiteColor();
         goalCircle.layer.cornerRadius = ViewConstants.circleRadius * 2;
         goalCircle.layer.borderWidth = 2;
@@ -189,7 +205,7 @@ class GoalChallengeView: ChallengeView {
         pointsLabel.frame.origin.y += 20;
         var toAnimate: [(UIView, UILabel, Int)] = [];
         for (view, label, points) in nodeViews {
-            if (points <= participantPoints) {
+            if (points < participantPoints) {
                 view.backgroundColor = Utility.colorFromHexString("#CDCDCD");
                 label.transform = CGAffineTransformScale(label.transform, 0.01, 0.01);
                 toAnimate.append((view, label, points));
@@ -219,7 +235,7 @@ class GoalChallengeView: ChallengeView {
                     var toKeep: [(UIView, UILabel, Int)] = [];
                     for (view, label, points) in toAnimate {
                         if (Int(currentPoints) >= points) {
-                            view.backgroundColor = Utility.colorFromHexString("#76C043");
+                            view.backgroundColor = Utility.colorFromHexString(Constants.higiGreen);
                             UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseIn, animations: {
                                 view.frame.size.width = ViewConstants.circleRadius * 3;
                                 view.frame.size.height = ViewConstants.circleRadius * 3;
@@ -261,5 +277,12 @@ class GoalChallengeView: ChallengeView {
             });
             
         });
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews();
+        avatar.center.y = progress.center.y;
+        avatar.frame.size.height = ViewConstants.imageDim;
+        avatar.frame.size.width = ViewConstants.imageDim;
     }
 }

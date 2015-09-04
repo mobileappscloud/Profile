@@ -8,3 +8,8 @@ build/
 *xcuserdata*
 
 higi/ChallengeProgressLegendRow.xib
+
+.idea/*
+higi.xcodeproj/xcuserdata*
+
+Pods/Pods.xcodeproj/xcuserdata*

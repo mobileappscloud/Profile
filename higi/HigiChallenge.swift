@@ -47,7 +47,8 @@ class HigiChallenge {
         metric = dictionary["metric"] as! NSString!;
         abbrMetric = metric.stringByReplacingOccurrencesOfString("points", withString: "pts");
         dailyLimit = dictionary["dailyLimit"] as! Int;
-        joinUrl = dictionary["joinUrl"] as? NSString;
+        let userRelation = dictionary["userRelation"] as! NSDictionary;
+        joinUrl = userRelation["joinUrl"] as? NSString;
         commentsUrl = dictionary["commentsUrl"] as? NSString;
         entryFee = (dictionary["entryFee"] ?? 0) as! Float;
         var formatter = NSDateFormatter();

@@ -24,7 +24,7 @@ class TermsViewController: UIViewController {
         super.viewDidLoad();
         self.navigationController?.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
         declineButton.layer.borderWidth = 1;
-        declineButton.layer.borderColor = Utility.colorFromHexString("#76C044").CGColor;
+        declineButton.layer.borderColor = Utility.colorFromHexString(Constants.higiGreen).CGColor;
         var url = "";
         if (newTerms && newPrivacy) {
             termsTitle.text = "The higi Terms of Use and Privacy Policy have changed.";
@@ -79,7 +79,7 @@ class TermsViewController: UIViewController {
     }
     
     func gotoDashboard() {
-        if (SessionController.Instance.checkins != nil && SessionController.Instance.activities != nil && SessionController.Instance.challenges != nil && SessionController.Instance.kioskList != nil && SessionController.Instance.pulseArticles.count > 0) {
+        if (SessionController.Instance.checkins != nil && SessionController.Instance.challenges != nil && SessionController.Instance.kioskList != nil && SessionController.Instance.pulseArticles.count > 0) {
             Utility.gotoDashboard(self);
         }
     }

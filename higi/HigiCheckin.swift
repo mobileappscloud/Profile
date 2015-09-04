@@ -10,9 +10,9 @@ import Foundation
 
 class HigiCheckin {
     
-    var checkinId, sourceVendorId, sourceType, sourceId, bmiClass, bpClass, pulseClass: NSString?;
+    var checkinId, sourceVendorId, sourceType, sourceId, bmiClass, fatClass, bpClass, mapClass, pulseClass: NSString?;
     
-    var weightKG, heightMeters, bmi, map, weightLbs: Double?;
+    var weightKG, heightMeters, heightInches, bmi, map, fatRatio, weightLbs: Double?;
     
     var systolic, diastolic, score, pulseBpm: Int?;
     
@@ -32,7 +32,12 @@ class HigiCheckin {
         pulseClass = dictionary["pulseClass"] as? NSString;
         weightKG = dictionary["weightKG"] as? Double;
         heightMeters = dictionary["heightMeters"] as? Double;
+        if (heightMeters != nil) {
+            heightInches = heightMeters! * 39.3701;
+        }
         bmi = dictionary["bmi"] as? Double;
+        fatRatio = dictionary["fatRatio"] as? Double;
+        fatClass = dictionary["fatClass"] as? NSString;
         systolic = dictionary["systolic"] as? Int;
         diastolic = dictionary["diastolic"] as? Int;
         score = dictionary["score"] as? Int;
@@ -42,6 +47,14 @@ class HigiCheckin {
         dateTime = NSDate(timeIntervalSince1970: date!.doubleValue / 1000);
         if (systolic != nil) {
             map = (Double(diastolic!) * 2.0 + Double(systolic!)) / 3.0;
+            //mapClass = convertClass(mapClass);	TODO uncomment when implemented on API
+            if (map < 70) {
+                mapClass = "Low";
+            } else if (map < 110) {
+                mapClass = "Normal";
+            } else {
+                mapClass = "High";
+            }
         }
         if (weightKG != nil) {
             weightLbs = weightKG! * 2.20462;
@@ -49,7 +62,8 @@ class HigiCheckin {
         bpClass = convertClass(bpClass);
         bmiClass = convertClass(bmiClass);
         pulseClass = convertClass(pulseClass);
-        
+        fatClass = convertClass(fatClass);
+        mapClass = convertClass(mapClass);
         var infoDict: NSDictionary? = dictionary["kioskInfo"] as? NSDictionary;
         if (infoDict != nil) {
             kioskInfo = KioskInfo(dictionary: infoDict!);
@@ -62,10 +76,10 @@ class HigiCheckin {
         
     }
     
-    func convertClass(bodyStatClass: NSString?) -> NSString? {
+    func convertClass(MetricClass: NSString?) -> NSString? {
         var retVal: NSString;
-        if (bodyStatClass != nil) {
-            switch (bodyStatClass!) {
+        if (MetricClass != nil) {
+            switch (MetricClass!) {
             case "normal":
                 retVal = "Normal";
             case "low":
@@ -73,15 +87,19 @@ class HigiCheckin {
             case "high":
                 retVal = "High";
             case "atrisk":
-                retVal = "At Risk";
+                retVal = "At risk";
             case "underweight":
                 retVal = "Underweight";
             case "overweight":
                 retVal = "Overweight";
             case "obese":
                 retVal = "Obese";
+            case "acceptable":
+                retVal = "Acceptable";
+            case "healthy":
+                retVal = "Healthy";
             default:
-                retVal = bodyStatClass!;
+                retVal = MetricClass!;
             }
             return retVal;
         } else {

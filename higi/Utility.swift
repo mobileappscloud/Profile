@@ -38,14 +38,11 @@ class Utility {
     }
     
     class func scaleImage(image: UIImage, newSize: CGSize) -> UIImage {
-        
         UIGraphicsBeginImageContextWithOptions(newSize, false, image.scale);
         image.drawInRect(CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height));
         var newImage = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
-        
         return newImage;
-        
     }
     
     class func iphone5Image(named: String) -> UIImage {
@@ -64,63 +61,6 @@ class Utility {
         return NSBundle.mainBundle().objectForInfoDictionaryKey(kCFBundleVersionKey as NSString as String) as! String
     }
     
-    class func consolodateWinConditions(winConditions: [ChallengeWinCondition]) -> [[ChallengeWinCondition]] {
-        var conditionsListHolder:[ChallengeWinCondition] = [];
-        var consolodatedList:[[ChallengeWinCondition]] = [];
-        
-        for index in 0...winConditions.count - 1 {
-            let currentWinCondition = winConditions[index];
-            let previousWinCondition:ChallengeWinCondition = index == 0 ? winConditions[index] : winConditions[index-1];
-            
-            let goalType = currentWinCondition.goal.type;
-            let winnerType = currentWinCondition.winnerType;
-            
-            if (previousWinCondition !== currentWinCondition && (goalType != previousWinCondition.goal.type || winnerType != previousWinCondition.winnerType)) {
-                consolodatedList.append(conditionsListHolder);
-                conditionsListHolder = [];
-            }
-            conditionsListHolder.append(currentWinCondition);
-        }
-        if conditionsListHolder.count > 0 {
-            consolodatedList.append(conditionsListHolder);
-            conditionsListHolder = [];
-        }
-        return consolodatedList;
-    }
-    
-    class func getChallengeViews(challenge: HigiChallenge, frame: CGRect, isComplex: Bool) -> [ChallengeView] {
-        var nib:ChallengeView!;
-        var nibs:[ChallengeView] = [];
-        var winConditions:[ChallengeWinCondition] = [];
-        
-        let consolodatedList = consolodateWinConditions(challenge.winConditions);
-        
-        for index in 0...consolodatedList.count - 1 {
-            let firstWinCondition = consolodatedList[index][0];
-            let goalType = firstWinCondition.goal.type;
-            let winnerType = firstWinCondition.winnerType;
-
-            if (goalType == "most_points" || goalType == "unit_goal_reached") {
-                nib = CompetitiveChallengeView.instanceFromNib(frame, challenge: challenge, winConditions: consolodatedList[index]);
-            } else if (goalType == "threshold_reached") {
-                var createNib = false;
-                for winCondition in consolodatedList[index] {
-                    if (winCondition.goal.minThreshold > 1) {
-                        createNib = true;
-                        break;
-                    }
-                }
-                if (createNib) {
-                    nib = GoalChallengeView.instanceFromNib(frame, challenge: challenge, winConditions: consolodatedList[index], isComplex: isComplex);
-                }
-            }
-            if (nib != nil) {
-                nibs.append(nib);
-            }
-        }
-        return nibs;
-    }
-    
     class func loadImageFromUrl(imageUrlString: String) -> NSURL {
         let imageUrl = NSURL(string: imageUrlString);
         if let imageError = imageUrl?.checkResourceIsReachableAndReturnError(NSErrorPointer()) {
@@ -128,26 +68,20 @@ class Utility {
         }
         return NSURL();
     }
-    
-    class func getRankSuffix(rank: NSString) -> String {
-        if ( rank == "11" || rank == "12" || rank == "13") {
-            return rank as String + "th"
-        }
-        let last = rank.substringFromIndex(rank.length - 1)
-        switch(last) {
-        case "1":
-            return rank as String + "st"
-        case "2":
-            return rank as String + "nd"
-        case "3":
-            return rank as String + "rd"
-        default:
-            return rank as String + "th"
-        }
+
+    class func heightForTextView(width: CGFloat, text: String, fontSize: CGFloat, margin: CGFloat) -> CGFloat {
+        let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.max));
+        label.numberOfLines = 0;
+        label.lineBreakMode = NSLineBreakMode.ByWordWrapping;
+        label.font = UIFont.systemFontOfSize(fontSize);
+        label.text = text;
+        
+        label.sizeToFit();
+        return label.frame.height + margin;
     }
     
-    class func heightForTextView(width: CGFloat, text: String, fontSize: CGFloat, margin: CGFloat) -> CGFloat {
-        let label:UILabel = UILabel(frame: CGRectMake(0, 0, width, CGFloat.max));
+    class func widthForTextView(height: CGFloat, text: String, fontSize: CGFloat, margin: CGFloat) -> CGFloat {
+        let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: CGFloat.max, height: height));
         label.numberOfLines = 0;
         label.lineBreakMode = NSLineBreakMode.ByWordWrapping;
         label.font = UIFont.systemFontOfSize(fontSize);
@@ -165,54 +99,45 @@ class Utility {
         return attributedString.string;
     }
     
-    class func getTeamGravityBoard(challenge: HigiChallenge) -> ([ChallengeTeam], [Int]){
-        let teams = challenge.teams;
-        if (teams != nil) {
-            var userTeamIndex = getUserIndex(teams, userTeam: challenge.participant.team);
-            if (userTeamIndex != -1) {
-                //calculate offsets, e.g. grab 1,2,3 or 4,5,6 from gravity board
-                var startIndex:Int, endIndex:Int;
-                //user's team in first
-                if (userTeamIndex == 0) {
-                    startIndex = userTeamIndex;
-                    endIndex = userTeamIndex + 2;
-                }
-                    //user's team in last
-                else if (userTeamIndex == teams.count - 1) {
-                    startIndex = userTeamIndex - 2;
-                    endIndex = userTeamIndex;
-                }
-                    //somewhere in the middle
-                else {
-                    startIndex = userTeamIndex - 1;
-                    endIndex = userTeamIndex + 1;
-                }
-                //account for cases where size < 3 or = 3 but user's team not second
-                startIndex = max(startIndex, 0);
-                endIndex = min(endIndex, teams.count - 1);
-                
-                var gravityBoard:[ChallengeTeam] = [];
-                var ranks:[Int] = [];
-                
-                for index in startIndex...endIndex {
-                    //index - startIndex is effectively a counter
-                    gravityBoard.append(teams[index]);
-                    ranks.append(index + 1);
-                }
-                return (gravityBoard, ranks);
-            }
-        }
-        return ([],[]);
+    class func imageWithColor(image: UIImage, color: UIColor) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(image.size, false, image.scale);
+        let context = UIGraphicsGetCurrentContext() as CGContextRef;
+        CGContextTranslateCTM(context, 0, image.size.height);
+        CGContextScaleCTM(context, 1.0, -1.0);
+        CGContextSetBlendMode(context, kCGBlendModeNormal);
+        let rect = CGRectMake(0, 0, image.size.width, image.size.height) as CGRect;
+        CGContextClipToMask(context, rect, image.CGImage);
+        color.setFill();
+        CGContextFillRect(context, rect);
+        let newImage = UIGraphicsGetImageFromCurrentImageContext() as UIImage;
+        UIGraphicsEndImageContext();
+        return newImage;
     }
     
-    //helper to find the current team's index
-    class func getUserIndex(teams: [ChallengeTeam], userTeam: ChallengeTeam) -> Int {
-        for index in 0...teams.count-1 {
-            let thisTeam = teams[index];
-            if (thisTeam.name == userTeam.name) {
-                userTeam.place = index;
-                return index;
+    class func growAnimation(view: UIView, startHeight: CGFloat, endHeight: CGFloat) {
+        view.frame.size.height = startHeight;
+        view.layoutIfNeeded();
+        UIView.animateWithDuration(1, animations: {
+            view.frame.size.height = endHeight;
+        }, completion: nil)
+    }
+    
+    class func delay(delay:Double, closure:()->()) {
+        dispatch_after(
+            dispatch_time(
+                DISPATCH_TIME_NOW,
+                Int64(delay * Double(NSEC_PER_SEC))
+            ),
+            dispatch_get_main_queue(), closure)
+    }
+    
+    class func stringIndexOf(haystack: String, needle: Character) -> Int {
+        var i = 0;
+        for char in Array(haystack) {
+            if char == needle {
+                return i;
             }
+            i++;
         }
         return -1;
     }

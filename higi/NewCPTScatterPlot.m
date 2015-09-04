@@ -14,6 +14,94 @@
     [self setAreaBaseValue:CPTDecimalFromDouble(areaBaseValue)];
 }
 
+-(CGPathRef)newDataLinePathForViewPoints:(CGPoint *)viewPoints indexRange:(NSRange)indexRange baselineYValue:(CGFloat)baselineYValue
+{
+    CPTScatterPlotInterpolation theInterpolation = self.interpolation;
+    
+    if ( theInterpolation == CPTScatterPlotInterpolationCurved ) {
+        return [self newCurvedDataLinePathForViewPoints:viewPoints indexRange:indexRange baselineYValue:baselineYValue];
+    }
+    
+    CGMutablePathRef dataLinePath  = CGPathCreateMutable();
+    BOOL lastPointSkipped          = YES;
+    CGPoint firstPoint             = CGPointZero;
+    CGPoint lastPoint              = CGPointZero;
+    NSUInteger lastDrawnPointIndex = NSMaxRange(indexRange);
+    BOOL drawSpecial = NO;
+    
+    CGPoint p1 = viewPoints[0];
+    CGPoint p2 = viewPoints[1];
+    if ( indexRange.length > 2 ) {
+        drawSpecial = viewPoints[0].x == viewPoints[1].x;
+    }
+    if ( lastDrawnPointIndex > 0 ) {
+        lastDrawnPointIndex--;
+    }
+    
+    for ( NSUInteger i = indexRange.location; i <= lastDrawnPointIndex; i++ ) {
+        CGPoint viewPoint = viewPoints[i];
+        
+        if ( isnan(viewPoint.x) || isnan(viewPoint.y) ) {
+            if ( !lastPointSkipped ) {
+                if ( !isnan(baselineYValue) ) {
+                    CGPathAddLineToPoint(dataLinePath, NULL, lastPoint.x, baselineYValue);
+                    CGPathAddLineToPoint(dataLinePath, NULL, firstPoint.x, baselineYValue);
+                    CGPathCloseSubpath(dataLinePath);
+                }
+                lastPointSkipped = YES;
+            }
+        }
+        else {
+            if ( lastPointSkipped ) {
+                CGPathMoveToPoint(dataLinePath, NULL, viewPoint.x, viewPoint.y);
+                lastPointSkipped = NO;
+                firstPoint       = viewPoint;
+            }
+            else {
+                switch ( theInterpolation ) {
+                    case CPTScatterPlotInterpolationLinear:
+                        if (lastPoint.x == viewPoint.x) {
+                            CGPathMoveToPoint(dataLinePath, NULL, lastPoint.x, lastPoint.y);
+                            CGPathAddLineToPoint(dataLinePath, NULL, viewPoint.x, viewPoint.y);
+                        }
+                        break;
+                        
+                    case CPTScatterPlotInterpolationStepped:
+                        CGPathAddLineToPoint(dataLinePath, NULL, viewPoint.x, lastPoint.y);
+                        CGPathAddLineToPoint(dataLinePath, NULL, viewPoint.x, viewPoint.y);
+                        break;
+                        
+                    case CPTScatterPlotInterpolationHistogram:
+                    {
+                        CGFloat x = (lastPoint.x + viewPoint.x) / CPTFloat(2.0);
+                        CGPathAddLineToPoint(dataLinePath, NULL, x, lastPoint.y);
+                        CGPathAddLineToPoint(dataLinePath, NULL, x, viewPoint.y);
+                        CGPathAddLineToPoint(dataLinePath, NULL, viewPoint.x, viewPoint.y);
+                    }
+                        break;
+                        
+                    case CPTScatterPlotInterpolationCurved:
+                        // Curved plot lines handled separately
+                        break;
+                        
+                    default:
+                        [NSException raise:CPTException format:@"Interpolation method not supported in scatter plot."];
+                        break;
+                }
+            }
+            lastPoint = viewPoint;
+        }
+    }
+    
+    if ( !lastPointSkipped && !isnan(baselineYValue) ) {
+        CGPathAddLineToPoint(dataLinePath, NULL, lastPoint.x, baselineYValue);
+        CGPathAddLineToPoint(dataLinePath, NULL, firstPoint.x, baselineYValue);
+        CGPathCloseSubpath(dataLinePath);
+    }
+    
+    return dataLinePath;
+}
+
 -(CGPathRef)newCurvedDataLinePathForViewPoints:(CGPoint *)viewPoints indexRange:(NSRange)indexRange baselineYValue:(CGFloat)baselineYValue
 {
     CGMutablePathRef dataLinePath  = CGPathCreateMutable();
@@ -22,7 +110,7 @@
     CGPoint lastPoint              = CGPointZero;
     NSUInteger firstIndex          = indexRange.location;
     NSUInteger lastDrawnPointIndex = NSMaxRange(indexRange);
-    
+
     if ( lastDrawnPointIndex > 0 ) {
         CGPoint *controlPoints1 = calloc( lastDrawnPointIndex, sizeof(CGPoint) );
         CGPoint *controlPoints2 = calloc( lastDrawnPointIndex, sizeof(CGPoint) );
@@ -83,7 +171,7 @@
                     CGPoint cp1 = controlPoints1[i];
                     CGPoint cp2 = controlPoints2[i];
                     
-                    CGPathAddCurveToPoint(dataLinePath, NULL, MAX(MIN(cp1.x, viewPoint.x), lastPoint.x), cp1.y, MAX(MIN(MAX(cp1.x, cp2.x), viewPoint.x), lastPoint.x), cp2.y, viewPoint.x, viewPoint.y);
+                    CGPathAddCurveToPoint(dataLinePath, NULL, MAX(MIN(cp1.x, viewPoint.x), lastPoint.x), MAX(MIN(cp1.y, viewPoint.y), lastPoint.y), MAX(MIN(MAX(cp1.x, cp2.x), viewPoint.x), lastPoint.x), MAX(MIN(MAX(cp1.y, cp2.y), viewPoint.y), lastPoint.y), viewPoint.x, viewPoint.y);
                 }
                 lastPoint = viewPoint;
             }

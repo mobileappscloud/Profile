@@ -17,6 +17,8 @@
 		2BBDBA591A12AC2C005A6815 /* GoalChallengeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BBDBA511A12AC2C005A6815 /* GoalChallengeView.xib */; };
 		2BC5865C1A16C63B005A7983 /* ChallengeInvitation.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BC5865B1A16C63B005A7983 /* ChallengeInvitation.xib */; };
 		2BC5865E1A16D0AF005A7983 /* ChallengeInvitationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC5865D1A16D0AF005A7983 /* ChallengeInvitationView.swift */; };
+		32E39E471B756D4200BA50F9 /* Info_prod.plist in Resources */ = {isa = PBXBuildFile; fileRef = 32E39E451B756D4200BA50F9 /* Info_prod.plist */; };
+		32E39E481B756D4200BA50F9 /* Info_qa.plist in Resources */ = {isa = PBXBuildFile; fileRef = 32E39E461B756D4200BA50F9 /* Info_qa.plist */; };
 		8F02A11F19AE2BF6002FF73E /* btn_back_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A11719AE2BF6002FF73E /* btn_back_black.png */; };
 		8F02A12019AE2BF6002FF73E /* btn_back_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A11819AE2BF6002FF73E /* btn_back_black@2x.png */; };
 		8F02A12119AE2BF6002FF73E /* btn_back_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A11919AE2BF6002FF73E /* btn_back_white.png */; };
@@ -25,21 +27,10 @@
 		8F02A12419AE2BF6002FF73E /* btn_share_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A11C19AE2BF6002FF73E /* btn_share_black@2x.png */; };
 		8F02A12519AE2BF6002FF73E /* btn_share_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A11D19AE2BF6002FF73E /* btn_share_white.png */; };
 		8F02A12619AE2BF6002FF73E /* btn_share_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A11E19AE2BF6002FF73E /* btn_share_white@2x.png */; };
-		8F02A12F19AE2CBB002FF73E /* dashboard_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A12719AE2CBB002FF73E /* dashboard_background.png */; };
-		8F02A13019AE2CBB002FF73E /* dashboard_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A12819AE2CBB002FF73E /* dashboard_background@2x.png */; };
-		8F02A13219AE2CBB002FF73E /* dashboard1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A12A19AE2CBB002FF73E /* dashboard1@2x.png */; };
-		8F02A13419AE2CBB002FF73E /* dashboard2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A12C19AE2CBB002FF73E /* dashboard2@2x.png */; };
-		8F02A13619AE2CBB002FF73E /* dashboard3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A12E19AE2CBB002FF73E /* dashboard3@2x.png */; };
-		8F02A13F19AE2CF4002FF73E /* bodystats_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A13719AE2CF4002FF73E /* bodystats_background.png */; };
-		8F02A14019AE2CF4002FF73E /* bodystats_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A13819AE2CF4002FF73E /* bodystats_background@2x.png */; };
-		8F02A14219AE2CF4002FF73E /* bodystats1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A13A19AE2CF4002FF73E /* bodystats1@2x.png */; };
-		8F02A14419AE2CF4002FF73E /* bodystats2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A13C19AE2CF4002FF73E /* bodystats2@2x.png */; };
-		8F02A14619AE2CF4002FF73E /* bodystats3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A13E19AE2CF4002FF73E /* bodystats3@2x.png */; };
 		8F069CB919D319FF00DCC820 /* bg_tap_reminder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F069CB819D319FF00DCC820 /* bg_tap_reminder@2x.png */; };
 		8F069CBB19D9D5C200DCC820 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F069CBA19D9D5C200DCC820 /* MapKit.framework */; };
 		8F069CBF19D9E20D00DCC820 /* libFlurry_5.4.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F069CBE19D9E20D00DCC820 /* libFlurry_5.4.0.a */; };
 		8F069CC219DAFCFF00DCC820 /* higi_logo_innercircle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F069CC119DAFCFF00DCC820 /* higi_logo_innercircle@2x.png */; };
-		8F087A901A1BDFC7008E0446 /* ActivityCellHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F087A8F1A1BDFC7008E0446 /* ActivityCellHeader.swift */; };
 		8F08AF9D198940E8002EE906 /* Welcome.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F08AF9C198940E8002EE906 /* Welcome.xib */; };
 		8F08AFB319895214002EE906 /* higilogo_ocmenu.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F08AFB219895214002EE906 /* higilogo_ocmenu.png */; };
 		8F0B29A5198AC20300B0DD29 /* map_mapviewicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F0B29A4198AC20300B0DD29 /* map_mapviewicon.png */; };
@@ -73,19 +64,16 @@
 		8F2CB5821992563E009377A8 /* WebView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F2CB5811992563E009377A8 /* WebView.xib */; };
 		8F2CB5891993E68C009377A8 /* SessionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F2CB5881993E68C009377A8 /* SessionData.swift */; };
 		8F2CB58B19942E96009377A8 /* noservicemessage.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F2CB58A19942E96009377A8 /* noservicemessage.png */; };
-		8F337B53198AA661001E4AD8 /* cell_selected_light.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F337B52198AA661001E4AD8 /* cell_selected_light.png */; };
 		8F3643A019460EB300C0033E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F36439F19460EB300C0033E /* AppDelegate.swift */; };
-		8F3643A219460EB300C0033E /* BodyStatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3643A119460EB300C0033E /* BodyStatsViewController.swift */; };
+		8F3643A219460EB300C0033E /* MetricsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3643A119460EB300C0033E /* MetricsViewController.swift */; };
 		8F3643A519460EB300C0033E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F3643A319460EB300C0033E /* Main.storyboard */; };
 		8F3643A719460EB300C0033E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F3643A619460EB300C0033E /* Images.xcassets */; };
 		8F3643B319460EB300C0033E /* higiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3643B219460EB300C0033E /* higiTests.swift */; };
 		8F524BF6195B5ABB00BFC49D /* ConversionUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F524BF5195B5ABB00BFC49D /* ConversionUtility.m */; };
 		8F524BF8195B829400BFC49D /* CustomFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F524BF7195B829400BFC49D /* CustomFormatter.swift */; };
-		8F524BFA195C6DD400BFC49D /* graph_timespan_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F524BF9195C6DD400BFC49D /* graph_timespan_bg.png */; };
 		8F5590A019ABE23C00C9B46E /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F55909F19ABE23C00C9B46E /* EventKitUI.framework */; };
 		8F58D98A19C0FE5800C0EC72 /* welcome_01_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F58D98719C0FE5800C0EC72 /* welcome_01_logo.png */; };
 		8F58D98E19C22AB600C0EC72 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F58D98D19C22AB600C0EC72 /* GTMNSString+HTML.m */; };
-		8F5C38BF19813F9F00F51543 /* GraphDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5C38BE19813F9F00F51543 /* GraphDelegate.swift */; };
 		8F5C38CA19818BA900F51543 /* gauge1_high.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5C38C019818BA900F51543 /* gauge1_high.png */; };
 		8F5C38CB19818BA900F51543 /* gauge1_low.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5C38C119818BA900F51543 /* gauge1_low.png */; };
 		8F5C38CC19818BA900F51543 /* gauge1_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5C38C219818BA900F51543 /* gauge1_normal.png */; };
@@ -96,32 +84,17 @@
 		8F5C38D119818BA900F51543 /* gauge3_obese.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5C38C719818BA900F51543 /* gauge3_obese.png */; };
 		8F5C38D219818BA900F51543 /* gauge3_overweight.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5C38C819818BA900F51543 /* gauge3_overweight.png */; };
 		8F5C38D319818BA900F51543 /* gauge3_underweight.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5C38C919818BA900F51543 /* gauge3_underweight.png */; };
-		8F5C38D519818BDB00F51543 /* graph_orientation.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5C38D419818BDB00F51543 /* graph_orientation.png */; };
-		8F5C38DE1981901600F51543 /* bloodpressure.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5C38D91981901600F51543 /* bloodpressure.png */; };
-		8F5C38DF1981901600F51543 /* bodymassindex.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5C38DA1981901600F51543 /* bodymassindex.png */; };
 		8F5C38E01981901600F51543 /* checkincheckmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5C38DB1981901600F51543 /* checkincheckmark.png */; };
-		8F5C38E11981901600F51543 /* pulse.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5C38DC1981901600F51543 /* pulse.png */; };
-		8F5C38E21981901600F51543 /* weight.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5C38DD1981901600F51543 /* weight.png */; };
-		8F5C38E41981904C00F51543 /* meanarterialpressure.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5C38E31981904C00F51543 /* meanarterialpressure.png */; };
 		8F5C38E91981B2B300F51543 /* createreminder_inverted.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5C38E81981B2B300F51543 /* createreminder_inverted.png */; };
 		8F5C38EB1982DBB900F51543 /* onboarding_avatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5C38EA1982DBB800F51543 /* onboarding_avatar.png */; };
 		8F5C38ED1982EE6D00F51543 /* higicard_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5C38EC1982EE6D00F51543 /* higicard_icon@2x.png */; };
 		8F5C38EF1982EFDF00F51543 /* CheckinTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5C38EE1982EFDF00F51543 /* CheckinTableViewCell.swift */; };
 		8F5C38F11982F20000F51543 /* CheckinTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F5C38F01982F20000F51543 /* CheckinTableViewCell.xib */; };
 		8F5C38F71983094F00F51543 /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F5C38F61983094F00F51543 /* NSString+HTML.m */; };
-		8F5C38FE198689E200F51543 /* CheckinCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F5C38FD198689E200F51543 /* CheckinCell.xib */; };
-		8F5C390019868B7000F51543 /* cell_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5C38FF19868B7000F51543 /* cell_selected.png */; };
-		8F5C39021986918700F51543 /* BodyStatCheckinCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5C39011986918700F51543 /* BodyStatCheckinCell.swift */; };
 		8F5E7FBD199965C0009067E5 /* PinCodeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F5E7FBC199965C0009067E5 /* PinCodeView.xib */; };
 		8F5E7FBF199965CF009067E5 /* PinCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5E7FBE199965CF009067E5 /* PinCodeViewController.swift */; };
 		8F5E7FC11999674C009067E5 /* KioskListCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F5E7FC01999674C009067E5 /* KioskListCellView.xib */; };
 		8F5E7FC31999676E009067E5 /* KioskListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5E7FC21999676E009067E5 /* KioskListCell.swift */; };
-		8F5E7FC5199BC6CB009067E5 /* CheckinCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5E7FC4199BC6CB009067E5 /* CheckinCard.swift */; };
-		8F5E7FC9199BC74E009067E5 /* CheckinCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F5E7FC8199BC74E009067E5 /* CheckinCardView.xib */; };
-		8F5E7FCC199BC976009067E5 /* BpCheckinCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F5E7FCB199BC976009067E5 /* BpCheckinCellView.xib */; };
-		8F5E7FCE199BC986009067E5 /* CheckinCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F5E7FCD199BC986009067E5 /* CheckinCellView.xib */; };
-		8F5E7FD0199BC992009067E5 /* CheckinCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5E7FCF199BC992009067E5 /* CheckinCell.swift */; };
-		8F5E7FD2199BC99C009067E5 /* BpCheckinCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5E7FD1199BC99C009067E5 /* BpCheckinCell.swift */; };
 		8F5E7FD7199BCD52009067E5 /* graph_sincelastarrow_down_invert.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5E7FD3199BCD52009067E5 /* graph_sincelastarrow_down_invert.png */; };
 		8F5E7FD8199BCD52009067E5 /* graph_sincelastarrow_nochange_invert.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5E7FD4199BCD52009067E5 /* graph_sincelastarrow_nochange_invert.png */; };
 		8F5E7FD9199BCD52009067E5 /* graph_sincelastarrow_up_invert.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5E7FD5199BCD52009067E5 /* graph_sincelastarrow_up_invert.png */; };
@@ -134,57 +107,28 @@
 		8F5E7FE7199C081F009067E5 /* vital_weight_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5E7FE2199C081F009067E5 /* vital_weight_icon.png */; };
 		8F5F91811A701A0E0042D87C /* btn_action_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5F917F1A701A0E0042D87C /* btn_action_black.png */; };
 		8F5F91821A701A0E0042D87C /* btn_action_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5F91801A701A0E0042D87C /* btn_action_black@2x.png */; };
-		8F5F91841A7068920042D87C /* ui_kiosk.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5F91831A7068920042D87C /* ui_kiosk.png */; };
 		8F5F91881A7193E80042D87C /* activitywidgetblankstate.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5F91851A7193E80042D87C /* activitywidgetblankstate.png */; };
 		8F5F91891A7193E80042D87C /* challengewidgetblankstate.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5F91861A7193E80042D87C /* challengewidgetblankstate.png */; };
 		8F5F918A1A7193E80042D87C /* dashboard_errorstate.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5F91871A7193E80042D87C /* dashboard_errorstate.png */; };
 		8F5F918C1A7193FC0042D87C /* activitypageblankstate.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F5F918B1A7193FC0042D87C /* activitypageblankstate.png */; };
-		8F6266AF197EC8E200145EDB /* BodyStatsLand.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F6266AE197EC8E200145EDB /* BodyStatsLand.xib */; };
-		8F6266B1197EC95900145EDB /* BodyStatsPort.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F6266B0197EC95900145EDB /* BodyStatsPort.xib */; };
-		8F6266B3197ECAA700145EDB /* BodyStatsLandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6266B2197ECAA700145EDB /* BodyStatsLandView.swift */; };
-		8F6266B5197ECC6A00145EDB /* BodyStatsPortView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6266B4197ECC6A00145EDB /* BodyStatsPortView.swift */; };
 		8F6266B7197EE42700145EDB /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6266B6197EE42700145EDB /* MainNavigationController.swift */; };
-		8F6266C3197F12E900145EDB /* graph_info.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F6266BA197F12E900145EDB /* graph_info.png */; };
-		8F6266CF19800A5400145EDB /* BpGraphDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6266CE19800A5400145EDB /* BpGraphDelegate.swift */; };
 		8F6A24311951E5D80094B73C /* ApiUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6A24301951E5D80094B73C /* ApiUtility.swift */; };
 		8F6A24361958DDFB0094B73C /* NewCPTMutablePlotRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F6A24351958DDFB0094B73C /* NewCPTMutablePlotRange.m */; };
 		8F6A243C1958EA730094B73C /* NewCPTScatterPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F6A243B1958EA730094B73C /* NewCPTScatterPlot.m */; };
-		8F6A243F195A01350094B73C /* BaseCustomGraphHostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6A243E195A01350094B73C /* BaseCustomGraphHostingView.swift */; };
-		8F6A2441195A05200094B73C /* BpGraphHostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6A2440195A05200094B73C /* BpGraphHostingView.swift */; };
-		8F6A2443195A07620094B73C /* PulseGraphDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6A2442195A07620094B73C /* PulseGraphDelegate.swift */; };
-		8F6A2445195A076B0094B73C /* MapGraphDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6A2444195A076B0094B73C /* MapGraphDelegate.swift */; };
-		8F6A2447195A07740094B73C /* WeightGraphDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6A2446195A07740094B73C /* WeightGraphDelegate.swift */; };
-		8F6A2449195A07880094B73C /* BmiGraphDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6A2448195A07880094B73C /* BmiGraphDelegate.swift */; };
-		8F6ACCBE199C1B4E00D5E157 /* TwoLineCheckinCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F6ACCBD199C1B4E00D5E157 /* TwoLineCheckinCellView.xib */; };
 		8F6ACCC0199D687D00D5E157 /* mapicon_higicard.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F6ACCBF199D687D00D5E157 /* mapicon_higicard.png */; };
 		8F6D510E1947B2E700F7C769 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6D510D1947B2E700F7C769 /* Utility.swift */; };
 		8F6D51751948E53100F7C769 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F6D51741948E53100F7C769 /* Accelerate.framework */; };
 		8F7065B41A16B129002FCA10 /* ChallengeParticipant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7065B31A16B129002FCA10 /* ChallengeParticipant.swift */; };
 		8F7065B81A16B46A002FCA10 /* ChallengeTeam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7065B71A16B46A002FCA10 /* ChallengeTeam.swift */; };
 		8F77DF1A1A0080550056BE27 /* GraphPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F77DF191A0080550056BE27 /* GraphPoint.swift */; };
-		8F807A761976C9D600EEE019 /* LandscapeGraph.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F807A751976C9D600EEE019 /* LandscapeGraph.xib */; };
-		8F807A781976C9ED00EEE019 /* PortraitGraph.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F807A771976C9ED00EEE019 /* PortraitGraph.xib */; };
-		8F81DB571A1BDD670054EB2E /* ActivityCellHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F81DB561A1BDD670054EB2E /* ActivityCellHeaderView.xib */; };
-		8F89C2581A01B0B700A3AD09 /* ActivityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F89C2571A01B0B700A3AD09 /* ActivityCell.swift */; };
-		8F89C25A1A01B0D500A3AD09 /* ActivityCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F89C2591A01B0D500A3AD09 /* ActivityCellView.xib */; };
 		8F9C69D31950C84400449664 /* HigiLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C69D21950C84400449664 /* HigiLogin.swift */; };
 		8F9C69D51950C88900449664 /* HigiCheckin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C69D41950C88900449664 /* HigiCheckin.swift */; };
 		8F9C69D71950C89B00449664 /* HigiUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C69D61950C89B00449664 /* HigiUser.swift */; };
 		8F9C69D91950C8AD00449664 /* KioskInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C69D81950C8AD00449664 /* KioskInfo.swift */; };
 		8F9C69DB1950C8B700449664 /* PulseArticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C69DA1950C8B700449664 /* PulseArticle.swift */; };
-		8FA5925919A7E5CE00622266 /* nodata_bodystats.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA5925819A7E5CE00622266 /* nodata_bodystats.png */; };
 		8FA5925B19AB921C00622266 /* create_overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FA5925A19AB921C00622266 /* create_overlay.png */; };
 		8FA5925D19ABBCEC00622266 /* TourView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FA5925C19ABBCEC00622266 /* TourView.xib */; };
 		8FA5925F19ABBD3A00622266 /* TourViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA5925E19ABBD3A00622266 /* TourViewController.swift */; };
-		8FC130C71A26464400591C58 /* ActivityGraphHostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC130C61A26464400591C58 /* ActivityGraphHostingView.swift */; };
-		8FC7B70719E5E60D00D0112F /* bodystats1-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FC7B70419E5E60D00D0112F /* bodystats1-568h@2x.png */; };
-		8FC7B70819E5E60D00D0112F /* bodystats2-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FC7B70519E5E60D00D0112F /* bodystats2-568h@2x.png */; };
-		8FC7B70919E5E60D00D0112F /* bodystats3-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FC7B70619E5E60D00D0112F /* bodystats3-568h@2x.png */; };
-		8FC7B71019E5E67000D0112F /* dashboard_background-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FC7B70B19E5E67000D0112F /* dashboard_background-568h@2x.png */; };
-		8FC7B71119E5E67000D0112F /* dashboard1-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FC7B70C19E5E67000D0112F /* dashboard1-568h@2x.png */; };
-		8FC7B71219E5E67000D0112F /* dashboard2-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FC7B70D19E5E67000D0112F /* dashboard2-568h@2x.png */; };
-		8FC7B71319E5E67000D0112F /* dashboard3-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FC7B70E19E5E67000D0112F /* dashboard3-568h@2x.png */; };
-		8FC7B71519E5E6B900D0112F /* bodystats_background-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FC7B71419E5E6B900D0112F /* bodystats_background-568h@2x.png */; };
 		8FC88AD41AE6DA2B002ED9FB /* activitywidgetblankstatenodevices.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FC88AD31AE6DA2B002ED9FB /* activitywidgetblankstatenodevices.png */; };
 		8FCD2D7B19E874FD00AC5A82 /* noResults.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FCD2D7A19E874FD00AC5A82 /* noResults.png */; };
 		8FCD2D8019EC286900AC5A82 /* UIImage+Orientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FCD2D7F19EC286900AC5A82 /* UIImage+Orientation.m */; };
@@ -216,14 +160,7 @@
 		8FDB4B661A096ECF00F57B38 /* HigiActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDB4B651A096ECF00F57B38 /* HigiActivity.swift */; };
 		8FDB4B681A09731B00F57B38 /* ActivityDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDB4B671A09731B00F57B38 /* ActivityDevice.swift */; };
 		8FDB4B6A1A09741400F57B38 /* ChallengeWinCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDB4B691A09741400F57B38 /* ChallengeWinCondition.swift */; };
-		8FDCE1C41988063E006428C3 /* InfoOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FDCE1C31988063E006428C3 /* InfoOverlay.xib */; };
 		8FDCE1C61988072C006428C3 /* btn_close_reminder.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FDCE1C51988072C006428C3 /* btn_close_reminder.png */; };
-		8FDCE1C81988082B006428C3 /* InfoOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDCE1C71988082B006428C3 /* InfoOverlayView.swift */; };
-		8FDCE1CE19880919006428C3 /* bmi_overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FDCE1C919880919006428C3 /* bmi_overlay.png */; };
-		8FDCE1CF19880919006428C3 /* bp_overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FDCE1CA19880919006428C3 /* bp_overlay.png */; };
-		8FDCE1D019880919006428C3 /* map_overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FDCE1CB19880919006428C3 /* map_overlay.png */; };
-		8FDCE1D119880919006428C3 /* pulse_overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FDCE1CC19880919006428C3 /* pulse_overlay.png */; };
-		8FDCE1D219880919006428C3 /* weight_overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FDCE1CD19880919006428C3 /* weight_overlay.png */; };
 		8FE056DF198FDBDC00C81208 /* PulseHomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FE056DE198FDBDC00C81208 /* PulseHomeView.xib */; };
 		8FE056E1198FDBFE00C81208 /* PulseHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE056E0198FDBFE00C81208 /* PulseHomeViewController.swift */; };
 		8FE056E3198FDC3900C81208 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE056E2198FDC3900C81208 /* SettingsViewController.swift */; };
@@ -238,14 +175,9 @@
 		8FEF6F3C1A6EAACE001EF8A6 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEF6F3B1A6EAACE001EF8A6 /* DashboardViewController.swift */; };
 		8FEF6F3E1A6EB437001EF8A6 /* PointsMeterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FEF6F3D1A6EB437001EF8A6 /* PointsMeterView.xib */; };
 		8FEF6F401A6EB638001EF8A6 /* PointsMeter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEF6F3F1A6EB638001EF8A6 /* PointsMeter.swift */; };
-		8FEF6F421A6EECBE001EF8A6 /* BodyStatsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEF6F411A6EECBE001EF8A6 /* BodyStatsCard.swift */; };
-		8FEF6F441A6EECC9001EF8A6 /* ActivityCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEF6F431A6EECC9001EF8A6 /* ActivityCard.swift */; };
 		8FEF6F461A6EECD5001EF8A6 /* ChallengesCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEF6F451A6EECD5001EF8A6 /* ChallengesCard.swift */; };
 		8FEF6F481A6EECDE001EF8A6 /* PulseCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEF6F471A6EECDE001EF8A6 /* PulseCard.swift */; };
-		8FF294101979D28F00C4FC1A /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF2940F1979D28F00C4FC1A /* GraphView.swift */; };
 		8FF2E06E194A5E9500A81D8C /* NewCPTPlotRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF2E06D194A5E9500A81D8C /* NewCPTPlotRange.m */; };
-		8FF851C1194F7DD7005C33C6 /* Config-prod.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8FF851C0194F7DD7005C33C6 /* Config-prod.plist */; };
-		8FF851C3194F7DE2005C33C6 /* Config-qa.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8FF851C2194F7DE2005C33C6 /* Config-qa.plist */; };
 		8FF851C6194F7F2E005C33C6 /* HigiApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF851C5194F7F2E005C33C6 /* HigiApi.swift */; };
 		8FF873F219DF528E002A6341 /* PullRefreshView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FF873F119DF528E002A6341 /* PullRefreshView.xib */; };
 		8FF873F419DF5394002A6341 /* PullRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF873F319DF5394002A6341 /* PullRefresh.swift */; };
@@ -269,18 +201,30 @@
 		8FFB034F19FEA2440036228C /* oc_findastation_active.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFB034519FEA2440036228C /* oc_findastation_active.png */; };
 		8FFB035019FEA2440036228C /* oc_pulse_active.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFB034619FEA2440036228C /* oc_pulse_active.png */; };
 		8FFB035119FEA2440036228C /* oc_settings_active.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFB034719FEA2440036228C /* oc_settings_active.png */; };
-		8FFB035519FEAED10036228C /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFB035419FEAED10036228C /* ActivityViewController.swift */; };
-		8FFB035919FEAF2C0036228C /* ActivityView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FFB035819FEAF2C0036228C /* ActivityView.xib */; };
-		8FFF43BF19B798380056F412 /* bmi_overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFF43BA19B798380056F412 /* bmi_overlay@2x.png */; };
-		8FFF43C019B798380056F412 /* bp_overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFF43BB19B798380056F412 /* bp_overlay@2x.png */; };
-		8FFF43C119B798380056F412 /* map_overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFF43BC19B798380056F412 /* map_overlay@2x.png */; };
-		8FFF43C219B798380056F412 /* pulse_overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFF43BD19B798380056F412 /* pulse_overlay@2x.png */; };
-		8FFF43C319B798380056F412 /* weight_overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FFF43BE19B798380056F412 /* weight_overlay@2x.png */; };
 		C05CB27FD2A34A3BA2F46E97 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C0A91AD3D5DE44B7872F95D7 /* libPods.a */; };
 		D101757B1A79693C00CA32DC /* chat_bubble.png in Resources */ = {isa = PBXBuildFile; fileRef = D101757A1A79693C00CA32DC /* chat_bubble.png */; };
-		D10BA0251A9540D200DB22A3 /* ActivityLegendView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D10BA0241A9540D200DB22A3 /* ActivityLegendView.xib */; };
-		D10BA0271A9541FF00DB22A3 /* ActivityLegend.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10BA0261A9541FF00DB22A3 /* ActivityLegend.swift */; };
+		D1020A291B3B130C001F2D81 /* BreakdownTitleRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1020A281B3B130C001F2D81 /* BreakdownTitleRow.swift */; };
+		D1020A2B1B3B1327001F2D81 /* BreakdownTitleRowView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1020A2A1B3B1327001F2D81 /* BreakdownTitleRowView.xib */; };
+		D1036CFC1B153477003E7239 /* stepsicon.png in Resources */ = {isa = PBXBuildFile; fileRef = D1036CF31B153476003E7239 /* stepsicon.png */; };
+		D1036CFD1B153477003E7239 /* glucoseicon.png in Resources */ = {isa = PBXBuildFile; fileRef = D1036CF41B153476003E7239 /* glucoseicon.png */; };
+		D1036CFE1B153477003E7239 /* weighticon.png in Resources */ = {isa = PBXBuildFile; fileRef = D1036CF51B153476003E7239 /* weighticon.png */; };
+		D1036CFF1B153477003E7239 /* sleepicon.png in Resources */ = {isa = PBXBuildFile; fileRef = D1036CF61B153476003E7239 /* sleepicon.png */; };
+		D1036D001B153477003E7239 /* bloodpressureicon.png in Resources */ = {isa = PBXBuildFile; fileRef = D1036CF71B153476003E7239 /* bloodpressureicon.png */; };
+		D1036D011B153477003E7239 /* pulseicon.png in Resources */ = {isa = PBXBuildFile; fileRef = D1036CF81B153476003E7239 /* pulseicon.png */; };
+		D1036D021B153477003E7239 /* cyclingicon.png in Resources */ = {isa = PBXBuildFile; fileRef = D1036CF91B153476003E7239 /* cyclingicon.png */; };
+		D1036D031B153477003E7239 /* workouticon.png in Resources */ = {isa = PBXBuildFile; fileRef = D1036CFA1B153476003E7239 /* workouticon.png */; };
+		D1036D041B153477003E7239 /* runicon.png in Resources */ = {isa = PBXBuildFile; fileRef = D1036CFB1B153476003E7239 /* runicon.png */; };
+		D10D84491AEFF9D200DA3278 /* MetricDetailCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D10D84481AEFF9D200DA3278 /* MetricDetailCardView.xib */; };
+		D10D844B1AEFFA7A00DA3278 /* MetricDetailCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10D844A1AEFFA7A00DA3278 /* MetricDetailCard.swift */; };
 		D10D89501A8C11A9000402D4 /* ChallengeDetailsParticipantIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10D894F1A8C11A9000402D4 /* ChallengeDetailsParticipantIcon.swift */; };
+		D10E52431B5048560007EF10 /* ui_details.png in Resources */ = {isa = PBXBuildFile; fileRef = D10E52421B5048560007EF10 /* ui_details.png */; };
+		D10E52451B5048760007EF10 /* ui_progress.png in Resources */ = {isa = PBXBuildFile; fileRef = D10E52441B5048760007EF10 /* ui_progress.png */; };
+		D10E52491B5048CA0007EF10 /* challenge_image.png in Resources */ = {isa = PBXBuildFile; fileRef = D10E52461B5048CA0007EF10 /* challenge_image.png */; };
+		D10E524A1B5048CA0007EF10 /* ui_chatter.png in Resources */ = {isa = PBXBuildFile; fileRef = D10E52471B5048CA0007EF10 /* ui_chatter.png */; };
+		D10E524B1B5048CA0007EF10 /* ui_leaderboards.png in Resources */ = {isa = PBXBuildFile; fileRef = D10E52481B5048CA0007EF10 /* ui_leaderboards.png */; };
+		D110BAD41B0E7C5500CD1E58 /* DailySummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D110BAD31B0E7C5500CD1E58 /* DailySummaryViewController.swift */; };
+		D110BAD61B0E7CD700CD1E58 /* DailySummaryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D110BAD51B0E7CD700CD1E58 /* DailySummaryView.xib */; };
+		D114B06B1B2A19900073A9CB /* TriangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D114B06A1B2A19900073A9CB /* TriangleView.swift */; };
 		D1247BC91AA620F1008A601A /* HigiClusterRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = D1247BC81AA620F1008A601A /* HigiClusterRenderer.m */; };
 		D12780AE1A4A2701002EB56A /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D12780AD1A4A2701002EB56A /* fontawesome-webfont.ttf */; };
 		D12B37061AA4DF02005B2ABA /* ClusterKiosk.m in Sources */ = {isa = PBXBuildFile; fileRef = D12B37051AA4DF02005B2ABA /* ClusterKiosk.m */; };
@@ -291,26 +235,44 @@
 		D12B39981AA4ED08005B2ABA /* GQuadItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D12B39931AA4ED08005B2ABA /* GQuadItem.m */; };
 		D12B39991AA4ED08005B2ABA /* GStaticCluster.m in Sources */ = {isa = PBXBuildFile; fileRef = D12B39951AA4ED08005B2ABA /* GStaticCluster.m */; };
 		D12B399A1AA4ED08005B2ABA /* NonHierarchicalDistanceBasedAlgorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = D12B39971AA4ED08005B2ABA /* NonHierarchicalDistanceBasedAlgorithm.m */; };
+		D130183E1B14D2C9008DDFAD /* ChallengeUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = D130183D1B14D2C9008DDFAD /* ChallengeUtility.swift */; };
+		D13018401B14D943008DDFAD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D130183F1B14D943008DDFAD /* Constants.swift */; };
+		D13D36531B30D78E00F18A42 /* ActivityCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13D36521B30D78E00F18A42 /* ActivityCategory.swift */; };
 		D149E9451A78221200FBAA15 /* ChallengeDetailsPrizes.xib in Resources */ = {isa = PBXBuildFile; fileRef = D149E9441A78221200FBAA15 /* ChallengeDetailsPrizes.xib */; };
 		D149E9471A7822D900FBAA15 /* ChallengeDetailsPrize.swift in Sources */ = {isa = PBXBuildFile; fileRef = D149E9461A7822D900FBAA15 /* ChallengeDetailsPrize.swift */; };
 		D149E9491A7845A200FBAA15 /* ChallengeDetailsChatterRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D149E9481A7845A200FBAA15 /* ChallengeDetailsChatterRow.xib */; };
 		D149E94B1A78471A00FBAA15 /* ChallengeDetailsChatterRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D149E94A1A78471A00FBAA15 /* ChallengeDetailsChatterRow.swift */; };
 		D15372911A841FEA00954569 /* TermsAndConditionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15372901A841FEA00954569 /* TermsAndConditionsViewController.swift */; };
 		D15372931A84201600954569 /* TermsAndConditionsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D15372921A84201600954569 /* TermsAndConditionsView.xib */; };
+		D158BB081B59B4E000FA9CAF /* SelectedPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D158BB071B59B4E000FA9CAF /* SelectedPoint.swift */; };
+		D1618F931ABB2E26000BDA85 /* MetricCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1618F921ABB2E26000BDA85 /* MetricCardView.xib */; };
 		D164D3761A7C19A600300F35 /* chat_bubble_green.png in Resources */ = {isa = PBXBuildFile; fileRef = D164D3751A7C19A600300F35 /* chat_bubble_green.png */; };
+		D16FD5E91ADDADC200AF9BA5 /* back_button_white.png in Resources */ = {isa = PBXBuildFile; fileRef = D16FD5E81ADDADC200AF9BA5 /* back_button_white.png */; };
 		D17010C91A644414002CBFE8 /* ChallengeDetailsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D17010C71A644414002CBFE8 /* ChallengeDetailsView.xib */; };
 		D17010CA1A644414002CBFE8 /* ChallengeDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17010C81A644414002CBFE8 /* ChallengeDetailsViewController.swift */; };
+		D17334401B594FCD0089BBFD /* bloodpressure_copy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D173343A1B594FCD0089BBFD /* bloodpressure_copy@2x.png */; };
+		D17334411B594FCD0089BBFD /* weight_copy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D173343B1B594FCD0089BBFD /* weight_copy@2x.png */; };
+		D17334421B594FCD0089BBFD /* pulse_copy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D173343C1B594FCD0089BBFD /* pulse_copy@2x.png */; };
+		D17334431B594FCD0089BBFD /* map_copy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D173343D1B594FCD0089BBFD /* map_copy@2x.png */; };
+		D17334441B594FCD0089BBFD /* bodyfat_copy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D173343E1B594FCD0089BBFD /* bodyfat_copy@2x.png */; };
+		D17334451B594FCD0089BBFD /* activities_copy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D173343F1B594FCD0089BBFD /* activities_copy@2x.png */; };
+		D17334471B596CF90089BBFD /* metrics.png in Resources */ = {isa = PBXBuildFile; fileRef = D17334461B596CF90089BBFD /* metrics.png */; };
+		D1740BC41AE0381F00462F6E /* MetricsType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1740BC31AE0381F00462F6E /* MetricsType.swift */; };
+		D175287E1B0F9669006335B4 /* dailysummary_night.png in Resources */ = {isa = PBXBuildFile; fileRef = D175287B1B0F9669006335B4 /* dailysummary_night.png */; };
+		D175287F1B0F9669006335B4 /* dailysummary_morning.png in Resources */ = {isa = PBXBuildFile; fileRef = D175287C1B0F9669006335B4 /* dailysummary_morning.png */; };
+		D17528801B0F9669006335B4 /* dailysummary_afternoon.png in Resources */ = {isa = PBXBuildFile; fileRef = D175287D1B0F9669006335B4 /* dailysummary_afternoon.png */; };
+		D17528821B0FB651006335B4 /* DailySummaryRowView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D17528811B0FB651006335B4 /* DailySummaryRowView.xib */; };
+		D17528841B0FBD49006335B4 /* DailySummaryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17528831B0FBD49006335B4 /* DailySummaryRow.swift */; };
+		D17528861B0FC852006335B4 /* DailySummaryBreakdownView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D17528851B0FC852006335B4 /* DailySummaryBreakdownView.xib */; };
+		D17528881B0FD332006335B4 /* DailySummaryBreakdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17528871B0FD332006335B4 /* DailySummaryBreakdown.swift */; };
 		D17787221A96873500C78F8B /* activechallenges.png in Resources */ = {isa = PBXBuildFile; fileRef = D177871C1A96873500C78F8B /* activechallenges.png */; };
-		D17787231A96873500C78F8B /* bodystats.png in Resources */ = {isa = PBXBuildFile; fileRef = D177871D1A96873500C78F8B /* bodystats.png */; };
-		D17787241A96873500C78F8B /* higistation.png in Resources */ = {isa = PBXBuildFile; fileRef = D177871E1A96873500C78F8B /* higistation.png */; };
+		D17787241A96873500C78F8B /* higistation@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D177871E1A96873500C78F8B /* higistation@2x.png */; };
 		D17787251A96873500C78F8B /* iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D177871F1A96873500C78F8B /* iphone.png */; };
 		D17787261A96873500C78F8B /* pulse_article.png in Resources */ = {isa = PBXBuildFile; fileRef = D17787201A96873500C78F8B /* pulse_article.png */; };
-		D17787271A96873500C78F8B /* todayspoints.png in Resources */ = {isa = PBXBuildFile; fileRef = D17787211A96873500C78F8B /* todayspoints.png */; };
 		D17C0A8D1A9FC5520010971C /* unpluggederrorstate.png in Resources */ = {isa = PBXBuildFile; fileRef = D17C0A8C1A9FC5520010971C /* unpluggederrorstate.png */; };
 		D18395C11A69BC9E00D290BF /* ChallengeDetailsTab.xib in Resources */ = {isa = PBXBuildFile; fileRef = D18395C01A69BC9E00D290BF /* ChallengeDetailsTab.xib */; };
 		D18395C31A69CAD500D290BF /* ChallengesDetailsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18395C21A69CAD500D290BF /* ChallengesDetailsTab.swift */; };
 		D19DDA531A5EF599004F97A3 /* NewCPTAxisLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = D19DDA521A5EF599004F97A3 /* NewCPTAxisLabel.m */; };
-		D19DDA551A5F1705004F97A3 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		D1A713A81ACF2028008DF01A /* map_circleicon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D1A713A61ACF2028008DF01A /* map_circleicon@2x.png */; };
 		D1A713A91ACF2028008DF01A /* map_iconwithdot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D1A713A71ACF2028008DF01A /* map_iconwithdot@2x.png */; };
 		D1A9C6FE1A951D0D0008084B /* chatterbutton_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = D1A9C6FC1A951D0D0008084B /* chatterbutton_normal.png */; };
@@ -319,6 +281,10 @@
 		D1B6D6981A8D09FD0006F80C /* ChatterInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B6D6971A8D09FD0006F80C /* ChatterInputViewController.swift */; };
 		D1BA13451A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1BA13441A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib */; };
 		D1BA13471A8D056900E1AFE9 /* ChatterInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1BA13461A8D056900E1AFE9 /* ChatterInputView.xib */; };
+		D1C906B11B0A4C5D00220C12 /* NavigationObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1C906B01B0A4C5D00220C12 /* NavigationObject.swift */; };
+		D1CFC9831AB360AF00AC54BB /* MetricGraphCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1CFC9821AB360AF00AC54BB /* MetricGraphCard.swift */; };
+		D1CFC9851AB3742700AC54BB /* MetricGraphCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1CFC9841AB3742700AC54BB /* MetricGraphCardView.xib */; };
+		D1D32D071B1FA0B500AE9B25 /* ActivityMetricDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D32D061B1FA0B500AE9B25 /* ActivityMetricDelegate.swift */; };
 		D1DC365E1AC9E9F000CB124D /* CustomLoadingSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1DC365D1AC9E9F000CB124D /* CustomLoadingSpinner.swift */; };
 		D1E1FF061A76C28F00C8951C /* ChallengeProgressLegendRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E1FF051A76C28F00C8951C /* ChallengeProgressLegendRow.swift */; };
 		D1E1FF081A76C2DB00C8951C /* ChallengeProgressLegendRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1E1FF071A76C2DB00C8951C /* ChallengeProgressLegendRow.xib */; };
@@ -328,14 +294,24 @@
 		D1E223701A7FFF43006330E7 /* ConnectDeviceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E2236F1A7FFF43006330E7 /* ConnectDeviceRow.swift */; };
 		D1E223781A8009CE006330E7 /* ConnectDeviceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1E223771A8009CE006330E7 /* ConnectDeviceView.xib */; };
 		D1E2237A1A8009E6006330E7 /* ConnectDeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E223791A8009E6006330E7 /* ConnectDeviceViewController.swift */; };
-		D1EEDB951A660F2B0012EFD3 /* challenge_image.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDB8E1A660F2B0012EFD3 /* challenge_image.png */; };
-		D1EEDB981A660F2B0012EFD3 /* ui_chatter.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDB911A660F2B0012EFD3 /* ui_chatter.png */; };
-		D1EEDB991A660F2B0012EFD3 /* ui_details.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDB921A660F2B0012EFD3 /* ui_details.png */; };
-		D1EEDB9A1A660F2B0012EFD3 /* ui_leaderboards.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDB931A660F2B0012EFD3 /* ui_leaderboards.png */; };
-		D1EEDB9B1A660F2B0012EFD3 /* ui_progress.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDB941A660F2B0012EFD3 /* ui_progress.png */; };
+		D1E2A6F51AB75EBB00796700 /* MetricGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E2A6F41AB75EBB00796700 /* MetricGraph.swift */; };
+		D1E2DB821AE176760074CBAF /* MetricCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E2DB811AE176760074CBAF /* MetricCard.swift */; };
+		D1EDF3FF1B5ECCCC00BF5B91 /* activities.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EDF3FE1B5ECCCC00BF5B91 /* activities.png */; };
+		D1EE80F41B3BBAAD00B13CB8 /* SummaryViewUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EE80F31B3BBAAD00B13CB8 /* SummaryViewUtility.swift */; };
 		D1EEDBA31A66E4B10012EFD3 /* ChallengeLeaderboardRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDBA21A66E4B10012EFD3 /* ChallengeLeaderboardRow.xib */; };
 		D1EEDBA51A66FA570012EFD3 /* ChallengeLeaderboardRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EEDBA41A66FA570012EFD3 /* ChallengeLeaderboardRow.swift */; };
+		D1EFDC531B45D48400A340DD /* TriangleMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EFDC521B45D48400A340DD /* TriangleMarker.swift */; };
+		D1F10C211B62E3DB0086E728 /* fitnessband@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D1F10C201B62E3DB0086E728 /* fitnessband@2x.png */; };
 		D1FC09951A83DE960049B5C0 /* team_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D1FC09941A83DE960049B5C0 /* team_icon.png */; };
+		D1FC72931B20116F0068CF89 /* WeightMetricCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FC72921B20116F0068CF89 /* WeightMetricCard.swift */; };
+		D1FC72951B209CA40068CF89 /* MetricDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FC72941B209CA40068CF89 /* MetricDelegate.swift */; };
+		D1FC72971B20B0DC0068CF89 /* PulseMetricDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FC72961B20B0DC0068CF89 /* PulseMetricDelegate.swift */; };
+		D1FC72991B20B1B70068CF89 /* WeightMetricDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FC72981B20B1B70068CF89 /* WeightMetricDelegate.swift */; };
+		D1FC729B1B20B22B0068CF89 /* BpMetricDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FC729A1B20B22B0068CF89 /* BpMetricDelegate.swift */; };
+		D1FC729D1B20FD9F0068CF89 /* MetricGraphUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FC729C1B20FD9F0068CF89 /* MetricGraphUtility.swift */; };
+		D1FC729F1B223FE80068CF89 /* MetricGauge.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FC729E1B223FE70068CF89 /* MetricGauge.swift */; };
+		D1FC72A11B2240020068CF89 /* MetricGaugeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1FC72A01B2240020068CF89 /* MetricGaugeView.xib */; };
+		D1FD3FC81B263BBA007D362D /* MetricsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1FD3FC71B263BBA007D362D /* MetricsView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -349,6 +325,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		050DEC7CD1A48655D167F1FB /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		2BBDBA4A1A12AC2C005A6815 /* ChallengeRowCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeRowCell.swift; sourceTree = "<group>"; };
 		2BBDBA4B1A12AC2C005A6815 /* ChallengeRowCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeRowCell.xib; sourceTree = "<group>"; };
 		2BBDBA4C1A12AC2C005A6815 /* ChallengesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengesView.xib; sourceTree = "<group>"; };
@@ -359,7 +336,9 @@
 		2BBDBA511A12AC2C005A6815 /* GoalChallengeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoalChallengeView.xib; sourceTree = "<group>"; };
 		2BC5865B1A16C63B005A7983 /* ChallengeInvitation.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeInvitation.xib; sourceTree = "<group>"; };
 		2BC5865D1A16D0AF005A7983 /* ChallengeInvitationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeInvitationView.swift; sourceTree = "<group>"; };
-		500FF7A379474030959012D0 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		32E39E451B756D4200BA50F9 /* Info_prod.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info_prod.plist; sourceTree = "<group>"; };
+		32E39E461B756D4200BA50F9 /* Info_qa.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info_qa.plist; sourceTree = "<group>"; };
+		686C1AF8577725DC02942F86 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		8F02A11719AE2BF6002FF73E /* btn_back_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_back_black.png; sourceTree = "<group>"; };
 		8F02A11819AE2BF6002FF73E /* btn_back_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_back_black@2x.png"; sourceTree = "<group>"; };
 		8F02A11919AE2BF6002FF73E /* btn_back_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_back_white.png; sourceTree = "<group>"; };
@@ -368,22 +347,11 @@
 		8F02A11C19AE2BF6002FF73E /* btn_share_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_share_black@2x.png"; sourceTree = "<group>"; };
 		8F02A11D19AE2BF6002FF73E /* btn_share_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_share_white.png; sourceTree = "<group>"; };
 		8F02A11E19AE2BF6002FF73E /* btn_share_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_share_white@2x.png"; sourceTree = "<group>"; };
-		8F02A12719AE2CBB002FF73E /* dashboard_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dashboard_background.png; sourceTree = "<group>"; };
-		8F02A12819AE2CBB002FF73E /* dashboard_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dashboard_background@2x.png"; sourceTree = "<group>"; };
-		8F02A12A19AE2CBB002FF73E /* dashboard1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dashboard1@2x.png"; sourceTree = "<group>"; };
-		8F02A12C19AE2CBB002FF73E /* dashboard2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dashboard2@2x.png"; sourceTree = "<group>"; };
-		8F02A12E19AE2CBB002FF73E /* dashboard3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dashboard3@2x.png"; sourceTree = "<group>"; };
-		8F02A13719AE2CF4002FF73E /* bodystats_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bodystats_background.png; sourceTree = "<group>"; };
-		8F02A13819AE2CF4002FF73E /* bodystats_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bodystats_background@2x.png"; sourceTree = "<group>"; };
-		8F02A13A19AE2CF4002FF73E /* bodystats1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bodystats1@2x.png"; sourceTree = "<group>"; };
-		8F02A13C19AE2CF4002FF73E /* bodystats2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bodystats2@2x.png"; sourceTree = "<group>"; };
-		8F02A13E19AE2CF4002FF73E /* bodystats3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bodystats3@2x.png"; sourceTree = "<group>"; };
 		8F069CB819D319FF00DCC820 /* bg_tap_reminder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bg_tap_reminder@2x.png"; path = "images/bg_tap_reminder@2x.png"; sourceTree = "<group>"; };
 		8F069CBA19D9D5C200DCC820 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		8F069CBD19D9E20D00DCC820 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
 		8F069CBE19D9E20D00DCC820 /* libFlurry_5.4.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_5.4.0.a; sourceTree = "<group>"; };
 		8F069CC119DAFCFF00DCC820 /* higi_logo_innercircle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "higi_logo_innercircle@2x.png"; path = "images/higi_logo_innercircle@2x.png"; sourceTree = "<group>"; };
-		8F087A8F1A1BDFC7008E0446 /* ActivityCellHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityCellHeader.swift; sourceTree = "<group>"; };
 		8F08AF9C198940E8002EE906 /* Welcome.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Welcome.xib; sourceTree = "<group>"; };
 		8F08AFB219895214002EE906 /* higilogo_ocmenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = higilogo_ocmenu.png; path = images/higilogo_ocmenu.png; sourceTree = "<group>"; };
 		8F0B29A4198AC20300B0DD29 /* map_mapviewicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = map_mapviewicon.png; path = images/map_mapviewicon.png; sourceTree = "<group>"; };
@@ -419,11 +387,9 @@
 		8F2CB5811992563E009377A8 /* WebView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebView.xib; sourceTree = "<group>"; };
 		8F2CB5881993E68C009377A8 /* SessionData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionData.swift; sourceTree = "<group>"; };
 		8F2CB58A19942E96009377A8 /* noservicemessage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = noservicemessage.png; path = images/noservicemessage.png; sourceTree = "<group>"; };
-		8F337B52198AA661001E4AD8 /* cell_selected_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cell_selected_light.png; path = images/cell_selected_light.png; sourceTree = "<group>"; };
 		8F36439A19460EB300C0033E /* higi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = higi.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		8F36439E19460EB300C0033E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8F36439F19460EB300C0033E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		8F3643A119460EB300C0033E /* BodyStatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyStatsViewController.swift; sourceTree = "<group>"; };
+		8F3643A119460EB300C0033E /* MetricsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricsViewController.swift; sourceTree = "<group>"; };
 		8F3643A419460EB300C0033E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8F3643A619460EB300C0033E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		8F3643AC19460EB300C0033E /* higiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = higiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -433,12 +399,10 @@
 		8F524BF4195B5ABB00BFC49D /* ConversionUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversionUtility.h; sourceTree = "<group>"; };
 		8F524BF5195B5ABB00BFC49D /* ConversionUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversionUtility.m; sourceTree = "<group>"; };
 		8F524BF7195B829400BFC49D /* CustomFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomFormatter.swift; sourceTree = "<group>"; };
-		8F524BF9195C6DD400BFC49D /* graph_timespan_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = graph_timespan_bg.png; sourceTree = "<group>"; };
 		8F55909F19ABE23C00C9B46E /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
 		8F58D98719C0FE5800C0EC72 /* welcome_01_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = welcome_01_logo.png; path = images/welcome_01_logo.png; sourceTree = "<group>"; };
 		8F58D98C19C22AB600C0EC72 /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
 		8F58D98D19C22AB600C0EC72 /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMNSString+HTML.m"; sourceTree = "<group>"; };
-		8F5C38BE19813F9F00F51543 /* GraphDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphDelegate.swift; sourceTree = "<group>"; };
 		8F5C38C019818BA900F51543 /* gauge1_high.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gauge1_high.png; path = images/gauge1_high.png; sourceTree = "<group>"; };
 		8F5C38C119818BA900F51543 /* gauge1_low.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gauge1_low.png; path = images/gauge1_low.png; sourceTree = "<group>"; };
 		8F5C38C219818BA900F51543 /* gauge1_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gauge1_normal.png; path = images/gauge1_normal.png; sourceTree = "<group>"; };
@@ -449,13 +413,7 @@
 		8F5C38C719818BA900F51543 /* gauge3_obese.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gauge3_obese.png; path = images/gauge3_obese.png; sourceTree = "<group>"; };
 		8F5C38C819818BA900F51543 /* gauge3_overweight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gauge3_overweight.png; path = images/gauge3_overweight.png; sourceTree = "<group>"; };
 		8F5C38C919818BA900F51543 /* gauge3_underweight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gauge3_underweight.png; path = images/gauge3_underweight.png; sourceTree = "<group>"; };
-		8F5C38D419818BDB00F51543 /* graph_orientation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = graph_orientation.png; path = images/graph_orientation.png; sourceTree = "<group>"; };
-		8F5C38D91981901600F51543 /* bloodpressure.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bloodpressure.png; path = images/bloodpressure.png; sourceTree = "<group>"; };
-		8F5C38DA1981901600F51543 /* bodymassindex.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bodymassindex.png; path = images/bodymassindex.png; sourceTree = "<group>"; };
 		8F5C38DB1981901600F51543 /* checkincheckmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = checkincheckmark.png; path = images/checkincheckmark.png; sourceTree = "<group>"; };
-		8F5C38DC1981901600F51543 /* pulse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pulse.png; path = images/pulse.png; sourceTree = "<group>"; };
-		8F5C38DD1981901600F51543 /* weight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = weight.png; path = images/weight.png; sourceTree = "<group>"; };
-		8F5C38E31981904C00F51543 /* meanarterialpressure.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = meanarterialpressure.png; path = images/meanarterialpressure.png; sourceTree = "<group>"; };
 		8F5C38E81981B2B300F51543 /* createreminder_inverted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = createreminder_inverted.png; path = images/createreminder_inverted.png; sourceTree = "<group>"; };
 		8F5C38EA1982DBB800F51543 /* onboarding_avatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = onboarding_avatar.png; path = images/onboarding_avatar.png; sourceTree = "<group>"; };
 		8F5C38EC1982EE6D00F51543 /* higicard_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "higicard_icon@2x.png"; path = "images/higicard_icon@2x.png"; sourceTree = "<group>"; };
@@ -463,19 +421,10 @@
 		8F5C38F01982F20000F51543 /* CheckinTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CheckinTableViewCell.xib; sourceTree = "<group>"; };
 		8F5C38F51983094F00F51543 /* NSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HTML.h"; sourceTree = "<group>"; };
 		8F5C38F61983094F00F51543 /* NSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HTML.m"; sourceTree = "<group>"; };
-		8F5C38FD198689E200F51543 /* CheckinCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CheckinCell.xib; sourceTree = "<group>"; };
-		8F5C38FF19868B7000F51543 /* cell_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cell_selected.png; path = images/cell_selected.png; sourceTree = "<group>"; };
-		8F5C39011986918700F51543 /* BodyStatCheckinCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BodyStatCheckinCell.swift; sourceTree = "<group>"; };
 		8F5E7FBC199965C0009067E5 /* PinCodeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PinCodeView.xib; sourceTree = "<group>"; };
 		8F5E7FBE199965CF009067E5 /* PinCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinCodeViewController.swift; sourceTree = "<group>"; };
 		8F5E7FC01999674C009067E5 /* KioskListCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KioskListCellView.xib; sourceTree = "<group>"; };
 		8F5E7FC21999676E009067E5 /* KioskListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KioskListCell.swift; sourceTree = "<group>"; };
-		8F5E7FC4199BC6CB009067E5 /* CheckinCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckinCard.swift; sourceTree = "<group>"; };
-		8F5E7FC8199BC74E009067E5 /* CheckinCardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CheckinCardView.xib; sourceTree = "<group>"; };
-		8F5E7FCB199BC976009067E5 /* BpCheckinCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BpCheckinCellView.xib; sourceTree = "<group>"; };
-		8F5E7FCD199BC986009067E5 /* CheckinCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CheckinCellView.xib; sourceTree = "<group>"; };
-		8F5E7FCF199BC992009067E5 /* CheckinCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckinCell.swift; sourceTree = "<group>"; };
-		8F5E7FD1199BC99C009067E5 /* BpCheckinCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BpCheckinCell.swift; sourceTree = "<group>"; };
 		8F5E7FD3199BCD52009067E5 /* graph_sincelastarrow_down_invert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = graph_sincelastarrow_down_invert.png; path = images/graph_sincelastarrow_down_invert.png; sourceTree = "<group>"; };
 		8F5E7FD4199BCD52009067E5 /* graph_sincelastarrow_nochange_invert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = graph_sincelastarrow_nochange_invert.png; path = images/graph_sincelastarrow_nochange_invert.png; sourceTree = "<group>"; };
 		8F5E7FD5199BCD52009067E5 /* graph_sincelastarrow_up_invert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = graph_sincelastarrow_up_invert.png; path = images/graph_sincelastarrow_up_invert.png; sourceTree = "<group>"; };
@@ -488,59 +437,30 @@
 		8F5E7FE2199C081F009067E5 /* vital_weight_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = vital_weight_icon.png; path = images/vital_weight_icon.png; sourceTree = "<group>"; };
 		8F5F917F1A701A0E0042D87C /* btn_action_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_action_black.png; sourceTree = "<group>"; };
 		8F5F91801A701A0E0042D87C /* btn_action_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_action_black@2x.png"; sourceTree = "<group>"; };
-		8F5F91831A7068920042D87C /* ui_kiosk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_kiosk.png; path = images/ui_kiosk.png; sourceTree = "<group>"; };
 		8F5F91851A7193E80042D87C /* activitywidgetblankstate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = activitywidgetblankstate.png; path = images/activitywidgetblankstate.png; sourceTree = "<group>"; };
 		8F5F91861A7193E80042D87C /* challengewidgetblankstate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = challengewidgetblankstate.png; path = images/challengewidgetblankstate.png; sourceTree = "<group>"; };
 		8F5F91871A7193E80042D87C /* dashboard_errorstate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dashboard_errorstate.png; path = images/dashboard_errorstate.png; sourceTree = "<group>"; };
 		8F5F918B1A7193FC0042D87C /* activitypageblankstate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = activitypageblankstate.png; path = images/activitypageblankstate.png; sourceTree = "<group>"; };
-		8F6266AE197EC8E200145EDB /* BodyStatsLand.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BodyStatsLand.xib; sourceTree = "<group>"; };
-		8F6266B0197EC95900145EDB /* BodyStatsPort.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BodyStatsPort.xib; sourceTree = "<group>"; };
-		8F6266B2197ECAA700145EDB /* BodyStatsLandView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BodyStatsLandView.swift; sourceTree = "<group>"; };
-		8F6266B4197ECC6A00145EDB /* BodyStatsPortView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BodyStatsPortView.swift; sourceTree = "<group>"; };
 		8F6266B6197EE42700145EDB /* MainNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
-		8F6266BA197F12E900145EDB /* graph_info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = graph_info.png; path = images/graph_info.png; sourceTree = "<group>"; };
-		8F6266CE19800A5400145EDB /* BpGraphDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BpGraphDelegate.swift; sourceTree = "<group>"; };
 		8F6A24301951E5D80094B73C /* ApiUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiUtility.swift; sourceTree = "<group>"; };
 		8F6A24341958DDFB0094B73C /* NewCPTMutablePlotRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewCPTMutablePlotRange.h; sourceTree = "<group>"; };
 		8F6A24351958DDFB0094B73C /* NewCPTMutablePlotRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewCPTMutablePlotRange.m; sourceTree = "<group>"; };
 		8F6A243A1958EA730094B73C /* NewCPTScatterPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewCPTScatterPlot.h; sourceTree = "<group>"; };
 		8F6A243B1958EA730094B73C /* NewCPTScatterPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewCPTScatterPlot.m; sourceTree = "<group>"; };
-		8F6A243E195A01350094B73C /* BaseCustomGraphHostingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCustomGraphHostingView.swift; sourceTree = "<group>"; };
-		8F6A2440195A05200094B73C /* BpGraphHostingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BpGraphHostingView.swift; sourceTree = "<group>"; };
-		8F6A2442195A07620094B73C /* PulseGraphDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PulseGraphDelegate.swift; sourceTree = "<group>"; };
-		8F6A2444195A076B0094B73C /* MapGraphDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapGraphDelegate.swift; sourceTree = "<group>"; };
-		8F6A2446195A07740094B73C /* WeightGraphDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeightGraphDelegate.swift; sourceTree = "<group>"; };
-		8F6A2448195A07880094B73C /* BmiGraphDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BmiGraphDelegate.swift; sourceTree = "<group>"; };
-		8F6ACCBD199C1B4E00D5E157 /* TwoLineCheckinCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TwoLineCheckinCellView.xib; sourceTree = "<group>"; };
 		8F6ACCBF199D687D00D5E157 /* mapicon_higicard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mapicon_higicard.png; path = images/mapicon_higicard.png; sourceTree = "<group>"; };
 		8F6D510D1947B2E700F7C769 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		8F6D51741948E53100F7C769 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		8F7065B31A16B129002FCA10 /* ChallengeParticipant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeParticipant.swift; sourceTree = "<group>"; };
 		8F7065B71A16B46A002FCA10 /* ChallengeTeam.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeTeam.swift; sourceTree = "<group>"; };
 		8F77DF191A0080550056BE27 /* GraphPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphPoint.swift; sourceTree = "<group>"; };
-		8F807A751976C9D600EEE019 /* LandscapeGraph.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LandscapeGraph.xib; sourceTree = "<group>"; };
-		8F807A771976C9ED00EEE019 /* PortraitGraph.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PortraitGraph.xib; sourceTree = "<group>"; };
-		8F81DB561A1BDD670054EB2E /* ActivityCellHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityCellHeaderView.xib; sourceTree = "<group>"; };
-		8F89C2571A01B0B700A3AD09 /* ActivityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityCell.swift; sourceTree = "<group>"; };
-		8F89C2591A01B0D500A3AD09 /* ActivityCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityCellView.xib; sourceTree = "<group>"; };
 		8F9C69D21950C84400449664 /* HigiLogin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HigiLogin.swift; sourceTree = "<group>"; };
 		8F9C69D41950C88900449664 /* HigiCheckin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HigiCheckin.swift; sourceTree = "<group>"; };
 		8F9C69D61950C89B00449664 /* HigiUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HigiUser.swift; sourceTree = "<group>"; };
 		8F9C69D81950C8AD00449664 /* KioskInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KioskInfo.swift; sourceTree = "<group>"; };
 		8F9C69DA1950C8B700449664 /* PulseArticle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PulseArticle.swift; sourceTree = "<group>"; };
-		8FA5925819A7E5CE00622266 /* nodata_bodystats.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = nodata_bodystats.png; path = images/nodata_bodystats.png; sourceTree = "<group>"; };
 		8FA5925A19AB921C00622266 /* create_overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = create_overlay.png; path = images/create_overlay.png; sourceTree = "<group>"; };
 		8FA5925C19ABBCEC00622266 /* TourView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TourView.xib; sourceTree = "<group>"; };
 		8FA5925E19ABBD3A00622266 /* TourViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TourViewController.swift; sourceTree = "<group>"; };
-		8FC130C61A26464400591C58 /* ActivityGraphHostingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityGraphHostingView.swift; sourceTree = "<group>"; };
-		8FC7B70419E5E60D00D0112F /* bodystats1-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bodystats1-568h@2x.png"; sourceTree = "<group>"; };
-		8FC7B70519E5E60D00D0112F /* bodystats2-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bodystats2-568h@2x.png"; sourceTree = "<group>"; };
-		8FC7B70619E5E60D00D0112F /* bodystats3-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bodystats3-568h@2x.png"; sourceTree = "<group>"; };
-		8FC7B70B19E5E67000D0112F /* dashboard_background-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dashboard_background-568h@2x.png"; sourceTree = "<group>"; };
-		8FC7B70C19E5E67000D0112F /* dashboard1-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dashboard1-568h@2x.png"; sourceTree = "<group>"; };
-		8FC7B70D19E5E67000D0112F /* dashboard2-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dashboard2-568h@2x.png"; sourceTree = "<group>"; };
-		8FC7B70E19E5E67000D0112F /* dashboard3-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dashboard3-568h@2x.png"; sourceTree = "<group>"; };
-		8FC7B71419E5E6B900D0112F /* bodystats_background-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bodystats_background-568h@2x.png"; sourceTree = "<group>"; };
 		8FC88AD31AE6DA2B002ED9FB /* activitywidgetblankstatenodevices.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = activitywidgetblankstatenodevices.png; path = images/activitywidgetblankstatenodevices.png; sourceTree = "<group>"; };
 		8FCD2D7A19E874FD00AC5A82 /* noResults.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = noResults.png; path = images/noResults.png; sourceTree = "<group>"; };
 		8FCD2D7E19EC286900AC5A82 /* UIImage+Orientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Orientation.h"; sourceTree = "<group>"; };
@@ -574,14 +494,7 @@
 		8FDB4B651A096ECF00F57B38 /* HigiActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HigiActivity.swift; sourceTree = "<group>"; };
 		8FDB4B671A09731B00F57B38 /* ActivityDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityDevice.swift; sourceTree = "<group>"; };
 		8FDB4B691A09741400F57B38 /* ChallengeWinCondition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeWinCondition.swift; sourceTree = "<group>"; };
-		8FDCE1C31988063E006428C3 /* InfoOverlay.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoOverlay.xib; sourceTree = "<group>"; };
 		8FDCE1C51988072C006428C3 /* btn_close_reminder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = btn_close_reminder.png; path = images/btn_close_reminder.png; sourceTree = "<group>"; };
-		8FDCE1C71988082B006428C3 /* InfoOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoOverlayView.swift; sourceTree = "<group>"; };
-		8FDCE1C919880919006428C3 /* bmi_overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bmi_overlay.png; path = images/bmi_overlay.png; sourceTree = "<group>"; };
-		8FDCE1CA19880919006428C3 /* bp_overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bp_overlay.png; path = images/bp_overlay.png; sourceTree = "<group>"; };
-		8FDCE1CB19880919006428C3 /* map_overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = map_overlay.png; path = images/map_overlay.png; sourceTree = "<group>"; };
-		8FDCE1CC19880919006428C3 /* pulse_overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pulse_overlay.png; path = images/pulse_overlay.png; sourceTree = "<group>"; };
-		8FDCE1CD19880919006428C3 /* weight_overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = weight_overlay.png; path = images/weight_overlay.png; sourceTree = "<group>"; };
 		8FE056DE198FDBDC00C81208 /* PulseHomeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PulseHomeView.xib; sourceTree = "<group>"; };
 		8FE056E0198FDBFE00C81208 /* PulseHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PulseHomeViewController.swift; sourceTree = "<group>"; };
 		8FE056E2198FDC3900C81208 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -596,15 +509,10 @@
 		8FEF6F3B1A6EAACE001EF8A6 /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 		8FEF6F3D1A6EB437001EF8A6 /* PointsMeterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PointsMeterView.xib; sourceTree = "<group>"; };
 		8FEF6F3F1A6EB638001EF8A6 /* PointsMeter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PointsMeter.swift; sourceTree = "<group>"; };
-		8FEF6F411A6EECBE001EF8A6 /* BodyStatsCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BodyStatsCard.swift; sourceTree = "<group>"; };
-		8FEF6F431A6EECC9001EF8A6 /* ActivityCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityCard.swift; sourceTree = "<group>"; };
 		8FEF6F451A6EECD5001EF8A6 /* ChallengesCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengesCard.swift; sourceTree = "<group>"; };
 		8FEF6F471A6EECDE001EF8A6 /* PulseCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PulseCard.swift; sourceTree = "<group>"; };
-		8FF2940F1979D28F00C4FC1A /* GraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 		8FF2E06D194A5E9500A81D8C /* NewCPTPlotRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewCPTPlotRange.m; sourceTree = "<group>"; };
 		8FF2E06F194A5EAD00A81D8C /* NewCPTPlotRange.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewCPTPlotRange.h; sourceTree = "<group>"; };
-		8FF851C0194F7DD7005C33C6 /* Config-prod.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Config-prod.plist"; sourceTree = "<group>"; };
-		8FF851C2194F7DE2005C33C6 /* Config-qa.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Config-qa.plist"; sourceTree = "<group>"; };
 		8FF851C5194F7F2E005C33C6 /* HigiApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HigiApi.swift; sourceTree = "<group>"; };
 		8FF873F119DF528E002A6341 /* PullRefreshView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PullRefreshView.xib; sourceTree = "<group>"; };
 		8FF873F319DF5394002A6341 /* PullRefresh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PullRefresh.swift; sourceTree = "<group>"; };
@@ -628,18 +536,32 @@
 		8FFB034519FEA2440036228C /* oc_findastation_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oc_findastation_active.png; path = images/oc_findastation_active.png; sourceTree = "<group>"; };
 		8FFB034619FEA2440036228C /* oc_pulse_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oc_pulse_active.png; path = images/oc_pulse_active.png; sourceTree = "<group>"; };
 		8FFB034719FEA2440036228C /* oc_settings_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oc_settings_active.png; path = images/oc_settings_active.png; sourceTree = "<group>"; };
-		8FFB035419FEAED10036228C /* ActivityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 5; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
-		8FFB035819FEAF2C0036228C /* ActivityView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityView.xib; sourceTree = "<group>"; };
-		8FFF43BA19B798380056F412 /* bmi_overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bmi_overlay@2x.png"; path = "images/bmi_overlay@2x.png"; sourceTree = "<group>"; };
-		8FFF43BB19B798380056F412 /* bp_overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bp_overlay@2x.png"; path = "images/bp_overlay@2x.png"; sourceTree = "<group>"; };
-		8FFF43BC19B798380056F412 /* map_overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "map_overlay@2x.png"; path = "images/map_overlay@2x.png"; sourceTree = "<group>"; };
-		8FFF43BD19B798380056F412 /* pulse_overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pulse_overlay@2x.png"; path = "images/pulse_overlay@2x.png"; sourceTree = "<group>"; };
-		8FFF43BE19B798380056F412 /* weight_overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "weight_overlay@2x.png"; path = "images/weight_overlay@2x.png"; sourceTree = "<group>"; };
 		C0A91AD3D5DE44B7872F95D7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA81E88E614AB0586948CB5B /* Pods.debug qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods.debug qa.xcconfig"; path = "Pods/Target Support Files/Pods/Pods.debug qa.xcconfig"; sourceTree = "<group>"; };
+		CEFCE3FD10CF65C7794E0141 /* Pods.release qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods.release qa.xcconfig"; path = "Pods/Target Support Files/Pods/Pods.release qa.xcconfig"; sourceTree = "<group>"; };
 		D101757A1A79693C00CA32DC /* chat_bubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chat_bubble.png; path = images/chat_bubble.png; sourceTree = "<group>"; };
-		D10BA0241A9540D200DB22A3 /* ActivityLegendView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityLegendView.xib; sourceTree = "<group>"; };
-		D10BA0261A9541FF00DB22A3 /* ActivityLegend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityLegend.swift; sourceTree = "<group>"; };
+		D1020A281B3B130C001F2D81 /* BreakdownTitleRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BreakdownTitleRow.swift; sourceTree = "<group>"; };
+		D1020A2A1B3B1327001F2D81 /* BreakdownTitleRowView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BreakdownTitleRowView.xib; sourceTree = "<group>"; };
+		D1036CF31B153476003E7239 /* stepsicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = stepsicon.png; path = images/stepsicon.png; sourceTree = "<group>"; };
+		D1036CF41B153476003E7239 /* glucoseicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = glucoseicon.png; path = images/glucoseicon.png; sourceTree = "<group>"; };
+		D1036CF51B153476003E7239 /* weighticon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = weighticon.png; path = images/weighticon.png; sourceTree = "<group>"; };
+		D1036CF61B153476003E7239 /* sleepicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sleepicon.png; path = images/sleepicon.png; sourceTree = "<group>"; };
+		D1036CF71B153476003E7239 /* bloodpressureicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bloodpressureicon.png; path = images/bloodpressureicon.png; sourceTree = "<group>"; };
+		D1036CF81B153476003E7239 /* pulseicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pulseicon.png; path = images/pulseicon.png; sourceTree = "<group>"; };
+		D1036CF91B153476003E7239 /* cyclingicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cyclingicon.png; path = images/cyclingicon.png; sourceTree = "<group>"; };
+		D1036CFA1B153476003E7239 /* workouticon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = workouticon.png; path = images/workouticon.png; sourceTree = "<group>"; };
+		D1036CFB1B153476003E7239 /* runicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = runicon.png; path = images/runicon.png; sourceTree = "<group>"; };
+		D10D84481AEFF9D200DA3278 /* MetricDetailCardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MetricDetailCardView.xib; sourceTree = "<group>"; };
+		D10D844A1AEFFA7A00DA3278 /* MetricDetailCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricDetailCard.swift; sourceTree = "<group>"; };
 		D10D894F1A8C11A9000402D4 /* ChallengeDetailsParticipantIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeDetailsParticipantIcon.swift; sourceTree = "<group>"; };
+		D10E52421B5048560007EF10 /* ui_details.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_details.png; path = images/ui_details.png; sourceTree = "<group>"; };
+		D10E52441B5048760007EF10 /* ui_progress.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_progress.png; path = images/ui_progress.png; sourceTree = "<group>"; };
+		D10E52461B5048CA0007EF10 /* challenge_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = challenge_image.png; path = images/challenge_image.png; sourceTree = "<group>"; };
+		D10E52471B5048CA0007EF10 /* ui_chatter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_chatter.png; path = images/ui_chatter.png; sourceTree = "<group>"; };
+		D10E52481B5048CA0007EF10 /* ui_leaderboards.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_leaderboards.png; path = images/ui_leaderboards.png; sourceTree = "<group>"; };
+		D110BAD31B0E7C5500CD1E58 /* DailySummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailySummaryViewController.swift; sourceTree = "<group>"; };
+		D110BAD51B0E7CD700CD1E58 /* DailySummaryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DailySummaryView.xib; sourceTree = "<group>"; };
+		D114B06A1B2A19900073A9CB /* TriangleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriangleView.swift; sourceTree = "<group>"; };
 		D1247BC71AA620C9008A601A /* HigiClusterRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HigiClusterRenderer.h; sourceTree = "<group>"; };
 		D1247BC81AA620F1008A601A /* HigiClusterRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HigiClusterRenderer.m; sourceTree = "<group>"; };
 		D1247BCC1AA662DC008A601A /* ClusterManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClusterManagerDelegate.h; sourceTree = "<group>"; };
@@ -667,21 +589,40 @@
 		D12B39951AA4ED08005B2ABA /* GStaticCluster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GStaticCluster.m; sourceTree = "<group>"; };
 		D12B39961AA4ED08005B2ABA /* NonHierarchicalDistanceBasedAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NonHierarchicalDistanceBasedAlgorithm.h; sourceTree = "<group>"; };
 		D12B39971AA4ED08005B2ABA /* NonHierarchicalDistanceBasedAlgorithm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NonHierarchicalDistanceBasedAlgorithm.m; sourceTree = "<group>"; };
+		D130183D1B14D2C9008DDFAD /* ChallengeUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeUtility.swift; sourceTree = "<group>"; };
+		D130183F1B14D943008DDFAD /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		D13D36521B30D78E00F18A42 /* ActivityCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityCategory.swift; sourceTree = "<group>"; };
 		D149E9441A78221200FBAA15 /* ChallengeDetailsPrizes.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailsPrizes.xib; sourceTree = "<group>"; };
 		D149E9461A7822D900FBAA15 /* ChallengeDetailsPrize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeDetailsPrize.swift; sourceTree = "<group>"; };
 		D149E9481A7845A200FBAA15 /* ChallengeDetailsChatterRow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailsChatterRow.xib; sourceTree = "<group>"; };
 		D149E94A1A78471A00FBAA15 /* ChallengeDetailsChatterRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeDetailsChatterRow.swift; sourceTree = "<group>"; };
 		D15372901A841FEA00954569 /* TermsAndConditionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsViewController.swift; sourceTree = "<group>"; };
 		D15372921A84201600954569 /* TermsAndConditionsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TermsAndConditionsView.xib; sourceTree = "<group>"; };
+		D158BB071B59B4E000FA9CAF /* SelectedPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedPoint.swift; sourceTree = "<group>"; };
+		D1618F921ABB2E26000BDA85 /* MetricCardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MetricCardView.xib; sourceTree = "<group>"; };
 		D164D3751A7C19A600300F35 /* chat_bubble_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chat_bubble_green.png; path = images/chat_bubble_green.png; sourceTree = "<group>"; };
+		D16FD5E81ADDADC200AF9BA5 /* back_button_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = back_button_white.png; path = images/back_button_white.png; sourceTree = "<group>"; };
 		D17010C71A644414002CBFE8 /* ChallengeDetailsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailsView.xib; sourceTree = "<group>"; };
 		D17010C81A644414002CBFE8 /* ChallengeDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeDetailsViewController.swift; sourceTree = "<group>"; };
+		D173343A1B594FCD0089BBFD /* bloodpressure_copy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bloodpressure_copy@2x.png"; path = "images/bloodpressure_copy@2x.png"; sourceTree = "<group>"; };
+		D173343B1B594FCD0089BBFD /* weight_copy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "weight_copy@2x.png"; path = "images/weight_copy@2x.png"; sourceTree = "<group>"; };
+		D173343C1B594FCD0089BBFD /* pulse_copy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pulse_copy@2x.png"; path = "images/pulse_copy@2x.png"; sourceTree = "<group>"; };
+		D173343D1B594FCD0089BBFD /* map_copy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "map_copy@2x.png"; path = "images/map_copy@2x.png"; sourceTree = "<group>"; };
+		D173343E1B594FCD0089BBFD /* bodyfat_copy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bodyfat_copy@2x.png"; path = "images/bodyfat_copy@2x.png"; sourceTree = "<group>"; };
+		D173343F1B594FCD0089BBFD /* activities_copy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "activities_copy@2x.png"; path = "images/activities_copy@2x.png"; sourceTree = "<group>"; };
+		D17334461B596CF90089BBFD /* metrics.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = metrics.png; path = images/metrics.png; sourceTree = "<group>"; };
+		D1740BC31AE0381F00462F6E /* MetricsType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricsType.swift; sourceTree = "<group>"; };
+		D175287B1B0F9669006335B4 /* dailysummary_night.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dailysummary_night.png; path = images/dailysummary_night.png; sourceTree = "<group>"; };
+		D175287C1B0F9669006335B4 /* dailysummary_morning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dailysummary_morning.png; path = images/dailysummary_morning.png; sourceTree = "<group>"; };
+		D175287D1B0F9669006335B4 /* dailysummary_afternoon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dailysummary_afternoon.png; path = images/dailysummary_afternoon.png; sourceTree = "<group>"; };
+		D17528811B0FB651006335B4 /* DailySummaryRowView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DailySummaryRowView.xib; sourceTree = "<group>"; };
+		D17528831B0FBD49006335B4 /* DailySummaryRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailySummaryRow.swift; sourceTree = "<group>"; };
+		D17528851B0FC852006335B4 /* DailySummaryBreakdownView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DailySummaryBreakdownView.xib; sourceTree = "<group>"; };
+		D17528871B0FD332006335B4 /* DailySummaryBreakdown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailySummaryBreakdown.swift; sourceTree = "<group>"; };
 		D177871C1A96873500C78F8B /* activechallenges.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = activechallenges.png; path = images/activechallenges.png; sourceTree = "<group>"; };
-		D177871D1A96873500C78F8B /* bodystats.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bodystats.png; path = images/bodystats.png; sourceTree = "<group>"; };
-		D177871E1A96873500C78F8B /* higistation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = higistation.png; path = images/higistation.png; sourceTree = "<group>"; };
+		D177871E1A96873500C78F8B /* higistation@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "higistation@2x.png"; path = "images/higistation@2x.png"; sourceTree = "<group>"; };
 		D177871F1A96873500C78F8B /* iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iphone.png; path = images/iphone.png; sourceTree = "<group>"; };
 		D17787201A96873500C78F8B /* pulse_article.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pulse_article.png; path = images/pulse_article.png; sourceTree = "<group>"; };
-		D17787211A96873500C78F8B /* todayspoints.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = todayspoints.png; path = images/todayspoints.png; sourceTree = "<group>"; };
 		D17C0A8C1A9FC5520010971C /* unpluggederrorstate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = unpluggederrorstate.png; path = images/unpluggederrorstate.png; sourceTree = "<group>"; };
 		D18395C01A69BC9E00D290BF /* ChallengeDetailsTab.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailsTab.xib; sourceTree = "<group>"; };
 		D18395C21A69CAD500D290BF /* ChallengesDetailsTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengesDetailsTab.swift; sourceTree = "<group>"; };
@@ -695,6 +636,10 @@
 		D1B6D6971A8D09FD0006F80C /* ChatterInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatterInputViewController.swift; sourceTree = "<group>"; };
 		D1BA13441A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailsParticipantIconView.xib; sourceTree = "<group>"; };
 		D1BA13461A8D056900E1AFE9 /* ChatterInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatterInputView.xib; sourceTree = "<group>"; };
+		D1C906B01B0A4C5D00220C12 /* NavigationObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationObject.swift; sourceTree = "<group>"; };
+		D1CFC9821AB360AF00AC54BB /* MetricGraphCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricGraphCard.swift; sourceTree = "<group>"; };
+		D1CFC9841AB3742700AC54BB /* MetricGraphCardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MetricGraphCardView.xib; sourceTree = "<group>"; };
+		D1D32D061B1FA0B500AE9B25 /* ActivityMetricDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityMetricDelegate.swift; sourceTree = "<group>"; };
 		D1DC365D1AC9E9F000CB124D /* CustomLoadingSpinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLoadingSpinner.swift; sourceTree = "<group>"; };
 		D1E1FF051A76C28F00C8951C /* ChallengeProgressLegendRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeProgressLegendRow.swift; sourceTree = "<group>"; };
 		D1E1FF071A76C2DB00C8951C /* ChallengeProgressLegendRow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeProgressLegendRow.xib; sourceTree = "<group>"; };
@@ -704,14 +649,24 @@
 		D1E2236F1A7FFF43006330E7 /* ConnectDeviceRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectDeviceRow.swift; sourceTree = "<group>"; };
 		D1E223771A8009CE006330E7 /* ConnectDeviceView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConnectDeviceView.xib; sourceTree = "<group>"; };
 		D1E223791A8009E6006330E7 /* ConnectDeviceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectDeviceViewController.swift; sourceTree = "<group>"; };
-		D1EEDB8E1A660F2B0012EFD3 /* challenge_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = challenge_image.png; path = "../../android-main/app/src/main/res/drawable-nodpi/challenge_image.png"; sourceTree = "<group>"; };
-		D1EEDB911A660F2B0012EFD3 /* ui_chatter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_chatter.png; path = "../../android-main/app/src/main/res/drawable-nodpi/ui_chatter.png"; sourceTree = "<group>"; };
-		D1EEDB921A660F2B0012EFD3 /* ui_details.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_details.png; path = "../../android-main/app/src/main/res/drawable-nodpi/ui_details.png"; sourceTree = "<group>"; };
-		D1EEDB931A660F2B0012EFD3 /* ui_leaderboards.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_leaderboards.png; path = "../../android-main/app/src/main/res/drawable-nodpi/ui_leaderboards.png"; sourceTree = "<group>"; };
-		D1EEDB941A660F2B0012EFD3 /* ui_progress.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_progress.png; path = "../../android-main/app/src/main/res/drawable-nodpi/ui_progress.png"; sourceTree = "<group>"; };
+		D1E2A6F41AB75EBB00796700 /* MetricGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricGraph.swift; sourceTree = "<group>"; };
+		D1E2DB811AE176760074CBAF /* MetricCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricCard.swift; sourceTree = "<group>"; };
+		D1EDF3FE1B5ECCCC00BF5B91 /* activities.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = activities.png; path = images/activities.png; sourceTree = "<group>"; };
+		D1EE80F31B3BBAAD00B13CB8 /* SummaryViewUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SummaryViewUtility.swift; sourceTree = "<group>"; };
 		D1EEDBA21A66E4B10012EFD3 /* ChallengeLeaderboardRow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeLeaderboardRow.xib; sourceTree = "<group>"; };
 		D1EEDBA41A66FA570012EFD3 /* ChallengeLeaderboardRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeLeaderboardRow.swift; sourceTree = "<group>"; };
+		D1EFDC521B45D48400A340DD /* TriangleMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriangleMarker.swift; sourceTree = "<group>"; };
+		D1F10C201B62E3DB0086E728 /* fitnessband@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fitnessband@2x.png"; path = "images/fitnessband@2x.png"; sourceTree = "<group>"; };
 		D1FC09941A83DE960049B5C0 /* team_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = team_icon.png; path = images/team_icon.png; sourceTree = "<group>"; };
+		D1FC72921B20116F0068CF89 /* WeightMetricCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeightMetricCard.swift; sourceTree = "<group>"; };
+		D1FC72941B209CA40068CF89 /* MetricDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricDelegate.swift; sourceTree = "<group>"; };
+		D1FC72961B20B0DC0068CF89 /* PulseMetricDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PulseMetricDelegate.swift; sourceTree = "<group>"; };
+		D1FC72981B20B1B70068CF89 /* WeightMetricDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeightMetricDelegate.swift; sourceTree = "<group>"; };
+		D1FC729A1B20B22B0068CF89 /* BpMetricDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BpMetricDelegate.swift; sourceTree = "<group>"; };
+		D1FC729C1B20FD9F0068CF89 /* MetricGraphUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricGraphUtility.swift; sourceTree = "<group>"; };
+		D1FC729E1B223FE70068CF89 /* MetricGauge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricGauge.swift; sourceTree = "<group>"; };
+		D1FC72A01B2240020068CF89 /* MetricGaugeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MetricGaugeView.xib; sourceTree = "<group>"; };
+		D1FD3FC71B263BBA007D362D /* MetricsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MetricsView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -756,18 +711,19 @@
 			isa = PBXGroup;
 			children = (
 				2BC5865D1A16D0AF005A7983 /* ChallengeInvitationView.swift */,
-				D1EEDBA41A66FA570012EFD3 /* ChallengeLeaderboardRow.swift */,
-				2BBDBA4A1A12AC2C005A6815 /* ChallengeRowCell.swift */,
-				2BBDBA4D1A12AC2C005A6815 /* ChallengesViewController.swift */,
-				2BBDBA4E1A12AC2C005A6815 /* CompetitiveChallengeView.swift */,
-				2BBDBA501A12AC2C005A6815 /* GoalChallengeView.swift */,
 				2BC5865B1A16C63B005A7983 /* ChallengeInvitation.xib */,
+				D1EEDBA41A66FA570012EFD3 /* ChallengeLeaderboardRow.swift */,
 				D1EEDBA21A66E4B10012EFD3 /* ChallengeLeaderboardRow.xib */,
+				2BBDBA4A1A12AC2C005A6815 /* ChallengeRowCell.swift */,
 				2BBDBA4B1A12AC2C005A6815 /* ChallengeRowCell.xib */,
-				2BBDBA4C1A12AC2C005A6815 /* ChallengesView.xib */,
-				2BBDBA4F1A12AC2C005A6815 /* CompetitiveChallengeView.xib */,
-				2BBDBA511A12AC2C005A6815 /* GoalChallengeView.xib */,
+				D130183D1B14D2C9008DDFAD /* ChallengeUtility.swift */,
 				8FEF1B041AA9173D0036C4FB /* ChallengeView.swift */,
+				2BBDBA4D1A12AC2C005A6815 /* ChallengesViewController.swift */,
+				2BBDBA4C1A12AC2C005A6815 /* ChallengesView.xib */,
+				2BBDBA4E1A12AC2C005A6815 /* CompetitiveChallengeView.swift */,
+				2BBDBA4F1A12AC2C005A6815 /* CompetitiveChallengeView.xib */,
+				2BBDBA501A12AC2C005A6815 /* GoalChallengeView.swift */,
+				2BBDBA511A12AC2C005A6815 /* GoalChallengeView.xib */,
 			);
 			name = Challenges;
 			sourceTree = "<group>";
@@ -881,6 +837,7 @@
 			children = (
 				8F524BF7195B829400BFC49D /* CustomFormatter.swift */,
 				8F6D510D1947B2E700F7C769 /* Utility.swift */,
+				D130183F1B14D943008DDFAD /* Constants.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -888,13 +845,13 @@
 		8F296307194B8CCA00E787FD /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				8FFB035319FEAEBA0036228C /* Activity */,
-				8F6266AD197EC8C700145EDB /* Body Stats */,
 				2BBDBA491A12AB73005A6815 /* Challenges */,
 				D1229A051A8167F200FB1773 /* Challenge Details */,
+				D110BAD21B0E7C3900CD1E58 /* Daily Summary */,
 				8F5C38E51981915500F51543 /* Dashboard */,
 				8FE056DA198FDB9200C81208 /* Find Station */,
 				8F08AF9B198940C8002EE906 /* Login */,
+				8F6266AD197EC8C700145EDB /* Metrics */,
 				8F2B7E33198AD8F0009DE89A /* Miscellaneous */,
 				8F2B7E44198C2DCB009DE89A /* Navigation */,
 				8FF94096198A8BCC00D319D7 /* Onboarding */,
@@ -921,11 +878,12 @@
 				D1AAA7A01A9E7E1800A41B3D /* Activity */,
 				D1FC09931A83DE600049B5C0 /* Challenge Details */,
 				D1EEDB8D1A660E900012EFD3 /* Challenge */,
-				8F6266CD197F131100145EDB /* Body Stats */,
+				D175287A1B0F9651006335B4 /* Daily Summary */,
 				8F5C38D819818F3A00F51543 /* Checkin */,
 				8F5C38D619818EE000F51543 /* Common */,
 				8F5C38D719818F0A00F51543 /* Dashboard */,
 				8FD73CB5199027EB00BACCB2 /* FindStation */,
+				D17334391B594FAF0089BBFD /* Metrics */,
 				8F2B7E47198C3023009DE89A /* Navigation */,
 				8F2CB58419928C75009377A8 /* Onboarding */,
 				8F6266CC197F130A00145EDB /* Welcome */,
@@ -962,6 +920,7 @@
 				8F2B7E42198C2DA0009DE89A /* DrawerViewController.swift */,
 				8F2B7E56198C34D0009DE89A /* RevealView.xib */,
 				8F2B7E54198C3475009DE89A /* RevealViewController.swift */,
+				D1C906B01B0A4C5D00220C12 /* NavigationObject.swift */,
 			);
 			name = Navigation;
 			sourceTree = "<group>";
@@ -1012,11 +971,11 @@
 		8F36439119460EB300C0033E = {
 			isa = PBXGroup;
 			children = (
-				500FF7A379474030959012D0 /* Pods.xcconfig */,
 				3735674FA759427E8EA44775 /* Frameworks */,
 				8F36439C19460EB300C0033E /* higi */,
 				8F3643AF19460EB300C0033E /* higiTests */,
 				8F36439B19460EB300C0033E /* Products */,
+				F14FC40D2EC046CA8525DDF1 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1052,10 +1011,9 @@
 		8F36439D19460EB300C0033E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				32E39E451B756D4200BA50F9 /* Info_prod.plist */,
+				32E39E461B756D4200BA50F9 /* Info_qa.plist */,
 				D12780AD1A4A2701002EB56A /* fontawesome-webfont.ttf */,
-				8F36439E19460EB300C0033E /* Info.plist */,
-				8FF851C0194F7DD7005C33C6 /* Config-prod.plist */,
-				8FF851C2194F7DE2005C33C6 /* Config-qa.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1101,24 +1059,9 @@
 				8F5F91851A7193E80042D87C /* activitywidgetblankstate.png */,
 				8F5F91861A7193E80042D87C /* challengewidgetblankstate.png */,
 				8F5F91871A7193E80042D87C /* dashboard_errorstate.png */,
-				8F5C38D91981901600F51543 /* bloodpressure.png */,
-				8F5C38DA1981901600F51543 /* bodymassindex.png */,
 				8F5C38DB1981901600F51543 /* checkincheckmark.png */,
 				8F5C38E81981B2B300F51543 /* createreminder_inverted.png */,
 				8FF9409219899AEA00D319D7 /* createreminder.png */,
-				8FC7B70B19E5E67000D0112F /* dashboard_background-568h@2x.png */,
-				8F02A12719AE2CBB002FF73E /* dashboard_background.png */,
-				8F02A12819AE2CBB002FF73E /* dashboard_background@2x.png */,
-				8FC7B70C19E5E67000D0112F /* dashboard1-568h@2x.png */,
-				8F02A12A19AE2CBB002FF73E /* dashboard1@2x.png */,
-				8FC7B70D19E5E67000D0112F /* dashboard2-568h@2x.png */,
-				8F02A12C19AE2CBB002FF73E /* dashboard2@2x.png */,
-				8FC7B70E19E5E67000D0112F /* dashboard3-568h@2x.png */,
-				8F02A12E19AE2CBB002FF73E /* dashboard3@2x.png */,
-				8F5C38E31981904C00F51543 /* meanarterialpressure.png */,
-				8F5C38DC1981901600F51543 /* pulse.png */,
-				8F5F91831A7068920042D87C /* ui_kiosk.png */,
-				8F5C38DD1981901600F51543 /* weight.png */,
 			);
 			name = Dashboard;
 			sourceTree = "<group>";
@@ -1155,14 +1098,14 @@
 		8F5C38E51981915500F51543 /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
-				8FEF6F431A6EECC9001EF8A6 /* ActivityCard.swift */,
-				8FEF6F411A6EECBE001EF8A6 /* BodyStatsCard.swift */,
-				8FEF6F451A6EECD5001EF8A6 /* ChallengesCard.swift */,
-				8F5C38EE1982EFDF00F51543 /* CheckinTableViewCell.swift */,
 				8FEF6F3B1A6EAACE001EF8A6 /* DashboardViewController.swift */,
-				8FEF6F471A6EECDE001EF8A6 /* PulseCard.swift */,
-				8F5C38F01982F20000F51543 /* CheckinTableViewCell.xib */,
 				8FEF6F391A6EAA58001EF8A6 /* DashboardView.xib */,
+				D1CFC9821AB360AF00AC54BB /* MetricGraphCard.swift */,
+				D1CFC9841AB3742700AC54BB /* MetricGraphCardView.xib */,
+				8F5C38EE1982EFDF00F51543 /* CheckinTableViewCell.swift */,
+				8F5C38F01982F20000F51543 /* CheckinTableViewCell.xib */,
+				8FEF6F451A6EECD5001EF8A6 /* ChallengesCard.swift */,
+				8FEF6F471A6EECDE001EF8A6 /* PulseCard.swift */,
 			);
 			name = Dashboard;
 			sourceTree = "<group>";
@@ -1180,109 +1123,60 @@
 			name = Security;
 			sourceTree = "<group>";
 		};
-		8F5E7FCA199BC941009067E5 /* Checkin Card */ = {
-			isa = PBXGroup;
-			children = (
-				8F5E7FD1199BC99C009067E5 /* BpCheckinCell.swift */,
-				8F5E7FCB199BC976009067E5 /* BpCheckinCellView.xib */,
-				8F5E7FC4199BC6CB009067E5 /* CheckinCard.swift */,
-				8F5E7FC8199BC74E009067E5 /* CheckinCardView.xib */,
-				8F5E7FCF199BC992009067E5 /* CheckinCell.swift */,
-				8F5E7FCD199BC986009067E5 /* CheckinCellView.xib */,
-				8F6ACCBD199C1B4E00D5E157 /* TwoLineCheckinCellView.xib */,
-			);
-			name = "Checkin Card";
-			sourceTree = "<group>";
-		};
 		8F5E7FDD199C0011009067E5 /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
-				8F5E7FCA199BC941009067E5 /* Checkin Card */,
 				8F6A243D195A011F0094B73C /* Graphing */,
+				D1147DEB1B56076B0005E10A /* Loading */,
+				D1147DE91B56073D0005E10A /* Meter Gauge */,
+				D1147DE81B5606E90005E10A /* Points Meter */,
 				8FF873F519DF5474002A6341 /* Pull Refresh */,
-				D1DC365D1AC9E9F000CB124D /* CustomLoadingSpinner.swift */,
+				D1147DEA1B5607500005E10A /* Triangle */,
 			);
 			name = "Custom Views";
 			sourceTree = "<group>";
 		};
-		8F6266AD197EC8C700145EDB /* Body Stats */ = {
+		8F6266AD197EC8C700145EDB /* Metrics */ = {
 			isa = PBXGroup;
 			children = (
-				8F5C39011986918700F51543 /* BodyStatCheckinCell.swift */,
-				8F6266B2197ECAA700145EDB /* BodyStatsLandView.swift */,
-				8F6266B4197ECC6A00145EDB /* BodyStatsPortView.swift */,
-				8F3643A119460EB300C0033E /* BodyStatsViewController.swift */,
-				8F6266AE197EC8E200145EDB /* BodyStatsLand.xib */,
-				8FDCE1C71988082B006428C3 /* InfoOverlayView.swift */,
-				8F6266B0197EC95900145EDB /* BodyStatsPort.xib */,
-				8F5C38FD198689E200F51543 /* CheckinCell.xib */,
-				8FDCE1C31988063E006428C3 /* InfoOverlay.xib */,
+				D1D32D061B1FA0B500AE9B25 /* ActivityMetricDelegate.swift */,
+				D1FC729A1B20B22B0068CF89 /* BpMetricDelegate.swift */,
+				D1E2DB811AE176760074CBAF /* MetricCard.swift */,
+				D1618F921ABB2E26000BDA85 /* MetricCardView.xib */,
+				D10D844A1AEFFA7A00DA3278 /* MetricDetailCard.swift */,
+				D10D84481AEFF9D200DA3278 /* MetricDetailCardView.xib */,
+				D1FC72941B209CA40068CF89 /* MetricDelegate.swift */,
+				D1FC729C1B20FD9F0068CF89 /* MetricGraphUtility.swift */,
+				D1740BC31AE0381F00462F6E /* MetricsType.swift */,
+				8F3643A119460EB300C0033E /* MetricsViewController.swift */,
+				D1FD3FC71B263BBA007D362D /* MetricsView.xib */,
+				D1FC72961B20B0DC0068CF89 /* PulseMetricDelegate.swift */,
+				D1FC72921B20116F0068CF89 /* WeightMetricCard.swift */,
+				D1FC72981B20B1B70068CF89 /* WeightMetricDelegate.swift */,
+				D158BB071B59B4E000FA9CAF /* SelectedPoint.swift */,
 			);
-			name = "Body Stats";
+			name = Metrics;
 			sourceTree = "<group>";
 		};
 		8F6266CC197F130A00145EDB /* Welcome */ = {
 			isa = PBXGroup;
 			children = (
+				D1EDF3FE1B5ECCCC00BF5B91 /* activities.png */,
+				D17334461B596CF90089BBFD /* metrics.png */,
 				D177871C1A96873500C78F8B /* activechallenges.png */,
-				D177871D1A96873500C78F8B /* bodystats.png */,
-				D177871E1A96873500C78F8B /* higistation.png */,
+				D177871E1A96873500C78F8B /* higistation@2x.png */,
 				D177871F1A96873500C78F8B /* iphone.png */,
 				D17787201A96873500C78F8B /* pulse_article.png */,
-				D17787211A96873500C78F8B /* todayspoints.png */,
 				8F58D98719C0FE5800C0EC72 /* welcome_01_logo.png */,
 			);
 			name = Welcome;
 			sourceTree = "<group>";
 		};
-		8F6266CD197F131100145EDB /* Body Stats */ = {
-			isa = PBXGroup;
-			children = (
-				8FDCE1C919880919006428C3 /* bmi_overlay.png */,
-				8FFF43BA19B798380056F412 /* bmi_overlay@2x.png */,
-				8FC7B71419E5E6B900D0112F /* bodystats_background-568h@2x.png */,
-				8F02A13719AE2CF4002FF73E /* bodystats_background.png */,
-				8F02A13819AE2CF4002FF73E /* bodystats_background@2x.png */,
-				8FC7B70419E5E60D00D0112F /* bodystats1-568h@2x.png */,
-				8F02A13A19AE2CF4002FF73E /* bodystats1@2x.png */,
-				8FC7B70519E5E60D00D0112F /* bodystats2-568h@2x.png */,
-				8F02A13C19AE2CF4002FF73E /* bodystats2@2x.png */,
-				8FC7B70619E5E60D00D0112F /* bodystats3-568h@2x.png */,
-				8F02A13E19AE2CF4002FF73E /* bodystats3@2x.png */,
-				8FDCE1CA19880919006428C3 /* bp_overlay.png */,
-				8FFF43BB19B798380056F412 /* bp_overlay@2x.png */,
-				8F337B52198AA661001E4AD8 /* cell_selected_light.png */,
-				8F5C38FF19868B7000F51543 /* cell_selected.png */,
-				8F6266BA197F12E900145EDB /* graph_info.png */,
-				8F5C38D419818BDB00F51543 /* graph_orientation.png */,
-				8F524BF9195C6DD400BFC49D /* graph_timespan_bg.png */,
-				8FDCE1CB19880919006428C3 /* map_overlay.png */,
-				8FFF43BC19B798380056F412 /* map_overlay@2x.png */,
-				8FA5925819A7E5CE00622266 /* nodata_bodystats.png */,
-				8FDCE1CC19880919006428C3 /* pulse_overlay.png */,
-				8FFF43BD19B798380056F412 /* pulse_overlay@2x.png */,
-				8FDCE1CD19880919006428C3 /* weight_overlay.png */,
-				8FFF43BE19B798380056F412 /* weight_overlay@2x.png */,
-			);
-			name = "Body Stats";
-			sourceTree = "<group>";
-		};
 		8F6A243D195A011F0094B73C /* Graphing */ = {
 			isa = PBXGroup;
 			children = (
-				8FC130C61A26464400591C58 /* ActivityGraphHostingView.swift */,
-				8F6A243E195A01350094B73C /* BaseCustomGraphHostingView.swift */,
-				8F6A2448195A07880094B73C /* BmiGraphDelegate.swift */,
-				8F6266CE19800A5400145EDB /* BpGraphDelegate.swift */,
-				8F6A2440195A05200094B73C /* BpGraphHostingView.swift */,
-				8F5C38BE19813F9F00F51543 /* GraphDelegate.swift */,
+				D1E2A6F41AB75EBB00796700 /* MetricGraph.swift */,
 				8F77DF191A0080550056BE27 /* GraphPoint.swift */,
-				8FF2940F1979D28F00C4FC1A /* GraphView.swift */,
-				8F6A2444195A076B0094B73C /* MapGraphDelegate.swift */,
-				8F6A2442195A07620094B73C /* PulseGraphDelegate.swift */,
-				8F6A2446195A07740094B73C /* WeightGraphDelegate.swift */,
-				8F807A751976C9D600EEE019 /* LandscapeGraph.xib */,
-				8F807A771976C9ED00EEE019 /* PortraitGraph.xib */,
 			);
 			name = Graphing;
 			path = ..;
@@ -1370,41 +1264,76 @@
 			name = Onboarding;
 			sourceTree = "<group>";
 		};
-		8FFB035319FEAEBA0036228C /* Activity */ = {
+		D110BAD21B0E7C3900CD1E58 /* Daily Summary */ = {
 			isa = PBXGroup;
 			children = (
-				8F89C2571A01B0B700A3AD09 /* ActivityCell.swift */,
-				8F087A8F1A1BDFC7008E0446 /* ActivityCellHeader.swift */,
-				8FFB035419FEAED10036228C /* ActivityViewController.swift */,
-				8F81DB561A1BDD670054EB2E /* ActivityCellHeaderView.xib */,
-				8F89C2591A01B0D500A3AD09 /* ActivityCellView.xib */,
-				8FFB035819FEAF2C0036228C /* ActivityView.xib */,
+				D13D36521B30D78E00F18A42 /* ActivityCategory.swift */,
+				D1020A281B3B130C001F2D81 /* BreakdownTitleRow.swift */,
+				D1020A2A1B3B1327001F2D81 /* BreakdownTitleRowView.xib */,
+				D17528871B0FD332006335B4 /* DailySummaryBreakdown.swift */,
+				D17528851B0FC852006335B4 /* DailySummaryBreakdownView.xib */,
+				D17528831B0FBD49006335B4 /* DailySummaryRow.swift */,
+				D17528811B0FB651006335B4 /* DailySummaryRowView.xib */,
+				D110BAD31B0E7C5500CD1E58 /* DailySummaryViewController.swift */,
+				D110BAD51B0E7CD700CD1E58 /* DailySummaryView.xib */,
+				D1EE80F31B3BBAAD00B13CB8 /* SummaryViewUtility.swift */,
+			);
+			name = "Daily Summary";
+			sourceTree = "<group>";
+		};
+		D1147DE81B5606E90005E10A /* Points Meter */ = {
+			isa = PBXGroup;
+			children = (
 				8FEF6F3D1A6EB437001EF8A6 /* PointsMeterView.xib */,
 				8FEF6F3F1A6EB638001EF8A6 /* PointsMeter.swift */,
-				D10BA0241A9540D200DB22A3 /* ActivityLegendView.xib */,
-				D10BA0261A9541FF00DB22A3 /* ActivityLegend.swift */,
 			);
-			name = Activity;
+			name = "Points Meter";
+			sourceTree = "<group>";
+		};
+		D1147DE91B56073D0005E10A /* Meter Gauge */ = {
+			isa = PBXGroup;
+			children = (
+				D1FC729E1B223FE70068CF89 /* MetricGauge.swift */,
+				D1FC72A01B2240020068CF89 /* MetricGaugeView.xib */,
+			);
+			name = "Meter Gauge";
+			sourceTree = "<group>";
+		};
+		D1147DEA1B5607500005E10A /* Triangle */ = {
+			isa = PBXGroup;
+			children = (
+				D114B06A1B2A19900073A9CB /* TriangleView.swift */,
+				D1EFDC521B45D48400A340DD /* TriangleMarker.swift */,
+			);
+			name = Triangle;
+			sourceTree = "<group>";
+		};
+		D1147DEB1B56076B0005E10A /* Loading */ = {
+			isa = PBXGroup;
+			children = (
+				D1DC365D1AC9E9F000CB124D /* CustomLoadingSpinner.swift */,
+			);
+			name = Loading;
 			sourceTree = "<group>";
 		};
 		D1229A051A8167F200FB1773 /* Challenge Details */ = {
 			isa = PBXGroup;
 			children = (
-				D1B6D6971A8D09FD0006F80C /* ChatterInputViewController.swift */,
 				D149E94A1A78471A00FBAA15 /* ChallengeDetailsChatterRow.swift */,
-				D149E9461A7822D900FBAA15 /* ChallengeDetailsPrize.swift */,
-				D17010C81A644414002CBFE8 /* ChallengeDetailsViewController.swift */,
-				D1E1FF051A76C28F00C8951C /* ChallengeProgressLegendRow.swift */,
-				D10D894F1A8C11A9000402D4 /* ChallengeDetailsParticipantIcon.swift */,
-				D18395C21A69CAD500D290BF /* ChallengesDetailsTab.swift */,
 				D149E9481A7845A200FBAA15 /* ChallengeDetailsChatterRow.xib */,
-				D1BA13461A8D056900E1AFE9 /* ChatterInputView.xib */,
-				D149E9441A78221200FBAA15 /* ChallengeDetailsPrizes.xib */,
-				D1E1FF091A76E0AC00C8951C /* ChallengeDetailsRow.xib */,
-				D18395C01A69BC9E00D290BF /* ChallengeDetailsTab.xib */,
-				D17010C71A644414002CBFE8 /* ChallengeDetailsView.xib */,
-				D1E1FF071A76C2DB00C8951C /* ChallengeProgressLegendRow.xib */,
+				D10D894F1A8C11A9000402D4 /* ChallengeDetailsParticipantIcon.swift */,
 				D1BA13441A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib */,
+				D149E9461A7822D900FBAA15 /* ChallengeDetailsPrize.swift */,
+				D149E9441A78221200FBAA15 /* ChallengeDetailsPrizes.xib */,
+				D17010C81A644414002CBFE8 /* ChallengeDetailsViewController.swift */,
+				D17010C71A644414002CBFE8 /* ChallengeDetailsView.xib */,
+				D1E1FF051A76C28F00C8951C /* ChallengeProgressLegendRow.swift */,
+				D1E1FF071A76C2DB00C8951C /* ChallengeProgressLegendRow.xib */,
+				D18395C21A69CAD500D290BF /* ChallengesDetailsTab.swift */,
+				D18395C01A69BC9E00D290BF /* ChallengeDetailsTab.xib */,
+				D1E1FF091A76E0AC00C8951C /* ChallengeDetailsRow.xib */,
+				D1B6D6971A8D09FD0006F80C /* ChatterInputViewController.swift */,
+				D1BA13461A8D056900E1AFE9 /* ChatterInputView.xib */,
 			);
 			name = "Challenge Details";
 			sourceTree = "<group>";
@@ -1472,6 +1401,40 @@
 			name = Projection;
 			sourceTree = "<group>";
 		};
+		D17334391B594FAF0089BBFD /* Metrics */ = {
+			isa = PBXGroup;
+			children = (
+				D1F10C201B62E3DB0086E728 /* fitnessband@2x.png */,
+				D173343A1B594FCD0089BBFD /* bloodpressure_copy@2x.png */,
+				D173343B1B594FCD0089BBFD /* weight_copy@2x.png */,
+				D173343C1B594FCD0089BBFD /* pulse_copy@2x.png */,
+				D173343D1B594FCD0089BBFD /* map_copy@2x.png */,
+				D173343E1B594FCD0089BBFD /* bodyfat_copy@2x.png */,
+				D173343F1B594FCD0089BBFD /* activities_copy@2x.png */,
+				D16FD5E81ADDADC200AF9BA5 /* back_button_white.png */,
+			);
+			name = Metrics;
+			sourceTree = "<group>";
+		};
+		D175287A1B0F9651006335B4 /* Daily Summary */ = {
+			isa = PBXGroup;
+			children = (
+				D1036CF31B153476003E7239 /* stepsicon.png */,
+				D1036CF41B153476003E7239 /* glucoseicon.png */,
+				D1036CF51B153476003E7239 /* weighticon.png */,
+				D1036CF61B153476003E7239 /* sleepicon.png */,
+				D1036CF71B153476003E7239 /* bloodpressureicon.png */,
+				D1036CF81B153476003E7239 /* pulseicon.png */,
+				D1036CF91B153476003E7239 /* cyclingicon.png */,
+				D1036CFA1B153476003E7239 /* workouticon.png */,
+				D1036CFB1B153476003E7239 /* runicon.png */,
+				D175287B1B0F9669006335B4 /* dailysummary_night.png */,
+				D175287C1B0F9669006335B4 /* dailysummary_morning.png */,
+				D175287D1B0F9669006335B4 /* dailysummary_afternoon.png */,
+			);
+			name = "Daily Summary";
+			sourceTree = "<group>";
+		};
 		D1AAA7A01A9E7E1800A41B3D /* Activity */ = {
 			isa = PBXGroup;
 			children = (
@@ -1485,7 +1448,6 @@
 			isa = PBXGroup;
 			children = (
 				D1AAA79E1A9E7E0F00A41B3D /* challengesblankstate.png */,
-				D1EEDB8E1A660F2B0012EFD3 /* challenge_image.png */,
 			);
 			name = Challenge;
 			sourceTree = "<group>";
@@ -1493,17 +1455,29 @@
 		D1FC09931A83DE600049B5C0 /* Challenge Details */ = {
 			isa = PBXGroup;
 			children = (
+				D10E52461B5048CA0007EF10 /* challenge_image.png */,
+				D10E52471B5048CA0007EF10 /* ui_chatter.png */,
+				D10E52481B5048CA0007EF10 /* ui_leaderboards.png */,
+				D10E52441B5048760007EF10 /* ui_progress.png */,
+				D10E52421B5048560007EF10 /* ui_details.png */,
 				D1A9C6FC1A951D0D0008084B /* chatterbutton_normal.png */,
 				D1A9C6FD1A951D0D0008084B /* chatterbutton_pressed.png */,
 				D1FC09941A83DE960049B5C0 /* team_icon.png */,
 				D164D3751A7C19A600300F35 /* chat_bubble_green.png */,
 				D101757A1A79693C00CA32DC /* chat_bubble.png */,
-				D1EEDB911A660F2B0012EFD3 /* ui_chatter.png */,
-				D1EEDB921A660F2B0012EFD3 /* ui_details.png */,
-				D1EEDB931A660F2B0012EFD3 /* ui_leaderboards.png */,
-				D1EEDB941A660F2B0012EFD3 /* ui_progress.png */,
 			);
 			name = "Challenge Details";
+			sourceTree = "<group>";
+		};
+		F14FC40D2EC046CA8525DDF1 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				050DEC7CD1A48655D167F1FB /* Pods.debug.xcconfig */,
+				CA81E88E614AB0586948CB5B /* Pods.debug qa.xcconfig */,
+				686C1AF8577725DC02942F86 /* Pods.release.xcconfig */,
+				CEFCE3FD10CF65C7794E0141 /* Pods.release qa.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1559,6 +1533,9 @@
 						CreatedOnToolsVersion = 6.0;
 						DevelopmentTeam = 5D5W9WNYL2;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.HealthKit = {
 								enabled = 1;
 							};
@@ -1599,185 +1576,158 @@
 				8F02A12119AE2BF6002FF73E /* btn_back_white.png in Resources */,
 				8FF940A2198A8CE400D319D7 /* ProfileImageView.xib in Resources */,
 				8F5C38D019818BA900F51543 /* gauge3_normal.png in Resources */,
-				8F6ACCBE199C1B4E00D5E157 /* TwoLineCheckinCellView.xib in Resources */,
 				8F02A12019AE2BF6002FF73E /* btn_back_black@2x.png in Resources */,
-				D17787231A96873500C78F8B /* bodystats.png in Resources */,
-				D1EEDB991A660F2B0012EFD3 /* ui_details.png in Resources */,
 				8FF9409E198A8CB600D319D7 /* SignupNameView.xib in Resources */,
 				8F5C38D219818BA900F51543 /* gauge3_overweight.png in Resources */,
 				8F5C38CC19818BA900F51543 /* gauge1_normal.png in Resources */,
 				8F5F91891A7193E80042D87C /* challengewidgetblankstate.png in Resources */,
 				8FDCE1C61988072C006428C3 /* btn_close_reminder.png in Resources */,
-				8F02A13419AE2CBB002FF73E /* dashboard2@2x.png in Resources */,
 				D1A9C6FF1A951D0D0008084B /* chatterbutton_pressed.png in Resources */,
-				8F5E7FC9199BC74E009067E5 /* CheckinCardView.xib in Resources */,
-				8F02A13019AE2CBB002FF73E /* dashboard_background@2x.png in Resources */,
-				8FDCE1CF19880919006428C3 /* bp_overlay.png in Resources */,
-				8F5C390019868B7000F51543 /* cell_selected.png in Resources */,
 				8F1D97A0199558F7003B5645 /* checkmark.png in Resources */,
 				8FEF6F3A1A6EAA58001EF8A6 /* DashboardView.xib in Resources */,
-				8F5C38E41981904C00F51543 /* meanarterialpressure.png in Resources */,
 				8F5F918A1A7193E80042D87C /* dashboard_errorstate.png in Resources */,
 				8F3643A519460EB300C0033E /* Main.storyboard in Resources */,
+				D17334471B596CF90089BBFD /* metrics.png in Resources */,
 				8F2B7E5D198C49A9009DE89A /* nav_ocmicon.png in Resources */,
+				D1F10C211B62E3DB0086E728 /* fitnessband@2x.png in Resources */,
+				D1036CFF1B153477003E7239 /* sleepicon.png in Resources */,
 				8FF94091198960C900D319D7 /* LoginView.xib in Resources */,
+				D10E524A1B5048CA0007EF10 /* ui_chatter.png in Resources */,
+				D1FC72A11B2240020068CF89 /* MetricGaugeView.xib in Resources */,
 				D101757B1A79693C00CA32DC /* chat_bubble.png in Resources */,
 				8F5E7FD9199BCD52009067E5 /* graph_sincelastarrow_up_invert.png in Resources */,
 				8FD964CE19BFB99D00DA3DF8 /* search_icon.png in Resources */,
 				8FFB035019FEA2440036228C /* oc_pulse_active.png in Resources */,
 				D15372931A84201600954569 /* TermsAndConditionsView.xib in Resources */,
 				8F2B7E50198C3058009DE89A /* oc_pulse.png in Resources */,
-				8F02A14019AE2CF4002FF73E /* bodystats_background@2x.png in Resources */,
+				D1036CFE1B153477003E7239 /* weighticon.png in Resources */,
 				D1E2236C1A7FFB7D006330E7 /* ui_nodevices.png in Resources */,
 				8FFB034B19FEA2440036228C /* oc_bodystats_active.png in Resources */,
+				D1CFC9851AB3742700AC54BB /* MetricGraphCardView.xib in Resources */,
+				D1020A2B1B3B1327001F2D81 /* BreakdownTitleRowView.xib in Resources */,
+				D175287F1B0F9669006335B4 /* dailysummary_morning.png in Resources */,
 				8F069CC219DAFCFF00DCC820 /* higi_logo_innercircle@2x.png in Resources */,
-				8FC7B71519E5E6B900D0112F /* bodystats_background-568h@2x.png in Resources */,
 				8FFB034E19FEA2440036228C /* oc_dashboard_active.png in Resources */,
 				8F5E7FE7199C081F009067E5 /* vital_weight_icon.png in Resources */,
+				D110BAD61B0E7CD700CD1E58 /* DailySummaryView.xib in Resources */,
 				8F2B7E59198C3D90009DE89A /* DrawerCell.xib in Resources */,
 				8FD964CA19BE4A2B00DA3DF8 /* gradient_overlay.png in Resources */,
+				D17334421B594FCD0089BBFD /* pulse_copy@2x.png in Resources */,
 				8FE056E7198FDC9800C81208 /* FindStationView.xib in Resources */,
-				8F337B53198AA661001E4AD8 /* cell_selected_light.png in Resources */,
 				8FFB034A19FEA2440036228C /* oc_activity.png in Resources */,
 				2BC5865C1A16C63B005A7983 /* ChallengeInvitation.xib in Resources */,
 				8F5C38E01981901600F51543 /* checkincheckmark.png in Resources */,
-				8FFF43BF19B798380056F412 /* bmi_overlay@2x.png in Resources */,
 				D1BA13451A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib in Resources */,
 				8F5C38CE19818BA900F51543 /* gauge2_high.png in Resources */,
+				D1036D031B153477003E7239 /* workouticon.png in Resources */,
 				8F02A12619AE2BF6002FF73E /* btn_share_white@2x.png in Resources */,
 				8F08AF9D198940E8002EE906 /* Welcome.xib in Resources */,
-				8FF851C1194F7DD7005C33C6 /* Config-prod.plist in Resources */,
 				8F5C38EB1982DBB900F51543 /* onboarding_avatar.png in Resources */,
 				8FFB035119FEA2440036228C /* oc_settings_active.png in Resources */,
 				8F5C38CA19818BA900F51543 /* gauge1_high.png in Resources */,
-				D1EEDB9B1A660F2B0012EFD3 /* ui_progress.png in Resources */,
 				8F5E7FE6199C081F009067E5 /* vital_pulse_icon.png in Resources */,
 				D1A713A81ACF2028008DF01A /* map_circleicon@2x.png in Resources */,
 				8F02A12219AE2BF6002FF73E /* btn_back_white@2x.png in Resources */,
 				8FF940A0198A8CCD00D319D7 /* BirthdateView.xib in Resources */,
 				D1E2236E1A7FFE60006330E7 /* ConnectDeviceRow.xib in Resources */,
 				8F02A12519AE2BF6002FF73E /* btn_share_white.png in Resources */,
-				D1EEDB951A660F2B0012EFD3 /* challenge_image.png in Resources */,
+				D10E52491B5048CA0007EF10 /* challenge_image.png in Resources */,
 				8FDA6DA819A4039D00244D5F /* TermsView.xib in Resources */,
 				8F5E7FBD199965C0009067E5 /* PinCodeView.xib in Resources */,
-				8FDCE1D119880919006428C3 /* pulse_overlay.png in Resources */,
 				D17787251A96873500C78F8B /* iphone.png in Resources */,
 				D17787261A96873500C78F8B /* pulse_article.png in Resources */,
+				D16FD5E91ADDADC200AF9BA5 /* back_button_white.png in Resources */,
 				8F0B29A5198AC20300B0DD29 /* map_mapviewicon.png in Resources */,
 				8FEF6F3E1A6EB437001EF8A6 /* PointsMeterView.xib in Resources */,
-				8FFF43C019B798380056F412 /* bp_overlay@2x.png in Resources */,
-				8FC7B70719E5E60D00D0112F /* bodystats1-568h@2x.png in Resources */,
 				D149E9451A78221200FBAA15 /* ChallengeDetailsPrizes.xib in Resources */,
 				8F2CB5821992563E009377A8 /* WebView.xib in Resources */,
 				8F5C38CB19818BA900F51543 /* gauge1_low.png in Resources */,
+				D1036CFC1B153477003E7239 /* stepsicon.png in Resources */,
 				8F5E7FD7199BCD52009067E5 /* graph_sincelastarrow_down_invert.png in Resources */,
+				D10D84491AEFF9D200DA3278 /* MetricDetailCardView.xib in Resources */,
 				8F08AFB319895214002EE906 /* higilogo_ocmenu.png in Resources */,
-				8F02A13619AE2CBB002FF73E /* dashboard3@2x.png in Resources */,
 				8FFB034F19FEA2440036228C /* oc_findastation_active.png in Resources */,
 				8F1D979C1995554C003B5645 /* ModifyImageView.xib in Resources */,
-				8FC7B71319E5E67000D0112F /* dashboard3-568h@2x.png in Resources */,
+				D10E524B1B5048CA0007EF10 /* ui_leaderboards.png in Resources */,
+				D17528801B0F9669006335B4 /* dailysummary_afternoon.png in Resources */,
 				D12780AE1A4A2701002EB56A /* fontawesome-webfont.ttf in Resources */,
 				8FE0BCD0199175C800940D39 /* PulseCellView.xib in Resources */,
-				8FDCE1C41988063E006428C3 /* InfoOverlay.xib in Resources */,
 				8F2B7E4D198C3058009DE89A /* oc_bodystats.png in Resources */,
 				8F5E7FE5199C081F009067E5 /* vital_map_icon.png in Resources */,
-				8FDCE1D219880919006428C3 /* weight_overlay.png in Resources */,
-				8FFF43C119B798380056F412 /* map_overlay@2x.png in Resources */,
+				D1618F931ABB2E26000BDA85 /* MetricCardView.xib in Resources */,
+				D1036D021B153477003E7239 /* cyclingicon.png in Resources */,
 				2BBDBA571A12AC2C005A6815 /* CompetitiveChallengeView.xib in Resources */,
-				8F807A761976C9D600EEE019 /* LandscapeGraph.xib in Resources */,
 				8FA5925D19ABBCEC00622266 /* TourView.xib in Resources */,
 				D17787221A96873500C78F8B /* activechallenges.png in Resources */,
-				8FDCE1D019880919006428C3 /* map_overlay.png in Resources */,
 				8F5E7FC11999674C009067E5 /* KioskListCellView.xib in Resources */,
-				8F02A14419AE2CF4002FF73E /* bodystats2@2x.png in Resources */,
 				8F2B7E4E198C3058009DE89A /* oc_dashboard.png in Resources */,
 				8F58D98A19C0FE5800C0EC72 /* welcome_01_logo.png in Resources */,
-				D1EEDB981A660F2B0012EFD3 /* ui_chatter.png in Resources */,
 				D1EEDBA31A66E4B10012EFD3 /* ChallengeLeaderboardRow.xib in Resources */,
 				8FFB034D19FEA2440036228C /* oc_challenges.png in Resources */,
+				D1036D011B153477003E7239 /* pulseicon.png in Resources */,
 				D1A9C6FE1A951D0D0008084B /* chatterbutton_normal.png in Resources */,
-				8FF851C3194F7DE2005C33C6 /* Config-qa.plist in Resources */,
 				8F5C38D119818BA900F51543 /* gauge3_obese.png in Resources */,
 				8F02A11F19AE2BF6002FF73E /* btn_back_black.png in Resources */,
 				D18395C11A69BC9E00D290BF /* ChallengeDetailsTab.xib in Resources */,
-				8F5C38D519818BDB00F51543 /* graph_orientation.png in Resources */,
 				8FE056DF198FDBDC00C81208 /* PulseHomeView.xib in Resources */,
-				8F81DB571A1BDD670054EB2E /* ActivityCellHeaderView.xib in Resources */,
+				D17334411B594FCD0089BBFD /* weight_copy@2x.png in Resources */,
 				8F02A12319AE2BF6002FF73E /* btn_share_black.png in Resources */,
+				32E39E471B756D4200BA50F9 /* Info_prod.plist in Resources */,
 				8FD73CC31990303000BACCB2 /* GoogleMaps.bundle in Resources */,
 				8FDA6DA119A2978B00244D5F /* ChangePasswordView.xib in Resources */,
 				8F5C38F11982F20000F51543 /* CheckinTableViewCell.xib in Resources */,
 				8F5E7FE4199C081F009067E5 /* vital_bp_icon.png in Resources */,
 				8F5C38D319818BA900F51543 /* gauge3_underweight.png in Resources */,
-				8FDCE1CE19880919006428C3 /* bmi_overlay.png in Resources */,
-				8F807A781976C9ED00EEE019 /* PortraitGraph.xib in Resources */,
-				8FC7B70919E5E60D00D0112F /* bodystats3-568h@2x.png in Resources */,
 				8F5E7FD8199BCD52009067E5 /* graph_sincelastarrow_nochange_invert.png in Resources */,
 				8F2B7E4F198C3058009DE89A /* oc_findastation.png in Resources */,
 				D149E9491A7845A200FBAA15 /* ChallengeDetailsChatterRow.xib in Resources */,
-				8F5C38E21981901600F51543 /* weight.png in Resources */,
 				8FD73CC11990291300BACCB2 /* nodata_map.png in Resources */,
 				8FCD2D7B19E874FD00AC5A82 /* noResults.png in Resources */,
 				8F5C38ED1982EE6D00F51543 /* higicard_icon@2x.png in Resources */,
-				8FC7B71019E5E67000D0112F /* dashboard_background-568h@2x.png in Resources */,
-				8F5C38DF1981901600F51543 /* bodymassindex.png in Resources */,
-				8F02A14219AE2CF4002FF73E /* bodystats1@2x.png in Resources */,
-				8F5C38FE198689E200F51543 /* CheckinCell.xib in Resources */,
 				8F5F91811A701A0E0042D87C /* btn_action_black.png in Resources */,
-				8F5C38E11981901600F51543 /* pulse.png in Resources */,
 				8F5E7FDC199BD089009067E5 /* gen_checkin.png in Resources */,
 				8FF9409319899AEA00D319D7 /* createreminder.png in Resources */,
+				D1EDF3FF1B5ECCCC00BF5B91 /* activities.png in Resources */,
+				32E39E481B756D4200BA50F9 /* Info_qa.plist in Resources */,
+				D17334451B594FCD0089BBFD /* activities_copy@2x.png in Resources */,
 				2BBDBA541A12AC2C005A6815 /* ChallengesView.xib in Resources */,
-				8F02A13F19AE2CF4002FF73E /* bodystats_background.png in Resources */,
 				8F5C38E91981B2B300F51543 /* createreminder_inverted.png in Resources */,
-				8F02A12F19AE2CBB002FF73E /* dashboard_background.png in Resources */,
-				8F5F91841A7068920042D87C /* ui_kiosk.png in Resources */,
 				8F5C38CF19818BA900F51543 /* gauge2_normal.png in Resources */,
-				8F524BFA195C6DD400BFC49D /* graph_timespan_bg.png in Resources */,
-				8FA5925919A7E5CE00622266 /* nodata_bodystats.png in Resources */,
 				8F5F918C1A7193FC0042D87C /* activitypageblankstate.png in Resources */,
-				8F02A14619AE2CF4002FF73E /* bodystats3@2x.png in Resources */,
-				8F89C25A1A01B0D500A3AD09 /* ActivityCellView.xib in Resources */,
+				D10E52431B5048560007EF10 /* ui_details.png in Resources */,
 				8F6ACCC0199D687D00D5E157 /* mapicon_higicard.png in Resources */,
+				D17334441B594FCD0089BBFD /* bodyfat_copy@2x.png in Resources */,
 				8F2CB58B19942E96009377A8 /* noservicemessage.png in Resources */,
-				8FFF43C319B798380056F412 /* weight_overlay@2x.png in Resources */,
+				D175287E1B0F9669006335B4 /* dailysummary_night.png in Resources */,
 				D164D3761A7C19A600300F35 /* chat_bubble_green.png in Resources */,
-				8FC7B70819E5E60D00D0112F /* bodystats2-568h@2x.png in Resources */,
+				D17528821B0FB651006335B4 /* DailySummaryRowView.xib in Resources */,
 				2BBDBA591A12AC2C005A6815 /* GoalChallengeView.xib in Resources */,
 				8FF873F219DF528E002A6341 /* PullRefreshView.xib in Resources */,
+				D1036D001B153477003E7239 /* bloodpressureicon.png in Resources */,
 				8FA5925B19AB921C00622266 /* create_overlay.png in Resources */,
-				8FC7B71119E5E67000D0112F /* dashboard1-568h@2x.png in Resources */,
 				8F5E7FE3199C081F009067E5 /* vital_bmi_icon.png in Resources */,
-				8F5E7FCC199BC976009067E5 /* BpCheckinCellView.xib in Resources */,
-				D17787241A96873500C78F8B /* higistation.png in Resources */,
-				8F6266C3197F12E900145EDB /* graph_info.png in Resources */,
+				D17528861B0FC852006335B4 /* DailySummaryBreakdownView.xib in Resources */,
+				D17787241A96873500C78F8B /* higistation@2x.png in Resources */,
 				8FF9518B1A01AC69005FD632 /* banner_nologo.png in Resources */,
 				8F2B7E51198C3058009DE89A /* oc_settings.png in Resources */,
 				8FD73CBD1990280C00BACCB2 /* map_listviewicon.png in Resources */,
-				8F6266B1197EC95900145EDB /* BodyStatsPort.xib in Resources */,
 				8FFB034C19FEA2440036228C /* oc_challenges_active.png in Resources */,
-				D17787271A96873500C78F8B /* todayspoints.png in Resources */,
-				8FFB035919FEAF2C0036228C /* ActivityView.xib in Resources */,
 				D1E1FF081A76C2DB00C8951C /* ChallengeProgressLegendRow.xib in Resources */,
-				D10BA0251A9540D200DB22A3 /* ActivityLegendView.xib in Resources */,
 				8FC88AD41AE6DA2B002ED9FB /* activitywidgetblankstatenodevices.png in Resources */,
 				8FE056E5198FDC5F00C81208 /* SettingsView.xib in Resources */,
+				D17334431B594FCD0089BBFD /* map_copy@2x.png in Resources */,
 				8F5C38CD19818BA900F51543 /* gauge2_atrisk.png in Resources */,
-				8F6266AF197EC8E200145EDB /* BodyStatsLand.xib in Resources */,
-				8F5E7FCE199BC986009067E5 /* CheckinCellView.xib in Resources */,
 				D17C0A8D1A9FC5520010971C /* unpluggederrorstate.png in Resources */,
-				D1EEDB9A1A660F2B0012EFD3 /* ui_leaderboards.png in Resources */,
-				8FC7B71219E5E67000D0112F /* dashboard2-568h@2x.png in Resources */,
 				8F3643A719460EB300C0033E /* Images.xcassets in Resources */,
 				D1A713A91ACF2028008DF01A /* map_iconwithdot@2x.png in Resources */,
 				D1BA13471A8D056900E1AFE9 /* ChatterInputView.xib in Resources */,
 				D1E223781A8009CE006330E7 /* ConnectDeviceView.xib in Resources */,
-				8FFF43C219B798380056F412 /* pulse_overlay@2x.png in Resources */,
+				D17334401B594FCD0089BBFD /* bloodpressure_copy@2x.png in Resources */,
 				8F211EFA1A1E85AE00A256C0 /* oc_dropdownmenu_up.png in Resources */,
-				8F02A13219AE2CBB002FF73E /* dashboard1@2x.png in Resources */,
+				D1036D041B153477003E7239 /* runicon.png in Resources */,
 				D1FC09951A83DE960049B5C0 /* team_icon.png in Resources */,
 				8F5F91881A7193E80042D87C /* activitywidgetblankstate.png in Resources */,
-				8F5C38DE1981901600F51543 /* bloodpressure.png in Resources */,
+				D1FD3FC81B263BBA007D362D /* MetricsView.xib in Resources */,
 				8F1D979E199556F3003B5645 /* mask.png in Resources */,
 				8F5E7FDA199BCD52009067E5 /* overlay_close.png in Resources */,
 				8FFB034919FEA2440036228C /* oc_activity_active.png in Resources */,
@@ -1787,8 +1737,10 @@
 				8F211EF91A1E85AE00A256C0 /* oc_dropdownmenu_down.png in Resources */,
 				8F2B7E57198C34D0009DE89A /* RevealView.xib in Resources */,
 				D1AAA79F1A9E7E0F00A41B3D /* challengesblankstate.png in Resources */,
+				D1036CFD1B153477003E7239 /* glucoseicon.png in Resources */,
 				2BBDBA531A12AC2C005A6815 /* ChallengeRowCell.xib in Resources */,
 				8F5F91821A701A0E0042D87C /* btn_action_black@2x.png in Resources */,
+				D10E52451B5048760007EF10 /* ui_progress.png in Resources */,
 				8FF9409C198A8C9200D319D7 /* SignupEmailView.xib in Resources */,
 				8F2B7E46198C2E28009DE89A /* DrawerView.xib in Resources */,
 				8F2B7E5C198C49A9009DE89A /* nav_ocmicon_inverted.png in Resources */,
@@ -1832,7 +1784,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1842,114 +1794,115 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F6266B3197ECAA700145EDB /* BodyStatsLandView.swift in Sources */,
-				8F6A2443195A07620094B73C /* PulseGraphDelegate.swift in Sources */,
+				8F3643A219460EB300C0033E /* MetricsViewController.swift in Sources */,
 				8FF940951989A19B00D319D7 /* BaseViewController.swift in Sources */,
 				8F1D979A1995553B003B5645 /* ModifyImageViewController.swift in Sources */,
 				8FDB4B681A09731B00F57B38 /* ActivityDevice.swift in Sources */,
-				8F3643A219460EB300C0033E /* BodyStatsViewController.swift in Sources */,
 				8F296316194B9BF700E787FD /* SessionController.swift in Sources */,
 				D19DDA531A5EF599004F97A3 /* NewCPTAxisLabel.m in Sources */,
 				D1E2237A1A8009E6006330E7 /* ConnectDeviceViewController.swift in Sources */,
 				8F9C69DB1950C8B700449664 /* PulseArticle.swift in Sources */,
 				8FF2E06E194A5E9500A81D8C /* NewCPTPlotRange.m in Sources */,
-				8F6A2449195A07880094B73C /* BmiGraphDelegate.swift in Sources */,
-				8F5E7FD2199BC99C009067E5 /* BpCheckinCell.swift in Sources */,
-				8F5C38BF19813F9F00F51543 /* GraphDelegate.swift in Sources */,
 				D15372911A841FEA00954569 /* TermsAndConditionsViewController.swift in Sources */,
+				D1FC72971B20B0DC0068CF89 /* PulseMetricDelegate.swift in Sources */,
 				8F77DF1A1A0080550056BE27 /* GraphPoint.swift in Sources */,
+				D1FC72931B20116F0068CF89 /* WeightMetricCard.swift in Sources */,
 				8FF94098198A8C0A00D319D7 /* BirthdateViewController.swift in Sources */,
 				8F58D98E19C22AB600C0EC72 /* GTMNSString+HTML.m in Sources */,
 				8F2CB58019925631009377A8 /* WebViewController.swift in Sources */,
 				D12B370E1AA4EC57005B2ABA /* SphericalMercatorProjection.m in Sources */,
 				8FF9409A198A8C1800D319D7 /* ProfileImageViewController.swift in Sources */,
-				8F5E7FC5199BC6CB009067E5 /* CheckinCard.swift in Sources */,
+				D1FC729F1B223FE80068CF89 /* MetricGauge.swift in Sources */,
 				8FE056E3198FDC3900C81208 /* SettingsViewController.swift in Sources */,
+				D13D36531B30D78E00F18A42 /* ActivityCategory.swift in Sources */,
+				D17528841B0FBD49006335B4 /* DailySummaryRow.swift in Sources */,
 				8F6A24361958DDFB0094B73C /* NewCPTMutablePlotRange.m in Sources */,
 				8FEF6F401A6EB638001EF8A6 /* PointsMeter.swift in Sources */,
 				8F9C69D71950C89B00449664 /* HigiUser.swift in Sources */,
+				D1E2A6F51AB75EBB00796700 /* MetricGraph.swift in Sources */,
 				D1EEDBA51A66FA570012EFD3 /* ChallengeLeaderboardRow.swift in Sources */,
 				D17010CA1A644414002CBFE8 /* ChallengeDetailsViewController.swift in Sources */,
 				8F9C69D51950C88900449664 /* HigiCheckin.swift in Sources */,
 				D12B39981AA4ED08005B2ABA /* GQuadItem.m in Sources */,
-				8FEF6F421A6EECBE001EF8A6 /* BodyStatsCard.swift in Sources */,
 				8F5E7FBF199965CF009067E5 /* PinCodeViewController.swift in Sources */,
 				8F9C69D31950C84400449664 /* HigiLogin.swift in Sources */,
 				8F5C38F71983094F00F51543 /* NSString+HTML.m in Sources */,
 				8FDA6DA619A4038F00244D5F /* TermsViewController.swift in Sources */,
+				D110BAD41B0E7C5500CD1E58 /* DailySummaryViewController.swift in Sources */,
 				D1B6D6981A8D09FD0006F80C /* ChatterInputViewController.swift in Sources */,
 				D149E9471A7822D900FBAA15 /* ChallengeDetailsPrize.swift in Sources */,
-				D10BA0271A9541FF00DB22A3 /* ActivityLegend.swift in Sources */,
+				D158BB081B59B4E000FA9CAF /* SelectedPoint.swift in Sources */,
 				8FE056E9198FDCA600C81208 /* FindStationViewController.swift in Sources */,
 				2BBDBA561A12AC2C005A6815 /* CompetitiveChallengeView.swift in Sources */,
+				D17528881B0FD332006335B4 /* DailySummaryBreakdown.swift in Sources */,
 				8F6A24311951E5D80094B73C /* ApiUtility.swift in Sources */,
 				8F2B7E55198C3475009DE89A /* RevealViewController.swift in Sources */,
-				8F6266B5197ECC6A00145EDB /* BodyStatsPortView.swift in Sources */,
+				D1FC729D1B20FD9F0068CF89 /* MetricGraphUtility.swift in Sources */,
 				8FEF6F481A6EECDE001EF8A6 /* PulseCard.swift in Sources */,
 				8F5E7FC31999676E009067E5 /* KioskListCell.swift in Sources */,
 				8FCE580D1979B8BA0042CEE2 /* NewCPTScatterPlotDelegate.m in Sources */,
-				8F89C2581A01B0B700A3AD09 /* ActivityCell.swift in Sources */,
 				8F7065B41A16B129002FCA10 /* ChallengeParticipant.swift in Sources */,
 				D12B39991AA4ED08005B2ABA /* GStaticCluster.m in Sources */,
-				8FFB035519FEAED10036228C /* ActivityViewController.swift in Sources */,
 				2BBDBA581A12AC2C005A6815 /* GoalChallengeView.swift in Sources */,
 				8F9C69D91950C8AD00449664 /* KioskInfo.swift in Sources */,
 				D1DC365E1AC9E9F000CB124D /* CustomLoadingSpinner.swift in Sources */,
-				8FC130C71A26464400591C58 /* ActivityGraphHostingView.swift in Sources */,
 				8FDB4B661A096ECF00F57B38 /* HigiActivity.swift in Sources */,
-				8F6A2441195A05200094B73C /* BpGraphHostingView.swift in Sources */,
+				D1FC72951B209CA40068CF89 /* MetricDelegate.swift in Sources */,
 				8FDA6DA319A2979800244D5F /* ChangePasswordViewController.swift in Sources */,
+				D1FC729B1B20B22B0068CF89 /* BpMetricDelegate.swift in Sources */,
 				D12B398B1AA4ECC6005B2ABA /* GQTPointQuadTree.m in Sources */,
 				8FE0BCCE199175BC00940D39 /* PulseCell.swift in Sources */,
+				D114B06B1B2A19900073A9CB /* TriangleView.swift in Sources */,
+				D1FC72991B20B1B70068CF89 /* WeightMetricDelegate.swift in Sources */,
 				8FEF1B051AA9173D0036C4FB /* ChallengeView.swift in Sources */,
-				8F5E7FD0199BC992009067E5 /* CheckinCell.swift in Sources */,
-				8F6A2447195A07740094B73C /* WeightGraphDelegate.swift in Sources */,
 				8F3643A019460EB300C0033E /* AppDelegate.swift in Sources */,
 				8F7065B81A16B46A002FCA10 /* ChallengeTeam.swift in Sources */,
 				8F6D510E1947B2E700F7C769 /* Utility.swift in Sources */,
+				D130183E1B14D2C9008DDFAD /* ChallengeUtility.swift in Sources */,
 				8F296309194B8DE700E787FD /* SplashViewController.swift in Sources */,
-				D19DDA551A5F1705004F97A3 /* (null) in Sources */,
-				8FEF6F441A6EECC9001EF8A6 /* ActivityCard.swift in Sources */,
 				8F6A243C1958EA730094B73C /* NewCPTScatterPlot.m in Sources */,
 				2BC5865E1A16D0AF005A7983 /* ChallengeInvitationView.swift in Sources */,
 				D12B399A1AA4ED08005B2ABA /* NonHierarchicalDistanceBasedAlgorithm.m in Sources */,
 				D18395C31A69CAD500D290BF /* ChallengesDetailsTab.swift in Sources */,
 				2BBDBA551A12AC2C005A6815 /* ChallengesViewController.swift in Sources */,
 				8FA5925F19ABBD3A00622266 /* TourViewController.swift in Sources */,
-				8FF294101979D28F00C4FC1A /* GraphView.swift in Sources */,
 				8FF873F419DF5394002A6341 /* PullRefresh.swift in Sources */,
 				8FEF6F461A6EECD5001EF8A6 /* ChallengesCard.swift in Sources */,
 				8F6266B7197EE42700145EDB /* MainNavigationController.swift in Sources */,
 				8FE056E1198FDBFE00C81208 /* PulseHomeViewController.swift in Sources */,
-				8FDCE1C81988082B006428C3 /* InfoOverlayView.swift in Sources */,
 				8F2B7E53198C3097009DE89A /* DrawerCell.swift in Sources */,
 				2BBDBA521A12AC2C005A6815 /* ChallengeRowCell.swift in Sources */,
 				8FDB4B641A096E1C00F57B38 /* HigiChallenge.swift in Sources */,
 				8F29630D194B8F4600E787FD /* WelcomeViewController.swift in Sources */,
+				D1C906B11B0A4C5D00220C12 /* NavigationObject.swift in Sources */,
 				8FDB4B6A1A09741400F57B38 /* ChallengeWinCondition.swift in Sources */,
 				8F2B7E41198C2C27009DE89A /* SWRevealViewController.m in Sources */,
+				D1E2DB821AE176760074CBAF /* MetricCard.swift in Sources */,
 				8F2CB5891993E68C009377A8 /* SessionData.swift in Sources */,
 				D1E223701A7FFF43006330E7 /* ConnectDeviceRow.swift in Sources */,
 				D1E1FF061A76C28F00C8951C /* ChallengeProgressLegendRow.swift in Sources */,
 				8F29630F194B8F5D00E787FD /* SignupEmailViewController.swift in Sources */,
 				8F524BF8195B829400BFC49D /* CustomFormatter.swift in Sources */,
-				8F6A243F195A01350094B73C /* BaseCustomGraphHostingView.swift in Sources */,
+				D1EFDC531B45D48400A340DD /* TriangleMarker.swift in Sources */,
 				8F5C38EF1982EFDF00F51543 /* CheckinTableViewCell.swift in Sources */,
 				8F296313194B912F00E787FD /* LoginViewController.swift in Sources */,
-				8F6266CF19800A5400145EDB /* BpGraphDelegate.swift in Sources */,
 				D149E94B1A78471A00FBAA15 /* ChallengeDetailsChatterRow.swift in Sources */,
 				8FEF6F3C1A6EAACE001EF8A6 /* DashboardViewController.swift in Sources */,
-				8F5C39021986918700F51543 /* BodyStatCheckinCell.swift in Sources */,
 				8FCD2D8019EC286900AC5A82 /* UIImage+Orientation.m in Sources */,
 				D12B398C1AA4ECC6005B2ABA /* GQTPointQuadTreeChild.m in Sources */,
+				D1020A291B3B130C001F2D81 /* BreakdownTitleRow.swift in Sources */,
+				D1CFC9831AB360AF00AC54BB /* MetricGraphCard.swift in Sources */,
 				D10D89501A8C11A9000402D4 /* ChallengeDetailsParticipantIcon.swift in Sources */,
+				D10D844B1AEFFA7A00DA3278 /* MetricDetailCard.swift in Sources */,
 				D12B37061AA4DF02005B2ABA /* ClusterKiosk.m in Sources */,
-				8F6A2445195A076B0094B73C /* MapGraphDelegate.swift in Sources */,
+				D1EE80F41B3BBAAD00B13CB8 /* SummaryViewUtility.swift in Sources */,
 				D12B37131AA4EC70005B2ABA /* GClusterManager.m in Sources */,
 				8F2B7E43198C2DA0009DE89A /* DrawerViewController.swift in Sources */,
 				8F524BF6195B5ABB00BFC49D /* ConversionUtility.m in Sources */,
+				D1740BC41AE0381F00462F6E /* MetricsType.swift in Sources */,
 				D1247BC91AA620F1008A601A /* HigiClusterRenderer.m in Sources */,
-				8F087A901A1BDFC7008E0446 /* ActivityCellHeader.swift in Sources */,
+				D1D32D071B1FA0B500AE9B25 /* ActivityMetricDelegate.swift in Sources */,
+				D13018401B14D943008DDFAD /* Constants.swift in Sources */,
 				8F296311194B911C00E787FD /* SignupNameViewController.swift in Sources */,
 				8FF851C6194F7F2E005C33C6 /* HigiApi.swift in Sources */,
 			);
@@ -1985,6 +1938,185 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		32E39E491B756D6900BA50F9 /* Debug QA */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				METAL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = "Debug QA";
+		};
+		32E39E4A1B756D6900BA50F9 /* Debug QA */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CA81E88E614AB0586948CB5B /* Pods.debug qa.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				BUILD_NUMBER = 23;
+				CODE_SIGN_ENTITLEMENTS = higi/higi.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: higi llc (5D5W9WNYL2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: higi llc (5D5W9WNYL2)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				GCC_VERSION = "";
+				HEADER_SEARCH_PATHS = (
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+				);
+				INFOPLIST_FILE = higi/Info_qa.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Flurry",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = higi/BridgingHeader.h;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = "Debug QA";
+		};
+		32E39E4B1B756D6900BA50F9 /* Debug QA */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/higi.app/higi";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = higiTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				METAL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+			};
+			name = "Debug QA";
+		};
+		32E39E4C1B756D6F00BA50F9 /* Release QA */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				METAL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Release QA";
+		};
+		32E39E4D1B756D6F00BA50F9 /* Release QA */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CEFCE3FD10CF65C7794E0141 /* Pods.release qa.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				BUILD_NUMBER = 23;
+				CODE_SIGN_ENTITLEMENTS = higi/higi.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: higi llc (5D5W9WNYL2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: higi llc (5D5W9WNYL2)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				GCC_VERSION = "";
+				HEADER_SEARCH_PATHS = (
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+				);
+				INFOPLIST_FILE = higi/Info_qa.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Flurry",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = higi/BridgingHeader.h;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = "Release QA";
+		};
+		32E39E4E1B756D6F00BA50F9 /* Release QA */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/higi.app/higi";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = higiTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				METAL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+			};
+			name = "Release QA";
+		};
 		8F3643B419460EB300C0033E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2064,30 +2196,28 @@
 		};
 		8F3643B719460EB300C0033E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 500FF7A379474030959012D0 /* Pods.xcconfig */;
+			baseConfigurationReference = 050DEC7CD1A48655D167F1FB /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				BUILD_NUMBER = 23;
 				CODE_SIGN_ENTITLEMENTS = higi/higi.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CUSTOM_SUFFIX = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: higi llc (5D5W9WNYL2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: higi llc (5D5W9WNYL2)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = (
-					"\"${PODS_ROOT}/Headers\"",
-					"\"${PODS_ROOT}/Headers/AFNetworking\"",
-					"\"$(PROJECT_DIR)/CorePlot/CorePlotHeaders\"",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
 				);
-				INFOPLIST_FILE = higi/Info.plist;
+				INFOPLIST_FILE = higi/Info_prod.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/CorePlot",
 					"$(PROJECT_DIR)/Flurry",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2099,30 +2229,28 @@
 		};
 		8F3643B819460EB300C0033E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 500FF7A379474030959012D0 /* Pods.xcconfig */;
+			baseConfigurationReference = 686C1AF8577725DC02942F86 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				BUILD_NUMBER = 23;
 				CODE_SIGN_ENTITLEMENTS = higi/higi.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CUSTOM_SUFFIX = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: higi llc (5D5W9WNYL2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: higi llc (5D5W9WNYL2)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = (
-					"\"${PODS_ROOT}/Headers\"",
-					"\"${PODS_ROOT}/Headers/AFNetworking\"",
-					"\"$(PROJECT_DIR)/CorePlot/CorePlotHeaders\"",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
 				);
-				INFOPLIST_FILE = higi/Info.plist;
+				INFOPLIST_FILE = higi/Info_prod.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/CorePlot",
 					"$(PROJECT_DIR)/Flurry",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2175,7 +2303,9 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8F3643B419460EB300C0033E /* Debug */,
+				32E39E491B756D6900BA50F9 /* Debug QA */,
 				8F3643B519460EB300C0033E /* Release */,
+				32E39E4C1B756D6F00BA50F9 /* Release QA */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -2184,7 +2314,9 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8F3643B719460EB300C0033E /* Debug */,
+				32E39E4A1B756D6900BA50F9 /* Debug QA */,
 				8F3643B819460EB300C0033E /* Release */,
+				32E39E4D1B756D6F00BA50F9 /* Release QA */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -2193,7 +2325,9 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8F3643BA19460EB300C0033E /* Debug */,
+				32E39E4B1B756D6900BA50F9 /* Debug QA */,
 				8F3643BB19460EB300C0033E /* Release */,
+				32E39E4E1B756D6F00BA50F9 /* Release QA */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

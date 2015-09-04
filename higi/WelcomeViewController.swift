@@ -17,14 +17,15 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var welcomeSubTitle: UILabel!
     @IBOutlet weak var welcomeView: UIView!
     @IBOutlet weak var stationView: UIImageView!
+    
     var dashboardView:UIView!;
-    var activityView:UIImageView!;
-    var challengeView:UIImageView!;
-    var bodyStatsView:UIImageView!;
-    var pulseView:UIImageView!;
+    
+    var challengeView:UIImageView!, activityView:UIImageView!, MetricsView:UIImageView!, pulseView:UIImageView!;
     
     var didAnimate = false;
+    
     let animDuration = 0.25;
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
@@ -55,15 +56,8 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         var yPos:CGFloat = 2;
         let imageMargin:CGFloat = 10;
         let imageWidth = dashboardView.frame.size.width;
+        var imageHeight: CGFloat!;
         
-        let activityCard = UIImage(named: "todayspoints");
-        var imageHeight = scaledHeightFromWidth(activityCard!, viewWidth: imageWidth);
-        activityView = UIImageView(frame: CGRect(x: 0, y: yPos, width: imageWidth, height: imageHeight));
-        activityView.contentMode = UIViewContentMode.ScaleAspectFit;
-        activityView.image = activityCard;
-        dashboardView.addSubview(activityView);
-        yPos += imageHeight + imageMargin;
-
         let challengeCard = UIImage(named: "activechallenges");
         imageHeight = scaledHeightFromWidth(challengeCard!, viewWidth: imageWidth);
         challengeView = UIImageView(frame: CGRect(x: 0, y: yPos, width: imageWidth, height: imageHeight));
@@ -72,12 +66,20 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         dashboardView.addSubview(challengeView);
         yPos += imageHeight + imageMargin;
         
-        let bodyStatsCard = UIImage(named: "bodystats");
-        imageHeight = scaledHeightFromWidth(bodyStatsCard!, viewWidth: imageWidth);
-        bodyStatsView = UIImageView(frame: CGRect(x: 0, y: yPos, width: imageWidth, height: imageHeight));
-        bodyStatsView.contentMode = UIViewContentMode.ScaleAspectFit;
-        bodyStatsView.image = bodyStatsCard;
-        dashboardView.addSubview(bodyStatsView);
+        let activityCard = UIImage(named: "activities");
+        imageHeight = scaledHeightFromWidth(activityCard!, viewWidth: imageWidth);
+        activityView = UIImageView(frame: CGRect(x: 0, y: yPos, width: imageWidth, height: imageHeight));
+        activityView.contentMode = UIViewContentMode.ScaleAspectFit;
+        activityView.image = activityCard;
+        dashboardView.addSubview(activityView);
+        yPos += imageHeight;
+
+        let metricsCard = UIImage(named: "metrics");
+        imageHeight = scaledHeightFromWidth(metricsCard!, viewWidth: imageWidth);
+        MetricsView = UIImageView(frame: CGRect(x: 0, y: yPos, width: imageWidth, height: imageHeight));
+        MetricsView.contentMode = UIViewContentMode.ScaleAspectFit;
+        MetricsView.image = metricsCard;
+        dashboardView.addSubview(MetricsView);
         yPos += imageHeight + imageMargin;
         
         let pulseCard = UIImage(named: "pulse_article");
@@ -98,7 +100,6 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         rightScrollViewSwipeRecognizer.direction = UISwipeGestureRecognizerDirection.Right;
         self.view.addGestureRecognizer(leftScrollViewSwipeRecognizer);
         self.view.addGestureRecognizer(rightScrollViewSwipeRecognizer);
-        
     }
     
     func scaledHeightFromWidth(image: UIImage, viewWidth: CGFloat) -> CGFloat {
@@ -141,18 +142,11 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         frame.origin.x = frame.size.width * CGFloat(page);
         frame.origin.y = 0;
         
-        var phoneAlpha:CGFloat = 1.0;
-        var stationAlpha:CGFloat = 0;
-        var dashboardAlpha:CGFloat = 0;
-        var welcomeAlpha:CGFloat = 0;
+        var phoneAlpha:CGFloat = 1.0, stationAlpha:CGFloat = 0, dashboardAlpha:CGFloat = 0, welcomeAlpha:CGFloat = 0;
         
-        var activityAlpha:CGFloat = 0.3;
-        var challengesAlpha:CGFloat = 0.3;
-        var bodyStatsAlpha:CGFloat = 0.3;
-        let pulseAlpha:CGFloat = 0.3;
+        var challengesAlpha:CGFloat = 0.3, activityAlpha:CGFloat = 0.3, metricsAlpha:CGFloat = 0.3, pulseAlpha:CGFloat = 0.3;
         
-        var title = "";
-        var subTitle = "";
+        var title = "", subTitle = "";
         
         switch page {
             case 0:
@@ -165,32 +159,31 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
             case 1:
                 //station
                 stationAlpha = 1;
-                activityAlpha = 1;
                 dashboardAlpha = 0;
                 phoneAlpha = 0;
                 title = "Get Started";
                 subTitle = "Visit a higi Station at your local pharmacy or connect a fitness tracker here in the app";
             case 2:
-                //activity
-                dashboardAlpha = 1;
-                activityAlpha = 1;
-                title = "Earn Points";
-                subTitle = "Rack up the points with each check of your vitals and for your steps and workouts";
-                phoneScrollView.setContentOffset(CGPoint(x: 0,y: 0), animated: true);
-            case 3:
                 //challenges
                 dashboardAlpha = 1;
                 challengesAlpha = 1;
                 title = "Friendly Competition";
                 subTitle = "Compete in challenges with other higi members for prizes and bragging rights";
                 phoneScrollView.setContentOffset(CGPoint(x: 0, y: challengeView.frame.origin.y - 20), animated: true);
+            case 3:
+                //activity
+                dashboardAlpha = 1;
+                activityAlpha = 1;
+                title = "Earn Points";
+                subTitle = "Rack up the points with each check of your vitals and for your steps and workouts";
+                phoneScrollView.setContentOffset(CGPoint(x: 0,y: activityView.frame.origin.y - 20), animated: true);
             case 4:
                 //body stats
                 dashboardAlpha = 1;
-                bodyStatsAlpha = 1;
+                metricsAlpha = 1;
                 title = "Follow Your Progress";
                 subTitle = "Easily track trends and changes in your body stats you receive from a higi Station";
-                phoneScrollView.setContentOffset(CGPoint(x: 0, y: bodyStatsView.frame.origin.y - 20), animated: true);
+                phoneScrollView.setContentOffset(CGPoint(x: 0, y: MetricsView.frame.origin.y - 20), animated: true);
             default:
                 let i = 0;
         }
@@ -215,9 +208,9 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
                 UIView.animateWithDuration(self.animDuration, delay: 0.0, options: .CurveEaseInOut, animations: {
                     self.pageTitle.alpha = 1.0;
                     self.pageSubTitle.alpha = 1.0;
-                    self.activityView.alpha = activityAlpha;
                     self.challengeView.alpha = challengesAlpha;
-                    self.bodyStatsView.alpha = bodyStatsAlpha;
+                    self.activityView.alpha = activityAlpha;
+                    self.MetricsView.alpha = metricsAlpha;
                     self.pulseView.alpha = pulseAlpha;
                     if (welcomeAlpha == 1.0) {
                         self.welcomeView.alpha = welcomeAlpha;

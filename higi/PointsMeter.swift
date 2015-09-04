@@ -13,77 +13,175 @@ class PointsMeter: UIView {
     @IBOutlet weak var meterContainer: UIView!
     @IBOutlet weak var points: UILabel!
     
-    var activities: [HigiActivity] = [];
+    private var activities: [HigiActivity] = [];
+
+    private var combinedActivities: [(type: String, total: Int)] = [];
     
-    func drawArc() {
-        var total = 0;
-        var center = CGPoint(x: 50.0, y: 50.0);
-        var radius: CGFloat = 44.0;
-        var lastEnd = 0.0;
-        if (self.meterContainer.layer.sublayers != nil) {
-            for sublayer in meterContainer.layer.sublayers {
-                sublayer.removeFromSuperlayer();
+    private let animationDuration = 1.0;
+    
+    private var lineWidth, radius:CGFloat!;
+    
+    private var total = 0;
+    
+    private var targetFrame: CGRect?;
+    
+    private var activitiesByType:[String: (Int, [HigiActivity])] = [:];
+    
+    private var activityTypes: [String] = [];
+    
+    private var lightArc = false, thickArc = false;
+    
+    private var subLayers: [CAShapeLayer] = [];
+    
+    class func create() -> PointsMeter {
+        return UINib(nibName: "PointsMeterView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! PointsMeter;
+    }
+    
+    class func create(frame: CGRect) -> PointsMeter {
+        let meter = UINib(nibName: "PointsMeterView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! PointsMeter;
+        meter.frame = frame;
+        meter.targetFrame = frame;
+        if (frame.size.width < 50) {
+            meter.points.font = UIFont.systemFontOfSize(12);
+        }
+        return meter;
+    }
+    
+    class func create(frame: CGRect, thickArc: Bool) -> PointsMeter {
+        let meter = create(frame);
+        meter.thickArc = thickArc;
+        return meter;
+    }
+    
+    func setActivities(dailyActivity: (Int, [HigiActivity])) {
+        (total, activities) = dailyActivity;
+        lineWidth = self.frame.size.width * 0.06;
+        if thickArc {
+            lineWidth = lineWidth * 1.5;
+        }
+        radius = self.frame.size.width / 2 * 0.9 - (lineWidth / 2);
+        var toPath = UIBezierPath();
+        var arc = CAShapeLayer();
+        arc.lineWidth = lineWidth;
+        arc.fillColor = UIColor.clearColor().CGColor;
+        if lightArc {
+            arc.strokeColor = UIColor.whiteColor().CGColor;
+        } else {
+            arc.strokeColor = Utility.colorFromHexString("#EEEEEE").CGColor;
+        }
+        var center = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2);
+        toPath.addArcWithCenter(center, radius: radius, startAngle: CGFloat(0), endAngle: CGFloat(2 * M_PI), clockwise: true);
+        toPath.closePath();
+        arc.path = toPath.CGPath;
+        self.meterContainer.layer.addSublayer(arc);
+        self.points.text = "\(total)";
+        activitiesByType.removeAll(keepCapacity: false);
+        activityTypes.removeAll(keepCapacity: false);
+        for activity in activities {
+            let type = activity.type.getString();
+            if let (totalPoints, activityList) = activitiesByType[type] {
+                var previousActivities = activityList;
+                previousActivities.append(activity);
+                var points = totalPoints;
+                if (activity.points > 0 && activity.errorDescription == nil) {
+                    points += activity.points!;
+                }
+                activitiesByType[type] = (points, previousActivities);
+            } else {
+                var points = 0;
+                if (activity.points > 0 && activity.errorDescription == nil) {
+                    points += activity.points!;
+                }
+                activitiesByType[type] = (points, [activity]);
+                activityTypes.append(type);
             }
         }
-        if (activities.count > 0) {
-            
-            // Need to know total to calculate percentage. (I know, I hate the double loop too)
-            for activity in activities {
-                total += activity.points;
+    }
+    
+    func drawArc(animated: Bool) {
+        if subLayers.count > 0 {
+            for subLayer in subLayers {
+                subLayer.removeFromSuperlayer();
             }
-            
-            for activity in activities {
-                var toPath = UIBezierPath();
+            subLayers.removeAll(keepCapacity: false);
+        }
+        var center = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2);
+        var lastEnd = 0.0;
+        if (activitiesByType.count > 0) {
+            total = max(total, 100);
+            var firstActivity = true;
+            var toPath = UIBezierPath();
+            for type in activityTypes {
+                let (points, activity) = activitiesByType[type]!;
                 var arc = CAShapeLayer();
-                arc.lineWidth = 12;
+                arc.lineWidth = lineWidth;
                 arc.fillColor = UIColor.clearColor().CGColor;
-                arc.strokeColor = Utility.colorFromHexString(activity.device.colorCode).CGColor;
-                
-                var increment = Double(activity.points) / Double(total);
-                var startingPoint = CGPoint(x: center.x + radius * CGFloat(cos(lastEnd * 2 * M_PI)), y: center.y + radius * CGFloat(sin(lastEnd * 2 * M_PI)));
-                toPath.moveToPoint(startingPoint);
-                var startAngle = lastEnd * 2 * M_PI;
-                toPath.addArcWithCenter(center, radius: radius, startAngle: CGFloat(startAngle), endAngle: CGFloat(startAngle + 2 * M_PI), clockwise: true);
-                toPath.closePath();
-                
+                arc.strokeColor = ActivityCategory.categoryFromString(type).getColor().CGColor;
+
+                var increment = Double(points) / Double(total);
+                if (firstActivity) {
+                    var startAngle = M_PI / 2;
+                    toPath.addArcWithCenter(center, radius: radius, startAngle: CGFloat(startAngle), endAngle: CGFloat(startAngle + 2 * M_PI), clockwise: true);
+                    toPath.closePath();
+                }
                 arc.path = toPath.CGPath;
                 self.meterContainer.layer.addSublayer(arc);
-                
-                CATransaction.begin();
-                CATransaction.setDisableActions(true);
-                arc.strokeStart = CGFloat(0);
-                arc.strokeEnd = CGFloat(0);
-                CATransaction.setDisableActions(false);
-                CATransaction.commit();
-                dispatch_async(dispatch_get_main_queue(), {
+                subLayers.append(arc);
+                if (animated) {
                     CATransaction.begin();
-                    CATransaction.setAnimationDuration(1.0);
-                    arc.strokeEnd = CGFloat(increment + 0.01);
+                    CATransaction.setDisableActions(true);
+                    arc.strokeStart = CGFloat(0);
+                    arc.strokeEnd = CGFloat(0);
+                    CATransaction.setDisableActions(false);
                     CATransaction.commit();
-                });
+                    var start = lastEnd;
+                    if (firstActivity) {
+                        dispatch_async(dispatch_get_main_queue(), {
+                            CATransaction.begin();
+                            CATransaction.setAnimationDuration(self.animationDuration);
+                            arc.strokeEnd = CGFloat(increment + 0.01);
+                            CATransaction.commit();
+                        });
+                    } else {
+                        dispatch_async(dispatch_get_main_queue(), {
+                            CATransaction.begin();
+                            CATransaction.setAnimationDuration(self.animationDuration);
+                            arc.strokeStart = CGFloat(start);
+                            arc.strokeEnd = CGFloat(start + increment + 0.01);
+                            CATransaction.commit();
+                        });
+                    }
+                } else {
+                    var start = lastEnd;
+                    arc.strokeStart = CGFloat(start);
+                    arc.strokeEnd = CGFloat(start + increment + 0.01);
+                }
                 lastEnd += increment;
+                firstActivity = false;
             }
-        } else {
-            var arc = CAShapeLayer();
-            arc.lineWidth = 12;
-            arc.fillColor = UIColor.whiteColor().CGColor;
-            arc.strokeColor = Utility.colorFromHexString("#DDDDDD").CGColor;
-            var toPath = UIBezierPath();
-            var startingPoint = CGPoint(x: center.x, y: center.y + radius);
-            toPath.moveToPoint(startingPoint);
-            toPath.addArcWithCenter(center, radius: radius, startAngle: CGFloat(M_PI_2), endAngle: CGFloat(5 * M_PI_2), clockwise: true);
-            toPath.closePath();
-            
-            arc.path = toPath.CGPath;
-            self.meterContainer.layer.addSublayer(arc);
-            CATransaction.begin();
-            CATransaction.setDisableActions(true);
-            arc.strokeStart = 0.0;
-            arc.strokeEnd = 1.0;
-            CATransaction.setDisableActions(false);
-            CATransaction.commit();
         }
-        
-        self.points.text = "\(total)";
+    }
+    
+    func setDarkText() {
+        self.points.textColor = Utility.colorFromHexString("#444444");
+    }
+    
+    func setLightText() {
+        self.points.textColor = Utility.colorFromHexString("#FFFFFF");
+    }
+    
+    func setLightArc() {
+        lightArc = true;
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews();
+        if (targetFrame != nil) {
+            points.frame.size.width = targetFrame!.size.width;
+            points.center = CGPoint(x: targetFrame!.size.width / 2 , y: targetFrame!.size.height / 2);
+            meterContainer.frame = targetFrame!;
+            meterContainer.center = CGPoint(x: targetFrame!.size.width / 2 , y: targetFrame!.size.height / 2);
+            layoutIfNeeded();
+        }
     }
 }

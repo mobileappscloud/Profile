@@ -16,8 +16,8 @@
     if (self = [super init]) {
         _map = googleMap;
         _markerCache = [[NSMutableArray alloc] init];
-        unselectedIcon = [self scaleImage:[UIImage imageNamed:@"map_circleicon"] size:CGRectMake(0, 0, 50, 50)];
-        selectedIcon = [self scaleImage:[UIImage imageNamed:@"map_iconwithdot"] size:CGRectMake(0, 0, 50, 50)];
+        unselectedIcon = [self scaleImage:[UIImage imageNamed:@"map_circleicon"] size:CGSizeMake(50, 50)];
+        selectedIcon = [self scaleImage:[UIImage imageNamed:@"map_iconwithdot"] size:CGSizeMake(50, 50)];
     }
     return self;
 }
@@ -68,7 +68,7 @@
     
     // set stroking color and draw circle
     [[UIColor colorWithRed:1 green:1 blue:1 alpha:0.8] setStroke];
-    [[UIColor colorWithRed:0.463 green:0.753 blue:0.267 alpha:1] setFill];  /* #76c044 */
+    [[UIColor colorWithRed:0.463 green:0.753 blue:0.267 alpha:1] setFill];  /* #76c043 */
     
     CGContextSetLineWidth(ctx, inset);
     
@@ -126,15 +126,13 @@
     return image;
 }
 
-- (UIImage*) scaleImage:(UIImage*)image size:(CGRect)size {
-    CGRect rect = size;
-    UIGraphicsBeginImageContext(rect.size);
-    [image drawInRect:rect];
-    UIImage *tempImage = UIGraphicsGetImageFromCurrentImageContext();
+- (UIImage*) scaleImage:(UIImage*)image size:(CGSize)size {
+    UIGraphicsBeginImageContextWithOptions(size, false, image.scale);
+    [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-    NSData *imageData = UIImagePNGRepresentation(tempImage);
-    return [UIImage imageWithData:imageData];
+    return newImage;
 }
 
 @end

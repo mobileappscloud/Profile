@@ -24,6 +24,8 @@ class PulseHomeViewController: BaseViewController, UITableViewDataSource, UITabl
     
     var pullRefreshView: PullRefresh!;
     
+    var prevArticles:[PulseArticle] = [];
+    
     override func viewDidLoad()  {
         super.viewDidLoad();
         self.title = "Pulse";
@@ -34,11 +36,11 @@ class PulseHomeViewController: BaseViewController, UITableViewDataSource, UITabl
         fillTopContainer();
         
         createPullToRefresh();
-        
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
+        (self.navigationController as! MainNavigationController).drawerController?.selectRowAtIndex(4);
         updateNavBar();
     }
     
@@ -111,10 +113,12 @@ class PulseHomeViewController: BaseViewController, UITableViewDataSource, UITabl
                 toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon"), forState: UIControlState.Normal);
                 toggleButton!.alpha = 1 - alpha;
                 self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
+                self.pointsMeter.setLightText();
             } else {
                 toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon_inverted"), forState: UIControlState.Normal);
                 toggleButton!.alpha = alpha;
                 self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
+                self.pointsMeter.setDarkText();
             }
         } else {
             self.fakeNavBar.alpha = 0;
@@ -138,6 +142,9 @@ class PulseHomeViewController: BaseViewController, UITableViewDataSource, UITabl
     
     func addMoreArticles() {
         ApiUtility.grabNextPulseArticles({
+            if SessionController.Instance.pulseArticles.count < self.prevArticles.count {
+                SessionController.Instance.pulseArticles = self.prevArticles;
+            }
             self.tableView.reloadData();
             self.loadingArticles = false;
             if (self.refreshControl.refreshing) {
@@ -247,6 +254,7 @@ class PulseHomeViewController: BaseViewController, UITableViewDataSource, UITabl
             });
         });
         
+        prevArticles = SessionController.Instance.pulseArticles;
         SessionController.Instance.pulseArticles = [];
         addMoreArticles();
     }

@@ -3,31 +3,38 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     @IBOutlet var pager: UIPageControl!
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var headerImage: UIImageView!
-    
     @IBOutlet weak var blankState: UIImageView!
-    var activeTable: UITableView?;
-    var upcomingTable: UITableView?;
-    var availableTable: UITableView?;
-    var invitedTable: UITableView?;
+    
+    var activeTable, upcomingTable: UITableView?, availableTable: UITableView?, invitedTable: UITableView?;
     
     var pageTitles:[String] = [];
+    
     var pageDisplayMaster = [false, false, false, false];
     
-    var activeChallenges:[HigiChallenge]!;
-    var upcomingChallenges:[HigiChallenge]!;
-    var availableChallenges:[HigiChallenge]!;
-    var invitedChallenges:[HigiChallenge]!;
+    var activeChallenges, upcomingChallenges, availableChallenges, invitedChallenges:[HigiChallenge]!;
     
-    var currentPage = 0;
-    var totalPages = 0;
+    var currentPage = 0, totalPages = 0;
+    
     let headerHeight: CGFloat = 83;
+    
+    var screenWidth: CGFloat!;
+    
     var currentTable: UITableView!;
-    var challenge: HigiChallenge?;
+    
+    var clickedChallenge: HigiChallenge?;
+    
+    override func viewDidLoad() {
+        super.viewDidLoad();
+        self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
+    }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
-        self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
-        pager = UIPageControl(frame: CGRect(x: UIScreen.mainScreen().bounds.width / 2 - 50 / 2 , y: self.navigationController!.navigationBar.frame.size.height - 10, width: 50, height: 10));
+        (self.navigationController as! MainNavigationController).drawerController?.selectRowAtIndex(1);
+        //fix for changing orientation bug when coming back from landscape screen
+        screenWidth = min(UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height);
+        scrollView.frame.size.width = screenWidth;
+        pager = UIPageControl(frame: CGRect(x: screenWidth / 2 - 50 / 2 , y: self.navigationController!.navigationBar.frame.size.height - 10, width: 50, height: 10));
         pager.currentPage = currentPage;
         initChallengeCards();
     }
@@ -51,7 +58,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         totalPages = 0;
         
         var challenges = SessionController.Instance.challenges;
-        let challengeName = challenge != nil ? challenge!.name : "";
+        let challengeName = clickedChallenge != nil ? clickedChallenge!.name : "";
         var challengeIndex = -1;
         
         if (challenges != nil && challenges.count > 0) {
@@ -114,10 +121,10 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
                     totalPages++;
                 }
             }
-            if (challenge != nil) {
+            if (clickedChallenge != nil) {
                 pager.currentPage = actualTableIndex(challengeIndex);
                 changePage(pager);
-                challenge = nil;
+                clickedChallenge = nil;
             }
             if (pageTitles.count > 0) {
                 title = pageTitles[currentPage];
@@ -130,6 +137,9 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         }
         pager.numberOfPages = totalPages;
         self.navigationController?.navigationBar.addSubview(pager);
+        if totalPages <= 1 {
+            pager.hidden = true;
+        }
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -150,10 +160,12 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
                 if (alpha < 0.5) {
                     toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon"), forState: UIControlState.Normal);
                     toggleButton!.alpha = 1 - alpha;
+                    pointsMeter.setLightText();
                     self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
                 } else {
                     toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon_inverted"), forState: UIControlState.Normal);
                     toggleButton!.alpha = alpha;
+                    pointsMeter.setDarkText();
                     self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
                 }
             } else {
@@ -286,7 +298,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     
     func buildActiveCell(cell: ChallengeRowCell, challenge: HigiChallenge) {
         var nibOriginX:CGFloat = 0.0;
-        var nibs = Utility.getChallengeViews(challenge, frame: scrollView.frame, isComplex: false);
+        var nibs = ChallengeUtility.getChallengeViews(challenge, frame: scrollView.frame, isComplex: false);
         for nib in nibs {
             nib.frame.origin.x = nibOriginX;
             cell.scrollView.addSubview(nib);
@@ -327,7 +339,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         } else if (invitedTable != nil && table == invitedTable) {
             challenge = invitedChallenges[index];
         }
-        self.challenge = challenge;
+        clickedChallenge = challenge;
         var challengeDetailViewController = ChallengeDetailsViewController(nibName: "ChallengeDetailsView", bundle: nil);
         challengeDetailViewController.challenge = challenge;
         self.navigationController!.pushViewController(challengeDetailViewController, animated: true);

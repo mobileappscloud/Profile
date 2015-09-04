@@ -81,7 +81,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     func signInSuccess(operation: AFHTTPRequestOperation!, responseObject: AnyObject?) {
-        spinner.stopAnimating();
         let responseLogin = responseObject as? NSDictionary;
         if (responseLogin != nil) {
             var login = HigiLogin(dictionary: responseObject as! NSDictionary);
@@ -115,6 +114,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     func reset() {
         self.navigationItem.hidesBackButton = true;
+        spinner.stopAnimating();
         spinner.hidden = true;
         loginButton.enabled = true;
         email.enabled = true;
@@ -124,7 +124,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     func gotoDashboard() {
-        if (SessionController.Instance.checkins != nil && SessionController.Instance.activities != nil && SessionController.Instance.challenges != nil && SessionController.Instance.kioskList != nil && SessionController.Instance.pulseArticles.count > 0) {
+        if (SessionController.Instance.checkins != nil && SessionController.Instance.challenges != nil && SessionController.Instance.kioskList != nil && SessionController.Instance.pulseArticles.count > 0) {
+            spinner.stopAnimating();
             Utility.gotoDashboard(self);
         }
     }

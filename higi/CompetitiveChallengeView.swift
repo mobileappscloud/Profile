@@ -2,7 +2,6 @@ import Foundation
 
 class CompetitiveChallengeView: ChallengeView, UIScrollViewDelegate {
     
-    
     @IBOutlet weak var row1: UIView!
     @IBOutlet weak var row2: UIView!
     @IBOutlet weak var row3: UIView!
@@ -16,7 +15,7 @@ class CompetitiveChallengeView: ChallengeView, UIScrollViewDelegate {
         let isTeamChallenge = winConditions[0].winnerType == "team";
         
         if (isTeamChallenge) {
-            let gravityTuple = Utility.getTeamGravityBoard(challenge);
+            let gravityTuple = ChallengeUtility.getTeamGravityBoard(challenge);
             let teamGravityBoard = gravityTuple.0;
             let teamRanks = gravityTuple.1;
             
@@ -25,8 +24,8 @@ class CompetitiveChallengeView: ChallengeView, UIScrollViewDelegate {
                 let name = teamGravityBoard[index].name;
                 let row = ChallengeLeaderboardRow.instanceFromNib(frame, challenge: challenge, team: teamGravityBoard[index], index: index);
                 if (name == challenge.participant.team.name) {
-                    row.name.textColor = Utility.colorFromHexString("#76C044");
-                    row.place.textColor = Utility.colorFromHexString("#76C044");
+                    row.name.textColor = Utility.colorFromHexString(Constants.higiGreen);
+                    row.place.textColor = Utility.colorFromHexString(Constants.higiGreen);
                 }
                 
                 rows[index].frame.size.width = frame.size.width;
@@ -51,8 +50,8 @@ class CompetitiveChallengeView: ChallengeView, UIScrollViewDelegate {
                 let place = individualGravityBoard[index].place!;
                 let row = ChallengeLeaderboardRow.instanceFromNib(frame, challenge: challenge, participant: individualGravityBoard[index].participant, place: place as String);
                 if (name == challenge.participant.displayName) {
-                    row.name.textColor = Utility.colorFromHexString("#76C044");
-                    row.place.textColor = Utility.colorFromHexString("#76C044");
+                    row.name.textColor = Utility.colorFromHexString(Constants.higiGreen);
+                    row.place.textColor = Utility.colorFromHexString(Constants.higiGreen);
                 }
                 
                 rows[index].frame.size.width = frame.size.width;

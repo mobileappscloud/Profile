@@ -13,7 +13,7 @@ class ChallengeLeaderboardRow: UITableViewCell {
         row.avatar.setImageWithURL(Utility.loadImageFromUrl(participant.imageUrl as String));
         row.name.text = participant.displayName as String;
         row.points.text = "\(Int(participant.units)) \(challenge.abbrMetric)";
-        row.place.text = Utility.getRankSuffix(place);
+        row.place.text = ChallengeUtility.getRankSuffix(place);
         setProgressBar(row.progress, points: Int(participant.units), highScore: Int(highScore));
         return row;
     }
@@ -25,18 +25,18 @@ class ChallengeLeaderboardRow: UITableViewCell {
         row.name.text = team.name as String;
         let units = Int(team.units);
         row.points.text = "\(units) \(challenge.abbrMetric)";
-        row.place.text = Utility.getRankSuffix(String(index + 1));
+        row.place.text = ChallengeUtility.getRankSuffix(String(index + 1));
         setProgressBar(row.progress, points: Int(team.units), highScore: Int(highScore));
         return row;
     }
     
     class func setProgressBar(view: UIView, points: Int, highScore: Int) {
         let width = view.frame.size.width;
-        let proportion = min(CGFloat(points)/CGFloat(highScore), 1);
+        let proportion = highScore != 0 ? min(CGFloat(points)/CGFloat(highScore), 1) : CGFloat(0);
         let newWidth = proportion * width;
         let barHeight:CGFloat = 4;
         let bar = UIView(frame: CGRect(x: 0, y: view.frame.origin.y - barHeight / 2, width: newWidth, height: barHeight));
-        bar.backgroundColor = Utility.colorFromHexString("#76C043");
+        bar.backgroundColor = Utility.colorFromHexString(Constants.higiGreen);
         bar.layer.cornerRadius = barHeight / 2;
         view.addSubview(bar);
     }
