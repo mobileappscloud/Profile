@@ -248,7 +248,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
             if ((self.currentVisibleKioskTask.operations[0] as! NSOperation).cancelled) {
                 return;
             }
-            self.visibleKiosks.sort { self.calcDistance($0.position!) < self.calcDistance($1.position!) };
+            self.visibleKiosks.sort { self.calcDistance($0.location!) < self.calcDistance($1.location!) };
             if ((self.currentVisibleKioskTask.operations[0] as! NSOperation).cancelled) {
                 return;
             }
@@ -286,10 +286,9 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         listOpen = !listOpen;
     }
     
-    func calcDistance(position: CLLocationCoordinate2D) -> Double {
+    func calcDistance(location: CLLocation) -> Double {
         if (mapView.myLocation != nil) {
-            var kioskPos = CLLocation(latitude: position.latitude, longitude: position.longitude);
-            return kioskPos.distanceFromLocation(mapView.myLocation) * 0.000621371;
+            return location.distanceFromLocation(mapView.myLocation) * 0.000621371;
         } else {
             return -1;
         }
@@ -327,7 +326,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
                 if ((self.currentAutoCompleteTask.operations[0] as! NSOperation).cancelled && size != count(self.searchField.text)) {
                     return;
                 }
-                self.autoCompleteResults.sort { self.calcDistance($0.position!) < self.calcDistance($1.position!) };
+                self.autoCompleteResults.sort { self.calcDistance($0.location!) < self.calcDistance($1.location!) };
                 if ((self.currentAutoCompleteTask.operations[0] as! NSOperation).cancelled && size != count(self.searchField.text)) {
                     return;
                 }
@@ -397,7 +396,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         cell.logo.image = nil;
         cell.logo.setImageWithURL(getKioskLogoUrl(kiosk));
         
-        var distance = calcDistance(kiosk.position!);
+        var distance = calcDistance(kiosk.location!);
         if (distance >= 0) {
             var formattedDistance = distance >= 10 ? "\(Int(distance))" : String(format: "%.1f", distance);
             cell.distance.text = "\(formattedDistance) mi";
@@ -538,7 +537,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
             saturdayHours.text = "Not available";
             sundayHours.text = "Not available";
         }
-        var distance = calcDistance(kiosk.position!);
+        var distance = calcDistance(kiosk.location!);
         if (distance >= 0) {
             var formattedDistance = distance >= 10 ? "\(Int(distance))" : String(format: "%.1f", distance);
             selectedDistance.text = "\(formattedDistance) mi";

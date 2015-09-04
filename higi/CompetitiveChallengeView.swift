@@ -14,6 +14,7 @@ class CompetitiveChallengeView: ChallengeView, UIScrollViewDelegate {
         var rows = [competitiveView.row1, competitiveView.row2, competitiveView.row3];
         let isTeamChallenge = winConditions[0].winnerType == "team";
         
+        var rowCount = 0;
         if (isTeamChallenge) {
             let gravityTuple = ChallengeUtility.getTeamGravityBoard(challenge);
             let teamGravityBoard = gravityTuple.0;
@@ -27,7 +28,6 @@ class CompetitiveChallengeView: ChallengeView, UIScrollViewDelegate {
                     row.name.textColor = Utility.colorFromHexString(Constants.higiGreen);
                     row.place.textColor = Utility.colorFromHexString(Constants.higiGreen);
                 }
-                
                 rows[index].frame.size.width = frame.size.width;
                 rows[index].addSubview(row);
                 
@@ -40,6 +40,7 @@ class CompetitiveChallengeView: ChallengeView, UIScrollViewDelegate {
                 rows[index].addConstraint(xConstraint);
                 rows[index].addConstraint(yConstraint);
                 row.addConstraint(widthConstraint);
+                rowCount++;
             }
         } else {
             let individualGravityBoard = challenge.gravityBoard;
@@ -66,8 +67,19 @@ class CompetitiveChallengeView: ChallengeView, UIScrollViewDelegate {
                 rows[index].addConstraint(xConstraint);
                 rows[index].addConstraint(yConstraint);
                 row.addConstraint(widthConstraint);
-
+                rowCount++;
             }
+        }
+        let margin:CGFloat = 8;
+        switch rowCount {
+        case 1:
+            competitiveView.frame.size.height = competitiveView.row1.frame.origin.y + competitiveView.row1.frame.size.height + margin;
+        case 2:
+            competitiveView.frame.size.height = competitiveView.row2.frame.origin.y + competitiveView.row2.frame.size.height + margin;
+        case 3:
+            competitiveView.frame.size.height = competitiveView.row3.frame.origin.y + competitiveView.row3.frame.size.height + margin;
+        default:
+            let i = 0;
         }
         competitiveView.autoresizingMask = UIViewAutoresizing.FlexibleWidth;
         competitiveView.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize);
