@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Fabric
+import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,6 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var locationDelegate: LocationDelegate!;
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+
+        Fabric.with([Crashlytics.self()])
+
         // Override point for customization after application launch.
         GMSServices.provideAPIKey("AIzaSyB1iNeT8pxcPd4rcwQ-Titp2hA5bLHh3-k");
         Flurry.startSession("2GSDDCY6499XJ8B5GTYZ");
