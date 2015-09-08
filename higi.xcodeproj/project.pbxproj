@@ -249,6 +249,7 @@
 		D15372931A84201600954569 /* TermsAndConditionsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D15372921A84201600954569 /* TermsAndConditionsView.xib */; };
 		D158BB081B59B4E000FA9CAF /* SelectedPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D158BB071B59B4E000FA9CAF /* SelectedPoint.swift */; };
 		D1618F931ABB2E26000BDA85 /* MetricCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1618F921ABB2E26000BDA85 /* MetricCardView.xib */; };
+		D16432BF1B9F96B100082C8F /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = D16432BE1B9F96B100082C8F /* camera.png */; };
 		D164D3761A7C19A600300F35 /* chat_bubble_green.png in Resources */ = {isa = PBXBuildFile; fileRef = D164D3751A7C19A600300F35 /* chat_bubble_green.png */; };
 		D16FD5E91ADDADC200AF9BA5 /* back_button_white.png in Resources */ = {isa = PBXBuildFile; fileRef = D16FD5E81ADDADC200AF9BA5 /* back_button_white.png */; };
 		D17010C91A644414002CBFE8 /* ChallengeDetailsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D17010C71A644414002CBFE8 /* ChallengeDetailsView.xib */; };
@@ -606,6 +607,7 @@
 		D15372921A84201600954569 /* TermsAndConditionsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TermsAndConditionsView.xib; sourceTree = "<group>"; };
 		D158BB071B59B4E000FA9CAF /* SelectedPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedPoint.swift; sourceTree = "<group>"; };
 		D1618F921ABB2E26000BDA85 /* MetricCardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MetricCardView.xib; sourceTree = "<group>"; };
+		D16432BE1B9F96B100082C8F /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = camera.png; path = images/camera.png; sourceTree = "<group>"; };
 		D164D3751A7C19A600300F35 /* chat_bubble_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chat_bubble_green.png; path = images/chat_bubble_green.png; sourceTree = "<group>"; };
 		D16FD5E81ADDADC200AF9BA5 /* back_button_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = back_button_white.png; path = images/back_button_white.png; sourceTree = "<group>"; };
 		D17010C71A644414002CBFE8 /* ChallengeDetailsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailsView.xib; sourceTree = "<group>"; };
@@ -894,6 +896,7 @@
 				D17334391B594FAF0089BBFD /* Metrics */,
 				8F2B7E47198C3023009DE89A /* Navigation */,
 				8F2CB58419928C75009377A8 /* Onboarding */,
+				D16432BD1B9F96A100082C8F /* QR Scanner */,
 				8F6266CC197F130A00145EDB /* Welcome */,
 			);
 			name = Assets;
@@ -1418,6 +1421,14 @@
 			name = Projection;
 			sourceTree = "<group>";
 		};
+		D16432BD1B9F96A100082C8F /* QR Scanner */ = {
+			isa = PBXGroup;
+			children = (
+				D16432BE1B9F96B100082C8F /* camera.png */,
+			);
+			name = "QR Scanner";
+			sourceTree = "<group>";
+		};
 		D17334391B594FAF0089BBFD /* Metrics */ = {
 			isa = PBXGroup;
 			children = (
@@ -1652,6 +1663,7 @@
 				D10E52491B5048CA0007EF10 /* challenge_image.png in Resources */,
 				8FDA6DA819A4039D00244D5F /* TermsView.xib in Resources */,
 				8F5E7FBD199965C0009067E5 /* PinCodeView.xib in Resources */,
+				D16432BF1B9F96B100082C8F /* camera.png in Resources */,
 				D17787251A96873500C78F8B /* iphone.png in Resources */,
 				D17787261A96873500C78F8B /* pulse_article.png in Resources */,
 				D16FD5E91ADDADC200AF9BA5 /* back_button_white.png in Resources */,
