@@ -17,13 +17,16 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     
     let navBarHeight:CGFloat = 64;
     
+    var invalidQrAlert:UIAlertView!;
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
         self.title = "Scan QR Code";
         
         initBackButton();
-        initHelpButton();
+        infoView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "infoClicked:"));
+        invalidQrAlert = UIAlertView(title: "Uh oh", message: "There was a problem with the QR code you scanned.  The scanner will only work for QR codes on the higi kiosk.", delegate: nil, cancelButtonTitle: "OK");
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -44,10 +47,6 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         var backBarItem = UIBarButtonItem(customView: backButton);
         self.navigationItem.leftBarButtonItem = backBarItem;
         self.navigationItem.hidesBackButton = true;
-    }
-    
-    func initHelpButton() {
-        infoView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "infoClicked:"));
     }
     
     func checkPermissionsAndInitScanner() {
@@ -105,10 +104,9 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     }
 
     func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
-        if metadataObjects != nil || metadataObjects.count > 0 {
+        if metadataObjects != nil && metadataObjects.count > 0 {
             let output = metadataObjects[0] as! AVMetadataMachineReadableCodeObject;
             if output.type == AVMetadataObjectTypeQRCode {
-                let qrCode = videoPreviewLayer?.transformedMetadataObjectForMetadataObject(output as AVMetadataMachineReadableCodeObject) as! AVMetadataMachineReadableCodeObject;
                 if let code = output.stringValue {
                     if performQrAction(code) {
                         showNotification("Uploading checkin data to higi servers...");
@@ -128,7 +126,9 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
             requestMobileLoginCode(code);
             return false;
         default:
-            UIAlertView(title: "Uh oh", message: "The QR code you scanned is not supported.  The scanner will only work for QR codes on the higi kiosk.", delegate: self, cancelButtonTitle: "OK").show();
+            if !invalidQrAlert.visible {
+                invalidQrAlert.show();
+            }
         }
         return false;
     }
