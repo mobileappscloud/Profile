@@ -77,7 +77,7 @@ class CompetitiveChallengeView: ChallengeView, UIScrollViewDelegate {
         case 2:
             competitiveView.frame.size.height = competitiveView.row2.frame.origin.y + competitiveView.row2.frame.size.height + margin;
         case 3:
-            competitiveView.frame.size.height = competitiveView.row3.frame.origin.y + competitiveView.row3.frame.size.height + margin;
+            competitiveView.frame.size.height = competitiveView.row3.frame.origin.y + competitiveView.row3.frame.size.height + margin * 2;
         default:
             let i = 0;
         }
