@@ -76,7 +76,7 @@ class DrawerViewController: UIViewController, UITableViewDelegate, UITableViewDa
             Flurry.logEvent("SettingsOffCanvas_Pressed");
             self.navController?.pushViewController(SettingsViewController(nibName: "SettingsView", bundle: nil), animated: false);
         }));
-        navigationObjects.append(NavigationObject(title: "Scanner", icon: "oc_settings.png", activeIcon: "oc_settings_active.png", callback: {
+        navigationObjects.append(NavigationObject(title: "Scanner", icon: "oc_qr.png", activeIcon: "oc_qr.png", callback: {
             (index: NSIndexPath) in
             Flurry.logEvent("QrCodeOffCanvas_Pressed");
             self.navController?.pushViewController(QrScannerViewController(nibName: "QrScannerView", bundle: nil), animated: false);

@@ -282,6 +282,8 @@
 		D1A9C6FE1A951D0D0008084B /* chatterbutton_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = D1A9C6FC1A951D0D0008084B /* chatterbutton_normal.png */; };
 		D1A9C6FF1A951D0D0008084B /* chatterbutton_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = D1A9C6FD1A951D0D0008084B /* chatterbutton_pressed.png */; };
 		D1AAA79F1A9E7E0F00A41B3D /* challengesblankstate.png in Resources */ = {isa = PBXBuildFile; fileRef = D1AAA79E1A9E7E0F00A41B3D /* challengesblankstate.png */; };
+		D1ADD2D31BA0C14B0001E8C4 /* whatsthis.png in Resources */ = {isa = PBXBuildFile; fileRef = D1ADD2D21BA0C14B0001E8C4 /* whatsthis.png */; };
+		D1ADD2D71BA0DA4E0001E8C4 /* oc_qr.png in Resources */ = {isa = PBXBuildFile; fileRef = D1ADD2D61BA0DA4E0001E8C4 /* oc_qr.png */; };
 		D1B6D6981A8D09FD0006F80C /* ChatterInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B6D6971A8D09FD0006F80C /* ChatterInputViewController.swift */; };
 		D1BA13451A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1BA13441A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib */; };
 		D1BA13471A8D056900E1AFE9 /* ChatterInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1BA13461A8D056900E1AFE9 /* ChatterInputView.xib */; };
@@ -641,6 +643,8 @@
 		D1A9C6FC1A951D0D0008084B /* chatterbutton_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chatterbutton_normal.png; path = images/chatterbutton_normal.png; sourceTree = "<group>"; };
 		D1A9C6FD1A951D0D0008084B /* chatterbutton_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chatterbutton_pressed.png; path = images/chatterbutton_pressed.png; sourceTree = "<group>"; };
 		D1AAA79E1A9E7E0F00A41B3D /* challengesblankstate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = challengesblankstate.png; path = images/challengesblankstate.png; sourceTree = "<group>"; };
+		D1ADD2D21BA0C14B0001E8C4 /* whatsthis.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = whatsthis.png; path = images/whatsthis.png; sourceTree = "<group>"; };
+		D1ADD2D61BA0DA4E0001E8C4 /* oc_qr.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oc_qr.png; path = images/oc_qr.png; sourceTree = "<group>"; };
 		D1B6D6971A8D09FD0006F80C /* ChatterInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatterInputViewController.swift; sourceTree = "<group>"; };
 		D1BA13441A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailsParticipantIconView.xib; sourceTree = "<group>"; };
 		D1BA13461A8D056900E1AFE9 /* ChatterInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatterInputView.xib; sourceTree = "<group>"; };
@@ -1424,6 +1428,8 @@
 		D16432BD1B9F96A100082C8F /* QR Scanner */ = {
 			isa = PBXGroup;
 			children = (
+				D1ADD2D61BA0DA4E0001E8C4 /* oc_qr.png */,
+				D1ADD2D21BA0C14B0001E8C4 /* whatsthis.png */,
 				D16432BE1B9F96B100082C8F /* camera.png */,
 			);
 			name = "QR Scanner";
@@ -1726,6 +1732,7 @@
 				8F5F918C1A7193FC0042D87C /* activitypageblankstate.png in Resources */,
 				D10E52431B5048560007EF10 /* ui_details.png in Resources */,
 				8F6ACCC0199D687D00D5E157 /* mapicon_higicard.png in Resources */,
+				D1ADD2D71BA0DA4E0001E8C4 /* oc_qr.png in Resources */,
 				D17334441B594FCD0089BBFD /* bodyfat_copy@2x.png in Resources */,
 				8F2CB58B19942E96009377A8 /* noservicemessage.png in Resources */,
 				D175287E1B0F9669006335B4 /* dailysummary_night.png in Resources */,
@@ -1774,6 +1781,7 @@
 				8FF9409C198A8C9200D319D7 /* SignupEmailView.xib in Resources */,
 				8F2B7E46198C2E28009DE89A /* DrawerView.xib in Resources */,
 				8F2B7E5C198C49A9009DE89A /* nav_ocmicon_inverted.png in Resources */,
+				D1ADD2D31BA0C14B0001E8C4 /* whatsthis.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
