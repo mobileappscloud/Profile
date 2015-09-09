@@ -24,7 +24,7 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     override func viewDidLoad() {
         super.viewDidLoad();
         self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
-        self.title = "Scan QR Code";
+        self.title = "Scanner";
         
         initBackButton();
         infoView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "infoClicked:"));
@@ -123,10 +123,10 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         case "0":
             sendCheckinResults(code);
             return true;
-        case "1":
-            requestMobileLoginCode(code);
-            return false;
-        case "2", "3", "4", "5", "6", "7", "8", "9", ".", "-", ":", "$", " ", "*":
+//        case "1":
+//            requestMobileLoginCode(code);
+//            return false;
+        case "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "-", ":", "$", " ", "*":
             if !invalidQrAlert.visible {
                 invalidQrAlert.show();
             }
@@ -144,9 +144,10 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         var contents = NSMutableDictionary();
         contents["qrValue"] = code;
         
-        showNotification("Uploading checkin data to higi servers...");
-        
         dispatch_async(dispatch_get_global_queue(Int(QOS_CLASS_USER_INITIATED.value), 0)) {
+            dispatch_async(dispatch_get_main_queue(), {
+                UIAlertView(title: "On its way!", message: "Your checkin data is being uploaded to the higi servers", delegate: nil, cancelButtonTitle: "Got it").show();
+            });
             while !done {
                 HigiApi().sendPost("\(HigiApi.higiApiUrl)/data/user/\(userId)/qrCheckin", parameters: contents, success: {operation, responseObject in
                     self.clearNotification();

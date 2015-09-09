@@ -28,6 +28,9 @@
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="qr_cursor.png" translatesAutoresizingMaskIntoConstraints="NO" id="YlQ-8r-LwH">
+                            <rect key="frame" x="32" y="200" width="240" height="186"/>
+                        </imageView>
                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wXB-rN-Lgn">
                             <rect key="frame" x="82" y="500" width="140" height="44"/>
                             <subviews>
@@ -91,6 +94,7 @@
     </objects>
     <resources>
         <image name="camera.png" width="500" height="321"/>
+        <image name="qr_cursor.png" width="290" height="290"/>
         <image name="whatsthis.png" width="100" height="100"/>
     </resources>
 </document>
