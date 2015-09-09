@@ -19,6 +19,8 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     
     var invalidQrAlert:UIAlertView!;
     
+    var readingQrInput = false;
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
@@ -73,8 +75,7 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         var error:NSError?;
         let deviceInput: AnyObject! = AVCaptureDeviceInput.deviceInputWithDevice(device, error: &error);
         if error != nil {
-            var alertView:UIAlertView = UIAlertView(title: "Uh oh", message: "The scanner will not work with your device", delegate: self, cancelButtonTitle: "OK");
-            alertView.show();
+            UIAlertView(title: "Uh oh", message: "The scanner will not work with your device", delegate: self, cancelButtonTitle: "OK").show();
         } else {
             captureSession = AVCaptureSession();
             captureSession?.addInput(deviceInput as! AVCaptureInput);
@@ -104,12 +105,12 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     }
 
     func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
-        if metadataObjects != nil && metadataObjects.count > 0 {
+        if !readingQrInput && metadataObjects != nil && metadataObjects.count > 0 {
             let output = metadataObjects[0] as! AVMetadataMachineReadableCodeObject;
             if output.type == AVMetadataObjectTypeQRCode {
                 if let code = output.stringValue {
                     if performQrAction(code) {
-                        showNotification("Uploading checkin data to higi servers...");
+                        readingQrInput = true;
                         goBack(nil);
                     }
                 }
@@ -125,6 +126,10 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         case "1":
             requestMobileLoginCode(code);
             return false;
+        case "2", "3", "4", "5", "6", "7", "8", "9", ".", "-", ":", "$", " ", "*":
+            if !invalidQrAlert.visible {
+                invalidQrAlert.show();
+            }
         default:
             if !invalidQrAlert.visible {
                 invalidQrAlert.show();
@@ -138,6 +143,9 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         let userId = SessionData.Instance.user.userId;
         var contents = NSMutableDictionary();
         contents["qrValue"] = code;
+        
+        showNotification("Uploading checkin data to higi servers...");
+        
         dispatch_async(dispatch_get_global_queue(Int(QOS_CLASS_USER_INITIATED.value), 0)) {
             while !done {
                 HigiApi().sendPost("\(HigiApi.higiApiUrl)/data/user/\(userId)/qrCheckin", parameters: contents, success: {operation, responseObject in
@@ -146,9 +154,11 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
                     done = true;
                     
                     }, failure: {operation, error in
-                        let a = error.code;
-                        let b = operation.response.description
-                        let i = 0;
+                        if operation.response.statusCode == 400 {
+                            self.clearNotification();
+                            self.showNotification("There was a problem uploading your checkin data");
+                            done = true;
+                        }
                 });
                 if !done {
                     NSThread.sleepForTimeInterval(10);
@@ -167,6 +177,7 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
             notification.fireDate = NSDate();
             notification.alertBody = message;
             notification.applicationIconBadgeNumber = -1;
+            notification.userInfo = ["ID": 99];
             UIApplication.sharedApplication().scheduleLocalNotification(notification);
         });
     }
