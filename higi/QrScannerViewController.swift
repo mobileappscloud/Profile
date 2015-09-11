@@ -121,11 +121,9 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     func performQrAction(code:String) -> Bool {
         switch(Array(code)[0]) {
         case "0":
-            sendCheckinResults(code);
+            self.attemptCheckInResultUpload(code);
             return true;
-//        case "1":
-//            requestMobileLoginCode(code);
-//            return false;
+
         case "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "-", ":", "$", " ", "*":
             if !invalidQrAlert.visible {
                 invalidQrAlert.show();
@@ -138,34 +136,35 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         return false;
     }
     
+    func attemptCheckInResultUpload(code: String) {
+        dispatch_async(dispatch_get_main_queue(), {
+            UIAlertView(title: "On its way!", message: "Your checkin data is being uploaded to the higi servers", delegate: nil, cancelButtonTitle: "Got it").show();
+        });
+        
+        self.sendCheckinResults(code);
+    }
+    
     func sendCheckinResults(code:String) {
-        var done = false;
         let userId = SessionData.Instance.user.userId;
         var contents = NSMutableDictionary();
         contents["qrValue"] = code;
         
         dispatch_async(dispatch_get_global_queue(Int(QOS_CLASS_USER_INITIATED.value), 0)) {
-            dispatch_async(dispatch_get_main_queue(), {
-                UIAlertView(title: "On its way!", message: "Your checkin data is being uploaded to the higi servers", delegate: nil, cancelButtonTitle: "Got it").show();
-            });
-            while !done {
-                HigiApi().sendPost("\(HigiApi.higiApiUrl)/data/user/\(userId)/qrCheckin", parameters: contents, success: {operation, responseObject in
-                    self.clearNotification();
-                    self.showNotification("Checkin data successfully uploaded to higi servers!  Check it out in the app");
-                    done = true;
-                    
-                    }, failure: {operation, error in
-                        if operation.response.statusCode == 400 {
-                            self.clearNotification();
-                            self.showNotification("There was a problem uploading your checkin data");
-                            done = true;
+            HigiApi().sendPost("\(HigiApi.higiApiUrl)/data/user/\(userId)/qrCheckin", parameters: contents, success: { (operation, responseObject) in
+                self.clearNotification();
+                self.showNotification("Checkin data successfully uploaded to higi servers!  Check it out in the app");
+                }, failure: { (operation, error) in
+                    if operation.response.statusCode != 400 {
+                        self.clearNotification();
+                        self.showNotification("There was a problem uploading your checkin data");
+                    } else {
+                        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(10 * Double(NSEC_PER_SEC)))
+                        dispatch_after(delayTime, dispatch_get_main_queue()) {
+                            self.sendCheckinResults(code);
                         }
-                });
-                if !done {
-                    NSThread.sleepForTimeInterval(10);
-                }
-            }
-        }
+                    }
+            });
+        };
     }
     
     func requestMobileLoginCode(code:String) {
