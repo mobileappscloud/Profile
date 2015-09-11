@@ -48,6 +48,7 @@ class SettingsViewController: BaseViewController, UIScrollViewDelegate {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
+        (self.navigationController as! MainNavigationController).drawerController?.selectRowAtIndex(5);
         updateNavBar();
         var hasPasscode = SessionData.Instance.pin != "";
         passcodeSwitch.on = hasPasscode
