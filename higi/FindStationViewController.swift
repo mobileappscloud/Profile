@@ -213,10 +213,12 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
             return;
         }
         for kiosk in SessionController.Instance.kioskList {
-            let item = ClusterKiosk();
-            item.setPosition(kiosk.position!);
-            item.setData(["kiosk": kiosk]);
-            clusterManager.addItem(item);
+            if (kiosk.status == "Deployed") {
+                let item = ClusterKiosk();
+                item.setPosition(kiosk.position!);
+                item.setData(["kiosk": kiosk]);
+                clusterManager.addItem(item);
+            }
         }
         updateKioskPositions();
     }
