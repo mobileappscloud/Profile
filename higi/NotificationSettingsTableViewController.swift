@@ -160,9 +160,10 @@ class NotificationSettingsTableViewController: UITableViewController, SwitchTabl
                 let row = SectionLocalNotificationRow(rawValue: indexPath.row)!
                 updateValueForLocalNotificationSettingRow(row, value: cell.switchControl.on);
                 
-                dispatch_async(dispatch_get_main_queue(), {
+                let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.2 * Double(NSEC_PER_SEC)));
+                dispatch_after(delayTime, dispatch_get_main_queue()) {
                     self.tableView.reloadData();
-                });
+                };
             }
         }
     }
