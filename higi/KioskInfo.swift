@@ -14,7 +14,7 @@ class KioskInfo: Equatable {
     
     var kioskId: Int?;
     
-    var address1, address2, city, state, zip, type, fullAddress, cityStateZip, group, streetAddress: NSString!;
+    var address1, address2, city, state, zip, type, fullAddress, cityStateZip, status, streetAddress: NSString!;
     
     var latitude, longitude: Double?;
     
@@ -40,7 +40,7 @@ class KioskInfo: Equatable {
         state = (dictionary["State"] ?? "") as! NSString;
         zip = (dictionary["Zip"] ?? "") as! NSString;
         isMapVisible = (dictionary["MapVisible"] as? NSString) == "true";
-        group =  (dictionary["Groups"] ?? "") as! NSString;
+        status =  (dictionary["Status"] ?? "") as! NSString;
         fullAddress = address1;
         if (address2 != nil && address2!.length > 0) {
             fullAddress = "\(fullAddress), \(address2)";

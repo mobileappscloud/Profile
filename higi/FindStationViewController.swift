@@ -234,7 +234,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
             
             for i in 0..<SessionController.Instance.kioskList.count {
                 var kiosk = SessionController.Instance.kioskList[i];
-                if (kiosk.group == "retired" || kiosk.group == "removed") {
+                if (kiosk.status != "Deployed") {
                     continue;
                 }
                 if (bounds.containsCoordinate(kiosk.position!)) {
@@ -311,7 +311,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
             currentAutoCompleteTask.addOperationWithBlock( {
                 let size = count(self.searchField.text);
                 for kiosk in SessionController.Instance.kioskList {
-                    if (kiosk.group == "retired" || kiosk.group == "removed") {
+                    if (kiosk.status != "Deployed") {
                         continue;
                     }
                     if ((self.currentAutoCompleteTask.operations[0] as! NSOperation).cancelled && size != count(self.searchField.text)) {

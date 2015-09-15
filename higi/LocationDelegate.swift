@@ -31,7 +31,7 @@ class LocationDelegate: NSObject, CLLocationManagerDelegate {
                 }
             }
             for kiosk in SessionController.Instance.kioskList {
-                if (location.distanceFromLocation(kiosk.location!) < MIN_DISTANCE) {
+                if (kiosk.isMapVisible && kiosk.status == "Deployed" && location.distanceFromLocation(kiosk.location!) < MIN_DISTANCE) {
                     if (lastKiosk == nil || lastKiosk != kiosk) {
                         lastKiosk = kiosk;
                         showLocalNotification(kiosk);
