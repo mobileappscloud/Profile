@@ -124,6 +124,8 @@ class SettingsViewController: BaseViewController, UIScrollViewDelegate {
     }
     
     @IBAction func didTapNotificationSettingsButton(sender: AnyObject) {
+        let notificationSettingsViewController: NotificationSettingsTableViewController = UIStoryboard(name: "NotificationSettings", bundle: nil).instantiateInitialViewController() as! NotificationSettingsTableViewController;
+        self.navigationController!.pushViewController(notificationSettingsViewController, animated: true);
     }
     
     @IBAction func changePasscode(sender: AnyObject) {
