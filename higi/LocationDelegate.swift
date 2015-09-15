@@ -45,6 +45,12 @@ class LocationDelegate: NSObject, CLLocationManagerDelegate {
     }
     
     func showLocalNotification(kiosk: KioskInfo) {
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+        var showKioskNotification = userDefaults.boolForKey("AllLocalNotificationSettingKey") && userDefaults.boolForKey("KioskNotificationSettingKey");
+        if !showKioskNotification {
+            return;
+        }
+        
         dispatch_async(dispatch_get_main_queue(), {
             var notification = UILocalNotification();
             notification.fireDate = NSDate();
