@@ -42,7 +42,7 @@
 	<string>https://api.higi.com</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSLocationWhenInUseUsageDescription</key>
+	<key>NSLocationAlwaysUsageDescription</key>
 	<string></string>
 	<key>UIAppFonts</key>
 	<array>

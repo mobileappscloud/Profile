@@ -157,7 +157,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         super.viewDidAppear(animated);
         if (UIDevice.currentDevice().systemVersion >= "8.0") {
             locationManager = CLLocationManager();
-            locationManager.requestWhenInUseAuthorization();
+            locationManager.requestAlwaysAuthorization();
             locationManager.delegate = self;
         }
         
@@ -644,7 +644,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<()>) {
         if (!firstLocation && keyPath == "myLocation") {
             firstLocation = true;
-            mapView.camera = GMSCameraPosition.cameraWithTarget(mapView.myLocation.coordinate, zoom: 11);
+                        mapView.camera = GMSCameraPosition.cameraWithTarget(mapView.myLocation.coordinate, zoom: 11);
             updateKioskPositions();
         }
     }

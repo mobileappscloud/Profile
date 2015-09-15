@@ -40,6 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if (UIApplication.sharedApplication().backgroundRefreshStatus == UIBackgroundRefreshStatus.Available) {
             locationManager = CLLocationManager();
+            locationManager.requestAlwaysAuthorization();
             locationDelegate = LocationDelegate();
             locationManager.delegate = locationDelegate;
             locationManager.pausesLocationUpdatesAutomatically = true;
