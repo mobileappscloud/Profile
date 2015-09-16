@@ -9,9 +9,12 @@
 import UIKit
 
 enum TableSection: Int {
-    case GlobalSetting
-    case UniqueSetting
-    case Count
+    /**
+    @internal Remove hardcoded enum values when global notification setting is enabled. Also, ensure unique settings respect the global setting's value.
+    */
+    case GlobalSetting = 9999
+    case UniqueSetting = 0
+    case Count = 1
 }
 
 enum SectionGlobalSettingRow: Int {
@@ -21,7 +24,6 @@ enum SectionGlobalSettingRow: Int {
 
 enum SectionUniqueSettingRow: Int {
     case KioskNearby
-    case ScannedCheckInUploadStatus
     case Count
 }
 
@@ -31,9 +33,8 @@ class NotificationSettingsTableViewController: UITableViewController, SwitchTabl
     
     // TODO: Currently assuming these settings should be device specific. Need to investigate various
     //       types of settings and create a settings-specific controller.
-    let allLocalNotificationSettingKey = "AllLocalNotificationSettingKey";
+    let globalNotificationSettingKey = "GlobalNotificationSettingKey";
     let kioskNotificationSettingKey = "KioskNotificationSettingKey";
-    let scannedCheckInNotificationSettingKey = "ScannedCheckInNotificationSettingKey";
     
     // MARK: - View Lifecycle
     
@@ -78,15 +79,11 @@ class NotificationSettingsTableViewController: UITableViewController, SwitchTabl
     // MARK: - Settings
     
     func shouldSendNotifications() -> Bool {
-        return NSUserDefaults.standardUserDefaults().boolForKey(allLocalNotificationSettingKey);
+        return NSUserDefaults.standardUserDefaults().boolForKey(globalNotificationSettingKey);
     }
     
     func shouldSendKioskNotifications() -> Bool {
         return NSUserDefaults.standardUserDefaults().boolForKey(kioskNotificationSettingKey);
-    }
-    
-    func shouldSendScannedCheckInNotifications() -> Bool {
-        return NSUserDefaults.standardUserDefaults().boolForKey(scannedCheckInNotificationSettingKey);
     }
     
     func switchValueForIndexPath(indexPath: NSIndexPath) -> Bool {
@@ -109,8 +106,6 @@ class NotificationSettingsTableViewController: UITableViewController, SwitchTabl
                     switch row {
                     case .KioskNearby:
                         value = shouldSendKioskNotifications();
-                    case .ScannedCheckInUploadStatus:
-                        value = shouldSendScannedCheckInNotifications();
                     default:
                         break;
                     }
@@ -127,7 +122,8 @@ class NotificationSettingsTableViewController: UITableViewController, SwitchTabl
     // MARK: - Table View
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return shouldSendNotifications() ? TableSection.Count.rawValue : 1;
+//        return shouldSendNotifications() ? TableSection.Count.rawValue : 1;
+        return 1;
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -170,8 +166,6 @@ class NotificationSettingsTableViewController: UITableViewController, SwitchTabl
                     switch row {
                     case .KioskNearby:
                         switchCell.titleLabel.text = "Kiosk Nearby"
-                    case .ScannedCheckInUploadStatus:
-                        switchCell.titleLabel.text = "Scanned Check-in Status"
                     default:
                         break;
                     }
@@ -218,7 +212,7 @@ class NotificationSettingsTableViewController: UITableViewController, SwitchTabl
                 if let row = SectionGlobalSettingRow(rawValue: indexPath.row) {
                     switch row {
                     case .AllowNotifications:
-                        key = allLocalNotificationSettingKey;
+                        key = globalNotificationSettingKey;
                     default:
                         break;
                     }
@@ -228,8 +222,6 @@ class NotificationSettingsTableViewController: UITableViewController, SwitchTabl
                     switch row {
                     case .KioskNearby:
                         key = kioskNotificationSettingKey;
-                    case .ScannedCheckInUploadStatus:
-                        key = scannedCheckInNotificationSettingKey;
                     default:
                         break;
                     }
