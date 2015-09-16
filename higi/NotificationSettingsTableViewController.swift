@@ -12,23 +12,17 @@ enum TableSection: Int {
     case GlobalSetting
     case UniqueSetting
     case Count
-    
-//    static let rowMapping = [GlobalSetting : SectionGlobalSettingRow(), UniqueSetting : SectionUniqueSettingRow()];
 }
 
 enum SectionGlobalSettingRow: Int {
     case AllowNotifications
     case Count
-    
-    static let titleText = [AllowNotifications : "Allow Notifications"];
 }
 
 enum SectionUniqueSettingRow: Int {
     case KioskNearby
     case ScannedCheckInUploadStatus
     case Count
-    
-    static let titleText = [KioskNearby : "Nearby Kiosk Notifications", ScannedCheckInUploadStatus : "Scanned Check-in Notifications"];
 }
 
 class NotificationSettingsTableViewController: UITableViewController, SwitchTableViewCellDelegate {
@@ -79,9 +73,6 @@ class NotificationSettingsTableViewController: UITableViewController, SwitchTabl
     func configureTableView() {
         let switchCellNib = UINib(nibName: "SwitchTableViewCell", bundle: nil);
         tableView.registerNib(switchCellNib, forCellReuseIdentifier: switchCellReuseIdentifier);
-//        tableView.estimatedRowHeight = 47.0;
-//        tableView.rowHeight = UITableViewAutomaticDimension;
-//        tableView.tableFooterView = UIView();
     }
 
     // MARK: - Settings
@@ -160,6 +151,7 @@ class NotificationSettingsTableViewController: UITableViewController, SwitchTabl
             switch tableSection {
             case .UniqueSetting:
                 rowHeight = shouldSendNotifications() ? UITableViewAutomaticDimension : 0.0;
+                // MARK:!!! Remove debug printing
                 print("\nrow = \(indexPath.row) , height = \(rowHeight)");
             default:
                 break;
@@ -196,9 +188,9 @@ class NotificationSettingsTableViewController: UITableViewController, SwitchTabl
                     
                     switch row {
                     case .KioskNearby:
-                        switchCell.titleLabel.text = "Kiosk Notifications"
+                        switchCell.titleLabel.text = "Kiosk Nearby"
                     case .ScannedCheckInUploadStatus:
-                        switchCell.titleLabel.text = "Scanned Check-in Notifications"
+                        switchCell.titleLabel.text = "Scanned Check-in Status"
                     default:
                         break;
                     }
@@ -218,9 +210,9 @@ class NotificationSettingsTableViewController: UITableViewController, SwitchTabl
     
     func valueDidChangeForSwitchCell(cell: SwitchTableViewCell) {
         if let indexPath = tableView.indexPathForCell(cell) {
-            self.tableView.beginUpdates()
-            updateValueForNotificationSettingAtIndexPath(indexPath, value: cell.switchControl.on)
-            self.tableView.endUpdates()
+            self.tableView.beginUpdates();
+            updateValueForNotificationSettingAtIndexPath(indexPath, value: cell.switchControl.on);
+            self.tableView.endUpdates();
         };
     }
     
