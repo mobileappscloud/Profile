@@ -127,7 +127,7 @@ class NotificationSettingsTableViewController: UITableViewController, SwitchTabl
     // MARK: - Table View
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return TableSection.Count.rawValue;
+        return shouldSendNotifications() ? TableSection.Count.rawValue : 1;
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -144,22 +144,7 @@ class NotificationSettingsTableViewController: UITableViewController, SwitchTabl
         }
         return rowCount;
     }
-    
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        var rowHeight = UITableViewAutomaticDimension;
-        if let tableSection = TableSection(rawValue: indexPath.section) {
-            switch tableSection {
-            case .UniqueSetting:
-                rowHeight = shouldSendNotifications() ? UITableViewAutomaticDimension : 0.0;
-                // MARK:!!! Remove debug printing
-                print("\nrow = \(indexPath.row) , height = \(rowHeight)");
-            default:
-                break;
-            }
-        }
-        return rowHeight;
-    }
-    
+        
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = UITableViewCell();
 
@@ -182,10 +167,6 @@ class NotificationSettingsTableViewController: UITableViewController, SwitchTabl
                 
             case .UniqueSetting:
                 if let row = SectionUniqueSettingRow(rawValue: indexPath.row) {
-                    if row == .KioskNearby || row == .ScannedCheckInUploadStatus {
-                        switchCell.switchControl.enabled = shouldSendNotifications();
-                    }
-                    
                     switch row {
                     case .KioskNearby:
                         switchCell.titleLabel.text = "Kiosk Nearby"
@@ -210,9 +191,21 @@ class NotificationSettingsTableViewController: UITableViewController, SwitchTabl
     
     func valueDidChangeForSwitchCell(cell: SwitchTableViewCell) {
         if let indexPath = tableView.indexPathForCell(cell) {
-            self.tableView.beginUpdates();
             updateValueForNotificationSettingAtIndexPath(indexPath, value: cell.switchControl.on);
-            self.tableView.endUpdates();
+            
+            if (indexPath.section == TableSection.GlobalSetting.rawValue && indexPath.row == SectionGlobalSettingRow.AllowNotifications.rawValue) {
+                self.tableView.beginUpdates();
+             
+                let indexSet = NSIndexSet(index: TableSection.UniqueSetting.rawValue)
+                
+                if (cell.switchControl.on) {
+                    self.tableView.insertSections(indexSet, withRowAnimation: .Bottom)
+                } else {
+                    self.tableView.deleteSections(indexSet, withRowAnimation: .Top)
+                }
+
+                self.tableView.endUpdates();
+            }
         };
     }
     
