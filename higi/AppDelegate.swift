@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Fabric
+import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,6 +20,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var locationDelegate: LocationDelegate!;
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+
+        #if DEBUG
+            Crashlytics.sharedInstance().debugMode = true;
+        #endif
+        Fabric.with([Crashlytics.self()])
+
         // Override point for customization after application launch.
         GMSServices.provideAPIKey("AIzaSyB1iNeT8pxcPd4rcwQ-Titp2hA5bLHh3-k");
         Flurry.startSession("2GSDDCY6499XJ8B5GTYZ");
@@ -32,6 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if (UIApplication.sharedApplication().backgroundRefreshStatus == UIBackgroundRefreshStatus.Available) {
             locationManager = CLLocationManager();
+            locationManager.requestAlwaysAuthorization();
             locationDelegate = LocationDelegate();
             locationManager.delegate = locationDelegate;
             locationManager.pausesLocationUpdatesAutomatically = true;
@@ -39,6 +48,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         return true
+    }
+
+
+    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+        if application.applicationState == UIApplicationState.Active {
+            if let info = notification.userInfo as? Dictionary<String, Int> {
+                //99 is id of QR scanner notifications
+                if info["ID"] == 99 {
+                    UIAlertView(title: notification.alertTitle, message: notification.alertBody, delegate: nil, cancelButtonTitle: "OK").show();
+                }
+            }
+        }
     }
 
     func applicationWillResignActive(application: UIApplication) {

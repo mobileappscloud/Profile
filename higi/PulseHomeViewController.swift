@@ -78,6 +78,7 @@ class PulseHomeViewController: BaseViewController, UITableViewDataSource, UITabl
         cell.articleImage.clipsToBounds = true;
         cell.articleImage.image = nil;
         cell.articleImage.setImageWithURL(NSURL(string: article.imageUrl as String));
+        cell.clipsToBounds = true;
         return cell;
     }
     

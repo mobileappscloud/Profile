@@ -157,7 +157,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         super.viewDidAppear(animated);
         if (UIDevice.currentDevice().systemVersion >= "8.0") {
             locationManager = CLLocationManager();
-            locationManager.requestWhenInUseAuthorization();
+            locationManager.requestAlwaysAuthorization();
             locationManager.delegate = self;
         }
         
@@ -213,10 +213,12 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
             return;
         }
         for kiosk in SessionController.Instance.kioskList {
-            let item = ClusterKiosk();
-            item.setPosition(kiosk.position!);
-            item.setData(["kiosk": kiosk]);
-            clusterManager.addItem(item);
+            if (kiosk.status == "Deployed") {
+                let item = ClusterKiosk();
+                item.setPosition(kiosk.position!);
+                item.setData(["kiosk": kiosk]);
+                clusterManager.addItem(item);
+            }
         }
         updateKioskPositions();
     }
@@ -234,7 +236,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
             
             for i in 0..<SessionController.Instance.kioskList.count {
                 var kiosk = SessionController.Instance.kioskList[i];
-                if (kiosk.group == "retired" || kiosk.group == "removed") {
+                if (kiosk.status != "Deployed") {
                     continue;
                 }
                 if (bounds.containsCoordinate(kiosk.position!)) {
@@ -311,7 +313,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
             currentAutoCompleteTask.addOperationWithBlock( {
                 let size = count(self.searchField.text);
                 for kiosk in SessionController.Instance.kioskList {
-                    if (kiosk.group == "retired" || kiosk.group == "removed") {
+                    if (kiosk.status != "Deployed") {
                         continue;
                     }
                     if ((self.currentAutoCompleteTask.operations[0] as! NSOperation).cancelled && size != count(self.searchField.text)) {
@@ -644,7 +646,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<()>) {
         if (!firstLocation && keyPath == "myLocation") {
             firstLocation = true;
-            mapView.camera = GMSCameraPosition.cameraWithTarget(mapView.myLocation.coordinate, zoom: 11);
+                        mapView.camera = GMSCameraPosition.cameraWithTarget(mapView.myLocation.coordinate, zoom: 11);
             updateKioskPositions();
         }
     }

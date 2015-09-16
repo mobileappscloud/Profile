@@ -26,6 +26,8 @@ class SettingsViewController: BaseViewController, UIScrollViewDelegate {
     var user = SessionData.Instance.user;
     var pictureChanged = false;
     
+    // MARK: - View Lifecycle
+    
     override func viewDidLoad()  {
         super.viewDidLoad();
         self.title = "Settings";
@@ -48,7 +50,9 @@ class SettingsViewController: BaseViewController, UIScrollViewDelegate {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
+        (self.navigationController as! MainNavigationController).drawerController?.selectRowAtIndex(5);
         updateNavBar();
+        
         var hasPasscode = SessionData.Instance.pin != "";
         passcodeSwitch.on = hasPasscode
         changePasscode.enabled = hasPasscode;
@@ -70,8 +74,10 @@ class SettingsViewController: BaseViewController, UIScrollViewDelegate {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews();
-        scrollView.contentSize = CGSize(width: scrollView.bounds.size.width, height: 784);
+        scrollView.contentSize = CGSize(width: scrollView.bounds.size.width, height: 853);
     }
+    
+    // MARK: - UI Actions
     
     @IBAction func newProfileImage(sender: AnyObject) {
         var profileViewController = ProfileImageViewController(nibName: "ProfileImageView", bundle: nil);
@@ -115,6 +121,12 @@ class SettingsViewController: BaseViewController, UIScrollViewDelegate {
                 self.user.emailHigiNews = !isOn;
                 
             });
+    }
+    
+    @IBAction func didTapNotificationSettingsButton(sender: AnyObject) {
+        resetColor(sender);
+        let notificationSettingsViewController: NotificationSettingsTableViewController = UIStoryboard(name: "NotificationSettings", bundle: nil).instantiateInitialViewController() as! NotificationSettingsTableViewController;
+        self.navigationController!.pushViewController(notificationSettingsViewController, animated: true);
     }
     
     @IBAction func changePasscode(sender: AnyObject) {
@@ -185,6 +197,8 @@ class SettingsViewController: BaseViewController, UIScrollViewDelegate {
         (sender as! UIButton).backgroundColor = Utility.colorFromHexString("#FFFFFF");
     }
     
+    // MARK: - Helper
+    
     func exportData() -> NSURL {
         var dateFormatter = NSDateFormatter();
         dateFormatter.dateFormat = "MM/dd/yyy";
@@ -227,6 +241,8 @@ class SettingsViewController: BaseViewController, UIScrollViewDelegate {
         var docPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String;
         return docPath.stringByAppendingPathComponent("higi_results.csv");
     }
+    
+    // MARK: - Scroll View
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
         updateNavBar();

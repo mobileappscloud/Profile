@@ -19,7 +19,11 @@
 		2BC5865E1A16D0AF005A7983 /* ChallengeInvitationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC5865D1A16D0AF005A7983 /* ChallengeInvitationView.swift */; };
 		32E39E471B756D4200BA50F9 /* Info_prod.plist in Resources */ = {isa = PBXBuildFile; fileRef = 32E39E451B756D4200BA50F9 /* Info_prod.plist */; };
 		32E39E481B756D4200BA50F9 /* Info_qa.plist in Resources */ = {isa = PBXBuildFile; fileRef = 32E39E461B756D4200BA50F9 /* Info_qa.plist */; };
-		416143AC1BA9FAEC0047A1FA /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416143AB1BA9FAEC0047A1FA /* KeychainWrapper.swift */; };
+		41411BA01BA87E3D0027F5E1 /* NotificationSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41411B9F1BA87E3D0027F5E1 /* NotificationSettingsTableViewController.swift */; };
+		41411BA31BA894280027F5E1 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41411BA11BA894280027F5E1 /* SwitchTableViewCell.swift */; };
+		41411BA41BA894280027F5E1 /* SwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41411BA21BA894280027F5E1 /* SwitchTableViewCell.xib */; };
+		41545BF91BA76CFA00946358 /* NotificationSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41545BF81BA76CFA00946358 /* NotificationSettings.storyboard */; };
+		416143AE1BA9FFDF0047A1FA /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416143AD1BA9FFDF0047A1FA /* KeychainWrapper.swift */; };
 		8F02A11F19AE2BF6002FF73E /* btn_back_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A11719AE2BF6002FF73E /* btn_back_black.png */; };
 		8F02A12019AE2BF6002FF73E /* btn_back_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A11819AE2BF6002FF73E /* btn_back_black@2x.png */; };
 		8F02A12119AE2BF6002FF73E /* btn_back_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A11919AE2BF6002FF73E /* btn_back_white.png */; };
@@ -250,6 +254,7 @@
 		D15372931A84201600954569 /* TermsAndConditionsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D15372921A84201600954569 /* TermsAndConditionsView.xib */; };
 		D158BB081B59B4E000FA9CAF /* SelectedPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D158BB071B59B4E000FA9CAF /* SelectedPoint.swift */; };
 		D1618F931ABB2E26000BDA85 /* MetricCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1618F921ABB2E26000BDA85 /* MetricCardView.xib */; };
+		D16432BF1B9F96B100082C8F /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = D16432BE1B9F96B100082C8F /* camera.png */; };
 		D164D3761A7C19A600300F35 /* chat_bubble_green.png in Resources */ = {isa = PBXBuildFile; fileRef = D164D3751A7C19A600300F35 /* chat_bubble_green.png */; };
 		D16FD5E91ADDADC200AF9BA5 /* back_button_white.png in Resources */ = {isa = PBXBuildFile; fileRef = D16FD5E81ADDADC200AF9BA5 /* back_button_white.png */; };
 		D17010C91A644414002CBFE8 /* ChallengeDetailsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D17010C71A644414002CBFE8 /* ChallengeDetailsView.xib */; };
@@ -282,6 +287,9 @@
 		D1A9C6FE1A951D0D0008084B /* chatterbutton_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = D1A9C6FC1A951D0D0008084B /* chatterbutton_normal.png */; };
 		D1A9C6FF1A951D0D0008084B /* chatterbutton_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = D1A9C6FD1A951D0D0008084B /* chatterbutton_pressed.png */; };
 		D1AAA79F1A9E7E0F00A41B3D /* challengesblankstate.png in Resources */ = {isa = PBXBuildFile; fileRef = D1AAA79E1A9E7E0F00A41B3D /* challengesblankstate.png */; };
+		D1ADD2D31BA0C14B0001E8C4 /* whatsthis.png in Resources */ = {isa = PBXBuildFile; fileRef = D1ADD2D21BA0C14B0001E8C4 /* whatsthis.png */; };
+		D1ADD2D71BA0DA4E0001E8C4 /* oc_qr.png in Resources */ = {isa = PBXBuildFile; fileRef = D1ADD2D61BA0DA4E0001E8C4 /* oc_qr.png */; };
+		D1ADD2D91BA0EC7A0001E8C4 /* qr_cursor.png in Resources */ = {isa = PBXBuildFile; fileRef = D1ADD2D81BA0EC7A0001E8C4 /* qr_cursor.png */; };
 		D1B6D6981A8D09FD0006F80C /* ChatterInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B6D6971A8D09FD0006F80C /* ChatterInputViewController.swift */; };
 		D1BA13451A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1BA13441A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib */; };
 		D1BA13471A8D056900E1AFE9 /* ChatterInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1BA13461A8D056900E1AFE9 /* ChatterInputView.xib */; };
@@ -342,7 +350,11 @@
 		2BC5865D1A16D0AF005A7983 /* ChallengeInvitationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeInvitationView.swift; sourceTree = "<group>"; };
 		32E39E451B756D4200BA50F9 /* Info_prod.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info_prod.plist; sourceTree = "<group>"; };
 		32E39E461B756D4200BA50F9 /* Info_qa.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info_qa.plist; sourceTree = "<group>"; };
-		416143AB1BA9FAEC0047A1FA /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
+		41411B9F1BA87E3D0027F5E1 /* NotificationSettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingsTableViewController.swift; sourceTree = "<group>"; };
+		41411BA11BA894280027F5E1 /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
+		41411BA21BA894280027F5E1 /* SwitchTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SwitchTableViewCell.xib; sourceTree = "<group>"; };
+		41545BF81BA76CFA00946358 /* NotificationSettings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NotificationSettings.storyboard; sourceTree = "<group>"; };
+		416143AD1BA9FFDF0047A1FA /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		686C1AF8577725DC02942F86 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		8F02A11719AE2BF6002FF73E /* btn_back_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_back_black.png; sourceTree = "<group>"; };
 		8F02A11819AE2BF6002FF73E /* btn_back_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_back_black@2x.png"; sourceTree = "<group>"; };
@@ -608,6 +620,7 @@
 		D15372921A84201600954569 /* TermsAndConditionsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TermsAndConditionsView.xib; sourceTree = "<group>"; };
 		D158BB071B59B4E000FA9CAF /* SelectedPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedPoint.swift; sourceTree = "<group>"; };
 		D1618F921ABB2E26000BDA85 /* MetricCardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MetricCardView.xib; sourceTree = "<group>"; };
+		D16432BE1B9F96B100082C8F /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = camera.png; path = images/camera.png; sourceTree = "<group>"; };
 		D164D3751A7C19A600300F35 /* chat_bubble_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chat_bubble_green.png; path = images/chat_bubble_green.png; sourceTree = "<group>"; };
 		D16FD5E81ADDADC200AF9BA5 /* back_button_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = back_button_white.png; path = images/back_button_white.png; sourceTree = "<group>"; };
 		D17010C71A644414002CBFE8 /* ChallengeDetailsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailsView.xib; sourceTree = "<group>"; };
@@ -641,6 +654,9 @@
 		D1A9C6FC1A951D0D0008084B /* chatterbutton_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chatterbutton_normal.png; path = images/chatterbutton_normal.png; sourceTree = "<group>"; };
 		D1A9C6FD1A951D0D0008084B /* chatterbutton_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chatterbutton_pressed.png; path = images/chatterbutton_pressed.png; sourceTree = "<group>"; };
 		D1AAA79E1A9E7E0F00A41B3D /* challengesblankstate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = challengesblankstate.png; path = images/challengesblankstate.png; sourceTree = "<group>"; };
+		D1ADD2D21BA0C14B0001E8C4 /* whatsthis.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = whatsthis.png; path = images/whatsthis.png; sourceTree = "<group>"; };
+		D1ADD2D61BA0DA4E0001E8C4 /* oc_qr.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oc_qr.png; path = images/oc_qr.png; sourceTree = "<group>"; };
+		D1ADD2D81BA0EC7A0001E8C4 /* qr_cursor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = qr_cursor.png; path = images/qr_cursor.png; sourceTree = "<group>"; };
 		D1B6D6971A8D09FD0006F80C /* ChatterInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatterInputViewController.swift; sourceTree = "<group>"; };
 		D1BA13441A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailsParticipantIconView.xib; sourceTree = "<group>"; };
 		D1BA13461A8D056900E1AFE9 /* ChatterInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatterInputView.xib; sourceTree = "<group>"; };
@@ -764,6 +780,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		41545BFA1BA76D0700946358 /* Notification Settings */ = {
+			isa = PBXGroup;
+			children = (
+				41545BF81BA76CFA00946358 /* NotificationSettings.storyboard */,
+				41411B9F1BA87E3D0027F5E1 /* NotificationSettingsTableViewController.swift */,
+				41411BA11BA894280027F5E1 /* SwitchTableViewCell.swift */,
+				41411BA21BA894280027F5E1 /* SwitchTableViewCell.xib */,
+			);
+			name = "Notification Settings";
+			sourceTree = "<group>";
+		};
 		8F069CBC19D9E20D00DCC820 /* Flurry */ = {
 			isa = PBXGroup;
 			children = (
@@ -845,8 +872,8 @@
 			children = (
 				D130183F1B14D943008DDFAD /* Constants.swift */,
 				8F524BF7195B829400BFC49D /* CustomFormatter.swift */,
+				416143AD1BA9FFDF0047A1FA /* KeychainWrapper.swift */,
 				8FE206611B7CF30E00B473B0 /* LocationDelegate.swift */,
-				416143AB1BA9FAEC0047A1FA /* KeychainWrapper.swift */,
 				8F6D510D1947B2E700F7C769 /* Utility.swift */,
 			);
 			name = Utility;
@@ -868,6 +895,7 @@
 				8FE056DD198FDBB200C81208 /* Pulse */,
 				8F5E7FBB1999659C009067E5 /* Security */,
 				8FE056DC198FDBA600C81208 /* Settings */,
+				41545BFA1BA76D0700946358 /* Notification Settings */,
 				D105CB5B1B7E9AE500971AB0 /* QR Scanner */,
 				8F08AF9A19893B03002EE906 /* Welcome */,
 			);
@@ -897,6 +925,7 @@
 				D17334391B594FAF0089BBFD /* Metrics */,
 				8F2B7E47198C3023009DE89A /* Navigation */,
 				8F2CB58419928C75009377A8 /* Onboarding */,
+				D16432BD1B9F96A100082C8F /* QR Scanner */,
 				8F6266CC197F130A00145EDB /* Welcome */,
 			);
 			name = Assets;
@@ -1421,6 +1450,17 @@
 			name = Projection;
 			sourceTree = "<group>";
 		};
+		D16432BD1B9F96A100082C8F /* QR Scanner */ = {
+			isa = PBXGroup;
+			children = (
+				D1ADD2D81BA0EC7A0001E8C4 /* qr_cursor.png */,
+				D1ADD2D61BA0DA4E0001E8C4 /* oc_qr.png */,
+				D1ADD2D21BA0C14B0001E8C4 /* whatsthis.png */,
+				D16432BE1B9F96B100082C8F /* camera.png */,
+			);
+			name = "QR Scanner";
+			sourceTree = "<group>";
+		};
 		D17334391B594FAF0089BBFD /* Metrics */ = {
 			isa = PBXGroup;
 			children = (
@@ -1512,6 +1552,7 @@
 				8F36439719460EB300C0033E /* Frameworks */,
 				8F36439819460EB300C0033E /* Resources */,
 				9D92CCD8BEAA437291FFF957 /* Copy Pods Resources */,
+				4192692F1B9F83CD00EB041F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1655,6 +1696,7 @@
 				D10E52491B5048CA0007EF10 /* challenge_image.png in Resources */,
 				8FDA6DA819A4039D00244D5F /* TermsView.xib in Resources */,
 				8F5E7FBD199965C0009067E5 /* PinCodeView.xib in Resources */,
+				D16432BF1B9F96B100082C8F /* camera.png in Resources */,
 				D17787251A96873500C78F8B /* iphone.png in Resources */,
 				D17787261A96873500C78F8B /* pulse_article.png in Resources */,
 				D16FD5E91ADDADC200AF9BA5 /* back_button_white.png in Resources */,
@@ -1684,6 +1726,7 @@
 				8F2B7E4E198C3058009DE89A /* oc_dashboard.png in Resources */,
 				8F58D98A19C0FE5800C0EC72 /* welcome_01_logo.png in Resources */,
 				D1EEDBA31A66E4B10012EFD3 /* ChallengeLeaderboardRow.xib in Resources */,
+				41545BF91BA76CFA00946358 /* NotificationSettings.storyboard in Resources */,
 				8FFB034D19FEA2440036228C /* oc_challenges.png in Resources */,
 				D1036D011B153477003E7239 /* pulseicon.png in Resources */,
 				D1A9C6FE1A951D0D0008084B /* chatterbutton_normal.png in Resources */,
@@ -1695,6 +1738,7 @@
 				8F02A12319AE2BF6002FF73E /* btn_share_black.png in Resources */,
 				32E39E471B756D4200BA50F9 /* Info_prod.plist in Resources */,
 				8FD73CC31990303000BACCB2 /* GoogleMaps.bundle in Resources */,
+				D1ADD2D91BA0EC7A0001E8C4 /* qr_cursor.png in Resources */,
 				8FDA6DA119A2978B00244D5F /* ChangePasswordView.xib in Resources */,
 				8F5C38F11982F20000F51543 /* CheckinTableViewCell.xib in Resources */,
 				8F5E7FE4199C081F009067E5 /* vital_bp_icon.png in Resources */,
@@ -1717,6 +1761,7 @@
 				8F5F918C1A7193FC0042D87C /* activitypageblankstate.png in Resources */,
 				D10E52431B5048560007EF10 /* ui_details.png in Resources */,
 				8F6ACCC0199D687D00D5E157 /* mapicon_higicard.png in Resources */,
+				D1ADD2D71BA0DA4E0001E8C4 /* oc_qr.png in Resources */,
 				D17334441B594FCD0089BBFD /* bodyfat_copy@2x.png in Resources */,
 				8F2CB58B19942E96009377A8 /* noservicemessage.png in Resources */,
 				D175287E1B0F9669006335B4 /* dailysummary_night.png in Resources */,
@@ -1728,6 +1773,7 @@
 				8FA5925B19AB921C00622266 /* create_overlay.png in Resources */,
 				8F5E7FE3199C081F009067E5 /* vital_bmi_icon.png in Resources */,
 				D17528861B0FC852006335B4 /* DailySummaryBreakdownView.xib in Resources */,
+				41411BA41BA894280027F5E1 /* SwitchTableViewCell.xib in Resources */,
 				D17787241A96873500C78F8B /* higistation@2x.png in Resources */,
 				8FF9518B1A01AC69005FD632 /* banner_nologo.png in Resources */,
 				8F2B7E51198C3058009DE89A /* oc_settings.png in Resources */,
@@ -1765,6 +1811,7 @@
 				8FF9409C198A8C9200D319D7 /* SignupEmailView.xib in Resources */,
 				8F2B7E46198C2E28009DE89A /* DrawerView.xib in Resources */,
 				8F2B7E5C198C49A9009DE89A /* nav_ocmicon_inverted.png in Resources */,
+				D1ADD2D31BA0C14B0001E8C4 /* whatsthis.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1778,6 +1825,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		4192692F1B9F83CD00EB041F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/Fabric.framework/run\" 350626045a28b6752782f57d637b6551f017f0ef ff5737324c5b204202fdfd36898aaa1a91d47d49cc57e84fdcf40a3bbdb000d1";
+		};
 		452CE3B9A8524262B6CE67CD /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1820,7 +1880,6 @@
 				8F1D979A1995553B003B5645 /* ModifyImageViewController.swift in Sources */,
 				8FDB4B681A09731B00F57B38 /* ActivityDevice.swift in Sources */,
 				8F296316194B9BF700E787FD /* SessionController.swift in Sources */,
-				416143AC1BA9FAEC0047A1FA /* KeychainWrapper.swift in Sources */,
 				D19DDA531A5EF599004F97A3 /* NewCPTAxisLabel.m in Sources */,
 				D1E2237A1A8009E6006330E7 /* ConnectDeviceViewController.swift in Sources */,
 				8F9C69DB1950C8B700449664 /* PulseArticle.swift in Sources */,
@@ -1842,6 +1901,7 @@
 				8F6A24361958DDFB0094B73C /* NewCPTMutablePlotRange.m in Sources */,
 				8FEF6F401A6EB638001EF8A6 /* PointsMeter.swift in Sources */,
 				8F9C69D71950C89B00449664 /* HigiUser.swift in Sources */,
+				41411BA01BA87E3D0027F5E1 /* NotificationSettingsTableViewController.swift in Sources */,
 				D1E2A6F51AB75EBB00796700 /* MetricGraph.swift in Sources */,
 				D1EEDBA51A66FA570012EFD3 /* ChallengeLeaderboardRow.swift in Sources */,
 				D17010CA1A644414002CBFE8 /* ChallengeDetailsViewController.swift in Sources */,
@@ -1927,6 +1987,8 @@
 				D1247BC91AA620F1008A601A /* HigiClusterRenderer.m in Sources */,
 				D1D32D071B1FA0B500AE9B25 /* ActivityMetricDelegate.swift in Sources */,
 				D13018401B14D943008DDFAD /* Constants.swift in Sources */,
+				41411BA31BA894280027F5E1 /* SwitchTableViewCell.swift in Sources */,
+				416143AE1BA9FFDF0047A1FA /* KeychainWrapper.swift in Sources */,
 				8F296311194B911C00E787FD /* SignupNameViewController.swift in Sources */,
 				8FF851C6194F7F2E005C33C6 /* HigiApi.swift in Sources */,
 			);
@@ -1999,6 +2061,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				METAL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_SWIFT_FLAGS = "-DDEBUG";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -2010,10 +2073,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				BUILD_NUMBER = 1;
+				BUILD_NUMBER = 3;
 				CODE_SIGN_ENTITLEMENTS = higi/higi.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: higi llc (5D5W9WNYL2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: higi llc (5D5W9WNYL2)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -2024,7 +2087,7 @@
 					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
 				);
 				INFOPLIST_FILE = higi/Info_qa.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2098,10 +2161,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				BUILD_NUMBER = 1;
+				BUILD_NUMBER = 3;
 				CODE_SIGN_ENTITLEMENTS = higi/higi.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: higi llc (5D5W9WNYL2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: higi llc (5D5W9WNYL2)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -2112,7 +2175,7 @@
 					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
 				);
 				INFOPLIST_FILE = higi/Info_qa.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2178,6 +2241,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				METAL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_SWIFT_FLAGS = "-DDEBUG";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -2224,10 +2288,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				BUILD_NUMBER = 1;
+				BUILD_NUMBER = 3;
 				CODE_SIGN_ENTITLEMENTS = higi/higi.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: higi llc (5D5W9WNYL2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: higi llc (5D5W9WNYL2)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -2238,7 +2302,7 @@
 					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
 				);
 				INFOPLIST_FILE = higi/Info_prod.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2257,10 +2321,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				BUILD_NUMBER = 1;
+				BUILD_NUMBER = 3;
 				CODE_SIGN_ENTITLEMENTS = higi/higi.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: higi llc (5D5W9WNYL2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: higi llc (5D5W9WNYL2)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -2271,7 +2335,7 @@
 					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
 				);
 				INFOPLIST_FILE = higi/Info_prod.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

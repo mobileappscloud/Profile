@@ -2,7 +2,7 @@ import Foundation
 
 class LocationDelegate: NSObject, CLLocationManagerDelegate {
     
-    private final var MIN_DISTANCE: Double = 10000;
+    private final var MAX_DISTANCE: Double = 200;
     
     private var lastKiosk: KioskInfo?;
     
@@ -22,7 +22,7 @@ class LocationDelegate: NSObject, CLLocationManagerDelegate {
     func findClosestLocation(location: CLLocation!) {
         if (location != nil) {
             if (lastKiosk != nil) {
-                if (location.distanceFromLocation(lastKiosk?.location!) < MIN_DISTANCE) {
+                if (location.distanceFromLocation(lastKiosk?.location!) < MAX_DISTANCE) {
                     // Still near previously displayed kiosk so do nothing
                     return;
                 } else {
@@ -31,7 +31,7 @@ class LocationDelegate: NSObject, CLLocationManagerDelegate {
                 }
             }
             for kiosk in SessionController.Instance.kioskList {
-                if (location.distanceFromLocation(kiosk.location!) < MIN_DISTANCE) {
+                if (kiosk.isMapVisible && kiosk.status == "Deployed" && location.distanceFromLocation(kiosk.location!) < MAX_DISTANCE) {
                     if (lastKiosk == nil || lastKiosk != kiosk) {
                         lastKiosk = kiosk;
                         showLocalNotification(kiosk);
@@ -45,6 +45,12 @@ class LocationDelegate: NSObject, CLLocationManagerDelegate {
     }
     
     func showLocalNotification(kiosk: KioskInfo) {
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+        var showKioskNotification = userDefaults.boolForKey("AllLocalNotificationSettingKey") && userDefaults.boolForKey("KioskNotificationSettingKey");
+        if !showKioskNotification {
+            return;
+        }
+        
         dispatch_async(dispatch_get_main_queue(), {
             var notification = UILocalNotification();
             notification.fireDate = NSDate();
