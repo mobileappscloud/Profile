@@ -15,29 +15,24 @@
                 <subviews>
                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D6c-ro-4B8">
                         <rect key="frame" x="263" y="8" width="51" height="31"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="49" id="bmu-8W-E3g"/>
-                            <constraint firstAttribute="height" constant="31" id="g4m-du-Vas"/>
-                        </constraints>
                         <connections>
                             <action selector="didToggleSwitch:" destination="KGk-i7-Jjw" eventType="valueChanged" id="FeC-pd-4N6"/>
                         </connections>
                     </switch>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="dVl-sT-qqo">
-                        <rect key="frame" x="8" y="13" width="247" height="21"/>
+                        <rect key="frame" x="15" y="13" width="240" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="dVl-sT-qqo" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="2r4-BK-Cb2"/>
-                    <constraint firstAttribute="bottom" secondItem="D6c-ro-4B8" secondAttribute="bottom" constant="7.5" id="34i-GN-Tbe"/>
-                    <constraint firstItem="D6c-ro-4B8" firstAttribute="leading" secondItem="dVl-sT-qqo" secondAttribute="trailing" constant="8" id="CWk-Cu-W6H"/>
-                    <constraint firstAttribute="trailing" secondItem="D6c-ro-4B8" secondAttribute="trailing" constant="8" id="OQF-MK-nDP"/>
-                    <constraint firstItem="dVl-sT-qqo" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="13" id="apU-PZ-JQr"/>
-                    <constraint firstItem="D6c-ro-4B8" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="nby-bY-ru5"/>
-                    <constraint firstAttribute="bottom" secondItem="dVl-sT-qqo" secondAttribute="bottom" constant="12.5" id="ogn-2Y-S8t"/>
+                    <constraint firstAttribute="trailing" secondItem="D6c-ro-4B8" secondAttribute="trailing" constant="8" id="K5P-iu-ukV"/>
+                    <constraint firstItem="D6c-ro-4B8" firstAttribute="leading" secondItem="dVl-sT-qqo" secondAttribute="trailing" constant="8" id="RNs-kY-icW"/>
+                    <constraint firstItem="dVl-sT-qqo" firstAttribute="centerY" secondItem="D6c-ro-4B8" secondAttribute="centerY" id="Tdj-Ll-Oce"/>
+                    <constraint firstItem="D6c-ro-4B8" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="YhK-Sd-0rk"/>
+                    <constraint firstItem="dVl-sT-qqo" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="bH5-Fy-jAZ"/>
+                    <constraint firstItem="dVl-sT-qqo" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="13" id="etR-n2-7Mz"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
