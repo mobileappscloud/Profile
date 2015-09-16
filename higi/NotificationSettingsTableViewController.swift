@@ -9,17 +9,26 @@
 import UIKit
 
 enum TableSection: Int {
-    case LocalNotification
+    case GlobalSetting
+    case UniqueSetting
     case Count
+    
+//    static let rowMapping = [GlobalSetting : SectionGlobalSettingRow(), UniqueSetting : SectionUniqueSettingRow()];
 }
 
-enum SectionLocalNotificationRow: Int {
-    case AllNotifications
+enum SectionGlobalSettingRow: Int {
+    case AllowNotifications
+    case Count
+    
+    static let titleText = [AllowNotifications : "Allow Notifications"];
+}
+
+enum SectionUniqueSettingRow: Int {
     case KioskNearby
     case ScannedCheckInUploadStatus
     case Count
     
-    static let titleText = [AllNotifications : "Notifications", KioskNearby : "Nearby Kiosk Notifications", ScannedCheckInUploadStatus : "Scanned Check-in Upload Notifications"];
+    static let titleText = [KioskNearby : "Nearby Kiosk Notifications", ScannedCheckInUploadStatus : "Scanned Check-in Notifications"];
 }
 
 class NotificationSettingsTableViewController: UITableViewController, SwitchTableViewCellDelegate {
@@ -70,7 +79,7 @@ class NotificationSettingsTableViewController: UITableViewController, SwitchTabl
     func configureTableView() {
         let switchCellNib = UINib(nibName: "SwitchTableViewCell", bundle: nil);
         tableView.registerNib(switchCellNib, forCellReuseIdentifier: switchCellReuseIdentifier);
-        tableView.estimatedRowHeight = 47.0;
+//        tableView.estimatedRowHeight = 47.0;
         tableView.rowHeight = UITableViewAutomaticDimension;
         tableView.tableFooterView = UIView();
     }
@@ -89,18 +98,38 @@ class NotificationSettingsTableViewController: UITableViewController, SwitchTabl
         return NSUserDefaults.standardUserDefaults().boolForKey(scannedCheckInNotificationSettingKey);
     }
     
-    func switchValueForRow(row: SectionLocalNotificationRow) -> Bool {
+    func switchValueForIndexPath(indexPath: NSIndexPath) -> Bool {
         var value = false;
-        switch row {
-        case .AllNotifications:
-            value = shouldSendNotifications();
-        case .KioskNearby:
-            value = shouldSendKioskNotifications();
-        case .ScannedCheckInUploadStatus:
-            value = shouldSendScannedCheckInNotifications();
-        default:
-            break;
+        
+        if let section = TableSection(rawValue: indexPath.section) {
+            switch section {
+            case .GlobalSetting:
+                if let row = SectionGlobalSettingRow(rawValue: indexPath.row) {
+                    switch row {
+                    case .AllowNotifications:
+                        value = shouldSendNotifications();
+                    default:
+                        break;
+                    }
+                }
+                
+            case .UniqueSetting:
+                if let row = SectionUniqueSettingRow(rawValue: indexPath.row) {
+                    switch row {
+                    case .KioskNearby:
+                        value = shouldSendKioskNotifications();
+                    case .ScannedCheckInUploadStatus:
+                        value = shouldSendScannedCheckInNotifications();
+                    default:
+                        break;
+                    }
+                }
+                
+            default:
+                break;
+            }
         }
+        
         return value;
     }
     
@@ -114,8 +143,10 @@ class NotificationSettingsTableViewController: UITableViewController, SwitchTabl
         var rowCount: Int! = 0;
         if let tableSection = TableSection(rawValue: section) {
             switch tableSection {
-            case .LocalNotification:
-                rowCount = SectionLocalNotificationRow.Count.rawValue;
+            case .GlobalSetting:
+                rowCount = SectionGlobalSettingRow.Count.rawValue;
+            case .UniqueSetting:
+                rowCount = SectionUniqueSettingRow.Count.rawValue;
             default:
                 break;
             }
@@ -124,64 +155,89 @@ class NotificationSettingsTableViewController: UITableViewController, SwitchTabl
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        var cell = UITableViewCell();
 
         if let tableSection = TableSection(rawValue: indexPath.section) {
+            let switchCell = tableView.dequeueReusableCellWithIdentifier(switchCellReuseIdentifier, forIndexPath: indexPath) as! SwitchTableViewCell;
+            
+            switchCell.delegate = self;
+            
             switch tableSection {
-            case .LocalNotification:
-                let switchCell = tableView.dequeueReusableCellWithIdentifier(switchCellReuseIdentifier, forIndexPath: indexPath) as! SwitchTableViewCell;
-                
-                switchCell.delegate = self;
-                if let row = SectionLocalNotificationRow(rawValue: indexPath.row) {
-                    switchCell.titleLabel.text = SectionLocalNotificationRow.titleText[row];
+            case .GlobalSetting:
+                if let row = SectionGlobalSettingRow(rawValue: indexPath.row) {
+//                    switchCell.titleLabel.text = SectionGlobalSettingRow.titleText[row];
                     
-                    switchCell.switchControl.on = switchValueForRow(row);
+                    //                    switchCell.switchControl.on = switchValueForRow(row);
+                
+                }
+                
+            case .UniqueSetting:
+                if let row = SectionUniqueSettingRow(rawValue: indexPath.row) {
+                    switchCell.titleLabel.text = SectionUniqueSettingRow.titleText[row];
+                    
+                    switchCell.switchControl.on = switchValueForIndexPath(indexPath);
                     
                     if row == .KioskNearby || row == .ScannedCheckInUploadStatus {
                         switchCell.switchControl.enabled = shouldSendNotifications();
                     }
                 }
                 
-                return switchCell;
-                
             default:
                 break;
             }
+            
+            cell = switchCell;
         }
         
-        assert(false, "Method must produce a cell.");
-        return UITableViewCell();
+        return cell;
     }
     
     // MARK: - Switch Cell Delegate
     
     func valueDidChangeForSwitchCell(cell: SwitchTableViewCell) {
         if let indexPath = tableView.indexPathForCell(cell) {
-            if indexPath.section == TableSection.LocalNotification.rawValue {
-                let row = SectionLocalNotificationRow(rawValue: indexPath.row)!
-                updateValueForLocalNotificationSettingRow(row, value: cell.switchControl.on);
-                
-                let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.2 * Double(NSEC_PER_SEC)));
-                dispatch_after(delayTime, dispatch_get_main_queue()) {
+//            if indexPath.section == TableSection.LocalNotification.rawValue {
+//                let row = SectionLocalNotificationRow(rawValue: indexPath.row)!
+//                updateValueForLocalNotificationSettingRow(row, value: cell.switchControl.on);
+//                
+//                let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.2 * Double(NSEC_PER_SEC)));
+//                dispatch_after(delayTime, dispatch_get_main_queue()) {
                     self.tableView.reloadData();
-                };
-            }
+//                };
+//            }
         }
     }
     
-    func updateValueForLocalNotificationSettingRow(row: SectionLocalNotificationRow, value: Bool) {
+    func updateValueForNotificationSettingAtIndexPath(indexPath: NSIndexPath, value: Bool) {
         var key: String = "";
         
-        switch row {
-        case .AllNotifications:
-            key = allLocalNotificationSettingKey;
-        case .KioskNearby:
-            key = kioskNotificationSettingKey;
-        case .ScannedCheckInUploadStatus:
-            key = scannedCheckInNotificationSettingKey;
-        default:
-            break;
+        if let tableSection = TableSection(rawValue: indexPath.section) {
+            switch tableSection {
+            case .GlobalSetting:
+                if let row = SectionGlobalSettingRow(rawValue: indexPath.row) {
+                    switch row {
+                    case .AllowNotifications:
+                        key = allLocalNotificationSettingKey;
+                    default:
+                        break;
+                    }
+                }
+            case .UniqueSetting:
+                if let row = SectionUniqueSettingRow(rawValue: indexPath.row) {
+                    switch row {
+                    case .KioskNearby:
+                        key = kioskNotificationSettingKey;
+                    case .ScannedCheckInUploadStatus:
+                        key = scannedCheckInNotificationSettingKey;
+                    default:
+                        break;
+                    }
+                }
+            default:
+                break
+            }
         }
-
+        
         if key != "" {
             NSUserDefaults.standardUserDefaults().setBool(value, forKey: key);
             NSUserDefaults.standardUserDefaults().synchronize();
