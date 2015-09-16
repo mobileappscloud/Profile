@@ -23,6 +23,7 @@
 		41411BA31BA894280027F5E1 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41411BA11BA894280027F5E1 /* SwitchTableViewCell.swift */; };
 		41411BA41BA894280027F5E1 /* SwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41411BA21BA894280027F5E1 /* SwitchTableViewCell.xib */; };
 		41545BF91BA76CFA00946358 /* NotificationSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41545BF81BA76CFA00946358 /* NotificationSettings.storyboard */; };
+		416143AE1BA9FFDF0047A1FA /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416143AD1BA9FFDF0047A1FA /* KeychainWrapper.swift */; };
 		8F02A11F19AE2BF6002FF73E /* btn_back_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A11719AE2BF6002FF73E /* btn_back_black.png */; };
 		8F02A12019AE2BF6002FF73E /* btn_back_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A11819AE2BF6002FF73E /* btn_back_black@2x.png */; };
 		8F02A12119AE2BF6002FF73E /* btn_back_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A11919AE2BF6002FF73E /* btn_back_white.png */; };
@@ -353,6 +354,7 @@
 		41411BA11BA894280027F5E1 /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
 		41411BA21BA894280027F5E1 /* SwitchTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SwitchTableViewCell.xib; sourceTree = "<group>"; };
 		41545BF81BA76CFA00946358 /* NotificationSettings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NotificationSettings.storyboard; sourceTree = "<group>"; };
+		416143AD1BA9FFDF0047A1FA /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		686C1AF8577725DC02942F86 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		8F02A11719AE2BF6002FF73E /* btn_back_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_back_black.png; sourceTree = "<group>"; };
 		8F02A11819AE2BF6002FF73E /* btn_back_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_back_black@2x.png"; sourceTree = "<group>"; };
@@ -868,10 +870,11 @@
 		8F296306194B8CB900E787FD /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				8F524BF7195B829400BFC49D /* CustomFormatter.swift */,
-				8F6D510D1947B2E700F7C769 /* Utility.swift */,
 				D130183F1B14D943008DDFAD /* Constants.swift */,
+				8F524BF7195B829400BFC49D /* CustomFormatter.swift */,
+				416143AD1BA9FFDF0047A1FA /* KeychainWrapper.swift */,
 				8FE206611B7CF30E00B473B0 /* LocationDelegate.swift */,
+				8F6D510D1947B2E700F7C769 /* Utility.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -1985,6 +1988,7 @@
 				D1D32D071B1FA0B500AE9B25 /* ActivityMetricDelegate.swift in Sources */,
 				D13018401B14D943008DDFAD /* Constants.swift in Sources */,
 				41411BA31BA894280027F5E1 /* SwitchTableViewCell.swift in Sources */,
+				416143AE1BA9FFDF0047A1FA /* KeychainWrapper.swift in Sources */,
 				8F296311194B911C00E787FD /* SignupNameViewController.swift in Sources */,
 				8FF851C6194F7F2E005C33C6 /* HigiApi.swift in Sources */,
 			);
