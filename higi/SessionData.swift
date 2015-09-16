@@ -34,6 +34,9 @@ class SessionData {
         token = "";
         pin = "";
         user = nil;
+        KeychainWrapper.removeObjectForKey("token");
+        KeychainWrapper.removeObjectForKey("pin");
+        KeychainWrapper.removeObjectForKey("userId");
         seenDashboard = false;
         seenMetrics = false;
         seenReminder = false;
@@ -41,10 +44,12 @@ class SessionData {
     }
     
     func save() {
+        KeychainWrapper.setString(token, forKey: "token");
+        KeychainWrapper.setString(pin, forKey: "pin");
+        var userId = user != nil ? user.userId : "";
+        KeychainWrapper.setObject(userId, forKey: "userId");
+        
         let saveDictionary = NSMutableDictionary();
-        saveDictionary["token"] = token;
-        saveDictionary["pin"] = pin;
-        saveDictionary["userId"] = user != nil ? user.userId : "";
         saveDictionary["seenDashboard"] = seenDashboard;
         saveDictionary["seenMetrics"] = seenMetrics;
         saveDictionary["seenReminder"] = seenReminder;
@@ -56,10 +61,24 @@ class SessionData {
     func restore() {
         if (NSFileManager.defaultManager().fileExistsAtPath(savePath)) {
             let savedDictionary = NSDictionary(contentsOfFile: savePath)!;
-            token = savedDictionary["token"] as! String;
-            pin = savedDictionary["pin"] as! String;
+
+            if let savedToken = savedDictionary["token"] as? String {
+                token = savedToken;
+            } else {
+                token = KeychainWrapper.stringForKey("token");
+            }
+            if let savedPin = savedDictionary["pin"] as? String {
+                pin = savedPin;
+            } else {
+                pin = KeychainWrapper.stringForKey("pin");
+            }
             user = HigiUser();
-            user.userId = savedDictionary["userId"] as! NSString;
+            if let savedUserId = savedDictionary["userId"] as? NSString {
+                user.userId = savedUserId;
+            } else {
+                user.userId = KeychainWrapper.objectForKey("userId") as! NSString;
+            }
+            
             seenDashboard = (savedDictionary["seenDashboard"] ?? false) as! Bool;
             seenMetrics = (savedDictionary["seenMetrics"] ?? false) as! Bool;
             seenReminder = (savedDictionary["seenReminder"] ?? false) as! Bool;
