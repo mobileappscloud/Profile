@@ -80,8 +80,8 @@ class NotificationSettingsTableViewController: UITableViewController, SwitchTabl
         let switchCellNib = UINib(nibName: "SwitchTableViewCell", bundle: nil);
         tableView.registerNib(switchCellNib, forCellReuseIdentifier: switchCellReuseIdentifier);
 //        tableView.estimatedRowHeight = 47.0;
-        tableView.rowHeight = UITableViewAutomaticDimension;
-        tableView.tableFooterView = UIView();
+//        tableView.rowHeight = UITableViewAutomaticDimension;
+//        tableView.tableFooterView = UIView();
     }
 
     // MARK: - Settings
@@ -154,6 +154,20 @@ class NotificationSettingsTableViewController: UITableViewController, SwitchTabl
         return rowCount;
     }
     
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        var rowHeight = UITableViewAutomaticDimension;
+        if let tableSection = TableSection(rawValue: indexPath.section) {
+            switch tableSection {
+            case .UniqueSetting:
+                rowHeight = shouldSendNotifications() ? UITableViewAutomaticDimension : 0.0;
+                print("\nrow = \(indexPath.row) , height = \(rowHeight)");
+            default:
+                break;
+            }
+        }
+        return rowHeight;
+    }
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = UITableViewCell();
 
@@ -161,31 +175,39 @@ class NotificationSettingsTableViewController: UITableViewController, SwitchTabl
             let switchCell = tableView.dequeueReusableCellWithIdentifier(switchCellReuseIdentifier, forIndexPath: indexPath) as! SwitchTableViewCell;
             
             switchCell.delegate = self;
+            switchCell.switchControl.on = switchValueForIndexPath(indexPath);
             
             switch tableSection {
             case .GlobalSetting:
                 if let row = SectionGlobalSettingRow(rawValue: indexPath.row) {
-//                    switchCell.titleLabel.text = SectionGlobalSettingRow.titleText[row];
-                    
-                    //                    switchCell.switchControl.on = switchValueForRow(row);
-                
+                    switch row {
+                    case .AllowNotifications:
+                        switchCell.titleLabel.text = "Allow Notifications";
+                    default:
+                        break;
+                    }
                 }
                 
             case .UniqueSetting:
                 if let row = SectionUniqueSettingRow(rawValue: indexPath.row) {
-                    switchCell.titleLabel.text = SectionUniqueSettingRow.titleText[row];
-                    
-                    switchCell.switchControl.on = switchValueForIndexPath(indexPath);
-                    
                     if row == .KioskNearby || row == .ScannedCheckInUploadStatus {
                         switchCell.switchControl.enabled = shouldSendNotifications();
+                    }
+                    
+                    switch row {
+                    case .KioskNearby:
+                        switchCell.titleLabel.text = "Kiosk Notifications"
+                    case .ScannedCheckInUploadStatus:
+                        switchCell.titleLabel.text = "Scanned Check-in Notifications"
+                    default:
+                        break;
                     }
                 }
                 
             default:
                 break;
             }
-            
+
             cell = switchCell;
         }
         
@@ -196,16 +218,10 @@ class NotificationSettingsTableViewController: UITableViewController, SwitchTabl
     
     func valueDidChangeForSwitchCell(cell: SwitchTableViewCell) {
         if let indexPath = tableView.indexPathForCell(cell) {
-//            if indexPath.section == TableSection.LocalNotification.rawValue {
-//                let row = SectionLocalNotificationRow(rawValue: indexPath.row)!
-//                updateValueForLocalNotificationSettingRow(row, value: cell.switchControl.on);
-//                
-//                let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.2 * Double(NSEC_PER_SEC)));
-//                dispatch_after(delayTime, dispatch_get_main_queue()) {
-                    self.tableView.reloadData();
-//                };
-//            }
-        }
+            self.tableView.beginUpdates()
+            updateValueForNotificationSettingAtIndexPath(indexPath, value: cell.switchControl.on)
+            self.tableView.endUpdates()
+        };
     }
     
     func updateValueForNotificationSettingAtIndexPath(indexPath: NSIndexPath, value: Bool) {
