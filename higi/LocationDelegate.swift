@@ -46,8 +46,8 @@ class LocationDelegate: NSObject, CLLocationManagerDelegate {
     
     func showLocalNotification(kiosk: KioskInfo) {
         let userDefaults = NSUserDefaults.standardUserDefaults()
-        var showKioskNotification: Bool = userDefaults.boolForKey("KioskNotificationSettingKey");
-        if !showKioskNotification {
+        var showStationNotification: Bool = userDefaults.boolForKey("StationNearbyNotificationSettingKey");
+        if !showStationNotification {
             return;
         }
         

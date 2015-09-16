@@ -23,7 +23,7 @@ enum SectionGlobalSettingRow: Int {
 }
 
 enum SectionUniqueSettingRow: Int {
-    case KioskNearby
+    case StationNearby
     case Count
 }
 
@@ -34,7 +34,7 @@ class NotificationSettingsTableViewController: UITableViewController, SwitchTabl
     // TODO: Currently assuming these settings should be device specific. Need to investigate various
     //       types of settings and create a settings-specific controller.
     let globalNotificationSettingKey = "GlobalNotificationSettingKey";
-    let kioskNotificationSettingKey = "KioskNotificationSettingKey";
+    let stationNearbyNotificationSettingKey = "StationNearbyNotificationSettingKey";
     
     // MARK: - View Lifecycle
     
@@ -82,8 +82,8 @@ class NotificationSettingsTableViewController: UITableViewController, SwitchTabl
         return NSUserDefaults.standardUserDefaults().boolForKey(globalNotificationSettingKey);
     }
     
-    func shouldSendKioskNotifications() -> Bool {
-        return NSUserDefaults.standardUserDefaults().boolForKey(kioskNotificationSettingKey);
+    func shouldSendStationNearbyNotifications() -> Bool {
+        return NSUserDefaults.standardUserDefaults().boolForKey(stationNearbyNotificationSettingKey);
     }
     
     func switchValueForIndexPath(indexPath: NSIndexPath) -> Bool {
@@ -104,8 +104,8 @@ class NotificationSettingsTableViewController: UITableViewController, SwitchTabl
             case .UniqueSetting:
                 if let row = SectionUniqueSettingRow(rawValue: indexPath.row) {
                     switch row {
-                    case .KioskNearby:
-                        value = shouldSendKioskNotifications();
+                    case .StationNearby:
+                        value = shouldSendStationNearbyNotifications();
                     default:
                         break;
                     }
@@ -164,8 +164,8 @@ class NotificationSettingsTableViewController: UITableViewController, SwitchTabl
             case .UniqueSetting:
                 if let row = SectionUniqueSettingRow(rawValue: indexPath.row) {
                     switch row {
-                    case .KioskNearby:
-                        switchCell.titleLabel.text = "Kiosk Nearby"
+                    case .StationNearby:
+                        switchCell.titleLabel.text = "Station Nearby"
                     default:
                         break;
                     }
@@ -220,8 +220,8 @@ class NotificationSettingsTableViewController: UITableViewController, SwitchTabl
             case .UniqueSetting:
                 if let row = SectionUniqueSettingRow(rawValue: indexPath.row) {
                     switch row {
-                    case .KioskNearby:
-                        key = kioskNotificationSettingKey;
+                    case .StationNearby:
+                        key = stationNearbyNotificationSettingKey;
                     default:
                         break;
                     }
