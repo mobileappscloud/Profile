@@ -62,5 +62,7 @@
 	<true/>
 	<key>WebUrl</key>
 	<string>https://webqa.superbuddytime.com</string>
+	<key>UILaunchStoryboardName</key>
+	<string>Main</string>
 </dict>
 </plist>
