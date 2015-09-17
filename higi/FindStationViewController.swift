@@ -573,8 +573,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
             if (granted) {
                 var eventController = EKEventEditViewController();
                 var event = EKEvent(eventStore: eventStore);
-                var calendar = eventStore.defaultCalendarForNewEvents;
-                if (calendar != nil) {
+                if let calendar: EKCalendar = eventStore.defaultCalendarForNewEvents {
                     event.calendar = calendar;
                     event.startDate = NSDate();
                     event.endDate = NSDate();

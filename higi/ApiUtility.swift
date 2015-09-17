@@ -349,26 +349,27 @@ class ApiUtility {
         return kiosks;
     }
 
+    /*
     class func updateHealthKit() {
         if (UIDevice.currentDevice().systemVersion >= "8.0" && HKHealthStore.isHealthDataAvailable()) {
             if (SessionController.Instance.healthStore == nil) {
                 SessionController.Instance.healthStore = HKHealthStore();
             }
             var healthStore = SessionController.Instance.healthStore;
-            healthStore.requestAuthorizationToShareTypes(ApiUtility.dataTypesToWrite() as Set<NSObject>, readTypes: ApiUtility.dataTypesToRead() as Set<NSObject>, completion: { success, error in
+            healthStore.requestAuthorizationToShareTypes((ApiUtility.dataTypesToWrite() as! Set<HKSampleType>), readTypes: (ApiUtility.dataTypesToRead() as! Set<HKObjectType>), completion: { success, error in
                 if (success) {
                     dispatch_async(dispatch_get_main_queue(), {
                         
-                        var startDate = NSDate.distantPast() as! NSDate;
+                        var startDate = NSDate.distantPast();
                         
-                        healthStore.executeQuery(HKSampleQuery(sampleType: HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBodyMass), predicate: HKQuery.predicateForObjectsFromSource(HKSource.defaultSource()), limit: Int(HKObjectQueryNoLimit), sortDescriptors: nil, resultsHandler: {query, results, error in
+                        healthStore.executeQuery(HKSampleQuery(sampleType: HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBodyMass)!, predicate: HKQuery.predicateForObjectsFromSource(HKSource.defaultSource()), limit: Int(HKObjectQueryNoLimit), sortDescriptors: nil, resultsHandler: {query, results, error in
                             
                             if (results != nil && (results as! [HKSample]).count > 0) {
                                 var dataResults: [HKSample] = results as! [HKSample];
                                 startDate = dataResults.last!.startDate;
                             }
                             
-                            healthStore.executeQuery(HKSampleQuery(sampleType: HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate), predicate: HKQuery.predicateForObjectsFromSource(HKSource.defaultSource()), limit: Int(HKObjectQueryNoLimit), sortDescriptors: nil, resultsHandler: {query, results, error in
+                            healthStore.executeQuery(HKSampleQuery(sampleType: HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate)!, predicate: HKQuery.predicateForObjectsFromSource(HKSource.defaultSource()), limit: Int(HKObjectQueryNoLimit), sortDescriptors: nil, resultsHandler: {query, results, error in
                                 
                                 if (results != nil && (results as! [HKSample]).count > 0) {
                                     var dataResults: [HKSample] = results as! [HKSample];
@@ -413,6 +414,7 @@ class ApiUtility {
             });
         }
     }
+    */
     
     class func saveData(startDate: NSDate) {
         
@@ -426,10 +428,11 @@ class ApiUtility {
                 continue;
             }
             if (checkin.systolic != nil) {
-                var systolic = HKQuantitySample(type: HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBloodPressureSystolic)!, quantity: HKQuantity(unit: HKUnit.millimeterOfMercuryUnit(), doubleValue: Double(checkin.systolic!)), startDate: checkin.dateTime, endDate: checkin.dateTime);
-                var diastolic = HKQuantitySample(type: HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBloodPressureDiastolic)!, quantity: HKQuantity(unit: HKUnit.millimeterOfMercuryUnit(), doubleValue: Double(checkin.diastolic!)), startDate: checkin.dateTime, endDate: checkin.dateTime);
-                var bpSet = NSSet(objects: systolic, diastolic);
-                bpSamples.append(HKCorrelation(type: HKObjectType.correlationTypeForIdentifier(HKCorrelationTypeIdentifierBloodPressure), startDate: checkin.dateTime, endDate: checkin.dateTime, objects: bpSet as Set<NSObject>));
+                let systolic = HKQuantitySample(type: HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBloodPressureSystolic)!, quantity: HKQuantity(unit: HKUnit.millimeterOfMercuryUnit(), doubleValue: Double(checkin.systolic!)), startDate: checkin.dateTime, endDate: checkin.dateTime);
+                let diastolic = HKQuantitySample(type: HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBloodPressureDiastolic)!, quantity: HKQuantity(unit: HKUnit.millimeterOfMercuryUnit(), doubleValue: Double(checkin.diastolic!)), startDate: checkin.dateTime, endDate: checkin.dateTime);
+                let bpSet = NSSet(objects: systolic, diastolic);
+                bpSamples.append(HKCorrelation(type: HKObjectType.correlationTypeForIdentifier(HKCorrelationTypeIdentifierBloodPressure)!,
+                    startDate: checkin.dateTime, endDate: checkin.dateTime, objects: bpSet as! Set<HKSample>));
                 pulseSamples.append(HKQuantitySample(type: HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate)!, quantity: HKQuantity(unit: HKUnit.countUnit().unitDividedByUnit(HKUnit.minuteUnit()), doubleValue: Double(checkin.pulseBpm!)), startDate: checkin.dateTime, endDate: checkin.dateTime));
             }
             
@@ -439,7 +442,7 @@ class ApiUtility {
             }
         }
         
-        var healthStore = SessionController.Instance.healthStore;
+        let healthStore = SessionController.Instance.healthStore;
         healthStore.saveObjects(bpSamples, withCompletion: {(completed, error) in });
         healthStore.saveObjects(pulseSamples, withCompletion: {(completed, error) in });
         healthStore.saveObjects(weightSamples, withCompletion: {(completed, error) in });

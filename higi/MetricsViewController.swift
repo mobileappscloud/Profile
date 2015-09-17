@@ -413,7 +413,7 @@ class MetricsViewController: UIViewController {
         let revealController = (self.navigationController as! MainNavigationController).revealController;
         revealController.supportedOrientations = previousSupportedOrientations;
         revealController.shouldRotate = true;
-        UIDevice.currentDevice().setValue(previousActualOrientation, forKey: "orientation");
+        UIDevice.currentDevice().setValue(previousActualOrientation.rawValue, forKey: "orientation");
         UIViewController.attemptRotationToDeviceOrientation();
         revealController.shouldRotate = previousShouldRotate;
     }
