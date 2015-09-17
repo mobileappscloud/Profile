@@ -449,14 +449,14 @@ class ApiUtility {
         healthStore.saveObjects(bmiSamples, withCompletion: {(completed, error) in });
     }
     
-    class func dataTypesToWrite() -> NSSet {
-        return NSSet(array: [
-            HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBloodPressureSystolic),
-            HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBloodPressureDiastolic),
-            HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate),
-            HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBodyMassIndex),
-            HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBodyMass)]);
-    }
+//    class func dataTypesToWrite() -> NSSet {
+//        return NSSet(array: [
+//            HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBloodPressureSystolic),
+//            HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBloodPressureDiastolic),
+//            HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate),
+//            HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBodyMassIndex),
+//            HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBodyMass)]);
+//    }
     
     class func dataTypesToRead() -> NSSet {
         return NSSet(array: []);

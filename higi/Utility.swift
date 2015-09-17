@@ -62,11 +62,7 @@ class Utility {
     }
     
     class func loadImageFromUrl(imageUrlString: String) -> NSURL {
-        let imageUrl = NSURL(string: imageUrlString);
-        if let imageError = imageUrl?.checkResourceIsReachableAndReturnError() {
-            return imageUrl!;
-        }
-        return NSURL();
+        return NSURL(string: imageUrlString)!;
     }
 
     class func heightForTextView(width: CGFloat, text: String, fontSize: CGFloat, margin: CGFloat) -> CGFloat {
