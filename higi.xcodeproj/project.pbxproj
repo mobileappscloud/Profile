@@ -2073,7 +2073,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				BUILD_NUMBER = 3;
+				BUILD_NUMBER = 4;
 				CODE_SIGN_ENTITLEMENTS = higi/higi.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: higi llc (5D5W9WNYL2)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: higi llc (5D5W9WNYL2)";
@@ -2161,7 +2161,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				BUILD_NUMBER = 3;
+				BUILD_NUMBER = 4;
 				CODE_SIGN_ENTITLEMENTS = higi/higi.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: higi llc (5D5W9WNYL2)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: higi llc (5D5W9WNYL2)";
@@ -2288,7 +2288,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				BUILD_NUMBER = 3;
+				BUILD_NUMBER = 4;
 				CODE_SIGN_ENTITLEMENTS = higi/higi.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: higi llc (5D5W9WNYL2)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: higi llc (5D5W9WNYL2)";
@@ -2321,7 +2321,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				BUILD_NUMBER = 3;
+				BUILD_NUMBER = 4;
 				CODE_SIGN_ENTITLEMENTS = higi/higi.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: higi llc (5D5W9WNYL2)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: higi llc (5D5W9WNYL2)";
