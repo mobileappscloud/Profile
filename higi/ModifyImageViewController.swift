@@ -38,17 +38,17 @@ class ModifyImageViewController: UIViewController {
         doneButton = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 30));
         doneButton.setTitle("Done", forState: UIControlState.Normal);
         doneButton.addTarget(self, action: "done:", forControlEvents: UIControlEvents.TouchUpInside);
-        var doneBarItem = UIBarButtonItem();
+        let doneBarItem = UIBarButtonItem();
         doneBarItem.customView = doneButton;
         self.navigationItem.rightBarButtonItem = doneBarItem;
         
         profileImageView.hidden = true;
         
-        var backButton = UIButton(type: UIButtonType.Custom);
+        let backButton = UIButton(type: UIButtonType.Custom);
         backButton.setBackgroundImage(UIImage(named: "btn_back_white.png"), forState: UIControlState.Normal);
         backButton.addTarget(self, action: "goBack:", forControlEvents: UIControlEvents.TouchUpInside);
         backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
-        var backBarItem = UIBarButtonItem(customView: backButton);
+        let backBarItem = UIBarButtonItem(customView: backButton);
         self.navigationItem.leftBarButtonItem = backBarItem;
     }
     
@@ -86,7 +86,7 @@ class ModifyImageViewController: UIViewController {
                 imageData = UIImageJPEGRepresentation(profileImage, compressionQuality);
                 compressionQuality -= 0.1;
             }
-            var user = SessionData.Instance.user;
+            let user = SessionData.Instance.user;
             HigiApi().sendBytePost("\(HigiApi.higiApiUrl)/data/user/\(user.userId)/photo", contentType: "image/jpg", body: imageData!, parameters: nil, success: {operation, responseObject in
                 user.fullProfileImage = UIImage(data: imageData!);
                 user.hasPhoto = true;

@@ -80,7 +80,8 @@ class PinCodeViewController: UIViewController, UITextFieldDelegate {
     func checkTouchId() {
         if (UIDevice.currentDevice().systemVersion >= "8.0") {
             let authenticationContext = LAContext();
-            if (SessionController.Instance.askTouchId && authenticationContext.canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics)) {
+
+            if (SessionController.Instance.askTouchId && authenticationContext.canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, error: nil)) {
                 authenticationContext.evaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, localizedReason: "Use your fingerprint to access higi", reply: {success, error in
                     if (success) {
                         NSNotificationCenter.defaultCenter().postNotificationName(self.touchIdSuccessfulNotification, object: nil);
@@ -100,22 +101,22 @@ class PinCodeViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        return textField.text.characters.count < 4 || string.characters.count == 0;
+        return textField.text!.characters.count < 4 || string.characters.count == 0;
     }
     
     @IBAction func pinChanged(sender: AnyObject!) {
         
-        for index in 0..<pinField.text.characters.count {
-            var circle = circleContainer.subviews[index] as! UIView;
+        for index in 0..<pinField.text!.characters.count {
+            let circle = circleContainer.subviews[index];
             circle.layer.borderWidth = 20;
-            (circle.subviews.first as! UIView).hidden = false;
+            circle.subviews.first!.hidden = false;
         }
         
-        if (pinField.text.characters.count < 4) {
-            for index in pinField.text.characters.count...3 {
-                var circle = circleContainer.subviews[index] as! UIView;
+        if (pinField.text!.characters.count < 4) {
+            for index in pinField.text!.characters.count...3 {
+                let circle = circleContainer.subviews[index];
                 circle.layer.borderWidth = 1;
-                (circle.subviews.first as! UIView).hidden = true;
+                circle.subviews.first!.hidden = true;
             }
         } else {
             if (newCode) {

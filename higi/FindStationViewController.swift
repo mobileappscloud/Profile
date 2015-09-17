@@ -194,7 +194,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     }
     
     func setupMap() {
-        var camera = GMSCameraPosition.cameraWithLatitude(41.888254, longitude: -87.637681, zoom: 11);
+        let camera = GMSCameraPosition.cameraWithLatitude(41.888254, longitude: -87.637681, zoom: 11);
         mapView = GMSMapView.mapWithFrame(CGRect(origin: CGPoint(x: 0, y: 0), size: mapContainer.frame.size), camera: camera);
         mapView.myLocationEnabled = true;
         mapView.settings.myLocationButton = true;
@@ -203,7 +203,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         mapView.delegate = clusterManager;
         clusterManager.delegate = self;
         
-        var myLocationButton = mapView.subviews.last as! UIView;
+        let myLocationButton = mapView.subviews.last!;
         myLocationButton.frame.origin.x = 10;
         mapContainer.addSubview(mapView);
     }
@@ -303,7 +303,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         autoCompleteSpinner.hidden = false;
         currentAutoCompleteTask.cancelAllOperations();
         autoCompleteResults = [];
-        if (searchField.text.characters.count == 0) {
+        if (searchField.text!.characters.count == 0) {
             noResults.hidden = true;
             autoCompleteTable.reloadData();
             if (autoCompleteOpen) {
@@ -311,28 +311,28 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
             }
         } else {
             currentAutoCompleteTask.addOperationWithBlock( {
-                let size = self.searchField.text.characters.count;
+                let size = self.searchField.text!.characters.count;
                 for kiosk in SessionController.Instance.kioskList {
                     if (kiosk.status != "Deployed") {
                         continue;
                     }
-                    if ((self.currentAutoCompleteTask.operations[0] as! NSOperation).cancelled && size != self.searchField.text.characters.count) {
+                    if ((self.currentAutoCompleteTask.operations[0]).cancelled && size != self.searchField.text!.characters.count) {
                         return;
                     }
-                    if (kiosk.organizations[0].lowercaseString.rangeOfString(self.searchField.text.lowercaseString) != nil) {
+                    if (kiosk.organizations[0].lowercaseString.rangeOfString(self.searchField.text!.lowercaseString) != nil) {
                         self.autoCompleteResults.append(kiosk);
-                    } else if (kiosk.fullAddress.lowercaseString.rangeOfString(self.searchField.text.lowercaseString) != nil) {
+                    } else if (kiosk.fullAddress.lowercaseString.rangeOfString(self.searchField.text!.lowercaseString) != nil) {
                         self.autoCompleteResults.append(kiosk);
                     }
                 }
-                if ((self.currentAutoCompleteTask.operations[0] as! NSOperation).cancelled && size != self.searchField.text.characters.count) {
+                if ((self.currentAutoCompleteTask.operations[0]).cancelled && size != self.searchField.text!.characters.count) {
                     return;
                 }
                 self.autoCompleteResults.sortInPlace { self.calcDistance($0.location!) < self.calcDistance($1.location!) };
-                if ((self.currentAutoCompleteTask.operations[0] as! NSOperation).cancelled && size != self.searchField.text.characters.count) {
+                if ((self.currentAutoCompleteTask.operations[0]).cancelled && size != self.searchField.text!.characters.count) {
                     return;
                 }
-                if (size == self.searchField.text.characters.count) {
+                if (size == self.searchField.text!.characters.count) {
                     dispatch_async(dispatch_get_main_queue(), {
                     
                         self.autoCompleteSpinner.hidden = true;
@@ -509,7 +509,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         searchField.resignFirstResponder();
         if (selectedKioskPane.hidden) {
             selectedKioskPane.hidden = false;
-            (mapView.subviews.last as! UIView).frame.origin.y -= 70;
+            mapView.subviews.last!.frame.origin.y -= 70;
             if (!SessionData.Instance.seenReminder && reminderMode) {
                 topHelp.hidden = true;
                 bottomHelp.hidden = false;

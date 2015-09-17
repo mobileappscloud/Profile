@@ -164,7 +164,7 @@ class PulseHomeViewController: BaseViewController, UITableViewDataSource, UITabl
     }
     
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return UIInterfaceOrientation.Portrait.rawValue;
+        return UIInterfaceOrientationMask.Portrait;
     }
     
     override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {

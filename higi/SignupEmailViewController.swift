@@ -64,14 +64,14 @@ class SignupEmailViewController: UIViewController, UITextFieldDelegate {
         signupButton.enabled = false;
         self.navigationItem.leftBarButtonItem!.customView!.hidden = true;
         var problemFound = false;
-        if (email.text.characters.count == 0 || email.text.rangeOfString("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$", options: NSStringCompareOptions.RegularExpressionSearch, range: nil, locale: nil) == nil) {
+        if (email.text!.characters.count == 0 || email.text!.rangeOfString("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$", options: NSStringCompareOptions.RegularExpressionSearch, range: nil, locale: nil) == nil) {
             problemFound = true;
             email.attributedPlaceholder = NSAttributedString(string: "Valid email required", attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)]);
         } else {
             email.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSForegroundColorAttributeName: UIColor.lightGrayColor()]);
         }
         
-        if (password.text.characters.count < 6) {
+        if (password.text!.characters.count < 6) {
             problemFound = true;
             password.attributedPlaceholder = NSAttributedString(string: "Password must be at least 6 characters", attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)]);
         } else {

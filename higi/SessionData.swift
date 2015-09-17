@@ -24,8 +24,8 @@ class SessionData {
     
     var lastUpdate: NSDate!;
     
-    let savePath: String = (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] ).stringByAppendingPathComponent("HigiSessionData.plist");
-
+    let savePath: String = (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]) + "HigiSessionData.plist" ;
+    
     init() {
         restore();
     }

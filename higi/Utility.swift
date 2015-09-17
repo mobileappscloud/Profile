@@ -101,7 +101,7 @@ class Utility {
     
     class func imageWithColor(image: UIImage, color: UIColor) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(image.size, false, image.scale);
-        let context = UIGraphicsGetCurrentContext() as CGContextRef;
+        let context = UIGraphicsGetCurrentContext();
         CGContextTranslateCTM(context, 0, image.size.height);
         CGContextScaleCTM(context, 1.0, -1.0);
         CGContextSetBlendMode(context, CGBlendMode.Normal);

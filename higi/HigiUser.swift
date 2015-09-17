@@ -63,14 +63,14 @@ class HigiUser {
         if (fullProfileImage == nil) {
             fullProfileImage = profileImage;
         }
-        var context = CIContext(options: nil);
-        var inputImage = CIImage(CGImage: Utility.scaleImage(fullProfileImage, newSize: CGSize(width: fullProfileImage.size.width / 2, height: fullProfileImage.size.height / 2)).CGImage);
-        var filter = CIFilter(name: "CIGaussianBlur");
-        filter.setValue(inputImage, forKey: kCIInputImageKey);
-        filter.setValue(NSNumber(float: 15.0), forKey: "inputRadius");
-        var result = filter.valueForKey(kCIOutputImageKey) as! CIImage;
+        let context = CIContext(options: nil);
+        let inputImage = CIImage(CGImage: Utility.scaleImage(fullProfileImage, newSize: CGSize(width: fullProfileImage.size.width / 2, height: fullProfileImage.size.height / 2)).CGImage!);
+        let filter = CIFilter(name: "CIGaussianBlur");
+        filter!.setValue(inputImage, forKey: kCIInputImageKey);
+        filter!.setValue(NSNumber(float: 15.0), forKey: "inputRadius");
+        let result = filter!.valueForKey(kCIOutputImageKey) as! CIImage;
         
-        var cgImage = context.createCGImage(result, fromRect: inputImage.extent);
+        let cgImage = context.createCGImage(result, fromRect: inputImage.extent);
         blurredImage = UIImage(CGImage: cgImage);
         
     }

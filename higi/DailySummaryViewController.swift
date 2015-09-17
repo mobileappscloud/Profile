@@ -38,9 +38,9 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     
     var isLeaving = false, previousShouldRotate: Bool!;
     
-    var previousSupportedOrientations: UInt!;
+    var previousSupportedOrientations: UIInterfaceOrientationMask!;
     
-    var previousActualOrientation: Int!;
+    var previousActualOrientation: UIInterfaceOrientation!;
     
     var fakeNavBar:UIView!;
     
@@ -75,11 +75,11 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
         let revealController = (navigationController as! MainNavigationController).revealController;
-        previousActualOrientation = self.interfaceOrientation.rawValue;
+        previousActualOrientation = self.interfaceOrientation;
         previousSupportedOrientations = revealController.supportedOrientations;
         previousShouldRotate = revealController.shouldRotate;
         revealController.panGestureRecognizer().enabled = false;
-        revealController.supportedOrientations = UIInterfaceOrientationMask.Portrait.rawValue | UIInterfaceOrientationMask.LandscapeLeft.rawValue | UIInterfaceOrientationMask.LandscapeRight.rawValue;
+        revealController.supportedOrientations = UIInterfaceOrientationMask.AllButUpsideDown;
         revealController.shouldRotate = true;
         
         activityView.frame.size.width = UIScreen.mainScreen().bounds.size.width;

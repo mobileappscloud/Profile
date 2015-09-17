@@ -63,12 +63,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         self.navigationItem.leftBarButtonItem!.customView!.hidden = true;
         email.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSForegroundColorAttributeName: UIColor.lightGrayColor()]);
         password.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName: UIColor.lightGrayColor()]);
-        if (email.text.characters.count == 0 || email.text.rangeOfString("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$", options: NSStringCompareOptions.RegularExpressionSearch, range: nil, locale: nil) == nil) {
+        if (email.text!.characters.count == 0 || email.text!.rangeOfString("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$", options: NSStringCompareOptions.RegularExpressionSearch, range: nil, locale: nil) == nil) {
             email.attributedPlaceholder = NSAttributedString(string: "Valid email required", attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)]);
             email.text = "";
             password.text = "";
             reset();
-        } else if (password.text.characters.count < 6) {
+        } else if (password.text!.characters.count < 6) {
             password.attributedPlaceholder = NSAttributedString(string: "Password must be at least 6 characters", attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)]);
             password.text = "";
             reset();

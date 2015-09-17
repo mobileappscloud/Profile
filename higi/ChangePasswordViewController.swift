@@ -41,7 +41,7 @@ class ChangePasswordViewController: UIViewController, UITextFieldDelegate {
         
         var problem = false;
         
-        if (currentPassword.text.characters.count < 6) {
+        if (currentPassword.text!.characters.count < 6) {
             currentPassword.attributedPlaceholder = NSAttributedString(string: "Invalid password", attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)]);
             problem = true;
             currentPassword.text = "";
@@ -49,7 +49,7 @@ class ChangePasswordViewController: UIViewController, UITextFieldDelegate {
             confirmPassword.text = "";
         }
         
-        if (newPassword.text.characters.count < 6) {
+        if (newPassword.text!.characters.count < 6) {
             newPassword.attributedPlaceholder = NSAttributedString(string: "Must be at least 6 characters long", attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)]);
             problem = true;
             newPassword.text = "";

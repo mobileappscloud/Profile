@@ -16,16 +16,16 @@ class MetricsViewController: UIViewController {
     
     var screenWidth:CGFloat!, screenHeight: CGFloat!;
     
-    var previousSupportedOrientations: UInt!;
+    var previousSupportedOrientations: UIInterfaceOrientationMask!;
     
-    var previousActualOrientation: Int!, selectedCardPosition = 0;
+    var previousActualOrientation: UIInterfaceOrientation!, selectedCardPosition = 0;
     
     override func viewDidLoad() {
         super.viewDidLoad();
         let revealController = (self.navigationController as! MainNavigationController).revealController;
         previousSupportedOrientations = revealController.supportedOrientations;
         previousShouldRotate = revealController.shouldRotate;
-        previousActualOrientation = self.interfaceOrientation.rawValue;
+        previousActualOrientation = self.interfaceOrientation;
         
         screenWidth = max(UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height);
         screenHeight = min(UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height);
@@ -39,7 +39,7 @@ class MetricsViewController: UIViewController {
         let revealController = (self.navigationController as! MainNavigationController).revealController;
         revealController.panGestureRecognizer().enabled = false;
         revealController.shouldRotate = true;
-        revealController.supportedOrientations = UIInterfaceOrientationMask.LandscapeRight.rawValue;
+        revealController.supportedOrientations = UIInterfaceOrientationMask.LandscapeRight;
         revealController.preferredOrientation = UIInterfaceOrientation.LandscapeRight;
         UIDevice.currentDevice().setValue(UIInterfaceOrientation.LandscapeRight.rawValue, forKey: "orientation");
         UIViewController.attemptRotationToDeviceOrientation();
@@ -402,7 +402,7 @@ class MetricsViewController: UIViewController {
     
     func prepareForPortraitOrientation() {
         let revealController = (self.navigationController as! MainNavigationController).revealController;
-        revealController.supportedOrientations = UIInterfaceOrientationMask.Portrait.rawValue;
+        revealController.supportedOrientations = UIInterfaceOrientationMask.Portrait;
         revealController.shouldRotate = true;
         UIDevice.currentDevice().setValue(UIInterfaceOrientation.Portrait.rawValue, forKey: "orientation");
         UIViewController.attemptRotationToDeviceOrientation();

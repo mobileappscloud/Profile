@@ -61,7 +61,7 @@ class SplashViewController: UIViewController, UIAlertViewDelegate {
     }
     
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return UIInterfaceOrientation.Portrait.rawValue;
+        return UIInterfaceOrientationMask.Portrait;
     }
     
     func checkVersion() {

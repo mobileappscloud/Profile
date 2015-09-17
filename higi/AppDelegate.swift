@@ -56,7 +56,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if let info = notification.userInfo as? Dictionary<String, Int> {
                 //99 is id of QR scanner notifications
                 if info["ID"] == 99 {
-                    UIAlertView(title: notification.alertTitle, message: notification.alertBody, delegate: nil, cancelButtonTitle: "OK").show();
+                    if #available(iOS 8.2, *) {
+                        UIAlertView(title: notification.alertTitle, message: notification.alertBody, delegate: nil, cancelButtonTitle: "OK").show()
+                    } else {
+                        // Fallback on earlier versions
+                    };
                 }
             }
         }

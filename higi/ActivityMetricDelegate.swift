@@ -40,7 +40,7 @@ class ActivityMetricDelegate: MetricDelegate {
     
     func setSelected(date: NSDate) {
         if sortedDates.count == 0 {
-            sortedDates = SessionController.Instance.activities.keys.array;
+            sortedDates = Array(SessionController.Instance.activities.keys);
             sortedDates.sortInPlace({$0 > $1});
         }
         var lastDate = "";

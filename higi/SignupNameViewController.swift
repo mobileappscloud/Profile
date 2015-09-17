@@ -43,12 +43,12 @@ class SignupNameViewController: UIViewController, UITextFieldDelegate {
         spinner.hidden = false;
         var problemFound = false;
         
-        if (firstName.text.characters.count == 0) {
+        if (firstName.text!.characters.count == 0) {
             problemFound = true;
             firstName.attributedPlaceholder = NSAttributedString(string: "First name is required", attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)]);
         }
         
-        if (lastName.text.characters.count == 0) {
+        if (lastName.text!.characters.count == 0) {
             problemFound = true;
             lastName.attributedPlaceholder = NSAttributedString(string: "Last name is required", attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)]);
         }

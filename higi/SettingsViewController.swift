@@ -200,12 +200,12 @@ class SettingsViewController: BaseViewController, UIScrollViewDelegate {
     // MARK: - Helper
     
     func exportData() -> NSURL {
-        var dateFormatter = NSDateFormatter();
+        let dateFormatter = NSDateFormatter();
         dateFormatter.dateFormat = "MM/dd/yyy";
         var contents = "Date,Location,Address of higi Station,Systolic Pressure (mmHg),Diastolic Pressure (mmHg),Pulse (bpm),Mean Arterial Pressure (mmHg), Weight (lbs),Body Mass Index\n";
         
         for index in Array((0..<SessionController.Instance.checkins.count).reverse()) {
-            var checkin = SessionController.Instance.checkins[index];
+            let checkin = SessionController.Instance.checkins[index];
             var address = "", systolic = "", diastolic = "", pulse = "", map = "", weight = "", bmi = "";
             var organization = checkin.sourceVendorId!;
             if (checkin.kioskInfo != nil) {
@@ -225,7 +225,7 @@ class SettingsViewController: BaseViewController, UIScrollViewDelegate {
                 weight = "\(Int(checkin.weightLbs!))";
             }
             
-            var row = "\(dateFormatter.stringFromDate(checkin.dateTime)),\(organization),\(address),\(systolic),\(diastolic),\(pulse),\(map),\(weight),\(bmi)\n";
+            let row = "\(dateFormatter.stringFromDate(checkin.dateTime)),\(organization),\(address),\(systolic),\(diastolic),\(pulse),\(map),\(weight),\(bmi)\n";
             contents += row;
         }
         
@@ -241,8 +241,7 @@ class SettingsViewController: BaseViewController, UIScrollViewDelegate {
     }
     
     func getShareFilePath() -> String {
-        let docPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] ;
-        return docPath.stringByAppendingPathComponent("higi_results.csv");
+        return NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] + "higi_results.csv";
     }
     
     // MARK: - Scroll View

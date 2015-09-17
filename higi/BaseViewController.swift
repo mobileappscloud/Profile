@@ -26,7 +26,7 @@ class BaseViewController: UIViewController, SWRevealViewControllerDelegate {
         super.viewDidLoad();
         revealController = (self.navigationController as! MainNavigationController).revealController;
         revealController.shouldRotate = false;
-        revealController.supportedOrientations = UIInterfaceOrientationMask.Portrait.rawValue;
+        revealController.supportedOrientations = UIInterfaceOrientationMask.Portrait;
         self.view.addSubview(fakeNavBar);
         self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()];
         self.fakeNavBar.backgroundColor = UIColor.whiteColor();
@@ -36,7 +36,7 @@ class BaseViewController: UIViewController, SWRevealViewControllerDelegate {
         if (shouldShowDailyPoints) {
             NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveApiNotification:", name: ApiUtility.ACTIVITIES, object: nil);
         }
-        toggleButton = UIButton(type: UIButtonType.Custom) as? UIButton;
+        toggleButton = UIButton(type: .Custom);
         toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon.png"), forState: UIControlState.Normal);
         toggleButton!.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
         toggleButton!.addTarget(self, action: Selector("toggleMenu:"), forControlEvents: UIControlEvents.TouchUpInside);

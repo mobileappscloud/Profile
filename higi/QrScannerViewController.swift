@@ -75,7 +75,7 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         var error:NSError?;
         let deviceInput: AnyObject!
         do {
-            deviceInput = try AVCaptureDeviceInput.deviceInputWithDevice(device)
+            deviceInput = try AVCaptureDeviceInput(device: device)
         } catch let error1 as NSError {
             error = error1
             deviceInput = nil
@@ -95,7 +95,7 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
             videoPreviewLayer?.frame = view.layer.bounds;
             videoPreviewLayer?.frame.origin.y = navBarHeight;
             videoPreviewLayer?.frame.size.height = view.layer.bounds.size.height - navBarHeight;
-            self.view.layer.addSublayer(videoPreviewLayer);
+            self.view.layer.addSublayer(videoPreviewLayer!);
             captureSession?.startRunning();
             view.bringSubviewToFront(userLayer);
         }

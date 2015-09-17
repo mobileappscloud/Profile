@@ -62,9 +62,9 @@ class WebViewController: UIViewController, NSURLConnectionDataDelegate, UIWebVie
             
             return false;
         }
-        if (((!isGone && request.URL!.absoluteString != nil && request.URL!.absoluteString.hasPrefix("http://www.google.com")))) {
+        if (((!isGone && request.URL!.absoluteString != "" && request.URL!.absoluteString.hasPrefix("http://www.google.com")))) {
             webView.stopLoading();
-            var components = NSURLComponents(URL: request.URL!, resolvingAgainstBaseURL: false)!;
+            let components = NSURLComponents(URL: request.URL!, resolvingAgainstBaseURL: false)!;
             errorMessage = "";
             let params = components.query!.componentsSeparatedByString("%").split {$0 == "&"};
             for item in components.query!.componentsSeparatedByString("&") {
@@ -95,7 +95,7 @@ class WebViewController: UIViewController, NSURLConnectionDataDelegate, UIWebVie
     }
     
     func connectionDidFinishLoading(connection: NSURLConnection) {
-        webView.loadData(webData, MIMEType: "text/html", textEncodingName: "UTF-8", baseURL: nil);
+        webView.loadData(webData, MIMEType: "text/html", textEncodingName: "UTF-8", baseURL: NSURL());
     }
     
     func goBack(sender: AnyObject!) {

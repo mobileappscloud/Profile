@@ -16,7 +16,7 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
         
         self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
         (self.navigationController as! MainNavigationController).revealController.panGestureRecognizer().enabled = false;
-        backButton = UIButton(type: UIButtonType.Custom);
+        backButton = UIButton(type: .Custom);
         backButton.setBackgroundImage(UIImage(named: "btn_back_white.png"), forState: UIControlState.Normal);
         backButton.addTarget(self, action: "goBack:", forControlEvents: UIControlEvents.TouchUpInside);
         backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30);

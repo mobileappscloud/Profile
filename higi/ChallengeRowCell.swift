@@ -1,6 +1,6 @@
 import Foundation
 
-class ChallengeRowCell: UITableViewCell, UIScrollViewDelegate, UIGestureRecognizerDelegate {
+class ChallengeRowCell: UITableViewCell, UIScrollViewDelegate {
     
     @IBOutlet var scrollView: UIScrollView!;
     @IBOutlet var daysLeft: UILabel!;
@@ -13,7 +13,6 @@ class ChallengeRowCell: UITableViewCell, UIScrollViewDelegate, UIGestureRecogniz
         scrollView.delegate = self;
         scrollView.delaysContentTouches = true;
         scrollView.contentSize.height = scrollView.frame.size.height;
-        var page = lround(Double(scrollView.contentOffset.x / scrollView.frame.size.width));
         changePage(pager);
     }
     
