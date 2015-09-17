@@ -67,8 +67,8 @@ class MetricsViewController: UIViewController {
         return true;
     }
     
-    override func supportedInterfaceOrientations() -> Int {
-        return UIInterfaceOrientation.LandscapeRight.rawValue | UIInterfaceOrientation.LandscapeLeft.rawValue;
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.Landscape;
     }
     
     override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
@@ -91,7 +91,7 @@ class MetricsViewController: UIViewController {
         var bpPoints:[GraphPoint] = [], bpAltPoints:[GraphPoint] = [], pulsePoints:[GraphPoint] = [], weightPoints:[GraphPoint] = [], fatPoints:[GraphPoint] = [], fatAltPoints:[GraphPoint] = [];
         var lastBpDate:NSTimeInterval = 0, lastPulseDate:NSTimeInterval = 0, lastWeightDate:NSTimeInterval = 0, lastFatDate:NSTimeInterval = 0;
         let normalizeFactor = (1 + (fattest - thinnest) / 150.0);
-        for checkin in SessionController.Instance.checkins.reverse() {
+        for checkin in Array(SessionController.Instance.checkins.reverse()) {
             let checkinTime = checkin.dateTime.timeIntervalSince1970;
             let checkinDate = checkinTime - (checkinTime % 86400);
             if (checkin.map != nil && checkinDate != lastBpDate) {
@@ -126,13 +126,13 @@ class MetricsViewController: UIViewController {
                 activityPoints.append(GraphPoint(x: activityDate, y: Double(total)));
             }
         }
-        activityPoints.sort({$0.x > $1.x});
+        activityPoints.sortInPlace({$0.x > $1.x});
         for subView in self.view.subviews {
             subView.removeFromSuperview();
         }
         var pos = MetricsType.allValues.count - 1;
         var card: MetricCard?;
-        for type in MetricsType.allValues.reverse() {
+        for type in Array(MetricsType.allValues.reverse()) {
             var cardFrame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight);
             cardFrame.size.width = cardFrame.size.width - CGFloat((MetricsType.allValues.count - 1 - pos) * cardMargin);
             switch(type) {
@@ -200,7 +200,7 @@ class MetricsViewController: UIViewController {
                 }
                 }, completion:  { complete in
                     
-                    for card in viewsToSend.reverse() {
+                    for card in Array(viewsToSend.reverse()) {
                         card.frame.origin.x = 0;
                         card.headerView.frame.size.width = self.screenWidth;
                         card.frame.size.width = self.screenWidth;
@@ -225,7 +225,7 @@ class MetricsViewController: UIViewController {
     
     func cardDragged(index: Int, translation: CGPoint) {
         if (index == 0) {
-            var topCard = self.view.subviews[self.view.subviews.count - 2] as! UIView;
+            let topCard = self.view.subviews[self.view.subviews.count - 2] ;
             if (topCard.frame.origin.x + translation.x < -cardDragThreshold) {
                 if (!cardsTransitioning) {
                     cardClickedAtIndex(index + 1);
@@ -239,7 +239,7 @@ class MetricsViewController: UIViewController {
             }
         } else if (index != MetricsType.allValues.count - 1) {
             for i in 0...index {
-                var card = self.view.subviews[self.view.subviews.count - (2 + i)] as! UIView;
+                let card = self.view.subviews[self.view.subviews.count - (2 + i)] ;
                 card.center.x += translation.x;
                 if (card.frame.origin.x + translation.x < -cardDragThreshold) {
                     if (!cardsTransitioning) {
@@ -259,15 +259,15 @@ class MetricsViewController: UIViewController {
 
     func doneDragging(index: Int) {
         if (index == 0) {
-            var topCard = self.view.subviews[self.view.subviews.count - 2] as! UIView;
+            let topCard = self.view.subviews[self.view.subviews.count - 2] ;
             if (topCard.frame.origin.x >= -cardDragThreshold) {
                 topCard.frame.origin.x = 0;
             }
         } else {
-            var draggedCard = self.view.subviews[self.view.subviews.count - (2 + index)] as! UIView;
+            let draggedCard = self.view.subviews[self.view.subviews.count - (2 + index)] ;
             if (draggedCard.frame.origin.x >= -cardDragThreshold) {
                 for i in 0...index {
-                    var card = self.view.subviews[self.view.subviews.count - (2 + i)] as! UIView;
+                    let card = self.view.subviews[self.view.subviews.count - (2 + i)] ;
                     card.frame.origin.x = 0;
                 }
             }

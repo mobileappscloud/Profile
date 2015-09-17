@@ -62,7 +62,7 @@ class GoalChallengeView: ChallengeView {
         }
         
         var sortedWinConditions = nonTrivialWinConditions;
-        sortedWinConditions.sort { $0.goal.minThreshold! < $1.goal.minThreshold! };
+        sortedWinConditions.sortInPlace { $0.goal.minThreshold! < $1.goal.minThreshold! };
         goalView.maxPoints = sortedWinConditions[sortedWinConditions.count - 1].goal.minThreshold;
         
         drawParticipantProgress(goalView, participantPoints: goalView.participantPoints, maxGoalValue: goalView.maxPoints);
@@ -88,7 +88,7 @@ class GoalChallengeView: ChallengeView {
         goalView.verticalLine = UIView(frame: CGRect(x: progressWidth, y: goalView.progress.frame.height / 2 - ViewConstants.verticalLineHeight - ViewConstants.labelHeight, width: 1, height: ViewConstants.verticalLineHeight));
         goalView.verticalLine.backgroundColor = UIColor.lightGrayColor();
         
-        var text = String(participantPoints);
+        let text = String(participantPoints);
         
         let labelPosY = verticalLinePosY - ViewConstants.labelHeight;
         goalView.pointsLabel = UILabel(frame: CGRectMake(0, 0, goalView.progress.frame.width, ViewConstants.labelHeight));
@@ -143,7 +143,7 @@ class GoalChallengeView: ChallengeView {
             
             labelMargin = isBottom ? -1.0 * ViewConstants.labelMargin - ViewConstants.circleRadius / 2: ViewConstants.labelMargin + ViewConstants.circleRadius * 2;
         }
-        var text = String(Int(thisGoalValue));
+        let text = String(Int(thisGoalValue));
         let labelPosX = posX + ViewConstants.circleRadius;
         let labelPosY = posY + labelMargin;
         var goalLabel:UILabel;

@@ -17,15 +17,15 @@ class ChallengeParticipant {
     var team: ChallengeTeam!;
     
     init(dictionary: NSDictionary) {
-        var userObject = dictionary["userPublic"] as! NSDictionary;
-        var teamObject = dictionary["team"] as? NSDictionary;
+        let userObject = dictionary["userPublic"] as! NSDictionary;
+        let teamObject = dictionary["team"] as? NSDictionary;
         url = dictionary["url"] as! NSString;
         if (teamObject != nil) {
             team = ChallengeTeam(dictionary: teamObject!);
         }
         displayName = userObject["displayName"] as! NSString;
         units = (dictionary["units"] ?? 0) as! Double;
-        var imageUrls = userObject["imageUrl"] as! NSDictionary;
+        let imageUrls = userObject["imageUrl"] as! NSDictionary;
         imageUrl = imageUrls["default"] as! NSString;
     }
     

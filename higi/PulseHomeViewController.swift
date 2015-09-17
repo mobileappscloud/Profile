@@ -45,7 +45,7 @@ class PulseHomeViewController: BaseViewController, UITableViewDataSource, UITabl
     }
     
     func fillTopContainer() {
-        var article = SessionController.Instance.pulseArticles.first;
+        let article = SessionController.Instance.pulseArticles.first;
         if (article != nil) {
             headerTitle.text = article!.title as String;
             headerExcerpt.text = article!.excerpt as String;
@@ -68,7 +68,7 @@ class PulseHomeViewController: BaseViewController, UITableViewDataSource, UITabl
         if (cell == nil) {
             cell = UINib(nibName: "PulseCellView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! PulseCell;
         }
-        var article = SessionController.Instance.pulseArticles[indexPath.item + 1];
+        let article = SessionController.Instance.pulseArticles[indexPath.item + 1];
         cell.title.frame.size = CGSize(width: 194, height: 36);
         cell.title.text = article.title as String;
         cell.title.sizeToFit();
@@ -88,7 +88,7 @@ class PulseHomeViewController: BaseViewController, UITableViewDataSource, UITabl
     }
     
     func gotoArticle(article: PulseArticle) {
-        var webController = WebViewController(nibName: "WebView", bundle: nil);
+        let webController = WebViewController(nibName: "WebView", bundle: nil);
         webController.url = article.permalink;
         self.navigationController!.pushViewController(webController, animated: true);
     }
@@ -98,7 +98,7 @@ class PulseHomeViewController: BaseViewController, UITableViewDataSource, UITabl
     }
     
     func updateNavBar() {
-        var scrollY = tableView.contentOffset.y;
+        let scrollY = tableView.contentOffset.y;
         if (scrollY >= 0) {
             CATransaction.setDisableActions(true);
             refreshArc.strokeStart = 0.0;
@@ -107,7 +107,7 @@ class PulseHomeViewController: BaseViewController, UITableViewDataSource, UITabl
             pullRefreshView.icon.alpha = 0.0;
             pullRefreshView.circleContainer.alpha = 0.0;
             pullRefreshView.backgroundColor = UIColor.clearColor();
-            var alpha = min(scrollY / 100, 1);
+            let alpha = min(scrollY / 100, 1);
             self.fakeNavBar.alpha = alpha;
             self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0 - alpha, alpha: 1.0)];
             if (alpha < 0.5) {
@@ -124,7 +124,7 @@ class PulseHomeViewController: BaseViewController, UITableViewDataSource, UITabl
         } else {
             self.fakeNavBar.alpha = 0;
             self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0, alpha: 0)];
-            var alpha = max(1.0 + scrollY / (tableView.frame.size.height * 0.195), 0.0);
+            let alpha = max(1.0 + scrollY / (tableView.frame.size.height * 0.195), 0.0);
             if (!refreshControl.refreshing && doneRefreshing) {
                 pullRefreshView.icon.alpha = 1.0 - alpha;
                 pullRefreshView.circleContainer.alpha = 1.0 - alpha;
@@ -163,7 +163,7 @@ class PulseHomeViewController: BaseViewController, UITableViewDataSource, UITabl
         return false;
     }
     
-    override func supportedInterfaceOrientations() -> Int {
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
         return UIInterfaceOrientation.Portrait.rawValue;
     }
     
@@ -185,10 +185,10 @@ class PulseHomeViewController: BaseViewController, UITableViewDataSource, UITabl
         refreshArc.fillColor = UIColor.clearColor().CGColor;
         refreshArc.strokeColor = UIColor.whiteColor().CGColor;
         
-        var toPath = UIBezierPath();
-        var radius = pullRefreshView.circleContainer.frame.size.width / 2.0;
-        var center = CGPoint(x: radius, y: radius);
-        var startingPoint = CGPoint(x: center.x, y: 0);
+        let toPath = UIBezierPath();
+        let radius = pullRefreshView.circleContainer.frame.size.width / 2.0;
+        let center = CGPoint(x: radius, y: radius);
+        let startingPoint = CGPoint(x: center.x, y: 0);
         toPath.moveToPoint(startingPoint);
         toPath.addArcWithCenter(center, radius: radius, startAngle: CGFloat(-M_PI_2), endAngle: CGFloat(3 * M_PI_2), clockwise: true);
         toPath.closePath();

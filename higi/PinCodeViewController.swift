@@ -29,15 +29,15 @@ class PinCodeViewController: UIViewController, UITextFieldDelegate {
         self.navigationItem.hidesBackButton = true;
         self.navigationController?.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
         if (newCode || modifying || removing) {
-            var backButton = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton;
+            let backButton = UIButton(type: UIButtonType.Custom);
             backButton.setBackgroundImage(UIImage(named: "btn_back_white.png"), forState: UIControlState.Normal);
             backButton.addTarget(self, action: "goBack:", forControlEvents: UIControlEvents.TouchUpInside);
             backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
-            var backBarItem = UIBarButtonItem(customView: backButton);
+            let backBarItem = UIBarButtonItem(customView: backButton);
             self.navigationItem.leftBarButtonItem = backBarItem;
         }
         backgroundImage.image = SessionData.Instance.user.blurredImage;
-        for circle in circleContainer.subviews as! [UIView]{
+        for circle in circleContainer.subviews {
             circle.layer.cornerRadius = 30;
             circle.layer.borderWidth = 1;
             circle.layer.borderColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.3).CGColor;
@@ -80,7 +80,7 @@ class PinCodeViewController: UIViewController, UITextFieldDelegate {
     func checkTouchId() {
         if (UIDevice.currentDevice().systemVersion >= "8.0") {
             let authenticationContext = LAContext();
-            if (SessionController.Instance.askTouchId && authenticationContext.canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, error: nil)) {
+            if (SessionController.Instance.askTouchId && authenticationContext.canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics)) {
                 authenticationContext.evaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, localizedReason: "Use your fingerprint to access higi", reply: {success, error in
                     if (success) {
                         NSNotificationCenter.defaultCenter().postNotificationName(self.touchIdSuccessfulNotification, object: nil);
@@ -100,19 +100,19 @@ class PinCodeViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        return count(textField.text) < 4 || count(string) == 0;
+        return textField.text.characters.count < 4 || string.characters.count == 0;
     }
     
     @IBAction func pinChanged(sender: AnyObject!) {
         
-        for index in 0..<count(pinField.text) {
+        for index in 0..<pinField.text.characters.count {
             var circle = circleContainer.subviews[index] as! UIView;
             circle.layer.borderWidth = 20;
             (circle.subviews.first as! UIView).hidden = false;
         }
         
-        if (count(pinField.text) < 4) {
-            for index in count(pinField.text)...3 {
+        if (pinField.text.characters.count < 4) {
+            for index in pinField.text.characters.count...3 {
                 var circle = circleContainer.subviews[index] as! UIView;
                 circle.layer.borderWidth = 1;
                 (circle.subviews.first as! UIView).hidden = true;
@@ -183,8 +183,8 @@ class PinCodeViewController: UIViewController, UITextFieldDelegate {
         return false;
     }
     
-    override func supportedInterfaceOrientations() -> Int {
-        return Int(UIInterfaceOrientationMask.Portrait.rawValue);
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.Portrait;
     }
     
     override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {

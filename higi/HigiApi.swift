@@ -27,7 +27,7 @@ class HigiApi {
     
     init() {
         manager = AFHTTPRequestOperationManager(baseURL: NSURL(string: HigiApi.higiApiUrl));
-        manager.requestSerializer = AFJSONRequestSerializer(writingOptions: NSJSONWritingOptions.allZeros);
+        manager.requestSerializer = AFJSONRequestSerializer(writingOptions: NSJSONWritingOptions());
         manager.responseSerializer = AFJSONResponseSerializer(readingOptions: NSJSONReadingOptions.AllowFragments);
         manager.requestSerializer.timeoutInterval = 30;
         
@@ -59,7 +59,7 @@ class HigiApi {
     }
     
     func sendBytePost(url: String, contentType: String, body: NSData, parameters: NSDictionary?, success: ((AFHTTPRequestOperation!, AnyObject!) -> Void)?, failure: ((AFHTTPRequestOperation!, NSError!) -> Void)?) {
-        var request = NSMutableURLRequest(URL: NSURL(string: url)!);
+        let request = NSMutableURLRequest(URL: NSURL(string: url)!);
         request.HTTPMethod = "POST";
         request.setValue(contentType, forHTTPHeaderField: "Content-Type");
         request.setValue(HigiApi.apiKey, forHTTPHeaderField: "ApiToken");
@@ -69,7 +69,7 @@ class HigiApi {
         }
         request.HTTPBody = body;
         
-        var op = AFHTTPRequestOperation(request: request);
+        let op = AFHTTPRequestOperation(request: request);
         op.setCompletionBlockWithSuccess(success, failure: failure);
         op.start();
     }

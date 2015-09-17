@@ -34,11 +34,11 @@ class BirthdateViewController: UIViewController {
         spinner.startAnimating();
         spinner.hidden = false;
         
-        var birthday = datePicker.date;
+        let birthday = datePicker.date;
         
-        var components = NSCalendar.currentCalendar().components(.YearCalendarUnit, fromDate: birthday, toDate: NSDate(), options: nil);
+        let components = NSCalendar.currentCalendar().components(.NSYearCalendarUnit, fromDate: birthday, toDate: NSDate(), options: []);
         
-        var age = components.year;
+        let age = components.year;
         
         if (age < 13) {
             if (!secondTry) {
@@ -50,10 +50,10 @@ class BirthdateViewController: UIViewController {
                 deleteAccountAndQuit();
             }
         } else {
-            var user = SessionData.Instance.user;
-            var dateFormatter = NSDateFormatter();
+            let user = SessionData.Instance.user;
+            let dateFormatter = NSDateFormatter();
             dateFormatter.dateFormat = "MM/dd/yyyy";
-            var contents = NSMutableDictionary();
+            let contents = NSMutableDictionary();
             contents["dateOfBirth"] = dateFormatter.stringFromDate(birthday);
             HigiApi().sendPost("\(HigiApi.higiApiUrl)/data/user/\(user.userId)", parameters: contents, success: {operation, responseObject in
                 
@@ -76,13 +76,13 @@ class BirthdateViewController: UIViewController {
     }
     
     func deleteAccountAndQuit() {
-        var user = SessionData.Instance.user;
-        var dateFormatter = NSDateFormatter();
+        let user = SessionData.Instance.user;
+        let dateFormatter = NSDateFormatter();
         dateFormatter.dateFormat = "MM/dd/yyyy";
         HigiApi().sendGet("\(HigiApi.higiApiUrl)/data/deleteAccountAge13?userId=\(user.userId)&dob=\(dateFormatter.stringFromDate(datePicker.date))", success: nil, failure: nil);
         SessionController.Instance.reset();
         SessionData.Instance.reset();
-        var splashViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SplashViewController") as! UIViewController;
+        let splashViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SplashViewController") ;
         (UIApplication.sharedApplication().delegate as! AppDelegate).window?.rootViewController = splashViewController;
     }
     

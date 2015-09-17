@@ -37,21 +37,21 @@ class ApiUtility {
     
     class func checkTermsAndPrivacy(viewController: UIViewController, success: (() -> Void)?, failure: (() -> Void)?) {
         HigiApi().sendGet("\(HigiApi.webUrl)/termsinfo", success: {operation, responseObject in
-            var user = SessionData.Instance.user;
-            var termsInfo = responseObject as! NSDictionary;
-            var termsFile = termsInfo["termsFilename"] as! NSString;
-            var privacyFile = termsInfo["privacyFilename"] as! NSString;
-            var newTerms = termsFile != user.termsFile;
-            var newPrivacy = privacyFile != user.privacyFile;
+            let user = SessionData.Instance.user;
+            let termsInfo = responseObject as! NSDictionary;
+            let termsFile = termsInfo["termsFilename"] as! NSString;
+            let privacyFile = termsInfo["privacyFilename"] as! NSString;
+            let newTerms = termsFile != user.termsFile;
+            let newPrivacy = privacyFile != user.privacyFile;
             if (newTerms || newPrivacy) {
-                var termsController = TermsViewController(nibName: "TermsView", bundle: nil);
+                let termsController = TermsViewController(nibName: "TermsView", bundle: nil);
                 termsController.newTerms = newTerms;
                 termsController.newPrivacy = newPrivacy;
                 termsController.termsFile = termsFile as String;
                 termsController.privacyFile = privacyFile as String;
                 viewController.presentViewController(termsController, animated: true, completion: nil);
             } else if (user.firstName == nil || user.firstName == "" || user.lastName == nil || user.lastName == "") {
-                var nameViewController = SignupNameViewController(nibName: "SignupNameView", bundle: nil);
+                let nameViewController = SignupNameViewController(nibName: "SignupNameView", bundle: nil);
                 nameViewController.dashboardNext = true;
                 viewController.presentViewController(nameViewController, animated: true, completion: nil);
             } else {
@@ -78,12 +78,12 @@ class ApiUtility {
         HigiApi().sendGet( "\(HigiApi.higiApiUrl)/data/user/\(SessionData.Instance.user.userId)/checkIn", success:
             { operation, responseObject in
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                    var serverCheckins = responseObject as! NSArray;
+                    let serverCheckins = responseObject as! NSArray;
                     var checkins: [HigiCheckin] = [];
                     var lastBpCheckin, lastBmiCheckin: HigiCheckin?;
                     for checkin: AnyObject in serverCheckins {
                         if let checkinData = checkin as? NSDictionary {
-                            var checkin = HigiCheckin(dictionary: checkinData);
+                            let checkin = HigiCheckin(dictionary: checkinData);
                             checkin.prevBpCheckin = lastBpCheckin;
                             checkin.prevBmiCheckin = lastBmiCheckin;
                             if (checkin.systolic != nil) {
@@ -122,23 +122,23 @@ class ApiUtility {
         SessionData.Instance.lastUpdate = NSDate();
         let userId = SessionData.Instance.user.userId;
         ApiUtility.checkForNewActivities({
-            var startDateFormatter = NSDateFormatter();
+            let startDateFormatter = NSDateFormatter();
             startDateFormatter.dateFormat = "yyyy-MM-01";
-            var endDateFormatter = NSDateFormatter();
+            let endDateFormatter = NSDateFormatter();
             endDateFormatter.dateFormat = "yyyy-MM-dd";
-            var endDate = NSDate();
-            var dateComponents = NSDateComponents();
+            let endDate = NSDate();
+            let dateComponents = NSDateComponents();
             dateComponents.month = -6;
-            var startDate = NSCalendar.currentCalendar().dateByAddingComponents(dateComponents, toDate: endDate, options: NSCalendarOptions.allZeros)!;
+            let startDate = NSCalendar.currentCalendar().dateByAddingComponents(dateComponents, toDate: endDate, options: NSCalendarOptions())!;
             
             HigiApi().sendGet("\(HigiApi.earnditApiUrl)/user/\(userId)/activities?limit=0&startDate=\(startDateFormatter.stringFromDate(startDate))&endDate=\(endDateFormatter.stringFromDate(endDate))", success: {operation, responseObject in
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                     var activities: [String: (Int, [HigiActivity])] = [:];
-                    var serverActivities = ((responseObject as! NSDictionary)["response"] as! NSDictionary)["data"] as! NSArray;
+                    let serverActivities = ((responseObject as! NSDictionary)["response"] as! NSDictionary)["data"] as! NSArray;
                     for serverActivity: AnyObject in serverActivities {
                         let activity = HigiActivity(dictionary: serverActivity as! NSDictionary);
                         let dateString = Constants.dateFormatter.stringFromDate(activity.startTime);
-                        if var (total, processedActivities) = activities[dateString] {
+                        if let (total, processedActivities) = activities[dateString] {
                             let points = activity.errorDescription == nil ? activity.points + total : total;
                             processedActivities.append(activity);
                             activities[dateString] = (points, processedActivities);
@@ -203,7 +203,7 @@ class ApiUtility {
                             }
                         }
                         let serverPagingData = (((challenge as! NSDictionary)["participants"] as! NSDictionary)["paging"] as! NSDictionary)["nextUrl"] as? NSString;
-                        var pagingData = PagingData(nextUrl: serverPagingData);
+                        let pagingData = PagingData(nextUrl: serverPagingData);
                         
                         let serverComments = ((challenge as! NSDictionary)["comments"] as! NSDictionary)["data"] as? NSArray;
                         var chatter:Chatter;
@@ -245,9 +245,9 @@ class ApiUtility {
         HigiApi().sendGet("\(HigiApi.earnditApiUrl)/user/\(userId)/devices", success: {operation, responseObject in
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                 var devices: [String:ActivityDevice] = [:];
-                var serverDevices = (responseObject as! NSDictionary)["response"] as! NSArray;
+                let serverDevices = (responseObject as! NSDictionary)["response"] as! NSArray;
                 for device: AnyObject in serverDevices {
-                    var thisDevice = ActivityDevice(dictionary: device as! NSDictionary);
+                    let thisDevice = ActivityDevice(dictionary: device as! NSDictionary);
                     devices[thisDevice.name as String] = thisDevice;
                 }
                 
@@ -314,7 +314,7 @@ class ApiUtility {
     
     class func jsonStringify(value: AnyObject) -> String {
         if NSJSONSerialization.isValidJSONObject(value) {
-            if let data = NSJSONSerialization.dataWithJSONObject(value, options: nil, error: nil) {
+            if let data = try? NSJSONSerialization.dataWithJSONObject(value, options: []) {
                 if let string = NSString(data: data, encoding: NSUTF8StringEncoding) {
                     return string as String;
                 }
@@ -325,11 +325,11 @@ class ApiUtility {
     
     class func deserializeKiosks(response: String) -> [KioskInfo] {
         let jsonData = response.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false);
-        let serverKiosks = NSJSONSerialization.JSONObjectWithData(jsonData!, options: NSJSONReadingOptions.MutableContainers, error: nil) as! NSArray;
+        let serverKiosks = (try! NSJSONSerialization.JSONObjectWithData(jsonData!, options: NSJSONReadingOptions.MutableContainers)) as! NSArray;
         var kiosks: [KioskInfo] = [];
         for kiosk: AnyObject in serverKiosks {
             if let kioskData = kiosk as? NSDictionary {
-                var newKiosk = KioskInfo(dictionary: kioskData);
+                let newKiosk = KioskInfo(dictionary: kioskData);
                 if (newKiosk.position != nil) {
                     if (newKiosk.isMapVisible) {
                         kiosks.append(newKiosk);
@@ -460,12 +460,12 @@ class ApiUtility {
     }
     
     class func grabNextPulseArticles(callback: (() -> Void)?) {
-        var paged = Int(SessionController.Instance.pulseArticles.count / 15) + 1;
-        var url = "\(HigiApi.webUrl)/pulse/?feed=json&posts_per_rss=15&paged=\(paged)";
+        let paged = Int(SessionController.Instance.pulseArticles.count / 15) + 1;
+        let url = "\(HigiApi.webUrl)/pulse/?feed=json&posts_per_rss=15&paged=\(paged)";
         HigiApi().sendGet(url, success: { operation, responseObject in
             
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                var serverArticles = (responseObject as! NSDictionary)["posts"] as! NSArray;
+                let serverArticles = (responseObject as! NSDictionary)["posts"] as! NSArray;
                 var articles: [PulseArticle] = [];
                 for articleData: AnyObject in serverArticles {
                     articles.append(PulseArticle(dictionary: articleData as! NSDictionary));

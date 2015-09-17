@@ -18,14 +18,14 @@ class ChallengeRowCell: UITableViewCell, UIScrollViewDelegate, UIGestureRecogniz
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        var page = lround(Double(scrollView.contentOffset.x / scrollView.frame.size.width));
+        let page = lround(Double(scrollView.contentOffset.x / scrollView.frame.size.width));
         pager.currentPage = page;
         changePage(pager);
     }
     
     @IBAction func changePage(sender: AnyObject) {
-        var pager = sender as! UIPageControl;
-        var pageNumber = pager.currentPage;
+        let pager = sender as! UIPageControl;
+        let pageNumber = pager.currentPage;
         
         var frame = scrollView.frame;
         frame.size.width = 320;

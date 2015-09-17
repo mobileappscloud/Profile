@@ -36,11 +36,11 @@ class BaseViewController: UIViewController, SWRevealViewControllerDelegate {
         if (shouldShowDailyPoints) {
             NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveApiNotification:", name: ApiUtility.ACTIVITIES, object: nil);
         }
-        toggleButton = UIButton.buttonWithType(UIButtonType.Custom) as? UIButton;
+        toggleButton = UIButton(type: UIButtonType.Custom) as? UIButton;
         toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon.png"), forState: UIControlState.Normal);
         toggleButton!.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
         toggleButton!.addTarget(self, action: Selector("toggleMenu:"), forControlEvents: UIControlEvents.TouchUpInside);
-        var menuToggle = UIBarButtonItem(customView: toggleButton!);
+        let menuToggle = UIBarButtonItem(customView: toggleButton!);
         navigationItem.leftBarButtonItem = menuToggle;
         navigationItem.hidesBackButton = true;
     
@@ -72,7 +72,7 @@ class BaseViewController: UIViewController, SWRevealViewControllerDelegate {
     }
     
     func initDailyPoints() {
-        var summaryBarItem = UIBarButtonItem();
+        let summaryBarItem = UIBarButtonItem();
         pointsMeter = PointsMeter.create(CGRect(x: 0, y: 0, width: 30, height: 30));
         let tap = UITapGestureRecognizer(target: self, action: "gotoSummary:");
         pointsMeter.addGestureRecognizer(tap);
@@ -104,7 +104,7 @@ class BaseViewController: UIViewController, SWRevealViewControllerDelegate {
     
     func gotoSummary(sender: AnyObject) {
         Flurry.logEvent("Summary_Pressed");
-        var summaryController = DailySummaryViewController(nibName: "DailySummaryView", bundle: nil);
+        let summaryController = DailySummaryViewController(nibName: "DailySummaryView", bundle: nil);
         self.navigationController!.pushViewController(summaryController, animated: true);
     }
     

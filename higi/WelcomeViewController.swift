@@ -103,8 +103,8 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func scaledHeightFromWidth(image: UIImage, viewWidth: CGFloat) -> CGFloat {
-        var size = image.size;
-        var ratio = viewWidth / size.width;
+        let size = image.size;
+        let ratio = viewWidth / size.width;
         return size.height * ratio;
     }
     
@@ -136,8 +136,8 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
     }
     
     @IBAction func changePage(sender: AnyObject) {
-        var pager = sender as! UIPageControl;
-        var page = pager.currentPage;
+        let pager = sender as! UIPageControl;
+        let page = pager.currentPage;
         var frame = self.view.frame;
         frame.origin.x = frame.size.width * CGFloat(page);
         frame.origin.y = 0;

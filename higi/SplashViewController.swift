@@ -28,12 +28,12 @@ class SplashViewController: UIViewController, UIAlertViewDelegate {
 
     func moveToNextScreen() {
         if (SessionData.Instance.token == "") {
-            var navigationController = MainNavigationController(rootViewController: WelcomeViewController(nibName: "Welcome", bundle: nil));
+            let navigationController = MainNavigationController(rootViewController: WelcomeViewController(nibName: "Welcome", bundle: nil));
             self.presentViewController(navigationController, animated: false, completion: nil);
         } else {
             HigiApi().sendGet("\(HigiApi.higiApiUrl)/data/qdata/\(SessionData.Instance.user.userId)?newSession=true", success: { operation, responseObject in
                 
-                var login = HigiLogin(dictionary: responseObject as! NSDictionary);
+                let login = HigiLogin(dictionary: responseObject as! NSDictionary);
                 SessionData.Instance.user = login.user;
                 ApiUtility.checkTermsAndPrivacy(self, success: nil, failure: self.errorToWelcome);
                 
@@ -48,7 +48,7 @@ class SplashViewController: UIViewController, UIAlertViewDelegate {
         spinner.hidden = true;
         SessionData.Instance.reset();
         SessionData.Instance.save();
-        var navigationController = MainNavigationController(rootViewController: WelcomeViewController(nibName: "Welcome", bundle: nil));
+        let navigationController = MainNavigationController(rootViewController: WelcomeViewController(nibName: "Welcome", bundle: nil));
         self.presentViewController(navigationController, animated: false, completion: nil);
     }
     
@@ -60,14 +60,14 @@ class SplashViewController: UIViewController, UIAlertViewDelegate {
         return UIInterfaceOrientation.Portrait;
     }
     
-    override func supportedInterfaceOrientations() -> Int {
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
         return UIInterfaceOrientation.Portrait.rawValue;
     }
     
     func checkVersion() {
         HigiApi().sendGet("\(HigiApi.higiApiUrl)/app/mobile/minVersion?p=ios", success: { operation, responseObject in
             
-            var minVersionParts = (responseObject as! NSString).componentsSeparatedByString(".") as! [String];
+            var minVersionParts = (responseObject as! NSString).componentsSeparatedByString(".") ;
             for i in minVersionParts.count...3 {
                 minVersionParts.append("0");
             }
@@ -76,8 +76,8 @@ class SplashViewController: UIViewController, UIAlertViewDelegate {
             var isUpToDate = true;
             
             for i in 0..<3 {
-                var myPart = myVersionParts[i].toInt()!;
-                var minPart = minVersionParts[i].toInt()!;
+                let myPart = Int(myVersionParts[i])!;
+                let minPart = Int(minVersionParts[i])!;
                 if (myPart > minPart) {
                     break;
                 } else if (myPart < minPart) {

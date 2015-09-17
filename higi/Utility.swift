@@ -5,7 +5,7 @@ class Utility {
     class func colorFromHexString(hexString: NSString) -> UIColor {
         var rgbValue: CUnsignedInt;
         rgbValue = 0;
-        var scanner = NSScanner(string: hexString as String);
+        let scanner = NSScanner(string: hexString as String);
         scanner.scanLocation = 1;
         scanner.scanHexInt(&rgbValue);
         return UIColor(red: (CGFloat)((rgbValue & 0xFF0000) >> 16) / 255.0, green:(CGFloat)((rgbValue & 0xFF00) >> 8) / 255.0, blue:(CGFloat)(rgbValue & 0xFF) / 255.0, alpha:1.0);
@@ -23,10 +23,10 @@ class Utility {
     }
     
     class func gotoDashboard(viewController: UIViewController) {
-        var dashboardController = DashboardViewController(nibName: "DashboardView", bundle: nil);
-        var navController = MainNavigationController(rootViewController: dashboardController);
-        var drawerController = DrawerViewController(nibName: "DrawerView", bundle: nil);
-        var revealController = RevealViewController(rearViewController: drawerController, frontViewController: navController);
+        let dashboardController = DashboardViewController(nibName: "DashboardView", bundle: nil);
+        let navController = MainNavigationController(rootViewController: dashboardController);
+        let drawerController = DrawerViewController(nibName: "DrawerView", bundle: nil);
+        let revealController = RevealViewController(rearViewController: drawerController, frontViewController: navController);
         drawerController.navController = navController;
         drawerController.revealController = revealController;
         navController.revealController = revealController;
@@ -40,7 +40,7 @@ class Utility {
     class func scaleImage(image: UIImage, newSize: CGSize) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(newSize, false, image.scale);
         image.drawInRect(CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height));
-        var newImage = UIGraphicsGetImageFromCurrentImageContext();
+        let newImage = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
         return newImage;
     }
@@ -63,7 +63,7 @@ class Utility {
     
     class func loadImageFromUrl(imageUrlString: String) -> NSURL {
         let imageUrl = NSURL(string: imageUrlString);
-        if let imageError = imageUrl?.checkResourceIsReachableAndReturnError(NSErrorPointer()) {
+        if let imageError = imageUrl?.checkResourceIsReachableAndReturnError() {
             return imageUrl!;
         }
         return NSURL();
@@ -94,7 +94,7 @@ class Utility {
     class func htmlDecodeString(encodedString: String) -> String {
         let encodedData = encodedString.dataUsingEncoding(NSUTF8StringEncoding)!
         let attributedOptions = [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType]
-        let attributedString = NSAttributedString(data: encodedData, options: attributedOptions, documentAttributes: nil, error: nil)!;
+        let attributedString = try! NSAttributedString(data: encodedData, options: attributedOptions, documentAttributes: nil);
         
         return attributedString.string;
     }
@@ -104,7 +104,7 @@ class Utility {
         let context = UIGraphicsGetCurrentContext() as CGContextRef;
         CGContextTranslateCTM(context, 0, image.size.height);
         CGContextScaleCTM(context, 1.0, -1.0);
-        CGContextSetBlendMode(context, kCGBlendModeNormal);
+        CGContextSetBlendMode(context, CGBlendMode.Normal);
         let rect = CGRectMake(0, 0, image.size.width, image.size.height) as CGRect;
         CGContextClipToMask(context, rect, image.CGImage);
         color.setFill();
@@ -133,7 +133,7 @@ class Utility {
     
     class func stringIndexOf(haystack: String, needle: Character) -> Int {
         var i = 0;
-        for char in Array(haystack) {
+        for char in Array(haystack.characters) {
             if char == needle {
                 return i;
             }

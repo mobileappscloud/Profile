@@ -24,7 +24,7 @@ class SessionData {
     
     var lastUpdate: NSDate!;
     
-    let savePath = (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String).stringByAppendingPathComponent("HigiSessionData.plist");
+    let savePath: String = (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] ).stringByAppendingPathComponent("HigiSessionData.plist");
 
     init() {
         restore();
@@ -46,7 +46,7 @@ class SessionData {
     func save() {
         KeychainWrapper.setString(token, forKey: "token");
         KeychainWrapper.setString(pin, forKey: "pin");
-        var userId = user != nil ? user.userId : "";
+        let userId = user != nil ? user.userId : "";
         KeychainWrapper.setObject(userId, forKey: "userId");
         
         let saveDictionary = NSMutableDictionary();

@@ -161,10 +161,10 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                 challengesCard.challengeTitle.text = displayedChallenge.name as String;
                 let previousHeight = challengesCard.challengeBox.frame.size.height
                 if (challengesCard.challengeBox.subviews.count > 3) {
-                    (challengesCard.challengeBox.subviews[challengesCard.challengeBox.subviews.count - 1] as! UIView).removeFromSuperview();
+                    (challengesCard.challengeBox.subviews[challengesCard.challengeBox.subviews.count - 1] ).removeFromSuperview();
                 }
                 let challengeViewHeader = CGFloat(56);
-                var challengeView = ChallengeUtility.getChallengeViews(displayedChallenge, frame: CGRect(x: 0, y: challengeViewHeader, width: challengesCard.challengeBox.frame.size.width, height: 180), isComplex: false)[0];
+                let challengeView = ChallengeUtility.getChallengeViews(displayedChallenge, frame: CGRect(x: 0, y: challengeViewHeader, width: challengesCard.challengeBox.frame.size.width, height: 180), isComplex: false)[0];
                 challengeView.backgroundColor = UIColor.whiteColor();
                 if (challengeView.frame.size.height + challengeViewHeader > challengesCard.challengeBox.frame.size.height) {
                     Utility.growAnimation(challengesCard.challengeBox, startHeight: challengesCard.challengeBox.frame.size.height, endHeight: challengeView.frame.size.height + challengeViewHeader + challengeViewHeader);
@@ -262,7 +262,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             activityCard.addGestureRecognizer(activityTouched);
             cardPositionY += activityCard.frame.size.height + cardMarginY;
             
-            var firstDivider = UIView(frame: CGRect(x: 0, y: cardPositionY - cardMarginY / 2, width: self.view.frame.size.width, height: 1));
+            let firstDivider = UIView(frame: CGRect(x: 0, y: cardPositionY - cardMarginY / 2, width: self.view.frame.size.width, height: 1));
             firstDivider.backgroundColor = Utility.colorFromHexString("#EEEEEE");
             
             var bloodPressureCard:MetricsGraphCard!
@@ -277,7 +277,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             bloodPressureCard.addGestureRecognizer(bpTouched);
             cardPositionY += bloodPressureCard.frame.size.height + cardMarginY;
             
-            var secondDivider = UIView(frame: CGRect(x: 0, y: cardPositionY - cardMarginY / 2, width: self.view.frame.size.width, height: 1));
+            let secondDivider = UIView(frame: CGRect(x: 0, y: cardPositionY - cardMarginY / 2, width: self.view.frame.size.width, height: 1));
             secondDivider.backgroundColor = Utility.colorFromHexString("#EEEEEE");
             
             var pulseCard:MetricsGraphCard!
@@ -292,7 +292,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             pulseCard.addGestureRecognizer(pulseTouched);
             cardPositionY += pulseCard.frame.size.height + cardMarginY;
             
-            var thirdDivider = UIView(frame: CGRect(x: 0, y: cardPositionY - cardMarginY / 2, width: self.view.frame.size.width, height: 1));
+            let thirdDivider = UIView(frame: CGRect(x: 0, y: cardPositionY - cardMarginY / 2, width: self.view.frame.size.width, height: 1));
             thirdDivider.backgroundColor = Utility.colorFromHexString("#EEEEEE");
             
             var weightCard:MetricsGraphCard!;
@@ -307,7 +307,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             weightCard.addGestureRecognizer(weightTouched);
             cardPositionY += weightCard.frame.size.height + cardMarginY / 2;
             
-            var checkins = SessionController.Instance.checkins;
+            let checkins = SessionController.Instance.checkins;
             if (checkins != nil && checkins.count > 0) {
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                     var mapPoints:[GraphPoint] = [], bpmPoints:[GraphPoint] = [], weightPoints:[GraphPoint] = [];
@@ -324,13 +324,13 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                     }
                     dispatch_async(dispatch_get_main_queue(), {
                         if (mapPoints.count > self.maxPointsToShow) {
-                            mapPoints = Array(mapPoints.reverse()[0..<self.maxPointsToShow]);
+                            mapPoints = Array(Array(mapPoints.reverse())[0..<self.maxPointsToShow]);
                         }
                         if (bpmPoints.count > self.maxPointsToShow) {
-                            bpmPoints = Array(bpmPoints.reverse()[0..<self.maxPointsToShow]);
+                            bpmPoints = Array(Array(bpmPoints.reverse())[0..<self.maxPointsToShow]);
                         }
                         if (weightPoints.count > self.maxPointsToShow) {
-                            weightPoints = Array(weightPoints.reverse()[0..<self.maxPointsToShow]);
+                            weightPoints = Array(Array(weightPoints.reverse())[0..<self.maxPointsToShow]);
                         }
                         bloodPressureCard.graph(mapPoints, type: MetricsType.BloodPressure);
                         pulseCard.graph(bpmPoints, type: MetricsType.Pulse);
@@ -357,11 +357,11 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                             activityPoints.append(GraphPoint(x: Double(activityList[0].startTime.timeIntervalSince1970), y: Double(total)));
                         }
                     }
-                    activityPoints.sort({$0.x > $1.x});
+                    activityPoints.sortInPlace({$0.x > $1.x});
                     if (activityPoints.count > self.maxPointsToShow) {
                         activityPoints = Array(activityPoints[0..<self.maxPointsToShow]);
                     }
-                    activityPoints = activityPoints.reverse();
+                    activityPoints = Array(activityPoints.reverse());
                     dispatch_async(dispatch_get_main_queue(), {
                         self.activityCard.singleValue.text = "\(totalPoints)";
                         self.activityCard.graph(activityPoints, type: MetricsType.DailySummary);
@@ -454,7 +454,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     @IBAction func gotoMetrics(sender: AnyObject) {
         if (SessionController.Instance.checkins != nil && SessionController.Instance.loadedActivities) {
             Flurry.logEvent("Metrics_Pressed");
-            var metricsViewController = MetricsViewController(nibName: "MetricsView", bundle: nil);
+            let metricsViewController = MetricsViewController(nibName: "MetricsView", bundle: nil);
             self.navigationController!.pushViewController(metricsViewController, animated: true);
         }
     }
@@ -470,7 +470,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     
     @IBAction func gotoChallengeDetails(sender: AnyObject) {
         Flurry.logEvent("ActiveChallenge_Pressed");
-        var detailsViewController = ChallengeDetailsViewController(nibName: "ChallengeDetailsView", bundle: nil);
+        let detailsViewController = ChallengeDetailsViewController(nibName: "ChallengeDetailsView", bundle: nil);
         detailsViewController.challenge = displayedChallenge;
         self.navigationController!.pushViewController(detailsViewController, animated: true);
         (self.navigationController as! MainNavigationController).drawerController?.tableView.reloadData();
@@ -490,7 +490,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         } else {
             Flurry.logEvent("NonFeaturedPulseArticle_Pressed");
         }
-        var webView = WebViewController(nibName: "WebView", bundle: nil);
+        let webView = WebViewController(nibName: "WebView", bundle: nil);
         var article: PulseArticle!;
         webView.url = SessionController.Instance.pulseArticles[sender.tag!].permalink;
         self.navigationController?.pushViewController(webView, animated: true);
@@ -503,10 +503,10 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     }
     
     func updateNavbar() {
-        var scrollY = mainScrollView.contentOffset.y;
+        let scrollY = mainScrollView.contentOffset.y;
         if (scrollY >= 0) {
             headerImage.frame.origin.y = -scrollY / 2;
-            var alpha = min(scrollY / 100, 1);
+            let alpha = min(scrollY / 100, 1);
             self.fakeNavBar.alpha = alpha;
             CATransaction.setDisableActions(true);
             refreshArc.strokeStart = 0.0;
@@ -530,7 +530,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             headerImage.frame.origin.y = 0;
             self.fakeNavBar.alpha = 0;
             self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0, alpha: 0)];
-            var alpha = max(1.0 + scrollY / (mainScrollView.frame.size.height * 0.195), 0.0);
+            let alpha = max(1.0 + scrollY / (mainScrollView.frame.size.height * 0.195), 0.0);
             if (!refreshControl.refreshing && doneRefreshing) {
                 pullRefreshView.icon.alpha = 1.0 - alpha;
                 pullRefreshView.circleContainer.alpha = 1.0 - alpha;
@@ -561,10 +561,10 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         refreshArc.fillColor = UIColor.clearColor().CGColor;
         refreshArc.strokeColor = UIColor.whiteColor().CGColor;
         
-        var toPath = UIBezierPath();
-        var radius = pullRefreshView.circleContainer.frame.size.width / 2.0;
-        var center = CGPoint(x: radius, y: radius);
-        var startingPoint = CGPoint(x: center.x, y: 0);
+        let toPath = UIBezierPath();
+        let radius = pullRefreshView.circleContainer.frame.size.width / 2.0;
+        let center = CGPoint(x: radius, y: radius);
+        let startingPoint = CGPoint(x: center.x, y: 0);
         toPath.moveToPoint(startingPoint);
         toPath.addArcWithCenter(center, radius: radius, startAngle: CGFloat(-M_PI_2), endAngle: CGFloat(3 * M_PI_2), clockwise: true);
         toPath.closePath();
@@ -650,7 +650,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         HigiApi().sendGet("\(HigiApi.higiApiUrl)/data/qdata/\(SessionData.Instance.user.userId)?newSession=true", success: { operation, responseObject in
             
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                var login = HigiLogin(dictionary: responseObject as! NSDictionary);
+                let login = HigiLogin(dictionary: responseObject as! NSDictionary);
                 SessionData.Instance.user = login.user;
                 SessionData.Instance.user.retrieveProfileImages();
                 ApiUtility.retrieveActivities(nil);

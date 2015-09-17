@@ -60,13 +60,13 @@ class HigiActivity {
         if let error = dictionary["error"] as? NSDictionary {
             errorDescription = error["description"] as! NSString;
         }
-        var formatter = NSDateFormatter();
+        let formatter = NSDateFormatter();
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss";
-        var dateString = dictionary["startTime"] as! String;
+        let dateString = dictionary["startTime"] as! String;
         var time = formatter.dateFromString(dateString);
         startTime = formatter.dateFromString(dictionary["startTime"] as! String);
         if let serverOffset = dictionary["timezoneOffset"] as? String {
-            if let timezoneOffset = serverOffset.toInt() {
+            if let timezoneOffset = Int(serverOffset) {
                 if timezoneOffset != 0 {
                     offset = Double(NSTimeZone.localTimeZone().secondsFromGMTForDate(startTime));
                     offset -= Double(timezoneOffset * 60);

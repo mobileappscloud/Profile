@@ -71,7 +71,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         listButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30));
         listButton.setBackgroundImage(UIImage(named: "map_listviewicon"), forState: UIControlState.Normal);
         listButton.addTarget(self, action: "toggleList:", forControlEvents: UIControlEvents.TouchUpInside);
-        var listBarItem = UIBarButtonItem();
+        let listBarItem = UIBarButtonItem();
         listBarItem.customView = listButton;
         self.navigationItem.rightBarButtonItem = listBarItem;
         self.revealController.panGestureRecognizer().enabled = false;
@@ -97,10 +97,10 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         searchField.addTarget(self, action: "textFieldChanged", forControlEvents: UIControlEvents.EditingChanged);
         self.navigationItem.titleView = searchField;
         
-        var fontSize = mondayHours.font.pointSize;
-        var formatter = NSDateFormatter();
+        let fontSize = mondayHours.font.pointSize;
+        let formatter = NSDateFormatter();
         formatter.dateFormat = "EEEE";
-        var dayString: String = formatter.stringFromDate(NSDate());
+        let dayString: String = formatter.stringFromDate(NSDate());
         switch dayString {
         case "Monday":
             mondayHours.font = UIFont.boldSystemFontOfSize(fontSize);
@@ -230,12 +230,12 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         currentVisibleKioskTask.cancelAllOperations();
         searchField.resignFirstResponder();
         visibleKiosks = [];
-        var bounds = GMSCoordinateBounds(region: self.mapView!.projection.visibleRegion());
+        let bounds = GMSCoordinateBounds(region: self.mapView!.projection.visibleRegion());
         
         currentVisibleKioskTask.addOperationWithBlock({
             
             for i in 0..<SessionController.Instance.kioskList.count {
-                var kiosk = SessionController.Instance.kioskList[i];
+                let kiosk = SessionController.Instance.kioskList[i];
                 if (kiosk.status != "Deployed") {
                     continue;
                 }
@@ -243,15 +243,15 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
                     self.visibleKiosks.append(kiosk);
 
                 }
-                if ((self.currentVisibleKioskTask.operations[0] as! NSOperation).cancelled) {
+                if ((self.currentVisibleKioskTask.operations[0] ).cancelled) {
                     return;
                 }
             }
-            if ((self.currentVisibleKioskTask.operations[0] as! NSOperation).cancelled) {
+            if ((self.currentVisibleKioskTask.operations[0] ).cancelled) {
                 return;
             }
-            self.visibleKiosks.sort { self.calcDistance($0.location!) < self.calcDistance($1.location!) };
-            if ((self.currentVisibleKioskTask.operations[0] as! NSOperation).cancelled) {
+            self.visibleKiosks.sortInPlace { self.calcDistance($0.location!) < self.calcDistance($1.location!) };
+            if ((self.currentVisibleKioskTask.operations[0] ).cancelled) {
                 return;
             }
             dispatch_async(dispatch_get_main_queue(), {
@@ -303,7 +303,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         autoCompleteSpinner.hidden = false;
         currentAutoCompleteTask.cancelAllOperations();
         autoCompleteResults = [];
-        if (count(searchField.text) == 0) {
+        if (searchField.text.characters.count == 0) {
             noResults.hidden = true;
             autoCompleteTable.reloadData();
             if (autoCompleteOpen) {
@@ -311,12 +311,12 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
             }
         } else {
             currentAutoCompleteTask.addOperationWithBlock( {
-                let size = count(self.searchField.text);
+                let size = self.searchField.text.characters.count;
                 for kiosk in SessionController.Instance.kioskList {
                     if (kiosk.status != "Deployed") {
                         continue;
                     }
-                    if ((self.currentAutoCompleteTask.operations[0] as! NSOperation).cancelled && size != count(self.searchField.text)) {
+                    if ((self.currentAutoCompleteTask.operations[0] as! NSOperation).cancelled && size != self.searchField.text.characters.count) {
                         return;
                     }
                     if (kiosk.organizations[0].lowercaseString.rangeOfString(self.searchField.text.lowercaseString) != nil) {
@@ -325,14 +325,14 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
                         self.autoCompleteResults.append(kiosk);
                     }
                 }
-                if ((self.currentAutoCompleteTask.operations[0] as! NSOperation).cancelled && size != count(self.searchField.text)) {
+                if ((self.currentAutoCompleteTask.operations[0] as! NSOperation).cancelled && size != self.searchField.text.characters.count) {
                     return;
                 }
-                self.autoCompleteResults.sort { self.calcDistance($0.location!) < self.calcDistance($1.location!) };
-                if ((self.currentAutoCompleteTask.operations[0] as! NSOperation).cancelled && size != count(self.searchField.text)) {
+                self.autoCompleteResults.sortInPlace { self.calcDistance($0.location!) < self.calcDistance($1.location!) };
+                if ((self.currentAutoCompleteTask.operations[0] as! NSOperation).cancelled && size != self.searchField.text.characters.count) {
                     return;
                 }
-                if (size == count(self.searchField.text)) {
+                if (size == self.searchField.text.characters.count) {
                     dispatch_async(dispatch_get_main_queue(), {
                     
                         self.autoCompleteSpinner.hidden = true;
@@ -398,9 +398,9 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         cell.logo.image = nil;
         cell.logo.setImageWithURL(getKioskLogoUrl(kiosk));
         
-        var distance = calcDistance(kiosk.location!);
+        let distance = calcDistance(kiosk.location!);
         if (distance >= 0) {
-            var formattedDistance = distance >= 10 ? "\(Int(distance))" : String(format: "%.1f", distance);
+            let formattedDistance = distance >= 10 ? "\(Int(distance))" : String(format: "%.1f", distance);
             cell.distance.text = "\(formattedDistance) mi";
         } else {
             cell.distance.text = "";
@@ -414,8 +414,8 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     
     @IBAction func toggleSelectedPane(sender: AnyObject!) {
         var diff: CGFloat = 0.0;
-        var bottom: CGFloat = self.view.frame.size.height - 70.0;
-        var top: CGFloat = self.view.frame.size.height - 280.0;
+        let bottom: CGFloat = self.view.frame.size.height - 70.0;
+        let top: CGFloat = self.view.frame.size.height - 280.0;
         if (selectedPaneOpen) {
             diff = selectedKioskPane.frame.origin.y - bottom;
             self.selectedY = bottom;
@@ -438,8 +438,8 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     }
     
     @IBAction func selectedPaneDragged(sender: UIPanGestureRecognizer) {
-        var bottom: CGFloat = self.view.frame.size.height - 70.0;
-        var top: CGFloat = self.view.frame.size.height - 280.0;
+        let bottom: CGFloat = self.view.frame.size.height - 70.0;
+        let top: CGFloat = self.view.frame.size.height - 280.0;
         if (sender.state == UIGestureRecognizerState.Ended) {
             if (selectedPaneOpen) {
                 if (selectedKioskPane.frame.origin.y > top + 45) {
@@ -569,7 +569,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     @IBAction func setReminder(sender: AnyObject) {
         bottomHelp.hidden = true;
         var eventStore = EKEventStore();
-        eventStore.requestAccessToEntityType(EKEntityTypeEvent, completion: { granted, error in
+        eventStore.requestAccessToEntityType(EKEntityType.Event, completion: { granted, error in
             if (granted) {
                 var eventController = EKEventEditViewController();
                 var event = EKEvent(eventStore: eventStore);
@@ -595,7 +595,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         });
     }
     
-    func eventEditViewController(controller: EKEventEditViewController!, didCompleteWithAction action: EKEventEditViewAction) {
+    func eventEditViewController(controller: EKEventEditViewController, didCompleteWithAction action: EKEventEditViewAction) {
         controller.dismissViewControllerAnimated(true, completion: nil);
     }
     
@@ -639,11 +639,11 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         return gestureRecognizer != self.revealController.panGestureRecognizer() && otherGestureRecognizer != self.revealController.panGestureRecognizer();
     }
     
-    func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         // Handled by observeValueForKeyPath for 7.1 compatibility
     }
     
-    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<()>) {
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<()>) {
         if (!firstLocation && keyPath == "myLocation") {
             firstLocation = true;
                         mapView.camera = GMSCameraPosition.cameraWithTarget(mapView.myLocation.coordinate, zoom: 11);
