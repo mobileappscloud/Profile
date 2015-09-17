@@ -17,8 +17,6 @@
 		2BBDBA591A12AC2C005A6815 /* GoalChallengeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BBDBA511A12AC2C005A6815 /* GoalChallengeView.xib */; };
 		2BC5865C1A16C63B005A7983 /* ChallengeInvitation.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BC5865B1A16C63B005A7983 /* ChallengeInvitation.xib */; };
 		2BC5865E1A16D0AF005A7983 /* ChallengeInvitationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC5865D1A16D0AF005A7983 /* ChallengeInvitationView.swift */; };
-		32E39E471B756D4200BA50F9 /* Info_prod.plist in Resources */ = {isa = PBXBuildFile; fileRef = 32E39E451B756D4200BA50F9 /* Info_prod.plist */; };
-		32E39E481B756D4200BA50F9 /* Info_qa.plist in Resources */ = {isa = PBXBuildFile; fileRef = 32E39E461B756D4200BA50F9 /* Info_qa.plist */; };
 		41411BA01BA87E3D0027F5E1 /* NotificationSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41411B9F1BA87E3D0027F5E1 /* NotificationSettingsTableViewController.swift */; };
 		41411BA31BA894280027F5E1 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41411BA11BA894280027F5E1 /* SwitchTableViewCell.swift */; };
 		41411BA41BA894280027F5E1 /* SwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41411BA21BA894280027F5E1 /* SwitchTableViewCell.xib */; };
@@ -1588,7 +1586,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftMigration = 0700;
-				LastUpgradeCheck = 0600;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "higi, LLC";
 				TargetAttributes = {
 					8F36439919460EB300C0033E = {
@@ -1737,7 +1735,6 @@
 				8FE056DF198FDBDC00C81208 /* PulseHomeView.xib in Resources */,
 				D17334411B594FCD0089BBFD /* weight_copy@2x.png in Resources */,
 				8F02A12319AE2BF6002FF73E /* btn_share_black.png in Resources */,
-				32E39E471B756D4200BA50F9 /* Info_prod.plist in Resources */,
 				8FD73CC31990303000BACCB2 /* GoogleMaps.bundle in Resources */,
 				D1ADD2D91BA0EC7A0001E8C4 /* qr_cursor.png in Resources */,
 				8FDA6DA119A2978B00244D5F /* ChangePasswordView.xib in Resources */,
@@ -1754,7 +1751,6 @@
 				8F5E7FDC199BD089009067E5 /* gen_checkin.png in Resources */,
 				8FF9409319899AEA00D319D7 /* createreminder.png in Resources */,
 				D1EDF3FF1B5ECCCC00BF5B91 /* activities.png in Resources */,
-				32E39E481B756D4200BA50F9 /* Info_qa.plist in Resources */,
 				D17334451B594FCD0089BBFD /* activities_copy@2x.png in Resources */,
 				2BBDBA541A12AC2C005A6815 /* ChallengesView.xib in Resources */,
 				8F5C38E91981B2B300F51543 /* createreminder_inverted.png in Resources */,
@@ -2045,6 +2041,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -2094,6 +2091,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flurry",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.higi.main-qb";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = higi/BridgingHeader.h;
@@ -2116,6 +2114,7 @@
 				INFOPLIST_FILE = higiTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				METAL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.higi.main.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 			};
@@ -2182,6 +2181,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flurry",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.higi.main-qb";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = higi/BridgingHeader.h;
@@ -2200,6 +2200,7 @@
 				INFOPLIST_FILE = higiTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				METAL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.higi.main.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 			};
@@ -2225,6 +2226,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -2309,6 +2311,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flurry",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.higi.main;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = higi/BridgingHeader.h;
@@ -2342,6 +2345,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flurry",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.higi.main;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = higi/BridgingHeader.h;
@@ -2364,6 +2368,7 @@
 				INFOPLIST_FILE = higiTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				METAL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.higi.main.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 			};
@@ -2380,6 +2385,7 @@
 				INFOPLIST_FILE = higiTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				METAL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.higi.main.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 			};
