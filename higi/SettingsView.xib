@@ -59,6 +59,9 @@
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XYB-D9-hrm">
                             <rect key="frame" x="180" y="215" width="120" height="45"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="120" id="bnK-pn-d1N"/>
+                            </constraints>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                             <state key="normal" title="New">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -75,6 +78,9 @@
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y4c-Mp-iCv">
                             <rect key="frame" x="20" y="215" width="120" height="45"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="120" id="e4F-rW-IPe"/>
+                            </constraints>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                             <state key="normal" title="Resize">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -666,14 +672,12 @@
                         <constraint firstItem="tFF-3f-Y2J" firstAttribute="top" secondItem="fB6-xe-qtw" secondAttribute="bottom" id="p7S-Dg-2Iw"/>
                         <constraint firstItem="1fb-3j-AqL" firstAttribute="top" secondItem="DZi-VW-Cdr" secondAttribute="bottom" id="qDv-Zc-q4Z"/>
                         <constraint firstItem="NKE-wu-7bF" firstAttribute="leading" secondItem="Btk-3Z-ra2" secondAttribute="leading" id="qaM-kH-3Ox"/>
-                        <constraint firstAttribute="trailing" secondItem="XYB-D9-hrm" secondAttribute="trailing" constant="20" id="sA3-ok-cDe"/>
                         <constraint firstItem="2bj-oM-cGN" firstAttribute="centerX" secondItem="2Ku-L9-lwk" secondAttribute="centerX" id="sc8-XL-hcM"/>
                         <constraint firstItem="NKE-wu-7bF" firstAttribute="leading" secondItem="fmL-GJ-iFQ" secondAttribute="leading" id="suO-Gt-S06"/>
                         <constraint firstItem="DZi-VW-Cdr" firstAttribute="top" secondItem="v09-UK-Rz3" secondAttribute="bottom" id="ukW-aS-kzu"/>
                         <constraint firstItem="2bj-oM-cGN" firstAttribute="centerX" secondItem="dWh-oh-vnE" secondAttribute="centerX" id="vJm-ci-bgG"/>
                         <constraint firstAttribute="centerX" secondItem="y4c-Mp-iCv" secondAttribute="trailing" constant="20" id="vu7-Fy-hxf"/>
                         <constraint firstItem="2bj-oM-cGN" firstAttribute="centerX" secondItem="DZi-VW-Cdr" secondAttribute="centerX" id="xJt-SC-zae"/>
-                        <constraint firstItem="y4c-Mp-iCv" firstAttribute="leading" secondItem="j3m-4w-Yxe" secondAttribute="leading" constant="20" id="xVz-e0-nsm"/>
                         <constraint firstItem="pD2-Nd-ndM" firstAttribute="top" secondItem="BOo-Qt-pxT" secondAttribute="bottom" id="y3Q-Vi-yaX"/>
                         <constraint firstItem="2bj-oM-cGN" firstAttribute="centerX" secondItem="NKE-wu-7bF" secondAttribute="centerX" id="zd8-99-NAW"/>
                         <constraint firstItem="y4c-Mp-iCv" firstAttribute="baseline" secondItem="XYB-D9-hrm" secondAttribute="firstBaseline" id="zhK-h6-TLk"/>
