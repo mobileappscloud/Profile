@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ModifyImageViewController" customModule="higi" customModuleProvider="target">
@@ -20,35 +21,59 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="odv-O8-LEk">
+                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="odv-O8-LEk">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <gestureRecognizers/>
                     <connections>
                         <outletCollection property="gestureRecognizers" destination="6GQ-7F-dIG" appends="YES" id="TkV-RV-ZSI"/>
                         <outletCollection property="gestureRecognizers" destination="bu2-Xi-XIZ" appends="YES" id="hMg-yL-5fq"/>
                     </connections>
                 </imageView>
-                <imageView userInteractionEnabled="NO" alpha="0.79999999999999982" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mask.png" id="vlv-TN-D0X">
+                <imageView userInteractionEnabled="NO" alpha="0.79999999999999982" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mask.png" translatesAutoresizingMaskIntoConstraints="NO" id="vlv-TN-D0X">
                     <rect key="frame" x="0.0" y="124" width="320" height="320"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="vlv-TN-D0X" secondAttribute="height" multiplier="1:1" id="9ng-h8-sMu"/>
+                    </constraints>
                 </imageView>
-                <view userInteractionEnabled="NO" alpha="0.79999999999999982" contentMode="scaleToFill" id="qf6-Z0-DrE">
+                <view userInteractionEnabled="NO" alpha="0.79999999999999982" contentMode="scaleToFill" verticalHuggingPriority="240" verticalCompressionResistancePriority="740" translatesAutoresizingMaskIntoConstraints="NO" id="qf6-Z0-DrE">
                     <rect key="frame" x="0.0" y="444" width="320" height="124"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
-                <view userInteractionEnabled="NO" alpha="0.80000001192092896" contentMode="scaleToFill" id="ECW-Ge-Ohy">
+                <view userInteractionEnabled="NO" alpha="0.80000001192092896" contentMode="scaleToFill" verticalHuggingPriority="240" verticalCompressionResistancePriority="740" translatesAutoresizingMaskIntoConstraints="NO" id="ECW-Ge-Ohy">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="124"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
-                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="white" id="7BL-i1-MNH">
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="7BL-i1-MNH">
                     <rect key="frame" x="150" y="510" width="20" height="20"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="T5Z-mb-bwM"/>
+                        <constraint firstAttribute="width" constant="20" id="TSe-Gc-AWU"/>
+                    </constraints>
                 </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="ECW-Ge-Ohy" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="0ad-Qh-vaf"/>
+                <constraint firstAttribute="bottom" secondItem="7BL-i1-MNH" secondAttribute="bottom" constant="38" id="2bH-1R-XuA"/>
+                <constraint firstAttribute="bottom" secondItem="odv-O8-LEk" secondAttribute="bottom" id="3lT-Ce-BU5"/>
+                <constraint firstItem="qf6-Z0-DrE" firstAttribute="top" secondItem="vlv-TN-D0X" secondAttribute="bottom" id="4nB-wm-ANJ"/>
+                <constraint firstAttribute="bottom" secondItem="qf6-Z0-DrE" secondAttribute="bottom" id="5sq-Cr-uDF"/>
+                <constraint firstItem="ECW-Ge-Ohy" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Asl-CI-7g0"/>
+                <constraint firstItem="vlv-TN-D0X" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="B3E-cC-dMo"/>
+                <constraint firstItem="vlv-TN-D0X" firstAttribute="top" secondItem="ECW-Ge-Ohy" secondAttribute="bottom" id="BZa-g4-fbh"/>
+                <constraint firstAttribute="trailing" secondItem="qf6-Z0-DrE" secondAttribute="trailing" id="DDv-Pg-9O6"/>
+                <constraint firstItem="7BL-i1-MNH" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="EpJ-aN-OGn"/>
+                <constraint firstItem="vlv-TN-D0X" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Hjo-e6-uBh"/>
+                <constraint firstAttribute="trailing" secondItem="vlv-TN-D0X" secondAttribute="trailing" id="PJB-7z-fib"/>
+                <constraint firstItem="odv-O8-LEk" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="V4T-J5-sgv"/>
+                <constraint firstItem="qf6-Z0-DrE" firstAttribute="top" secondItem="vlv-TN-D0X" secondAttribute="bottom" id="XNd-4O-SHh"/>
+                <constraint firstItem="vlv-TN-D0X" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="a5U-d8-xSS"/>
+                <constraint firstAttribute="trailing" secondItem="odv-O8-LEk" secondAttribute="trailing" id="hHe-Is-pgC"/>
+                <constraint firstItem="qf6-Z0-DrE" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="hmH-WA-8X6"/>
+                <constraint firstAttribute="trailing" secondItem="ECW-Ge-Ohy" secondAttribute="trailing" id="icq-Wr-4Of"/>
+                <constraint firstItem="vlv-TN-D0X" firstAttribute="top" secondItem="ECW-Ge-Ohy" secondAttribute="bottom" id="qMX-Ld-bIm"/>
+                <constraint firstItem="odv-O8-LEk" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="vyx-l8-Zx6"/>
+            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
@@ -68,9 +93,4 @@
     <resources>
         <image name="mask.png" width="488" height="488"/>
     </resources>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
-    </simulatedMetricsContainer>
 </document>
