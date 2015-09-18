@@ -67,7 +67,7 @@
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <webView contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x9K-Qc-JaV">
+                        <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x9K-Qc-JaV">
                             <rect key="frame" x="0.0" y="101" width="320" height="409"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </webView>
@@ -128,10 +128,12 @@
                         <constraint firstAttribute="trailing" secondItem="hId-qu-U9O" secondAttribute="trailing" constant="10" id="84q-Wp-CEU"/>
                         <constraint firstItem="x9K-Qc-JaV" firstAttribute="top" secondItem="0dG-Sw-cyC" secondAttribute="top" constant="101" id="8El-a4-cMc"/>
                         <constraint firstAttribute="bottom" secondItem="0zp-KX-UTu" secondAttribute="bottom" constant="10" id="LBI-l3-plB"/>
+                        <constraint firstItem="x9K-Qc-JaV" firstAttribute="leading" secondItem="0dG-Sw-cyC" secondAttribute="leading" id="UMQ-dT-SdB"/>
                         <constraint firstAttribute="bottom" secondItem="x9K-Qc-JaV" secondAttribute="bottom" constant="58" id="Wkk-vI-ExV"/>
                         <constraint firstItem="hId-qu-U9O" firstAttribute="leading" secondItem="0dG-Sw-cyC" secondAttribute="leading" constant="10" id="Y8c-sD-AQX"/>
                         <constraint firstItem="Bug-kZ-Bln" firstAttribute="top" secondItem="0dG-Sw-cyC" secondAttribute="top" constant="101" id="mvX-Z9-Eak"/>
                         <constraint firstAttribute="bottom" secondItem="hId-qu-U9O" secondAttribute="bottom" constant="58" id="r1P-Y8-WcK"/>
+                        <constraint firstAttribute="trailing" secondItem="x9K-Qc-JaV" secondAttribute="trailing" id="uOm-Gc-4R8"/>
                     </constraints>
                 </view>
             </subviews>
