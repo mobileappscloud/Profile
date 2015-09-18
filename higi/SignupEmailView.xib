@@ -71,9 +71,13 @@
                             <rect key="frame" x="0.0" y="101" width="320" height="409"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </webView>
-                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0zp-KX-UTu">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0zp-KX-UTu">
                             <rect key="frame" x="13" y="522" width="122" height="36"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="122" id="E8D-CD-sBi"/>
+                                <constraint firstAttribute="height" constant="36" id="dqN-fs-on0"/>
+                            </constraints>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                             <state key="normal" title="I decline">
                                 <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -102,9 +106,13 @@
                                 <constraint firstAttribute="height" constant="1" id="Iuz-zB-GRa"/>
                             </constraints>
                         </view>
-                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RMj-yn-Vxo">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RMj-yn-Vxo">
                             <rect key="frame" x="185" y="522" width="122" height="36"/>
                             <color key="backgroundColor" red="0.46274509800000002" green="0.75294117650000003" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="36" id="0Ei-El-LfN"/>
+                                <constraint firstAttribute="width" constant="122" id="wGY-xc-ckF"/>
+                            </constraints>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                             <state key="normal" title="I agree">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -128,9 +136,11 @@
                         <constraint firstAttribute="trailing" secondItem="hId-qu-U9O" secondAttribute="trailing" constant="10" id="84q-Wp-CEU"/>
                         <constraint firstItem="x9K-Qc-JaV" firstAttribute="top" secondItem="0dG-Sw-cyC" secondAttribute="top" constant="101" id="8El-a4-cMc"/>
                         <constraint firstAttribute="bottom" secondItem="0zp-KX-UTu" secondAttribute="bottom" constant="10" id="LBI-l3-plB"/>
+                        <constraint firstItem="0zp-KX-UTu" firstAttribute="leading" secondItem="0dG-Sw-cyC" secondAttribute="leading" constant="13" id="Nz7-mM-jAN"/>
                         <constraint firstItem="x9K-Qc-JaV" firstAttribute="leading" secondItem="0dG-Sw-cyC" secondAttribute="leading" id="UMQ-dT-SdB"/>
                         <constraint firstAttribute="bottom" secondItem="x9K-Qc-JaV" secondAttribute="bottom" constant="58" id="Wkk-vI-ExV"/>
                         <constraint firstItem="hId-qu-U9O" firstAttribute="leading" secondItem="0dG-Sw-cyC" secondAttribute="leading" constant="10" id="Y8c-sD-AQX"/>
+                        <constraint firstAttribute="trailing" secondItem="RMj-yn-Vxo" secondAttribute="trailing" constant="13" id="m0k-tj-RCb"/>
                         <constraint firstItem="Bug-kZ-Bln" firstAttribute="top" secondItem="0dG-Sw-cyC" secondAttribute="top" constant="101" id="mvX-Z9-Eak"/>
                         <constraint firstAttribute="bottom" secondItem="hId-qu-U9O" secondAttribute="bottom" constant="58" id="r1P-Y8-WcK"/>
                         <constraint firstAttribute="trailing" secondItem="x9K-Qc-JaV" secondAttribute="trailing" id="uOm-Gc-4R8"/>
