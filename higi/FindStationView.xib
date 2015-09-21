@@ -153,7 +153,7 @@
                 <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="icW-li-xIM">
                     <rect key="frame" x="0.0" y="498" width="320" height="323"/>
                     <subviews>
-                        <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zI5-Ex-RfT">
+                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zI5-Ex-RfT">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wfp-Xf-Afy">
@@ -309,7 +309,7 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ljN-y9-sTH">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ljN-y9-sTH">
                     <rect key="frame" x="0.0" y="568" width="320" height="504"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -391,6 +391,7 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="mM4-OH-zXg" secondAttribute="trailing" constant="5" id="512-WW-3aS"/>
+                <constraint firstItem="ljN-y9-sTH" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="8qe-H9-Xkw"/>
                 <constraint firstItem="iJV-Fq-TxL" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="ApY-NQ-yLB"/>
                 <constraint firstAttribute="trailing" secondItem="C1P-ni-kAe" secondAttribute="trailing" id="F67-jS-BbD"/>
                 <constraint firstAttribute="trailing" secondItem="IVQ-99-oMd" secondAttribute="trailing" constant="5" id="Fpa-Sc-wh0"/>
@@ -402,6 +403,7 @@
                 <constraint firstItem="C1P-ni-kAe" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="64" id="hh1-wS-bzC"/>
                 <constraint firstAttribute="trailing" secondItem="Tot-YV-36o" secondAttribute="trailing" id="j08-8q-fZf"/>
                 <constraint firstItem="C1P-ni-kAe" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="lIm-uH-Z00"/>
+                <constraint firstAttribute="trailing" secondItem="ljN-y9-sTH" secondAttribute="trailing" id="lPn-RU-wr1"/>
                 <constraint firstAttribute="bottom" secondItem="C1P-ni-kAe" secondAttribute="bottom" id="mSR-c6-jLc"/>
                 <constraint firstItem="IVQ-99-oMd" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="5" id="oya-tp-Sob"/>
                 <constraint firstItem="Tot-YV-36o" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="40" id="q3u-YP-INc"/>
