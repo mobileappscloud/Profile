@@ -194,7 +194,6 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews();
-        scrollView.frame = self.view.frame;
         scrollView.contentSize = CGSize(width: scrollView.frame.size.width * CGFloat(totalPages), height: scrollView.frame.size.height);
         if (pageDisplayMaster[0] && activeTable != nil) {
             activeTable!.frame.size.height = scrollView.frame.size.height;
@@ -227,6 +226,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         if (cell == nil) {
             cell = UINib(nibName: "ChallengeRowCell", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! ChallengeRowCell
         }
+        cell.frame.size.width = scrollView.frame.size.width;
         //remove all children before populating scrollview
         for subview in cell.scrollView.subviews {
             subview.removeFromSuperview();
@@ -302,11 +302,11 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         for nib in nibs {
             nib.frame.origin.x = nibOriginX;
             cell.scrollView.addSubview(nib);
-            nibOriginX += screenWidth;
+            nibOriginX += cell.frame.size.width;
         }
         cell.pager.numberOfPages = nibs.count;
         cell.pager.currentPage = 0;
-        cell.scrollView.contentSize = CGSize(width: screenWidth * CGFloat(nibs.count), height: cell.frame.size.height);
+        cell.scrollView.contentSize = CGSize(width: cell.frame.size.width * CGFloat(nibs.count), height: cell.frame.size.height);
     }
     
     func buildInvitationCell(cell: ChallengeRowCell, challenge: HigiChallenge) {
