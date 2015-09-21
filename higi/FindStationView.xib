@@ -150,7 +150,7 @@
                         <constraint firstItem="geB-oB-7Ry" firstAttribute="leading" secondItem="IVQ-99-oMd" secondAttribute="leading" id="ygn-Rd-ECz"/>
                     </constraints>
                 </view>
-                <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="icW-li-xIM">
+                <view hidden="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="icW-li-xIM">
                     <rect key="frame" x="0.0" y="498" width="320" height="323"/>
                     <subviews>
                         <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zI5-Ex-RfT">
@@ -397,6 +397,7 @@
                 <constraint firstAttribute="trailing" secondItem="IVQ-99-oMd" secondAttribute="trailing" constant="5" id="Fpa-Sc-wh0"/>
                 <constraint firstItem="b9Y-Rs-dSP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Fte-i6-CHD"/>
                 <constraint firstItem="Tot-YV-36o" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="GAD-3i-fL7"/>
+                <constraint firstItem="icW-li-xIM" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Ija-yw-ha9"/>
                 <constraint firstAttribute="trailing" secondItem="b9Y-Rs-dSP" secondAttribute="trailing" id="PHc-Bj-gyQ"/>
                 <constraint firstAttribute="bottom" secondItem="b9Y-Rs-dSP" secondAttribute="bottom" id="deD-kQ-kka"/>
                 <constraint firstAttribute="bottom" secondItem="IVQ-99-oMd" secondAttribute="bottom" constant="73" id="hGh-Vx-U3c"/>
@@ -404,6 +405,7 @@
                 <constraint firstAttribute="trailing" secondItem="Tot-YV-36o" secondAttribute="trailing" id="j08-8q-fZf"/>
                 <constraint firstItem="C1P-ni-kAe" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="lIm-uH-Z00"/>
                 <constraint firstAttribute="trailing" secondItem="ljN-y9-sTH" secondAttribute="trailing" id="lPn-RU-wr1"/>
+                <constraint firstAttribute="trailing" secondItem="icW-li-xIM" secondAttribute="trailing" id="lxv-6O-mhl"/>
                 <constraint firstAttribute="bottom" secondItem="C1P-ni-kAe" secondAttribute="bottom" id="mSR-c6-jLc"/>
                 <constraint firstItem="IVQ-99-oMd" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="5" id="oya-tp-Sob"/>
                 <constraint firstItem="Tot-YV-36o" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="40" id="q3u-YP-INc"/>
