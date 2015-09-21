@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FindStationViewController" customModule="higi" customModuleProvider="target">
@@ -152,7 +153,7 @@
                 <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="icW-li-xIM">
                     <rect key="frame" x="0.0" y="498" width="320" height="323"/>
                     <subviews>
-                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zI5-Ex-RfT">
+                        <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zI5-Ex-RfT">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wfp-Xf-Afy">
@@ -317,7 +318,7 @@
                         <outlet property="delegate" destination="-1" id="VoJ-0J-PGW"/>
                     </connections>
                 </tableView>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="iJV-Fq-TxL">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="iJV-Fq-TxL">
                     <rect key="frame" x="0.0" y="568" width="320" height="504"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -326,10 +327,13 @@
                         <outlet property="delegate" destination="-1" id="R1K-Pg-Jgq"/>
                     </connections>
                 </tableView>
-                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="noResults.png" translatesAutoresizingMaskIntoConstraints="NO" id="Tot-YV-36o">
+                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noResults.png" translatesAutoresizingMaskIntoConstraints="NO" id="Tot-YV-36o">
                     <rect key="frame" x="0.0" y="40" width="320" height="400"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="Tot-YV-36o" secondAttribute="height" multiplier="4:5" id="pFx-e5-Q3V"/>
+                    </constraints>
                 </imageView>
-                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="I9H-Jg-t8G">
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="I9H-Jg-t8G">
                     <rect key="frame" x="150" y="63" width="20" height="20"/>
                 </activityIndicatorView>
                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b9Y-Rs-dSP">
@@ -387,19 +391,25 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="mM4-OH-zXg" secondAttribute="trailing" constant="5" id="512-WW-3aS"/>
+                <constraint firstItem="iJV-Fq-TxL" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="ApY-NQ-yLB"/>
                 <constraint firstAttribute="trailing" secondItem="C1P-ni-kAe" secondAttribute="trailing" id="F67-jS-BbD"/>
                 <constraint firstAttribute="trailing" secondItem="IVQ-99-oMd" secondAttribute="trailing" constant="5" id="Fpa-Sc-wh0"/>
                 <constraint firstItem="b9Y-Rs-dSP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Fte-i6-CHD"/>
+                <constraint firstItem="Tot-YV-36o" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="GAD-3i-fL7"/>
                 <constraint firstAttribute="trailing" secondItem="b9Y-Rs-dSP" secondAttribute="trailing" id="PHc-Bj-gyQ"/>
                 <constraint firstAttribute="bottom" secondItem="b9Y-Rs-dSP" secondAttribute="bottom" id="deD-kQ-kka"/>
                 <constraint firstAttribute="bottom" secondItem="IVQ-99-oMd" secondAttribute="bottom" constant="73" id="hGh-Vx-U3c"/>
                 <constraint firstItem="C1P-ni-kAe" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="64" id="hh1-wS-bzC"/>
+                <constraint firstAttribute="trailing" secondItem="Tot-YV-36o" secondAttribute="trailing" id="j08-8q-fZf"/>
                 <constraint firstItem="C1P-ni-kAe" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="lIm-uH-Z00"/>
                 <constraint firstAttribute="bottom" secondItem="C1P-ni-kAe" secondAttribute="bottom" id="mSR-c6-jLc"/>
                 <constraint firstItem="IVQ-99-oMd" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="5" id="oya-tp-Sob"/>
+                <constraint firstItem="Tot-YV-36o" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="40" id="q3u-YP-INc"/>
                 <constraint firstItem="mM4-OH-zXg" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="5" id="s8Z-rN-9GE"/>
+                <constraint firstItem="I9H-Jg-t8G" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="tgw-gr-V6b"/>
                 <constraint firstItem="mM4-OH-zXg" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="71" id="wnG-y4-NNm"/>
                 <constraint firstItem="b9Y-Rs-dSP" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="yyM-O6-cOs"/>
+                <constraint firstAttribute="trailing" secondItem="iJV-Fq-TxL" secondAttribute="trailing" id="z0V-on-b7t"/>
             </constraints>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
