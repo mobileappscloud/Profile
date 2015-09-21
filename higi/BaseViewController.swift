@@ -10,7 +10,7 @@ import Foundation
 
 class BaseViewController: UIViewController, SWRevealViewControllerDelegate {
     
-    var fakeNavBar = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 64));
+    var fakeNavBar = UIView(frame: CGRect(x: 0, y: 0, width: 500, height: 64));
     
     var pointsMeter: PointsMeter!;
     
