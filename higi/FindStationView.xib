@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FindStationViewController" customModule="higi" customModuleProvider="target">
@@ -49,20 +49,32 @@
                     <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                     <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
-                <view hidden="YES" alpha="0.90000000000000002" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mM4-OH-zXg">
+                <view hidden="YES" alpha="0.90000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mM4-OH-zXg">
                     <rect key="frame" x="5" y="71" width="310" height="54"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tap on a     to select location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ABw-UO-2ja">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap on a     to select location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ABw-UO-2ja">
                             <rect key="frame" x="10" y="17" width="202" height="21"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="202" id="E8E-cX-Von"/>
+                                <constraint firstAttribute="height" constant="21" id="IRI-vj-ez0"/>
+                            </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="map_circleicon.png" translatesAutoresizingMaskIntoConstraints="NO" id="8nN-Vb-wPi">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="map_circleicon.png" translatesAutoresizingMaskIntoConstraints="NO" id="8nN-Vb-wPi">
                             <rect key="frame" x="60" y="3" width="30" height="30"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="30" id="9cy-wF-10M"/>
+                                <constraint firstAttribute="height" constant="30" id="p1F-oQ-Gap"/>
+                            </constraints>
                         </imageView>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NhZ-H8-kyv">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NhZ-H8-kyv">
                             <rect key="frame" x="271" y="12" width="30" height="30"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="30" id="FBy-mf-dBu"/>
+                                <constraint firstAttribute="height" constant="30" id="eaA-Hr-f0i"/>
+                            </constraints>
                             <state key="normal" image="btn_close_reminder.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
@@ -72,8 +84,19 @@
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="8nN-Vb-wPi" secondAttribute="bottom" constant="21" id="ALA-Fx-9sM"/>
+                        <constraint firstItem="8nN-Vb-wPi" firstAttribute="top" secondItem="mM4-OH-zXg" secondAttribute="top" constant="3" id="DlO-3a-qkg"/>
+                        <constraint firstItem="8nN-Vb-wPi" firstAttribute="leading" secondItem="mM4-OH-zXg" secondAttribute="leading" constant="60" id="NJm-ol-dkP"/>
+                        <constraint firstAttribute="bottom" secondItem="NhZ-H8-kyv" secondAttribute="bottom" constant="12" id="Pca-Ob-HHl"/>
+                        <constraint firstAttribute="trailing" secondItem="NhZ-H8-kyv" secondAttribute="trailing" constant="9" id="QWG-ij-CZV"/>
+                        <constraint firstAttribute="bottom" secondItem="ABw-UO-2ja" secondAttribute="bottom" constant="16" id="fME-64-mxW"/>
+                        <constraint firstItem="ABw-UO-2ja" firstAttribute="top" secondItem="mM4-OH-zXg" secondAttribute="top" constant="17" id="fQ3-ax-VcI"/>
+                        <constraint firstItem="NhZ-H8-kyv" firstAttribute="top" secondItem="mM4-OH-zXg" secondAttribute="top" constant="12" id="fVS-2w-8Dp"/>
+                        <constraint firstItem="ABw-UO-2ja" firstAttribute="leading" secondItem="mM4-OH-zXg" secondAttribute="leading" constant="10" id="qyw-mo-OnD"/>
+                    </constraints>
                 </view>
-                <view hidden="YES" alpha="0.90000000000000002" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IVQ-99-oMd">
+                <view hidden="YES" alpha="0.90000000000000002" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IVQ-99-oMd">
                     <rect key="frame" x="5" y="421" width="310" height="74"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="geB-oB-7Ry">
@@ -102,7 +125,7 @@
                 <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="icW-li-xIM">
                     <rect key="frame" x="0.0" y="498" width="320" height="323"/>
                     <subviews>
-                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zI5-Ex-RfT">
+                        <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zI5-Ex-RfT">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wfp-Xf-Afy">
@@ -336,6 +359,8 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="IVQ-99-oMd" firstAttribute="top" secondItem="mM4-OH-zXg" secondAttribute="bottom" constant="296" id="4eN-nb-fdy"/>
+                <constraint firstAttribute="trailing" secondItem="mM4-OH-zXg" secondAttribute="trailing" constant="5" id="512-WW-3aS"/>
                 <constraint firstAttribute="trailing" secondItem="C1P-ni-kAe" secondAttribute="trailing" id="F67-jS-BbD"/>
                 <constraint firstItem="b9Y-Rs-dSP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Fte-i6-CHD"/>
                 <constraint firstAttribute="trailing" secondItem="b9Y-Rs-dSP" secondAttribute="trailing" id="PHc-Bj-gyQ"/>
@@ -343,6 +368,8 @@
                 <constraint firstItem="C1P-ni-kAe" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="64" id="hh1-wS-bzC"/>
                 <constraint firstItem="C1P-ni-kAe" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="lIm-uH-Z00"/>
                 <constraint firstAttribute="bottom" secondItem="C1P-ni-kAe" secondAttribute="bottom" id="mSR-c6-jLc"/>
+                <constraint firstItem="mM4-OH-zXg" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="5" id="s8Z-rN-9GE"/>
+                <constraint firstItem="mM4-OH-zXg" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="71" id="wnG-y4-NNm"/>
                 <constraint firstItem="b9Y-Rs-dSP" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="yyM-O6-cOs"/>
             </constraints>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
