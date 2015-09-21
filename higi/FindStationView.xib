@@ -153,7 +153,7 @@
                 <view hidden="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="icW-li-xIM">
                     <rect key="frame" x="0.0" y="498" width="320" height="323"/>
                     <subviews>
-                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zI5-Ex-RfT">
+                        <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zI5-Ex-RfT">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wfp-Xf-Afy">
@@ -198,14 +198,12 @@
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <gestureRecognizers/>
                             <constraints>
-                                <constraint firstItem="4pZ-om-lsY" firstAttribute="leading" secondItem="2Ds-5J-OaP" secondAttribute="trailing" constant="8" id="4Ww-Bj-5J5"/>
                                 <constraint firstItem="Wfp-Xf-Afy" firstAttribute="leading" secondItem="zI5-Ex-RfT" secondAttribute="leading" constant="10" id="MW5-M5-Yob"/>
                                 <constraint firstItem="2Ds-5J-OaP" firstAttribute="leading" secondItem="Wfp-Xf-Afy" secondAttribute="trailing" constant="18" id="N7V-ym-ved"/>
                                 <constraint firstItem="8e9-gI-H4g" firstAttribute="leading" secondItem="hrK-My-U5f" secondAttribute="trailing" constant="8" id="OzQ-8D-dRS"/>
                                 <constraint firstAttribute="bottom" secondItem="4pZ-om-lsY" secondAttribute="bottom" constant="15" id="VGl-56-WXO"/>
                                 <constraint firstAttribute="bottom" secondItem="Wfp-Xf-Afy" secondAttribute="bottom" constant="10" id="X16-yK-apr"/>
                                 <constraint firstItem="hrK-My-U5f" firstAttribute="leading" secondItem="Wfp-Xf-Afy" secondAttribute="trailing" constant="18" id="g5v-0l-zn6"/>
-                                <constraint firstAttribute="width" constant="320" id="l69-Pl-Irv"/>
                                 <constraint firstItem="4pZ-om-lsY" firstAttribute="top" secondItem="zI5-Ex-RfT" secondAttribute="top" constant="15" id="mw9-wP-lVb"/>
                                 <constraint firstItem="Wfp-Xf-Afy" firstAttribute="top" secondItem="zI5-Ex-RfT" secondAttribute="top" constant="10" id="o6x-9I-kir"/>
                                 <constraint firstAttribute="trailing" secondItem="4pZ-om-lsY" secondAttribute="trailing" constant="7" id="skA-fX-lAL"/>
@@ -308,6 +306,10 @@
                         </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="zI5-Ex-RfT" firstAttribute="leading" secondItem="icW-li-xIM" secondAttribute="leading" id="Aq7-px-QwE"/>
+                        <constraint firstAttribute="trailing" secondItem="zI5-Ex-RfT" secondAttribute="trailing" id="HqT-kl-UuD"/>
+                    </constraints>
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ljN-y9-sTH">
                     <rect key="frame" x="0.0" y="568" width="320" height="504"/>
