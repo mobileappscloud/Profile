@@ -43,7 +43,6 @@ class ChallengeInvitationView: UIView {
     }
     
     class func startsInDisplayHelper(startDate: NSDate) -> String {
-        var days = 0;
         var dateDisplay:String!
         if (Int(startDate.timeIntervalSinceNow) > 0) {
             let days = Int(startDate.timeIntervalSinceNow / 60 / 60 / 24) + 1;

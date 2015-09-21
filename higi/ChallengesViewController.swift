@@ -256,7 +256,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
                 cell.daysLeft.text = "Ends today!";
             } else if (days > 0) {
                 let s = days == 1 ? "" : "s";
-                cell.daysLeft.text = "\(days)d left";
+                cell.daysLeft.text = "\(days) \(s) left";
             } else {
                 cell.daysLeft.text = "Finished!";
             }
@@ -298,19 +298,20 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     
     func buildActiveCell(cell: ChallengeRowCell, challenge: HigiChallenge) {
         var nibOriginX:CGFloat = 0.0;
-        let nibs = ChallengeUtility.getChallengeViews(challenge, frame: scrollView.frame, isComplex: false);
+        let nibs = ChallengeUtility.getChallengeViews(challenge, frame: UIScreen.mainScreen().bounds, isComplex: false);
         for nib in nibs {
             nib.frame.origin.x = nibOriginX;
             cell.scrollView.addSubview(nib);
-            nibOriginX += cell.scrollView.frame.size.width;
+            nibOriginX += screenWidth;
         }
         cell.pager.numberOfPages = nibs.count;
         cell.pager.currentPage = 0;
-        cell.scrollView.contentSize = CGSize(width: cell.frame.size.width * CGFloat(nibs.count), height: cell.frame.size.height);
+        cell.scrollView.contentSize = CGSize(width: screenWidth * CGFloat(nibs.count), height: cell.frame.size.height);
     }
     
     func buildInvitationCell(cell: ChallengeRowCell, challenge: HigiChallenge) {
         let invitationView = ChallengeInvitationView.instanceFromNib(challenge);
+        invitationView.frame.size.width = cell.frame.size.width;
         cell.scrollView.contentSize = CGSize(width: cell.frame.size.width, height: cell.frame.size.height);
         cell.scrollView.addSubview(invitationView);
         cell.daysLeft.hidden = true;
