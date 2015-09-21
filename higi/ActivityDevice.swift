@@ -21,9 +21,9 @@ class ActivityDevice {
         connectUrl = dictionary["connectUrl"] as? NSString;
         partnerHomepage = dictionary["partnerHomepage"] as? NSString;
         colorCode = dictionary["colorCode"] as! NSString;
-        var imageUrls = dictionary["imageUrl"] as! NSDictionary;
+        let imageUrls = dictionary["imageUrl"] as! NSDictionary;
         iconUrl = imageUrls["icon"] as? NSString;
-        var userRelation = dictionary["userRelation"] as! NSDictionary;
+        let userRelation = dictionary["userRelation"] as! NSDictionary;
         connected = userRelation["connected"] as? Bool;
         disconnectUrl = userRelation["disconnectUrl"] as? NSString;
     }

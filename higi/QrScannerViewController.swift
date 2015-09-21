@@ -42,11 +42,11 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     }
     
     func initBackButton() {
-        var backButton = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton;
+        let backButton = UIButton(type: UIButtonType.Custom);
         backButton.setBackgroundImage(UIImage(named: "btn_back_white.png"), forState: UIControlState.Normal);
         backButton.addTarget(self, action: "goBack:", forControlEvents: UIControlEvents.TouchUpInside);
         backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
-        var backBarItem = UIBarButtonItem(customView: backButton);
+        let backBarItem = UIBarButtonItem(customView: backButton);
         self.navigationItem.leftBarButtonItem = backBarItem;
         self.navigationItem.hidesBackButton = true;
     }
@@ -73,7 +73,13 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     func initVideoCapture() {
         let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo);
         var error:NSError?;
-        let deviceInput: AnyObject! = AVCaptureDeviceInput.deviceInputWithDevice(device, error: &error);
+        let deviceInput: AnyObject!
+        do {
+            deviceInput = try AVCaptureDeviceInput(device: device)
+        } catch let error1 as NSError {
+            error = error1
+            deviceInput = nil
+        };
         if error != nil {
             UIAlertView(title: "Uh oh", message: "The scanner will not work with your device", delegate: self, cancelButtonTitle: "OK").show();
         } else {
@@ -89,7 +95,7 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
             videoPreviewLayer?.frame = view.layer.bounds;
             videoPreviewLayer?.frame.origin.y = navBarHeight;
             videoPreviewLayer?.frame.size.height = view.layer.bounds.size.height - navBarHeight;
-            self.view.layer.addSublayer(videoPreviewLayer);
+            self.view.layer.addSublayer(videoPreviewLayer!);
             captureSession?.startRunning();
             view.bringSubviewToFront(userLayer);
         }
@@ -119,7 +125,7 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     }
     
     func performQrAction(code:String) -> Bool {
-        switch(Array(code)[0]) {
+        switch(Array(code.characters)[0]) {
         case "0":
             self.attemptCheckInResultUpload(code);
             return true;
@@ -146,10 +152,10 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     
     func sendCheckinResults(code:String) {
         let userId = SessionData.Instance.user.userId;
-        var contents = NSMutableDictionary();
+        let contents = NSMutableDictionary();
         contents["qrValue"] = code;
         
-        dispatch_async(dispatch_get_global_queue(Int(QOS_CLASS_USER_INITIATED.value), 0)) {
+        dispatch_async(dispatch_get_global_queue(Int(QOS_CLASS_USER_INITIATED.rawValue), 0)) {
             HigiApi().sendPost("\(HigiApi.higiApiUrl)/data/user/\(userId)/qrCheckin", parameters: contents, success: { (operation, responseObject) in
                 self.clearNotification();
                 self.showNotification("Checkin data successfully uploaded to higi servers!  Check it out in the app");
@@ -173,13 +179,13 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     
     func showNotification(message: String) {
         let userDefaults = NSUserDefaults.standardUserDefaults()
-        var showCheckInNotification = userDefaults.boolForKey("AllLocalNotificationSettingKey") && userDefaults.boolForKey("ScannedCheckInNotificationSettingKey");
+        let showCheckInNotification = userDefaults.boolForKey("AllLocalNotificationSettingKey") && userDefaults.boolForKey("ScannedCheckInNotificationSettingKey");
         if !showCheckInNotification {
             return;
         }
         
         dispatch_async(dispatch_get_main_queue(), {
-            var notification = UILocalNotification();
+            let notification = UILocalNotification();
             notification.fireDate = NSDate();
             notification.alertBody = message;
             notification.applicationIconBadgeNumber = -1;

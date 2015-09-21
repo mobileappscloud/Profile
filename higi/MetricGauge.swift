@@ -66,31 +66,31 @@ class MetricGauge: UIView {
 
     func setData(delegate: MetricDelegate, tab:Int) {
         userValue = 0;
-        var value = delegate.getSelectedValue(tab);
+        let value = delegate.getSelectedValue(tab);
         if delegate.getType() == MetricsType.Weight && Utility.stringIndexOf(value, needle: "%") > 0 {
             //in the form 20.00%
-            let valueArray = split(value) {$0 == "."};
+            let valueArray = value.characters.split {$0 == "."}.map { String($0) };
             if (valueArray.count > 1) {
-                userValue = valueArray[0].toInt()!;
+                userValue = Int(valueArray[0])!;
             }
         } else if (delegate.getType() == MetricsType.BloodPressure) {
             //in the form 120/80
             if Utility.stringIndexOf(value, needle: "/") > 0 {
-                let valueArray = split(value) {$0 == "/"};
+                let valueArray = value.characters.split {$0 == "/"}.map { String($0) };
                 if (valueArray.count > 1) {
-                    let systolic = valueArray[0].toInt()!;
-                    let diastolic = valueArray[1].toInt()!;
+                    let systolic = Int(valueArray[0])!;
+                    let diastolic = Int(valueArray[1])!;
                     userValue = BpMetricDelegate.valueIsSystolic(systolic, diastolic: diastolic) ? systolic : diastolic;
                 }
             } else if Utility.stringIndexOf(value, needle: ".") > 0 {
                 //in the form 80.0
-                let valueArray = split(value) {$0 == "."};
+                let valueArray = value.characters.split {$0 == "."}.map { String($0) };
                 if (valueArray.count > 1) {
-                    userValue = valueArray[0].toInt()!;
+                    userValue = Int(valueArray[0])!;
                 }
             }
-        } else if value.toInt() != nil {
-            userValue = value.toInt()!;
+        } else if Int(value) != nil {
+            userValue = Int(value)!;
         }
 
         self.value.text = "\(value)";
@@ -126,12 +126,12 @@ class MetricGauge: UIView {
         
         let ranges = delegate.getRanges(tab);
         if ranges.count == 0 {
-            var toPath = UIBezierPath();
-            var rangeArc = CAShapeLayer();
+            let toPath = UIBezierPath();
+            let rangeArc = CAShapeLayer();
             rangeArc.lineWidth = lineWidth;
             rangeArc.fillColor = UIColor.clearColor().CGColor;
             rangeArc.strokeColor = UIColor.whiteColor().CGColor;
-            var center = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2);
+            let center = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2);
             rangeArc.strokeStart = 0;
             rangeArc.strokeEnd = 1;
             toPath.addArcWithCenter(center, radius: radius, startAngle: startAngle, endAngle: CGFloat(sweepAngle) + startAngle, clockwise: true);
@@ -149,8 +149,8 @@ class MetricGauge: UIView {
                 let (begin, end) = range.interval;
                 let rangeInterval = 1 / CGFloat(ranges.count);
                 strokeEnd = strokeStart + rangeInterval;
-                var toPath = UIBezierPath();
-                var rangeArc = CAShapeLayer();
+                let toPath = UIBezierPath();
+                let rangeArc = CAShapeLayer();
                 rangeArc.lineWidth = lineWidth;
                 rangeArc.fillColor = UIColor.clearColor().CGColor;
                 if (range.contains(userValue)) {
@@ -166,7 +166,7 @@ class MetricGauge: UIView {
                     rangeMax = end;
                     highRange = range;
                 }
-                var center = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2);
+                let center = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2);
                 rangeArc.strokeStart = strokeStart;
                 rangeArc.strokeEnd = strokeEnd;
                 strokeStart = strokeEnd;
@@ -198,12 +198,12 @@ class MetricGauge: UIView {
                     gaugeContainer.addSubview(label);
                     labels.append(label);
                     
-                    var toPath = UIBezierPath();
-                    var rangeArc = CAShapeLayer();
+                    let toPath = UIBezierPath();
+                    let rangeArc = CAShapeLayer();
                     rangeArc.lineWidth = lineWidth;
                     rangeArc.fillColor = UIColor.clearColor().CGColor;
                     rangeArc.strokeColor = UIColor.lightGrayColor().CGColor;
-                    var center = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2);
+                    let center = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2);
                     rangeArc.strokeStart = strokeStart;
                     rangeArc.strokeEnd = strokeStart + 0.001;
                     strokeStart = strokeEnd;

@@ -40,7 +40,7 @@ class TermsViewController: UIViewController {
             return;
         }
         
-        var urlRequest = NSMutableURLRequest(URL: NSURL(string: "\(HigiApi.webUrl)\(url)")!);
+        let urlRequest = NSMutableURLRequest(URL: NSURL(string: "\(HigiApi.webUrl)\(url)")!);
         urlRequest.addValue("mobile-ios", forHTTPHeaderField: "Higi-Source");
         webView.loadRequest(urlRequest);
     }
@@ -49,20 +49,20 @@ class TermsViewController: UIViewController {
         loadingView.hidden = false;
         agreeButton.enabled = false;
         declineButton.enabled = false;
-        var dateFormatter = NSDateFormatter();
+        let dateFormatter = NSDateFormatter();
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ";
-        var agreedDate = dateFormatter.stringFromDate(NSDate());
-        var contents = NSMutableDictionary();
+        let agreedDate = dateFormatter.stringFromDate(NSDate());
+        let contents = NSMutableDictionary();
         
         if (newTerms) {
-            var terms = NSMutableDictionary();
+            let terms = NSMutableDictionary();
             terms["termsFileName"] = termsFile;
             terms["termsAgreedDate"] = agreedDate;
             contents["terms"] = terms;
         }
         
         if (newPrivacy) {
-            var privacy = NSMutableDictionary();
+            let privacy = NSMutableDictionary();
             privacy["privacyFileName"] = privacyFile;
             privacy["privacyAgreedDate"] = agreedDate;
             contents["privacyAgreed"] = privacy;
@@ -88,7 +88,7 @@ class TermsViewController: UIViewController {
         SessionController.Instance.reset();
         SessionData.Instance.reset();
         SessionData.Instance.save();
-        var splashViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SplashViewController") as! UIViewController;
+        let splashViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SplashViewController") ;
         (UIApplication.sharedApplication().delegate as! AppDelegate).window?.rootViewController = splashViewController;
         
     }

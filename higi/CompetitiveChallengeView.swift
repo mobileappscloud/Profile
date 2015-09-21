@@ -31,7 +31,7 @@ class CompetitiveChallengeView: ChallengeView, UIScrollViewDelegate {
                 rows[index].frame.size.width = frame.size.width;
                 rows[index].addSubview(row);
                 
-                row.setTranslatesAutoresizingMaskIntoConstraints(false);
+                row.translatesAutoresizingMaskIntoConstraints = false;
                 
                 let xConstraint = NSLayoutConstraint(item: rows[index], attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: row, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0);
                 let yConstraint = NSLayoutConstraint(item: rows[index], attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: row, attribute: NSLayoutAttribute.CenterY, multiplier: 1, constant: 0)
@@ -58,7 +58,7 @@ class CompetitiveChallengeView: ChallengeView, UIScrollViewDelegate {
                 rows[index].frame.size.width = frame.size.width;
                 rows[index].addSubview(row);
 
-                row.setTranslatesAutoresizingMaskIntoConstraints(false);
+                row.translatesAutoresizingMaskIntoConstraints = false;
  
                 let xConstraint = NSLayoutConstraint(item: rows[index], attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: row, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0);
                 let yConstraint = NSLayoutConstraint(item: rows[index], attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: row, attribute: NSLayoutAttribute.CenterY, multiplier: 1, constant: 0)
@@ -96,25 +96,25 @@ class CompetitiveChallengeView: ChallengeView, UIScrollViewDelegate {
         if (row3.subviews.count > 0) {
             innerRow3 = row3.subviews[0] as! ChallengeLeaderboardRow;
         }
-        let width1 = (innerRow1.progress.subviews[0] as! UIView).frame.size.width;
-        (innerRow1.progress.subviews[0] as! UIView).frame.size.width = 0;
+        let width1 = (innerRow1.progress.subviews[0] ).frame.size.width;
+        (innerRow1.progress.subviews[0] ).frame.size.width = 0;
         UIView.animateWithDuration(1.0, delay: 0.0, options: .CurveEaseInOut, animations: {
-            (innerRow1.progress.subviews[0] as! UIView).frame.size.width = width1;
+            (innerRow1.progress.subviews[0] ).frame.size.width = width1;
             }, completion: nil);
         
         if (innerRow2 != nil) {
-            let width2 = (innerRow2!.progress.subviews[0] as! UIView).frame.size.width;
-            (innerRow2!.progress.subviews[0] as! UIView).frame.size.width = 0;
+            let width2 = (innerRow2!.progress.subviews[0] ).frame.size.width;
+            (innerRow2!.progress.subviews[0] ).frame.size.width = 0;
             UIView.animateWithDuration(1.0, delay: 0.1, options: .CurveEaseInOut, animations: {
-                (innerRow2!.progress.subviews[0] as! UIView).frame.size.width = width2;
+                (innerRow2!.progress.subviews[0] ).frame.size.width = width2;
                 }, completion: nil);
         }
         
         if (innerRow3 != nil) {
-            let width3 = (innerRow3!.progress.subviews[0] as! UIView).frame.size.width;
-            (innerRow3!.progress.subviews[0] as! UIView).frame.size.width = 0;
+            let width3 = (innerRow3!.progress.subviews[0] ).frame.size.width;
+            (innerRow3!.progress.subviews[0] ).frame.size.width = 0;
             UIView.animateWithDuration(1.0, delay: 0.2, options: .CurveEaseInOut, animations: {
-                (innerRow3!.progress.subviews[0] as! UIView).frame.size.width = width3;
+                (innerRow3!.progress.subviews[0] ).frame.size.width = width3;
                 }, completion: nil);
         }
     }

@@ -50,7 +50,7 @@ class KioskInfo: Equatable {
         cityStateZip = "\(city), \(state) \(zip)";
         streetAddress = "\(address1), \(cityStateZip)";
         
-        var gps = dictionary["GPS"] as? NSDictionary;
+        let gps = dictionary["GPS"] as? NSDictionary;
         if (gps != nil) {
             latitude = gps!["Latitude"] as? Double;
             longitude = gps!["Longitude"] as? Double;
@@ -60,8 +60,8 @@ class KioskInfo: Equatable {
         
         var hoursString = dictionary["Hours"] as? NSString;
         if (hoursString != nil && hoursString! != "") {
-            hoursString = hoursString?.stringByReplacingOccurrencesOfString("&quot;", withString: "\"").stringByReplacingOccurrencesOfString("-", withString: " - ", options: nil, range: nil);
-            hours = NSJSONSerialization.JSONObjectWithData(hoursString!.dataUsingEncoding(NSUTF8StringEncoding)!, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSDictionary;
+            hoursString = hoursString?.stringByReplacingOccurrencesOfString("&quot;", withString: "\"").stringByReplacingOccurrencesOfString("-", withString: " - ", options: [], range: nil);
+            hours = (try? NSJSONSerialization.JSONObjectWithData(hoursString!.dataUsingEncoding(NSUTF8StringEncoding)!, options: NSJSONReadingOptions.MutableContainers)) as? NSDictionary;
         }
     }
     

@@ -22,7 +22,7 @@ class LocationDelegate: NSObject, CLLocationManagerDelegate {
     func findClosestLocation(location: CLLocation!) {
         if (location != nil) {
             if (lastKiosk != nil) {
-                if (location.distanceFromLocation(lastKiosk?.location!) < MAX_DISTANCE) {
+                if (location.distanceFromLocation((lastKiosk?.location!)!) < MAX_DISTANCE) {
                     // Still near previously displayed kiosk so do nothing
                     return;
                 } else {
@@ -46,13 +46,13 @@ class LocationDelegate: NSObject, CLLocationManagerDelegate {
     
     func showLocalNotification(kiosk: KioskInfo) {
         let userDefaults = NSUserDefaults.standardUserDefaults()
-        var showKioskNotification = userDefaults.boolForKey("AllLocalNotificationSettingKey") && userDefaults.boolForKey("KioskNotificationSettingKey");
+        let showKioskNotification = userDefaults.boolForKey("AllLocalNotificationSettingKey") && userDefaults.boolForKey("KioskNotificationSettingKey");
         if !showKioskNotification {
             return;
         }
         
         dispatch_async(dispatch_get_main_queue(), {
-            var notification = UILocalNotification();
+            let notification = UILocalNotification();
             notification.fireDate = NSDate();
             notification.alertBody = "You are near the higi Station at \(kiosk.organizations[0]) \(kiosk.streetAddress)!";
             notification.applicationIconBadgeNumber = -1;

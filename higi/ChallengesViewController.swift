@@ -57,7 +57,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         invitedChallenges = [];
         totalPages = 0;
         
-        var challenges = SessionController.Instance.challenges;
+        let challenges = SessionController.Instance.challenges;
         let challengeName = clickedChallenge != nil ? clickedChallenge!.name : "";
         var challengeIndex = -1;
         
@@ -150,9 +150,9 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     
     func updateNavbar() {
         if (currentTable != nil) {
-            var scrollY = currentTable.contentOffset.y;
+            let scrollY = currentTable.contentOffset.y;
             if (scrollY >= 0) {
-                var alpha = min(scrollY / 75, 1);
+                let alpha = min(scrollY / 75, 1);
                 self.fakeNavBar.alpha = alpha;
                 self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0 - alpha, alpha: 1.0)];
                 pager.pageIndicatorTintColor = UIColor(white: 1 - alpha, alpha: 0.2);
@@ -247,10 +247,10 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
             cell.title.text = challenge.name as String;
             cell.avatar.setImageWithURL(Utility.loadImageFromUrl(challenge.imageUrl as String));
         }
-        var endDate:NSDate? = challenge.endDate;
+        let endDate:NSDate? = challenge.endDate;
         if (endDate != nil) {
             let days = Int(endDate!.timeIntervalSinceNow / 60 / 60 / 24) + 1;
-            var formatter = NSDateFormatter();
+            let formatter = NSDateFormatter();
             formatter.dateFormat = "yyyyMMdd";
             if (formatter.stringFromDate(NSDate()) == formatter.stringFromDate(endDate!)) {
                 cell.daysLeft.text = "Ends today!";
@@ -298,7 +298,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     
     func buildActiveCell(cell: ChallengeRowCell, challenge: HigiChallenge) {
         var nibOriginX:CGFloat = 0.0;
-        var nibs = ChallengeUtility.getChallengeViews(challenge, frame: scrollView.frame, isComplex: false);
+        let nibs = ChallengeUtility.getChallengeViews(challenge, frame: scrollView.frame, isComplex: false);
         for nib in nibs {
             nib.frame.origin.x = nibOriginX;
             cell.scrollView.addSubview(nib);
@@ -310,7 +310,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     }
     
     func buildInvitationCell(cell: ChallengeRowCell, challenge: HigiChallenge) {
-        var invitationView = ChallengeInvitationView.instanceFromNib(challenge);
+        let invitationView = ChallengeInvitationView.instanceFromNib(challenge);
         cell.scrollView.contentSize = CGSize(width: cell.frame.size.width, height: cell.frame.size.height);
         cell.scrollView.addSubview(invitationView);
         cell.daysLeft.hidden = true;
@@ -340,7 +340,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
             challenge = invitedChallenges[index];
         }
         clickedChallenge = challenge;
-        var challengeDetailViewController = ChallengeDetailsViewController(nibName: "ChallengeDetailsView", bundle: nil);
+        let challengeDetailViewController = ChallengeDetailsViewController(nibName: "ChallengeDetailsView", bundle: nil);
         challengeDetailViewController.challenge = challenge;
         self.navigationController!.pushViewController(challengeDetailViewController, animated: true);
     }
@@ -378,8 +378,8 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     }
     
     @IBAction func changePage(sender: AnyObject) {
-        var pager = sender as! UIPageControl;
-        var page = pager.currentPage;
+        let pager = sender as! UIPageControl;
+        let page = pager.currentPage;
         let previousPage = currentPage;
         title = pageTitles[page];
         currentPage = page;

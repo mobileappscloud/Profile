@@ -53,7 +53,7 @@ class SettingsViewController: BaseViewController, UIScrollViewDelegate {
         (self.navigationController as! MainNavigationController).drawerController?.selectRowAtIndex(5);
         updateNavBar();
         
-        var hasPasscode = SessionData.Instance.pin != "";
+        let hasPasscode = SessionData.Instance.pin != "";
         passcodeSwitch.on = hasPasscode
         changePasscode.enabled = hasPasscode;
         if (hasPasscode) {
@@ -80,13 +80,13 @@ class SettingsViewController: BaseViewController, UIScrollViewDelegate {
     // MARK: - UI Actions
     
     @IBAction func newProfileImage(sender: AnyObject) {
-        var profileViewController = ProfileImageViewController(nibName: "ProfileImageView", bundle: nil);
+        let profileViewController = ProfileImageViewController(nibName: "ProfileImageView", bundle: nil);
         profileViewController.fromSettings = true;
         self.navigationController!.pushViewController(profileViewController, animated: true);
     }
 
     @IBAction func resizeProfileImage(sender: AnyObject) {
-        var modifyImageViewController = ModifyImageViewController(nibName: "ModifyImageView", bundle: nil);
+        let modifyImageViewController = ModifyImageViewController(nibName: "ModifyImageView", bundle: nil);
         modifyImageViewController.profileImage = SessionData.Instance.user.fullProfileImage;
         modifyImageViewController.resizing = true;
         modifyImageViewController.fromSettings = true;
@@ -94,9 +94,9 @@ class SettingsViewController: BaseViewController, UIScrollViewDelegate {
     }
     
     @IBAction func emailCheckins(sender: AnyObject) {
-        var isOn = (sender as! UISwitch).on;
-        var contents = NSMutableDictionary();
-        var notifications = NSMutableDictionary();
+        let isOn = (sender as! UISwitch).on;
+        let contents = NSMutableDictionary();
+        let notifications = NSMutableDictionary();
         notifications.setObject(isOn ? "True" : "False", forKey: "EmailCheckins");
         contents.setObject(notifications, forKey: "Notifications");
         user.emailCheckins = isOn;
@@ -109,9 +109,9 @@ class SettingsViewController: BaseViewController, UIScrollViewDelegate {
     }
     
     @IBAction func emailNews(sender: AnyObject) {
-        var isOn = (sender as! UISwitch).on;
-        var contents = NSMutableDictionary();
-        var notifications = NSMutableDictionary();
+        let isOn = (sender as! UISwitch).on;
+        let contents = NSMutableDictionary();
+        let notifications = NSMutableDictionary();
         notifications.setObject(isOn ? "True" : "False", forKey: "EmailHigiNews");
         contents.setObject(notifications, forKey: "Notifications");
         user.emailHigiNews = isOn;
@@ -131,13 +131,13 @@ class SettingsViewController: BaseViewController, UIScrollViewDelegate {
     
     @IBAction func changePasscode(sender: AnyObject) {
         resetColor(sender);
-        var pinCodeViewController = PinCodeViewController(nibName: "PinCodeView", bundle: nil);
+        let pinCodeViewController = PinCodeViewController(nibName: "PinCodeView", bundle: nil);
         pinCodeViewController.modifying = true;
         self.navigationController!.pushViewController(pinCodeViewController, animated: true);
     }
     
     @IBAction func passCodeSwitchChange(sender: AnyObject) {
-        var pinCodeViewController = PinCodeViewController(nibName: "PinCodeView", bundle: nil);
+        let pinCodeViewController = PinCodeViewController(nibName: "PinCodeView", bundle: nil);
         if (passcodeSwitch.on) {
             Flurry.logEvent("CreatePasscode_Pressed");
             pinCodeViewController.newCode = true;
@@ -154,14 +154,14 @@ class SettingsViewController: BaseViewController, UIScrollViewDelegate {
     
     @IBAction func showTerms(sender: AnyObject) {
         resetColor(sender);
-        var webController = WebViewController(nibName: "WebView", bundle: nil);
+        let webController = WebViewController(nibName: "WebView", bundle: nil);
         webController.url = "https://higi.com/terms";
         self.navigationController!.pushViewController(webController, animated: true);
     }
     
     @IBAction func showPrivacy(sender: AnyObject) {
         resetColor(sender);
-        var webController = WebViewController(nibName: "WebView", bundle: nil);
+        let webController = WebViewController(nibName: "WebView", bundle: nil);
         webController.url = "https://higi.com/privacy";
         self.navigationController!.pushViewController(webController, animated: true);
     }
@@ -171,7 +171,7 @@ class SettingsViewController: BaseViewController, UIScrollViewDelegate {
         SessionController.Instance.reset();
         SessionData.Instance.reset();
         SessionData.Instance.save();
-        var splashViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SplashViewController") as! UIViewController;
+        let splashViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SplashViewController") ;
         (UIApplication.sharedApplication().delegate as! AppDelegate).window?.rootViewController = splashViewController;
     }
     
@@ -191,8 +191,8 @@ class SettingsViewController: BaseViewController, UIScrollViewDelegate {
     
     @IBAction func shareAction(sender: AnyObject) {
         Flurry.logEvent("BodystatShare_Pressed");
-        var activityItems = ["higi_results.csv", exportData()];
-        var shareScreen = UIActivityViewController(activityItems: activityItems, applicationActivities: nil);
+        let activityItems = ["higi_results.csv", exportData()];
+        let shareScreen = UIActivityViewController(activityItems: activityItems, applicationActivities: nil);
         self.presentViewController(shareScreen, animated: true, completion: nil);
         (sender as! UIButton).backgroundColor = Utility.colorFromHexString("#FFFFFF");
     }
@@ -200,12 +200,12 @@ class SettingsViewController: BaseViewController, UIScrollViewDelegate {
     // MARK: - Helper
     
     func exportData() -> NSURL {
-        var dateFormatter = NSDateFormatter();
+        let dateFormatter = NSDateFormatter();
         dateFormatter.dateFormat = "MM/dd/yyy";
         var contents = "Date,Location,Address of higi Station,Systolic Pressure (mmHg),Diastolic Pressure (mmHg),Pulse (bpm),Mean Arterial Pressure (mmHg), Weight (lbs),Body Mass Index\n";
         
-        for index in reverse(0..<SessionController.Instance.checkins.count) {
-            var checkin = SessionController.Instance.checkins[index];
+        for index in Array((0..<SessionController.Instance.checkins.count).reverse()) {
+            let checkin = SessionController.Instance.checkins[index];
             var address = "", systolic = "", diastolic = "", pulse = "", map = "", weight = "", bmi = "";
             var organization = checkin.sourceVendorId!;
             if (checkin.kioskInfo != nil) {
@@ -225,21 +225,23 @@ class SettingsViewController: BaseViewController, UIScrollViewDelegate {
                 weight = "\(Int(checkin.weightLbs!))";
             }
             
-            var row = "\(dateFormatter.stringFromDate(checkin.dateTime)),\(organization),\(address),\(systolic),\(diastolic),\(pulse),\(map),\(weight),\(bmi)\n";
+            let row = "\(dateFormatter.stringFromDate(checkin.dateTime)),\(organization),\(address),\(systolic),\(diastolic),\(pulse),\(map),\(weight),\(bmi)\n";
             contents += row;
         }
         
         let filePath = getShareFilePath();
         
-        contents.writeToFile(filePath, atomically: true, encoding: NSUTF8StringEncoding, error: nil);
+        do {
+            try contents.writeToFile(filePath, atomically: true, encoding: NSUTF8StringEncoding)
+        } catch _ {
+        };
         
-        return NSURL(fileURLWithPath: filePath)!;
+        return NSURL(fileURLWithPath: filePath);
         
     }
     
     func getShareFilePath() -> String {
-        var docPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String;
-        return docPath.stringByAppendingPathComponent("higi_results.csv");
+        return NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] + "higi_results.csv";
     }
     
     // MARK: - Scroll View
@@ -249,8 +251,8 @@ class SettingsViewController: BaseViewController, UIScrollViewDelegate {
     }
     
     func updateNavBar() {
-        var scrollY = scrollView.contentOffset.y;
-        var alpha = min(scrollY / 100, 1);
+        let scrollY = scrollView.contentOffset.y;
+        let alpha = min(scrollY / 100, 1);
         self.fakeNavBar.alpha = alpha;
         self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0 - alpha, alpha: 1.0)];
         if (alpha < 0.5) {
