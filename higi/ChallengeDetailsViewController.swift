@@ -363,7 +363,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         let containerYValue = buttonContainer.frame.origin.y;
         
         let buttonHeight:CGFloat = buttonContainer.frame.size.height;
-        let buttonWidth = buttonContainer.frame.size.width / CGFloat(tabButtonLabels.count);
+        let buttonWidth = UIScreen.mainScreen().bounds.width / CGFloat(tabButtonLabels.count);
         
         for index in 0...tabButtonLabels.count - 1 {
             buttonContainer.addSubview(makeTabButton(tabButtonLabels[index], buttonImageName: tabButtonIcons[index], index: index, height: buttonHeight, width: buttonWidth));
