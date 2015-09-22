@@ -2021,7 +2021,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		32E39E491B756D6900BA50F9 /* Debug QA */ = {
+		32E39E491B756D6900BA50F9 /* DebugQA */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -2063,9 +2063,9 @@
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
-			name = "Debug QA";
+			name = DebugQA;
 		};
-		32E39E4A1B756D6900BA50F9 /* Debug QA */ = {
+		32E39E4A1B756D6900BA50F9 /* DebugQA */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CA81E88E614AB0586948CB5B /* Pods.debug qa.xcconfig */;
 			buildSettings = {
@@ -2098,9 +2098,9 @@
 				SWIFT_OBJC_BRIDGING_HEADER = higi/BridgingHeader.h;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
-			name = "Debug QA";
+			name = DebugQA;
 		};
-		32E39E4B1B756D6900BA50F9 /* Debug QA */ = {
+		32E39E4B1B756D6900BA50F9 /* DebugQA */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/higi.app/higi";
@@ -2119,9 +2119,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 			};
-			name = "Debug QA";
+			name = DebugQA;
 		};
-		32E39E4C1B756D6F00BA50F9 /* Release QA */ = {
+		32E39E4C1B756D6F00BA50F9 /* ReleaseQA */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -2154,9 +2154,9 @@
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
-			name = "Release QA";
+			name = ReleaseQA;
 		};
-		32E39E4D1B756D6F00BA50F9 /* Release QA */ = {
+		32E39E4D1B756D6F00BA50F9 /* ReleaseQA */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CEFCE3FD10CF65C7794E0141 /* Pods.release qa.xcconfig */;
 			buildSettings = {
@@ -2189,9 +2189,9 @@
 				SWIFT_OBJC_BRIDGING_HEADER = higi/BridgingHeader.h;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
-			name = "Release QA";
+			name = ReleaseQA;
 		};
-		32E39E4E1B756D6F00BA50F9 /* Release QA */ = {
+		32E39E4E1B756D6F00BA50F9 /* ReleaseQA */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/higi.app/higi";
@@ -2206,7 +2206,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 			};
-			name = "Release QA";
+			name = ReleaseQA;
 		};
 		8F3643B419460EB300C0033E /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -2402,9 +2402,9 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8F3643B419460EB300C0033E /* Debug */,
-				32E39E491B756D6900BA50F9 /* Debug QA */,
+				32E39E491B756D6900BA50F9 /* DebugQA */,
 				8F3643B519460EB300C0033E /* Release */,
-				32E39E4C1B756D6F00BA50F9 /* Release QA */,
+				32E39E4C1B756D6F00BA50F9 /* ReleaseQA */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -2413,9 +2413,9 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8F3643B719460EB300C0033E /* Debug */,
-				32E39E4A1B756D6900BA50F9 /* Debug QA */,
+				32E39E4A1B756D6900BA50F9 /* DebugQA */,
 				8F3643B819460EB300C0033E /* Release */,
-				32E39E4D1B756D6F00BA50F9 /* Release QA */,
+				32E39E4D1B756D6F00BA50F9 /* ReleaseQA */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -2424,9 +2424,9 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8F3643BA19460EB300C0033E /* Debug */,
-				32E39E4B1B756D6900BA50F9 /* Debug QA */,
+				32E39E4B1B756D6900BA50F9 /* DebugQA */,
 				8F3643BB19460EB300C0033E /* Release */,
-				32E39E4E1B756D6F00BA50F9 /* Release QA */,
+				32E39E4E1B756D6F00BA50F9 /* ReleaseQA */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
