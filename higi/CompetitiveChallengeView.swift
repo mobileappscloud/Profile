@@ -10,7 +10,6 @@ class CompetitiveChallengeView: ChallengeView, UIScrollViewDelegate {
         let competitiveView = UINib(nibName: "CompetitiveChallengeView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! CompetitiveChallengeView;
         competitiveView.frame = frame;
         
-        competitiveView.autoresizesSubviews = true;
         var rows = [competitiveView.row1, competitiveView.row2, competitiveView.row3];
         let isTeamChallenge = winConditions[0].winnerType == "team";
         
@@ -57,7 +56,6 @@ class CompetitiveChallengeView: ChallengeView, UIScrollViewDelegate {
             let i = 0;
         }
         competitiveView.autoresizingMask = UIViewAutoresizing.FlexibleWidth;
-        competitiveView.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize);
         return competitiveView;
     }
     
