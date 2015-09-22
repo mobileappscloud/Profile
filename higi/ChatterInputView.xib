@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChatterInputViewController" customModule="higi" customModuleProvider="target">
@@ -17,10 +17,10 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AMa-vH-lzk">
+                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AMa-vH-lzk">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                     <subviews>
-                        <navigationBar contentMode="scaleToFill" fixedFrame="YES" barStyle="blackTranslucent" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iLa-nG-jLx">
+                        <navigationBar contentMode="scaleToFill" ambiguous="YES" misplaced="YES" barStyle="blackTranslucent" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iLa-nG-jLx">
                             <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -36,8 +36,13 @@
                         </navigationBar>
                     </subviews>
                     <color key="backgroundColor" red="0.46274509803921571" green="0.75294117647058822" blue="0.2627450980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="iLa-nG-jLx" firstAttribute="leading" secondItem="AMa-vH-lzk" secondAttribute="leading" id="3wq-95-iQc"/>
+                        <constraint firstAttribute="trailing" secondItem="iLa-nG-jLx" secondAttribute="trailing" id="gdR-dx-JgI"/>
+                        <constraint firstAttribute="bottom" secondItem="iLa-nG-jLx" secondAttribute="bottom" id="kIa-mH-gOU"/>
+                    </constraints>
                 </view>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Talk some smack!" translatesAutoresizingMaskIntoConstraints="NO" id="zBd-xK-jr9">
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" text="Talk some smack!" translatesAutoresizingMaskIntoConstraints="NO" id="zBd-xK-jr9">
                     <rect key="frame" x="8" y="72" width="304" height="150"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -46,6 +51,14 @@
                 </textView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="zBd-xK-jr9" secondAttribute="trailing" constant="8" id="9s9-Cd-gsy"/>
+                <constraint firstItem="zBd-xK-jr9" firstAttribute="top" secondItem="AMa-vH-lzk" secondAttribute="bottom" constant="8" id="DGp-C7-WRZ"/>
+                <constraint firstItem="AMa-vH-lzk" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Qbz-gz-Zfh"/>
+                <constraint firstItem="zBd-xK-jr9" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="QkW-SG-BN9"/>
+                <constraint firstAttribute="trailing" secondItem="AMa-vH-lzk" secondAttribute="trailing" id="UhU-w3-KE6"/>
+                <constraint firstItem="AMa-vH-lzk" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="gRU-De-hCz"/>
+            </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
     </objects>

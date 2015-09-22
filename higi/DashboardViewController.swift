@@ -52,8 +52,36 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
+        
         (self.navigationController as! MainNavigationController).drawerController?.selectRowAtIndex(0);
         updateNavbar();
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated);
+        
+        ensureCardWidthIntegrity();
+    }
+    
+    /**
+        @abstract This is a workaround to ensure the width of cards displayed on the dashboard fill
+        the device width. This approach was chosen to minimize changes necessary to support multiple
+        screen sizes. 
+    
+        @note This view is not in true compliance with adaptive layout.
+    */
+    private func ensureCardWidthIntegrity() {
+        let width = CGRectGetWidth(self.view.bounds);
+        let subviews = [challengesCard, metricsCard, pulseCard, errorCard];
+        for subview in subviews {
+            manuallyAutoresizeSubview(subview, width: width);
+        }
+    }
+    
+    private func manuallyAutoresizeSubview(subview: UIView!, width: CGFloat) {
+        var frame = subview.frame;
+        frame.size.width = width;
+        subview.frame = frame;
     }
     
     override func receiveApiNotification(notification: NSNotification) {
@@ -127,7 +155,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             }
             challengesCard.challengeBox.layer.borderColor = Utility.colorFromHexString("#CCCCCC").CGColor;
             if (challengesCard.spinner == nil) {
-                challengesCard.spinner = CustomLoadingSpinner(frame: CGRectMake(challengesCard.loadingContainer.frame.size.width / 2 - 16, challengesCard.loadingContainer.frame.size.height / 2 - 16, 32, 32));
+                challengesCard.spinner = CustomLoadingSpinner(frame: CGRectMake(UIScreen.mainScreen().bounds.width / 2 - 16, challengesCard.loadingContainer.frame.size.height / 2 - 16, 32, 32));
                 challengesCard.loadingContainer.addSubview(challengesCard.spinner);
             }
             if (challengesCard.superview == nil) {
@@ -207,7 +235,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             dashboardItems = [challengesCard, metricsCard, pulseCard];
         }
         if (metricsSpinner == nil) {
-            metricsSpinner = CustomLoadingSpinner(frame: CGRectMake(metricsCard.frame.size.width / 2 - 16, 84, 32, 32));
+            metricsSpinner = CustomLoadingSpinner(frame: CGRectMake(UIScreen.mainScreen().bounds.width / 2 - 16, 84, 32, 32));
             metricsCard.addSubview(metricsSpinner)
         }
         if (metricsCard.superview == nil) {

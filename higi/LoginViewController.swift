@@ -23,7 +23,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         self.title = "Log In";
         self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
         
-        spinner = CustomLoadingSpinner(frame: CGRectMake(self.view.frame.size.width / 2 - 16, UIScreen.mainScreen().bounds.size.height - 100, 32, 32));
+        spinner = CustomLoadingSpinner(frame: CGRectMake(UIScreen.mainScreen().bounds.size.width / 2 - 16, UIScreen.mainScreen().bounds.size.height - 100, 32, 32));
         spinner.shouldAnimateFull = false;
         spinner.hidden = true;
         self.view.addSubview(spinner);

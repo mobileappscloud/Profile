@@ -363,7 +363,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         let containerYValue = buttonContainer.frame.origin.y;
         
         let buttonHeight:CGFloat = buttonContainer.frame.size.height;
-        let buttonWidth = buttonContainer.frame.size.width / CGFloat(tabButtonLabels.count);
+        let buttonWidth = UIScreen.mainScreen().bounds.width / CGFloat(tabButtonLabels.count);
         
         for index in 0...tabButtonLabels.count - 1 {
             buttonContainer.addSubview(makeTabButton(tabButtonLabels[index], buttonImageName: tabButtonIcons[index], index: index, height: buttonHeight, width: buttonWidth));
@@ -494,7 +494,10 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         let table = UINib(nibName: "ChallengeDetailsTab", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! ChallengeDetailsTab;
         let firstWinCondition = challenge.winConditions[0];
         
-        table.descriptionText.text = challenge.shortDescription.stringByDecodingHTMLEntities();
+        var descriptionText = challenge.shortDescription.stringByDecodingHTMLEntities();
+        descriptionText = descriptionText.stringByReplacingOccurrencesOfString("\r", withString: "", options: .LiteralSearch, range: nil)
+        descriptionText = descriptionText.stringByReplacingOccurrencesOfString("\t", withString: "", options: .LiteralSearch, range: nil)
+        table.descriptionText.text = descriptionText;
         table.durationText.text = setDateRangeHelper(challenge.startDate, endDate: challenge.endDate);
         table.typeText.text = "\(goalTypeDisplayHelper(firstWinCondition.goal.type.description as String, winnerType: firstWinCondition.winnerType as String)). \(limitDisplayHelper(challenge.dailyLimit, metric: challenge.metric as String))";
         
@@ -518,7 +521,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         
         termsButton.addTarget(self, action: "termsClick:", forControlEvents: UIControlEvents.TouchUpInside);
         
-        var yOffset = rowTextYOffset;
+        var yOffset = rowTextYOffset + 12;
         for winCondition in challenge.winConditions {
             if (winCondition.prizeName != nil && winCondition.prizeName != "") {
                 let prizeRow = createDetailsPrizeCell(winCondition);
@@ -789,6 +792,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         cell.title.sizeToFit();
         cell.desc.sizeToFit();
     
+        cell.frame.size.width = UIScreen.mainScreen().bounds.width;
         cell.frame.size.height = 20 + cell.title.frame.size.height + cell.desc.frame.size.height + 20;
         return cell;
     }

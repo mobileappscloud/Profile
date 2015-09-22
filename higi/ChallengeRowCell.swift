@@ -27,7 +27,6 @@ class ChallengeRowCell: UITableViewCell, UIScrollViewDelegate {
         let pageNumber = pager.currentPage;
         
         var frame = scrollView.frame;
-        frame.size.width = 320;
         frame.origin.x = frame.size.width * CGFloat(pageNumber);
         frame.origin.y = 0;
         scrollView.setContentOffset(frame.origin, animated: true);
