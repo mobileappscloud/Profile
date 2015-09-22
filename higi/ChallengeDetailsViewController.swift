@@ -518,7 +518,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         
         termsButton.addTarget(self, action: "termsClick:", forControlEvents: UIControlEvents.TouchUpInside);
         
-        var yOffset = rowTextYOffset;
+        var yOffset = rowTextYOffset + 12;
         for winCondition in challenge.winConditions {
             if (winCondition.prizeName != nil && winCondition.prizeName != "") {
                 let prizeRow = createDetailsPrizeCell(winCondition);
@@ -789,6 +789,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         cell.title.sizeToFit();
         cell.desc.sizeToFit();
     
+        cell.frame.size.width = UIScreen.mainScreen().bounds.width;
         cell.frame.size.height = 20 + cell.title.frame.size.height + cell.desc.frame.size.height + 20;
         return cell;
     }
