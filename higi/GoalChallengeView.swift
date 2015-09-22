@@ -32,8 +32,6 @@ class GoalChallengeView: ChallengeView {
         let goalView = UINib(nibName: "GoalChallengeView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! GoalChallengeView;
         goalView.frame = frame;
         goalView.progress.frame.size.width = frame.size.width - (goalView.progress.frame.origin.x) - 18;
-        goalView.autoresizingMask = UIViewAutoresizing.FlexibleWidth;
-        goalView.grayBar.frame.size.width = frame.size.width - (goalView.progress.frame.size.width) - 4;
         let isTeam = winConditions[0].winnerType == "team";
         
         if isComplex {
