@@ -54,7 +54,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="6" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bdz-7M-T6K">
-                    <rect key="frame" x="270" y="122" width="42" height="21"/>
+                    <rect key="frame" x="287" y="124" width="25" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
@@ -77,7 +77,7 @@
                     <rect key="frame" x="227" y="109" width="1" height="48"/>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Sept 22, '14 - Sept 26, '14" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7pF-nP-Ueo">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sept 22, '14 - Sept 26, '14" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7pF-nP-Ueo">
                     <rect key="frame" x="45" y="133" width="168" height="20"/>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -98,14 +98,11 @@
             </subviews>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="CvR-aY-Ben" secondAttribute="trailing" id="5IL-yF-fEC"/>
-                <constraint firstItem="Bdz-7M-T6K" firstAttribute="leading" secondItem="OBb-4x-Ehq" secondAttribute="trailing" id="Gem-D3-bel"/>
-                <constraint firstItem="Bdz-7M-T6K" firstAttribute="leading" secondItem="OBb-4x-Ehq" secondAttribute="trailing" id="NJE-LU-r0A"/>
-                <constraint firstItem="t77-o7-ubW" firstAttribute="leading" secondItem="7pF-nP-Ueo" secondAttribute="trailing" constant="14" id="QVF-wB-CwW"/>
-                <constraint firstItem="OBb-4x-Ehq" firstAttribute="leading" secondItem="t77-o7-ubW" secondAttribute="trailing" constant="23" id="c0b-KL-7BD"/>
+                <constraint firstItem="OBb-4x-Ehq" firstAttribute="leading" secondItem="t77-o7-ubW" secondAttribute="trailing" constant="23" id="cMC-cq-oV4"/>
                 <constraint firstItem="CvR-aY-Ben" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="ilP-PN-yak"/>
-                <constraint firstItem="Bdz-7M-T6K" firstAttribute="leading" secondItem="OBb-4x-Ehq" secondAttribute="trailing" id="tav-ro-FyE"/>
+                <constraint firstAttribute="trailing" secondItem="Bdz-7M-T6K" secondAttribute="trailing" constant="8" id="q5p-op-WGQ"/>
+                <constraint firstItem="Bdz-7M-T6K" firstAttribute="leading" secondItem="OBb-4x-Ehq" secondAttribute="trailing" constant="17" id="tdg-q2-r5y"/>
                 <constraint firstAttribute="trailing" secondItem="Yyg-0O-Tdx" secondAttribute="trailing" id="uTa-jc-yO3"/>
-                <constraint firstAttribute="trailing" secondItem="Bdz-7M-T6K" secondAttribute="trailing" constant="8" id="yXS-MO-dai"/>
                 <constraint firstItem="Yyg-0O-Tdx" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="zf5-1B-zDD"/>
             </constraints>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
