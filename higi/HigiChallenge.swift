@@ -41,7 +41,7 @@ class HigiChallenge {
         name = (dictionary["name"] ?? "") as! NSString;
         description = dictionary["description"] as! NSString!;
         shortDescription = (dictionary["shortDescription"] ?? "") as! NSString;
-        var imageUrls =  dictionary["imageUrl"] as! NSDictionary;
+        let imageUrls =  dictionary["imageUrl"] as! NSDictionary;
         imageUrl = imageUrls["default"] as? NSString;
         status = dictionary["status"] as! NSString!;
         metric = dictionary["metric"] as! NSString!;
@@ -51,31 +51,31 @@ class HigiChallenge {
         joinUrl = userRelation["joinUrl"] as? NSString;
         commentsUrl = dictionary["commentsUrl"] as? NSString;
         entryFee = (dictionary["entryFee"] ?? 0) as! Float;
-        var formatter = NSDateFormatter();
+        let formatter = NSDateFormatter();
         formatter.dateFormat = "yyyy-MM-dd";
-        var startDateString = dictionary["startDate"] as! String;
+        let startDateString = dictionary["startDate"] as! String;
         startDate = formatter.dateFromString(startDateString);
-        var endDateString = dictionary["endDate"] as! String?;
+        let endDateString = dictionary["endDate"] as! String?;
         if (endDateString != nil) {
             endDate = formatter.dateFromString(endDateString!);
         }
         participantsCount = dictionary["participantsCount"] as! Int;
         terms = (dictionary["terms"] ?? "") as? NSString;
-        var conditions = dictionary["winConditions"] as? NSArray;
+        let conditions = dictionary["winConditions"] as? NSArray;
         if (conditions != nil) {
             for condition: AnyObject in conditions! {
                 winConditions.append(ChallengeWinCondition(dictionary: condition as! NSDictionary));
             }
         }
         
-        var serverDevices = dictionary["devices"] as? NSArray;
+        let serverDevices = dictionary["devices"] as? NSArray;
         if (serverDevices != nil) {
             for device: AnyObject in serverDevices! {
                 devices.append(ActivityDevice(dictionary: device as! NSDictionary));
             }
         }
         
-        var serverTeams = dictionary["teams"] as? NSArray;
+        let serverTeams = dictionary["teams"] as? NSArray;
         if (serverTeams != nil) {
             teams = [];
             for team: AnyObject in serverTeams! {

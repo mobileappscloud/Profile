@@ -23,7 +23,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         self.title = "Log In";
         self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
         
-        spinner = CustomLoadingSpinner(frame: CGRectMake(self.view.frame.size.width / 2 - 16, UIScreen.mainScreen().bounds.size.height - 100, 32, 32));
+        spinner = CustomLoadingSpinner(frame: CGRectMake(UIScreen.mainScreen().bounds.size.width / 2 - 16, UIScreen.mainScreen().bounds.size.height - 100, 32, 32));
         spinner.shouldAnimateFull = false;
         spinner.hidden = true;
         self.view.addSubview(spinner);
@@ -33,11 +33,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLayoutSubviews();
         if (!setup) {
             self.navigationController!.navigationBar.hidden = false;
-            var backButton = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton;
+            let backButton = UIButton(type: UIButtonType.Custom);
             backButton.setBackgroundImage(UIImage(named: "btn_back_black.png"), forState: UIControlState.Normal);
             backButton.addTarget(self, action: "goBack:", forControlEvents: UIControlEvents.TouchUpInside);
             backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
-            var backBarItem = UIBarButtonItem(customView: backButton);
+            let backBarItem = UIBarButtonItem(customView: backButton);
             self.navigationItem.leftBarButtonItem = backBarItem;
             self.navigationItem.hidesBackButton = true;
         
@@ -63,19 +63,19 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         self.navigationItem.leftBarButtonItem!.customView!.hidden = true;
         email.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSForegroundColorAttributeName: UIColor.lightGrayColor()]);
         password.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName: UIColor.lightGrayColor()]);
-        if (count(email.text) == 0 || email.text.rangeOfString("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$", options: NSStringCompareOptions.RegularExpressionSearch, range: nil, locale: nil) == nil) {
+        if (email.text!.characters.count == 0 || email.text!.rangeOfString("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$", options: NSStringCompareOptions.RegularExpressionSearch, range: nil, locale: nil) == nil) {
             email.attributedPlaceholder = NSAttributedString(string: "Valid email required", attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)]);
             email.text = "";
             password.text = "";
             reset();
-        } else if (count(password.text) < 6) {
+        } else if (password.text!.characters.count < 6) {
             password.attributedPlaceholder = NSAttributedString(string: "Password must be at least 6 characters", attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)]);
             password.text = "";
             reset();
         } else {
-            var encodedEmail = CFURLCreateStringByAddingPercentEscapes(nil, email.text, nil, "!*'();:@&=+$,/?%#[]", CFStringBuiltInEncodings.UTF8.rawValue);
-            var encodedPassword = CFURLCreateStringByAddingPercentEscapes(nil, password.text, nil, "!*'();:@&=+$,/?%#[]", CFStringBuiltInEncodings.UTF8.rawValue);
-            var url = "\(HigiApi.higiApiUrl)/login/qlogin?email=\(encodedEmail)&password=\(encodedPassword)&getphoto=false&ttl=157852800";
+            let encodedEmail = CFURLCreateStringByAddingPercentEscapes(nil, email.text, nil, "!*'();:@&=+$,/?%#[]", CFStringBuiltInEncodings.UTF8.rawValue);
+            let encodedPassword = CFURLCreateStringByAddingPercentEscapes(nil, password.text, nil, "!*'();:@&=+$,/?%#[]", CFStringBuiltInEncodings.UTF8.rawValue);
+            let url = "\(HigiApi.higiApiUrl)/login/qlogin?email=\(encodedEmail)&password=\(encodedPassword)&getphoto=false&ttl=157852800";
             HigiApi().sendGet(url, success: {request, object in self.signInSuccess(request, responseObject: object)}, failure: {request, object in self.signInFailure(request, error: object)});
         }
     }
@@ -83,7 +83,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     func signInSuccess(operation: AFHTTPRequestOperation!, responseObject: AnyObject?) {
         let responseLogin = responseObject as? NSDictionary;
         if (responseLogin != nil) {
-            var login = HigiLogin(dictionary: responseObject as! NSDictionary);
+            let login = HigiLogin(dictionary: responseObject as! NSDictionary);
             SessionData.Instance.token = login.token as String;
             SessionData.Instance.user = login.user;
             SessionData.Instance.save();
@@ -100,7 +100,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     func signInFailure(operation: AFHTTPRequestOperation!, error: NSError?) {
-        var errorCode = error!.code;
+        let errorCode = error!.code;
         self.navigationItem.hidesBackButton = false;
         var alert: UIAlertView;
         if (errorCode == -1009 || errorCode == -1004 || errorCode == -1005) {
@@ -131,7 +131,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func forgotPasswordClicked(sender: AnyObject) {
-        var webController = WebViewController(nibName: "WebView", bundle: nil);
+        let webController = WebViewController(nibName: "WebView", bundle: nil);
         webController.url = "\(HigiApi.webUrl)/login/forgot_password";
         self.navigationController!.pushViewController(webController, animated: true);
     }

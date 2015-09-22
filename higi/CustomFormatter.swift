@@ -17,12 +17,12 @@ class CustomFormatter : NSFormatter {
         super.init();
     }
     
-    required init(coder: NSCoder) {
+    required init?(coder: NSCoder) {
         fatalError("NSCoding not supported")
     }
     
     override func stringForObjectValue(obj: AnyObject) -> String? {
-        var date = NSDate(timeIntervalSince1970: obj as! Double);
+        let date = NSDate(timeIntervalSince1970: obj as! Double);
         return dateFormatter.stringFromDate(date);
     }
     

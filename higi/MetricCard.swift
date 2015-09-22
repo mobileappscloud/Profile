@@ -188,7 +188,7 @@ class MetricCard: UIView, MetricDelegate {
         let screenWidth = max(UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height);
         let baseGraph = isPrimaryGraph ? graph : secondaryGraph;
         if (delegate.getType() == MetricsType.DailySummary && baseGraph.points.count > 0) {
-            var frame = graphContainer.frame;
+            let frame = graphContainer.frame;
             let lineY = baseGraph.getScreenPoint(0, yPoint: 100).y - frame.origin.y + 20;
             
             let path = CGPathCreateMutable();

@@ -38,9 +38,9 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     
     var isLeaving = false, previousShouldRotate: Bool!;
     
-    var previousSupportedOrientations: UInt!;
+    var previousSupportedOrientations: UIInterfaceOrientationMask!;
     
-    var previousActualOrientation: Int!;
+    var previousActualOrientation: UIInterfaceOrientation!;
     
     var fakeNavBar:UIView!;
     
@@ -75,11 +75,11 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
         let revealController = (navigationController as! MainNavigationController).revealController;
-        previousActualOrientation = self.interfaceOrientation.rawValue;
+        previousActualOrientation = self.interfaceOrientation;
         previousSupportedOrientations = revealController.supportedOrientations;
         previousShouldRotate = revealController.shouldRotate;
         revealController.panGestureRecognizer().enabled = false;
-        revealController.supportedOrientations = UIInterfaceOrientationMask.Portrait.rawValue | UIInterfaceOrientationMask.LandscapeLeft.rawValue | UIInterfaceOrientationMask.LandscapeRight.rawValue;
+        revealController.supportedOrientations = UIInterfaceOrientationMask.AllButUpsideDown;
         revealController.shouldRotate = true;
         
         activityView.frame.size.width = UIScreen.mainScreen().bounds.size.width;
@@ -94,7 +94,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         let revealController = (self.navigationController as! MainNavigationController).revealController;
         revealController.supportedOrientations = previousSupportedOrientations;
         self.navigationController!.navigationBarHidden = false;
-        UIDevice.currentDevice().setValue(previousActualOrientation, forKey: "orientation");
+        UIDevice.currentDevice().setValue(previousActualOrientation.rawValue, forKey: "orientation");
         revealController.shouldRotate = previousShouldRotate;
         super.viewWillDisappear(animated);
     }
@@ -119,11 +119,11 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     
     func initBackButton() {
         self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
-        backButton = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton;
+        backButton = UIButton(type: UIButtonType.Custom);
         backButton.setBackgroundImage(UIImage(named: "btn_back_white.png"), forState: UIControlState.Normal);
         backButton.addTarget(self, action: "goBack:", forControlEvents: UIControlEvents.TouchUpInside);
         backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
-        var backBarItem = UIBarButtonItem(customView: backButton);
+        let backBarItem = UIBarButtonItem(customView: backButton);
         self.navigationItem.leftBarButtonItem = backBarItem;
         self.navigationItem.hidesBackButton = true;
     }
@@ -149,7 +149,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         dayOfWeek.text = dayOfWeekFormatter.stringFromDate(date);
         monthYear.text = monthYearFormatter.stringFromDate(date);
         //Greeting should reflect current day's time even if we are looking at past daily summary
-        let hour = hourFormatter.stringFromDate(NSDate()).toInt();
+        let hour = Int(hourFormatter.stringFromDate(NSDate()));
         if (hour >= 4 && hour < 12) {
             timeOfDay = TimeOfDay.Morning;
             greeting.text = "Good Morning!";
@@ -176,11 +176,11 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         if let (points, sessionActivities) = SessionController.Instance.activities[dateString] {
             totalPoints = points;
             activities = sessionActivities;
-            activities.sort(SummaryViewUtility.sortByPoints);
+            activities.sortInPlace(SummaryViewUtility.sortByPoints);
         }
         var activitiesByDevice: [String: String] = [:];
         for activity in activities {
-            var type = activity.type.getString();
+            let type = activity.type.getString();
             if let (total, activityList) = activitiesByType[type] {
                 var previousActivities = activityList;
                 previousActivities.append(activity);
@@ -205,7 +205,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
                     largestActivityPoints = total;
                 }
             }
-            activityKeys.sort(sortByValue);
+            activityKeys.sortInPlace(sortByValue);
             layoutActivityView();
         }
     }
@@ -320,7 +320,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
                     
                     currentOrigin += titleRow.frame.size.height;
                 }
-                var isDuplicate = subActivity.errorDescription != nil;
+                let isDuplicate = subActivity.errorDescription != nil;
                 if key == ActivityCategory.Lifestyle.getString() {
                     let breakdownRow = SummaryViewUtility.initBreakdownRow(CGRect(x: activityRow.name.frame.origin.x, y: currentOrigin, width: rowWidth, height: CGFloat.max), text: "\(subActivity.description)", duplicate: isDuplicate);
                     activityContainer.addSubview(breakdownRow);
@@ -467,7 +467,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         if SessionController.Instance.checkins != nil {
             let formatter = NSDateFormatter();
             formatter.dateFormat = "yyyyMMddHHmm";
-            for checkin in SessionController.Instance.checkins.reverse() {
+            for checkin in Array(SessionController.Instance.checkins.reverse()) {
                 let date1 = formatter.stringFromDate(activity.utcStartTime);
                 let date2 = formatter.stringFromDate(checkin.dateTime);
                 if date1 == date2 {
@@ -535,7 +535,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     func updateNavbar(scrollY: CGFloat) {
         if (!isLeaving) {
             if (scrollY >= 0) {
-                var alpha = min(scrollY / 75, 1);
+                let alpha = min(scrollY / 75, 1);
                 fakeNavBar.backgroundColor = UIColor(red: 255, green: 255, blue: 255, alpha: alpha);
                 self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0 - alpha, alpha: 1.0)];
                 if (alpha < 0.5) {

@@ -26,11 +26,11 @@ class ProfileImageViewController: UIViewController, UIImagePickerControllerDeleg
         
         if (fromSettings) {
             (self.navigationController as! MainNavigationController).revealController.panGestureRecognizer().enabled = false;
-            var backButton = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton;
+            let backButton = UIButton(type: UIButtonType.Custom);
             backButton.setBackgroundImage(UIImage(named: "btn_back_black.png"), forState: UIControlState.Normal);
             backButton.addTarget(self, action: "goBack:", forControlEvents: UIControlEvents.TouchUpInside);
             backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
-            var backBarItem = UIBarButtonItem(customView: backButton);
+            let backBarItem = UIBarButtonItem(customView: backButton);
             self.navigationItem.leftBarButtonItem = backBarItem;
             
             skipButton.hidden = true;
@@ -41,7 +41,7 @@ class ProfileImageViewController: UIViewController, UIImagePickerControllerDeleg
         takePhotoButton.layer.borderWidth = 1.0;
         takePhotoButton.layer.borderColor = Utility.colorFromHexString(Constants.higiGreen).CGColor;
         
-        spinner = CustomLoadingSpinner(frame: CGRectMake(self.view.frame.size.width / 2 - 16, UIScreen.mainScreen().bounds.size.height - 66, 32, 32));
+        spinner = CustomLoadingSpinner(frame: CGRectMake(UIScreen.mainScreen().bounds.size.width / 2 - 16, UIScreen.mainScreen().bounds.size.height - 66, 32, 32));
         spinner.shouldAnimateFull = false;
         spinner.hidden = true;
         self.view.addSubview(spinner);
@@ -52,7 +52,7 @@ class ProfileImageViewController: UIViewController, UIImagePickerControllerDeleg
     }
     
     @IBAction func chooseFromLibrary(sender: AnyObject) {
-        var imagePicker = UIImagePickerController();
+        let imagePicker = UIImagePickerController();
         imagePicker.delegate = self;
         imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary;
         imagePicker.allowsEditing = false;
@@ -60,7 +60,7 @@ class ProfileImageViewController: UIViewController, UIImagePickerControllerDeleg
     }
     
     @IBAction func takePhoto(sender: AnyObject) {
-        var imagePicker = UIImagePickerController();
+        let imagePicker = UIImagePickerController();
         imagePicker.delegate = self;
         imagePicker.sourceType = UIImagePickerControllerSourceType.Camera;
         imagePicker.allowsEditing = false;
@@ -71,7 +71,7 @@ class ProfileImageViewController: UIViewController, UIImagePickerControllerDeleg
         spinner.startAnimating();
         spinner.hidden = false;
         skipButton.hidden = true;
-        var user = SessionData.Instance.user;
+        let user = SessionData.Instance.user;
         if (user.profileImage == nil) {
             user.retrieveProfileImages();
         }
@@ -80,10 +80,10 @@ class ProfileImageViewController: UIViewController, UIImagePickerControllerDeleg
         Utility.gotoDashboard(self);
     }
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         picker.dismissViewControllerAnimated(true, completion: nil);
-        var image = (info[UIImagePickerControllerOriginalImage] as! UIImage).fixOrientation();
-        var modifyViewController = ModifyImageViewController(nibName: "ModifyImageView", bundle: nil);
+        let image = (info[UIImagePickerControllerOriginalImage] as! UIImage).fixOrientation();
+        let modifyViewController = ModifyImageViewController(nibName: "ModifyImageView", bundle: nil);
         modifyViewController.profileImage = image;
         modifyViewController.fromSettings = fromSettings;
         self.navigationController!.pushViewController(modifyViewController, animated: true);

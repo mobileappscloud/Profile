@@ -9,11 +9,11 @@ class ChatterInputViewController: UIViewController, UITextViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad();
-        var backButton = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton;
+        let backButton = UIButton(type: UIButtonType.Custom);
         backButton.setBackgroundImage(UIImage(named: "btn_back_white.png"), forState: UIControlState.Normal);
         backButton.addTarget(self, action: "goBack:", forControlEvents: UIControlEvents.TouchUpInside);
         backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
-        var backBarItem = UIBarButtonItem(customView: backButton);
+        let backBarItem = UIBarButtonItem(customView: backButton);
         navBar.leftBarButtonItem = backBarItem;
         
         textInput.text = "Talk some smack!";
@@ -38,12 +38,12 @@ class ChatterInputViewController: UIViewController, UITextViewDelegate {
                 
             }
             return false;
-        } else if (count(updatedText) == 0) {
+        } else if (updatedText.characters.count == 0) {
             textView.text = "Talk some smack!";
             textView.textColor = UIColor.lightGrayColor();
             textView.selectedTextRange = textView.textRangeFromPosition(textView.beginningOfDocument, toPosition: textView.beginningOfDocument)
             return false;
-        } else if (textView.textColor == UIColor.lightGrayColor() && count(text) > 0) {
+        } else if (textView.textColor == UIColor.lightGrayColor() && text.characters.count > 0) {
             textView.text = "";
             textView.textColor = UIColor.blackColor();
         }

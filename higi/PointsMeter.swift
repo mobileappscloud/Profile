@@ -60,8 +60,8 @@ class PointsMeter: UIView {
             lineWidth = lineWidth * 1.5;
         }
         radius = self.frame.size.width / 2 * 0.9 - (lineWidth / 2);
-        var toPath = UIBezierPath();
-        var arc = CAShapeLayer();
+        let toPath = UIBezierPath();
+        let arc = CAShapeLayer();
         arc.lineWidth = lineWidth;
         arc.fillColor = UIColor.clearColor().CGColor;
         if lightArc {
@@ -69,7 +69,7 @@ class PointsMeter: UIView {
         } else {
             arc.strokeColor = Utility.colorFromHexString("#EEEEEE").CGColor;
         }
-        var center = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2);
+        let center = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2);
         toPath.addArcWithCenter(center, radius: radius, startAngle: CGFloat(0), endAngle: CGFloat(2 * M_PI), clockwise: true);
         toPath.closePath();
         arc.path = toPath.CGPath;
@@ -105,22 +105,22 @@ class PointsMeter: UIView {
             }
             subLayers.removeAll(keepCapacity: false);
         }
-        var center = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2);
+        let center = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2);
         var lastEnd = 0.0;
         if (activitiesByType.count > 0) {
             total = max(total, 100);
             var firstActivity = true;
-            var toPath = UIBezierPath();
+            let toPath = UIBezierPath();
             for type in activityTypes {
                 let (points, activity) = activitiesByType[type]!;
-                var arc = CAShapeLayer();
+                let arc = CAShapeLayer();
                 arc.lineWidth = lineWidth;
                 arc.fillColor = UIColor.clearColor().CGColor;
                 arc.strokeColor = ActivityCategory.categoryFromString(type).getColor().CGColor;
 
-                var increment = Double(points) / Double(total);
+                let increment = Double(points) / Double(total);
                 if (firstActivity) {
-                    var startAngle = M_PI / 2;
+                    let startAngle = M_PI / 2;
                     toPath.addArcWithCenter(center, radius: radius, startAngle: CGFloat(startAngle), endAngle: CGFloat(startAngle + 2 * M_PI), clockwise: true);
                     toPath.closePath();
                 }
@@ -134,7 +134,7 @@ class PointsMeter: UIView {
                     arc.strokeEnd = CGFloat(0);
                     CATransaction.setDisableActions(false);
                     CATransaction.commit();
-                    var start = lastEnd;
+                    let start = lastEnd;
                     if (firstActivity) {
                         dispatch_async(dispatch_get_main_queue(), {
                             CATransaction.begin();
@@ -152,7 +152,7 @@ class PointsMeter: UIView {
                         });
                     }
                 } else {
-                    var start = lastEnd;
+                    let start = lastEnd;
                     arc.strokeStart = CGFloat(start);
                     arc.strokeEnd = CGFloat(start + increment + 0.01);
                 }

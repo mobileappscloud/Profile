@@ -21,10 +21,10 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - CorePlot (1.5.1)
-  - Crashlytics (3.2.0)
-  - Fabric (1.4.1):
-    - Fabric/Base (= 1.4.1)
-  - Fabric/Base (1.4.1)
+  - Crashlytics (3.3.1)
+  - Fabric (1.5.1):
+    - Fabric/Base (= 1.5.1)
+  - Fabric/Base (1.5.1)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.2)
@@ -35,7 +35,7 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AFNetworking: 29871543aa6e8ece4f9557efad6613c57257c93f
   CorePlot: 53d823a4de5e4e662311cae4cdcb230e146c5c90
-  Crashlytics: a29e4f820aa401482b26043dc5d78adf08ac7573
-  Fabric: 4f718eeca4c02c7d6f6f4e5f0e5f87c63aa38458
+  Crashlytics: 0e61bdda9def51f1e99720f804eebe94865442b2
+  Fabric: 03c3b3fe77e11a2bc31421b989a9c7adaa4779a5
 
 COCOAPODS: 0.38.2

@@ -68,11 +68,11 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func initBackButton() {
         self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
-        var backButton = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton;
+        let backButton = UIButton(type: UIButtonType.Custom);
         backButton.setBackgroundImage(UIImage(named: "btn_back_white.png"), forState: UIControlState.Normal);
         backButton.addTarget(self, action: "goBack:", forControlEvents: UIControlEvents.TouchUpInside);
         backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
-        var backBarItem = UIBarButtonItem(customView: backButton);
+        let backBarItem = UIBarButtonItem(customView: backButton);
         self.navigationItem.leftBarButtonItem = backBarItem;
         self.navigationItem.hidesBackButton = true;
     }
@@ -99,8 +99,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             }
         }
         
-        individualGoalWinConditions.sort { $0.goal.minThreshold! > $1.goal.minThreshold! }
-        teamGoalWinConditions.sort { $0.goal.minThreshold! > $1.goal.minThreshold! }
+        individualGoalWinConditions.sortInPlace { $0.goal.minThreshold! > $1.goal.minThreshold! }
+        teamGoalWinConditions.sortInPlace { $0.goal.minThreshold! > $1.goal.minThreshold! }
         
         if (displayLeaderboardTab && !hasIndividualLeaderboardComponent && hasTeamLeaderboardComponent) {
             isIndividualLeaderboard = false;
@@ -146,7 +146,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             //subtract margin from width of second button
             let buttonWidth = (contentView.frame.size.width / 2) - (3/2 * buttonMargin);
             let buttonHeight = toggleButtonHeight - buttonMargin * 2;
-            var button = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton;
+            let button = UIButton(type: UIButtonType.Custom);
             button.frame = CGRect(x: buttonX, y: 0, width: buttonWidth, height: buttonHeight);
             button.setBackgroundImage(makeImageWithColor(Utility.colorFromHexString(Constants.higiGreen)), forState: UIControlState.Selected);
             button.setBackgroundImage(makeImageWithColor(UIColor.blackColor()), forState: UIControlState.Normal);
@@ -239,7 +239,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             let s = days == 1 ? "" : "s";
             dateDisplay = "Starts in \(days) day\(s)!";
         } else if (endDate != nil) {
-            var formatter = NSDateFormatter();
+            let formatter = NSDateFormatter();
             formatter.dateFormat = "yyyyMMdd";
             if (formatter.stringFromDate(NSDate()) == formatter.stringFromDate(endDate!)) {
                 dateDisplay = "Ends today!";
@@ -263,7 +263,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         loadingSpinner.hidden = false;
         let joinUrl =  challenge.joinUrl;
         let userId = SessionData.Instance.user.userId;
-        var contents = NSMutableDictionary();
+        let contents = NSMutableDictionary();
         contents.setObject(userId, forKey: "userId");
         HigiApi().sendPost(joinUrl as String, parameters: contents, success: {operation, responseObject in
             ApiUtility.retrieveChallenges(self.refreshChallenge);
@@ -276,7 +276,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
 
     func showTermsAndConditions(joinUrl: String) {
-        var termsController = TermsAndConditionsViewController(nibName: "TermsAndConditionsView", bundle: nil);
+        let termsController = TermsAndConditionsViewController(nibName: "TermsAndConditionsView", bundle: nil);
         termsController.html = challenge.terms as String;
         termsController.joinUrl = joinUrl;
         termsController.parent = self;
@@ -363,7 +363,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         let containerYValue = buttonContainer.frame.origin.y;
         
         let buttonHeight:CGFloat = buttonContainer.frame.size.height;
-        let buttonWidth = buttonContainer.frame.size.width / CGFloat(tabButtonLabels.count);
+        let buttonWidth = UIScreen.mainScreen().bounds.width / CGFloat(tabButtonLabels.count);
         
         for index in 0...tabButtonLabels.count - 1 {
             buttonContainer.addSubview(makeTabButton(tabButtonLabels[index], buttonImageName: tabButtonIcons[index], index: index, height: buttonHeight, width: buttonWidth));
@@ -484,7 +484,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
 
     func gotoChatterInput(sender: AnyObject) {
-        var chatterInputController = ChatterInputViewController(nibName: "ChatterInputView", bundle: nil);
+        let chatterInputController = ChatterInputViewController(nibName: "ChatterInputView", bundle: nil);
         chatterInputController.parent = self;
         self.presentViewController(chatterInputController, animated: true, completion: nil);
     }
@@ -494,7 +494,10 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         let table = UINib(nibName: "ChallengeDetailsTab", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! ChallengeDetailsTab;
         let firstWinCondition = challenge.winConditions[0];
         
-        table.descriptionText.text = challenge.shortDescription.stringByDecodingHTMLEntities();
+        var descriptionText = challenge.shortDescription.stringByDecodingHTMLEntities();
+        descriptionText = descriptionText.stringByReplacingOccurrencesOfString("\r", withString: "", options: .LiteralSearch, range: nil)
+        descriptionText = descriptionText.stringByReplacingOccurrencesOfString("\t", withString: "", options: .LiteralSearch, range: nil)
+        table.descriptionText.text = descriptionText;
         table.durationText.text = setDateRangeHelper(challenge.startDate, endDate: challenge.endDate);
         table.typeText.text = "\(goalTypeDisplayHelper(firstWinCondition.goal.type.description as String, winnerType: firstWinCondition.winnerType as String)). \(limitDisplayHelper(challenge.dailyLimit, metric: challenge.metric as String))";
         
@@ -514,11 +517,11 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             table.participantRowView.addSubview(participantRowView);
         }
         
-        var termsButton = table.termsButton;
+        let termsButton = table.termsButton;
         
         termsButton.addTarget(self, action: "termsClick:", forControlEvents: UIControlEvents.TouchUpInside);
         
-        var yOffset = rowTextYOffset;
+        var yOffset = rowTextYOffset + 12;
         for winCondition in challenge.winConditions {
             if (winCondition.prizeName != nil && winCondition.prizeName != "") {
                 let prizeRow = createDetailsPrizeCell(winCondition);
@@ -553,7 +556,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func setDateRangeHelper(startDate: NSDate, endDate: NSDate!) -> String {
-        var dateFormatter = NSDateFormatter();
+        let dateFormatter = NSDateFormatter();
         dateFormatter.dateFormat = "MMM. dd, YYYY"
         if (endDate != nil) {
             return "\(dateFormatter.stringFromDate(startDate)) - \(dateFormatter.stringFromDate(endDate))";
@@ -563,8 +566,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func goalTypeDisplayHelper(goalType: String, winnerType: String) -> String {
-        var firstPart = winnerType == "individual" ? "Individual" : "Team";
-        var secondPart = goalType == "most_points" ? "Points Challenge" : "Goal Challenge";
+        let firstPart = winnerType == "individual" ? "Individual" : "Team";
+        let secondPart = goalType == "most_points" ? "Points Challenge" : "Goal Challenge";
         return firstPart + " " + secondPart;
     }
     
@@ -587,7 +590,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func termsClick(sender: AnyObject) {
-        var termsController = TermsAndConditionsViewController(nibName: "TermsAndConditionsView", bundle: nil);
+        let termsController = TermsAndConditionsViewController(nibName: "TermsAndConditionsView", bundle: nil);
         termsController.html = challenge.terms as String;
         self.presentViewController(termsController, animated: true, completion: nil);
     }
@@ -626,8 +629,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                     buttonContainer.frame.origin.y = minHeaderHeightThreshold - 1;
                 } else {
                     participantPlace.frame.origin.x = headerPlaceOriginX + (scrollY / headerXOffset);
-                    var xOffset = min(scrollY * (headerXOffset / ((headerContainerHeight - minHeaderHeightThreshold) / 2)),headerXOffset);
-                    var progressOffset = min(xOffset / 2, headerXOffset);
+                    let xOffset = min(scrollY * (headerXOffset / ((headerContainerHeight - minHeaderHeightThreshold) / 2)),headerXOffset);
+                    let progressOffset = min(xOffset / 2, headerXOffset);
                     participantAvatar.frame.origin.x = headerAvatarOriginX + xOffset;
                     participantPlace.frame.origin.x = headerPlaceOriginX + xOffset;
                     participantProgress.frame.origin.x = headerProgressOriginX + min(progressOffset, maxProgressOffset);
@@ -674,7 +677,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             progressTable!.contentSize.height = max(progressTable!.contentSize.height, minTableHeight);
         }
         var frame = detailsTable.prizesContainer.frame;
-        var height = detailsTable.prizesContainer.frame.origin.y + prizesHeight + 305;
+        let height = detailsTable.prizesContainer.frame.origin.y + prizesHeight + 305;
         var descFrame = detailsTable.descriptionView.frame;
         detailsTable.contentSize.height = max(height, minTableHeight);
         detailsTable.headerView.frame.size.height = detailsTable.termsButton.frame.origin.y + detailsTable.termsButton.frame.size.height;
@@ -692,7 +695,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         if (scrollView == self.scrollView) {
-            var page = lround(Double(scrollView.contentOffset.x / UIScreen.mainScreen().bounds.size.width));
+            let page = lround(Double(scrollView.contentOffset.x / UIScreen.mainScreen().bounds.size.width));
             changePage(page);
         }
     }
@@ -777,7 +780,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func createDetailsPrizeCell(winCondition: ChallengeWinCondition!) -> ChallengeDetailsPrize {
-        var cell = UINib(nibName: "ChallengeDetailsPrizes", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! ChallengeDetailsPrize;
+        let cell = UINib(nibName: "ChallengeDetailsPrizes", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! ChallengeDetailsPrize;
         if (winCondition != nil && winCondition.prizeName != nil && winCondition.prizeName != "") {
             cell.title.text = winCondition.prizeName as String;
             cell.desc.text = winCondition.description as String;
@@ -789,12 +792,13 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         cell.title.sizeToFit();
         cell.desc.sizeToFit();
     
+        cell.frame.size.width = UIScreen.mainScreen().bounds.width;
         cell.frame.size.height = 20 + cell.title.frame.size.height + cell.desc.frame.size.height + 20;
         return cell;
     }
     
     func setProgressBar(view: UIView, points: Int, highScore: Int) {
-        var width = view.frame.size.width;
+        let width = view.frame.size.width;
         if (view.frame.origin.x == 0) {
             view.frame.origin.x = headerProgressOriginX;
         }
@@ -915,7 +919,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         if (url != nil) {
             HigiApi().sendGet(url! as String, success: {operation, responseObject in
                 if (self.isIndividualLeaderboard) {
-                    var serverParticipants = ((responseObject as! NSDictionary)["response"] as! NSDictionary)["data"] as? NSArray;
+                    let serverParticipants = ((responseObject as! NSDictionary)["response"] as! NSDictionary)["data"] as? NSArray;
                     var participants:[ChallengeParticipant] = [];
                     if (serverParticipants != nil) {
                         for singleParticipant: AnyObject in serverParticipants! {
@@ -1073,7 +1077,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     func sendUserChatter(chatter: String) {
         Flurry.logEvent("ChatterSent");
         let userId = SessionData.Instance.user.userId;
-        var contents = NSMutableDictionary();
+        let contents = NSMutableDictionary();
         contents.setObject(userId, forKey: "userId");
         contents.setObject(chatter, forKey: "comment");
         HigiApi().sendPost(challenge.commentsUrl as String, parameters: contents, success: {operation, responseObject in

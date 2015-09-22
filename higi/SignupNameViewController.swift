@@ -29,7 +29,7 @@ class SignupNameViewController: UIViewController, UITextFieldDelegate {
         if (user.lastName != nil) {
             lastName.text = user.lastName as String;
         }
-        spinner = CustomLoadingSpinner(frame: CGRectMake(self.view.frame.size.width / 2 - 16, UIScreen.mainScreen().bounds.size.height - 66, 32, 32));
+        spinner = CustomLoadingSpinner(frame: CGRectMake(UIScreen.mainScreen().bounds.size.width / 2 - 16, UIScreen.mainScreen().bounds.size.height - 66, 32, 32));
         spinner.shouldAnimateFull = false;
         spinner.hidden = true;
         self.view.addSubview(spinner);
@@ -43,12 +43,12 @@ class SignupNameViewController: UIViewController, UITextFieldDelegate {
         spinner.hidden = false;
         var problemFound = false;
         
-        if (count(firstName.text) == 0) {
+        if (firstName.text!.characters.count == 0) {
             problemFound = true;
             firstName.attributedPlaceholder = NSAttributedString(string: "First name is required", attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)]);
         }
         
-        if (count(lastName.text) == 0) {
+        if (lastName.text!.characters.count == 0) {
             problemFound = true;
             lastName.attributedPlaceholder = NSAttributedString(string: "Last name is required", attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)]);
         }

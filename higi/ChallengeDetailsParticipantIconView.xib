@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="fontawesome-webfont.ttf">
@@ -40,7 +40,7 @@
                         <constraint firstItem="eJG-F5-ze1" firstAttribute="leading" secondItem="1nj-UM-JOR" secondAttribute="leading" constant="56" id="zGb-Kb-eN2"/>
                     </constraints>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Individuals" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S6I-jx-oG2">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Individuals" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S6I-jx-oG2">
                     <rect key="frame" x="8" y="23" width="146" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -48,6 +48,12 @@
                 </label>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="S6I-jx-oG2" firstAttribute="centerX" secondItem="Y8P-ce-V5z" secondAttribute="centerX" id="OIT-H2-Ato"/>
+                <constraint firstItem="S6I-jx-oG2" firstAttribute="leading" secondItem="Y8P-ce-V5z" secondAttribute="leading" constant="8" id="PdX-ES-drL"/>
+                <constraint firstItem="1nj-UM-JOR" firstAttribute="centerX" secondItem="Y8P-ce-V5z" secondAttribute="centerX" id="c99-uQ-fpo"/>
+                <constraint firstAttribute="trailing" secondItem="S6I-jx-oG2" secondAttribute="trailing" constant="8" id="fTg-iU-OBY"/>
+            </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="count" destination="eJG-F5-ze1" id="U0D-9f-92Y"/>

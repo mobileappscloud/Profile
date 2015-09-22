@@ -67,13 +67,13 @@ class TourViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        var page = lround(Double(scrollView.contentOffset.x / scrollView.frame.size.width));
+        let page = lround(Double(scrollView.contentOffset.x / scrollView.frame.size.width));
         pager.currentPage = page;
         pagerChanged(pager);
     }
     
     @IBAction func pagerChanged(sender: AnyObject) {
-        var page = pager.currentPage;
+        let page = pager.currentPage;
         
         var frame = scrollView.frame;
         
@@ -98,8 +98,8 @@ class TourViewController: UIViewController, UIScrollViewDelegate {
         return false;
     }
     
-    override func supportedInterfaceOrientations() -> Int {
-        return Int(UIInterfaceOrientationMask.Portrait.rawValue);
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.Portrait;
     }
     
     override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {

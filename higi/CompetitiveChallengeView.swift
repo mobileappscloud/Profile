@@ -10,7 +10,6 @@ class CompetitiveChallengeView: ChallengeView, UIScrollViewDelegate {
         let competitiveView = UINib(nibName: "CompetitiveChallengeView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! CompetitiveChallengeView;
         competitiveView.frame = frame;
         
-        competitiveView.autoresizesSubviews = true;
         var rows = [competitiveView.row1, competitiveView.row2, competitiveView.row3];
         let isTeamChallenge = winConditions[0].winnerType == "team";
         
@@ -18,9 +17,6 @@ class CompetitiveChallengeView: ChallengeView, UIScrollViewDelegate {
         if (isTeamChallenge) {
             let gravityTuple = ChallengeUtility.getTeamGravityBoard(challenge);
             let teamGravityBoard = gravityTuple.0;
-            let teamRanks = gravityTuple.1;
-            
-            let highScore = challenge.teamHighScore;
             for index in 0...teamGravityBoard.count - 1 {
                 let name = teamGravityBoard[index].name;
                 let row = ChallengeLeaderboardRow.instanceFromNib(frame, challenge: challenge, team: teamGravityBoard[index], index: index);
@@ -30,22 +26,10 @@ class CompetitiveChallengeView: ChallengeView, UIScrollViewDelegate {
                 }
                 rows[index].frame.size.width = frame.size.width;
                 rows[index].addSubview(row);
-                
-                row.setTranslatesAutoresizingMaskIntoConstraints(false);
-                
-                let xConstraint = NSLayoutConstraint(item: rows[index], attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: row, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0);
-                let yConstraint = NSLayoutConstraint(item: rows[index], attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: row, attribute: NSLayoutAttribute.CenterY, multiplier: 1, constant: 0)
-                let widthConstraint = NSLayoutConstraint(item: row, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: frame.size.width);
-                
-                rows[index].addConstraint(xConstraint);
-                rows[index].addConstraint(yConstraint);
-                row.addConstraint(widthConstraint);
                 rowCount++;
             }
         } else {
             let individualGravityBoard = challenge.gravityBoard;
-            
-            let highScore = challenge.individualHighScore;
             for index in 0...individualGravityBoard.count - 1 {
                 let name = individualGravityBoard[index].participant.displayName;
                 let place = individualGravityBoard[index].place!;
@@ -57,16 +41,6 @@ class CompetitiveChallengeView: ChallengeView, UIScrollViewDelegate {
                 
                 rows[index].frame.size.width = frame.size.width;
                 rows[index].addSubview(row);
-
-                row.setTranslatesAutoresizingMaskIntoConstraints(false);
- 
-                let xConstraint = NSLayoutConstraint(item: rows[index], attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: row, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0);
-                let yConstraint = NSLayoutConstraint(item: rows[index], attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: row, attribute: NSLayoutAttribute.CenterY, multiplier: 1, constant: 0)
-                let widthConstraint = NSLayoutConstraint(item: row, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: frame.size.width);
-                
-                rows[index].addConstraint(xConstraint);
-                rows[index].addConstraint(yConstraint);
-                row.addConstraint(widthConstraint);
                 rowCount++;
             }
         }
@@ -82,7 +56,6 @@ class CompetitiveChallengeView: ChallengeView, UIScrollViewDelegate {
             let i = 0;
         }
         competitiveView.autoresizingMask = UIViewAutoresizing.FlexibleWidth;
-        competitiveView.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize);
         return competitiveView;
     }
     
@@ -96,25 +69,25 @@ class CompetitiveChallengeView: ChallengeView, UIScrollViewDelegate {
         if (row3.subviews.count > 0) {
             innerRow3 = row3.subviews[0] as! ChallengeLeaderboardRow;
         }
-        let width1 = (innerRow1.progress.subviews[0] as! UIView).frame.size.width;
-        (innerRow1.progress.subviews[0] as! UIView).frame.size.width = 0;
+        let width1 = (innerRow1.progress.subviews[0] ).frame.size.width;
+        (innerRow1.progress.subviews[0] ).frame.size.width = 0;
         UIView.animateWithDuration(1.0, delay: 0.0, options: .CurveEaseInOut, animations: {
-            (innerRow1.progress.subviews[0] as! UIView).frame.size.width = width1;
+            (innerRow1.progress.subviews[0] ).frame.size.width = width1;
             }, completion: nil);
         
         if (innerRow2 != nil) {
-            let width2 = (innerRow2!.progress.subviews[0] as! UIView).frame.size.width;
-            (innerRow2!.progress.subviews[0] as! UIView).frame.size.width = 0;
+            let width2 = (innerRow2!.progress.subviews[0] ).frame.size.width;
+            (innerRow2!.progress.subviews[0] ).frame.size.width = 0;
             UIView.animateWithDuration(1.0, delay: 0.1, options: .CurveEaseInOut, animations: {
-                (innerRow2!.progress.subviews[0] as! UIView).frame.size.width = width2;
+                (innerRow2!.progress.subviews[0] ).frame.size.width = width2;
                 }, completion: nil);
         }
         
         if (innerRow3 != nil) {
-            let width3 = (innerRow3!.progress.subviews[0] as! UIView).frame.size.width;
-            (innerRow3!.progress.subviews[0] as! UIView).frame.size.width = 0;
+            let width3 = (innerRow3!.progress.subviews[0] ).frame.size.width;
+            (innerRow3!.progress.subviews[0] ).frame.size.width = 0;
             UIView.animateWithDuration(1.0, delay: 0.2, options: .CurveEaseInOut, animations: {
-                (innerRow3!.progress.subviews[0] as! UIView).frame.size.width = width3;
+                (innerRow3!.progress.subviews[0] ).frame.size.width = width3;
                 }, completion: nil);
         }
     }

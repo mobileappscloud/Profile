@@ -13,7 +13,7 @@ class RevealViewController: SWRevealViewController {
     
     var shouldRotate = false;
     
-    var supportedOrientations = UIInterfaceOrientationMask.Portrait.rawValue;
+    var supportedOrientations: UIInterfaceOrientationMask = UIInterfaceOrientationMask.Portrait;
     
     var preferredOrientation = UIInterfaceOrientation.Portrait;
     
@@ -26,11 +26,11 @@ class RevealViewController: SWRevealViewController {
         return shouldRotate && self.frontViewPosition != FrontViewPosition.Right;
     }
     
-    override func supportedInterfaceOrientations() -> Int {
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
         if (self.frontViewPosition == FrontViewPosition.Right) {
-            return Int(UIInterfaceOrientationMask.Portrait.rawValue);
+            return UIInterfaceOrientationMask.Portrait;
         } else {
-            return Int(supportedOrientations);
+            return supportedOrientations;
         }
     }
     
