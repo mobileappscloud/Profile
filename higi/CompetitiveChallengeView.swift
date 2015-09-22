@@ -38,7 +38,6 @@ class CompetitiveChallengeView: ChallengeView, UIScrollViewDelegate {
                     row.name.textColor = Utility.colorFromHexString(Constants.higiGreen);
                     row.place.textColor = Utility.colorFromHexString(Constants.higiGreen);
                 }
-                
                 rows[index].frame.size.width = frame.size.width;
                 rows[index].addSubview(row);
                 rowCount++;
@@ -55,7 +54,6 @@ class CompetitiveChallengeView: ChallengeView, UIScrollViewDelegate {
         default:
             let i = 0;
         }
-        competitiveView.autoresizingMask = UIViewAutoresizing.FlexibleWidth;
         return competitiveView;
     }
     
