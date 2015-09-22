@@ -494,7 +494,10 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         let table = UINib(nibName: "ChallengeDetailsTab", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! ChallengeDetailsTab;
         let firstWinCondition = challenge.winConditions[0];
         
-        table.descriptionText.text = challenge.shortDescription.stringByDecodingHTMLEntities();
+        var descriptionText = challenge.shortDescription.stringByDecodingHTMLEntities();
+        descriptionText = descriptionText.stringByReplacingOccurrencesOfString("\r", withString: "", options: .LiteralSearch, range: nil)
+        descriptionText = descriptionText.stringByReplacingOccurrencesOfString("\t", withString: "", options: .LiteralSearch, range: nil)
+        table.descriptionText.text = descriptionText;
         table.durationText.text = setDateRangeHelper(challenge.startDate, endDate: challenge.endDate);
         table.typeText.text = "\(goalTypeDisplayHelper(firstWinCondition.goal.type.description as String, winnerType: firstWinCondition.winnerType as String)). \(limitDisplayHelper(challenge.dailyLimit, metric: challenge.metric as String))";
         
