@@ -60,6 +60,7 @@
             <connections>
                 <outlet property="avatar" destination="TaJ-fi-xFR" id="K0S-FP-PlC"/>
                 <outlet property="complexContainer" destination="0Yz-61-rS3" id="LnJ-lm-dTh"/>
+                <outlet property="grayBar" destination="9Vp-0h-pgJ" id="nbm-ZO-6gS"/>
                 <outlet property="name" destination="TZo-C2-MK4" id="zd1-bt-kGC"/>
                 <outlet property="progress" destination="j6h-qm-ysG" id="CuG-qI-uot"/>
                 <outlet property="secondaryAvatar" destination="Dei-tT-rzi" id="CC3-PO-D5T"/>

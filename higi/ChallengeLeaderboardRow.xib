@@ -24,7 +24,7 @@
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V7f-uV-swD">
+                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V7f-uV-swD">
                     <rect key="frame" x="104" y="14" width="115" height="20"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
@@ -52,6 +52,7 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="V7f-uV-swD" firstAttribute="leading" secondItem="weF-Yk-wxc" secondAttribute="trailing" id="95b-Wd-CE1"/>
                 <constraint firstItem="ot0-KN-rck" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="Q0q-Oa-Arl"/>
                 <constraint firstItem="Ara-sS-UlK" firstAttribute="leading" secondItem="V7f-uV-swD" secondAttribute="trailing" constant="8" id="chG-3n-5Yc"/>
                 <constraint firstItem="ot0-KN-rck" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="4" id="elS-nr-pFA"/>

@@ -3,12 +3,12 @@ import Foundation
 class GoalChallengeView: ChallengeView {
     
     @IBOutlet var avatar: UIImageView!
-    
     @IBOutlet weak var secondaryAvatar: UIImageView!
     @IBOutlet weak var name: UILabel!
     @IBOutlet var progress: UIView!
-    
+    @IBOutlet weak var grayBar: UIView!
     @IBOutlet weak var complexContainer: UIView!
+    
     var participantPoints: Int!;
     
     var verticalLine, progressBar: UIView!;
@@ -31,7 +31,9 @@ class GoalChallengeView: ChallengeView {
     class func instanceFromNib(frame: CGRect, challenge: HigiChallenge, winConditions: [ChallengeWinCondition], isComplex: Bool) -> GoalChallengeView {
         let goalView = UINib(nibName: "GoalChallengeView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! GoalChallengeView;
         goalView.frame = frame;
+        goalView.progress.frame.size.width = frame.size.width - (goalView.progress.frame.origin.x) - 18;
         goalView.autoresizingMask = UIViewAutoresizing.FlexibleWidth;
+        goalView.grayBar.frame.size.width = frame.size.width - (goalView.progress.frame.size.width) - 4;
         let isTeam = winConditions[0].winnerType == "team";
         
         if isComplex {
@@ -45,7 +47,7 @@ class GoalChallengeView: ChallengeView {
                 goalView.name.text = "\(challenge.participant.displayName)";
             }
         } else {
-            if (isTeam) {
+            if isTeam {
                 goalView.avatar.setImageWithURL(Utility.loadImageFromUrl(challenge.participant.team.imageUrl as String));
             } else {
                 goalView.avatar.setImageWithURL(Utility.loadImageFromUrl(challenge.participant.imageUrl as String));
