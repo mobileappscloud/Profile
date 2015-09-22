@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8191"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -25,12 +25,12 @@
                 </view>
             </subviews>
             <constraints>
-                <constraint firstItem="e2D-sC-QkF" firstAttribute="leading" secondItem="tI1-Dt-MFM" secondAttribute="leading" id="1Ee-XU-Q9S"/>
-                <constraint firstItem="XVh-mb-TAc" firstAttribute="leading" secondItem="tI1-Dt-MFM" secondAttribute="leading" id="8B9-bC-Jvd"/>
-                <constraint firstAttribute="trailing" secondItem="e2D-sC-QkF" secondAttribute="trailing" id="P5j-IU-5Mh"/>
-                <constraint firstAttribute="trailing" secondItem="n07-h6-OF7" secondAttribute="trailing" id="Yhe-f5-Ttr"/>
-                <constraint firstItem="n07-h6-OF7" firstAttribute="leading" secondItem="tI1-Dt-MFM" secondAttribute="leading" id="qlG-xR-XwT"/>
-                <constraint firstAttribute="trailing" secondItem="XVh-mb-TAc" secondAttribute="trailing" id="v09-T3-uST"/>
+                <constraint firstItem="n07-h6-OF7" firstAttribute="leading" secondItem="tI1-Dt-MFM" secondAttribute="leading" id="PoM-nT-dVH"/>
+                <constraint firstAttribute="trailing" secondItem="e2D-sC-QkF" secondAttribute="trailing" id="Pxc-F8-uwt"/>
+                <constraint firstItem="e2D-sC-QkF" firstAttribute="leading" secondItem="tI1-Dt-MFM" secondAttribute="leading" id="Wi8-pT-VmA"/>
+                <constraint firstItem="XVh-mb-TAc" firstAttribute="leading" secondItem="tI1-Dt-MFM" secondAttribute="leading" id="Wim-iD-pPF"/>
+                <constraint firstAttribute="trailing" secondItem="XVh-mb-TAc" secondAttribute="trailing" id="bQM-mh-pUb"/>
+                <constraint firstAttribute="trailing" secondItem="n07-h6-OF7" secondAttribute="trailing" id="mLx-91-Q6E"/>
             </constraints>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
