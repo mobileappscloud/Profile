@@ -14,6 +14,7 @@ class ChallengeLeaderboardRow: UITableViewCell {
         row.name.text = participant.displayName as String;
         row.points.text = "\(Int(participant.units)) \(challenge.abbrMetric)";
         row.place.text = ChallengeUtility.getRankSuffix(place);
+        row.progress.frame.size.width = frame.size.width - (row.place.frame.origin.x + row.place.frame.size.width + row.points.frame.size.width) - 8;
         setProgressBar(row.progress, points: Int(participant.units), highScore: Int(highScore));
         return row;
     }
@@ -26,6 +27,7 @@ class ChallengeLeaderboardRow: UITableViewCell {
         let units = Int(team.units);
         row.points.text = "\(units) \(challenge.abbrMetric)";
         row.place.text = ChallengeUtility.getRankSuffix(String(index + 1));
+        row.progress.frame.size.width = frame.size.width - (row.place.frame.origin.x + row.place.frame.size.width + row.points.frame.size.width) - 8;
         setProgressBar(row.progress, points: Int(team.units), highScore: Int(highScore));
         return row;
     }
