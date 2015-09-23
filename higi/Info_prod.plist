@@ -65,5 +65,10 @@
 	<true/>
 	<key>WebUrl</key>
 	<string>https://higi.com</string>
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <true/>
+    </dict>
 </dict>
 </plist>

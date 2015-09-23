@@ -62,7 +62,7 @@ class WebViewController: UIViewController, NSURLConnectionDataDelegate, UIWebVie
             
             return false;
         }
-        if (((!isGone && request.URL!.absoluteString != "" && request.URL!.absoluteString.hasPrefix("http://www.google.com")))) {
+        if (((!isGone && request.URL!.absoluteString != "" && request.URL!.absoluteString.hasPrefix("https://www.google.com")))) {
             webView.stopLoading();
             let components = NSURLComponents(URL: request.URL!, resolvingAgainstBaseURL: false)!;
             errorMessage = "";
