@@ -175,6 +175,8 @@
 		8FE206621B7CF30E00B473B0 /* LocationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE206611B7CF30E00B473B0 /* LocationDelegate.swift */; };
 		8FEF1B031AA4E8C60036C4FB /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FEF1B021AA4E8C60036C4FB /* LocalAuthentication.framework */; };
 		8FEF1B051AA9173D0036C4FB /* ChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEF1B041AA9173D0036C4FB /* ChallengeView.swift */; };
+		8FEF35BB1BB213C800959BD1 /* Pods.debugqa.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 8FEF35B91BB213C800959BD1 /* Pods.debugqa.xcconfig */; settings = {ASSET_TAGS = (); }; };
+		8FEF35BC1BB213C800959BD1 /* Pods.releaseqa.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 8FEF35BA1BB213C800959BD1 /* Pods.releaseqa.xcconfig */; settings = {ASSET_TAGS = (); }; };
 		8FEF6F3A1A6EAA58001EF8A6 /* DashboardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FEF6F391A6EAA58001EF8A6 /* DashboardView.xib */; };
 		8FEF6F3C1A6EAACE001EF8A6 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEF6F3B1A6EAACE001EF8A6 /* DashboardViewController.swift */; };
 		8FEF6F3E1A6EB437001EF8A6 /* PointsMeterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FEF6F3D1A6EB437001EF8A6 /* PointsMeterView.xib */; };
@@ -521,6 +523,8 @@
 		8FE206611B7CF30E00B473B0 /* LocationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationDelegate.swift; sourceTree = "<group>"; };
 		8FEF1B021AA4E8C60036C4FB /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		8FEF1B041AA9173D0036C4FB /* ChallengeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeView.swift; sourceTree = "<group>"; };
+		8FEF35B91BB213C800959BD1 /* Pods.debugqa.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Pods.debugqa.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debugqa.xcconfig"; sourceTree = "<group>"; };
+		8FEF35BA1BB213C800959BD1 /* Pods.releaseqa.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Pods.releaseqa.xcconfig; path = "Pods/Target Support Files/Pods/Pods.releaseqa.xcconfig"; sourceTree = "<group>"; };
 		8FEF6F391A6EAA58001EF8A6 /* DashboardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DashboardView.xib; sourceTree = "<group>"; };
 		8FEF6F3B1A6EAACE001EF8A6 /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 		8FEF6F3D1A6EB437001EF8A6 /* PointsMeterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PointsMeterView.xib; sourceTree = "<group>"; };
@@ -553,8 +557,6 @@
 		8FFB034619FEA2440036228C /* oc_pulse_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oc_pulse_active.png; path = images/oc_pulse_active.png; sourceTree = "<group>"; };
 		8FFB034719FEA2440036228C /* oc_settings_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oc_settings_active.png; path = images/oc_settings_active.png; sourceTree = "<group>"; };
 		C0A91AD3D5DE44B7872F95D7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		CA81E88E614AB0586948CB5B /* Pods.debug qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods.debug qa.xcconfig"; path = "Pods/Target Support Files/Pods/Pods.debug qa.xcconfig"; sourceTree = "<group>"; };
-		CEFCE3FD10CF65C7794E0141 /* Pods.release qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods.release qa.xcconfig"; path = "Pods/Target Support Files/Pods/Pods.release qa.xcconfig"; sourceTree = "<group>"; };
 		D101757A1A79693C00CA32DC /* chat_bubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chat_bubble.png; path = images/chat_bubble.png; sourceTree = "<group>"; };
 		D1020A281B3B130C001F2D81 /* BreakdownTitleRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BreakdownTitleRow.swift; sourceTree = "<group>"; };
 		D1020A2A1B3B1327001F2D81 /* BreakdownTitleRowView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BreakdownTitleRowView.xib; sourceTree = "<group>"; };
@@ -1530,10 +1532,10 @@
 		F14FC40D2EC046CA8525DDF1 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
+				8FEF35B91BB213C800959BD1 /* Pods.debugqa.xcconfig */,
+				8FEF35BA1BB213C800959BD1 /* Pods.releaseqa.xcconfig */,
 				050DEC7CD1A48655D167F1FB /* Pods.debug.xcconfig */,
-				CA81E88E614AB0586948CB5B /* Pods.debug qa.xcconfig */,
 				686C1AF8577725DC02942F86 /* Pods.release.xcconfig */,
-				CEFCE3FD10CF65C7794E0141 /* Pods.release qa.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -1779,6 +1781,7 @@
 				D1E1FF081A76C2DB00C8951C /* ChallengeProgressLegendRow.xib in Resources */,
 				8FC88AD41AE6DA2B002ED9FB /* activitywidgetblankstatenodevices.png in Resources */,
 				8FE056E5198FDC5F00C81208 /* SettingsView.xib in Resources */,
+				8FEF35BB1BB213C800959BD1 /* Pods.debugqa.xcconfig in Resources */,
 				D17334431B594FCD0089BBFD /* map_copy@2x.png in Resources */,
 				8F5C38CD19818BA900F51543 /* gauge2_atrisk.png in Resources */,
 				D17C0A8D1A9FC5520010971C /* unpluggederrorstate.png in Resources */,
@@ -1795,6 +1798,7 @@
 				8F1D979E199556F3003B5645 /* mask.png in Resources */,
 				8F5E7FDA199BCD52009067E5 /* overlay_close.png in Resources */,
 				8FFB034919FEA2440036228C /* oc_activity_active.png in Resources */,
+				8FEF35BC1BB213C800959BD1 /* Pods.releaseqa.xcconfig in Resources */,
 				8F02A12419AE2BF6002FF73E /* btn_share_black@2x.png in Resources */,
 				D17010C91A644414002CBFE8 /* ChallengeDetailsView.xib in Resources */,
 				D1E1FF0A1A76E0AC00C8951C /* ChallengeDetailsRow.xib in Resources */,
@@ -2067,7 +2071,7 @@
 		};
 		32E39E4A1B756D6900BA50F9 /* DebugQA */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CA81E88E614AB0586948CB5B /* Pods.debug qa.xcconfig */;
+			baseConfigurationReference = 8FEF35B91BB213C800959BD1 /* Pods.debugqa.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BUILD_NUMBER = 4;
@@ -2157,7 +2161,7 @@
 		};
 		32E39E4D1B756D6F00BA50F9 /* ReleaseQA */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CEFCE3FD10CF65C7794E0141 /* Pods.release qa.xcconfig */;
+			baseConfigurationReference = 8FEF35BA1BB213C800959BD1 /* Pods.releaseqa.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BUILD_NUMBER = 4;
