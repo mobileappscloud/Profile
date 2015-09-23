@@ -39,7 +39,7 @@
 		</array>
 	</dict>
 	<key>HigiUrl</key>
-	<string>http://higiapi2.cloudapp.net</string>
+	<string>https://higiapi2.cloudapp.net</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationAlwaysUsageDescription</key>

@@ -551,7 +551,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     func getKioskLogoUrl(kiosk: KioskInfo!) -> NSURL {
         var modifiedName = kiosk.organizations[0];
         modifiedName = modifiedName.stringByReplacingOccurrencesOfString(" ", withString: "_").stringByReplacingOccurrencesOfString("'", withString: "").stringByReplacingOccurrencesOfString("&", withString: "");
-        return NSURL(string: "http://az646341.vo.msecnd.net/retailer-icons/\(modifiedName)_100.png")!;
+        return NSURL(string: "https://az646341.vo.msecnd.net/retailer-icons/\(modifiedName)_100.png")!;
     }
     
     @IBAction func startReminder(sender: AnyObject) {
