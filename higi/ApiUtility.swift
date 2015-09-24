@@ -56,6 +56,7 @@ class ApiUtility {
                 viewController.presentViewController(nameViewController, animated: true, completion: nil);
             } else {
                 ApiUtility.initializeApiData();
+                (UIApplication.sharedApplication().delegate as! AppDelegate).startLocationManager();
                 Utility.gotoDashboard(viewController);
             }
             

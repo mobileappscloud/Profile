@@ -37,9 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if (UIApplication.instancesRespondToSelector(Selector("registerUserNotificationSettings:"))) {
             application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [UIUserNotificationType.Sound, UIUserNotificationType.Alert, UIUserNotificationType.Badge], categories: nil));
         }
-        
-        startLocationManager();
-        
+                
         return true
     }
 
