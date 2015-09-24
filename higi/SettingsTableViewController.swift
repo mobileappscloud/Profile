@@ -37,7 +37,6 @@ private enum MainSectionRow: Int {
 */
 class SettingsTableViewController: UITableViewController, SwitchTableViewCellDelegate {
 
-    let defaultCellSize: CGFloat = 46.0;
     let separatorCellSize: CGFloat = 23.0;
     
     let defaultTableCellReuseIdentifier = "DefaultTableCellReuseIdentifier";
@@ -142,7 +141,7 @@ class SettingsTableViewController: UITableViewController, SwitchTableViewCellDel
                     case .SeparatorFour:
                         rowHeight = separatorCellSize;
                     default:
-                        rowHeight = defaultCellSize;
+                        rowHeight = UITableViewAutomaticDimension;
                     }
                 }
             default:
@@ -227,11 +226,11 @@ class SettingsTableViewController: UITableViewController, SwitchTableViewCellDel
     func passcodeCell(indexPath: NSIndexPath) -> SwitchTableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(switchTableCellReuseIdentifier, forIndexPath: indexPath) as! SwitchTableViewCell;
         cell.delegate = self;
-        cell.textLabel?.font = UIFont.systemFontOfSize(14.0);        
-        cell.textLabel?.text = "Protect my data with a passcode";
+        cell.titleLabel?.font = UIFont.systemFontOfSize(14.0);
+        cell.titleLabel?.text = "Protect my data with a passcode";
         let hasPasscode = SessionData.Instance.pin != "";
         cell.switchControl.on = hasPasscode;
-        cell.textLabel?.textColor = hasPasscode ? UIColor.blackColor() : UIColor.lightGrayColor();
+        cell.titleLabel?.textColor = hasPasscode ? UIColor.blackColor() : UIColor.lightGrayColor();
         return cell;
     }
     
