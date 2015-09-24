@@ -107,7 +107,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func stopLocationManager() {
         if locationManager != nil {
-            locationManager.stopUpdatingLocation();
+            locationManager.stopMonitoringSignificantLocationChanges();
             locationManager = nil;
         }
     }
