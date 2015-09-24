@@ -40,16 +40,13 @@ class NotificationSettingsEmailController: NSObject {
         updateUserNotification(notification, value: value);
         
         let URL = "\(HigiApi.higiApiUrl)/data/user/\(user.userId)";
-        HigiApi().sendPost(URL, parameters: contents, success: { (operation, response) in
-            if let _ = completion {
-                completion!(true);
-            }
-        }, failure: { [weak self] (operation, error) in
-            self?.updateUserNotification(notification, value: !value)
-            if let _ = completion {
-                completion!(false);
-            }
-        });
+        HigiApi().sendPost(URL, parameters: contents,
+            success: { (operation, response) in
+                completion?(true);
+            }, failure: { [weak self] (operation, error) in
+                self?.updateUserNotification(notification, value: !value)
+                completion?(false);
+            });
     }
     
     private func updateUserNotification(notification: EmailNotification, value: Bool) {

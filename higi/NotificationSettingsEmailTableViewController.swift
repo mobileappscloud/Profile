@@ -108,10 +108,8 @@ class NotificationSettingsEmailTableViewController: UITableViewController, Switc
                     case .CheckInResults:
                         switchCell.titleLabel.text = "Check-in results"
                         switchCell.switchControl.on = EmailNotification.CheckInResult.isEnabled()
-//                        switchCell.switchControl.on = dataController.user.emailCheckins;
                     case .HigiNews:
                         switchCell.titleLabel.text = "News about higi"
-//                        switchCell.switchControl.on = dataController.user.emailHigiNews;
                         switchCell.switchControl.on = EmailNotification.HigiNews.isEnabled()
                     default:
                         break;
@@ -135,14 +133,14 @@ class NotificationSettingsEmailTableViewController: UITableViewController, Switc
                     if let row = MainSectionRow(rawValue: indexPath.row) {
                         
                         let notification = MainSectionRow.notification[row]
-                        dataController.updateNotification(notification!, value: cell.switchControl.on, completion: { [weak self] success in
-                            dispatch_async(dispatch_get_main_queue(), {
+                        dataController.updateNotification(notification!, value: cell.switchControl.on,
+                            completion: { [weak self] success in
                                 if !success {
-                                    self?.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic);
+                                    dispatch_async(dispatch_get_main_queue(), {
+                                        self?.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic);
+                                    });
                                 }
                             });
-                        });
-                        
                     }
                 }
             }

@@ -792,12 +792,28 @@
 				41545BF81BA76CFA00946358 /* NotificationSettings.storyboard */,
 				41B2B3591BB31CE900B13168 /* NotificationSettingsTableViewController.swift */,
 				41411B9F1BA87E3D0027F5E1 /* NotificationSettingsDeviceTableViewController.swift */,
+				41B2B35F1BB440D200B13168 /* Email */,
+				41B2B3601BB440F100B13168 /* Switch Cell */,
+			);
+			name = "Notification Settings";
+			sourceTree = "<group>";
+		};
+		41B2B35F1BB440D200B13168 /* Email */ = {
+			isa = PBXGroup;
+			children = (
 				41B2B3571BB31CBD00B13168 /* NotificationSettingsEmailTableViewController.swift */,
 				41B2B35B1BB326C800B13168 /* NotificationSettingsEmailController.swift */,
+			);
+			name = Email;
+			sourceTree = "<group>";
+		};
+		41B2B3601BB440F100B13168 /* Switch Cell */ = {
+			isa = PBXGroup;
+			children = (
 				41411BA11BA894280027F5E1 /* SwitchTableViewCell.swift */,
 				41411BA21BA894280027F5E1 /* SwitchTableViewCell.xib */,
 			);
-			name = "Notification Settings";
+			name = "Switch Cell";
 			sourceTree = "<group>";
 		};
 		8F069CBC19D9E20D00DCC820 /* Flurry */ = {
