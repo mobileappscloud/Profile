@@ -36,12 +36,6 @@ class SettingsViewController: BaseViewController {
     func configureNavigationTitle() {
         self.title = "Settings";
         self.navigationController!.navigationBar.barStyle = .BlackTranslucent;
-        let navTitleLabel = UILabel();
-        navTitleLabel.textColor = UIColor.whiteColor();
-        navTitleLabel.font = UIFont.boldSystemFontOfSize(17.0);
-        navTitleLabel.text = self.title;
-        navTitleLabel.sizeToFit();
-        self.navigationItem.titleView = navTitleLabel;
     }
     
     // MARK: - Navigation
@@ -58,6 +52,7 @@ class SettingsViewController: BaseViewController {
         let scrollY = settingsTableViewController.tableView.contentOffset.y;
         let alpha = min(scrollY / 100, 1);
         self.fakeNavBar.alpha = alpha;
+
         self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0 - alpha, alpha: 1.0)];
         if (alpha < 0.5) {
             toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon"), forState: UIControlState.Normal);
