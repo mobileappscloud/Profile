@@ -37,16 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if (UIApplication.instancesRespondToSelector(Selector("registerUserNotificationSettings:"))) {
             application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [UIUserNotificationType.Sound, UIUserNotificationType.Alert, UIUserNotificationType.Badge], categories: nil));
         }
-        
-        if (UIApplication.sharedApplication().backgroundRefreshStatus == UIBackgroundRefreshStatus.Available) {
-            locationManager = CLLocationManager();
-            locationManager.requestAlwaysAuthorization();
-            locationDelegate = LocationDelegate();
-            locationManager.delegate = locationDelegate;
-            locationManager.pausesLocationUpdatesAutomatically = true;
-            locationManager.startMonitoringSignificantLocationChanges();
-        }
-        
+                
         return true
     }
 
@@ -101,5 +92,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
+    func startLocationManager() {
+        if (locationManager == nil && UIApplication.sharedApplication().backgroundRefreshStatus == UIBackgroundRefreshStatus.Available) {
+            locationManager = CLLocationManager();
+            locationManager.requestAlwaysAuthorization();
+            locationDelegate = LocationDelegate();
+            locationManager.delegate = locationDelegate;
+            locationManager.pausesLocationUpdatesAutomatically = true;
+            locationManager.startMonitoringSignificantLocationChanges();
+        }
+    }
+    
+    func stopLocationManager() {
+        if locationManager != nil {
+            locationManager.stopMonitoringSignificantLocationChanges();
+            locationManager = nil;
+        }
+    }
 }
 

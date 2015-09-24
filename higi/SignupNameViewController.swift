@@ -69,6 +69,7 @@ class SignupNameViewController: UIViewController, UITextFieldDelegate {
                 
                     if (self.dashboardNext) {
                         ApiUtility.initializeApiData();
+                        (UIApplication.sharedApplication().delegate as! AppDelegate).startLocationManager();
                         Utility.gotoDashboard(self);
                     } else {
                         self.navigationController!.pushViewController(BirthdateViewController(nibName: "BirthdateView", bundle: nil), animated: true);
