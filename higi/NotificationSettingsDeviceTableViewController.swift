@@ -58,8 +58,7 @@ class NotificationSettingsDeviceTableViewController: UITableViewController, Swit
     }
     
     func configureTableView() {
-        let switchCellNib = UINib(nibName: "SwitchTableViewCell", bundle: nil);
-        tableView.registerNib(switchCellNib, forCellReuseIdentifier: switchCellReuseIdentifier);
+        tableView.registerClass(SwitchTableViewCell.self, forCellReuseIdentifier: switchCellReuseIdentifier);
     }
 
     // MARK: - Settings
@@ -140,7 +139,7 @@ class NotificationSettingsDeviceTableViewController: UITableViewController, Swit
                 if let row = SectionGlobalSettingRow(rawValue: indexPath.row) {
                     switch row {
                     case .AllowNotifications:
-                        switchCell.titleLabel.text = "Allow Notifications";
+                        switchCell.textLabel!.text = "Allow Notifications";
                     default:
                         break;
                     }
@@ -150,7 +149,7 @@ class NotificationSettingsDeviceTableViewController: UITableViewController, Swit
                 if let row = SectionUniqueSettingRow(rawValue: indexPath.row) {
                     switch row {
                     case .StationNearby:
-                        switchCell.titleLabel.text = "Station Nearby"
+                        switchCell.textLabel!.text = "Station Nearby"
                     default:
                         break;
                     }
