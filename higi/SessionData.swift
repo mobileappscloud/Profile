@@ -20,7 +20,7 @@ class SessionData {
     
     var kioskListString: String = "";
     
-    var seenDashboard, seenMetrics, seenReminder: Bool!;
+    var seenDashboard, seenMetrics, seenReminder, showQrCheckinCard: Bool!;
     
     var lastUpdate: NSDate!;
     
@@ -40,6 +40,7 @@ class SessionData {
         seenDashboard = false;
         seenMetrics = false;
         seenReminder = false;
+        showQrCheckinCard = false;
         lastUpdate = NSDate();
     }
     
@@ -53,6 +54,7 @@ class SessionData {
         saveDictionary["seenDashboard"] = seenDashboard;
         saveDictionary["seenMetrics"] = seenMetrics;
         saveDictionary["seenReminder"] = seenReminder;
+        saveDictionary["showQrCheckinCard"] = showQrCheckinCard;
         saveDictionary["kioskList"] = kioskListString;
         saveDictionary["lastUpdate"] = lastUpdate;
         saveDictionary.writeToFile(savePath, atomically: false);
@@ -82,6 +84,7 @@ class SessionData {
             seenDashboard = (savedDictionary["seenDashboard"] ?? false) as! Bool;
             seenMetrics = (savedDictionary["seenMetrics"] ?? false) as! Bool;
             seenReminder = (savedDictionary["seenReminder"] ?? false) as! Bool;
+            showQrCheckinCard = (savedDictionary["showQrCheckinCard"] ?? false) as! Bool;
             kioskListString = (savedDictionary["kioskList"] ?? "") as! String;
             lastUpdate = (savedDictionary["lastUpdate"] ?? NSDate()) as! NSDate;
         } else {

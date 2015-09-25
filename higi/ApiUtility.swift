@@ -5,6 +5,10 @@ class ApiUtility {
     
     // Notificiation names
     
+    class var QR_CHECKIN: String {
+        return "qrCheckin";
+    }
+    
     class var ACTIVITIES: String {
         return "activitiesLoaded";
     }
