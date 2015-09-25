@@ -178,12 +178,6 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     }
     
     func showNotification(message: String) {
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        let showCheckInNotification = userDefaults.boolForKey("AllLocalNotificationSettingKey") && userDefaults.boolForKey("ScannedCheckInNotificationSettingKey");
-        if !showCheckInNotification {
-            return;
-        }
-        
         dispatch_async(dispatch_get_main_queue(), {
             let notification = UILocalNotification();
             notification.fireDate = NSDate();
