@@ -15,6 +15,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     @IBOutlet var metricsCard: UIView!
     @IBOutlet weak var pulseCard: PulseCard!
     @IBOutlet var errorCard: UIView!
+    @IBOutlet var qrCheckinCard: QrCheckinCard!
     
     var currentOrigin: CGFloat = 0, gap: CGFloat = 10, contentOriginY: CGFloat = 83;
     
@@ -41,6 +42,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         self.title = "Dashboard";
         self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveQrCheckinNotification:", name: ApiUtility.QR_CHECKIN, object: nil);
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveApiNotification:", name: ApiUtility.ACTIVITIES, object: nil);
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveApiNotification:", name: ApiUtility.CHALLENGES, object: nil);
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveApiNotification:", name: ApiUtility.CHECKINS, object: nil);
@@ -61,6 +63,15 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         super.viewDidAppear(animated);
         
         ensureCardWidthIntegrity();
+        if SessionData.Instance.showQrCheckinCard ?? false && qrCheckinCard.superview == nil {
+            addQrCheckinView();
+            layoutDashboardItems(false);
+        }
+    }
+    
+    private func addQrCheckinView() {
+        mainScrollView.addSubview(qrCheckinCard);
+        qrCheckinCard.loadingImage.image = UIImage.animatedImageNamed("vitals_loading_", duration: 1.5);
     }
     
     /**
@@ -72,8 +83,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     */
     private func ensureCardWidthIntegrity() {
         let width = CGRectGetWidth(self.view.bounds);
-        let subviews = [challengesCard, metricsCard, pulseCard, errorCard];
-        for subview in subviews {
+        for subview in dashboardItems {
             manuallyAutoresizeSubview(subview, width: width);
         }
     }
@@ -82,6 +92,30 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         var frame = subview.frame;
         frame.size.width = width;
         subview.frame = frame;
+    }
+    
+    func receiveQrCheckinNotification(notification: NSNotification) {
+        if let success = (notification.userInfo as! Dictionary<String, Bool>)["success"] {
+            if success {
+                showQrCheckinSuccess();
+            } else {
+                showQrCheckinFailure();
+            }
+        }
+    }
+    
+    func showQrCheckinFailure() {
+        qrCheckinCard.titleText.text = "Daily Check-in Upload Failed";
+        qrCheckinCard.messageText.text = "There was a problem uploading your check-in.";
+        qrCheckinCard.closeButton.hidden = false;
+        qrCheckinCard.loadingImage.image = UIImage(named: "vitals_loading_1");
+    }
+    
+    func showQrCheckinSuccess() {
+        qrCheckinCard.titleText.text = "Daily Check-in Upload Complete!";
+        qrCheckinCard.messageText.text = "View your updated metrics below or review them in your Daily Summary.";
+        qrCheckinCard.closeButton.hidden = false;
+        qrCheckinCard.loadingImage.image = UIImage(named: "vitals_loading_1");
     }
     
     override func receiveApiNotification(notification: NSNotification) {
@@ -117,6 +151,10 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     }
     
     func initCards() {
+        dashboardItems = [qrCheckinCard, errorCard, challengesCard, metricsCard, pulseCard];
+        if SessionData.Instance.showQrCheckinCard ?? false {
+            addQrCheckinView();
+        }
         if (challengesCard.superview != nil) {
             challengesCard.removeFromSuperview();
         }
@@ -133,7 +171,6 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     
     func initChallengesCard() {
         if (SessionController.Instance.earnditError && SessionController.Instance.challenges.count == 0) {
-            dashboardItems = [errorCard, metricsCard, pulseCard];
             if (challengesCard.superview != nil) {
                 challengesCard.spinner.stopAnimating();
                 challengesCard.removeFromSuperview();
@@ -145,10 +182,8 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             }
         } else {
             if SessionController.Instance.earnditError {
-                dashboardItems = [errorCard, challengesCard, metricsCard, pulseCard];
                 Utility.growAnimation(errorCard, startHeight: challengesCard.frame.size.height, endHeight: errorCard.frame.size.height);
             } else {
-                dashboardItems = [challengesCard, metricsCard, pulseCard];
                 if (errorCard.superview != nil) {
                     errorCard.removeFromSuperview();
                 }
@@ -187,7 +222,6 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                 challengesCard.blankStateImage.hidden = true;
                 challengesCard.challengeAvatar.setImageWithURL(NSURL(string: displayedChallenge.imageUrl as String));
                 challengesCard.challengeTitle.text = displayedChallenge.name as String;
-                let previousHeight = challengesCard.challengeBox.frame.size.height
                 if (challengesCard.challengeBox.subviews.count > 3) {
                     (challengesCard.challengeBox.subviews[challengesCard.challengeBox.subviews.count - 1] ).removeFromSuperview();
                 }
@@ -213,16 +247,14 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                 challengesCard.spinner.stopAnimating();
             }
         }
-        layoutDashboardItems(dashboardItems, animated: challengeCardPlaced);
+        layoutDashboardItems(challengeCardPlaced);
         challengeCardPlaced = true;
     }
     
     func initMetricsCard() {
         if (SessionController.Instance.earnditError) {
             if (SessionController.Instance.challenges == nil || SessionController.Instance.challenges.count == 0) {
-                dashboardItems = [errorCard, metricsCard, pulseCard];
             } else {
-                dashboardItems = [errorCard, challengesCard, metricsCard, pulseCard];
             }
             if (errorCard.superview == nil) {
                 errorCard.frame.origin.y = contentOriginY;
@@ -232,7 +264,6 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             if (errorCard.superview != nil) {
                 errorCard.removeFromSuperview();
             }
-            dashboardItems = [challengesCard, metricsCard, pulseCard];
         }
         if (metricsSpinner == nil) {
             metricsSpinner = CustomLoadingSpinner(frame: CGRectMake(UIScreen.mainScreen().bounds.width / 2 - 16, 84, 32, 32));
@@ -243,7 +274,6 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             metricsSpinner.startAnimating();
         }
         if (SessionController.Instance.checkins != nil) {
-            var bloodPressureCheckin: HigiCheckin, weightCheckin: HigiCheckin;
             var bps: [HigiCheckin] = [], weights: [HigiCheckin] = [], pulses: [HigiCheckin] = [];
             let dateFormatter = NSDateFormatter();
             dateFormatter.dateFormat = "MM/dd/yyyy";
@@ -277,11 +307,6 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             }
             let cardMarginX:CGFloat = 8, cardMarginY:CGFloat = 16;
             var cardPositionY:CGFloat = 60;
-            
-            let activityColor = MetricsType.DailySummary.getColor();
-            let bloodPressureColor = MetricsType.BloodPressure.getColor();
-            let pulseColor = MetricsType.Pulse.getColor();
-            let weightColor = MetricsType.Weight.getColor();
             
             activityCard = MetricsGraphCard.instanceFromNib(0, type: MetricsType.DailySummary);
             activityCard.frame.origin.y = cardPositionY;
@@ -409,7 +434,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             Utility.growAnimation(metricsCard, startHeight: metricsCard.frame.size.height, endHeight: cardPositionY);
         }
         
-        layoutDashboardItems(dashboardItems, animated: metricsCardPlaced);
+        layoutDashboardItems(metricsCardPlaced);
         metricsCardPlaced = true;
     }
     
@@ -418,7 +443,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         if (articles.count > 2) {
             pulseCard.spinner.stopAnimating();
             pulseCard.loadingContainer.hidden = true;
-            var topArticle = articles[0], middleArticle = articles[1], bottomArticle = articles[2];
+            let topArticle = articles[0], middleArticle = articles[1], bottomArticle = articles[2];
             pulseCard.topImage.setImageWithURL(NSURL(string: topArticle.imageUrl as String));
             pulseCard.topTitle.text = topArticle.title as String;
             pulseCard.topExcerpt.text = topArticle.excerpt as String;
@@ -441,7 +466,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             mainScrollView.addSubview(pulseCard);
             pulseCard.spinner.startAnimating();
         }
-        layoutDashboardItems(dashboardItems, animated: pulseCardPlaced);
+        layoutDashboardItems(pulseCardPlaced);
         pulseCardPlaced = true;
     }
 
@@ -519,11 +544,17 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             Flurry.logEvent("NonFeaturedPulseArticle_Pressed");
         }
         let webView = WebViewController(nibName: "WebView", bundle: nil);
-        var article: PulseArticle!;
         webView.url = SessionController.Instance.pulseArticles[sender.tag!].permalink;
         self.navigationController?.pushViewController(webView, animated: true);
         (self.navigationController as! MainNavigationController).drawerController?.tableView.reloadData();
         (self.navigationController as! MainNavigationController).drawerController?.tableView.selectRowAtIndexPath(NSIndexPath(forItem: 5, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None);
+    }
+    
+    
+    @IBAction func removeQrCheckinCard(sender: AnyObject) {
+        SessionData.Instance.showQrCheckinCard = false;
+        qrCheckinCard.removeFromSuperview();
+        layoutDashboardItems(false);
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -668,7 +699,6 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                 self.refreshArc.strokeEnd = 0.0;
                 CATransaction.setDisableActions(false);
                 CATransaction.commit();
-                var user = SessionData.Instance.user;
                 self.initCards();
                 self.doneRefreshing = true;
                 self.refreshControl.endRefreshing();
@@ -695,17 +725,19 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         });
     }
     
-    func layoutDashboardItems(items:[UIView], animated: Bool) {
+    func layoutDashboardItems(animated: Bool) {
         currentOrigin = contentOriginY;
         for item in dashboardItems {
-            if animated {
-                UIView.animateWithDuration(1, animations: {
-                    item.frame.origin.y = self.currentOrigin;
-                });
-            } else {
-                item.frame.origin.y = currentOrigin;
+            if item.superview != nil {
+                if animated {
+                    UIView.animateWithDuration(1, animations: {
+                        item.frame.origin.y = self.currentOrigin;
+                    });
+                } else {
+                    item.frame.origin.y = currentOrigin;
+                }
+                currentOrigin += item.frame.size.height + gap;
             }
-            currentOrigin += item.frame.size.height + gap;
         }
         mainScrollView.contentSize.height = currentOrigin;
     }

@@ -52,7 +52,6 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     }
     
     func checkPermissionsAndInitScanner() {
-        var hasCameraPermission = false;
         if AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo) ==  AVAuthorizationStatus.Authorized {
             initVideoCapture();
         } else {
@@ -82,6 +81,10 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         };
         if error != nil {
             UIAlertView(title: "Uh oh", message: "The scanner will not work with your device", delegate: self, cancelButtonTitle: "OK").show();
+            SessionData.Instance.showQrCheckinCard = true;
+            Utility.delay(5) {
+                NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.QR_CHECKIN, object: nil, userInfo: ["success": true]);
+            };
         } else {
             captureSession = AVCaptureSession();
             captureSession?.addInput(deviceInput as! AVCaptureInput);
@@ -146,7 +149,7 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         dispatch_async(dispatch_get_main_queue(), {
             UIAlertView(title: "On its way!", message: "Your checkin data is being uploaded to the higi servers", delegate: nil, cancelButtonTitle: "Got it").show();
         });
-        
+        SessionData.Instance.showQrCheckinCard = true;
         self.sendCheckinResults(code);
     }
     
@@ -159,10 +162,12 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
             HigiApi().sendPost("\(HigiApi.higiApiUrl)/data/user/\(userId)/qrCheckin", parameters: contents, success: { (operation, responseObject) in
                 self.clearNotification();
                 self.showNotification("Checkin data successfully uploaded to higi servers!  Check it out in the app");
+                NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.QR_CHECKIN, object: nil, userInfo: ["success": true]);
                 }, failure: { (operation, error) in
                     if operation.response.statusCode != 400 {
                         self.clearNotification();
                         self.showNotification("There was a problem uploading your checkin data");
+                        NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.QR_CHECKIN, object: nil, userInfo: ["success": false]);
                     } else {
                         let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(10 * Double(NSEC_PER_SEC)))
                         dispatch_after(delayTime, dispatch_get_main_queue()) {
