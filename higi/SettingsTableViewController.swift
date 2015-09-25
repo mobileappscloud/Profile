@@ -355,6 +355,7 @@ class SettingsTableViewController: UITableViewController, SwitchTableViewCellDel
     }
     
     func didSelectLogOut() {
+        PersistentSettingsController.reset();
         SessionController.Instance.reset();
         SessionData.Instance.reset();
         SessionData.Instance.save();
