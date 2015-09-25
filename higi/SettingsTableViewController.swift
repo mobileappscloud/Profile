@@ -95,8 +95,7 @@ class SettingsTableViewController: UITableViewController, SwitchTableViewCellDel
     
     func configureTableView() {
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: defaultTableCellReuseIdentifier);
-        let switchCellNib = UINib(nibName: "SwitchTableViewCell", bundle: nil);
-        tableView.registerNib(switchCellNib, forCellReuseIdentifier: switchTableCellReuseIdentifier);
+        tableView.registerClass(SwitchTableViewCell.self, forCellReuseIdentifier: switchTableCellReuseIdentifier);
         
         tableView.tableFooterView = UIView();
     }
@@ -226,11 +225,11 @@ class SettingsTableViewController: UITableViewController, SwitchTableViewCellDel
     func passcodeCell(indexPath: NSIndexPath) -> SwitchTableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(switchTableCellReuseIdentifier, forIndexPath: indexPath) as! SwitchTableViewCell;
         cell.delegate = self;
-        cell.titleLabel?.font = UIFont.systemFontOfSize(14.0);
-        cell.titleLabel?.text = "Protect my data with a passcode";
+        cell.textLabel?.font = UIFont.systemFontOfSize(14.0);
+        cell.textLabel?.text = "Protect my data with a passcode";
         let hasPasscode = SessionData.Instance.pin != "";
         cell.switchControl.on = hasPasscode;
-        cell.titleLabel?.textColor = hasPasscode ? UIColor.blackColor() : UIColor.lightGrayColor();
+        cell.textLabel?.textColor = hasPasscode ? UIColor.blackColor() : UIColor.lightGrayColor();
         return cell;
     }
     

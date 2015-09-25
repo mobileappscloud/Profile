@@ -57,8 +57,7 @@ class NotificationSettingsEmailTableViewController: UITableViewController, Switc
     }
     
     func configureTableView() {
-        let switchCellNib = UINib(nibName: "SwitchTableViewCell", bundle: nil);
-        tableView.registerNib(switchCellNib, forCellReuseIdentifier: switchCellReuseIdentifier);
+        tableView.registerClass(SwitchTableViewCell.self, forCellReuseIdentifier: switchCellReuseIdentifier);
         
         tableView.tableFooterView = UIView();
     }
@@ -100,10 +99,10 @@ class NotificationSettingsEmailTableViewController: UITableViewController, Switc
                     
                     switch row {
                     case .CheckInResults:
-                        switchCell.titleLabel.text = "Check-in results"
+                        switchCell.textLabel!.text = "Check-in results"
                         switchCell.switchControl.on = EmailNotification.CheckInResult.isEnabled()
                     case .HigiNews:
-                        switchCell.titleLabel.text = "News about higi"
+                        switchCell.textLabel!.text = "News about higi"
                         switchCell.switchControl.on = EmailNotification.HigiNews.isEnabled()
                     default:
                         break;

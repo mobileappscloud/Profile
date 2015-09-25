@@ -10,18 +10,27 @@ import UIKit
 
 class SwitchTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var switchControl: UISwitch!
+    let switchControl = UISwitch();
     
     var delegate: SwitchTableViewCellDelegate?;
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    // MARK: - Initialization
+    
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier);
         
+        self.switchControl.addTarget(self, action: Selector("didToggleSwitch"), forControlEvents: UIControlEvents.TouchUpInside);
+        self.accessoryView = switchControl;
         self.selectionStyle = .None;
     }
 
-    @IBAction func didToggleSwitch(sender: AnyObject) {
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder);
+    }
+    
+    // MARK: - Value Change
+    
+    func didToggleSwitch() {
         delegate?.valueDidChangeForSwitchCell(self)
     }
 }
