@@ -71,6 +71,7 @@ class TermsViewController: UIViewController {
         HigiApi().sendPost("\(HigiApi.higiApiUrl)/data/user/\(SessionData.Instance.user.userId)", parameters: contents, success: {operation, responseObject in
             
             ApiUtility.initializeApiData();
+            (UIApplication.sharedApplication().delegate as! AppDelegate).startLocationManager();
             Utility.gotoDashboard(self);
             
             }, failure: {operation, error in

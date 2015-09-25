@@ -25,6 +25,7 @@
 		41411BA41BA894280027F5E1 /* SwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41411BA21BA894280027F5E1 /* SwitchTableViewCell.xib */; };
 		41545BF91BA76CFA00946358 /* NotificationSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41545BF81BA76CFA00946358 /* NotificationSettings.storyboard */; };
 		416143AE1BA9FFDF0047A1FA /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416143AD1BA9FFDF0047A1FA /* KeychainWrapper.swift */; };
+		4192B4FE1BB5BF4500D1A2D3 /* PersistentSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4192B4FD1BB5BF4500D1A2D3 /* PersistentSettingsController.swift */; settings = {ASSET_TAGS = (); }; };
 		41B2B3581BB31CBE00B13168 /* NotificationSettingsEmailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B2B3571BB31CBD00B13168 /* NotificationSettingsEmailTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		41B2B35A1BB31CE900B13168 /* NotificationSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B2B3591BB31CE900B13168 /* NotificationSettingsTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		41B2B35C1BB326C800B13168 /* NotificationSettingsEmailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B2B35B1BB326C800B13168 /* NotificationSettingsEmailController.swift */; settings = {ASSET_TAGS = (); }; };
@@ -362,6 +363,7 @@
 		41411BA21BA894280027F5E1 /* SwitchTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SwitchTableViewCell.xib; sourceTree = "<group>"; };
 		41545BF81BA76CFA00946358 /* NotificationSettings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NotificationSettings.storyboard; sourceTree = "<group>"; };
 		416143AD1BA9FFDF0047A1FA /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
+		4192B4FD1BB5BF4500D1A2D3 /* PersistentSettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistentSettingsController.swift; sourceTree = "<group>"; };
 		41B2B3571BB31CBD00B13168 /* NotificationSettingsEmailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingsEmailTableViewController.swift; sourceTree = "<group>"; };
 		41B2B3591BB31CE900B13168 /* NotificationSettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingsTableViewController.swift; sourceTree = "<group>"; };
 		41B2B35B1BB326C800B13168 /* NotificationSettingsEmailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingsEmailController.swift; sourceTree = "<group>"; };
@@ -794,6 +796,7 @@
 				41545BF81BA76CFA00946358 /* NotificationSettings.storyboard */,
 				41B2B3591BB31CE900B13168 /* NotificationSettingsTableViewController.swift */,
 				41411B9F1BA87E3D0027F5E1 /* NotificationSettingsDeviceTableViewController.swift */,
+				4192B4FD1BB5BF4500D1A2D3 /* PersistentSettingsController.swift */,
 				41B2B35F1BB440D200B13168 /* Email */,
 				41B2B3601BB440F100B13168 /* Switch Cell */,
 			);
@@ -2017,6 +2020,7 @@
 				8F524BF6195B5ABB00BFC49D /* ConversionUtility.m in Sources */,
 				D1740BC41AE0381F00462F6E /* MetricsType.swift in Sources */,
 				D1247BC91AA620F1008A601A /* HigiClusterRenderer.m in Sources */,
+				4192B4FE1BB5BF4500D1A2D3 /* PersistentSettingsController.swift in Sources */,
 				D1D32D071B1FA0B500AE9B25 /* ActivityMetricDelegate.swift in Sources */,
 				D13018401B14D943008DDFAD /* Constants.swift in Sources */,
 				41411BA31BA894280027F5E1 /* SwitchTableViewCell.swift in Sources */,

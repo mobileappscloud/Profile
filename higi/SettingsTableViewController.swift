@@ -359,8 +359,11 @@ class SettingsTableViewController: UITableViewController, SwitchTableViewCellDel
         SessionController.Instance.reset();
         SessionData.Instance.reset();
         SessionData.Instance.save();
+        
+        let appDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate);
+        appDelegate.stopLocationManager();
         let splashViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SplashViewController") ;
-        (UIApplication.sharedApplication().delegate as! AppDelegate).window?.rootViewController = splashViewController;
+        appDelegate.window?.rootViewController = splashViewController;
     }
     
     func didSelectConnectDevices() {
