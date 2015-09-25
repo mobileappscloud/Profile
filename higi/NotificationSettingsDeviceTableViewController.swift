@@ -28,16 +28,11 @@ class NotificationSettingsDeviceTableViewController: UITableViewController, Swit
 
     let switchCellReuseIdentifier = "SwitchCellReuseIdentifier";
     
-    // TODO: Currently assuming these settings should be device specific. Need to investigate various
-    //       types of settings and create a settings-specific controller.
-    let globalNotificationSettingKey = "GlobalNotificationSettingKey";
-    let stationNearbyNotificationSettingKey = "StationNearbyNotificationSettingKey";
-    
     // MARK: - View Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         configureNavigationTitle();
         configureBackButton();
         
@@ -76,11 +71,11 @@ class NotificationSettingsDeviceTableViewController: UITableViewController, Swit
     // MARK: - Settings
     
     func shouldSendNotifications() -> Bool {
-        return NSUserDefaults.standardUserDefaults().boolForKey(globalNotificationSettingKey);
+        return PersistentSettingsController.boolForKey(.EnableNotifications);
     }
     
     func shouldSendStationNearbyNotifications() -> Bool {
-        return NSUserDefaults.standardUserDefaults().boolForKey(stationNearbyNotificationSettingKey);
+        return PersistentSettingsController.boolForKey(.StationNearbyNotification);
     }
     
     func switchValueForIndexPath(indexPath: NSIndexPath) -> Bool {
@@ -200,7 +195,7 @@ class NotificationSettingsDeviceTableViewController: UITableViewController, Swit
     }
     
     func updateValueForNotificationSettingAtIndexPath(indexPath: NSIndexPath, value: Bool) {
-        var key: String = "";
+        var key: PersistentSetting = .Unknown;
         
         if let tableSection = TableSection(rawValue: indexPath.section) {
             switch tableSection {
@@ -208,7 +203,7 @@ class NotificationSettingsDeviceTableViewController: UITableViewController, Swit
                 if let row = SectionGlobalSettingRow(rawValue: indexPath.row) {
                     switch row {
                     case .AllowNotifications:
-                        key = globalNotificationSettingKey;
+                        key = .EnableNotifications;
                     default:
                         break;
                     }
@@ -217,7 +212,7 @@ class NotificationSettingsDeviceTableViewController: UITableViewController, Swit
                 if let row = SectionUniqueSettingRow(rawValue: indexPath.row) {
                     switch row {
                     case .StationNearby:
-                        key = stationNearbyNotificationSettingKey;
+                        key = .StationNearbyNotification;
                     default:
                         break;
                     }
@@ -227,10 +222,7 @@ class NotificationSettingsDeviceTableViewController: UITableViewController, Swit
             }
         }
         
-        if key != "" {
-            NSUserDefaults.standardUserDefaults().setBool(value, forKey: key);
-            NSUserDefaults.standardUserDefaults().synchronize();
-        }
+        PersistentSettingsController.setBool(value, key: key);
     }
     
     // MARK: - Navigation
