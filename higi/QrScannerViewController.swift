@@ -81,10 +81,6 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         };
         if error != nil {
             UIAlertView(title: "Uh oh", message: "The scanner will not work with your device", delegate: self, cancelButtonTitle: "OK").show();
-            SessionData.Instance.showQrCheckinCard = true;
-            Utility.delay(5) {
-                NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.QR_CHECKIN, object: nil, userInfo: ["success": true]);
-            };
         } else {
             captureSession = AVCaptureSession();
             captureSession?.addInput(deviceInput as! AVCaptureInput);
