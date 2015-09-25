@@ -35,7 +35,8 @@ class SettingsViewController: BaseViewController {
     
     func configureNavigationTitle() {
         self.title = "Settings";
-        self.navigationController!.navigationBar.barStyle = .BlackTranslucent;
+        self.navigationController!.navigationBar.barStyle = .Black;
+        self.navigationController?.navigationBar.translucent = true;
     }
     
     // MARK: - Navigation

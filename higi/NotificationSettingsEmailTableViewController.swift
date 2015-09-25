@@ -42,13 +42,7 @@ class NotificationSettingsEmailTableViewController: UITableViewController, Switc
     
     func configureNavigationTitle() {
         self.title = "Email";
-        self.navigationController!.navigationBar.barStyle = .Default;
-        let navTitleLabel = UILabel();
-        navTitleLabel.textColor = UIColor.blackColor();
-        navTitleLabel.font = UIFont.boldSystemFontOfSize(17.0);
-        navTitleLabel.text = self.title;
-        navTitleLabel.sizeToFit();
-        self.navigationItem.titleView = navTitleLabel;
+        self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.blackColor()]
     }
     
     func configureBackButton() {
