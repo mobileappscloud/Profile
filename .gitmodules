@@ -10,3 +10,9 @@
 [submodule "Vendor/CorePlot"]
 	path = Vendor/CorePlot
 	url = https://github.com/core-plot/core-plot.git
+[submodule "Vendor/Fabric"]
+	path = Vendor/Fabric
+	url = https://github.com/higish/ios-fabric.git
+[submodule "Vendor/Crashlytics"]
+	path = Vendor/Crashlytics
+	url = https://github.com/higish/ios-crashlytics.git
