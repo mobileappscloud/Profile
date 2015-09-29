@@ -107,13 +107,14 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     func showQrCheckinFailure() {
         qrCheckinCard.titleText.text = "Daily Check-in Upload Failed";
         qrCheckinCard.messageText.text = "There was a problem uploading your check-in.";
-        qrCheckinCard.loadingImage.image = UIImage(named: "vitals_loading_1");
+        qrCheckinCard.loadingImage.image = UIImage(named: "vitals_loading_35");
     }
     
     func showQrCheckinSuccess() {
         qrCheckinCard.titleText.text = "Daily Check-in Upload Complete!";
         qrCheckinCard.messageText.text = "View your updated metrics below or review them in your Daily Summary.";
-        qrCheckinCard.loadingImage.image = UIImage(named: "vitals_loading_1");
+        qrCheckinCard.loadingImage.image = UIImage(named: "vitals_loading_35");
+        qrCheckinCard.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "gotoDailySummary:"));
     }
     
     override func receiveApiNotification(notification: NSNotification) {
@@ -496,11 +497,15 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         self.navigationController!.pushViewController(viewController, animated: true);
     }
     
+    func gotoDailySummary(sender: AnyObject) {
+        Flurry.logEvent("QrCheckinCard_Pressed");
+        self.navigationController!.pushViewController(DailySummaryViewController(nibName: "DailySummaryView", bundle: nil), animated: true);
+    }
+    
     @IBAction func gotoConnectDevices(sender: AnyObject) {
         Flurry.logEvent("ConnectDevice_Pressed");
         self.navigationController!.pushViewController(ConnectDeviceViewController(nibName: "ConnectDeviceView", bundle: nil), animated: true);
     }
-    
     
     @IBAction func gotoMetrics(sender: AnyObject) {
         if (SessionController.Instance.checkins != nil && SessionController.Instance.loadedActivities) {
