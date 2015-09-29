@@ -4,3 +4,6 @@
 [submodule "Vendor/Flurry"]
 	path = Vendor/Flurry
 	url = https://github.com/flurry/Flurry-iOS-SDK.git
+[submodule "Vendor/SwiftKeychainWrapper"]
+	path = Vendor/SwiftKeychainWrapper
+	url = https://github.com/jrendel/SwiftKeychainWrapper.git

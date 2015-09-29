@@ -23,7 +23,6 @@
 		41411BA01BA87E3D0027F5E1 /* NotificationSettingsDeviceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41411B9F1BA87E3D0027F5E1 /* NotificationSettingsDeviceTableViewController.swift */; };
 		41411BA31BA894280027F5E1 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41411BA11BA894280027F5E1 /* SwitchTableViewCell.swift */; };
 		41545BF91BA76CFA00946358 /* NotificationSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41545BF81BA76CFA00946358 /* NotificationSettings.storyboard */; };
-		416143AE1BA9FFDF0047A1FA /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416143AD1BA9FFDF0047A1FA /* KeychainWrapper.swift */; };
 		4192B4FE1BB5BF4500D1A2D3 /* PersistentSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4192B4FD1BB5BF4500D1A2D3 /* PersistentSettingsController.swift */; settings = {ASSET_TAGS = (); }; };
 		41A0BE0B1BBB088500A314D6 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A0BDF91BBB088500A314D6 /* AFHTTPRequestOperation.m */; settings = {ASSET_TAGS = (); }; };
 		41A0BE0C1BBB088500A314D6 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A0BDFB1BBB088500A314D6 /* AFHTTPRequestOperationManager.m */; settings = {ASSET_TAGS = (); }; };
@@ -44,6 +43,7 @@
 		41A0BE2D1BBB08B800A314D6 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A0BE251BBB08B800A314D6 /* UIWebView+AFNetworking.m */; settings = {ASSET_TAGS = (); }; };
 		41A0BE341BBB110900A314D6 /* Empty.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A0BE301BBB110900A314D6 /* Empty.m */; settings = {ASSET_TAGS = (); }; };
 		41A0BE351BBB110900A314D6 /* libFlurry_7.1.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 41A0BE331BBB110900A314D6 /* libFlurry_7.1.1.a */; settings = {ASSET_TAGS = (); }; };
+		41A0BE371BBB14EA00A314D6 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A0BE361BBB14EA00A314D6 /* KeychainWrapper.swift */; settings = {ASSET_TAGS = (); }; };
 		41B2B3581BB31CBE00B13168 /* NotificationSettingsEmailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B2B3571BB31CBD00B13168 /* NotificationSettingsEmailTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		41B2B35A1BB31CE900B13168 /* NotificationSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B2B3591BB31CE900B13168 /* NotificationSettingsTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		41B2B35C1BB326C800B13168 /* NotificationSettingsEmailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B2B35B1BB326C800B13168 /* NotificationSettingsEmailController.swift */; settings = {ASSET_TAGS = (); }; };
@@ -386,7 +386,6 @@
 		41411B9F1BA87E3D0027F5E1 /* NotificationSettingsDeviceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingsDeviceTableViewController.swift; sourceTree = "<group>"; };
 		41411BA11BA894280027F5E1 /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
 		41545BF81BA76CFA00946358 /* NotificationSettings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NotificationSettings.storyboard; sourceTree = "<group>"; };
-		416143AD1BA9FFDF0047A1FA /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		4192B4FD1BB5BF4500D1A2D3 /* PersistentSettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistentSettingsController.swift; sourceTree = "<group>"; };
 		41A0BDF81BBB088500A314D6 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
 		41A0BDF91BBB088500A314D6 /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
@@ -428,6 +427,7 @@
 		41A0BE311BBB110900A314D6 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
 		41A0BE321BBB110900A314D6 /* FlurryWatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryWatch.h; sourceTree = "<group>"; };
 		41A0BE331BBB110900A314D6 /* libFlurry_7.1.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_7.1.1.a; sourceTree = "<group>"; };
+		41A0BE361BBB14EA00A314D6 /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeychainWrapper.swift; path = Vendor/SwiftKeychainWrapper/SwiftKeychainWrapper/KeychainWrapper.swift; sourceTree = "<group>"; };
 		41B2B3571BB31CBD00B13168 /* NotificationSettingsEmailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingsEmailTableViewController.swift; sourceTree = "<group>"; };
 		41B2B3591BB31CE900B13168 /* NotificationSettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingsTableViewController.swift; sourceTree = "<group>"; };
 		41B2B35B1BB326C800B13168 /* NotificationSettingsEmailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingsEmailController.swift; sourceTree = "<group>"; };
@@ -927,6 +927,7 @@
 		41A0BE2E1BBB08C500A314D6 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				41A0BE381BBB14EE00A314D6 /* SwiftKeychainWrapper */,
 				41A0BDF71BBB088500A314D6 /* AFNetworking */,
 				41A0BE2F1BBB110900A314D6 /* Flurry */,
 				41A0BE141BBB08B800A314D6 /* UIKit+AFNetworking */,
@@ -944,6 +945,14 @@
 			);
 			name = Flurry;
 			path = Vendor/Flurry/Flurry;
+			sourceTree = "<group>";
+		};
+		41A0BE381BBB14EE00A314D6 /* SwiftKeychainWrapper */ = {
+			isa = PBXGroup;
+			children = (
+				41A0BE361BBB14EA00A314D6 /* KeychainWrapper.swift */,
+			);
+			name = SwiftKeychainWrapper;
 			sourceTree = "<group>";
 		};
 		41B2B35F1BB440D200B13168 /* Email */ = {
@@ -1035,7 +1044,6 @@
 			children = (
 				D130183F1B14D943008DDFAD /* Constants.swift */,
 				8F524BF7195B829400BFC49D /* CustomFormatter.swift */,
-				416143AD1BA9FFDF0047A1FA /* KeychainWrapper.swift */,
 				8FE206611B7CF30E00B473B0 /* LocationDelegate.swift */,
 				8F6D510D1947B2E700F7C769 /* Utility.swift */,
 			);
@@ -2139,6 +2147,7 @@
 				D12B399A1AA4ED08005B2ABA /* NonHierarchicalDistanceBasedAlgorithm.m in Sources */,
 				D18395C31A69CAD500D290BF /* ChallengesDetailsTab.swift in Sources */,
 				2BBDBA551A12AC2C005A6815 /* ChallengesViewController.swift in Sources */,
+				41A0BE371BBB14EA00A314D6 /* KeychainWrapper.swift in Sources */,
 				41A0BE2D1BBB08B800A314D6 /* UIWebView+AFNetworking.m in Sources */,
 				41A0BE0B1BBB088500A314D6 /* AFHTTPRequestOperation.m in Sources */,
 				8FA5925F19ABBD3A00622266 /* TourViewController.swift in Sources */,
@@ -2192,7 +2201,6 @@
 				D13018401B14D943008DDFAD /* Constants.swift in Sources */,
 				41411BA31BA894280027F5E1 /* SwitchTableViewCell.swift in Sources */,
 				41376C5B1BB452E40094DE7C /* SettingsTableViewController.swift in Sources */,
-				416143AE1BA9FFDF0047A1FA /* KeychainWrapper.swift in Sources */,
 				8F296311194B911C00E787FD /* SignupNameViewController.swift in Sources */,
 				8FF851C6194F7F2E005C33C6 /* HigiApi.swift in Sources */,
 			);
