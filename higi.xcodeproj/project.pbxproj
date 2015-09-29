@@ -42,6 +42,8 @@
 		41A0BE2B1BBB08B800A314D6 /* UIProgressView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A0BE211BBB08B800A314D6 /* UIProgressView+AFNetworking.m */; settings = {ASSET_TAGS = (); }; };
 		41A0BE2C1BBB08B800A314D6 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A0BE231BBB08B800A314D6 /* UIRefreshControl+AFNetworking.m */; settings = {ASSET_TAGS = (); }; };
 		41A0BE2D1BBB08B800A314D6 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A0BE251BBB08B800A314D6 /* UIWebView+AFNetworking.m */; settings = {ASSET_TAGS = (); }; };
+		41A0BE341BBB110900A314D6 /* Empty.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A0BE301BBB110900A314D6 /* Empty.m */; settings = {ASSET_TAGS = (); }; };
+		41A0BE351BBB110900A314D6 /* libFlurry_7.1.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 41A0BE331BBB110900A314D6 /* libFlurry_7.1.1.a */; settings = {ASSET_TAGS = (); }; };
 		41B2B3581BB31CBE00B13168 /* NotificationSettingsEmailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B2B3571BB31CBD00B13168 /* NotificationSettingsEmailTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		41B2B35A1BB31CE900B13168 /* NotificationSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B2B3591BB31CE900B13168 /* NotificationSettingsTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		41B2B35C1BB326C800B13168 /* NotificationSettingsEmailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B2B35B1BB326C800B13168 /* NotificationSettingsEmailController.swift */; settings = {ASSET_TAGS = (); }; };
@@ -55,7 +57,6 @@
 		8F02A12619AE2BF6002FF73E /* btn_share_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A11E19AE2BF6002FF73E /* btn_share_white@2x.png */; };
 		8F069CB919D319FF00DCC820 /* bg_tap_reminder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F069CB819D319FF00DCC820 /* bg_tap_reminder@2x.png */; };
 		8F069CBB19D9D5C200DCC820 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F069CBA19D9D5C200DCC820 /* MapKit.framework */; };
-		8F069CBF19D9E20D00DCC820 /* libFlurry_5.4.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F069CBE19D9E20D00DCC820 /* libFlurry_5.4.0.a */; };
 		8F069CC219DAFCFF00DCC820 /* higi_logo_innercircle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F069CC119DAFCFF00DCC820 /* higi_logo_innercircle@2x.png */; };
 		8F08AF9D198940E8002EE906 /* Welcome.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F08AF9C198940E8002EE906 /* Welcome.xib */; };
 		8F08AFB319895214002EE906 /* higilogo_ocmenu.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F08AFB219895214002EE906 /* higilogo_ocmenu.png */; };
@@ -423,6 +424,10 @@
 		41A0BE231BBB08B800A314D6 /* UIRefreshControl+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIRefreshControl+AFNetworking.m"; sourceTree = "<group>"; };
 		41A0BE241BBB08B800A314D6 /* UIWebView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+AFNetworking.h"; sourceTree = "<group>"; };
 		41A0BE251BBB08B800A314D6 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
+		41A0BE301BBB110900A314D6 /* Empty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Empty.m; sourceTree = "<group>"; };
+		41A0BE311BBB110900A314D6 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
+		41A0BE321BBB110900A314D6 /* FlurryWatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryWatch.h; sourceTree = "<group>"; };
+		41A0BE331BBB110900A314D6 /* libFlurry_7.1.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_7.1.1.a; sourceTree = "<group>"; };
 		41B2B3571BB31CBD00B13168 /* NotificationSettingsEmailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingsEmailTableViewController.swift; sourceTree = "<group>"; };
 		41B2B3591BB31CE900B13168 /* NotificationSettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingsTableViewController.swift; sourceTree = "<group>"; };
 		41B2B35B1BB326C800B13168 /* NotificationSettingsEmailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingsEmailController.swift; sourceTree = "<group>"; };
@@ -437,8 +442,6 @@
 		8F02A11E19AE2BF6002FF73E /* btn_share_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_share_white@2x.png"; sourceTree = "<group>"; };
 		8F069CB819D319FF00DCC820 /* bg_tap_reminder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bg_tap_reminder@2x.png"; path = "images/bg_tap_reminder@2x.png"; sourceTree = "<group>"; };
 		8F069CBA19D9D5C200DCC820 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		8F069CBD19D9E20D00DCC820 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
-		8F069CBE19D9E20D00DCC820 /* libFlurry_5.4.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_5.4.0.a; sourceTree = "<group>"; };
 		8F069CC119DAFCFF00DCC820 /* higi_logo_innercircle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "higi_logo_innercircle@2x.png"; path = "images/higi_logo_innercircle@2x.png"; sourceTree = "<group>"; };
 		8F08AF9C198940E8002EE906 /* Welcome.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Welcome.xib; sourceTree = "<group>"; };
 		8F08AFB219895214002EE906 /* higilogo_ocmenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = higilogo_ocmenu.png; path = images/higilogo_ocmenu.png; sourceTree = "<group>"; };
@@ -782,6 +785,7 @@
 				8F5590A019ABE23C00C9B46E /* EventKitUI.framework in Frameworks */,
 				8FD73CB2199025C200BACCB2 /* OpenGLES.framework in Frameworks */,
 				8FD73CB0199025BA00BACCB2 /* libz.dylib in Frameworks */,
+				41A0BE351BBB110900A314D6 /* libFlurry_7.1.1.a in Frameworks */,
 				8FD73CAE199025AB00BACCB2 /* libicucore.dylib in Frameworks */,
 				8FD73CAC199023DE00BACCB2 /* libc++.dylib in Frameworks */,
 				8FD73CAA199023D100BACCB2 /* ImageIO.framework in Frameworks */,
@@ -794,7 +798,6 @@
 				8FD73C9D1990227100BACCB2 /* GoogleMaps.framework in Frameworks */,
 				8F6D51751948E53100F7C769 /* Accelerate.framework in Frameworks */,
 				C05CB27FD2A34A3BA2F46E97 /* libPods.a in Frameworks */,
-				8F069CBF19D9E20D00DCC820 /* libFlurry_5.4.0.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -834,7 +837,6 @@
 			children = (
 				8FEF1B021AA4E8C60036C4FB /* LocalAuthentication.framework */,
 				8FDB4B601A040B8500F57B38 /* HealthKit.framework */,
-				8F069CBC19D9E20D00DCC820 /* Flurry */,
 				8F069CBA19D9D5C200DCC820 /* MapKit.framework */,
 				8F55909F19ABE23C00C9B46E /* EventKitUI.framework */,
 				8FD73CC21990303000BACCB2 /* GoogleMaps.bundle */,
@@ -926,9 +928,22 @@
 			isa = PBXGroup;
 			children = (
 				41A0BDF71BBB088500A314D6 /* AFNetworking */,
+				41A0BE2F1BBB110900A314D6 /* Flurry */,
 				41A0BE141BBB08B800A314D6 /* UIKit+AFNetworking */,
 			);
 			name = Vendor;
+			sourceTree = "<group>";
+		};
+		41A0BE2F1BBB110900A314D6 /* Flurry */ = {
+			isa = PBXGroup;
+			children = (
+				41A0BE301BBB110900A314D6 /* Empty.m */,
+				41A0BE311BBB110900A314D6 /* Flurry.h */,
+				41A0BE321BBB110900A314D6 /* FlurryWatch.h */,
+				41A0BE331BBB110900A314D6 /* libFlurry_7.1.1.a */,
+			);
+			name = Flurry;
+			path = Vendor/Flurry/Flurry;
 			sourceTree = "<group>";
 		};
 		41B2B35F1BB440D200B13168 /* Email */ = {
@@ -946,15 +961,6 @@
 				41411BA11BA894280027F5E1 /* SwitchTableViewCell.swift */,
 			);
 			name = "Switch Cell";
-			sourceTree = "<group>";
-		};
-		8F069CBC19D9E20D00DCC820 /* Flurry */ = {
-			isa = PBXGroup;
-			children = (
-				8F069CBD19D9E20D00DCC820 /* Flurry.h */,
-				8F069CBE19D9E20D00DCC820 /* libFlurry_5.4.0.a */,
-			);
-			path = Flurry;
 			sourceTree = "<group>";
 		};
 		8F08AF9A19893B03002EE906 /* Welcome */ = {
@@ -2110,6 +2116,7 @@
 				8FCE580D1979B8BA0042CEE2 /* NewCPTScatterPlotDelegate.m in Sources */,
 				8F7065B41A16B129002FCA10 /* ChallengeParticipant.swift in Sources */,
 				D12B39991AA4ED08005B2ABA /* GStaticCluster.m in Sources */,
+				41A0BE341BBB110900A314D6 /* Empty.m in Sources */,
 				2BBDBA581A12AC2C005A6815 /* GoalChallengeView.swift in Sources */,
 				8F9C69D91950C8AD00449664 /* KioskInfo.swift in Sources */,
 				D1DC365E1AC9E9F000CB124D /* CustomLoadingSpinner.swift in Sources */,
@@ -2289,6 +2296,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flurry",
+					"$(PROJECT_DIR)/Vendor/Flurry/Flurry",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.higi.main-qb";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2378,6 +2386,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flurry",
+					"$(PROJECT_DIR)/Vendor/Flurry/Flurry",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.higi.main-qb";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2507,6 +2516,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flurry",
+					"$(PROJECT_DIR)/Vendor/Flurry/Flurry",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.higi.main;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2540,6 +2550,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flurry",
+					"$(PROJECT_DIR)/Vendor/Flurry/Flurry",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.higi.main;
 				PRODUCT_NAME = "$(TARGET_NAME)";

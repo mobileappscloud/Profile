@@ -1,3 +1,6 @@
 [submodule "Vendor/AFNetworking"]
 	path = Vendor/AFNetworking
 	url = https://github.com/AFNetworking/AFNetworking.git
+[submodule "Vendor/Flurry"]
+	path = Vendor/Flurry
+	url = https://github.com/flurry/Flurry-iOS-SDK.git
