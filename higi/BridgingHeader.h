@@ -1,5 +1,5 @@
 
-#import <AFNetworking/AFNetworking.h>
+#import "AFNetworking.h"
 
 #import <CorePlot/CorePlot-CocoaTouch.h>
 
