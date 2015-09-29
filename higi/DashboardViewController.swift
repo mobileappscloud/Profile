@@ -63,7 +63,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         super.viewDidAppear(animated);
         
         ensureCardWidthIntegrity();
-        if SessionData.Instance.showQrCheckinCard ?? false && qrCheckinCard.superview == nil {
+        if SessionController.Instance.showQrCheckinCard ?? false && qrCheckinCard.superview == nil {
             addQrCheckinView();
             layoutDashboardItems(false);
         }
@@ -107,14 +107,12 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     func showQrCheckinFailure() {
         qrCheckinCard.titleText.text = "Daily Check-in Upload Failed";
         qrCheckinCard.messageText.text = "There was a problem uploading your check-in.";
-        qrCheckinCard.closeButton.hidden = false;
         qrCheckinCard.loadingImage.image = UIImage(named: "vitals_loading_1");
     }
     
     func showQrCheckinSuccess() {
         qrCheckinCard.titleText.text = "Daily Check-in Upload Complete!";
         qrCheckinCard.messageText.text = "View your updated metrics below or review them in your Daily Summary.";
-        qrCheckinCard.closeButton.hidden = false;
         qrCheckinCard.loadingImage.image = UIImage(named: "vitals_loading_1");
     }
     
@@ -152,7 +150,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     
     func initCards() {
         dashboardItems = [qrCheckinCard, errorCard, challengesCard, metricsCard, pulseCard];
-        if SessionData.Instance.showQrCheckinCard ?? false {
+        if SessionController.Instance.showQrCheckinCard ?? false {
             addQrCheckinView();
         }
         if (challengesCard.superview != nil) {
@@ -550,9 +548,8 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         (self.navigationController as! MainNavigationController).drawerController?.tableView.selectRowAtIndexPath(NSIndexPath(forItem: 5, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None);
     }
     
-    
     @IBAction func removeQrCheckinCard(sender: AnyObject) {
-        SessionData.Instance.showQrCheckinCard = false;
+        SessionController.Instance.showQrCheckinCard = false;
         qrCheckinCard.removeFromSuperview();
         layoutDashboardItems(false);
     }

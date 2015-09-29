@@ -145,7 +145,7 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         dispatch_async(dispatch_get_main_queue(), {
             UIAlertView(title: "On its way!", message: "Your checkin data is being uploaded to the higi servers", delegate: nil, cancelButtonTitle: "Got it").show();
         });
-        SessionData.Instance.showQrCheckinCard = true;
+        SessionController.Instance.showQrCheckinCard = true;
         self.sendCheckinResults(code);
     }
     
