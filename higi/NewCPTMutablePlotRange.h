@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 higi, LLC. All rights reserved.
 //
 
-#import <CorePlot/CorePlot-CocoaTouch.h>
+#import "CorePlot-CocoaTouch.h"
 
 @interface NewCPTMutablePlotRange : CPTMutablePlotRange
 

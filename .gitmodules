@@ -7,3 +7,6 @@
 [submodule "Vendor/SwiftKeychainWrapper"]
 	path = Vendor/SwiftKeychainWrapper
 	url = https://github.com/jrendel/SwiftKeychainWrapper.git
+[submodule "Vendor/CorePlot"]
+	path = Vendor/CorePlot
+	url = https://github.com/core-plot/core-plot.git

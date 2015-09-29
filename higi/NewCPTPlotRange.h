@@ -1,4 +1,4 @@
-#import <CorePlot/CorePlot-CocoaTouch.h>
+#import "CorePlot-CocoaTouch.h"
 
 @interface NewCPTPlotRange : CPTPlotRange
 

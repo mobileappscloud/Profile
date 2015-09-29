@@ -44,6 +44,7 @@
 		41A0BE341BBB110900A314D6 /* Empty.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A0BE301BBB110900A314D6 /* Empty.m */; settings = {ASSET_TAGS = (); }; };
 		41A0BE351BBB110900A314D6 /* libFlurry_7.1.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 41A0BE331BBB110900A314D6 /* libFlurry_7.1.1.a */; settings = {ASSET_TAGS = (); }; };
 		41A0BE371BBB14EA00A314D6 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A0BE361BBB14EA00A314D6 /* KeychainWrapper.swift */; settings = {ASSET_TAGS = (); }; };
+		41A0BE541BBB1CD100A314D6 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 41A0BE4B1BBB194700A314D6 /* libCorePlot-CocoaTouch.a */; };
 		41B2B3581BB31CBE00B13168 /* NotificationSettingsEmailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B2B3571BB31CBD00B13168 /* NotificationSettingsEmailTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		41B2B35A1BB31CE900B13168 /* NotificationSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B2B3591BB31CE900B13168 /* NotificationSettingsTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		41B2B35C1BB326C800B13168 /* NotificationSettingsEmailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B2B35B1BB326C800B13168 /* NotificationSettingsEmailController.swift */; settings = {ASSET_TAGS = (); }; };
@@ -357,6 +358,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		41A0BE4A1BBB194700A314D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 41A0BE441BBB194600A314D6 /* CorePlot-CocoaTouch.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BC9B83470FB8A0A40035D8DA;
+			remoteInfo = "CorePlot-CocoaTouch";
+		};
+		41A0BE551BBB1CE000A314D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 41A0BE441BBB194600A314D6 /* CorePlot-CocoaTouch.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = BC9B83460FB8A0A40035D8DA;
+			remoteInfo = "CorePlot-CocoaTouch";
+		};
 		8F3643AD19460EB300C0033E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8F36439219460EB300C0033E /* Project object */;
@@ -428,6 +443,7 @@
 		41A0BE321BBB110900A314D6 /* FlurryWatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryWatch.h; sourceTree = "<group>"; };
 		41A0BE331BBB110900A314D6 /* libFlurry_7.1.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_7.1.1.a; sourceTree = "<group>"; };
 		41A0BE361BBB14EA00A314D6 /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeychainWrapper.swift; path = Vendor/SwiftKeychainWrapper/SwiftKeychainWrapper/KeychainWrapper.swift; sourceTree = "<group>"; };
+		41A0BE441BBB194600A314D6 /* CorePlot-CocoaTouch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CorePlot-CocoaTouch.xcodeproj"; path = "Vendor/CorePlot/framework/CorePlot-CocoaTouch.xcodeproj"; sourceTree = "<group>"; };
 		41B2B3571BB31CBD00B13168 /* NotificationSettingsEmailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingsEmailTableViewController.swift; sourceTree = "<group>"; };
 		41B2B3591BB31CE900B13168 /* NotificationSettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingsTableViewController.swift; sourceTree = "<group>"; };
 		41B2B35B1BB326C800B13168 /* NotificationSettingsEmailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingsEmailController.swift; sourceTree = "<group>"; };
@@ -797,6 +813,7 @@
 				8FD73C9E1990239E00BACCB2 /* QuartzCore.framework in Frameworks */,
 				8FD73C9D1990227100BACCB2 /* GoogleMaps.framework in Frameworks */,
 				8F6D51751948E53100F7C769 /* Accelerate.framework in Frameworks */,
+				41A0BE541BBB1CD100A314D6 /* libCorePlot-CocoaTouch.a in Frameworks */,
 				C05CB27FD2A34A3BA2F46E97 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -927,6 +944,7 @@
 		41A0BE2E1BBB08C500A314D6 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				41A0BE4E1BBB196800A314D6 /* Core Plot */,
 				41A0BE381BBB14EE00A314D6 /* SwiftKeychainWrapper */,
 				41A0BDF71BBB088500A314D6 /* AFNetworking */,
 				41A0BE2F1BBB110900A314D6 /* Flurry */,
@@ -953,6 +971,22 @@
 				41A0BE361BBB14EA00A314D6 /* KeychainWrapper.swift */,
 			);
 			name = SwiftKeychainWrapper;
+			sourceTree = "<group>";
+		};
+		41A0BE451BBB194600A314D6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				41A0BE4B1BBB194700A314D6 /* libCorePlot-CocoaTouch.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		41A0BE4E1BBB196800A314D6 /* Core Plot */ = {
+			isa = PBXGroup;
+			children = (
+				41A0BE441BBB194600A314D6 /* CorePlot-CocoaTouch.xcodeproj */,
+			);
+			name = "Core Plot";
 			sourceTree = "<group>";
 		};
 		41B2B35F1BB440D200B13168 /* Email */ = {
@@ -1738,6 +1772,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				41A0BE561BBB1CE000A314D6 /* PBXTargetDependency */,
 			);
 			name = higi;
 			productName = higi;
@@ -1801,6 +1836,12 @@
 			mainGroup = 8F36439119460EB300C0033E;
 			productRefGroup = 8F36439B19460EB300C0033E /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 41A0BE451BBB194600A314D6 /* Products */;
+					ProjectRef = 41A0BE441BBB194600A314D6 /* CorePlot-CocoaTouch.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8F36439919460EB300C0033E /* higi */,
@@ -1808,6 +1849,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		41A0BE4B1BBB194700A314D6 /* libCorePlot-CocoaTouch.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libCorePlot-CocoaTouch.a";
+			remoteRef = 41A0BE4A1BBB194700A314D6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8F36439819460EB300C0033E /* Resources */ = {
@@ -2217,6 +2268,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		41A0BE561BBB1CE000A314D6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "CorePlot-CocoaTouch";
+			targetProxy = 41A0BE551BBB1CE000A314D6 /* PBXContainerItemProxy */;
+		};
 		8F3643AE19460EB300C0033E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8F36439919460EB300C0033E /* higi */;
@@ -2297,6 +2353,7 @@
 				HEADER_SEARCH_PATHS = (
 					"\"${PODS_ROOT}/Headers/Public\"",
 					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PROJECT_DIR}/Vendor/CorePlot/framework\"/**",
 				);
 				INFOPLIST_FILE = higi/Info_qa.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -2387,6 +2444,7 @@
 				HEADER_SEARCH_PATHS = (
 					"\"${PODS_ROOT}/Headers/Public\"",
 					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PROJECT_DIR}/Vendor/CorePlot/framework\"/**",
 				);
 				INFOPLIST_FILE = higi/Info_qa.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -2517,6 +2575,7 @@
 				HEADER_SEARCH_PATHS = (
 					"\"${PODS_ROOT}/Headers/Public\"",
 					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PROJECT_DIR}/Vendor/CorePlot/framework\"/**",
 				);
 				INFOPLIST_FILE = higi/Info_prod.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -2551,6 +2610,7 @@
 				HEADER_SEARCH_PATHS = (
 					"\"${PODS_ROOT}/Headers/Public\"",
 					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PROJECT_DIR}/Vendor/CorePlot/framework\"/**",
 				);
 				INFOPLIST_FILE = higi/Info_prod.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

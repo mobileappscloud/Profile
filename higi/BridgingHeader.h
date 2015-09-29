@@ -1,7 +1,7 @@
 
 #import "AFNetworking.h"
 
-#import <CorePlot/CorePlot-CocoaTouch.h>
+#import "CorePlot-CocoaTouch.h"
 
 #import <GoogleMaps/GoogleMaps.h>
 

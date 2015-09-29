@@ -1,17 +1,14 @@
 PODS:
-  - CorePlot (1.5.1)
   - Crashlytics (3.3.1)
   - Fabric (1.5.1):
     - Fabric/Base (= 1.5.1)
   - Fabric/Base (1.5.1)
 
 DEPENDENCIES:
-  - CorePlot (~> 1.5.1)
   - Crashlytics
   - Fabric
 
 SPEC CHECKSUMS:
-  CorePlot: 53d823a4de5e4e662311cae4cdcb230e146c5c90
   Crashlytics: 0e61bdda9def51f1e99720f804eebe94865442b2
   Fabric: 03c3b3fe77e11a2bc31421b989a9c7adaa4779a5
 

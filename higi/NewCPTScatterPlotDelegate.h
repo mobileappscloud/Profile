@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CorePlot/CorePlot-CocoaTouch.h>
+#import "CorePlot-CocoaTouch.h"
 
 @interface NewCPTScatterPlotDelegate : NSObject <CPTScatterPlotDelegate>
 
