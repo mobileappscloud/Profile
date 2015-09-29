@@ -21,7 +21,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="odv-O8-LEk">
+                <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="odv-O8-LEk">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <gestureRecognizers/>
                     <connections>
@@ -32,6 +32,7 @@
                 <imageView userInteractionEnabled="NO" alpha="0.79999999999999982" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mask.png" translatesAutoresizingMaskIntoConstraints="NO" id="vlv-TN-D0X">
                     <rect key="frame" x="0.0" y="124" width="320" height="320"/>
                     <constraints>
+                        <constraint firstAttribute="width" secondItem="vlv-TN-D0X" secondAttribute="height" multiplier="1:1" id="2ML-UC-KFy"/>
                         <constraint firstAttribute="width" secondItem="vlv-TN-D0X" secondAttribute="height" multiplier="1:1" id="9ng-h8-sMu"/>
                     </constraints>
                 </imageView>
@@ -53,7 +54,9 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="qf6-Z0-DrE" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="012-gd-suh"/>
                 <constraint firstItem="ECW-Ge-Ohy" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="0ad-Qh-vaf"/>
+                <constraint firstItem="qf6-Z0-DrE" firstAttribute="top" secondItem="vlv-TN-D0X" secondAttribute="bottom" id="1PK-1o-pDb"/>
                 <constraint firstAttribute="bottom" secondItem="7BL-i1-MNH" secondAttribute="bottom" constant="38" id="2bH-1R-XuA"/>
                 <constraint firstAttribute="bottom" secondItem="odv-O8-LEk" secondAttribute="bottom" id="3lT-Ce-BU5"/>
                 <constraint firstItem="qf6-Z0-DrE" firstAttribute="top" secondItem="vlv-TN-D0X" secondAttribute="bottom" id="4nB-wm-ANJ"/>
@@ -64,15 +67,25 @@
                 <constraint firstAttribute="trailing" secondItem="qf6-Z0-DrE" secondAttribute="trailing" id="DDv-Pg-9O6"/>
                 <constraint firstItem="7BL-i1-MNH" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="EpJ-aN-OGn"/>
                 <constraint firstItem="vlv-TN-D0X" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Hjo-e6-uBh"/>
+                <constraint firstItem="odv-O8-LEk" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Iwj-e3-fet"/>
                 <constraint firstAttribute="trailing" secondItem="vlv-TN-D0X" secondAttribute="trailing" id="PJB-7z-fib"/>
+                <constraint firstItem="ECW-Ge-Ohy" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Rfk-Ba-hFs"/>
                 <constraint firstItem="odv-O8-LEk" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="V4T-J5-sgv"/>
                 <constraint firstItem="qf6-Z0-DrE" firstAttribute="top" secondItem="vlv-TN-D0X" secondAttribute="bottom" id="XNd-4O-SHh"/>
                 <constraint firstItem="vlv-TN-D0X" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="a5U-d8-xSS"/>
+                <constraint firstItem="ECW-Ge-Ohy" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="dgV-g7-uWI"/>
+                <constraint firstAttribute="bottom" secondItem="qf6-Z0-DrE" secondAttribute="bottom" id="efC-dL-KMd"/>
                 <constraint firstAttribute="trailing" secondItem="odv-O8-LEk" secondAttribute="trailing" id="hHe-Is-pgC"/>
                 <constraint firstItem="qf6-Z0-DrE" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="hmH-WA-8X6"/>
                 <constraint firstAttribute="trailing" secondItem="ECW-Ge-Ohy" secondAttribute="trailing" id="icq-Wr-4Of"/>
+                <constraint firstAttribute="trailing" secondItem="qf6-Z0-DrE" secondAttribute="trailing" id="msf-gl-O69"/>
+                <constraint firstItem="vlv-TN-D0X" firstAttribute="top" secondItem="ECW-Ge-Ohy" secondAttribute="bottom" id="pIJ-zK-Dg3"/>
                 <constraint firstItem="vlv-TN-D0X" firstAttribute="top" secondItem="ECW-Ge-Ohy" secondAttribute="bottom" id="qMX-Ld-bIm"/>
+                <constraint firstItem="odv-O8-LEk" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="rr0-Nd-GOU"/>
+                <constraint firstItem="vlv-TN-D0X" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="svk-Bs-KtA"/>
+                <constraint firstItem="vlv-TN-D0X" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="uA5-0q-yQF"/>
                 <constraint firstItem="odv-O8-LEk" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="vyx-l8-Zx6"/>
+                <constraint firstAttribute="trailing" secondItem="ECW-Ge-Ohy" secondAttribute="trailing" id="xfe-bZ-X4n"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
