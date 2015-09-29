@@ -4,9 +4,6 @@
 [submodule "Vendor/Flurry"]
 	path = Vendor/Flurry
 	url = https://github.com/flurry/Flurry-iOS-SDK.git
-[submodule "Vendor/SwiftKeychainWrapper"]
-	path = Vendor/SwiftKeychainWrapper
-	url = https://github.com/jrendel/SwiftKeychainWrapper.git
 [submodule "Vendor/CorePlot"]
 	path = Vendor/CorePlot
 	url = https://github.com/core-plot/core-plot.git
@@ -16,3 +13,6 @@
 [submodule "Vendor/Crashlytics"]
 	path = Vendor/Crashlytics
 	url = https://github.com/higish/ios-crashlytics.git
+[submodule "Vendor/SwiftKeychainWrapper"]
+	path = Vendor/SwiftKeychainWrapper
+	url = https://github.com/jrendel/SwiftKeychainWrapper.git
