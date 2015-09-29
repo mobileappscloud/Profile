@@ -74,7 +74,9 @@ class DrawerViewController: UIViewController, UITableViewDelegate, UITableViewDa
         navigationObjects.append(NavigationObject(title: "Settings", icon: "oc_settings.png", activeIcon: "oc_settings_active.png", callback: {
             (index: NSIndexPath) in
             Flurry.logEvent("SettingsOffCanvas_Pressed");
-            self.navController?.pushViewController(SettingsViewController(nibName: "SettingsView", bundle: nil), animated: false);
+            let settingsStoryboard = UIStoryboard(name: "Settings", bundle: nil);
+            let settingsViewController = settingsStoryboard.instantiateInitialViewController();
+            self.navController?.pushViewController(settingsViewController!, animated: false);
         }));
         navigationObjects.append(NavigationObject(title: "Capture", icon: "oc_qr.png", activeIcon: "oc_qr.png", callback: {
             (index: NSIndexPath) in
