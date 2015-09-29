@@ -47,6 +47,8 @@
 		41A0BE541BBB1CD100A314D6 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 41A0BE4B1BBB194700A314D6 /* libCorePlot-CocoaTouch.a */; };
 		41A0BE811BBB32BB00A314D6 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41A0BE801BBB32BB00A314D6 /* Crashlytics.framework */; };
 		41A0BE851BBB32C800A314D6 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41A0BE841BBB32C800A314D6 /* Fabric.framework */; };
+		41B2AEDF1BBB377E00BE9EF7 /* MetricGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B2AEDE1BBB377E00BE9EF7 /* MetricGraph.swift */; };
+		41B2AEE11BBB378A00BE9EF7 /* GraphPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B2AEE01BBB378A00BE9EF7 /* GraphPoint.swift */; };
 		41B2B3581BB31CBE00B13168 /* NotificationSettingsEmailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B2B3571BB31CBD00B13168 /* NotificationSettingsEmailTableViewController.swift */; };
 		41B2B35A1BB31CE900B13168 /* NotificationSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B2B3591BB31CE900B13168 /* NotificationSettingsTableViewController.swift */; };
 		41B2B35C1BB326C800B13168 /* NotificationSettingsEmailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B2B35B1BB326C800B13168 /* NotificationSettingsEmailController.swift */; };
@@ -150,7 +152,6 @@
 		8F6D51751948E53100F7C769 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F6D51741948E53100F7C769 /* Accelerate.framework */; };
 		8F7065B41A16B129002FCA10 /* ChallengeParticipant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7065B31A16B129002FCA10 /* ChallengeParticipant.swift */; };
 		8F7065B81A16B46A002FCA10 /* ChallengeTeam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7065B71A16B46A002FCA10 /* ChallengeTeam.swift */; };
-		8F77DF1A1A0080550056BE27 /* GraphPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F77DF191A0080550056BE27 /* GraphPoint.swift */; };
 		8F9C69D31950C84400449664 /* HigiLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C69D21950C84400449664 /* HigiLogin.swift */; };
 		8F9C69D51950C88900449664 /* HigiCheckin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C69D41950C88900449664 /* HigiCheckin.swift */; };
 		8F9C69D71950C89B00449664 /* HigiUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C69D61950C89B00449664 /* HigiUser.swift */; };
@@ -338,7 +339,6 @@
 		D1E223701A7FFF43006330E7 /* ConnectDeviceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E2236F1A7FFF43006330E7 /* ConnectDeviceRow.swift */; };
 		D1E223781A8009CE006330E7 /* ConnectDeviceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1E223771A8009CE006330E7 /* ConnectDeviceView.xib */; };
 		D1E2237A1A8009E6006330E7 /* ConnectDeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E223791A8009E6006330E7 /* ConnectDeviceViewController.swift */; };
-		D1E2A6F51AB75EBB00796700 /* MetricGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E2A6F41AB75EBB00796700 /* MetricGraph.swift */; };
 		D1E2DB821AE176760074CBAF /* MetricCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E2DB811AE176760074CBAF /* MetricCard.swift */; };
 		D1EDF3FF1B5ECCCC00BF5B91 /* activities.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EDF3FE1B5ECCCC00BF5B91 /* activities.png */; };
 		D1EE80F41B3BBAAD00B13CB8 /* SummaryViewUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EE80F31B3BBAAD00B13CB8 /* SummaryViewUtility.swift */; };
@@ -446,6 +446,8 @@
 		41A0BE441BBB194600A314D6 /* CorePlot-CocoaTouch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CorePlot-CocoaTouch.xcodeproj"; path = "Vendor/CorePlot/framework/CorePlot-CocoaTouch.xcodeproj"; sourceTree = "<group>"; };
 		41A0BE801BBB32BB00A314D6 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = Vendor/Crashlytics/Crashlytics.framework; sourceTree = "<group>"; };
 		41A0BE841BBB32C800A314D6 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = Vendor/Fabric/Fabric.framework; sourceTree = "<group>"; };
+		41B2AEDE1BBB377E00BE9EF7 /* MetricGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricGraph.swift; path = higi/MetricGraph.swift; sourceTree = "<group>"; };
+		41B2AEE01BBB378A00BE9EF7 /* GraphPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GraphPoint.swift; path = higi/GraphPoint.swift; sourceTree = "<group>"; };
 		41B2B3571BB31CBD00B13168 /* NotificationSettingsEmailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingsEmailTableViewController.swift; sourceTree = "<group>"; };
 		41B2B3591BB31CE900B13168 /* NotificationSettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingsTableViewController.swift; sourceTree = "<group>"; };
 		41B2B35B1BB326C800B13168 /* NotificationSettingsEmailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingsEmailController.swift; sourceTree = "<group>"; };
@@ -560,7 +562,6 @@
 		8F6D51741948E53100F7C769 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		8F7065B31A16B129002FCA10 /* ChallengeParticipant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeParticipant.swift; sourceTree = "<group>"; };
 		8F7065B71A16B46A002FCA10 /* ChallengeTeam.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeTeam.swift; sourceTree = "<group>"; };
-		8F77DF191A0080550056BE27 /* GraphPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphPoint.swift; sourceTree = "<group>"; };
 		8F9C69D21950C84400449664 /* HigiLogin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HigiLogin.swift; sourceTree = "<group>"; };
 		8F9C69D41950C88900449664 /* HigiCheckin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HigiCheckin.swift; sourceTree = "<group>"; };
 		8F9C69D61950C89B00449664 /* HigiUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HigiUser.swift; sourceTree = "<group>"; };
@@ -767,7 +768,6 @@
 		D1E2236F1A7FFF43006330E7 /* ConnectDeviceRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectDeviceRow.swift; sourceTree = "<group>"; };
 		D1E223771A8009CE006330E7 /* ConnectDeviceView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConnectDeviceView.xib; sourceTree = "<group>"; };
 		D1E223791A8009E6006330E7 /* ConnectDeviceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectDeviceViewController.swift; sourceTree = "<group>"; };
-		D1E2A6F41AB75EBB00796700 /* MetricGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricGraph.swift; sourceTree = "<group>"; };
 		D1E2DB811AE176760074CBAF /* MetricCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricCard.swift; sourceTree = "<group>"; };
 		D1EDF3FE1B5ECCCC00BF5B91 /* activities.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = activities.png; path = images/activities.png; sourceTree = "<group>"; };
 		D1EE80F31B3BBAAD00B13CB8 /* SummaryViewUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SummaryViewUtility.swift; sourceTree = "<group>"; };
@@ -1444,8 +1444,8 @@
 		8F6A243D195A011F0094B73C /* Graphing */ = {
 			isa = PBXGroup;
 			children = (
-				D1E2A6F41AB75EBB00796700 /* MetricGraph.swift */,
-				8F77DF191A0080550056BE27 /* GraphPoint.swift */,
+				41B2AEE01BBB378A00BE9EF7 /* GraphPoint.swift */,
+				41B2AEDE1BBB377E00BE9EF7 /* MetricGraph.swift */,
 			);
 			name = Graphing;
 			path = ..;
@@ -2099,7 +2099,6 @@
 				D15372911A841FEA00954569 /* TermsAndConditionsViewController.swift in Sources */,
 				41A0BE0E1BBB088500A314D6 /* AFNetworkReachabilityManager.m in Sources */,
 				D1FC72971B20B0DC0068CF89 /* PulseMetricDelegate.swift in Sources */,
-				8F77DF1A1A0080550056BE27 /* GraphPoint.swift in Sources */,
 				41A0BE0D1BBB088500A314D6 /* AFHTTPSessionManager.m in Sources */,
 				D1FC72931B20116F0068CF89 /* WeightMetricCard.swift in Sources */,
 				8FF94098198A8C0A00D319D7 /* BirthdateViewController.swift in Sources */,
@@ -2119,7 +2118,6 @@
 				8FEF6F401A6EB638001EF8A6 /* PointsMeter.swift in Sources */,
 				8F9C69D71950C89B00449664 /* HigiUser.swift in Sources */,
 				41411BA01BA87E3D0027F5E1 /* NotificationSettingsDeviceTableViewController.swift in Sources */,
-				D1E2A6F51AB75EBB00796700 /* MetricGraph.swift in Sources */,
 				D1EEDBA51A66FA570012EFD3 /* ChallengeLeaderboardRow.swift in Sources */,
 				D17010CA1A644414002CBFE8 /* ChallengeDetailsViewController.swift in Sources */,
 				41A0BE2A1BBB08B800A314D6 /* UIImageView+AFNetworking.m in Sources */,
@@ -2204,6 +2202,7 @@
 				8FEF6F3C1A6EAACE001EF8A6 /* DashboardViewController.swift in Sources */,
 				8FCD2D8019EC286900AC5A82 /* UIImage+Orientation.m in Sources */,
 				D105CB5D1B7E9B1F00971AB0 /* QrScannerViewController.swift in Sources */,
+				41B2AEDF1BBB377E00BE9EF7 /* MetricGraph.swift in Sources */,
 				D12B398C1AA4ECC6005B2ABA /* GQTPointQuadTreeChild.m in Sources */,
 				D1020A291B3B130C001F2D81 /* BreakdownTitleRow.swift in Sources */,
 				41A0BE131BBB088500A314D6 /* AFURLSessionManager.m in Sources */,
@@ -2217,6 +2216,7 @@
 				41B2B35A1BB31CE900B13168 /* NotificationSettingsTableViewController.swift in Sources */,
 				8F2B7E43198C2DA0009DE89A /* DrawerViewController.swift in Sources */,
 				8F524BF6195B5ABB00BFC49D /* ConversionUtility.m in Sources */,
+				41B2AEE11BBB378A00BE9EF7 /* GraphPoint.swift in Sources */,
 				41A0BE2B1BBB08B800A314D6 /* UIProgressView+AFNetworking.m in Sources */,
 				D1740BC41AE0381F00462F6E /* MetricsType.swift in Sources */,
 				D1247BC91AA620F1008A601A /* HigiClusterRenderer.m in Sources */,
