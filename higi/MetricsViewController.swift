@@ -12,7 +12,8 @@ class MetricsViewController: UIViewController {
     
     var cardsTransitioning = false, detailsOpen = false, detailsGone = false, previousShouldRotate: Bool!;
 
-    let detailsCardPosY:CGFloat = 267, cardHeaderViewHeight:CGFloat = 54, cardDragThreshold:CGFloat = 300, detailDragThreshold:CGFloat = 50;
+    let cardHeaderViewHeight:CGFloat = 54, cardDragThreshold:CGFloat = 300, detailDragThreshold:CGFloat = 50;
+    var detailsCardPosY:CGFloat = 0.0;
     
     var screenWidth:CGFloat!, screenHeight: CGFloat!;
     
@@ -29,6 +30,8 @@ class MetricsViewController: UIViewController {
         
         screenWidth = max(UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height);
         screenHeight = min(UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height);
+        
+        detailsCardPosY = screenHeight - cardHeaderViewHeight;
         initCards();
     }
     
@@ -307,6 +310,7 @@ class MetricsViewController: UIViewController {
     func initDetailCard(card: MetricCard) -> MetricDetailCard {
         let detailCard = MetricDetailCard.instanceFromNib(card);
         detailCard.frame.origin.y = detailsOpen ? cardHeaderViewHeight : detailsCardPosY;
+        detailCard.frame.size.height = screenHeight - cardHeaderViewHeight;
         let tap = UITapGestureRecognizer(target: self, action: "detailsTapped:");
         let drag = UIPanGestureRecognizer(target: self, action: "detailDragged:");
         
