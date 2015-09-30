@@ -2333,6 +2333,7 @@
 					"$(PROJECT_DIR)/Flurry",
 					"$(PROJECT_DIR)/Vendor/Flurry/Flurry",
 				);
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.higi.main-qb";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2421,6 +2422,7 @@
 					"$(PROJECT_DIR)/Flurry",
 					"$(PROJECT_DIR)/Vendor/Flurry/Flurry",
 				);
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.higi.main-qb";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2549,6 +2551,7 @@
 					"$(PROJECT_DIR)/Flurry",
 					"$(PROJECT_DIR)/Vendor/Flurry/Flurry",
 				);
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_BUNDLE_IDENTIFIER = com.higi.main;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2581,6 +2584,7 @@
 					"$(PROJECT_DIR)/Flurry",
 					"$(PROJECT_DIR)/Vendor/Flurry/Flurry",
 				);
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_BUNDLE_IDENTIFIER = com.higi.main;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
