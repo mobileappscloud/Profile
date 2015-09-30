@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
@@ -541,56 +541,54 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Uploading Your Daily Check-in Results" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KPa-HH-6eK">
-                    <rect key="frame" x="56" y="13" width="226" height="13"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Uploading Your Daily Check-in Results" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KPa-HH-6eK">
+                    <rect key="frame" x="56" y="8" width="226" height="13"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
                     <color key="textColor" red="0.41960784309999999" green="0.71764705880000002" blue="0.086274509799999996" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="This may take a few minutes.  We'll let you know when your results are ready." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kWm-5F-5cg">
-                    <rect key="frame" x="56" y="26" width="256" height="24"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="9"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="This may take a few minutes.  We'll let you know when your results are ready." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kWm-5F-5cg">
+                    <rect key="frame" x="56" y="24" width="234" height="24"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
                     <color key="textColor" red="0.26666666666666666" green="0.26666666666666666" blue="0.26666666666666666" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BL3-cU-oLS">
-                    <rect key="frame" x="248" y="37" width="42" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                    <color key="textColor" red="0.41960784309999999" green="0.71764705880000002" blue="0.086274509799999996" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="vitals_loading_1.png" translatesAutoresizingMaskIntoConstraints="NO" id="dFN-HZ-tP9">
-                    <rect key="frame" x="12" y="10" width="35" height="35"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="znV-U0-hwO">
+                    <rect key="frame" x="290" y="0.0" width="30" height="30"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="35" id="22h-aq-rhL"/>
-                        <constraint firstAttribute="width" constant="35" id="SMN-wE-uDu"/>
+                        <constraint firstAttribute="height" constant="30" id="26K-1Y-08R"/>
+                        <constraint firstAttribute="width" constant="30" id="DLf-2A-48M"/>
                     </constraints>
-                </imageView>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="znV-U0-hwO">
-                    <rect key="frame" x="274" y="0.0" width="46" height="30"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
-                    <state key="normal" title="X">
+                    <state key="normal" image="btn_close_reminder.png">
                         <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>
                         <action selector="removeQrCheckinCard:" destination="-1" eventType="touchUpInside" id="ajk-9O-eA0"/>
                     </connections>
                 </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="vitals_loading_1.png" translatesAutoresizingMaskIntoConstraints="NO" id="dFN-HZ-tP9">
+                    <rect key="frame" x="8" y="8" width="40" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="40" id="J3h-zO-Oo0"/>
+                        <constraint firstAttribute="height" constant="40" id="bG0-wX-Ago"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="znV-U0-hwO" firstAttribute="top" secondItem="drt-gR-dmZ" secondAttribute="top" id="3HM-lV-cae"/>
-                <constraint firstItem="kWm-5F-5cg" firstAttribute="leading" secondItem="dFN-HZ-tP9" secondAttribute="trailing" constant="9" id="7as-Pj-pmP"/>
                 <constraint firstAttribute="trailing" secondItem="znV-U0-hwO" secondAttribute="trailing" id="COr-bL-uH4"/>
+                <constraint firstItem="dFN-HZ-tP9" firstAttribute="leading" secondItem="drt-gR-dmZ" secondAttribute="leading" constant="8" id="FgD-Qn-3Rg"/>
+                <constraint firstItem="dFN-HZ-tP9" firstAttribute="top" secondItem="drt-gR-dmZ" secondAttribute="top" constant="8" id="GIC-kR-74x"/>
                 <constraint firstItem="kWm-5F-5cg" firstAttribute="top" secondItem="KPa-HH-6eK" secondAttribute="bottom" id="IuJ-To-klX"/>
-                <constraint firstItem="KPa-HH-6eK" firstAttribute="leading" secondItem="dFN-HZ-tP9" secondAttribute="trailing" constant="9" id="OLq-BI-kjN"/>
-                <constraint firstItem="dFN-HZ-tP9" firstAttribute="leading" secondItem="drt-gR-dmZ" secondAttribute="leading" constant="12" id="TDf-il-kFh"/>
-                <constraint firstAttribute="bottom" secondItem="dFN-HZ-tP9" secondAttribute="bottom" constant="11" id="TKo-8L-cXi"/>
-                <constraint firstItem="KPa-HH-6eK" firstAttribute="top" secondItem="drt-gR-dmZ" secondAttribute="top" constant="13" id="dHU-zQ-hvs"/>
+                <constraint firstAttribute="bottom" secondItem="kWm-5F-5cg" secondAttribute="bottom" constant="8" id="K5p-xo-Pcc"/>
+                <constraint firstItem="KPa-HH-6eK" firstAttribute="top" secondItem="drt-gR-dmZ" secondAttribute="top" constant="8" id="dHU-zQ-hvs"/>
                 <constraint firstAttribute="bottom" secondItem="znV-U0-hwO" secondAttribute="bottom" constant="26" id="daP-mN-V0W"/>
                 <constraint firstItem="kWm-5F-5cg" firstAttribute="top" secondItem="KPa-HH-6eK" secondAttribute="bottom" id="dwB-1H-8VN"/>
-                <constraint firstAttribute="trailing" secondItem="kWm-5F-5cg" secondAttribute="trailing" constant="8" id="he3-Jt-Iej"/>
-                <constraint firstItem="dFN-HZ-tP9" firstAttribute="top" secondItem="drt-gR-dmZ" secondAttribute="top" constant="10" id="qNE-ol-0bb"/>
+                <constraint firstAttribute="trailing" secondItem="kWm-5F-5cg" secondAttribute="trailing" constant="30" id="he3-Jt-Iej"/>
+                <constraint firstItem="kWm-5F-5cg" firstAttribute="leading" secondItem="dFN-HZ-tP9" secondAttribute="trailing" constant="8" id="kOY-zs-2yu"/>
+                <constraint firstAttribute="bottom" secondItem="dFN-HZ-tP9" secondAttribute="bottom" constant="8" id="lIY-tY-Ex9"/>
+                <constraint firstItem="KPa-HH-6eK" firstAttribute="leading" secondItem="dFN-HZ-tP9" secondAttribute="trailing" constant="8" id="sbc-Ix-NST"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -600,15 +598,16 @@
                 <outlet property="messageText" destination="kWm-5F-5cg" id="RLU-ga-JBg"/>
                 <outlet property="titleText" destination="KPa-HH-6eK" id="Rc7-bz-AL9"/>
             </connections>
-            <point key="canvasLocation" x="590" y="1604"/>
+            <point key="canvasLocation" x="601" y="1596"/>
         </view>
     </objects>
     <resources>
         <image name="banner_nologo.png" width="1080" height="491"/>
         <image name="btn_action_black.png" width="23" height="23"/>
+        <image name="btn_close_reminder.png" width="70" height="70"/>
         <image name="challengewidgetblankstate.png" width="1080" height="650"/>
         <image name="dashboard_errorstate.png" width="1080" height="1000"/>
         <image name="gradient_overlay.png" width="204" height="204"/>
-        <image name="vitals_loading_1.png" width="68" height="68"/>
+        <image name="vitals_loading_1.png" width="100" height="100"/>
     </resources>
 </document>
