@@ -47,6 +47,8 @@
 		41A0BE541BBB1CD100A314D6 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 41A0BE4B1BBB194700A314D6 /* libCorePlot-CocoaTouch.a */; };
 		41A0BE811BBB32BB00A314D6 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41A0BE801BBB32BB00A314D6 /* Crashlytics.framework */; };
 		41A0BE851BBB32C800A314D6 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41A0BE841BBB32C800A314D6 /* Fabric.framework */; };
+		41A917FB1BBC744800CCF91E /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41A917FA1BBC744800CCF91E /* GoogleMaps.framework */; settings = {ASSET_TAGS = (); }; };
+		41A917FF1BBC747600CCF91E /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 41A917FE1BBC747600CCF91E /* GoogleMaps.bundle */; settings = {ASSET_TAGS = (); }; };
 		41B2AEDF1BBB377E00BE9EF7 /* MetricGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B2AEDE1BBB377E00BE9EF7 /* MetricGraph.swift */; };
 		41B2AEE11BBB378A00BE9EF7 /* GraphPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B2AEE01BBB378A00BE9EF7 /* GraphPoint.swift */; };
 		41B2B3581BB31CBE00B13168 /* NotificationSettingsEmailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B2B3571BB31CBD00B13168 /* NotificationSettingsEmailTableViewController.swift */; };
@@ -164,7 +166,6 @@
 		8FCD2D7B19E874FD00AC5A82 /* noResults.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FCD2D7A19E874FD00AC5A82 /* noResults.png */; };
 		8FCD2D8019EC286900AC5A82 /* UIImage+Orientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FCD2D7F19EC286900AC5A82 /* UIImage+Orientation.m */; };
 		8FCE580D1979B8BA0042CEE2 /* NewCPTScatterPlotDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FCE580C1979B8BA0042CEE2 /* NewCPTScatterPlotDelegate.m */; };
-		8FD73C9D1990227100BACCB2 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FD73C9C1990227100BACCB2 /* GoogleMaps.framework */; };
 		8FD73C9E1990239E00BACCB2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F2B7E34198ADAA3009DE89A /* QuartzCore.framework */; };
 		8FD73CA0199023A600BACCB2 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FD73C9F199023A600BACCB2 /* AVFoundation.framework */; };
 		8FD73CA2199023B000BACCB2 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FD73CA1199023B000BACCB2 /* CoreData.framework */; };
@@ -179,7 +180,6 @@
 		8FD73CB4199025D000BACCB2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FD73CB3199025D000BACCB2 /* SystemConfiguration.framework */; };
 		8FD73CBD1990280C00BACCB2 /* map_listviewicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD73CB81990280C00BACCB2 /* map_listviewicon.png */; };
 		8FD73CC11990291300BACCB2 /* nodata_map.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD73CC01990291300BACCB2 /* nodata_map.png */; };
-		8FD73CC31990303000BACCB2 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8FD73CC21990303000BACCB2 /* GoogleMaps.bundle */; };
 		8FD964CA19BE4A2B00DA3DF8 /* gradient_overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD964C919BE4A2B00DA3DF8 /* gradient_overlay.png */; };
 		8FD964CE19BFB99D00DA3DF8 /* search_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FD964CD19BFB99D00DA3DF8 /* search_icon.png */; };
 		8FDA6DA119A2978B00244D5F /* ChangePasswordView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FDA6DA019A2978B00244D5F /* ChangePasswordView.xib */; };
@@ -446,6 +446,8 @@
 		41A0BE441BBB194600A314D6 /* CorePlot-CocoaTouch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CorePlot-CocoaTouch.xcodeproj"; path = "Vendor/CorePlot/framework/CorePlot-CocoaTouch.xcodeproj"; sourceTree = "<group>"; };
 		41A0BE801BBB32BB00A314D6 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = Vendor/Crashlytics/Crashlytics.framework; sourceTree = "<group>"; };
 		41A0BE841BBB32C800A314D6 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = Vendor/Fabric/Fabric.framework; sourceTree = "<group>"; };
+		41A917FA1BBC744800CCF91E /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = "Vendor/Google-Maps/Frameworks/GoogleMaps.framework"; sourceTree = "<group>"; };
+		41A917FE1BBC747600CCF91E /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = "Vendor/Google-Maps/Frameworks/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle"; sourceTree = "<group>"; };
 		41B2AEDE1BBB377E00BE9EF7 /* MetricGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricGraph.swift; path = higi/MetricGraph.swift; sourceTree = "<group>"; };
 		41B2AEE01BBB378A00BE9EF7 /* GraphPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GraphPoint.swift; path = higi/GraphPoint.swift; sourceTree = "<group>"; };
 		41B2B3571BB31CBD00B13168 /* NotificationSettingsEmailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingsEmailTableViewController.swift; sourceTree = "<group>"; };
@@ -576,7 +578,6 @@
 		8FCD2D7F19EC286900AC5A82 /* UIImage+Orientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Orientation.m"; sourceTree = "<group>"; };
 		8FCE580B1979B8BA0042CEE2 /* NewCPTScatterPlotDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewCPTScatterPlotDelegate.h; sourceTree = "<group>"; };
 		8FCE580C1979B8BA0042CEE2 /* NewCPTScatterPlotDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewCPTScatterPlotDelegate.m; sourceTree = "<group>"; };
-		8FD73C9C1990227100BACCB2 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMaps.framework; sourceTree = "<group>"; };
 		8FD73C9F199023A600BACCB2 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		8FD73CA1199023B000BACCB2 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		8FD73CA3199023B800BACCB2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -590,7 +591,6 @@
 		8FD73CB3199025D000BACCB2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		8FD73CB81990280C00BACCB2 /* map_listviewicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = map_listviewicon.png; path = images/map_listviewicon.png; sourceTree = "<group>"; };
 		8FD73CC01990291300BACCB2 /* nodata_map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = nodata_map.png; path = images/nodata_map.png; sourceTree = "<group>"; };
-		8FD73CC21990303000BACCB2 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
 		8FD964C919BE4A2B00DA3DF8 /* gradient_overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gradient_overlay.png; path = images/gradient_overlay.png; sourceTree = "<group>"; };
 		8FD964CD19BFB99D00DA3DF8 /* search_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = search_icon.png; path = images/search_icon.png; sourceTree = "<group>"; };
 		8FDA6DA019A2978B00244D5F /* ChangePasswordView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangePasswordView.xib; sourceTree = "<group>"; };
@@ -810,8 +810,8 @@
 				8FD73CA4199023B800BACCB2 /* CoreLocation.framework in Frameworks */,
 				8FD73CA2199023B000BACCB2 /* CoreData.framework in Frameworks */,
 				8FD73CA0199023A600BACCB2 /* AVFoundation.framework in Frameworks */,
+				41A917FB1BBC744800CCF91E /* GoogleMaps.framework in Frameworks */,
 				8FD73C9E1990239E00BACCB2 /* QuartzCore.framework in Frameworks */,
-				8FD73C9D1990227100BACCB2 /* GoogleMaps.framework in Frameworks */,
 				8F6D51751948E53100F7C769 /* Accelerate.framework in Frameworks */,
 				41A0BE541BBB1CD100A314D6 /* libCorePlot-CocoaTouch.a in Frameworks */,
 			);
@@ -855,7 +855,6 @@
 				8FDB4B601A040B8500F57B38 /* HealthKit.framework */,
 				8F069CBA19D9D5C200DCC820 /* MapKit.framework */,
 				8F55909F19ABE23C00C9B46E /* EventKitUI.framework */,
-				8FD73CC21990303000BACCB2 /* GoogleMaps.bundle */,
 				8FD73CB3199025D000BACCB2 /* SystemConfiguration.framework */,
 				8FD73CB1199025C200BACCB2 /* OpenGLES.framework */,
 				8FD73CAF199025BA00BACCB2 /* libz.dylib */,
@@ -867,7 +866,6 @@
 				8FD73CA3199023B800BACCB2 /* CoreLocation.framework */,
 				8FD73CA1199023B000BACCB2 /* CoreData.framework */,
 				8FD73C9F199023A600BACCB2 /* AVFoundation.framework */,
-				8FD73C9C1990227100BACCB2 /* GoogleMaps.framework */,
 				8F2B7E34198ADAA3009DE89A /* QuartzCore.framework */,
 				8F6D51741948E53100F7C769 /* Accelerate.framework */,
 			);
@@ -947,6 +945,7 @@
 				41A0BE871BBB32D100A314D6 /* Crashlytics */,
 				41A0BE861BBB32CC00A314D6 /* Fabric */,
 				41A0BE2F1BBB110900A314D6 /* Flurry */,
+				41A917F41BBC670E00CCF91E /* Google Maps */,
 				41A0BE381BBB14EE00A314D6 /* SwiftKeychainWrapper */,
 				41A0BE141BBB08B800A314D6 /* UIKit+AFNetworking */,
 			);
@@ -1003,6 +1002,31 @@
 				41A0BE801BBB32BB00A314D6 /* Crashlytics.framework */,
 			);
 			name = Crashlytics;
+			sourceTree = "<group>";
+		};
+		41A917F41BBC670E00CCF91E /* Google Maps */ = {
+			isa = PBXGroup;
+			children = (
+				41A918011BBC748000CCF91E /* Framework */,
+				41A918001BBC747A00CCF91E /* Resources */,
+			);
+			name = "Google Maps";
+			sourceTree = "<group>";
+		};
+		41A918001BBC747A00CCF91E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				41A917FE1BBC747600CCF91E /* GoogleMaps.bundle */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		41A918011BBC748000CCF91E /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				41A917FA1BBC744800CCF91E /* GoogleMaps.framework */,
+			);
+			name = Framework;
 			sourceTree = "<group>";
 		};
 		41B2B35F1BB440D200B13168 /* Email */ = {
@@ -1961,6 +1985,7 @@
 				2BBDBA571A12AC2C005A6815 /* CompetitiveChallengeView.xib in Resources */,
 				8FA5925D19ABBCEC00622266 /* TourView.xib in Resources */,
 				D131B8AE1BB5E4650081750A /* vitals_loading_1.png in Resources */,
+				41A917FF1BBC747600CCF91E /* GoogleMaps.bundle in Resources */,
 				D17787221A96873500C78F8B /* activechallenges.png in Resources */,
 				8F5E7FC11999674C009067E5 /* KioskListCellView.xib in Resources */,
 				8F2B7E4E198C3058009DE89A /* oc_dashboard.png in Resources */,
@@ -1976,7 +2001,6 @@
 				8FE056DF198FDBDC00C81208 /* PulseHomeView.xib in Resources */,
 				D17334411B594FCD0089BBFD /* weight_copy@2x.png in Resources */,
 				8F02A12319AE2BF6002FF73E /* btn_share_black.png in Resources */,
-				8FD73CC31990303000BACCB2 /* GoogleMaps.bundle in Resources */,
 				D1ADD2D91BA0EC7A0001E8C4 /* qr_cursor.png in Resources */,
 				8FDA6DA119A2978B00244D5F /* ChangePasswordView.xib in Resources */,
 				8F5C38F11982F20000F51543 /* CheckinTableViewCell.xib in Resources */,
@@ -2322,6 +2346,8 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Vendor/Crashlytics",
 					"$(PROJECT_DIR)/Vendor/Fabric",
+					"$(PROJECT_DIR)/Vendor/Google-Maps",
+					"$(PROJECT_DIR)/Vendor/Google-Maps/Frameworks",
 				);
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Vendor/CorePlot/framework\"/**";
@@ -2411,6 +2437,8 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Vendor/Crashlytics",
 					"$(PROJECT_DIR)/Vendor/Fabric",
+					"$(PROJECT_DIR)/Vendor/Google-Maps",
+					"$(PROJECT_DIR)/Vendor/Google-Maps/Frameworks",
 				);
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Vendor/CorePlot/framework\"/**";
@@ -2540,6 +2568,8 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Vendor/Crashlytics",
 					"$(PROJECT_DIR)/Vendor/Fabric",
+					"$(PROJECT_DIR)/Vendor/Google-Maps",
+					"$(PROJECT_DIR)/Vendor/Google-Maps/Frameworks",
 				);
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Vendor/CorePlot/framework\"/**";
@@ -2573,6 +2603,8 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Vendor/Crashlytics",
 					"$(PROJECT_DIR)/Vendor/Fabric",
+					"$(PROJECT_DIR)/Vendor/Google-Maps",
+					"$(PROJECT_DIR)/Vendor/Google-Maps/Frameworks",
 				);
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Vendor/CorePlot/framework\"/**";

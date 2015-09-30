@@ -16,3 +16,6 @@
 [submodule "Vendor/SwiftKeychainWrapper"]
 	path = Vendor/SwiftKeychainWrapper
 	url = https://github.com/jrendel/SwiftKeychainWrapper.git
+[submodule "Vendor/Google-Maps"]
+	path = Vendor/Google-Maps
+	url = https://github.com/higish/ios-google-maps.git
