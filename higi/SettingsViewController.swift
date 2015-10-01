@@ -25,8 +25,8 @@ class SettingsViewController: BaseViewController {
     
     // MARK: - View Lifecycle
     
-    override func viewDidLoad() {
-        super.viewDidLoad();
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated);
         
         configureNavigationTitle();
     }
