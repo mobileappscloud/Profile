@@ -373,6 +373,8 @@
 		D1E2237A1A8009E6006330E7 /* ConnectDeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E223791A8009E6006330E7 /* ConnectDeviceViewController.swift */; };
 		D1E2A6F51AB75EBB00796700 /* MetricGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E2A6F41AB75EBB00796700 /* MetricGraph.swift */; };
 		D1E2DB821AE176760074CBAF /* MetricCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E2DB811AE176760074CBAF /* MetricCard.swift */; };
+		D1EAC8321BBDD69E0000CB38 /* checkinerroricon.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EAC8301BBDD69E0000CB38 /* checkinerroricon.png */; settings = {ASSET_TAGS = (); }; };
+		D1EAC8331BBDD69E0000CB38 /* checkinsuccessicon.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EAC8311BBDD69E0000CB38 /* checkinsuccessicon.png */; settings = {ASSET_TAGS = (); }; };
 		D1EDF3FF1B5ECCCC00BF5B91 /* activities.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EDF3FE1B5ECCCC00BF5B91 /* activities.png */; };
 		D1EE80F41B3BBAAD00B13CB8 /* SummaryViewUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EE80F31B3BBAAD00B13CB8 /* SummaryViewUtility.swift */; };
 		D1EEDBA31A66E4B10012EFD3 /* ChallengeLeaderboardRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDBA21A66E4B10012EFD3 /* ChallengeLeaderboardRow.xib */; };
@@ -805,6 +807,8 @@
 		D1E223791A8009E6006330E7 /* ConnectDeviceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectDeviceViewController.swift; sourceTree = "<group>"; };
 		D1E2A6F41AB75EBB00796700 /* MetricGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricGraph.swift; sourceTree = "<group>"; };
 		D1E2DB811AE176760074CBAF /* MetricCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricCard.swift; sourceTree = "<group>"; };
+		D1EAC8301BBDD69E0000CB38 /* checkinerroricon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = checkinerroricon.png; path = images/checkinerroricon.png; sourceTree = "<group>"; };
+		D1EAC8311BBDD69E0000CB38 /* checkinsuccessicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = checkinsuccessicon.png; path = images/checkinsuccessicon.png; sourceTree = "<group>"; };
 		D1EDF3FE1B5ECCCC00BF5B91 /* activities.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = activities.png; path = images/activities.png; sourceTree = "<group>"; };
 		D1EE80F31B3BBAAD00B13CB8 /* SummaryViewUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SummaryViewUtility.swift; sourceTree = "<group>"; };
 		D1EEDBA21A66E4B10012EFD3 /* ChallengeLeaderboardRow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeLeaderboardRow.xib; sourceTree = "<group>"; };
@@ -1244,6 +1248,8 @@
 		8F5C38D719818F0A00F51543 /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
+				D1EAC8301BBDD69E0000CB38 /* checkinerroricon.png */,
+				D1EAC8311BBDD69E0000CB38 /* checkinsuccessicon.png */,
 				8FC88AD31AE6DA2B002ED9FB /* activitywidgetblankstatenodevices.png */,
 				D1E2236B1A7FFB7D006330E7 /* ui_nodevices.png */,
 				8F5F91851A7193E80042D87C /* activitywidgetblankstate.png */,
@@ -1979,6 +1985,7 @@
 				8FA5925D19ABBCEC00622266 /* TourView.xib in Resources */,
 				D17787221A96873500C78F8B /* activechallenges.png in Resources */,
 				8F5E7FC11999674C009067E5 /* KioskListCellView.xib in Resources */,
+				D1EAC8321BBDD69E0000CB38 /* checkinerroricon.png in Resources */,
 				8F2B7E4E198C3058009DE89A /* oc_dashboard.png in Resources */,
 				8F58D98A19C0FE5800C0EC72 /* welcome_01_logo.png in Resources */,
 				D1EEDBA31A66E4B10012EFD3 /* ChallengeLeaderboardRow.xib in Resources */,
@@ -2048,6 +2055,7 @@
 				8F2B7E51198C3058009DE89A /* oc_settings.png in Resources */,
 				8FD73CBD1990280C00BACCB2 /* map_listviewicon.png in Resources */,
 				8FFB034C19FEA2440036228C /* oc_challenges_active.png in Resources */,
+				D1EAC8331BBDD69E0000CB38 /* checkinsuccessicon.png in Resources */,
 				D1E1FF081A76C2DB00C8951C /* ChallengeProgressLegendRow.xib in Resources */,
 				8FC88AD41AE6DA2B002ED9FB /* activitywidgetblankstatenodevices.png in Resources */,
 				D124A1FC1BBB293A00A9273E /* vitals_loading_16.png in Resources */,
