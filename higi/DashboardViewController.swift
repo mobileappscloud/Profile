@@ -107,13 +107,13 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     func showQrCheckinFailure() {
         qrCheckinCard.titleText.text = "Daily Check-in Upload Failed";
         qrCheckinCard.messageText.text = "There was a problem uploading your check-in.";
-        qrCheckinCard.loadingImage.image = UIImage(named: "vitals_loading_35");
+        qrCheckinCard.loadingImage.image = UIImage(named: "checkinerroricon");
     }
     
     func showQrCheckinSuccess() {
         qrCheckinCard.titleText.text = "Daily Check-in Upload Complete!";
         qrCheckinCard.messageText.text = "View your updated metrics below or review them in your Daily Summary.";
-        qrCheckinCard.loadingImage.image = UIImage(named: "vitals_loading_35");
+        qrCheckinCard.loadingImage.image = UIImage(named: "checkinsuccessicon");
         qrCheckinCard.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "gotoDailySummary:"));
     }
     
