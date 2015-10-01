@@ -16,11 +16,11 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
         
         self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
         (self.navigationController as! MainNavigationController).revealController.panGestureRecognizer().enabled = false;
-        backButton = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton;
+        backButton = UIButton(type: .Custom);
         backButton.setBackgroundImage(UIImage(named: "btn_back_white.png"), forState: UIControlState.Normal);
         backButton.addTarget(self, action: "goBack:", forControlEvents: UIControlEvents.TouchUpInside);
         backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
-        var backBarItem = UIBarButtonItem(customView: backButton);
+        let backBarItem = UIBarButtonItem(customView: backButton);
         self.navigationItem.leftBarButtonItem = backBarItem;
         self.navigationItem.hidesBackButton = true;
         
@@ -39,7 +39,7 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
         for (deviceName, device) in serverDevices {
             devices.append(device);
         }
-        devices.sort(sortByConnected);
+        devices.sortInPlace(sortByConnected);
     }
     
     func sortByConnected(this: ActivityDevice, that: ActivityDevice) -> Bool {
@@ -62,10 +62,10 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
     
     func updateNavbar() {
         if (active) {
-            var scrollY = table.contentOffset.y;
+            let scrollY = table.contentOffset.y;
             if (scrollY >= 0) {
                 headerImage.frame.origin.y = -scrollY / 2;
-                var alpha = min(scrollY / 75, 1);
+                let alpha = min(scrollY / 75, 1);
                 self.fakeNavBar.alpha = alpha;
                 self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0 - alpha, alpha: 1.0)];
                 if (alpha < 0.5) {
@@ -124,8 +124,8 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
     func refreshDevices() {
         table.reloadData();
         ApiUtility.retrieveDevices({
-            self.devices = SessionController.Instance.devices.values.array;
-            self.devices.sort(self.sortByConnected);
+            self.devices = Array(SessionController.Instance.devices.values);
+            self.devices.sortInPlace(self.sortByConnected);
             self.table.reloadData();
         });
         

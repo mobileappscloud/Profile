@@ -15,6 +15,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     @IBOutlet var metricsCard: UIView!
     @IBOutlet weak var pulseCard: PulseCard!
     @IBOutlet var errorCard: UIView!
+    @IBOutlet var qrCheckinCard: QrCheckinCard!
     
     var currentOrigin: CGFloat = 0, gap: CGFloat = 10, contentOriginY: CGFloat = 83;
     
@@ -41,6 +42,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         self.title = "Dashboard";
         self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveQrCheckinNotification:", name: ApiUtility.QR_CHECKIN, object: nil);
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveApiNotification:", name: ApiUtility.ACTIVITIES, object: nil);
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveApiNotification:", name: ApiUtility.CHALLENGES, object: nil);
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveApiNotification:", name: ApiUtility.CHECKINS, object: nil);
@@ -52,8 +54,67 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
+        
         (self.navigationController as! MainNavigationController).drawerController?.selectRowAtIndex(0);
         updateNavbar();
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated);
+        
+        ensureCardWidthIntegrity();
+        if SessionController.Instance.showQrCheckinCard ?? false && qrCheckinCard.superview == nil {
+            addQrCheckinView();
+            layoutDashboardItems(false);
+        }
+    }
+    
+    private func addQrCheckinView() {
+        mainScrollView.addSubview(qrCheckinCard);
+        qrCheckinCard.loadingImage.image = UIImage.animatedImageNamed("vitals_loading_", duration: 2);
+    }
+    
+    /**
+        @abstract This is a workaround to ensure the width of cards displayed on the dashboard fill
+        the device width. This approach was chosen to minimize changes necessary to support multiple
+        screen sizes. 
+    
+        @note This view is not in true compliance with adaptive layout.
+    */
+    private func ensureCardWidthIntegrity() {
+        let width = CGRectGetWidth(self.view.bounds);
+        for subview in dashboardItems {
+            manuallyAutoresizeSubview(subview, width: width);
+        }
+    }
+    
+    private func manuallyAutoresizeSubview(subview: UIView!, width: CGFloat) {
+        var frame = subview.frame;
+        frame.size.width = width;
+        subview.frame = frame;
+    }
+    
+    func receiveQrCheckinNotification(notification: NSNotification) {
+        if let success = (notification.userInfo as! Dictionary<String, Bool>)["success"] {
+            if success {
+                showQrCheckinSuccess();
+            } else {
+                showQrCheckinFailure();
+            }
+        }
+    }
+    
+    func showQrCheckinFailure() {
+        qrCheckinCard.titleText.text = "Daily Check-in Upload Failed";
+        qrCheckinCard.messageText.text = "There was a problem uploading your check-in.";
+        qrCheckinCard.loadingImage.image = UIImage(named: "vitals_loading_35");
+    }
+    
+    func showQrCheckinSuccess() {
+        qrCheckinCard.titleText.text = "Daily Check-in Upload Complete!";
+        qrCheckinCard.messageText.text = "View your updated metrics below or review them in your Daily Summary.";
+        qrCheckinCard.loadingImage.image = UIImage(named: "vitals_loading_35");
+        qrCheckinCard.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "gotoDailySummary:"));
     }
     
     override func receiveApiNotification(notification: NSNotification) {
@@ -89,6 +150,10 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     }
     
     func initCards() {
+        dashboardItems = [qrCheckinCard, errorCard, challengesCard, metricsCard, pulseCard];
+        if SessionController.Instance.showQrCheckinCard ?? false {
+            addQrCheckinView();
+        }
         if (challengesCard.superview != nil) {
             challengesCard.removeFromSuperview();
         }
@@ -105,7 +170,6 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     
     func initChallengesCard() {
         if (SessionController.Instance.earnditError && SessionController.Instance.challenges.count == 0) {
-            dashboardItems = [errorCard, metricsCard, pulseCard];
             if (challengesCard.superview != nil) {
                 challengesCard.spinner.stopAnimating();
                 challengesCard.removeFromSuperview();
@@ -117,17 +181,15 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             }
         } else {
             if SessionController.Instance.earnditError {
-                dashboardItems = [errorCard, challengesCard, metricsCard, pulseCard];
                 Utility.growAnimation(errorCard, startHeight: challengesCard.frame.size.height, endHeight: errorCard.frame.size.height);
             } else {
-                dashboardItems = [challengesCard, metricsCard, pulseCard];
                 if (errorCard.superview != nil) {
                     errorCard.removeFromSuperview();
                 }
             }
             challengesCard.challengeBox.layer.borderColor = Utility.colorFromHexString("#CCCCCC").CGColor;
             if (challengesCard.spinner == nil) {
-                challengesCard.spinner = CustomLoadingSpinner(frame: CGRectMake(challengesCard.loadingContainer.frame.size.width / 2 - 16, challengesCard.loadingContainer.frame.size.height / 2 - 16, 32, 32));
+                challengesCard.spinner = CustomLoadingSpinner(frame: CGRectMake(UIScreen.mainScreen().bounds.width / 2 - 16, challengesCard.loadingContainer.frame.size.height / 2 - 16, 32, 32));
                 challengesCard.loadingContainer.addSubview(challengesCard.spinner);
             }
             if (challengesCard.superview == nil) {
@@ -159,12 +221,11 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                 challengesCard.blankStateImage.hidden = true;
                 challengesCard.challengeAvatar.setImageWithURL(NSURL(string: displayedChallenge.imageUrl as String));
                 challengesCard.challengeTitle.text = displayedChallenge.name as String;
-                let previousHeight = challengesCard.challengeBox.frame.size.height
                 if (challengesCard.challengeBox.subviews.count > 3) {
-                    (challengesCard.challengeBox.subviews[challengesCard.challengeBox.subviews.count - 1] as! UIView).removeFromSuperview();
+                    (challengesCard.challengeBox.subviews[challengesCard.challengeBox.subviews.count - 1] ).removeFromSuperview();
                 }
                 let challengeViewHeader = CGFloat(56);
-                var challengeView = ChallengeUtility.getChallengeViews(displayedChallenge, frame: CGRect(x: 0, y: challengeViewHeader, width: challengesCard.challengeBox.frame.size.width, height: 180), isComplex: false)[0];
+                let challengeView = ChallengeUtility.getChallengeViews(displayedChallenge, frame: CGRect(x: 0, y: challengeViewHeader, width: challengesCard.challengeBox.frame.size.width, height: 180), isComplex: false)[0];
                 challengeView.backgroundColor = UIColor.whiteColor();
                 if (challengeView.frame.size.height + challengeViewHeader > challengesCard.challengeBox.frame.size.height) {
                     Utility.growAnimation(challengesCard.challengeBox, startHeight: challengesCard.challengeBox.frame.size.height, endHeight: challengeView.frame.size.height + challengeViewHeader + challengeViewHeader);
@@ -185,16 +246,14 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                 challengesCard.spinner.stopAnimating();
             }
         }
-        layoutDashboardItems(dashboardItems, animated: challengeCardPlaced);
+        layoutDashboardItems(challengeCardPlaced);
         challengeCardPlaced = true;
     }
     
     func initMetricsCard() {
         if (SessionController.Instance.earnditError) {
             if (SessionController.Instance.challenges == nil || SessionController.Instance.challenges.count == 0) {
-                dashboardItems = [errorCard, metricsCard, pulseCard];
             } else {
-                dashboardItems = [errorCard, challengesCard, metricsCard, pulseCard];
             }
             if (errorCard.superview == nil) {
                 errorCard.frame.origin.y = contentOriginY;
@@ -204,10 +263,9 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             if (errorCard.superview != nil) {
                 errorCard.removeFromSuperview();
             }
-            dashboardItems = [challengesCard, metricsCard, pulseCard];
         }
         if (metricsSpinner == nil) {
-            metricsSpinner = CustomLoadingSpinner(frame: CGRectMake(metricsCard.frame.size.width / 2 - 16, 84, 32, 32));
+            metricsSpinner = CustomLoadingSpinner(frame: CGRectMake(UIScreen.mainScreen().bounds.width / 2 - 16, 84, 32, 32));
             metricsCard.addSubview(metricsSpinner)
         }
         if (metricsCard.superview == nil) {
@@ -215,7 +273,6 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             metricsSpinner.startAnimating();
         }
         if (SessionController.Instance.checkins != nil) {
-            var bloodPressureCheckin: HigiCheckin, weightCheckin: HigiCheckin;
             var bps: [HigiCheckin] = [], weights: [HigiCheckin] = [], pulses: [HigiCheckin] = [];
             let dateFormatter = NSDateFormatter();
             dateFormatter.dateFormat = "MM/dd/yyyy";
@@ -250,11 +307,6 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             let cardMarginX:CGFloat = 8, cardMarginY:CGFloat = 16;
             var cardPositionY:CGFloat = 60;
             
-            let activityColor = MetricsType.DailySummary.getColor();
-            let bloodPressureColor = MetricsType.BloodPressure.getColor();
-            let pulseColor = MetricsType.Pulse.getColor();
-            let weightColor = MetricsType.Weight.getColor();
-            
             activityCard = MetricsGraphCard.instanceFromNib(0, type: MetricsType.DailySummary);
             activityCard.frame.origin.y = cardPositionY;
             activityCard.frame.origin.x = cardMarginX;
@@ -262,7 +314,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             activityCard.addGestureRecognizer(activityTouched);
             cardPositionY += activityCard.frame.size.height + cardMarginY;
             
-            var firstDivider = UIView(frame: CGRect(x: 0, y: cardPositionY - cardMarginY / 2, width: self.view.frame.size.width, height: 1));
+            let firstDivider = UIView(frame: CGRect(x: 0, y: cardPositionY - cardMarginY / 2, width: self.view.frame.size.width, height: 1));
             firstDivider.backgroundColor = Utility.colorFromHexString("#EEEEEE");
             
             var bloodPressureCard:MetricsGraphCard!
@@ -277,7 +329,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             bloodPressureCard.addGestureRecognizer(bpTouched);
             cardPositionY += bloodPressureCard.frame.size.height + cardMarginY;
             
-            var secondDivider = UIView(frame: CGRect(x: 0, y: cardPositionY - cardMarginY / 2, width: self.view.frame.size.width, height: 1));
+            let secondDivider = UIView(frame: CGRect(x: 0, y: cardPositionY - cardMarginY / 2, width: self.view.frame.size.width, height: 1));
             secondDivider.backgroundColor = Utility.colorFromHexString("#EEEEEE");
             
             var pulseCard:MetricsGraphCard!
@@ -292,7 +344,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             pulseCard.addGestureRecognizer(pulseTouched);
             cardPositionY += pulseCard.frame.size.height + cardMarginY;
             
-            var thirdDivider = UIView(frame: CGRect(x: 0, y: cardPositionY - cardMarginY / 2, width: self.view.frame.size.width, height: 1));
+            let thirdDivider = UIView(frame: CGRect(x: 0, y: cardPositionY - cardMarginY / 2, width: self.view.frame.size.width, height: 1));
             thirdDivider.backgroundColor = Utility.colorFromHexString("#EEEEEE");
             
             var weightCard:MetricsGraphCard!;
@@ -307,7 +359,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             weightCard.addGestureRecognizer(weightTouched);
             cardPositionY += weightCard.frame.size.height + cardMarginY / 2;
             
-            var checkins = SessionController.Instance.checkins;
+            let checkins = SessionController.Instance.checkins;
             if (checkins != nil && checkins.count > 0) {
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                     var mapPoints:[GraphPoint] = [], bpmPoints:[GraphPoint] = [], weightPoints:[GraphPoint] = [];
@@ -324,13 +376,13 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                     }
                     dispatch_async(dispatch_get_main_queue(), {
                         if (mapPoints.count > self.maxPointsToShow) {
-                            mapPoints = Array(mapPoints.reverse()[0..<self.maxPointsToShow]);
+                            mapPoints = Array(Array(mapPoints.reverse())[0..<self.maxPointsToShow]);
                         }
                         if (bpmPoints.count > self.maxPointsToShow) {
-                            bpmPoints = Array(bpmPoints.reverse()[0..<self.maxPointsToShow]);
+                            bpmPoints = Array(Array(bpmPoints.reverse())[0..<self.maxPointsToShow]);
                         }
                         if (weightPoints.count > self.maxPointsToShow) {
-                            weightPoints = Array(weightPoints.reverse()[0..<self.maxPointsToShow]);
+                            weightPoints = Array(Array(weightPoints.reverse())[0..<self.maxPointsToShow]);
                         }
                         bloodPressureCard.graph(mapPoints, type: MetricsType.BloodPressure);
                         pulseCard.graph(bpmPoints, type: MetricsType.Pulse);
@@ -357,11 +409,11 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                             activityPoints.append(GraphPoint(x: Double(activityList[0].startTime.timeIntervalSince1970), y: Double(total)));
                         }
                     }
-                    activityPoints.sort({$0.x > $1.x});
+                    activityPoints.sortInPlace({$0.x > $1.x});
                     if (activityPoints.count > self.maxPointsToShow) {
                         activityPoints = Array(activityPoints[0..<self.maxPointsToShow]);
                     }
-                    activityPoints = activityPoints.reverse();
+                    activityPoints = Array(activityPoints.reverse());
                     dispatch_async(dispatch_get_main_queue(), {
                         self.activityCard.singleValue.text = "\(totalPoints)";
                         self.activityCard.graph(activityPoints, type: MetricsType.DailySummary);
@@ -381,7 +433,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             Utility.growAnimation(metricsCard, startHeight: metricsCard.frame.size.height, endHeight: cardPositionY);
         }
         
-        layoutDashboardItems(dashboardItems, animated: metricsCardPlaced);
+        layoutDashboardItems(metricsCardPlaced);
         metricsCardPlaced = true;
     }
     
@@ -390,7 +442,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         if (articles.count > 2) {
             pulseCard.spinner.stopAnimating();
             pulseCard.loadingContainer.hidden = true;
-            var topArticle = articles[0], middleArticle = articles[1], bottomArticle = articles[2];
+            let topArticle = articles[0], middleArticle = articles[1], bottomArticle = articles[2];
             pulseCard.topImage.setImageWithURL(NSURL(string: topArticle.imageUrl as String));
             pulseCard.topTitle.text = topArticle.title as String;
             pulseCard.topExcerpt.text = topArticle.excerpt as String;
@@ -413,7 +465,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             mainScrollView.addSubview(pulseCard);
             pulseCard.spinner.startAnimating();
         }
-        layoutDashboardItems(dashboardItems, animated: pulseCardPlaced);
+        layoutDashboardItems(pulseCardPlaced);
         pulseCardPlaced = true;
     }
 
@@ -445,16 +497,20 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         self.navigationController!.pushViewController(viewController, animated: true);
     }
     
+    func gotoDailySummary(sender: AnyObject) {
+        Flurry.logEvent("QrCheckinCard_Pressed");
+        self.navigationController!.pushViewController(DailySummaryViewController(nibName: "DailySummaryView", bundle: nil), animated: true);
+    }
+    
     @IBAction func gotoConnectDevices(sender: AnyObject) {
         Flurry.logEvent("ConnectDevice_Pressed");
         self.navigationController!.pushViewController(ConnectDeviceViewController(nibName: "ConnectDeviceView", bundle: nil), animated: true);
     }
     
-    
     @IBAction func gotoMetrics(sender: AnyObject) {
         if (SessionController.Instance.checkins != nil && SessionController.Instance.loadedActivities) {
             Flurry.logEvent("Metrics_Pressed");
-            var metricsViewController = MetricsViewController(nibName: "MetricsView", bundle: nil);
+            let metricsViewController = MetricsViewController(nibName: "MetricsView", bundle: nil);
             self.navigationController!.pushViewController(metricsViewController, animated: true);
         }
     }
@@ -470,7 +526,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     
     @IBAction func gotoChallengeDetails(sender: AnyObject) {
         Flurry.logEvent("ActiveChallenge_Pressed");
-        var detailsViewController = ChallengeDetailsViewController(nibName: "ChallengeDetailsView", bundle: nil);
+        let detailsViewController = ChallengeDetailsViewController(nibName: "ChallengeDetailsView", bundle: nil);
         detailsViewController.challenge = displayedChallenge;
         self.navigationController!.pushViewController(detailsViewController, animated: true);
         (self.navigationController as! MainNavigationController).drawerController?.tableView.reloadData();
@@ -490,12 +546,17 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         } else {
             Flurry.logEvent("NonFeaturedPulseArticle_Pressed");
         }
-        var webView = WebViewController(nibName: "WebView", bundle: nil);
-        var article: PulseArticle!;
+        let webView = WebViewController(nibName: "WebView", bundle: nil);
         webView.url = SessionController.Instance.pulseArticles[sender.tag!].permalink;
         self.navigationController?.pushViewController(webView, animated: true);
         (self.navigationController as! MainNavigationController).drawerController?.tableView.reloadData();
         (self.navigationController as! MainNavigationController).drawerController?.tableView.selectRowAtIndexPath(NSIndexPath(forItem: 5, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None);
+    }
+    
+    @IBAction func removeQrCheckinCard(sender: AnyObject) {
+        SessionController.Instance.showQrCheckinCard = false;
+        qrCheckinCard.removeFromSuperview();
+        layoutDashboardItems(false);
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -503,10 +564,10 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     }
     
     func updateNavbar() {
-        var scrollY = mainScrollView.contentOffset.y;
+        let scrollY = mainScrollView.contentOffset.y;
         if (scrollY >= 0) {
             headerImage.frame.origin.y = -scrollY / 2;
-            var alpha = min(scrollY / 100, 1);
+            let alpha = min(scrollY / 100, 1);
             self.fakeNavBar.alpha = alpha;
             CATransaction.setDisableActions(true);
             refreshArc.strokeStart = 0.0;
@@ -530,7 +591,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             headerImage.frame.origin.y = 0;
             self.fakeNavBar.alpha = 0;
             self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0, alpha: 0)];
-            var alpha = max(1.0 + scrollY / (mainScrollView.frame.size.height * 0.195), 0.0);
+            let alpha = max(1.0 + scrollY / (mainScrollView.frame.size.height * 0.195), 0.0);
             if (!refreshControl.refreshing && doneRefreshing) {
                 pullRefreshView.icon.alpha = 1.0 - alpha;
                 pullRefreshView.circleContainer.alpha = 1.0 - alpha;
@@ -561,10 +622,10 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         refreshArc.fillColor = UIColor.clearColor().CGColor;
         refreshArc.strokeColor = UIColor.whiteColor().CGColor;
         
-        var toPath = UIBezierPath();
-        var radius = pullRefreshView.circleContainer.frame.size.width / 2.0;
-        var center = CGPoint(x: radius, y: radius);
-        var startingPoint = CGPoint(x: center.x, y: 0);
+        let toPath = UIBezierPath();
+        let radius = pullRefreshView.circleContainer.frame.size.width / 2.0;
+        let center = CGPoint(x: radius, y: radius);
+        let startingPoint = CGPoint(x: center.x, y: 0);
         toPath.moveToPoint(startingPoint);
         toPath.addArcWithCenter(center, radius: radius, startAngle: CGFloat(-M_PI_2), endAngle: CGFloat(3 * M_PI_2), clockwise: true);
         toPath.closePath();
@@ -640,7 +701,6 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                 self.refreshArc.strokeEnd = 0.0;
                 CATransaction.setDisableActions(false);
                 CATransaction.commit();
-                var user = SessionData.Instance.user;
                 self.initCards();
                 self.doneRefreshing = true;
                 self.refreshControl.endRefreshing();
@@ -650,7 +710,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         HigiApi().sendGet("\(HigiApi.higiApiUrl)/data/qdata/\(SessionData.Instance.user.userId)?newSession=true", success: { operation, responseObject in
             
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                var login = HigiLogin(dictionary: responseObject as! NSDictionary);
+                let login = HigiLogin(dictionary: responseObject as! NSDictionary);
                 SessionData.Instance.user = login.user;
                 SessionData.Instance.user.retrieveProfileImages();
                 ApiUtility.retrieveActivities(nil);
@@ -667,17 +727,19 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         });
     }
     
-    func layoutDashboardItems(items:[UIView], animated: Bool) {
+    func layoutDashboardItems(animated: Bool) {
         currentOrigin = contentOriginY;
         for item in dashboardItems {
-            if animated {
-                UIView.animateWithDuration(1, animations: {
-                    item.frame.origin.y = self.currentOrigin;
-                });
-            } else {
-                item.frame.origin.y = currentOrigin;
+            if item.superview != nil {
+                if animated {
+                    UIView.animateWithDuration(1, animations: {
+                        item.frame.origin.y = self.currentOrigin;
+                    });
+                } else {
+                    item.frame.origin.y = currentOrigin;
+                }
+                currentOrigin += item.frame.size.height + gap;
             }
-            currentOrigin += item.frame.size.height + gap;
         }
         mainScrollView.contentSize.height = currentOrigin;
     }

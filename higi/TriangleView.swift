@@ -11,13 +11,13 @@ class TriangleView : UIView {
         backgroundColor = UIColor.clearColor()
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     override func drawRect(rect: CGRect) {
         super.drawRect(rect);
-        drawTriangle(UIGraphicsGetCurrentContext() as CGContextRef, bounds: CGRect(x: 0, y: 0, width: w, height: h));
+        drawTriangle(UIGraphicsGetCurrentContext()!, bounds: CGRect(x: 0, y: 0, width: w, height: h));
     }
     
     func drawTriangle(context: CGContextRef, bounds rect: CGRect) {

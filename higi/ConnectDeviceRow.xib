@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -11,13 +11,14 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Pt2-HX-Ly8" id="Vkb-yD-VLR">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="69.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Ju-Gt-z9S">
                         <rect key="frame" x="8" y="10" width="50" height="50"/>
                     </imageView>
-                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Avx-Is-oFk">
-                        <rect key="frame" x="263" y="19" width="51" height="31"/>
+                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Avx-Is-oFk">
+                        <rect key="frame" x="256" y="19" width="51" height="31"/>
                         <connections>
                             <action selector="deviceSwitchTouch:" destination="Pt2-HX-Ly8" eventType="valueChanged" id="mFE-JW-GbM"/>
                         </connections>
@@ -29,6 +30,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="Avx-Is-oFk" firstAttribute="top" secondItem="Vkb-yD-VLR" secondAttribute="top" constant="19" id="TMH-ta-k19"/>
+                    <constraint firstAttribute="trailing" secondItem="Avx-Is-oFk" secondAttribute="trailing" constant="15" id="Xk3-Tb-zEr"/>
+                </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="connectedToggle" destination="Avx-Is-oFk" id="NY0-xo-8IR"/>

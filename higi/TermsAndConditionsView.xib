@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TermsAndConditionsViewController" customModule="higi" customModuleProvider="target">
@@ -19,16 +20,19 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <webView contentMode="scaleToFill" misplaced="YES" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tnh-Bk-ESG">
-                    <rect key="frame" x="8" y="64" width="304" height="444"/>
+                <webView contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tnh-Bk-ESG">
+                    <rect key="frame" x="8" y="65" width="304" height="443"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </webView>
-                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zaj-VQ-x5j">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zaj-VQ-x5j">
                     <rect key="frame" x="0.0" y="516" width="320" height="52"/>
                     <color key="backgroundColor" red="0.90588235289999997" green="0.90588235289999997" blue="0.90588235289999997" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="52" id="J5m-iS-k7m"/>
+                    </constraints>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="63d-2A-gZD">
-                    <rect key="frame" x="8" y="523" width="304" height="37"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="63d-2A-gZD">
+                    <rect key="frame" x="8" y="530" width="304" height="30"/>
                     <color key="backgroundColor" red="0.46274509800000002" green="0.75294117650000003" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <state key="normal" title="Close">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -43,8 +47,8 @@
                         <action selector="closeButtonClick:" destination="-1" eventType="touchUpInside" id="ThK-kV-cCA"/>
                     </connections>
                 </button>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cJi-At-Ko8">
-                    <rect key="frame" x="8" y="523" width="147" height="37"/>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cJi-At-Ko8">
+                    <rect key="frame" x="8" y="530" width="148" height="30"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <state key="normal" title="Decline">
                         <color key="titleColor" red="0.41960784309999999" green="0.71764705880000002" blue="0.086274509799999996" alpha="1" colorSpace="calibratedRGB"/>
@@ -59,8 +63,8 @@
                         <action selector="declineClick:" destination="-1" eventType="touchUpInside" id="LtT-fM-BDA"/>
                     </connections>
                 </button>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i2U-fv-uox">
-                    <rect key="frame" x="165" y="523" width="147" height="37"/>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i2U-fv-uox">
+                    <rect key="frame" x="164" y="530" width="148" height="30"/>
                     <color key="backgroundColor" red="0.46274509800000002" green="0.75294117650000003" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <state key="normal" title="Accept">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -90,15 +94,21 @@
                 <constraint firstItem="Tnh-Bk-ESG" firstAttribute="leading" secondItem="evC-i8-swY" secondAttribute="leading" constant="8" id="GWa-Cd-rgV"/>
                 <constraint firstAttribute="trailing" secondItem="63d-2A-gZD" secondAttribute="trailing" constant="8" id="Gdf-OR-YMy"/>
                 <constraint firstItem="EFR-Qm-4kc" firstAttribute="leading" secondItem="evC-i8-swY" secondAttribute="leading" id="I7R-mW-gjd"/>
+                <constraint firstItem="i2U-fv-uox" firstAttribute="leading" secondItem="evC-i8-swY" secondAttribute="centerX" constant="4" id="Jh5-JJ-vux"/>
                 <constraint firstAttribute="trailing" secondItem="Tnh-Bk-ESG" secondAttribute="trailing" constant="8" id="KED-Pf-jK0"/>
                 <constraint firstItem="EFR-Qm-4kc" firstAttribute="top" secondItem="evC-i8-swY" secondAttribute="top" constant="15" id="MGo-qH-e7A"/>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="63d-2A-gZD" secondAttribute="bottom" constant="8" id="N1y-mj-EB9"/>
+                <constraint firstAttribute="trailing" secondItem="zaj-VQ-x5j" secondAttribute="trailing" id="T6d-q0-rUF"/>
                 <constraint firstAttribute="bottom" secondItem="63d-2A-gZD" secondAttribute="bottom" constant="8" id="V3d-wf-yg7"/>
                 <constraint firstAttribute="bottom" secondItem="zaj-VQ-x5j" secondAttribute="bottom" id="Vii-l0-P1u"/>
+                <constraint firstAttribute="trailing" secondItem="i2U-fv-uox" secondAttribute="trailing" constant="8" id="b9h-Rn-4mc"/>
+                <constraint firstItem="cJi-At-Ko8" firstAttribute="trailing" secondItem="evC-i8-swY" secondAttribute="centerX" constant="-4" id="dWA-rI-cRt"/>
+                <constraint firstItem="zaj-VQ-x5j" firstAttribute="leading" secondItem="evC-i8-swY" secondAttribute="leading" id="e8z-bH-Xpd"/>
                 <constraint firstAttribute="bottom" secondItem="cJi-At-Ko8" secondAttribute="bottom" constant="8" id="gCe-u0-P88"/>
                 <constraint firstAttribute="trailing" secondItem="EFR-Qm-4kc" secondAttribute="trailing" id="shL-42-n83"/>
                 <constraint firstItem="Tnh-Bk-ESG" firstAttribute="top" secondItem="EFR-Qm-4kc" secondAttribute="bottom" constant="1" id="tAg-4g-xBk"/>
                 <constraint firstAttribute="bottom" secondItem="i2U-fv-uox" secondAttribute="bottom" constant="8" id="yaO-Hp-awH"/>
+                <constraint firstItem="cJi-At-Ko8" firstAttribute="leading" secondItem="evC-i8-swY" secondAttribute="leading" constant="8" id="z9z-zT-MPv"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>

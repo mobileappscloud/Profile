@@ -4,4 +4,4 @@ pod 'AFNetworking', '~> 2.2'
 pod 'CorePlot', '~>1.5.1'
 pod 'Fabric'
 pod 'Crashlytics'
-xcodeproj 'higi', 'Release QA' => :release, 'Debug QA' => :debug
+xcodeproj 'higi', 'ReleaseQA' => :release, 'DebugQA' => :debug

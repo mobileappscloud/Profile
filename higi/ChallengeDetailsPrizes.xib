@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
@@ -12,18 +12,22 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yX0-qv-kco" id="wal-DU-vKu">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="99.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="beZ-DU-2cl">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="beZ-DU-2cl">
                         <rect key="frame" x="8" y="13" width="304" height="20"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Spj-Ow-gj5">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Spj-Ow-gj5">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
                         <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="jIL-sn-eJT"/>
+                        </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kjv-4Y-MhM">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kjv-4Y-MhM">
                         <rect key="frame" x="8" y="43" width="304" height="20"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -34,10 +38,13 @@
                 <constraints>
                     <constraint firstItem="beZ-DU-2cl" firstAttribute="leading" secondItem="wal-DU-vKu" secondAttribute="leadingMargin" id="082-Mb-xDh"/>
                     <constraint firstItem="Kjv-4Y-MhM" firstAttribute="leading" secondItem="wal-DU-vKu" secondAttribute="leadingMargin" id="3wi-Xp-Ne6"/>
+                    <constraint firstItem="Spj-Ow-gj5" firstAttribute="leading" secondItem="wal-DU-vKu" secondAttribute="leading" id="Im9-NO-9Df"/>
                     <constraint firstItem="Kjv-4Y-MhM" firstAttribute="top" secondItem="beZ-DU-2cl" secondAttribute="bottom" constant="10" id="NQo-sG-dNd"/>
                     <constraint firstItem="Kjv-4Y-MhM" firstAttribute="trailing" secondItem="wal-DU-vKu" secondAttribute="trailingMargin" id="PYs-BS-vyL"/>
                     <constraint firstItem="beZ-DU-2cl" firstAttribute="top" secondItem="Spj-Ow-gj5" secondAttribute="bottom" constant="12" id="cig-FK-Tcl"/>
                     <constraint firstItem="beZ-DU-2cl" firstAttribute="trailing" secondItem="wal-DU-vKu" secondAttribute="trailingMargin" id="lhS-Pr-zZx"/>
+                    <constraint firstItem="Spj-Ow-gj5" firstAttribute="top" secondItem="wal-DU-vKu" secondAttribute="top" id="uYa-HE-ORU"/>
+                    <constraint firstAttribute="trailing" secondItem="Spj-Ow-gj5" secondAttribute="trailing" id="uqt-hU-Kuw"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

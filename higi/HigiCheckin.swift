@@ -64,7 +64,7 @@ class HigiCheckin {
         pulseClass = convertClass(pulseClass);
         fatClass = convertClass(fatClass);
         mapClass = convertClass(mapClass);
-        var infoDict: NSDictionary? = dictionary["kioskInfo"] as? NSDictionary;
+        let infoDict: NSDictionary? = dictionary["kioskInfo"] as? NSDictionary;
         if (infoDict != nil) {
             kioskInfo = KioskInfo(dictionary: infoDict!);
         }

@@ -46,7 +46,7 @@ class MetricDetailCard: UIView {
     let scrollViewPadding:CGFloat = 20;
     
     class func instanceFromNib(card: MetricCard) -> MetricDetailCard {
-        var view = UINib(nibName: "MetricDetailCardView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! MetricDetailCard;
+        let view = UINib(nibName: "MetricDetailCardView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! MetricDetailCard;
         view.setupView(card.delegate);
         view.updateCard(card);
         return view;
@@ -412,13 +412,13 @@ class MetricDetailCard: UIView {
         if let (points, sessionActivities) = SessionController.Instance.activities[dateString!] {
             totalPoints = points;
             activities = sessionActivities;
-            activities.sort(SummaryViewUtility.sortByPoints);
+            activities.sortInPlace(SummaryViewUtility.sortByPoints);
         }
 
         var activitiesByDevice: [String: Int] = [:];
         var subActivities:[String: (Int, [HigiActivity])] = [:];
         for activity in activities {
-            var type = activity.type.getString();
+            let type = activity.type.getString();
             if let (total, activityList) = activitiesByType[type] {
                 if let devicePoints = activitiesByDevice[String(activity.device.name)] {
                     var previousActivities = activityList;
@@ -452,7 +452,7 @@ class MetricDetailCard: UIView {
             }
         }
         
-        var gap = CGFloat(4);
+        let gap = CGFloat(4);
         for key in activityKeys {
             let (total, activityList) = activitiesByType[key]!;
             let category = ActivityCategory.categoryFromString(key);
@@ -489,7 +489,7 @@ class MetricDetailCard: UIView {
     func gotoDailySummary(sender: AnyObject) {
         Flurry.logEvent("Summary_Pressed");
         (Utility.getViewController(self) as! MetricsViewController).selectedType = MetricsType.DailySummary;
-        var summaryController = DailySummaryViewController(nibName: "DailySummaryView", bundle: nil);
+        let summaryController = DailySummaryViewController(nibName: "DailySummaryView", bundle: nil);
         let dateString = delegate.getSelectedPoint()!.date;
         summaryController.dateString = dateString;
         Utility.getViewController(self)!.navigationController!.pushViewController(summaryController, animated: true);
