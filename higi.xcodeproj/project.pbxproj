@@ -25,6 +25,15 @@
 		41545BF91BA76CFA00946358 /* NotificationSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41545BF81BA76CFA00946358 /* NotificationSettings.storyboard */; };
 		4192B4FE1BB5BF4500D1A2D3 /* PersistentSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4192B4FD1BB5BF4500D1A2D3 /* PersistentSettingsController.swift */; };
 		419D85CF1BBEDD3C00E7D844 /* HIGIScatterPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D85CE1BBEDD3C00E7D844 /* HIGIScatterPlot.m */; settings = {ASSET_TAGS = (); }; };
+		419D86481BBEF83000E7D844 /* GQuadItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D862D1BBEF83000E7D844 /* GQuadItem.m */; settings = {ASSET_TAGS = (); }; };
+		419D86491BBEF83000E7D844 /* GStaticCluster.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D862F1BBEF83000E7D844 /* GStaticCluster.m */; settings = {ASSET_TAGS = (); }; };
+		419D864A1BBEF83000E7D844 /* NonHierarchicalDistanceBasedAlgorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D86311BBEF83000E7D844 /* NonHierarchicalDistanceBasedAlgorithm.m */; settings = {ASSET_TAGS = (); }; };
+		419D864C1BBEF83000E7D844 /* GClusterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D86381BBEF83000E7D844 /* GClusterManager.m */; settings = {ASSET_TAGS = (); }; };
+		419D864E1BBEF83000E7D844 /* SphericalMercatorProjection.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D863F1BBEF83000E7D844 /* SphericalMercatorProjection.m */; settings = {ASSET_TAGS = (); }; };
+		419D864F1BBEF83000E7D844 /* GQTPointQuadTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D86441BBEF83000E7D844 /* GQTPointQuadTree.m */; settings = {ASSET_TAGS = (); }; };
+		419D86501BBEF83000E7D844 /* GQTPointQuadTreeChild.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D86461BBEF83000E7D844 /* GQTPointQuadTreeChild.m */; settings = {ASSET_TAGS = (); }; };
+		419D86561BBEF9A700E7D844 /* HigiClusterRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D86551BBEF9A700E7D844 /* HigiClusterRenderer.m */; settings = {ASSET_TAGS = (); }; };
+		419D86591BBEFA0A00E7D844 /* ClusterKiosk.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D86581BBEFA0A00E7D844 /* ClusterKiosk.m */; settings = {ASSET_TAGS = (); }; };
 		41A0BE0B1BBB088500A314D6 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A0BDF91BBB088500A314D6 /* AFHTTPRequestOperation.m */; };
 		41A0BE0C1BBB088500A314D6 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A0BDFB1BBB088500A314D6 /* AFHTTPRequestOperationManager.m */; };
 		41A0BE0D1BBB088500A314D6 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A0BDFD1BBB088500A314D6 /* AFHTTPSessionManager.m */; };
@@ -254,16 +263,7 @@
 		D110BAD41B0E7C5500CD1E58 /* DailySummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D110BAD31B0E7C5500CD1E58 /* DailySummaryViewController.swift */; };
 		D110BAD61B0E7CD700CD1E58 /* DailySummaryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D110BAD51B0E7CD700CD1E58 /* DailySummaryView.xib */; };
 		D114B06B1B2A19900073A9CB /* TriangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D114B06A1B2A19900073A9CB /* TriangleView.swift */; };
-		D1247BC91AA620F1008A601A /* HigiClusterRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = D1247BC81AA620F1008A601A /* HigiClusterRenderer.m */; };
 		D12780AE1A4A2701002EB56A /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D12780AD1A4A2701002EB56A /* fontawesome-webfont.ttf */; };
-		D12B37061AA4DF02005B2ABA /* ClusterKiosk.m in Sources */ = {isa = PBXBuildFile; fileRef = D12B37051AA4DF02005B2ABA /* ClusterKiosk.m */; };
-		D12B370E1AA4EC57005B2ABA /* SphericalMercatorProjection.m in Sources */ = {isa = PBXBuildFile; fileRef = D12B370D1AA4EC57005B2ABA /* SphericalMercatorProjection.m */; };
-		D12B37131AA4EC70005B2ABA /* GClusterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D12B37121AA4EC70005B2ABA /* GClusterManager.m */; };
-		D12B398B1AA4ECC6005B2ABA /* GQTPointQuadTree.m in Sources */ = {isa = PBXBuildFile; fileRef = D12B39871AA4ECC6005B2ABA /* GQTPointQuadTree.m */; };
-		D12B398C1AA4ECC6005B2ABA /* GQTPointQuadTreeChild.m in Sources */ = {isa = PBXBuildFile; fileRef = D12B39891AA4ECC6005B2ABA /* GQTPointQuadTreeChild.m */; };
-		D12B39981AA4ED08005B2ABA /* GQuadItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D12B39931AA4ED08005B2ABA /* GQuadItem.m */; };
-		D12B39991AA4ED08005B2ABA /* GStaticCluster.m in Sources */ = {isa = PBXBuildFile; fileRef = D12B39951AA4ED08005B2ABA /* GStaticCluster.m */; };
-		D12B399A1AA4ED08005B2ABA /* NonHierarchicalDistanceBasedAlgorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = D12B39971AA4ED08005B2ABA /* NonHierarchicalDistanceBasedAlgorithm.m */; };
 		D130183E1B14D2C9008DDFAD /* ChallengeUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = D130183D1B14D2C9008DDFAD /* ChallengeUtility.swift */; };
 		D13018401B14D943008DDFAD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D130183F1B14D943008DDFAD /* Constants.swift */; };
 		D131B8AE1BB5E4650081750A /* vitals_loading_1.png in Resources */ = {isa = PBXBuildFile; fileRef = D131B8AD1BB5E4650081750A /* vitals_loading_1.png */; };
@@ -399,6 +399,32 @@
 		4192B4FD1BB5BF4500D1A2D3 /* PersistentSettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistentSettingsController.swift; sourceTree = "<group>"; };
 		419D85CD1BBEDD3C00E7D844 /* HIGIScatterPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HIGIScatterPlot.h; sourceTree = "<group>"; };
 		419D85CE1BBEDD3C00E7D844 /* HIGIScatterPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HIGIScatterPlot.m; sourceTree = "<group>"; };
+		419D862B1BBEF83000E7D844 /* GClusterAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GClusterAlgorithm.h; sourceTree = "<group>"; };
+		419D862C1BBEF83000E7D844 /* GQuadItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQuadItem.h; sourceTree = "<group>"; };
+		419D862D1BBEF83000E7D844 /* GQuadItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQuadItem.m; sourceTree = "<group>"; };
+		419D862E1BBEF83000E7D844 /* GStaticCluster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GStaticCluster.h; sourceTree = "<group>"; };
+		419D862F1BBEF83000E7D844 /* GStaticCluster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GStaticCluster.m; sourceTree = "<group>"; };
+		419D86301BBEF83000E7D844 /* NonHierarchicalDistanceBasedAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NonHierarchicalDistanceBasedAlgorithm.h; sourceTree = "<group>"; };
+		419D86311BBEF83000E7D844 /* NonHierarchicalDistanceBasedAlgorithm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NonHierarchicalDistanceBasedAlgorithm.m; sourceTree = "<group>"; };
+		419D86341BBEF83000E7D844 /* ClusterManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClusterManagerDelegate.h; sourceTree = "<group>"; };
+		419D86351BBEF83000E7D844 /* GCluster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCluster.h; sourceTree = "<group>"; };
+		419D86361BBEF83000E7D844 /* GClusterItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GClusterItem.h; sourceTree = "<group>"; };
+		419D86371BBEF83000E7D844 /* GClusterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GClusterManager.h; sourceTree = "<group>"; };
+		419D86381BBEF83000E7D844 /* GClusterManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GClusterManager.m; sourceTree = "<group>"; };
+		419D863A1BBEF83000E7D844 /* GClusterRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GClusterRenderer.h; sourceTree = "<group>"; };
+		419D863E1BBEF83000E7D844 /* SphericalMercatorProjection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SphericalMercatorProjection.h; sourceTree = "<group>"; };
+		419D863F1BBEF83000E7D844 /* SphericalMercatorProjection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SphericalMercatorProjection.m; sourceTree = "<group>"; };
+		419D86411BBEF83000E7D844 /* GQTBounds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTBounds.h; sourceTree = "<group>"; };
+		419D86421BBEF83000E7D844 /* GQTPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTPoint.h; sourceTree = "<group>"; };
+		419D86431BBEF83000E7D844 /* GQTPointQuadTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTPointQuadTree.h; sourceTree = "<group>"; };
+		419D86441BBEF83000E7D844 /* GQTPointQuadTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQTPointQuadTree.m; sourceTree = "<group>"; };
+		419D86451BBEF83000E7D844 /* GQTPointQuadTreeChild.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTPointQuadTreeChild.h; sourceTree = "<group>"; };
+		419D86461BBEF83000E7D844 /* GQTPointQuadTreeChild.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQTPointQuadTreeChild.m; sourceTree = "<group>"; };
+		419D86471BBEF83000E7D844 /* GQTPointQuadTreeItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTPointQuadTreeItem.h; sourceTree = "<group>"; };
+		419D86541BBEF9A700E7D844 /* HigiClusterRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HigiClusterRenderer.h; sourceTree = "<group>"; };
+		419D86551BBEF9A700E7D844 /* HigiClusterRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HigiClusterRenderer.m; sourceTree = "<group>"; };
+		419D86571BBEFA0A00E7D844 /* ClusterKiosk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClusterKiosk.h; sourceTree = "<group>"; };
+		419D86581BBEFA0A00E7D844 /* ClusterKiosk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClusterKiosk.m; sourceTree = "<group>"; };
 		41A0BDF81BBB088500A314D6 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
 		41A0BDF91BBB088500A314D6 /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
 		41A0BDFA1BBB088500A314D6 /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
@@ -656,33 +682,7 @@
 		D110BAD31B0E7C5500CD1E58 /* DailySummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailySummaryViewController.swift; sourceTree = "<group>"; };
 		D110BAD51B0E7CD700CD1E58 /* DailySummaryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DailySummaryView.xib; sourceTree = "<group>"; };
 		D114B06A1B2A19900073A9CB /* TriangleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriangleView.swift; sourceTree = "<group>"; };
-		D1247BC71AA620C9008A601A /* HigiClusterRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HigiClusterRenderer.h; sourceTree = "<group>"; };
-		D1247BC81AA620F1008A601A /* HigiClusterRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HigiClusterRenderer.m; sourceTree = "<group>"; };
-		D1247BCC1AA662DC008A601A /* ClusterManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClusterManagerDelegate.h; sourceTree = "<group>"; };
 		D12780AD1A4A2701002EB56A /* fontawesome-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fontawesome-webfont.ttf"; sourceTree = "<group>"; };
-		D12B37051AA4DF02005B2ABA /* ClusterKiosk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClusterKiosk.m; sourceTree = "<group>"; };
-		D12B37071AA4DF11005B2ABA /* ClusterKiosk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClusterKiosk.h; sourceTree = "<group>"; };
-		D12B370C1AA4EC57005B2ABA /* SphericalMercatorProjection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SphericalMercatorProjection.h; sourceTree = "<group>"; };
-		D12B370D1AA4EC57005B2ABA /* SphericalMercatorProjection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SphericalMercatorProjection.m; sourceTree = "<group>"; };
-		D12B370F1AA4EC70005B2ABA /* GCluster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCluster.h; sourceTree = "<group>"; };
-		D12B37101AA4EC70005B2ABA /* GClusterItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GClusterItem.h; sourceTree = "<group>"; };
-		D12B37111AA4EC70005B2ABA /* GClusterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GClusterManager.h; sourceTree = "<group>"; };
-		D12B37121AA4EC70005B2ABA /* GClusterManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GClusterManager.m; sourceTree = "<group>"; };
-		D12B39841AA4ECC6005B2ABA /* GQTBounds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTBounds.h; sourceTree = "<group>"; };
-		D12B39851AA4ECC6005B2ABA /* GQTPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTPoint.h; sourceTree = "<group>"; };
-		D12B39861AA4ECC6005B2ABA /* GQTPointQuadTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTPointQuadTree.h; sourceTree = "<group>"; };
-		D12B39871AA4ECC6005B2ABA /* GQTPointQuadTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQTPointQuadTree.m; sourceTree = "<group>"; };
-		D12B39881AA4ECC6005B2ABA /* GQTPointQuadTreeChild.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTPointQuadTreeChild.h; sourceTree = "<group>"; };
-		D12B39891AA4ECC6005B2ABA /* GQTPointQuadTreeChild.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQTPointQuadTreeChild.m; sourceTree = "<group>"; };
-		D12B398A1AA4ECC6005B2ABA /* GQTPointQuadTreeItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTPointQuadTreeItem.h; sourceTree = "<group>"; };
-		D12B398D1AA4ECEB005B2ABA /* GClusterRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GClusterRenderer.h; sourceTree = "<group>"; };
-		D12B39911AA4ED08005B2ABA /* GClusterAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GClusterAlgorithm.h; sourceTree = "<group>"; };
-		D12B39921AA4ED08005B2ABA /* GQuadItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQuadItem.h; sourceTree = "<group>"; };
-		D12B39931AA4ED08005B2ABA /* GQuadItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQuadItem.m; sourceTree = "<group>"; };
-		D12B39941AA4ED08005B2ABA /* GStaticCluster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GStaticCluster.h; sourceTree = "<group>"; };
-		D12B39951AA4ED08005B2ABA /* GStaticCluster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GStaticCluster.m; sourceTree = "<group>"; };
-		D12B39961AA4ED08005B2ABA /* NonHierarchicalDistanceBasedAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NonHierarchicalDistanceBasedAlgorithm.h; sourceTree = "<group>"; };
-		D12B39971AA4ED08005B2ABA /* NonHierarchicalDistanceBasedAlgorithm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NonHierarchicalDistanceBasedAlgorithm.m; sourceTree = "<group>"; };
 		D130183D1B14D2C9008DDFAD /* ChallengeUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeUtility.swift; sourceTree = "<group>"; };
 		D130183F1B14D943008DDFAD /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D131B8AD1BB5E4650081750A /* vitals_loading_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = vitals_loading_1.png; path = images/vitals_loading_1.png; sourceTree = "<group>"; };
@@ -870,6 +870,89 @@
 			name = "Notification Settings";
 			sourceTree = "<group>";
 		};
+		419D86291BBEF83000E7D844 /* Clustering */ = {
+			isa = PBXGroup;
+			children = (
+				419D862A1BBEF83000E7D844 /* Algorithms */,
+				419D86341BBEF83000E7D844 /* ClusterManagerDelegate.h */,
+				419D86351BBEF83000E7D844 /* GCluster.h */,
+				419D86361BBEF83000E7D844 /* GClusterItem.h */,
+				419D86371BBEF83000E7D844 /* GClusterManager.h */,
+				419D86381BBEF83000E7D844 /* GClusterManager.m */,
+				419D86391BBEF83000E7D844 /* View */,
+			);
+			name = Clustering;
+			path = "Vendor/Google-Maps-Utilities/Clustering";
+			sourceTree = "<group>";
+		};
+		419D862A1BBEF83000E7D844 /* Algorithms */ = {
+			isa = PBXGroup;
+			children = (
+				419D862B1BBEF83000E7D844 /* GClusterAlgorithm.h */,
+				419D862C1BBEF83000E7D844 /* GQuadItem.h */,
+				419D862D1BBEF83000E7D844 /* GQuadItem.m */,
+				419D862E1BBEF83000E7D844 /* GStaticCluster.h */,
+				419D862F1BBEF83000E7D844 /* GStaticCluster.m */,
+				419D86301BBEF83000E7D844 /* NonHierarchicalDistanceBasedAlgorithm.h */,
+				419D86311BBEF83000E7D844 /* NonHierarchicalDistanceBasedAlgorithm.m */,
+			);
+			path = Algorithms;
+			sourceTree = "<group>";
+		};
+		419D86391BBEF83000E7D844 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				419D863A1BBEF83000E7D844 /* GClusterRenderer.h */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		419D863D1BBEF83000E7D844 /* Projection */ = {
+			isa = PBXGroup;
+			children = (
+				419D863E1BBEF83000E7D844 /* SphericalMercatorProjection.h */,
+				419D863F1BBEF83000E7D844 /* SphericalMercatorProjection.m */,
+			);
+			name = Projection;
+			path = "Vendor/Google-Maps-Utilities/Projection";
+			sourceTree = "<group>";
+		};
+		419D86401BBEF83000E7D844 /* QuadTree */ = {
+			isa = PBXGroup;
+			children = (
+				419D86411BBEF83000E7D844 /* GQTBounds.h */,
+				419D86421BBEF83000E7D844 /* GQTPoint.h */,
+				419D86431BBEF83000E7D844 /* GQTPointQuadTree.h */,
+				419D86441BBEF83000E7D844 /* GQTPointQuadTree.m */,
+				419D86451BBEF83000E7D844 /* GQTPointQuadTreeChild.h */,
+				419D86461BBEF83000E7D844 /* GQTPointQuadTreeChild.m */,
+				419D86471BBEF83000E7D844 /* GQTPointQuadTreeItem.h */,
+			);
+			name = QuadTree;
+			path = "Vendor/Google-Maps-Utilities/QuadTree";
+			sourceTree = "<group>";
+		};
+		419D86531BBEF83400E7D844 /* Google Maps Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				419D86291BBEF83000E7D844 /* Clustering */,
+				419D863D1BBEF83000E7D844 /* Projection */,
+				419D86401BBEF83000E7D844 /* QuadTree */,
+			);
+			name = "Google Maps Utilities";
+			sourceTree = "<group>";
+		};
+		419D865A1BBEFA2000E7D844 /* Google Maps Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				419D86571BBEFA0A00E7D844 /* ClusterKiosk.h */,
+				419D86581BBEFA0A00E7D844 /* ClusterKiosk.m */,
+				419D86541BBEF9A700E7D844 /* HigiClusterRenderer.h */,
+				419D86551BBEF9A700E7D844 /* HigiClusterRenderer.m */,
+			);
+			name = "Google Maps Utilities";
+			sourceTree = "<group>";
+		};
 		41A0BDF71BBB088500A314D6 /* AFNetworking */ = {
 			isa = PBXGroup;
 			children = (
@@ -931,6 +1014,7 @@
 				41A0BE861BBB32CC00A314D6 /* Fabric */,
 				41A0BE2F1BBB110900A314D6 /* Flurry */,
 				41A917F41BBC670E00CCF91E /* Google Maps */,
+				419D86531BBEF83400E7D844 /* Google Maps Utilities */,
 				41A0BE381BBB14EE00A314D6 /* SwiftKeychainWrapper */,
 				41A0BE141BBB08B800A314D6 /* UIKit+AFNetworking */,
 			);
@@ -1031,16 +1115,6 @@
 			name = "Switch Cell";
 			sourceTree = "<group>";
 		};
-		41E606DB1BBECA4A0064EF1F /* Google Maps Utilities */ = {
-			isa = PBXGroup;
-			children = (
-				D12B37081AA4EB5A005B2ABA /* Projection */,
-				D12B36E71AA4DDB6005B2ABA /* QuadTree */,
-				D12B36E61AA4DDAB005B2ABA /* Clustering */,
-			);
-			name = "Google Maps Utilities";
-			sourceTree = "<group>";
-		};
 		8F08AF9A19893B03002EE906 /* Welcome */ = {
 			isa = PBXGroup;
 			children = (
@@ -1081,7 +1155,7 @@
 			isa = PBXGroup;
 			children = (
 				8F3643BC1946687B00C0033E /* BridgingHeader.h */,
-				41E606DB1BBECA4A0064EF1F /* Google Maps Utilities */,
+				419D865A1BBEFA2000E7D844 /* Google Maps Utilities */,
 				8F58D98C19C22AB600C0EC72 /* GTMNSString+HTML.h */,
 				8F58D98D19C22AB600C0EC72 /* GTMNSString+HTML.m */,
 				419D85CD1BBEDD3C00E7D844 /* HIGIScatterPlot.h */,
@@ -1624,69 +1698,6 @@
 			name = "Challenge Details";
 			sourceTree = "<group>";
 		};
-		D12B36E61AA4DDAB005B2ABA /* Clustering */ = {
-			isa = PBXGroup;
-			children = (
-				D12B36E81AA4DDE3005B2ABA /* Algorithms */,
-				D12B36F31AA4DE19005B2ABA /* View */,
-				D12B370F1AA4EC70005B2ABA /* GCluster.h */,
-				D12B37101AA4EC70005B2ABA /* GClusterItem.h */,
-				D12B37111AA4EC70005B2ABA /* GClusterManager.h */,
-				D12B37121AA4EC70005B2ABA /* GClusterManager.m */,
-				D12B37051AA4DF02005B2ABA /* ClusterKiosk.m */,
-				D12B37071AA4DF11005B2ABA /* ClusterKiosk.h */,
-				D1247BCC1AA662DC008A601A /* ClusterManagerDelegate.h */,
-			);
-			name = Clustering;
-			sourceTree = "<group>";
-		};
-		D12B36E71AA4DDB6005B2ABA /* QuadTree */ = {
-			isa = PBXGroup;
-			children = (
-				D12B39841AA4ECC6005B2ABA /* GQTBounds.h */,
-				D12B39851AA4ECC6005B2ABA /* GQTPoint.h */,
-				D12B39861AA4ECC6005B2ABA /* GQTPointQuadTree.h */,
-				D12B39871AA4ECC6005B2ABA /* GQTPointQuadTree.m */,
-				D12B39881AA4ECC6005B2ABA /* GQTPointQuadTreeChild.h */,
-				D12B39891AA4ECC6005B2ABA /* GQTPointQuadTreeChild.m */,
-				D12B398A1AA4ECC6005B2ABA /* GQTPointQuadTreeItem.h */,
-			);
-			name = QuadTree;
-			sourceTree = "<group>";
-		};
-		D12B36E81AA4DDE3005B2ABA /* Algorithms */ = {
-			isa = PBXGroup;
-			children = (
-				D12B39911AA4ED08005B2ABA /* GClusterAlgorithm.h */,
-				D12B39921AA4ED08005B2ABA /* GQuadItem.h */,
-				D12B39931AA4ED08005B2ABA /* GQuadItem.m */,
-				D12B39941AA4ED08005B2ABA /* GStaticCluster.h */,
-				D12B39951AA4ED08005B2ABA /* GStaticCluster.m */,
-				D12B39961AA4ED08005B2ABA /* NonHierarchicalDistanceBasedAlgorithm.h */,
-				D12B39971AA4ED08005B2ABA /* NonHierarchicalDistanceBasedAlgorithm.m */,
-			);
-			name = Algorithms;
-			sourceTree = "<group>";
-		};
-		D12B36F31AA4DE19005B2ABA /* View */ = {
-			isa = PBXGroup;
-			children = (
-				D12B398D1AA4ECEB005B2ABA /* GClusterRenderer.h */,
-				D1247BC71AA620C9008A601A /* HigiClusterRenderer.h */,
-				D1247BC81AA620F1008A601A /* HigiClusterRenderer.m */,
-			);
-			name = View;
-			sourceTree = "<group>";
-		};
-		D12B37081AA4EB5A005B2ABA /* Projection */ = {
-			isa = PBXGroup;
-			children = (
-				D12B370C1AA4EC57005B2ABA /* SphericalMercatorProjection.h */,
-				D12B370D1AA4EC57005B2ABA /* SphericalMercatorProjection.m */,
-			);
-			name = Projection;
-			sourceTree = "<group>";
-		};
 		D16432BD1B9F96A100082C8F /* QR Scanner */ = {
 			isa = PBXGroup;
 			children = (
@@ -2096,6 +2107,7 @@
 			files = (
 				8F3643A219460EB300C0033E /* MetricsViewController.swift in Sources */,
 				8FF940951989A19B00D319D7 /* BaseViewController.swift in Sources */,
+				419D864F1BBEF83000E7D844 /* GQTPointQuadTree.m in Sources */,
 				8F1D979A1995553B003B5645 /* ModifyImageViewController.swift in Sources */,
 				8FDB4B681A09731B00F57B38 /* ActivityDevice.swift in Sources */,
 				8F296316194B9BF700E787FD /* SessionController.swift in Sources */,
@@ -2109,7 +2121,6 @@
 				8FF94098198A8C0A00D319D7 /* BirthdateViewController.swift in Sources */,
 				8F58D98E19C22AB600C0EC72 /* GTMNSString+HTML.m in Sources */,
 				8F2CB58019925631009377A8 /* WebViewController.swift in Sources */,
-				D12B370E1AA4EC57005B2ABA /* SphericalMercatorProjection.m in Sources */,
 				8FF9409A198A8C1800D319D7 /* ProfileImageViewController.swift in Sources */,
 				D1FC729F1B223FE80068CF89 /* MetricGauge.swift in Sources */,
 				D13D36531B30D78E00F18A42 /* ActivityCategory.swift in Sources */,
@@ -2127,7 +2138,6 @@
 				D17010CA1A644414002CBFE8 /* ChallengeDetailsViewController.swift in Sources */,
 				41A0BE2A1BBB08B800A314D6 /* UIImageView+AFNetworking.m in Sources */,
 				8F9C69D51950C88900449664 /* HigiCheckin.swift in Sources */,
-				D12B39981AA4ED08005B2ABA /* GQuadItem.m in Sources */,
 				41A0BE0F1BBB088500A314D6 /* AFSecurityPolicy.m in Sources */,
 				8F5E7FBF199965CF009067E5 /* PinCodeViewController.swift in Sources */,
 				8F9C69D31950C84400449664 /* HigiLogin.swift in Sources */,
@@ -2149,7 +2159,6 @@
 				8F5E7FC31999676E009067E5 /* KioskListCell.swift in Sources */,
 				41A0BE291BBB08B800A314D6 /* UIButton+AFNetworking.m in Sources */,
 				8F7065B41A16B129002FCA10 /* ChallengeParticipant.swift in Sources */,
-				D12B39991AA4ED08005B2ABA /* GStaticCluster.m in Sources */,
 				41A0BE341BBB110900A314D6 /* Empty.m in Sources */,
 				2BBDBA581A12AC2C005A6815 /* GoalChallengeView.swift in Sources */,
 				8F9C69D91950C8AD00449664 /* KioskInfo.swift in Sources */,
@@ -2158,21 +2167,21 @@
 				D1FC72951B209CA40068CF89 /* MetricDelegate.swift in Sources */,
 				8FDA6DA319A2979800244D5F /* ChangePasswordViewController.swift in Sources */,
 				D1FC729B1B20B22B0068CF89 /* BpMetricDelegate.swift in Sources */,
-				D12B398B1AA4ECC6005B2ABA /* GQTPointQuadTree.m in Sources */,
 				8FE0BCCE199175BC00940D39 /* PulseCell.swift in Sources */,
 				D114B06B1B2A19900073A9CB /* TriangleView.swift in Sources */,
 				D1FC72991B20B1B70068CF89 /* WeightMetricDelegate.swift in Sources */,
 				8FEF1B051AA9173D0036C4FB /* ChallengeView.swift in Sources */,
 				8F3643A019460EB300C0033E /* AppDelegate.swift in Sources */,
+				419D864E1BBEF83000E7D844 /* SphericalMercatorProjection.m in Sources */,
 				8F7065B81A16B46A002FCA10 /* ChallengeTeam.swift in Sources */,
 				8F6D510E1947B2E700F7C769 /* Utility.swift in Sources */,
 				D130183E1B14D2C9008DDFAD /* ChallengeUtility.swift in Sources */,
 				8F296309194B8DE700E787FD /* SplashViewController.swift in Sources */,
 				2BC5865E1A16D0AF005A7983 /* ChallengeInvitationView.swift in Sources */,
-				D12B399A1AA4ED08005B2ABA /* NonHierarchicalDistanceBasedAlgorithm.m in Sources */,
 				D18395C31A69CAD500D290BF /* ChallengesDetailsTab.swift in Sources */,
 				2BBDBA551A12AC2C005A6815 /* ChallengesViewController.swift in Sources */,
 				41A0BE371BBB14EA00A314D6 /* KeychainWrapper.swift in Sources */,
+				419D86561BBEF9A700E7D844 /* HigiClusterRenderer.m in Sources */,
 				41A0BE2D1BBB08B800A314D6 /* UIWebView+AFNetworking.m in Sources */,
 				41A0BE0B1BBB088500A314D6 /* AFHTTPRequestOperation.m in Sources */,
 				8FA5925F19ABBD3A00622266 /* TourViewController.swift in Sources */,
@@ -2205,23 +2214,25 @@
 				8FEF6F3C1A6EAACE001EF8A6 /* DashboardViewController.swift in Sources */,
 				8FCD2D8019EC286900AC5A82 /* UIImage+Orientation.m in Sources */,
 				D105CB5D1B7E9B1F00971AB0 /* QrScannerViewController.swift in Sources */,
+				419D864C1BBEF83000E7D844 /* GClusterManager.m in Sources */,
 				41B2AEDF1BBB377E00BE9EF7 /* MetricGraph.swift in Sources */,
-				D12B398C1AA4ECC6005B2ABA /* GQTPointQuadTreeChild.m in Sources */,
 				D1020A291B3B130C001F2D81 /* BreakdownTitleRow.swift in Sources */,
+				419D86501BBEF83000E7D844 /* GQTPointQuadTreeChild.m in Sources */,
 				41A0BE131BBB088500A314D6 /* AFURLSessionManager.m in Sources */,
 				D1CFC9831AB360AF00AC54BB /* MetricGraphCard.swift in Sources */,
 				D10D89501A8C11A9000402D4 /* ChallengeDetailsParticipantIcon.swift in Sources */,
 				D10D844B1AEFFA7A00DA3278 /* MetricDetailCard.swift in Sources */,
-				D12B37061AA4DF02005B2ABA /* ClusterKiosk.m in Sources */,
 				41A0BE101BBB088500A314D6 /* AFURLConnectionOperation.m in Sources */,
 				D1EE80F41B3BBAAD00B13CB8 /* SummaryViewUtility.swift in Sources */,
-				D12B37131AA4EC70005B2ABA /* GClusterManager.m in Sources */,
 				41B2B35A1BB31CE900B13168 /* NotificationSettingsTableViewController.swift in Sources */,
+				419D864A1BBEF83000E7D844 /* NonHierarchicalDistanceBasedAlgorithm.m in Sources */,
+				419D86491BBEF83000E7D844 /* GStaticCluster.m in Sources */,
 				8F2B7E43198C2DA0009DE89A /* DrawerViewController.swift in Sources */,
+				419D86591BBEFA0A00E7D844 /* ClusterKiosk.m in Sources */,
 				41B2AEE11BBB378A00BE9EF7 /* GraphPoint.swift in Sources */,
 				41A0BE2B1BBB08B800A314D6 /* UIProgressView+AFNetworking.m in Sources */,
 				D1740BC41AE0381F00462F6E /* MetricsType.swift in Sources */,
-				D1247BC91AA620F1008A601A /* HigiClusterRenderer.m in Sources */,
+				419D86481BBEF83000E7D844 /* GQuadItem.m in Sources */,
 				4192B4FE1BB5BF4500D1A2D3 /* PersistentSettingsController.swift in Sources */,
 				D1D32D071B1FA0B500AE9B25 /* ActivityMetricDelegate.swift in Sources */,
 				D13018401B14D943008DDFAD /* Constants.swift in Sources */,

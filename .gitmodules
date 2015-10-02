@@ -19,3 +19,6 @@
 [submodule "Vendor/Google-Maps"]
 	path = Vendor/Google-Maps
 	url = https://github.com/higish/ios-google-maps.git
+[submodule "Vendor/Google-Maps-Utilities"]
+	path = Vendor/Google-Maps-Utilities
+	url = https://github.com/higish/google-maps-ios-utils.git

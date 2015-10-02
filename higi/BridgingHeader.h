@@ -2,7 +2,7 @@
 // Third-party includes
 //
 
-// AFNetworking
+// AFNetworking (NSURLConnection Wrapper & Helpers)
 #import "AFNetworking.h"
 #import "UIImageView+AFNetworking.h"
 
@@ -10,10 +10,22 @@
 #import "CorePlot-CocoaTouch.h"
 #import "CPTPlotRange+SwiftCompatibility.h"
 #import "CPTScatterPlot+SwiftCompatibility.h"
+// User defined extensions
+#import "HIGIScatterPlot.h"
 
+// Flurry Mobile Analytics
 #import "Flurry.h"
 
+// Google Maps SDK
 #import <GoogleMaps/GoogleMaps.h>
+
+// Google Maps Utility
+#import "ClusterManagerDelegate.h"
+#import "GClusterManager.h"
+#import "NonHierarchicalDistanceBasedAlgorithm.h"
+// User defined extensions
+#import "ClusterKiosk.h"
+#import "HigiClusterRenderer.h"
 
 //
 // Copied third-party includes, manually managed
@@ -24,17 +36,3 @@
 #import "SWRevealViewController.h"
 
 #import "UIImage+Orientation.h"
-
-/**
-*   Custom classes/extensions
-*/
-
-// Core Plot
-#import "HIGIScatterPlot.h"
-
-// Google Maps Utility
-#import "ClusterKiosk.h"
-#import "ClusterManagerDelegate.h"
-#import "GClusterManager.h"
-#import "HigiClusterRenderer.h"
-#import "NonHierarchicalDistanceBasedAlgorithm.h"
