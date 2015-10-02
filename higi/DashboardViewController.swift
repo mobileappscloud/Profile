@@ -63,7 +63,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         super.viewDidAppear(animated);
         
         ensureCardWidthIntegrity();
-        if SessionData.Instance.showQrCheckinCard ?? false && qrCheckinCard.superview == nil {
+        if SessionController.Instance.showQrCheckinCard ?? false && qrCheckinCard.superview == nil {
             addQrCheckinView();
             layoutDashboardItems(false);
         }
@@ -71,7 +71,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     
     private func addQrCheckinView() {
         mainScrollView.addSubview(qrCheckinCard);
-        qrCheckinCard.loadingImage.image = UIImage.animatedImageNamed("vitals_loading_", duration: 1.5);
+        qrCheckinCard.loadingImage.image = UIImage.animatedImageNamed("vitals_loading_", duration: 2);
     }
     
     /**
@@ -107,15 +107,14 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     func showQrCheckinFailure() {
         qrCheckinCard.titleText.text = "Daily Check-in Upload Failed";
         qrCheckinCard.messageText.text = "There was a problem uploading your check-in.";
-        qrCheckinCard.closeButton.hidden = false;
-        qrCheckinCard.loadingImage.image = UIImage(named: "vitals_loading_1");
+        qrCheckinCard.loadingImage.image = UIImage(named: "checkinerroricon");
     }
     
     func showQrCheckinSuccess() {
         qrCheckinCard.titleText.text = "Daily Check-in Upload Complete!";
         qrCheckinCard.messageText.text = "View your updated metrics below or review them in your Daily Summary.";
-        qrCheckinCard.closeButton.hidden = false;
-        qrCheckinCard.loadingImage.image = UIImage(named: "vitals_loading_1");
+        qrCheckinCard.loadingImage.image = UIImage(named: "checkinsuccessicon");
+        qrCheckinCard.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "gotoDailySummary:"));
     }
     
     override func receiveApiNotification(notification: NSNotification) {
@@ -152,7 +151,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     
     func initCards() {
         dashboardItems = [qrCheckinCard, errorCard, challengesCard, metricsCard, pulseCard];
-        if SessionData.Instance.showQrCheckinCard ?? false {
+        if SessionController.Instance.showQrCheckinCard ?? false {
             addQrCheckinView();
         }
         if (challengesCard.superview != nil) {
@@ -498,11 +497,15 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         self.navigationController!.pushViewController(viewController, animated: true);
     }
     
+    func gotoDailySummary(sender: AnyObject) {
+        Flurry.logEvent("QrCheckinCard_Pressed");
+        self.navigationController!.pushViewController(DailySummaryViewController(nibName: "DailySummaryView", bundle: nil), animated: true);
+    }
+    
     @IBAction func gotoConnectDevices(sender: AnyObject) {
         Flurry.logEvent("ConnectDevice_Pressed");
         self.navigationController!.pushViewController(ConnectDeviceViewController(nibName: "ConnectDeviceView", bundle: nil), animated: true);
     }
-    
     
     @IBAction func gotoMetrics(sender: AnyObject) {
         if (SessionController.Instance.checkins != nil && SessionController.Instance.loadedActivities) {
@@ -550,9 +553,8 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         (self.navigationController as! MainNavigationController).drawerController?.tableView.selectRowAtIndexPath(NSIndexPath(forItem: 5, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None);
     }
     
-    
     @IBAction func removeQrCheckinCard(sender: AnyObject) {
-        SessionData.Instance.showQrCheckinCard = false;
+        SessionController.Instance.showQrCheckinCard = false;
         qrCheckinCard.removeFromSuperview();
         layoutDashboardItems(false);
     }

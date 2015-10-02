@@ -44,6 +44,8 @@ class NotificationSettingsDeviceTableViewController: UITableViewController, Swit
     func configureNavigationTitle() {
         self.title = "Device";
         self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.blackColor()]
+        self.navigationController!.navigationBar.barStyle = .Default;
+        self.navigationController?.navigationBar.translucent = false;
     }
     
     func configureBackButton() {

@@ -26,6 +26,8 @@ class NotificationSettingsTableViewController: UITableViewController {
     func configureNavigationTitle() {
         self.title = "Notifications";
         self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.blackColor()]
+        self.navigationController!.navigationBar.barStyle = .Default;
+        self.navigationController?.navigationBar.translucent = false;
     }
     
     func configureBackButton() {

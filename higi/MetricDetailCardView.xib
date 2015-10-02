@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -14,40 +14,19 @@
                 <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qPb-ca-ir9">
                     <rect key="frame" x="0.0" y="53" width="480" height="267"/>
                     <subviews>
-                        <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aMj-Wh-nzq">
-                            <rect key="frame" x="239" y="0.0" width="1" height="268"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="1" id="dc3-1v-YcH"/>
-                            </constraints>
-                        </view>
-                        <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Oeg-z8-5j9">
-                            <rect key="frame" x="240" y="0.0" width="240" height="268"/>
-                            <subviews>
-                                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="emr-lp-6ft">
-                                    <rect key="frame" x="0.0" y="0.0" width="240" height="268"/>
-                                </scrollView>
-                            </subviews>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <constraints>
-                                <constraint firstItem="emr-lp-6ft" firstAttribute="leading" secondItem="Oeg-z8-5j9" secondAttribute="leading" id="6fy-G4-t78"/>
-                                <constraint firstAttribute="trailing" secondItem="emr-lp-6ft" secondAttribute="trailing" id="pre-XX-lLi"/>
-                                <constraint firstItem="emr-lp-6ft" firstAttribute="top" secondItem="Oeg-z8-5j9" secondAttribute="top" id="rB8-4M-W3X"/>
-                            </constraints>
-                        </view>
-                        <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a0a-Ni-kXk">
+                        <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a0a-Ni-kXk" userLabel="Left Container">
                             <rect key="frame" x="0.0" y="0.0" width="239" height="268"/>
                             <subviews>
-                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CoJ-eg-jO5">
-                                    <rect key="frame" x="47" y="281" width="195" height="50"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </view>
-                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SgB-1A-Nnr">
-                                    <rect key="frame" x="19" y="34" width="200" height="200"/>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SgB-1A-Nnr">
+                                    <rect key="frame" x="19" y="44" width="200" height="200"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="200" id="flW-xA-8sl"/>
+                                        <constraint firstAttribute="height" constant="200" id="lfi-t7-3zu"/>
+                                    </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5bj-0M-1yB">
-                                    <rect key="frame" x="20" y="24" width="200" height="180"/>
+                                    <rect key="frame" x="20" y="34" width="200" height="180"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="180" id="jCW-ej-5XN"/>
@@ -57,34 +36,70 @@
                                 <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KcR-5x-DTT">
                                     <rect key="frame" x="29" y="160" width="180" height="44"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="2301 South Dr. Martin Luther King Jr. Dr." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oAU-CE-Ko7">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DkT-xF-2qQ">
+                                            <rect key="frame" x="0.0" y="0.0" width="180" height="16"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="2301 South Dr. Martin Luther King Jr. Dr." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oAU-CE-Ko7">
                                             <rect key="frame" x="0.0" y="16" width="180" height="16"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UHe-f7-NBi">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UHe-f7-NBi">
                                             <rect key="frame" x="0.0" y="32" width="180" height="16"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="9"/>
-                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DkT-xF-2qQ">
-                                            <rect key="frame" x="0.0" y="0.0" width="180" height="16"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstItem="oAU-CE-Ko7" firstAttribute="top" secondItem="DkT-xF-2qQ" secondAttribute="bottom" id="DDC-HA-dbd"/>
+                                        <constraint firstItem="oAU-CE-Ko7" firstAttribute="leading" secondItem="KcR-5x-DTT" secondAttribute="leading" id="HJA-bz-FvY"/>
+                                        <constraint firstAttribute="trailing" secondItem="oAU-CE-Ko7" secondAttribute="trailing" id="NVI-z3-r8U"/>
+                                        <constraint firstItem="UHe-f7-NBi" firstAttribute="top" secondItem="oAU-CE-Ko7" secondAttribute="bottom" id="O8q-ox-gOt"/>
+                                        <constraint firstItem="oAU-CE-Ko7" firstAttribute="top" secondItem="DkT-xF-2qQ" secondAttribute="bottom" id="TMG-VK-GZe"/>
+                                        <constraint firstAttribute="trailing" secondItem="UHe-f7-NBi" secondAttribute="trailing" id="WGE-kK-cbf"/>
+                                        <constraint firstItem="DkT-xF-2qQ" firstAttribute="top" secondItem="KcR-5x-DTT" secondAttribute="top" id="cOV-lW-Ct6"/>
+                                        <constraint firstAttribute="trailing" secondItem="DkT-xF-2qQ" secondAttribute="trailing" id="gDU-zj-GfT"/>
+                                        <constraint firstItem="UHe-f7-NBi" firstAttribute="leading" secondItem="KcR-5x-DTT" secondAttribute="leading" id="kTN-HO-Foc"/>
+                                        <constraint firstItem="UHe-f7-NBi" firstAttribute="top" secondItem="oAU-CE-Ko7" secondAttribute="bottom" id="o7o-nn-1yt"/>
+                                        <constraint firstItem="DkT-xF-2qQ" firstAttribute="leading" secondItem="KcR-5x-DTT" secondAttribute="leading" id="teF-48-8hp"/>
+                                    </constraints>
                                 </view>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstItem="KcR-5x-DTT" firstAttribute="top" secondItem="a0a-Ni-kXk" secondAttribute="top" constant="160" id="Coh-V5-7EX"/>
-                                <constraint firstItem="5bj-0M-1yB" firstAttribute="top" secondItem="a0a-Ni-kXk" secondAttribute="top" constant="24" id="RNB-g2-Pbo"/>
+                                <constraint firstItem="SgB-1A-Nnr" firstAttribute="top" secondItem="a0a-Ni-kXk" secondAttribute="top" constant="44" id="7SX-Db-br6"/>
+                                <constraint firstItem="SgB-1A-Nnr" firstAttribute="centerX" secondItem="a0a-Ni-kXk" secondAttribute="centerX" id="Ceq-QC-cJN"/>
+                                <constraint firstItem="KcR-5x-DTT" firstAttribute="top" secondItem="a0a-Ni-kXk" secondAttribute="top" constant="170" id="Coh-V5-7EX"/>
+                                <constraint firstItem="5bj-0M-1yB" firstAttribute="top" secondItem="a0a-Ni-kXk" secondAttribute="top" constant="34" id="RNB-g2-Pbo"/>
                                 <constraint firstAttribute="centerX" secondItem="5bj-0M-1yB" secondAttribute="centerX" id="YlG-Jm-zcO"/>
                                 <constraint firstAttribute="centerX" secondItem="KcR-5x-DTT" secondAttribute="centerX" id="tBn-aC-hGA"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aMj-Wh-nzq" userLabel="Separator View">
+                            <rect key="frame" x="239" y="0.0" width="1" height="268"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="1" id="dc3-1v-YcH"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Oeg-z8-5j9" userLabel="Right Container">
+                            <rect key="frame" x="240" y="0.0" width="240" height="268"/>
+                            <subviews>
+                                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="emr-lp-6ft">
+                                    <rect key="frame" x="0.0" y="0.0" width="240" height="268"/>
+                                </scrollView>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="emr-lp-6ft" firstAttribute="leading" secondItem="Oeg-z8-5j9" secondAttribute="leading" id="6fy-G4-t78"/>
+                                <constraint firstAttribute="trailing" secondItem="emr-lp-6ft" secondAttribute="trailing" constant="5" id="pre-XX-lLi"/>
+                                <constraint firstItem="emr-lp-6ft" firstAttribute="top" secondItem="Oeg-z8-5j9" secondAttribute="top" id="rB8-4M-W3X"/>
                             </constraints>
                         </view>
                     </subviews>

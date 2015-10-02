@@ -133,7 +133,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     func addToggleButtons(table: UITableView) {
         let toggleButtonHeight:CGFloat = 60;
         let buttonMargin:CGFloat = 10;
-        let header = UIView(frame: CGRect(x: 0, y: buttonContainerOriginY + buttonContainer.frame.size.height + buttonMargin, width: contentView.frame.size.width, height: toggleButtonHeight - buttonMargin));
+        let header = UIView(frame: CGRect(x: 0, y: buttonContainerOriginY + buttonContainer.frame.size.height + buttonMargin, width: table.frame.size.width, height: toggleButtonHeight - buttonMargin));
         
         header.backgroundColor = Utility.colorFromHexString("#F4F4F4");
         
@@ -141,10 +141,10 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         for index in 0...1 {
             //no x padding for first button
             let xPadding = index == 0 ? buttonMargin : buttonMargin / 2;
-            let buttonX = xPadding + (CGFloat(index) * contentView.frame.size.width / 2);
+            let buttonX = xPadding + (CGFloat(index) * table.frame.size.width / 2);
             let buttonY = buttonContainerOriginY + buttonContainer.frame.size.height + buttonMargin;
             //subtract margin from width of second button
-            let buttonWidth = (contentView.frame.size.width / 2) - (3/2 * buttonMargin);
+            let buttonWidth = (table.frame.size.width / 2) - (3/2 * buttonMargin);
             let buttonHeight = toggleButtonHeight - buttonMargin * 2;
             let button = UIButton(type: UIButtonType.Custom);
             button.frame = CGRect(x: buttonX, y: 0, width: buttonWidth, height: buttonHeight);
