@@ -28,6 +28,14 @@ class TermsAndConditionsViewController: UIViewController, UIWebViewDelegate {
         self.dismissViewControllerAnimated(false, completion: nil);
     }
     
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.Portrait;
+    }
+    
+    override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
+        return UIInterfaceOrientation.Portrait;
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         
