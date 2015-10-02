@@ -1,18 +1,8 @@
-//
-//  NewCPTScatterPlot.m
-//  higi
-//
-//  Created by Dan Harms on 6/23/14.
-//  Copyright (c) 2014 higi, LLC. All rights reserved.
-//
 
-#import "NewCPTScatterPlot.h"
+#import "HIGIScatterPlot.h"
+#import "CorePlot-CocoaTouch.h"
 
-@implementation NewCPTScatterPlot
-
--(void) setAreaBaseDecimalValue:(double)areaBaseValue {
-    [self setAreaBaseValue:CPTDecimalFromDouble(areaBaseValue)];
-}
+@implementation HIGIScatterPlot
 
 -(CGPathRef)newDataLinePathForViewPoints:(CGPoint *)viewPoints indexRange:(NSRange)indexRange baselineYValue:(CGFloat)baselineYValue
 {
@@ -28,9 +18,7 @@
     CGPoint lastPoint              = CGPointZero;
     NSUInteger lastDrawnPointIndex = NSMaxRange(indexRange);
     BOOL drawSpecial = NO;
-    
-    CGPoint p1 = viewPoints[0];
-    CGPoint p2 = viewPoints[1];
+
     if ( indexRange.length > 2 ) {
         drawSpecial = viewPoints[0].x == viewPoints[1].x;
     }
@@ -110,7 +98,7 @@
     CGPoint lastPoint              = CGPointZero;
     NSUInteger firstIndex          = indexRange.location;
     NSUInteger lastDrawnPointIndex = NSMaxRange(indexRange);
-
+    
     if ( lastDrawnPointIndex > 0 ) {
         CGPoint *controlPoints1 = calloc( lastDrawnPointIndex, sizeof(CGPoint) );
         CGPoint *controlPoints2 = calloc( lastDrawnPointIndex, sizeof(CGPoint) );

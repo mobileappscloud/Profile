@@ -4,7 +4,7 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
     
     var points: [GraphPoint], altPoints: [GraphPoint] = [];
     
-    var plot, altPlot: NewCPTScatterPlot!;
+    var plot, altPlot: HIGIScatterPlot!;
     
     var plotSymbol, selectedPlotSymbol, selectedAltPlotSymbol, unselectedAltPlotSymbol:CPTPlotSymbol!;
     
@@ -66,13 +66,13 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         let yRange = maxY - minY > 1 ? maxY - minY : 1;
         let xRange = maxX - minX > 1 ? maxX - minX : 1;
         let plotSpace = graph.defaultPlotSpace as! CPTXYPlotSpace;
-        plotSpace.xRange = NewCPTPlotRange(location: max(round(minX) - xRange * 0.05, 0), length: xRange * 1.05);
-        plotSpace.yRange = NewCPTPlotRange(location: round(minY) - yRange * 0.25, length: yRange * 1.5);
+        plotSpace.xRange = CPTPlotRange(location_: max(round(minX) - xRange * 0.05, 0), length: xRange * 1.05);
+        plotSpace.yRange = CPTPlotRange(location_: round(minY) - yRange * 0.25, length: yRange * 1.5);
         plotSpace.globalXRange = plotSpace.xRange;
         plotSpace.globalYRange = plotSpace.yRange;
         plotSpace.delegate = self;
         
-        plot = NewCPTScatterPlot(frame: CGRectZero);
+        plot = HIGIScatterPlot(frame: CGRectZero);
         plot.interpolation = CPTScatterPlotInterpolationCurved;
         if (points.count > 1) {
             plotSymbol = CPTPlotSymbol.ellipsePlotSymbol();
@@ -192,7 +192,7 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
             }
         }
         if (altPoints.count > 1) {
-            altPlot = NewCPTScatterPlot(frame: CGRectZero);
+            altPlot = HIGIScatterPlot(frame: CGRectZero);
             if (altPoints[0].x == altPoints[1].x) {
                 altPlot.interpolation = CPTScatterPlotInterpolationLinear;
                 altPlot.dataLineStyle = unselectedAltPlotLineStyle;
@@ -248,14 +248,14 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
             marginX = 4 * 86400;
         }
         let plotSpace = self.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace;
-        plotSpace.xRange = NewCPTPlotRange(location: visibleMin.x - marginX, length: lastPoint.x - visibleMin.x + marginX * 2);
-        plotSpace.yRange = NewCPTPlotRange(location: lowerBound, length: distance);
-        plotSpace.globalXRange = NewCPTPlotRange(location: firstPoint.x - marginX, length: lastPoint.x - firstPoint.x + marginX * 2);
+        plotSpace.xRange = CPTPlotRange(location_: visibleMin.x - marginX, length: lastPoint.x - visibleMin.x + marginX * 2);
+        plotSpace.yRange = CPTPlotRange(location_: lowerBound, length: distance);
+        plotSpace.globalXRange = CPTPlotRange(location_: firstPoint.x - marginX, length: lastPoint.x - firstPoint.x + marginX * 2);
         plotSpace.globalYRange = plotSpace.yRange;
         plotSpace.delegate = self;
         plotSpace.allowsUserInteraction = true;
 
-        plot = NewCPTScatterPlot(frame: CGRectZero);
+        plot = HIGIScatterPlot(frame: CGRectZero);
         plot.interpolation = CPTScatterPlotInterpolationCurved;
         plot.setAreaBaseDecimalValue(0);
         plot.plotSymbolMarginForHitDetection = CGFloat(hitMargin);
@@ -275,7 +275,7 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         xAxis.labelTextStyle = axisTextStyle;
         xAxis.majorTickLineStyle = nil;
         xAxis.minorTickLineStyle = nil;
-        xAxis.visibleRange = NewCPTPlotRange(location: firstPoint.x, length: lastPoint.x - firstPoint.x);
+        xAxis.visibleRange = CPTPlotRange(location_: firstPoint.x, length: lastPoint.x - firstPoint.x);
         xAxis.axisConstraints = CPTConstraints(lowerOffset: 0);
         xAxis.labelingPolicy = CPTAxisLabelingPolicyEqualDivisions;
         xAxis.preferredNumberOfMajorTicks = 5;
@@ -304,7 +304,7 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         yAxis.labelOffset = 0;
         yAxis.preferredNumberOfMajorTicks = 5;
         //hide first tick mark
-        yAxis.labelExclusionRanges = [NewCPTPlotRange(location: lowerBound - 1, length: 2)];
+        yAxis.labelExclusionRanges = [CPTPlotRange(location_: lowerBound - 1, length: 2)];
         graph.addPlot(plot, toPlotSpace: graph.defaultPlotSpace);
         
         checkinSelected(plot, idx: 0, first: true);
