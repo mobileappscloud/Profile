@@ -1,0 +1,24 @@
+[submodule "Vendor/AFNetworking"]
+	path = Vendor/AFNetworking
+	url = https://github.com/AFNetworking/AFNetworking.git
+[submodule "Vendor/Flurry"]
+	path = Vendor/Flurry
+	url = https://github.com/flurry/Flurry-iOS-SDK.git
+[submodule "Vendor/CorePlot"]
+	path = Vendor/CorePlot
+	url = https://github.com/higish/core-plot.git
+[submodule "Vendor/Fabric"]
+	path = Vendor/Fabric
+	url = https://github.com/higish/ios-fabric.git
+[submodule "Vendor/Crashlytics"]
+	path = Vendor/Crashlytics
+	url = https://github.com/higish/ios-crashlytics.git
+[submodule "Vendor/SwiftKeychainWrapper"]
+	path = Vendor/SwiftKeychainWrapper
+	url = https://github.com/jrendel/SwiftKeychainWrapper.git
+[submodule "Vendor/Google-Maps"]
+	path = Vendor/Google-Maps
+	url = https://github.com/higish/ios-google-maps.git
+[submodule "Vendor/Google-Maps-Utilities"]
+	path = Vendor/Google-Maps-Utilities
+	url = https://github.com/higish/google-maps-ios-utils.git
