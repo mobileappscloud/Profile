@@ -72,7 +72,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     
     private func addQrCheckinView() {
         mainScrollView.addSubview(qrCheckinCard);
-        qrCheckinCard.loadingImage.image = UIImage.animatedImageNamed("vitals_loading_", duration: 2);
+        qrCheckinCard.loadingImage.image = UIImage.animatedImageNamed("icon-vitals-animation-", duration: 2);
     }
     
     /**
