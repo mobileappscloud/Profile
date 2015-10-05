@@ -54,6 +54,8 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
+
+        ensureCardWidthIntegrity();
         
         (self.navigationController as! MainNavigationController).drawerController?.selectRowAtIndex(0);
         updateNavbar();
@@ -62,7 +64,6 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated);
         
-        ensureCardWidthIntegrity();
         if SessionController.Instance.showQrCheckinCard ?? false && qrCheckinCard.superview == nil {
             addQrCheckinView();
             layoutDashboardItems(false);
