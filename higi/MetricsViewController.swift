@@ -12,7 +12,7 @@ class MetricsViewController: UIViewController {
     
     var cardsTransitioning = false, detailsOpen = false, detailsGone = false, previousShouldRotate: Bool!;
 
-    let cardHeaderViewHeight:CGFloat = 54, cardDragThreshold:CGFloat = 300, detailDragThreshold:CGFloat = 50;
+    let cardHeaderViewHeight:CGFloat = 51.0, cardDragThreshold:CGFloat = 300, detailDragThreshold:CGFloat = 50;
     var detailsCardPosY:CGFloat = 0.0;
     
     var screenWidth:CGFloat!, screenHeight: CGFloat!;
