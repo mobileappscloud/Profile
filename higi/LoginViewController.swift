@@ -81,22 +81,25 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     func signInSuccess(operation: AFHTTPRequestOperation!, responseObject: AnyObject?) {
-        let responseLogin = responseObject as? NSDictionary;
-        if (responseLogin != nil) {
-            let login = HigiLogin(dictionary: responseObject as! NSDictionary);
-            SessionData.Instance.token = login.token as String;
-            SessionData.Instance.user = login.user;
-            SessionData.Instance.save();
-            if (login.user != nil) {
-                ApiUtility.checkTermsAndPrivacy(self, success: gotoDashboard, failure: {
-                    UIAlertView(title: "Unable to connect to server", message: "Please check your network connection and try again.", delegate: nil, cancelButtonTitle: "OK").show();
-                    self.reset();
-                });
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+
+            let responseLogin = responseObject as? NSDictionary;
+            if (responseLogin != nil) {
+                let login = HigiLogin(dictionary: responseObject as! NSDictionary);
+                SessionData.Instance.token = login.token as String;
+                SessionData.Instance.user = login.user;
+                SessionData.Instance.save();
+                if (login.user != nil) {
+                    ApiUtility.checkTermsAndPrivacy(self, success: self.gotoDashboard, failure: {
+                        UIAlertView(title: "Unable to connect to server", message: "Please check your network connection and try again.", delegate: nil, cancelButtonTitle: "OK").show();
+                        self.reset();
+                    });
+                }
+            } else {
+                UIAlertView(title: "Invalid credentials", message: "Please check your email and password and try again.", delegate: nil, cancelButtonTitle: "OK").show();
+                self.reset();
             }
-        } else {
-            UIAlertView(title: "Invalid credentials", message: "Please check your email and password and try again.", delegate: nil, cancelButtonTitle: "OK").show();
-            reset();
-        }
+        });
     }
     
     func signInFailure(operation: AFHTTPRequestOperation!, error: NSError?) {
