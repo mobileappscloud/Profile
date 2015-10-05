@@ -11,5 +11,6 @@ higi/ChallengeProgressLegendRow.xib
 
 .idea/*
 
+*.xcuserstate
 
-higi.xcworkspace/xcshareddata/higi.xcscmblueprint
+*.xcscmblueprint
