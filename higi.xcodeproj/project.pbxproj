@@ -6,6 +6,20 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		41CAB9A61BC40F6F0000772C /* Generate Localizable Strings */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 41CAB9AD1BC40F6F0000772C /* Build configuration list for PBXAggregateTarget "Generate Localizable Strings" */;
+			buildPhases = (
+				41CAB9AE1BC40F890000772C /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = "Generate Localizable Strings";
+			productName = "Generate Localizable Strings";
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		2BBDBA521A12AC2C005A6815 /* ChallengeRowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBDBA4A1A12AC2C005A6815 /* ChallengeRowCell.swift */; };
 		2BBDBA531A12AC2C005A6815 /* ChallengeRowCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BBDBA4B1A12AC2C005A6815 /* ChallengeRowCell.xib */; };
@@ -1821,6 +1835,9 @@
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "higi, LLC";
 				TargetAttributes = {
+					41CAB9A61BC40F6F0000772C = {
+						CreatedOnToolsVersion = 7.0.1;
+					};
 					8F36439919460EB300C0033E = {
 						CreatedOnToolsVersion = 6.0;
 						DevelopmentTeam = 5D5W9WNYL2;
@@ -1860,6 +1877,7 @@
 			targets = (
 				8F36439919460EB300C0033E /* higi */,
 				8F3643AB19460EB300C0033E /* higiTests */,
+				41CAB9A61BC40F6F0000772C /* Generate Localizable Strings */,
 			);
 		};
 /* End PBXProject section */
@@ -2085,6 +2103,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PROJECT_DIR}/Vendor/Fabric/Fabric.framework/run\" 350626045a28b6752782f57d637b6551f017f0ef ff5737324c5b204202fdfd36898aaa1a91d47d49cc57e84fdcf40a3bbdb000d1";
+		};
+		41CAB9AE1BC40F890000772C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Vendor/merge-genstrings/mergegenstrings.py higi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -2453,6 +2484,34 @@
 			};
 			name = ReleaseQA;
 		};
+		41CAB9A71BC40F6F0000772C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		41CAB9A81BC40F6F0000772C /* DebugQA */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = DebugQA;
+		};
+		41CAB9A91BC40F6F0000772C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		41CAB9AA1BC40F6F0000772C /* ReleaseQA */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = ReleaseQA;
+		};
 		8F3643B419460EB300C0033E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2643,6 +2702,16 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		41CAB9AD1BC40F6F0000772C /* Build configuration list for PBXAggregateTarget "Generate Localizable Strings" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				41CAB9A71BC40F6F0000772C /* Debug */,
+				41CAB9A81BC40F6F0000772C /* DebugQA */,
+				41CAB9A91BC40F6F0000772C /* Release */,
+				41CAB9AA1BC40F6F0000772C /* ReleaseQA */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		8F36439519460EB300C0033E /* Build configuration list for PBXProject "higi" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
