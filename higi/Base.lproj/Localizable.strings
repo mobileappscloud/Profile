@@ -1,6 +1,33 @@
 /* Text label for challenge detail participant icon units. */
 "CHALLENGE_DETAILS_PARTICIPANT_ICON_LABEL_UNITS" = "Individuals";
 
+/* Title for challenge description section. */
+"CHALLENGE_DETAILS_TAB_SECTION_DESCRIPTION_TITLE" = "Description";
+
+/* Title for challenge duration section. */
+"CHALLENGE_DETAILS_TAB_SECTION_DURATION_TITLE" = "Duration";
+
+/* Title for challenge individual participant section. */
+"CHALLENGE_DETAILS_TAB_SECTION_INDIVIDUAL_TITLE" = "Individuals";
+
+/* Title for challenge participant section. */
+"CHALLENGE_DETAILS_TAB_SECTION_PARTICIPANT_TITLE" = "Participants";
+
+/* Title for challenge prizes section. */
+"CHALLENGE_DETAILS_TAB_SECTION_PRIZES_TITLE" = "Prizes";
+
+/* Title for challenge team participant section. */
+"CHALLENGE_DETAILS_TAB_SECTION_TEAM_TITLE" = "Teams";
+
+/* Title for button which shows challenge terms. */
+"CHALLENGE_DETAILS_TAB_SECTION_TERMS_BUTTON_TITLE" = "Official Rules";
+
+/* Title for challenge type section. */
+"CHALLENGE_DETAILS_TAB_SECTION_TYPE_TITLE" = "Type";
+
+/* Title for button to join a challenge. */
+"CHALLENGE_DETAILS_VIEW_CHALLENGE_JOIN_BUTTON_TITLE" = "Join";
+
 /* Title for cancel alert action which is displayed when joining a challenge fails. */
 "CHALLENGE_DETAILS_VIEW_JOIN_CHALLENGE_FAILURE_ALERT_ACTION_CANCEL_TITLE" = "OK";
 

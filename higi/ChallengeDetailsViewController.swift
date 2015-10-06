@@ -3,7 +3,11 @@ import Foundation
 class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UIActionSheetDelegate {
     @IBOutlet var contentView: UIView!
     @IBOutlet var pointsLabel:UILabel?;
-    @IBOutlet weak var joinButton: UIButton!
+    @IBOutlet weak var joinButton: UIButton! {
+        didSet {
+            joinButton.setTitle(NSLocalizedString("CHALLENGE_DETAILS_VIEW_CHALLENGE_JOIN_BUTTON_TITLE", comment: "Title for button to join a challenge."), forState: .Normal);
+        }
+    }
     @IBOutlet weak var headerContainer: UIView!
     @IBOutlet weak var participantPoints: UILabel!
     @IBOutlet weak var participantProgress: UIView!

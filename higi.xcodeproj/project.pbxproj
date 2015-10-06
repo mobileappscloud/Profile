@@ -2747,6 +2747,7 @@
 				41CAB9AA1BC40F6F0000772C /* ReleaseQA */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8F36439519460EB300C0033E /* Build configuration list for PBXProject "higi" */ = {
 			isa = XCConfigurationList;
