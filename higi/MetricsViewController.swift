@@ -26,7 +26,8 @@ class MetricsViewController: UIViewController {
         let revealController = (self.navigationController as! MainNavigationController).revealController;
         previousSupportedOrientations = revealController.supportedOrientations;
         previousShouldRotate = revealController.shouldRotate;
-        previousActualOrientation = self.interfaceOrientation;
+        
+        previousActualOrientation = UIApplication.sharedApplication().statusBarOrientation;
         
         screenWidth = max(UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height);
         screenHeight = min(UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height);

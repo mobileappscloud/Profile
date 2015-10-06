@@ -83,7 +83,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         @note This view is not in true compliance with adaptive layout.
     */
     private func ensureCardWidthIntegrity() {
-        let width = CGRectGetWidth(self.view.bounds);
+        let width = min(CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds));
         for subview in dashboardItems {
             manuallyAutoresizeSubview(subview, width: width);
         }
