@@ -137,7 +137,9 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         
         header.backgroundColor = Utility.colorFromHexString("#F4F4F4");
         
-        let toggleButtonsText = ["You", "Teams"];
+        let userButtonTitle = NSLocalizedString("CHALLENGE_DETAILS_VIEW_TOGGLE_BUTTON_TEXT_CURRENT_USER", comment: "Text for current user toggle button on challenge details view.")
+        let teamsButtonTitle = NSLocalizedString("CHALLENGE_DETAILS_VIEW_TOGGLE_BUTTON_TEXT_TEAMS", comment: "Text for team toggle button on challenge details view.")
+        let toggleButtonsText = [userButtonTitle, teamsButtonTitle];
         for index in 0...1 {
             //no x padding for first button
             let xPadding = index == 0 ? buttonMargin : buttonMargin / 2;
@@ -230,6 +232,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         }
     }
     
+    // TODO: l10n utility
     func dateDisplayHelper() -> String {
         var dateDisplay:String!
         let startDate:NSDate? = challenge.startDate;
@@ -269,7 +272,10 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             ApiUtility.retrieveChallenges(self.refreshChallenge);
             }, failure: { operation, error in
                 let e = error;
-                UIAlertView(title: "Uh oh", message: "Cannot join challenge at this time.  Please try again later.", delegate: self, cancelButtonTitle: "OK").show();
+                let alertTitle = NSLocalizedString("CHALLENGE_DETAILS_VIEW_JOIN_CHALLENGE_FAILURE_ALERT_TITLE", comment: "Title for alert which is displayed when joining a challenge fails.");
+                let alertMessage = NSLocalizedString("CHALLENGE_DETAILS_VIEW_JOIN_CHALLENGE_FAILURE_ALERT_MESSAGE", comment: "Message for alert which is displayed when joining a challenge fails.");
+                let cancelButtonTitle = NSLocalizedString("CHALLENGE_DETAILS_VIEW_JOIN_CHALLENGE_FAILURE_ALERT_ACTION_CANCEL_TITLE", comment: "Title for cancel alert action which is displayed when joining a challenge fails.");
+                UIAlertView(title: alertTitle, message: alertMessage, delegate: self, cancelButtonTitle: cancelButtonTitle).show();
                 self.joinButton.hidden = false;
                 self.loadingSpinner.hidden = true;
         });
@@ -289,11 +295,13 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
 
     func showTeamsPicker() {
-        let picker = UIActionSheet(title: "Select a team to join", delegate: self, cancelButtonTitle: nil, destructiveButtonTitle: nil);
+        let sheetMessage = NSLocalizedString("CHALLENGE_DETAILS_VIEW_TEAMS_PICKER_ACTION_SHEET_MESSAGE", comment: "Message for action sheet which is displayed when picking a team to join.");
+        let picker = UIActionSheet(title: sheetMessage, delegate: self, cancelButtonTitle: nil, destructiveButtonTitle: nil);
         for team in challenge.teams {
             picker.addButtonWithTitle(team.name as String);
         }
-        picker.addButtonWithTitle("Back");
+        let backButtonTitle = NSLocalizedString("CHALLENGE_DETAILS_VIEW_TEAMS_PICKER_ACTION_SHEET_ACTION_TITLE_BACK", comment: "Title for action sheet action to go back; displayed when picking a team to join.");
+        picker.addButtonWithTitle(backButtonTitle);
         picker.cancelButtonIndex = challenge.teams.count;
         picker.showInView(scrollView);
     }
@@ -428,7 +436,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func populateScrollViewWithTables() {
         if (displayLeaderboardTab) {
-            tabButtonLabels.append("Leaderboard");
+            tabButtonLabels.append(NSLocalizedString("CHALLENGE_DETAILS_VIEW_TAB_BUTTON_TITLE_LEADERBOARD", comment: "Title for leaderboard tab on challenge details view."));
             tabButtonIcons.append("ui_leaderboards.png");
             leaderboardTable = addTableView(totalPages);
             leaderboardTable!.tableFooterView?.hidden = true;
@@ -437,7 +445,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             totalPages++;
         }
         if (displayProgressTab) {
-            tabButtonLabels.append("Progress");
+            tabButtonLabels.append(NSLocalizedString("CHALLENGE_DETAILS_VIEW_TAB_BUTTON_TITLE_PROGRESS", comment: "Title for progress tab on challenge details view."));
             tabButtonIcons.append("ui_progress.png");
             progressTable = addTableView(totalPages);
             scrollView.addSubview(progressTable!);
@@ -445,7 +453,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             totalPages++;
         }
         
-        tabButtonLabels.append("Details");
+        tabButtonLabels.append(NSLocalizedString("CHALLENGE_DETAILS_VIEW_TAB_BUTTON_TITLE_DETAILS", comment: "Title for details tab on challenge details view."));
         tabButtonIcons.append("ui_details.png");
         detailsTable = initDetailsTable();
         scrollView.addSubview(detailsTable);
@@ -453,7 +461,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         totalPages++;
         
         if (displayChatterTab) {
-            tabButtonLabels.append("Chatter");
+            tabButtonLabels.append(NSLocalizedString("CHALLENGE_DETAILS_VIEW_TAB_BUTTON_TITLE_CHATTER", comment: "Title for chatter tab on challenge details view."));
             tabButtonIcons.append("ui_chatter.png");
             chatterTable = addTableView(totalPages);
             chatterTable!.backgroundColor = Utility.colorFromHexString("#F4F4F4");
@@ -555,6 +563,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         return table;
     }
     
+    // TODO: l10n and code reuse
     func setDateRangeHelper(startDate: NSDate, endDate: NSDate!) -> String {
         let dateFormatter = NSDateFormatter();
         dateFormatter.dateFormat = "MMM. dd, YYYY"
@@ -785,7 +794,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             cell.title.text = winCondition.prizeName as String;
             cell.desc.text = winCondition.description as String;
         } else {
-            cell.title.text = "No prize, doing this simply for the love of the game.";
+            cell.title.text = NSLocalizedString("CHALLENGE_DETAILS_VIEW_PRIZE_CELL_TITLE_NO_PRIZE", comment: "Title to display on prize cell in challenge details view when there is no prize for the challenge.");
             cell.desc.text = "";
         }
         
@@ -913,8 +922,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     func loadMoreParticipants(){
         showLoadingFooter = true;
         leaderboardTable!.reloadData();
-        //showLoadingFooter();
-        var participants:[ChallengeParticipant] = [];
+
         let url = challenge.pagingData != nil ? challenge.pagingData?.nextUrl : nil;
         if (url != nil) {
             HigiApi().sendGet(url! as String, success: {operation, responseObject in
@@ -931,8 +939,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                     }
                     self.showLoadingFooter = false;
                     self.leaderboardTable!.reloadData();
-                    //self.showLoadingFooter = false;
-                    //self.hideLoadingFooter();
                 }
                 }, failure: { operation, error in
             });
@@ -940,12 +946,12 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func refreshChatter() {
-        var comments:[Comments] = [];
+
         let url = challenge.commentsUrl;
         if (url != nil && url != "") {
             HigiApi().sendGet(url as String, success: {operation, responseObject in
                 self.challengeChatterComments = [];
-                var chatter:Chatter;
+
                 let serverComments = ((responseObject as! NSDictionary)["response"] as! NSDictionary)["data"] as? NSArray;
                 if (serverComments != nil) {
                     self.challenge.chatter.paging.nextUrl = ((responseObject as! NSDictionary)["response"] as! NSDictionary)["paging"] as? NSString;
@@ -954,7 +960,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                         let timeSinceLastPost = (challengeComment as! NSDictionary)["timeSincePosted"] as! NSString;
                         let commentParticipant = ChallengeParticipant(dictionary: (challengeComment as! NSDictionary)["participant"] as! NSDictionary);
                         let commentTeam = commentParticipant.team;
-                        var pagingData = 0;
                         
                         self.challengeChatterComments.append(Comments(comment: comment, timeSincePosted: timeSinceLastPost, participant: commentParticipant, team: commentTeam))
                     }
@@ -968,11 +973,11 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
 
     func loadMoreChatter() {
         showLoadingFooter = true;
-        var comments:[Comments] = [];
+
         let url = challenge.chatter.paging.nextUrl;
         if (url != nil && url != "") {
             HigiApi().sendGet(url as! String, success: {operation, responseObject in
-                var chatter:Chatter;
+
                 let serverComments = ((responseObject as! NSDictionary)["response"] as! NSDictionary)["data"] as? NSArray;
                 if (serverComments != nil) {
                     self.challenge.chatter.paging.nextUrl = ((responseObject as! NSDictionary)["response"] as! NSDictionary)["paging"] as? NSString;
@@ -981,15 +986,14 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                         let timeSinceLastPost = (challengeComment as! NSDictionary)["timeSincePosted"] as! NSString;
                         let commentParticipant = ChallengeParticipant(dictionary: (challengeComment as! NSDictionary)["participant"] as! NSDictionary);
                         let commentTeam = commentParticipant.team;
-                        var pagingData = 0;
+
                         
                         self.challengeChatterComments.append(Comments(comment: comment, timeSincePosted: timeSinceLastPost, participant: commentParticipant, team: commentTeam))
                     }
                 }
                 self.showLoadingFooter = false;
                 self.chatterTable!.reloadData();
-                //self.showLoadingFooter = false;
-                //self.hideLoadingFooter();
+
                 }, failure: { operation, error in
                     let e = error;
             });
@@ -1028,7 +1032,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         var individualGoalViewIndex = 0;
         var teamGoalViewIndex = 0;
         // the win condition for getting 1 point messed up my logic here since we don't have a view for it
-        var ignoreOnePointGoalWinCondition = false, isTeam = false;
+
         for index in 0...consolodatedWinConditions.count - 1 {
             let winConditionList = consolodatedWinConditions[index];
             let firstWinCondition = winConditionList[0];
@@ -1037,7 +1041,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                     individualGoalViewIndex = index;
                 } else {
                     teamGoalViewIndex = index;
-                    isTeam = true;
                 }
             }
         }
@@ -1084,13 +1087,16 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             self.addPlaceholderChatter(chatter);
             self.refreshChatter();
             }, failure: { operation, error in
-                let e = error;
-                UIAlertView(title: "Uh oh", message: "Cannot send chatter at this time.  Please try again later.", delegate: self, cancelButtonTitle: "OK").show();
+                let alertTitle = NSLocalizedString("CHALLENGE_DETAILS_VIEW_SEND_CHATTER_FAILURE_ALERT_TITLE", comment: "Title for alert displayed when sending chatter fails.")
+                let alertMessage = NSLocalizedString("CHALLENGE_DETAILS_VIEW_SEND_CHATTER_FAILURE_ALERT_MESSAGE", comment: "Message for alert displayed when sending chatter fails.")
+                let cancelTitle = NSLocalizedString("CHALLENGE_DETAILS_VIEW_SEND_CHATTER_FAILURE_ALERT_ACTION_CANCEL_TITLE", comment: "Title for cancel alert action displayed when sending chatter fails.")
+                UIAlertView(title: alertTitle, message: alertMessage, delegate: self, cancelButtonTitle: cancelTitle).show();
         });
     }
     
     func addPlaceholderChatter(comment: String) {
-        let userChatter = Comments(comment: comment, timeSincePosted: "Sending...", participant: challenge.participant, team: challenge.participant.team);
+        let placeholderText = NSLocalizedString("CHALLENGE_DETAILS_VIEW_SEND_CHATTER_TIME_POSTED_PLACEHOLDER", comment: "Placeholder text to display when sending chatter.");
+        let userChatter = Comments(comment: comment, timeSincePosted: placeholderText, participant: challenge.participant, team: challenge.participant.team);
         challengeChatterComments.insert(userChatter, atIndex: 0);
         chatterTable!.reloadData();
         chatterTable!.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true);

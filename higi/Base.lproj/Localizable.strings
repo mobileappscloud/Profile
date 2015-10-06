@@ -1,3 +1,54 @@
+/* Text label for challenge detail participant icon units. */
+"CHALLENGE_DETAILS_PARTICIPANT_ICON_LABEL_UNITS" = "Individuals";
+
+/* Title for cancel alert action which is displayed when joining a challenge fails. */
+"CHALLENGE_DETAILS_VIEW_JOIN_CHALLENGE_FAILURE_ALERT_ACTION_CANCEL_TITLE" = "OK";
+
+/* Message for alert which is displayed when joining a challenge fails. */
+"CHALLENGE_DETAILS_VIEW_JOIN_CHALLENGE_FAILURE_ALERT_MESSAGE" = "Cannot join challenge at this time.  Please try again later.";
+
+/* Title for alert which is displayed when joining a challenge fails. */
+"CHALLENGE_DETAILS_VIEW_JOIN_CHALLENGE_FAILURE_ALERT_TITLE" = "Uh oh";
+
+/* Title to display on prize cell in challenge details view when there is no prize for the challenge. */
+"CHALLENGE_DETAILS_VIEW_PRIZE_CELL_TITLE_NO_PRIZE" = "No prize, doing this simply for the love of the game.";
+
+/* Title for cancel alert action displayed when sending chatter fails. */
+"CHALLENGE_DETAILS_VIEW_SEND_CHATTER_FAILURE_ALERT_ACTION_CANCEL_TITLE" = "OK";
+
+/* Message for alert displayed when sending chatter fails. */
+"CHALLENGE_DETAILS_VIEW_SEND_CHATTER_FAILURE_ALERT_MESSAGE" = "Cannot send chatter at this time.  Please try again later.";
+
+/* Title for alert displayed when sending chatter fails. */
+"CHALLENGE_DETAILS_VIEW_SEND_CHATTER_FAILURE_ALERT_TITLE" = "Uh oh";
+
+/* Placeholder text to display when sending chatter. */
+"CHALLENGE_DETAILS_VIEW_SEND_CHATTER_TIME_POSTED_PLACEHOLDER" = "Sending...";
+
+/* Title for chatter tab on challenge details view. */
+"CHALLENGE_DETAILS_VIEW_TAB_BUTTON_TITLE_CHATTER" = "Chatter";
+
+/* Title for details tab on challenge details view. */
+"CHALLENGE_DETAILS_VIEW_TAB_BUTTON_TITLE_DETAILS" = "Details";
+
+/* Title for leaderboard tab on challenge details view. */
+"CHALLENGE_DETAILS_VIEW_TAB_BUTTON_TITLE_LEADERBOARD" = "Leaderboard";
+
+/* Title for progress tab on challenge details view. */
+"CHALLENGE_DETAILS_VIEW_TAB_BUTTON_TITLE_PROGRESS" = "Progress";
+
+/* Title for action sheet action to go back; displayed when picking a team to join. */
+"CHALLENGE_DETAILS_VIEW_TEAMS_PICKER_ACTION_SHEET_ACTION_TITLE_BACK" = "Back";
+
+/* Message for action sheet which is displayed when picking a team to join. */
+"CHALLENGE_DETAILS_VIEW_TEAMS_PICKER_ACTION_SHEET_MESSAGE" = "Select a team to join";
+
+/* Text for current user toggle button on challenge details view. */
+"CHALLENGE_DETAILS_VIEW_TOGGLE_BUTTON_TEXT_CURRENT_USER" = "You";
+
+/* Text for team toggle button on challenge details view. */
+"CHALLENGE_DETAILS_VIEW_TOGGLE_BUTTON_TEXT_TEAMS" = "Teams";
+
 /* Title to display for a challenge goal. */
 "CHALLENGE_INVITATION_VIEW_CHALLENGE_GOAL_TITLE" = "Goal:";
 
