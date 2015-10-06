@@ -5,6 +5,21 @@ class ChallengeInvitationView: UIView {
     @IBOutlet var inviter: UILabel!
     @IBOutlet var title: UILabel!
     @IBOutlet var starting: UILabel!
+    @IBOutlet weak var typeTitle: UILabel! {
+        didSet {
+            typeTitle.text = NSLocalizedString("CHALLENGE_INVITATION_CHALLENGE_TYPE_TITLE", comment: "Title to display for a challenge type.");
+        }
+    }
+    @IBOutlet weak var goalTitle: UILabel! {
+        didSet {
+            goalTitle.text = NSLocalizedString("CHALLENGE_INVITATION_CHALLENGE_GOAL_TITLE", comment: "Title to display for a challenge goal.");
+        }
+    }
+    @IBOutlet weak var prizeTitle: UILabel!{
+        didSet {
+            prizeTitle.text = NSLocalizedString("CHALLENGE_INVITATION_CHALLENGE_PRIZE_TITLE", comment: "Title to display for a challenge prize.");
+        }
+    }
     @IBOutlet var type: UILabel!
     @IBOutlet var goal: UILabel!
     @IBOutlet var prize: UILabel!
