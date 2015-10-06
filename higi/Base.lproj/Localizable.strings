@@ -1,3 +1,27 @@
+/* Format for dates displayed on challenge invitation date range text. */
+"CHALLENGE_INVITATION_DATE_RANGE_DATE_FORMAT" = "MMM d, ''yy";
+
+/* Text to display on a challenge invitation if there is no end date. */
+"CHALLENGE_INVITATION_DATE_RANGE_NO_END_DATE" = "No end date";
+
+/* Text to display for a challenge goal where the winner is an individual. */
+"CHALLENGE_INVITATION_GOAL_TYPE_WINNER_INDIVIDUAL" = "Individual";
+
+/* Text to display for a challenge goal where the winner is a team. */
+"CHALLENGE_INVITATION_GOAL_TYPE_WINNER_TEAM" = "Team";
+
+/* Text to display if a challenge goal type is to accrue the most points. */
+"CHALLENGE_INVITATION_VIEW_GOAL_TEXT_MOST_POINTS" = "Most points";
+
+/* Text to display if a challenge goal type is to reach a threshold. */
+"CHALLENGE_INVITATION_VIEW_GOAL_TEXT_THRESHOLD" = "Threshold reached";
+
+/* Text to display if a challenge goal type is to reach a threshold. */
+"CHALLENGE_INVITATION_VIEW_GOAL_TYPE_CHALLENGE" = "Goal Challenge";
+
+/* Text to display if a challenge goal type is to accrue the most points. */
+"CHALLENGE_INVITATION_VIEW_GOAL_TYPE_POINTS" = "Points Challenge";
+
 /* Format of local notification which is displayed when a user is near a higi station. */
 "LOCATION_DELEGATE_LOCAL_NOTIFICATION_FORMAT" = "You are near the higi Station at %@ %@!";
 

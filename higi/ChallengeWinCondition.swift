@@ -12,11 +12,13 @@ class ChallengeWinCondition {
     
     struct Goal {
         
+        // TODO: Create enum to represent supported types
         var type: NSString!;
         
         var place, minThreshold, maxThreshold: Int!;
     }
     
+    // TODO: Represent winner type as enum
     var name, description, tieHandling, winnerType, prizeName, prizeImageUrl: NSString!;
     
     var winnersCount, displayOrder: Int!;
