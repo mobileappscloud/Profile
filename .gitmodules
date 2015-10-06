@@ -22,6 +22,6 @@
 [submodule "Vendor/Google-Maps-Utilities"]
 	path = Vendor/Google-Maps-Utilities
 	url = https://github.com/higish/google-maps-ios-utils.git
-[submodule "Vendor/merge-genstrings"]
-	path = Vendor/merge-genstrings
-	url = https://gist.github.com/3d6e8251da35013d7979.git
+[submodule "Vendor/mergegenstrings"]
+	path = Vendor/mergegenstrings
+	url = https://github.com/higish/ios-merge-genstrings.git

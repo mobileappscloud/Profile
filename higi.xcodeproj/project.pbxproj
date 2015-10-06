@@ -2143,7 +2143,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./Vendor/merge-genstrings/mergegenstrings.py higi";
+			shellScript = "./Vendor/mergegenstrings/mergegenstrings.py higi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
