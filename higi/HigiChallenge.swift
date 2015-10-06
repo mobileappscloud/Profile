@@ -51,6 +51,7 @@ class HigiChallenge {
         joinUrl = userRelation["joinUrl"] as? NSString;
         commentsUrl = dictionary["commentsUrl"] as? NSString;
         entryFee = (dictionary["entryFee"] ?? 0) as! Float;
+        // TODO: l10n Verify date format
         let formatter = NSDateFormatter();
         formatter.dateFormat = "yyyy-MM-dd";
         let startDateString = dictionary["startDate"] as! String;

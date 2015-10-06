@@ -123,6 +123,7 @@ class ApiUtility {
         });
     }
     
+    // TODO: l10n Verify date formats
     class func retrieveActivities(success: (() -> Void)?) {
         SessionData.Instance.lastUpdate = NSDate();
         let userId = SessionData.Instance.user.userId;

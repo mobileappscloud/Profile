@@ -76,6 +76,7 @@ class HigiCheckin {
         
     }
     
+    // TODO: Convert to enum
     func convertClass(MetricClass: NSString?) -> NSString? {
         var retVal: NSString;
         if (MetricClass != nil) {
