@@ -7,17 +7,17 @@ class ChallengeInvitationView: UIView {
     @IBOutlet var starting: UILabel!
     @IBOutlet weak var typeTitle: UILabel! {
         didSet {
-            typeTitle.text = NSLocalizedString("CHALLENGE_INVITATION_CHALLENGE_TYPE_TITLE", comment: "Title to display for a challenge type.");
+            typeTitle.text = NSLocalizedString("CHALLENGE_INVITATION_VIEW_CHALLENGE_TYPE_TITLE", comment: "Title to display for a challenge type.");
         }
     }
     @IBOutlet weak var goalTitle: UILabel! {
         didSet {
-            goalTitle.text = NSLocalizedString("CHALLENGE_INVITATION_CHALLENGE_GOAL_TITLE", comment: "Title to display for a challenge goal.");
+            goalTitle.text = NSLocalizedString("CHALLENGE_INVITATION_VIEW_CHALLENGE_GOAL_TITLE", comment: "Title to display for a challenge goal.");
         }
     }
     @IBOutlet weak var prizeTitle: UILabel!{
         didSet {
-            prizeTitle.text = NSLocalizedString("CHALLENGE_INVITATION_CHALLENGE_PRIZE_TITLE", comment: "Title to display for a challenge prize.");
+            prizeTitle.text = NSLocalizedString("CHALLENGE_INVITATION_VIEW_CHALLENGE_PRIZE_TITLE", comment: "Title to display for a challenge prize.");
         }
     }
     @IBOutlet var type: UILabel!
@@ -55,8 +55,8 @@ class ChallengeInvitationView: UIView {
     }
     
     class func goalTypeDisplayHelper(goalType: String, winnerType: String) -> String {
-        let individualWinner = NSLocalizedString("CHALLENGE_INVITATION_GOAL_TYPE_WINNER_INDIVIDUAL", comment: "Text to display for a challenge goal where the winner is an individual.");
-        let teamWinner = NSLocalizedString("CHALLENGE_INVITATION_GOAL_TYPE_WINNER_TEAM", comment: "Text to display for a challenge goal where the winner is a team.");
+        let individualWinner = NSLocalizedString("CHALLENGE_INVITATION_VIEW_GOAL_TYPE_WINNER_INDIVIDUAL", comment: "Text to display for a challenge goal where the winner is an individual.");
+        let teamWinner = NSLocalizedString("CHALLENGE_INVITATION_VIEW_GOAL_TYPE_WINNER_TEAM", comment: "Text to display for a challenge goal where the winner is a team.");
         let firstPart = winnerType == "individual" ? individualWinner : teamWinner;
         
         let pointsGoal = NSLocalizedString("CHALLENGE_INVITATION_VIEW_GOAL_TYPE_POINTS", comment: "Text to display if a challenge goal type is to accrue the most points.");
@@ -87,11 +87,11 @@ class ChallengeInvitationView: UIView {
         var dateRange = "";
         if (endDate != nil) {
             let formatter = NSDateFormatter();
-            let dateFormat = NSLocalizedString("CHALLENGE_INVITATION_DATE_RANGE_DATE_FORMAT", comment: "Format for dates displayed on challenge invitation date range text.");
+            let dateFormat = NSLocalizedString("CHALLENGE_INVITATION_VIEW_DATE_RANGE_DATE_FORMAT", comment: "Format for dates displayed on challenge invitation date range text.");
             formatter.dateFormat = dateFormat;
             dateRange = "\(formatter.stringFromDate(startDate)) - \(formatter.stringFromDate(endDate!))";
         } else {
-            dateRange = NSLocalizedString("CHALLENGE_INVITATION_DATE_RANGE_NO_END_DATE", comment: "Text to display on a challenge invitation if there is no end date.");
+            dateRange = NSLocalizedString("CHALLENGE_INVITATION_VIEW_DATE_RANGE_NO_END_DATE", comment: "Text to display on a challenge invitation if there is no end date.");
         }
         return dateRange;
     }

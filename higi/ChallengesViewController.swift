@@ -92,26 +92,26 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
                     case 0:
                         activeTable = addTableView(totalPages);
                         scrollView.addSubview(activeTable!);
-                        pageTitles.append("Active Challenges");
+                        pageTitles.append(NSLocalizedString("CHALLENGES_VIEW_PAGE_TITLE_ACTIVE_CHALLENGES", comment: "Title for active challenge page in challenges view."));
                         currentTable = activeTable;
                     case 1:
                         upcomingTable = addTableView(totalPages);
                         scrollView.addSubview(upcomingTable!);
-                        pageTitles.append("Upcoming Challenges");
+                        pageTitles.append(NSLocalizedString("CHALLENGES_VIEW_PAGE_TITLE_UPCOMING_CHALLENGES", comment: "Title for upcoming challenge page in challenges view."));
                         if (currentTable == nil) {
                             currentTable = upcomingTable;
                         }
                     case 2:
                         availableTable = addTableView(totalPages);
                         scrollView.addSubview(availableTable!);
-                        pageTitles.append("Available Challenges");
+                        pageTitles.append(NSLocalizedString("CHALLENGES_VIEW_PAGE_TITLE_AVAILABLE_CHALLENGES", comment: "Title for available challenge page in challenges view."));
                         if (currentTable == nil) {
                             currentTable = availableTable;
                         }
                     case 3:
                         invitedTable = addTableView(totalPages);
                         scrollView.addSubview(invitedTable!);
-                        pageTitles.append("Invited Challenges");
+                        pageTitles.append(NSLocalizedString("CHALLENGES_VIEW_PAGE_TITLE_INVITED_CHALLENGES", comment: "Title for invited challenge page in challenges view."));
                         if (currentTable == nil) {
                             currentTable = invitedTable;
                         }
@@ -132,7 +132,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
             scrollView.contentSize = CGSize(width: scrollView.frame.size.width * CGFloat(totalPages), height: scrollView.frame.size.height);
             
         } else {
-            title = "Challenges";
+            title = NSLocalizedString("CHALLENGES_VIEW_PAGE_TITLE_CHALLENGES", comment: "Title for challenge page in challenges view with only one challenge.");
             blankState.hidden = false;
         }
         pager.numberOfPages = totalPages;
@@ -247,6 +247,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
             cell.title.text = challenge.name as String;
             cell.avatar.setImageWithURL(Utility.loadImageFromUrl(challenge.imageUrl as String));
         }
+        // TODO: l10n with relative formatter
         let endDate:NSDate? = challenge.endDate;
         if (endDate != nil) {
             let days = Int(endDate!.timeIntervalSinceNow / 60 / 60 / 24) + 1;

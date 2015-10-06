@@ -58,6 +58,7 @@ class ChallengeUtility {
         return consolodatedList;
     }
 
+    // TODO: Convert to utility extension
     class func getRankSuffix(rank: NSString) -> String {
         if ( rank == "11" || rank == "12" || rank == "13") {
             return rank as String + "th"

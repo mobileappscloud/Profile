@@ -1,23 +1,17 @@
 /* Title to display for a challenge goal. */
-"CHALLENGE_INVITATION_CHALLENGE_GOAL_TITLE" = "Goal:";
+"CHALLENGE_INVITATION_VIEW_CHALLENGE_GOAL_TITLE" = "Goal:";
 
 /* Title to display for a challenge prize. */
-"CHALLENGE_INVITATION_CHALLENGE_PRIZE_TITLE" = "Prize:";
+"CHALLENGE_INVITATION_VIEW_CHALLENGE_PRIZE_TITLE" = "Prize:";
 
 /* Title to display for a challenge type. */
-"CHALLENGE_INVITATION_CHALLENGE_TYPE_TITLE" = "Type:";
+"CHALLENGE_INVITATION_VIEW_CHALLENGE_TYPE_TITLE" = "Type:";
 
 /* Format for dates displayed on challenge invitation date range text. */
-"CHALLENGE_INVITATION_DATE_RANGE_DATE_FORMAT" = "MMM d, ''yy";
+"CHALLENGE_INVITATION_VIEW_DATE_RANGE_DATE_FORMAT" = "MMM d, ''yy";
 
 /* Text to display on a challenge invitation if there is no end date. */
-"CHALLENGE_INVITATION_DATE_RANGE_NO_END_DATE" = "No end date";
-
-/* Text to display for a challenge goal where the winner is an individual. */
-"CHALLENGE_INVITATION_GOAL_TYPE_WINNER_INDIVIDUAL" = "Individual";
-
-/* Text to display for a challenge goal where the winner is a team. */
-"CHALLENGE_INVITATION_GOAL_TYPE_WINNER_TEAM" = "Team";
+"CHALLENGE_INVITATION_VIEW_DATE_RANGE_NO_END_DATE" = "No end date";
 
 /* Text to display if a challenge goal type is to accrue the most points. */
 "CHALLENGE_INVITATION_VIEW_GOAL_TEXT_MOST_POINTS" = "Most points";
@@ -30,6 +24,27 @@
 
 /* Text to display if a challenge goal type is to accrue the most points. */
 "CHALLENGE_INVITATION_VIEW_GOAL_TYPE_POINTS" = "Points Challenge";
+
+/* Text to display for a challenge goal where the winner is an individual. */
+"CHALLENGE_INVITATION_VIEW_GOAL_TYPE_WINNER_INDIVIDUAL" = "Individual";
+
+/* Text to display for a challenge goal where the winner is a team. */
+"CHALLENGE_INVITATION_VIEW_GOAL_TYPE_WINNER_TEAM" = "Team";
+
+/* Title for active challenge page in challenges view. */
+"CHALLENGES_VIEW_PAGE_TITLE_ACTIVE_CHALLENGES" = "Active Challenges";
+
+/* Title for available challenge page in challenges view. */
+"CHALLENGES_VIEW_PAGE_TITLE_AVAILABLE_CHALLENGES" = "Available Challenges";
+
+/* Title for challenge page in challenges view with only one challenge. */
+"CHALLENGES_VIEW_PAGE_TITLE_CHALLENGES" = "Challenges";
+
+/* Title for invited challenge page in challenges view. */
+"CHALLENGES_VIEW_PAGE_TITLE_INVITED_CHALLENGES" = "Invited Challenges";
+
+/* Title for upcoming challenge page in challenges view. */
+"CHALLENGES_VIEW_PAGE_TITLE_UPCOMING_CHALLENGES" = "Upcoming Challenges";
 
 /* Format of local notification which is displayed when a user is near a higi station. */
 "LOCATION_DELEGATE_LOCAL_NOTIFICATION_FORMAT" = "You are near the higi Station at %@ %@!";
