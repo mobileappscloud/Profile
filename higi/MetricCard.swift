@@ -213,7 +213,6 @@ class MetricCard: UIView, MetricDelegate {
             }
             let tab = 1;
             let labelMinHeight:CGFloat = 20;
-            var lastVisibleY:CGFloat = CGFloat.max;
             
             let ranges = delegate.getRanges(tab);
             var i = 0;
@@ -222,7 +221,6 @@ class MetricCard: UIView, MetricDelegate {
                 let lowerBound = baseGraph.getScreenPoint(0, yPoint: CGFloat(range.lowerBound));
                 let upperBound = baseGraph.getScreenPoint(0, yPoint: CGFloat(range.upperBound));
                 if (upperBound.y >= 0 || lowerBound.y < graphContainer.frame.size.height) {
-                    lastVisibleY = lowerBound.y;
                     let region = UIView(frame: CGRect(x: 0, y: upperBound.y + graph.graph.plotAreaFrame.paddingTop, width: screenWidth, height: lowerBound.y - upperBound.y));
                     var labelHeight = region.frame.size.height;
                     var labelY:CGFloat = 0;
@@ -249,7 +247,6 @@ class MetricCard: UIView, MetricDelegate {
                     regions.append(region);
                     self.graphContainer.insertSubview(region, belowSubview: baseGraph);
                     i++;
-                    lastVisibleY = lowerBound.y;
                 }
             }
         }
@@ -289,6 +286,7 @@ class MetricCard: UIView, MetricDelegate {
         let triangle = TriangleView(frame: CGRect(x: 0, y: 0, width: triangleView.frame.size.width, height: triangleView.frame.size.height));
         triangle.transform = CGAffineTransformMakeRotation(CGFloat(M_PI_2));
         triangleView.addSubview(triangle);
+        graphContainer.frame.size.height = frame.size.height - headerView.frame.size.height;
     }
     
     @IBAction func toggleClicked(sender: AnyObject) {

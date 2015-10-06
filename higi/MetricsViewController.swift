@@ -136,8 +136,7 @@ class MetricsViewController: UIViewController {
         var pos = MetricsType.allValues.count - 1;
         var card: MetricCard?;
         for type in Array(MetricsType.allValues.reverse()) {
-            var cardFrame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight);
-            cardFrame.size.width = cardFrame.size.width - CGFloat((MetricsType.allValues.count - 1 - pos) * cardMargin);
+            let cardFrame = CGRect(x: 0, y: 0, width: screenWidth - CGFloat((MetricsType.allValues.count - 1 - pos) * cardMargin), height: detailsCardPosY - 1);
             switch(type) {
             case MetricsType.DailySummary:
                 card = MetricCard.instanceFromNib(ActivityMetricDelegate(), frame: cardFrame, points: activityPoints, altPoints: []);
@@ -148,7 +147,7 @@ class MetricsViewController: UIViewController {
             case MetricsType.Weight:
                 let delegate = WeightMetricDelegate();
                 card = MetricCard.instanceFromNib(delegate, frame: cardFrame, points: weightPoints, altPoints: []);
-                if let secondaryGraph = delegate.getSecondaryGraph(card!.graphContainer.frame, points: fatPoints, altPoints: fatAltPoints) {
+                if let secondaryGraph = delegate.getSecondaryGraph(cardFrame, points: fatPoints, altPoints: fatAltPoints) {
                     card!.secondaryGraph = secondaryGraph;
                     card!.secondaryGraph.hidden = true;
                     if secondaryGraph.points.count > 0 {
@@ -280,7 +279,6 @@ class MetricsViewController: UIViewController {
     }
 
     func updateDetailCard() {
-        let currentCard = getCurrentCard();
         detailsCard.setMetricType(getCurrentCard().delegate);
 
         if (detailsGone) {
