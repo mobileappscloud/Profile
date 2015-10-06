@@ -1,0 +1,3 @@
+/* Format of local notification which is displayed when a user is near a higi station. */
+"LOCATION_DELEGATE_LOCAL_NOTIFICATION_FORMAT" = "You are near the higi Station at %@ %@!";
+
