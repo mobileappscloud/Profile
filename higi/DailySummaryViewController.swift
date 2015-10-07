@@ -222,7 +222,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         
         let higiTitle = NSLocalizedString("DAILY_SUMMARY_VIEW_BLANK_STATE_HIGI_TITLE", comment: "Title for higi station; displayed on the Daily Summary view blank state.");
         let foursquareTitle = NSLocalizedString("DAILY_SUMMARY_VIEW_BLANK_STATE_FOURSQUARE_TITLE", comment: "Title for Foursquare; displayed on the Daily Summary view blank state.");
-        let activityTrackerTItle = NSLocalizedString("DAILY_SUMMARY_VIEW_BLANK_STATE_ACTIVITY_TRACKER_TITLE", comment: "Title for activity tracker; displayed on the Daily Summary view blank state.");
+        let activityTrackerTitle = NSLocalizedString("DAILY_SUMMARY_VIEW_BLANK_STATE_ACTIVITY_TRACKER_TITLE", comment: "Title for activity tracker; displayed on the Daily Summary view blank state.");
         let morningTitle = "", afternoonTitle = "";
         
         let higiText = NSLocalizedString("DAILY_SUMMARY_VIEW_BLANK_STATE_HIGI_TEXT", comment: "Descriptive text for higi station; displayed on the Daily Summary view blank state.");
@@ -232,8 +232,11 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         let morningText = NSLocalizedString("DAILY_SUMMARY_VIEW_BLANK_STATE_MORNING_TEXT", comment: "Descriptive text shown in the morning; displayed on the Daily Summary view blank state.");
         let afternoonText = NSLocalizedString("DAILY_SUMMARY_VIEW_BLANK_STATE_AFTERNOON_TEXT", comment: "Descriptive text shown in the afternoon; displayed on the Daily Summary view blank state.");
         
-        let higiCallToAction, morningCallToAction, afternoonCallToAction  = NSLocalizedString("DAILY_SUMMARY_VIEW_BLANK_STATE_CALL_TO_ACTION_FIND_STATION", comment: "Title for call-to-action to find a higi station; displayed in the Daily Summary blank-state view.");
-        let activityTrackerCallToAction, foursquareCallToAction = NSLocalizedString("DAILY_SUMMARY_VIEW_BLANK_STATE_CALL_TO_ACTION_CONNECT_DEVICE", comment: "Title for call-to-action to connect a device; displayed in the Daily Summary blank-state view.");
+        let higiCallToAction = NSLocalizedString("DAILY_SUMMARY_VIEW_BLANK_STATE_CALL_TO_ACTION_FIND_STATION", comment: "Title for call-to-action to find a higi station; displayed in the Daily Summary blank-state view.");
+        let morningCallToAction = NSLocalizedString("DAILY_SUMMARY_VIEW_BLANK_STATE_CALL_TO_ACTION_FIND_STATION", comment: "Title for call-to-action to find a higi station; displayed in the Daily Summary blank-state view.");
+        let afternoonCallToAction = NSLocalizedString("DAILY_SUMMARY_VIEW_BLANK_STATE_CALL_TO_ACTION_FIND_STATION", comment: "Title for call-to-action to find a higi station; displayed in the Daily Summary blank-state view.");
+        let activityTrackerCallToAction = NSLocalizedString("DAILY_SUMMARY_VIEW_BLANK_STATE_CALL_TO_ACTION_CONNECT_DEVICE", comment: "Title for call-to-action to connect a device; displayed in the Daily Summary blank-state view.");
+        let foursquareCallToAction = NSLocalizedString("DAILY_SUMMARY_VIEW_BLANK_STATE_CALL_TO_ACTION_CONNECT_DEVICE", comment: "Title for call-to-action to connect a device; displayed in the Daily Summary blank-state view.");
 
         
         let higiButtonTarget:Selector = "higiCallToActionClicked:", activityTrackerButtonTarget:Selector = "activityTrackerCallToActionClicked:", foursquareButtonTarget:Selector = "foursquareCallToActionClicked:", morningButtonTarget:Selector = "morningCallToActionClicked:", afternoonButtonTarget:Selector = "afternoonCallToActionClicked:";
