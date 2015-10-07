@@ -205,6 +205,36 @@
 /* Title for Dashboard view. */
 "DASHBOARD_VIEW_TITLE" = "Dashboard";
 
+/* General purpose abbreviated label for beats per minute. */
+"GENERAL_PURPOSE_UNIT_LABEL_ABBR_BEATS_PER_MINUTE" = "bpm";
+
+/* General purpose abbreviated label for the units of millimeter of mercury. */
+"GENERAL_PURPOSE_UNIT_LABEL_ABBR_MILLIMETERS_OF_MERCURY" = "mmHg";
+
+/* General purpose abbreviated label for points. */
+"GENERAL_PURPOSE_UNIT_LABEL_ABBR_POINTS" = "pts";
+
+/* General purpose abbreviated label for the english units of weight measurement, pounds. */
+"GENERAL_PURPOSE_UNIT_LABEL_ABBR_WEIGHT_POUNDS" = "lbs";
+
 /* Format of local notification which is displayed when a user is near a higi station. */
 "LOCATION_DELEGATE_LOCAL_NOTIFICATION_FORMAT" = "You are near the higi Station at %@ %@!";
+
+/* Subtitle text for activity points data shown on metrics graph card. */
+"METRICS_GRAPH_CARD_ACTIVITY_POINTS_SUBTITLE" = "Activity Points";
+
+/* Subtitle text for beats per minute data shown on metrics graph card. */
+"METRICS_GRAPH_CARD_BEATS_PER_MINUTE_SUBTITLE" = "Beats Per Minute";
+
+/* Subtitle text for blood pressure data shown on metrics graph card. */
+"METRICS_GRAPH_CARD_BLOOD_PRESSURE_SUBTITLE" = "Blood Pressure";
+
+/* Subtitle text for body fat data shown on metrics graph card. */
+"METRICS_GRAPH_CARD_BODY_FAT_SUBTITLE" = "Body Fat";
+
+/* Subtitle text for mean arterial pressure data shown on metrics graph card. */
+"METRICS_GRAPH_CARD_MEAN_ARTERIAL_PRESSURE_SUBTITLE" = "Mean Arterial Pressure";
+
+/* Subtitle text for body weight data shown on metrics graph card. */
+"METRICS_GRAPH_CARD_WEIGHT_SUBTITLE" = "Weight";
 
