@@ -79,7 +79,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         
         searchField = UITextField(frame: CGRect(x: 0, y: 0, width: 95, height: 40));
         searchField.font = UIFont.systemFontOfSize(12);
-        searchField.placeholder = "Search by store name, city, zip";
+        searchField.placeholder = NSLocalizedString("FIND_STATION_VIEW_SEARCH_FIELD_PLACEHOLDER_TEXT", comment: "Placeholder text for search field on Find Station view.");
         searchField.leftViewMode = UITextFieldViewMode.Always;
         searchField.leftView = UIImageView(image: UIImage(named: "search_icon"));
         searchField.leftView!.frame = CGRect(x: 0, y: 5, width: 30, height: 20);
@@ -97,6 +97,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         searchField.addTarget(self, action: "textFieldChanged", forControlEvents: UIControlEvents.EditingChanged);
         self.navigationItem.titleView = searchField;
         
+        // TODO: l10n label names, use calendar components and possibly enum
         let fontSize = mondayHours.font.pointSize;
         let formatter = NSDateFormatter();
         formatter.dateFormat = "EEEE";
@@ -117,8 +118,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         case "Sunday":
             sundayHours.font = UIFont.boldSystemFontOfSize(fontSize);
         default:
-            // Do nothing
-            var i = 0;
+            break;
         }
         
         if (reminderMode) {
@@ -155,11 +155,10 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated);
-        if (UIDevice.currentDevice().systemVersion >= "8.0") {
-            locationManager = CLLocationManager();
-            locationManager.requestAlwaysAuthorization();
-            locationManager.delegate = self;
-        }
+        
+        locationManager = CLLocationManager();
+        locationManager.requestAlwaysAuthorization();
+        locationManager.delegate = self;
         
         if (SessionController.Instance.kioskList != nil) {
             populateClusterManager();
@@ -398,6 +397,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         cell.logo.image = nil;
         cell.logo.setImageWithURL(getKioskLogoUrl(kiosk));
         
+        // TODO: l10n distance formatter
         let distance = calcDistance(kiosk.location!);
         if (distance >= 0) {
             let formattedDistance = distance >= 10 ? "\(Int(distance))" : String(format: "%.1f", distance);
@@ -522,6 +522,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         selectedLogo.setImageWithURL(getKioskLogoUrl(kiosk));
         selectedName.text = kiosk.organizations[0] as String;
         selectedAddress.text = kiosk.fullAddress as String;
+        // TODO: l10n handle with changes above, code reuse
         if (kiosk.hours != nil) {
             mondayHours.text = kiosk.hours!.valueForKey("Mon") as? String? ?? "Closed";
             tuesdayHours.text = kiosk.hours!.valueForKey("Tue") as? String? ?? "Closed";
@@ -539,6 +540,8 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
             saturdayHours.text = "Not available";
             sundayHours.text = "Not available";
         }
+        
+        // TODO: l10n distance formatter
         var distance = calcDistance(kiosk.location!);
         if (distance >= 0) {
             var formattedDistance = distance >= 10 ? "\(Int(distance))" : String(format: "%.1f", distance);
@@ -568,16 +571,16 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     
     @IBAction func setReminder(sender: AnyObject) {
         bottomHelp.hidden = true;
-        var eventStore = EKEventStore();
+        let eventStore = EKEventStore();
         eventStore.requestAccessToEntityType(EKEntityType.Event, completion: { granted, error in
             if (granted) {
-                var eventController = EKEventEditViewController();
-                var event = EKEvent(eventStore: eventStore);
+                let eventController = EKEventEditViewController();
+                let event = EKEvent(eventStore: eventStore);
                 if let calendar: EKCalendar = eventStore.defaultCalendarForNewEvents {
                     event.calendar = calendar;
                     event.startDate = NSDate();
                     event.endDate = NSDate();
-                    event.title = "Check in to a higi Station!";
+                    event.title = NSLocalizedString("FIND_STATION_VIEW_CHECK_IN_REMINDER_CALENDAR_EVENT_TITLE", comment: "Title of calendar reminder to check in to a higi station.");
                     event.location = self.selectedKiosk!.fullAddress as String;
                     eventController.event = event;
                     eventController.eventStore = eventStore;
@@ -585,7 +588,10 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
                     self.presentViewController(eventController, animated: true, completion: nil);
                 } else {
                     NSOperationQueue.mainQueue().addOperationWithBlock({
-                        UIAlertView(title: "Cannot find calendar", message: "We could not find your default calendar", delegate: nil, cancelButtonTitle: "OK").show();
+                        let alertTitle = NSLocalizedString("FIND_STATION_VIEW_CHECK_IN_REMINDER_CALENDAR_NOT_FOUND_ALERT_TITLE", comment: "Title of alert displayed when the calendar can not be found.")
+                        let alertMessage = NSLocalizedString("FIND_STATION_VIEW_CHECK_IN_REMINDER_CALENDAR_NOT_FOUND_ALERT_MESSAGE", comment: "Message of alert displayed when the calendar can not be found.")
+                        let cancelAction = NSLocalizedString("FIND_STATION_VIEW_CHECK_IN_REMINDER_CALENDAR_NOT_FOUND_ALERT_ACTION_CANCEL_TITLE", comment: "Title of cancel alert action displayed when the calendar can not be found.")
+                        UIAlertView(title: alertTitle, message: alertMessage, delegate: nil, cancelButtonTitle: cancelAction).show();
                     });
                 }
             } else {

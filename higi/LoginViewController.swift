@@ -12,8 +12,16 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet var email : UITextField!
     @IBOutlet var password : UITextField!
-    @IBOutlet var loginButton : UIButton!
-    @IBOutlet var forgotPassword: UIButton!
+    @IBOutlet var loginButton : UIButton! {
+        didSet {
+            loginButton.setTitle(NSLocalizedString("LOGIN_VIEW_LOGIN_BUTTON_TITLE", comment: "Title for login button."), forState: .Normal)
+        }
+    }
+    @IBOutlet var forgotPassword: UIButton! {
+        didSet {
+            forgotPassword.setTitle(NSLocalizedString("LOGIN_VIEW_FORGOT_PASSWORD_BUTTON_TITLE", comment: "Title for forgot password button."), forState: .Normal)
+        }
+    }
     @IBOutlet var spinner: CustomLoadingSpinner!
     
     var setup = false;
@@ -61,15 +69,20 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         password.enabled = false;
         forgotPassword.enabled = false;
         self.navigationItem.leftBarButtonItem!.customView!.hidden = true;
-        email.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSForegroundColorAttributeName: UIColor.lightGrayColor()]);
-        password.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName: UIColor.lightGrayColor()]);
+        let emailPlaceholder = NSLocalizedString("LOGIN_VIEW_EMAIL_TEXTFIELD_PLACEHOLDER", comment: "Placeholder for email text field on login view.")
+        email.attributedPlaceholder = NSAttributedString(string: emailPlaceholder, attributes: [NSForegroundColorAttributeName: UIColor.lightGrayColor()]);
+        let passwordPlaceholder = NSLocalizedString("LOGIN_VIEW_PASSWORD_TEXTFIELD_PLACEHOLDER", comment: "Placeholder for password text field on login view.")
+        password.attributedPlaceholder = NSAttributedString(string: passwordPlaceholder, attributes: [NSForegroundColorAttributeName: UIColor.lightGrayColor()]);
+        // TODO: regex does not support all character sets, check RFC for guidelines
         if (email.text!.characters.count == 0 || email.text!.rangeOfString("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$", options: NSStringCompareOptions.RegularExpressionSearch, range: nil, locale: nil) == nil) {
-            email.attributedPlaceholder = NSAttributedString(string: "Valid email required", attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)]);
+            let emailInvalidPlaceholder = NSLocalizedString("LOGIN_VIEW_EMAIL_TEXTFIELD_PLACEHOLDER_INVALID_INPUT", comment: "Placeholder for email text field with invalid input on login view.")
+            email.attributedPlaceholder = NSAttributedString(string: emailInvalidPlaceholder, attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)]);
             email.text = "";
             password.text = "";
             reset();
         } else if (password.text!.characters.count < 6) {
-            password.attributedPlaceholder = NSAttributedString(string: "Password must be at least 6 characters", attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)]);
+            let passwordInvalidPlaceholder = NSLocalizedString("LOGIN_VIEW_PASSWORD_TEXTFIELD_PLACEHOLDER_INVALID_INPUT", comment: "Placeholder for password text field with invalid input on login view.")
+            password.attributedPlaceholder = NSAttributedString(string: passwordInvalidPlaceholder, attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)]);
             password.text = "";
             reset();
         } else {
@@ -89,12 +102,18 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             SessionData.Instance.save();
             if (login.user != nil) {
                 ApiUtility.checkTermsAndPrivacy(self, success: gotoDashboard, failure: {
-                    UIAlertView(title: "Unable to connect to server", message: "Please check your network connection and try again.", delegate: nil, cancelButtonTitle: "OK").show();
+                    let title = NSLocalizedString("LOGIN_VIEW_LOG_IN_NETWORK_CONNECTION_ISSUE_ALERT_TITLE", comment: "Title of alert which is displayed if a network connection issue occurs.")
+                    let message = NSLocalizedString("LOGIN_VIEW_LOG_IN_NETWORK_CONNECTION_ISSUE_ALERT_MESSAGE", comment: "Message of alert which is displayed if a network connection issue occurs.")
+                    let dismissAction = NSLocalizedString("LOGIN_VIEW_LOG_IN_NETWORK_CONNECTION_ISSUE_ALERT_ACTION_TITLE_DISMISS", comment: "Title of alert action to dismiss the alert which is displayed if a network connection issue occurs.")
+                    UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: dismissAction).show();
                     self.reset();
                 });
             }
         } else {
-            UIAlertView(title: "Invalid credentials", message: "Please check your email and password and try again.", delegate: nil, cancelButtonTitle: "OK").show();
+            let title = NSLocalizedString("LOGIN_VIEW_LOG_IN_INVALID_CREDENTIALS_ALERT_TITLE", comment: "Title of alert which is displayed if a user is unable to log in due to invalid credentials.")
+            let message = NSLocalizedString("LOGIN_VIEW_LOG_IN_INVALID_CREDENTIALS_ALERT_MESSAGE", comment: "Message of alert which is displayed if a user is unable to log in due to invalid credentials.")
+            let dismissAction = NSLocalizedString("LOGIN_VIEW_LOG_IN_INVALID_CREDENTIALS_ALERT_ACTION_TITLE_DISMISS", comment: "Title of alert action to dismiss the alert which is displayed if a user is unable to log in due to invalid credentials.")
+            UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: dismissAction).show();
             reset();
         }
     }
@@ -104,9 +123,16 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         self.navigationItem.hidesBackButton = false;
         var alert: UIAlertView;
         if (errorCode == -1009 || errorCode == -1004 || errorCode == -1005) {
-            alert = UIAlertView(title: "Unable to connect to server", message: "Please check your network connection and try again.", delegate: nil, cancelButtonTitle: "OK");
+            let title = NSLocalizedString("LOGIN_VIEW_LOG_IN_NETWORK_CONNECTION_ISSUE_ALERT_TITLE", comment: "Title of alert which is displayed if a network connection issue occurs.")
+            let message = NSLocalizedString("LOGIN_VIEW_LOG_IN_NETWORK_CONNECTION_ISSUE_ALERT_MESSAGE", comment: "Message of alert which is displayed if a network connection issue occurs.")
+            let dismissAction = NSLocalizedString("LOGIN_VIEW_LOG_IN_NETWORK_CONNECTION_ISSUE_ALERT_ACTION_TITLE_DISMISS", comment: "Title of alert action to dismiss the alert which is displayed if a network connection issue occurs.")
+            alert = UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: dismissAction);
         } else {
-            alert = UIAlertView(title: "Invalid credentials", message: "Please check your email and password and try again.", delegate: nil, cancelButtonTitle: "OK");
+            let title = NSLocalizedString("LOGIN_VIEW_LOG_IN_INVALID_CREDENTIALS_ALERT_TITLE", comment: "Title of alert which is displayed if a user is unable to log in due to invalid credentials.")
+            let message = NSLocalizedString("LOGIN_VIEW_LOG_IN_INVALID_CREDENTIALS_ALERT_MESSAGE", comment: "Message of alert which is displayed if a user is unable to log in due to invalid credentials.")
+            let dismissAction = NSLocalizedString("LOGIN_VIEW_LOG_IN_INVALID_CREDENTIALS_ALERT_ACTION_TITLE_DISMISS", comment: "Title of alert action to dismiss the alert which is displayed if a user is unable to log in due to invalid credentials.")
+            UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: dismissAction).show();
+            alert = UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: dismissAction);
         }
         alert.show();
         reset();

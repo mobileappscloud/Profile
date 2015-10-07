@@ -205,6 +205,21 @@
 /* Title for Dashboard view. */
 "DASHBOARD_VIEW_TITLE" = "Dashboard";
 
+/* Title of calendar reminder to check in to a higi station. */
+"FIND_STATION_VIEW_CHECK_IN_REMINDER_CALENDAR_EVENT_TITLE" = "Check in to a higi Station!";
+
+/* Title of cancel alert action displayed when the calendar can not be found. */
+"FIND_STATION_VIEW_CHECK_IN_REMINDER_CALENDAR_NOT_FOUND_ALERT_ACTION_CANCEL_TITLE" = "OK";
+
+/* Message of alert displayed when the calendar can not be found. */
+"FIND_STATION_VIEW_CHECK_IN_REMINDER_CALENDAR_NOT_FOUND_ALERT_MESSAGE" = "We could not find your default calendar";
+
+/* Title of alert displayed when the calendar can not be found. */
+"FIND_STATION_VIEW_CHECK_IN_REMINDER_CALENDAR_NOT_FOUND_ALERT_TITLE" = "Cannot find calendar";
+
+/* Placeholder text for search field on Find Station view. */
+"FIND_STATION_VIEW_SEARCH_FIELD_PLACEHOLDER_TEXT" = "Search by store name, city, zip";
+
 /* General purpose abbreviated label for beats per minute. */
 "GENERAL_PURPOSE_UNIT_LABEL_ABBR_BEATS_PER_MINUTE" = "bpm";
 
@@ -219,6 +234,42 @@
 
 /* Format of local notification which is displayed when a user is near a higi station. */
 "LOCATION_DELEGATE_LOCAL_NOTIFICATION_FORMAT" = "You are near the higi Station at %@ %@!";
+
+/* Placeholder for email text field on login view. */
+"LOGIN_VIEW_EMAIL_TEXTFIELD_PLACEHOLDER" = "Email";
+
+/* Placeholder for email text field with invalid input on login view. */
+"LOGIN_VIEW_EMAIL_TEXTFIELD_PLACEHOLDER_INVALID_INPUT" = "Valid email required";
+
+/* Title for forgot password button. */
+"LOGIN_VIEW_FORGOT_PASSWORD_BUTTON_TITLE" = "Forgot Password?";
+
+/* Title of alert action to dismiss the alert which is displayed if a user is unable to log in due to invalid credentials. */
+"LOGIN_VIEW_LOG_IN_INVALID_CREDENTIALS_ALERT_ACTION_TITLE_DISMISS" = "OK";
+
+/* Message of alert which is displayed if a user is unable to log in due to invalid credentials. */
+"LOGIN_VIEW_LOG_IN_INVALID_CREDENTIALS_ALERT_MESSAGE" = "Please check your email and password and try again.";
+
+/* Title of alert which is displayed if a user is unable to log in due to invalid credentials. */
+"LOGIN_VIEW_LOG_IN_INVALID_CREDENTIALS_ALERT_TITLE" = "Invalid Credentials";
+
+/* Title of alert action to dismiss the alert which is displayed if a network connection issue occurs. */
+"LOGIN_VIEW_LOG_IN_NETWORK_CONNECTION_ISSUE_ALERT_ACTION_TITLE_DISMISS" = "OK";
+
+/* Message of alert which is displayed if a network connection issue occurs. */
+"LOGIN_VIEW_LOG_IN_NETWORK_CONNECTION_ISSUE_ALERT_MESSAGE" = "Please check your network connection and try again.";
+
+/* Title of alert which is displayed if a network connection issue occurs. */
+"LOGIN_VIEW_LOG_IN_NETWORK_CONNECTION_ISSUE_ALERT_TITLE" = "Unable to connect to server";
+
+/* Title for login button. */
+"LOGIN_VIEW_LOGIN_BUTTON_TITLE" = "Log In";
+
+/* Placeholder for password text field on login view. */
+"LOGIN_VIEW_PASSWORD_TEXTFIELD_PLACEHOLDER" = "Password";
+
+/* Placeholder for password text field with invalid input on login view. */
+"LOGIN_VIEW_PASSWORD_TEXTFIELD_PLACEHOLDER_INVALID_INPUT" = "Password must be at least 6 characters";
 
 /* Subtitle text for activity points data shown on metrics graph card. */
 "METRICS_GRAPH_CARD_ACTIVITY_POINTS_SUBTITLE" = "Activity Points";
