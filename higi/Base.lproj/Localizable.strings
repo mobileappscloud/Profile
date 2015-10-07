@@ -124,6 +124,60 @@
 /* Title for upcoming challenge page in challenges view. */
 "CHALLENGES_VIEW_PAGE_TITLE_UPCOMING_CHALLENGES" = "Upcoming Challenges";
 
+/* Title for chatter input view controller. */
+"CHATTER_INPUT_VIEW_CONTROLLER_TITLE" = "Enter Chatter";
+
+/* Placeholder text to display in chatter input text field. */
+"CHATTER_INPUT_VIEW_TEXT_INPUT_PLACEHOLDER" = "Talk some smack!";
+
+/* Label for points units as seen in the daily summary row. */
+"DAILY_SUMMARY_ROW_POINTS_UNIT_LABEL" = "pts";
+
+/* Alternate descriptive text for activity tracker; displayed on the Daily Summary view blank state. */
+"DAILY_SUMMARY_VIEW_BLANK_STATE_ACTIVITY_TRACKER_ALTERNATE_TEXT" = "Wanna get rewarded for biking to work or running on the treadmill at the gym? Just connect your favorite activity tracker and start earning points today. \n";
+
+/* Default descriptive text for activity tracker; displayed on the Daily Summary view blank state. */
+"DAILY_SUMMARY_VIEW_BLANK_STATE_ACTIVITY_TRACKER_DEFAULT_TEXT" = "Higi makes it fun and rewarding to track your steps. Simply connect your favorite activity tracker and start getting rewarded for your jogs around the block. \n";
+
+/* Title for activity tracker; displayed on the Daily Summary view blank state. */
+"DAILY_SUMMARY_VIEW_BLANK_STATE_ACTIVITY_TRACKER_TITLE" = "Activity Tracker";
+
+/* Descriptive text shown in the afternoon; displayed on the Daily Summary view blank state. */
+"DAILY_SUMMARY_VIEW_BLANK_STATE_AFTERNOON_TEXT" = "Think you can earn more points than the average higi user? They average just over 15 points per day. If you are hoping to beat that, try visiting a higi Station or sync your activity tracker with higi to see how many points you’ve earned today.  \n";
+
+/* Title for call-to-action to connect a device; displayed in the Daily Summary blank-state view. */
+"DAILY_SUMMARY_VIEW_BLANK_STATE_CALL_TO_ACTION_CONNECT_DEVICE" = "Connect a device";
+
+/* Title for call-to-action to find a higi station; displayed in the Daily Summary blank-state view. */
+"DAILY_SUMMARY_VIEW_BLANK_STATE_CALL_TO_ACTION_FIND_STATION" = "Find a station";
+
+/* Descriptive text for Foursquare; displayed on the Daily Summary view blank state. */
+"DAILY_SUMMARY_VIEW_BLANK_STATE_FOURSQUARE_TEXT" = "Wanna get rewarded for going to the gym or walking your dog at the park? Just connect your Foursquare account with higi and we will reward your 15 points for every time you check into a gym or park. \n";
+
+/* Title for Foursquare; displayed on the Daily Summary view blank state. */
+"DAILY_SUMMARY_VIEW_BLANK_STATE_FOURSQUARE_TITLE" = "Foursquare";
+
+/* Descriptive text for higi station; displayed on the Daily Summary view blank state. */
+"DAILY_SUMMARY_VIEW_BLANK_STATE_HIGI_TEXT" = "Join the millions of people that are tracking their health through higi. You can earn up to 100 points by visiting a higi Station and getting your blood pressure, pulse, weight, and BMI stats. \n\n";
+
+/* Title for higi station; displayed on the Daily Summary view blank state. */
+"DAILY_SUMMARY_VIEW_BLANK_STATE_HIGI_TITLE" = "higi Station";
+
+/* Descriptive text shown in the morning; displayed on the Daily Summary view blank state. */
+"DAILY_SUMMARY_VIEW_BLANK_STATE_MORNING_TEXT" = "Think you can earn more points than the average higi user? They average just over 15 points per day. If you are hoping to beat that, try visiting a higi Station today and make sure your activity tracker is connected to higi.  \n";
+
+/* Greeting text to display in header of the Daily Summary view during the afternoon. */
+"DAILY_SUMMARY_VIEW_HEADER_GREETING_AFTERNOON_TEXT" = "Good Afternoon!";
+
+/* Greeting text to display in header of the Daily Summary view during the evening. */
+"DAILY_SUMMARY_VIEW_HEADER_GREETING_EVENING_TEXT" = "Good Evening!";
+
+/* Greeting text to display in header of the Daily Summary view during the morning. */
+"DAILY_SUMMARY_VIEW_HEADER_GREETING_MORNING_TEXT" = "Good Morning!";
+
+/* Title for Daily Summary view. */
+"DAILY_SUMMARY_VIEW_TITLE" = "Daily Summary";
+
 /* Format of local notification which is displayed when a user is near a higi station. */
 "LOCATION_DELEGATE_LOCAL_NOTIFICATION_FORMAT" = "You are near the higi Station at %@ %@!";
 

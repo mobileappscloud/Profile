@@ -20,6 +20,7 @@ enum ActivityCategory {
         }
     }
     
+    // TODO: l10n, refactor enum
     func getString() -> String {
         switch(self) {
         case Fitness:
