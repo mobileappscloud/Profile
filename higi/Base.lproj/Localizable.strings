@@ -370,6 +370,12 @@
 /* Reason for prompting Touch ID local authentication. */
 "LOCAL_AUTHENTICATION_TOUCH_ID_REASON" = "Use your fingerprint to access higi";
 
+/* Message to display via local notification when a scanned check-in encounters an issue while being uploaded. */
+"LOCAL_NOTIFICATION_SCANNED_CHECK_IN_ISSUE_MESSAGE" = "There was a problem uploading your checkin data";
+
+/* Message to display via local notification when a scanned check-in is successfully uploaded. */
+"LOCAL_NOTIFICATION_SCANNED_CHECK_IN_SUCCESS_MESSAGE" = "Checkin data successfully uploaded to higi servers!  Check it out in the app";
+
 /* Format of local notification which is displayed when a user is near a higi station. */
 "LOCATION_DELEGATE_LOCAL_NOTIFICATION_FORMAT" = "You are near the higi Station at %@ %@!";
 
@@ -534,6 +540,60 @@
 
 /* Title for pulse reading which falls within a normal range. */
 "PULSE_RANGE_NORMAL_TITLE" = "Normal";
+
+/* Message for blank state error. */
+"QR_SCANNER_VIEW_BLANK_STATE_ERROR_MESSAGE" = "Someone must have left the lens cover on the camera.  We can't access your camera.  Enable the camera in the settings.";
+
+/* Title for blank state error. */
+"QR_SCANNER_VIEW_BLANK_STATE_ERROR_TITLE" = "D'oh!";
+
+/* Title for action to dismiss alert displayed when a check-in upload begins. */
+"QR_SCANNER_VIEW_CHECK_IN_UPLOADING_ALERT_ACTION_TITLE_DISMISS" = "OK";
+
+/* Message for alert displayed when a check-in upload begins. */
+"QR_SCANNER_VIEW_CHECK_IN_UPLOADING_ALERT_MESSAGE" = "Your checkin data is being uploaded to the higi servers";
+
+/* Title for alert displayed when a check-in upload begins. */
+"QR_SCANNER_VIEW_CHECK_IN_UPLOADING_ALERT_TITLE" = "On its way!";
+
+/* Title for action to dismiss alert displayed when a user requests more info about scanned check-ins. */
+"QR_SCANNER_VIEW_EXPLANATION_ALERT_ACTION_TITLE_DISMISS" = "Got it";
+
+/* Message for alert displayed when a user requests more info about scanned check-ins. */
+"QR_SCANNER_VIEW_EXPLANATION_ALERT_MESSAGE" = "The scanner allows you to save your check-in results at a higi Station that may not be connecting to the internet.  For offline Stations just scan the QR code that appears on the higi Station and viola!  The results from your check-in will be added to your account.";
+
+/* Title for alert displayed when a user requests more info about scanned check-ins. */
+"QR_SCANNER_VIEW_EXPLANATION_ALERT_TITLE" = "What does this scanner do?";
+
+/* Text offering user a chance to view an explanation of QR scanned check-ins. */
+"QR_SCANNER_VIEW_EXPLANATORY_LABEL_TEXT" = "What is this?";
+
+/* Text instructing user to scan QR code. */
+"QR_SCANNER_VIEW_INSTRUCTION_LABEL_TEXT" = "Scan QR code from kiosk to save your data";
+
+/* Title for action to dismiss alert displayed when an invalid QR code is scanned. */
+"QR_SCANNER_VIEW_INVALID_QR_ALERT_ACTION_TITLE_DISMISS" = "OK";
+
+/* Message for alert displayed when an invalid QR code is scanned. */
+"QR_SCANNER_VIEW_INVALID_QR_ALERT_MESSAGE" = "There was a problem with the QR code you scanned.  The scanner will only work for QR codes on the higi kiosk.";
+
+/* Title for alert displayed when an invalid QR code is scanned. */
+"QR_SCANNER_VIEW_INVALID_QR_ALERT_TITLE" = "Uh oh";
+
+/* Title for settings button on QR Scanner view. */
+"QR_SCANNER_VIEW_SETTINGS_BUTTON_TITLE" = "Go to Settings";
+
+/* Title for QR Scanner view. */
+"QR_SCANNER_VIEW_TITLE" = "Scanner";
+
+/* Title for action to dismiss alert displayed when an unsupported device is detected */
+"QR_SCANNER_VIEW_UNSUPPORTED_DEVICE_ALERT_ACTION_TITLE_DISMISS" = "OK";
+
+/* Message for alert displayed when an unsupported device is detected */
+"QR_SCANNER_VIEW_UNSUPPORTED_DEVICE_ALERT_MESSAGE" = "The scanner will not work with your device";
+
+/* Title for alert displayed when an unsupported device is detected. */
+"QR_SCANNER_VIEW_UNSUPPORTED_DEVICE_ALERT_TITLE" = "Uh oh";
 
 /* Title for change password table view cell. */
 "SETTINGS_TABLE_VIEW_CELL_TITLE_CHANGE_PASSWORD" = "Change password";

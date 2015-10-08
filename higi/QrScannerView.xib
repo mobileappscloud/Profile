@@ -7,8 +7,12 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="QrScannerViewController" customModule="higi" customModuleProvider="target">
             <connections>
+                <outlet property="blankStateErrorMessage" destination="23p-o2-3m4" id="hsB-Rr-W2k"/>
+                <outlet property="blankStateErrorTitle" destination="itu-Ie-sIV" id="Zx2-wt-rZ1"/>
                 <outlet property="blankStateLayer" destination="QCI-y1-LpK" id="t9L-kR-6Yl"/>
+                <outlet property="explanatoryLabel" destination="Uv4-mD-zt4" id="rTC-cu-Biu"/>
                 <outlet property="infoView" destination="wXB-rN-Lgn" id="Xnf-r9-DLV"/>
+                <outlet property="instructionLabel" destination="CQD-LW-A3O" id="kRZ-SU-sM9"/>
                 <outlet property="settingsButton" destination="vDw-ZS-nmB" id="qLX-BH-SFL"/>
                 <outlet property="userLayer" destination="a8l-JY-7od" id="gAY-cU-G72"/>
                 <outlet property="view" destination="iN0-l3-epB" id="cqK-g5-NBj"/>
