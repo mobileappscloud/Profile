@@ -33,7 +33,7 @@ class PulseMetricDelegate: MetricDelegate {
     }
     
     func getBlankStateText() -> String {
-        return "Welcome! Unfortunately, you don’t have any pulse readings with us. Swing by a higi Station or connect your favorite pulse tracker and we will reward you 50 points for each Pulse / BP check-in.";
+        return NSLocalizedString("PULSE_METRICS_VIEW_BLANK_STATE_TEXT", comment: "Text to display on pulse metrics view if there is no pulse data to display.");
     }
     
     func setSelected(date: NSDate) {
@@ -59,19 +59,19 @@ class PulseMetricDelegate: MetricDelegate {
             let pulse = selectedCheckin.pulseBpm != nil ? "\(Int(selectedCheckin.pulseBpm!))" : "";
             var device = "";
             if let kioskInfo = selectedCheckin.kioskInfo {
-                return SelectedPoint(date: date, panelValue: pulse, panelLabel: "Beats Per Minute", panelUnit: "bpm", kioskInfo: kioskInfo);
+                return SelectedPoint(date: date, panelValue: pulse, panelLabel: NSLocalizedString("PULSE_METRIC_SELECTED_POINT_PANEL_BEATS_PER_MINUTE_LABEL", comment: "Label for beats per minute panel."), panelUnit: NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_BEATS_PER_MINUTE", comment: "General purpose abbreviated label for beats per minute."), kioskInfo: kioskInfo);
             } else if let vendorId = selectedCheckin.sourceVendorId {
                 device = "\(vendorId)";
             }
-            return SelectedPoint(date: date, panelValue: pulse, panelLabel: "Beats Per Minute", panelUnit: "bpm", device: device);
+            return SelectedPoint(date: date, panelValue: pulse, panelLabel: NSLocalizedString("PULSE_METRIC_SELECTED_POINT_PANEL_BEATS_PER_MINUTE_LABEL", comment: "Label for beats per minute panel."), panelUnit: NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_BEATS_PER_MINUTE", comment: "General purpose abbreviated label for beats per minute."), device: device);
         }
     }
 
     func getRanges(tab:Int) -> [MetricGauge.Range] {
         var ranges:[MetricGauge.Range] = [];
-        ranges.append(MetricGauge.Range(label: "Low", color: Utility.colorFromHexString("#44aad8"), interval: (40, 60)));
-        ranges.append(MetricGauge.Range(label: "Normal", color: Utility.colorFromHexString("#88c681"), interval: (60, 100)));
-        ranges.append(MetricGauge.Range(label: "High", color: Utility.colorFromHexString("#ef535a"), interval: (100, 120)));
+        ranges.append(MetricGauge.Range(label: NSLocalizedString("PULSE_RANGE_LOW_TITLE", comment: "Title for pulse reading which falls within a low range."), color: Utility.colorFromHexString("#44aad8"), interval: (40, 60)));
+        ranges.append(MetricGauge.Range(label: NSLocalizedString("PULSE_RANGE_NORMAL_TITLE", comment: "Title for pulse reading which falls within a normal range."), color: Utility.colorFromHexString("#88c681"), interval: (60, 100)));
+        ranges.append(MetricGauge.Range(label: NSLocalizedString("PULSE_RANGE_HIGH_TITLE", comment: "Title for pulse reading which falls within a high range."), color: Utility.colorFromHexString("#ef535a"), interval: (100, 120)));
         return ranges;
     }
     
@@ -83,7 +83,7 @@ class PulseMetricDelegate: MetricDelegate {
     }
     
     func getSelectedUnit(tab: Int) -> String {
-        return "bpm";
+        return NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_BEATS_PER_MINUTE", comment: "General purpose abbreviated label for beats per minute.")
     }
     
     func getSelectedClass(tab: Int) -> String {
@@ -93,6 +93,7 @@ class PulseMetricDelegate: MetricDelegate {
         return "";
     }
 
+    // TODO: l10n make sure we're not switching on a string
     func colorFromClass(className: String, tab: Int) -> UIColor {
         var color: UIColor;
         switch (className) {

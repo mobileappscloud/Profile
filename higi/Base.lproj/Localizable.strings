@@ -301,6 +301,36 @@
 /* Placeholder for password text field with invalid input on login view. */
 "LOGIN_VIEW_PASSWORD_TEXTFIELD_PLACEHOLDER_INVALID_INPUT" = "Password must be at least 6 characters";
 
+/* Format of label describing location of a higi Station. */
+"METRIC_DETAIL_CARD_CHECK_IN_LOCATION_LABEL_FORMAT" = "higi Station at %@";
+
+/* Title for blood pressure metrics */
+"METRIC_TYPE_BLOOD_PRESSURE_TITLE" = "Blood Pressure";
+
+/* Title for daily summary metrics */
+"METRIC_TYPE_DAILY_SUMMARY_TITLE" = "Points";
+
+/* Title for pulse metrics */
+"METRIC_TYPE_PULSE_TITLE" = "Pulse";
+
+/* Title for weight metrics */
+"METRIC_TYPE_WEIGHT_TITLE" = "Weight";
+
+/* Title to display on button to connect a device. */
+"METRICS_CARD_VIEW_CONNECT_DEVICE_BUTTON_TITLE" = "Connect a device";
+
+/* Title to display on button to find a higi Station. */
+"METRICS_CARD_VIEW_FIND_STATION_BUTTON_TITLE" = "Find a station";
+
+/* Title to display on weight metrics card displaying body fat. */
+"METRICS_CARD_VIEW_WEIGHT_BODY_FAT_TITLE" = "Body Fat%";
+
+/* Title to display on button which toggles weight metrics card from weight to body fat. */
+"METRICS_CARD_VIEW_WEIGHT_TOGGLE_BUTTON_BODY_FAT_TITLE" = "Switch to Body Fat%";
+
+/* Title to display on button which toggles weight metrics card from body fat to weight. */
+"METRICS_CARD_VIEW_WEIGHT_TOGGLE_BUTTON_WEIGHT_TITLE" = "Switch to Weight";
+
 /* Subtitle text for activity points data shown on metrics graph card. */
 "METRICS_GRAPH_CARD_ACTIVITY_POINTS_SUBTITLE" = "Activity Points";
 
@@ -318,4 +348,49 @@
 
 /* Subtitle text for body weight data shown on metrics graph card. */
 "METRICS_GRAPH_CARD_WEIGHT_SUBTITLE" = "Weight";
+
+/* Label for beats per minute panel. */
+"PULSE_METRIC_SELECTED_POINT_PANEL_BEATS_PER_MINUTE_LABEL" = "Beats Per Minute";
+
+/* Text to display on pulse metrics view if there is no pulse data to display. */
+"PULSE_METRICS_VIEW_BLANK_STATE_TEXT" = "Welcome! Unfortunately, you don’t have any pulse readings with us. Swing by a higi Station or connect your favorite pulse tracker and we will reward you 50 points for each Pulse / BP check-in.";
+
+/* Title for pulse reading which falls within a high range. */
+"PULSE_RANGE_HIGH_TITLE" = "High";
+
+/* Title for pulse reading which falls within a low range. */
+"PULSE_RANGE_LOW_TITLE" = "Low";
+
+/* Title for pulse reading which falls within a normal range. */
+"PULSE_RANGE_NORMAL_TITLE" = "Normal";
+
+/* Text to display on the weight metrics view if there are no weight readings to display. */
+"WEIGHT_METRICS_VIEW_BLANK_STATE_TEXT" = "Welcome! We don’t have any weight readings for you yet. Try visiting your local higi Station or connecting your favorite wireless weight scale to earn 50 points for each weight check.";
+
+/* Label for body fat on weight metrics view. */
+"WEIGHT_METRICS_VIEW_SELECTED_POINT_BODY_FAT_LABEL" = "Body Fat";
+
+/* Label for weight on weight metrics view. */
+"WEIGHT_METRICS_VIEW_SELECTED_POINT_WEIGHT_LABEL" = "Weight";
+
+/* Label for a weight which falls within an acceptable range. */
+"WEIGHT_METRICS_WEIGHT_RANGE_ACCEPTABLE_LABEL" = "Acceptable";
+
+/* Label for a weight which falls within an at-risk range. */
+"WEIGHT_METRICS_WEIGHT_RANGE_AT_RISK_LABEL" = "At risk";
+
+/* Label for a weight which falls within a healthy range. */
+"WEIGHT_METRICS_WEIGHT_RANGE_HEALTHY_LABEL" = "Healthy";
+
+/* Label for a weight which falls within a normal range. */
+"WEIGHT_METRICS_WEIGHT_RANGE_NORMAL_LABEL" = "Normal";
+
+/* Label for a weight which falls within an obese range. */
+"WEIGHT_METRICS_WEIGHT_RANGE_OBESE_LABEL" = "Obese";
+
+/* Label for a weight which falls within an overweight range. */
+"WEIGHT_METRICS_WEIGHT_RANGE_OVERWEIGHT_LABEL" = "Overweight";
+
+/* Label for a weight which falls within an underweight range. */
+"WEIGHT_METRICS_WEIGHT_RANGE_UNDERWEIGHT_LABEL" = "Underweight";
 
