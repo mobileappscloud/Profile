@@ -10,14 +10,19 @@ import Foundation
 
 class BirthdateViewController: UIViewController {
  
+    // TODO: l10n format for date
     @IBOutlet weak var datePicker: UIDatePicker!
-    @IBOutlet weak var nextButton: UIButton!
+    @IBOutlet weak var nextButton: UIButton! {
+        didSet {
+            nextButton.setTitle(NSLocalizedString("BIRTHDATE_VIEW_NEXT_BUTTON_TITLE", comment: "Title for 'next' button on birthdate view."), forState: .Normal);
+        }
+    }
     var spinner: CustomLoadingSpinner!
     var secondTry = false;
     
     override func viewDidLoad() {
         super.viewDidLoad();
-        self.title = "When were you born?";
+        self.title = NSLocalizedString("BIRTHDATE_VIEW_BIRTHDATE_ENTRY_TITLE", comment: "Title for birthdate view when asking user to enter their birthdate.")
         self.navigationItem.hidesBackButton = true;
         
         datePicker.maximumDate = NSDate();
@@ -43,15 +48,18 @@ class BirthdateViewController: UIViewController {
         if (age < 13) {
             if (!secondTry) {
                 secondTry = true;
-                self.title = "Please confirm your age";
+                self.title = NSLocalizedString("BIRTHDATE_VIEW_AGE_CONFIRMATION_TITLE", comment: "Title for Birthdate view when confirming a user's age.");
                 reset();
             } else {
-                UIAlertView(title: "", message: "We cannot offer you service at this time", delegate: nil, cancelButtonTitle: "OK").show();
+                let message = NSLocalizedString("BIRTHDATE_VIEW_UNDERAGE_ALERT_MESSAGE", comment: "Message for alert displayed when a user is ineligible for higi services due to age restrictions.")
+                let buttonTitle = NSLocalizedString("BIRTHDATE_VIEW_UNDERAGE_ALERT_ACTION_TITLE_DISMISS", comment: "Title for alert action to dismiss the underage user alert.")
+                UIAlertView(title: "", message: message, delegate: nil, cancelButtonTitle: buttonTitle).show();
                 deleteAccountAndQuit();
             }
         } else {
             let user = SessionData.Instance.user;
             let dateFormatter = NSDateFormatter();
+            // TODO: l10n format?
             dateFormatter.dateFormat = "MM/dd/yyyy";
             let contents = NSMutableDictionary();
             contents["dateOfBirth"] = dateFormatter.stringFromDate(birthday);
@@ -60,7 +68,9 @@ class BirthdateViewController: UIViewController {
                 self.navigationController!.pushViewController(ProfileImageViewController(nibName: "ProfileImageView", bundle: nil), animated: true);
                 
                 }, failure: {operation, error in
-                    UIAlertView(title: "", message: "Unable to reach server. Please try again.", delegate: nil, cancelButtonTitle: "OK").show();
+                    let message = NSLocalizedString("BIRTHDATE_VIEW_UPDATE_BIRTHDATE_FAILURE_ALERT_MESSAGE", comment: "Message for alert to display if the server cannot be reached when attempting to update user's birthdate.")
+                    let dismissTitle = NSLocalizedString("BIRTHDATE_VIEW_UPDATE_BIRTHDATE_FAILURE_ALERT_ACTION_TITLE_DISMISS", comment: "Title for alert action to dismiss the birthdate update failure alert.")
+                    UIAlertView(title: "", message: message, delegate: nil, cancelButtonTitle: dismissTitle).show();
                     self.reset();
             });
         }
@@ -78,6 +88,7 @@ class BirthdateViewController: UIViewController {
     func deleteAccountAndQuit() {
         let user = SessionData.Instance.user;
         let dateFormatter = NSDateFormatter();
+        // TODO: l10n format?
         dateFormatter.dateFormat = "MM/dd/yyyy";
         HigiApi().sendGet("\(HigiApi.higiApiUrl)/data/deleteAccountAge13?userId=\(user.userId)&dob=\(dateFormatter.stringFromDate(datePicker.date))", success: nil, failure: nil);
         SessionController.Instance.reset();

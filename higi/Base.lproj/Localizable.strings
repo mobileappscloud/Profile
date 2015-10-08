@@ -16,6 +16,27 @@
 /* Title for alert displayed when app requires an update. */
 "APP_UPDATE_ALERT_TITLE" = "higi is out of date";
 
+/* Title for Birthdate view when confirming a user's age. */
+"BIRTHDATE_VIEW_AGE_CONFIRMATION_TITLE" = "Please confirm your age";
+
+/* Title for birthdate view when asking user to enter their birthdate. */
+"BIRTHDATE_VIEW_BIRTHDATE_ENTRY_TITLE" = "When were you born?";
+
+/* Title for 'next' button on birthdate view. */
+"BIRTHDATE_VIEW_NEXT_BUTTON_TITLE" = "Next";
+
+/* Title for alert action to dismiss the underage user alert. */
+"BIRTHDATE_VIEW_UNDERAGE_ALERT_ACTION_TITLE_DISMISS" = "OK";
+
+/* Message for alert displayed when a user is ineligible for higi services due to age restrictions. */
+"BIRTHDATE_VIEW_UNDERAGE_ALERT_MESSAGE" = "We cannot offer you service at this time.";
+
+/* Title for alert action to dismiss the birthdate update failure alert. */
+"BIRTHDATE_VIEW_UPDATE_BIRTHDATE_FAILURE_ALERT_ACTION_TITLE_DISMISS" = "OK";
+
+/* Message for alert to display if the server cannot be reached when attempting to update user's birthdate. */
+"BIRTHDATE_VIEW_UPDATE_BIRTHDATE_FAILURE_ALERT_MESSAGE" = "Unable to reach server. Please try again.";
+
 /* Text to display on blood pressure metrics view when there is no blood pressure data to display. */
 "BLOOD_PRESSURE_METRICS_VIEW_BLANK_STATE_TEXT" = "Welcome! It looks like you don’t have any blood pressure readings with us. Join the millions who track their BP with higi by visiting a higi Station or connecting your wireless BP monitor.";
 
@@ -391,6 +412,27 @@
 /* Subtitle text for body weight data shown on metrics graph card. */
 "METRICS_GRAPH_CARD_WEIGHT_SUBTITLE" = "Weight";
 
+/* Title for alert action to dismiss alert which is displayed if the server is unreachable. */
+"MODIFY_IMAGE_VIEW_SERVER_ERROR_ALERT_ACTION_TITLE_DISMISS" = "OK";
+
+/* Message for alert which is displayed if the server is unreachable. */
+"MODIFY_IMAGE_VIEW_SERVER_ERROR_ALERT_MESSAGE" = "We were unable to reach the server. Please try again.";
+
+/* Title for alert which is displayed if the server is unreachable. */
+"MODIFY_IMAGE_VIEW_SERVER_ERROR_ALERT_TITLE" = "Something went wrong!";
+
+/* Title for button to capture a photo using the device camera. */
+"PROFILE_IMAGE_VIEW_PHOTO_CAPTURE_BUTTON_TITLE" = "Take photo";
+
+/* Title for button to choose a photo from the photo library. */
+"PROFILE_IMAGE_VIEW_PHOTO_LIBRARY_BUTTON_TITLE" = "Choose from library";
+
+/* Title for button to bypass choosing a profile image. */
+"PROFILE_IMAGE_VIEW_SKIP_BUTTON_TITLE" = "Not right now";
+
+/* Title for Profile Image view. */
+"PROFILE_IMAGE_VIEW_TITLE" = "What do you look like?";
+
 /* Label for beats per minute panel. */
 "PULSE_METRIC_SELECTED_POINT_PANEL_BEATS_PER_MINUTE_LABEL" = "Beats Per Minute";
 
@@ -405,6 +447,72 @@
 
 /* Title for pulse reading which falls within a normal range. */
 "PULSE_RANGE_NORMAL_TITLE" = "Normal";
+
+/* Title for decline button. */
+"SIGN_UP_EMAIL_VIEW_DECLINE_BUTTON_TITLE" = "Decline";
+
+/* Placeholder for email text field. */
+"SIGN_UP_EMAIL_VIEW_EMAIL_TEXT_FIELD_PLACEHOLDER" = "Email";
+
+/* Placeholder for email text field which indicates email requirements. */
+"SIGN_UP_EMAIL_VIEW_EMAIL_TEXT_FIELD_PLACEHOLDER_REQUIREMENTS" = "Valid email required";
+
+/* Placeholder for password text field. */
+"SIGN_UP_EMAIL_VIEW_PASSWORD_TEXT_FIELD_PLACEHOLDER" = "Password";
+
+/* Placeholder for password text field if password does not meet minimum requirements. */
+"SIGN_UP_EMAIL_VIEW_PASSWORD_TEXT_FIELD_PLACEHOLDER_REQUIREMENTS" = "Password must be at least 6 characters";
+
+/* Title for alert action to dismiss alert which is displayed if there is a server communication error. */
+"SIGN_UP_EMAIL_VIEW_SERVER_COMMUNICATION_ERROR_ALERT_ACTION_TITLE_DISMISS" = "OK";
+
+/* Message for alert to display if there is a server communication error. */
+"SIGN_UP_EMAIL_VIEW_SERVER_COMMUNICATION_ERROR_ALERT_MESSAGE" = "There was an error in communicating with the server. Please try again.";
+
+/* Title for alert to display if there is a server communication error. */
+"SIGN_UP_EMAIL_VIEW_SERVER_COMMUNICATION_ERROR_ALERT_TITLE" = "Something went wrong!";
+
+/* Title for sign up button. */
+"SIGN_UP_EMAIL_VIEW_SIGN_UP_BUTTON_TITLE" = "Sign Up";
+
+/* Title for alert action to dismiss alert displayed if a user attempts to create a duplicate account. */
+"SIGN_UP_EMAIL_VIEW_SIGN_UP_DUPLICATE_ACCOUNT_ALERT_ACTION_TITLE_DISMISS" = "OK";
+
+/* Message for alert displayed if a user attempts to create a duplicate account. */
+"SIGN_UP_EMAIL_VIEW_SIGN_UP_DUPLICATE_ACCOUNT_ALERT_MESSAGE" = "There is already a higi account with this email.";
+
+/* Title for alert displayed if a user attempts to create a duplicate account. */
+"SIGN_UP_EMAIL_VIEW_SIGN_UP_DUPLICATE_ACCOUNT_ALERT_TITLE" = "I knew you looked familiar...";
+
+/* Title for Sign Up Email view. */
+"SIGN_UP_EMAIL_VIEW_TITLE" = "Sign Up";
+
+/* Placeholder for first name text field. */
+"SIGN_UP_NAME_VIEW_FIRST_NAME_TEXT_FIELD_PLACEHOLDER" = "First Name";
+
+/* Placeholder for first name text field indicating name requirement. */
+"SIGN_UP_NAME_VIEW_FIRST_NAME_TEXT_FIELD_PLACEHOLDER_REQUIREMENT" = "First name is required";
+
+/* Placeholder for last name text field. */
+"SIGN_UP_NAME_VIEW_LAST_NAME_TEXT_FIELD_PLACEHOLDER" = "Last Name";
+
+/* Placeholder for last name text field indicating name requirement. */
+"SIGN_UP_NAME_VIEW_LAST_NAME_TEXT_FIELD_PLACEHOLDER_REQUIREMENT" = "Last name is required";
+
+/* Title for 'next' button on sign up view. */
+"SIGN_UP_NAME_VIEW_NEXT_BUTTON_TITLE" = "Next";
+
+/* Title for alert action to dismiss alert displayed when server communication error occurs. */
+"SIGN_UP_NAME_VIEW_SERVER_COMMUNICATION_ERROR_ALERT_ACTION_TITLE_DISMISS" = "OK";
+
+/* Message for alert to display when server communication error occurs. */
+"SIGN_UP_NAME_VIEW_SERVER_COMMUNICATION_ERROR_ALERT_MESSAGE" = "There was an error in communicating with the server. Please try again.";
+
+/* Title for alert to display when server communication error occurs. */
+"SIGN_UP_NAME_VIEW_SERVER_COMMUNICATION_ERROR_ALERT_TITLE" = "Something went wrong!";
+
+/* Title for Sign Up Name view. */
+"SIGN_UP_NAME_VIEW_TITLE" = "What's your name?";
 
 /* Title for button to accept terms. */
 "TERMS_AND_CONDITIONS_VIEW_ACCEPT_BUTTON_TITLE" = "Accept";

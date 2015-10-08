@@ -10,18 +10,34 @@ import Foundation
 
 class SignupEmailViewController: UIViewController, UITextFieldDelegate {
     
-    @IBOutlet weak var email: UITextField!
-    @IBOutlet weak var password: UITextField!
-    @IBOutlet weak var signupButton: UIButton!
+    @IBOutlet weak var email: UITextField! {
+        didSet {
+            email.placeholder = NSLocalizedString("SIGN_UP_EMAIL_VIEW_EMAIL_TEXT_FIELD_PLACEHOLDER", comment: "Placeholder for email text field.");
+        }
+    }
+    @IBOutlet weak var password: UITextField! {
+        didSet {
+            password.placeholder = NSLocalizedString("SIGN_UP_EMAIL_VIEW_PASSWORD_TEXT_FIELD_PLACEHOLDER", comment: "Placeholder for password text field.");
+        }
+    }
+    @IBOutlet weak var signupButton: UIButton! {
+        didSet {
+            signupButton.setTitle(NSLocalizedString("SIGN_UP_EMAIL_VIEW_SIGN_UP_BUTTON_TITLE", comment: "Title for sign up button."), forState: .Normal);
+        }
+    }
     @IBOutlet weak var termsView: UIView!
     @IBOutlet weak var termsWebView: UIWebView!
-    @IBOutlet weak var declineButton: UIButton!
+    @IBOutlet weak var declineButton: UIButton! {
+        didSet {
+            declineButton.setTitle(NSLocalizedString("SIGN_UP_EMAIL_VIEW_DECLINE_BUTTON_TITLE", comment: "Title for decline button."), forState: .Normal);
+        }
+    }
     var spinner: CustomLoadingSpinner!
     var setup = false;
     
     override func viewDidLoad() {
         super.viewDidLoad();
-        self.title = "Sign Up";
+        self.title = NSLocalizedString("SIGN_UP_EMAIL_VIEW_TITLE", comment: "Title for Sign Up Email view.");
         self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
         let urlRequest = NSMutableURLRequest(URL: NSURL(string: "\(HigiApi.webUrl)/termsandprivacy")!);
         urlRequest.addValue("mobile-ios", forHTTPHeaderField: "Higi-Source");
@@ -64,18 +80,19 @@ class SignupEmailViewController: UIViewController, UITextFieldDelegate {
         signupButton.enabled = false;
         self.navigationItem.leftBarButtonItem!.customView!.hidden = true;
         var problemFound = false;
+        // TODO: l10n regex
         if (email.text!.characters.count == 0 || email.text!.rangeOfString("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$", options: NSStringCompareOptions.RegularExpressionSearch, range: nil, locale: nil) == nil) {
             problemFound = true;
-            email.attributedPlaceholder = NSAttributedString(string: "Valid email required", attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)]);
+            email.attributedPlaceholder = NSAttributedString(string: NSLocalizedString("SIGN_UP_EMAIL_VIEW_EMAIL_TEXT_FIELD_PLACEHOLDER_REQUIREMENTS", comment: "Placeholder for email text field which indicates email requirements."), attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)]);
         } else {
-            email.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSForegroundColorAttributeName: UIColor.lightGrayColor()]);
+            email.attributedPlaceholder = NSAttributedString(string: NSLocalizedString("SIGN_UP_EMAIL_VIEW_EMAIL_TEXT_FIELD_PLACEHOLDER", comment: "Placeholder for email text field."), attributes: [NSForegroundColorAttributeName: UIColor.lightGrayColor()]);
         }
         
         if (password.text!.characters.count < 6) {
             problemFound = true;
-            password.attributedPlaceholder = NSAttributedString(string: "Password must be at least 6 characters", attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)]);
+            password.attributedPlaceholder = NSAttributedString(string: NSLocalizedString("SIGN_UP_EMAIL_VIEW_PASSWORD_TEXT_FIELD_PLACEHOLDER_REQUIREMENTS", comment: "Placeholder for password text field if password does not meet minimum requirements."), attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)]);
         } else {
-            password.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName: UIColor.lightGrayColor()]);
+            password.attributedPlaceholder = NSAttributedString(string: NSLocalizedString("SIGN_UP_EMAIL_VIEW_PASSWORD_TEXT_FIELD_PLACEHOLDER", comment: "Placeholder for password text field."), attributes: [NSForegroundColorAttributeName: UIColor.lightGrayColor()]);
         }
         
         if (!problemFound) {
@@ -93,7 +110,10 @@ class SignupEmailViewController: UIViewController, UITextFieldDelegate {
         HigiApi().sendGet("\(HigiApi.higiApiUrl)/data/emailUsed/\(encodedEmail)", success: {operation, responseObject in
             
             if (responseObject as! Bool) {
-                UIAlertView(title: "I knew you looked familiar...", message: "There is already a higi account with this email.", delegate: nil, cancelButtonTitle: "OK").show();
+                let title = NSLocalizedString("SIGN_UP_EMAIL_VIEW_SIGN_UP_DUPLICATE_ACCOUNT_ALERT_TITLE", comment: "Title for alert displayed if a user attempts to create a duplicate account.")
+                let message = NSLocalizedString("SIGN_UP_EMAIL_VIEW_SIGN_UP_DUPLICATE_ACCOUNT_ALERT_MESSAGE", comment: "Message for alert displayed if a user attempts to create a duplicate account.")
+                let dismissTitle = NSLocalizedString("SIGN_UP_EMAIL_VIEW_SIGN_UP_DUPLICATE_ACCOUNT_ALERT_ACTION_TITLE_DISMISS", comment: "Title for alert action to dismiss alert displayed if a user attempts to create a duplicate account.")
+                UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: dismissTitle).show();
                 self.reset(false);
             } else {
                 HigiApi().sendGet("\(HigiApi.webUrl)/termsinfo", success: {operation, responseObject in
@@ -151,7 +171,10 @@ class SignupEmailViewController: UIViewController, UITextFieldDelegate {
     }
     
     func showErrorAlert() {
-        UIAlertView(title: "Something went wrong!", message: "There was an error in communicating with the server. Please try again.", delegate: nil, cancelButtonTitle: "OK").show();
+        let title = NSLocalizedString("SIGN_UP_EMAIL_VIEW_SERVER_COMMUNICATION_ERROR_ALERT_TITLE", comment: "Title for alert to display if there is a server communication error.")
+        let message = NSLocalizedString("SIGN_UP_EMAIL_VIEW_SERVER_COMMUNICATION_ERROR_ALERT_MESSAGE", comment: "Message for alert to display if there is a server communication error.")
+        let dismissTitle = NSLocalizedString("SIGN_UP_EMAIL_VIEW_SERVER_COMMUNICATION_ERROR_ALERT_ACTION_TITLE_DISMISS", comment: "Title for alert action to dismiss alert which is displayed if there is a server communication error.")
+        UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: dismissTitle).show();
         self.reset(false);
     }
     
