@@ -466,6 +466,27 @@
 /* Title for alert which is displayed if the server is unreachable. */
 "MODIFY_IMAGE_VIEW_SERVER_ERROR_ALERT_TITLE" = "Something went wrong!";
 
+/* Title for cell to allow all notifications. */
+"NOTIFICATION_SETTINGS_DEVICE_ALLOW_NOTIFICATIONS_CELL_TITLE" = "Allow Notifications";
+
+/* Title for cell to allow nearby station notifications. */
+"NOTIFICATION_SETTINGS_DEVICE_STATION_NEARBY_CELL_TITLE" = "Station Nearby";
+
+/* Title for device-specific notification settings view. */
+"NOTIFICATION_SETTINGS_DEVICE_VIEW_TITLE" = "Device";
+
+/* Title for check-in result email notification. */
+"NOTIFICATION_SETTINGS_EMAIL_VIEW_CHECK_IN_RESULTS_CELL_TITLE" = "Check-in results";
+
+/* Title for news email notification. */
+"NOTIFICATION_SETTINGS_EMAIL_VIEW_NEWS_CELL_TITLE" = "News about higi";
+
+/* Title for email notification settings view. */
+"NOTIFICATION_SETTINGS_EMAIL_VIEW_TITLE" = "Email";
+
+/* Title for notification settings view. */
+"NOTIFICATION_SETTINGS_VIEW_TITLE" = "Notifications";
+
 /* Default header title for pin code view. */
 "PIN_CODE_VIEW_HEADER_TITLE_DEFAULT" = "Protect access to your higi app with a passcode";
 
@@ -513,6 +534,36 @@
 
 /* Title for pulse reading which falls within a normal range. */
 "PULSE_RANGE_NORMAL_TITLE" = "Normal";
+
+/* Title for change password table view cell. */
+"SETTINGS_TABLE_VIEW_CELL_TITLE_CHANGE_PASSWORD" = "Change password";
+
+/* Title for connect device table view cell. */
+"SETTINGS_TABLE_VIEW_CELL_TITLE_CONNECT_DEVICES" = "Connect devices";
+
+/* Title for log out table view cell. */
+"SETTINGS_TABLE_VIEW_CELL_TITLE_LOG_OUT" = "Log Out";
+
+/* Title for notifications table view cell. */
+"SETTINGS_TABLE_VIEW_CELL_TITLE_NOTIFICATIONS" = "Notifications";
+
+/* Title for passcode table view cell. */
+"SETTINGS_TABLE_VIEW_CELL_TITLE_PASSCODE" = "Protect my data with a passcode";
+
+/* Title for privacy policy table view cell. */
+"SETTINGS_TABLE_VIEW_CELL_TITLE_PRIVACY_POLICY" = "Privacy Policy";
+
+/* Title for share higi results table view cell. */
+"SETTINGS_TABLE_VIEW_CELL_TITLE_SHARE" = "Share higi results history";
+
+/* Title for terms of use table view cell. */
+"SETTINGS_TABLE_VIEW_CELL_TITLE_TERMS" = "Terms of Use";
+
+/* Format of title for app version table view cell. */
+"SETTINGS_TABLE_VIEW_CELL_TITLE_VERSION_FORMAT" = "Version %@.%@";
+
+/* Title for Settings view. */
+"SETTINGS_VIEW_TITLE" = "Settings";
 
 /* Title for decline button. */
 "SIGN_UP_EMAIL_VIEW_DECLINE_BUTTON_TITLE" = "Decline";

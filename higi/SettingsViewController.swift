@@ -34,7 +34,7 @@ class SettingsViewController: BaseViewController {
     // MARK: Configuration
     
     func configureNavigationTitle() {
-        self.title = "Settings";
+        self.title = NSLocalizedString("SETTINGS_VIEW_TITLE", comment: "Title for Settings view.");
         self.navigationController!.navigationBar.barStyle = .Black;
         self.navigationController?.navigationBar.translucent = true;
     }

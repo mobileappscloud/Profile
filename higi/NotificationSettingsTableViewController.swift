@@ -24,7 +24,7 @@ class NotificationSettingsTableViewController: UITableViewController {
     // MARK: Configuration
     
     func configureNavigationTitle() {
-        self.title = "Notifications";
+        self.title = NSLocalizedString("NOTIFICATION_SETTINGS_VIEW_TITLE", comment: "Title for notification settings view.");
         self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.blackColor()]
         self.navigationController!.navigationBar.barStyle = .Default;
         self.navigationController?.navigationBar.translucent = false;
