@@ -152,7 +152,7 @@ class MetricCard: UIView, MetricDelegate {
         kioskImage.frame.size.height = newHeight;
         
         kioskButton = UIButton(frame: CGRect(x: (screenWidth / 2 - buttonWidth) / 2, y: kioskImage.frame.origin.y + kioskImage.frame.size.height + buttonMargin, width: buttonWidth, height: buttonHeight));
-        kioskButton.setTitle("Find a station", forState: UIControlState.Normal);
+        kioskButton.setTitle(NSLocalizedString("METRICS_CARD_VIEW_FIND_STATION_BUTTON_TITLE", comment: "Title to display on button to find a higi Station."), forState: UIControlState.Normal);
         kioskButton.addTarget(self, action: "findStationButtonClicked:", forControlEvents: UIControlEvents.TouchUpInside);
         kioskButton.backgroundColor = Utility.colorFromHexString(Constants.higiGreen);
         kioskButton.layer.cornerRadius = 4;
@@ -168,7 +168,7 @@ class MetricCard: UIView, MetricDelegate {
         deviceImage.frame.origin.y = kioskImage.frame.origin.y + ((kioskImage.frame.size.height - newHeight) / 2);
         
         deviceButton = UIButton(frame: CGRect(x: ((screenWidth * 3 / 2) - buttonWidth) / 2, y: kioskImage.frame.origin.y + kioskImage.frame.size.height + buttonMargin, width: buttonWidth, height: buttonHeight));
-        deviceButton.setTitle("Connect a device", forState: UIControlState.Normal);
+        deviceButton.setTitle(NSLocalizedString("METRICS_CARD_VIEW_CONNECT_DEVICE_BUTTON_TITLE", comment: "Title to display on button to connect a device."), forState: UIControlState.Normal);
         deviceButton.addTarget(self, action: "connectDeviceButtonClicked:", forControlEvents: UIControlEvents.TouchUpInside);
         deviceButton.backgroundColor = Utility.colorFromHexString(Constants.higiGreen);
         deviceButton.layer.cornerRadius = 4;
@@ -298,11 +298,11 @@ class MetricCard: UIView, MetricDelegate {
             (delegate as! WeightMetricDelegate).togglePanel(toggleOn);
             let detailsCard = (Utility.getViewController(self) as! MetricsViewController).detailsCard;
             if toggleOn {
-                title.text = "Body Fat%";
-                toggleButton.setTitle("Switch to Weight", forState: UIControlState.Normal);
+                title.text = NSLocalizedString("METRICS_CARD_VIEW_WEIGHT_BODY_FAT_TITLE", comment: "Title to display on weight metrics card displaying body fat.");
+                toggleButton.setTitle(NSLocalizedString("METRICS_CARD_VIEW_WEIGHT_TOGGLE_BUTTON_WEIGHT_TITLE", comment: "Title to display on button which toggles weight metrics card from body fat to weight."), forState: UIControlState.Normal);
             } else {
                 title.text = delegate.getTitle();
-                toggleButton.setTitle("Switch to Body Fat%", forState: UIControlState.Normal);
+                toggleButton.setTitle(NSLocalizedString("METRICS_CARD_VIEW_WEIGHT_TOGGLE_BUTTON_BODY_FAT_TITLE", comment: "Title to display on button which toggles weight metrics card from weight to body fat."), forState: UIControlState.Normal);
             }
             if (Utility.getViewController(self) as! MetricsViewController).detailsOpen {
                 detailsCard.thirdPanelClicked(self);

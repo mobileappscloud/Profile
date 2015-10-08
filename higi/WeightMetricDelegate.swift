@@ -41,7 +41,7 @@ class WeightMetricDelegate: MetricDelegate {
     }
     
     func getBlankStateText() -> String {
-        return "Welcome! We don’t have any weight readings for you yet. Try visiting your local higi Station or connecting your favorite wireless weight scale to earn 50 points for each weight check.";
+        return NSLocalizedString("WEIGHT_METRICS_VIEW_BLANK_STATE_TEXT", comment: "Text to display on the weight metrics view if there are no weight readings to display.");
     }
     
     func setSelected(date: NSDate) {
@@ -86,8 +86,8 @@ class WeightMetricDelegate: MetricDelegate {
                 let weight = selectedWeightCheckin.weightLbs != nil ? "\(Int(selectedWeightCheckin.weightLbs!))" : "--";
                 let firstLabel = "";
                 let firstUnit = "";
-                let secondLabel = "Weight";
-                let secondUnit = "lbs";
+                let secondLabel = NSLocalizedString("WEIGHT_METRICS_VIEW_SELECTED_POINT_WEIGHT_LABEL", comment: "Label for weight on weight metrics view.");
+                let secondUnit = NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_WEIGHT_POUNDS", comment: "General purpose abbreviated label for the english units of weight measurement, pounds.");
                 var device = "";
                 if let kioskInfo = selectedWeightCheckin.kioskInfo {
                     return SelectedPoint(date: date, firstPanelValue: "", firstPanelLabel: firstLabel, firstPanelUnit: firstUnit, secondPanelValue: weight, secondPanelLabel: secondLabel, secondPanelUnit: secondUnit, kioskInfo: kioskInfo);
@@ -99,9 +99,9 @@ class WeightMetricDelegate: MetricDelegate {
                 let date = Constants.dateFormatter.stringFromDate(selectedFatCheckin.dateTime);
                 let weight = selectedFatCheckin.weightLbs != nil ? "\(Int(selectedFatCheckin.weightLbs!))" : "--";
                 let bodyFat = selectedFatCheckin.fatRatio != nil ? String(format: "%.2f", selectedFatCheckin.fatRatio!) + "%" : "--";
-                let firstLabel = "Weight";
-                let firstUnit = "lbs";
-                let secondLabel = "Body Fat";
+                let firstLabel = NSLocalizedString("WEIGHT_METRICS_VIEW_SELECTED_POINT_WEIGHT_LABEL", comment: "Label for weight on weight metrics view.");
+                let firstUnit = NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_WEIGHT_POUNDS", comment: "General purpose abbreviated label for the english units of weight measurement, pounds.")
+                let secondLabel = NSLocalizedString("WEIGHT_METRICS_VIEW_SELECTED_POINT_BODY_FAT_LABEL", comment: "Label for body fat on weight metrics view.");
                 let secondUnit = "";
                 var device = "";
                 if let kioskInfo = selectedWeightCheckin.kioskInfo {
@@ -129,20 +129,23 @@ class WeightMetricDelegate: MetricDelegate {
             }
             if let height = selectedWeightCheckin.heightInches {
                 let factor:Double = (height * height) / 703.0;
-                ranges.append(MetricGauge.Range(label: "Underweight", color: Utility.colorFromHexString("#fdd835"), interval: (Int(factor * 10), Int(factor * 18.5))));
-                ranges.append(MetricGauge.Range(label: "Normal", color: Utility.colorFromHexString("#88c681"), interval: (Int(factor * 18.5), Int(factor * 25))));
-                ranges.append(MetricGauge.Range(label: "Overweight", color: Utility.colorFromHexString("#f79a4d"), interval: (Int(factor * 25), Int(factor * 30))));
-                ranges.append(MetricGauge.Range(label: "Obese", color: Utility.colorFromHexString("#ef535a"), interval: (Int(factor * 30), Int(factor * 50))));
+                ranges.append(MetricGauge.Range(label: NSLocalizedString("WEIGHT_METRICS_WEIGHT_RANGE_UNDERWEIGHT_LABEL", comment: "Label for a weight which falls within an underweight range."), color: Utility.colorFromHexString("#fdd835"), interval: (Int(factor * 10), Int(factor * 18.5))));
+                ranges.append(MetricGauge.Range(label: NSLocalizedString("WEIGHT_METRICS_WEIGHT_RANGE_NORMAL_LABEL", comment: "Label for a weight which falls within a normal range."), color: Utility.colorFromHexString("#88c681"), interval: (Int(factor * 18.5), Int(factor * 25))));
+                ranges.append(MetricGauge.Range(label: NSLocalizedString("WEIGHT_METRICS_WEIGHT_RANGE_OVERWEIGHT_LABEL", comment: "Label for a weight which falls within an overweight range."), color: Utility.colorFromHexString("#f79a4d"), interval: (Int(factor * 25), Int(factor * 30))));
+                ranges.append(MetricGauge.Range(label: NSLocalizedString("WEIGHT_METRICS_WEIGHT_RANGE_OBESE_LABEL", comment: "Label for a weight which falls within an obese range."), color: Utility.colorFromHexString("#ef535a"), interval: (Int(factor * 30), Int(factor * 50))));
             }
         } else {
+            let healthyLabel = NSLocalizedString("WEIGHT_METRICS_WEIGHT_RANGE_HEALTHY_LABEL", comment: "Label for a weight which falls within a healthy range.")
+            let acceptableLabel = NSLocalizedString("WEIGHT_METRICS_WEIGHT_RANGE_ACCEPTABLE_LABEL", comment: "Label for a weight which falls within an acceptable range.")
+            let atRiskLabel = NSLocalizedString("WEIGHT_METRICS_WEIGHT_RANGE_AT_RISK_LABEL", comment: "Label for a weight which falls within an at-risk range.")
             if SessionData.Instance.user.gender == "m" {
-                ranges.append(MetricGauge.Range(label: "Healthy", color: Utility.colorFromHexString("#88c681"), interval: (5, 18)));
-                ranges.append(MetricGauge.Range(label: "Acceptable", color: Utility.colorFromHexString("#fdd835"), interval: (18, 25)));
-                ranges.append(MetricGauge.Range(label: "At risk", color: Utility.colorFromHexString("#f79a4d"), interval: (25, 40)));
+                ranges.append(MetricGauge.Range(label: healthyLabel, color: Utility.colorFromHexString("#88c681"), interval: (5, 18)));
+                ranges.append(MetricGauge.Range(label: acceptableLabel, color: Utility.colorFromHexString("#fdd835"), interval: (18, 25)));
+                ranges.append(MetricGauge.Range(label: atRiskLabel, color: Utility.colorFromHexString("#f79a4d"), interval: (25, 40)));
             } else if SessionData.Instance.user.gender == "f" {
-                ranges.append(MetricGauge.Range(label: "Healthy", color: Utility.colorFromHexString("#88c681"), interval: (10, 25)));
-                ranges.append(MetricGauge.Range(label: "Acceptable", color: Utility.colorFromHexString("#fdd835"), interval: (25, 32)));
-                ranges.append(MetricGauge.Range(label: "At risk", color: Utility.colorFromHexString("#f79a4d"), interval: (32, 45)));
+                ranges.append(MetricGauge.Range(label: healthyLabel, color: Utility.colorFromHexString("#88c681"), interval: (10, 25)));
+                ranges.append(MetricGauge.Range(label: acceptableLabel, color: Utility.colorFromHexString("#fdd835"), interval: (25, 32)));
+                ranges.append(MetricGauge.Range(label: atRiskLabel, color: Utility.colorFromHexString("#f79a4d"), interval: (32, 45)));
             }
         }
         return ranges;
@@ -166,7 +169,7 @@ class WeightMetricDelegate: MetricDelegate {
         if tab == 1 && !weightMode {
             return "";
         } else {
-            return "lbs";
+            return NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_WEIGHT_POUNDS", comment: "General purpose abbreviated label for the english units of weight measurement, pounds.");
         }
     }
     
@@ -183,6 +186,7 @@ class WeightMetricDelegate: MetricDelegate {
         return "";
     }
     
+    // TODO: l10n ....
     func colorFromClass(className: String, tab: Int) -> UIColor {
         var color: UIColor;
         switch (className) {

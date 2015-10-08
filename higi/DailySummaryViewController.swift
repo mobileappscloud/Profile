@@ -55,7 +55,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad();
         self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
-        self.title = "Daily Summary";
+        self.title = NSLocalizedString("DAILY_SUMMARY_VIEW_TITLE", comment: "Title for Daily Summary view.")
         pointsMeter = PointsMeter.create(CGRect(x: 0, y: 0, width: pointsMeterContainer.frame.size.width, height: pointsMeterContainer.frame.size.height));
         pointsMeterContainer.addSubview(pointsMeter);
         self.automaticallyAdjustsScrollViewInsets = false;
@@ -135,6 +135,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         } else {
             date = Constants.dateFormatter.dateFromString(dateString);
         }
+        // TODO: l10n formats
         let dateFormatter = NSDateFormatter();
         dateFormatter.dateFormat = "d";
         let monthYearFormatter = NSDateFormatter();
@@ -152,15 +153,15 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         let hour = Int(hourFormatter.stringFromDate(NSDate()));
         if (hour >= 4 && hour < 12) {
             timeOfDay = TimeOfDay.Morning;
-            greeting.text = "Good Morning!";
+            greeting.text = NSLocalizedString("DAILY_SUMMARY_VIEW_HEADER_GREETING_MORNING_TEXT", comment: "Greeting text to display in header of the Daily Summary view during the morning.")
             headerBackground.image = UIImage(named: "dailysummary_morning");
         } else if (hour >= 12 && hour < 17) {
             timeOfDay = TimeOfDay.Afternoon;
-            greeting.text = "Good Afternoon!";
+            greeting.text = NSLocalizedString("DAILY_SUMMARY_VIEW_HEADER_GREETING_AFTERNOON_TEXT", comment: "Greeting text to display in header of the Daily Summary view during the afternoon.")
             headerBackground.image = UIImage(named: "dailysummary_afternoon");
         } else {
             timeOfDay = TimeOfDay.Evening;
-            greeting.text = "Good Evening!";
+            greeting.text = NSLocalizedString("DAILY_SUMMARY_VIEW_HEADER_GREETING_EVENING_TEXT", comment: "Greeting text to display in header of the Daily Summary view during the evening.")
             headerBackground.image = UIImage(named: "dailysummary_night");
         }
         let screenWidth = max(UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height);
@@ -219,11 +220,24 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     func layoutBlankState() {
         let totalPoints = 140, higiPoints = 100, foursquarePoints = 15, morningPoints = 15, afternoonPoints = 15, activityTrackerPoints = 50;
         
-        let higiTitle = "higi Station", foursquareTitle = "Foursquare", activityTrackerTitle = "Activity Tracker", morningTitle = "", afternoonTitle = "";
+        let higiTitle = NSLocalizedString("DAILY_SUMMARY_VIEW_BLANK_STATE_HIGI_TITLE", comment: "Title for higi station; displayed on the Daily Summary view blank state.");
+        let foursquareTitle = NSLocalizedString("DAILY_SUMMARY_VIEW_BLANK_STATE_FOURSQUARE_TITLE", comment: "Title for Foursquare; displayed on the Daily Summary view blank state.");
+        let activityTrackerTitle = NSLocalizedString("DAILY_SUMMARY_VIEW_BLANK_STATE_ACTIVITY_TRACKER_TITLE", comment: "Title for activity tracker; displayed on the Daily Summary view blank state.");
+        let morningTitle = "", afternoonTitle = "";
         
-        let higiText = "Join the millions of people that are tracking their health through higi. You can earn up to 100 points by visiting a higi Station and getting your blood pressure, pulse, weight, and BMI stats. \n\n", activityTrackerText = "Higi makes it fun and rewarding to track your steps. Simply connect your favorite activity tracker and start getting rewarded for your jogs around the block. \n", altActivityTrackerText = "Wanna get rewarded for biking to work or running on the treadmill at the gym? Just connect your favorite activity tracker and start earning points today. \n", foursquareText = "Wanna get rewarded for going to the gym or walking your dog at the park? Just connect your Foursquare account with higi and we will reward your 15 points for every time you check into a gym or park. \n", morningText = "Think you can earn more points than the average higi user? They average just over 15 points per day. If you are hoping to beat that, try visiting a higi Station today and make sure your activity tracker is connected to higi.  \n", afternoonText = "Think you can earn more points than the average higi user? They average just over 15 points per day. If you are hoping to beat that, try visiting a higi Station or sync your activity tracker with higi to see how many points you’ve earned today.  \n";
+        let higiText = NSLocalizedString("DAILY_SUMMARY_VIEW_BLANK_STATE_HIGI_TEXT", comment: "Descriptive text for higi station; displayed on the Daily Summary view blank state.");
+        let activityTrackerText = NSLocalizedString("DAILY_SUMMARY_VIEW_BLANK_STATE_ACTIVITY_TRACKER_DEFAULT_TEXT", comment: "Default descriptive text for activity tracker; displayed on the Daily Summary view blank state.");
+        let altActivityTrackerText = NSLocalizedString("DAILY_SUMMARY_VIEW_BLANK_STATE_ACTIVITY_TRACKER_ALTERNATE_TEXT", comment: "Alternate descriptive text for activity tracker; displayed on the Daily Summary view blank state.");
+        let foursquareText = NSLocalizedString("DAILY_SUMMARY_VIEW_BLANK_STATE_FOURSQUARE_TEXT", comment: "Descriptive text for Foursquare; displayed on the Daily Summary view blank state.");
+        let morningText = NSLocalizedString("DAILY_SUMMARY_VIEW_BLANK_STATE_MORNING_TEXT", comment: "Descriptive text shown in the morning; displayed on the Daily Summary view blank state.");
+        let afternoonText = NSLocalizedString("DAILY_SUMMARY_VIEW_BLANK_STATE_AFTERNOON_TEXT", comment: "Descriptive text shown in the afternoon; displayed on the Daily Summary view blank state.");
         
-        let higiCallToAction = "Find a station", activityTrackerCallToAction = "Connect a device", foursquareCallToAction = "Connect a device", morningCallToAction = "Find a station", afternoonCallToAction = "Find a station";
+        let higiCallToAction = NSLocalizedString("DAILY_SUMMARY_VIEW_BLANK_STATE_CALL_TO_ACTION_FIND_STATION", comment: "Title for call-to-action to find a higi station; displayed in the Daily Summary blank-state view.");
+        let morningCallToAction = NSLocalizedString("DAILY_SUMMARY_VIEW_BLANK_STATE_CALL_TO_ACTION_FIND_STATION", comment: "Title for call-to-action to find a higi station; displayed in the Daily Summary blank-state view.");
+        let afternoonCallToAction = NSLocalizedString("DAILY_SUMMARY_VIEW_BLANK_STATE_CALL_TO_ACTION_FIND_STATION", comment: "Title for call-to-action to find a higi station; displayed in the Daily Summary blank-state view.");
+        let activityTrackerCallToAction = NSLocalizedString("DAILY_SUMMARY_VIEW_BLANK_STATE_CALL_TO_ACTION_CONNECT_DEVICE", comment: "Title for call-to-action to connect a device; displayed in the Daily Summary blank-state view.");
+        let foursquareCallToAction = NSLocalizedString("DAILY_SUMMARY_VIEW_BLANK_STATE_CALL_TO_ACTION_CONNECT_DEVICE", comment: "Title for call-to-action to connect a device; displayed in the Daily Summary blank-state view.");
+
         
         let higiButtonTarget:Selector = "higiCallToActionClicked:", activityTrackerButtonTarget:Selector = "activityTrackerCallToActionClicked:", foursquareButtonTarget:Selector = "foursquareCallToActionClicked:", morningButtonTarget:Selector = "morningCallToActionClicked:", afternoonButtonTarget:Selector = "afternoonCallToActionClicked:";
         
@@ -348,6 +362,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
                         
                         currentOrigin += titleRow.frame.size.height;
                         
+                        // TODO: l10n - verify breakdown row format
                         if let checkin = findCheckin(subActivity) {
                             if checkin.diastolic != nil && checkin.diastolic > 0 {
                                 let breakdownRow = SummaryViewUtility.initBreakdownRow(CGRect(x: activityRow.name.frame.origin.x, y: currentOrigin, width: rowWidth, height: CGFloat.max), text: "\(checkin.systolic!)/\(checkin.diastolic!) mmHg BP", duplicate: isDuplicate);
@@ -463,6 +478,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         return button;
     }
     
+    // TODO: l10n formatter
     func findCheckin(activity: HigiActivity ) -> HigiCheckin? {
         if SessionController.Instance.checkins != nil {
             let formatter = NSDateFormatter();
@@ -588,26 +604,31 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func higiCallToActionClicked(sender: AnyObject!) {
-        Flurry.logEvent("FindStation_Pressed");
-        self.navigationController!.pushViewController(FindStationViewController(nibName: "FindStationView", bundle: nil), animated: true);
+        pushFindStationView();
     }
     
     func activityTrackerCallToActionClicked(sender: AnyObject!) {
-        Flurry.logEvent("ConnectDevice_Pressed");
-        self.navigationController!.pushViewController(ConnectDeviceViewController(nibName: "ConnectDeviceView", bundle: nil), animated: true);
+        pushConnectDeviceView();
     }
     
     func foursquareCallToActionClicked(sender: AnyObject!) {
+        pushConnectDeviceView();
+    }
+    
+    func morningCallToActionClicked(sender: AnyObject!) {
+        pushFindStationView();
+    }
+    
+    func afternoonCallToActionClicked(sender: AnyObject!) {
+        pushFindStationView();
+    }
+    
+    func pushConnectDeviceView() {
         Flurry.logEvent("ConnectDevice_Pressed");
         self.navigationController!.pushViewController(ConnectDeviceViewController(nibName: "ConnectDeviceView", bundle: nil), animated: true);
     }
     
-    func morningCallToActionClicked(sender: AnyObject!) {
-        Flurry.logEvent("FindStation_Pressed");
-        self.navigationController!.pushViewController(FindStationViewController(nibName: "FindStationView", bundle: nil), animated: true);
-    }
-    
-    func afternoonCallToActionClicked(sender: AnyObject!) {
+    func pushFindStationView() {
         Flurry.logEvent("FindStation_Pressed");
         self.navigationController!.pushViewController(FindStationViewController(nibName: "FindStationView", bundle: nil), animated: true);
     }

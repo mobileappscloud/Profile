@@ -49,20 +49,20 @@ class MetricsGraphCard: UIView {
         date.text = "";
         if (type == MetricsType.BloodPressure) {
             firstReadingValue.text = "--";
-            firstReadingLabel.text = "mmHg";
-            firstReadingSubTitle.text = "Mean Arterial Pressure";
+            firstReadingLabel.text = NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_MILLIMETERS_OF_MERCURY", comment: "General purpose abbreviated label for the units of millimeter of mercury.");
+            firstReadingSubTitle.text = NSLocalizedString("METRICS_GRAPH_CARD_MEAN_ARTERIAL_PRESSURE_SUBTITLE", comment: "Subtitle text for mean arterial pressure data shown on metrics graph card.");
             firstReadingValue.textColor = color;
             secondReadingValue.text = "--";
-            secondReadingLabel.text = "mmHg";
-            secondReadingSubTitle.text = "Blood Pressure";
+            secondReadingLabel.text = NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_MILLIMETERS_OF_MERCURY", comment: "General purpose abbreviated label for the units of millimeter of mercury.");
+            secondReadingSubTitle.text = NSLocalizedString("METRICS_GRAPH_CARD_BLOOD_PRESSURE_SUBTITLE", comment: "Subtitle text for blood pressure data shown on metrics graph card.");
             secondReadingValue.textColor = color;
         } else if (type == MetricsType.Weight) {
             firstReadingValue.text = "--";
-            firstReadingLabel.text = "lbs";
-            firstReadingSubTitle.text = "Weight";
+            firstReadingLabel.text = NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_WEIGHT_POUNDS", comment: "General purpose abbreviated label for the english units of weight measurement, pounds.");
+            firstReadingSubTitle.text = NSLocalizedString("METRICS_GRAPH_CARD_WEIGHT_SUBTITLE", comment: "Subtitle text for body weight data shown on metrics graph card.");
             secondReadingValue.text = "--%";
             secondReadingLabel.text = "";
-            secondReadingSubTitle.text = "Body Fat";
+            secondReadingSubTitle.text = NSLocalizedString("METRICS_GRAPH_CARD_BODY_FAT_SUBTITLE", comment: "Subtitle text for body fat data shown on metrics graph card.");
         } else if (type == MetricsType.DailySummary) {
             firstReadingValue.hidden = true;
             firstReadingLabel.hidden = true;
@@ -75,8 +75,8 @@ class MetricsGraphCard: UIView {
             singleSubtitle.hidden = false;
             singleValue.text = "--";
             singleValue.textColor = color;
-            singleLabel.text = "pts";
-            singleSubtitle.text = "Activity Points";
+            singleLabel.text = NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_POINTS", comment: "General purpose abbreviated label for points.");
+            singleSubtitle.text = NSLocalizedString("METRICS_GRAPH_CARD_ACTIVITY_POINTS_SUBTITLE", comment: "Subtitle text for activity points data shown on metrics graph card.");
         } else {
             firstReadingValue.hidden = true;
             firstReadingLabel.hidden = true;
@@ -89,8 +89,8 @@ class MetricsGraphCard: UIView {
             singleSubtitle.hidden = false;
             singleValue.text = "--";
             singleValue.textColor = color;
-            singleLabel.text = "bpm";
-            singleSubtitle.text = "Beats Per Minute";
+            singleLabel.text = NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_BEATS_PER_MINUTE", comment: "General purpose abbreviated label for beats per minute.");
+            singleSubtitle.text = NSLocalizedString("METRICS_GRAPH_CARD_BEATS_PER_MINUTE_SUBTITLE", comment: "Subtitle text for beats per minute data shown on metrics graph card.");
         }
         
         firstReadingValue.textColor = color;
@@ -109,18 +109,18 @@ class MetricsGraphCard: UIView {
             } else {
                 firstReadingValue.text = "--";
             }
-            firstReadingLabel.text = "mmHg";
-            firstReadingSubTitle.text = "Mean Arterial Pressure";
+            firstReadingLabel.text = NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_MILLIMETERS_OF_MERCURY", comment: "General purpose abbreviated label for the units of millimeter of mercury.");
+            firstReadingSubTitle.text = NSLocalizedString("METRICS_GRAPH_CARD_MEAN_ARTERIAL_PRESSURE_SUBTITLE", comment: "Subtitle text for mean arterial pressure data shown on metrics graph card.");
             firstReadingValue.textColor = color;
             
             secondReadingValue.text = checkin.systolic != nil ? "\(Int(checkin.systolic!))/\(Int(checkin.diastolic!))" : "--";
-            secondReadingLabel.text = "mmHg";
-            secondReadingSubTitle.text = "Blood Pressure";
+            secondReadingLabel.text = NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_MILLIMETERS_OF_MERCURY", comment: "General purpose abbreviated label for the units of millimeter of mercury.");
+            secondReadingSubTitle.text = NSLocalizedString("METRICS_GRAPH_CARD_BLOOD_PRESSURE_SUBTITLE", comment: "Subtitle text for blood pressure data shown on metrics graph card.");
             secondReadingValue.textColor = color;
         } else if (type == MetricsType.Weight) {
             firstReadingValue.text = checkin.weightLbs != nil ? "\(Int(checkin.weightLbs!))" : "--";
-            firstReadingLabel.text = "lbs";
-            firstReadingSubTitle.text = "Weight";
+            firstReadingLabel.text = NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_WEIGHT_POUNDS", comment: "General purpose abbreviated label for the english units of weight measurement, pounds.");
+            firstReadingSubTitle.text = NSLocalizedString("METRICS_GRAPH_CARD_WEIGHT_SUBTITLE", comment: "Subtitle text for body weight data shown on metrics graph card.");
             
             if let fatRatio = checkin.fatRatio {
                 // dirty way round to 2 decimal places
@@ -129,7 +129,7 @@ class MetricsGraphCard: UIView {
                 secondReadingValue.text = "--%";
             }
             secondReadingLabel.text = "";
-            secondReadingSubTitle.text = "Body Fat";
+            secondReadingSubTitle.text = NSLocalizedString("METRICS_GRAPH_CARD_BODY_FAT_SUBTITLE", comment: "Subtitle text for body fat data shown on metrics graph card.");
         } else if (type == MetricsType.DailySummary) {
             firstReadingValue.hidden = true;
             firstReadingLabel.hidden = true;
@@ -145,8 +145,8 @@ class MetricsGraphCard: UIView {
             
             singleValue.text = checkin.pulseBpm != nil ? "\(Int(checkin.pulseBpm!))" : "--";
             singleValue.textColor = color;
-            singleLabel.text = "pts";
-            singleSubtitle.text = "Activity Points";
+            singleLabel.text = NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_POINTS", comment: "General purpose abbreviated label for points.");
+            singleSubtitle.text = NSLocalizedString("METRICS_GRAPH_CARD_ACTIVITY_POINTS_SUBTITLE", comment: "Subtitle text for activity points data shown on metrics graph card.");
         } else {
             firstReadingValue.hidden = true;
             firstReadingLabel.hidden = true;
@@ -162,8 +162,8 @@ class MetricsGraphCard: UIView {
             
             singleValue.text = checkin.pulseBpm != nil ? "\(Int(checkin.pulseBpm!))" : "--";
             singleValue.textColor = color;
-            singleLabel.text = "bpm";
-            singleSubtitle.text = "Beats Per Minute";
+            singleLabel.text = NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_BEATS_PER_MINUTE", comment: "General purpose abbreviated label for beats per minute.");
+            singleSubtitle.text = NSLocalizedString("METRICS_GRAPH_CARD_BEATS_PER_MINUTE_SUBTITLE", comment: "Subtitle text for beats per minute data shown on metrics graph card.");
         }
         
         firstReadingValue.textColor = color;
@@ -186,8 +186,8 @@ class MetricsGraphCard: UIView {
         
         singleValue.text = "\(activityPoints)";
         singleValue.textColor = color;
-        singleLabel.text = "pts";
-        singleSubtitle.text = "Activity Points";
+        singleLabel.text = NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_POINTS", comment: "General purpose abbreviated label for points.");
+        singleSubtitle.text = NSLocalizedString("METRICS_GRAPH_CARD_ACTIVITY_POINTS_SUBTITLE", comment: "Subtitle text for activity points data shown on metrics graph card.");
         
         firstReadingValue.textColor = color;
         secondReadingValue.textColor = color;

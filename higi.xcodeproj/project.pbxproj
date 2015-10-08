@@ -6,6 +6,20 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		41CAB9A61BC40F6F0000772C /* Generate Localizable Strings */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 41CAB9AD1BC40F6F0000772C /* Build configuration list for PBXAggregateTarget "Generate Localizable Strings" */;
+			buildPhases = (
+				41CAB9AE1BC40F890000772C /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = "Generate Localizable Strings";
+			productName = "Generate Localizable Strings";
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		2BBDBA521A12AC2C005A6815 /* ChallengeRowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBDBA4A1A12AC2C005A6815 /* ChallengeRowCell.swift */; };
 		2BBDBA531A12AC2C005A6815 /* ChallengeRowCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BBDBA4B1A12AC2C005A6815 /* ChallengeRowCell.xib */; };
@@ -66,6 +80,7 @@
 		41B2B3581BB31CBE00B13168 /* NotificationSettingsEmailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B2B3571BB31CBD00B13168 /* NotificationSettingsEmailTableViewController.swift */; };
 		41B2B35A1BB31CE900B13168 /* NotificationSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B2B3591BB31CE900B13168 /* NotificationSettingsTableViewController.swift */; };
 		41B2B35C1BB326C800B13168 /* NotificationSettingsEmailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B2B35B1BB326C800B13168 /* NotificationSettingsEmailController.swift */; };
+		41CAB9B41BC411A00000772C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 41CAB9B01BC411A00000772C /* Localizable.strings */; settings = {ASSET_TAGS = (); }; };
 		8F02A11F19AE2BF6002FF73E /* btn_back_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A11719AE2BF6002FF73E /* btn_back_black.png */; };
 		8F02A12019AE2BF6002FF73E /* btn_back_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A11819AE2BF6002FF73E /* btn_back_black@2x.png */; };
 		8F02A12119AE2BF6002FF73E /* btn_back_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A11919AE2BF6002FF73E /* btn_back_white.png */; };
@@ -473,6 +488,7 @@
 		41B2B3571BB31CBD00B13168 /* NotificationSettingsEmailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingsEmailTableViewController.swift; sourceTree = "<group>"; };
 		41B2B3591BB31CE900B13168 /* NotificationSettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingsTableViewController.swift; sourceTree = "<group>"; };
 		41B2B35B1BB326C800B13168 /* NotificationSettingsEmailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingsEmailController.swift; sourceTree = "<group>"; };
+		41CAB9B11BC411A00000772C /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Localizable.strings; sourceTree = "<group>"; };
 		8F02A11719AE2BF6002FF73E /* btn_back_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_back_black.png; sourceTree = "<group>"; };
 		8F02A11819AE2BF6002FF73E /* btn_back_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_back_black@2x.png"; sourceTree = "<group>"; };
 		8F02A11919AE2BF6002FF73E /* btn_back_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_back_white.png; sourceTree = "<group>"; };
@@ -1114,6 +1130,40 @@
 			name = "Switch Cell";
 			sourceTree = "<group>";
 		};
+		41CAB9AF1BC411A00000772C /* Base.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				41CAB9B01BC411A00000772C /* Localizable.strings */,
+			);
+			path = Base.lproj;
+			sourceTree = "<group>";
+		};
+		41CAB9B61BC411B70000772C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8F296317194B9E5700E787FD /* Assets */,
+				8F3643A619460EB300C0033E /* Images.xcassets */,
+				41CAB9AF1BC411A00000772C /* Base.lproj */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		41CAB9B71BC411FF0000772C /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				8F36439F19460EB300C0033E /* AppDelegate.swift */,
+				8F5E7FDD199C0011009067E5 /* Custom Views */,
+				8F3643A319460EB300C0033E /* Main.storyboard */,
+				8F1DB450194F735000636566 /* Model */,
+				8FF851C4194F7F08005C33C6 /* Network */,
+				8F296305194B8C9F00E787FD /* Objective-C Helpers */,
+				8F296314194B9BDE00E787FD /* Session */,
+				8F296306194B8CB900E787FD /* Utility */,
+				8F296307194B8CCA00E787FD /* View Controllers */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
 		8F08AF9A19893B03002EE906 /* Welcome */ = {
 			isa = PBXGroup;
 			children = (
@@ -1333,19 +1383,9 @@
 		8F36439C19460EB300C0033E /* higi */ = {
 			isa = PBXGroup;
 			children = (
-				8FDB4B621A040B8500F57B38 /* higi.entitlements */,
-				8F36439F19460EB300C0033E /* AppDelegate.swift */,
-				8F3643A619460EB300C0033E /* Images.xcassets */,
-				8F296317194B9E5700E787FD /* Assets */,
-				8F5E7FDD199C0011009067E5 /* Custom Views */,
-				8F3643A319460EB300C0033E /* Main.storyboard */,
-				8F1DB450194F735000636566 /* Model */,
-				8FF851C4194F7F08005C33C6 /* Network */,
-				8F296305194B8C9F00E787FD /* Objective-C Helpers */,
-				8F296314194B9BDE00E787FD /* Session */,
+				41CAB9B71BC411FF0000772C /* Classes */,
+				41CAB9B61BC411B70000772C /* Resources */,
 				8F36439D19460EB300C0033E /* Supporting Files */,
-				8F296306194B8CB900E787FD /* Utility */,
-				8F296307194B8CCA00E787FD /* View Controllers */,
 			);
 			path = higi;
 			sourceTree = "<group>";
@@ -1353,9 +1393,10 @@
 		8F36439D19460EB300C0033E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D12780AD1A4A2701002EB56A /* fontawesome-webfont.ttf */,
+				8FDB4B621A040B8500F57B38 /* higi.entitlements */,
 				32E39E451B756D4200BA50F9 /* Info_prod.plist */,
 				32E39E461B756D4200BA50F9 /* Info_qa.plist */,
-				D12780AD1A4A2701002EB56A /* fontawesome-webfont.ttf */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1821,6 +1862,9 @@
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "higi, LLC";
 				TargetAttributes = {
+					41CAB9A61BC40F6F0000772C = {
+						CreatedOnToolsVersion = 7.0.1;
+					};
 					8F36439919460EB300C0033E = {
 						CreatedOnToolsVersion = 6.0;
 						DevelopmentTeam = 5D5W9WNYL2;
@@ -1860,6 +1904,7 @@
 			targets = (
 				8F36439919460EB300C0033E /* higi */,
 				8F3643AB19460EB300C0033E /* higiTests */,
+				41CAB9A61BC40F6F0000772C /* Generate Localizable Strings */,
 			);
 		};
 /* End PBXProject section */
@@ -1966,6 +2011,7 @@
 				8F2B7E4D198C3058009DE89A /* oc_bodystats.png in Resources */,
 				8F5E7FE5199C081F009067E5 /* vital_map_icon.png in Resources */,
 				D1618F931ABB2E26000BDA85 /* MetricCardView.xib in Resources */,
+				41CAB9B41BC411A00000772C /* Localizable.strings in Resources */,
 				D1036D021B153477003E7239 /* cyclingicon.png in Resources */,
 				2BBDBA571A12AC2C005A6815 /* CompetitiveChallengeView.xib in Resources */,
 				8FA5925D19ABBCEC00622266 /* TourView.xib in Resources */,
@@ -2085,6 +2131,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PROJECT_DIR}/Vendor/Fabric/Fabric.framework/run\" 350626045a28b6752782f57d637b6551f017f0ef ff5737324c5b204202fdfd36898aaa1a91d47d49cc57e84fdcf40a3bbdb000d1";
+		};
+		41CAB9AE1BC40F890000772C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Vendor/mergegenstrings/mergegenstrings.py higi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -2255,6 +2314,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		41CAB9B01BC411A00000772C /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				41CAB9B11BC411A00000772C /* Base */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		8F3643A319460EB300C0033E /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -2453,6 +2520,34 @@
 			};
 			name = ReleaseQA;
 		};
+		41CAB9A71BC40F6F0000772C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		41CAB9A81BC40F6F0000772C /* DebugQA */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = DebugQA;
+		};
+		41CAB9A91BC40F6F0000772C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		41CAB9AA1BC40F6F0000772C /* ReleaseQA */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = ReleaseQA;
+		};
 		8F3643B419460EB300C0033E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2643,6 +2738,17 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		41CAB9AD1BC40F6F0000772C /* Build configuration list for PBXAggregateTarget "Generate Localizable Strings" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				41CAB9A71BC40F6F0000772C /* Debug */,
+				41CAB9A81BC40F6F0000772C /* DebugQA */,
+				41CAB9A91BC40F6F0000772C /* Release */,
+				41CAB9AA1BC40F6F0000772C /* ReleaseQA */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		8F36439519460EB300C0033E /* Build configuration list for PBXProject "higi" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

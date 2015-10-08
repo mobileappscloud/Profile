@@ -41,7 +41,7 @@ class NotificationSettingsEmailTableViewController: UITableViewController, Switc
     // MARK: Configuration
     
     func configureNavigationTitle() {
-        self.title = "Email";
+        self.title = NSLocalizedString("NOTIFICATION_SETTINGS_EMAIL_VIEW_TITLE", comment: "Title for email notification settings view.");
         self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.blackColor()]
         self.navigationController!.navigationBar.barStyle = .Default;
         self.navigationController?.navigationBar.translucent = false;
@@ -101,10 +101,10 @@ class NotificationSettingsEmailTableViewController: UITableViewController, Switc
                     
                     switch row {
                     case .CheckInResults:
-                        switchCell.textLabel!.text = "Check-in results"
+                        switchCell.textLabel!.text = NSLocalizedString("NOTIFICATION_SETTINGS_EMAIL_VIEW_CHECK_IN_RESULTS_CELL_TITLE", comment: "Title for check-in result email notification.");
                         switchCell.switchControl.on = EmailNotification.CheckInResult.isEnabled()
                     case .HigiNews:
-                        switchCell.textLabel!.text = "News about higi"
+                        switchCell.textLabel!.text = NSLocalizedString("NOTIFICATION_SETTINGS_EMAIL_VIEW_NEWS_CELL_TITLE", comment: "Title for news email notification.");
                         switchCell.switchControl.on = EmailNotification.HigiNews.isEnabled()
                     default:
                         break;

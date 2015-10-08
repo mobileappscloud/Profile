@@ -53,7 +53,8 @@ class LocationDelegate: NSObject, CLLocationManagerDelegate {
         dispatch_async(dispatch_get_main_queue(), {
             let notification = UILocalNotification();
             notification.fireDate = NSDate();
-            notification.alertBody = "You are near the higi Station at \(kiosk.organizations[0]) \(kiosk.streetAddress)!";
+            let notificationFormat = NSLocalizedString("LOCATION_DELEGATE_LOCAL_NOTIFICATION_FORMAT", comment: "Format of local notification which is displayed when a user is near a higi station.");
+            notification.alertBody = String(format: notificationFormat, arguments: [kiosk.organizations[0], kiosk.streetAddress]);
             notification.applicationIconBadgeNumber = -1;
             UIApplication.sharedApplication().scheduleLocalNotification(notification);
         });

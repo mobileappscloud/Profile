@@ -4,6 +4,11 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
     
     @IBOutlet weak var headerImage: UIImageView!
     @IBOutlet weak var table: UITableView!
+    @IBOutlet weak var headerLabel: UILabel! {
+        didSet {
+            headerLabel.text = NSLocalizedString("CONNECT_DEVICE_VIEW_HEADER_TEXT", comment: "Text to display in table header on Connect Device view.")
+        }
+    }
     
     var devices:[ActivityDevice] = [];
     
@@ -26,7 +31,7 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
         
         shouldShowDailyPoints = false;
         
-        self.title = "Connect a device";
+        self.title = NSLocalizedString("CONNECT_DEVICE_VIEW_TITLE", comment: "Title for Connect Device view.");
         table.delegate = self;
         table.dataSource = self;
         table.rowHeight = 70;

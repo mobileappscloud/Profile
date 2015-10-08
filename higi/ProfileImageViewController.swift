@@ -10,9 +10,21 @@ import Foundation
 
 class ProfileImageViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    @IBOutlet weak var chooseLibraryButton: UIButton!
-    @IBOutlet weak var takePhotoButton: UIButton!
-    @IBOutlet weak var skipButton: UIButton!
+    @IBOutlet weak var chooseLibraryButton: UIButton! {
+        didSet {
+            chooseLibraryButton.setTitle(NSLocalizedString("PROFILE_IMAGE_VIEW_PHOTO_LIBRARY_BUTTON_TITLE", comment: "Title for button to choose a photo from the photo library."), forState: .Normal)
+        }
+    }
+    @IBOutlet weak var takePhotoButton: UIButton! {
+        didSet {
+            takePhotoButton.setTitle(NSLocalizedString("PROFILE_IMAGE_VIEW_PHOTO_CAPTURE_BUTTON_TITLE", comment: "Title for button to capture a photo using the device camera."), forState: .Normal)
+        }
+    }
+    @IBOutlet weak var skipButton: UIButton! {
+        didSet {
+            skipButton.setTitle(NSLocalizedString("PROFILE_IMAGE_VIEW_SKIP_BUTTON_TITLE", comment: "Title for button to bypass choosing a profile image."), forState: .Normal)
+        }
+    }
     var spinner: CustomLoadingSpinner!
     
     var fromSettings = false;
@@ -20,7 +32,7 @@ class ProfileImageViewController: UIViewController, UIImagePickerControllerDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad();
-        self.title = "What do you look like?";
+        self.title = NSLocalizedString("PROFILE_IMAGE_VIEW_TITLE", comment: "Title for Profile Image view.");
         self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 0.0, alpha: 1.0)];
         self.navigationItem.hidesBackButton = true;
         

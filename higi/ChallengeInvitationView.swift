@@ -5,6 +5,21 @@ class ChallengeInvitationView: UIView {
     @IBOutlet var inviter: UILabel!
     @IBOutlet var title: UILabel!
     @IBOutlet var starting: UILabel!
+    @IBOutlet weak var typeTitle: UILabel! {
+        didSet {
+            typeTitle.text = NSLocalizedString("CHALLENGE_INVITATION_VIEW_CHALLENGE_TYPE_TITLE", comment: "Title to display for a challenge type.");
+        }
+    }
+    @IBOutlet weak var goalTitle: UILabel! {
+        didSet {
+            goalTitle.text = NSLocalizedString("CHALLENGE_INVITATION_VIEW_CHALLENGE_GOAL_TITLE", comment: "Title to display for a challenge goal.");
+        }
+    }
+    @IBOutlet weak var prizeTitle: UILabel!{
+        didSet {
+            prizeTitle.text = NSLocalizedString("CHALLENGE_INVITATION_VIEW_CHALLENGE_PRIZE_TITLE", comment: "Title to display for a challenge prize.");
+        }
+    }
     @IBOutlet var type: UILabel!
     @IBOutlet var goal: UILabel!
     @IBOutlet var prize: UILabel!
@@ -23,7 +38,10 @@ class ChallengeInvitationView: UIView {
         //we can just grab the first one bcuz win conditions prioritized by API
         let winCondition = challenge.winConditions[0];
         
-        invitationView.goal.text = winCondition.goal.type == "most_points" ? "Most points" : "Threshold reached";
+        let pointsString = NSLocalizedString("CHALLENGE_INVITATION_VIEW_GOAL_TEXT_MOST_POINTS", comment: "Text to display if a challenge goal type is to accrue the most points.");
+        let thresholdString = NSLocalizedString("CHALLENGE_INVITATION_VIEW_GOAL_TEXT_THRESHOLD", comment: "Text to display if a challenge goal type is to reach a threshold.");
+        invitationView.goal.text = winCondition.goal.type == "most_points" ? pointsString : thresholdString;
+        
         invitationView.type.text = goalTypeDisplayHelper(winCondition.goal.type as String, winnerType: winCondition.winnerType as String);
         invitationView.prize.text = winCondition.prizeName != nil ? winCondition.prizeName as String : "No prize";
         invitationView.participantCount.text = String(challenge.participantsCount);
@@ -37,11 +55,18 @@ class ChallengeInvitationView: UIView {
     }
     
     class func goalTypeDisplayHelper(goalType: String, winnerType: String) -> String {
-        let firstPart = winnerType == "individual" ? "Individual" : "Team";
+        let individualWinner = NSLocalizedString("CHALLENGE_INVITATION_VIEW_GOAL_TYPE_WINNER_INDIVIDUAL", comment: "Text to display for a challenge goal where the winner is an individual.");
+        let teamWinner = NSLocalizedString("CHALLENGE_INVITATION_VIEW_GOAL_TYPE_WINNER_TEAM", comment: "Text to display for a challenge goal where the winner is a team.");
+        let firstPart = winnerType == "individual" ? individualWinner : teamWinner;
+        
+        let pointsGoal = NSLocalizedString("CHALLENGE_INVITATION_VIEW_GOAL_TYPE_POINTS", comment: "Text to display if a challenge goal type is to accrue the most points.");
+        let challengeGoal = NSLocalizedString("CHALLENGE_INVITATION_VIEW_GOAL_TYPE_CHALLENGE", comment: "Text to display if a challenge goal type is to reach a threshold.");
         let secondPart = goalType == "most_points" ? "Points Challenge" : "Goal Challenge";
+        
         return firstPart + " " + secondPart;
     }
     
+    // TODO: l10n verify copy and use pluralization dict
     class func startsInDisplayHelper(startDate: NSDate) -> String {
         var dateDisplay:String!
         if (Int(startDate.timeIntervalSinceNow) > 0) {
@@ -62,10 +87,11 @@ class ChallengeInvitationView: UIView {
         var dateRange = "";
         if (endDate != nil) {
             let formatter = NSDateFormatter();
-            formatter.dateFormat = "MMM d, ''yy";
+            let dateFormat = NSLocalizedString("CHALLENGE_INVITATION_VIEW_DATE_RANGE_DATE_FORMAT", comment: "Format for dates displayed on challenge invitation date range text.");
+            formatter.dateFormat = dateFormat;
             dateRange = "\(formatter.stringFromDate(startDate)) - \(formatter.stringFromDate(endDate!))";
         } else {
-            dateRange = "No end date";
+            dateRange = NSLocalizedString("CHALLENGE_INVITATION_VIEW_DATE_RANGE_NO_END_DATE", comment: "Text to display on a challenge invitation if there is no end date.");
         }
         return dateRange;
     }

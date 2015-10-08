@@ -1,0 +1,789 @@
+/* Text to display if a user does not have any higi points. */
+"ACTIVITY_METRICS_VIEW_BLANK_STATE_TEXT" = "Welcome! It looks like you don’t have any higi points. Be it checking your vitals at a higi Station or counting steps with an activity tracker, higi wants to reward you for keeping tabs on your health. ";
+
+/* Label for selected point panel on Activity Metric view. */
+"ACTIVITY_METRICS_VIEW_SELECTED_POINT_PANEL_LABEL" = "Activity Points";
+
+/* Label for unit of selected point panel on Activity Metric view. */
+"ACTIVITY_METRICS_VIEW_SELECTED_POINT_PANEL_UNIT_LABEL" = "pts";
+
+/* Title for dismiss action on alert displayed when app requires an update. */
+"APP_UPDATE_ALERT_ACTION_TITLE_DISMISS" = "OK";
+
+/* Message for alert displayed when app requires an update. */
+"APP_UPDATE_ALERT_MESSAGE" = "You must update from the App Store to continue using this app.";
+
+/* Title for alert displayed when app requires an update. */
+"APP_UPDATE_ALERT_TITLE" = "higi is out of date";
+
+/* Title for Birthdate view when confirming a user's age. */
+"BIRTHDATE_VIEW_AGE_CONFIRMATION_TITLE" = "Please confirm your age";
+
+/* Title for birthdate view when asking user to enter their birthdate. */
+"BIRTHDATE_VIEW_BIRTHDATE_ENTRY_TITLE" = "When were you born?";
+
+/* Title for 'next' button on birthdate view. */
+"BIRTHDATE_VIEW_NEXT_BUTTON_TITLE" = "Next";
+
+/* Title for alert action to dismiss the underage user alert. */
+"BIRTHDATE_VIEW_UNDERAGE_ALERT_ACTION_TITLE_DISMISS" = "OK";
+
+/* Message for alert displayed when a user is ineligible for higi services due to age restrictions. */
+"BIRTHDATE_VIEW_UNDERAGE_ALERT_MESSAGE" = "We cannot offer you service at this time.";
+
+/* Title for alert action to dismiss the birthdate update failure alert. */
+"BIRTHDATE_VIEW_UPDATE_BIRTHDATE_FAILURE_ALERT_ACTION_TITLE_DISMISS" = "OK";
+
+/* Message for alert to display if the server cannot be reached when attempting to update user's birthdate. */
+"BIRTHDATE_VIEW_UPDATE_BIRTHDATE_FAILURE_ALERT_MESSAGE" = "Unable to reach server. Please try again.";
+
+/* Text to display on blood pressure metrics view when there is no blood pressure data to display. */
+"BLOOD_PRESSURE_METRICS_VIEW_BLANK_STATE_TEXT" = "Welcome! It looks like you don’t have any blood pressure readings with us. Join the millions who track their BP with higi by visiting a higi Station or connecting your wireless BP monitor.";
+
+/* Label to display for a selected blood pressure data point. */
+"BLOOD_PRESSURE_METRICS_VIEW_SELECTED_POINT_PANEL_BLOOD_PRESSURE_LABEL" = "Blood Pressure";
+
+/* Label to display for a selected mean arterial pressure data point. */
+"BLOOD_PRESSURE_METRICS_VIEW_SELECTED_POINT_PANEL_MEAN_ARTERIAL_PRESSURE_LABEL" = "Mean Arterial Pressure";
+
+/* Title for blood pressure within an at-risk range. */
+"BLOOD_PRESSURE_RANGE_AT_RISK_TITLE" = "At Risk";
+
+/* Title for blood pressure within a high range. */
+"BLOOD_PRESSURE_RANGE_HIGH_TITLE" = "High";
+
+/* Title for blood pressure within a low range. */
+"BLOOD_PRESSURE_RANGE_LOW_TITLE" = "Low";
+
+/* Title for blood pressure within a normal range. */
+"BLOOD_PRESSURE_RANGE_NORMAL_TITLE" = "Normal";
+
+/* Text label for challenge detail participant icon units. */
+"CHALLENGE_DETAILS_PARTICIPANT_ICON_LABEL_UNITS" = "Individuals";
+
+/* Title for challenge description section. */
+"CHALLENGE_DETAILS_TAB_SECTION_DESCRIPTION_TITLE" = "Description";
+
+/* Title for challenge duration section. */
+"CHALLENGE_DETAILS_TAB_SECTION_DURATION_TITLE" = "Duration";
+
+/* Title for challenge individual participant section. */
+"CHALLENGE_DETAILS_TAB_SECTION_INDIVIDUAL_TITLE" = "Individuals";
+
+/* Title for challenge participant section. */
+"CHALLENGE_DETAILS_TAB_SECTION_PARTICIPANT_TITLE" = "Participants";
+
+/* Title for challenge prizes section. */
+"CHALLENGE_DETAILS_TAB_SECTION_PRIZES_TITLE" = "Prizes";
+
+/* Title for challenge team participant section. */
+"CHALLENGE_DETAILS_TAB_SECTION_TEAM_TITLE" = "Teams";
+
+/* Title for button which shows challenge terms. */
+"CHALLENGE_DETAILS_TAB_SECTION_TERMS_BUTTON_TITLE" = "Official Rules";
+
+/* Title for challenge type section. */
+"CHALLENGE_DETAILS_TAB_SECTION_TYPE_TITLE" = "Type";
+
+/* Title for button to join a challenge. */
+"CHALLENGE_DETAILS_VIEW_CHALLENGE_JOIN_BUTTON_TITLE" = "Join";
+
+/* Title for cancel alert action which is displayed when joining a challenge fails. */
+"CHALLENGE_DETAILS_VIEW_JOIN_CHALLENGE_FAILURE_ALERT_ACTION_CANCEL_TITLE" = "OK";
+
+/* Message for alert which is displayed when joining a challenge fails. */
+"CHALLENGE_DETAILS_VIEW_JOIN_CHALLENGE_FAILURE_ALERT_MESSAGE" = "Cannot join challenge at this time.  Please try again later.";
+
+/* Title for alert which is displayed when joining a challenge fails. */
+"CHALLENGE_DETAILS_VIEW_JOIN_CHALLENGE_FAILURE_ALERT_TITLE" = "Uh oh";
+
+/* Title to display on prize cell in challenge details view when there is no prize for the challenge. */
+"CHALLENGE_DETAILS_VIEW_PRIZE_CELL_TITLE_NO_PRIZE" = "No prize, doing this simply for the love of the game.";
+
+/* Title for cancel alert action displayed when sending chatter fails. */
+"CHALLENGE_DETAILS_VIEW_SEND_CHATTER_FAILURE_ALERT_ACTION_CANCEL_TITLE" = "OK";
+
+/* Message for alert displayed when sending chatter fails. */
+"CHALLENGE_DETAILS_VIEW_SEND_CHATTER_FAILURE_ALERT_MESSAGE" = "Cannot send chatter at this time.  Please try again later.";
+
+/* Title for alert displayed when sending chatter fails. */
+"CHALLENGE_DETAILS_VIEW_SEND_CHATTER_FAILURE_ALERT_TITLE" = "Uh oh";
+
+/* Placeholder text to display when sending chatter. */
+"CHALLENGE_DETAILS_VIEW_SEND_CHATTER_TIME_POSTED_PLACEHOLDER" = "Sending...";
+
+/* Title for chatter tab on challenge details view. */
+"CHALLENGE_DETAILS_VIEW_TAB_BUTTON_TITLE_CHATTER" = "Chatter";
+
+/* Title for details tab on challenge details view. */
+"CHALLENGE_DETAILS_VIEW_TAB_BUTTON_TITLE_DETAILS" = "Details";
+
+/* Title for leaderboard tab on challenge details view. */
+"CHALLENGE_DETAILS_VIEW_TAB_BUTTON_TITLE_LEADERBOARD" = "Leaderboard";
+
+/* Title for progress tab on challenge details view. */
+"CHALLENGE_DETAILS_VIEW_TAB_BUTTON_TITLE_PROGRESS" = "Progress";
+
+/* Title for action sheet action to go back; displayed when picking a team to join. */
+"CHALLENGE_DETAILS_VIEW_TEAMS_PICKER_ACTION_SHEET_ACTION_TITLE_BACK" = "Back";
+
+/* Message for action sheet which is displayed when picking a team to join. */
+"CHALLENGE_DETAILS_VIEW_TEAMS_PICKER_ACTION_SHEET_MESSAGE" = "Select a team to join";
+
+/* Text for current user toggle button on challenge details view. */
+"CHALLENGE_DETAILS_VIEW_TOGGLE_BUTTON_TEXT_CURRENT_USER" = "You";
+
+/* Text for team toggle button on challenge details view. */
+"CHALLENGE_DETAILS_VIEW_TOGGLE_BUTTON_TEXT_TEAMS" = "Teams";
+
+/* Title to display for a challenge goal. */
+"CHALLENGE_INVITATION_VIEW_CHALLENGE_GOAL_TITLE" = "Goal:";
+
+/* Title to display for a challenge prize. */
+"CHALLENGE_INVITATION_VIEW_CHALLENGE_PRIZE_TITLE" = "Prize:";
+
+/* Title to display for a challenge type. */
+"CHALLENGE_INVITATION_VIEW_CHALLENGE_TYPE_TITLE" = "Type:";
+
+/* Format for dates displayed on challenge invitation date range text. */
+"CHALLENGE_INVITATION_VIEW_DATE_RANGE_DATE_FORMAT" = "MMM d, ''yy";
+
+/* Text to display on a challenge invitation if there is no end date. */
+"CHALLENGE_INVITATION_VIEW_DATE_RANGE_NO_END_DATE" = "No end date";
+
+/* Text to display if a challenge goal type is to accrue the most points. */
+"CHALLENGE_INVITATION_VIEW_GOAL_TEXT_MOST_POINTS" = "Most points";
+
+/* Text to display if a challenge goal type is to reach a threshold. */
+"CHALLENGE_INVITATION_VIEW_GOAL_TEXT_THRESHOLD" = "Threshold reached";
+
+/* Text to display if a challenge goal type is to reach a threshold. */
+"CHALLENGE_INVITATION_VIEW_GOAL_TYPE_CHALLENGE" = "Goal Challenge";
+
+/* Text to display if a challenge goal type is to accrue the most points. */
+"CHALLENGE_INVITATION_VIEW_GOAL_TYPE_POINTS" = "Points Challenge";
+
+/* Text to display for a challenge goal where the winner is an individual. */
+"CHALLENGE_INVITATION_VIEW_GOAL_TYPE_WINNER_INDIVIDUAL" = "Individual";
+
+/* Text to display for a challenge goal where the winner is a team. */
+"CHALLENGE_INVITATION_VIEW_GOAL_TYPE_WINNER_TEAM" = "Team";
+
+/* Title for active challenge page in challenges view. */
+"CHALLENGES_VIEW_PAGE_TITLE_ACTIVE_CHALLENGES" = "Active Challenges";
+
+/* Title for available challenge page in challenges view. */
+"CHALLENGES_VIEW_PAGE_TITLE_AVAILABLE_CHALLENGES" = "Available Challenges";
+
+/* Title for challenge page in challenges view with only one challenge. */
+"CHALLENGES_VIEW_PAGE_TITLE_CHALLENGES" = "Challenges";
+
+/* Title for invited challenge page in challenges view. */
+"CHALLENGES_VIEW_PAGE_TITLE_INVITED_CHALLENGES" = "Invited Challenges";
+
+/* Title for upcoming challenge page in challenges view. */
+"CHALLENGES_VIEW_PAGE_TITLE_UPCOMING_CHALLENGES" = "Upcoming Challenges";
+
+/* Title for 'change' button. */
+"CHANGE_PASSWORD_VIEW_CHANGE_BUTTON_TITLE" = "Change";
+
+/* Placeholder for confirm password text field. */
+"CHANGE_PASSWORD_VIEW_CONFIRM_PASSWORD_TEXT_FIELD_PLACEHOLDER" = "Confirm new password";
+
+/* Placeholder for confirm password text field requirement. */
+"CHANGE_PASSWORD_VIEW_CONFIRM_PASSWORD_TEXT_FIELD_PLACEHOLDER_REQUIREMENT" = "Confirmed password does not match";
+
+/* Placeholder for current password text field. */
+"CHANGE_PASSWORD_VIEW_CURRENT_PASSWORD_TEXT_FIELD_PLACEHOLDER" = "Current password";
+
+/* Placeholder for current password text field requirement. */
+"CHANGE_PASSWORD_VIEW_CURRENT_PASSWORD_TEXT_FIELD_PLACEHOLDER_REQUIREMENT" = "Invalid password";
+
+/* Placeholder for new password text field. */
+"CHANGE_PASSWORD_VIEW_NEW_PASSWORD_TEXT_FIELD_PLACEHOLDER" = "New password (at least six characters)";
+
+/* Placeholder for new password text field requirement. */
+"CHANGE_PASSWORD_VIEW_NEW_PASSWORD_TEXT_FIELD_PLACEHOLDER_REQUIREMENT" = "Must be at least 6 characters long";
+
+/* Title for alert action to dismiss alert displayed after password change fails. */
+"CHANGE_PASSWORD_VIEW_PASSWORD_CHANGE_FAILURE_ALERT_ACTION_TITLE_DISMISS" = "OK";
+
+/* Message for alert displayed after password change fails. */
+"CHANGE_PASSWORD_VIEW_PASSWORD_CHANGE_FAILURE_ALERT_MESSAGE" = "Your password did not match, please try again.";
+
+/* Title for alert displayed after password change fails. */
+"CHANGE_PASSWORD_VIEW_PASSWORD_CHANGE_FAILURE_ALERT_TITLE" = "Incorrect password";
+
+/* Title for alert action to dismiss alert displayed after password change succeeds. */
+"CHANGE_PASSWORD_VIEW_PASSWORD_CHANGE_SUCCESS_ALERT_ACTION_TITLE_DISMISS" = "OK";
+
+/* Message for alert displayed after password change succeeds. */
+"CHANGE_PASSWORD_VIEW_PASSWORD_CHANGE_SUCCESS_ALERT_MESSAGE" = "Your password has been changed";
+
+/* Title for alert displayed after password change succeeds. */
+"CHANGE_PASSWORD_VIEW_PASSWORD_CHANGE_SUCCESS_ALERT_TITLE" = "Success!";
+
+/* Title for Change Password view. */
+"CHANGE_PASSWORD_VIEW_TITLE" = "Change Password";
+
+/* Title for chatter input view controller. */
+"CHATTER_INPUT_VIEW_CONTROLLER_TITLE" = "Enter Chatter";
+
+/* Placeholder text to display in chatter input text field. */
+"CHATTER_INPUT_VIEW_TEXT_INPUT_PLACEHOLDER" = "Talk some smack!";
+
+/* Title for alert action to decline disconnecting a device from a higi Profile. */
+"CONNECT_DEVICE_ROW_REMOVE_DEVICE_ALERT_ACTION_TITLE_NO" = "No";
+
+/* Title for alert action to confirm disconnecting a device from a higi Profile. */
+"CONNECT_DEVICE_ROW_REMOVE_DEVICE_ALERT_ACTION_TITLE_YES" = "Yes";
+
+/* Message for alert displayed prior to disconnecting a device from a higi Profile. */
+"CONNECT_DEVICE_ROW_REMOVE_DEVICE_ALERT_MESSAGE_FORMAT" = "You are about to remove %@ from your devices.  Are you sure?";
+
+/* Title for alert displayed prior to disconnecting a device from a higi Profile. */
+"CONNECT_DEVICE_ROW_REMOVE_DEVICE_ALERT_TITLE" = "Remove device";
+
+/* Message for alert displayed after failure to disconnect a device from a higi Profile. */
+"CONNECT_DEVICE_ROW_REMOVE_DEVICE_DISCONNECT_FAILURE_ALERT_MESSAGE" = "Unable to disconnect device.  Please try again later.";
+
+/* Title for alert action to dismiss device remove/disconnect failure alert. */
+"CONNECT_DEVICE_ROW_REMOVE_DEVICE_FAILURE_ALERT_ACTION_TITLE_DISMISS" = "OK";
+
+/* Message for alert displayed after failure to remove a device from a higi Profile. */
+"CONNECT_DEVICE_ROW_REMOVE_DEVICE_FAILURE_ALERT_MESSAGE" = "Unable to remove device.  Please try again later.";
+
+/* Title for alert displayed after failure to remove/disconnect a device from a higi Profile. */
+"CONNECT_DEVICE_ROW_REMOVE_DEVICE_FAILURE_ALERT_TITLE" = "Uh oh";
+
+/* Text to display in table header on Connect Device view. */
+"CONNECT_DEVICE_VIEW_HEADER_TEXT" = "Add a device to your account so you can start tracking and start earning!";
+
+/* Title for Connect Device view. */
+"CONNECT_DEVICE_VIEW_TITLE" = "Connect a device";
+
+/* Label for points units as seen in the daily summary row. */
+"DAILY_SUMMARY_ROW_POINTS_UNIT_LABEL" = "pts";
+
+/* Alternate descriptive text for activity tracker; displayed on the Daily Summary view blank state. */
+"DAILY_SUMMARY_VIEW_BLANK_STATE_ACTIVITY_TRACKER_ALTERNATE_TEXT" = "Wanna get rewarded for biking to work or running on the treadmill at the gym? Just connect your favorite activity tracker and start earning points today. \n";
+
+/* Default descriptive text for activity tracker; displayed on the Daily Summary view blank state. */
+"DAILY_SUMMARY_VIEW_BLANK_STATE_ACTIVITY_TRACKER_DEFAULT_TEXT" = "Higi makes it fun and rewarding to track your steps. Simply connect your favorite activity tracker and start getting rewarded for your jogs around the block. \n";
+
+/* Title for activity tracker; displayed on the Daily Summary view blank state. */
+"DAILY_SUMMARY_VIEW_BLANK_STATE_ACTIVITY_TRACKER_TITLE" = "Activity Tracker";
+
+/* Descriptive text shown in the afternoon; displayed on the Daily Summary view blank state. */
+"DAILY_SUMMARY_VIEW_BLANK_STATE_AFTERNOON_TEXT" = "Think you can earn more points than the average higi user? They average just over 15 points per day. If you are hoping to beat that, try visiting a higi Station or sync your activity tracker with higi to see how many points you’ve earned today.  \n";
+
+/* Title for call-to-action to connect a device; displayed in the Daily Summary blank-state view. */
+"DAILY_SUMMARY_VIEW_BLANK_STATE_CALL_TO_ACTION_CONNECT_DEVICE" = "Connect a device";
+
+/* Title for call-to-action to find a higi station; displayed in the Daily Summary blank-state view. */
+"DAILY_SUMMARY_VIEW_BLANK_STATE_CALL_TO_ACTION_FIND_STATION" = "Find a station";
+
+/* Descriptive text for Foursquare; displayed on the Daily Summary view blank state. */
+"DAILY_SUMMARY_VIEW_BLANK_STATE_FOURSQUARE_TEXT" = "Wanna get rewarded for going to the gym or walking your dog at the park? Just connect your Foursquare account with higi and we will reward your 15 points for every time you check into a gym or park. \n";
+
+/* Title for Foursquare; displayed on the Daily Summary view blank state. */
+"DAILY_SUMMARY_VIEW_BLANK_STATE_FOURSQUARE_TITLE" = "Foursquare";
+
+/* Descriptive text for higi station; displayed on the Daily Summary view blank state. */
+"DAILY_SUMMARY_VIEW_BLANK_STATE_HIGI_TEXT" = "Join the millions of people that are tracking their health through higi. You can earn up to 100 points by visiting a higi Station and getting your blood pressure, pulse, weight, and BMI stats. \n\n";
+
+/* Title for higi station; displayed on the Daily Summary view blank state. */
+"DAILY_SUMMARY_VIEW_BLANK_STATE_HIGI_TITLE" = "higi Station";
+
+/* Descriptive text shown in the morning; displayed on the Daily Summary view blank state. */
+"DAILY_SUMMARY_VIEW_BLANK_STATE_MORNING_TEXT" = "Think you can earn more points than the average higi user? They average just over 15 points per day. If you are hoping to beat that, try visiting a higi Station today and make sure your activity tracker is connected to higi.  \n";
+
+/* Greeting text to display in header of the Daily Summary view during the afternoon. */
+"DAILY_SUMMARY_VIEW_HEADER_GREETING_AFTERNOON_TEXT" = "Good Afternoon!";
+
+/* Greeting text to display in header of the Daily Summary view during the evening. */
+"DAILY_SUMMARY_VIEW_HEADER_GREETING_EVENING_TEXT" = "Good Evening!";
+
+/* Greeting text to display in header of the Daily Summary view during the morning. */
+"DAILY_SUMMARY_VIEW_HEADER_GREETING_MORNING_TEXT" = "Good Morning!";
+
+/* Title for Daily Summary view. */
+"DAILY_SUMMARY_VIEW_TITLE" = "Daily Summary";
+
+/* Title for challenges card displayed on Dashboard view. */
+"DASHBOARD_VIEW_CARD_CHALLENGES_TITLE" = "Active Challenges";
+
+/* Title for refresh action on error card displayed on Dashboard view. */
+"DASHBOARD_VIEW_CARD_ERROR_REFRESH_ACTION_TITLE" = "Refresh";
+
+/* Title for metrics card displayed on Dashboard view. */
+"DASHBOARD_VIEW_CARD_METRICS_TITLE" = "Metrics";
+
+/* Title for pulse card displayed on Dashboard view. */
+"DASHBOARD_VIEW_CARD_PULSE_ACTION_TITLE" = "higi Pulse";
+
+/* Message text to display on QR check-in card when upload fails. */
+"DASHBOARD_VIEW_CARD_QR_CHECKIN_UPLOAD_FAILURE_MESSAGE_TEXT" = "There was a problem uploading your check-in.";
+
+/* Title to display on QR check-in card when upload fails. */
+"DASHBOARD_VIEW_CARD_QR_CHECKIN_UPLOAD_FAILURE_TITLE" = "Daily Check-in Upload Failed";
+
+/* Message text to display on QR check-in card when upload succeeds. */
+"DASHBOARD_VIEW_CARD_QR_CHECKIN_UPLOAD_SUCCESS_MESSAGE_TEXT" = "View your updated metrics below or review them in your Daily Summary.";
+
+/* Title to display on QR check-in card when upload succeeds. */
+"DASHBOARD_VIEW_CARD_QR_CHECKIN_UPLOAD_SUCCESS_TITLE" = "Daily Check-in Upload Complete!";
+
+/* Title for Dashboard view. */
+"DASHBOARD_VIEW_TITLE" = "Dashboard";
+
+/* Title for higi Score */
+"DRAWER_VIEW_HIGI_SCORE_TITLE" = "higi Score";
+
+/* Title of calendar reminder to check in to a higi station. */
+"FIND_STATION_VIEW_CHECK_IN_REMINDER_CALENDAR_EVENT_TITLE" = "Check in to a higi Station!";
+
+/* Title of cancel alert action displayed when the calendar can not be found. */
+"FIND_STATION_VIEW_CHECK_IN_REMINDER_CALENDAR_NOT_FOUND_ALERT_ACTION_CANCEL_TITLE" = "OK";
+
+/* Message of alert displayed when the calendar can not be found. */
+"FIND_STATION_VIEW_CHECK_IN_REMINDER_CALENDAR_NOT_FOUND_ALERT_MESSAGE" = "We could not find your default calendar";
+
+/* Title of alert displayed when the calendar can not be found. */
+"FIND_STATION_VIEW_CHECK_IN_REMINDER_CALENDAR_NOT_FOUND_ALERT_TITLE" = "Cannot find calendar";
+
+/* Placeholder text for search field on Find Station view. */
+"FIND_STATION_VIEW_SEARCH_FIELD_PLACEHOLDER_TEXT" = "Search by store name, city, zip";
+
+/* General purpose abbreviated label for beats per minute. */
+"GENERAL_PURPOSE_UNIT_LABEL_ABBR_BEATS_PER_MINUTE" = "bpm";
+
+/* General purpose abbreviated label for the units of millimeter of mercury. */
+"GENERAL_PURPOSE_UNIT_LABEL_ABBR_MILLIMETERS_OF_MERCURY" = "mmHg";
+
+/* General purpose abbreviated label for points. */
+"GENERAL_PURPOSE_UNIT_LABEL_ABBR_POINTS" = "pts";
+
+/* General purpose abbreviated label for the english units of weight measurement, pounds. */
+"GENERAL_PURPOSE_UNIT_LABEL_ABBR_WEIGHT_POUNDS" = "lbs";
+
+/* Reason for prompting Touch ID local authentication. */
+"LOCAL_AUTHENTICATION_TOUCH_ID_REASON" = "Use your fingerprint to access higi";
+
+/* Message to display via local notification when a scanned check-in encounters an issue while being uploaded. */
+"LOCAL_NOTIFICATION_SCANNED_CHECK_IN_ISSUE_MESSAGE" = "There was a problem uploading your checkin data";
+
+/* Message to display via local notification when a scanned check-in is successfully uploaded. */
+"LOCAL_NOTIFICATION_SCANNED_CHECK_IN_SUCCESS_MESSAGE" = "Checkin data successfully uploaded to higi servers!  Check it out in the app";
+
+/* Format of local notification which is displayed when a user is near a higi station. */
+"LOCATION_DELEGATE_LOCAL_NOTIFICATION_FORMAT" = "You are near the higi Station at %@ %@!";
+
+/* Placeholder for email text field on login view. */
+"LOGIN_VIEW_EMAIL_TEXTFIELD_PLACEHOLDER" = "Email";
+
+/* Placeholder for email text field with invalid input on login view. */
+"LOGIN_VIEW_EMAIL_TEXTFIELD_PLACEHOLDER_INVALID_INPUT" = "Valid email required";
+
+/* Title for forgot password button. */
+"LOGIN_VIEW_FORGOT_PASSWORD_BUTTON_TITLE" = "Forgot Password?";
+
+/* Title of alert action to dismiss the alert which is displayed if a user is unable to log in due to invalid credentials. */
+"LOGIN_VIEW_LOG_IN_INVALID_CREDENTIALS_ALERT_ACTION_TITLE_DISMISS" = "OK";
+
+/* Message of alert which is displayed if a user is unable to log in due to invalid credentials. */
+"LOGIN_VIEW_LOG_IN_INVALID_CREDENTIALS_ALERT_MESSAGE" = "Please check your email and password and try again.";
+
+/* Title of alert which is displayed if a user is unable to log in due to invalid credentials. */
+"LOGIN_VIEW_LOG_IN_INVALID_CREDENTIALS_ALERT_TITLE" = "Invalid Credentials";
+
+/* Title of alert action to dismiss the alert which is displayed if a network connection issue occurs. */
+"LOGIN_VIEW_LOG_IN_NETWORK_CONNECTION_ISSUE_ALERT_ACTION_TITLE_DISMISS" = "OK";
+
+/* Message of alert which is displayed if a network connection issue occurs. */
+"LOGIN_VIEW_LOG_IN_NETWORK_CONNECTION_ISSUE_ALERT_MESSAGE" = "Please check your network connection and try again.";
+
+/* Title of alert which is displayed if a network connection issue occurs. */
+"LOGIN_VIEW_LOG_IN_NETWORK_CONNECTION_ISSUE_ALERT_TITLE" = "Unable to connect to server";
+
+/* Title for login button. */
+"LOGIN_VIEW_LOGIN_BUTTON_TITLE" = "Log In";
+
+/* Placeholder for password text field on login view. */
+"LOGIN_VIEW_PASSWORD_TEXTFIELD_PLACEHOLDER" = "Password";
+
+/* Placeholder for password text field with invalid input on login view. */
+"LOGIN_VIEW_PASSWORD_TEXTFIELD_PLACEHOLDER_INVALID_INPUT" = "Password must be at least 6 characters";
+
+/* Format of label describing location of a higi Station. */
+"METRIC_DETAIL_CARD_CHECK_IN_LOCATION_LABEL_FORMAT" = "higi Station at %@";
+
+/* Title for blood pressure metrics */
+"METRIC_TYPE_BLOOD_PRESSURE_TITLE" = "Blood Pressure";
+
+/* Title for daily summary metrics */
+"METRIC_TYPE_DAILY_SUMMARY_TITLE" = "Points";
+
+/* Title for pulse metrics */
+"METRIC_TYPE_PULSE_TITLE" = "Pulse";
+
+/* Title for weight metrics */
+"METRIC_TYPE_WEIGHT_TITLE" = "Weight";
+
+/* Title to display on button to connect a device. */
+"METRICS_CARD_VIEW_CONNECT_DEVICE_BUTTON_TITLE" = "Connect a device";
+
+/* Title to display on button to find a higi Station. */
+"METRICS_CARD_VIEW_FIND_STATION_BUTTON_TITLE" = "Find a station";
+
+/* Title to display on weight metrics card displaying body fat. */
+"METRICS_CARD_VIEW_WEIGHT_BODY_FAT_TITLE" = "Body Fat%";
+
+/* Title to display on button which toggles weight metrics card from weight to body fat. */
+"METRICS_CARD_VIEW_WEIGHT_TOGGLE_BUTTON_BODY_FAT_TITLE" = "Switch to Body Fat%";
+
+/* Title to display on button which toggles weight metrics card from body fat to weight. */
+"METRICS_CARD_VIEW_WEIGHT_TOGGLE_BUTTON_WEIGHT_TITLE" = "Switch to Weight";
+
+/* Subtitle text for activity points data shown on metrics graph card. */
+"METRICS_GRAPH_CARD_ACTIVITY_POINTS_SUBTITLE" = "Activity Points";
+
+/* Subtitle text for beats per minute data shown on metrics graph card. */
+"METRICS_GRAPH_CARD_BEATS_PER_MINUTE_SUBTITLE" = "Beats Per Minute";
+
+/* Subtitle text for blood pressure data shown on metrics graph card. */
+"METRICS_GRAPH_CARD_BLOOD_PRESSURE_SUBTITLE" = "Blood Pressure";
+
+/* Subtitle text for body fat data shown on metrics graph card. */
+"METRICS_GRAPH_CARD_BODY_FAT_SUBTITLE" = "Body Fat";
+
+/* Subtitle text for mean arterial pressure data shown on metrics graph card. */
+"METRICS_GRAPH_CARD_MEAN_ARTERIAL_PRESSURE_SUBTITLE" = "Mean Arterial Pressure";
+
+/* Subtitle text for body weight data shown on metrics graph card. */
+"METRICS_GRAPH_CARD_WEIGHT_SUBTITLE" = "Weight";
+
+/* Title for alert action to dismiss alert which is displayed if the server is unreachable. */
+"MODIFY_IMAGE_VIEW_SERVER_ERROR_ALERT_ACTION_TITLE_DISMISS" = "OK";
+
+/* Message for alert which is displayed if the server is unreachable. */
+"MODIFY_IMAGE_VIEW_SERVER_ERROR_ALERT_MESSAGE" = "We were unable to reach the server. Please try again.";
+
+/* Title for alert which is displayed if the server is unreachable. */
+"MODIFY_IMAGE_VIEW_SERVER_ERROR_ALERT_TITLE" = "Something went wrong!";
+
+/* Title for cell to allow all notifications. */
+"NOTIFICATION_SETTINGS_DEVICE_ALLOW_NOTIFICATIONS_CELL_TITLE" = "Allow Notifications";
+
+/* Title for cell to allow nearby station notifications. */
+"NOTIFICATION_SETTINGS_DEVICE_STATION_NEARBY_CELL_TITLE" = "Station Nearby";
+
+/* Title for device-specific notification settings view. */
+"NOTIFICATION_SETTINGS_DEVICE_VIEW_TITLE" = "Device";
+
+/* Title for check-in result email notification. */
+"NOTIFICATION_SETTINGS_EMAIL_VIEW_CHECK_IN_RESULTS_CELL_TITLE" = "Check-in results";
+
+/* Title for news email notification. */
+"NOTIFICATION_SETTINGS_EMAIL_VIEW_NEWS_CELL_TITLE" = "News about higi";
+
+/* Title for email notification settings view. */
+"NOTIFICATION_SETTINGS_EMAIL_VIEW_TITLE" = "Email";
+
+/* Title for notification settings view. */
+"NOTIFICATION_SETTINGS_VIEW_TITLE" = "Notifications";
+
+/* Default header title for pin code view. */
+"PIN_CODE_VIEW_HEADER_TITLE_DEFAULT" = "Protect access to your higi app with a passcode";
+
+/* Header title for pin code view when unlocking app. */
+"PIN_CODE_VIEW_HEADER_TITLE_UNLOCK" = "Enter your passcode to unlock";
+
+/* Header title for pin code view when verifying a code. */
+"PIN_CODE_VIEW_HEADER_TITLE_VERIFY" = "Enter your passcode again to verify it";
+
+/* Title for action to dismiss alert displayed if passcode does not match. */
+"PIN_CODE_VIEW_PASSCODE_MISMATCH_ALERT_ACTION_TITLE_DISMISS" = "OK";
+
+/* Title for alert displayed if passcode does not match. */
+"PIN_CODE_VIEW_PASSCODE_MISMATCH_ALERT_MESSAGE" = "Please re-enter your passcode";
+
+/* Title for alert displayed if passcode does not match. */
+"PIN_CODE_VIEW_PASSCODE_MISMATCH_ALERT_TITLE" = "Passcodes do not match";
+
+/* Title for button to capture a photo using the device camera. */
+"PROFILE_IMAGE_VIEW_PHOTO_CAPTURE_BUTTON_TITLE" = "Take photo";
+
+/* Title for button to choose a photo from the photo library. */
+"PROFILE_IMAGE_VIEW_PHOTO_LIBRARY_BUTTON_TITLE" = "Choose from library";
+
+/* Title for button to bypass choosing a profile image. */
+"PROFILE_IMAGE_VIEW_SKIP_BUTTON_TITLE" = "Not right now";
+
+/* Title for Profile Image view. */
+"PROFILE_IMAGE_VIEW_TITLE" = "What do you look like?";
+
+/* Title for Pulse view. */
+"PULSE_HOME_VIEW_TITLE" = "Pulse";
+
+/* Label for beats per minute panel. */
+"PULSE_METRIC_SELECTED_POINT_PANEL_BEATS_PER_MINUTE_LABEL" = "Beats Per Minute";
+
+/* Text to display on pulse metrics view if there is no pulse data to display. */
+"PULSE_METRICS_VIEW_BLANK_STATE_TEXT" = "Welcome! Unfortunately, you don’t have any pulse readings with us. Swing by a higi Station or connect your favorite pulse tracker and we will reward you 50 points for each Pulse / BP check-in.";
+
+/* Title for pulse reading which falls within a high range. */
+"PULSE_RANGE_HIGH_TITLE" = "High";
+
+/* Title for pulse reading which falls within a low range. */
+"PULSE_RANGE_LOW_TITLE" = "Low";
+
+/* Title for pulse reading which falls within a normal range. */
+"PULSE_RANGE_NORMAL_TITLE" = "Normal";
+
+/* Message for blank state error. */
+"QR_SCANNER_VIEW_BLANK_STATE_ERROR_MESSAGE" = "Someone must have left the lens cover on the camera.  We can't access your camera.  Enable the camera in the settings.";
+
+/* Title for blank state error. */
+"QR_SCANNER_VIEW_BLANK_STATE_ERROR_TITLE" = "D'oh!";
+
+/* Title for action to dismiss alert displayed when a check-in upload begins. */
+"QR_SCANNER_VIEW_CHECK_IN_UPLOADING_ALERT_ACTION_TITLE_DISMISS" = "OK";
+
+/* Message for alert displayed when a check-in upload begins. */
+"QR_SCANNER_VIEW_CHECK_IN_UPLOADING_ALERT_MESSAGE" = "Your checkin data is being uploaded to the higi servers";
+
+/* Title for alert displayed when a check-in upload begins. */
+"QR_SCANNER_VIEW_CHECK_IN_UPLOADING_ALERT_TITLE" = "On its way!";
+
+/* Title for action to dismiss alert displayed when a user requests more info about scanned check-ins. */
+"QR_SCANNER_VIEW_EXPLANATION_ALERT_ACTION_TITLE_DISMISS" = "Got it";
+
+/* Message for alert displayed when a user requests more info about scanned check-ins. */
+"QR_SCANNER_VIEW_EXPLANATION_ALERT_MESSAGE" = "The scanner allows you to save your check-in results at a higi Station that may not be connecting to the internet.  For offline Stations just scan the QR code that appears on the higi Station and viola!  The results from your check-in will be added to your account.";
+
+/* Title for alert displayed when a user requests more info about scanned check-ins. */
+"QR_SCANNER_VIEW_EXPLANATION_ALERT_TITLE" = "What does this scanner do?";
+
+/* Text offering user a chance to view an explanation of QR scanned check-ins. */
+"QR_SCANNER_VIEW_EXPLANATORY_LABEL_TEXT" = "What is this?";
+
+/* Text instructing user to scan QR code. */
+"QR_SCANNER_VIEW_INSTRUCTION_LABEL_TEXT" = "Scan QR code from kiosk to save your data";
+
+/* Title for action to dismiss alert displayed when an invalid QR code is scanned. */
+"QR_SCANNER_VIEW_INVALID_QR_ALERT_ACTION_TITLE_DISMISS" = "OK";
+
+/* Message for alert displayed when an invalid QR code is scanned. */
+"QR_SCANNER_VIEW_INVALID_QR_ALERT_MESSAGE" = "There was a problem with the QR code you scanned.  The scanner will only work for QR codes on the higi kiosk.";
+
+/* Title for alert displayed when an invalid QR code is scanned. */
+"QR_SCANNER_VIEW_INVALID_QR_ALERT_TITLE" = "Uh oh";
+
+/* Title for settings button on QR Scanner view. */
+"QR_SCANNER_VIEW_SETTINGS_BUTTON_TITLE" = "Go to Settings";
+
+/* Title for QR Scanner view. */
+"QR_SCANNER_VIEW_TITLE" = "Scanner";
+
+/* Title for action to dismiss alert displayed when an unsupported device is detected */
+"QR_SCANNER_VIEW_UNSUPPORTED_DEVICE_ALERT_ACTION_TITLE_DISMISS" = "OK";
+
+/* Message for alert displayed when an unsupported device is detected */
+"QR_SCANNER_VIEW_UNSUPPORTED_DEVICE_ALERT_MESSAGE" = "The scanner will not work with your device";
+
+/* Title for alert displayed when an unsupported device is detected. */
+"QR_SCANNER_VIEW_UNSUPPORTED_DEVICE_ALERT_TITLE" = "Uh oh";
+
+/* Title for change password table view cell. */
+"SETTINGS_TABLE_VIEW_CELL_TITLE_CHANGE_PASSWORD" = "Change password";
+
+/* Title for connect device table view cell. */
+"SETTINGS_TABLE_VIEW_CELL_TITLE_CONNECT_DEVICES" = "Connect devices";
+
+/* Title for log out table view cell. */
+"SETTINGS_TABLE_VIEW_CELL_TITLE_LOG_OUT" = "Log Out";
+
+/* Title for notifications table view cell. */
+"SETTINGS_TABLE_VIEW_CELL_TITLE_NOTIFICATIONS" = "Notifications";
+
+/* Title for passcode table view cell. */
+"SETTINGS_TABLE_VIEW_CELL_TITLE_PASSCODE" = "Protect my data with a passcode";
+
+/* Title for privacy policy table view cell. */
+"SETTINGS_TABLE_VIEW_CELL_TITLE_PRIVACY_POLICY" = "Privacy Policy";
+
+/* Title for share higi results table view cell. */
+"SETTINGS_TABLE_VIEW_CELL_TITLE_SHARE" = "Share higi results history";
+
+/* Title for terms of use table view cell. */
+"SETTINGS_TABLE_VIEW_CELL_TITLE_TERMS" = "Terms of Use";
+
+/* Format of title for app version table view cell. */
+"SETTINGS_TABLE_VIEW_CELL_TITLE_VERSION_FORMAT" = "Version %@.%@";
+
+/* Title for Settings view. */
+"SETTINGS_VIEW_TITLE" = "Settings";
+
+/* Title for decline button. */
+"SIGN_UP_EMAIL_VIEW_DECLINE_BUTTON_TITLE" = "Decline";
+
+/* Placeholder for email text field. */
+"SIGN_UP_EMAIL_VIEW_EMAIL_TEXT_FIELD_PLACEHOLDER" = "Email";
+
+/* Placeholder for email text field which indicates email requirements. */
+"SIGN_UP_EMAIL_VIEW_EMAIL_TEXT_FIELD_PLACEHOLDER_REQUIREMENTS" = "Valid email required";
+
+/* Placeholder for password text field. */
+"SIGN_UP_EMAIL_VIEW_PASSWORD_TEXT_FIELD_PLACEHOLDER" = "Password";
+
+/* Placeholder for password text field if password does not meet minimum requirements. */
+"SIGN_UP_EMAIL_VIEW_PASSWORD_TEXT_FIELD_PLACEHOLDER_REQUIREMENTS" = "Password must be at least 6 characters";
+
+/* Title for alert action to dismiss alert which is displayed if there is a server communication error. */
+"SIGN_UP_EMAIL_VIEW_SERVER_COMMUNICATION_ERROR_ALERT_ACTION_TITLE_DISMISS" = "OK";
+
+/* Message for alert to display if there is a server communication error. */
+"SIGN_UP_EMAIL_VIEW_SERVER_COMMUNICATION_ERROR_ALERT_MESSAGE" = "There was an error in communicating with the server. Please try again.";
+
+/* Title for alert to display if there is a server communication error. */
+"SIGN_UP_EMAIL_VIEW_SERVER_COMMUNICATION_ERROR_ALERT_TITLE" = "Something went wrong!";
+
+/* Title for sign up button. */
+"SIGN_UP_EMAIL_VIEW_SIGN_UP_BUTTON_TITLE" = "Sign Up";
+
+/* Title for alert action to dismiss alert displayed if a user attempts to create a duplicate account. */
+"SIGN_UP_EMAIL_VIEW_SIGN_UP_DUPLICATE_ACCOUNT_ALERT_ACTION_TITLE_DISMISS" = "OK";
+
+/* Message for alert displayed if a user attempts to create a duplicate account. */
+"SIGN_UP_EMAIL_VIEW_SIGN_UP_DUPLICATE_ACCOUNT_ALERT_MESSAGE" = "There is already a higi account with this email.";
+
+/* Title for alert displayed if a user attempts to create a duplicate account. */
+"SIGN_UP_EMAIL_VIEW_SIGN_UP_DUPLICATE_ACCOUNT_ALERT_TITLE" = "I knew you looked familiar...";
+
+/* Title for Sign Up Email view. */
+"SIGN_UP_EMAIL_VIEW_TITLE" = "Sign Up";
+
+/* Placeholder for first name text field. */
+"SIGN_UP_NAME_VIEW_FIRST_NAME_TEXT_FIELD_PLACEHOLDER" = "First Name";
+
+/* Placeholder for first name text field indicating name requirement. */
+"SIGN_UP_NAME_VIEW_FIRST_NAME_TEXT_FIELD_PLACEHOLDER_REQUIREMENT" = "First name is required";
+
+/* Placeholder for last name text field. */
+"SIGN_UP_NAME_VIEW_LAST_NAME_TEXT_FIELD_PLACEHOLDER" = "Last Name";
+
+/* Placeholder for last name text field indicating name requirement. */
+"SIGN_UP_NAME_VIEW_LAST_NAME_TEXT_FIELD_PLACEHOLDER_REQUIREMENT" = "Last name is required";
+
+/* Title for 'next' button on sign up view. */
+"SIGN_UP_NAME_VIEW_NEXT_BUTTON_TITLE" = "Next";
+
+/* Title for alert action to dismiss alert displayed when server communication error occurs. */
+"SIGN_UP_NAME_VIEW_SERVER_COMMUNICATION_ERROR_ALERT_ACTION_TITLE_DISMISS" = "OK";
+
+/* Message for alert to display when server communication error occurs. */
+"SIGN_UP_NAME_VIEW_SERVER_COMMUNICATION_ERROR_ALERT_MESSAGE" = "There was an error in communicating with the server. Please try again.";
+
+/* Title for alert to display when server communication error occurs. */
+"SIGN_UP_NAME_VIEW_SERVER_COMMUNICATION_ERROR_ALERT_TITLE" = "Something went wrong!";
+
+/* Title for Sign Up Name view. */
+"SIGN_UP_NAME_VIEW_TITLE" = "What's your name?";
+
+/* Title for button to accept terms. */
+"TERMS_AND_CONDITIONS_VIEW_ACCEPT_BUTTON_TITLE" = "Accept";
+
+/* Title for button to close Terms view. */
+"TERMS_AND_CONDITIONS_VIEW_CLOSE_BUTTON_TITLE" = "Close";
+
+/* Title for button to decline terms. */
+"TERMS_AND_CONDITIONS_VIEW_DECLINE_BUTTON_TITLE" = "Decline";
+
+/* Title for button to agree to terms of use and/or privacy policy. */
+"TERMS_VIEW_AGREE_BUTTON_TITLE" = "I agree";
+
+/* Title for button to decline to terms of use and/or privacy policy. */
+"TERMS_VIEW_DECLINE_BUTTON_TITLE" = "I decline";
+
+/* Text to display in header view when privacy policy has changed. */
+"TERMS_VIEW_HEADER_TEXT_UPDATED_PRIVACY" = "The higi Privacy Policy has changed.";
+
+/* Text to display in header view when terms of use has changed. */
+"TERMS_VIEW_HEADER_TEXT_UPDATED_TERMS" = "The higi Terms of Use has changed.";
+
+/* Text to display in header view when terms of use and privacy policy has changed. */
+"TERMS_VIEW_HEADER_TEXT_UPDATED_TERMS_AND_PRIVACY" = "The higi Terms of Use and Privacy Policy have changed.";
+
+/* Title for 'done' button on Tour view. */
+"TOUR_VIEW_DONE_BUTTON_TITLE" = "Done";
+
+/* Title for 'skip' button on Tour view. */
+"TOUR_VIEW_SKIP_BUTTON_TITLE" = "Skip";
+
+/* Text to display on the weight metrics view if there are no weight readings to display. */
+"WEIGHT_METRICS_VIEW_BLANK_STATE_TEXT" = "Welcome! We don’t have any weight readings for you yet. Try visiting your local higi Station or connecting your favorite wireless weight scale to earn 50 points for each weight check.";
+
+/* Label for body fat on weight metrics view. */
+"WEIGHT_METRICS_VIEW_SELECTED_POINT_BODY_FAT_LABEL" = "Body Fat";
+
+/* Label for weight on weight metrics view. */
+"WEIGHT_METRICS_VIEW_SELECTED_POINT_WEIGHT_LABEL" = "Weight";
+
+/* Label for a weight which falls within an acceptable range. */
+"WEIGHT_METRICS_WEIGHT_RANGE_ACCEPTABLE_LABEL" = "Acceptable";
+
+/* Label for a weight which falls within an at-risk range. */
+"WEIGHT_METRICS_WEIGHT_RANGE_AT_RISK_LABEL" = "At risk";
+
+/* Label for a weight which falls within a healthy range. */
+"WEIGHT_METRICS_WEIGHT_RANGE_HEALTHY_LABEL" = "Healthy";
+
+/* Label for a weight which falls within a normal range. */
+"WEIGHT_METRICS_WEIGHT_RANGE_NORMAL_LABEL" = "Normal";
+
+/* Label for a weight which falls within an obese range. */
+"WEIGHT_METRICS_WEIGHT_RANGE_OBESE_LABEL" = "Obese";
+
+/* Label for a weight which falls within an overweight range. */
+"WEIGHT_METRICS_WEIGHT_RANGE_OVERWEIGHT_LABEL" = "Overweight";
+
+/* Label for a weight which falls within an underweight range. */
+"WEIGHT_METRICS_WEIGHT_RANGE_UNDERWEIGHT_LABEL" = "Underweight";
+
+/* Title for button to log in. */
+"WELCOME_VIEW_LOGIN_BUTTON_TITLE" = "Log in";
+
+/* Subtitle for activity page on welcome tour. */
+"WELCOME_VIEW_PAGE_ACTIVITY_SUBTITLE" = "Rack up the points with each check of your vitals and for your steps and workouts";
+
+/* Title for activity page on welcome tour. */
+"WELCOME_VIEW_PAGE_ACTIVITY_TITLE" = "Earn Points";
+
+/* Subtitle for body stat page on welcome tour. */
+"WELCOME_VIEW_PAGE_BODY_STAT_SUBTITLE" = "Easily track trends and changes in your body stats you receive from a higi Station";
+
+/* Title for body stat page on welcome tour. */
+"WELCOME_VIEW_PAGE_BODY_STAT_TITLE" = "Follow Your Progress";
+
+/* Subtitle for challenges page on welcome tour. */
+"WELCOME_VIEW_PAGE_CHALLENGES_SUBTITLE" = "Compete in challenges with other higi members for prizes and bragging rights";
+
+/* Title for challenges page on welcome tour. */
+"WELCOME_VIEW_PAGE_CHALLENGES_TITLE" = "Friendly Competition";
+
+/* Subtitle for station page on welcome tour. */
+"WELCOME_VIEW_PAGE_STATION_SUBTITLE" = "Visit a higi Station at your local pharmacy or connect a fitness tracker here in the app";
+
+/* Title for station page on welcome tour. */
+"WELCOME_VIEW_PAGE_STATION_TITLE" = "Get Started";
+
+/* Subtitle for welcome page on welcome tour. */
+"WELCOME_VIEW_PAGE_WELCOME_SUBTITLE" = "Higi makes it fun to keep tabs on your health and get rewarded for it";
+
+/* Title for welcome page on welcome tour. */
+"WELCOME_VIEW_PAGE_WELCOME_TITLE" = "Welcome";
+
+/* Title for button to sign up for an account. */
+"WELCOME_VIEW_SIGN_UP_BUTTON_TITLE" = "I'm new to higi";
+

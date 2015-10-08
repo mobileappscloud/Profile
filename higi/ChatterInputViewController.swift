@@ -2,7 +2,11 @@ import Foundation
 
 class ChatterInputViewController: UIViewController, UITextViewDelegate {
     
-    @IBOutlet weak var navBar: UINavigationItem!
+    @IBOutlet weak var navBar: UINavigationItem! {
+        didSet {
+            navBar.title = NSLocalizedString("CHATTER_INPUT_VIEW_CONTROLLER_TITLE", comment: "Title for chatter input view controller.");
+        }
+    }
 
     @IBOutlet weak var textInput: UITextView!
     var parent: ChallengeDetailsViewController!
@@ -16,7 +20,7 @@ class ChatterInputViewController: UIViewController, UITextViewDelegate {
         let backBarItem = UIBarButtonItem(customView: backButton);
         navBar.leftBarButtonItem = backBarItem;
         
-        textInput.text = "Talk some smack!";
+        textInput.text = NSLocalizedString("CHATTER_INPUT_VIEW_TEXT_INPUT_PLACEHOLDER", comment: "Placeholder text to display in chatter input text field.");
         textInput.textColor = UIColor.lightGrayColor();
         textInput.delegate = self;
         textInput.becomeFirstResponder();
@@ -31,7 +35,8 @@ class ChatterInputViewController: UIViewController, UITextViewDelegate {
         let currentText:NSString = textView.text;
         let updatedText = currentText.stringByReplacingCharactersInRange(range, withString:text);
         if (text == "\n") {
-            if (textView.text != "Talk some smack!") {
+            let placeholderText = NSLocalizedString("CHATTER_INPUT_VIEW_TEXT_INPUT_PLACEHOLDER", comment: "Placeholder text to display in chatter input text field.");
+            if (textView.text != placeholderText) {
                 textView.resignFirstResponder();
                 parent.userChatter = textView.text;
                 self.dismissViewControllerAnimated(false, completion: nil);
@@ -39,7 +44,7 @@ class ChatterInputViewController: UIViewController, UITextViewDelegate {
             }
             return false;
         } else if (updatedText.characters.count == 0) {
-            textView.text = "Talk some smack!";
+            textView.text = NSLocalizedString("CHATTER_INPUT_VIEW_TEXT_INPUT_PLACEHOLDER", comment: "Placeholder text to display in chatter input text field.");
             textView.textColor = UIColor.lightGrayColor();
             textView.selectedTextRange = textView.textRangeFromPosition(textView.beginningOfDocument, toPosition: textView.beginningOfDocument)
             return false;

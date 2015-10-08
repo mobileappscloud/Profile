@@ -161,7 +161,10 @@ class ModifyImageViewController: UIViewController {
     }
     
     func showErrorAlert() {
-        UIAlertView(title: "Something went wrong!", message: "We were unable to reach the server. Please try again.", delegate: nil, cancelButtonTitle: "OK").show();
+        let title = NSLocalizedString("MODIFY_IMAGE_VIEW_SERVER_ERROR_ALERT_TITLE", comment: "Title for alert which is displayed if the server is unreachable.")
+        let message = NSLocalizedString("MODIFY_IMAGE_VIEW_SERVER_ERROR_ALERT_MESSAGE", comment: "Message for alert which is displayed if the server is unreachable.")
+        let dismissTitle = NSLocalizedString("MODIFY_IMAGE_VIEW_SERVER_ERROR_ALERT_ACTION_TITLE_DISMISS", comment: "Title for alert action to dismiss alert which is displayed if the server is unreachable.")
+        UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: dismissTitle).show();
         reset();
     }
     

@@ -11,11 +11,15 @@
             <connections>
                 <outlet property="MetricsCard" destination="G8T-De-5l9" id="Hld-06-0zV"/>
                 <outlet property="challengesCard" destination="SkR-F1-95x" id="kbO-Hp-pUG"/>
+                <outlet property="challengesCardTitleLabel" destination="s2t-tK-QJR" id="TaI-Bg-Cyb"/>
                 <outlet property="errorCard" destination="j9i-G7-nbm" id="ZxX-jK-VB5"/>
+                <outlet property="errorCardRefreshButton" destination="2Vk-To-baM" id="K0t-1C-MpP"/>
                 <outlet property="headerImage" destination="cHq-ic-aVv" id="B4e-ev-B66"/>
                 <outlet property="mainScrollView" destination="rhI-8E-VoM" id="f4l-Xd-OfK"/>
                 <outlet property="metricsCard" destination="G8T-De-5l9" id="dc0-qS-nOe"/>
+                <outlet property="metricsCardTitleLabel" destination="dKe-C6-vhn" id="MhM-Ib-6N0"/>
                 <outlet property="pulseCard" destination="mQp-GL-upY" id="Syx-V4-ndb"/>
+                <outlet property="pulseCardButton" destination="V5g-FW-czQ" id="XgW-XR-9k4"/>
                 <outlet property="qrCheckinCard" destination="drt-gR-dmZ" id="ctf-J0-JAi"/>
                 <outlet property="view" destination="iN0-l3-epB" id="pGY-k7-vWL"/>
             </connections>

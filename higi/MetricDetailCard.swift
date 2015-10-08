@@ -82,6 +82,7 @@ class MetricDetailCard: UIView {
         }
     }
     
+    // TODO: l10n -- copy is embedded in images ಠ_ಠ
     func updateCopyImage(tab: Int) {
         if firstCopyImage != nil {
             firstCopyImage.removeFromSuperview();
@@ -330,7 +331,8 @@ class MetricDetailCard: UIView {
             gaugeContainer.hidden = false;
             if let kioskInfo = selection.kioskInfo {
                 checkinAddressContainer.hidden = false;
-                checkinLocation.text = "higi Station at \(kioskInfo.organizations[0])";
+                let format = NSLocalizedString("METRIC_DETAIL_CARD_CHECK_IN_LOCATION_LABEL_FORMAT", comment: "Format of label describing location of a higi Station.")
+                checkinLocation.text = String(format: format, arguments: [kioskInfo.organizations[0]]);
                 checkinStreetAddress.text = "\(kioskInfo.address1)";
                 checkinCityStateZip.text = "\(kioskInfo.cityStateZip)";
             } else if let device = selection.device {

@@ -89,7 +89,10 @@ class SplashViewController: UIViewController, UIAlertViewDelegate {
             if (isUpToDate) {
                 self.moveToNextScreen();
             } else {
-                UIAlertView(title: "higi is out of date", message: "You must update from the App Store to continue using this app.", delegate: self, cancelButtonTitle: "OK").show();
+                let title = NSLocalizedString("APP_UPDATE_ALERT_TITLE", comment: "Title for alert displayed when app requires an update.")
+                let message = NSLocalizedString("APP_UPDATE_ALERT_MESSAGE", comment: "Message for alert displayed when app requires an update.")
+                let dismissTitle = NSLocalizedString("APP_UPDATE_ALERT_ACTION_TITLE_DISMISS", comment: "Title for dismiss action on alert displayed when app requires an update.")
+                UIAlertView(title: title, message: message, delegate: self, cancelButtonTitle: dismissTitle).show();
             }
             
             }, failure: {operation, error in

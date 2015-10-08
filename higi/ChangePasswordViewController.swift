@@ -11,15 +11,31 @@ import Foundation
 
 class ChangePasswordViewController: UIViewController, UITextFieldDelegate {
     
-    @IBOutlet weak var currentPassword: UITextField!
-    @IBOutlet weak var newPassword: UITextField!
-    @IBOutlet weak var confirmPassword: UITextField!
-    @IBOutlet weak var changeButton: UIButton!
+    @IBOutlet weak var currentPassword: UITextField! {
+        didSet {
+            currentPassword.placeholder = NSLocalizedString("CHANGE_PASSWORD_VIEW_CURRENT_PASSWORD_TEXT_FIELD_PLACEHOLDER", comment: "Placeholder for current password text field.")
+        }
+    }
+    @IBOutlet weak var newPassword: UITextField! {
+        didSet {
+            newPassword.placeholder = NSLocalizedString("CHANGE_PASSWORD_VIEW_NEW_PASSWORD_TEXT_FIELD_PLACEHOLDER", comment: "Placeholder for new password text field.")
+        }
+    }
+    @IBOutlet weak var confirmPassword: UITextField! {
+        didSet {
+            confirmPassword.placeholder = NSLocalizedString("CHANGE_PASSWORD_VIEW_CONFIRM_PASSWORD_TEXT_FIELD_PLACEHOLDER", comment: "Placeholder for confirm password text field.")
+        }
+    }
+    @IBOutlet weak var changeButton: UIButton! {
+        didSet {
+            changeButton.setTitle(NSLocalizedString("CHANGE_PASSWORD_VIEW_CHANGE_BUTTON_TITLE", comment: "Title for 'change' button."), forState: .Normal)
+        }
+    }
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad();
-        self.title = "Change Password";
+        self.title = NSLocalizedString("CHANGE_PASSWORD_VIEW_TITLE", comment: "Title for Change Password view.");
         self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
         (self.navigationController as! MainNavigationController).revealController.panGestureRecognizer().enabled = false;
         let backButton = UIButton(type: UIButtonType.Custom);
@@ -42,7 +58,7 @@ class ChangePasswordViewController: UIViewController, UITextFieldDelegate {
         var problem = false;
         
         if (currentPassword.text!.characters.count < 6) {
-            currentPassword.attributedPlaceholder = NSAttributedString(string: "Invalid password", attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)]);
+            currentPassword.attributedPlaceholder = NSAttributedString(string: NSLocalizedString("CHANGE_PASSWORD_VIEW_CURRENT_PASSWORD_TEXT_FIELD_PLACEHOLDER_REQUIREMENT", comment: "Placeholder for current password text field requirement."), attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)]);
             problem = true;
             currentPassword.text = "";
             newPassword.text = "";
@@ -50,14 +66,14 @@ class ChangePasswordViewController: UIViewController, UITextFieldDelegate {
         }
         
         if (newPassword.text!.characters.count < 6) {
-            newPassword.attributedPlaceholder = NSAttributedString(string: "Must be at least 6 characters long", attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)]);
+            newPassword.attributedPlaceholder = NSAttributedString(string: NSLocalizedString("CHANGE_PASSWORD_VIEW_NEW_PASSWORD_TEXT_FIELD_PLACEHOLDER_REQUIREMENT", comment: "Placeholder for new password text field requirement."), attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)]);
             problem = true;
             newPassword.text = "";
             confirmPassword.text = "";
         }
         
         if (newPassword.text != confirmPassword.text) {
-            confirmPassword.attributedPlaceholder = NSAttributedString(string: "Confirmed password does not match", attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)]);
+            confirmPassword.attributedPlaceholder = NSAttributedString(string: NSLocalizedString("CHANGE_PASSWORD_VIEW_CONFIRM_PASSWORD_TEXT_FIELD_PLACEHOLDER_REQUIREMENT", comment: "Placeholder for confirm password text field requirement."), attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)]);
             problem = true;
             newPassword.text = "";
             confirmPassword.text = "";
@@ -75,14 +91,23 @@ class ChangePasswordViewController: UIViewController, UITextFieldDelegate {
                 
                 HigiApi().sendGet("\(HigiApi.higiApiUrl)/login/setPassword?id=\(user.userId)&token=\(SessionData.Instance.token)&password=\(encodedNewPassword)", success: {operation, responseObject in
                     
-                    UIAlertView(title: "Success!", message: "Your password has been changed", delegate: nil, cancelButtonTitle: "OK").show();
+                    let title = NSLocalizedString("CHANGE_PASSWORD_VIEW_PASSWORD_CHANGE_SUCCESS_ALERT_TITLE", comment: "Title for alert displayed after password change succeeds.")
+                    let message = NSLocalizedString("CHANGE_PASSWORD_VIEW_PASSWORD_CHANGE_SUCCESS_ALERT_MESSAGE", comment: "Message for alert displayed after password change succeeds.")
+                    let dismissTitle = NSLocalizedString("CHANGE_PASSWORD_VIEW_PASSWORD_CHANGE_SUCCESS_ALERT_ACTION_TITLE_DISMISS", comment: "Title for alert action to dismiss alert displayed after password change succeeds.")
+                    
+                    UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: dismissTitle).show();
                     self.navigationController!.popViewControllerAnimated(true);
                     
                     }, failure: nil);
                 
                 
                 }, failure: {request, object in
-                    UIAlertView(title: "Incorrect password", message: "Your password did not match, please try again.", delegate: nil, cancelButtonTitle: "OK").show();
+                    
+                    let title = NSLocalizedString("CHANGE_PASSWORD_VIEW_PASSWORD_CHANGE_FAILURE_ALERT_TITLE", comment: "Title for alert displayed after password change fails.")
+                    let message = NSLocalizedString("CHANGE_PASSWORD_VIEW_PASSWORD_CHANGE_FAILURE_ALERT_MESSAGE", comment: "Message for alert displayed after password change fails.")
+                    let dismissTitle = NSLocalizedString("CHANGE_PASSWORD_VIEW_PASSWORD_CHANGE_FAILURE_ALERT_ACTION_TITLE_DISMISS", comment: "Title for alert action to dismiss alert displayed after password change fails.")
+                    
+                    UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: dismissTitle).show();
                     self.reset();
             });
             

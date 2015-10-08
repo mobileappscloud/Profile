@@ -161,17 +161,17 @@ class SettingsTableViewController: UITableViewController, SwitchTableViewCellDel
                     case .LocalAuthentication:
                         cell = passcodeCell(indexPath);
                     case .ConnectDevices:
-                        cell = defaultCell(indexPath, title: "Connect devices");
+                        cell = defaultCell(indexPath, title: NSLocalizedString("SETTINGS_TABLE_VIEW_CELL_TITLE_CONNECT_DEVICES", comment: "Title for connect device table view cell."));
                     case .ShareResultsHistory:
                         cell = shareCell(indexPath);
                     case .Notifications:
-                        cell = defaultCell(indexPath, title: "Notifications");
+                        cell = defaultCell(indexPath, title: NSLocalizedString("SETTINGS_TABLE_VIEW_CELL_TITLE_NOTIFICATIONS", comment: "Title for notifications table view cell."));
                     case .ChangePassword:
-                        cell = defaultCell(indexPath, title: "Change password");
+                        cell = defaultCell(indexPath, title: NSLocalizedString("SETTINGS_TABLE_VIEW_CELL_TITLE_CHANGE_PASSWORD", comment: "Title for change password table view cell."));
                     case .TermsOfUse:
-                        cell = defaultCell(indexPath, title: "Terms of Use");
+                        cell = defaultCell(indexPath, title: NSLocalizedString("SETTINGS_TABLE_VIEW_CELL_TITLE_TERMS", comment: "Title for terms of use table view cell."));
                     case .PrivacyPolicy:
-                        cell = defaultCell(indexPath, title: "Privacy Policy");
+                        cell = defaultCell(indexPath, title: NSLocalizedString("SETTINGS_TABLE_VIEW_CELL_TITLE_PRIVACY_POLICY", comment: "Title for privacy policy table view cell."));
                     case .LogOut:
                         cell = logOutCell(indexPath);
                     case .BuildNumber:
@@ -226,7 +226,7 @@ class SettingsTableViewController: UITableViewController, SwitchTableViewCellDel
         let cell = tableView.dequeueReusableCellWithIdentifier(switchTableCellReuseIdentifier, forIndexPath: indexPath) as! SwitchTableViewCell;
         cell.delegate = self;
         cell.textLabel?.font = UIFont.systemFontOfSize(14.0);
-        cell.textLabel?.text = "Protect my data with a passcode";
+        cell.textLabel?.text = NSLocalizedString("SETTINGS_TABLE_VIEW_CELL_TITLE_PASSCODE", comment: "Title for passcode table view cell.")
         let hasPasscode = SessionData.Instance.pin != "";
         cell.switchControl.on = hasPasscode;
         cell.textLabel?.textColor = hasPasscode ? UIColor.blackColor() : UIColor.lightGrayColor();
@@ -244,7 +244,7 @@ class SettingsTableViewController: UITableViewController, SwitchTableViewCellDel
     func shareCell(indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(defaultTableCellReuseIdentifier, forIndexPath: indexPath);
         resetDefaultCell(cell);
-        cell.textLabel?.text = "Share higi results history";
+        cell.textLabel?.text = NSLocalizedString("SETTINGS_TABLE_VIEW_CELL_TITLE_SHARE", comment: "Title for share higi results table view cell.")
         cell.accessoryType = .None;
         return cell;
     }
@@ -252,7 +252,7 @@ class SettingsTableViewController: UITableViewController, SwitchTableViewCellDel
     func logOutCell(indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(defaultTableCellReuseIdentifier, forIndexPath: indexPath);
         resetDefaultCell(cell);
-        cell.textLabel?.text = "Log Out";
+        cell.textLabel?.text = NSLocalizedString("SETTINGS_TABLE_VIEW_CELL_TITLE_LOG_OUT", comment: "Title for log out table view cell.")
         cell.accessoryType = .None;
         return cell;
     }
@@ -260,7 +260,8 @@ class SettingsTableViewController: UITableViewController, SwitchTableViewCellDel
     func buildNumberCell(indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(defaultTableCellReuseIdentifier, forIndexPath: indexPath);
         cell.selectionStyle = .None;
-        cell.textLabel?.text = "Version \(Utility.appVersion()).\(Utility.appBuild())";
+        let format = NSLocalizedString("SETTINGS_TABLE_VIEW_CELL_TITLE_VERSION_FORMAT", comment: "Format of title for app version table view cell.")
+        cell.textLabel?.text = String(format: format, arguments: [Utility.appVersion(), Utility.appBuild()])
         cell.textLabel?.textAlignment = .Center;
         cell.textLabel?.font = UIFont.systemFontOfSize(12.0);
         cell.textLabel?.textColor = UIColor.lightGrayColor();
@@ -379,6 +380,7 @@ class SettingsTableViewController: UITableViewController, SwitchTableViewCellDel
     
     // MARK: - Helper
     
+    // TODO: l10n how should this be formatted?
     func exportData() -> NSURL {
         let dateFormatter = NSDateFormatter();
         dateFormatter.dateFormat = "MM/dd/yyy";

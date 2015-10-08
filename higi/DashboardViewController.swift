@@ -9,6 +9,29 @@
 import Foundation
 
 class DashboardViewController: BaseViewController, UIScrollViewDelegate {
+    
+    
+    @IBOutlet weak var challengesCardTitleLabel: UILabel! {
+        didSet {
+            challengesCardTitleLabel.text = NSLocalizedString("DASHBOARD_VIEW_CARD_CHALLENGES_TITLE", comment: "Title for challenges card displayed on Dashboard view.")
+        }
+    }
+    @IBOutlet weak var metricsCardTitleLabel: UILabel! {
+        didSet {
+            metricsCardTitleLabel.text = NSLocalizedString("DASHBOARD_VIEW_CARD_METRICS_TITLE", comment: "Title for metrics card displayed on Dashboard view.")
+        }
+    }
+    @IBOutlet weak var pulseCardButton: UIButton! {
+        didSet {
+            pulseCardButton.setTitle(NSLocalizedString("DASHBOARD_VIEW_CARD_PULSE_ACTION_TITLE", comment: "Title for pulse card displayed on Dashboard view."), forState: .Normal)
+        }
+    }
+    @IBOutlet weak var errorCardRefreshButton: UIButton! {
+        didSet {
+            errorCardRefreshButton.setTitle(NSLocalizedString("DASHBOARD_VIEW_CARD_ERROR_REFRESH_ACTION_TITLE", comment: "Title for refresh action on error card displayed on Dashboard view."), forState: .Normal)
+        }
+    }
+    
     @IBOutlet weak var headerImage: UIImageView!
     @IBOutlet weak var mainScrollView: UIScrollView!
     @IBOutlet var challengesCard: ChallengesCard!
@@ -39,7 +62,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad();
-        self.title = "Dashboard";
+        self.title = NSLocalizedString("DASHBOARD_VIEW_TITLE", comment: "Title for Dashboard view.");
         self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveQrCheckinNotification:", name: ApiUtility.QR_CHECKIN, object: nil);
@@ -106,14 +129,14 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     }
     
     func showQrCheckinFailure() {
-        qrCheckinCard.titleText.text = "Daily Check-in Upload Failed";
-        qrCheckinCard.messageText.text = "There was a problem uploading your check-in.";
+        qrCheckinCard.titleText.text = NSLocalizedString("DASHBOARD_VIEW_CARD_QR_CHECKIN_UPLOAD_FAILURE_TITLE", comment: "Title to display on QR check-in card when upload fails.");
+        qrCheckinCard.messageText.text = NSLocalizedString("DASHBOARD_VIEW_CARD_QR_CHECKIN_UPLOAD_FAILURE_MESSAGE_TEXT", comment: "Message text to display on QR check-in card when upload fails.");
         qrCheckinCard.loadingImage.image = UIImage(named: "checkinerroricon");
     }
     
     func showQrCheckinSuccess() {
-        qrCheckinCard.titleText.text = "Daily Check-in Upload Complete!";
-        qrCheckinCard.messageText.text = "View your updated metrics below or review them in your Daily Summary.";
+        qrCheckinCard.titleText.text = NSLocalizedString("DASHBOARD_VIEW_CARD_QR_CHECKIN_UPLOAD_SUCCESS_TITLE", comment: "Title to display on QR check-in card when upload succeeds.");
+        qrCheckinCard.messageText.text = NSLocalizedString("DASHBOARD_VIEW_CARD_QR_CHECKIN_UPLOAD_SUCCESS_MESSAGE_TEXT", comment: "Message text to display on QR check-in card when upload succeeds.");
         qrCheckinCard.loadingImage.image = UIImage(named: "checkinsuccessicon");
         qrCheckinCard.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "gotoDailySummary:"));
     }
@@ -273,6 +296,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             mainScrollView.addSubview(metricsCard);
             metricsSpinner.startAnimating();
         }
+        // TODO: l10n formatter
         if (SessionController.Instance.checkins != nil) {
             var bps: [HigiCheckin] = [], weights: [HigiCheckin] = [], pulses: [HigiCheckin] = [];
             let dateFormatter = NSDateFormatter();

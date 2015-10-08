@@ -197,7 +197,7 @@
                             <constraint firstAttribute="height" constant="50" id="LBs-sm-gsI"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <state key="normal" title="Official Rules">
+                        <state key="normal">
                             <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
@@ -255,20 +255,27 @@
             </view>
             <connections>
                 <outlet property="descriptionText" destination="2RO-FL-IQ6" id="yUz-Rf-Rjs"/>
+                <outlet property="descriptionTitle" destination="3O1-Zm-YpG" id="Mmb-Oj-ZOR"/>
                 <outlet property="descriptionView" destination="GH1-jg-xMV" id="3qa-TL-NE2"/>
                 <outlet property="durationText" destination="4aL-fc-MXv" id="sfi-ll-kHW"/>
+                <outlet property="durationTitle" destination="mRW-Lv-BDs" id="4Ii-dU-zM6"/>
                 <outlet property="headerView" destination="6rH-4Z-e4u" id="RLm-5W-OxE"/>
                 <outlet property="individualCountText" destination="H2a-I3-6KH" id="TIe-bW-Exa"/>
+                <outlet property="individualsTitle" destination="3fM-Q0-WKZ" id="txf-Ch-2aE"/>
                 <outlet property="participantCountSubView" destination="glg-77-cL1" id="3TX-hd-Vej"/>
                 <outlet property="participantCountView" destination="gwp-eW-p5H" id="Afv-QH-Tqv"/>
                 <outlet property="participantIcon" destination="FLt-li-umJ" id="guc-vZ-0vo"/>
                 <outlet property="participantRowView" destination="kTN-OZ-wr5" id="Ka1-d9-aYi"/>
+                <outlet property="participantTitle" destination="ne1-Av-X3n" id="8Dn-an-ib7"/>
                 <outlet property="prizesContainer" destination="x7J-PD-rhh" id="roe-yn-kCq"/>
+                <outlet property="prizesTitle" destination="C2o-SR-ypJ" id="c7x-HH-h11"/>
                 <outlet property="teamCountSubview" destination="UlZ-eF-u6h" id="oUo-9K-0N9"/>
                 <outlet property="teamCountText" destination="no8-jc-2qs" id="EzU-id-bDY"/>
                 <outlet property="teamCountView" destination="5sq-Ew-cYk" id="MDc-n4-Izy"/>
+                <outlet property="teamTitle" destination="B0Z-3n-erp" id="wm2-9F-z4W"/>
                 <outlet property="termsButton" destination="D4f-3Z-5Ud" id="hYF-0C-Gv0"/>
                 <outlet property="typeText" destination="ytg-U2-Krf" id="O8R-64-uUL"/>
+                <outlet property="typeTitle" destination="lGZ-AG-xWO" id="6Xj-e0-PWH"/>
             </connections>
             <point key="canvasLocation" x="64" y="112"/>
         </tableView>

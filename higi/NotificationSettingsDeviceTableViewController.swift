@@ -42,7 +42,7 @@ class NotificationSettingsDeviceTableViewController: UITableViewController, Swit
     // MARK: Configuration
     
     func configureNavigationTitle() {
-        self.title = "Device";
+        self.title = NSLocalizedString("NOTIFICATION_SETTINGS_DEVICE_VIEW_TITLE", comment: "Title for device-specific notification settings view.");
         self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.blackColor()]
         self.navigationController!.navigationBar.barStyle = .Default;
         self.navigationController?.navigationBar.translucent = false;
@@ -141,7 +141,7 @@ class NotificationSettingsDeviceTableViewController: UITableViewController, Swit
                 if let row = SectionGlobalSettingRow(rawValue: indexPath.row) {
                     switch row {
                     case .AllowNotifications:
-                        switchCell.textLabel!.text = "Allow Notifications";
+                        switchCell.textLabel!.text = NSLocalizedString("NOTIFICATION_SETTINGS_DEVICE_ALLOW_NOTIFICATIONS_CELL_TITLE", comment: "Title for cell to allow all notifications.")
                     default:
                         break;
                     }
@@ -151,7 +151,7 @@ class NotificationSettingsDeviceTableViewController: UITableViewController, Swit
                 if let row = SectionUniqueSettingRow(rawValue: indexPath.row) {
                     switch row {
                     case .StationNearby:
-                        switchCell.textLabel!.text = "Station Nearby"
+                        switchCell.textLabel!.text = NSLocalizedString("NOTIFICATION_SETTINGS_DEVICE_STATION_NEARBY_CELL_TITLE", comment: "Title for cell to allow nearby station notifications.")
                     default:
                         break;
                     }

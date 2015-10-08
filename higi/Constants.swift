@@ -22,6 +22,7 @@ class Constants {
     }
 }
 
+// TODO: l10n verify date formats
 let KEY_DATE_FORMAT = "yyyyMMdd";
 
 let DISPLAY_DATE_FORMAT = "MM/dd/yyyy";

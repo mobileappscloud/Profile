@@ -10,16 +10,28 @@ import Foundation
 
 class SignupNameViewController: UIViewController, UITextFieldDelegate {
     
-    @IBOutlet weak var firstName: UITextField!
-    @IBOutlet weak var lastName: UITextField!
-    @IBOutlet weak var nextButton: UIButton!
+    @IBOutlet weak var firstName: UITextField! {
+        didSet {
+            firstName.placeholder = NSLocalizedString("SIGN_UP_NAME_VIEW_FIRST_NAME_TEXT_FIELD_PLACEHOLDER", comment: "Placeholder for first name text field.")
+        }
+    }
+    @IBOutlet weak var lastName: UITextField! {
+        didSet {
+            lastName.placeholder = NSLocalizedString("SIGN_UP_NAME_VIEW_LAST_NAME_TEXT_FIELD_PLACEHOLDER", comment: "Placeholder for last name text field.")
+        }
+    }
+    @IBOutlet weak var nextButton: UIButton! {
+        didSet {
+            nextButton.setTitle(NSLocalizedString("SIGN_UP_NAME_VIEW_NEXT_BUTTON_TITLE", comment: "Title for 'next' button on sign up view."), forState: .Normal)
+        }
+    }
     var spinner: CustomLoadingSpinner!
     
     var dashboardNext = false;
     
     override func viewDidLoad() {
         super.viewDidLoad();
-        self.title = "What's your name?";
+        self.title = NSLocalizedString("SIGN_UP_NAME_VIEW_TITLE", comment: "Title for Sign Up Name view.");
         self.navigationItem.hidesBackButton = true;
         
         let user = SessionData.Instance.user;
@@ -45,12 +57,12 @@ class SignupNameViewController: UIViewController, UITextFieldDelegate {
         
         if (firstName.text!.characters.count == 0) {
             problemFound = true;
-            firstName.attributedPlaceholder = NSAttributedString(string: "First name is required", attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)]);
+            firstName.attributedPlaceholder = NSAttributedString(string: NSLocalizedString("SIGN_UP_NAME_VIEW_FIRST_NAME_TEXT_FIELD_PLACEHOLDER_REQUIREMENT", comment: "Placeholder for first name text field indicating name requirement."), attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)]);
         }
         
         if (lastName.text!.characters.count == 0) {
             problemFound = true;
-            lastName.attributedPlaceholder = NSAttributedString(string: "Last name is required", attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)]);
+            lastName.attributedPlaceholder = NSAttributedString(string: NSLocalizedString("SIGN_UP_NAME_VIEW_LAST_NAME_TEXT_FIELD_PLACEHOLDER_REQUIREMENT", comment: "Placeholder for last name text field indicating name requirement."), attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)]);
         }
         
         if (!problemFound) {
@@ -76,7 +88,10 @@ class SignupNameViewController: UIViewController, UITextFieldDelegate {
                     }
                 }, failure: {operation, error in
                     
-                    UIAlertView(title: "Something went wrong!", message: "There was an error in communicating with the server. Please try again.", delegate: nil, cancelButtonTitle: "OK").show();
+                    let title = NSLocalizedString("SIGN_UP_NAME_VIEW_SERVER_COMMUNICATION_ERROR_ALERT_TITLE", comment: "Title for alert to display when server communication error occurs.")
+                    let message = NSLocalizedString("SIGN_UP_NAME_VIEW_SERVER_COMMUNICATION_ERROR_ALERT_MESSAGE", comment: "Message for alert to display when server communication error occurs.")
+                    let dismissTitle = NSLocalizedString("SIGN_UP_NAME_VIEW_SERVER_COMMUNICATION_ERROR_ALERT_ACTION_TITLE_DISMISS", comment: "Title for alert action to dismiss alert displayed when server communication error occurs.")
+                    UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: dismissTitle).show();
                     self.reset();
             });
         } else {

@@ -9,6 +9,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ConnectDeviceViewController" customModule="higi" customModuleProvider="target">
             <connections>
                 <outlet property="headerImage" destination="t65-XU-b27" id="MsV-ei-pch"/>
+                <outlet property="headerLabel" destination="PHS-On-S3b" id="Qx3-Xd-i8J"/>
                 <outlet property="table" destination="a1e-54-1yK" id="4Pc-fg-BOm"/>
                 <outlet property="view" destination="iN0-l3-epB" id="wFx-zY-PKV"/>
             </connections>

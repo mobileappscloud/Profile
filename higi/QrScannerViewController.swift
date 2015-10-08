@@ -4,10 +4,35 @@ import CoreMedia
 
 class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate, UIAlertViewDelegate {
     
+    @IBOutlet weak var instructionLabel: UILabel! {
+        didSet {
+            instructionLabel.text = NSLocalizedString("QR_SCANNER_VIEW_INSTRUCTION_LABEL_TEXT", comment: "Text instructing user to scan QR code.");
+        }
+    }
+    @IBOutlet weak var explanatoryLabel: UILabel! {
+        didSet {
+            explanatoryLabel.text = NSLocalizedString("QR_SCANNER_VIEW_EXPLANATORY_LABEL_TEXT", comment: "Text offering user a chance to view an explanation of QR scanned check-ins.");
+
+        }
+    }
+    @IBOutlet weak var blankStateErrorTitle: UILabel! {
+        didSet {
+            blankStateErrorTitle.text = NSLocalizedString("QR_SCANNER_VIEW_BLANK_STATE_ERROR_TITLE", comment: "Title for blank state error.");
+        }
+    }
+    @IBOutlet weak var blankStateErrorMessage: UILabel! {
+        didSet {
+            blankStateErrorMessage.text = NSLocalizedString("QR_SCANNER_VIEW_BLANK_STATE_ERROR_MESSAGE", comment: "Message for blank state error.");
+        }
+    }
     @IBOutlet weak var blankStateLayer: UIView!
     @IBOutlet weak var userLayer: UIView!
     @IBOutlet weak var infoView: UIView!
-    @IBOutlet weak var settingsButton: UIButton!
+    @IBOutlet weak var settingsButton: UIButton! {
+        didSet {
+            settingsButton.setTitle(NSLocalizedString("QR_SCANNER_VIEW_SETTINGS_BUTTON_TITLE", comment: "Title for settings button on QR Scanner view."), forState: .Normal);
+        }
+    }
     
     var captureSession:AVCaptureSession?;
     
@@ -24,11 +49,15 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     override func viewDidLoad() {
         super.viewDidLoad();
         self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
-        self.title = "Scanner";
+        self.title = NSLocalizedString("QR_SCANNER_VIEW_TITLE", comment: "Title for QR Scanner view.")
         
         initBackButton();
         infoView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "infoClicked:"));
-        invalidQrAlert = UIAlertView(title: "Uh oh", message: "There was a problem with the QR code you scanned.  The scanner will only work for QR codes on the higi kiosk.", delegate: nil, cancelButtonTitle: "OK");
+        
+        let title = NSLocalizedString("QR_SCANNER_VIEW_INVALID_QR_ALERT_TITLE", comment: "Title for alert displayed when an invalid QR code is scanned.")
+        let message = NSLocalizedString("QR_SCANNER_VIEW_INVALID_QR_ALERT_MESSAGE", comment: "Message for alert displayed when an invalid QR code is scanned.")
+        let dismissTitle = NSLocalizedString("QR_SCANNER_VIEW_INVALID_QR_ALERT_ACTION_TITLE_DISMISS", comment: "Title for action to dismiss alert displayed when an invalid QR code is scanned.")
+        invalidQrAlert = UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: dismissTitle);
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -80,7 +109,10 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
             deviceInput = nil
         };
         if error != nil {
-            UIAlertView(title: "Uh oh", message: "The scanner will not work with your device", delegate: self, cancelButtonTitle: "OK").show();
+            let title = NSLocalizedString("QR_SCANNER_VIEW_UNSUPPORTED_DEVICE_ALERT_TITLE", comment: "Title for alert displayed when an unsupported device is detected.")
+            let message = NSLocalizedString("QR_SCANNER_VIEW_UNSUPPORTED_DEVICE_ALERT_MESSAGE", comment: "Message for alert displayed when an unsupported device is detected")
+            let dismissTitle = NSLocalizedString("QR_SCANNER_VIEW_UNSUPPORTED_DEVICE_ALERT_ACTION_TITLE_DISMISS", comment: "Title for action to dismiss alert displayed when an unsupported device is detected")
+            UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: dismissTitle).show();
         } else {
             captureSession = AVCaptureSession();
             captureSession?.addInput(deviceInput as! AVCaptureInput);
@@ -143,7 +175,10 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     
     func attemptCheckInResultUpload(code: String) {
         dispatch_async(dispatch_get_main_queue(), {
-            UIAlertView(title: "On its way!", message: "Your checkin data is being uploaded to the higi servers", delegate: nil, cancelButtonTitle: "Got it").show();
+            let title = NSLocalizedString("QR_SCANNER_VIEW_CHECK_IN_UPLOADING_ALERT_TITLE", comment: "Title for alert displayed when a check-in upload begins.");
+            let message = NSLocalizedString("QR_SCANNER_VIEW_CHECK_IN_UPLOADING_ALERT_MESSAGE", comment: "Message for alert displayed when a check-in upload begins.");
+            let dismissTitle = NSLocalizedString("QR_SCANNER_VIEW_CHECK_IN_UPLOADING_ALERT_ACTION_TITLE_DISMISS", comment: "Title for action to dismiss alert displayed when a check-in upload begins.");
+            UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: dismissTitle).show();
         });
         SessionController.Instance.showQrCheckinCard = true;
         self.sendCheckinResults(code);
@@ -157,12 +192,14 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         dispatch_async(dispatch_get_global_queue(Int(QOS_CLASS_USER_INITIATED.rawValue), 0)) {
             HigiApi().sendPost("\(HigiApi.higiApiUrl)/data/user/\(userId)/qrCheckin", parameters: contents, success: { (operation, responseObject) in
                 self.clearNotification();
-                self.showNotification("Checkin data successfully uploaded to higi servers!  Check it out in the app");
+                let notification = NSLocalizedString("LOCAL_NOTIFICATION_SCANNED_CHECK_IN_SUCCESS_MESSAGE", comment: "Message to display via local notification when a scanned check-in is successfully uploaded.");
+                self.showNotification(notification);
                 NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.QR_CHECKIN, object: nil, userInfo: ["success": true]);
                 }, failure: { (operation, error) in
                     if operation.response.statusCode != 400 {
                         self.clearNotification();
-                        self.showNotification("There was a problem uploading your checkin data");
+                        let notification = NSLocalizedString("LOCAL_NOTIFICATION_SCANNED_CHECK_IN_ISSUE_MESSAGE", comment: "Message to display via local notification when a scanned check-in encounters an issue while being uploaded.");
+                        self.showNotification(notification);
                         NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.QR_CHECKIN, object: nil, userInfo: ["success": false]);
                     } else {
                         let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(10 * Double(NSEC_PER_SEC)))
@@ -212,6 +249,9 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     }
     
     func infoClicked(sender: AnyObject) {
-        UIAlertView(title: "What does this scanner do?", message: "The scanner allows you to save your check-in results at a higi Station that may not be connecting to the internet.  For offline Stations just scan the QR code that appears on the higi Station and viola!  The results from your check-in will be added to your account.", delegate: nil, cancelButtonTitle: "Got it").show();
+        let title = NSLocalizedString("QR_SCANNER_VIEW_EXPLANATION_ALERT_TITLE", comment: "Title for alert displayed when a user requests more info about scanned check-ins.");
+        let message = NSLocalizedString("QR_SCANNER_VIEW_EXPLANATION_ALERT_MESSAGE", comment: "Message for alert displayed when a user requests more info about scanned check-ins.");
+        let dismissTitle = NSLocalizedString("QR_SCANNER_VIEW_EXPLANATION_ALERT_ACTION_TITLE_DISMISS", comment: "Title for action to dismiss alert displayed when a user requests more info about scanned check-ins.");
+        UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: dismissTitle).show();
     }
 }

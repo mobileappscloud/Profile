@@ -26,13 +26,13 @@ enum MetricsType {
     func getTitle() -> String {
         switch self {
         case BloodPressure:
-            return "Blood Pressure";
+            return NSLocalizedString("METRIC_TYPE_BLOOD_PRESSURE_TITLE", comment: "Title for blood pressure metrics");
         case Weight:
-            return "Weight";
+            return NSLocalizedString("METRIC_TYPE_WEIGHT_TITLE", comment: "Title for weight metrics");
         case Pulse:
-            return "Pulse";
+            return NSLocalizedString("METRIC_TYPE_PULSE_TITLE", comment: "Title for pulse metrics");
         case DailySummary:
-            return "Points";
+            return NSLocalizedString("METRIC_TYPE_DAILY_SUMMARY_TITLE", comment: "Title for daily summary metrics");
         default:
             return "";
         }

@@ -35,7 +35,7 @@ class ActivityMetricDelegate: MetricDelegate {
     }
     
     func getBlankStateText() -> String {
-        return "Welcome! It looks like you don’t have any higi points. Be it checking your vitals at a higi Station or counting steps with an activity tracker, higi wants to reward you for keeping tabs on your health. ";
+        return NSLocalizedString("ACTIVITY_METRICS_VIEW_BLANK_STATE_TEXT", comment: "Text to display if a user does not have any higi points.");
     }
     
     func setSelected(date: NSDate) {
@@ -66,7 +66,9 @@ class ActivityMetricDelegate: MetricDelegate {
             return nil;
         } else {
             let (date, points) = selectedActivity;
-            return SelectedPoint(date: date, panelValue: points, panelLabel: "Activity Points", panelUnit: "pts", device: "");
+            let panelLabel = NSLocalizedString("ACTIVITY_METRICS_VIEW_SELECTED_POINT_PANEL_LABEL", comment: "Label for selected point panel on Activity Metric view.");
+            let panelUnit = NSLocalizedString("ACTIVITY_METRICS_VIEW_SELECTED_POINT_PANEL_UNIT_LABEL", comment: "Label for unit of selected point panel on Activity Metric view.");
+            return SelectedPoint(date: date, panelValue: points, panelLabel: panelLabel, panelUnit: panelUnit, device: "");
         }
     }
     
