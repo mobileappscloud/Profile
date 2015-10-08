@@ -274,6 +274,9 @@
 /* Title for Dashboard view. */
 "DASHBOARD_VIEW_TITLE" = "Dashboard";
 
+/* Title for higi Score */
+"DRAWER_VIEW_HIGI_SCORE_TITLE" = "higi Score";
+
 /* Title of calendar reminder to check in to a higi station. */
 "FIND_STATION_VIEW_CHECK_IN_REMINDER_CALENDAR_EVENT_TITLE" = "Check in to a higi Station!";
 

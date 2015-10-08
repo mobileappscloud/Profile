@@ -15,6 +15,11 @@ class DrawerViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var blurryBackground: UIImageView!
     @IBOutlet weak var scoreRing: UIView!
     @IBOutlet weak var scoreRingMask: UIView!
+    @IBOutlet weak var higiScoreTitleLabel: UILabel! {
+        didSet {
+            higiScoreTitleLabel.text = NSLocalizedString("DRAWER_VIEW_HIGI_SCORE_TITLE", comment: "Title for higi Score")
+        }
+    }
     @IBOutlet weak var higiScore: UILabel!
     @IBOutlet weak var name: UILabel!
     
