@@ -17,7 +17,11 @@ class PinCodeViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var backgroundImage: UIImageView!
     @IBOutlet weak var pinField: UITextField!
     @IBOutlet weak var circleContainer: UIView!
-    @IBOutlet weak var topTitle: UILabel!
+    @IBOutlet weak var topTitle: UILabel! {
+        didSet {
+            topTitle.text = NSLocalizedString("PIN_CODE_VIEW_HEADER_TITLE_DEFAULT", comment: "Default header title for pin code view.")
+        }
+    }
     @IBOutlet weak var contents: UIView!
     
     var newCode = false, modifying = false, removing = false, confirming = false;
@@ -44,11 +48,11 @@ class PinCodeViewController: UIViewController, UITextFieldDelegate {
         }
         
         if (newCode) {
-            topTitle.text = "Protect access to your higi app with a passcode";
+            topTitle.text = NSLocalizedString("PIN_CODE_VIEW_HEADER_TITLE_DEFAULT", comment: "Default header title for pin code view.");
         } else if (modifying || removing) {
-            topTitle.text = "Enter your passcode again to verify it";
+            topTitle.text = NSLocalizedString("PIN_CODE_VIEW_HEADER_TITLE_VERIFY", comment: "Header title for pin code view when verifying a code.");
         } else {
-            topTitle.text = "Enter your passcode to unlock";
+            topTitle.text = NSLocalizedString("PIN_CODE_VIEW_HEADER_TITLE_UNLOCK", comment: "Header title for pin code view when unlocking app.");
         }
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "checkTouchId", name: UIApplicationWillEnterForegroundNotification, object: nil);
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "applicationWillResignActive", name: UIApplicationWillResignActiveNotification, object: nil);
@@ -78,21 +82,17 @@ class PinCodeViewController: UIViewController, UITextFieldDelegate {
     }
     
     func checkTouchId() {
-        if (UIDevice.currentDevice().systemVersion >= "8.0") {
-            let authenticationContext = LAContext();
+        let authenticationContext = LAContext();
+        
+        if (SessionController.Instance.askTouchId && authenticationContext.canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, error: nil)) {
+            authenticationContext.evaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, localizedReason: NSLocalizedString("LOCAL_AUTHENTICATION_TOUCH_ID_REASON", comment: "Reason for prompting Touch ID local authentication."), reply: {success, error in
+                if (success) {
+                    NSNotificationCenter.defaultCenter().postNotificationName(self.touchIdSuccessfulNotification, object: nil);
+                } else {
+                    NSNotificationCenter.defaultCenter().postNotificationName(self.touchIdCancelledNotification, object: nil);
+                }
+            });
 
-            if (SessionController.Instance.askTouchId && authenticationContext.canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, error: nil)) {
-                authenticationContext.evaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, localizedReason: "Use your fingerprint to access higi", reply: {success, error in
-                    if (success) {
-                        NSNotificationCenter.defaultCenter().postNotificationName(self.touchIdSuccessfulNotification, object: nil);
-                    } else {
-                        NSNotificationCenter.defaultCenter().postNotificationName(self.touchIdCancelledNotification, object: nil);
-                    }
-                });
-            } else {
-                self.contents.alpha = 1.0;
-                self.pinField.becomeFirstResponder();
-            }
             SessionController.Instance.askTouchId = true;
         } else {
             self.contents.alpha = 1.0;
@@ -123,7 +123,7 @@ class PinCodeViewController: UIViewController, UITextFieldDelegate {
                 if (!confirming) {
                     confirming = true;
                     tempCode = pinField.text;
-                    topTitle.text = "Enter your passcode again to verify it.";
+                    topTitle.text = NSLocalizedString("PIN_CODE_VIEW_HEADER_TITLE_VERIFY", comment: "Header title for pin code view when verifying a code.")
                     pinField.text = "";
                     pinChanged(nil);
                 } else {
@@ -142,7 +142,7 @@ class PinCodeViewController: UIViewController, UITextFieldDelegate {
                         SessionData.Instance.save();
                         closeView();
                     } else if (modifying) {
-                        topTitle.text = "Protect access to your higi app with a passcode.";
+                        topTitle.text = NSLocalizedString("PIN_CODE_VIEW_HEADER_TITLE_DEFAULT", comment: "Default header title for pin code view.")
                         newCode = true;
                         modifying = false;
                         pinField.text = "";
@@ -158,7 +158,10 @@ class PinCodeViewController: UIViewController, UITextFieldDelegate {
     }
     
     func didNotMatch() {
-        UIAlertView(title: "Passcodes do not match", message: "Please re-enter your passcode", delegate: nil, cancelButtonTitle: "OK").show();
+        let title = NSLocalizedString("PIN_CODE_VIEW_PASSCODE_MISMATCH_ALERT_TITLE", comment: "Title for alert displayed if passcode does not match.");
+        let message = NSLocalizedString("PIN_CODE_VIEW_PASSCODE_MISMATCH_ALERT_MESSAGE", comment: "Title for alert displayed if passcode does not match.");
+        let dismissTitle = NSLocalizedString("PIN_CODE_VIEW_PASSCODE_MISMATCH_ALERT_ACTION_TITLE_DISMISS", comment: "Title for action to dismiss alert displayed if passcode does not match.");
+        UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: dismissTitle).show();
         self.navigationItem.hidesBackButton = true;
         pinField.text = "";
         pinChanged(nil);

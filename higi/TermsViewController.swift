@@ -10,10 +10,22 @@ import Foundation
 
 class TermsViewController: UIViewController {
     
-    @IBOutlet weak var termsTitle: UILabel!
+    @IBOutlet weak var termsTitle: UILabel! {
+        didSet {
+            termsTitle.text = NSLocalizedString("TERMS_VIEW_HEADER_TEXT_UPDATED_TERMS_AND_PRIVACY", comment: "Text to display in header view when terms of use and privacy policy has changed.");
+        }
+    }
     @IBOutlet weak var webView: UIWebView!
-    @IBOutlet weak var agreeButton: UIButton!
-    @IBOutlet weak var declineButton: UIButton!
+    @IBOutlet weak var agreeButton: UIButton! {
+        didSet {
+            agreeButton.setTitle(NSLocalizedString("TERMS_VIEW_AGREE_BUTTON_TITLE", comment: "Title for button to agree to terms of use and/or privacy policy."), forState: .Normal)
+        }
+    }
+    @IBOutlet weak var declineButton: UIButton! {
+        didSet {
+            declineButton.setTitle(NSLocalizedString("TERMS_VIEW_DECLINE_BUTTON_TITLE", comment: "Title for button to decline to terms of use and/or privacy policy."), forState: .Normal)
+        }
+    }
     @IBOutlet weak var loadingView: UIView!
     
     var termsFile, privacyFile: String!;
@@ -27,13 +39,13 @@ class TermsViewController: UIViewController {
         declineButton.layer.borderColor = Utility.colorFromHexString(Constants.higiGreen).CGColor;
         var url = "";
         if (newTerms && newPrivacy) {
-            termsTitle.text = "The higi Terms of Use and Privacy Policy have changed.";
+            termsTitle.text = NSLocalizedString("TERMS_VIEW_HEADER_TEXT_UPDATED_TERMS_AND_PRIVACY", comment: "Text to display in header view when terms of use and privacy policy has changed.");
             url = "/termsandprivacy";
         } else if (newTerms) {
-            termsTitle.text = "The higi Terms of Use has changed.";
+            termsTitle.text = NSLocalizedString("TERMS_VIEW_HEADER_TEXT_UPDATED_TERMS", comment: "Text to display in header view when terms of use has changed.");
             url = "/terms";
         } else if (newPrivacy) {
-            termsTitle.text = "The higi Privacy Policy has changed.";
+            termsTitle.text = NSLocalizedString("TERMS_VIEW_HEADER_TEXT_UPDATED_PRIVACY", comment: "Text to display in header view when privacy policy has changed.");
             url = "/privacy";
         } else {
             agree(nil);

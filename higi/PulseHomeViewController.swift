@@ -28,7 +28,7 @@ class PulseHomeViewController: BaseViewController, UITableViewDataSource, UITabl
     
     override func viewDidLoad()  {
         super.viewDidLoad();
-        self.title = "Pulse";
+        self.title = NSLocalizedString("PULSE_HOME_VIEW_TITLE", comment: "Title for Pulse view.");
         self.automaticallyAdjustsScrollViewInsets = false;
         tableView.separatorInset = UIEdgeInsetsZero;
         tableView.backgroundView?.backgroundColor = UIColor.blackColor();
