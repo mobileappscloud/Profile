@@ -3,8 +3,16 @@ import Foundation
 class WelcomeViewController: UIViewController, UIScrollViewDelegate {
     
     @IBOutlet weak var pageControl: UIPageControl!
-    @IBOutlet weak var loginButton: UIButton!
-    @IBOutlet weak var signupButton: UIButton!
+    @IBOutlet weak var loginButton: UIButton! {
+        didSet {
+            loginButton.setTitle(NSLocalizedString("WELCOME_VIEW_LOGIN_BUTTON_TITLE", comment: "Title for button to log in."), forState: .Normal)
+        }
+    }
+    @IBOutlet weak var signupButton: UIButton! {
+        didSet {
+            signupButton.setTitle(NSLocalizedString("WELCOME_VIEW_SIGN_UP_BUTTON_TITLE", comment: "Title for button to sign up for an account."), forState: .Normal)
+        }
+    }
     
     @IBOutlet weak var buttonSeparator: UIView!
     @IBOutlet weak var pageTitle: UILabel!
@@ -13,8 +21,16 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var phoneContainer: UIView!
     @IBOutlet weak var phoneScrollView: UIScrollView!
     
-    @IBOutlet weak var welcomeText: UILabel!
-    @IBOutlet weak var welcomeSubTitle: UILabel!
+    @IBOutlet weak var welcomeText: UILabel! {
+        didSet {
+            welcomeText.text = NSLocalizedString("WELCOME_VIEW_PAGE_WELCOME_TITLE", comment: "Title for welcome page on welcome tour.");
+        }
+    }
+    @IBOutlet weak var welcomeSubTitle: UILabel! {
+        didSet {
+            welcomeSubTitle.text = NSLocalizedString("WELCOME_VIEW_PAGE_WELCOME_SUBTITLE", comment: "Subtitle for welcome page on welcome tour.");
+        }
+    }
     @IBOutlet weak var welcomeView: UIView!
     @IBOutlet weak var stationView: UIImageView!
     
@@ -161,28 +177,28 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
                 stationAlpha = 1;
                 dashboardAlpha = 0;
                 phoneAlpha = 0;
-                title = "Get Started";
-                subTitle = "Visit a higi Station at your local pharmacy or connect a fitness tracker here in the app";
+                title = NSLocalizedString("WELCOME_VIEW_PAGE_STATION_TITLE", comment: "Title for station page on welcome tour.")
+                subTitle = NSLocalizedString("WELCOME_VIEW_PAGE_STATION_SUBTITLE", comment: "Subtitle for station page on welcome tour.")
             case 2:
                 //challenges
                 dashboardAlpha = 1;
                 challengesAlpha = 1;
-                title = "Friendly Competition";
-                subTitle = "Compete in challenges with other higi members for prizes and bragging rights";
+                title = NSLocalizedString("WELCOME_VIEW_PAGE_CHALLENGES_TITLE", comment: "Title for challenges page on welcome tour.")
+                subTitle = NSLocalizedString("WELCOME_VIEW_PAGE_CHALLENGES_SUBTITLE", comment: "Subtitle for challenges page on welcome tour.")
                 phoneScrollView.setContentOffset(CGPoint(x: 0, y: challengeView.frame.origin.y - 20), animated: true);
             case 3:
                 //activity
                 dashboardAlpha = 1;
                 activityAlpha = 1;
-                title = "Earn Points";
-                subTitle = "Rack up the points with each check of your vitals and for your steps and workouts";
+                title = NSLocalizedString("WELCOME_VIEW_PAGE_ACTIVITY_TITLE", comment: "Title for activity page on welcome tour.")
+                subTitle = NSLocalizedString("WELCOME_VIEW_PAGE_ACTIVITY_SUBTITLE", comment: "Subtitle for activity page on welcome tour.")
                 phoneScrollView.setContentOffset(CGPoint(x: 0,y: activityView.frame.origin.y - 20), animated: true);
             case 4:
                 //body stats
                 dashboardAlpha = 1;
                 metricsAlpha = 1;
-                title = "Follow Your Progress";
-                subTitle = "Easily track trends and changes in your body stats you receive from a higi Station";
+                title =  NSLocalizedString("WELCOME_VIEW_PAGE_BODY_STAT_TITLE", comment: "Title for body stat page on welcome tour.")
+                subTitle = NSLocalizedString("WELCOME_VIEW_PAGE_BODY_STAT_SUBTITLE", comment: "Subtitle for body stat page on welcome tour.")
                 phoneScrollView.setContentOffset(CGPoint(x: 0, y: MetricsView.frame.origin.y - 20), animated: true);
             default:
                 let i = 0;

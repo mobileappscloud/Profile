@@ -751,3 +751,39 @@
 /* Label for a weight which falls within an underweight range. */
 "WEIGHT_METRICS_WEIGHT_RANGE_UNDERWEIGHT_LABEL" = "Underweight";
 
+/* Title for button to log in. */
+"WELCOME_VIEW_LOGIN_BUTTON_TITLE" = "Log in";
+
+/* Subtitle for activity page on welcome tour. */
+"WELCOME_VIEW_PAGE_ACTIVITY_SUBTITLE" = "Rack up the points with each check of your vitals and for your steps and workouts";
+
+/* Title for activity page on welcome tour. */
+"WELCOME_VIEW_PAGE_ACTIVITY_TITLE" = "Earn Points";
+
+/* Subtitle for body stat page on welcome tour. */
+"WELCOME_VIEW_PAGE_BODY_STAT_SUBTITLE" = "Easily track trends and changes in your body stats you receive from a higi Station";
+
+/* Title for body stat page on welcome tour. */
+"WELCOME_VIEW_PAGE_BODY_STAT_TITLE" = "Follow Your Progress";
+
+/* Subtitle for challenges page on welcome tour. */
+"WELCOME_VIEW_PAGE_CHALLENGES_SUBTITLE" = "Compete in challenges with other higi members for prizes and bragging rights";
+
+/* Title for challenges page on welcome tour. */
+"WELCOME_VIEW_PAGE_CHALLENGES_TITLE" = "Friendly Competition";
+
+/* Subtitle for station page on welcome tour. */
+"WELCOME_VIEW_PAGE_STATION_SUBTITLE" = "Visit a higi Station at your local pharmacy or connect a fitness tracker here in the app";
+
+/* Title for station page on welcome tour. */
+"WELCOME_VIEW_PAGE_STATION_TITLE" = "Get Started";
+
+/* Subtitle for welcome page on welcome tour. */
+"WELCOME_VIEW_PAGE_WELCOME_SUBTITLE" = "Higi makes it fun to keep tabs on your health and get rewarded for it";
+
+/* Title for welcome page on welcome tour. */
+"WELCOME_VIEW_PAGE_WELCOME_TITLE" = "Welcome";
+
+/* Title for button to sign up for an account. */
+"WELCOME_VIEW_SIGN_UP_BUTTON_TITLE" = "I'm new to higi";
+
