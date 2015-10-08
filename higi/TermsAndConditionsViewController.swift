@@ -8,9 +8,21 @@ class TermsAndConditionsViewController: UIViewController, UIWebViewDelegate {
     var responseRequired = false;
     
     @IBOutlet weak var webView: UIWebView!
-    @IBOutlet weak var acceptButton: UIButton!
-    @IBOutlet weak var declineButton: UIButton!
-    @IBOutlet weak var closeButton: UIButton!;
+    @IBOutlet weak var acceptButton: UIButton! {
+        didSet {
+            acceptButton.setTitle(NSLocalizedString("TERMS_AND_CONDITIONS_VIEW_ACCEPT_BUTTON_TITLE", comment: "Title for button to accept terms."), forState: .Normal)
+        }
+    }
+    @IBOutlet weak var declineButton: UIButton! {
+        didSet {
+            declineButton.setTitle(NSLocalizedString("TERMS_AND_CONDITIONS_VIEW_DECLINE_BUTTON_TITLE", comment: "Title for button to decline terms."), forState: .Normal)
+        }
+    }
+    @IBOutlet weak var closeButton: UIButton! {
+    didSet {
+            closeButton.setTitle(NSLocalizedString("TERMS_AND_CONDITIONS_VIEW_CLOSE_BUTTON_TITLE", comment: "Title for button to close Terms view."), forState: .Normal)
+        }
+    }
     
     @IBAction func acceptClick(sender: AnyObject) {
         parent.joinAccepted = true;

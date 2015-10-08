@@ -13,8 +13,16 @@ class TourViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var pager: UIPageControl!
     @IBOutlet weak var backgroundImage: UIImageView!
-    @IBOutlet weak var skip: UIButton!
-    @IBOutlet weak var done: UIButton!
+    @IBOutlet weak var skip: UIButton! {
+        didSet {
+            skip.setTitle(NSLocalizedString("TOUR_VIEW_SKIP_BUTTON_TITLE", comment: "Title for 'skip' button on Tour view."), forState: .Normal)
+        }
+    }
+    @IBOutlet weak var done: UIButton! {
+        didSet {
+            done.setTitle(NSLocalizedString("TOUR_VIEW_DONE_BUTTON_TITLE", comment: "Title for 'done' button on Tour view."), forState: .Normal)
+        }
+    }
     
     var firstImage, secondImage, thirdImage: UIImageView!
     

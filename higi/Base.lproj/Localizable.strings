@@ -7,6 +7,15 @@
 /* Label for unit of selected point panel on Activity Metric view. */
 "ACTIVITY_METRICS_VIEW_SELECTED_POINT_PANEL_UNIT_LABEL" = "pts";
 
+/* Title for dismiss action on alert displayed when app requires an update. */
+"APP_UPDATE_ALERT_ACTION_TITLE_DISMISS" = "OK";
+
+/* Message for alert displayed when app requires an update. */
+"APP_UPDATE_ALERT_MESSAGE" = "You must update from the App Store to continue using this app.";
+
+/* Title for alert displayed when app requires an update. */
+"APP_UPDATE_ALERT_TITLE" = "higi is out of date";
+
 /* Text to display on blood pressure metrics view when there is no blood pressure data to display. */
 "BLOOD_PRESSURE_METRICS_VIEW_BLANK_STATE_TEXT" = "Welcome! It looks like you don’t have any blood pressure readings with us. Join the millions who track their BP with higi by visiting a higi Station or connecting your wireless BP monitor.";
 
@@ -159,6 +168,36 @@
 
 /* Placeholder text to display in chatter input text field. */
 "CHATTER_INPUT_VIEW_TEXT_INPUT_PLACEHOLDER" = "Talk some smack!";
+
+/* Title for alert action to decline disconnecting a device from a higi Profile. */
+"CONNECT_DEVICE_ROW_REMOVE_DEVICE_ALERT_ACTION_TITLE_NO" = "No";
+
+/* Title for alert action to confirm disconnecting a device from a higi Profile. */
+"CONNECT_DEVICE_ROW_REMOVE_DEVICE_ALERT_ACTION_TITLE_YES" = "Yes";
+
+/* Message for alert displayed prior to disconnecting a device from a higi Profile. */
+"CONNECT_DEVICE_ROW_REMOVE_DEVICE_ALERT_MESSAGE_FORMAT" = "You are about to remove %@ from your devices.  Are you sure?";
+
+/* Title for alert displayed prior to disconnecting a device from a higi Profile. */
+"CONNECT_DEVICE_ROW_REMOVE_DEVICE_ALERT_TITLE" = "Remove device";
+
+/* Message for alert displayed after failure to disconnect a device from a higi Profile. */
+"CONNECT_DEVICE_ROW_REMOVE_DEVICE_DISCONNECT_FAILURE_ALERT_MESSAGE" = "Unable to disconnect device.  Please try again later.";
+
+/* Title for alert action to dismiss device remove/disconnect failure alert. */
+"CONNECT_DEVICE_ROW_REMOVE_DEVICE_FAILURE_ALERT_ACTION_TITLE_DISMISS" = "OK";
+
+/* Message for alert displayed after failure to remove a device from a higi Profile. */
+"CONNECT_DEVICE_ROW_REMOVE_DEVICE_FAILURE_ALERT_MESSAGE" = "Unable to remove device.  Please try again later.";
+
+/* Title for alert displayed after failure to remove/disconnect a device from a higi Profile. */
+"CONNECT_DEVICE_ROW_REMOVE_DEVICE_FAILURE_ALERT_TITLE" = "Uh oh";
+
+/* Text to display in table header on Connect Device view. */
+"CONNECT_DEVICE_VIEW_HEADER_TEXT" = "Add a device to your account so you can start tracking and start earning!";
+
+/* Title for Connect Device view. */
+"CONNECT_DEVICE_VIEW_TITLE" = "Connect a device";
 
 /* Label for points units as seen in the daily summary row. */
 "DAILY_SUMMARY_ROW_POINTS_UNIT_LABEL" = "pts";
@@ -363,6 +402,21 @@
 
 /* Title for pulse reading which falls within a normal range. */
 "PULSE_RANGE_NORMAL_TITLE" = "Normal";
+
+/* Title for button to accept terms. */
+"TERMS_AND_CONDITIONS_VIEW_ACCEPT_BUTTON_TITLE" = "Accept";
+
+/* Title for button to close Terms view. */
+"TERMS_AND_CONDITIONS_VIEW_CLOSE_BUTTON_TITLE" = "Close";
+
+/* Title for button to decline terms. */
+"TERMS_AND_CONDITIONS_VIEW_DECLINE_BUTTON_TITLE" = "Decline";
+
+/* Title for 'done' button on Tour view. */
+"TOUR_VIEW_DONE_BUTTON_TITLE" = "Done";
+
+/* Title for 'skip' button on Tour view. */
+"TOUR_VIEW_SKIP_BUTTON_TITLE" = "Skip";
 
 /* Text to display on the weight metrics view if there are no weight readings to display. */
 "WEIGHT_METRICS_VIEW_BLANK_STATE_TEXT" = "Welcome! We don’t have any weight readings for you yet. Try visiting your local higi Station or connecting your favorite wireless weight scale to earn 50 points for each weight check.";
