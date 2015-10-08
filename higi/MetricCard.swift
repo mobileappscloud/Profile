@@ -10,7 +10,8 @@ class MetricCard: UIView, MetricDelegate {
     @IBOutlet weak var toggleButton: UIButton!
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var triangleView: UIView!
-
+    @IBOutlet weak var backgroundView: UIView!
+    
     var graph, secondaryGraph: MetricGraph!;
     
     var delegate: MetricDelegate!;
@@ -39,6 +40,8 @@ class MetricCard: UIView, MetricDelegate {
         self.delegate = delegate;
         self.points = points;
         self.altPoints = altPoints;
+        
+        backgroundView.frame.size.width = UIScreen.mainScreen().bounds.size.width;
         
         initFrame(frame);
         initGraphView();
