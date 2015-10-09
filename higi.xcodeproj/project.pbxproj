@@ -24,6 +24,7 @@
 		41545BF91BA76CFA00946358 /* NotificationSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41545BF81BA76CFA00946358 /* NotificationSettings.storyboard */; };
 		417F48B31BC823F1005BC49D /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 417F48B01BC823F1005BC49D /* GTMNSString+HTML.m */; settings = {ASSET_TAGS = (); }; };
 		417F48B41BC823F1005BC49D /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 417F48B21BC823F1005BC49D /* NSString+HTML.m */; settings = {ASSET_TAGS = (); }; };
+		417F48BC1BC82816005BC49D /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 417F48BB1BC82816005BC49D /* SWRevealViewController.m */; settings = {ASSET_TAGS = (); }; };
 		4192B4FE1BB5BF4500D1A2D3 /* PersistentSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4192B4FD1BB5BF4500D1A2D3 /* PersistentSettingsController.swift */; };
 		419D85CF1BBEDD3C00E7D844 /* HIGIScatterPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D85CE1BBEDD3C00E7D844 /* HIGIScatterPlot.m */; settings = {ASSET_TAGS = (); }; };
 		419D86481BBEF83000E7D844 /* GQuadItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D862D1BBEF83000E7D844 /* GQuadItem.m */; settings = {ASSET_TAGS = (); }; };
@@ -94,7 +95,6 @@
 		8F296311194B911C00E787FD /* SignupNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F296310194B911C00E787FD /* SignupNameViewController.swift */; };
 		8F296313194B912F00E787FD /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F296312194B912F00E787FD /* LoginViewController.swift */; };
 		8F296316194B9BF700E787FD /* SessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F296315194B9BF700E787FD /* SessionController.swift */; };
-		8F2B7E41198C2C27009DE89A /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F2B7E40198C2C27009DE89A /* SWRevealViewController.m */; };
 		8F2B7E43198C2DA0009DE89A /* DrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F2B7E42198C2DA0009DE89A /* DrawerViewController.swift */; };
 		8F2B7E46198C2E28009DE89A /* DrawerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F2B7E45198C2E28009DE89A /* DrawerView.xib */; };
 		8F2B7E4D198C3058009DE89A /* oc_bodystats.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F2B7E48198C3058009DE89A /* oc_bodystats.png */; };
@@ -394,6 +394,8 @@
 		417F48B01BC823F1005BC49D /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GTMNSString+HTML.m"; path = "Vendor/MWFeedParser/Classes/GTMNSString+HTML.m"; sourceTree = "<group>"; };
 		417F48B11BC823F1005BC49D /* NSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+HTML.h"; path = "Vendor/MWFeedParser/Classes/NSString+HTML.h"; sourceTree = "<group>"; };
 		417F48B21BC823F1005BC49D /* NSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+HTML.m"; path = "Vendor/MWFeedParser/Classes/NSString+HTML.m"; sourceTree = "<group>"; };
+		417F48BA1BC82816005BC49D /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWRevealViewController.h; path = Vendor/SWRevealViewController/SWRevealViewController/SWRevealViewController.h; sourceTree = "<group>"; };
+		417F48BB1BC82816005BC49D /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWRevealViewController.m; path = Vendor/SWRevealViewController/SWRevealViewController/SWRevealViewController.m; sourceTree = "<group>"; };
 		4192B4FD1BB5BF4500D1A2D3 /* PersistentSettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistentSettingsController.swift; sourceTree = "<group>"; };
 		419D85CD1BBEDD3C00E7D844 /* HIGIScatterPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HIGIScatterPlot.h; sourceTree = "<group>"; };
 		419D85CE1BBEDD3C00E7D844 /* HIGIScatterPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HIGIScatterPlot.m; sourceTree = "<group>"; };
@@ -504,8 +506,6 @@
 		8F296312194B912F00E787FD /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		8F296315194B9BF700E787FD /* SessionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionController.swift; sourceTree = "<group>"; };
 		8F2B7E34198ADAA3009DE89A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		8F2B7E3F198C2C27009DE89A /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
-		8F2B7E40198C2C27009DE89A /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		8F2B7E42198C2DA0009DE89A /* DrawerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawerViewController.swift; sourceTree = "<group>"; };
 		8F2B7E45198C2E28009DE89A /* DrawerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DrawerView.xib; sourceTree = "<group>"; };
 		8F2B7E48198C3058009DE89A /* oc_bodystats.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oc_bodystats.png; path = images/oc_bodystats.png; sourceTree = "<group>"; };
@@ -871,6 +871,15 @@
 			name = MWFeedParser;
 			sourceTree = "<group>";
 		};
+		417F48BD1BC82827005BC49D /* SWRevealViewController */ = {
+			isa = PBXGroup;
+			children = (
+				417F48BA1BC82816005BC49D /* SWRevealViewController.h */,
+				417F48BB1BC82816005BC49D /* SWRevealViewController.m */,
+			);
+			name = SWRevealViewController;
+			sourceTree = "<group>";
+		};
 		419D86291BBEF83000E7D844 /* Clustering */ = {
 			isa = PBXGroup;
 			children = (
@@ -1027,6 +1036,7 @@
 				419D86531BBEF83400E7D844 /* Google Maps Utilities */,
 				417F48B51BC823F5005BC49D /* MWFeedParser */,
 				41A0BE381BBB14EE00A314D6 /* SwiftKeychainWrapper */,
+				417F48BD1BC82827005BC49D /* SWRevealViewController */,
 				41A0BE141BBB08B800A314D6 /* UIKit+AFNetworking */,
 			);
 			name = Vendor;
@@ -1169,8 +1179,6 @@
 				419D865A1BBEFA2000E7D844 /* Google Maps Utilities */,
 				419D85CD1BBEDD3C00E7D844 /* HIGIScatterPlot.h */,
 				419D85CE1BBEDD3C00E7D844 /* HIGIScatterPlot.m */,
-				8F2B7E3F198C2C27009DE89A /* SWRevealViewController.h */,
-				8F2B7E40198C2C27009DE89A /* SWRevealViewController.m */,
 				8FCD2D7E19EC286900AC5A82 /* UIImage+Orientation.h */,
 				8FCD2D7F19EC286900AC5A82 /* UIImage+Orientation.m */,
 			);
@@ -2133,6 +2141,7 @@
 				D1EEDBA51A66FA570012EFD3 /* ChallengeLeaderboardRow.swift in Sources */,
 				D17010CA1A644414002CBFE8 /* ChallengeDetailsViewController.swift in Sources */,
 				41A0BE2A1BBB08B800A314D6 /* UIImageView+AFNetworking.m in Sources */,
+				417F48BC1BC82816005BC49D /* SWRevealViewController.m in Sources */,
 				8F9C69D51950C88900449664 /* HigiCheckin.swift in Sources */,
 				41A0BE0F1BBB088500A314D6 /* AFSecurityPolicy.m in Sources */,
 				8F5E7FBF199965CF009067E5 /* PinCodeViewController.swift in Sources */,
@@ -2194,7 +2203,6 @@
 				41A0BE261BBB08B800A314D6 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				D1C906B11B0A4C5D00220C12 /* NavigationObject.swift in Sources */,
 				8FDB4B6A1A09741400F57B38 /* ChallengeWinCondition.swift in Sources */,
-				8F2B7E41198C2C27009DE89A /* SWRevealViewController.m in Sources */,
 				D1E2DB821AE176760074CBAF /* MetricCard.swift in Sources */,
 				8F2CB5891993E68C009377A8 /* SessionData.swift in Sources */,
 				417F48B31BC823F1005BC49D /* GTMNSString+HTML.m in Sources */,
