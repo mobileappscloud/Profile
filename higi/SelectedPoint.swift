@@ -6,8 +6,6 @@ class SelectedPoint {
     
     var kioskInfo: KioskInfo?;
     
-    var sourceVendorId: String?;
-    
     var device:String?;
     
     struct Panel {
