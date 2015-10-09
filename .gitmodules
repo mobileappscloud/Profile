@@ -22,3 +22,6 @@
 [submodule "Vendor/Google-Maps-Utilities"]
 	path = Vendor/Google-Maps-Utilities
 	url = https://github.com/higish/google-maps-ios-utils.git
+[submodule "Vendor/MWFeedParser"]
+	path = Vendor/MWFeedParser
+	url = https://github.com/mwaterfall/MWFeedParser.git
