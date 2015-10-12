@@ -13,6 +13,9 @@
 // User defined extensions
 #import "HIGIScatterPlot.h"
 
+// Feed Parsing Utility
+#import "NSString+HTML.h"
+
 // Flurry Mobile Analytics
 #import "Flurry.h"
 
@@ -27,12 +30,11 @@
 #import "ClusterKiosk.h"
 #import "HigiClusterRenderer.h"
 
+// Reveal View Controller (Hamburger Menu & Navigation)
+#import "SWRevealViewController.h"
+
 //
 // Copied third-party includes, manually managed
 //
-
-#import "NSString+HTML.h"
-
-#import "SWRevealViewController.h"
 
 #import "UIImage+Orientation.h"
