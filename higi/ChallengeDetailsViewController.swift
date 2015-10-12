@@ -235,8 +235,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             showTeamsPicker();
         }
     }
-    
-    // TODO: l10n utility
+
     func dateDisplayHelper() -> String {
         var dateDisplay:String!
         let startDate:NSDate? = challenge.startDate;
@@ -573,38 +572,30 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         return table;
     }
     
-    // TODO: l10n and code reuse
     func setDateRangeHelper(startDate: NSDate, endDate: NSDate!) -> String {
         let dateFormatter = NSDateFormatter();
-        dateFormatter.dateFormat = "MMM. dd, YYYY"
+        dateFormatter.dateStyle = .MediumStyle
         if (endDate != nil) {
             return "\(dateFormatter.stringFromDate(startDate)) - \(dateFormatter.stringFromDate(endDate))";
         } else {
-            return "\(dateFormatter.stringFromDate(startDate)) - No end date";
+            let format = NSLocalizedString("CHALLENGE_DETAILS_VIEW_CHALLENGE_DATES_NO_END_DATE_FORMAT", comment: "Format of text for challenge date range when a challenge does not have an end date.")
+            return NSString.localizedStringWithFormat(format, dateFormatter.stringFromDate(startDate))
         }
     }
     
     func goalTypeDisplayHelper(goalType: String, winnerType: String) -> String {
-        let firstPart = winnerType == "individual" ? "Individual" : "Team";
-        let secondPart = goalType == "most_points" ? "Points Challenge" : "Goal Challenge";
+        let firstPart = winnerType == "individual" ? NSLocalizedString("CHALLENGE_DETAILS_VIEW_CHALLENGE_WINNER_TYPE_TITLE_INDIVIDUAL", comment: "Title for individual challenge winner.") : NSLocalizedString("CHALLENGE_DETAILS_VIEW_CHALLENGE_WINNER_TYPE_TITLE_TEAM", comment: "Title for team challenge winner.");
+        let secondPart = goalType == "most_points" ? NSLocalizedString("CHALLENGE_DETAILS_VIEW_CHALLENGE_TYPE_TITLE_POINTS", comment: "Title for a points based challenge.") : NSLocalizedString("CHALLENGE_DETAILS_VIEW_CHALLENGE_TYPE_TITLE_GOAL", comment: "Title for a goal based challenge.");
         return firstPart + " " + secondPart;
-    }
-    
-    func durationHelper(startDate: NSDate, endDate: NSDate?) -> String {
-        let dateFormatter = NSDateFormatter();
-        dateFormatter.dateFormat = "MMM. dd, YYYY"
-        if (endDate != nil) {
-            return "\(dateFormatter.stringFromDate(startDate)) - \(dateFormatter.stringFromDate(endDate!))";
-        } else {
-            return "\(dateFormatter.stringFromDate(startDate)) - No end date";
-        }
     }
     
     func limitDisplayHelper(limit: Int, metric: String) -> String {
         if (limit > 0) {
-            return "Limit of \(limit) \(metric) per day.";
+            let format = NSLocalizedString("CHALLENGE_DETAILS_VIEW_LIMIT_DISPLAY_LIMITED_FORMAT", comment: "Format for limit display on challenge details view with daily metric limits.")
+            return NSString.localizedStringWithFormat(format, [limit, metric])
         } else {
-            return "Unlimited \(metric) per day.";
+            let format = NSLocalizedString("CHALLENGE_DETAILS_VIEW_LIMIT_DISPLAY_UNLIMITED_FORMAT", comment: "Format for limit display on challenge details view with unlimited daily metrics.")
+            return NSString.localizedStringWithFormat(format, metric)
         }
     }
     

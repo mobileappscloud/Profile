@@ -100,8 +100,23 @@
 /* Format for a challenge which has started and has a given number of days remaining. */
 "CHALLENGE_DETAILS_VIEW_CHALLENGE_DATE_STARTED_FORMAT" = "%@ left!";
 
+/* Format of text for challenge date range when a challenge does not have an end date. */
+"CHALLENGE_DETAILS_VIEW_CHALLENGE_DATES_NO_END_DATE_FORMAT" = "%@ - No end date";
+
 /* Title for button to join a challenge. */
 "CHALLENGE_DETAILS_VIEW_CHALLENGE_JOIN_BUTTON_TITLE" = "Join";
+
+/* Title for a goal based challenge. */
+"CHALLENGE_DETAILS_VIEW_CHALLENGE_TYPE_TITLE_GOAL" = "Goal Challenge";
+
+/* Title for a points based challenge. */
+"CHALLENGE_DETAILS_VIEW_CHALLENGE_TYPE_TITLE_POINTS" = "Points Challenge";
+
+/* Title for individual challenge winner. */
+"CHALLENGE_DETAILS_VIEW_CHALLENGE_WINNER_TYPE_TITLE_INDIVIDUAL" = "Individual";
+
+/* Title for team challenge winner. */
+"CHALLENGE_DETAILS_VIEW_CHALLENGE_WINNER_TYPE_TITLE_TEAM" = "Team";
 
 /* Title for cancel alert action which is displayed when joining a challenge fails. */
 "CHALLENGE_DETAILS_VIEW_JOIN_CHALLENGE_FAILURE_ALERT_ACTION_CANCEL_TITLE" = "OK";
@@ -111,6 +126,12 @@
 
 /* Title for alert which is displayed when joining a challenge fails. */
 "CHALLENGE_DETAILS_VIEW_JOIN_CHALLENGE_FAILURE_ALERT_TITLE" = "Uh oh";
+
+/* Format for limit display on challenge details view with daily metric limits. */
+"CHALLENGE_DETAILS_VIEW_LIMIT_DISPLAY_LIMITED_FORMAT" = "Limit of %@ %@ per day.";
+
+/* Format for limit display on challenge details view with unlimited daily metrics. */
+"CHALLENGE_DETAILS_VIEW_LIMIT_DISPLAY_UNLIMITED_FORMAT" = "Unlimited %@ per day.";
 
 /* Title to display on prize cell in challenge details view when there is no prize for the challenge. */
 "CHALLENGE_DETAILS_VIEW_PRIZE_CELL_TITLE_NO_PRIZE" = "No prize, doing this simply for the love of the game.";
