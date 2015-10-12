@@ -478,7 +478,6 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         return button;
     }
     
-    // TODO: l10n formatter
     func findCheckin(activity: HigiActivity ) -> HigiCheckin? {
         if SessionController.Instance.checkins != nil {
             let formatter = NSDateFormatter();

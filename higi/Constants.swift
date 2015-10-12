@@ -22,9 +22,8 @@ class Constants {
     }
 }
 
-// TODO: l10n verify date formats
-let KEY_DATE_FORMAT = "yyyyMMdd";
+let KEY_DATE_FORMAT = NSLocalizedString("DATE_FORMATTER_DEFAULT_DATE_FORMAT", comment: "Default date format for cached date formatter.");
 
-let DISPLAY_DATE_FORMAT = "MM/dd/yyyy";
+let DISPLAY_DATE_FORMAT = NSLocalizedString("DATE_FORMATTER_DEFAULT_DISPLAY_DATE_FORMAT", comment: "Default date format for cached display date formatter.")
 
 let HIGI_GREEN = "#76C043";

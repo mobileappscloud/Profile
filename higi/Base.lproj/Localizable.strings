@@ -172,6 +172,15 @@
 /* Text for team toggle button on challenge details view. */
 "CHALLENGE_DETAILS_VIEW_TOGGLE_BUTTON_TEXT_TEAMS" = "Teams";
 
+/* Format for challenge which has not started yet. */
+"CHALLENGE_INVITATION_VIEW_CHALLENGE_DATE_NOT_STARTED_FORMAT" = "Starts in %@";
+
+/* Format for an ongoing challenge which has started and does not have a specific end date. */
+"CHALLENGE_INVITATION_VIEW_CHALLENGE_DATE_ONGOING_FORMAT" = "Started %@ ago";
+
+/* Format for a challenge which started today. */
+"CHALLENGE_INVITATION_VIEW_CHALLENGE_DATE_TODAY_FORMAT" = "Started today";
+
 /* Title to display for a challenge goal. */
 "CHALLENGE_INVITATION_VIEW_CHALLENGE_GOAL_TITLE" = "Goal:";
 
@@ -372,6 +381,12 @@
 
 /* Title for Dashboard view. */
 "DASHBOARD_VIEW_TITLE" = "Dashboard";
+
+/* Default date format for cached date formatter. */
+"DATE_FORMATTER_DEFAULT_DATE_FORMAT" = "yyyyMMdd";
+
+/* Default date format for cached display date formatter. */
+"DATE_FORMATTER_DEFAULT_DISPLAY_DATE_FORMAT" = "MM/dd/yyyy";
 
 /* Format for pluralization of days. */
 "DAY_COUNT_SINGLE_PLURAL" = "DAY_COUNT_SINGLE_PLURAL";
