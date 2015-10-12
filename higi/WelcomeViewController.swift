@@ -49,8 +49,6 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
                 }, completion: nil);
             didAnimate = true;
         }
-        let phoneWidth = phoneScrollView.frame.size.width;
-        let phoneHeight = phoneScrollView.frame.size.height;
         
         dashboardView = UIView(frame: CGRect(x: 0, y: 2, width: phoneScrollView.frame.size.width, height: phoneScrollView.frame.size.height - 5));
         var yPos:CGFloat = 2;

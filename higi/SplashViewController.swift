@@ -1,11 +1,3 @@
-//
-//  SplashViewController.swift
-//  higi
-//
-//  Created by Dan Harms on 6/13/14.
-//  Copyright (c) 2014 higi, LLC. All rights reserved.
-//
-
 import Foundation
 
 class SplashViewController: UIViewController, UIAlertViewDelegate {
@@ -18,7 +10,7 @@ class SplashViewController: UIViewController, UIAlertViewDelegate {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated);
-        checkVersion();
+        checkVersion()
         self.spinner = CustomLoadingSpinner(frame: CGRectMake(UIScreen.mainScreen().bounds.size.width / 2 - 16, UIScreen.mainScreen().bounds.size.height / 2 + 32, 32, 32));
         Utility.delay(3) {
             self.view.addSubview(self.spinner)
@@ -32,14 +24,15 @@ class SplashViewController: UIViewController, UIAlertViewDelegate {
             self.presentViewController(navigationController, animated: false, completion: nil);
         } else {
             HigiApi().sendGet("\(HigiApi.higiApiUrl)/data/qdata/\(SessionData.Instance.user.userId)?newSession=true", success: { operation, responseObject in
-                
-                let login = HigiLogin(dictionary: responseObject as! NSDictionary);
-                SessionData.Instance.user = login.user;
-                ApiUtility.checkTermsAndPrivacy(self, success: nil, failure: self.errorToWelcome);
-                
-                }, failure: {operation, error in
-                    self.errorToWelcome();
-            });
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                        let login = HigiLogin(dictionary: responseObject as! NSDictionary);
+                        SessionData.Instance.user = login.user;
+                        ApiUtility.checkTermsAndPrivacy(self, success: nil, failure: self.errorToWelcome);
+                    });
+                    
+                    }, failure: {operation, error in
+                        self.errorToWelcome();
+                });
         }
     }
     
@@ -68,7 +61,7 @@ class SplashViewController: UIViewController, UIAlertViewDelegate {
         HigiApi().sendGet("\(HigiApi.higiApiUrl)/app/mobile/minVersion?p=ios", success: { operation, responseObject in
             
             var minVersionParts = (responseObject as! NSString).componentsSeparatedByString(".") ;
-            for i in minVersionParts.count...3 {
+            for _ in minVersionParts.count...3 {
                 minVersionParts.append("0");
             }
             var myVersionParts = Utility.appVersion().componentsSeparatedByString(".") as [String];
