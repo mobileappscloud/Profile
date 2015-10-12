@@ -85,6 +85,21 @@
 /* Title for challenge type section. */
 "CHALLENGE_DETAILS_TAB_SECTION_TYPE_TITLE" = "Type";
 
+/* Message for a challenge which ends today. */
+"CHALLENGE_DETAILS_VIEW_CHALLENGE_DATE_ENDS_TODAY" = "Ends today!";
+
+/* Message for a challenge which has already ended. */
+"CHALLENGE_DETAILS_VIEW_CHALLENGE_DATE_FINISHED" = "Challenge finished!";
+
+/* Format for challenge which has not started yet. */
+"CHALLENGE_DETAILS_VIEW_CHALLENGE_DATE_NOT_STARTED_FORMAT" = "Starts in %@!";
+
+/* Format for an ongoing challenge which has started and does not have a specific end date. */
+"CHALLENGE_DETAILS_VIEW_CHALLENGE_DATE_ONGOING_FORMAT" = "Started %@ ago!";
+
+/* Format for a challenge which has started and has a given number of days remaining. */
+"CHALLENGE_DETAILS_VIEW_CHALLENGE_DATE_STARTED_FORMAT" = "%@ left!";
+
 /* Title for button to join a challenge. */
 "CHALLENGE_DETAILS_VIEW_CHALLENGE_JOIN_BUTTON_TITLE" = "Join";
 
@@ -336,6 +351,9 @@
 
 /* Title for Dashboard view. */
 "DASHBOARD_VIEW_TITLE" = "Dashboard";
+
+/* Format for pluralization of days. */
+"DAY_COUNT_SINGLE_PLURAL" = "DAY_COUNT_SINGLE_PLURAL";
 
 /* Title for higi Score */
 "DRAWER_VIEW_HIGI_SCORE_TITLE" = "higi Score";
