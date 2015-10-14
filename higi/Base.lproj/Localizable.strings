@@ -85,8 +85,38 @@
 /* Title for challenge type section. */
 "CHALLENGE_DETAILS_TAB_SECTION_TYPE_TITLE" = "Type";
 
+/* Message for a challenge which ends today. */
+"CHALLENGE_DETAILS_VIEW_CHALLENGE_DATE_ENDS_TODAY" = "Ends today!";
+
+/* Message for a challenge which has already ended. */
+"CHALLENGE_DETAILS_VIEW_CHALLENGE_DATE_FINISHED" = "Challenge finished!";
+
+/* Format for challenge which has not started yet. */
+"CHALLENGE_DETAILS_VIEW_CHALLENGE_DATE_NOT_STARTED_FORMAT" = "Starts in %@!";
+
+/* Format for an ongoing challenge which has started and does not have a specific end date. */
+"CHALLENGE_DETAILS_VIEW_CHALLENGE_DATE_ONGOING_FORMAT" = "Started %@ ago!";
+
+/* Format for a challenge which has started and has a given number of days remaining. */
+"CHALLENGE_DETAILS_VIEW_CHALLENGE_DATE_STARTED_FORMAT" = "%@ left!";
+
+/* Format of text for challenge date range when a challenge does not have an end date. */
+"CHALLENGE_DETAILS_VIEW_CHALLENGE_DATES_NO_END_DATE_FORMAT" = "%@ - No end date";
+
 /* Title for button to join a challenge. */
 "CHALLENGE_DETAILS_VIEW_CHALLENGE_JOIN_BUTTON_TITLE" = "Join";
+
+/* Title for a goal based challenge. */
+"CHALLENGE_DETAILS_VIEW_CHALLENGE_TYPE_TITLE_GOAL" = "Goal Challenge";
+
+/* Title for a points based challenge. */
+"CHALLENGE_DETAILS_VIEW_CHALLENGE_TYPE_TITLE_POINTS" = "Points Challenge";
+
+/* Title for individual challenge winner. */
+"CHALLENGE_DETAILS_VIEW_CHALLENGE_WINNER_TYPE_TITLE_INDIVIDUAL" = "Individual";
+
+/* Title for team challenge winner. */
+"CHALLENGE_DETAILS_VIEW_CHALLENGE_WINNER_TYPE_TITLE_TEAM" = "Team";
 
 /* Title for cancel alert action which is displayed when joining a challenge fails. */
 "CHALLENGE_DETAILS_VIEW_JOIN_CHALLENGE_FAILURE_ALERT_ACTION_CANCEL_TITLE" = "OK";
@@ -96,6 +126,12 @@
 
 /* Title for alert which is displayed when joining a challenge fails. */
 "CHALLENGE_DETAILS_VIEW_JOIN_CHALLENGE_FAILURE_ALERT_TITLE" = "Uh oh";
+
+/* Format for limit display on challenge details view with daily metric limits. */
+"CHALLENGE_DETAILS_VIEW_LIMIT_DISPLAY_LIMITED_FORMAT" = "Limit of %@ %@ per day.";
+
+/* Format for limit display on challenge details view with unlimited daily metrics. */
+"CHALLENGE_DETAILS_VIEW_LIMIT_DISPLAY_UNLIMITED_FORMAT" = "Unlimited %@ per day.";
 
 /* Title to display on prize cell in challenge details view when there is no prize for the challenge. */
 "CHALLENGE_DETAILS_VIEW_PRIZE_CELL_TITLE_NO_PRIZE" = "No prize, doing this simply for the love of the game.";
@@ -135,6 +171,15 @@
 
 /* Text for team toggle button on challenge details view. */
 "CHALLENGE_DETAILS_VIEW_TOGGLE_BUTTON_TEXT_TEAMS" = "Teams";
+
+/* Format for challenge which has not started yet. */
+"CHALLENGE_INVITATION_VIEW_CHALLENGE_DATE_NOT_STARTED_FORMAT" = "Starts in %@";
+
+/* Format for an ongoing challenge which has started and does not have a specific end date. */
+"CHALLENGE_INVITATION_VIEW_CHALLENGE_DATE_ONGOING_FORMAT" = "Started %@ ago";
+
+/* Format for a challenge which started today. */
+"CHALLENGE_INVITATION_VIEW_CHALLENGE_DATE_TODAY_FORMAT" = "Started today";
 
 /* Title to display for a challenge goal. */
 "CHALLENGE_INVITATION_VIEW_CHALLENGE_GOAL_TITLE" = "Goal:";
@@ -265,6 +310,18 @@
 /* Label for points units as seen in the daily summary row. */
 "DAILY_SUMMARY_ROW_POINTS_UNIT_LABEL" = "pts";
 
+/* Text to display in activity breakdown of the daily summary view for blood pressure activity. */
+"DAILY_SUMMARY_VIEW_ACTIVITY_BREAKDOWN_ROW_TEXT_BLOOD_PRESSURE" = "mmHg BP";
+
+/* Text to display in activity breakdown of the daily summary view for body fat measurement. */
+"DAILY_SUMMARY_VIEW_ACTIVITY_BREAKDOWN_ROW_TEXT_BODY_FAT" = "% Body Fat";
+
+/* Text to display in activity breakdown of the daily summary view for heart rate activity. */
+"DAILY_SUMMARY_VIEW_ACTIVITY_BREAKDOWN_ROW_TEXT_PULSE" = "bpm Pulse";
+
+/* Text to display in activity breakdown of the daily summary view for weigh-in activity. */
+"DAILY_SUMMARY_VIEW_ACTIVITY_BREAKDOWN_ROW_TEXT_WEIGHT" = "lbs Weight";
+
 /* Alternate descriptive text for activity tracker; displayed on the Daily Summary view blank state. */
 "DAILY_SUMMARY_VIEW_BLANK_STATE_ACTIVITY_TRACKER_ALTERNATE_TEXT" = "Wanna get rewarded for biking to work or running on the treadmill at the gym? Just connect your favorite activity tracker and start earning points today. \n";
 
@@ -337,8 +394,20 @@
 /* Title for Dashboard view. */
 "DASHBOARD_VIEW_TITLE" = "Dashboard";
 
+/* Default date format for cached date formatter. */
+"DATE_FORMATTER_DEFAULT_DATE_FORMAT" = "yyyyMMdd";
+
+/* Default date format for cached display date formatter. */
+"DATE_FORMATTER_DEFAULT_DISPLAY_DATE_FORMAT" = "MM/dd/yyyy";
+
+/* Format for pluralization of days. */
+"DAY_COUNT_SINGLE_PLURAL" = "DAY_COUNT_SINGLE_PLURAL";
+
 /* Title for higi Score */
 "DRAWER_VIEW_HIGI_SCORE_TITLE" = "higi Score";
+
+/* Titles for the various values of a user's data which can be exported. */
+"EXPORT_DATA_CSV_DATA_TITLES" = "Date,Location,Address of higi Station,Systolic Pressure (mmHg),Diastolic Pressure (mmHg),Pulse (bpm),Mean Arterial Pressure (mmHg), Weight (lbs),Body Mass Index\n";
 
 /* Title of calendar reminder to check in to a higi station. */
 "FIND_STATION_VIEW_CHECK_IN_REMINDER_CALENDAR_EVENT_TITLE" = "Check in to a higi Station!";
@@ -354,6 +423,33 @@
 
 /* Placeholder text for search field on Find Station view. */
 "FIND_STATION_VIEW_SEARCH_FIELD_PLACEHOLDER_TEXT" = "Search by store name, city, zip";
+
+/* Text to display when station is closed. */
+"FIND_STATION_VIEW_STATION_DETAIL_STORE_HOURS_CLOSED" = "Closed";
+
+/* Text to display when station hours of availability is not available. */
+"FIND_STATION_VIEW_STATION_DETAIL_STORE_HOURS_NOT_AVAILABLE" = "Not available";
+
+/* Title for 5th day of week. */
+"FIND_STATION_VIEW_STATION_DETAILS_DAY_OF_WEEK_TITLE_FIFTH" = "Thursday";
+
+/* Title for 1st day of week. */
+"FIND_STATION_VIEW_STATION_DETAILS_DAY_OF_WEEK_TITLE_FIRST" = "Sunday";
+
+/* Title for 4th day of week. */
+"FIND_STATION_VIEW_STATION_DETAILS_DAY_OF_WEEK_TITLE_FOURTH" = "Wednesday";
+
+/* Title for 2nd day of week. */
+"FIND_STATION_VIEW_STATION_DETAILS_DAY_OF_WEEK_TITLE_SECOND" = "Monday";
+
+/* Title for 7th day of week. */
+"FIND_STATION_VIEW_STATION_DETAILS_DAY_OF_WEEK_TITLE_SEVENTH" = "Saturday";
+
+/* Title for 6th day of week. */
+"FIND_STATION_VIEW_STATION_DETAILS_DAY_OF_WEEK_TITLE_SIXTH" = "Friday";
+
+/* Title for 3rd day of week. */
+"FIND_STATION_VIEW_STATION_DETAILS_DAY_OF_WEEK_TITLE_THIRD" = "Tuesday";
 
 /* General purpose abbreviated label for beats per minute. */
 "GENERAL_PURPOSE_UNIT_LABEL_ABBR_BEATS_PER_MINUTE" = "bpm";

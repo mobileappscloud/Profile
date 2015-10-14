@@ -296,14 +296,11 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             mainScrollView.addSubview(metricsCard);
             metricsSpinner.startAnimating();
         }
-        // TODO: l10n formatter
         if (SessionController.Instance.checkins != nil) {
             var bps: [HigiCheckin] = [], weights: [HigiCheckin] = [], pulses: [HigiCheckin] = [];
-            let dateFormatter = NSDateFormatter();
-            dateFormatter.dateFormat = "MM/dd/yyyy";
             var lastBpDate = "", lastBmiDate = "", lastPulseDate = "";
             for checkin in SessionController.Instance.checkins {
-                let checkinDate = dateFormatter.stringFromDate(checkin.dateTime);
+                let checkinDate = Constants.displayDateFormatter.stringFromDate(checkin.dateTime);
                 if (checkin.systolic != nil && checkin.systolic > 0) {
                     if (checkinDate != lastBpDate) {
                         bps.append(checkin);

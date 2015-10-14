@@ -379,12 +379,9 @@ class SettingsTableViewController: UITableViewController, SwitchTableViewCellDel
     }
     
     // MARK: - Helper
-    
-    // TODO: l10n how should this be formatted?
     func exportData() -> NSURL {
-        let dateFormatter = NSDateFormatter();
-        dateFormatter.dateFormat = "MM/dd/yyy";
-        var contents = "Date,Location,Address of higi Station,Systolic Pressure (mmHg),Diastolic Pressure (mmHg),Pulse (bpm),Mean Arterial Pressure (mmHg), Weight (lbs),Body Mass Index\n";
+
+        var contents = NSLocalizedString("EXPORT_DATA_CSV_DATA_TITLES", comment: "Titles for the various values of a user's data which can be exported.");
         
         for index in Array((0..<SessionController.Instance.checkins.count).reverse()) {
             let checkin = SessionController.Instance.checkins[index];
@@ -407,7 +404,7 @@ class SettingsTableViewController: UITableViewController, SwitchTableViewCellDel
                 weight = "\(Int(checkin.weightLbs!))";
             }
             
-            let row = "\(dateFormatter.stringFromDate(checkin.dateTime)),\(organization),\(address),\(systolic),\(diastolic),\(pulse),\(map),\(weight),\(bmi)\n";
+            let row = "\(Constants.displayDateFormatter.stringFromDate(checkin.dateTime)),\(organization),\(address),\(systolic),\(diastolic),\(pulse),\(map),\(weight),\(bmi)\n";
             contents += row;
         }
         

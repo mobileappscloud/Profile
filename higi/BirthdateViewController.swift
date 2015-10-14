@@ -10,7 +10,6 @@ import Foundation
 
 class BirthdateViewController: UIViewController {
  
-    // TODO: l10n format for date
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var nextButton: UIButton! {
         didSet {
@@ -59,7 +58,6 @@ class BirthdateViewController: UIViewController {
         } else {
             let user = SessionData.Instance.user;
             let dateFormatter = NSDateFormatter();
-            // TODO: l10n format?
             dateFormatter.dateFormat = "MM/dd/yyyy";
             let contents = NSMutableDictionary();
             contents["dateOfBirth"] = dateFormatter.stringFromDate(birthday);
@@ -88,7 +86,6 @@ class BirthdateViewController: UIViewController {
     func deleteAccountAndQuit() {
         let user = SessionData.Instance.user;
         let dateFormatter = NSDateFormatter();
-        // TODO: l10n format?
         dateFormatter.dateFormat = "MM/dd/yyyy";
         HigiApi().sendGet("\(HigiApi.higiApiUrl)/data/deleteAccountAge13?userId=\(user.userId)&dob=\(dateFormatter.stringFromDate(datePicker.date))", success: nil, failure: nil);
         SessionController.Instance.reset();

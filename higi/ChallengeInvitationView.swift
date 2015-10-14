@@ -61,25 +61,28 @@ class ChallengeInvitationView: UIView {
         
         let pointsGoal = NSLocalizedString("CHALLENGE_INVITATION_VIEW_GOAL_TYPE_POINTS", comment: "Text to display if a challenge goal type is to accrue the most points.");
         let challengeGoal = NSLocalizedString("CHALLENGE_INVITATION_VIEW_GOAL_TYPE_CHALLENGE", comment: "Text to display if a challenge goal type is to reach a threshold.");
-        let secondPart = goalType == "most_points" ? "Points Challenge" : "Goal Challenge";
+        let secondPart = goalType == "most_points" ? pointsGoal : challengeGoal;
         
         return firstPart + " " + secondPart;
     }
     
-    // TODO: l10n verify copy and use pluralization dict
     class func startsInDisplayHelper(startDate: NSDate) -> String {
         var dateDisplay:String!
-        if (Int(startDate.timeIntervalSinceNow) > 0) {
-            let days = Int(startDate.timeIntervalSinceNow / 60 / 60 / 24) + 1;
-            let s = days == 1 ? "" : "s";
-            dateDisplay = "Starts in \(days) day\(s)";
-        } else if (Int(startDate.timeIntervalSinceNow) < 0){
-            let days = Int(startDate.timeIntervalSinceNow / 60 / 60 / 24) * -1 + 1;
-            let s = days == 1 ? "" : "s";
-            dateDisplay = "Started \(days) day\(s) ago";
+
+        let elapsedDays = NSCalendar.currentCalendar().components(.Day, fromDate: NSDate(), toDate: startDate, options: NSCalendarOptions(rawValue: 0)).day
+    
+        if (elapsedDays > 0) {
+            let formattedDate = NSString.localizedStringWithFormat(NSLocalizedString("DAY_COUNT_SINGLE_PLURAL", comment: "Format for pluralization of days."), elapsedDays+1)
+            let format = NSLocalizedString("CHALLENGE_INVITATION_VIEW_CHALLENGE_DATE_NOT_STARTED_FORMAT", comment: "Format for challenge which has not started yet.")
+            dateDisplay = NSString.localizedStringWithFormat(format, formattedDate) as String
+        } else if (elapsedDays < 0) {
+            let formattedDate = NSString.localizedStringWithFormat(NSLocalizedString("DAY_COUNT_SINGLE_PLURAL", comment: "Format for pluralization of days."), elapsedDays+1)
+            let format = NSLocalizedString("CHALLENGE_INVITATION_VIEW_CHALLENGE_DATE_ONGOING_FORMAT", comment: "Format for an ongoing challenge which has started and does not have a specific end date.")
+            dateDisplay = NSString.localizedStringWithFormat(format, formattedDate) as String
         } else {
-            dateDisplay = "Started today";
+            dateDisplay = NSLocalizedString("CHALLENGE_INVITATION_VIEW_CHALLENGE_DATE_TODAY_FORMAT", comment: "Format for a challenge which started today.")
         }
+        
         return dateDisplay;
     }
     

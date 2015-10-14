@@ -247,19 +247,20 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
             cell.title.text = challenge.name as String;
             cell.avatar.setImageWithURL(Utility.loadImageFromUrl(challenge.imageUrl as String));
         }
-        // TODO: l10n with relative formatter
         let endDate:NSDate? = challenge.endDate;
         if (endDate != nil) {
-            let days = Int(endDate!.timeIntervalSinceNow / 60 / 60 / 24) + 1;
-            let formatter = NSDateFormatter();
-            formatter.dateFormat = "yyyyMMdd";
-            if (formatter.stringFromDate(NSDate()) == formatter.stringFromDate(endDate!)) {
-                cell.daysLeft.text = "Ends today!";
-            } else if (days > 0) {
-                let s = days == 1 ? "" : "s";
-                cell.daysLeft.text = "\(days) \(s) left";
-            } else {
-                cell.daysLeft.text = "Finished!";
+            let remainingDays = NSCalendar.currentCalendar().components(.Day, fromDate: NSDate(), toDate: endDate!, options: NSCalendarOptions(rawValue: 0)).day
+            
+            if (NSCalendar.currentCalendar().isDateInToday(endDate!)) {
+                cell.daysLeft.text = NSLocalizedString("CHALLENGE_DETAILS_VIEW_CHALLENGE_DATE_ENDS_TODAY", comment: "Message for a challenge which ends today.")
+                
+            } else if (remainingDays > 0) {
+                let formattedDate = NSString.localizedStringWithFormat(NSLocalizedString("DAY_COUNT_SINGLE_PLURAL", comment: "Format for pluralization of days."), remainingDays+1)
+                let format = NSLocalizedString("CHALLENGE_DETAILS_VIEW_CHALLENGE_DATE_STARTED_FORMAT", comment: "Format for a challenge which has started and has a given number of days remaining.")
+                cell.daysLeft.text = NSString.localizedStringWithFormat(format, formattedDate) as String
+                
+            } else if (remainingDays < 0) {
+                cell.daysLeft.text = NSLocalizedString("CHALLENGE_DETAILS_VIEW_CHALLENGE_DATE_FINISHED", comment: "Message for a challenge which has already ended.")
             }
         }
         //use tag to send to indentify which challenge selected when going to challenge details page

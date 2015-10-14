@@ -135,7 +135,10 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         } else {
             date = Constants.dateFormatter.dateFromString(dateString);
         }
-        // TODO: l10n formats
+        /*
+            @internal If the date formatter assumes the current locale, then the strings for date format
+            may be acceptable as-is since the individual units of date/time are being extracted. The layout of the actual labels may need to be refactored due to the fixed ordering of the labels.
+        */
         let dateFormatter = NSDateFormatter();
         dateFormatter.dateFormat = "d";
         let monthYearFormatter = NSDateFormatter();
@@ -362,10 +365,10 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
                         
                         currentOrigin += titleRow.frame.size.height;
                         
-                        // TODO: l10n - verify breakdown row format
                         if let checkin = findCheckin(subActivity) {
                             if checkin.diastolic != nil && checkin.diastolic > 0 {
-                                let breakdownRow = SummaryViewUtility.initBreakdownRow(CGRect(x: activityRow.name.frame.origin.x, y: currentOrigin, width: rowWidth, height: CGFloat.max), text: "\(checkin.systolic!)/\(checkin.diastolic!) mmHg BP", duplicate: isDuplicate);
+                                let suffix = NSLocalizedString("DAILY_SUMMARY_VIEW_ACTIVITY_BREAKDOWN_ROW_TEXT_BLOOD_PRESSURE", comment: "Text to display in activity breakdown of the daily summary view for blood pressure activity.")
+                                let breakdownRow = SummaryViewUtility.initBreakdownRow(CGRect(x: activityRow.name.frame.origin.x, y: currentOrigin, width: rowWidth, height: CGFloat.max), text: "\(checkin.systolic!)/\(checkin.diastolic!) \(suffix)", duplicate: isDuplicate);
                                 if subActivity.points == 0 {
                                     breakdownRow.alpha = grayedAlpha;
                                 }
@@ -377,7 +380,8 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
                                 margins.append(0);
                             }
                             if checkin.pulseBpm != nil && checkin.pulseBpm > 0 {
-                                let breakdownRow = SummaryViewUtility.initBreakdownRow(CGRect(x: activityRow.name.frame.origin.x, y: currentOrigin, width: rowWidth, height: CGFloat.max), text: "\(checkin.pulseBpm!) bpm Pulse", duplicate: isDuplicate);
+                                let suffix = NSLocalizedString("DAILY_SUMMARY_VIEW_ACTIVITY_BREAKDOWN_ROW_TEXT_PULSE", comment: "Text to display in activity breakdown of the daily summary view for heart rate activity.")
+                                let breakdownRow = SummaryViewUtility.initBreakdownRow(CGRect(x: activityRow.name.frame.origin.x, y: currentOrigin, width: rowWidth, height: CGFloat.max), text: "\(checkin.pulseBpm!) \(suffix)", duplicate: isDuplicate);
                                 if subActivity.points == 0 {
                                     breakdownRow.alpha = grayedAlpha;
                                 }
@@ -389,7 +393,8 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
                                 margins.append(0);
                             }
                             if checkin.weightLbs != nil && checkin.weightLbs > 0 {
-                                let breakdownRow = SummaryViewUtility.initBreakdownRow(CGRect(x: activityRow.name.frame.origin.x, y: currentOrigin, width: rowWidth, height: CGFloat.max), text: "\(Int(checkin.weightLbs!)) lbs Weight", duplicate: isDuplicate);
+                                let suffix = NSLocalizedString("DAILY_SUMMARY_VIEW_ACTIVITY_BREAKDOWN_ROW_TEXT_WEIGHT", comment: "Text to display in activity breakdown of the daily summary view for weigh-in activity.")
+                                let breakdownRow = SummaryViewUtility.initBreakdownRow(CGRect(x: activityRow.name.frame.origin.x, y: currentOrigin, width: rowWidth, height: CGFloat.max), text: "\(Int(checkin.weightLbs!)) \(suffix)", duplicate: isDuplicate);
                                 if subActivity.points == 0 {
                                     breakdownRow.alpha = grayedAlpha;
                                 }
@@ -401,7 +406,8 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
                                 margins.append(0);
                             }
                             if checkin.fatRatio != nil && checkin.fatRatio > 0 {
-                                let breakdownRow = SummaryViewUtility.initBreakdownRow(CGRect(x: activityRow.name.frame.origin.x, y: currentOrigin, width: rowWidth, height: CGFloat.max), text: String(format: "%.2f", checkin.fatRatio!) + "% Body Fat", duplicate: isDuplicate);
+                                let suffix = NSLocalizedString("DAILY_SUMMARY_VIEW_ACTIVITY_BREAKDOWN_ROW_TEXT_BODY_FAT", comment: "Text to display in activity breakdown of the daily summary view for body fat measurement.")
+                                let breakdownRow = SummaryViewUtility.initBreakdownRow(CGRect(x: activityRow.name.frame.origin.x, y: currentOrigin, width: rowWidth, height: CGFloat.max), text: String(format: "%.2f", checkin.fatRatio!) + " \(suffix)", duplicate: isDuplicate);
                                 if subActivity.points == 0 {
                                     breakdownRow.alpha = grayedAlpha;
                                 }
@@ -478,7 +484,6 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         return button;
     }
     
-    // TODO: l10n formatter
     func findCheckin(activity: HigiActivity ) -> HigiCheckin? {
         if SessionController.Instance.checkins != nil {
             let formatter = NSDateFormatter();

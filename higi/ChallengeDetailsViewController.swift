@@ -235,32 +235,37 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             showTeamsPicker();
         }
     }
-    
-    // TODO: l10n utility
+
     func dateDisplayHelper() -> String {
         var dateDisplay:String!
         let startDate:NSDate? = challenge.startDate;
         let endDate:NSDate? = challenge.endDate;
-        if (Int(startDate!.timeIntervalSinceNow) > 0) {
-            let days = Int(startDate!.timeIntervalSinceNow / 60 / 60 / 24) + 1;
-            let s = days == 1 ? "" : "s";
-            dateDisplay = "Starts in \(days) day\(s)!";
+        
+        let elapsedDays = NSCalendar.currentCalendar().components(.Day, fromDate: NSDate(), toDate: startDate!, options: NSCalendarOptions(rawValue: 0)).day
+        
+        if (elapsedDays > 0) {
+            let formattedDate = NSString.localizedStringWithFormat(NSLocalizedString("DAY_COUNT_SINGLE_PLURAL", comment: "Format for pluralization of days."), elapsedDays+1)
+            let format = NSLocalizedString("CHALLENGE_DETAILS_VIEW_CHALLENGE_DATE_NOT_STARTED_FORMAT", comment: "Format for challenge which has not started yet.")
+            dateDisplay = NSString.localizedStringWithFormat(format, formattedDate) as String
+            
         } else if (endDate != nil) {
-            let formatter = NSDateFormatter();
-            formatter.dateFormat = "yyyyMMdd";
-            if (formatter.stringFromDate(NSDate()) == formatter.stringFromDate(endDate!)) {
-                dateDisplay = "Ends today!";
-            } else if (Int(endDate!.timeIntervalSinceNow) > 0) {
-                let days = Int(endDate!.timeIntervalSinceNow / 60 / 60 / 24) + 1;
-                let s = days == 1 ? "" : "s";
-                dateDisplay = "\(days) day\(s) left!";
-            } else if (Int(endDate!.timeIntervalSinceNow) < 0) {
-                dateDisplay = "Challenge finished!";
+            let remainingDays = NSCalendar.currentCalendar().components(.Day, fromDate: NSDate(), toDate: endDate!, options: NSCalendarOptions(rawValue: 0)).day
+            
+            if (NSCalendar.currentCalendar().isDateInToday(endDate!)) {
+                dateDisplay = NSLocalizedString("CHALLENGE_DETAILS_VIEW_CHALLENGE_DATE_ENDS_TODAY", comment: "Message for a challenge which ends today.")
+                
+            } else if (remainingDays > 0) {
+                let formattedDate = NSString.localizedStringWithFormat(NSLocalizedString("DAY_COUNT_SINGLE_PLURAL", comment: "Format for pluralization of days."), remainingDays+1)
+                let format = NSLocalizedString("CHALLENGE_DETAILS_VIEW_CHALLENGE_DATE_STARTED_FORMAT", comment: "Format for a challenge which has started and has a given number of days remaining.")
+                dateDisplay = NSString.localizedStringWithFormat(format, formattedDate) as String
+                
+            } else if (remainingDays < 0) {
+                dateDisplay = NSLocalizedString("CHALLENGE_DETAILS_VIEW_CHALLENGE_DATE_FINISHED", comment: "Message for a challenge which has already ended.")
             }
         } else {
-            let days = -Int(startDate!.timeIntervalSinceNow / 60 / 60 / 24) + 1;
-            let s = days == 1 ? "" : "s";
-            dateDisplay = "Started \(days) day\(s) ago!";
+            let formattedDate = NSString.localizedStringWithFormat(NSLocalizedString("DAY_COUNT_SINGLE_PLURAL", comment: "Format for pluralization of days."), abs(elapsedDays)+1)
+            let format = NSLocalizedString("CHALLENGE_DETAILS_VIEW_CHALLENGE_DATE_ONGOING_FORMAT", comment: "Format for an ongoing challenge which has started and does not have a specific end date.")
+            dateDisplay = NSString.localizedStringWithFormat(format, formattedDate) as String
         }
         return dateDisplay;
     }
@@ -567,38 +572,30 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         return table;
     }
     
-    // TODO: l10n and code reuse
     func setDateRangeHelper(startDate: NSDate, endDate: NSDate!) -> String {
         let dateFormatter = NSDateFormatter();
-        dateFormatter.dateFormat = "MMM. dd, YYYY"
+        dateFormatter.dateStyle = .MediumStyle
         if (endDate != nil) {
             return "\(dateFormatter.stringFromDate(startDate)) - \(dateFormatter.stringFromDate(endDate))";
         } else {
-            return "\(dateFormatter.stringFromDate(startDate)) - No end date";
+            let format = NSLocalizedString("CHALLENGE_DETAILS_VIEW_CHALLENGE_DATES_NO_END_DATE_FORMAT", comment: "Format of text for challenge date range when a challenge does not have an end date.")
+            return NSString.localizedStringWithFormat(format, dateFormatter.stringFromDate(startDate)) as String
         }
     }
     
     func goalTypeDisplayHelper(goalType: String, winnerType: String) -> String {
-        let firstPart = winnerType == "individual" ? "Individual" : "Team";
-        let secondPart = goalType == "most_points" ? "Points Challenge" : "Goal Challenge";
+        let firstPart = winnerType == "individual" ? NSLocalizedString("CHALLENGE_DETAILS_VIEW_CHALLENGE_WINNER_TYPE_TITLE_INDIVIDUAL", comment: "Title for individual challenge winner.") : NSLocalizedString("CHALLENGE_DETAILS_VIEW_CHALLENGE_WINNER_TYPE_TITLE_TEAM", comment: "Title for team challenge winner.");
+        let secondPart = goalType == "most_points" ? NSLocalizedString("CHALLENGE_DETAILS_VIEW_CHALLENGE_TYPE_TITLE_POINTS", comment: "Title for a points based challenge.") : NSLocalizedString("CHALLENGE_DETAILS_VIEW_CHALLENGE_TYPE_TITLE_GOAL", comment: "Title for a goal based challenge.");
         return firstPart + " " + secondPart;
-    }
-    
-    func durationHelper(startDate: NSDate, endDate: NSDate?) -> String {
-        let dateFormatter = NSDateFormatter();
-        dateFormatter.dateFormat = "MMM. dd, YYYY"
-        if (endDate != nil) {
-            return "\(dateFormatter.stringFromDate(startDate)) - \(dateFormatter.stringFromDate(endDate!))";
-        } else {
-            return "\(dateFormatter.stringFromDate(startDate)) - No end date";
-        }
     }
     
     func limitDisplayHelper(limit: Int, metric: String) -> String {
         if (limit > 0) {
-            return "Limit of \(limit) \(metric) per day.";
+            let format = NSLocalizedString("CHALLENGE_DETAILS_VIEW_LIMIT_DISPLAY_LIMITED_FORMAT", comment: "Format for limit display on challenge details view with daily metric limits.")
+            return NSString.localizedStringWithFormat(format, [limit, metric]) as String
         } else {
-            return "Unlimited \(metric) per day.";
+            let format = NSLocalizedString("CHALLENGE_DETAILS_VIEW_LIMIT_DISPLAY_UNLIMITED_FORMAT", comment: "Format for limit display on challenge details view with unlimited daily metrics.")
+            return NSString.localizedStringWithFormat(format, metric) as String
         }
     }
     

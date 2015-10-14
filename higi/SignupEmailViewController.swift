@@ -80,7 +80,6 @@ class SignupEmailViewController: UIViewController, UITextFieldDelegate {
         signupButton.enabled = false;
         self.navigationItem.leftBarButtonItem!.customView!.hidden = true;
         var problemFound = false;
-        // TODO: l10n regex
         if (email.text!.characters.count == 0 || email.text!.rangeOfString("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$", options: NSStringCompareOptions.RegularExpressionSearch, range: nil, locale: nil) == nil) {
             problemFound = true;
             email.attributedPlaceholder = NSAttributedString(string: NSLocalizedString("SIGN_UP_EMAIL_VIEW_EMAIL_TEXT_FIELD_PLACEHOLDER_REQUIREMENTS", comment: "Placeholder for email text field which indicates email requirements."), attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)]);

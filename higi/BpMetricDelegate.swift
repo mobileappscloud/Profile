@@ -70,7 +70,6 @@ class BpMetricDelegate: MetricDelegate {
         if (selectedCheckin == nil) {
             return nil;
         } else {
-            // TODO: l10n formats
             let date = Constants.dateFormatter.stringFromDate(selectedCheckin.dateTime);
             let bp = selectedCheckin.systolic != nil ? "\(selectedCheckin.systolic!)/\(selectedCheckin.diastolic!)" : "";
             let map = selectedCheckin.map != nil ? String(format: "%.1f", arguments: [selectedCheckin.map!]) : "";

@@ -24,6 +24,42 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     @IBOutlet weak var selectedAddress: UILabel!
     @IBOutlet weak var selectedDistance: UILabel!
     
+    @IBOutlet weak var mondayLabel: UILabel! {
+        didSet {
+            mondayLabel.text = NSLocalizedString("FIND_STATION_VIEW_STATION_DETAILS_DAY_OF_WEEK_TITLE_SECOND", comment: "Title for 2nd day of week.");
+        }
+    }
+    @IBOutlet weak var tuesdayLabel: UILabel! {
+        didSet {
+            tuesdayLabel.text = NSLocalizedString("FIND_STATION_VIEW_STATION_DETAILS_DAY_OF_WEEK_TITLE_THIRD", comment: "Title for 3rd day of week.");
+        }
+    }
+    @IBOutlet weak var wednesdayLabel: UILabel! {
+        didSet {
+            wednesdayLabel.text = NSLocalizedString("FIND_STATION_VIEW_STATION_DETAILS_DAY_OF_WEEK_TITLE_FOURTH", comment: "Title for 4th day of week.");
+        }
+    }
+    @IBOutlet weak var thursdayLabel: UILabel! {
+        didSet {
+            thursdayLabel.text = NSLocalizedString("FIND_STATION_VIEW_STATION_DETAILS_DAY_OF_WEEK_TITLE_FIFTH", comment: "Title for 5th day of week.");
+        }
+    }
+    @IBOutlet weak var fridayLabel: UILabel! {
+        didSet {
+            fridayLabel.text = NSLocalizedString("FIND_STATION_VIEW_STATION_DETAILS_DAY_OF_WEEK_TITLE_SIXTH", comment: "Title for 6th day of week.");
+        }
+    }
+    @IBOutlet weak var saturdayLabel: UILabel! {
+        didSet {
+            saturdayLabel.text = NSLocalizedString("FIND_STATION_VIEW_STATION_DETAILS_DAY_OF_WEEK_TITLE_SEVENTH", comment: "Title for 7th day of week.");
+        }
+    }
+    @IBOutlet weak var sundayLabel: UILabel! {
+        didSet {
+            sundayLabel.text = NSLocalizedString("FIND_STATION_VIEW_STATION_DETAILS_DAY_OF_WEEK_TITLE_FIRST", comment: "Title for 1st day of week.");
+        }
+    }
+    
     @IBOutlet weak var mondayHours: UILabel!
     @IBOutlet weak var tuesdayHours: UILabel!
     @IBOutlet weak var wednesdayHours: UILabel!
@@ -40,6 +76,13 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     @IBOutlet weak var topHelp: UIView!
     @IBOutlet weak var bottomHelp: UIView!
     @IBOutlet weak var bottomHelpBackground: UIImageView!
+    
+    let distanceFormatter: MKDistanceFormatter = {
+        let distanceFormatter = MKDistanceFormatter();
+        distanceFormatter.unitStyle = .Abbreviated;
+        return distanceFormatter;
+    }()
+
     
     var locationManager: CLLocationManager!;
     
@@ -97,25 +140,35 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         searchField.addTarget(self, action: "textFieldChanged", forControlEvents: UIControlEvents.EditingChanged);
         self.navigationItem.titleView = searchField;
         
-        // TODO: l10n label names, use calendar components and possibly enum
+        // TODO: l10n, this should be based on day of week, but will require some significant effort to refactor.
+        //       Implementing trivial solution which will continue to switch on string for the time being.
         let fontSize = mondayHours.font.pointSize;
         let formatter = NSDateFormatter();
         formatter.dateFormat = "EEEE";
         let dayString: String = formatter.stringFromDate(NSDate());
+        
+        let sunday = NSLocalizedString("FIND_STATION_VIEW_STATION_DETAILS_DAY_OF_WEEK_TITLE_FIRST", comment: "Title for 1st day of week.");
+        let monday = NSLocalizedString("FIND_STATION_VIEW_STATION_DETAILS_DAY_OF_WEEK_TITLE_SECOND", comment: "Title for 2nd day of week.");
+        let tuesday = NSLocalizedString("FIND_STATION_VIEW_STATION_DETAILS_DAY_OF_WEEK_TITLE_THIRD", comment: "Title for 3rd day of week.");
+        let wednesday = NSLocalizedString("FIND_STATION_VIEW_STATION_DETAILS_DAY_OF_WEEK_TITLE_FOURTH", comment: "Title for 4th day of week.");
+        let thursday = NSLocalizedString("FIND_STATION_VIEW_STATION_DETAILS_DAY_OF_WEEK_TITLE_FIFTH", comment: "Title for 5th day of week.");
+        let friday = NSLocalizedString("FIND_STATION_VIEW_STATION_DETAILS_DAY_OF_WEEK_TITLE_SIXTH", comment: "Title for 6th day of week.");
+        let saturday = NSLocalizedString("FIND_STATION_VIEW_STATION_DETAILS_DAY_OF_WEEK_TITLE_SEVENTH", comment: "Title for 7th day of week.");
+
         switch dayString {
-        case "Monday":
+        case monday:
             mondayHours.font = UIFont.boldSystemFontOfSize(fontSize);
-        case "Tuesday":
+        case tuesday:
             tuesdayHours.font = UIFont.boldSystemFontOfSize(fontSize);
-        case "Wednesday":
+        case wednesday:
             wednesdayHours.font = UIFont.boldSystemFontOfSize(fontSize);
-        case "Thursday":
+        case thursday:
             thursdayHours.font = UIFont.boldSystemFontOfSize(fontSize);
-        case "Friday":
+        case friday:
             fridayHours.font = UIFont.boldSystemFontOfSize(fontSize);
-        case "Saturady":
+        case saturday:
             saturdayHours.font = UIFont.boldSystemFontOfSize(fontSize);
-        case "Sunday":
+        case sunday:
             sundayHours.font = UIFont.boldSystemFontOfSize(fontSize);
         default:
             break;
@@ -249,7 +302,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
             if ((self.currentVisibleKioskTask.operations[0] ).cancelled) {
                 return;
             }
-            self.visibleKiosks.sortInPlace { self.calcDistance($0.location!) < self.calcDistance($1.location!) };
+            self.visibleKiosks.sortInPlace { self.distanceFromCurrentLocation($0.location!) < self.distanceFromCurrentLocation($1.location!) };
             if ((self.currentVisibleKioskTask.operations[0] ).cancelled) {
                 return;
             }
@@ -287,9 +340,9 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         listOpen = !listOpen;
     }
     
-    func calcDistance(location: CLLocation) -> Double {
+    func distanceFromCurrentLocation(location: CLLocation) -> Double {
         if (mapView.myLocation != nil) {
-            return location.distanceFromLocation(mapView.myLocation) * 0.000621371;
+            return location.distanceFromLocation(mapView.myLocation);
         } else {
             return -1;
         }
@@ -327,7 +380,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
                 if ((self.currentAutoCompleteTask.operations[0]).cancelled && size != self.searchField.text!.characters.count) {
                     return;
                 }
-                self.autoCompleteResults.sortInPlace { self.calcDistance($0.location!) < self.calcDistance($1.location!) };
+                self.autoCompleteResults.sortInPlace { self.distanceFromCurrentLocation($0.location!) < self.distanceFromCurrentLocation($1.location!) };
                 if ((self.currentAutoCompleteTask.operations[0]).cancelled && size != self.searchField.text!.characters.count) {
                     return;
                 }
@@ -397,11 +450,9 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         cell.logo.image = nil;
         cell.logo.setImageWithURL(getKioskLogoUrl(kiosk));
         
-        // TODO: l10n distance formatter
-        let distance = calcDistance(kiosk.location!);
+        let distance = distanceFromCurrentLocation(kiosk.location!);
         if (distance >= 0) {
-            let formattedDistance = distance >= 10 ? "\(Int(distance))" : String(format: "%.1f", distance);
-            cell.distance.text = "\(formattedDistance) mi";
+            cell.distance.text = distanceFormatter.stringFromDistance(distance);
         } else {
             cell.distance.text = "";
         }
@@ -522,30 +573,30 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         selectedLogo.setImageWithURL(getKioskLogoUrl(kiosk));
         selectedName.text = kiosk.organizations[0] as String;
         selectedAddress.text = kiosk.fullAddress as String;
-        // TODO: l10n handle with changes above, code reuse
         if (kiosk.hours != nil) {
-            mondayHours.text = kiosk.hours!.valueForKey("Mon") as? String? ?? "Closed";
-            tuesdayHours.text = kiosk.hours!.valueForKey("Tue") as? String? ?? "Closed";
-            wednesdayHours.text = kiosk.hours!.valueForKey("Wed") as? String? ?? "Closed";
-            thursdayHours.text = kiosk.hours!.valueForKey("Thu") as? String? ?? "Closed";
-            fridayHours.text = kiosk.hours!.valueForKey("Fri") as? String? ?? "Closed";
-            saturdayHours.text = kiosk.hours!.valueForKey("Sat") as? String? ?? "Closed";
-            sundayHours.text = kiosk.hours!.valueForKey("Sun") as? String? ?? "Closed";
+           let closed = NSLocalizedString("FIND_STATION_VIEW_STATION_DETAIL_STORE_HOURS_CLOSED", comment: "Text to display when station is closed.");
+            
+            mondayHours.text = kiosk.hours!.valueForKey("Mon") as? String? ?? closed;
+            tuesdayHours.text = kiosk.hours!.valueForKey("Tue") as? String? ?? closed;
+            wednesdayHours.text = kiosk.hours!.valueForKey("Wed") as? String? ?? closed;
+            thursdayHours.text = kiosk.hours!.valueForKey("Thu") as? String? ?? closed;
+            fridayHours.text = kiosk.hours!.valueForKey("Fri") as? String? ?? closed;
+            saturdayHours.text = kiosk.hours!.valueForKey("Sat") as? String? ?? closed;
+            sundayHours.text = kiosk.hours!.valueForKey("Sun") as? String? ?? closed;
         } else {
-            mondayHours.text = "Not available";
-            tuesdayHours.text = "Not available";
-            wednesdayHours.text = "Not available";
-            thursdayHours.text = "Not available";
-            fridayHours.text = "Not available";
-            saturdayHours.text = "Not available";
-            sundayHours.text = "Not available";
+            let notAvailable = NSLocalizedString("FIND_STATION_VIEW_STATION_DETAIL_STORE_HOURS_NOT_AVAILABLE", comment: "Text to display when station hours of availability is not available.");
+            mondayHours.text = notAvailable;
+            tuesdayHours.text = notAvailable;
+            wednesdayHours.text = notAvailable;
+            thursdayHours.text = notAvailable;
+            fridayHours.text = notAvailable;
+            saturdayHours.text = notAvailable;
+            sundayHours.text = notAvailable;
         }
         
-        // TODO: l10n distance formatter
-        var distance = calcDistance(kiosk.location!);
+        let distance = distanceFromCurrentLocation(kiosk.location!);
         if (distance >= 0) {
-            var formattedDistance = distance >= 10 ? "\(Int(distance))" : String(format: "%.1f", distance);
-            selectedDistance.text = "\(formattedDistance) mi";
+            selectedDistance.text = distanceFormatter.stringFromDistance(distance);
         } else {
             selectedDistance.text = "";
         }
