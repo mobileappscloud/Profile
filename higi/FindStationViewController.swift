@@ -24,6 +24,42 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     @IBOutlet weak var selectedAddress: UILabel!
     @IBOutlet weak var selectedDistance: UILabel!
     
+    @IBOutlet weak var mondayLabel: UILabel! {
+        didSet {
+            mondayLabel.text = NSLocalizedString("FIND_STATION_VIEW_STATION_DETAILS_DAY_OF_WEEK_TITLE_SECOND", comment: "Title for 2nd day of week.");
+        }
+    }
+    @IBOutlet weak var tuesdayLabel: UILabel! {
+        didSet {
+            tuesdayLabel.text = NSLocalizedString("FIND_STATION_VIEW_STATION_DETAILS_DAY_OF_WEEK_TITLE_THIRD", comment: "Title for 3rd day of week.");
+        }
+    }
+    @IBOutlet weak var wednesdayLabel: UILabel! {
+        didSet {
+            wednesdayLabel.text = NSLocalizedString("FIND_STATION_VIEW_STATION_DETAILS_DAY_OF_WEEK_TITLE_FOURTH", comment: "Title for 4th day of week.");
+        }
+    }
+    @IBOutlet weak var thursdayLabel: UILabel! {
+        didSet {
+            thursdayLabel.text = NSLocalizedString("FIND_STATION_VIEW_STATION_DETAILS_DAY_OF_WEEK_TITLE_FIFTH", comment: "Title for 5th day of week.");
+        }
+    }
+    @IBOutlet weak var fridayLabel: UILabel! {
+        didSet {
+            fridayLabel.text = NSLocalizedString("FIND_STATION_VIEW_STATION_DETAILS_DAY_OF_WEEK_TITLE_SIXTH", comment: "Title for 6th day of week.");
+        }
+    }
+    @IBOutlet weak var saturdayLabel: UILabel! {
+        didSet {
+            saturdayLabel.text = NSLocalizedString("FIND_STATION_VIEW_STATION_DETAILS_DAY_OF_WEEK_TITLE_SEVENTH", comment: "Title for 7th day of week.");
+        }
+    }
+    @IBOutlet weak var sundayLabel: UILabel! {
+        didSet {
+            sundayLabel.text = NSLocalizedString("FIND_STATION_VIEW_STATION_DETAILS_DAY_OF_WEEK_TITLE_FIRST", comment: "Title for 1st day of week.");
+        }
+    }
+    
     @IBOutlet weak var mondayHours: UILabel!
     @IBOutlet weak var tuesdayHours: UILabel!
     @IBOutlet weak var wednesdayHours: UILabel!
@@ -97,25 +133,35 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         searchField.addTarget(self, action: "textFieldChanged", forControlEvents: UIControlEvents.EditingChanged);
         self.navigationItem.titleView = searchField;
         
-        // TODO: l10n label names, use calendar components and possibly enum
+        // TODO: l10n, this should be based on day of week, but will require some significant effort to refactor.
+        //       Implementing trivial solution which will continue to switch on string for the time being.
         let fontSize = mondayHours.font.pointSize;
         let formatter = NSDateFormatter();
         formatter.dateFormat = "EEEE";
         let dayString: String = formatter.stringFromDate(NSDate());
+        
+        let sunday = NSLocalizedString("FIND_STATION_VIEW_STATION_DETAILS_DAY_OF_WEEK_TITLE_FIRST", comment: "Title for 1st day of week.");
+        let monday = NSLocalizedString("FIND_STATION_VIEW_STATION_DETAILS_DAY_OF_WEEK_TITLE_SECOND", comment: "Title for 2nd day of week.");
+        let tuesday = NSLocalizedString("FIND_STATION_VIEW_STATION_DETAILS_DAY_OF_WEEK_TITLE_THIRD", comment: "Title for 3rd day of week.");
+        let wednesday = NSLocalizedString("FIND_STATION_VIEW_STATION_DETAILS_DAY_OF_WEEK_TITLE_FOURTH", comment: "Title for 4th day of week.");
+        let thursday = NSLocalizedString("FIND_STATION_VIEW_STATION_DETAILS_DAY_OF_WEEK_TITLE_FIFTH", comment: "Title for 5th day of week.");
+        let friday = NSLocalizedString("FIND_STATION_VIEW_STATION_DETAILS_DAY_OF_WEEK_TITLE_SIXTH", comment: "Title for 6th day of week.");
+        let saturday = NSLocalizedString("FIND_STATION_VIEW_STATION_DETAILS_DAY_OF_WEEK_TITLE_SEVENTH", comment: "Title for 7th day of week.");
+
         switch dayString {
-        case "Monday":
+        case monday:
             mondayHours.font = UIFont.boldSystemFontOfSize(fontSize);
-        case "Tuesday":
+        case tuesday:
             tuesdayHours.font = UIFont.boldSystemFontOfSize(fontSize);
-        case "Wednesday":
+        case wednesday:
             wednesdayHours.font = UIFont.boldSystemFontOfSize(fontSize);
-        case "Thursday":
+        case thursday:
             thursdayHours.font = UIFont.boldSystemFontOfSize(fontSize);
-        case "Friday":
+        case friday:
             fridayHours.font = UIFont.boldSystemFontOfSize(fontSize);
-        case "Saturady":
+        case saturday:
             saturdayHours.font = UIFont.boldSystemFontOfSize(fontSize);
-        case "Sunday":
+        case sunday:
             sundayHours.font = UIFont.boldSystemFontOfSize(fontSize);
         default:
             break;

@@ -424,6 +424,27 @@
 /* Placeholder text for search field on Find Station view. */
 "FIND_STATION_VIEW_SEARCH_FIELD_PLACEHOLDER_TEXT" = "Search by store name, city, zip";
 
+/* Title for 5th day of week. */
+"FIND_STATION_VIEW_STATION_DETAILS_DAY_OF_WEEK_TITLE_FIFTH" = "Thursday";
+
+/* Title for 1st day of week. */
+"FIND_STATION_VIEW_STATION_DETAILS_DAY_OF_WEEK_TITLE_FIRST" = "Sunday";
+
+/* Title for 4th day of week. */
+"FIND_STATION_VIEW_STATION_DETAILS_DAY_OF_WEEK_TITLE_FOURTH" = "Wednesday";
+
+/* Title for 2nd day of week. */
+"FIND_STATION_VIEW_STATION_DETAILS_DAY_OF_WEEK_TITLE_SECOND" = "Monday";
+
+/* Title for 7th day of week. */
+"FIND_STATION_VIEW_STATION_DETAILS_DAY_OF_WEEK_TITLE_SEVENTH" = "Saturday";
+
+/* Title for 6th day of week. */
+"FIND_STATION_VIEW_STATION_DETAILS_DAY_OF_WEEK_TITLE_SIXTH" = "Friday";
+
+/* Title for 3rd day of week. */
+"FIND_STATION_VIEW_STATION_DETAILS_DAY_OF_WEEK_TITLE_THIRD" = "Tuesday";
+
 /* General purpose abbreviated label for beats per minute. */
 "GENERAL_PURPOSE_UNIT_LABEL_ABBR_BEATS_PER_MINUTE" = "bpm";
 

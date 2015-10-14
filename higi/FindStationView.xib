@@ -14,25 +14,32 @@
                 <outlet property="bottomHelpBackground" destination="geB-oB-7Ry" id="Aqb-YP-nV0"/>
                 <outlet property="cancel" destination="BJU-6j-2DT" id="fKR-5t-lLp"/>
                 <outlet property="fridayHours" destination="2AF-IS-vyC" id="tSV-Ui-1Pm"/>
+                <outlet property="fridayLabel" destination="R5Y-Qn-BsI" id="FUV-1t-PRg"/>
                 <outlet property="getStarted" destination="Hv2-ZI-4nh" id="eBQ-e4-jZ7"/>
                 <outlet property="mapContainer" destination="C1P-ni-kAe" id="DGF-Qc-c3D"/>
                 <outlet property="mondayHours" destination="rdE-5Z-CgA" id="ykW-ML-Lg3"/>
+                <outlet property="mondayLabel" destination="nBc-yz-2Y8" id="28u-eY-Pdp"/>
                 <outlet property="noResults" destination="Tot-YV-36o" id="cx5-T7-NnK"/>
                 <outlet property="reminderButton" destination="4pZ-om-lsY" id="pM1-UD-YWi"/>
                 <outlet property="reminderOverlay" destination="b9Y-Rs-dSP" id="Ojy-1W-hgH"/>
                 <outlet property="saturdayHours" destination="ZGm-Hc-aii" id="ZQG-0u-Plh"/>
+                <outlet property="saturdayLabel" destination="B1L-Bi-Dat" id="b95-QL-9f8"/>
                 <outlet property="selectedAddress" destination="2Ds-5J-OaP" id="U4I-Ff-sSo"/>
                 <outlet property="selectedDistance" destination="8e9-gI-H4g" id="jFk-vD-LIe"/>
                 <outlet property="selectedKioskPane" destination="icW-li-xIM" id="3nG-gj-Cno"/>
                 <outlet property="selectedLogo" destination="Wfp-Xf-Afy" id="BK8-Lf-JfU"/>
                 <outlet property="selectedName" destination="hrK-My-U5f" id="mC4-Hl-3sM"/>
                 <outlet property="sundayHours" destination="2hF-BE-6wY" id="B56-Oj-eLn"/>
+                <outlet property="sundayLabel" destination="8es-7i-qzB" id="HeJ-aF-73Y"/>
                 <outlet property="thursdayHours" destination="KDr-bm-p8U" id="FhN-VX-A6r"/>
+                <outlet property="thursdayLabel" destination="6qj-oK-b1W" id="CPI-i0-462"/>
                 <outlet property="topHelp" destination="mM4-OH-zXg" id="9KJ-5q-u9f"/>
                 <outlet property="tuesdayHours" destination="A4z-Yj-GOy" id="kBc-pw-m4J"/>
+                <outlet property="tuesdayLabel" destination="mAZ-ND-sJU" id="4gJ-lw-ILL"/>
                 <outlet property="view" destination="iN0-l3-epB" id="Feh-g9-0EM"/>
                 <outlet property="visibleKiosksTable" destination="ljN-y9-sTH" id="UQc-C7-4LR"/>
                 <outlet property="wednesdayHours" destination="Itd-dh-YhV" id="dzw-Mj-3sj"/>
+                <outlet property="wednesdayLabel" destination="jvO-fw-NIg" id="H3l-Hr-xfy"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -153,7 +160,7 @@
                 <view hidden="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="icW-li-xIM">
                     <rect key="frame" x="0.0" y="498" width="320" height="323"/>
                     <subviews>
-                        <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zI5-Ex-RfT">
+                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zI5-Ex-RfT">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wfp-Xf-Afy">

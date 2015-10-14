@@ -365,7 +365,6 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
                         
                         currentOrigin += titleRow.frame.size.height;
                         
-                        // TODO: l10n - verify breakdown row format
                         if let checkin = findCheckin(subActivity) {
                             if checkin.diastolic != nil && checkin.diastolic > 0 {
                                 let suffix = NSLocalizedString("DAILY_SUMMARY_VIEW_ACTIVITY_BREAKDOWN_ROW_TEXT_BLOOD_PRESSURE", comment: "Text to display in activity breakdown of the daily summary view for blood pressure activity.")
