@@ -379,8 +379,6 @@ class SettingsTableViewController: UITableViewController, SwitchTableViewCellDel
     }
     
     // MARK: - Helper
-    
-    // TODO: l10n how should this be formatted?
     func exportData() -> NSURL {
 
         var contents = NSLocalizedString("EXPORT_DATA_CSV_DATA_TITLES", comment: "Titles for the various values of a user's data which can be exported.");

@@ -424,6 +424,12 @@
 /* Placeholder text for search field on Find Station view. */
 "FIND_STATION_VIEW_SEARCH_FIELD_PLACEHOLDER_TEXT" = "Search by store name, city, zip";
 
+/* Text to display when station is closed. */
+"FIND_STATION_VIEW_STATION_DETAIL_STORE_HOURS_CLOSED" = "Closed";
+
+/* Text to display when station hours of availability is not available. */
+"FIND_STATION_VIEW_STATION_DETAIL_STORE_HOURS_NOT_AVAILABLE" = "Not available";
+
 /* Title for 5th day of week. */
 "FIND_STATION_VIEW_STATION_DETAILS_DAY_OF_WEEK_TITLE_FIFTH" = "Thursday";
 

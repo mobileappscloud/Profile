@@ -77,6 +77,13 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     @IBOutlet weak var bottomHelp: UIView!
     @IBOutlet weak var bottomHelpBackground: UIImageView!
     
+    let distanceFormatter: MKDistanceFormatter = {
+        let distanceFormatter = MKDistanceFormatter();
+        distanceFormatter.unitStyle = .Abbreviated;
+        return distanceFormatter;
+    }()
+
+    
     var locationManager: CLLocationManager!;
     
     var listOpen = false, autoCompleteOpen = false, selectedPaneOpen = false, reminderMode = true, firstLocation = false;
@@ -295,7 +302,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
             if ((self.currentVisibleKioskTask.operations[0] ).cancelled) {
                 return;
             }
-            self.visibleKiosks.sortInPlace { self.calcDistance($0.location!) < self.calcDistance($1.location!) };
+            self.visibleKiosks.sortInPlace { self.distanceFromCurrentLocation($0.location!) < self.distanceFromCurrentLocation($1.location!) };
             if ((self.currentVisibleKioskTask.operations[0] ).cancelled) {
                 return;
             }
@@ -333,9 +340,9 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         listOpen = !listOpen;
     }
     
-    func calcDistance(location: CLLocation) -> Double {
+    func distanceFromCurrentLocation(location: CLLocation) -> Double {
         if (mapView.myLocation != nil) {
-            return location.distanceFromLocation(mapView.myLocation) * 0.000621371;
+            return location.distanceFromLocation(mapView.myLocation);
         } else {
             return -1;
         }
@@ -373,7 +380,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
                 if ((self.currentAutoCompleteTask.operations[0]).cancelled && size != self.searchField.text!.characters.count) {
                     return;
                 }
-                self.autoCompleteResults.sortInPlace { self.calcDistance($0.location!) < self.calcDistance($1.location!) };
+                self.autoCompleteResults.sortInPlace { self.distanceFromCurrentLocation($0.location!) < self.distanceFromCurrentLocation($1.location!) };
                 if ((self.currentAutoCompleteTask.operations[0]).cancelled && size != self.searchField.text!.characters.count) {
                     return;
                 }
@@ -443,11 +450,9 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         cell.logo.image = nil;
         cell.logo.setImageWithURL(getKioskLogoUrl(kiosk));
         
-        // TODO: l10n distance formatter
-        let distance = calcDistance(kiosk.location!);
+        let distance = distanceFromCurrentLocation(kiosk.location!);
         if (distance >= 0) {
-            let formattedDistance = distance >= 10 ? "\(Int(distance))" : String(format: "%.1f", distance);
-            cell.distance.text = "\(formattedDistance) mi";
+            cell.distance.text = distanceFormatter.stringFromDistance(distance);
         } else {
             cell.distance.text = "";
         }
@@ -568,30 +573,30 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         selectedLogo.setImageWithURL(getKioskLogoUrl(kiosk));
         selectedName.text = kiosk.organizations[0] as String;
         selectedAddress.text = kiosk.fullAddress as String;
-        // TODO: l10n handle with changes above, code reuse
         if (kiosk.hours != nil) {
-            mondayHours.text = kiosk.hours!.valueForKey("Mon") as? String? ?? "Closed";
-            tuesdayHours.text = kiosk.hours!.valueForKey("Tue") as? String? ?? "Closed";
-            wednesdayHours.text = kiosk.hours!.valueForKey("Wed") as? String? ?? "Closed";
-            thursdayHours.text = kiosk.hours!.valueForKey("Thu") as? String? ?? "Closed";
-            fridayHours.text = kiosk.hours!.valueForKey("Fri") as? String? ?? "Closed";
-            saturdayHours.text = kiosk.hours!.valueForKey("Sat") as? String? ?? "Closed";
-            sundayHours.text = kiosk.hours!.valueForKey("Sun") as? String? ?? "Closed";
+           let closed = NSLocalizedString("FIND_STATION_VIEW_STATION_DETAIL_STORE_HOURS_CLOSED", comment: "Text to display when station is closed.");
+            
+            mondayHours.text = kiosk.hours!.valueForKey("Mon") as? String? ?? closed;
+            tuesdayHours.text = kiosk.hours!.valueForKey("Tue") as? String? ?? closed;
+            wednesdayHours.text = kiosk.hours!.valueForKey("Wed") as? String? ?? closed;
+            thursdayHours.text = kiosk.hours!.valueForKey("Thu") as? String? ?? closed;
+            fridayHours.text = kiosk.hours!.valueForKey("Fri") as? String? ?? closed;
+            saturdayHours.text = kiosk.hours!.valueForKey("Sat") as? String? ?? closed;
+            sundayHours.text = kiosk.hours!.valueForKey("Sun") as? String? ?? closed;
         } else {
-            mondayHours.text = "Not available";
-            tuesdayHours.text = "Not available";
-            wednesdayHours.text = "Not available";
-            thursdayHours.text = "Not available";
-            fridayHours.text = "Not available";
-            saturdayHours.text = "Not available";
-            sundayHours.text = "Not available";
+            let notAvailable = NSLocalizedString("FIND_STATION_VIEW_STATION_DETAIL_STORE_HOURS_NOT_AVAILABLE", comment: "Text to display when station hours of availability is not available.");
+            mondayHours.text = notAvailable;
+            tuesdayHours.text = notAvailable;
+            wednesdayHours.text = notAvailable;
+            thursdayHours.text = notAvailable;
+            fridayHours.text = notAvailable;
+            saturdayHours.text = notAvailable;
+            sundayHours.text = notAvailable;
         }
         
-        // TODO: l10n distance formatter
-        var distance = calcDistance(kiosk.location!);
+        let distance = distanceFromCurrentLocation(kiosk.location!);
         if (distance >= 0) {
-            var formattedDistance = distance >= 10 ? "\(Int(distance))" : String(format: "%.1f", distance);
-            selectedDistance.text = "\(formattedDistance) mi";
+            selectedDistance.text = distanceFormatter.stringFromDistance(distance);
         } else {
             selectedDistance.text = "";
         }
