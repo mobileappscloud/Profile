@@ -579,7 +579,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             return "\(dateFormatter.stringFromDate(startDate)) - \(dateFormatter.stringFromDate(endDate))";
         } else {
             let format = NSLocalizedString("CHALLENGE_DETAILS_VIEW_CHALLENGE_DATES_NO_END_DATE_FORMAT", comment: "Format of text for challenge date range when a challenge does not have an end date.")
-            return NSString.localizedStringWithFormat(format, dateFormatter.stringFromDate(startDate))
+            return NSString.localizedStringWithFormat(format, dateFormatter.stringFromDate(startDate)) as String
         }
     }
     
@@ -592,10 +592,10 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     func limitDisplayHelper(limit: Int, metric: String) -> String {
         if (limit > 0) {
             let format = NSLocalizedString("CHALLENGE_DETAILS_VIEW_LIMIT_DISPLAY_LIMITED_FORMAT", comment: "Format for limit display on challenge details view with daily metric limits.")
-            return NSString.localizedStringWithFormat(format, [limit, metric])
+            return NSString.localizedStringWithFormat(format, [limit, metric]) as String
         } else {
             let format = NSLocalizedString("CHALLENGE_DETAILS_VIEW_LIMIT_DISPLAY_UNLIMITED_FORMAT", comment: "Format for limit display on challenge details view with unlimited daily metrics.")
-            return NSString.localizedStringWithFormat(format, metric)
+            return NSString.localizedStringWithFormat(format, metric) as String
         }
     }
     

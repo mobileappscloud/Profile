@@ -310,6 +310,18 @@
 /* Label for points units as seen in the daily summary row. */
 "DAILY_SUMMARY_ROW_POINTS_UNIT_LABEL" = "pts";
 
+/* Text to display in activity breakdown of the daily summary view for blood pressure activity. */
+"DAILY_SUMMARY_VIEW_ACTIVITY_BREAKDOWN_ROW_TEXT_BLOOD_PRESSURE" = "mmHg BP";
+
+/* Text to display in activity breakdown of the daily summary view for body fat measurement. */
+"DAILY_SUMMARY_VIEW_ACTIVITY_BREAKDOWN_ROW_TEXT_BODY_FAT" = "% Body Fat";
+
+/* Text to display in activity breakdown of the daily summary view for heart rate activity. */
+"DAILY_SUMMARY_VIEW_ACTIVITY_BREAKDOWN_ROW_TEXT_PULSE" = "bpm Pulse";
+
+/* Text to display in activity breakdown of the daily summary view for weigh-in activity. */
+"DAILY_SUMMARY_VIEW_ACTIVITY_BREAKDOWN_ROW_TEXT_WEIGHT" = "lbs Weight";
+
 /* Alternate descriptive text for activity tracker; displayed on the Daily Summary view blank state. */
 "DAILY_SUMMARY_VIEW_BLANK_STATE_ACTIVITY_TRACKER_ALTERNATE_TEXT" = "Wanna get rewarded for biking to work or running on the treadmill at the gym? Just connect your favorite activity tracker and start earning points today. \n";
 
@@ -393,6 +405,9 @@
 
 /* Title for higi Score */
 "DRAWER_VIEW_HIGI_SCORE_TITLE" = "higi Score";
+
+/* Titles for the various values of a user's data which can be exported. */
+"EXPORT_DATA_CSV_DATA_TITLES" = "Date,Location,Address of higi Station,Systolic Pressure (mmHg),Diastolic Pressure (mmHg),Pulse (bpm),Mean Arterial Pressure (mmHg), Weight (lbs),Body Mass Index\n";
 
 /* Title of calendar reminder to check in to a higi station. */
 "FIND_STATION_VIEW_CHECK_IN_REMINDER_CALENDAR_EVENT_TITLE" = "Check in to a higi Station!";

@@ -69,7 +69,7 @@ class ChallengeInvitationView: UIView {
     class func startsInDisplayHelper(startDate: NSDate) -> String {
         var dateDisplay:String!
 
-        let elapsedDays = NSCalendar.currentCalendar().components(.Day, fromDate: NSDate(), toDate: startDate!, options: NSCalendarOptions(rawValue: 0)).day
+        let elapsedDays = NSCalendar.currentCalendar().components(.Day, fromDate: NSDate(), toDate: startDate, options: NSCalendarOptions(rawValue: 0)).day
     
         if (elapsedDays > 0) {
             let formattedDate = NSString.localizedStringWithFormat(NSLocalizedString("DAY_COUNT_SINGLE_PLURAL", comment: "Format for pluralization of days."), elapsedDays+1)
