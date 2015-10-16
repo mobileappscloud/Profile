@@ -1878,6 +1878,9 @@
 							com.apple.HealthKit = {
 								enabled = 1;
 							};
+							com.apple.SafariKeychain = {
+								enabled = 1;
+							};
 						};
 					};
 					8F3643AB19460EB300C0033E = {
