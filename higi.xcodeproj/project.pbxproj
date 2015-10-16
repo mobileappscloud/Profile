@@ -33,6 +33,7 @@
 		2BC5865E1A16D0AF005A7983 /* ChallengeInvitationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC5865D1A16D0AF005A7983 /* ChallengeInvitationView.swift */; };
 		41376C5B1BB452E40094DE7C /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41376C5A1BB452E40094DE7C /* SettingsTableViewController.swift */; };
 		41376C5D1BB459B50094DE7C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41376C5C1BB459B50094DE7C /* SettingsViewController.swift */; };
+		413CE6261BD1384E001D3BBB /* UniversalLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413CE6251BD1384E001D3BBB /* UniversalLinks.swift */; settings = {ASSET_TAGS = (); }; };
 		41411BA01BA87E3D0027F5E1 /* NotificationSettingsDeviceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41411B9F1BA87E3D0027F5E1 /* NotificationSettingsDeviceTableViewController.swift */; };
 		41411BA31BA894280027F5E1 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41411BA11BA894280027F5E1 /* SwitchTableViewCell.swift */; };
 		41545BF91BA76CFA00946358 /* NotificationSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41545BF81BA76CFA00946358 /* NotificationSettings.storyboard */; };
@@ -403,6 +404,7 @@
 		32E39E461B756D4200BA50F9 /* Info_qa.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info_qa.plist; sourceTree = "<group>"; };
 		41376C5A1BB452E40094DE7C /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		41376C5C1BB459B50094DE7C /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		413CE6251BD1384E001D3BBB /* UniversalLinks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UniversalLinks.swift; sourceTree = "<group>"; };
 		41411B9F1BA87E3D0027F5E1 /* NotificationSettingsDeviceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingsDeviceTableViewController.swift; sourceTree = "<group>"; };
 		41411BA11BA894280027F5E1 /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
 		41545BF81BA76CFA00946358 /* NotificationSettings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NotificationSettings.storyboard; sourceTree = "<group>"; };
@@ -1157,6 +1159,7 @@
 				8F36439F19460EB300C0033E /* AppDelegate.swift */,
 				8F5E7FDD199C0011009067E5 /* Custom Views */,
 				8F3643A319460EB300C0033E /* Main.storyboard */,
+				413CE6251BD1384E001D3BBB /* UniversalLinks.swift */,
 				8F1DB450194F735000636566 /* Model */,
 				8FF851C4194F7F08005C33C6 /* Network */,
 				8F296305194B8C9F00E787FD /* Objective-C Helpers */,
@@ -2176,6 +2179,7 @@
 				8F58D98E19C22AB600C0EC72 /* GTMNSString+HTML.m in Sources */,
 				8F2CB58019925631009377A8 /* WebViewController.swift in Sources */,
 				8FF9409A198A8C1800D319D7 /* ProfileImageViewController.swift in Sources */,
+				413CE6261BD1384E001D3BBB /* UniversalLinks.swift in Sources */,
 				D1FC729F1B223FE80068CF89 /* MetricGauge.swift in Sources */,
 				D13D36531B30D78E00F18A42 /* ActivityCategory.swift in Sources */,
 				41B2B3581BB31CBE00B13168 /* NotificationSettingsEmailTableViewController.swift in Sources */,
