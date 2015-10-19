@@ -33,7 +33,7 @@
 		2BC5865E1A16D0AF005A7983 /* ChallengeInvitationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC5865D1A16D0AF005A7983 /* ChallengeInvitationView.swift */; };
 		41376C5B1BB452E40094DE7C /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41376C5A1BB452E40094DE7C /* SettingsTableViewController.swift */; };
 		41376C5D1BB459B50094DE7C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41376C5C1BB459B50094DE7C /* SettingsViewController.swift */; };
-		413CE6261BD1384E001D3BBB /* UniversalLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413CE6251BD1384E001D3BBB /* UniversalLinks.swift */; settings = {ASSET_TAGS = (); }; };
+		413CE6261BD1384E001D3BBB /* UniversalLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413CE6251BD1384E001D3BBB /* UniversalLink.swift */; settings = {ASSET_TAGS = (); }; };
 		41411BA01BA87E3D0027F5E1 /* NotificationSettingsDeviceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41411B9F1BA87E3D0027F5E1 /* NotificationSettingsDeviceTableViewController.swift */; };
 		41411BA31BA894280027F5E1 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41411BA11BA894280027F5E1 /* SwitchTableViewCell.swift */; };
 		41545BF91BA76CFA00946358 /* NotificationSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41545BF81BA76CFA00946358 /* NotificationSettings.storyboard */; };
@@ -81,6 +81,8 @@
 		41B2B3581BB31CBE00B13168 /* NotificationSettingsEmailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B2B3571BB31CBD00B13168 /* NotificationSettingsEmailTableViewController.swift */; };
 		41B2B35A1BB31CE900B13168 /* NotificationSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B2B3591BB31CE900B13168 /* NotificationSettingsTableViewController.swift */; };
 		41B2B35C1BB326C800B13168 /* NotificationSettingsEmailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B2B35B1BB326C800B13168 /* NotificationSettingsEmailController.swift */; };
+		41BAD9851BD207F200BF0423 /* UniversalLinkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41BAD9841BD207F200BF0423 /* UniversalLinkTests.swift */; settings = {ASSET_TAGS = (); }; };
+		41BAD9871BD20FF400BF0423 /* UniversalLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413CE6251BD1384E001D3BBB /* UniversalLink.swift */; settings = {ASSET_TAGS = (); }; };
 		41BFC9B81BCC0E0D00FD0F45 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 41BFC9B61BCC0E0D00FD0F45 /* Localizable.stringsdict */; settings = {ASSET_TAGS = (); }; };
 		41CAB9B41BC411A00000772C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 41CAB9B01BC411A00000772C /* Localizable.strings */; settings = {ASSET_TAGS = (); }; };
 		8F02A11F19AE2BF6002FF73E /* btn_back_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A11719AE2BF6002FF73E /* btn_back_black.png */; };
@@ -131,7 +133,6 @@
 		8F3643A219460EB300C0033E /* MetricsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3643A119460EB300C0033E /* MetricsViewController.swift */; };
 		8F3643A519460EB300C0033E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F3643A319460EB300C0033E /* Main.storyboard */; };
 		8F3643A719460EB300C0033E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F3643A619460EB300C0033E /* Images.xcassets */; };
-		8F3643B319460EB300C0033E /* higiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3643B219460EB300C0033E /* higiTests.swift */; };
 		8F524BF8195B829400BFC49D /* CustomFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F524BF7195B829400BFC49D /* CustomFormatter.swift */; };
 		8F5590A019ABE23C00C9B46E /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F55909F19ABE23C00C9B46E /* EventKitUI.framework */; };
 		8F58D98A19C0FE5800C0EC72 /* welcome_01_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F58D98719C0FE5800C0EC72 /* welcome_01_logo.png */; };
@@ -404,7 +405,7 @@
 		32E39E461B756D4200BA50F9 /* Info_qa.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info_qa.plist; sourceTree = "<group>"; };
 		41376C5A1BB452E40094DE7C /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		41376C5C1BB459B50094DE7C /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		413CE6251BD1384E001D3BBB /* UniversalLinks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UniversalLinks.swift; sourceTree = "<group>"; };
+		413CE6251BD1384E001D3BBB /* UniversalLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UniversalLink.swift; sourceTree = "<group>"; };
 		41411B9F1BA87E3D0027F5E1 /* NotificationSettingsDeviceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingsDeviceTableViewController.swift; sourceTree = "<group>"; };
 		41411BA11BA894280027F5E1 /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
 		41545BF81BA76CFA00946358 /* NotificationSettings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NotificationSettings.storyboard; sourceTree = "<group>"; };
@@ -491,6 +492,7 @@
 		41B2B3571BB31CBD00B13168 /* NotificationSettingsEmailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingsEmailTableViewController.swift; sourceTree = "<group>"; };
 		41B2B3591BB31CE900B13168 /* NotificationSettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingsTableViewController.swift; sourceTree = "<group>"; };
 		41B2B35B1BB326C800B13168 /* NotificationSettingsEmailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingsEmailController.swift; sourceTree = "<group>"; };
+		41BAD9841BD207F200BF0423 /* UniversalLinkTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UniversalLinkTests.swift; sourceTree = "<group>"; };
 		41BFC9B71BCC0E0D00FD0F45 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = Base; path = Localizable.stringsdict; sourceTree = "<group>"; };
 		41CAB9B11BC411A00000772C /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Localizable.strings; sourceTree = "<group>"; };
 		8F02A11719AE2BF6002FF73E /* btn_back_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_back_black.png; sourceTree = "<group>"; };
@@ -546,7 +548,6 @@
 		8F3643A619460EB300C0033E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		8F3643AC19460EB300C0033E /* higiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = higiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F3643B119460EB300C0033E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8F3643B219460EB300C0033E /* higiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = higiTests.swift; sourceTree = "<group>"; };
 		8F3643BC1946687B00C0033E /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
 		8F524BF7195B829400BFC49D /* CustomFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomFormatter.swift; sourceTree = "<group>"; };
 		8F55909F19ABE23C00C9B46E /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
@@ -1159,7 +1160,7 @@
 				8F36439F19460EB300C0033E /* AppDelegate.swift */,
 				8F5E7FDD199C0011009067E5 /* Custom Views */,
 				8F3643A319460EB300C0033E /* Main.storyboard */,
-				413CE6251BD1384E001D3BBB /* UniversalLinks.swift */,
+				413CE6251BD1384E001D3BBB /* UniversalLink.swift */,
 				8F1DB450194F735000636566 /* Model */,
 				8FF851C4194F7F08005C33C6 /* Network */,
 				8F296305194B8C9F00E787FD /* Objective-C Helpers */,
@@ -1410,7 +1411,7 @@
 		8F3643AF19460EB300C0033E /* higiTests */ = {
 			isa = PBXGroup;
 			children = (
-				8F3643B219460EB300C0033E /* higiTests.swift */,
+				41BAD9841BD207F200BF0423 /* UniversalLinkTests.swift */,
 				8F3643B019460EB300C0033E /* Supporting Files */,
 			);
 			path = higiTests;
@@ -2179,7 +2180,7 @@
 				8F58D98E19C22AB600C0EC72 /* GTMNSString+HTML.m in Sources */,
 				8F2CB58019925631009377A8 /* WebViewController.swift in Sources */,
 				8FF9409A198A8C1800D319D7 /* ProfileImageViewController.swift in Sources */,
-				413CE6261BD1384E001D3BBB /* UniversalLinks.swift in Sources */,
+				413CE6261BD1384E001D3BBB /* UniversalLink.swift in Sources */,
 				D1FC729F1B223FE80068CF89 /* MetricGauge.swift in Sources */,
 				D13D36531B30D78E00F18A42 /* ActivityCategory.swift in Sources */,
 				41B2B3581BB31CBE00B13168 /* NotificationSettingsEmailTableViewController.swift in Sources */,
@@ -2305,7 +2306,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F3643B319460EB300C0033E /* higiTests.swift in Sources */,
+				41BAD9851BD207F200BF0423 /* UniversalLinkTests.swift in Sources */,
+				41BAD9871BD20FF400BF0423 /* UniversalLink.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
