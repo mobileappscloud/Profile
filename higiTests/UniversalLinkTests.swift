@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import higi
 
 class UniversalLinkTests: XCTestCase {
     
@@ -93,7 +94,7 @@ class UniversalLinkTests: XCTestCase {
     func testValidUniversalLinks() {
         for URLString in validUniversalLinks {
             let URL = NSURL(string: URLString)!
-            XCTAssertTrue(UniversalLink.canHandleURL(URL))
+            XCTAssertTrue(UniversalLink.canHandleURL(URL), "Incorrectly failed URL: \(URL.absoluteString)")
         }
     }
     
