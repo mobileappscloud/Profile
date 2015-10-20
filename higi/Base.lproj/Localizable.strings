@@ -406,6 +406,27 @@
 /* Title for higi Score */
 "DRAWER_VIEW_HIGI_SCORE_TITLE" = "higi Score";
 
+/* Title for capture drawer menu item. */
+"DRAWER_VIEW_MENU_ITEM_TITLE_CAPTURE" = "Capture";
+
+/* Title for challenges drawer menu item. */
+"DRAWER_VIEW_MENU_ITEM_TITLE_CHALLENGES" = "Challenges";
+
+/* Title for dashboard drawer menu item. */
+"DRAWER_VIEW_MENU_ITEM_TITLE_DASHBOARD" = "Dashboard";
+
+/* Title for metrics drawer menu item. */
+"DRAWER_VIEW_MENU_ITEM_TITLE_METRICS" = "Metrics";
+
+/* Title for pulse drawer menu item. */
+"DRAWER_VIEW_MENU_ITEM_TITLE_PULSE" = "higi Pulse";
+
+/* Title for settings drawer menu item. */
+"DRAWER_VIEW_MENU_ITEM_TITLE_SETTINGS" = "Settings";
+
+/* Title for station locator drawer menu item. */
+"DRAWER_VIEW_MENU_ITEM_TITLE_STATION_LOCATOR" = "Find a Station";
+
 /* Titles for the various values of a user's data which can be exported. */
 "EXPORT_DATA_CSV_DATA_TITLES" = "Date,Location,Address of higi Station,Systolic Pressure (mmHg),Diastolic Pressure (mmHg),Pulse (bpm),Mean Arterial Pressure (mmHg), Weight (lbs),Body Mass Index\n";
 
