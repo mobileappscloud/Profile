@@ -47,9 +47,52 @@ private enum PathType: String {
     case MetricsPulse = "/stats/pulse"
     case MetricsWeight = "/stats/weight"
     case ActivityList = "/activity/list"
+    
+    static let parameterToken = "%@"
+    
+    static let tokenizedPaths: [PathType] = [.ChallengeDetail, .PulseArticle, .DailySummary]
+    
+    static func handler(forPathType pathType: PathType) -> UniversalLinkHandler? {
+        var handler: UniversalLinkHandler? = nil
+        
+        switch pathType {
+        case .ChallengeDetail:
+            handler = ChallengeDetailsViewController()
+            
+        case .ChallengeDashboard:
+            handler = ChallengesViewController()
+            
+        case .StationLocator:
+            handler = FindStationViewController()
+            
+        case .PulseHome:
+            fallthrough;
+        case .PulseArticle:
+            handler = PulseHomeViewController()
+            
+        case .DailySummary:
+            handler = DailySummaryViewController()
+            
+        case .MetricsBloodPressure:
+            fallthrough;
+        case .MetricsPulse:
+            fallthrough;
+        case .MetricsWeight:
+            fallthrough;
+        case .Metrics:
+            handler = MetricsViewController()
+            
+        case .ActivityList:
+            handler = DailySummaryViewController()
+        }
+        
+        return handler;
+    }
 }
 
 public class UniversalLink {
+    
+    // MARK: URL Parsing
     
     /**
     Determines if a URL can be handled by the app.
@@ -63,7 +106,7 @@ public class UniversalLink {
         
         if let components = NSURLComponents(URL: URL, resolvingAgainstBaseURL: true), let host = components.host {
             if self.canHandleHost(host) {
-                let (pathType, _) = self.pathType(forURL: URL);
+                let (pathType, _) = self.parsePath(forURL: URL);
                 canHandleURL = pathType != nil;
             }
         }
@@ -71,79 +114,73 @@ public class UniversalLink {
         return canHandleURL;
     }
     
-    /**
-    Determines if the `host` from a URL can be handled by the app.
-    
-    - parameter host: Host component for a URL.
-    
-    - returns: `true` if the host can be handled, otherwise `false`.
-    */
     private class func canHandleHost(host: String) -> Bool {
         var canHandleHost = false;
         
-        switch host {
-        case AssociatedDomain.Higi.rawValue:
-            fallthrough;
-        case AssociatedDomain.HigiWebSubdomain.rawValue:
+        if let _ = AssociatedDomain(rawValue: host) {
             canHandleHost = true;
-        default:
-            break;
         }
         
         return canHandleHost;
     }
     
-    /**
-    Determines the `PathType` for a given URL path and returns a `GUID` if applicable.
-    
-    - parameter URL: URL to evaluate.
-    
-    - returns: A tuple consisting of a `PathType` and `GUID`.
-    */
-    private class func pathType(forURL URL: NSURL) -> (pathType: PathType?, GUID: String?) {
+    private class func parsePath(forURL URL: NSURL) -> (pathType: PathType?, parameters: [String]?) {
         var pathType: PathType? = nil
-        var guid: String? = nil
+        var parameters: [String]? = nil
         
         if let components = NSURLComponents(URL: URL, resolvingAgainstBaseURL: true), let path = components.path {
             if let fullPathType = PathType(rawValue: path) {
                 pathType = fullPathType;
             } else {
-                if let pathComponents = URL.pathComponents {
-                    switch pathComponents.count {
-                    case 3:
-                        switch (pathComponents[0], pathComponents[1], pathComponents[2]) {
-                        case ("/", "pulse", let articleGUID):
-                            pathType = .PulseArticle;
-                            guid = articleGUID;
-                        default:
+                if var pathComponents = URL.pathComponents {
+                    var canHandlePath: Bool = false;
+                    // The first path component can be ignored because it is just a forward slash ('/')
+                    pathComponents.removeFirst()
+                    
+                    for tokenizedPathType in PathType.tokenizedPaths {
+                        var targetPathComponents = tokenizedPathType.rawValue.componentsSeparatedByString("/")
+                        // Remove the first component in the target because similar to the source, the first component can be ignored
+                        targetPathComponents.removeFirst()
+                        
+                        (canHandlePath, parameters) = matchPathComponents(targetPathComponents, sourcePathComponenets: pathComponents)
+                        if canHandlePath {
+                            pathType = tokenizedPathType;
                             break;
                         }
-                    case 4:
-                        switch (pathComponents[0], pathComponents[1], pathComponents[2], pathComponents[3]) {
-                        case ("/", "profile", "checkin", let summaryGUID):
-                            pathType = .DailySummary;
-                            guid = summaryGUID;
-                        default:
-                            break;
-                        }
-                    case 5:
-                        switch (pathComponents[0], pathComponents[1], pathComponents[2], pathComponents[3], pathComponents[4]) {
-                        case ("/", "challenge", "view", "id", let challengeGUID):
-                            pathType = .ChallengeDetail;
-                            guid = challengeGUID;
-                        default:
-                            break;
-                        }
-                    default:
-                        break;
                     }
+
                 }
             }
         }
         
-        return (pathType, guid);
+        return (pathType, parameters);
     }
     
+    private class func matchPathComponents(targetPathComponents: [String], sourcePathComponenets: [String]) -> (didMatchComponents: Bool, parameters: [String]?) {
+        if targetPathComponents.count != sourcePathComponenets.count {
+            return (false, nil);
+        }
+        
+        var componentsMatch: Bool? = nil;
+        var parameters: [String]? = [];
+        
+        for index in 0...targetPathComponents.count-1 {
+            if targetPathComponents[index] == PathType.parameterToken {
+                parameters?.append(sourcePathComponenets[index])
+            } else if targetPathComponents[index] != sourcePathComponenets[index] {
+                parameters = nil;
+                componentsMatch = false;
+                break;
+            }
+        }
+        
+        componentsMatch = componentsMatch ?? true;
+        
+        return (componentsMatch!, parameters);
+    }
+}
+
+public extension UniversalLink {
     /**
     Handles a compatible universal link. This method should only be called after calling
     `canHandleURL:` to ensure that the app is capable of continuing the user activity.
@@ -151,49 +188,51 @@ public class UniversalLink {
     - parameter URL: Universal link to be handled.
     */
     public class func handleURL(URL: NSURL) {
-        let (pathType, guid) = self.pathType(forURL: URL);
+        let (pathType, parameters) = self.parsePath(forURL: URL);
         if pathType == nil {
             return;
         }
         
-        switch pathType! {
-        case .ChallengeDetail:
-            print("wait")
-            break;
-        case .ChallengeDashboard:
-            break;
-        case .StationLocator:
-            break;
-        case .PulseHome:
-            break;
-        case .PulseArticle:
-            print("wait")
-            break;
-        case .DailySummary:
-            print("wait")
-            break;
-        case .Metrics:
-            break;
-        case .MetricsBloodPressure:
-            break;
-        case .MetricsPulse:
-            break;
-        case .MetricsWeight:
-            break;
-        case .ActivityList:
-            break;
-        }
         
+        let handler: UniversalLinkHandler? = PathType.handler(forPathType: pathType!)
+        handler?.handleUniversalLink(URL, parameters: parameters)
+    }
+}
 
+public extension UniversalLink {
+    /**
+    Convenience method which traverses the view hierarchy to find the main navigation controller.
+    
+    - returns: A reference to the `MainNavigationController`.
+    */
+    internal class func mainNavigationController() -> MainNavigationController? {
+        var navigationController: MainNavigationController? = nil
+        
         if let keyWindow = UIApplication.sharedApplication().keyWindow {
-            if let rootViewController = keyWindow.rootViewController {
-                switch rootViewController {
-                case is DashboardViewController:
-                    break;
-                default:
-                    break;
+            if let rootViewController = keyWindow.rootViewController as? RevealViewController {
+
+                for child in rootViewController.childViewControllers {
+                    if child is MainNavigationController {
+                        navigationController = child as? MainNavigationController
+                        break;
+                    }
                 }
             }
         }
+        
+        return navigationController;
     }
+}
+
+/**
+Protocol definition for higi universal link handlers.
+*/
+public protocol UniversalLinkHandler {
+    /**
+    Protocol method for handling a universal link.
+    
+    - parameter URL:        URL of a compatible universal link.
+    - parameter parameters: URL parameters such as resource GUIDs if applicable, otherwise nil.
+    */
+   func handleUniversalLink(URL: NSURL, parameters: [String]?);
 }
