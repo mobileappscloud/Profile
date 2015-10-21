@@ -31,6 +31,14 @@ class DrawerViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     var arc: CAShapeLayer!, circle: CAShapeLayer!;
     
+    let dashboardTitle = NSLocalizedString("DRAWER_VIEW_MENU_ITEM_TITLE_DASHBOARD", comment: "Title for dashboard drawer menu item.")
+    let challengesTitle = NSLocalizedString("DRAWER_VIEW_MENU_ITEM_TITLE_CHALLENGES", comment: "Title for challenges drawer menu item.")
+    let metricsTitle = NSLocalizedString("DRAWER_VIEW_MENU_ITEM_TITLE_METRICS", comment: "Title for metrics drawer menu item.")
+    let stationLocatorTitle = NSLocalizedString("DRAWER_VIEW_MENU_ITEM_TITLE_STATION_LOCATOR", comment: "Title for station locator drawer menu item.")
+    let pulseTitle = NSLocalizedString("DRAWER_VIEW_MENU_ITEM_TITLE_PULSE", comment: "Title for pulse drawer menu item.")
+    let settingsTitle = NSLocalizedString("DRAWER_VIEW_MENU_ITEM_TITLE_SETTINGS", comment: "Title for settings drawer menu item.")
+    let captureTitle = NSLocalizedString("DRAWER_VIEW_MENU_ITEM_TITLE_CAPTURE", comment: "Title for capture drawer menu item.")
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         initNavigationObjects();
@@ -45,11 +53,11 @@ class DrawerViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func initNavigationObjects() {
-        navigationObjects.append(NavigationObject(title: "Dashboard", icon: "oc_dashboard.png", activeIcon: "oc_dashboard_active.png", callback:
+        navigationObjects.append(NavigationObject(title: dashboardTitle, icon: "oc_dashboard.png", activeIcon: "oc_dashboard_active.png", callback:
             { (index: NSIndexPath) in
             self.navController?.popToRootViewControllerAnimated(false);
         }));
-        navigationObjects.append(NavigationObject(title: "Challenges", icon: "oc_challenges.png", activeIcon: "oc_challenges_active", callback: {
+        navigationObjects.append(NavigationObject(title: challengesTitle, icon: "oc_challenges.png", activeIcon: "oc_challenges_active", callback: {
             (index: NSIndexPath) in
             if (SessionController.Instance.challenges == nil) {
                 self.tableView.deselectRowAtIndexPath(index, animated: false);
@@ -58,7 +66,7 @@ class DrawerViewController: UIViewController, UITableViewDelegate, UITableViewDa
             Flurry.logEvent("ChallengesOffCanvas_Pressed");
             self.navController?.pushViewController(ChallengesViewController(nibName: "ChallengesView", bundle: nil), animated: false);
         }));
-        navigationObjects.append(NavigationObject(title: "Metrics", icon: "oc_bodystats.png", activeIcon: "oc_bodystats_active.png", callback: { (index: NSIndexPath) in
+        navigationObjects.append(NavigationObject(title: metricsTitle, icon: "oc_bodystats.png", activeIcon: "oc_bodystats_active.png", callback: { (index: NSIndexPath) in
             if (SessionController.Instance.checkins == nil || !SessionController.Instance.loadedActivities) {
                 return;
             }
@@ -66,24 +74,24 @@ class DrawerViewController: UIViewController, UITableViewDelegate, UITableViewDa
             self.tableView.deselectRowAtIndexPath(index, animated: false);
             self.navController?.pushViewController(MetricsViewController(), animated: true);
         }));
-        navigationObjects.append(NavigationObject(title: "Find a Station", icon: "oc_findastation.png", activeIcon: "oc_findastation_active.png", callback: { (index: NSIndexPath) in
+        navigationObjects.append(NavigationObject(title: stationLocatorTitle, icon: "oc_findastation.png", activeIcon: "oc_findastation_active.png", callback: { (index: NSIndexPath) in
             Flurry.logEvent("FindStationOffCanvas_Pressed");
             self.navController?.popToRootViewControllerAnimated(false);
             self.navController?.pushViewController(FindStationViewController(nibName: "FindStationView", bundle: nil), animated: false);
         }));
-        navigationObjects.append(NavigationObject(title: "higi Pulse", icon: "oc_pulse.png", activeIcon: "oc_pulse_active.png", callback: {
+        navigationObjects.append(NavigationObject(title: pulseTitle, icon: "oc_pulse.png", activeIcon: "oc_pulse_active.png", callback: {
             (index: NSIndexPath) in
             Flurry.logEvent("HigiPulseOffCanvas_Pressed");
             self.navController?.pushViewController(PulseHomeViewController(nibName: "PulseHomeView", bundle: nil), animated: false);
         }));
-        navigationObjects.append(NavigationObject(title: "Settings", icon: "oc_settings.png", activeIcon: "oc_settings_active.png", callback: {
+        navigationObjects.append(NavigationObject(title: settingsTitle, icon: "oc_settings.png", activeIcon: "oc_settings_active.png", callback: {
             (index: NSIndexPath) in
             Flurry.logEvent("SettingsOffCanvas_Pressed");
             let settingsStoryboard = UIStoryboard(name: "Settings", bundle: nil);
             let settingsViewController = settingsStoryboard.instantiateInitialViewController();
             self.navController?.pushViewController(settingsViewController!, animated: false);
         }));
-        navigationObjects.append(NavigationObject(title: "Capture", icon: "oc_qr.png", activeIcon: "oc_qr.png", callback: {
+        navigationObjects.append(NavigationObject(title: captureTitle, icon: "oc_qr.png", activeIcon: "oc_qr.png", callback: {
             (index: NSIndexPath) in
             Flurry.logEvent("QrCodeOffCanvas_Pressed");
             self.navController?.pushViewController(QrScannerViewController(nibName: "QrScannerView", bundle: nil), animated: false);
@@ -99,7 +107,7 @@ class DrawerViewController: UIViewController, UITableViewDelegate, UITableViewDa
             cell.selectedBackgroundView = selectedBgView;
         }
         cell.title.text = navigationObjects[indexPath.item].title;
-        if (tableView.indexPathForSelectedRow != nil && indexPath.item == tableView.indexPathForSelectedRow!.item && navigationObjects[indexPath.item].title != "Metrics" && navigationObjects[indexPath.item].title != "Scanner") {
+        if (tableView.indexPathForSelectedRow != nil && indexPath.item == tableView.indexPathForSelectedRow!.item && navigationObjects[indexPath.item].title != metricsTitle && navigationObjects[indexPath.item].title != captureTitle) {
             cell.icon.image = UIImage(named: navigationObjects[indexPath.item].activeIcon);
         } else {
             cell.icon.image = UIImage(named: navigationObjects[indexPath.item].icon);
@@ -110,7 +118,7 @@ class DrawerViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         navigationObjects[indexPath.row].callback(indexPath);
         revealController?.revealToggleAnimated(true);
-        if navigationObjects[indexPath.item].title != "Metrics" && navigationObjects[indexPath.item].title != "Scanner" {
+        if navigationObjects[indexPath.item].title != metricsTitle && navigationObjects[indexPath.item].title != captureTitle {
             tableView.reloadData();
             let cell = tableView.cellForRowAtIndexPath(indexPath) as! DrawerCell;
             cell.icon.image = UIImage(named: navigationObjects[indexPath.item].activeIcon);
