@@ -102,7 +102,6 @@ class SplashViewController: UIViewController, UIAlertViewDelegate {
     
     func alertView(alertView: UIAlertView, didDismissWithButtonIndex buttonIndex: Int) {
         UIApplication.sharedApplication().openURL(NSURL(string: "itms://itunes.apple.com/us/app/higi/id599485135?mt=8")!);
-        exit(0);
     }
     
 }
