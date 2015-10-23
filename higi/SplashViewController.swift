@@ -8,7 +8,7 @@
 
 import Foundation
 
-class SplashViewController: UIViewController, UIAlertViewDelegate {
+class SplashViewController: UIViewController {
     
     private var spinner: CustomLoadingSpinner!;
     
@@ -89,10 +89,7 @@ class SplashViewController: UIViewController, UIAlertViewDelegate {
             if (isUpToDate) {
                 self.moveToNextScreen();
             } else {
-                let title = NSLocalizedString("APP_UPDATE_ALERT_TITLE", comment: "Title for alert displayed when app requires an update.")
-                let message = NSLocalizedString("APP_UPDATE_ALERT_MESSAGE", comment: "Message for alert displayed when app requires an update.")
-                let dismissTitle = NSLocalizedString("APP_UPDATE_ALERT_ACTION_TITLE_DISMISS", comment: "Title for dismiss action on alert displayed when app requires an update.")
-                UIAlertView(title: title, message: message, delegate: self, cancelButtonTitle: dismissTitle).show();
+                self.pushAppUpdateViewController();
             }
             
             }, failure: {operation, error in
@@ -100,8 +97,8 @@ class SplashViewController: UIViewController, UIAlertViewDelegate {
         });
     }
     
-    func alertView(alertView: UIAlertView, didDismissWithButtonIndex buttonIndex: Int) {
-        UIApplication.sharedApplication().openURL(NSURL(string: "itms://itunes.apple.com/us/app/higi/id599485135?mt=8")!);
+    private func pushAppUpdateViewController() {
+        let appUpdateViewController = UIStoryboard(name: "RequiredAppUpdate", bundle: nil).instantiateInitialViewController() as! RequiredAppUpdateViewController;
+        self.presentViewController(appUpdateViewController, animated: false, completion: nil);
     }
-    
 }

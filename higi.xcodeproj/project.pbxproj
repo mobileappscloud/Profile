@@ -82,6 +82,8 @@
 		41B2B35C1BB326C800B13168 /* NotificationSettingsEmailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B2B35B1BB326C800B13168 /* NotificationSettingsEmailController.swift */; };
 		41BFC9B81BCC0E0D00FD0F45 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 41BFC9B61BCC0E0D00FD0F45 /* Localizable.stringsdict */; settings = {ASSET_TAGS = (); }; };
 		41CAB9B41BC411A00000772C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 41CAB9B01BC411A00000772C /* Localizable.strings */; settings = {ASSET_TAGS = (); }; };
+		41E90DED1BD98494001DCC4C /* RequiredAppUpdate.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41E90DEC1BD98494001DCC4C /* RequiredAppUpdate.storyboard */; };
+		41E90DF11BD984E0001DCC4C /* RequiredAppUpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E90DF01BD984E0001DCC4C /* RequiredAppUpdateViewController.swift */; };
 		8F02A11F19AE2BF6002FF73E /* btn_back_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A11719AE2BF6002FF73E /* btn_back_black.png */; };
 		8F02A12019AE2BF6002FF73E /* btn_back_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A11819AE2BF6002FF73E /* btn_back_black@2x.png */; };
 		8F02A12119AE2BF6002FF73E /* btn_back_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A11919AE2BF6002FF73E /* btn_back_white.png */; };
@@ -491,6 +493,8 @@
 		41B2B35B1BB326C800B13168 /* NotificationSettingsEmailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingsEmailController.swift; sourceTree = "<group>"; };
 		41BFC9B71BCC0E0D00FD0F45 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = Base; path = Localizable.stringsdict; sourceTree = "<group>"; };
 		41CAB9B11BC411A00000772C /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Localizable.strings; sourceTree = "<group>"; };
+		41E90DEC1BD98494001DCC4C /* RequiredAppUpdate.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = RequiredAppUpdate.storyboard; sourceTree = "<group>"; };
+		41E90DF01BD984E0001DCC4C /* RequiredAppUpdateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequiredAppUpdateViewController.swift; sourceTree = "<group>"; };
 		8F02A11719AE2BF6002FF73E /* btn_back_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_back_black.png; sourceTree = "<group>"; };
 		8F02A11819AE2BF6002FF73E /* btn_back_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_back_black@2x.png"; sourceTree = "<group>"; };
 		8F02A11919AE2BF6002FF73E /* btn_back_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_back_white.png; sourceTree = "<group>"; };
@@ -1167,6 +1171,15 @@
 			name = Classes;
 			sourceTree = "<group>";
 		};
+		41E90DF21BD984F4001DCC4C /* App Update */ = {
+			isa = PBXGroup;
+			children = (
+				41E90DEC1BD98494001DCC4C /* RequiredAppUpdate.storyboard */,
+				41E90DF01BD984E0001DCC4C /* RequiredAppUpdateViewController.swift */,
+			);
+			name = "App Update";
+			sourceTree = "<group>";
+		};
 		8F08AF9A19893B03002EE906 /* Welcome */ = {
 			isa = PBXGroup;
 			children = (
@@ -1236,8 +1249,9 @@
 		8F296307194B8CCA00E787FD /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				2BBDBA491A12AB73005A6815 /* Challenges */,
+				41E90DF21BD984F4001DCC4C /* App Update */,
 				D1229A051A8167F200FB1773 /* Challenge Details */,
+				2BBDBA491A12AB73005A6815 /* Challenges */,
 				D110BAD21B0E7C3900CD1E58 /* Daily Summary */,
 				8F5C38E51981915500F51543 /* Dashboard */,
 				8FE056DA198FDB9200C81208 /* Find Station */,
@@ -1245,12 +1259,12 @@
 				8F6266AD197EC8C700145EDB /* Metrics */,
 				8F2B7E33198AD8F0009DE89A /* Miscellaneous */,
 				8F2B7E44198C2DCB009DE89A /* Navigation */,
+				41545BFA1BA76D0700946358 /* Notification Settings */,
 				8FF94096198A8BCC00D319D7 /* Onboarding */,
 				8FE056DD198FDBB200C81208 /* Pulse */,
+				D105CB5B1B7E9AE500971AB0 /* QR Scanner */,
 				8F5E7FBB1999659C009067E5 /* Security */,
 				8FE056DC198FDBA600C81208 /* Settings */,
-				41545BFA1BA76D0700946358 /* Notification Settings */,
-				D105CB5B1B7E9AE500971AB0 /* QR Scanner */,
 				8F08AF9A19893B03002EE906 /* Welcome */,
 			);
 			name = "View Controllers";
@@ -1982,6 +1996,7 @@
 				8F08AF9D198940E8002EE906 /* Welcome.xib in Resources */,
 				8F5C38EB1982DBB900F51543 /* onboarding_avatar.png in Resources */,
 				8FFB035119FEA2440036228C /* oc_settings_active.png in Resources */,
+				41E90DED1BD98494001DCC4C /* RequiredAppUpdate.storyboard in Resources */,
 				8F5C38CA19818BA900F51543 /* gauge1_high.png in Resources */,
 				8F5E7FE6199C081F009067E5 /* vital_pulse_icon.png in Resources */,
 				D1A713A81ACF2028008DF01A /* map_circleicon@2x.png in Resources */,
@@ -2192,6 +2207,7 @@
 				41A0BE0F1BBB088500A314D6 /* AFSecurityPolicy.m in Sources */,
 				8F5E7FBF199965CF009067E5 /* PinCodeViewController.swift in Sources */,
 				8F9C69D31950C84400449664 /* HigiLogin.swift in Sources */,
+				41E90DF11BD984E0001DCC4C /* RequiredAppUpdateViewController.swift in Sources */,
 				8F5C38F71983094F00F51543 /* NSString+HTML.m in Sources */,
 				8FDA6DA619A4038F00244D5F /* TermsViewController.swift in Sources */,
 				D110BAD41B0E7C5500CD1E58 /* DailySummaryViewController.swift in Sources */,
