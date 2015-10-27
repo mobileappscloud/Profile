@@ -651,3 +651,11 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         }
     }
 }
+
+extension DailySummaryViewController: UniversalLinkHandler {
+    
+    func handleUniversalLink(URL: NSURL, pathType: PathType, parameters: [String]?) {
+        Utility.mainNavigationController()?.drawerController.navController?.popToRootViewControllerAnimated(false)
+        Utility.mainNavigationController()?.drawerController.navController?.pushViewController(DailySummaryViewController(nibName: "DailySummaryView", bundle: nil), animated: false)
+    }
+}
