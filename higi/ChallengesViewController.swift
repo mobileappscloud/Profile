@@ -1,4 +1,5 @@
 import Foundation
+
 class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet var pager: UIPageControl!
     @IBOutlet var scrollView: UIScrollView!
@@ -397,5 +398,13 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         tableView.deselectRowAtIndexPath(indexPath, animated: true);
         return false;
+    }
+}
+
+extension ChallengesViewController: UniversalLinkHandler {
+    
+    func handleUniversalLink(URL: NSURL, pathType: PathType, parameters: [String]?) {
+        Utility.mainNavigationController()?.drawerController.navController?.popToRootViewControllerAnimated(false)
+        Utility.mainNavigationController()?.drawerController.navController?.pushViewController(ChallengesViewController(nibName: "ChallengesView", bundle: nil), animated: false)
     }
 }
