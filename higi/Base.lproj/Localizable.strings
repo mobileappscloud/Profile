@@ -7,15 +7,6 @@
 /* Label for unit of selected point panel on Activity Metric view. */
 "ACTIVITY_METRICS_VIEW_SELECTED_POINT_PANEL_UNIT_LABEL" = "pts";
 
-/* Title for dismiss action on alert displayed when app requires an update. */
-"APP_UPDATE_ALERT_ACTION_TITLE_DISMISS" = "OK";
-
-/* Message for alert displayed when app requires an update. */
-"APP_UPDATE_ALERT_MESSAGE" = "You must update from the App Store to continue using this app.";
-
-/* Title for alert displayed when app requires an update. */
-"APP_UPDATE_ALERT_TITLE" = "higi is out of date";
-
 /* Title for Birthdate view when confirming a user's age. */
 "BIRTHDATE_VIEW_AGE_CONFIRMATION_TITLE" = "Please confirm your age";
 
@@ -711,6 +702,15 @@
 
 /* Title for alert displayed when an unsupported device is detected. */
 "QR_SCANNER_VIEW_UNSUPPORTED_DEVICE_ALERT_TITLE" = "Uh oh";
+
+/* Message text for required app update view. */
+"REQUIRED_APP_UPDATE_VIEW_MESSAGE_FORMAT" = "Keep tabs on your health and wellness with the latest features from %@. The version you have is no longer supported.\nDownload %@ now.";
+
+/* Title text for required app update view. */
+"REQUIRED_APP_UPDATE_VIEW_TITLE_FORMAT" = "Update Your %@ App!";
+
+/* Title for update-action button on required app update view. */
+"REQUIRED_APP_UPDATE_VIEW_UPDATE_ACTION_BUTTON_TITLE" = "Go to App Store";
 
 /* Title for change password table view cell. */
 "SETTINGS_TABLE_VIEW_CELL_TITLE_CHANGE_PASSWORD" = "Change password";
