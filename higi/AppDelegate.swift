@@ -18,9 +18,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var locationManager: CLLocationManager!;
     
     var locationDelegate: LocationDelegate!;
+    
+    // MARK: - Application Lifecycle
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-
+        
         #if DEBUG
             Crashlytics.sharedInstance().debugMode = true;
         #endif
@@ -37,26 +39,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if (UIApplication.instancesRespondToSelector(Selector("registerUserNotificationSettings:"))) {
             application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [UIUserNotificationType.Sound, UIUserNotificationType.Alert, UIUserNotificationType.Badge], categories: nil));
         }
-                
+        
         return true
     }
-
-
-    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
-        if application.applicationState == UIApplicationState.Active {
-            if let info = notification.userInfo as? Dictionary<String, Int> {
-                //99 is id of QR scanner notifications
-                if info["ID"] == 99 {
-                    if #available(iOS 8.2, *) {
-                        UIAlertView(title: notification.alertTitle, message: notification.alertBody, delegate: nil, cancelButtonTitle: "OK").show()
-                    } else {
-                        // Fallback on earlier versions
-                    };
-                }
-            }
-        }
-    }
-
+    
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
@@ -76,13 +62,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func applicationDidBecomeActive(application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    // MARK: Notifications
+    
+    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+        if application.applicationState == UIApplicationState.Active {
+            if let info = notification.userInfo as? Dictionary<String, Int> {
+                //99 is id of QR scanner notifications
+                if info["ID"] == 99 {
+                    if #available(iOS 8.2, *) {
+                        UIAlertView(title: notification.alertTitle, message: notification.alertBody, delegate: nil, cancelButtonTitle: "OK").show()
+                    } else {
+                        // Fallback on earlier versions
+                    };
+                }
+            }
+        }
     }
-
-    func applicationWillTerminate(application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    }
+    
+    // MARK: - Helper
     
     func checkPin() {
         if (SessionData.Instance.pin != "") {
@@ -108,6 +105,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             locationManager.stopMonitoringSignificantLocationChanges();
             locationManager = nil;
         }
+    }
+}
+
+extension AppDelegate {
+        
+    func application(application: UIApplication, continueUserActivity userActivity: NSUserActivity, restorationHandler: ([AnyObject]?) -> Void) -> Bool {
+        var didContinueActivity = false;
+        if userActivity.activityType == NSUserActivityTypeBrowsingWeb {
+            if let webpageURL = userActivity.webpageURL {
+                if UniversalLink.canHandleURL(webpageURL) {
+                    UniversalLink.handleURL(webpageURL);
+                    didContinueActivity = true;
+                } else {
+                    application.openURL(webpageURL);
+                }
+            }
+        }
+        return didContinueActivity;
     }
 }
 
