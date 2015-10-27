@@ -7,52 +7,28 @@
 //
 
 import Foundation
-import UIKit
-
-/**
-Associated domains the app can handle URLs from.
-
-- `Higi`:             The main higi domain.
-- `HigiWebSubdomain`: The main higi domain with the World Wide Web subdomain.
-*/
-private enum AssociatedDomain: String {
-    case Higi = "higi.com"
-    case HigiWebSubdomain = "www.higi.com"
-}
 
 /**
 URL paths which support universal linking.
-
-- `ChallengeDetail`: Details for a specific challenge.
-- `ChallengeDashboard`: Dashboard with overview of challenges.
-- `StationLocator`: Map view with search function to find a station.
-- `PulseHome`: List of higi Pulse articles.
-- `PulseArticle`: View a specific higi Pulse article.
-- `DailySummary`: Summary of a user's daily activity.
-- `Metrics`: Overview of a user's health data.
-- `MetricsBloodPressure`: Visualization of blood pressure data.
-- `MetricsPulse`: Visualization of heart rate data.
-- `MetricsWeight`: Visualization of body weight data.
-- `ActivityList`: List of activities.
 */
-private enum PathType: String {
-    case ChallengeDetail = "/challenge/view/id/%@"
+public enum PathType: String {
+    case ActivityList = "/activity/list"
     case ChallengeDashboard = "/challenge/dashboard"
-    case StationLocator = "/locator"
-    case PulseHome = "/pulse"
-    case PulseArticle = "/pulse/%@"
+    case ChallengeDetail = "/challenge/view/id/%@"
     case DailySummary = "/profile/checkin/%@"
+    case PulseArticle = "/pulse/%@"
+    case PulseHome = "/pulse"
     case Metrics = "/stats"
     case MetricsBloodPressure = "/stats/blood_pressure"
     case MetricsPulse = "/stats/pulse"
     case MetricsWeight = "/stats/weight"
-    case ActivityList = "/activity/list"
+    case StationLocator = "/locator"
     
-    static let parameterToken = "%@"
+    private static let parameterToken = "%@"
     
-    static let tokenizedPaths: [PathType] = [.ChallengeDetail, .PulseArticle, .DailySummary]
+    private static let tokenizedPaths: [PathType] = [.ChallengeDetail, .PulseArticle, .DailySummary]
     
-    static func handler(forPathType pathType: PathType) -> UniversalLinkHandler? {
+    private static func handler(forPathType pathType: PathType) -> UniversalLinkHandler? {
         var handler: UniversalLinkHandler? = nil
         
         switch pathType {
@@ -70,9 +46,6 @@ private enum PathType: String {
         case .PulseArticle:
             handler = PulseHomeViewController()
             
-        case .DailySummary:
-            handler = DailySummaryViewController()
-            
         case .MetricsBloodPressure:
             fallthrough;
         case .MetricsPulse:
@@ -83,6 +56,8 @@ private enum PathType: String {
             handler = MetricsViewController()
             
         case .ActivityList:
+            fallthrough
+        case .DailySummary:
             handler = DailySummaryViewController()
         }
         
@@ -91,8 +66,6 @@ private enum PathType: String {
 }
 
 public class UniversalLink {
-    
-    // MARK: URL Parsing
     
     /**
     Determines if a URL can be handled by the app.
@@ -104,24 +77,10 @@ public class UniversalLink {
     public class func canHandleURL(URL: NSURL) -> Bool {
         var canHandleURL = false;
         
-        if let components = NSURLComponents(URL: URL, resolvingAgainstBaseURL: true), let host = components.host {
-            if self.canHandleHost(host) {
-                let (pathType, _) = self.parsePath(forURL: URL);
-                canHandleURL = pathType != nil;
-            }
-        }
+        let (pathType, _) = self.parsePath(forURL: URL);
+        canHandleURL = pathType != nil;
         
         return canHandleURL;
-    }
-    
-    private class func canHandleHost(host: String) -> Bool {
-        var canHandleHost = false;
-        
-        if let _ = AssociatedDomain(rawValue: host) {
-            canHandleHost = true;
-        }
-        
-        return canHandleHost;
     }
     
     private class func parsePath(forURL URL: NSURL) -> (pathType: PathType?, parameters: [String]?) {
@@ -158,7 +117,11 @@ public class UniversalLink {
     
     private class func matchPathComponents(targetPathComponents: [String], sourcePathComponenets: [String]) -> (didMatchComponents: Bool, parameters: [String]?) {
         if targetPathComponents.count != sourcePathComponenets.count {
-            return (false, nil);
+            if sourcePathComponenets.first == "pulse" {
+                return (true, nil);
+            } else {
+                return (false, nil);
+            }
         }
         
         var componentsMatch: Bool? = nil;
@@ -181,6 +144,7 @@ public class UniversalLink {
 }
 
 public extension UniversalLink {
+    
     /**
     Handles a compatible universal link. This method should only be called after calling
     `canHandleURL:` to ensure that the app is capable of continuing the user activity.
@@ -193,46 +157,21 @@ public extension UniversalLink {
             return;
         }
         
-        
         let handler: UniversalLinkHandler? = PathType.handler(forPathType: pathType!)
-        handler?.handleUniversalLink(URL, parameters: parameters)
-    }
-}
-
-public extension UniversalLink {
-    /**
-    Convenience method which traverses the view hierarchy to find the main navigation controller.
-    
-    - returns: A reference to the `MainNavigationController`.
-    */
-    internal class func mainNavigationController() -> MainNavigationController? {
-        var navigationController: MainNavigationController? = nil
-        
-        if let keyWindow = UIApplication.sharedApplication().keyWindow {
-            if let rootViewController = keyWindow.rootViewController as? RevealViewController {
-
-                for child in rootViewController.childViewControllers {
-                    if child is MainNavigationController {
-                        navigationController = child as? MainNavigationController
-                        break;
-                    }
-                }
-            }
-        }
-        
-        return navigationController;
+        handler?.handleUniversalLink(URL, pathType: pathType!, parameters: parameters)
     }
 }
 
 /**
-Protocol definition for higi universal link handlers.
+Protocol definition for app universal link handlers.
 */
 public protocol UniversalLinkHandler {
+    
     /**
     Protocol method for handling a universal link.
     
     - parameter URL:        URL of a compatible universal link.
     - parameter parameters: URL parameters such as resource GUIDs if applicable, otherwise nil.
     */
-   func handleUniversalLink(URL: NSURL, parameters: [String]?);
+    func handleUniversalLink(URL: NSURL, pathType: PathType, parameters: [String]?);
 }
