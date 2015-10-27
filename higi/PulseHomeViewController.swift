@@ -261,3 +261,12 @@ class PulseHomeViewController: BaseViewController, UITableViewDataSource, UITabl
     }
     
 }
+
+extension PulseHomeViewController: UniversalLinkHandler {
+    
+    func handleUniversalLink(URL: NSURL, pathType: PathType, parameters: [String]?) {
+        Utility.mainNavigationController()?.drawerController.navController?.popToRootViewControllerAnimated(false)
+        let pulseHomeViewController = PulseHomeViewController(nibName: "PulseHomeView", bundle: nil);
+        Utility.mainNavigationController()?.drawerController.navController?.pushViewController(pulseHomeViewController, animated: false)
+    }
+}
