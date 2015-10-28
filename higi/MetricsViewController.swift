@@ -444,3 +444,27 @@ class MetricsViewController: UIViewController {
         }
     }
 }
+
+extension MetricsViewController: UniversalLinkHandler {
+    
+    func handleUniversalLink(URL: NSURL, pathType: PathType, parameters: [String]?) {
+        
+        Utility.mainNavigationController()?.drawerController.navController?.popToRootViewControllerAnimated(false)
+        let metricsViewController = MetricsViewController(nibName: "MetricsView", bundle: nil);
+        Utility.mainNavigationController()?.drawerController.navController?.pushViewController(metricsViewController, animated: false)
+        
+        let targetMetricsType: MetricsType
+        switch pathType {
+        case .MetricsBloodPressure:
+            targetMetricsType = .BloodPressure;
+        case .MetricsPulse:
+            targetMetricsType = .Pulse;
+        case .MetricsWeight:
+            targetMetricsType = .Weight;
+        default:
+            targetMetricsType = .DailySummary;
+        }
+        
+        metricsViewController.selectedType = targetMetricsType
+    }
+}
