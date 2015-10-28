@@ -152,6 +152,10 @@ public extension UniversalLink {
     - parameter URL: Universal link to be handled.
     */
     public class func handleURL(URL: NSURL) {
+        if SessionData.Instance.user == nil {
+            return;
+        }
+        
         let (pathType, parameters) = self.parsePath(forURL: URL);
         if pathType == nil {
             return;
