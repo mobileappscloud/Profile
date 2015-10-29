@@ -115,7 +115,9 @@ extension AppDelegate {
         if userActivity.activityType == NSUserActivityTypeBrowsingWeb {
             if let webpageURL = userActivity.webpageURL {
                 if UniversalLink.canHandleURL(webpageURL) {
-                    UniversalLink.handleURL(webpageURL);
+                    if SessionData.Instance.user != nil {
+                        UniversalLink.handleURL(webpageURL);
+                    }
                     didContinueActivity = true;
                 } else {
                     application.openURL(webpageURL);

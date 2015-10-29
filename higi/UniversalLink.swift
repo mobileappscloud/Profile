@@ -78,7 +78,9 @@ public class UniversalLink {
         var canHandleURL = false;
         
         let (pathType, _) = self.parsePath(forURL: URL);
-        canHandleURL = pathType != nil;
+        if pathType != nil {
+            canHandleURL = true;
+        }
         
         return canHandleURL;
     }
@@ -151,11 +153,7 @@ public extension UniversalLink {
     
     - parameter URL: Universal link to be handled.
     */
-    public class func handleURL(URL: NSURL) {
-        if SessionData.Instance.user == nil {
-            return;
-        }
-        
+    public class func handleURL(URL: NSURL) {        
         let (pathType, parameters) = self.parsePath(forURL: URL);
         if pathType == nil {
             return;
