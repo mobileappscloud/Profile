@@ -23,9 +23,9 @@ class MetricsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad();
-        let revealController = (self.navigationController as! MainNavigationController).revealController;
-        previousSupportedOrientations = revealController.supportedOrientations;
-        previousShouldRotate = revealController.shouldRotate;
+        let revealController = (self.navigationController as? MainNavigationController)?.revealController;
+        previousSupportedOrientations = revealController?.supportedOrientations;
+        previousShouldRotate = revealController?.shouldRotate;
         previousActualOrientation = self.interfaceOrientation;
         
         screenWidth = max(UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height);
@@ -58,7 +58,7 @@ class MetricsViewController: UIViewController {
     }
 
     override func viewWillDisappear(animated: Bool) {
-        self.navigationController!.navigationBarHidden = false;
+        self.navigationController?.navigationBarHidden = false;
         super.viewWillDisappear(animated);
     }
     
@@ -157,8 +157,6 @@ class MetricsViewController: UIViewController {
                     }
                     card!.graphContainer.addSubview(secondaryGraph);
                 }
-            default:
-                var i = 0;
             }
             if (type == selectedType) {
                 selectedCardPosition = pos;
@@ -213,6 +211,7 @@ class MetricsViewController: UIViewController {
                     
                     for index in 0...count - 1 {
                         let card = subViews[index] as! MetricCard;
+                        card.position = index;
                         let newWidth = self.screenWidth - CGFloat((index + 1) * self.cardMargin);
                         UIView.animateWithDuration(self.animationDuration, delay: 0, options: .CurveEaseInOut, animations: {
                             card.headerView.frame.size.width = newWidth;

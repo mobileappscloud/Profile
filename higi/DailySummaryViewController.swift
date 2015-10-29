@@ -91,11 +91,11 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     }
     
     override func viewWillDisappear(animated: Bool) {
-        let revealController = (self.navigationController as! MainNavigationController).revealController;
-        revealController.supportedOrientations = previousSupportedOrientations;
-        self.navigationController!.navigationBarHidden = false;
+        let revealController = (self.navigationController as? MainNavigationController)?.revealController;
+        revealController?.supportedOrientations = previousSupportedOrientations;
+        self.navigationController?.navigationBarHidden = false;
         UIDevice.currentDevice().setValue(previousActualOrientation.rawValue, forKey: "orientation");
-        revealController.shouldRotate = previousShouldRotate;
+        revealController?.shouldRotate = previousShouldRotate;
         super.viewWillDisappear(animated);
     }
     
