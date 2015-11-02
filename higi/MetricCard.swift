@@ -225,7 +225,13 @@ class MetricCard: UIView, MetricDelegate {
                 let lowerBound = baseGraph.getScreenPoint(0, yPoint: CGFloat(range.lowerBound));
                 let upperBound = baseGraph.getScreenPoint(0, yPoint: CGFloat(range.upperBound));
                 if (upperBound.y >= 0 || lowerBound.y < graphContainer.frame.size.height) {
-                    let region = UIView(frame: CGRect(x: 0, y: upperBound.y + graph.graph.plotAreaFrame.paddingTop, width: screenWidth, height: lowerBound.y - upperBound.y));
+                    var y = upperBound.y + graph.graph.plotAreaFrame.paddingTop;
+                    var height = lowerBound.y - upperBound.y;
+                    if (upperBound.y + graph.graph.plotAreaFrame.paddingTop < 0) {
+                        y = 0;
+                        height = height + (upperBound.y + graph.graph.plotAreaFrame.paddingTop);
+                    }
+                    let region = UIView(frame: CGRect(x: 0, y: y, width: screenWidth, height: height));
                     var labelHeight = region.frame.size.height;
                     var labelY:CGFloat = 0;
                     if lowerBound.y > graphContainer.frame.size.height {
