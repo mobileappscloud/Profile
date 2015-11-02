@@ -523,9 +523,6 @@
 /* Placeholder for password text field with invalid input on login view. */
 "LOGIN_VIEW_PASSWORD_TEXTFIELD_PLACEHOLDER_INVALID_INPUT" = "Password must be at least 6 characters";
 
-/* Format of label describing location of a higi Station. */
-"METRIC_DETAIL_CARD_CHECK_IN_LOCATION_LABEL_FORMAT" = "higi Station at %@";
-
 /* Title for blood pressure metrics */
 "METRIC_TYPE_BLOOD_PRESSURE_TITLE" = "Blood Pressure";
 
@@ -703,10 +700,10 @@
 /* Title for alert displayed when an unsupported device is detected. */
 "QR_SCANNER_VIEW_UNSUPPORTED_DEVICE_ALERT_TITLE" = "Uh oh";
 
-/* Message text for required app update view. */
+/* Format of essage text for required app update view. */
 "REQUIRED_APP_UPDATE_VIEW_MESSAGE_FORMAT" = "Keep tabs on your health and wellness with the latest features from %@. The version you have is no longer supported.\nDownload %@ now.";
 
-/* Title text for required app update view. */
+/* Format of title text for required app update view. */
 "REQUIRED_APP_UPDATE_VIEW_TITLE_FORMAT" = "Update Your %@ App!";
 
 /* Title for update-action button on required app update view. */

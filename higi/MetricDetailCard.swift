@@ -82,7 +82,6 @@ class MetricDetailCard: UIView {
         }
     }
     
-    // TODO: l10n -- copy is embedded in images ಠ_ಠ
     func updateCopyImage(tab: Int) {
         if firstCopyImage != nil {
             firstCopyImage.removeFromSuperview();
@@ -329,18 +328,23 @@ class MetricDetailCard: UIView {
         } else {
             meterContainer.hidden = true;
             gaugeContainer.hidden = false;
-            if let kioskInfo = selection.kioskInfo {
-                checkinAddressContainer.hidden = false;
-                let format = NSLocalizedString("METRIC_DETAIL_CARD_CHECK_IN_LOCATION_LABEL_FORMAT", comment: "Format of label describing location of a higi Station.")
-                checkinLocation.text = String(format: format, arguments: [kioskInfo.organizations[0]]);
-                checkinStreetAddress.text = "\(kioskInfo.address1)";
-                checkinCityStateZip.text = "\(kioskInfo.cityStateZip)";
-            } else if let device = selection.device {
-                checkinAddressContainer.hidden = false;
-                checkinLocation.text = device;
-                checkinStreetAddress.text = "";
-                checkinCityStateZip.text = "";
+            
+            var title = "", address = "", cityStateZip = "";
+            
+            if let device = selection.device {
+                title = device;
             }
+            
+            if let kioskInfo = selection.kioskInfo {
+                title = "higi Station at \(kioskInfo.organizations[0])";
+                address = "\(kioskInfo.address1)";
+                cityStateZip = "\(kioskInfo.cityStateZip)";
+            }
+            
+            checkinAddressContainer.hidden = false;
+            checkinLocation.text = title;
+            checkinStreetAddress.text = address;
+            checkinCityStateZip.text = cityStateZip;
             if gauge == nil {
                 gauge = MetricGauge.create(CGRect(x: 0, y: 0, width: gaugeContainer.frame.size.width, height: gaugeContainer.frame.size.height), delegate: delegate, tab: tab);
                 gaugeContainer.addSubview(gauge);
