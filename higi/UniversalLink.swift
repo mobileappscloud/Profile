@@ -33,8 +33,7 @@ public enum PathType: String {
         
         switch pathType {
         case .ChallengeDetail:
-            handler = ChallengeDetailsViewController()
-            
+            fallthrough;
         case .ChallengeDashboard:
             handler = ChallengesViewController()
             
@@ -56,7 +55,7 @@ public enum PathType: String {
             handler = MetricsViewController()
             
         case .ActivityList:
-            fallthrough
+            fallthrough;
         case .DailySummary:
             handler = DailySummaryViewController()
         }

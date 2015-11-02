@@ -344,6 +344,10 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
             challenge = invitedChallenges[index];
         }
         clickedChallenge = challenge;
+        self.showDetails(forChallenge: challenge)
+    }
+    
+    func showDetails(forChallenge challenge: HigiChallenge) {
         let challengeDetailViewController = ChallengeDetailsViewController(nibName: "ChallengeDetailsView", bundle: nil);
         challengeDetailViewController.challenge = challenge;
         self.navigationController!.pushViewController(challengeDetailViewController, animated: true);
@@ -399,12 +403,32 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         tableView.deselectRowAtIndexPath(indexPath, animated: true);
         return false;
     }
+    
+    func challenge(forChallengeParameters parameters: [String]) -> HigiChallenge? {
+        var challenge: HigiChallenge? = nil;
+        for currentChallenge in SessionController.Instance.challenges {
+            let currentChallengeURL = NSURL(string: currentChallenge.url as String)!
+            if currentChallengeURL.pathComponents?.last == parameters.first {
+                challenge = currentChallenge;
+                break;
+            }
+            
+        }
+        return challenge;
+    }
 }
 
 extension ChallengesViewController: UniversalLinkHandler {
     
     func handleUniversalLink(URL: NSURL, pathType: PathType, parameters: [String]?) {
         Utility.mainNavigationController()?.drawerController.navController?.popToRootViewControllerAnimated(false)
-        Utility.mainNavigationController()?.drawerController.navController?.pushViewController(ChallengesViewController(nibName: "ChallengesView", bundle: nil), animated: false)
+        let challengesViewController = ChallengesViewController(nibName: "ChallengesView", bundle: nil);
+        Utility.mainNavigationController()?.drawerController.navController?.pushViewController(challengesViewController, animated: false)
+        
+        if pathType == .ChallengeDetail {
+            if let challenge = self.challenge(forChallengeParameters: parameters!) {
+                challengesViewController.showDetails(forChallenge: challenge)
+            }
+        }
     }
 }
