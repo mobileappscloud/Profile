@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
@@ -91,7 +91,7 @@
                 <view clearsContextBeforeDrawing="NO" alpha="0.0" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4q6-bB-7EQ">
                     <rect key="frame" x="40" y="165" width="240" height="363"/>
                     <subviews>
-                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PFd-04-F5R">
+                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PFd-04-F5R">
                             <rect key="frame" x="14" y="70" width="212" height="293"/>
                             <color key="backgroundColor" red="0.90588235289999997" green="0.90588235289999997" blue="0.90588235289999997" alpha="1" colorSpace="calibratedRGB"/>
                         </scrollView>
@@ -100,6 +100,9 @@
                         </imageView>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="PFd-04-F5R" firstAttribute="centerX" secondItem="4q6-bB-7EQ" secondAttribute="centerX" id="NdX-6y-0jM"/>
+                    </constraints>
                 </view>
                 <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ufj-qC-5L8">
                     <rect key="frame" x="-1" y="527" width="321" height="1"/>
@@ -157,6 +160,7 @@
                 <constraint firstItem="hEu-Ce-PoV" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="fvE-sj-t1C"/>
                 <constraint firstAttribute="trailing" secondItem="kzA-2s-4jL" secondAttribute="trailing" constant="24" id="grG-iP-CkV"/>
                 <constraint firstAttribute="bottom" secondItem="fKl-Ed-4Yf" secondAttribute="bottom" id="jyK-8e-lrF"/>
+                <constraint firstItem="4q6-bB-7EQ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="kzA-2s-4jL" secondAttribute="bottom" priority="999" constant="25" id="qCa-JG-IeZ"/>
                 <constraint firstAttribute="bottom" secondItem="hEu-Ce-PoV" secondAttribute="bottom" id="sMi-TX-c4v"/>
                 <constraint firstItem="kzA-2s-4jL" firstAttribute="top" secondItem="ePL-qi-dzS" secondAttribute="bottom" constant="9" id="t6O-kN-oFr"/>
                 <constraint firstAttribute="centerX" secondItem="hEu-Ce-PoV" secondAttribute="trailing" id="x5s-rU-pWl"/>
