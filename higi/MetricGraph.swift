@@ -379,7 +379,7 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         }
         
         self.plot.reloadData();
-        if (altPoints.count > 0) {
+        if (altPoints.count > 1) {
             self.altPlot.reloadData();
         }
     }

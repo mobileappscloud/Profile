@@ -117,43 +117,46 @@ class SignupEmailViewController: UIViewController, UITextFieldDelegate {
             } else {
                 HigiApi().sendGet("\(HigiApi.webUrl)/termsinfo", success: {operation, responseObject in
                     
-                    let termsInfo = responseObject as! NSDictionary;
-                    
-                    let termsFile = (termsInfo["termsFilename"] ?? "termsofuse_v7_08112014") as! NSString;
-                    let privacyFile = (termsInfo["privacyFilename"] ?? "privacypolicy_v7_08112014") as! NSString;
-                    
-                    let dateFormatter = NSDateFormatter();
-                    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ";
-                    let agreedDate = dateFormatter.stringFromDate(NSDate());
-                    
-                    let contents = NSMutableDictionary();
-                    let terms = NSMutableDictionary();
-                    let privacy = NSMutableDictionary();
-                    contents["email"] = self.email.text;
-                    terms["termsFileName"] = termsFile;
-                    terms["termsAgreedDate"] = agreedDate;
-                    privacy["privacyFileName"] = privacyFile;
-                    privacy["privacyAgreedDate"] = agreedDate;
-                    contents["terms"] = terms;
-                    contents["privacyAgreed"] = privacy;
-                    HigiApi().sendPut("\(HigiApi.higiApiUrl)/data/user?password=\(encodedPassword)", parameters: contents, success: {operation, responseObject in
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+
+                        let termsInfo = responseObject as! NSDictionary;
                         
-                        let userInfo = responseObject as! NSDictionary;
+                        let termsFile = (termsInfo["termsFilename"] ?? "termsofuse_v7_08112014") as! NSString;
+                        let privacyFile = (termsInfo["privacyFilename"] ?? "privacypolicy_v7_08112014") as! NSString;
                         
-                        let user = HigiUser();
+                        let dateFormatter = NSDateFormatter();
+                        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ";
+                        let agreedDate = dateFormatter.stringFromDate(NSDate());
                         
-                        user.userId = userInfo["id"] as! NSString;
-                        
-                        SessionData.Instance.user = user;
-                        SessionData.Instance.token = userInfo["token"] as! String;
-                        SessionData.Instance.save();
-                        SessionController.Instance.checkins = [];
-                        SessionController.Instance.activities = [:];
-                        
-                        self.navigationController!.pushViewController(SignupNameViewController(nibName: "SignupNameView", bundle: nil), animated: true);
-                        
-                        }, failure: {operation, error in
-                            self.showErrorAlert();
+                        let contents = NSMutableDictionary();
+                        let terms = NSMutableDictionary();
+                        let privacy = NSMutableDictionary();
+                        contents["email"] = self.email.text;
+                        terms["termsFileName"] = termsFile;
+                        terms["termsAgreedDate"] = agreedDate;
+                        privacy["privacyFileName"] = privacyFile;
+                        privacy["privacyAgreedDate"] = agreedDate;
+                        contents["terms"] = terms;
+                        contents["privacyAgreed"] = privacy;
+                        HigiApi().sendPut("\(HigiApi.higiApiUrl)/data/user?password=\(encodedPassword)", parameters: contents, success: {operation, responseObject in
+                            
+                            let userInfo = responseObject as! NSDictionary;
+                            
+                            let user = HigiUser();
+                            
+                            user.userId = userInfo["id"] as! NSString;
+                            
+                            SessionData.Instance.user = user;
+                            SessionData.Instance.token = userInfo["token"] as! String;
+                            SessionData.Instance.save();
+                            SessionController.Instance.checkins = [];
+                            SessionController.Instance.activities = [:];
+                            
+                            self.navigationController!.pushViewController(SignupNameViewController(nibName: "SignupNameView", bundle: nil), animated: true);
+                            
+                            }, failure: {operation, error in
+                                self.showErrorAlert();
+                        });
                     });
                     
                     }, failure: {operation, error in

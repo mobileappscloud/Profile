@@ -1,6 +1,6 @@
 import Foundation
 
-class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UIActionSheetDelegate {
+class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate {
     @IBOutlet var contentView: UIView!
     @IBOutlet var pointsLabel:UILabel?;
     @IBOutlet weak var joinButton: UIButton! {
@@ -303,25 +303,25 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         });
     }
 
-    func showTeamsPicker() {
+    func showTeamsPicker() {        
         let sheetMessage = NSLocalizedString("CHALLENGE_DETAILS_VIEW_TEAMS_PICKER_ACTION_SHEET_MESSAGE", comment: "Message for action sheet which is displayed when picking a team to join.");
-        let picker = UIActionSheet(title: sheetMessage, delegate: self, cancelButtonTitle: nil, destructiveButtonTitle: nil);
+        let teamPickerSheet = UIAlertController(title: nil, message: sheetMessage, preferredStyle: .ActionSheet)
+        
         for team in challenge.teams {
-            picker.addButtonWithTitle(team.name as String);
+            let sheetAction = UIAlertAction(title: team.name as String, style: .Default, handler: { action in
+                self.showTermsAndConditions(team.joinUrl as String);
+            })
+            teamPickerSheet.addAction(sheetAction);
         }
+        
         let backButtonTitle = NSLocalizedString("CHALLENGE_DETAILS_VIEW_TEAMS_PICKER_ACTION_SHEET_ACTION_TITLE_BACK", comment: "Title for action sheet action to go back; displayed when picking a team to join.");
-        picker.addButtonWithTitle(backButtonTitle);
-        picker.cancelButtonIndex = challenge.teams.count;
-        picker.showInView(scrollView);
-    }
-    
-    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
-        if (buttonIndex != challenge.teams.count) {
-            showTermsAndConditions(self.challenge.teams[buttonIndex].joinUrl as String);
-        } else {
-            joinButton.hidden = false;
-            loadingSpinner.hidden = true;
-        }
+        let cancelAction = UIAlertAction(title: backButtonTitle, style: .Cancel, handler: { action in
+            self.joinButton.hidden = false;
+            self.loadingSpinner.hidden = true;
+        })
+        teamPickerSheet.addAction(cancelAction);
+        
+        self.presentViewController(teamPickerSheet, animated: true, completion: nil)
     }
     
     func refreshChallenge() {
