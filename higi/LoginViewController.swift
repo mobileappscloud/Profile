@@ -91,12 +91,18 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 SessionData.Instance.save();
                 if (login.user != nil) {
                     ApiUtility.checkTermsAndPrivacy(self, success: self.gotoDashboard, failure: {
-                        UIAlertView(title: "Unable to connect to server", message: "Please check your network connection and try again.", delegate: nil, cancelButtonTitle: "OK").show();
+                        let alert = UIAlertView(title: "Unable to connect to server", message: "Please check your network connection and try again.", delegate: nil, cancelButtonTitle: "OK");
+                        dispatch_async(dispatch_get_main_queue(), {
+                            alert.show();
+                        });
                         self.reset();
                     });
                 }
             } else {
-                UIAlertView(title: "Invalid credentials", message: "Please check your email and password and try again.", delegate: nil, cancelButtonTitle: "OK").show();
+                let alert = UIAlertView(title: "Invalid credentials", message: "Please check your email and password and try again.", delegate: nil, cancelButtonTitle: "OK");
+                dispatch_async(dispatch_get_main_queue(), {
+                    alert.show();
+                });
                 self.reset();
             }
         });
