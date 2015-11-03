@@ -701,7 +701,7 @@
 "QR_SCANNER_VIEW_UNSUPPORTED_DEVICE_ALERT_TITLE" = "Uh oh";
 
 /* Format of essage text for required app update view. */
-"REQUIRED_APP_UPDATE_VIEW_MESSAGE_FORMAT" = "Keep tabs on your health and wellness with the latest features from %@. The version you have is no longer supported.\nDownload %@ now.";
+"REQUIRED_APP_UPDATE_VIEW_MESSAGE_FORMAT" = "Keep tabs on your health and wellness with the latest features from %@. The version you have is no longer supported. Download %@ now.";
 
 /* Format of title text for required app update view. */
 "REQUIRED_APP_UPDATE_VIEW_TITLE_FORMAT" = "Update Your %@ App!";

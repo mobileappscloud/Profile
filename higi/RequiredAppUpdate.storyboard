@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="phone-illustration" translatesAutoresizingMaskIntoConstraints="NO" id="NhT-vu-5Kl">
-                                <rect key="frame" x="250" y="137" width="100" height="100"/>
+                                <rect key="frame" x="250" y="147" width="100" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="1P6-U1-RKN"/>
                                     <constraint firstAttribute="width" constant="100" id="uF7-Ut-jfH"/>
@@ -33,21 +33,21 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Update Your higi App!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LQr-Ji-MB6">
-                                <rect key="frame" x="35" y="257" width="530" height="21.5"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                <rect key="frame" x="190" y="287" width="219.5" height="26.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="11G-5f-19E">
-                                <rect key="frame" x="40" y="286.5" width="520" height="61"/>
+                                <rect key="frame" x="25" y="329" width="550" height="36"/>
                                 <string key="text">Keep tabs on your health and wellness with the latest features from higi. The version you have is no longer supported. Download higi now.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wUf-hp-Oa5">
-                                <rect key="frame" x="234.5" y="367" width="132" height="34"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                <rect key="frame" x="220" y="395" width="160" height="39"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
                                 <state key="normal" title="Go to App Store"/>
                                 <connections>
                                     <action selector="didTapActionButton:" destination="9S0-IZ-XTV" eventType="touchUpInside" id="Zjc-rT-jX2"/>
@@ -56,20 +56,20 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="LQr-Ji-MB6" firstAttribute="top" secondItem="NhT-vu-5Kl" secondAttribute="bottom" constant="40" id="1Qg-CJ-Hr7"/>
                             <constraint firstItem="0rC-NL-0Yt" firstAttribute="centerX" secondItem="mCW-fN-6kG" secondAttribute="centerX" id="4sT-Mg-4vY"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="LQr-Ji-MB6" secondAttribute="trailing" constant="15" id="CTW-4o-zHw"/>
-                            <constraint firstItem="11G-5f-19E" firstAttribute="top" secondItem="LQr-Ji-MB6" secondAttribute="bottom" constant="8" id="DlO-EO-hO5"/>
-                            <constraint firstItem="NhT-vu-5Kl" firstAttribute="top" secondItem="0rC-NL-0Yt" secondAttribute="bottom" constant="40" id="EeA-cb-XKp"/>
-                            <constraint firstItem="11G-5f-19E" firstAttribute="leading" secondItem="mCW-fN-6kG" secondAttribute="leadingMargin" constant="20" id="Oh7-oV-SDY"/>
-                            <constraint firstItem="LQr-Ji-MB6" firstAttribute="top" secondItem="NhT-vu-5Kl" secondAttribute="bottom" constant="20" id="R8R-u8-vxE"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="11G-5f-19E" secondAttribute="trailing" constant="5" id="5Bk-Im-Vdy"/>
+                            <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="LQr-Ji-MB6" secondAttribute="trailing" constant="15" id="DMl-UO-Nh5"/>
+                            <constraint firstItem="NhT-vu-5Kl" firstAttribute="top" secondItem="0rC-NL-0Yt" secondAttribute="bottom" constant="50" id="EeA-cb-XKp"/>
+                            <constraint firstItem="LQr-Ji-MB6" firstAttribute="centerX" secondItem="mCW-fN-6kG" secondAttribute="centerX" id="Iwz-f2-WxO"/>
                             <constraint firstItem="0rC-NL-0Yt" firstAttribute="top" secondItem="shK-dD-vsm" secondAttribute="bottom" constant="32" id="Thv-zY-bbG"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="11G-5f-19E" secondAttribute="trailing" constant="20" id="X2U-gh-AZY"/>
-                            <constraint firstItem="LQr-Ji-MB6" firstAttribute="centerX" secondItem="mCW-fN-6kG" secondAttribute="centerX" id="ZcA-eg-qRQ"/>
-                            <constraint firstItem="LQr-Ji-MB6" firstAttribute="leading" secondItem="mCW-fN-6kG" secondAttribute="leadingMargin" constant="15" id="ZvX-BU-U5X"/>
+                            <constraint firstItem="11G-5f-19E" firstAttribute="top" secondItem="LQr-Ji-MB6" secondAttribute="bottom" constant="16" id="Zvb-2r-obR"/>
                             <constraint firstItem="NhT-vu-5Kl" firstAttribute="centerX" secondItem="mCW-fN-6kG" secondAttribute="centerX" id="aPX-e1-ZBI"/>
-                            <constraint firstItem="11G-5f-19E" firstAttribute="centerX" secondItem="mCW-fN-6kG" secondAttribute="centerX" id="bGF-71-Q0U"/>
-                            <constraint firstItem="wUf-hp-Oa5" firstAttribute="centerX" secondItem="mCW-fN-6kG" secondAttribute="centerX" id="d2V-ds-Yum"/>
-                            <constraint firstItem="wUf-hp-Oa5" firstAttribute="top" secondItem="11G-5f-19E" secondAttribute="bottom" constant="20" id="gdE-T0-FzW"/>
+                            <constraint firstItem="wUf-hp-Oa5" firstAttribute="centerX" secondItem="mCW-fN-6kG" secondAttribute="centerX" id="d9F-vQ-1G4"/>
+                            <constraint firstItem="wUf-hp-Oa5" firstAttribute="top" secondItem="11G-5f-19E" secondAttribute="bottom" priority="990" constant="30" id="fPj-8S-7GZ"/>
+                            <constraint firstItem="11G-5f-19E" firstAttribute="centerX" secondItem="mCW-fN-6kG" secondAttribute="centerX" id="jTY-oB-Pcs"/>
+                            <constraint firstItem="LQr-Ji-MB6" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="mCW-fN-6kG" secondAttribute="leadingMargin" constant="14" id="z9a-pA-dGJ"/>
+                            <constraint firstItem="11G-5f-19E" firstAttribute="leading" secondItem="mCW-fN-6kG" secondAttribute="leadingMargin" constant="5" id="ztH-un-XnG"/>
                         </constraints>
                     </view>
                     <nil key="simulatedTopBarMetrics"/>
