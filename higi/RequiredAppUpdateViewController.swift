@@ -16,12 +16,14 @@ class RequiredAppUpdateViewController: UIViewController {
         didSet {
             let format = NSLocalizedString("REQUIRED_APP_UPDATE_VIEW_TITLE_FORMAT", comment: "Format of title text for required app update view.");
             titleLabel.text = NSString.localizedStringWithFormat(format, self.displayName) as String;
+            titleLabel.textColor = Utility.colorFromHexString("#545454");
         }
     }
     @IBOutlet weak var messageLabel: UILabel! {
         didSet {
             let format = NSLocalizedString("REQUIRED_APP_UPDATE_VIEW_MESSAGE_FORMAT", comment: "Format of essage text for required app update view.");
             messageLabel.text = NSString.localizedStringWithFormat(format, self.displayName, self.displayName) as String;
+            messageLabel.textColor = Utility.colorFromHexString("#545454");
         }
     }
     @IBOutlet weak var actionButton: UIButton! {
