@@ -94,28 +94,36 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     func signInSuccess(operation: AFHTTPRequestOperation!, responseObject: AnyObject?) {
-        let responseLogin = responseObject as? NSDictionary;
-        if (responseLogin != nil) {
-            let login = HigiLogin(dictionary: responseObject as! NSDictionary);
-            SessionData.Instance.token = login.token as String;
-            SessionData.Instance.user = login.user;
-            SessionData.Instance.save();
-            if (login.user != nil) {
-                ApiUtility.checkTermsAndPrivacy(self, success: gotoDashboard, failure: {
-                    let title = NSLocalizedString("LOGIN_VIEW_LOG_IN_NETWORK_CONNECTION_ISSUE_ALERT_TITLE", comment: "Title of alert which is displayed if a network connection issue occurs.")
-                    let message = NSLocalizedString("LOGIN_VIEW_LOG_IN_NETWORK_CONNECTION_ISSUE_ALERT_MESSAGE", comment: "Message of alert which is displayed if a network connection issue occurs.")
-                    let dismissAction = NSLocalizedString("LOGIN_VIEW_LOG_IN_NETWORK_CONNECTION_ISSUE_ALERT_ACTION_TITLE_DISMISS", comment: "Title of alert action to dismiss the alert which is displayed if a network connection issue occurs.")
-                    UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: dismissAction).show();
-                    self.reset();
-                });
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+            let responseLogin = responseObject as? NSDictionary;
+            if (responseLogin != nil) {
+                let login = HigiLogin(dictionary: responseObject as! NSDictionary);
+                SessionData.Instance.token = login.token as String;
+                SessionData.Instance.user = login.user;
+                SessionData.Instance.save();
+                if (login.user != nil) {
+                    ApiUtility.checkTermsAndPrivacy(self, success: self.gotoDashboard, failure: {
+                        let title = NSLocalizedString("LOGIN_VIEW_LOG_IN_NETWORK_CONNECTION_ISSUE_ALERT_TITLE", comment: "Title of alert which is displayed if a network connection issue occurs.")
+                        let message = NSLocalizedString("LOGIN_VIEW_LOG_IN_NETWORK_CONNECTION_ISSUE_ALERT_MESSAGE", comment: "Message of alert which is displayed if a network connection issue occurs.")
+                        let dismissAction = NSLocalizedString("LOGIN_VIEW_LOG_IN_NETWORK_CONNECTION_ISSUE_ALERT_ACTION_TITLE_DISMISS", comment: "Title of alert action to dismiss the alert which is displayed if a network connection issue occurs.")
+                        let alert = UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: dismissAction);
+                        dispatch_async(dispatch_get_main_queue(), {
+                            alert.show();
+                        })
+                        self.reset();
+                    });
+                }
+            } else {
+                let title = NSLocalizedString("LOGIN_VIEW_LOG_IN_INVALID_CREDENTIALS_ALERT_TITLE", comment: "Title of alert which is displayed if a user is unable to log in due to invalid credentials.")
+                let message = NSLocalizedString("LOGIN_VIEW_LOG_IN_INVALID_CREDENTIALS_ALERT_MESSAGE", comment: "Message of alert which is displayed if a user is unable to log in due to invalid credentials.")
+                let dismissAction = NSLocalizedString("LOGIN_VIEW_LOG_IN_INVALID_CREDENTIALS_ALERT_ACTION_TITLE_DISMISS", comment: "Title of alert action to dismiss the alert which is displayed if a user is unable to log in due to invalid credentials.")
+                let alert = UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: dismissAction);
+                dispatch_async(dispatch_get_main_queue(), {
+                    alert.show();
+                })
+                self.reset();
             }
-        } else {
-            let title = NSLocalizedString("LOGIN_VIEW_LOG_IN_INVALID_CREDENTIALS_ALERT_TITLE", comment: "Title of alert which is displayed if a user is unable to log in due to invalid credentials.")
-            let message = NSLocalizedString("LOGIN_VIEW_LOG_IN_INVALID_CREDENTIALS_ALERT_MESSAGE", comment: "Message of alert which is displayed if a user is unable to log in due to invalid credentials.")
-            let dismissAction = NSLocalizedString("LOGIN_VIEW_LOG_IN_INVALID_CREDENTIALS_ALERT_ACTION_TITLE_DISMISS", comment: "Title of alert action to dismiss the alert which is displayed if a user is unable to log in due to invalid credentials.")
-            UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: dismissAction).show();
-            reset();
-        }
+        });
     }
     
     func signInFailure(operation: AFHTTPRequestOperation!, error: NSError?) {
