@@ -22,6 +22,7 @@ class ChallengeLeaderboardRow: UITableViewCell {
         let highScore = challenge.teamHighScore;
         let units = Int(team.units);
 
+        row.frame.size.width = frame.size.width;
         row.setupLeaderBoardRow(team.imageUrl as String, nameText: team.name as String, pointsText: "\(units) \(challenge.abbrMetric)", placeText: ChallengeUtility.getRankSuffix(String(index + 1)));
         setProgressBar(row.progress, points: Int(team.units), highScore: Int(highScore));
         return row;
