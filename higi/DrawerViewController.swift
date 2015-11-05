@@ -81,6 +81,7 @@ class DrawerViewController: UIViewController, UITableViewDelegate, UITableViewDa
         navigationObjects.append(NavigationObject(title: "Capture", icon: "oc_qr.png", activeIcon: "oc_qr.png", callback: {
             (index: NSIndexPath) in
             Flurry.logEvent("QrCodeOffCanvas_Pressed");
+            self.tableView.deselectRowAtIndexPath(index, animated: false);
             self.navController?.pushViewController(QrScannerViewController(nibName: "QrScannerView", bundle: nil), animated: false);
         }));
     }
@@ -94,7 +95,7 @@ class DrawerViewController: UIViewController, UITableViewDelegate, UITableViewDa
             cell.selectedBackgroundView = selectedBgView;
         }
         cell.title.text = navigationObjects[indexPath.item].title;
-        if (tableView.indexPathForSelectedRow != nil && indexPath.item == tableView.indexPathForSelectedRow!.item && navigationObjects[indexPath.item].title != "Metrics" && navigationObjects[indexPath.item].title != "Scanner") {
+        if (tableView.indexPathForSelectedRow != nil && indexPath.item == tableView.indexPathForSelectedRow!.item && navigationObjects[indexPath.item].title != "Metrics" && navigationObjects[indexPath.item].title != "Capture") {
             cell.icon.image = UIImage(named: navigationObjects[indexPath.item].activeIcon);
         } else {
             cell.icon.image = UIImage(named: navigationObjects[indexPath.item].icon);
@@ -105,7 +106,7 @@ class DrawerViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         navigationObjects[indexPath.row].callback(indexPath);
         revealController?.revealToggleAnimated(true);
-        if navigationObjects[indexPath.item].title != "Metrics" && navigationObjects[indexPath.item].title != "Scanner" {
+        if navigationObjects[indexPath.item].title != "Metrics" && navigationObjects[indexPath.item].title != "Capture" {
             tableView.reloadData();
             let cell = tableView.cellForRowAtIndexPath(indexPath) as! DrawerCell;
             cell.icon.image = UIImage(named: navigationObjects[indexPath.item].activeIcon);
