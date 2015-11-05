@@ -409,20 +409,17 @@ class MetricDetailCard: UIView {
         var activities: [HigiActivity] = [];
         var activityKeys: [String] = [];
         var activitiesByType:[String: (Int, [HigiActivity])] = [:];
-        var totalPoints = 0;
-        var minCircleRadius:CGFloat = 6, maxCircleRadius:CGFloat = 32, currentOrigin:CGFloat = scrollViewPadding;
+        var currentOrigin:CGFloat = scrollViewPadding;
         var dateString = date;
         if (dateString == nil) {
             dateString = Constants.dateFormatter.stringFromDate(NSDate());
         }
-        if let (points, sessionActivities) = SessionController.Instance.activities[dateString!] {
-            totalPoints = points;
+        if let (_, sessionActivities) = SessionController.Instance.activities[dateString!] {
             activities = sessionActivities;
             activities.sortInPlace(SummaryViewUtility.sortByPoints);
         }
 
         var activitiesByDevice: [String: Int] = [:];
-        var subActivities:[String: (Int, [HigiActivity])] = [:];
         for activity in activities {
             let type = activity.type.getString();
             if let (total, activityList) = activitiesByType[type] {
@@ -463,11 +460,13 @@ class MetricDetailCard: UIView {
             let (total, activityList) = activitiesByType[key]!;
             let category = ActivityCategory.categoryFromString(key);
             let color = category.getColor();
-            let activityRow = SummaryViewUtility.initTitleRow(0, originY: currentOrigin, width: copyScrollview.frame.size.width, points: total, device: String(category.getString()), color: color);
+            let activityRow = SummaryViewUtility.initTitleRow(0, originY: 0, width: copyScrollview.frame.size.width, points: total, device: String(category.getString()), color: color);
             activityRow.device.font = UIFont.boldSystemFontOfSize(20);
             activityRow.points.font = UIFont.boldSystemFontOfSize(20);
             activityRow.device.textColor = color;
-            copyScrollview.addSubview(activityRow);
+            let wrapperView = UIView(frame: CGRect(x: 0, y: currentOrigin, width: copyScrollview.frame.size.width, height: activityRow.frame.size.height));
+            wrapperView.addSubview(activityRow);
+            copyScrollview.addSubview(wrapperView);
             activityRows.append(activityRow);
             currentOrigin += activityRow.frame.size.height;
             var seenDevices: [String: Bool] = [:];
