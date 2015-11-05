@@ -6,6 +6,7 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
     @IBOutlet weak var table: UITableView!
     
     var devices:[ActivityDevice] = [];
+    var expandedDeviceDescriptions: Set<NSString> = Set()
     
     var backButton:UIButton!;
     
@@ -29,7 +30,8 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
         self.title = "Connect a device";
         table.delegate = self;
         table.dataSource = self;
-        table.rowHeight = 70;
+        table.estimatedRowHeight = 70;
+        table.registerNib(UINib(nibName: "ConnectDeviceRow", bundle: nil), forCellReuseIdentifier: "ConnectDeviceRow")
         
         populateDevices();
     }
@@ -88,19 +90,46 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var row = tableView.dequeueReusableCellWithIdentifier("ConnectDeviceRow") as! ConnectDeviceRow!;
-        if (row == nil) {
-            row = UINib(nibName: "ConnectDeviceRow", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! ConnectDeviceRow;
-        }
+
+        var row = tableView.dequeueReusableCellWithIdentifier("ConnectDeviceRow", forIndexPath: indexPath) as! ConnectDeviceRow
+        
         let device = devices[indexPath.row]
         row.device = device;
         row.parentController = self.navigationController;
         row.logo.image = nil;
         row.logo.setImageWithURL(Utility.loadImageFromUrl(device.iconUrl as String));
         row.name.text = device.name as String;
+        var detailText: String?
+        if expandedDeviceDescriptions.contains(device.name) {
+            detailText = device.description as String;
+        }
+        row.descriptionLabel.text = detailText
         row.connectedToggle.on = device.connected;
         row.device = device;
+        row.clipsToBounds = true;
+        row.selectionStyle = .None
         return row;
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: false)
+        
+        tableView.beginUpdates()
+        
+        let device = devices[indexPath.row]
+        if expandedDeviceDescriptions.contains(device.name) {
+            expandedDeviceDescriptions.remove(device.name)
+        } else {
+            expandedDeviceDescriptions.insert(device.name)
+        }
+        
+        tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
+        
+        tableView.endUpdates()
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
