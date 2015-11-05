@@ -4,6 +4,11 @@ class ConnectDeviceRow: UITableViewCell, UIAlertViewDelegate {
 
     @IBOutlet weak var logo: UIImageView!
     @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel! {
+        didSet {
+            descriptionLabel.text = ""
+        }
+    }
     @IBOutlet weak var connectedToggle: UISwitch!
     
     var device:ActivityDevice!;
