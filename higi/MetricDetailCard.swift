@@ -499,4 +499,11 @@ class MetricDetailCard: UIView {
         summaryController.dateString = dateString;
         Utility.getViewController(self)!.navigationController!.pushViewController(summaryController, animated: true);
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews();
+        for row in activityRows {
+            row.frame.size.width = copyScrollview.frame.size.width;
+        }
+    }
 }
