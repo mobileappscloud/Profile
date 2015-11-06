@@ -94,6 +94,7 @@ class DrawerViewController: UIViewController, UITableViewDelegate, UITableViewDa
         navigationObjects.append(NavigationObject(title: captureTitle, icon: "oc_qr.png", activeIcon: "oc_qr.png", callback: {
             (index: NSIndexPath) in
             Flurry.logEvent("QrCodeOffCanvas_Pressed");
+            self.tableView.deselectRowAtIndexPath(index, animated: false);
             self.navController?.pushViewController(QrScannerViewController(nibName: "QrScannerView", bundle: nil), animated: false);
         }));
     }
