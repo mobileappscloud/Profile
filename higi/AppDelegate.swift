@@ -66,8 +66,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-        if (SessionData.Instance.user != nil && NSDate().timeIntervalSinceDate(SessionData.Instance.lastUpdate) / 60 / 60 > 15) {
-            ApiUtility.initializeApiData();
+        let refreshMinutes = 15.0
+        let refreshInterval: NSTimeInterval = 60.0 * refreshMinutes
+        if (SessionData.Instance.user != nil && NSDate().timeIntervalSinceDate(SessionData.Instance.lastUpdate) > refreshInterval) {
+            NSNotificationCenter.defaultCenter().postNotificationName("RefreshDashboard", object: nil)
         }
     }
     
