@@ -37,19 +37,19 @@
 		41411BA31BA894280027F5E1 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41411BA11BA894280027F5E1 /* SwitchTableViewCell.swift */; };
 		41545BF91BA76CFA00946358 /* NotificationSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41545BF81BA76CFA00946358 /* NotificationSettings.storyboard */; };
 		4192B4FE1BB5BF4500D1A2D3 /* PersistentSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4192B4FD1BB5BF4500D1A2D3 /* PersistentSettingsController.swift */; };
-		419D85CF1BBEDD3C00E7D844 /* HIGIScatterPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D85CE1BBEDD3C00E7D844 /* HIGIScatterPlot.m */; settings = {ASSET_TAGS = (); }; };
-		419D86481BBEF83000E7D844 /* GQuadItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D862D1BBEF83000E7D844 /* GQuadItem.m */; settings = {ASSET_TAGS = (); }; };
-		419D86491BBEF83000E7D844 /* GStaticCluster.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D862F1BBEF83000E7D844 /* GStaticCluster.m */; settings = {ASSET_TAGS = (); }; };
-		419D864A1BBEF83000E7D844 /* NonHierarchicalDistanceBasedAlgorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D86311BBEF83000E7D844 /* NonHierarchicalDistanceBasedAlgorithm.m */; settings = {ASSET_TAGS = (); }; };
-		419D864C1BBEF83000E7D844 /* GClusterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D86381BBEF83000E7D844 /* GClusterManager.m */; settings = {ASSET_TAGS = (); }; };
-		419D864E1BBEF83000E7D844 /* SphericalMercatorProjection.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D863F1BBEF83000E7D844 /* SphericalMercatorProjection.m */; settings = {ASSET_TAGS = (); }; };
-		419D864F1BBEF83000E7D844 /* GQTPointQuadTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D86441BBEF83000E7D844 /* GQTPointQuadTree.m */; settings = {ASSET_TAGS = (); }; };
-		419D86501BBEF83000E7D844 /* GQTPointQuadTreeChild.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D86461BBEF83000E7D844 /* GQTPointQuadTreeChild.m */; settings = {ASSET_TAGS = (); }; };
-		419D86561BBEF9A700E7D844 /* HigiClusterRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D86551BBEF9A700E7D844 /* HigiClusterRenderer.m */; settings = {ASSET_TAGS = (); }; };
-		419D86591BBEFA0A00E7D844 /* ClusterKiosk.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D86581BBEFA0A00E7D844 /* ClusterKiosk.m */; settings = {ASSET_TAGS = (); }; };
-		419D86601BBEFF1A00E7D844 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 419D865F1BBEFF1A00E7D844 /* Settings.storyboard */; settings = {ASSET_TAGS = (); }; };
-		419D86641BBF000800E7D844 /* checkinerroricon.png in Resources */ = {isa = PBXBuildFile; fileRef = 419D86621BBF000800E7D844 /* checkinerroricon.png */; settings = {ASSET_TAGS = (); }; };
-		419D86651BBF000800E7D844 /* checkinsuccessicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 419D86631BBF000800E7D844 /* checkinsuccessicon.png */; settings = {ASSET_TAGS = (); }; };
+		419D85CF1BBEDD3C00E7D844 /* HIGIScatterPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D85CE1BBEDD3C00E7D844 /* HIGIScatterPlot.m */; };
+		419D86481BBEF83000E7D844 /* GQuadItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D862D1BBEF83000E7D844 /* GQuadItem.m */; };
+		419D86491BBEF83000E7D844 /* GStaticCluster.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D862F1BBEF83000E7D844 /* GStaticCluster.m */; };
+		419D864A1BBEF83000E7D844 /* NonHierarchicalDistanceBasedAlgorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D86311BBEF83000E7D844 /* NonHierarchicalDistanceBasedAlgorithm.m */; };
+		419D864C1BBEF83000E7D844 /* GClusterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D86381BBEF83000E7D844 /* GClusterManager.m */; };
+		419D864E1BBEF83000E7D844 /* SphericalMercatorProjection.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D863F1BBEF83000E7D844 /* SphericalMercatorProjection.m */; };
+		419D864F1BBEF83000E7D844 /* GQTPointQuadTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D86441BBEF83000E7D844 /* GQTPointQuadTree.m */; };
+		419D86501BBEF83000E7D844 /* GQTPointQuadTreeChild.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D86461BBEF83000E7D844 /* GQTPointQuadTreeChild.m */; };
+		419D86561BBEF9A700E7D844 /* HigiClusterRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D86551BBEF9A700E7D844 /* HigiClusterRenderer.m */; };
+		419D86591BBEFA0A00E7D844 /* ClusterKiosk.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D86581BBEFA0A00E7D844 /* ClusterKiosk.m */; };
+		419D86601BBEFF1A00E7D844 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 419D865F1BBEFF1A00E7D844 /* Settings.storyboard */; };
+		419D86641BBF000800E7D844 /* checkinerroricon.png in Resources */ = {isa = PBXBuildFile; fileRef = 419D86621BBF000800E7D844 /* checkinerroricon.png */; };
+		419D86651BBF000800E7D844 /* checkinsuccessicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 419D86631BBF000800E7D844 /* checkinsuccessicon.png */; };
 		41A0BE0B1BBB088500A314D6 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A0BDF91BBB088500A314D6 /* AFHTTPRequestOperation.m */; };
 		41A0BE0C1BBB088500A314D6 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A0BDFB1BBB088500A314D6 /* AFHTTPRequestOperationManager.m */; };
 		41A0BE0D1BBB088500A314D6 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A0BDFD1BBB088500A314D6 /* AFHTTPSessionManager.m */; };
@@ -73,17 +73,19 @@
 		41A0BE541BBB1CD100A314D6 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 41A0BE4B1BBB194700A314D6 /* libCorePlot-CocoaTouch.a */; };
 		41A0BE811BBB32BB00A314D6 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41A0BE801BBB32BB00A314D6 /* Crashlytics.framework */; };
 		41A0BE851BBB32C800A314D6 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41A0BE841BBB32C800A314D6 /* Fabric.framework */; };
-		41A917FB1BBC744800CCF91E /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41A917FA1BBC744800CCF91E /* GoogleMaps.framework */; settings = {ASSET_TAGS = (); }; };
-		41A917FF1BBC747600CCF91E /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 41A917FE1BBC747600CCF91E /* GoogleMaps.bundle */; settings = {ASSET_TAGS = (); }; };
+		41A917FB1BBC744800CCF91E /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41A917FA1BBC744800CCF91E /* GoogleMaps.framework */; };
+		41A917FF1BBC747600CCF91E /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 41A917FE1BBC747600CCF91E /* GoogleMaps.bundle */; };
 		41B2AEDF1BBB377E00BE9EF7 /* MetricGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B2AEDE1BBB377E00BE9EF7 /* MetricGraph.swift */; };
 		41B2AEE11BBB378A00BE9EF7 /* GraphPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B2AEE01BBB378A00BE9EF7 /* GraphPoint.swift */; };
 		41B2B3581BB31CBE00B13168 /* NotificationSettingsEmailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B2B3571BB31CBD00B13168 /* NotificationSettingsEmailTableViewController.swift */; };
 		41B2B35A1BB31CE900B13168 /* NotificationSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B2B3591BB31CE900B13168 /* NotificationSettingsTableViewController.swift */; };
 		41B2B35C1BB326C800B13168 /* NotificationSettingsEmailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B2B35B1BB326C800B13168 /* NotificationSettingsEmailController.swift */; };
-		41BFC9B81BCC0E0D00FD0F45 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 41BFC9B61BCC0E0D00FD0F45 /* Localizable.stringsdict */; settings = {ASSET_TAGS = (); }; };
-		41CAB9B41BC411A00000772C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 41CAB9B01BC411A00000772C /* Localizable.strings */; settings = {ASSET_TAGS = (); }; };
+		41BFC9B81BCC0E0D00FD0F45 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 41BFC9B61BCC0E0D00FD0F45 /* Localizable.stringsdict */; };
+		41CAB9B41BC411A00000772C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 41CAB9B01BC411A00000772C /* Localizable.strings */; };
 		41E90DED1BD98494001DCC4C /* RequiredAppUpdate.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41E90DEC1BD98494001DCC4C /* RequiredAppUpdate.storyboard */; };
 		41E90DF11BD984E0001DCC4C /* RequiredAppUpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E90DF01BD984E0001DCC4C /* RequiredAppUpdateViewController.swift */; };
+		41FB22551BE2951F009139B4 /* CrashAnalyticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41FB22541BE2951F009139B4 /* CrashAnalyticsManager.swift */; };
+		41FB225B1BE2AE80009139B4 /* FabricInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41FB225A1BE2AE80009139B4 /* FabricInfo.swift */; };
 		8F02A11F19AE2BF6002FF73E /* btn_back_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A11719AE2BF6002FF73E /* btn_back_black.png */; };
 		8F02A12019AE2BF6002FF73E /* btn_back_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A11819AE2BF6002FF73E /* btn_back_black@2x.png */; };
 		8F02A12119AE2BF6002FF73E /* btn_back_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A11919AE2BF6002FF73E /* btn_back_white.png */; };
@@ -495,6 +497,8 @@
 		41CAB9B11BC411A00000772C /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Localizable.strings; sourceTree = "<group>"; };
 		41E90DEC1BD98494001DCC4C /* RequiredAppUpdate.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = RequiredAppUpdate.storyboard; sourceTree = "<group>"; };
 		41E90DF01BD984E0001DCC4C /* RequiredAppUpdateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequiredAppUpdateViewController.swift; sourceTree = "<group>"; };
+		41FB22541BE2951F009139B4 /* CrashAnalyticsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrashAnalyticsManager.swift; sourceTree = "<group>"; };
+		41FB225A1BE2AE80009139B4 /* FabricInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FabricInfo.swift; sourceTree = "<group>"; };
 		8F02A11719AE2BF6002FF73E /* btn_back_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_back_black.png; sourceTree = "<group>"; };
 		8F02A11819AE2BF6002FF73E /* btn_back_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_back_black@2x.png"; sourceTree = "<group>"; };
 		8F02A11919AE2BF6002FF73E /* btn_back_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_back_white.png; sourceTree = "<group>"; };
@@ -1205,6 +1209,7 @@
 				8F7065B31A16B129002FCA10 /* ChallengeParticipant.swift */,
 				8F7065B71A16B46A002FCA10 /* ChallengeTeam.swift */,
 				8FDB4B691A09741400F57B38 /* ChallengeWinCondition.swift */,
+				41FB225A1BE2AE80009139B4 /* FabricInfo.swift */,
 				8FDB4B651A096ECF00F57B38 /* HigiActivity.swift */,
 				8FDB4B631A096E1C00F57B38 /* HigiChallenge.swift */,
 				8F9C69D41950C88900449664 /* HigiCheckin.swift */,
@@ -1242,6 +1247,7 @@
 				8F524BF7195B829400BFC49D /* CustomFormatter.swift */,
 				8FE206611B7CF30E00B473B0 /* LocationDelegate.swift */,
 				8F6D510D1947B2E700F7C769 /* Utility.swift */,
+				41FB22541BE2951F009139B4 /* CrashAnalyticsManager.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -2188,6 +2194,7 @@
 				8F58D98E19C22AB600C0EC72 /* GTMNSString+HTML.m in Sources */,
 				8F2CB58019925631009377A8 /* WebViewController.swift in Sources */,
 				8FF9409A198A8C1800D319D7 /* ProfileImageViewController.swift in Sources */,
+				41FB22551BE2951F009139B4 /* CrashAnalyticsManager.swift in Sources */,
 				D1FC729F1B223FE80068CF89 /* MetricGauge.swift in Sources */,
 				D13D36531B30D78E00F18A42 /* ActivityCategory.swift in Sources */,
 				41B2B3581BB31CBE00B13168 /* NotificationSettingsEmailTableViewController.swift in Sources */,
@@ -2210,6 +2217,7 @@
 				41E90DF11BD984E0001DCC4C /* RequiredAppUpdateViewController.swift in Sources */,
 				8F5C38F71983094F00F51543 /* NSString+HTML.m in Sources */,
 				8FDA6DA619A4038F00244D5F /* TermsViewController.swift in Sources */,
+				41FB225B1BE2AE80009139B4 /* FabricInfo.swift in Sources */,
 				D110BAD41B0E7C5500CD1E58 /* DailySummaryViewController.swift in Sources */,
 				D1B6D6981A8D09FD0006F80C /* ChatterInputViewController.swift in Sources */,
 				D149E9471A7822D900FBAA15 /* ChallengeDetailsPrize.swift in Sources */,

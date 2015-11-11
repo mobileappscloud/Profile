@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import Fabric
-import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,10 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
-        #if DEBUG
-            Crashlytics.sharedInstance().debugMode = true;
-        #endif
-        Fabric.with([Crashlytics.self()])
+        CrashAnalyticsManager.setupVendors()
 
         // Override point for customization after application launch.
         GMSServices.provideAPIKey("AIzaSyB1iNeT8pxcPd4rcwQ-Titp2hA5bLHh3-k");
