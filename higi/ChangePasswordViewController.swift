@@ -20,7 +20,8 @@ class ChangePasswordViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad();
         self.title = "Change Password";
-        self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
+        self.navigationController!.navigationBar.barStyle = .Default;
+        self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.blackColor()];
         (self.navigationController as! MainNavigationController).revealController.panGestureRecognizer().enabled = false;
         let backButton = UIButton(type: UIButtonType.Custom);
         backButton.setBackgroundImage(UIImage(named: "btn_back_black.png"), forState: UIControlState.Normal);
