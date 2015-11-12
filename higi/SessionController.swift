@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import HealthKit
 
 class SessionController {
     
@@ -24,8 +23,6 @@ class SessionController {
     var pulseArticles: [PulseArticle] = [];
     
     var kioskList: [KioskInfo]!;
-    
-    var healthStore: HKHealthStore!;
     
     var devices: [String: ActivityDevice] = [:];
     
