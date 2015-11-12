@@ -49,6 +49,12 @@
 /* Title for blood pressure within a normal range. */
 "BLOOD_PRESSURE_RANGE_NORMAL_TITLE" = "Normal";
 
+/* Description for branded activity tracker which leverages HealthKit data. */
+"BRANDED_ACTIVITY_DEVICE_DESCRIPTION" = "Track your steps without a separate fitness device. The higi app now includes an activity tracker. Simply keep your phone with you and get rewarded for all your steps throughout the day.";
+
+/* Name for branded activity tracker which leverages HealthKit data. */
+"BRANDED_ACTIVITY_DEVICE_NAME" = "higi";
+
 /* Text label for challenge detail participant icon units. */
 "CHALLENGE_DETAILS_PARTICIPANT_ICON_LABEL_UNITS" = "Individuals";
 
