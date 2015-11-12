@@ -1,5 +1,11 @@
 import Foundation
 
+private enum TableSection: Int {
+    case BrandedDevice
+    case VendorDevice
+    case Count
+}
+
 class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var headerImage: UIImageView!
@@ -9,8 +15,26 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
             headerLabel.text = NSLocalizedString("CONNECT_DEVICE_VIEW_HEADER_TEXT", comment: "Text to display in table header on Connect Device view.")
         }
     }
+
+    var brandedDevices: [ActivityDevice] = {
+        var devices: [ActivityDevice] = []
+        
+        if HealthKitManager.isHealthDataAvailable() {
+            let name = NSLocalizedString("BRANDED_ACTIVITY_DEVICE_NAME", comment: "Name for branded activity tracker which leverages HealthKit data.")
+            let description = NSLocalizedString("BRANDED_ACTIVITY_DEVICE_DESCRIPTION", comment: "Description for branded activity tracker which leverages HealthKit data.")
+            let higiTracker = ActivityDevice(name: name, description: description, imageName: "higi-activity-tracker-icon", connected: false)
+            
+            HealthKitManager.hasReadAccessToStepData({ isAuthorized in
+                higiTracker.connected = isAuthorized
+            })
+            
+            devices.append(higiTracker)
+        }
+        
+        return devices
+    }()
     
-    var devices:[ActivityDevice] = [];
+    var vendorDevices: [ActivityDevice] = [];
     var expandedDeviceDescriptions: Set<NSString> = Set()
     
     var backButton:UIButton!;
@@ -19,7 +43,7 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
     
     override func viewDidLoad() {
         super.viewDidLoad();
-        
+
         self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
         (self.navigationController as! MainNavigationController).revealController.panGestureRecognizer().enabled = false;
         backButton = UIButton(type: .Custom);
@@ -38,18 +62,25 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
         table.estimatedRowHeight = 70;
         table.registerNib(UINib(nibName: "ConnectDeviceRow", bundle: nil), forCellReuseIdentifier: "ConnectDeviceRow")
         
-        populateDevices();
+        populateVendorDevices();
     }
     
-    func populateDevices() {
-        let serverDevices = SessionController.Instance.devices;
-        for (deviceName, device) in serverDevices {
-            devices.append(device);
-        }
-        devices.sortInPlace(sortByConnected);
+    private func populateVendorDevices() {
+        vendorDevices = sort(Array(SessionController.Instance.devices.values))
+    }
+
+    private func sort(vendorDevices: [ActivityDevice]) -> [ActivityDevice] {
+        var sortedDevices = vendorDevices;
+        sortedDevices.sortInPlace(sortByName);
+        sortedDevices.sortInPlace(sortByConnected);
+        return sortedDevices;
     }
     
-    func sortByConnected(this: ActivityDevice, that: ActivityDevice) -> Bool {
+    private func sortByName(this: ActivityDevice, that: ActivityDevice) -> Bool {
+        return (this.name).compare(that.name as String, options: .CaseInsensitiveSearch) == .OrderedAscending
+    }
+    
+    private func sortByConnected(this: ActivityDevice, that: ActivityDevice) -> Bool {
         return this.connected;
     }
     
@@ -94,15 +125,35 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
         }
     }
     
+    private func device(forIndexPath indexPath: NSIndexPath) -> ActivityDevice {
+        var device: ActivityDevice!
+        if let section = TableSection(rawValue: indexPath.section) {
+            switch section {
+            case .BrandedDevice:
+                device = brandedDevices[indexPath.row]
+            case .VendorDevice:
+                device = vendorDevices[indexPath.row]
+            case .Count:
+                break;
+            }
+        }
+        return device
+    }
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
-        var row = tableView.dequeueReusableCellWithIdentifier("ConnectDeviceRow", forIndexPath: indexPath) as! ConnectDeviceRow
+        let row = tableView.dequeueReusableCellWithIdentifier("ConnectDeviceRow", forIndexPath: indexPath) as! ConnectDeviceRow
         
-        let device = devices[indexPath.row]
+        let device = self.device(forIndexPath: indexPath)
+        
         row.device = device;
         row.parentController = self.navigationController;
         row.logo.image = nil;
-        row.logo.setImageWithURL(Utility.loadImageFromUrl(device.iconUrl as String));
+        if let iconURL = device.iconUrl {
+            row.logo.setImageWithURL(Utility.loadImageFromUrl(iconURL as String));
+        } else if let imageName = device.imageName {
+            row.logo.image = UIImage(named: imageName as String)
+        }
         row.name.text = device.name as String;
         var detailText: String?
         if expandedDeviceDescriptions.contains(device.name) {
@@ -110,9 +161,10 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
         }
         row.descriptionLabel.text = detailText
         row.connectedToggle.on = device.connected;
-        row.device = device;
+        
         row.clipsToBounds = true;
         row.selectionStyle = .None
+        
         return row;
     }
     
@@ -137,8 +189,23 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
         return UITableViewAutomaticDimension
     }
     
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return TableSection.Count.rawValue
+    }
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return devices.count;
+        var rowCount = 0
+        if let sectionType = TableSection(rawValue: section) {
+            switch sectionType {
+            case .BrandedDevice:
+                rowCount = HealthKitManager.isHealthDataAvailable() ? brandedDevices.count : 0
+            case .VendorDevice:
+                rowCount = vendorDevices.count
+            case .Count:
+                break
+            }
+        }
+        return rowCount
     }
     
     func goBack(sender: AnyObject!) {
@@ -157,9 +224,21 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
     
     func refreshDevices() {
         table.reloadData();
+        
+        if brandedDevices.count > 0 {
+            HealthKitManager.hasReadAccessToStepData({ [weak self] isAuthorized in
+                if let higiTracker = self?.brandedDevices.first {
+                    higiTracker.connected = isAuthorized
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self?.table.reloadData()
+                    })
+                }
+                })
+        }
+        
         ApiUtility.retrieveDevices({
-            self.devices = Array(SessionController.Instance.devices.values);
-            self.devices.sortInPlace(self.sortByConnected);
+            let devices = Array(SessionController.Instance.devices.values);
+            self.vendorDevices = self.sort(devices)
             self.table.reloadData();
         });
         

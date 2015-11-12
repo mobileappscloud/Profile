@@ -63,13 +63,17 @@ public class HealthKitManager {
     /**
 
     */
-    public class func hasReadAccessToStepData(completion: ((isAuthorized: Bool) -> Void)?) {
+    public class func hasReadAccessToStepData(completion: ((isAuthorized: Bool) -> Void)!) {
+        if !HealthKitManager.isHealthDataAvailable() {
+            completion(isAuthorized: false)
+            return
+        }
         
         let sampleType = HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierStepCount)!
         
         let query = HKSampleQuery(sampleType: sampleType, predicate: nil, limit: 1, sortDescriptors: nil, resultsHandler: { (query, samples, error) in
             let isAuthorized: Bool = samples?.count > 0
-            completion?(isAuthorized: isAuthorized)
+            completion(isAuthorized: isAuthorized)
         })
         HealthKitManager.sharedInstance.healthStore.executeQuery(query)
     }

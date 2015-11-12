@@ -25,23 +25,31 @@ class ConnectDeviceRow: UITableViewCell, UIAlertViewDelegate {
     }
     
     func connectDevice() {
-        self.device.connected = true;
-        webView = WebViewController(nibName: "WebView", bundle: nil);
-        webView.url = "\(HigiApi.webUrl)/mobileDeviceConnect";
-
-        let headers = ["Higi-Device-Connect-Url": device.connectUrl.stringByReplacingOccurrencesOfString("{redirect}", withString: "https://www.google.com".stringByReplacingPercentEscapesUsingEncoding(16)!) as String!, "User-Id": SessionData.Instance.user.userId as String!, "Token": SessionData.Instance.token as String!];
-        webView.headers = headers;
-        webView.device = device;
-        parentController.pushViewController(webView, animated: true);
+        if device.name == "higi" {
+            
+        } else {
+            self.device.connected = true;
+            webView = WebViewController(nibName: "WebView", bundle: nil);
+            webView.url = "\(HigiApi.webUrl)/mobileDeviceConnect";
+            
+            let headers = ["Higi-Device-Connect-Url": device.connectUrl!.stringByReplacingOccurrencesOfString("{redirect}", withString: "https://www.google.com".stringByReplacingPercentEscapesUsingEncoding(16)!) as String!, "User-Id": SessionData.Instance.user.userId as String!, "Token": SessionData.Instance.token as String!];
+            webView.headers = headers;
+            webView.device = device;
+            parentController.pushViewController(webView, animated: true);
+        }
     }
     
     func disconnectDevice() {
-        let title = NSLocalizedString("CONNECT_DEVICE_ROW_REMOVE_DEVICE_ALERT_TITLE", comment: "Title for alert displayed prior to disconnecting a device from a higi Profile.")
-        let messageFormat = NSLocalizedString("CONNECT_DEVICE_ROW_REMOVE_DEVICE_ALERT_MESSAGE_FORMAT", comment: "Message for alert displayed prior to disconnecting a device from a higi Profile.")
-        let message = String(format: messageFormat, arguments: [device.name])
-        let confirmTitle = NSLocalizedString("CONNECT_DEVICE_ROW_REMOVE_DEVICE_ALERT_ACTION_TITLE_YES", comment: "Title for alert action to confirm disconnecting a device from a higi Profile.")
-        let declineTitle = NSLocalizedString("CONNECT_DEVICE_ROW_REMOVE_DEVICE_ALERT_ACTION_TITLE_NO", comment: "Title for alert action to decline disconnecting a device from a higi Profile.")
-        UIAlertView(title: title, message: message, delegate: self, cancelButtonTitle: declineTitle, otherButtonTitles: confirmTitle).show();
+        if device.name == "higi" {
+            
+        } else {
+            let title = NSLocalizedString("CONNECT_DEVICE_ROW_REMOVE_DEVICE_ALERT_TITLE", comment: "Title for alert displayed prior to disconnecting a device from a higi Profile.")
+            let messageFormat = NSLocalizedString("CONNECT_DEVICE_ROW_REMOVE_DEVICE_ALERT_MESSAGE_FORMAT", comment: "Message for alert displayed prior to disconnecting a device from a higi Profile.")
+            let message = String(format: messageFormat, arguments: [device.name])
+            let confirmTitle = NSLocalizedString("CONNECT_DEVICE_ROW_REMOVE_DEVICE_ALERT_ACTION_TITLE_YES", comment: "Title for alert action to confirm disconnecting a device from a higi Profile.")
+            let declineTitle = NSLocalizedString("CONNECT_DEVICE_ROW_REMOVE_DEVICE_ALERT_ACTION_TITLE_NO", comment: "Title for alert action to decline disconnecting a device from a higi Profile.")
+            UIAlertView(title: title, message: message, delegate: self, cancelButtonTitle: declineTitle, otherButtonTitles: confirmTitle).show();
+        }
     }
     
     func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
@@ -56,7 +64,7 @@ class ConnectDeviceRow: UITableViewCell, UIAlertViewDelegate {
             
             if (device.disconnectUrl != nil) {
                 self.device.connected = false;
-                HigiApi().sendDelete(device.disconnectUrl as String, parameters: nil, success: nil,
+                HigiApi().sendDelete(device.disconnectUrl as! String, parameters: nil, success: nil,
                     failure: { operation, error in
                         self.device.connected = true;
                         self.connectedToggle.on = true;
