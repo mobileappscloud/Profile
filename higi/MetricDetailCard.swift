@@ -35,7 +35,7 @@ class MetricDetailCard: UIView {
     
     let triangleHeight:CGFloat = 20;
     
-    var copyImageOrigin:CGFloat = 0, copyScrollViewHeight: CGFloat = 0, screenWidth:CGFloat!;
+    var copyImageOrigin:CGFloat = 0, copyScrollViewHeight: CGFloat = 0, screenWidth:CGFloat!, activityRowHeight:CGFloat = 0;
     
     var thirdPanelSelected = true, blankState = false, shouldShowCenteredSecondPanel = false, shouldShowCenteredThirdPanel = false;
     
@@ -464,6 +464,7 @@ class MetricDetailCard: UIView {
             activityRow.device.font = UIFont.boldSystemFontOfSize(20);
             activityRow.points.font = UIFont.boldSystemFontOfSize(20);
             activityRow.device.textColor = color;
+            activityRowHeight = activityRow.frame.size.height;
             let wrapperView = UIView(frame: CGRect(x: 0, y: currentOrigin, width: copyScrollview.frame.size.width, height: activityRow.frame.size.height));
             wrapperView.addSubview(activityRow);
             copyScrollview.addSubview(wrapperView);
@@ -504,6 +505,7 @@ class MetricDetailCard: UIView {
         super.layoutSubviews();
         for row in activityRows {
             row.frame.size.width = copyScrollview.frame.size.width;
+            row.frame.size.height = activityRowHeight;
         }
     }
 }
