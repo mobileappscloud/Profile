@@ -24,7 +24,13 @@ class SessionData {
     
     var lastUpdate: NSDate!;
     
-    let savePath: String = (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]) + "HigiSessionData.plist" ;
+    let savePath: String = {
+        let documentsPath = (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0])
+        let documentsURL = NSURL(fileURLWithPath: documentsPath)
+        let writePath = documentsURL.URLByAppendingPathComponent("HigiSessionData.plist")
+        return writePath.relativePath!
+    }()
+
     
     init() {
         restore();
@@ -55,7 +61,9 @@ class SessionData {
         saveDictionary["seenReminder"] = seenReminder;
         saveDictionary["kioskList"] = kioskListString;
         saveDictionary["lastUpdate"] = lastUpdate;
-        saveDictionary.writeToFile(savePath, atomically: false);
+        
+        let dictionary: NSDictionary = saveDictionary.copy() as! NSDictionary
+        dictionary.writeToFile(savePath, atomically: false)
     }
     
     func restore() {
