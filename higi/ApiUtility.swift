@@ -123,6 +123,32 @@ class ApiUtility {
         });
     }
     
+    class func requestLastStepActivitySyncDate(completion: (syncDate: NSDate?) -> Void) {
+        let userId = SessionData.Instance.user.userId;
+        let URLString = "\(HigiApi.earnditApiUrl)/user/\(userId)/activities?device=higi&type=step&limit=1"
+        HigiApi().sendGet(URLString, success: {operation, responseObject in
+            
+            let serverActivities = ((responseObject as! NSDictionary)["response"] as! NSDictionary)["data"] as! NSArray;
+            var activity: HigiActivity? = nil
+            for serverActivity: AnyObject in serverActivities {
+                activity = HigiActivity(dictionary: serverActivity as! NSDictionary);
+                break;
+            }
+                completion(syncDate: activity?.updateDate)
+            }, failure: { operation, error in
+                completion(syncDate: nil)
+        })
+    }
+    
+    class func uploadStepActivities(activities: NSDictionary, success: (() -> Void)?) {
+        let URLString = "\(HigiApi.earnditApiUrl)/higiStep"
+        HigiApi().sendPost(URLString, parameters: activities, success: { (operation, responseObject) in
+            print(responseObject)
+            }, failure: { (operation, error) in
+                print(error)
+        })
+    }
+    
     class func retrieveActivities(success: (() -> Void)?) {
         SessionData.Instance.lastUpdate = NSDate();
         let userId = SessionData.Instance.user.userId;
