@@ -31,7 +31,6 @@
 		2BBDBA591A12AC2C005A6815 /* GoalChallengeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BBDBA511A12AC2C005A6815 /* GoalChallengeView.xib */; };
 		2BC5865C1A16C63B005A7983 /* ChallengeInvitation.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BC5865B1A16C63B005A7983 /* ChallengeInvitation.xib */; };
 		2BC5865E1A16D0AF005A7983 /* ChallengeInvitationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC5865D1A16D0AF005A7983 /* ChallengeInvitationView.swift */; };
-		4112E0461BF1463F0089F07F /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4112E0451BF1463F0089F07F /* HealthKitManager.swift */; };
 		41376C5B1BB452E40094DE7C /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41376C5A1BB452E40094DE7C /* SettingsTableViewController.swift */; };
 		41376C5D1BB459B50094DE7C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41376C5C1BB459B50094DE7C /* SettingsViewController.swift */; };
 		41411BA01BA87E3D0027F5E1 /* NotificationSettingsDeviceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41411B9F1BA87E3D0027F5E1 /* NotificationSettingsDeviceTableViewController.swift */; };
@@ -40,6 +39,7 @@
 		416E469B1BE803F9003250D1 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 416E469A1BE803F9003250D1 /* SWRevealViewController.m */; };
 		417F48B31BC823F1005BC49D /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 417F48B01BC823F1005BC49D /* GTMNSString+HTML.m */; };
 		417F48B41BC823F1005BC49D /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 417F48B21BC823F1005BC49D /* NSString+HTML.m */; };
+		418F195B1BFA52A900EAA820 /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418F195A1BFA52A900EAA820 /* HealthKitManager.swift */; };
 		4192B4FE1BB5BF4500D1A2D3 /* PersistentSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4192B4FD1BB5BF4500D1A2D3 /* PersistentSettingsController.swift */; };
 		419D85CF1BBEDD3C00E7D844 /* HIGIScatterPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D85CE1BBEDD3C00E7D844 /* HIGIScatterPlot.m */; };
 		419D86481BBEF83000E7D844 /* GQuadItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D862D1BBEF83000E7D844 /* GQuadItem.m */; };
@@ -88,6 +88,8 @@
 		41CAB9B41BC411A00000772C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 41CAB9B01BC411A00000772C /* Localizable.strings */; };
 		41E90DED1BD98494001DCC4C /* RequiredAppUpdate.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41E90DEC1BD98494001DCC4C /* RequiredAppUpdate.storyboard */; };
 		41E90DF11BD984E0001DCC4C /* RequiredAppUpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E90DF01BD984E0001DCC4C /* RequiredAppUpdateViewController.swift */; };
+		41FB22551BE2951F009139B4 /* CrashAnalyticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41FB22541BE2951F009139B4 /* CrashAnalyticsManager.swift */; };
+		41FB225B1BE2AE80009139B4 /* FabricInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41FB225A1BE2AE80009139B4 /* FabricInfo.swift */; };
 		8F02A11F19AE2BF6002FF73E /* btn_back_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A11719AE2BF6002FF73E /* btn_back_black.png */; };
 		8F02A12019AE2BF6002FF73E /* btn_back_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A11819AE2BF6002FF73E /* btn_back_black@2x.png */; };
 		8F02A12119AE2BF6002FF73E /* btn_back_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A11919AE2BF6002FF73E /* btn_back_white.png */; };
@@ -404,7 +406,6 @@
 		2BC5865D1A16D0AF005A7983 /* ChallengeInvitationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeInvitationView.swift; sourceTree = "<group>"; };
 		32E39E451B756D4200BA50F9 /* Info_prod.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info_prod.plist; sourceTree = "<group>"; };
 		32E39E461B756D4200BA50F9 /* Info_qa.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info_qa.plist; sourceTree = "<group>"; };
-		4112E0451BF1463F0089F07F /* HealthKitManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
 		41376C5A1BB452E40094DE7C /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		41376C5C1BB459B50094DE7C /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		41411B9F1BA87E3D0027F5E1 /* NotificationSettingsDeviceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingsDeviceTableViewController.swift; sourceTree = "<group>"; };
@@ -416,6 +417,7 @@
 		417F48B01BC823F1005BC49D /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GTMNSString+HTML.m"; path = "Vendor/MWFeedParser/Classes/GTMNSString+HTML.m"; sourceTree = "<group>"; };
 		417F48B11BC823F1005BC49D /* NSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+HTML.h"; path = "Vendor/MWFeedParser/Classes/NSString+HTML.h"; sourceTree = "<group>"; };
 		417F48B21BC823F1005BC49D /* NSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+HTML.m"; path = "Vendor/MWFeedParser/Classes/NSString+HTML.m"; sourceTree = "<group>"; };
+		418F195A1BFA52A900EAA820 /* HealthKitManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
 		4192B4FD1BB5BF4500D1A2D3 /* PersistentSettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistentSettingsController.swift; sourceTree = "<group>"; };
 		419D85CD1BBEDD3C00E7D844 /* HIGIScatterPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HIGIScatterPlot.h; sourceTree = "<group>"; };
 		419D85CE1BBEDD3C00E7D844 /* HIGIScatterPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HIGIScatterPlot.m; sourceTree = "<group>"; };
@@ -503,6 +505,8 @@
 		41CAB9B11BC411A00000772C /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Localizable.strings; sourceTree = "<group>"; };
 		41E90DEC1BD98494001DCC4C /* RequiredAppUpdate.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = RequiredAppUpdate.storyboard; sourceTree = "<group>"; };
 		41E90DF01BD984E0001DCC4C /* RequiredAppUpdateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequiredAppUpdateViewController.swift; sourceTree = "<group>"; };
+		41FB22541BE2951F009139B4 /* CrashAnalyticsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrashAnalyticsManager.swift; sourceTree = "<group>"; };
+		41FB225A1BE2AE80009139B4 /* FabricInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FabricInfo.swift; sourceTree = "<group>"; };
 		8F02A11719AE2BF6002FF73E /* btn_back_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_back_black.png; sourceTree = "<group>"; };
 		8F02A11819AE2BF6002FF73E /* btn_back_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_back_black@2x.png"; sourceTree = "<group>"; };
 		8F02A11919AE2BF6002FF73E /* btn_back_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_back_white.png; sourceTree = "<group>"; };
@@ -1229,6 +1233,7 @@
 				8F7065B31A16B129002FCA10 /* ChallengeParticipant.swift */,
 				8F7065B71A16B46A002FCA10 /* ChallengeTeam.swift */,
 				8FDB4B691A09741400F57B38 /* ChallengeWinCondition.swift */,
+				41FB225A1BE2AE80009139B4 /* FabricInfo.swift */,
 				8FDB4B651A096ECF00F57B38 /* HigiActivity.swift */,
 				8FDB4B631A096E1C00F57B38 /* HigiChallenge.swift */,
 				8F9C69D41950C88900449664 /* HigiCheckin.swift */,
@@ -1257,10 +1262,11 @@
 			isa = PBXGroup;
 			children = (
 				D130183F1B14D943008DDFAD /* Constants.swift */,
+				41FB22541BE2951F009139B4 /* CrashAnalyticsManager.swift */,
 				8F524BF7195B829400BFC49D /* CustomFormatter.swift */,
+				418F195A1BFA52A900EAA820 /* HealthKitManager.swift */,
 				8FE206611B7CF30E00B473B0 /* LocationDelegate.swift */,
 				8F6D510D1947B2E700F7C769 /* Utility.swift */,
-				4112E0451BF1463F0089F07F /* HealthKitManager.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -2191,6 +2197,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8F3643A219460EB300C0033E /* MetricsViewController.swift in Sources */,
+				418F195B1BFA52A900EAA820 /* HealthKitManager.swift in Sources */,
 				8FF940951989A19B00D319D7 /* BaseViewController.swift in Sources */,
 				419D864F1BBEF83000E7D844 /* GQTPointQuadTree.m in Sources */,
 				8F1D979A1995553B003B5645 /* ModifyImageViewController.swift in Sources */,
@@ -2207,6 +2214,7 @@
 				8FF94098198A8C0A00D319D7 /* BirthdateViewController.swift in Sources */,
 				8F2CB58019925631009377A8 /* WebViewController.swift in Sources */,
 				8FF9409A198A8C1800D319D7 /* ProfileImageViewController.swift in Sources */,
+				41FB22551BE2951F009139B4 /* CrashAnalyticsManager.swift in Sources */,
 				D1FC729F1B223FE80068CF89 /* MetricGauge.swift in Sources */,
 				D13D36531B30D78E00F18A42 /* ActivityCategory.swift in Sources */,
 				41B2B3581BB31CBE00B13168 /* NotificationSettingsEmailTableViewController.swift in Sources */,
@@ -2229,6 +2237,7 @@
 				8F9C69D31950C84400449664 /* HigiLogin.swift in Sources */,
 				41E90DF11BD984E0001DCC4C /* RequiredAppUpdateViewController.swift in Sources */,
 				8FDA6DA619A4038F00244D5F /* TermsViewController.swift in Sources */,
+				41FB225B1BE2AE80009139B4 /* FabricInfo.swift in Sources */,
 				D110BAD41B0E7C5500CD1E58 /* DailySummaryViewController.swift in Sources */,
 				D1B6D6981A8D09FD0006F80C /* ChatterInputViewController.swift in Sources */,
 				D149E9471A7822D900FBAA15 /* ChallengeDetailsPrize.swift in Sources */,
@@ -2252,7 +2261,6 @@
 				8FDB4B661A096ECF00F57B38 /* HigiActivity.swift in Sources */,
 				D1FC72951B209CA40068CF89 /* MetricDelegate.swift in Sources */,
 				8FDA6DA319A2979800244D5F /* ChangePasswordViewController.swift in Sources */,
-				4112E0461BF1463F0089F07F /* HealthKitManager.swift in Sources */,
 				D1FC729B1B20B22B0068CF89 /* BpMetricDelegate.swift in Sources */,
 				8FE0BCCE199175BC00940D39 /* PulseCell.swift in Sources */,
 				D114B06B1B2A19900073A9CB /* TriangleView.swift in Sources */,

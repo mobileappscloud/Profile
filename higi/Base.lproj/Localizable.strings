@@ -587,7 +587,7 @@
 "NOTIFICATION_SETTINGS_DEVICE_ALLOW_NOTIFICATIONS_CELL_TITLE" = "Allow Notifications";
 
 /* Title for cell to allow nearby station notifications. */
-"NOTIFICATION_SETTINGS_DEVICE_STATION_NEARBY_CELL_TITLE" = "Station Nearby";
+"NOTIFICATION_SETTINGS_DEVICE_STATION_NEARBY_CELL_TITLE" = "When I am near a Station";
 
 /* Title for device-specific notification settings view. */
 "NOTIFICATION_SETTINGS_DEVICE_VIEW_TITLE" = "Device";
