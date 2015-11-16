@@ -25,8 +25,35 @@ class ConnectDeviceRow: UITableViewCell, UIAlertViewDelegate {
     }
     
     func connectDevice() {
+        // TODO: Don't switch on hardcoded device name
         if device.name == "higi" {
-            
+            if !PersistentSettingsController.boolForKey(.DidShowActivityTrackerAuthorizationRequest) {
+                HealthKitManager.requestReadAccessToStepData( { (didRespond, error) in
+                    if didRespond {
+                        HealthKitManager.hasReadAccessToStepData({ [weak self] (isAuthorized) in
+                            if isAuthorized {
+                                HealthKitManager.syncStepData()
+                            } else {
+                                dispatch_async(dispatch_get_main_queue(), {
+                                    self?.connectedToggle.on = false
+                                })
+                            }
+                        })
+                    }
+                })
+            } else {
+                let title = NSLocalizedString("CONNECT_DEVICE_ROW_CONNECT_HEALTHKIT_ALERT_TITLE", comment: "Title for alert displayed when user toggles switch to connect branded activity tracker (HealthKit) ON.")
+                let message = NSLocalizedString("CONNECT_DEVICE_ROW_CONNECT_HEALTHKIT_ALERT_MESSAGE", comment: "Message for alert displayed when user toggles switch to connect branded activity tracker (HealthKit) ON.")
+                let dismissActionTitle = NSLocalizedString("CONNECT_DEVICE_ROW_CONNECT_HEALTHKIT_ALERT_ACTION_ACKNOWLEDGE_ACTION", comment: "Title for alert action to acknowledge alert displayed when user toggles switch to connect branded activity tracker (HealthKit) ON.")
+                let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+                let dismissAction = UIAlertAction(title: dismissActionTitle, style: .Default, handler: { [weak self] (action) in
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self?.connectedToggle.on = false
+                    })
+                    })
+                alert.addAction(dismissAction)
+                self.parentController.presentViewController(alert, animated: true, completion: nil)
+            }
         } else {
             self.device.connected = true;
             webView = WebViewController(nibName: "WebView", bundle: nil);
@@ -40,8 +67,19 @@ class ConnectDeviceRow: UITableViewCell, UIAlertViewDelegate {
     }
     
     func disconnectDevice() {
+        // TODO: Don't switch on hardcoded device name
         if device.name == "higi" {
-            
+            let title = NSLocalizedString("CONNECT_DEVICE_ROW_DISCONNECT_HEALTHKIT_ALERT_TITLE", comment: "Title for alert displayed when user toggles switch to connect branded activity tracker (HealthKit) OFF.")
+            let message = NSLocalizedString("CONNECT_DEVICE_ROW_DISCONNECT_HEALTHKIT_ALERT_MESSAGE", comment: "Message for alert displayed when user toggles switch to connect branded activity tracker (HealthKit) OFF.")
+            let dismissActionTitle = NSLocalizedString("CONNECT_DEVICE_ROW_DISCONNECT_HEALTHKIT_ALERT_ACTION_ACKNOWLEDGE_ACTION", comment: "Title for alert action to acknowledge alert displayed when user toggles switch to connect branded activity tracker (HealthKit) OFF.")
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+            let dismissAction = UIAlertAction(title: dismissActionTitle, style: .Default, handler: { [weak self] (action) in
+                dispatch_async(dispatch_get_main_queue(), {
+                    self?.connectedToggle.on = true
+                })
+                })
+            alert.addAction(dismissAction)
+            self.parentController.presentViewController(alert, animated: true, completion: nil)
         } else {
             let title = NSLocalizedString("CONNECT_DEVICE_ROW_REMOVE_DEVICE_ALERT_TITLE", comment: "Title for alert displayed prior to disconnecting a device from a higi Profile.")
             let messageFormat = NSLocalizedString("CONNECT_DEVICE_ROW_REMOVE_DEVICE_ALERT_MESSAGE_FORMAT", comment: "Message for alert displayed prior to disconnecting a device from a higi Profile.")

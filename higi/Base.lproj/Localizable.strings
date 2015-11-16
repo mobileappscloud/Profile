@@ -274,6 +274,24 @@
 /* Placeholder text to display in chatter input text field. */
 "CHATTER_INPUT_VIEW_TEXT_INPUT_PLACEHOLDER" = "Talk some smack!";
 
+/* Title for alert action to acknowledge alert displayed when user toggles switch to connect branded activity tracker (HealthKit) ON. */
+"CONNECT_DEVICE_ROW_CONNECT_HEALTHKIT_ALERT_ACTION_ACKNOWLEDGE_ACTION" = "CONNECT_DEVICE_ROW_CONNECT_HEALTHKIT_ALERT_ACTION_ACKNOWLEDGE_ACTION";
+
+/* Message for alert displayed when user toggles switch to connect branded activity tracker (HealthKit) ON. */
+"CONNECT_DEVICE_ROW_CONNECT_HEALTHKIT_ALERT_MESSAGE" = "CONNECT_DEVICE_ROW_CONNECT_HEALTHKIT_ALERT_MESSAGE";
+
+/* Title for alert displayed when user toggles switch to connect branded activity tracker (HealthKit) ON. */
+"CONNECT_DEVICE_ROW_CONNECT_HEALTHKIT_ALERT_TITLE" = "CONNECT_DEVICE_ROW_CONNECT_HEALTHKIT_ALERT_TITLE";
+
+/* Title for alert action to acknowledge alert displayed when user toggles switch to connect branded activity tracker (HealthKit) OFF. */
+"CONNECT_DEVICE_ROW_DISCONNECT_HEALTHKIT_ALERT_ACTION_ACKNOWLEDGE_ACTION" = "CONNECT_DEVICE_ROW_DISCONNECT_HEALTHKIT_ALERT_ACTION_ACKNOWLEDGE_ACTION";
+
+/* Message for alert displayed when user toggles switch to connect branded activity tracker (HealthKit) OFF. */
+"CONNECT_DEVICE_ROW_DISCONNECT_HEALTHKIT_ALERT_MESSAGE" = "CONNECT_DEVICE_ROW_DISCONNECT_HEALTHKIT_ALERT_MESSAGE";
+
+/* Title for alert displayed when user toggles switch to connect branded activity tracker (HealthKit) OFF. */
+"CONNECT_DEVICE_ROW_DISCONNECT_HEALTHKIT_ALERT_TITLE" = "CONNECT_DEVICE_ROW_DISCONNECT_HEALTHKIT_ALERT_TITLE";
+
 /* Title for alert action to decline disconnecting a device from a higi Profile. */
 "CONNECT_DEVICE_ROW_REMOVE_DEVICE_ALERT_ACTION_TITLE_NO" = "No";
 
@@ -363,6 +381,27 @@
 
 /* Title for Daily Summary view. */
 "DAILY_SUMMARY_VIEW_TITLE" = "Daily Summary";
+
+/* Title for alert action to connect a branded activity tracker which leverages data from current device. */
+"DASHBOARD_VIEW_BRANDED_ACTIVITY_TRACKER_CONNECT_DEVICE_ALERT_ACTION_CONNECT_TITLE" = "Connect";
+
+/* Title for action to dismiss alert displayed when asking user to connect the branded activity tracker which leverages data from current device. */
+"DASHBOARD_VIEW_BRANDED_ACTIVITY_TRACKER_CONNECT_DEVICE_ALERT_ACTION_DISMISS_TITLE" = "Not Now";
+
+/* Message for alert displayed when asking user to connect the branded activity tracker which leverages data from current device. */
+"DASHBOARD_VIEW_BRANDED_ACTIVITY_TRACKER_CONNECT_DEVICE_ALERT_MESSAGE" = "higi will use sensors from inside your phone to track your steps. Once allowed, we can start rewarding you for your steps activity!";
+
+/* Title for alert displayed when asking user to connect the branded activity tracker which leverages data from current device. */
+"DASHBOARD_VIEW_BRANDED_ACTIVITY_TRACKER_CONNECT_DEVICE_ALERT_TITLE" = "Start tracking your activity";
+
+/* Title for action to acknowledge/dismiss the alert. */
+"DASHBOARD_VIEW_BRANDED_ACTIVITY_TRACKER_CONNECT_DEVICE_DISMISSED_ALERT_ACTION_OK_TITLE" = "DASHBOARD_VIEW_BRANDED_ACTIVITY_TRACKER_CONNECT_DEVICE_DISMISSED_ALERT_ACTION_OK_TITLE";
+
+/* Message for alert displayed when a user dismisses the alert to connect a branded activity tracker. */
+"DASHBOARD_VIEW_BRANDED_ACTIVITY_TRACKER_CONNECT_DEVICE_DISMISSED_ALERT_MESSAGE" = "DASHBOARD_VIEW_BRANDED_ACTIVITY_TRACKER_CONNECT_DEVICE_DISMISSED_ALERT_MESSAGE";
+
+/* Title for alert displayed when a user dismisses the alert to connect a branded activity tracker. */
+"DASHBOARD_VIEW_BRANDED_ACTIVITY_TRACKER_CONNECT_DEVICE_DISMISSED_ALERT_TITLE" = "DASHBOARD_VIEW_BRANDED_ACTIVITY_TRACKER_CONNECT_DEVICE_DISMISSED_ALERT_TITLE";
 
 /* Title for challenges card displayed on Dashboard view. */
 "DASHBOARD_VIEW_CARD_CHALLENGES_TITLE" = "Active Challenges";
