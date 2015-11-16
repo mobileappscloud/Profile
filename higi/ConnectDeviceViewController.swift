@@ -173,7 +173,7 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
         
         tableView.beginUpdates()
         
-        let device = devices[indexPath.row]
+        let device = self.device(forIndexPath: indexPath)
         if expandedDeviceDescriptions.contains(device.name) {
             expandedDeviceDescriptions.remove(device.name)
         } else {
