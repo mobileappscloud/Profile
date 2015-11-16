@@ -151,7 +151,7 @@ class NotificationSettingsDeviceTableViewController: UITableViewController, Swit
                 if let row = SectionUniqueSettingRow(rawValue: indexPath.row) {
                     switch row {
                     case .StationNearby:
-                        switchCell.textLabel!.text = "Station Nearby"
+                        switchCell.textLabel!.text = "When I am near a Station"
                     default:
                         break;
                     }
