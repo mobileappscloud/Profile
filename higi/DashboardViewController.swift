@@ -98,6 +98,8 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     
     private func addQrCheckinView() {
         mainScrollView.addSubview(qrCheckinCard);
+        qrCheckinCard.titleText.text = NSLocalizedString("DASHBOARD_VIEW_CARD_QR_CHECKIN_UPLOAD_PENDING_TITLE", comment: "Title to display on QR check-in card when upload is in-progress.");
+        qrCheckinCard.messageText.text = NSLocalizedString("DASHBOARD_VIEW_CARD_QR_CHECKIN_UPLOAD_PENDING_MESSAGE_TEXT", comment: "Message text to display on QR check-in card when upload is in-progress.");
         qrCheckinCard.loadingImage.image = UIImage.animatedImageNamed("icon-vitals-animation-", duration: 2);
     }
     

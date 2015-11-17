@@ -376,6 +376,12 @@
 /* Title to display on QR check-in card when upload fails. */
 "DASHBOARD_VIEW_CARD_QR_CHECKIN_UPLOAD_FAILURE_TITLE" = "Daily Check-in Upload Failed";
 
+/* Message text to display on QR check-in card when upload is in-progress. */
+"DASHBOARD_VIEW_CARD_QR_CHECKIN_UPLOAD_PENDING_MESSAGE_TEXT" = "This may take a few minutes.  We'll let you know when your results are ready.";
+
+/* Title to display on QR check-in card when upload is in-progress. */
+"DASHBOARD_VIEW_CARD_QR_CHECKIN_UPLOAD_PENDING_TITLE" = "Uploading Your Daily Check-in Results";
+
 /* Message text to display on QR check-in card when upload succeeds. */
 "DASHBOARD_VIEW_CARD_QR_CHECKIN_UPLOAD_SUCCESS_MESSAGE_TEXT" = "View your updated metrics below or review them in your Daily Summary.";
 
@@ -482,7 +488,7 @@
 "LOCAL_NOTIFICATION_SCANNED_CHECK_IN_ISSUE_MESSAGE" = "There was a problem uploading your checkin data";
 
 /* Message to display via local notification when a scanned check-in is successfully uploaded. */
-"LOCAL_NOTIFICATION_SCANNED_CHECK_IN_SUCCESS_MESSAGE" = "Checkin data successfully uploaded to higi servers!  Check it out in the app";
+"LOCAL_NOTIFICATION_SCANNED_CHECK_IN_SUCCESS_MESSAGE" = "Booyah! Your latest check-in results are now available, check them out in the app now.";
 
 /* Format of local notification which is displayed when a user is near a higi station. */
 "LOCATION_DELEGATE_LOCAL_NOTIFICATION_FORMAT" = "You are near the higi Station at %@ %@!";
@@ -653,13 +659,13 @@
 "QR_SCANNER_VIEW_BLANK_STATE_ERROR_TITLE" = "D'oh!";
 
 /* Title for action to dismiss alert displayed when a check-in upload begins. */
-"QR_SCANNER_VIEW_CHECK_IN_UPLOADING_ALERT_ACTION_TITLE_DISMISS" = "OK";
+"QR_SCANNER_VIEW_CHECK_IN_UPLOADING_ALERT_ACTION_TITLE_DISMISS" = "Got it";
 
 /* Message for alert displayed when a check-in upload begins. */
-"QR_SCANNER_VIEW_CHECK_IN_UPLOADING_ALERT_MESSAGE" = "Your checkin data is being uploaded to the higi servers";
+"QR_SCANNER_VIEW_CHECK_IN_UPLOADING_ALERT_MESSAGE" = "There is no need to fear, the higi app is here! We are saving your check-in results now.";
 
 /* Title for alert displayed when a check-in upload begins. */
-"QR_SCANNER_VIEW_CHECK_IN_UPLOADING_ALERT_TITLE" = "On its way!";
+"QR_SCANNER_VIEW_CHECK_IN_UPLOADING_ALERT_TITLE" = "Uploading Results";
 
 /* Title for action to dismiss alert displayed when a user requests more info about scanned check-ins. */
 "QR_SCANNER_VIEW_EXPLANATION_ALERT_ACTION_TITLE_DISMISS" = "Got it";
