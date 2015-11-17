@@ -143,7 +143,7 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     
     func attemptCheckInResultUpload(code: String) {
         dispatch_async(dispatch_get_main_queue(), {
-            UIAlertView(title: "On its way!", message: "Your checkin data is being uploaded to the higi servers", delegate: nil, cancelButtonTitle: "Got it").show();
+            UIAlertView(title: "Uploading Results", message: "There is no need to fear, the higi app is here! We are saving your check-in results now.", delegate: nil, cancelButtonTitle: "Got it").show();
         });
         SessionController.Instance.showQrCheckinCard = true;
         self.sendCheckinResults(code);
@@ -157,9 +157,9 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         dispatch_async(dispatch_get_global_queue(Int(QOS_CLASS_USER_INITIATED.rawValue), 0)) {
             HigiApi().sendPost("\(HigiApi.higiApiUrl)/data/user/\(userId)/qrCheckin", parameters: contents, success: { (operation, responseObject) in
                 self.clearNotification();
-                self.showNotification("Checkin data successfully uploaded to higi servers!  Check it out in the app");
+                self.showNotification("Booyah! Your latest check-in results are now available, check them out in the app now.");
                 NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.QR_CHECKIN, object: nil, userInfo: ["success": true]);
-                }, failure: { (operation, error) in
+                }, failure: { (operation, error) in                    
                     if operation.response.statusCode != 400 {
                         self.clearNotification();
                         self.showNotification("There was a problem uploading your checkin data");
