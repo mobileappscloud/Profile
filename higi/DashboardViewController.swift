@@ -72,6 +72,8 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     
     private func addQrCheckinView() {
         mainScrollView.addSubview(qrCheckinCard);
+        qrCheckinCard.titleText.text = "Uploading Your Daily Check-in Results"
+        qrCheckinCard.messageText.text = "This may take a few minutes.  We'll let you know when your results are ready."
         qrCheckinCard.loadingImage.image = UIImage.animatedImageNamed("icon-vitals-animation-", duration: 2);
     }
     
