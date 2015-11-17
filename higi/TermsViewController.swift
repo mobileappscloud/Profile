@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import WebKit
 
 class TermsViewController: UIViewController {
     
@@ -15,7 +16,7 @@ class TermsViewController: UIViewController {
             termsTitle.text = NSLocalizedString("TERMS_VIEW_HEADER_TEXT_UPDATED_TERMS_AND_PRIVACY", comment: "Text to display in header view when terms of use and privacy policy has changed.");
         }
     }
-    @IBOutlet weak var webView: UIWebView!
+    @IBOutlet weak var webView: WKWebView!
     @IBOutlet weak var agreeButton: UIButton! {
         didSet {
             agreeButton.setTitle(NSLocalizedString("TERMS_VIEW_AGREE_BUTTON_TITLE", comment: "Title for button to agree to terms of use and/or privacy policy."), forState: .Normal)

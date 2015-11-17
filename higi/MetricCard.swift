@@ -220,11 +220,21 @@ class MetricCard: UIView, MetricDelegate {
             
             let ranges = delegate.getRanges(tab);
             var i = 0;
-            
+            let graphHeight = graphContainer.frame.size.height;
             for range in ranges {
-                let lowerBound = baseGraph.getScreenPoint(0, yPoint: CGFloat(range.lowerBound));
-                let upperBound = baseGraph.getScreenPoint(0, yPoint: CGFloat(range.upperBound));
-                if (upperBound.y >= 0 || lowerBound.y < graphContainer.frame.size.height) {
+                var lowerBound = baseGraph.getScreenPoint(0, yPoint: CGFloat(range.lowerBound));
+                var upperBound = baseGraph.getScreenPoint(0, yPoint: CGFloat(range.upperBound));
+                //if graph points are above largest region
+                if i == ranges.count - 1 && upperBound.y < 0 {
+                    upperBound.y = -20;
+                    lowerBound.y = graphContainer.frame.size.height + upperBound.y;
+                } //if graph points are lower than lowest region
+                else if i == 0 && lowerBound.y > 0 {
+                    upperBound.y = graphHeight - upperBound.y;
+                    lowerBound.y = graphHeight;
+                }
+                //if visible, add to screen
+                if (upperBound.y >= 0 || lowerBound.y <= graphHeight) {
                     var y = upperBound.y + graph.graph.plotAreaFrame.paddingTop;
                     var height = lowerBound.y - upperBound.y;
                     if (upperBound.y + graph.graph.plotAreaFrame.paddingTop < 0) {
@@ -234,13 +244,13 @@ class MetricCard: UIView, MetricDelegate {
                     let region = UIView(frame: CGRect(x: 0, y: y, width: screenWidth, height: height));
                     var labelHeight = region.frame.size.height;
                     var labelY:CGFloat = 0;
-                    if lowerBound.y > graphContainer.frame.size.height {
-                        labelHeight = graphContainer.frame.size.height - upperBound.y - 20;
+                    if lowerBound.y > graphHeight {
+                        labelHeight = graphHeight - upperBound.y - 20;
                     } else if upperBound.y < 0 {
                         labelHeight = lowerBound.y;
                         labelY = region.frame.size.height - labelHeight;
                     }
-                    if labelHeight >= labelMinHeight || (lowerBound.y < graphContainer.frame.size.height && upperBound.y > 0) {
+                    if labelHeight >= labelMinHeight || (lowerBound.y < graphHeight && upperBound.y > 0) {
                         let label = UILabel(frame: CGRect(x: 0, y: labelY, width: region.frame.size.width - 10, height: labelHeight));
                         label.text = range.label;
                         label.textAlignment = NSTextAlignment.Right;
