@@ -82,6 +82,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func initializeDetailView() {
+        individualGoalWinConditions = [];
+        teamGoalWinConditions = [];
         for winCondition in challenge.winConditions {
             if (challenge.participant != nil && winCondition.goal.type == "threshold_reached" && challenge.userStatus == "current" && winCondition.goal.minThreshold > 1) {
                 displayProgressTab = true;
@@ -376,9 +378,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         tabButtonLabels = [];
     }
     
-    func populateTabButtons() {
-        let containerYValue = buttonContainer.frame.origin.y;
-        
+    func populateTabButtons() {        
         let buttonHeight:CGFloat = buttonContainer.frame.size.height;
         let buttonWidth = UIScreen.mainScreen().bounds.width / CGFloat(tabButtonLabels.count);
         
@@ -538,6 +538,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         
         termsButton.addTarget(self, action: "termsClick:", forControlEvents: UIControlEvents.TouchUpInside);
         
+        var noPrizes = true;
         var yOffset = rowTextYOffset + 12;
         for winCondition in challenge.winConditions {
             if (winCondition.prizeName != nil && winCondition.prizeName != "") {
@@ -546,9 +547,10 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                 
                 table.prizesContainer.addSubview(prizeRow);
                 yOffset += prizeRow.frame.size.height;
+                noPrizes = false;
             }
         }
-        if (yOffset == rowTextYOffset) {
+        if (noPrizes) {
             let prizeRow = createDetailsPrizeCell(nil);
             prizeRow.frame.origin.y = yOffset;
             
