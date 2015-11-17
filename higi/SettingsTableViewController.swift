@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SafariServices
 
 private enum TableSection: Int {
     case Main
@@ -349,9 +350,15 @@ class SettingsTableViewController: UITableViewController, SwitchTableViewCellDel
     }
     
     func pushWebView(URLString: String) {
-        let webController = WebViewController(nibName: "WebView", bundle: nil);
-        webController.url = URLString;
-        self.navigationController!.pushViewController(webController, animated: true);
+        if #available(iOS 9.0, *) {
+            let URL = NSURL(string: URLString)!
+            let safariViewController = SFSafariViewController(URL: URL, entersReaderIfAvailable: false)
+            self.navigationController?.presentViewController(safariViewController, animated: true, completion: nil)
+        } else {
+            let webController = WebViewController(nibName: "WebView", bundle: nil);
+            webController.url = URLString;
+            self.navigationController!.pushViewController(webController, animated: true);
+        }
     }
     
     func didSelectLogOut() {

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SafariServices
 
 class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     
@@ -571,11 +572,21 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         } else {
             Flurry.logEvent("NonFeaturedPulseArticle_Pressed");
         }
-        let webView = WebViewController(nibName: "WebView", bundle: nil);
-        webView.url = SessionController.Instance.pulseArticles[sender.tag!].permalink;
-        self.navigationController?.pushViewController(webView, animated: true);
-        (self.navigationController as! MainNavigationController).drawerController?.tableView.reloadData();
-        (self.navigationController as! MainNavigationController).drawerController?.tableView.selectRowAtIndexPath(NSIndexPath(forItem: 5, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None);
+        
+        let pulseArticle = SessionController.Instance.pulseArticles[sender.tag!]
+        let URLString = pulseArticle.permalink
+        
+        if #available(iOS 9.0, *) {
+            let safariViewController = SFSafariViewController(URL: NSURL(string: URLString as String)!, entersReaderIfAvailable: true)
+            self.navigationController?.presentViewController(safariViewController, animated: true, completion: nil)
+        } else {
+            let webViewController = WebViewController(nibName: "WebView", bundle: nil)
+            webViewController.url = URLString
+            self.navigationController?.pushViewController(webViewController, animated: true);
+            
+            (self.navigationController as! MainNavigationController).drawerController?.tableView.reloadData();
+            (self.navigationController as! MainNavigationController).drawerController?.tableView.selectRowAtIndexPath(NSIndexPath(forItem: 4, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None);
+        }
     }
     
     @IBAction func removeQrCheckinCard(sender: AnyObject) {
