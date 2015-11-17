@@ -1,13 +1,14 @@
 import Foundation
+import WebKit
 
-class TermsAndConditionsViewController: UIViewController, UIWebViewDelegate {
+class TermsAndConditionsViewController: UIViewController {
     
     var parent:ChallengeDetailsViewController!;
     var html:String!;
     var joinUrl: String!;
     var responseRequired = false;
     
-    @IBOutlet weak var webView: UIWebView!
+    @IBOutlet weak var webView: WKWebView!
     @IBOutlet weak var acceptButton: UIButton! {
         didSet {
             acceptButton.setTitle(NSLocalizedString("TERMS_AND_CONDITIONS_VIEW_ACCEPT_BUTTON_TITLE", comment: "Title for button to accept terms."), forState: .Normal)

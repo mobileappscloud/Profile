@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import WebKit
 
 class SignupEmailViewController: UIViewController, UITextFieldDelegate {
     
@@ -26,7 +27,7 @@ class SignupEmailViewController: UIViewController, UITextFieldDelegate {
         }
     }
     @IBOutlet weak var termsView: UIView!
-    @IBOutlet weak var termsWebView: UIWebView!
+    @IBOutlet weak var termsWebView: WKWebView!
     @IBOutlet weak var declineButton: UIButton! {
         didSet {
             declineButton.setTitle(NSLocalizedString("SIGN_UP_EMAIL_VIEW_DECLINE_BUTTON_TITLE", comment: "Title for decline button."), forState: .Normal);
