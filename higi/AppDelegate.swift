@@ -41,9 +41,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if let info = notification.userInfo as? Dictionary<String, Int> {
                 //99 is id of QR scanner notifications
                 if info["ID"] == 99 {
-                    var title: String = nil
+                    var title: String? = nil
                     if #available(iOS 8.2, *) {
-                        let title = notification.alertTitle
+                        title = notification.alertTitle
                     }
                     let message = notification.alertBody
                     let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
