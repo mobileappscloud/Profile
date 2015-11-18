@@ -222,18 +222,8 @@ class MetricCard: UIView, MetricDelegate {
             var i = 0;
             let graphHeight = graphContainer.frame.size.height;
             for range in ranges {
-                var lowerBound = baseGraph.getScreenPoint(0, yPoint: CGFloat(range.lowerBound));
-                var upperBound = baseGraph.getScreenPoint(0, yPoint: CGFloat(range.upperBound));
-                //if graph points are above largest region
-                if i == ranges.count - 1 && upperBound.y < 0 {
-                    upperBound.y = -20;
-                    lowerBound.y = graphContainer.frame.size.height + upperBound.y;
-                } //if graph points are lower than lowest region
-                else if i == 0 && lowerBound.y > 0 {
-                    upperBound.y = graphHeight - upperBound.y;
-                    lowerBound.y = graphHeight;
-                }
-                //if visible, add to screen
+                let lowerBound = baseGraph.getScreenPoint(0, yPoint: CGFloat(range.lowerBound));
+                let upperBound = baseGraph.getScreenPoint(0, yPoint: CGFloat(range.upperBound));
                 if (upperBound.y >= 0 || lowerBound.y <= graphHeight) {
                     var y = upperBound.y + graph.graph.plotAreaFrame.paddingTop;
                     var height = lowerBound.y - upperBound.y;
