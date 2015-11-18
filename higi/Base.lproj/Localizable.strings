@@ -340,6 +340,9 @@
 /* Alternate descriptive text for activity tracker; displayed on the Daily Summary view blank state. */
 "DAILY_SUMMARY_VIEW_BLANK_STATE_ACTIVITY_TRACKER_ALTERNATE_TEXT" = "Wanna get rewarded for biking to work or running on the treadmill at the gym? Just connect your favorite activity tracker and start earning points today. \n";
 
+/* Title for branded activity tracker; displayed on the Daily Summary view blank state. */
+"DAILY_SUMMARY_VIEW_BLANK_STATE_ACTIVITY_TRACKER_BRANDED_TITLE" = "higi";
+
 /* Default descriptive text for activity tracker; displayed on the Daily Summary view blank state. */
 "DAILY_SUMMARY_VIEW_BLANK_STATE_ACTIVITY_TRACKER_DEFAULT_TEXT" = "Higi makes it fun and rewarding to track your steps. Simply connect your favorite activity tracker and start getting rewarded for your jogs around the block. \n";
 
@@ -351,6 +354,9 @@
 
 /* Title for call-to-action to connect a device; displayed in the Daily Summary blank-state view. */
 "DAILY_SUMMARY_VIEW_BLANK_STATE_CALL_TO_ACTION_CONNECT_DEVICE" = "Connect a device";
+
+/* Title for call-to-action to connect a branded device; displayed in the Daily Summary blank-state view. */
+"DAILY_SUMMARY_VIEW_BLANK_STATE_CALL_TO_ACTION_CONNECT_DEVICE_BRANDED" = "Connect higi";
 
 /* Title for call-to-action to find a higi station; displayed in the Daily Summary blank-state view. */
 "DAILY_SUMMARY_VIEW_BLANK_STATE_CALL_TO_ACTION_FIND_STATION" = "Find a station";
@@ -585,6 +591,9 @@
 
 /* Title for weight metrics */
 "METRIC_TYPE_WEIGHT_TITLE" = "Weight";
+
+/* Title to display on button to connect a branded activity device. */
+"METRICS_CARD_VIEW_CONNECT_DEVICE_BRANDED_BUTTON_TITLE" = "Connect higi";
 
 /* Title to display on button to connect a device. */
 "METRICS_CARD_VIEW_CONNECT_DEVICE_BUTTON_TITLE" = "Connect a device";
