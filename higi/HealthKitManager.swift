@@ -15,10 +15,19 @@ public class HealthKitManager {
         manager.currentSource({ (source) in
             manager.deviceSource = source
         })
+        manager.healthStore.executeQuery(manager.stepObserverQuery)
         return manager
     }()
     
     private var deviceSource: HKSource? = nil
+    
+    private lazy var stepObserverQuery: HKObserverQuery = {
+        let sampleType = HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierStepCount)!
+        let observerQuery = HKObserverQuery(sampleType: sampleType, predicate: nil, updateHandler: { (observerQuery, completionHandler, error) in
+            print("OBSERVE THIS SHIT")
+        })
+        return observerQuery
+    }()
     
     private lazy var healthStore: HKHealthStore! = {
         return HKHealthStore()
@@ -68,6 +77,12 @@ public class HealthKitManager {
         manager.healthStore.requestAuthorizationToShareTypes(nil, readTypes: manager.healthKitReadTypes) { (success, error) -> Void in
             
             PersistentSettingsController.setBool(true, key: .DidShowActivityTrackerAuthorizationRequest)
+            
+            for sampleType in manager.healthKitReadTypes {
+                HKHealthStore().enableBackgroundDeliveryForType(sampleType, frequency: .Hourly, withCompletion: { (success, error) in
+                    print(error)
+                })
+            }
             
             completion?(didRespond: success, error: error);
         }
@@ -119,33 +134,50 @@ public class HealthKitManager {
     }
     
     public class func syncStepData() {
-        ApiUtility.requestLastStepActivitySyncDate({ (syncDate) in
-            
-            var sampleStartDate: NSDate? = nil
-            if syncDate == nil {
-                sampleStartDate = NSDate()
-            } else {
-                let syncMinutes = 60.0
-                let syncInterval: NSTimeInterval = 60.0 * syncMinutes
-                if NSDate().timeIntervalSinceDate(syncDate!) > syncInterval {
-                    sampleStartDate = syncDate!
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+            ApiUtility.requestLastStepActivitySyncDate({ (syncDate) in
+                
+                let sampleStartDate = HealthKitManager.sampleStartDate(basedOnLastSyncDate: syncDate)
+                if sampleStartDate == nil {
+                    return;
                 }
-            }
-            
-            if sampleStartDate == nil {
-                return;
-            }
-            
-            HealthKitManager.readStepData(sampleStartDate!, endDate: nil, limit: nil, completion: { (statistics, error) in
-                if statistics != nil {
-                    let collection = HealthKitManager.stepActivityCollection(fromHealthKitStatistics: statistics!)
-                    if let parameters = collection?.dictionary() {
-                        ApiUtility.uploadStepActivities(parameters, success: {
-                            print("Successfully uploaded step activites")
-                        })
+                
+                HealthKitManager.readStepData(sampleStartDate!, endDate: nil, limit: nil, completion: { (statistics, error) in
+                    if statistics != nil {
+                        let collection = HealthKitManager.stepActivityCollection(fromHealthKitStatistics: statistics!)
+                        if let parameters = collection?.dictionary() {
+                            ApiUtility.uploadStepActivities(parameters, success: {
+
+                            })
+                        }
                     }
-                }
+                })
+                
             })
+        })
+    }
+    
+    private class func sampleStartDate(basedOnLastSyncDate syncDate: NSDate?) -> NSDate? {
+        var sampleStartDate: NSDate? = nil
+        
+        if syncDate == nil {
+            sampleStartDate = NSDate()
+        } else {
+            let syncMinutes = 60.0
+            let syncInterval: NSTimeInterval = 60.0 * syncMinutes
+            if NSDate().timeIntervalSinceDate(syncDate!) > syncInterval {
+                sampleStartDate = syncDate!
+            }
+        }
+        
+        return sampleStartDate
+    }
+    
+    public class func disableBackgroundUpdates() {
+        HealthKitManager.sharedInstance.healthStore.disableAllBackgroundDeliveryWithCompletion({ (success, error) in
+            if !success {
+                HealthKitManager.disableBackgroundUpdates()
+            }
         })
     }
 }
