@@ -1,6 +1,6 @@
 import Foundation
 
-class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate {
+class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet var contentView: UIView!
     @IBOutlet var pointsLabel:UILabel?;
     @IBOutlet weak var joinButton: UIButton! {
@@ -282,13 +282,19 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         HigiApi().sendPost(joinUrl as String, parameters: contents, success: {operation, responseObject in
             ApiUtility.retrieveChallenges(self.refreshChallenge);
             }, failure: { operation, error in
-                let e = error;
+                
                 let alertTitle = NSLocalizedString("CHALLENGE_DETAILS_VIEW_JOIN_CHALLENGE_FAILURE_ALERT_TITLE", comment: "Title for alert which is displayed when joining a challenge fails.");
                 let alertMessage = NSLocalizedString("CHALLENGE_DETAILS_VIEW_JOIN_CHALLENGE_FAILURE_ALERT_MESSAGE", comment: "Message for alert which is displayed when joining a challenge fails.");
                 let cancelButtonTitle = NSLocalizedString("CHALLENGE_DETAILS_VIEW_JOIN_CHALLENGE_FAILURE_ALERT_ACTION_CANCEL_TITLE", comment: "Title for cancel alert action which is displayed when joining a challenge fails.");
-                UIAlertView(title: alertTitle, message: alertMessage, delegate: self, cancelButtonTitle: cancelButtonTitle).show();
-                self.joinButton.hidden = false;
-                self.loadingSpinner.hidden = true;
+                let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .Alert)
+                let cancelAction = UIAlertAction(title: cancelButtonTitle, style: .Default, handler: nil)
+                alertController.addAction(cancelAction)
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.presentViewController(alertController, animated: true, completion: nil)
+                    self.joinButton.hidden = false;
+                    self.loadingSpinner.hidden = true;
+                })
         });
     }
 
@@ -1090,10 +1096,17 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             self.addPlaceholderChatter(chatter);
             self.refreshChatter();
             }, failure: { operation, error in
+                
                 let alertTitle = NSLocalizedString("CHALLENGE_DETAILS_VIEW_SEND_CHATTER_FAILURE_ALERT_TITLE", comment: "Title for alert displayed when sending chatter fails.")
                 let alertMessage = NSLocalizedString("CHALLENGE_DETAILS_VIEW_SEND_CHATTER_FAILURE_ALERT_MESSAGE", comment: "Message for alert displayed when sending chatter fails.")
                 let cancelTitle = NSLocalizedString("CHALLENGE_DETAILS_VIEW_SEND_CHATTER_FAILURE_ALERT_ACTION_CANCEL_TITLE", comment: "Title for cancel alert action displayed when sending chatter fails.")
-                UIAlertView(title: alertTitle, message: alertMessage, delegate: self, cancelButtonTitle: cancelTitle).show();
+                let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .Alert)
+                let cancelAction = UIAlertAction(title: cancelTitle, style: .Default, handler: nil)
+                alertController.addAction(cancelAction)
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.presentViewController(alertController, animated: true, completion: nil)
+                })
         });
     }
     

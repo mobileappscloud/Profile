@@ -36,17 +36,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
-
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
         if application.applicationState == UIApplicationState.Active {
             if let info = notification.userInfo as? Dictionary<String, Int> {
                 //99 is id of QR scanner notifications
                 if info["ID"] == 99 {
+                    var title: String? = nil
                     if #available(iOS 8.2, *) {
-                        UIAlertView(title: notification.alertTitle, message: notification.alertBody, delegate: nil, cancelButtonTitle: "OK").show()
-                    } else {
-                        // Fallback on earlier versions
-                    };
+                        title = notification.alertTitle
+                    }
+                    let message = notification.alertBody
+                    let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+                    let acknowledgeActionTitle = NSLocalizedString("LOCAL_NOTIFICATION_SCANNED_CHECK_IN_ALERT_ACTION_TITLE_ACKNOWLEDGE", comment: "Title for action which dismisses alert displayed for a scanned station check-in upload.")
+                    let acknowledgeAction = UIAlertAction(title: acknowledgeActionTitle, style: .Default, handler: nil)
+                    alertController.addAction(acknowledgeAction)
+                    
+                    self.window?.rootViewController?.presentViewController(alertController, animated: true, completion: nil)
                 }
             }
         }

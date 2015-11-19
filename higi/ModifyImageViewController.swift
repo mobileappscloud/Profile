@@ -164,8 +164,16 @@ class ModifyImageViewController: UIViewController {
         let title = NSLocalizedString("MODIFY_IMAGE_VIEW_SERVER_ERROR_ALERT_TITLE", comment: "Title for alert which is displayed if the server is unreachable.")
         let message = NSLocalizedString("MODIFY_IMAGE_VIEW_SERVER_ERROR_ALERT_MESSAGE", comment: "Message for alert which is displayed if the server is unreachable.")
         let dismissTitle = NSLocalizedString("MODIFY_IMAGE_VIEW_SERVER_ERROR_ALERT_ACTION_TITLE_DISMISS", comment: "Title for alert action to dismiss alert which is displayed if the server is unreachable.")
-        UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: dismissTitle).show();
-        reset();
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        let dismissAction = UIAlertAction(title: dismissTitle, style: .Default, handler: nil)
+        alertController.addAction(dismissAction)
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            self.presentViewController(alertController, animated: true, completion: {
+                self.reset()
+            })
+        })
     }
     
     func reset() {
