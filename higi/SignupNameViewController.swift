@@ -91,8 +91,15 @@ class SignupNameViewController: UIViewController, UITextFieldDelegate {
                     let title = NSLocalizedString("SIGN_UP_NAME_VIEW_SERVER_COMMUNICATION_ERROR_ALERT_TITLE", comment: "Title for alert to display when server communication error occurs.")
                     let message = NSLocalizedString("SIGN_UP_NAME_VIEW_SERVER_COMMUNICATION_ERROR_ALERT_MESSAGE", comment: "Message for alert to display when server communication error occurs.")
                     let dismissTitle = NSLocalizedString("SIGN_UP_NAME_VIEW_SERVER_COMMUNICATION_ERROR_ALERT_ACTION_TITLE_DISMISS", comment: "Title for alert action to dismiss alert displayed when server communication error occurs.")
-                    UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: dismissTitle).show();
-                    self.reset();
+                    
+                    let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+                    let dismissAction = UIAlertAction(title: dismissTitle, style: .Default, handler: nil)
+                    alertController.addAction(dismissAction)
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.presentViewController(alertController, animated: true, completion: {
+                            self.reset()
+                        })
+                    })
             });
         } else {
             reset();
