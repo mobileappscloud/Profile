@@ -2,7 +2,7 @@ import AVFoundation
 import CoreVideo
 import CoreMedia
 
-class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate, UIAlertViewDelegate {
+class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
     @IBOutlet weak var instructionLabel: UILabel! {
         didSet {
@@ -42,7 +42,7 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     
     let navBarHeight:CGFloat = 64;
     
-    var invalidQrAlert:UIAlertView!;
+    var invalidQrAlert: UIAlertController!;
     
     var readingQrInput = false;
     
@@ -57,7 +57,11 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         let title = NSLocalizedString("QR_SCANNER_VIEW_INVALID_QR_ALERT_TITLE", comment: "Title for alert displayed when an invalid QR code is scanned.")
         let message = NSLocalizedString("QR_SCANNER_VIEW_INVALID_QR_ALERT_MESSAGE", comment: "Message for alert displayed when an invalid QR code is scanned.")
         let dismissTitle = NSLocalizedString("QR_SCANNER_VIEW_INVALID_QR_ALERT_ACTION_TITLE_DISMISS", comment: "Title for action to dismiss alert displayed when an invalid QR code is scanned.")
-        invalidQrAlert = UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: dismissTitle);
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        let dismissAction = UIAlertAction(title: dismissTitle, style: .Default, handler: nil)
+        alertController.addAction(dismissAction)
+        invalidQrAlert = alertController
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -112,7 +116,11 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
             let title = NSLocalizedString("QR_SCANNER_VIEW_UNSUPPORTED_DEVICE_ALERT_TITLE", comment: "Title for alert displayed when an unsupported device is detected.")
             let message = NSLocalizedString("QR_SCANNER_VIEW_UNSUPPORTED_DEVICE_ALERT_MESSAGE", comment: "Message for alert displayed when an unsupported device is detected")
             let dismissTitle = NSLocalizedString("QR_SCANNER_VIEW_UNSUPPORTED_DEVICE_ALERT_ACTION_TITLE_DISMISS", comment: "Title for action to dismiss alert displayed when an unsupported device is detected")
-            UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: dismissTitle).show();
+            
+            let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+            let dismissAction = UIAlertAction(title: dismissTitle, style: .Default, handler: nil)
+            alertController.addAction(dismissAction)
+            self.presentViewController(alertController, animated: true, completion: nil)
         } else {
             captureSession = AVCaptureSession();
             captureSession?.addInput(deviceInput as! AVCaptureInput);
@@ -162,12 +170,12 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
             return true;
 
         case "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "-", ":", "$", " ", "*":
-            if !invalidQrAlert.visible {
-                invalidQrAlert.show();
+            if self.presentedViewController == nil {
+                self.presentViewController(invalidQrAlert, animated: true, completion: nil)
             }
         default:
-            if !invalidQrAlert.visible {
-                invalidQrAlert.show();
+            if self.presentedViewController == nil {
+                self.presentViewController(invalidQrAlert, animated: true, completion: nil)
             }
         }
         return false;
@@ -178,7 +186,11 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
             let title = NSLocalizedString("QR_SCANNER_VIEW_CHECK_IN_UPLOADING_ALERT_TITLE", comment: "Title for alert displayed when a check-in upload begins.");
             let message = NSLocalizedString("QR_SCANNER_VIEW_CHECK_IN_UPLOADING_ALERT_MESSAGE", comment: "Message for alert displayed when a check-in upload begins.");
             let dismissTitle = NSLocalizedString("QR_SCANNER_VIEW_CHECK_IN_UPLOADING_ALERT_ACTION_TITLE_DISMISS", comment: "Title for action to dismiss alert displayed when a check-in upload begins.");
-            UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: dismissTitle).show();
+            
+            let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+            let dismissAction = UIAlertAction(title: dismissTitle, style: .Default, handler: nil)
+            alertController.addAction(dismissAction)
+            self.presentViewController(alertController, animated: true, completion: nil)
         });
         SessionController.Instance.showQrCheckinCard = true;
         self.sendCheckinResults(code);
@@ -238,10 +250,6 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         }
     }
     
-    func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
-        goBack(self);
-    }
-    
     @IBAction func settingsButtonClick(sender: AnyObject) {
         if (UIDevice.currentDevice().systemVersion >= "8.0") {
             UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!);
@@ -252,6 +260,10 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         let title = NSLocalizedString("QR_SCANNER_VIEW_EXPLANATION_ALERT_TITLE", comment: "Title for alert displayed when a user requests more info about scanned check-ins.");
         let message = NSLocalizedString("QR_SCANNER_VIEW_EXPLANATION_ALERT_MESSAGE", comment: "Message for alert displayed when a user requests more info about scanned check-ins.");
         let dismissTitle = NSLocalizedString("QR_SCANNER_VIEW_EXPLANATION_ALERT_ACTION_TITLE_DISMISS", comment: "Title for action to dismiss alert displayed when a user requests more info about scanned check-ins.");
-        UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: dismissTitle).show();
+
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        let dismissAction = UIAlertAction(title: dismissTitle, style: .Default, handler: nil)
+        alertController.addAction(dismissAction)
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
 }
