@@ -32,8 +32,9 @@ class ConnectDeviceRow: UITableViewCell, UIAlertViewDelegate {
                     if didRespond {
                         HealthKitManager.hasReadAccessToStepData({ [weak self] (isAuthorized) in
                             if isAuthorized {
-                                HealthKitManager.syncStepData()
+                                HealthKitManager.enableBackgroundUpdates()
                             } else {
+                                HealthKitManager.disableBackgroundUpdates()
                                 dispatch_async(dispatch_get_main_queue(), {
                                     self?.connectedToggle.on = false
                                 })

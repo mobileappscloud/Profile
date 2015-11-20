@@ -818,7 +818,9 @@ extension DashboardViewController {
                 if didRespond {
                     HealthKitManager.hasReadAccessToStepData({ (isAuthorized) in
                         if isAuthorized {
-                            HealthKitManager.syncStepData()
+                            HealthKitManager.enableBackgroundUpdates()
+                        } else {
+                            HealthKitManager.disableBackgroundUpdates()
                         }
                     })
                 }

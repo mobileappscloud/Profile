@@ -8,23 +8,31 @@
 
 import HealthKit
 
-public class HealthKitManager {
+internal class HealthKitManager {
     
     private static let sharedInstance: HealthKitManager = {
        let manager = HealthKitManager()
         manager.currentSource({ (source) in
             manager.deviceSource = source
         })
-        manager.healthStore.executeQuery(manager.stepObserverQuery)
         return manager
     }()
     
     private var deviceSource: HKSource? = nil
     
+    private var isObservingStepData = false
+    
     private lazy var stepObserverQuery: HKObserverQuery = {
         let sampleType = HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierStepCount)!
         let observerQuery = HKObserverQuery(sampleType: sampleType, predicate: nil, updateHandler: { (observerQuery, completionHandler, error) in
-            print("OBSERVE THIS SHIT")
+
+            // IF UNAUTHORIZED, stop observer query and disable background updates
+            
+            print(error)
+            if (error == nil) {
+                HealthKitManager.syncStepData()
+                completionHandler()
+            }
         })
         return observerQuery
     }()
@@ -36,17 +44,6 @@ public class HealthKitManager {
     private let healthKitReadTypes = Set<HKQuantityType>(arrayLiteral:
         HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierStepCount)!
     )
-    
-    public class func isHealthDataAvailable() -> Bool {
-        return HKHealthStore.isHealthDataAvailable()
-    }
-    
-    /**
-     
-    */
-    public class func shouldShowAuthorizationModal() -> Bool {
-        return !PersistentSettingsController.boolForKey(.DidShowActivityTrackerAuthorizationRequest)
-    }
     
     private func currentSource(completion: (source: HKSource?) -> Void) {
         let sampleType = HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierStepCount)!
@@ -68,7 +65,25 @@ public class HealthKitManager {
         self.healthStore.executeQuery(query)
     }
     
-    public class func requestReadAccessToStepData(completion: ((didRespond: Bool, error: NSError?) -> Void)!) {
+    internal class func setup() {
+        
+    }
+    
+    internal class func isHealthDataAvailable() -> Bool {
+        return HKHealthStore.isHealthDataAvailable()
+    }
+    
+    /**
+     
+    */
+    internal class func shouldShowAuthorizationModal() -> Bool {
+        return !PersistentSettingsController.boolForKey(.DidShowActivityTrackerAuthorizationRequest)
+    }
+}
+
+internal extension HealthKitManager {
+    
+    internal class func requestReadAccessToStepData(completion: ((didRespond: Bool, error: NSError?) -> Void)!) {
         if !HealthKitManager.isHealthDataAvailable() {
             return
         }
@@ -78,12 +93,6 @@ public class HealthKitManager {
             
             PersistentSettingsController.setBool(true, key: .DidShowActivityTrackerAuthorizationRequest)
             
-            for sampleType in manager.healthKitReadTypes {
-                HKHealthStore().enableBackgroundDeliveryForType(sampleType, frequency: .Hourly, withCompletion: { (success, error) in
-                    print(error)
-                })
-            }
-            
             completion?(didRespond: success, error: error);
         }
     }
@@ -91,7 +100,7 @@ public class HealthKitManager {
     /**
 
     */
-    public class func hasReadAccessToStepData(completion: ((isAuthorized: Bool) -> Void)!) {
+    internal class func hasReadAccessToStepData(completion: ((isAuthorized: Bool) -> Void)!) {
         if !HealthKitManager.isHealthDataAvailable() {
             completion(isAuthorized: false)
             return
@@ -106,34 +115,7 @@ public class HealthKitManager {
         HealthKitManager.sharedInstance.healthStore.executeQuery(query)
     }
     
-    public class func readStepData(startDate: NSDate, var endDate: NSDate?, limit: Int?, completion: (statistics: [HKStatistics]?, error: NSError?) -> Void) {
-        if endDate == nil {
-            endDate = NSDate()
-        }
-        
-        let sampleType = HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierStepCount)!
-        
-        let calendar = NSCalendar.currentCalendar()
-        let modifiedStartDate = calendar.startOfDayForDate(startDate)
-        let modifiedEndDate = calendar.dateBySettingHour(23, minute: 59, second: 59, ofDate: endDate!, options: NSCalendarOptions())!
-        
-        let interval = NSDateComponents()
-        interval.day = 1
-        
-        let statCollectionQuery = HKStatisticsCollectionQuery(quantityType: sampleType, quantitySamplePredicate: nil, options: [.SeparateBySource, .CumulativeSum], anchorDate: modifiedStartDate, intervalComponents: interval)
-        statCollectionQuery.initialResultsHandler = {
-            query, results, error in
-            
-            var statistics: [HKStatistics] = []
-            results?.enumerateStatisticsFromDate(modifiedStartDate, toDate: modifiedEndDate, withBlock:  { (statistic, stop) in
-                statistics.append(statistic)
-            })
-            completion(statistics: statistics, error: error)
-        }
-        HealthKitManager.sharedInstance.healthStore.executeQuery(statCollectionQuery)
-    }
-    
-    public class func syncStepData() {
+    internal class func syncStepData() {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
             ApiUtility.requestLastStepActivitySyncDate({ (syncDate) in
                 
@@ -147,7 +129,7 @@ public class HealthKitManager {
                         let collection = HealthKitManager.stepActivityCollection(fromHealthKitStatistics: statistics!)
                         if let parameters = collection?.dictionary() {
                             ApiUtility.uploadStepActivities(parameters, success: {
-
+                                
                             })
                         }
                     }
@@ -173,16 +155,83 @@ public class HealthKitManager {
         return sampleStartDate
     }
     
-    public class func disableBackgroundUpdates() {
-        HealthKitManager.sharedInstance.healthStore.disableAllBackgroundDeliveryWithCompletion({ (success, error) in
-            if !success {
+    private class func readStepData(startDate: NSDate, var endDate: NSDate?, limit: Int?, completion: (statistics: [HKStatistics]?, error: NSError?) -> Void) {
+        if endDate == nil {
+            endDate = NSDate()
+        }
+        
+        let sampleType = HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierStepCount)!
+        
+        let calendar = NSCalendar.currentCalendar()
+        let modifiedStartDate = calendar.startOfDayForDate(startDate)
+        let modifiedEndDate = calendar.dateBySettingHour(23, minute: 59, second: 59, ofDate: endDate!, options: NSCalendarOptions())!
+        
+        let interval = NSDateComponents()
+        interval.day = 1
+        
+        let statCollectionQuery = HKStatisticsCollectionQuery(quantityType: sampleType, quantitySamplePredicate: nil, options: [.SeparateBySource, .CumulativeSum], anchorDate: modifiedStartDate, intervalComponents: interval)
+        statCollectionQuery.initialResultsHandler = {
+            query, results, error in
+            
+            var statistics: [HKStatistics] = []
+            results?.enumerateStatisticsFromDate(modifiedStartDate, toDate: modifiedEndDate, withBlock:  { (statistic, stop) in
+                statistics.append(statistic)
+            })
+            completion(statistics: statistics, error: error)
+        }
+        HealthKitManager.sharedInstance.healthStore.executeQuery(statCollectionQuery)
+    }
+}
+
+internal extension HealthKitManager {
+
+    // Enables background updates and performs initial data sync.
+    internal class func enableBackgroundUpdates() {
+        
+        let manager = HealthKitManager.sharedInstance
+        if manager.isObservingStepData {
+            return
+        }
+        
+        manager.healthStore.executeQuery(manager.stepObserverQuery)
+        manager.isObservingStepData = true
+        
+        for sampleType in HealthKitManager.sharedInstance.healthKitReadTypes {
+            HealthKitManager.sharedInstance.healthStore.enableBackgroundDeliveryForType(sampleType, frequency: .Hourly, withCompletion: { (success, error) in
+                //<remove>
+                print(error)
+                if (error != nil) {
+                    let alert = UIAlertController(title: "Error", message: error!.localizedDescription, preferredStyle: .Alert)
+                    let dismiss = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
+                    alert.addAction(dismiss)
+                    if let window = UIApplication.sharedApplication().delegate?.window {
+                        window?.rootViewController!.presentViewController(alert, animated: true, completion: nil)
+                        
+                    }
+                }
+                //</remove>
+            })
+        }
+    }
+    
+    internal class func disableBackgroundUpdates() {
+        
+        let manager = HealthKitManager.sharedInstance
+        manager.healthStore.disableAllBackgroundDeliveryWithCompletion({ (success, error) in
+            if success {
+                if manager.isObservingStepData {
+                    manager.healthStore.stopQuery(manager.stepObserverQuery)
+                    manager.isObservingStepData = false
+                }
+            } else {
                 HealthKitManager.disableBackgroundUpdates()
             }
         })
     }
 }
+    
 
-extension HealthKitManager {
+private extension HealthKitManager {
     
     static let activityDateFormatter: NSDateFormatter = {
        let dateFormatter = NSDateFormatter()
@@ -233,14 +282,14 @@ extension HealthKitManager {
         }
         
         let date = statistic.startDate
+        var stepActivity: StepActivity? = nil
         if HealthKitManager.sharedInstance.deviceSource != nil {
             let quantity = statistic.sumQuantityForSource(HealthKitManager.sharedInstance.deviceSource!)
-            let steps = quantity?.doubleValueForUnit(HKUnit.countUnit())
-            let activity = StepActivity(date: date, steps: steps!)
-            return activity
-        } else {
-            return nil
+            if let steps = quantity?.doubleValueForUnit(HKUnit.countUnit()) {
+                stepActivity = StepActivity(date: date, steps: steps)
+            }
         }
+        return stepActivity
     }
     
     class func stepActivityCollection(fromHealthKitStatistics statistics: [HKStatistics]) -> StepActivityCollection? {

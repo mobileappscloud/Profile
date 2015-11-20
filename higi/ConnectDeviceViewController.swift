@@ -228,8 +228,8 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
         if brandedDevices.count > 0 {
             HealthKitManager.hasReadAccessToStepData({ [weak self] isAuthorized in
                 if let higiTracker = self?.brandedDevices.first {
-                    higiTracker.connected = isAuthorized
                     dispatch_async(dispatch_get_main_queue(), {
+                        higiTracker.connected = isAuthorized                        
                         self?.table.reloadData()
                     })
                 }
