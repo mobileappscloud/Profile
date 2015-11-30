@@ -24,7 +24,7 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
             let description = NSLocalizedString("BRANDED_ACTIVITY_DEVICE_DESCRIPTION", comment: "Description for branded activity tracker which leverages HealthKit data.")
             let higiTracker = ActivityDevice(name: name, description: description, imageName: "higi-activity-tracker-icon", connected: false)
             
-            HealthKitManager.hasReadAccessToStepData({ isAuthorized in
+            HealthKitManager.checkReadAuthorizationForStepData({ isAuthorized in
                 higiTracker.connected = isAuthorized
             })
             
@@ -226,7 +226,7 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
         table.reloadData();
         
         if brandedDevices.count > 0 {
-            HealthKitManager.hasReadAccessToStepData({ [weak self] isAuthorized in
+            HealthKitManager.checkReadAuthorizationForStepData({ [weak self] isAuthorized in
                 if let higiTracker = self?.brandedDevices.first {
                     dispatch_async(dispatch_get_main_queue(), {
                         higiTracker.connected = isAuthorized                        

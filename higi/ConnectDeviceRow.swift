@@ -30,7 +30,7 @@ class ConnectDeviceRow: UITableViewCell, UIAlertViewDelegate {
             if !PersistentSettingsController.boolForKey(.DidShowActivityTrackerAuthorizationRequest) {
                 HealthKitManager.requestReadAccessToStepData( { (didRespond, error) in
                     if didRespond {
-                        HealthKitManager.hasReadAccessToStepData({ [weak self] (isAuthorized) in
+                        HealthKitManager.checkReadAuthorizationForStepData({ [weak self] (isAuthorized) in
                             if isAuthorized {
                                 HealthKitManager.enableBackgroundUpdates()
                             } else {

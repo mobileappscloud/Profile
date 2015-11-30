@@ -10,7 +10,13 @@ import HealthKit
 
 internal class HealthKitManager {
     
-    private static let sharedInstance: HealthKitManager = {
+    private static let refreshInterval: NSTimeInterval = {
+        let syncMinutes = 3.0
+        let syncInterval: NSTimeInterval = 60.0 * syncMinutes
+        return syncInterval
+    }()
+    
+    internal static let sharedInstance: HealthKitManager = {
        let manager = HealthKitManager()
         manager.currentSource({ (source) in
             manager.deviceSource = source
@@ -57,16 +63,12 @@ internal class HealthKitManager {
             for source in sources! {
                 if source.bundleIdentifier.hasPrefix("com.apple.health") {
                     healthKitSource = source
+                    break;                    
                 }
-                break;
             }
             completion(source: healthKitSource)
         })
         self.healthStore.executeQuery(query)
-    }
-    
-    internal class func setup() {
-        
     }
     
     internal class func isHealthDataAvailable() -> Bool {
@@ -100,7 +102,7 @@ internal extension HealthKitManager {
     /**
 
     */
-    internal class func hasReadAccessToStepData(completion: ((isAuthorized: Bool) -> Void)!) {
+    internal class func checkReadAuthorizationForStepData(completion: ((isAuthorized: Bool) -> Void)!) {
         if !HealthKitManager.isHealthDataAvailable() {
             completion(isAuthorized: false)
             return
@@ -145,9 +147,7 @@ internal extension HealthKitManager {
         if syncDate == nil {
             sampleStartDate = NSDate()
         } else {
-            let syncMinutes = 60.0
-            let syncInterval: NSTimeInterval = 60.0 * syncMinutes
-            if NSDate().timeIntervalSinceDate(syncDate!) > syncInterval {
+            if NSDate().timeIntervalSinceDate(syncDate!) > self.refreshInterval {
                 sampleStartDate = syncDate!
             }
         }

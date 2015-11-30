@@ -816,7 +816,7 @@ extension DashboardViewController {
         let connectAction = UIAlertAction(title: connectActionTitle, style: .Default, handler: { action in
             HealthKitManager.requestReadAccessToStepData( { (didRespond, error) in
                 if didRespond {
-                    HealthKitManager.hasReadAccessToStepData({ (isAuthorized) in
+                    HealthKitManager.checkReadAuthorizationForStepData({ (isAuthorized) in
                         if isAuthorized {
                             HealthKitManager.enableBackgroundUpdates()
                         } else {
