@@ -1,23 +1,56 @@
 import Foundation
+import WebKit
 
-class WebViewController: UIViewController, NSURLConnectionDataDelegate, UIWebViewDelegate {
-    
-    @IBOutlet weak var webView: UIWebView!
-    
+class WebViewController: UIViewController {
+
     var url: NSString!;
-    
-    var webData: NSMutableData!;
-    
+
     var headers:[String:String!] = [:];
     
     var device: ActivityDevice!;
     
-    var errorMessage: String!;
+    @IBOutlet weak var webViewContainer: UIView!
+    
+    lazy private var webView: WKWebView = {
+        let webView = WKWebView(frame: self.webViewContainer.bounds)
+        webView.navigationDelegate = self
+        return webView
+    }()
 
-    var loadData = false, isGone = false;
+    private var webData: NSMutableData!;
+    
+    private var errorMessage: String!;
+
+    private var isGone = false;
+    
+    // MARK: View Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad();
+
+        self.configureNavBar()
+        
+        self.addWebView(self.webView)
+        
+        let URLRequest = self.URLRequest(url)
+        
+        self.webView.loadRequest(URLRequest)
+    }
+    
+    private func URLRequest(URLString: NSString) -> NSURLRequest {
+        let urlRequest = NSMutableURLRequest(URL: NSURL(string: url as String)!);
+        
+        if (headers.count > 0) {
+            for (field, value) in headers {
+                urlRequest.addValue(value, forHTTPHeaderField: field);
+            }
+        }
+        urlRequest.addValue("mobile-ios", forHTTPHeaderField: "Higi-Source");
+        
+        return urlRequest.copy() as! NSURLRequest
+    }
+    
+    private func configureNavBar() {
         self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
         let backButton = UIButton(type: UIButtonType.Custom);
         backButton.setBackgroundImage(UIImage(named: "btn_back_black.png"), forState: UIControlState.Normal);
@@ -26,50 +59,52 @@ class WebViewController: UIViewController, NSURLConnectionDataDelegate, UIWebVie
         let backBarItem = UIBarButtonItem(customView: backButton);
         self.navigationItem.leftBarButtonItem = backBarItem;
         self.navigationItem.hidesBackButton = true;
-        
-        let urlRequest = NSMutableURLRequest(URL: NSURL(string: url as String)!);
-        
-        if (headers.count > 0) {
-            for (field, value) in headers {
-                urlRequest.addValue(value, forHTTPHeaderField: field);
-            }
-        }
-        webView.delegate = self;
-        
-        urlRequest.addValue("mobile-ios", forHTTPHeaderField: "Higi-Source");
-        if (loadData) {
-            NSURLConnection(request: urlRequest, delegate: self);
-        } else {
-            webView.loadRequest(urlRequest);
-        }
-        
     }
     
-    func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+    private func addWebView(aWebView: UIView) {
+        self.webViewContainer.addSubview(aWebView)
+        aWebView.translatesAutoresizingMaskIntoConstraints = false
+        self.webViewContainer.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[aWebView]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["aWebView" : aWebView]))
+        self.webViewContainer.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[aWebView]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["aWebView" : aWebView]))
+    }
+    
+    // MARK: Navigation
+    
+    func goBack(sender: AnyObject!) {
+        if (!isGone) {
+            self.navigationController!.popViewControllerAnimated(true);
+            isGone = true;
+        }
+    }
+}
+
+extension WebViewController: WKNavigationDelegate {
+
+    func webView(webView: WKWebView, decidePolicyForNavigationAction navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void) {
+        
+        let request = navigationAction.request
         
         if (request.allHTTPHeaderFields?.indexForKey("Higi-Source") == nil && request.URL?.absoluteString == request.mainDocumentURL?.absoluteString) {
             dispatch_async(dispatch_get_main_queue(), {
                 if let mutableRequest = request.mutableCopy() as? NSMutableURLRequest {
                     mutableRequest.addValue("mobile-ios", forHTTPHeaderField: "Higi-Source");
-                
-                    if (self.loadData) {
-                        NSURLConnection(request: mutableRequest, delegate: self);
-                    } else {
-                        webView.loadRequest(mutableRequest);
-                    }
+                    
+                    webView.loadRequest(mutableRequest);
                 }
             });
             
-            return false;
+            decisionHandler(.Cancel)
+            return
         }
+        
         if (((!isGone && request.URL!.absoluteString != "" && request.URL!.absoluteString.hasPrefix("https://www.google.com")))) {
             webView.stopLoading();
             let components = NSURLComponents(URL: request.URL!, resolvingAgainstBaseURL: false)!;
             errorMessage = "";
-            let params = components.query!.componentsSeparatedByString("%").split {$0 == "&"};
+
             for item in components.query!.componentsSeparatedByString("&") {
                 var keyValuePair = item.componentsSeparatedByString("=");
-                let i = keyValuePair[0];
+
                 if (keyValuePair[0] == "error") {
                     if (keyValuePair.count > 1 && keyValuePair[1].characters.count > 0) {
                         device.connected = false;
@@ -79,29 +114,20 @@ class WebViewController: UIViewController, NSURLConnectionDataDelegate, UIWebVie
                 }
             }
             if (errorMessage != "") {
-                UIAlertView(title: "Error", message: "\(errorMessage)", delegate: self, cancelButtonTitle: "OK").show();
+                let alertController = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .Alert)
+                let dismissAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                alertController.addAction(dismissAction)
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.presentViewController(alertController, animated: true, completion: {
+                        self.goBack(self)
+                    })
+                })
+            } else {
+                goBack(self);
             }
-            goBack(self);
         }
-        return true;
-    }
-    
-    func connection(connection: NSURLConnection, didReceiveResponse response: NSURLResponse) {
-        webData = NSMutableData();
-    }
-    
-    func connection(connection: NSURLConnection, didReceiveData data: NSData) {
-        webData.appendData(data);
-    }
-    
-    func connectionDidFinishLoading(connection: NSURLConnection) {
-        webView.loadData(webData, MIMEType: "text/html", textEncodingName: "UTF-8", baseURL: NSURL());
-    }
-    
-    func goBack(sender: AnyObject!) {
-        if (!isGone) {
-            self.navigationController!.popViewControllerAnimated(true);
-            isGone = true;
-        }
+
+        decisionHandler(.Allow)
+        return
     }
 }

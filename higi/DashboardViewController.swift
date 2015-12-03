@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SafariServices
 
 class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     
@@ -71,6 +72,9 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveApiNotification:", name: ApiUtility.CHECKINS, object: nil);
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveApiNotification:", name: ApiUtility.PULSE, object: nil);
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveApiNotification:", name: ApiUtility.DEVICES, object: nil);
+        NSNotificationCenter.defaultCenter().addObserverForName("RefreshDashboard", object: nil, queue: nil, usingBlock: { [unowned self] (notification) in
+            self.refresh()
+        })
         createPullToRefresh();
         initCards();
     }
@@ -95,6 +99,8 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     
     private func addQrCheckinView() {
         mainScrollView.addSubview(qrCheckinCard);
+        qrCheckinCard.titleText.text = NSLocalizedString("DASHBOARD_VIEW_CARD_QR_CHECKIN_UPLOAD_PENDING_TITLE", comment: "Title to display on QR check-in card when upload is in-progress.");
+        qrCheckinCard.messageText.text = NSLocalizedString("DASHBOARD_VIEW_CARD_QR_CHECKIN_UPLOAD_PENDING_MESSAGE_TEXT", comment: "Message text to display on QR check-in card when upload is in-progress.");
         qrCheckinCard.loadingImage.image = UIImage.animatedImageNamed("icon-vitals-animation-", duration: 2);
     }
     
@@ -106,7 +112,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         @note This view is not in true compliance with adaptive layout.
     */
     private func ensureCardWidthIntegrity() {
-        let width = CGRectGetWidth(self.view.bounds);
+        let width = min(CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds));
         for subview in dashboardItems {
             manuallyAutoresizeSubview(subview, width: width);
         }
@@ -568,11 +574,21 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         } else {
             Flurry.logEvent("NonFeaturedPulseArticle_Pressed");
         }
-        let webView = WebViewController(nibName: "WebView", bundle: nil);
-        webView.url = SessionController.Instance.pulseArticles[sender.tag!].permalink;
-        self.navigationController?.pushViewController(webView, animated: true);
-        (self.navigationController as! MainNavigationController).drawerController?.tableView.reloadData();
-        (self.navigationController as! MainNavigationController).drawerController?.tableView.selectRowAtIndexPath(NSIndexPath(forItem: 5, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None);
+        
+        let pulseArticle = SessionController.Instance.pulseArticles[sender.tag!]
+        let URLString = pulseArticle.permalink
+        
+        if #available(iOS 9.0, *) {
+            let safariViewController = SFSafariViewController(URL: NSURL(string: URLString as String)!, entersReaderIfAvailable: true)
+            self.navigationController?.presentViewController(safariViewController, animated: true, completion: nil)
+        } else {
+            let webViewController = WebViewController(nibName: "WebView", bundle: nil)
+            webViewController.url = URLString
+            self.navigationController?.pushViewController(webViewController, animated: true);
+            
+            (self.navigationController as! MainNavigationController).drawerController?.tableView.reloadData();
+            (self.navigationController as! MainNavigationController).drawerController?.tableView.selectRowAtIndexPath(NSIndexPath(forItem: 4, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None);
+        }
     }
     
     @IBAction func removeQrCheckinCard(sender: AnyObject) {

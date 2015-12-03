@@ -7,15 +7,6 @@
 /* Label for unit of selected point panel on Activity Metric view. */
 "ACTIVITY_METRICS_VIEW_SELECTED_POINT_PANEL_UNIT_LABEL" = "pts";
 
-/* Title for dismiss action on alert displayed when app requires an update. */
-"APP_UPDATE_ALERT_ACTION_TITLE_DISMISS" = "OK";
-
-/* Message for alert displayed when app requires an update. */
-"APP_UPDATE_ALERT_MESSAGE" = "You must update from the App Store to continue using this app.";
-
-/* Title for alert displayed when app requires an update. */
-"APP_UPDATE_ALERT_TITLE" = "higi is out of date";
-
 /* Title for Birthdate view when confirming a user's age. */
 "BIRTHDATE_VIEW_AGE_CONFIRMATION_TITLE" = "Please confirm your age";
 
@@ -385,6 +376,12 @@
 /* Title to display on QR check-in card when upload fails. */
 "DASHBOARD_VIEW_CARD_QR_CHECKIN_UPLOAD_FAILURE_TITLE" = "Daily Check-in Upload Failed";
 
+/* Message text to display on QR check-in card when upload is in-progress. */
+"DASHBOARD_VIEW_CARD_QR_CHECKIN_UPLOAD_PENDING_MESSAGE_TEXT" = "This may take a few minutes.  We'll let you know when your results are ready.";
+
+/* Title to display on QR check-in card when upload is in-progress. */
+"DASHBOARD_VIEW_CARD_QR_CHECKIN_UPLOAD_PENDING_TITLE" = "Uploading Your Daily Check-in Results";
+
 /* Message text to display on QR check-in card when upload succeeds. */
 "DASHBOARD_VIEW_CARD_QR_CHECKIN_UPLOAD_SUCCESS_MESSAGE_TEXT" = "View your updated metrics below or review them in your Daily Summary.";
 
@@ -405,6 +402,27 @@
 
 /* Title for higi Score */
 "DRAWER_VIEW_HIGI_SCORE_TITLE" = "higi Score";
+
+/* Title for capture drawer menu item. */
+"DRAWER_VIEW_MENU_ITEM_TITLE_CAPTURE" = "Capture";
+
+/* Title for challenges drawer menu item. */
+"DRAWER_VIEW_MENU_ITEM_TITLE_CHALLENGES" = "Challenges";
+
+/* Title for dashboard drawer menu item. */
+"DRAWER_VIEW_MENU_ITEM_TITLE_DASHBOARD" = "Dashboard";
+
+/* Title for metrics drawer menu item. */
+"DRAWER_VIEW_MENU_ITEM_TITLE_METRICS" = "Metrics";
+
+/* Title for pulse drawer menu item. */
+"DRAWER_VIEW_MENU_ITEM_TITLE_PULSE" = "higi Pulse";
+
+/* Title for settings drawer menu item. */
+"DRAWER_VIEW_MENU_ITEM_TITLE_SETTINGS" = "Settings";
+
+/* Title for station locator drawer menu item. */
+"DRAWER_VIEW_MENU_ITEM_TITLE_STATION_LOCATOR" = "Find a Station";
 
 /* Titles for the various values of a user's data which can be exported. */
 "EXPORT_DATA_CSV_DATA_TITLES" = "Date,Location,Address of higi Station,Systolic Pressure (mmHg),Diastolic Pressure (mmHg),Pulse (bpm),Mean Arterial Pressure (mmHg), Weight (lbs),Body Mass Index\n";
@@ -466,11 +484,14 @@
 /* Reason for prompting Touch ID local authentication. */
 "LOCAL_AUTHENTICATION_TOUCH_ID_REASON" = "Use your fingerprint to access higi";
 
+/* Title for action which dismisses alert displayed for a scanned station check-in upload. */
+"LOCAL_NOTIFICATION_SCANNED_CHECK_IN_ALERT_ACTION_TITLE_ACKNOWLEDGE" = "OK";
+
 /* Message to display via local notification when a scanned check-in encounters an issue while being uploaded. */
 "LOCAL_NOTIFICATION_SCANNED_CHECK_IN_ISSUE_MESSAGE" = "There was a problem uploading your checkin data";
 
 /* Message to display via local notification when a scanned check-in is successfully uploaded. */
-"LOCAL_NOTIFICATION_SCANNED_CHECK_IN_SUCCESS_MESSAGE" = "Checkin data successfully uploaded to higi servers!  Check it out in the app";
+"LOCAL_NOTIFICATION_SCANNED_CHECK_IN_SUCCESS_MESSAGE" = "Booyah! Your latest check-in results are now available, check them out in the app now.";
 
 /* Format of local notification which is displayed when a user is near a higi station. */
 "LOCATION_DELEGATE_LOCAL_NOTIFICATION_FORMAT" = "You are near the higi Station at %@ %@!";
@@ -510,9 +531,6 @@
 
 /* Placeholder for password text field with invalid input on login view. */
 "LOGIN_VIEW_PASSWORD_TEXTFIELD_PLACEHOLDER_INVALID_INPUT" = "Password must be at least 6 characters";
-
-/* Format of label describing location of a higi Station. */
-"METRIC_DETAIL_CARD_CHECK_IN_LOCATION_LABEL_FORMAT" = "higi Station at %@";
 
 /* Title for blood pressure metrics */
 "METRIC_TYPE_BLOOD_PRESSURE_TITLE" = "Blood Pressure";
@@ -572,7 +590,7 @@
 "NOTIFICATION_SETTINGS_DEVICE_ALLOW_NOTIFICATIONS_CELL_TITLE" = "Allow Notifications";
 
 /* Title for cell to allow nearby station notifications. */
-"NOTIFICATION_SETTINGS_DEVICE_STATION_NEARBY_CELL_TITLE" = "Station Nearby";
+"NOTIFICATION_SETTINGS_DEVICE_STATION_NEARBY_CELL_TITLE" = "When I am near a Station";
 
 /* Title for device-specific notification settings view. */
 "NOTIFICATION_SETTINGS_DEVICE_VIEW_TITLE" = "Device";
@@ -644,13 +662,13 @@
 "QR_SCANNER_VIEW_BLANK_STATE_ERROR_TITLE" = "D'oh!";
 
 /* Title for action to dismiss alert displayed when a check-in upload begins. */
-"QR_SCANNER_VIEW_CHECK_IN_UPLOADING_ALERT_ACTION_TITLE_DISMISS" = "OK";
+"QR_SCANNER_VIEW_CHECK_IN_UPLOADING_ALERT_ACTION_TITLE_DISMISS" = "Got it";
 
 /* Message for alert displayed when a check-in upload begins. */
-"QR_SCANNER_VIEW_CHECK_IN_UPLOADING_ALERT_MESSAGE" = "Your checkin data is being uploaded to the higi servers";
+"QR_SCANNER_VIEW_CHECK_IN_UPLOADING_ALERT_MESSAGE" = "There is no need to fear, the higi app is here! We are saving your check-in results now.";
 
 /* Title for alert displayed when a check-in upload begins. */
-"QR_SCANNER_VIEW_CHECK_IN_UPLOADING_ALERT_TITLE" = "On its way!";
+"QR_SCANNER_VIEW_CHECK_IN_UPLOADING_ALERT_TITLE" = "Uploading Results";
 
 /* Title for action to dismiss alert displayed when a user requests more info about scanned check-ins. */
 "QR_SCANNER_VIEW_EXPLANATION_ALERT_ACTION_TITLE_DISMISS" = "Got it";
@@ -690,6 +708,15 @@
 
 /* Title for alert displayed when an unsupported device is detected. */
 "QR_SCANNER_VIEW_UNSUPPORTED_DEVICE_ALERT_TITLE" = "Uh oh";
+
+/* Format of essage text for required app update view. */
+"REQUIRED_APP_UPDATE_VIEW_MESSAGE_FORMAT" = "Keep tabs on your health and wellness with the latest features from %@. The version you have is no longer supported. Download %@ now.";
+
+/* Format of title text for required app update view. */
+"REQUIRED_APP_UPDATE_VIEW_TITLE_FORMAT" = "Update Your %@ App!";
+
+/* Title for update-action button on required app update view. */
+"REQUIRED_APP_UPDATE_VIEW_UPDATE_ACTION_BUTTON_TITLE" = "Go to App Store";
 
 /* Title for change password table view cell. */
 "SETTINGS_TABLE_VIEW_CELL_TITLE_CHANGE_PASSWORD" = "Change password";

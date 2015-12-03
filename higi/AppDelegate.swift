@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import Fabric
-import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,27 +20,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Application Lifecycle
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
-        #if DEBUG
-            Crashlytics.sharedInstance().debugMode = true;
-        #endif
-        Fabric.with([Crashlytics.self()])
 
-        // Override point for customization after application launch.
+        CrashAnalyticsManager.setupVendors()
+
         GMSServices.provideAPIKey("AIzaSyB1iNeT8pxcPd4rcwQ-Titp2hA5bLHh3-k");
+        
         Flurry.startSession("2GSDDCY6499XJ8B5GTYZ");
-        Flurry.setCrashReportingEnabled(true);
+        
         SessionData.Instance.restore();
         
         window?.makeKeyAndVisible();
         
-        if (UIApplication.instancesRespondToSelector(Selector("registerUserNotificationSettings:"))) {
-            application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [UIUserNotificationType.Sound, UIUserNotificationType.Alert, UIUserNotificationType.Badge], categories: nil));
-        }
+        application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [UIUserNotificationType.Sound, UIUserNotificationType.Alert, UIUserNotificationType.Badge], categories: nil));
         
         return true
     }
-    
+
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
@@ -57,29 +50,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-        if (SessionData.Instance.user != nil && NSDate().timeIntervalSinceDate(SessionData.Instance.lastUpdate) / 60 / 60 > 15) {
-            ApiUtility.initializeApiData();
+        let refreshMinutes = 15.0
+        let refreshInterval: NSTimeInterval = 60.0 * refreshMinutes
+        if (SessionData.Instance.user != nil && NSDate().timeIntervalSinceDate(SessionData.Instance.lastUpdate) > refreshInterval) {
+            NSNotificationCenter.defaultCenter().postNotificationName("RefreshDashboard", object: nil)
         }
     }
     
-    // MARK: Notifications
-    
-    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
-        if application.applicationState == UIApplicationState.Active {
-            if let info = notification.userInfo as? Dictionary<String, Int> {
-                //99 is id of QR scanner notifications
-                if info["ID"] == 99 {
-                    if #available(iOS 8.2, *) {
-                        UIAlertView(title: notification.alertTitle, message: notification.alertBody, delegate: nil, cancelButtonTitle: "OK").show()
-                    } else {
-                        // Fallback on earlier versions
-                    };
-                }
-            }
-        }
-    }
-    
-    // MARK: - Helper
+    // MARK: - Helper --> Should be refactored out of this class
     
     func checkPin() {
         if (SessionData.Instance.pin != "") {
@@ -104,6 +82,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if locationManager != nil {
             locationManager.stopMonitoringSignificantLocationChanges();
             locationManager = nil;
+        }
+    }
+}
+
+extension AppDelegate {
+    
+    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+        if application.applicationState == UIApplicationState.Active {
+            if let info = notification.userInfo as? Dictionary<String, Int> {
+                //99 is id of QR scanner notifications
+                if info["ID"] == 99 {
+                    var title: String? = nil
+                    if #available(iOS 8.2, *) {
+                        title = notification.alertTitle
+                    }
+                    let message = notification.alertBody
+                    let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+                    let acknowledgeActionTitle = NSLocalizedString("LOCAL_NOTIFICATION_SCANNED_CHECK_IN_ALERT_ACTION_TITLE_ACKNOWLEDGE", comment: "Title for action which dismisses alert displayed for a scanned station check-in upload.")
+                    let acknowledgeAction = UIAlertAction(title: acknowledgeActionTitle, style: .Default, handler: nil)
+                        alertController.addAction(acknowledgeAction)
+    
+                    self.window?.rootViewController?.presentViewController(alertController, animated: true, completion: nil)
+                }
+            }
         }
     }
 }

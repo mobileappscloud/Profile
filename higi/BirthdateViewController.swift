@@ -52,8 +52,15 @@ class BirthdateViewController: UIViewController {
             } else {
                 let message = NSLocalizedString("BIRTHDATE_VIEW_UNDERAGE_ALERT_MESSAGE", comment: "Message for alert displayed when a user is ineligible for higi services due to age restrictions.")
                 let buttonTitle = NSLocalizedString("BIRTHDATE_VIEW_UNDERAGE_ALERT_ACTION_TITLE_DISMISS", comment: "Title for alert action to dismiss the underage user alert.")
-                UIAlertView(title: "", message: message, delegate: nil, cancelButtonTitle: buttonTitle).show();
-                deleteAccountAndQuit();
+                let alertController = UIAlertController(title: nil, message: message, preferredStyle: .Alert)
+                let cancelAction = UIAlertAction(title: buttonTitle, style: .Default, handler: { [unowned self] (action) in
+                        self.deleteAccountAndQuit();
+                })
+                alertController.addAction(cancelAction)
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.presentViewController(alertController, animated: true, completion: nil)
+                })
             }
         } else {
             let user = SessionData.Instance.user;
@@ -68,8 +75,15 @@ class BirthdateViewController: UIViewController {
                 }, failure: {operation, error in
                     let message = NSLocalizedString("BIRTHDATE_VIEW_UPDATE_BIRTHDATE_FAILURE_ALERT_MESSAGE", comment: "Message for alert to display if the server cannot be reached when attempting to update user's birthdate.")
                     let dismissTitle = NSLocalizedString("BIRTHDATE_VIEW_UPDATE_BIRTHDATE_FAILURE_ALERT_ACTION_TITLE_DISMISS", comment: "Title for alert action to dismiss the birthdate update failure alert.")
-                    UIAlertView(title: "", message: message, delegate: nil, cancelButtonTitle: dismissTitle).show();
-                    self.reset();
+                    let alertController = UIAlertController(title: nil, message: message, preferredStyle: .Alert)
+                    let cancelAction = UIAlertAction(title: dismissTitle, style: .Default, handler: { [unowned self] (action) in
+                        self.reset();
+                        })
+                    alertController.addAction(cancelAction)
+                    
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.presentViewController(alertController, animated: true, completion: nil)
+                    })
             });
         }
     }

@@ -35,7 +35,7 @@ class MetricDetailCard: UIView {
     
     let triangleHeight:CGFloat = 20;
     
-    var copyImageOrigin:CGFloat = 0, copyScrollViewHeight: CGFloat = 0, screenWidth:CGFloat!;
+    var copyImageOrigin:CGFloat = 0, copyScrollViewHeight: CGFloat = 0, screenWidth:CGFloat!, activityRowHeight:CGFloat = 0;
     
     var thirdPanelSelected = true, blankState = false, shouldShowCenteredSecondPanel = false, shouldShowCenteredThirdPanel = false;
     
@@ -82,7 +82,6 @@ class MetricDetailCard: UIView {
         }
     }
     
-    // TODO: l10n -- copy is embedded in images ಠ_ಠ
     func updateCopyImage(tab: Int) {
         if firstCopyImage != nil {
             firstCopyImage.removeFromSuperview();
@@ -329,18 +328,23 @@ class MetricDetailCard: UIView {
         } else {
             meterContainer.hidden = true;
             gaugeContainer.hidden = false;
-            if let kioskInfo = selection.kioskInfo {
-                checkinAddressContainer.hidden = false;
-                let format = NSLocalizedString("METRIC_DETAIL_CARD_CHECK_IN_LOCATION_LABEL_FORMAT", comment: "Format of label describing location of a higi Station.")
-                checkinLocation.text = String(format: format, arguments: [kioskInfo.organizations[0]]);
-                checkinStreetAddress.text = "\(kioskInfo.address1)";
-                checkinCityStateZip.text = "\(kioskInfo.cityStateZip)";
-            } else if let device = selection.device {
-                checkinAddressContainer.hidden = false;
-                checkinLocation.text = device;
-                checkinStreetAddress.text = "";
-                checkinCityStateZip.text = "";
+            
+            var title = "", address = "", cityStateZip = "";
+            
+            if let device = selection.device {
+                title = device;
             }
+            
+            if let kioskInfo = selection.kioskInfo {
+                title = "higi Station at \(kioskInfo.organizations[0])";
+                address = "\(kioskInfo.address1)";
+                cityStateZip = "\(kioskInfo.cityStateZip)";
+            }
+            
+            checkinAddressContainer.hidden = false;
+            checkinLocation.text = title;
+            checkinStreetAddress.text = address;
+            checkinCityStateZip.text = cityStateZip;
             if gauge == nil {
                 gauge = MetricGauge.create(CGRect(x: 0, y: 0, width: gaugeContainer.frame.size.width, height: gaugeContainer.frame.size.height), delegate: delegate, tab: tab);
                 gaugeContainer.addSubview(gauge);
@@ -405,20 +409,17 @@ class MetricDetailCard: UIView {
         var activities: [HigiActivity] = [];
         var activityKeys: [String] = [];
         var activitiesByType:[String: (Int, [HigiActivity])] = [:];
-        var totalPoints = 0;
-        var minCircleRadius:CGFloat = 6, maxCircleRadius:CGFloat = 32, currentOrigin:CGFloat = scrollViewPadding;
+        var currentOrigin:CGFloat = scrollViewPadding;
         var dateString = date;
         if (dateString == nil) {
             dateString = Constants.dateFormatter.stringFromDate(NSDate());
         }
-        if let (points, sessionActivities) = SessionController.Instance.activities[dateString!] {
-            totalPoints = points;
+        if let (_, sessionActivities) = SessionController.Instance.activities[dateString!] {
             activities = sessionActivities;
             activities.sortInPlace(SummaryViewUtility.sortByPoints);
         }
 
         var activitiesByDevice: [String: Int] = [:];
-        var subActivities:[String: (Int, [HigiActivity])] = [:];
         for activity in activities {
             let type = activity.type.getString();
             if let (total, activityList) = activitiesByType[type] {
@@ -459,11 +460,14 @@ class MetricDetailCard: UIView {
             let (total, activityList) = activitiesByType[key]!;
             let category = ActivityCategory.categoryFromString(key);
             let color = category.getColor();
-            let activityRow = SummaryViewUtility.initTitleRow(0, originY: currentOrigin, width: copyScrollview.frame.size.width, points: total, device: String(category.getString()), color: color);
+            let activityRow = SummaryViewUtility.initTitleRow(0, originY: 0, width: copyScrollview.frame.size.width, points: total, device: String(category.getString()), color: color);
             activityRow.device.font = UIFont.boldSystemFontOfSize(20);
             activityRow.points.font = UIFont.boldSystemFontOfSize(20);
             activityRow.device.textColor = color;
-            copyScrollview.addSubview(activityRow);
+            activityRowHeight = activityRow.frame.size.height;
+            let wrapperView = UIView(frame: CGRect(x: 0, y: currentOrigin, width: copyScrollview.frame.size.width, height: activityRow.frame.size.height));
+            wrapperView.addSubview(activityRow);
+            copyScrollview.addSubview(wrapperView);
             activityRows.append(activityRow);
             currentOrigin += activityRow.frame.size.height;
             var seenDevices: [String: Bool] = [:];
@@ -495,5 +499,13 @@ class MetricDetailCard: UIView {
         let dateString = delegate.getSelectedPoint()!.date;
         summaryController.dateString = dateString;
         Utility.getViewController(self)!.navigationController!.pushViewController(summaryController, animated: true);
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews();
+        for row in activityRows {
+            row.frame.size.width = copyScrollview.frame.size.width;
+            row.frame.size.height = activityRowHeight;
+        }
     }
 }

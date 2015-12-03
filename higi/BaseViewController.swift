@@ -65,7 +65,9 @@ class BaseViewController: UIViewController, SWRevealViewControllerDelegate {
     func receiveApiNotification(notification: NSNotification) {
         switch (notification.name) {
         case ApiUtility.ACTIVITIES:
-            setDailyPoints(true);
+            if shouldShowDailyPoints {
+                setDailyPoints(true);
+            }
         default:
             break;
         }

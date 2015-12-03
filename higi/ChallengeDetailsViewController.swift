@@ -1,6 +1,6 @@
 import Foundation
 
-class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UIActionSheetDelegate {
+class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet var contentView: UIView!
     @IBOutlet var pointsLabel:UILabel?;
     @IBOutlet weak var joinButton: UIButton! {
@@ -82,6 +82,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func initializeDetailView() {
+        individualGoalWinConditions = [];
+        teamGoalWinConditions = [];
         for winCondition in challenge.winConditions {
             if (challenge.participant != nil && winCondition.goal.type == "threshold_reached" && challenge.userStatus == "current" && winCondition.goal.minThreshold > 1) {
                 displayProgressTab = true;
@@ -280,13 +282,19 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         HigiApi().sendPost(joinUrl as String, parameters: contents, success: {operation, responseObject in
             ApiUtility.retrieveChallenges(self.refreshChallenge);
             }, failure: { operation, error in
-                let e = error;
+                
                 let alertTitle = NSLocalizedString("CHALLENGE_DETAILS_VIEW_JOIN_CHALLENGE_FAILURE_ALERT_TITLE", comment: "Title for alert which is displayed when joining a challenge fails.");
                 let alertMessage = NSLocalizedString("CHALLENGE_DETAILS_VIEW_JOIN_CHALLENGE_FAILURE_ALERT_MESSAGE", comment: "Message for alert which is displayed when joining a challenge fails.");
                 let cancelButtonTitle = NSLocalizedString("CHALLENGE_DETAILS_VIEW_JOIN_CHALLENGE_FAILURE_ALERT_ACTION_CANCEL_TITLE", comment: "Title for cancel alert action which is displayed when joining a challenge fails.");
-                UIAlertView(title: alertTitle, message: alertMessage, delegate: self, cancelButtonTitle: cancelButtonTitle).show();
-                self.joinButton.hidden = false;
-                self.loadingSpinner.hidden = true;
+                let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .Alert)
+                let cancelAction = UIAlertAction(title: cancelButtonTitle, style: .Default, handler: nil)
+                alertController.addAction(cancelAction)
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.presentViewController(alertController, animated: true, completion: nil)
+                    self.joinButton.hidden = false;
+                    self.loadingSpinner.hidden = true;
+                })
         });
     }
 
@@ -303,25 +311,25 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         });
     }
 
-    func showTeamsPicker() {
+    func showTeamsPicker() {        
         let sheetMessage = NSLocalizedString("CHALLENGE_DETAILS_VIEW_TEAMS_PICKER_ACTION_SHEET_MESSAGE", comment: "Message for action sheet which is displayed when picking a team to join.");
-        let picker = UIActionSheet(title: sheetMessage, delegate: self, cancelButtonTitle: nil, destructiveButtonTitle: nil);
+        let teamPickerSheet = UIAlertController(title: nil, message: sheetMessage, preferredStyle: .ActionSheet)
+        
         for team in challenge.teams {
-            picker.addButtonWithTitle(team.name as String);
+            let sheetAction = UIAlertAction(title: team.name as String, style: .Default, handler: { action in
+                self.showTermsAndConditions(team.joinUrl as String);
+            })
+            teamPickerSheet.addAction(sheetAction);
         }
+        
         let backButtonTitle = NSLocalizedString("CHALLENGE_DETAILS_VIEW_TEAMS_PICKER_ACTION_SHEET_ACTION_TITLE_BACK", comment: "Title for action sheet action to go back; displayed when picking a team to join.");
-        picker.addButtonWithTitle(backButtonTitle);
-        picker.cancelButtonIndex = challenge.teams.count;
-        picker.showInView(scrollView);
-    }
-    
-    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
-        if (buttonIndex != challenge.teams.count) {
-            showTermsAndConditions(self.challenge.teams[buttonIndex].joinUrl as String);
-        } else {
-            joinButton.hidden = false;
-            loadingSpinner.hidden = true;
-        }
+        let cancelAction = UIAlertAction(title: backButtonTitle, style: .Cancel, handler: { action in
+            self.joinButton.hidden = false;
+            self.loadingSpinner.hidden = true;
+        })
+        teamPickerSheet.addAction(cancelAction);
+        
+        self.presentViewController(teamPickerSheet, animated: true, completion: nil)
     }
     
     func refreshChallenge() {
@@ -376,9 +384,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         tabButtonLabels = [];
     }
     
-    func populateTabButtons() {
-        let containerYValue = buttonContainer.frame.origin.y;
-        
+    func populateTabButtons() {        
         let buttonHeight:CGFloat = buttonContainer.frame.size.height;
         let buttonWidth = UIScreen.mainScreen().bounds.width / CGFloat(tabButtonLabels.count);
         
@@ -538,6 +544,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         
         termsButton.addTarget(self, action: "termsClick:", forControlEvents: UIControlEvents.TouchUpInside);
         
+        var noPrizes = true;
         var yOffset = rowTextYOffset + 12;
         for winCondition in challenge.winConditions {
             if (winCondition.prizeName != nil && winCondition.prizeName != "") {
@@ -546,9 +553,10 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                 
                 table.prizesContainer.addSubview(prizeRow);
                 yOffset += prizeRow.frame.size.height;
+                noPrizes = false;
             }
         }
-        if (yOffset == rowTextYOffset) {
+        if (noPrizes) {
             let prizeRow = createDetailsPrizeCell(nil);
             prizeRow.frame.origin.y = yOffset;
             
@@ -1088,10 +1096,17 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             self.addPlaceholderChatter(chatter);
             self.refreshChatter();
             }, failure: { operation, error in
+                
                 let alertTitle = NSLocalizedString("CHALLENGE_DETAILS_VIEW_SEND_CHATTER_FAILURE_ALERT_TITLE", comment: "Title for alert displayed when sending chatter fails.")
                 let alertMessage = NSLocalizedString("CHALLENGE_DETAILS_VIEW_SEND_CHATTER_FAILURE_ALERT_MESSAGE", comment: "Message for alert displayed when sending chatter fails.")
                 let cancelTitle = NSLocalizedString("CHALLENGE_DETAILS_VIEW_SEND_CHATTER_FAILURE_ALERT_ACTION_CANCEL_TITLE", comment: "Title for cancel alert action displayed when sending chatter fails.")
-                UIAlertView(title: alertTitle, message: alertMessage, delegate: self, cancelButtonTitle: cancelTitle).show();
+                let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .Alert)
+                let cancelAction = UIAlertAction(title: cancelTitle, style: .Default, handler: nil)
+                alertController.addAction(cancelAction)
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.presentViewController(alertController, animated: true, completion: nil)
+                })
         });
     }
     

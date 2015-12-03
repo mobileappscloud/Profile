@@ -71,5 +71,7 @@
 	<true/>
 	<key>WebUrl</key>
 	<string>https://higi.com</string>
+	<key>AppUpdateURL</key>
+	<string>https://itunes.apple.com/us/app/higi/id599485135?mt=8</string>
 </dict>
 </plist>
