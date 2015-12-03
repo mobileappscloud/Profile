@@ -21,5 +21,12 @@ class PulseArticle {
         imageUrl = dictionary["biggerImageUrl"] as! NSString;
         permalink = dictionary["permalink"] as! NSString;
     }
-    
+ 
+    init(permalink URL: NSURL) {
+        articleId = 0
+        title = "n/a"
+        excerpt = "n/a"
+        imageUrl = "n/a"
+        permalink = URL.absoluteString;
+    }
 }

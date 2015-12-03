@@ -722,3 +722,11 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         NSNotificationCenter.defaultCenter().removeObserver(self);
     }
 }
+
+extension FindStationViewController: UniversalLinkHandler {
+    
+    func handleUniversalLink(URL: NSURL, pathType: PathType, parameters: [String]?) {
+        Utility.mainNavigationController()?.drawerController.navController?.popToRootViewControllerAnimated(false)
+        Utility.mainNavigationController()?.drawerController.navController?.pushViewController(FindStationViewController(nibName: "FindStationView", bundle: nil), animated: false)
+    }
+}

@@ -16,45 +16,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var locationManager: CLLocationManager!;
     
     var locationDelegate: LocationDelegate!;
+    
+    // MARK: - Application Lifecycle
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
         CrashAnalyticsManager.setupVendors()
 
-        // Override point for customization after application launch.
         GMSServices.provideAPIKey("AIzaSyB1iNeT8pxcPd4rcwQ-Titp2hA5bLHh3-k");
+        
         Flurry.startSession("2GSDDCY6499XJ8B5GTYZ");
-        Flurry.setCrashReportingEnabled(true);
+        
         SessionData.Instance.restore();
         
         window?.makeKeyAndVisible();
         
-        if (UIApplication.instancesRespondToSelector(Selector("registerUserNotificationSettings:"))) {
-            application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [UIUserNotificationType.Sound, UIUserNotificationType.Alert, UIUserNotificationType.Badge], categories: nil));
-        }
-                
+        application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [UIUserNotificationType.Sound, UIUserNotificationType.Alert, UIUserNotificationType.Badge], categories: nil));
+        
         return true
-    }
-
-    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
-        if application.applicationState == UIApplicationState.Active {
-            if let info = notification.userInfo as? Dictionary<String, Int> {
-                //99 is id of QR scanner notifications
-                if info["ID"] == 99 {
-                    var title: String? = nil
-                    if #available(iOS 8.2, *) {
-                        title = notification.alertTitle
-                    }
-                    let message = notification.alertBody
-                    let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-                    let acknowledgeActionTitle = NSLocalizedString("LOCAL_NOTIFICATION_SCANNED_CHECK_IN_ALERT_ACTION_TITLE_ACKNOWLEDGE", comment: "Title for action which dismisses alert displayed for a scanned station check-in upload.")
-                    let acknowledgeAction = UIAlertAction(title: acknowledgeActionTitle, style: .Default, handler: nil)
-                    alertController.addAction(acknowledgeAction)
-                    
-                    self.window?.rootViewController?.presentViewController(alertController, animated: true, completion: nil)
-                }
-            }
-        }
     }
 
     func applicationWillResignActive(application: UIApplication) {
@@ -78,13 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func applicationDidBecomeActive(application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    }
-
-    func applicationWillTerminate(application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    }
+    // MARK: - Helper --> Should be refactored out of this class
     
     func checkPin() {
         if (SessionData.Instance.pin != "") {
@@ -110,6 +83,50 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             locationManager.stopMonitoringSignificantLocationChanges();
             locationManager = nil;
         }
+    }
+}
+
+extension AppDelegate {
+    
+    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+        if application.applicationState == UIApplicationState.Active {
+            if let info = notification.userInfo as? Dictionary<String, Int> {
+                //99 is id of QR scanner notifications
+                if info["ID"] == 99 {
+                    var title: String? = nil
+                    if #available(iOS 8.2, *) {
+                        title = notification.alertTitle
+                    }
+                    let message = notification.alertBody
+                    let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+                    let acknowledgeActionTitle = NSLocalizedString("LOCAL_NOTIFICATION_SCANNED_CHECK_IN_ALERT_ACTION_TITLE_ACKNOWLEDGE", comment: "Title for action which dismisses alert displayed for a scanned station check-in upload.")
+                    let acknowledgeAction = UIAlertAction(title: acknowledgeActionTitle, style: .Default, handler: nil)
+                        alertController.addAction(acknowledgeAction)
+    
+                    self.window?.rootViewController?.presentViewController(alertController, animated: true, completion: nil)
+                }
+            }
+        }
+    }
+}
+
+extension AppDelegate {
+        
+    func application(application: UIApplication, continueUserActivity userActivity: NSUserActivity, restorationHandler: ([AnyObject]?) -> Void) -> Bool {
+        var didContinueActivity = false;
+        if userActivity.activityType == NSUserActivityTypeBrowsingWeb {
+            if let webpageURL = userActivity.webpageURL {
+                if UniversalLink.canHandleURL(webpageURL) {
+                    if SessionData.Instance.user != nil {
+                        UniversalLink.handleURL(webpageURL);
+                    }
+                    didContinueActivity = true;
+                } else {
+                    application.openURL(webpageURL);
+                }
+            }
+        }
+        return didContinueActivity;
     }
 }
 

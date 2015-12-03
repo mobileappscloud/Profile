@@ -91,11 +91,11 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     }
     
     override func viewWillDisappear(animated: Bool) {
-        let revealController = (self.navigationController as! MainNavigationController).revealController;
-        revealController.supportedOrientations = previousSupportedOrientations;
-        self.navigationController!.navigationBarHidden = false;
+        let revealController = (self.navigationController as? MainNavigationController)?.revealController;
+        revealController?.supportedOrientations = previousSupportedOrientations;
+        self.navigationController?.navigationBarHidden = false;
         UIDevice.currentDevice().setValue(previousActualOrientation.rawValue, forKey: "orientation");
-        revealController.shouldRotate = previousShouldRotate;
+        revealController?.shouldRotate = previousShouldRotate;
         super.viewWillDisappear(animated);
     }
     
@@ -649,5 +649,13 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         for row in titleRows {
             row.frame.size.width = scrollView.frame.size.width - row.frame.origin.x;
         }
+    }
+}
+
+extension DailySummaryViewController: UniversalLinkHandler {
+    
+    func handleUniversalLink(URL: NSURL, pathType: PathType, parameters: [String]?) {
+        Utility.mainNavigationController()?.drawerController.navController?.popToRootViewControllerAnimated(false)
+        Utility.mainNavigationController()?.drawerController.navController?.pushViewController(DailySummaryViewController(nibName: "DailySummaryView", bundle: nil), animated: false)
     }
 }

@@ -24,11 +24,11 @@ class BaseViewController: UIViewController, SWRevealViewControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad();
-        revealController = (self.navigationController as! MainNavigationController).revealController;
-        revealController.shouldRotate = false;
-        revealController.supportedOrientations = UIInterfaceOrientationMask.Portrait;
+        revealController = (self.navigationController as? MainNavigationController)?.revealController
+        revealController?.shouldRotate = false;
+        revealController?.supportedOrientations = UIInterfaceOrientationMask.Portrait;
         self.view.addSubview(fakeNavBar);
-        self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()];
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()];
         self.fakeNavBar.backgroundColor = UIColor.whiteColor();
         self.fakeNavBar.alpha = 0;
         self.fakeNavBar.userInteractionEnabled = false;
@@ -48,8 +48,8 @@ class BaseViewController: UIViewController, SWRevealViewControllerDelegate {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
-        revealController.panGestureRecognizer().enabled = true;
-        revealController.delegate = self;
+        revealController?.panGestureRecognizer().enabled = true;
+        revealController?.delegate = self;
         if (shouldShowDailyPoints) {
             initDailyPoints();
         }
