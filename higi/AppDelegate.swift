@@ -32,10 +32,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if (UIApplication.instancesRespondToSelector(Selector("registerUserNotificationSettings:"))) {
             application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [UIUserNotificationType.Sound, UIUserNotificationType.Alert, UIUserNotificationType.Badge], categories: nil));
         }
-                
+        
+        if HealthKitManager.isHealthDataAvailable() && PersistentSettingsController.boolForKey(.DidShowActivityTrackerAuthorizationRequest) {
+            HealthKitManager.checkReadAuthorizationForStepData({ (isAuthorized) in
+                if isAuthorized {
+                    HealthKitManager.enableBackgroundUpdates()
+                } else {
+                    HealthKitManager.disableBackgroundUpdates()
+                }
+            })
+        }
+        
         return true
     }
-
 
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
         if application.applicationState == UIApplicationState.Active {
@@ -75,15 +84,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        if HealthKitManager.isHealthDataAvailable()  && PersistentSettingsController.boolForKey(.DidShowActivityTrackerAuthorizationRequest) {
-            HealthKitManager.hasReadAccessToStepData({ (isAuthorized) in
-                if isAuthorized {
-                    HealthKitManager.enableBackgroundUpdates()
-                } else {
-                    HealthKitManager.disableBackgroundUpdates()
-                }
-            })
-        }
     }
 
     func applicationWillTerminate(application: UIApplication) {
