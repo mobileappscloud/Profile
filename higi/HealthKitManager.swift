@@ -38,8 +38,6 @@ internal class HealthKitManager {
     private var stepObserverQuery: HKObserverQuery = {
         let sampleType = HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierStepCount)!
         let observerQuery = HKObserverQuery(sampleType: sampleType, predicate: nil, updateHandler: { (observerQuery, completionHandler, error) in
-
-            DebugNotification.notification("Begin update handler with refresh status - \(UIApplication.sharedApplication().backgroundRefreshStatus)")
             
             if (error != nil) {
                 completionHandler()
@@ -68,7 +66,8 @@ internal class HealthKitManager {
     /**
      Identifies the device as a source for HealthKit data.
      
-     - parameter completion: Block to execute upon completion.
+     - parameter completion: Block to execute upon completion. The block will be passed the following parameters:
+     - parameter source:     HealthKit source for the current device.
      */
     private func currentSource(completion: (source: HKSource?) -> Void) {
         let sampleType = HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierStepCount)!
@@ -100,12 +99,30 @@ internal class HealthKitManager {
     }
     
     /**
+     Check if the prompt to connect the branded activity tracker has been displayed.
+     
+     - returns: 'true' if the prompt to connect the branded activity tracker has been displayed, otherwise `false`.
+     */
+    internal class func didAskToConnectActivityTracker() -> Bool {
+        return PersistentSettingsController.boolForKey(.DidAskToConnectActivityTracker)
+    }
+    
+    /**
+     Update value which determines if the prompt to connect the branded activity tracker has been displayed.
+     
+     - parameter didAsk: Boolean indicating if the user has been asked to connect an activity tracker.
+     */
+    internal class func didAskToConnectActivityTracker(didAsk: Bool) {
+        PersistentSettingsController.setBool(didAsk, key: .DidAskToConnectActivityTracker)
+    }
+    
+    /**
      Whether or not the app should show the system-provided HealthKit authorization modal.
      
      - returns: `true` if the app has not displayed the authorization modal yet, otherwise `false`.
      */
-    internal class func shouldShowAuthorizationModal() -> Bool {
-        return !PersistentSettingsController.boolForKey(.DidShowActivityTrackerAuthorizationRequest)
+    internal class func didShowAuthorizationModal() -> Bool {
+        return PersistentSettingsController.boolForKey(.DidShowActivityTrackerAuthorizationRequest)
     }
 }
 
@@ -116,7 +133,7 @@ internal extension HealthKitManager {
      
      __Note:__ The system-provided authorization modal can only be shown to the user once. Thus, the modal is only displayed the first time authorization is requested.
      
-     - parameter completion: Block to execute upon completion.
+     - parameter completion: Block to execute upon completion. The block will be passed the following parameters:
      - parameter didRespond: Returns `true` if the user responded to the authorization modal, otherwise `false`.
      - parameter error:      Object representing an error encountered during execution.
      */
@@ -137,7 +154,7 @@ internal extension HealthKitManager {
     /**
      Checks if the app currently has read-access to step data within the health store.
      
-     - parameter completion: Block to execute upon completion.
+     - parameter completion: Block to execute upon completion. The block will be passed the following parameters:
      - parameter isAuthorized: Returns `true` if the app currently has read-access to step data within the health store, otherwise `false`.
      */
     internal class func checkReadAuthorizationForStepData(completion: ((isAuthorized: Bool) -> Void)!) {
@@ -158,7 +175,7 @@ internal extension HealthKitManager {
     /**
      Sync step data from the device's health store with the API.
      
-     - parameter syncCompletionHandler: Block to execute upon completion.
+     - parameter syncCompletionHandler: Block to execute upon completion. The block will be passed the following parameters:
      - parameter success:               Returns `true` if the function completed without issue, otherwise `false`.
                                         __Note:__ Success does not necessarily mean data was sent to the server. For example, if the sync interval has not been reached, this function will return `true` because the function completed without issue.
      - parameter error:                 Object representing an error encountered during execution.
@@ -232,7 +249,7 @@ internal extension HealthKitManager {
      
      - parameter startDate:  Date to start sampling step data.
      - parameter endDate:    Date to end sampling step data.
-     - parameter completion: Block to execute upon completion.
+     - parameter completion: Block to execute upon completion. The block will be passed the following parameters:
      - parameter statistics: Array of HKStatistics matching the input parameters.
      - parameter error:      Object representing an error encountered during execution.
      */

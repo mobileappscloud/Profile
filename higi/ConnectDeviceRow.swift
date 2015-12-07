@@ -27,7 +27,7 @@ class ConnectDeviceRow: UITableViewCell, UIAlertViewDelegate {
     func connectDevice() {
         // TODO: Don't switch on hardcoded device name
         if device.name == "higi" {
-            if !PersistentSettingsController.boolForKey(.DidShowActivityTrackerAuthorizationRequest) {
+            if !HealthKitManager.didShowAuthorizationModal() {
                 HealthKitManager.requestReadAccessToStepData( { (didRespond, error) in
                     if didRespond {
                         HealthKitManager.checkReadAuthorizationForStepData({ [weak self] (isAuthorized) in

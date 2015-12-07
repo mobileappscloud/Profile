@@ -104,10 +104,10 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             return
         }
 
-        if !PersistentSettingsController.boolForKey(.DidAskToConnectActivityTracker) {
+        if !HealthKitManager.didAskToConnectActivityTracker() {
             let alert = self.activityTrackerAuthorizationAlert()
             self.presentViewController(alert, animated: true, completion: {
-                PersistentSettingsController.setBool(true, key: .DidAskToConnectActivityTracker)
+                HealthKitManager.didAskToConnectActivityTracker(true)
             })
         }
     }
