@@ -84,7 +84,7 @@ class SessionData {
             if let savedUserId = savedDictionary["userId"] as? NSString {
                 user.userId = savedUserId;
             } else {
-                user.userId = KeychainWrapper.objectForKey("userId") as! NSString;
+                user.userId = KeychainWrapper.objectForKey("userId") as? NSString;
             }
             
             seenDashboard = (savedDictionary["seenDashboard"] ?? false) as! Bool;

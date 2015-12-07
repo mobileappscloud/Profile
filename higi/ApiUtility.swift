@@ -123,6 +123,46 @@ class ApiUtility {
         });
     }
     
+    class func requestLastStepActivitySyncDate(completion: (success: Bool, syncDate: NSDate?) -> Void) {
+
+        let userId = SessionData.Instance.user.userId;
+        let URLString = "\(HigiApi.earnditApiUrl)/user/\(userId)/activities?device=higi&type=step&limit=1"
+        
+        HigiApi().sendGet(URLString, success: {operation, responseObject in
+            
+            let serverActivities = ((responseObject as! NSDictionary)["response"] as! NSDictionary)["data"] as! NSArray;
+            var activity: HigiActivity? = nil
+            for serverActivity: AnyObject in serverActivities {
+                activity = HigiActivity(dictionary: serverActivity as! NSDictionary);
+                break;
+            }
+            
+            var syncDate: NSDate? = nil
+            if let UTCDate = activity?.updateDate {
+                let offset: NSTimeInterval = Double(NSTimeZone.localTimeZone().secondsFromGMTForDate(UTCDate))
+                syncDate = UTCDate.dateByAddingTimeInterval(offset)
+            }
+            
+            completion(success: true, syncDate: syncDate)
+            
+            }, failure: { operation, error in
+                completion(success: false, syncDate: nil)
+        })
+    }
+    
+    class func uploadStepActivities(activities: NSDictionary, success: (() -> Void)?, failure: ((error: NSError?) -> Void)?) {
+        let URLString = "\(HigiApi.earnditApiUrl)/higiStep"
+        HigiApi().sendPost(URLString, parameters: activities, success: { (operation, responseObject) in
+            
+//            NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.ACTIVITIES, object: nil, userInfo: ["success": false]);
+            self.retrieveActivities(success)
+//            success?()
+            
+            }, failure: { (operation, error) in
+                failure?(error: error)
+        })
+    }
+    
     class func retrieveActivities(success: (() -> Void)?) {
         SessionData.Instance.lastUpdate = NSDate();
         let userId = SessionData.Instance.user.userId;
@@ -421,38 +461,38 @@ class ApiUtility {
     }
     */
     
-    class func saveData(startDate: NSDate) {
-        
-        var bpSamples: [HKSample] = [];
-        var pulseSamples: [HKSample] = [];
-        var bmiSamples: [HKSample] = [];
-        var weightSamples: [HKSample] = [];
-        
-        for checkin: HigiCheckin in SessionController.Instance.checkins {
-            if (checkin.dateTime.compare(startDate) != .OrderedDescending) {
-                continue;
-            }
-            if (checkin.systolic != nil) {
-                let systolic = HKQuantitySample(type: HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBloodPressureSystolic)!, quantity: HKQuantity(unit: HKUnit.millimeterOfMercuryUnit(), doubleValue: Double(checkin.systolic!)), startDate: checkin.dateTime, endDate: checkin.dateTime);
-                let diastolic = HKQuantitySample(type: HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBloodPressureDiastolic)!, quantity: HKQuantity(unit: HKUnit.millimeterOfMercuryUnit(), doubleValue: Double(checkin.diastolic!)), startDate: checkin.dateTime, endDate: checkin.dateTime);
-                let bpSet = NSSet(objects: systolic, diastolic);
-                bpSamples.append(HKCorrelation(type: HKObjectType.correlationTypeForIdentifier(HKCorrelationTypeIdentifierBloodPressure)!,
-                    startDate: checkin.dateTime, endDate: checkin.dateTime, objects: bpSet as! Set<HKSample>));
-                pulseSamples.append(HKQuantitySample(type: HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate)!, quantity: HKQuantity(unit: HKUnit.countUnit().unitDividedByUnit(HKUnit.minuteUnit()), doubleValue: Double(checkin.pulseBpm!)), startDate: checkin.dateTime, endDate: checkin.dateTime));
-            }
-            
-            if (checkin.bmi != nil) {
-                weightSamples.append(HKQuantitySample(type: HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBodyMass)!, quantity: HKQuantity(unit: HKUnit.poundUnit(), doubleValue: checkin.weightLbs!), startDate: checkin.dateTime, endDate: checkin.dateTime));
-                bmiSamples.append(HKQuantitySample(type: HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBodyMassIndex)!, quantity: HKQuantity(unit: HKUnit(fromString: ""), doubleValue: checkin.bmi!), startDate: checkin.dateTime, endDate: checkin.dateTime));
-            }
-        }
-        
-        let healthStore = SessionController.Instance.healthStore;
-        healthStore.saveObjects(bpSamples, withCompletion: {(completed, error) in });
-        healthStore.saveObjects(pulseSamples, withCompletion: {(completed, error) in });
-        healthStore.saveObjects(weightSamples, withCompletion: {(completed, error) in });
-        healthStore.saveObjects(bmiSamples, withCompletion: {(completed, error) in });
-    }
+//    class func saveData(startDate: NSDate) {
+//        
+//        var bpSamples: [HKSample] = [];
+//        var pulseSamples: [HKSample] = [];
+//        var bmiSamples: [HKSample] = [];
+//        var weightSamples: [HKSample] = [];
+//        
+//        for checkin: HigiCheckin in SessionController.Instance.checkins {
+//            if (checkin.dateTime.compare(startDate) != .OrderedDescending) {
+//                continue;
+//            }
+//            if (checkin.systolic != nil) {
+//                let systolic = HKQuantitySample(type: HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBloodPressureSystolic)!, quantity: HKQuantity(unit: HKUnit.millimeterOfMercuryUnit(), doubleValue: Double(checkin.systolic!)), startDate: checkin.dateTime, endDate: checkin.dateTime);
+//                let diastolic = HKQuantitySample(type: HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBloodPressureDiastolic)!, quantity: HKQuantity(unit: HKUnit.millimeterOfMercuryUnit(), doubleValue: Double(checkin.diastolic!)), startDate: checkin.dateTime, endDate: checkin.dateTime);
+//                let bpSet = NSSet(objects: systolic, diastolic);
+//                bpSamples.append(HKCorrelation(type: HKObjectType.correlationTypeForIdentifier(HKCorrelationTypeIdentifierBloodPressure)!,
+//                    startDate: checkin.dateTime, endDate: checkin.dateTime, objects: bpSet as! Set<HKSample>));
+//                pulseSamples.append(HKQuantitySample(type: HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate)!, quantity: HKQuantity(unit: HKUnit.countUnit().unitDividedByUnit(HKUnit.minuteUnit()), doubleValue: Double(checkin.pulseBpm!)), startDate: checkin.dateTime, endDate: checkin.dateTime));
+//            }
+//            
+//            if (checkin.bmi != nil) {
+//                weightSamples.append(HKQuantitySample(type: HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBodyMass)!, quantity: HKQuantity(unit: HKUnit.poundUnit(), doubleValue: checkin.weightLbs!), startDate: checkin.dateTime, endDate: checkin.dateTime));
+//                bmiSamples.append(HKQuantitySample(type: HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBodyMassIndex)!, quantity: HKQuantity(unit: HKUnit(fromString: ""), doubleValue: checkin.bmi!), startDate: checkin.dateTime, endDate: checkin.dateTime));
+//            }
+//        }
+//        
+//        let healthStore = SessionController.Instance.healthStore;
+//        healthStore.saveObjects(bpSamples, withCompletion: {(completed, error) in });
+//        healthStore.saveObjects(pulseSamples, withCompletion: {(completed, error) in });
+//        healthStore.saveObjects(weightSamples, withCompletion: {(completed, error) in });
+//        healthStore.saveObjects(bmiSamples, withCompletion: {(completed, error) in });
+//    }
     
 //    class func dataTypesToWrite() -> NSSet {
 //        return NSSet(array: [

@@ -10,7 +10,8 @@ import Foundation
 
 class ActivityDevice {
     
-    var name, description, url, connectUrl, partnerHomepage, iconUrl, colorCode, disconnectUrl: NSString!;
+    var name, description: NSString!;
+    var url, connectUrl, partnerHomepage, iconUrl, colorCode, disconnectUrl, imageName: NSString?;
     
     var connected: Bool!;
     
@@ -28,4 +29,10 @@ class ActivityDevice {
         disconnectUrl = userRelation["disconnectUrl"] as? NSString;
     }
     
+    init(name: NSString, description: NSString, imageName: NSString, connected: Bool) {
+        self.name = name
+        self.description = description
+        self.imageName = imageName
+        self.connected = connected
+    }
 }

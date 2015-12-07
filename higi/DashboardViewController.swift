@@ -95,6 +95,21 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             addQrCheckinView();
             layoutDashboardItems(false);
         }
+        
+        self.askToConnectActivityTracker()
+    }
+    
+    private func askToConnectActivityTracker() {
+        if !HealthKitManager.isHealthDataAvailable() {
+            return
+        }
+
+        if !HealthKitManager.didAskToConnectActivityTracker() {
+            let alert = self.activityTrackerAuthorizationAlert()
+            self.presentViewController(alert, animated: true, completion: {
+                HealthKitManager.didAskToConnectActivityTracker(true)
+            })
+        }
     }
     
     private func addQrCheckinView() {
@@ -788,5 +803,47 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self);
+    }
+}
+
+extension DashboardViewController {
+
+    private func activityTrackerAuthorizationAlert() -> UIAlertController {
+        let alertTitle = NSLocalizedString("DASHBOARD_VIEW_BRANDED_ACTIVITY_TRACKER_CONNECT_DEVICE_ALERT_TITLE", comment: "Title for alert displayed when asking user to connect the branded activity tracker which leverages data from current device.")
+        let alertMessage = NSLocalizedString("DASHBOARD_VIEW_BRANDED_ACTIVITY_TRACKER_CONNECT_DEVICE_ALERT_MESSAGE", comment: "Message for alert displayed when asking user to connect the branded activity tracker which leverages data from current device.")
+        let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .Alert)
+        let connectActionTitle = NSLocalizedString("DASHBOARD_VIEW_BRANDED_ACTIVITY_TRACKER_CONNECT_DEVICE_ALERT_ACTION_CONNECT_TITLE", comment: "Title for alert action to connect a branded activity tracker which leverages data from current device.")
+        let connectAction = UIAlertAction(title: connectActionTitle, style: .Default, handler: { action in
+            HealthKitManager.requestReadAccessToStepData( { (didRespond, error) in
+                if didRespond {
+                    HealthKitManager.checkReadAuthorizationForStepData({ (isAuthorized) in
+                        if isAuthorized {
+                            HealthKitManager.enableBackgroundUpdates()
+                        } else {
+                            HealthKitManager.disableBackgroundUpdates()
+                        }
+                    })
+                }
+            })
+        })
+        alert.addAction(connectAction)
+        let dismissActionTitle = NSLocalizedString("DASHBOARD_VIEW_BRANDED_ACTIVITY_TRACKER_CONNECT_DEVICE_ALERT_ACTION_DISMISS_TITLE", comment: "Title for action to dismiss alert displayed when asking user to connect the branded activity tracker which leverages data from current device.")
+        let dismissAction = UIAlertAction(title: dismissActionTitle, style: .Cancel, handler: { [weak self] action in
+            if let alert = self?.activityTrackerAuthorizationDismissAlert() {
+                self?.presentViewController(alert, animated: true, completion: nil)
+            }
+            })
+        alert.addAction(dismissAction)
+        return alert
+    }
+    
+    private func activityTrackerAuthorizationDismissAlert() -> UIAlertController {
+        let alertTitle = NSLocalizedString("DASHBOARD_VIEW_BRANDED_ACTIVITY_TRACKER_CONNECT_DEVICE_DISMISSED_ALERT_TITLE", comment: "Title for alert displayed when a user dismisses the alert to connect a branded activity tracker.")
+        let alertMessage = NSLocalizedString("DASHBOARD_VIEW_BRANDED_ACTIVITY_TRACKER_CONNECT_DEVICE_DISMISSED_ALERT_MESSAGE", comment: "Message for alert displayed when a user dismisses the alert to connect a branded activity tracker.")
+        let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .Alert)
+        let acknowledgeActionTitle = NSLocalizedString("DASHBOARD_VIEW_BRANDED_ACTIVITY_TRACKER_CONNECT_DEVICE_DISMISSED_ALERT_ACTION_OK_TITLE", comment: "Title for action to acknowledge/dismiss the alert.")
+        let connectAction = UIAlertAction(title: acknowledgeActionTitle, style: .Default, handler: nil)
+        alert.addAction(connectAction)
+        return alert
     }
 }

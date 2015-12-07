@@ -12,8 +12,10 @@ public enum PersistentSetting: String {
     case Unknown
     case EnableNotifications = "GlobalNotificationSettingKey"
     case StationNearbyNotification = "StationNearbyNotificationSettingKey"
+    case DidAskToConnectActivityTracker = "DidAskToConnectActivityTrackerKey"
+    case DidShowActivityTrackerAuthorizationRequest = "DidShowActivityTrackerAuthorizationRequestKey"
     
-    static let allValues = [EnableNotifications, StationNearbyNotification];
+    static let allValues = [EnableNotifications, StationNearbyNotification, DidShowActivityTrackerAuthorizationRequest];
 }
 
 public class PersistentSettingsController {
@@ -29,11 +31,19 @@ public class PersistentSettingsController {
     }
     
     private func initializeDefaultValues() {
-        let boolSettings: [PersistentSetting] = [.EnableNotifications, .StationNearbyNotification];
-        for setting in boolSettings {
-            let key = setting.rawValue;
+        let trueSettings: [PersistentSetting] = [.EnableNotifications, .StationNearbyNotification];
+        initializeDefaultValues(trueSettings, boolValue: true);
+        
+        let falseSettings: [PersistentSetting] = [.DidAskToConnectActivityTracker, .DidShowActivityTrackerAuthorizationRequest];
+        initializeDefaultValues(falseSettings, boolValue: false);
+    }
+    
+    private func initializeDefaultValues(boolKeyTypes: [PersistentSetting], boolValue: Bool) {
+        let boolKeyTypes: [PersistentSetting] = [.EnableNotifications, .StationNearbyNotification];
+        for keyType in boolKeyTypes {
+            let key = keyType.rawValue;
             if persistentStore.objectForKey(key) == nil {
-                persistentStore.setBool(true, forKey: key);
+                persistentStore.setBool(boolValue, forKey: key);
             }
         }
     }

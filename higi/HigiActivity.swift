@@ -18,6 +18,8 @@ class HigiActivity {
     
     var startTime: NSDate!, utcStartTime: NSDate!;
     
+    var updateDate: NSDate?;
+    
     var distance: Double!, offset: Double = 0.0;
     
     var healthChecks: [String] = [];
@@ -65,6 +67,8 @@ class HigiActivity {
         let dateString = dictionary["startTime"] as! String;
         var time = formatter.dateFromString(dateString);
         startTime = formatter.dateFromString(dictionary["startTime"] as! String);
+        let updatedTimeString = dictionary["updatedUTC"] as! String;
+        updateDate = formatter.dateFromString(updatedTimeString)
         if let serverOffset = dictionary["timezoneOffset"] as? String {
             if let timezoneOffset = Int(serverOffset) {
                 if timezoneOffset != 0 {

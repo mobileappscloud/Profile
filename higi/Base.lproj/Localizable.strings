@@ -49,6 +49,12 @@
 /* Title for blood pressure within a normal range. */
 "BLOOD_PRESSURE_RANGE_NORMAL_TITLE" = "Normal";
 
+/* Description for branded activity tracker which leverages HealthKit data. */
+"BRANDED_ACTIVITY_DEVICE_DESCRIPTION" = "Track your steps without a separate fitness device. The higi app now includes an activity tracker. Simply keep your phone with you and get rewarded for all your steps throughout the day.";
+
+/* Name for branded activity tracker which leverages HealthKit data. */
+"BRANDED_ACTIVITY_DEVICE_NAME" = "higi";
+
 /* Text label for challenge detail participant icon units. */
 "CHALLENGE_DETAILS_PARTICIPANT_ICON_LABEL_UNITS" = "Individuals";
 
@@ -268,6 +274,24 @@
 /* Placeholder text to display in chatter input text field. */
 "CHATTER_INPUT_VIEW_TEXT_INPUT_PLACEHOLDER" = "Talk some smack!";
 
+/* Title for alert action to acknowledge alert displayed when user toggles switch to connect branded activity tracker (HealthKit) ON. */
+"CONNECT_DEVICE_ROW_CONNECT_HEALTHKIT_ALERT_ACTION_ACKNOWLEDGE_ACTION" = "Got it";
+
+/* Message for alert displayed when user toggles switch to connect branded activity tracker (HealthKit) ON. */
+"CONNECT_DEVICE_ROW_CONNECT_HEALTHKIT_ALERT_MESSAGE" = "Unfortunately, you have to connect the higi tracker in your Settings app. Once enabled, the higi app will start tracking and rewarding you for all that activity you are doing!";
+
+/* Title for alert displayed when user toggles switch to connect branded activity tracker (HealthKit) ON. */
+"CONNECT_DEVICE_ROW_CONNECT_HEALTHKIT_ALERT_TITLE" = "Connect higi activity tracker?";
+
+/* Title for alert action to acknowledge alert displayed when user toggles switch to connect branded activity tracker (HealthKit) OFF. */
+"CONNECT_DEVICE_ROW_DISCONNECT_HEALTHKIT_ALERT_ACTION_ACKNOWLEDGE_ACTION" = "Got it";
+
+/* Message for alert displayed when user toggles switch to connect branded activity tracker (HealthKit) OFF. */
+"CONNECT_DEVICE_ROW_DISCONNECT_HEALTHKIT_ALERT_MESSAGE" = "Unfortunately, you have to disconnect the higi tracker in your Settings app. Once disabled, the higi app will stop tracking your activity.";
+
+/* Title for alert displayed when user toggles switch to connect branded activity tracker (HealthKit) OFF. */
+"CONNECT_DEVICE_ROW_DISCONNECT_HEALTHKIT_ALERT_TITLE" = "Disconnect higi activity tracker?";
+
 /* Title for alert action to decline disconnecting a device from a higi Profile. */
 "CONNECT_DEVICE_ROW_REMOVE_DEVICE_ALERT_ACTION_TITLE_NO" = "No";
 
@@ -316,6 +340,9 @@
 /* Alternate descriptive text for activity tracker; displayed on the Daily Summary view blank state. */
 "DAILY_SUMMARY_VIEW_BLANK_STATE_ACTIVITY_TRACKER_ALTERNATE_TEXT" = "Wanna get rewarded for biking to work or running on the treadmill at the gym? Just connect your favorite activity tracker and start earning points today. \n";
 
+/* Title for branded activity tracker; displayed on the Daily Summary view blank state. */
+"DAILY_SUMMARY_VIEW_BLANK_STATE_ACTIVITY_TRACKER_BRANDED_TITLE" = "higi";
+
 /* Default descriptive text for activity tracker; displayed on the Daily Summary view blank state. */
 "DAILY_SUMMARY_VIEW_BLANK_STATE_ACTIVITY_TRACKER_DEFAULT_TEXT" = "Higi makes it fun and rewarding to track your steps. Simply connect your favorite activity tracker and start getting rewarded for your jogs around the block. \n";
 
@@ -327,6 +354,9 @@
 
 /* Title for call-to-action to connect a device; displayed in the Daily Summary blank-state view. */
 "DAILY_SUMMARY_VIEW_BLANK_STATE_CALL_TO_ACTION_CONNECT_DEVICE" = "Connect a device";
+
+/* Title for call-to-action to connect a branded device; displayed in the Daily Summary blank-state view. */
+"DAILY_SUMMARY_VIEW_BLANK_STATE_CALL_TO_ACTION_CONNECT_DEVICE_BRANDED" = "Connect higi";
 
 /* Title for call-to-action to find a higi station; displayed in the Daily Summary blank-state view. */
 "DAILY_SUMMARY_VIEW_BLANK_STATE_CALL_TO_ACTION_FIND_STATION" = "Find a station";
@@ -357,6 +387,27 @@
 
 /* Title for Daily Summary view. */
 "DAILY_SUMMARY_VIEW_TITLE" = "Daily Summary";
+
+/* Title for alert action to connect a branded activity tracker which leverages data from current device. */
+"DASHBOARD_VIEW_BRANDED_ACTIVITY_TRACKER_CONNECT_DEVICE_ALERT_ACTION_CONNECT_TITLE" = "Connect";
+
+/* Title for action to dismiss alert displayed when asking user to connect the branded activity tracker which leverages data from current device. */
+"DASHBOARD_VIEW_BRANDED_ACTIVITY_TRACKER_CONNECT_DEVICE_ALERT_ACTION_DISMISS_TITLE" = "Not Now";
+
+/* Message for alert displayed when asking user to connect the branded activity tracker which leverages data from current device. */
+"DASHBOARD_VIEW_BRANDED_ACTIVITY_TRACKER_CONNECT_DEVICE_ALERT_MESSAGE" = "higi will use sensors from inside your phone to track your steps. Once allowed, we can start rewarding you for your steps activity!";
+
+/* Title for alert displayed when asking user to connect the branded activity tracker which leverages data from current device. */
+"DASHBOARD_VIEW_BRANDED_ACTIVITY_TRACKER_CONNECT_DEVICE_ALERT_TITLE" = "Start tracking your activity";
+
+/* Title for action to acknowledge/dismiss the alert. */
+"DASHBOARD_VIEW_BRANDED_ACTIVITY_TRACKER_CONNECT_DEVICE_DISMISSED_ALERT_ACTION_OK_TITLE" = "Got it";
+
+/* Message for alert displayed when a user dismisses the alert to connect a branded activity tracker. */
+"DASHBOARD_VIEW_BRANDED_ACTIVITY_TRACKER_CONNECT_DEVICE_DISMISSED_ALERT_MESSAGE" = "If you want to start tracking your activity with the higi app in the future, just head over to the Settings app and allow higi to track your activity.";
+
+/* Title for alert displayed when a user dismisses the alert to connect a branded activity tracker. */
+"DASHBOARD_VIEW_BRANDED_ACTIVITY_TRACKER_CONNECT_DEVICE_DISMISSED_ALERT_TITLE" = "Not now? Maybe later.";
 
 /* Title for challenges card displayed on Dashboard view. */
 "DASHBOARD_VIEW_CARD_CHALLENGES_TITLE" = "Active Challenges";
@@ -543,6 +594,9 @@
 
 /* Title for weight metrics */
 "METRIC_TYPE_WEIGHT_TITLE" = "Weight";
+
+/* Title to display on button to connect a branded activity device. */
+"METRICS_CARD_VIEW_CONNECT_DEVICE_BRANDED_BUTTON_TITLE" = "Connect higi";
 
 /* Title to display on button to connect a device. */
 "METRICS_CARD_VIEW_CONNECT_DEVICE_BUTTON_TITLE" = "Connect a device";

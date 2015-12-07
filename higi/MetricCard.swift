@@ -172,7 +172,13 @@ class MetricCard: UIView, MetricDelegate {
         deviceImage.frame.origin.y = kioskImage.frame.origin.y + ((kioskImage.frame.size.height - newHeight) / 2);
         
         deviceButton = UIButton(frame: CGRect(x: ((screenWidth * 3 / 2) - buttonWidth) / 2, y: kioskImage.frame.origin.y + kioskImage.frame.size.height + buttonMargin, width: buttonWidth, height: buttonHeight));
-        deviceButton.setTitle(NSLocalizedString("METRICS_CARD_VIEW_CONNECT_DEVICE_BUTTON_TITLE", comment: "Title to display on button to connect a device."), forState: UIControlState.Normal);
+        let deviceButtonTitle: String
+        if HealthKitManager.isHealthDataAvailable() {
+            deviceButtonTitle = NSLocalizedString("METRICS_CARD_VIEW_CONNECT_DEVICE_BRANDED_BUTTON_TITLE", comment: "Title to display on button to connect a branded activity device.")            
+        } else {
+            deviceButtonTitle = NSLocalizedString("METRICS_CARD_VIEW_CONNECT_DEVICE_BUTTON_TITLE", comment: "Title to display on button to connect a device.")
+        }
+        deviceButton.setTitle(deviceButtonTitle, forState: UIControlState.Normal);
         deviceButton.addTarget(self, action: "connectDeviceButtonClicked:", forControlEvents: UIControlEvents.TouchUpInside);
         deviceButton.backgroundColor = Utility.colorFromHexString(Constants.higiGreen);
         deviceButton.layer.cornerRadius = 4;
