@@ -33,6 +33,12 @@
 		2BC5865E1A16D0AF005A7983 /* ChallengeInvitationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC5865D1A16D0AF005A7983 /* ChallengeInvitationView.swift */; };
 		41376C5B1BB452E40094DE7C /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41376C5A1BB452E40094DE7C /* SettingsTableViewController.swift */; };
 		41376C5D1BB459B50094DE7C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41376C5C1BB459B50094DE7C /* SettingsViewController.swift */; };
+		413E19251C10AB2C00146B29 /* UniversalLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413E19241C10AB2C00146B29 /* UniversalLink.swift */; };
+		413E19291C10AB5800146B29 /* UniversalLinkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413E19281C10AB5800146B29 /* UniversalLinkTests.swift */; };
+		413E19321C10B0F400146B29 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 413E19311C10B0F400146B29 /* Fabric.framework */; };
+		413E19341C10B10200146B29 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 413E19331C10B10200146B29 /* Crashlytics.framework */; };
+		413E19361C10B41400146B29 /* higi-qa.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 413E19351C10B41400146B29 /* higi-qa.entitlements */; };
+		413E19391C10B50300146B29 /* higi.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 8FDB4B621A040B8500F57B38 /* higi.entitlements */; };
 		41411BA01BA87E3D0027F5E1 /* NotificationSettingsDeviceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41411B9F1BA87E3D0027F5E1 /* NotificationSettingsDeviceTableViewController.swift */; };
 		41411BA31BA894280027F5E1 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41411BA11BA894280027F5E1 /* SwitchTableViewCell.swift */; };
 		41545BF91BA76CFA00946358 /* NotificationSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41545BF81BA76CFA00946358 /* NotificationSettings.storyboard */; };
@@ -75,8 +81,6 @@
 		41A0BE351BBB110900A314D6 /* libFlurry_7.1.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 41A0BE331BBB110900A314D6 /* libFlurry_7.1.1.a */; };
 		41A0BE371BBB14EA00A314D6 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A0BE361BBB14EA00A314D6 /* KeychainWrapper.swift */; };
 		41A0BE541BBB1CD100A314D6 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 41A0BE4B1BBB194700A314D6 /* libCorePlot-CocoaTouch.a */; };
-		41A0BE811BBB32BB00A314D6 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41A0BE801BBB32BB00A314D6 /* Crashlytics.framework */; };
-		41A0BE851BBB32C800A314D6 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41A0BE841BBB32C800A314D6 /* Fabric.framework */; };
 		41A917FB1BBC744800CCF91E /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41A917FA1BBC744800CCF91E /* GoogleMaps.framework */; };
 		41A917FF1BBC747600CCF91E /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 41A917FE1BBC747600CCF91E /* GoogleMaps.bundle */; };
 		41B2AEDF1BBB377E00BE9EF7 /* MetricGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B2AEDE1BBB377E00BE9EF7 /* MetricGraph.swift */; };
@@ -137,7 +141,6 @@
 		8F3643A219460EB300C0033E /* MetricsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3643A119460EB300C0033E /* MetricsViewController.swift */; };
 		8F3643A519460EB300C0033E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F3643A319460EB300C0033E /* Main.storyboard */; };
 		8F3643A719460EB300C0033E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F3643A619460EB300C0033E /* Images.xcassets */; };
-		8F3643B319460EB300C0033E /* higiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3643B219460EB300C0033E /* higiTests.swift */; };
 		8F524BF8195B829400BFC49D /* CustomFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F524BF7195B829400BFC49D /* CustomFormatter.swift */; };
 		8F5590A019ABE23C00C9B46E /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F55909F19ABE23C00C9B46E /* EventKitUI.framework */; };
 		8F58D98A19C0FE5800C0EC72 /* welcome_01_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F58D98719C0FE5800C0EC72 /* welcome_01_logo.png */; };
@@ -408,6 +411,11 @@
 		32E39E461B756D4200BA50F9 /* Info_qa.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info_qa.plist; sourceTree = "<group>"; };
 		41376C5A1BB452E40094DE7C /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		41376C5C1BB459B50094DE7C /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		413E19241C10AB2C00146B29 /* UniversalLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UniversalLink.swift; sourceTree = "<group>"; };
+		413E19281C10AB5800146B29 /* UniversalLinkTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UniversalLinkTests.swift; sourceTree = "<group>"; };
+		413E19311C10B0F400146B29 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = Vendor/Fabric/iOS/Fabric.framework; sourceTree = "<group>"; };
+		413E19331C10B10200146B29 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = Vendor/Crashlytics/iOS/Crashlytics.framework; sourceTree = "<group>"; };
+		413E19351C10B41400146B29 /* higi-qa.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "higi-qa.entitlements"; sourceTree = "<group>"; };
 		41411B9F1BA87E3D0027F5E1 /* NotificationSettingsDeviceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingsDeviceTableViewController.swift; sourceTree = "<group>"; };
 		41411BA11BA894280027F5E1 /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
 		41545BF81BA76CFA00946358 /* NotificationSettings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NotificationSettings.storyboard; sourceTree = "<group>"; };
@@ -492,8 +500,6 @@
 		41A0BE331BBB110900A314D6 /* libFlurry_7.1.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_7.1.1.a; sourceTree = "<group>"; };
 		41A0BE361BBB14EA00A314D6 /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeychainWrapper.swift; path = Vendor/SwiftKeychainWrapper/SwiftKeychainWrapper/KeychainWrapper.swift; sourceTree = "<group>"; };
 		41A0BE441BBB194600A314D6 /* CorePlot-CocoaTouch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CorePlot-CocoaTouch.xcodeproj"; path = "Vendor/CorePlot/framework/CorePlot-CocoaTouch.xcodeproj"; sourceTree = "<group>"; };
-		41A0BE801BBB32BB00A314D6 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = Vendor/Crashlytics/Crashlytics.framework; sourceTree = "<group>"; };
-		41A0BE841BBB32C800A314D6 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = Vendor/Fabric/Fabric.framework; sourceTree = "<group>"; };
 		41A917FA1BBC744800CCF91E /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = "Vendor/Google-Maps/Frameworks/GoogleMaps.framework"; sourceTree = "<group>"; };
 		41A917FE1BBC747600CCF91E /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = "Vendor/Google-Maps/Frameworks/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle"; sourceTree = "<group>"; };
 		41B2AEDE1BBB377E00BE9EF7 /* MetricGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricGraph.swift; path = higi/MetricGraph.swift; sourceTree = "<group>"; };
@@ -558,7 +564,6 @@
 		8F3643A619460EB300C0033E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		8F3643AC19460EB300C0033E /* higiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = higiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F3643B119460EB300C0033E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8F3643B219460EB300C0033E /* higiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = higiTests.swift; sourceTree = "<group>"; };
 		8F3643BC1946687B00C0033E /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
 		8F524BF7195B829400BFC49D /* CustomFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomFormatter.swift; sourceTree = "<group>"; };
 		8F55909F19ABE23C00C9B46E /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
@@ -795,7 +800,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				41A0BE851BBB32C800A314D6 /* Fabric.framework in Frameworks */,
 				8FEF1B031AA4E8C60036C4FB /* LocalAuthentication.framework in Frameworks */,
 				8FDB4B611A040B8500F57B38 /* HealthKit.framework in Frameworks */,
 				8FD73CB4199025D000BACCB2 /* SystemConfiguration.framework in Frameworks */,
@@ -806,11 +810,12 @@
 				41A0BE351BBB110900A314D6 /* libFlurry_7.1.1.a in Frameworks */,
 				8FD73CAE199025AB00BACCB2 /* libicucore.dylib in Frameworks */,
 				8FD73CAC199023DE00BACCB2 /* libc++.dylib in Frameworks */,
-				41A0BE811BBB32BB00A314D6 /* Crashlytics.framework in Frameworks */,
+				413E19341C10B10200146B29 /* Crashlytics.framework in Frameworks */,
 				8FD73CAA199023D100BACCB2 /* ImageIO.framework in Frameworks */,
 				8FD73CA8199023C800BACCB2 /* GLKit.framework in Frameworks */,
 				8FD73CA6199023C000BACCB2 /* CoreText.framework in Frameworks */,
 				8FD73CA4199023B800BACCB2 /* CoreLocation.framework in Frameworks */,
+				413E19321C10B0F400146B29 /* Fabric.framework in Frameworks */,
 				8FD73CA2199023B000BACCB2 /* CoreData.framework in Frameworks */,
 				8FD73CA0199023A600BACCB2 /* AVFoundation.framework in Frameworks */,
 				41A917FB1BBC744800CCF91E /* GoogleMaps.framework in Frameworks */,
@@ -1109,7 +1114,7 @@
 		41A0BE861BBB32CC00A314D6 /* Fabric */ = {
 			isa = PBXGroup;
 			children = (
-				41A0BE841BBB32C800A314D6 /* Fabric.framework */,
+				413E19311C10B0F400146B29 /* Fabric.framework */,
 			);
 			name = Fabric;
 			sourceTree = "<group>";
@@ -1117,7 +1122,7 @@
 		41A0BE871BBB32D100A314D6 /* Crashlytics */ = {
 			isa = PBXGroup;
 			children = (
-				41A0BE801BBB32BB00A314D6 /* Crashlytics.framework */,
+				413E19331C10B10200146B29 /* Crashlytics.framework */,
 			);
 			name = Crashlytics;
 			sourceTree = "<group>";
@@ -1266,6 +1271,7 @@
 				8F524BF7195B829400BFC49D /* CustomFormatter.swift */,
 				418F195A1BFA52A900EAA820 /* HealthKitManager.swift */,
 				8FE206611B7CF30E00B473B0 /* LocationDelegate.swift */,
+				413E19241C10AB2C00146B29 /* UniversalLink.swift */,
 				8F6D510D1947B2E700F7C769 /* Utility.swift */,
 			);
 			name = Utility;
@@ -1437,6 +1443,7 @@
 			children = (
 				D12780AD1A4A2701002EB56A /* fontawesome-webfont.ttf */,
 				8FDB4B621A040B8500F57B38 /* higi.entitlements */,
+				413E19351C10B41400146B29 /* higi-qa.entitlements */,
 				32E39E451B756D4200BA50F9 /* Info_prod.plist */,
 				32E39E461B756D4200BA50F9 /* Info_qa.plist */,
 			);
@@ -1446,7 +1453,7 @@
 		8F3643AF19460EB300C0033E /* higiTests */ = {
 			isa = PBXGroup;
 			children = (
-				8F3643B219460EB300C0033E /* higiTests.swift */,
+				413E19281C10AB5800146B29 /* UniversalLinkTests.swift */,
 				8F3643B019460EB300C0033E /* Supporting Files */,
 			);
 			path = higiTests;
@@ -2046,6 +2053,7 @@
 				D10D84491AEFF9D200DA3278 /* MetricDetailCardView.xib in Resources */,
 				8F08AFB319895214002EE906 /* higilogo_ocmenu.png in Resources */,
 				8FFB034F19FEA2440036228C /* oc_findastation_active.png in Resources */,
+				413E19391C10B50300146B29 /* higi.entitlements in Resources */,
 				8F1D979C1995554C003B5645 /* ModifyImageView.xib in Resources */,
 				D10E524B1B5048CA0007EF10 /* ui_leaderboards.png in Resources */,
 				D17528801B0F9669006335B4 /* dailysummary_afternoon.png in Resources */,
@@ -2058,6 +2066,7 @@
 				D1036D021B153477003E7239 /* cyclingicon.png in Resources */,
 				2BBDBA571A12AC2C005A6815 /* CompetitiveChallengeView.xib in Resources */,
 				8FA5925D19ABBCEC00622266 /* TourView.xib in Resources */,
+				413E19361C10B41400146B29 /* higi-qa.entitlements in Resources */,
 				41A917FF1BBC747600CCF91E /* GoogleMaps.bundle in Resources */,
 				D17787221A96873500C78F8B /* activechallenges.png in Resources */,
 				8F5E7FC11999674C009067E5 /* KioskListCellView.xib in Resources */,
@@ -2174,7 +2183,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PROJECT_DIR}/Vendor/Fabric/Fabric.framework/run\" 350626045a28b6752782f57d637b6551f017f0ef ff5737324c5b204202fdfd36898aaa1a91d47d49cc57e84fdcf40a3bbdb000d1";
+			shellScript = "\"${PROJECT_DIR}/Vendor/Fabric/iOS/Fabric.framework/run\" 350626045a28b6752782f57d637b6551f017f0ef ff5737324c5b204202fdfd36898aaa1a91d47d49cc57e84fdcf40a3bbdb000d1";
 		};
 		41CAB9AE1BC40F890000772C /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2283,6 +2292,7 @@
 				8FF873F419DF5394002A6341 /* PullRefresh.swift in Sources */,
 				8FEF6F461A6EECD5001EF8A6 /* ChallengesCard.swift in Sources */,
 				8F6266B7197EE42700145EDB /* MainNavigationController.swift in Sources */,
+				413E19251C10AB2C00146B29 /* UniversalLink.swift in Sources */,
 				8FE056E1198FDBFE00C81208 /* PulseHomeViewController.swift in Sources */,
 				8F2B7E53198C3097009DE89A /* DrawerCell.swift in Sources */,
 				41A0BE0C1BBB088500A314D6 /* AFHTTPRequestOperationManager.m in Sources */,
@@ -2342,7 +2352,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F3643B319460EB300C0033E /* higiTests.swift in Sources */,
+				413E19291C10AB5800146B29 /* UniversalLinkTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2443,10 +2453,10 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Vendor/Crashlytics",
-					"$(PROJECT_DIR)/Vendor/Fabric",
 					"$(PROJECT_DIR)/Vendor/Google-Maps",
 					"$(PROJECT_DIR)/Vendor/Google-Maps/Frameworks",
+					"$(PROJECT_DIR)/Vendor/Crashlytics/iOS",
+					"$(PROJECT_DIR)/Vendor/Fabric/iOS",
 				);
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Vendor/CorePlot/framework\"/**";
@@ -2455,7 +2465,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Flurry",
 					"$(PROJECT_DIR)/Vendor/Flurry/Flurry",
 				);
 				OTHER_LDFLAGS = "-all_load";
@@ -2471,9 +2480,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/higi.app/higi";
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
+					"$(PROJECT_DIR)/Vendor/Fabric/iOS",
+					"$(PROJECT_DIR)/Vendor/Crashlytics/iOS",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -2484,6 +2496,7 @@
 				METAL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.higi.main.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 			};
 			name = DebugQA;
@@ -2533,10 +2546,10 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Vendor/Crashlytics",
-					"$(PROJECT_DIR)/Vendor/Fabric",
 					"$(PROJECT_DIR)/Vendor/Google-Maps",
 					"$(PROJECT_DIR)/Vendor/Google-Maps/Frameworks",
+					"$(PROJECT_DIR)/Vendor/Crashlytics/iOS",
+					"$(PROJECT_DIR)/Vendor/Fabric/iOS",
 				);
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Vendor/CorePlot/framework\"/**";
@@ -2545,7 +2558,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Flurry",
 					"$(PROJECT_DIR)/Vendor/Flurry/Flurry",
 				);
 				OTHER_LDFLAGS = "-all_load";
@@ -2561,9 +2573,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/higi.app/higi";
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
+					"$(PROJECT_DIR)/Vendor/Fabric/iOS",
+					"$(PROJECT_DIR)/Vendor/Crashlytics/iOS",
 				);
 				INFOPLIST_FILE = higiTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -2691,10 +2706,10 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Vendor/Crashlytics",
-					"$(PROJECT_DIR)/Vendor/Fabric",
 					"$(PROJECT_DIR)/Vendor/Google-Maps",
 					"$(PROJECT_DIR)/Vendor/Google-Maps/Frameworks",
+					"$(PROJECT_DIR)/Vendor/Crashlytics/iOS",
+					"$(PROJECT_DIR)/Vendor/Fabric/iOS",
 				);
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Vendor/CorePlot/framework\"/**";
@@ -2703,7 +2718,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Flurry",
 					"$(PROJECT_DIR)/Vendor/Flurry/Flurry",
 				);
 				OTHER_LDFLAGS = "-all_load";
@@ -2725,10 +2739,10 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Vendor/Crashlytics",
-					"$(PROJECT_DIR)/Vendor/Fabric",
 					"$(PROJECT_DIR)/Vendor/Google-Maps",
 					"$(PROJECT_DIR)/Vendor/Google-Maps/Frameworks",
+					"$(PROJECT_DIR)/Vendor/Crashlytics/iOS",
+					"$(PROJECT_DIR)/Vendor/Fabric/iOS",
 				);
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Vendor/CorePlot/framework\"/**";
@@ -2737,7 +2751,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Flurry",
 					"$(PROJECT_DIR)/Vendor/Flurry/Flurry",
 				);
 				OTHER_LDFLAGS = "-all_load";
@@ -2753,9 +2766,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/higi.app/higi";
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
+					"$(PROJECT_DIR)/Vendor/Fabric/iOS",
+					"$(PROJECT_DIR)/Vendor/Crashlytics/iOS",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -2766,6 +2782,7 @@
 				METAL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.higi.main.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 			};
 			name = Debug;
@@ -2774,9 +2791,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/higi.app/higi";
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
+					"$(PROJECT_DIR)/Vendor/Fabric/iOS",
+					"$(PROJECT_DIR)/Vendor/Crashlytics/iOS",
 				);
 				INFOPLIST_FILE = higiTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

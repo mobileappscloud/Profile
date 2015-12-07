@@ -161,10 +161,16 @@ class PinCodeViewController: UIViewController, UITextFieldDelegate {
         let title = NSLocalizedString("PIN_CODE_VIEW_PASSCODE_MISMATCH_ALERT_TITLE", comment: "Title for alert displayed if passcode does not match.");
         let message = NSLocalizedString("PIN_CODE_VIEW_PASSCODE_MISMATCH_ALERT_MESSAGE", comment: "Title for alert displayed if passcode does not match.");
         let dismissTitle = NSLocalizedString("PIN_CODE_VIEW_PASSCODE_MISMATCH_ALERT_ACTION_TITLE_DISMISS", comment: "Title for action to dismiss alert displayed if passcode does not match.");
-        UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: dismissTitle).show();
-        self.navigationItem.hidesBackButton = true;
-        pinField.text = "";
-        pinChanged(nil);
+
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        let dismissAction = UIAlertAction(title: dismissTitle, style: .Default, handler: nil)
+        alertController.addAction(dismissAction)
+        
+        self.presentViewController(alertController, animated: true, completion: {
+            self.navigationItem.hidesBackButton = true;
+            self.pinField.text = "";
+            self.pinChanged(nil);
+        })
     }
     
     func closeView() {

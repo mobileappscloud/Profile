@@ -114,9 +114,17 @@ extension WebViewController: WKNavigationDelegate {
                 }
             }
             if (errorMessage != "") {
-                UIAlertView(title: "Error", message: "\(errorMessage)", delegate: self, cancelButtonTitle: "OK").show();
+                let alertController = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .Alert)
+                let dismissAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                alertController.addAction(dismissAction)
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.presentViewController(alertController, animated: true, completion: {
+                        self.goBack(self)
+                    })
+                })
+            } else {
+                goBack(self);
             }
-            goBack(self);
         }
 
         decisionHandler(.Allow)

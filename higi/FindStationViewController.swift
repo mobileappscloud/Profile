@@ -641,8 +641,13 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
                     NSOperationQueue.mainQueue().addOperationWithBlock({
                         let alertTitle = NSLocalizedString("FIND_STATION_VIEW_CHECK_IN_REMINDER_CALENDAR_NOT_FOUND_ALERT_TITLE", comment: "Title of alert displayed when the calendar can not be found.")
                         let alertMessage = NSLocalizedString("FIND_STATION_VIEW_CHECK_IN_REMINDER_CALENDAR_NOT_FOUND_ALERT_MESSAGE", comment: "Message of alert displayed when the calendar can not be found.")
-                        let cancelAction = NSLocalizedString("FIND_STATION_VIEW_CHECK_IN_REMINDER_CALENDAR_NOT_FOUND_ALERT_ACTION_CANCEL_TITLE", comment: "Title of cancel alert action displayed when the calendar can not be found.")
-                        UIAlertView(title: alertTitle, message: alertMessage, delegate: nil, cancelButtonTitle: cancelAction).show();
+                        let cancelActionTitle = NSLocalizedString("FIND_STATION_VIEW_CHECK_IN_REMINDER_CALENDAR_NOT_FOUND_ALERT_ACTION_CANCEL_TITLE", comment: "Title of cancel alert action displayed when the calendar can not be found.")
+                        
+                        let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .Alert)
+                        let cancelAction = UIAlertAction(title: cancelActionTitle, style: .Default, handler: nil)
+                        alertController.addAction(cancelAction)
+                        
+                        self.presentViewController(alertController, animated: true, completion: nil)
                     });
                 }
             } else {
@@ -715,5 +720,13 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self);
+    }
+}
+
+extension FindStationViewController: UniversalLinkHandler {
+    
+    func handleUniversalLink(URL: NSURL, pathType: PathType, parameters: [String]?) {
+        Utility.mainNavigationController()?.drawerController.navController?.popToRootViewControllerAnimated(false)
+        Utility.mainNavigationController()?.drawerController.navController?.pushViewController(FindStationViewController(nibName: "FindStationView", bundle: nil), animated: false)
     }
 }

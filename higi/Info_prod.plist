@@ -42,6 +42,11 @@
 	<string>https://api.higi.com</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <true/>
+    </dict>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string></string>
 	<key>UIAppFonts</key>
@@ -60,16 +65,12 @@
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
+		<string>healthkit</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
 	<key>WebUrl</key>
 	<string>https://higi.com</string>
-    <key>NSAppTransportSecurity</key>
-    <dict>
-        <key>NSAllowsArbitraryLoads</key>
-        <true/>
-    </dict>
 	<key>AppUpdateURL</key>
 	<string>https://itunes.apple.com/us/app/higi/id599485135?mt=8</string>
 </dict>

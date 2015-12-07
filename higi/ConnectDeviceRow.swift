@@ -1,6 +1,6 @@
 import Foundation
 
-class ConnectDeviceRow: UITableViewCell, UIAlertViewDelegate {
+class ConnectDeviceRow: UITableViewCell {
 
     @IBOutlet weak var logo: UIImageView!
     @IBOutlet weak var name: UILabel!
@@ -85,33 +85,53 @@ class ConnectDeviceRow: UITableViewCell, UIAlertViewDelegate {
             let title = NSLocalizedString("CONNECT_DEVICE_ROW_REMOVE_DEVICE_ALERT_TITLE", comment: "Title for alert displayed prior to disconnecting a device from a higi Profile.")
             let messageFormat = NSLocalizedString("CONNECT_DEVICE_ROW_REMOVE_DEVICE_ALERT_MESSAGE_FORMAT", comment: "Message for alert displayed prior to disconnecting a device from a higi Profile.")
             let message = String(format: messageFormat, arguments: [device.name])
+            let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+            
             let confirmTitle = NSLocalizedString("CONNECT_DEVICE_ROW_REMOVE_DEVICE_ALERT_ACTION_TITLE_YES", comment: "Title for alert action to confirm disconnecting a device from a higi Profile.")
+            let confirmAction = UIAlertAction(title: confirmTitle, style: .Default, handler: { [weak self] (action) in
+                self?.attemptToDisconnect()
+                })
+            alertController.addAction(confirmAction)
             let declineTitle = NSLocalizedString("CONNECT_DEVICE_ROW_REMOVE_DEVICE_ALERT_ACTION_TITLE_NO", comment: "Title for alert action to decline disconnecting a device from a higi Profile.")
-            UIAlertView(title: title, message: message, delegate: self, cancelButtonTitle: declineTitle, otherButtonTitles: confirmTitle).show();
+            let declineAction = UIAlertAction(title: declineTitle, style: .Cancel, handler: { [weak self] (action) in
+                self?.connectedToggle.on = true
+                })
+            alertController.addAction(declineAction)
+            self.parentController.presentViewController(alertController, animated: true, completion: nil)
         }
     }
     
-    func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
-        //index 0 == cancel
-        if (buttonIndex == 0) {
-            connectedToggle.on = true;
-        } else {
+    func attemptToDisconnect() {
             let title = NSLocalizedString("CONNECT_DEVICE_ROW_REMOVE_DEVICE_FAILURE_ALERT_TITLE", comment: "Title for alert displayed after failure to remove/disconnect a device from a higi Profile.")
-            let disconnectMessage = NSLocalizedString("CONNECT_DEVICE_ROW_REMOVE_DEVICE_DISCONNECT_FAILURE_ALERT_MESSAGE", comment: "Message for alert displayed after failure to disconnect a device from a higi Profile.")
-            let removeMessage = NSLocalizedString("CONNECT_DEVICE_ROW_REMOVE_DEVICE_FAILURE_ALERT_MESSAGE", comment: "Message for alert displayed after failure to remove a device from a higi Profile.")
             let dismissTitle = NSLocalizedString("CONNECT_DEVICE_ROW_REMOVE_DEVICE_FAILURE_ALERT_ACTION_TITLE_DISMISS", comment: "Title for alert action to dismiss device remove/disconnect failure alert.")
+        
+        if (device.disconnectUrl != nil) {
+            self.device.connected = false;
+            HigiApi().sendDelete(device.disconnectUrl as! String, parameters: nil, success: nil,
+                failure: { operation, error in
+                    let removeMessage = NSLocalizedString("CONNECT_DEVICE_ROW_REMOVE_DEVICE_FAILURE_ALERT_MESSAGE", comment: "Message for alert displayed after failure to remove a device from a higi Profile.")
+                    let alertController = UIAlertController(title: title, message: removeMessage, preferredStyle: .Alert)
+                    let dismissAction = UIAlertAction(title: dismissTitle, style: .Default, handler: { [unowned self] (action) in
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.device.connected = true;
+                            self.connectedToggle.on = true;
+                        })
+                        })
+                    alertController.addAction(dismissAction)
+                    
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.parentController.presentViewController(alertController, animated: true, completion: nil)
+                    })
+            });
+        } else {
+            let disconnectMessage = NSLocalizedString("CONNECT_DEVICE_ROW_REMOVE_DEVICE_DISCONNECT_FAILURE_ALERT_MESSAGE", comment: "Message for alert displayed after failure to disconnect a device from a higi Profile.")
+            let alertController = UIAlertController(title: title, message: disconnectMessage, preferredStyle: .Alert)
+            let dismissAction = UIAlertAction(title: dismissTitle, style: .Default, handler: nil)
+            alertController.addAction(dismissAction)
             
-            if (device.disconnectUrl != nil) {
-                self.device.connected = false;
-                HigiApi().sendDelete(device.disconnectUrl as! String, parameters: nil, success: nil,
-                    failure: { operation, error in
-                        self.device.connected = true;
-                        self.connectedToggle.on = true;
-                        UIAlertView(title: title, message: removeMessage, delegate: self, cancelButtonTitle: dismissTitle).show();
-                });
-            } else {
-                UIAlertView(title: title, message: disconnectMessage, delegate: self, cancelButtonTitle: dismissTitle).show();
-            }
+            dispatch_async(dispatch_get_main_queue(), {
+                self.parentController.presentViewController(alertController, animated: true, completion: nil)
+            })
         }
     }
 }

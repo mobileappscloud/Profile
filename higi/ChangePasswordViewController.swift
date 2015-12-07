@@ -96,8 +96,17 @@ class ChangePasswordViewController: UIViewController, UITextFieldDelegate {
                     let message = NSLocalizedString("CHANGE_PASSWORD_VIEW_PASSWORD_CHANGE_SUCCESS_ALERT_MESSAGE", comment: "Message for alert displayed after password change succeeds.")
                     let dismissTitle = NSLocalizedString("CHANGE_PASSWORD_VIEW_PASSWORD_CHANGE_SUCCESS_ALERT_ACTION_TITLE_DISMISS", comment: "Title for alert action to dismiss alert displayed after password change succeeds.")
                     
-                    UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: dismissTitle).show();
-                    self.navigationController!.popViewControllerAnimated(true);
+                    let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+                    let cancelAction = UIAlertAction(title: dismissTitle, style: .Default, handler: { [weak self] (action) in
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self?.navigationController!.popViewControllerAnimated(true);
+                        })
+                        })
+                    alertController.addAction(cancelAction)
+                    
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.presentViewController(alertController, animated: true, completion: nil)
+                    })
                     
                     }, failure: nil);
                 
@@ -108,8 +117,15 @@ class ChangePasswordViewController: UIViewController, UITextFieldDelegate {
                     let message = NSLocalizedString("CHANGE_PASSWORD_VIEW_PASSWORD_CHANGE_FAILURE_ALERT_MESSAGE", comment: "Message for alert displayed after password change fails.")
                     let dismissTitle = NSLocalizedString("CHANGE_PASSWORD_VIEW_PASSWORD_CHANGE_FAILURE_ALERT_ACTION_TITLE_DISMISS", comment: "Title for alert action to dismiss alert displayed after password change fails.")
                     
-                    UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: dismissTitle).show();
-                    self.reset();
+                    let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+                    let cancelAction = UIAlertAction(title: dismissTitle, style: .Default, handler: { [unowned self] (action) in
+                        self.reset();
+                        })
+                    alertController.addAction(cancelAction)
+                    
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.presentViewController(alertController, animated: true, completion: nil)
+                    })
             });
             
         }

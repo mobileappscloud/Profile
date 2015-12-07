@@ -124,7 +124,7 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
             return;
         }
         var maxY = 0.0, minY = DBL_MAX, plotSymbolSize = 8.0;
-        let hitMargin = 20, pointsToShow = 30;
+        let hitMargin = 20;
         
         graph = CPTXYGraph(frame: self.bounds);
         self.hostedGraph = graph;
@@ -235,6 +235,7 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
 
         let yRange = maxY - minY > 0 ? maxY - minY : tickInterval;
         let lowerBound = roundToLowest(minY - (yRange * 0.4), roundTo: tickInterval);
+
         var distance = roundToHighest(yRange * 1.8, roundTo: tickInterval);
         if lowerBound + distance < maxY {
             distance = maxY - lowerBound + tickInterval;
@@ -310,7 +311,10 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         checkinSelected(plot, idx: 0, first: true);
     }
     
-    func roundToLowest(number: Double, roundTo: Double) -> Double {
+    func roundToLowest(var number: Double, roundTo: Double) -> Double {
+        if number < 0 {
+            number -= roundTo;
+        }
         return Double(Int(number / roundTo) * Int(roundTo));
     }
     
@@ -388,8 +392,6 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         let xRange = (self.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace).xRange;
         let yRange = (self.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace).yRange;
         let frame = graph.frame;
-        var location = yRange.locationDouble;
-        var length = yRange.lengthDouble;
         let x = ((xPoint - CGFloat(xRange.locationDouble)) / CGFloat(xRange.lengthDouble)) * frame.size.width;
         let y = (1.0 - ((yPoint - CGFloat(yRange.locationDouble)) / CGFloat(yRange.lengthDouble))) * (frame.size.height - 20);
         return CGPoint(x: x, y: y);

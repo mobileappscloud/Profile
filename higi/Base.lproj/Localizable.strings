@@ -535,6 +535,9 @@
 /* Reason for prompting Touch ID local authentication. */
 "LOCAL_AUTHENTICATION_TOUCH_ID_REASON" = "Use your fingerprint to access higi";
 
+/* Title for action which dismisses alert displayed for a scanned station check-in upload. */
+"LOCAL_NOTIFICATION_SCANNED_CHECK_IN_ALERT_ACTION_TITLE_ACKNOWLEDGE" = "OK";
+
 /* Message to display via local notification when a scanned check-in encounters an issue while being uploaded. */
 "LOCAL_NOTIFICATION_SCANNED_CHECK_IN_ISSUE_MESSAGE" = "There was a problem uploading your checkin data";
 
