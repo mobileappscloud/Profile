@@ -31,9 +31,6 @@ internal class HealthKitManager {
     /// Represents data sourced from the current device.
     private var deviceSource: HKSource? = nil
     
-    /// Returns `true` if the app is currently observing step data for background delivery, otherwise `false`.
-    private var isObservingStepData = false
-    
     /// Observer query which handles background delivery of step data.
     private var stepObserverQuery: HKObserverQuery = {
         let sampleType = HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierStepCount)!
@@ -288,17 +285,12 @@ internal extension HealthKitManager {
      */
     internal class func enableBackgroundUpdates() {
         let manager = HealthKitManager.sharedInstance
-        if manager.isObservingStepData {
-            return
-        }
-        
         for sampleType in HealthKitManager.sharedInstance.healthKitReadTypes {
             HealthKitManager.sharedInstance.healthStore.enableBackgroundDeliveryForType(sampleType, frequency: .Immediate,
                 withCompletion: { (success, error) in
                     
                     if success {
                         manager.healthStore.executeQuery(manager.stepObserverQuery)
-                        manager.isObservingStepData = true
                     }
             })
         }
@@ -311,10 +303,7 @@ internal extension HealthKitManager {
         let manager = HealthKitManager.sharedInstance
         manager.healthStore.disableAllBackgroundDeliveryWithCompletion({ (success, error) in
             if success {
-                if manager.isObservingStepData {
-                    manager.healthStore.stopQuery(manager.stepObserverQuery)
-                    manager.isObservingStepData = false
-                }
+                manager.healthStore.stopQuery(manager.stepObserverQuery)
             } else {
                 HealthKitManager.disableBackgroundUpdates()
             }
