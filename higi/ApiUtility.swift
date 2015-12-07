@@ -123,9 +123,11 @@ class ApiUtility {
         });
     }
     
-    class func requestLastStepActivitySyncDate(completion: (syncDate: NSDate?) -> Void) {
+    class func requestLastStepActivitySyncDate(completion: (success: Bool, syncDate: NSDate?) -> Void) {
+
         let userId = SessionData.Instance.user.userId;
         let URLString = "\(HigiApi.earnditApiUrl)/user/\(userId)/activities?device=higi&type=step&limit=1"
+        
         HigiApi().sendGet(URLString, success: {operation, responseObject in
             
             let serverActivities = ((responseObject as! NSDictionary)["response"] as! NSDictionary)["data"] as! NSArray;
@@ -134,18 +136,30 @@ class ApiUtility {
                 activity = HigiActivity(dictionary: serverActivity as! NSDictionary);
                 break;
             }
-                completion(syncDate: activity?.updateDate)
+            
+            var syncDate: NSDate? = nil
+            if let UTCDate = activity?.updateDate {
+                let offset: NSTimeInterval = Double(NSTimeZone.localTimeZone().secondsFromGMTForDate(UTCDate))
+                syncDate = UTCDate.dateByAddingTimeInterval(offset)
+            }
+            
+            completion(success: true, syncDate: syncDate)
+            
             }, failure: { operation, error in
-                completion(syncDate: nil)
+                completion(success: false, syncDate: nil)
         })
     }
     
-    class func uploadStepActivities(activities: NSDictionary, success: (() -> Void)?) {
+    class func uploadStepActivities(activities: NSDictionary, success: (() -> Void)?, failure: ((error: NSError?) -> Void)?) {
         let URLString = "\(HigiApi.earnditApiUrl)/higiStep"
         HigiApi().sendPost(URLString, parameters: activities, success: { (operation, responseObject) in
-            print(responseObject)
+            
+//            NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.ACTIVITIES, object: nil, userInfo: ["success": false]);
+            self.retrieveActivities(success)
+//            success?()
+            
             }, failure: { (operation, error) in
-                print(error)
+                failure?(error: error)
         })
     }
     

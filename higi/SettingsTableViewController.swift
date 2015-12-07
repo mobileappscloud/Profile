@@ -366,6 +366,7 @@ class SettingsTableViewController: UITableViewController, SwitchTableViewCellDel
         SessionController.Instance.reset();
         SessionData.Instance.reset();
         SessionData.Instance.save();
+        HealthKitManager.disableBackgroundUpdates()
         
         let appDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate);
         appDelegate.stopLocationManager();

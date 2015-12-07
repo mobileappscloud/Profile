@@ -27,13 +27,14 @@ class ConnectDeviceRow: UITableViewCell, UIAlertViewDelegate {
     func connectDevice() {
         // TODO: Don't switch on hardcoded device name
         if device.name == "higi" {
-            if !PersistentSettingsController.boolForKey(.DidShowActivityTrackerAuthorizationRequest) {
+            if !HealthKitManager.didShowAuthorizationModal() {
                 HealthKitManager.requestReadAccessToStepData( { (didRespond, error) in
                     if didRespond {
-                        HealthKitManager.hasReadAccessToStepData({ [weak self] (isAuthorized) in
+                        HealthKitManager.checkReadAuthorizationForStepData({ [weak self] (isAuthorized) in
                             if isAuthorized {
-                                HealthKitManager.syncStepData()
+                                HealthKitManager.enableBackgroundUpdates()
                             } else {
+                                HealthKitManager.disableBackgroundUpdates()
                                 dispatch_async(dispatch_get_main_queue(), {
                                     self?.connectedToggle.on = false
                                 })

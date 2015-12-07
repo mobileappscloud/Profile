@@ -104,10 +104,10 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             return
         }
 
-        if !PersistentSettingsController.boolForKey(.DidAskToConnectActivityTracker) {
+        if !HealthKitManager.didAskToConnectActivityTracker() {
             let alert = self.activityTrackerAuthorizationAlert()
             self.presentViewController(alert, animated: true, completion: {
-                PersistentSettingsController.setBool(true, key: .DidAskToConnectActivityTracker)
+                HealthKitManager.didAskToConnectActivityTracker(true)
             })
         }
     }
@@ -816,9 +816,11 @@ extension DashboardViewController {
         let connectAction = UIAlertAction(title: connectActionTitle, style: .Default, handler: { action in
             HealthKitManager.requestReadAccessToStepData( { (didRespond, error) in
                 if didRespond {
-                    HealthKitManager.hasReadAccessToStepData({ (isAuthorized) in
+                    HealthKitManager.checkReadAuthorizationForStepData({ (isAuthorized) in
                         if isAuthorized {
-                            HealthKitManager.syncStepData()
+                            HealthKitManager.enableBackgroundUpdates()
+                        } else {
+                            HealthKitManager.disableBackgroundUpdates()
                         }
                     })
                 }

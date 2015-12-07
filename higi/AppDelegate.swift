@@ -32,10 +32,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if (UIApplication.instancesRespondToSelector(Selector("registerUserNotificationSettings:"))) {
             application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [UIUserNotificationType.Sound, UIUserNotificationType.Alert, UIUserNotificationType.Badge], categories: nil));
         }
-                
+        
+        if HealthKitManager.isHealthDataAvailable() && HealthKitManager.didShowAuthorizationModal() {
+            HealthKitManager.checkReadAuthorizationForStepData({ (isAuthorized) in
+                if isAuthorized {
+                    HealthKitManager.enableBackgroundUpdates()
+                } else {
+                    HealthKitManager.disableBackgroundUpdates()
+                }
+            })
+        }
+        
         return true
     }
-
 
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
         if application.applicationState == UIApplicationState.Active {

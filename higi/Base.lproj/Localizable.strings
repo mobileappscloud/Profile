@@ -275,22 +275,22 @@
 "CHATTER_INPUT_VIEW_TEXT_INPUT_PLACEHOLDER" = "Talk some smack!";
 
 /* Title for alert action to acknowledge alert displayed when user toggles switch to connect branded activity tracker (HealthKit) ON. */
-"CONNECT_DEVICE_ROW_CONNECT_HEALTHKIT_ALERT_ACTION_ACKNOWLEDGE_ACTION" = "CONNECT_DEVICE_ROW_CONNECT_HEALTHKIT_ALERT_ACTION_ACKNOWLEDGE_ACTION";
+"CONNECT_DEVICE_ROW_CONNECT_HEALTHKIT_ALERT_ACTION_ACKNOWLEDGE_ACTION" = "Got it";
 
 /* Message for alert displayed when user toggles switch to connect branded activity tracker (HealthKit) ON. */
-"CONNECT_DEVICE_ROW_CONNECT_HEALTHKIT_ALERT_MESSAGE" = "CONNECT_DEVICE_ROW_CONNECT_HEALTHKIT_ALERT_MESSAGE";
+"CONNECT_DEVICE_ROW_CONNECT_HEALTHKIT_ALERT_MESSAGE" = "Unfortunately, you have to connect the higi tracker in your Settings app. Once enabled, the higi app will start tracking and rewarding you for all that activity you are doing!";
 
 /* Title for alert displayed when user toggles switch to connect branded activity tracker (HealthKit) ON. */
-"CONNECT_DEVICE_ROW_CONNECT_HEALTHKIT_ALERT_TITLE" = "CONNECT_DEVICE_ROW_CONNECT_HEALTHKIT_ALERT_TITLE";
+"CONNECT_DEVICE_ROW_CONNECT_HEALTHKIT_ALERT_TITLE" = "Connect higi activity tracker?";
 
 /* Title for alert action to acknowledge alert displayed when user toggles switch to connect branded activity tracker (HealthKit) OFF. */
-"CONNECT_DEVICE_ROW_DISCONNECT_HEALTHKIT_ALERT_ACTION_ACKNOWLEDGE_ACTION" = "CONNECT_DEVICE_ROW_DISCONNECT_HEALTHKIT_ALERT_ACTION_ACKNOWLEDGE_ACTION";
+"CONNECT_DEVICE_ROW_DISCONNECT_HEALTHKIT_ALERT_ACTION_ACKNOWLEDGE_ACTION" = "Got it";
 
 /* Message for alert displayed when user toggles switch to connect branded activity tracker (HealthKit) OFF. */
-"CONNECT_DEVICE_ROW_DISCONNECT_HEALTHKIT_ALERT_MESSAGE" = "CONNECT_DEVICE_ROW_DISCONNECT_HEALTHKIT_ALERT_MESSAGE";
+"CONNECT_DEVICE_ROW_DISCONNECT_HEALTHKIT_ALERT_MESSAGE" = "Unfortunately, you have to disconnect the higi tracker in your Settings app. Once disabled, the higi app will stop tracking your activity.";
 
 /* Title for alert displayed when user toggles switch to connect branded activity tracker (HealthKit) OFF. */
-"CONNECT_DEVICE_ROW_DISCONNECT_HEALTHKIT_ALERT_TITLE" = "CONNECT_DEVICE_ROW_DISCONNECT_HEALTHKIT_ALERT_TITLE";
+"CONNECT_DEVICE_ROW_DISCONNECT_HEALTHKIT_ALERT_TITLE" = "Disconnect higi activity tracker?";
 
 /* Title for alert action to decline disconnecting a device from a higi Profile. */
 "CONNECT_DEVICE_ROW_REMOVE_DEVICE_ALERT_ACTION_TITLE_NO" = "No";
@@ -401,13 +401,13 @@
 "DASHBOARD_VIEW_BRANDED_ACTIVITY_TRACKER_CONNECT_DEVICE_ALERT_TITLE" = "Start tracking your activity";
 
 /* Title for action to acknowledge/dismiss the alert. */
-"DASHBOARD_VIEW_BRANDED_ACTIVITY_TRACKER_CONNECT_DEVICE_DISMISSED_ALERT_ACTION_OK_TITLE" = "DASHBOARD_VIEW_BRANDED_ACTIVITY_TRACKER_CONNECT_DEVICE_DISMISSED_ALERT_ACTION_OK_TITLE";
+"DASHBOARD_VIEW_BRANDED_ACTIVITY_TRACKER_CONNECT_DEVICE_DISMISSED_ALERT_ACTION_OK_TITLE" = "Got it";
 
 /* Message for alert displayed when a user dismisses the alert to connect a branded activity tracker. */
-"DASHBOARD_VIEW_BRANDED_ACTIVITY_TRACKER_CONNECT_DEVICE_DISMISSED_ALERT_MESSAGE" = "DASHBOARD_VIEW_BRANDED_ACTIVITY_TRACKER_CONNECT_DEVICE_DISMISSED_ALERT_MESSAGE";
+"DASHBOARD_VIEW_BRANDED_ACTIVITY_TRACKER_CONNECT_DEVICE_DISMISSED_ALERT_MESSAGE" = "If you want to start tracking your activity with the higi app in the future, just head over to the Settings app and allow higi to track your activity.";
 
 /* Title for alert displayed when a user dismisses the alert to connect a branded activity tracker. */
-"DASHBOARD_VIEW_BRANDED_ACTIVITY_TRACKER_CONNECT_DEVICE_DISMISSED_ALERT_TITLE" = "DASHBOARD_VIEW_BRANDED_ACTIVITY_TRACKER_CONNECT_DEVICE_DISMISSED_ALERT_TITLE";
+"DASHBOARD_VIEW_BRANDED_ACTIVITY_TRACKER_CONNECT_DEVICE_DISMISSED_ALERT_TITLE" = "Not now? Maybe later.";
 
 /* Title for challenges card displayed on Dashboard view. */
 "DASHBOARD_VIEW_CARD_CHALLENGES_TITLE" = "Active Challenges";
