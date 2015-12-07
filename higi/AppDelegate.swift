@@ -31,7 +31,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window?.makeKeyAndVisible();
         
-
         application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [UIUserNotificationType.Sound, UIUserNotificationType.Alert, UIUserNotificationType.Badge], categories: nil));
         
         if HealthKitManager.isHealthDataAvailable() && HealthKitManager.didShowAuthorizationModal() {
