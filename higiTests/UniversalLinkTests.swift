@@ -7,33 +7,42 @@
 //
 
 import XCTest
-import higi
+@testable import higi
 
 class UniversalLinkTests: XCTestCase {
     
-    private let validUniversalLinks = [
-        "https://www.higi.com/challenge/view/id/testSucceeded",
-        "https://www.higi.com/challenge/dashboard",
-        "https://www.higi.com/locator",
-        "https://www.higi.com/pulse",
-        "https://www.higi.com/pulse/testSucceeded",
-        "https://www.higi.com/profile/checkin/testSucceeded",
-        "https://www.higi.com/stats",
-        "https://www.higi.com/stats/blood_pressure",
-        "https://www.higi.com/stats/pulse",
-        "https://www.higi.com/stats/weight",
-        "https://www.higi.com/activity/list",
-        "https://higi.com/challenge/view/id/testSucceeded",
-        "https://higi.com/challenge/dashboard",
-        "https://higi.com/locator",
-        "https://higi.com/pulse",
-        "https://higi.com/pulse/testSucceeded",
-        "https://higi.com/profile/checkin/testSucceeded",
-        "https://higi.com/stats",
-        "https://higi.com/stats/blood_pressure",
-        "https://higi.com/stats/pulse",
-        "https://higi.com/stats/weight",
-        "https://higi.com/activity/list"
+    private let validUniversalLinks: [(String, PathType)] = [
+        // URLs with WWW subdomain
+        ("https://www.higi.com/challenge/view/id/testSucceeded", .ChallengeDetail),
+        ("https://www.higi.com/challenge/view/id/2398hfwf9h329r8/join/testSucceeded", .ChallengeDetailSubPath),
+        ("https://www.higi.com/challenge/view/id/2398hfwf9h329r8/invite/testSucceeded", .ChallengeDetailSubPath),
+        ("https://www.higi.com/challenge/view/id/2398hfwf9h329r8/foo/bar/etc/testSucceeded", .ChallengeDetailSubPath),
+        ("https://www.higi.com/challenge/dashboard", .ChallengeDashboard),
+        ("https://www.higi.com/locator", .StationLocator),
+        ("https://www.higi.com/pulse", .PulseHome),
+        ("https://www.higi.com/pulse/testSucceeded", .PulseArticle),
+        ("https://www.higi.com/profile/checkin/testSucceeded", .DailySummary),
+        ("https://www.higi.com/stats", .Metrics),
+        ("https://www.higi.com/stats/blood_pressure", .MetricsBloodPressure),
+        ("https://www.higi.com/stats/pulse", .MetricsPulse),
+        ("https://www.higi.com/stats/weight", .MetricsWeight),
+        ("https://www.higi.com/activity/list", .ActivityList),
+
+        // URLs without WWW subdomain
+        ("https://higi.com/challenge/view/id/testSucceeded", .ChallengeDetail),
+        ("https://higi.com/challenge/view/id/2398hfwf9h329r8/join/testSucceeded", .ChallengeDetailSubPath),
+        ("https://higi.com/challenge/view/id/2398hfwf9h329r8/invite/testSucceeded", .ChallengeDetailSubPath),
+        ("https://higi.com/challenge/view/id/2398hfwf9h329r8/foo/bar/etc/testSucceeded", .ChallengeDetailSubPath),
+        ("https://higi.com/challenge/dashboard", .ChallengeDashboard),
+        ("https://higi.com/locator", .StationLocator),
+        ("https://higi.com/pulse", .PulseHome),
+        ("https://higi.com/pulse/testSucceeded", .PulseArticle),
+        ("https://higi.com/profile/checkin/testSucceeded", .DailySummary),
+        ("https://higi.com/stats", .Metrics),
+        ("https://higi.com/stats/blood_pressure", .MetricsBloodPressure),
+        ("https://higi.com/stats/pulse", .MetricsPulse),
+        ("https://higi.com/stats/weight", .MetricsWeight),
+        ("https://higi.com/activity/list", .ActivityList)
     ]
     
     private let invalidPathLinks = [
@@ -51,7 +60,6 @@ class UniversalLinkTests: XCTestCase {
         "https://www.higi.com/activity/",
         "https://www.higi.com/activity/invalidPath",
         "https://higi.com/challenge/view/id",
-        "https://higi.com/challenge/view/id/",
         "https://higi.com/challenge/dashboard/invalidPath",
         "https://higi.com/locat",
         "https://higi.com/locator/invalidPath",
@@ -61,12 +69,11 @@ class UniversalLinkTests: XCTestCase {
         "https://higi.com/profile/checkin/invalidPath/2",
         "https://higi.com/stats/invalidPath",
         "https://higi.com/activity",
-        "https://higi.com/activity/",
         "https://higi.com/activity/invalidPath",
     ]
     
     func testValidUniversalLinks() {
-        for URLString in validUniversalLinks {
+        for (URLString, _) in validUniversalLinks {
             let URL = NSURL(string: URLString)!
             XCTAssertTrue(UniversalLink.canHandleURL(URL), "Incorrectly failed URL: \(URL.absoluteString)")
         }
@@ -76,6 +83,44 @@ class UniversalLinkTests: XCTestCase {
         for URLString in invalidPathLinks {
             let URL = NSURL(string: URLString)!
             XCTAssertFalse(UniversalLink.canHandleURL(URL), "Incorrectly validated path for URL: \(URL.absoluteString)")
+        }
+    }
+    
+    func testHandlingOfValidUniversalLinks() {
+        for (URLString, pathType) in validUniversalLinks {
+            let URL = NSURL(string: URLString)!
+            
+            let parsedResults = UniversalLink.parsePath(forURL: URL)
+            XCTAssertEqual(pathType, parsedResults.pathType, "Parser incorrectly identified path type for URL: \(URL.absoluteString)")
+            
+            switch pathType {
+            case .PulseArticle:
+                fallthrough
+            case .DailySummary:
+                fallthrough
+            case .ChallengeDetail:
+                XCTAssertNotNil(parsedResults.parameters, "Expected parsed parameters, but received nil.")
+                
+            case .ChallengeDetailSubPath:
+                XCTAssertNil(parsedResults.parameters, "Expected nil, but received a value.")
+                
+            case .ActivityList:
+                fallthrough
+            case .ChallengeDashboard:
+                fallthrough
+            case .Metrics:
+                fallthrough
+            case .MetricsBloodPressure:
+                fallthrough
+            case .MetricsPulse:
+                fallthrough
+            case .MetricsWeight:
+                fallthrough
+            case .StationLocator:
+                fallthrough
+            case .PulseHome:
+                break
+            }
         }
     }
 

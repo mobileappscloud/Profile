@@ -425,7 +425,7 @@ extension ChallengesViewController: UniversalLinkHandler {
         let challengesViewController = ChallengesViewController(nibName: "ChallengesView", bundle: nil);
         Utility.mainNavigationController()?.drawerController.navController?.pushViewController(challengesViewController, animated: false)
         
-        if pathType == .ChallengeDetail {
+        if pathType == .ChallengeDetail || pathType == .ChallengeDetailSubPath {
             if let challenge = self.challenge(forChallengeParameters: parameters!) {
                 challengesViewController.showDetails(forChallenge: challenge)
             }
