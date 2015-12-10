@@ -15,6 +15,7 @@ public enum PathType: String {
     case ActivityList = "/activity/list"
     case ChallengeDashboard = "/challenge/dashboard"
     case ChallengeDetail = "/challenge/view/id/%@"
+    case ChallengeDetailSubPath = "/challenge/view/id/%@/*]"
     case DailySummary = "/profile/checkin/%@"
     case PulseArticle = "/pulse/%@"
     case PulseHome = "/pulse"
@@ -24,9 +25,13 @@ public enum PathType: String {
     case MetricsWeight = "/stats/weight"
     case StationLocator = "/locator"
     
+    // Token specifying a word which should be extracted for use as an input parameter
     private static let parameterToken = "%@"
     
-    private static let tokenizedPaths: [PathType] = [.ChallengeDetail, .PulseArticle, .DailySummary]
+    // Token specifying that all trailing characters can be ignored
+    private static let trailingToken = "*]"
+    
+    private static let tokenizedPaths: [PathType] = [.ChallengeDetail, .ChallengeDetailSubPath, .PulseArticle, .DailySummary]
     
     private static func handler(forPathType pathType: PathType) -> UniversalLinkHandler? {
         var handler: UniversalLinkHandler? = nil
@@ -34,6 +39,8 @@ public enum PathType: String {
         switch pathType {
         case .ChallengeDetail:
             fallthrough;
+        case .ChallengeDetailSubPath:
+            fallthrough
         case .ChallengeDashboard:
             handler = ChallengesViewController()
             
@@ -117,19 +124,21 @@ public class UniversalLink {
     }
     
     private class func matchPathComponents(targetPathComponents: [String], sourcePathComponenets: [String]) -> (didMatchComponents: Bool, parameters: [String]?) {
-        if targetPathComponents.count != sourcePathComponenets.count {
-            if sourcePathComponenets.first == "pulse" {
-                return (true, nil);
-            } else {
-                return (false, nil);
-            }
+
+        if targetPathComponents.count > sourcePathComponenets.count {
+            return (false, nil)
+        } else if targetPathComponents.count < sourcePathComponenets.count {
+            let matchesComponents = targetPathComponents.contains(PathType.trailingToken)
+            return (matchesComponents, nil)
         }
         
         var componentsMatch: Bool? = nil;
         var parameters: [String]? = [];
         
         for index in 0...targetPathComponents.count-1 {
-            if targetPathComponents[index] == PathType.parameterToken {
+            if targetPathComponents[index] == PathType.trailingToken {
+                break
+            } else if targetPathComponents[index] == PathType.parameterToken {
                 parameters?.append(sourcePathComponenets[index])
             } else if targetPathComponents[index] != sourcePathComponenets[index] {
                 parameters = nil;
