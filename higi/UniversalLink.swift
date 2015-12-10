@@ -11,7 +11,7 @@ import Foundation
 /**
 URL paths which support universal linking.
 */
-public enum PathType: String {
+enum PathType: String {
     case ActivityList = "/activity/list"
     case ChallengeDashboard = "/challenge/dashboard"
     case ChallengeDetail = "/challenge/view/id/%@"
@@ -38,7 +38,7 @@ public enum PathType: String {
         
         switch pathType {
         case .ChallengeDetail:
-            fallthrough;
+            fallthrough
         case .ChallengeDetailSubPath:
             fallthrough
         case .ChallengeDashboard:
@@ -48,30 +48,30 @@ public enum PathType: String {
             handler = FindStationViewController()
             
         case .PulseHome:
-            fallthrough;
+            fallthrough
         case .PulseArticle:
             handler = PulseHomeViewController()
             
         case .MetricsBloodPressure:
-            fallthrough;
+            fallthrough
         case .MetricsPulse:
-            fallthrough;
+            fallthrough
         case .MetricsWeight:
-            fallthrough;
+            fallthrough
         case .Metrics:
             handler = MetricsViewController()
             
         case .ActivityList:
-            fallthrough;
+            fallthrough
         case .DailySummary:
             handler = DailySummaryViewController()
         }
         
-        return handler;
+        return handler
     }
 }
 
-public class UniversalLink {
+class UniversalLink {
     
     /**
     Determines if a URL can be handled by the app.
@@ -80,27 +80,27 @@ public class UniversalLink {
     
     - returns: `true` if the app can handle the URL, otherwise `false`.
     */
-    public class func canHandleURL(URL: NSURL) -> Bool {
-        var canHandleURL = false;
+    class func canHandleURL(URL: NSURL) -> Bool {
+        var canHandleURL = false
         
-        let (pathType, _) = self.parsePath(forURL: URL);
+        let (pathType, _) = self.parsePath(forURL: URL)
         if pathType != nil {
-            canHandleURL = true;
+            canHandleURL = true
         }
         
-        return canHandleURL;
+        return canHandleURL
     }
     
-    private class func parsePath(forURL URL: NSURL) -> (pathType: PathType?, parameters: [String]?) {
+    class func parsePath(forURL URL: NSURL) -> (pathType: PathType?, parameters: [String]?) {
         var pathType: PathType? = nil
         var parameters: [String]? = nil
         
         if let components = NSURLComponents(URL: URL, resolvingAgainstBaseURL: true), let path = components.path {
             if let fullPathType = PathType(rawValue: path) {
-                pathType = fullPathType;
+                pathType = fullPathType
             } else {
                 if var pathComponents = URL.pathComponents {
-                    var canHandlePath: Bool = false;
+                    var canHandlePath: Bool = false
                     // The first path component can be ignored because it is just a forward slash ('/')
                     pathComponents.removeFirst()
                     
@@ -111,8 +111,8 @@ public class UniversalLink {
                         
                         (canHandlePath, parameters) = matchPathComponents(targetPathComponents, sourcePathComponenets: pathComponents)
                         if canHandlePath {
-                            pathType = tokenizedPathType;
-                            break;
+                            pathType = tokenizedPathType
+                            break
                         }
                     }
 
@@ -120,7 +120,7 @@ public class UniversalLink {
             }
         }
         
-        return (pathType, parameters);
+        return (pathType, parameters)
     }
     
     private class func matchPathComponents(targetPathComponents: [String], sourcePathComponenets: [String]) -> (didMatchComponents: Bool, parameters: [String]?) {
@@ -132,8 +132,8 @@ public class UniversalLink {
             return (matchesComponents, nil)
         }
         
-        var componentsMatch: Bool? = nil;
-        var parameters: [String]? = [];
+        var componentsMatch: Bool? = nil
+        var parameters: [String]? = []
         
         for index in 0...targetPathComponents.count-1 {
             if targetPathComponents[index] == PathType.trailingToken {
@@ -141,19 +141,19 @@ public class UniversalLink {
             } else if targetPathComponents[index] == PathType.parameterToken {
                 parameters?.append(sourcePathComponenets[index])
             } else if targetPathComponents[index] != sourcePathComponenets[index] {
-                parameters = nil;
-                componentsMatch = false;
-                break;
+                parameters = nil
+                componentsMatch = false
+                break
             }
         }
         
-        componentsMatch = componentsMatch ?? true;
+        componentsMatch = componentsMatch ?? true
         
-        return (componentsMatch!, parameters);
+        return (componentsMatch!, parameters)
     }
 }
 
-public extension UniversalLink {
+extension UniversalLink {
     
     /**
     Handles a compatible universal link. This method should only be called after calling
@@ -161,10 +161,10 @@ public extension UniversalLink {
     
     - parameter URL: Universal link to be handled.
     */
-    public class func handleURL(URL: NSURL) {        
-        let (pathType, parameters) = self.parsePath(forURL: URL);
+    class func handleURL(URL: NSURL) {
+        let (pathType, parameters) = self.parsePath(forURL: URL)
         if pathType == nil {
-            return;
+            return
         }
         
         let handler: UniversalLinkHandler? = PathType.handler(forPathType: pathType!)
@@ -175,7 +175,7 @@ public extension UniversalLink {
 /**
 Protocol definition for app universal link handlers.
 */
-public protocol UniversalLinkHandler {
+protocol UniversalLinkHandler {
     
     /**
     Protocol method for handling a universal link.
@@ -183,5 +183,5 @@ public protocol UniversalLinkHandler {
     - parameter URL:        URL of a compatible universal link.
     - parameter parameters: URL parameters such as resource GUIDs if applicable, otherwise nil.
     */
-    func handleUniversalLink(URL: NSURL, pathType: PathType, parameters: [String]?);
+    func handleUniversalLink(URL: NSURL, pathType: PathType, parameters: [String]?)
 }
