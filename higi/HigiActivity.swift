@@ -67,8 +67,11 @@ class HigiActivity {
         let dateString = dictionary["startTime"] as! String;
         var time = formatter.dateFromString(dateString);
         startTime = formatter.dateFromString(dictionary["startTime"] as! String);
-        let updatedTimeString = dictionary["updatedUTC"] as! String;
-        updateDate = formatter.dateFromString(updatedTimeString)
+        
+        if let updatedTimeString = dictionary["updatedUTC"] as? String {
+            updateDate = formatter.dateFromString(updatedTimeString)            
+        }
+        
         if let serverOffset = dictionary["timezoneOffset"] as? String {
             if let timezoneOffset = Int(serverOffset) {
                 if timezoneOffset != 0 {
