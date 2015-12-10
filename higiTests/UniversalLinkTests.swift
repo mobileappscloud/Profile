@@ -7,7 +7,7 @@
 //
 
 import XCTest
-import higi
+@testable import higi
 
 class UniversalLinkTests: XCTestCase {
     
