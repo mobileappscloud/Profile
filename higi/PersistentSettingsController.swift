@@ -39,7 +39,6 @@ public class PersistentSettingsController {
     }
     
     private func initializeDefaultValues(boolKeyTypes: [PersistentSetting], boolValue: Bool) {
-        let boolKeyTypes: [PersistentSetting] = [.EnableNotifications, .StationNearbyNotification];
         for keyType in boolKeyTypes {
             let key = keyType.rawValue;
             if persistentStore.objectForKey(key) == nil {
