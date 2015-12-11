@@ -600,7 +600,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     func limitDisplayHelper(limit: Int, metric: String) -> String {
         if (limit > 0) {
             let format = NSLocalizedString("CHALLENGE_DETAILS_VIEW_LIMIT_DISPLAY_LIMITED_FORMAT", comment: "Format for limit display on challenge details view with daily metric limits.")
-            return NSString.localizedStringWithFormat(format, [limit, metric]) as String
+            let limitString = String(stringInterpolationSegment: limit)
+            return NSString.localizedStringWithFormat(format, limitString, metric) as String
         } else {
             let format = NSLocalizedString("CHALLENGE_DETAILS_VIEW_LIMIT_DISPLAY_UNLIMITED_FORMAT", comment: "Format for limit display on challenge details view with unlimited daily metrics.")
             return NSString.localizedStringWithFormat(format, metric) as String
