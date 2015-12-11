@@ -286,7 +286,7 @@ internal extension HealthKitManager {
     internal class func enableBackgroundUpdates() {
         let manager = HealthKitManager.sharedInstance
         for sampleType in HealthKitManager.sharedInstance.healthKitReadTypes {
-            HealthKitManager.sharedInstance.healthStore.enableBackgroundDeliveryForType(sampleType, frequency: .Immediate,
+            HealthKitManager.sharedInstance.healthStore.enableBackgroundDeliveryForType(sampleType, frequency: .Hourly,
                 withCompletion: { (success, error) in
                     
                     if success {

@@ -8,7 +8,7 @@
 
 import UIKit
 
-public enum PersistentSetting: String {
+enum PersistentSetting: String {
     case Unknown
     case EnableNotifications = "GlobalNotificationSettingKey"
     case StationNearbyNotification = "StationNearbyNotificationSettingKey"
@@ -18,7 +18,7 @@ public enum PersistentSetting: String {
     static let allValues = [EnableNotifications, StationNearbyNotification, DidShowActivityTrackerAuthorizationRequest];
 }
 
-public class PersistentSettingsController {
+class PersistentSettingsController {
 
     private static var sharedInstance = PersistentSettingsController();
     
@@ -55,7 +55,7 @@ public class PersistentSettingsController {
     
     // MARK: - Read
     
-    public class func boolForKey(key: PersistentSetting) -> Bool {
+    class func boolForKey(key: PersistentSetting) -> Bool {
         if key == .Unknown {
             return false;
         }
@@ -65,7 +65,7 @@ public class PersistentSettingsController {
     
     // MARK: - Update
     
-    public class func setBool(value: Bool, key: PersistentSetting) {
+    class func setBool(value: Bool, key: PersistentSetting) {
         if key == .Unknown {
             return;
         }
@@ -74,7 +74,7 @@ public class PersistentSettingsController {
         store().synchronize();
     }
     
-    public class func reset() {
+    class func reset() {
         for setting in PersistentSetting.allValues {
             store().removeObjectForKey(setting.rawValue);
         }
