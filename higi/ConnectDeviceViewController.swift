@@ -41,6 +41,10 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
     
     var active = false, viewLoading = true;
     
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad();
 
@@ -63,6 +67,10 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
         table.registerNib(UINib(nibName: "ConnectDeviceRow", bundle: nil), forCellReuseIdentifier: "ConnectDeviceRow")
         
         populateVendorDevices();
+        
+        NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationWillEnterForegroundNotification, object: nil, queue: nil, usingBlock: { [weak self] (notification) in
+            self?.refreshDevices()
+        })
     }
     
     private func populateVendorDevices() {
