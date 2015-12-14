@@ -99,10 +99,9 @@ class UniversalLinkTests: XCTestCase {
             case .DailySummary:
                 fallthrough
             case .ChallengeDetail:
-                XCTAssertNotNil(parsedResults.parameters, "Expected parsed parameters, but received nil.")
-                
+                fallthrough
             case .ChallengeDetailSubPath:
-                XCTAssertNil(parsedResults.parameters, "Expected nil, but received a value.")
+                XCTAssertNotNil(parsedResults.parameters, "Expected parsed parameter, but got nil instead for \(pathType) with URL \(URL.absoluteString).")
                 
             case .ActivityList:
                 fallthrough

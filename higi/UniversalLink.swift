@@ -128,10 +128,11 @@ class UniversalLink {
         if targetPathComponents.count > sourcePathComponenets.count {
             return (false, nil)
         } else if targetPathComponents.count < sourcePathComponenets.count {
-            let matchesComponents = targetPathComponents.contains(PathType.trailingToken)
-            return (matchesComponents, nil)
+            if !targetPathComponents.contains(PathType.trailingToken) {
+                return (false, nil)
+            }
         }
-        
+
         var componentsMatch: Bool? = nil
         var parameters: [String]? = []
         
