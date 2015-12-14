@@ -183,7 +183,6 @@ internal extension HealthKitManager {
             SessionData.Instance.restore()
             
             if SessionData.Instance.user == nil {
-                HealthKitManager.disableBackgroundUpdates()
                 syncCompletionHandler?(success: false, error: nil)
                 return
             }
