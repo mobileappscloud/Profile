@@ -179,10 +179,10 @@ internal extension HealthKitManager {
      - parameter error:                 Object representing an error encountered during execution.
      */
     internal class func syncStepData(syncCompletionHandler: ((success: Bool, error: NSError?) -> Void)?) {
-        if SessionData.Instance.user.userId == nil {
+        if SessionData.Instance.user == nil {
             SessionData.Instance.restore()
             
-            if SessionData.Instance.user.userId == nil {
+            if SessionData.Instance.user == nil {
                 HealthKitManager.disableBackgroundUpdates()
                 syncCompletionHandler?(success: false, error: nil)
                 return
@@ -395,8 +395,8 @@ private extension HealthKitManager {
      - returns: Step activity collection if applicable, otherwise `nil`.
      */
     class func stepActivityCollection(fromHealthKitStatistics statistics: [HKStatistics]) -> StepActivityCollection? {
-        if let userId = SessionData.Instance.user.userId, deviceId = HealthKitManager.sharedInstance.deviceSource?.bundleIdentifier {
-
+        if let user = SessionData.Instance.user, userId = user.userId, deviceId = HealthKitManager.sharedInstance.deviceSource?.bundleIdentifier {
+            
             var activityCollection = StepActivityCollection(higiId: userId as String, deviceId: deviceId)
             for statistic in statistics {
                 if let activity = HealthKitManager.stepActivity(fromHealthKitStatistic: statistic) {
