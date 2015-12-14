@@ -164,6 +164,10 @@ class ApiUtility {
     }
     
     class func retrieveActivities(success: (() -> Void)?) {
+        if SessionData.Instance.user == nil {
+            success?();
+        }
+        
         SessionData.Instance.lastUpdate = NSDate();
         let userId = SessionData.Instance.user.userId;
         ApiUtility.checkForNewActivities({

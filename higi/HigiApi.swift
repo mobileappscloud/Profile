@@ -37,8 +37,10 @@ class HigiApi {
         manager.requestSerializer.setValue("application/vnd.higi.earndit;version=" + HigiApi.apiVersion, forHTTPHeaderField: "Accept");
         manager.requestSerializer.setValue("iOSv\(Utility.appVersion()).\(Utility.appBuild())", forHTTPHeaderField: "X-Consumer-Id");
         
-        if (!SessionData.Instance.token.isEmpty) {
-            manager.requestSerializer.setValue(SessionData.Instance.token, forHTTPHeaderField: "Token");
+        if let token = SessionData.Instance.token {
+            if (!token.isEmpty) {
+                manager.requestSerializer.setValue(token, forHTTPHeaderField: "Token");
+            }
         }
     }
     

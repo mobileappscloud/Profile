@@ -13,15 +13,16 @@ internal class HealthKitManager {
     
     /// The minimum amount of time (seconds) to wait before syncing data with the API.
     private static let syncInterval: NSTimeInterval = {
-        let syncMinutes = 3.0
-        
-        let syncInterval: NSTimeInterval = 60.0 * syncMinutes
+        let syncHours = 2.0
+        let minutesPerHour = 60.0
+        let secondsPerMinute = 60.0
+        let syncInterval: NSTimeInterval = syncHours * minutesPerHour * secondsPerMinute
         return syncInterval
     }()
     
     /// Thread-safe singleton for storage of relevant properties.
     private static let sharedInstance: HealthKitManager = {
-       let manager = HealthKitManager()
+        let manager = HealthKitManager()
         manager.currentSource({ (source) in
             manager.deviceSource = source
         })
@@ -78,7 +79,7 @@ internal class HealthKitManager {
             for source in sources! {
                 if source.bundleIdentifier.hasPrefix("com.apple.health") {
                     healthKitSource = source
-                    break;                    
+                    break
                 }
             }
             completion(source: healthKitSource)
@@ -126,7 +127,7 @@ internal class HealthKitManager {
 internal extension HealthKitManager {
     
     /**
-     Request read access to step data within the device's health store. 
+     Request read access to step data within the device's health store.
      
      __Note:__ The system-provided authorization modal can only be shown to the user once. Thus, the modal is only displayed the first time authorization is requested.
      
@@ -144,7 +145,7 @@ internal extension HealthKitManager {
             
             PersistentSettingsController.setBool(true, key: .DidShowActivityTrackerAuthorizationRequest)
             
-            completion?(didRespond: success, error: error);
+            completion?(didRespond: success, error: error)
         }
     }
     
@@ -174,15 +175,14 @@ internal extension HealthKitManager {
      
      - parameter syncCompletionHandler: Block to execute upon completion. The block will be passed the following parameters:
      - parameter success:               Returns `true` if the function completed without issue, otherwise `false`.
-                                        __Note:__ Success does not necessarily mean data was sent to the server. For example, if the sync interval has not been reached, this function will return `true` because the function completed without issue.
+     __Note:__ Success does not necessarily mean data was sent to the server. For example, if the sync interval has not been reached, this function will return `true` because the function completed without issue.
      - parameter error:                 Object representing an error encountered during execution.
      */
     internal class func syncStepData(syncCompletionHandler: ((success: Bool, error: NSError?) -> Void)?) {
-        if SessionData.Instance.user.userId == nil {
+        if SessionData.Instance.user == nil {
             SessionData.Instance.restore()
             
-            if SessionData.Instance.user.userId == nil {
-                HealthKitManager.disableBackgroundUpdates()
+            if SessionData.Instance.user == nil {
                 syncCompletionHandler?(success: false, error: nil)
                 return
             }
@@ -279,7 +279,7 @@ internal extension HealthKitManager {
 }
 
 internal extension HealthKitManager {
-
+    
     /**
      Enable background delivery of HealthKit data.
      */
@@ -315,7 +315,7 @@ private extension HealthKitManager {
     
     /// Date formatter capable of outputting a date string compatible with the API.
     static let activityDateFormatter: NSDateFormatter = {
-       let dateFormatter = NSDateFormatter()
+        let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         return dateFormatter
     }()
@@ -372,7 +372,7 @@ private extension HealthKitManager {
      */
     class func stepActivity(fromHealthKitStatistic statistic: HKStatistics) -> StepActivity? {
         if statistic.quantityType != HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierStepCount)! {
-            return nil;
+            return nil
         }
         
         let date = statistic.startDate
@@ -394,8 +394,8 @@ private extension HealthKitManager {
      - returns: Step activity collection if applicable, otherwise `nil`.
      */
     class func stepActivityCollection(fromHealthKitStatistics statistics: [HKStatistics]) -> StepActivityCollection? {
-        if let userId = SessionData.Instance.user.userId, deviceId = HealthKitManager.sharedInstance.deviceSource?.bundleIdentifier {
-
+        if let user = SessionData.Instance.user, userId = user.userId, deviceId = HealthKitManager.sharedInstance.deviceSource?.bundleIdentifier {
+            
             var activityCollection = StepActivityCollection(higiId: userId as String, deviceId: deviceId)
             for statistic in statistics {
                 if let activity = HealthKitManager.stepActivity(fromHealthKitStatistic: statistic) {
