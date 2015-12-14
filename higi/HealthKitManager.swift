@@ -22,7 +22,7 @@ internal class HealthKitManager {
     
     /// Thread-safe singleton for storage of relevant properties.
     private static let sharedInstance: HealthKitManager = {
-       let manager = HealthKitManager()
+        let manager = HealthKitManager()
         manager.currentSource({ (source) in
             manager.deviceSource = source
         })
@@ -79,7 +79,7 @@ internal class HealthKitManager {
             for source in sources! {
                 if source.bundleIdentifier.hasPrefix("com.apple.health") {
                     healthKitSource = source
-                    break;                    
+                    break
                 }
             }
             completion(source: healthKitSource)
@@ -127,7 +127,7 @@ internal class HealthKitManager {
 internal extension HealthKitManager {
     
     /**
-     Request read access to step data within the device's health store. 
+     Request read access to step data within the device's health store.
      
      __Note:__ The system-provided authorization modal can only be shown to the user once. Thus, the modal is only displayed the first time authorization is requested.
      
@@ -145,7 +145,7 @@ internal extension HealthKitManager {
             
             PersistentSettingsController.setBool(true, key: .DidShowActivityTrackerAuthorizationRequest)
             
-            completion?(didRespond: success, error: error);
+            completion?(didRespond: success, error: error)
         }
     }
     
@@ -175,7 +175,7 @@ internal extension HealthKitManager {
      
      - parameter syncCompletionHandler: Block to execute upon completion. The block will be passed the following parameters:
      - parameter success:               Returns `true` if the function completed without issue, otherwise `false`.
-                                        __Note:__ Success does not necessarily mean data was sent to the server. For example, if the sync interval has not been reached, this function will return `true` because the function completed without issue.
+     __Note:__ Success does not necessarily mean data was sent to the server. For example, if the sync interval has not been reached, this function will return `true` because the function completed without issue.
      - parameter error:                 Object representing an error encountered during execution.
      */
     internal class func syncStepData(syncCompletionHandler: ((success: Bool, error: NSError?) -> Void)?) {
@@ -316,7 +316,7 @@ private extension HealthKitManager {
     
     /// Date formatter capable of outputting a date string compatible with the API.
     static let activityDateFormatter: NSDateFormatter = {
-       let dateFormatter = NSDateFormatter()
+        let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         return dateFormatter
     }()
@@ -373,7 +373,7 @@ private extension HealthKitManager {
      */
     class func stepActivity(fromHealthKitStatistic statistic: HKStatistics) -> StepActivity? {
         if statistic.quantityType != HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierStepCount)! {
-            return nil;
+            return nil
         }
         
         let date = statistic.startDate
