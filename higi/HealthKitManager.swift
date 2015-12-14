@@ -13,9 +13,10 @@ internal class HealthKitManager {
     
     /// The minimum amount of time (seconds) to wait before syncing data with the API.
     private static let syncInterval: NSTimeInterval = {
-        let syncMinutes = 3.0
-        
-        let syncInterval: NSTimeInterval = 60.0 * syncMinutes
+        let syncHours = 2.0
+        let minutesPerHour = 60.0
+        let secondsPerMinute = 60.0
+        let syncInterval: NSTimeInterval = syncHours * minutesPerHour * secondsPerMinute
         return syncInterval
     }()
     
@@ -279,14 +280,14 @@ internal extension HealthKitManager {
 }
 
 internal extension HealthKitManager {
-
+    
     /**
      Enable background delivery of HealthKit data.
      */
     internal class func enableBackgroundUpdates() {
         let manager = HealthKitManager.sharedInstance
         for sampleType in HealthKitManager.sharedInstance.healthKitReadTypes {
-            HealthKitManager.sharedInstance.healthStore.enableBackgroundDeliveryForType(sampleType, frequency: .Immediate,
+            HealthKitManager.sharedInstance.healthStore.enableBackgroundDeliveryForType(sampleType, frequency: .Hourly,
                 withCompletion: { (success, error) in
                     
                     if success {
