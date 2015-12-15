@@ -424,8 +424,6 @@ extension ChallengesViewController: UniversalLinkHandler {
                 ApiUtility.retrieveChallenges({
                     if let challenge = self.challenge(forChallengeParameters: params) {
                         self.navigateToChallengeDetail(challenge)
-                    } else {
-                        self.navigateToChallengesDashboard()
                     }
                 })
             }
