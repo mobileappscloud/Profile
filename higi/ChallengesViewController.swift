@@ -403,32 +403,55 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         tableView.deselectRowAtIndexPath(indexPath, animated: true);
         return false;
     }
-    
-    func challenge(forChallengeParameters parameters: [String]) -> HigiChallenge? {
-        var challenge: HigiChallenge? = nil;
-        for currentChallenge in SessionController.Instance.challenges {
-            let currentChallengeURL = NSURL(string: currentChallenge.url as String)!
-            if currentChallengeURL.pathComponents?.last == parameters.first {
-                challenge = currentChallenge;
-                break;
-            }
-            
-        }
-        return challenge;
-    }
 }
 
 extension ChallengesViewController: UniversalLinkHandler {
     
     func handleUniversalLink(URL: NSURL, pathType: PathType, parameters: [String]?) {
         Utility.mainNavigationController()?.drawerController.navController?.popToRootViewControllerAnimated(false)
-        let challengesViewController = ChallengesViewController(nibName: "ChallengesView", bundle: nil);
-        Utility.mainNavigationController()?.drawerController.navController?.pushViewController(challengesViewController, animated: false)
         
-        if pathType == .ChallengeDetail || pathType == .ChallengeDetailSubPath {
-            if let challenge = self.challenge(forChallengeParameters: parameters!) {
-                challengesViewController.showDetails(forChallenge: challenge)
+        if pathType == .ChallengeDashboard {
+            self.navigateToChallengesDashboard()
+        } else if pathType == .ChallengeDetail || pathType == .ChallengeDetailSubPath {
+            guard let params = parameters else {
+                self.navigateToChallengesDashboard()
+                return
+            }
+            
+            if let challenge = self.challenge(forChallengeParameters: params) {
+                self.navigateToChallengeDetail(challenge)
+            } else {
+                ApiUtility.retrieveChallenges({
+                    if let challenge = self.challenge(forChallengeParameters: params) {
+                        self.navigateToChallengeDetail(challenge)
+                    } else {
+                        self.navigateToChallengesDashboard()
+                    }
+                })
             }
         }
+    }
+    
+    private func challenge(forChallengeParameters parameters: [String]) -> HigiChallenge? {
+        var challenge: HigiChallenge? = nil;
+        for currentChallenge in SessionController.Instance.challenges {
+            let currentChallengeURL = NSURL(string: currentChallenge.url as String)!
+            if let challengeId = currentChallengeURL.pathComponents?.last, let parameterId = parameters.first where challengeId == parameterId {
+                challenge = currentChallenge;
+                break;
+            }
+        }
+        return challenge;
+    }
+    
+    private func navigateToChallengesDashboard() {
+        let challengesViewController = ChallengesViewController(nibName: "ChallengesView", bundle: nil);
+        Utility.mainNavigationController()?.drawerController.navController?.pushViewController(challengesViewController, animated: false)
+    }
+    
+    private func navigateToChallengeDetail(challenge: HigiChallenge) {
+        let challengesViewController = ChallengesViewController(nibName: "ChallengesView", bundle: nil);
+        Utility.mainNavigationController()?.drawerController.navController?.pushViewController(challengesViewController, animated: false)
+        challengesViewController.showDetails(forChallenge: challenge)
     }
 }
