@@ -14,15 +14,15 @@ class SessionController {
         return SessionControllerSharedInstance;
     }
     
-    var checkins: [HigiCheckin]!;
+    var checkins: [HigiCheckin]! = [];
     
     var activities: [String: (Int, [HigiActivity])] = [:];
     
-    var challenges: [HigiChallenge]!;
+    var challenges: [HigiChallenge]! = [];
     
     var pulseArticles: [PulseArticle] = [];
     
-    var kioskList: [KioskInfo]!;
+    var kioskList: [KioskInfo]! = [];
     
     var devices: [String: ActivityDevice] = [:];
     
