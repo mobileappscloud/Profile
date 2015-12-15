@@ -431,9 +431,16 @@ extension ChallengesViewController: UniversalLinkHandler {
     }
     
     private func challenge(forChallengeParameters parameters: [String]) -> HigiChallenge? {
+        guard let challenges = SessionController.Instance.challenges else {
+            return nil
+        }
+        
         var challenge: HigiChallenge? = nil;
-        for currentChallenge in SessionController.Instance.challenges {
-            let currentChallengeURL = NSURL(string: currentChallenge.url as String)!
+        for currentChallenge in challenges {
+            guard let currentChallengeURL = NSURL(string: currentChallenge.url as String) else {
+                continue
+            }
+            
             if let challengeId = currentChallengeURL.pathComponents?.last, let parameterId = parameters.first where challengeId == parameterId {
                 challenge = currentChallenge;
                 break;
