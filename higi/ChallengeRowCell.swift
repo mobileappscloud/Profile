@@ -3,8 +3,16 @@ import Foundation
 class ChallengeRowCell: UITableViewCell, UIScrollViewDelegate {
     
     @IBOutlet var scrollView: UIScrollView!;
-    @IBOutlet var daysLeft: UILabel!;
-    @IBOutlet var title: UILabel!;
+    @IBOutlet var daysLeft: UILabel! {
+        didSet {
+            daysLeft.text = ""
+        }
+    }
+    @IBOutlet var title: UILabel! {
+        didSet {
+            title.text = ""
+        }
+    }
     @IBOutlet var avatar: UIImageView!;
     @IBOutlet var pager: UIPageControl!;
 
