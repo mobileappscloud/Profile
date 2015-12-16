@@ -647,7 +647,7 @@
 "NOTIFICATION_SETTINGS_DEVICE_STATION_NEARBY_CELL_TITLE" = "When I am near a Station";
 
 /* Title for device-specific notification settings view. */
-"NOTIFICATION_SETTINGS_DEVICE_VIEW_TITLE" = "Device";
+"NOTIFICATION_SETTINGS_DEVICE_VIEW_TITLE" = "Push Notifications";
 
 /* Title for check-in result email notification. */
 "NOTIFICATION_SETTINGS_EMAIL_VIEW_CHECK_IN_RESULTS_CELL_TITLE" = "Check-in results";
