@@ -19,7 +19,8 @@ class ChallengeWinCondition {
     }
     
     // TODO: Represent winner type as enum
-    var name, description, tieHandling, winnerType, prizeName, prizeImageUrl: NSString!;
+    var name, description, tieHandling, winnerType: NSString!;
+    var prizeName, prizeImageUrl: NSString?
     
     var winnersCount, displayOrder: Int!;
     

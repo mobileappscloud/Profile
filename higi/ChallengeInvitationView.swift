@@ -43,7 +43,7 @@ class ChallengeInvitationView: UIView {
         invitationView.goal.text = winCondition.goal.type == "most_points" ? pointsString : thresholdString;
         
         invitationView.type.text = goalTypeDisplayHelper(winCondition.goal.type as String, winnerType: winCondition.winnerType as String);
-        invitationView.prize.text = winCondition.prizeName != nil ? winCondition.prizeName as String : "No prize";
+        invitationView.prize.text = winCondition.prizeName != nil ? winCondition.prizeName as? String : "No prize";
         invitationView.participantCount.text = String(challenge.participantsCount);
         invitationView.starting.text = startsInDisplayHelper(challenge.startDate);
         invitationView.dateRange.text = dateRangeDisplayHelper(challenge.startDate, endDate: challenge.endDate);
