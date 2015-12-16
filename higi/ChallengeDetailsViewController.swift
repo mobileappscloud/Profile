@@ -801,7 +801,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     func createDetailsPrizeCell(winCondition: ChallengeWinCondition!) -> ChallengeDetailsPrize {
         let cell = UINib(nibName: "ChallengeDetailsPrizes", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! ChallengeDetailsPrize;
         if (winCondition != nil && winCondition.prizeName != nil && winCondition.prizeName != "") {
-            cell.title.text = winCondition.prizeName as String;
+            cell.title.text = winCondition.prizeName as? String;
             cell.desc.text = winCondition.description as String;
         } else {
             cell.title.text = NSLocalizedString("CHALLENGE_DETAILS_VIEW_PRIZE_CELL_TITLE_NO_PRIZE", comment: "Title to display on prize cell in challenge details view when there is no prize for the challenge.");
