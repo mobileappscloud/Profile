@@ -76,7 +76,7 @@ class ChallengeInvitationView: UIView {
             let format = NSLocalizedString("CHALLENGE_INVITATION_VIEW_CHALLENGE_DATE_NOT_STARTED_FORMAT", comment: "Format for challenge which has not started yet.")
             dateDisplay = NSString.localizedStringWithFormat(format, formattedDate) as String
         } else if (elapsedDays < 0) {
-            let formattedDate = NSString.localizedStringWithFormat(NSLocalizedString("DAY_COUNT_SINGLE_PLURAL", comment: "Format for pluralization of days."), elapsedDays+1)
+            let formattedDate = NSString.localizedStringWithFormat(NSLocalizedString("DAY_COUNT_SINGLE_PLURAL", comment: "Format for pluralization of days."), abs(elapsedDays)+1)
             let format = NSLocalizedString("CHALLENGE_INVITATION_VIEW_CHALLENGE_DATE_ONGOING_FORMAT", comment: "Format for an ongoing challenge which has started and does not have a specific end date.")
             dateDisplay = NSString.localizedStringWithFormat(format, formattedDate) as String
         } else {
