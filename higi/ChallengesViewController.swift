@@ -408,13 +408,32 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
 extension ChallengesViewController: UniversalLinkHandler {
     
     func handleUniversalLink(URL: NSURL, pathType: PathType, parameters: [String]?) {
-        Utility.mainNavigationController()?.drawerController.navController?.popToRootViewControllerAnimated(false)
+        
+        let application = UIApplication.sharedApplication().delegate as! AppDelegate
+        if application.didRecentlyLaunchToContinueUserActivity() {
+            let loadingViewController = self.presentLoadingViewController()
+            
+            NSNotificationCenter.defaultCenter().addObserverForName(ApiUtility.CHALLENGES, object: nil, queue: nil, usingBlock: { (notification) in
+                self.handle(URL, pathType: pathType, parameters: parameters, presentedViewController: loadingViewController)
+                NSNotificationCenter.defaultCenter().removeObserver(self)
+            })
+        } else {
+            self.handle(URL, pathType: pathType, parameters: parameters, presentedViewController: nil)
+        }
+    }
+    
+    private func handle(URL: NSURL, pathType: PathType, parameters: [String]?, presentedViewController: UIViewController?) {
+        
+        let navController = Utility.mainNavigationController()?.drawerController.navController
+        dispatch_async(dispatch_get_main_queue(), {
+            presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
+            navController?.popToRootViewControllerAnimated(false)
+        })
         
         if pathType == .ChallengeDashboard {
             self.navigateToChallengesDashboard()
         } else if pathType == .ChallengeDetail || pathType == .ChallengeDetailSubPath {
             guard let params = parameters else {
-                self.navigateToChallengesDashboard()
                 return
             }
             
@@ -423,7 +442,9 @@ extension ChallengesViewController: UniversalLinkHandler {
             } else {
                 ApiUtility.retrieveChallenges({
                     if let challenge = self.challenge(forChallengeParameters: params) {
-                        self.navigateToChallengeDetail(challenge)
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.navigateToChallengeDetail(challenge)
+                        })
                     }
                 })
             }
@@ -450,13 +471,25 @@ extension ChallengesViewController: UniversalLinkHandler {
     }
     
     private func navigateToChallengesDashboard() {
+        guard let navController = Utility.mainNavigationController()?.drawerController.navController else {
+            return
+        }
+        
         let challengesViewController = ChallengesViewController(nibName: "ChallengesView", bundle: nil);
-        Utility.mainNavigationController()?.drawerController.navController?.pushViewController(challengesViewController, animated: false)
+        dispatch_async(dispatch_get_main_queue(), {
+            navController.pushViewController(challengesViewController, animated: false)
+        })
     }
     
     private func navigateToChallengeDetail(challenge: HigiChallenge) {
+        guard let navController = Utility.mainNavigationController()?.drawerController.navController else {
+            return
+        }
+        
         let challengesViewController = ChallengesViewController(nibName: "ChallengesView", bundle: nil);
-        Utility.mainNavigationController()?.drawerController.navController?.pushViewController(challengesViewController, animated: false)
-        challengesViewController.showDetails(forChallenge: challenge)
+        dispatch_async(dispatch_get_main_queue(), {
+            navController.pushViewController(challengesViewController, animated: false)
+            challengesViewController.showDetails(forChallenge: challenge)
+        })
     }
 }

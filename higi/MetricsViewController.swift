@@ -446,9 +446,33 @@ extension MetricsViewController: UniversalLinkHandler {
     
     func handleUniversalLink(URL: NSURL, pathType: PathType, parameters: [String]?) {
         
-        Utility.mainNavigationController()?.drawerController.navController?.popToRootViewControllerAnimated(false)
+        var loadedActivities = false
+        var loadedCheckins = false
+        let application = UIApplication.sharedApplication().delegate as! AppDelegate
+        if application.didRecentlyLaunchToContinueUserActivity() {
+            let loadingViewController = self.presentLoadingViewController()
+            
+            NSNotificationCenter.defaultCenter().addObserverForName(ApiUtility.ACTIVITIES, object: nil, queue: nil, usingBlock: { (notification) in
+                loadedActivities = true
+                self.pushMetricsView(pathType, loadedActivites: loadedActivities, loadedCheckins: loadedCheckins, presentedViewController: loadingViewController)
+                NSNotificationCenter.defaultCenter().removeObserver(self)
+            })
+            NSNotificationCenter.defaultCenter().addObserverForName(ApiUtility.CHECKINS, object: nil, queue: nil, usingBlock: { (notification) in
+                loadedCheckins = true
+                self.pushMetricsView(pathType, loadedActivites: loadedActivities, loadedCheckins: loadedCheckins, presentedViewController: loadingViewController)
+                NSNotificationCenter.defaultCenter().removeObserver(self)
+            })
+        } else {
+            self.pushMetricsView(pathType, loadedActivites: true, loadedCheckins: true, presentedViewController: nil)
+        }
+    }
+    
+    private func pushMetricsView(pathType: PathType, loadedActivites: Bool, loadedCheckins: Bool, presentedViewController: UIViewController?) {
+        if !loadedActivites || !loadedCheckins {
+            return
+        }
+        
         let metricsViewController = MetricsViewController(nibName: "MetricsView", bundle: nil);
-        Utility.mainNavigationController()?.drawerController.navController?.pushViewController(metricsViewController, animated: false)
         
         let targetMetricsType: MetricsType
         switch pathType {
@@ -463,5 +487,11 @@ extension MetricsViewController: UniversalLinkHandler {
         }
         
         metricsViewController.selectedType = targetMetricsType
+
+        dispatch_async(dispatch_get_main_queue(), {
+            presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
+            Utility.mainNavigationController()?.drawerController.navController?.popToRootViewControllerAnimated(false)
+            Utility.mainNavigationController()?.drawerController.navController?.pushViewController(metricsViewController, animated: false)
+        })
     }
 }

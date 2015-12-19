@@ -666,7 +666,37 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
 extension DailySummaryViewController: UniversalLinkHandler {
     
     func handleUniversalLink(URL: NSURL, pathType: PathType, parameters: [String]?) {
-        Utility.mainNavigationController()?.drawerController.navController?.popToRootViewControllerAnimated(false)
-        Utility.mainNavigationController()?.drawerController.navController?.pushViewController(DailySummaryViewController(nibName: "DailySummaryView", bundle: nil), animated: false)
+        
+        var loadedActivities = false
+        var loadedCheckins = false
+        let application = UIApplication.sharedApplication().delegate as! AppDelegate
+        if application.didRecentlyLaunchToContinueUserActivity() {
+            let loadingViewController = self.presentLoadingViewController()
+            
+            NSNotificationCenter.defaultCenter().addObserverForName(ApiUtility.ACTIVITIES, object: nil, queue: nil, usingBlock: { (notification) in
+                loadedActivities = true
+                self.pushDailySummary(loadedActivities, loadedCheckins: loadedCheckins, presentedViewController: loadingViewController)
+                NSNotificationCenter.defaultCenter().removeObserver(self)
+            })
+            NSNotificationCenter.defaultCenter().addObserverForName(ApiUtility.CHECKINS, object: nil, queue: nil, usingBlock: { (notification) in
+                loadedCheckins = true
+                self.pushDailySummary(loadedActivities, loadedCheckins: loadedCheckins, presentedViewController: loadingViewController)
+                NSNotificationCenter.defaultCenter().removeObserver(self)
+            })
+        } else {
+            self.pushDailySummary(true, loadedCheckins: true, presentedViewController: nil)
+        }
+    }
+    
+    private func pushDailySummary(loadedActivities: Bool, loadedCheckins: Bool, presentedViewController: UIViewController?) {
+        if !loadedActivities || !loadedCheckins {
+            return
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
+            Utility.mainNavigationController()?.drawerController.navController?.popToRootViewControllerAnimated(false)
+            Utility.mainNavigationController()?.drawerController.navController?.pushViewController(DailySummaryViewController(nibName: "DailySummaryView", bundle: nil), animated: false)
+        })
     }
 }

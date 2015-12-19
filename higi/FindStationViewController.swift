@@ -726,7 +726,24 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
 extension FindStationViewController: UniversalLinkHandler {
     
     func handleUniversalLink(URL: NSURL, pathType: PathType, parameters: [String]?) {
-        Utility.mainNavigationController()?.drawerController.navController?.popToRootViewControllerAnimated(false)
-        Utility.mainNavigationController()?.drawerController.navController?.pushViewController(FindStationViewController(nibName: "FindStationView", bundle: nil), animated: false)
+
+        let application = UIApplication.sharedApplication().delegate as! AppDelegate
+        if application.didRecentlyLaunchToContinueUserActivity() {
+            let loadingViewController = self.presentLoadingViewController()
+            
+            NSNotificationCenter.defaultCenter().addObserverForName(ApiUtility.KIOSKS, object: nil, queue: nil, usingBlock: { (notification) in
+                self.pushStationLocator(loadingViewController)
+            })
+        } else {
+            self.pushStationLocator(nil)
+        }
+    }
+    
+    private func pushStationLocator(presentedViewController: UIViewController?) {
+        dispatch_async(dispatch_get_main_queue(), {
+            presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
+            Utility.mainNavigationController()?.drawerController.navController?.popToRootViewControllerAnimated(false)
+            Utility.mainNavigationController()?.drawerController.navController?.pushViewController(FindStationViewController(nibName: "FindStationView", bundle: nil), animated: false)
+        })
     }
 }
