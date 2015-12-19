@@ -22,7 +22,7 @@ class Utility {
         return nil;
     }
     
-    class func gotoDashboard(viewController: UIViewController) {
+    class func gotoDashboard() {
         let dashboardController = DashboardViewController(nibName: "DashboardView", bundle: nil);
         let navController = MainNavigationController(rootViewController: dashboardController);
         let drawerController = DrawerViewController(nibName: "DrawerView", bundle: nil);

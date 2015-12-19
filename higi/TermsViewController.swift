@@ -85,7 +85,7 @@ class TermsViewController: UIViewController {
             
             ApiUtility.initializeApiData();
             (UIApplication.sharedApplication().delegate as! AppDelegate).startLocationManager();
-            Utility.gotoDashboard(self);
+            Utility.gotoDashboard();
             
             }, failure: {operation, error in
                 self.reset();
@@ -94,7 +94,7 @@ class TermsViewController: UIViewController {
     
     func gotoDashboard() {
         if (SessionController.Instance.checkins != nil && SessionController.Instance.challenges != nil && SessionController.Instance.kioskList != nil && SessionController.Instance.pulseArticles.count > 0) {
-            Utility.gotoDashboard(self);
+            Utility.gotoDashboard();
         }
     }
     

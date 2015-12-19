@@ -39,31 +39,14 @@ class ApiUtility {
     
     
     
-    class func checkTermsAndPrivacy(viewController: UIViewController, success: (() -> Void)?, failure: (() -> Void)?) {
-        HigiApi().sendGet("\(HigiApi.webUrl)/termsinfo", success: {operation, responseObject in
-            let user = SessionData.Instance.user;
-            let termsInfo = responseObject as! NSDictionary;
-            let termsFile = termsInfo["termsFilename"] as! NSString;
-            let privacyFile = termsInfo["privacyFilename"] as! NSString;
-            let newTerms = termsFile != user.termsFile;
-            let newPrivacy = privacyFile != user.privacyFile;
-            if (newTerms || newPrivacy) {
-                let termsController = TermsViewController(nibName: "TermsView", bundle: nil);
-                termsController.newTerms = newTerms;
-                termsController.newPrivacy = newPrivacy;
-                termsController.termsFile = termsFile as String;
-                termsController.privacyFile = privacyFile as String;
-                viewController.presentViewController(termsController, animated: true, completion: nil);
-            } else if (user.firstName == nil || user.firstName == "" || user.lastName == nil || user.lastName == "") {
-                let nameViewController = SignupNameViewController(nibName: "SignupNameView", bundle: nil);
-                nameViewController.dashboardNext = true;
-                viewController.presentViewController(nameViewController, animated: true, completion: nil);
-            } else {
-                ApiUtility.initializeApiData();
-                (UIApplication.sharedApplication().delegate as! AppDelegate).startLocationManager();
-                Utility.gotoDashboard(viewController);
-            }
-            
+    class func checkTermsAndPrivacy(viewController: UIViewController, success: ((terms: NSString, privacy: NSString) -> Void)?, failure: (() -> Void)?) {
+        HigiApi().sendGet("\(HigiApi.webUrl)/termsinfo",
+            success: {operation, responseObject in
+                let termsInfo = responseObject as! NSDictionary;
+                let termsFile = termsInfo["termsFilename"] as! NSString;
+                let privacyFile = termsInfo["privacyFilename"] as! NSString;
+                success?(terms: termsFile, privacy: privacyFile)
+                
             }, failure: {operation, error in
                 failure?();
         });
