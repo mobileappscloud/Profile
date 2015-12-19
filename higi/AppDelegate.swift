@@ -174,6 +174,3 @@ extension AppDelegate {
         return recentlyLaunchToContinueUserActivity
     }
 }
-
-}
-
