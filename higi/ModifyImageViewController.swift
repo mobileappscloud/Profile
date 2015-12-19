@@ -131,7 +131,7 @@ class ModifyImageViewController: UIViewController {
                 }
             } else {
                 ApiUtility.initializeApiData();
-                Utility.gotoDashboard(self);
+                Utility.gotoDashboard();
             }
             
             }, failure: {operation, error in

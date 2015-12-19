@@ -12,10 +12,8 @@ class SplashViewController: UIViewController {
         super.viewDidAppear(animated);
         checkVersion()
         self.spinner = CustomLoadingSpinner(frame: CGRectMake(UIScreen.mainScreen().bounds.size.width / 2 - 16, UIScreen.mainScreen().bounds.size.height / 2 + 32, 32, 32));
-        Utility.delay(3) {
-            self.view.addSubview(self.spinner)
-            self.spinner.startAnimating();
-        };
+        self.view.addSubview(self.spinner)
+        self.spinner.startAnimating();
     }
 
     func moveToNextScreen() {
@@ -27,12 +25,35 @@ class SplashViewController: UIViewController {
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                         let login = HigiLogin(dictionary: responseObject as! NSDictionary);
                         SessionData.Instance.user = login.user;
-                        ApiUtility.checkTermsAndPrivacy(self, success: nil, failure: self.errorToWelcome);
+                        ApiUtility.checkTermsAndPrivacy(self, success: self.successfullyCheckTermsAndPrivacy, failure: self.errorToWelcome);
                     });
                     
                     }, failure: {operation, error in
                         self.errorToWelcome();
                 });
+        }
+    }
+    
+    func successfullyCheckTermsAndPrivacy(termsFile: NSString, privacyFile: NSString) -> Void {
+        let user = SessionData.Instance.user;
+        let newTerms = termsFile != user.termsFile;
+        let newPrivacy = privacyFile != user.privacyFile;
+        if (newTerms || newPrivacy) {
+            let termsController = TermsViewController(nibName: "TermsView", bundle: nil);
+            termsController.newTerms = newTerms;
+            termsController.newPrivacy = newPrivacy;
+            termsController.termsFile = termsFile as String;
+            termsController.privacyFile = privacyFile as String;
+            self.presentViewController(termsController, animated: true, completion: nil);
+        } else if (user.firstName == nil || user.firstName == "" || user.lastName == nil || user.lastName == "") {
+            let nameViewController = SignupNameViewController(nibName: "SignupNameView", bundle: nil);
+            nameViewController.dashboardNext = true;
+            self.presentViewController(nameViewController, animated: true, completion: nil);
+        } else {
+            ApiUtility.initializeApiData();
+            (UIApplication.sharedApplication().delegate as! AppDelegate).startLocationManager();
+            Utility.gotoDashboard();
+            NSNotificationCenter.defaultCenter().postNotificationName("SplashViewControllerDidGoToDashboard", object: nil)
         }
     }
     

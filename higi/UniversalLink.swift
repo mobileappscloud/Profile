@@ -167,7 +167,7 @@ extension UniversalLink {
         if pathType == nil {
             return
         }
-        
+          
         let handler: UniversalLinkHandler? = PathType.handler(forPathType: pathType!)
         handler?.handleUniversalLink(URL, pathType: pathType!, parameters: parameters)
     }
@@ -185,4 +185,22 @@ protocol UniversalLinkHandler {
     - parameter parameters: URL parameters such as resource GUIDs if applicable, otherwise nil.
     */
     func handleUniversalLink(URL: NSURL, pathType: PathType, parameters: [String]?)
+}
+
+extension UniversalLinkHandler {
+    
+    /** 
+    Presents a loading view controller from the main navigation controller.
+     
+    - returns: The loading view controller which has been presented.
+    */
+    func presentLoadingViewController() -> UIViewController {
+        let navController = Utility.mainNavigationController()?.drawerController.navController
+        let loadingViewController = UIStoryboard(name: "Loading", bundle: nil).instantiateInitialViewController()!
+        dispatch_async(dispatch_get_main_queue(), {
+            navController?.popToRootViewControllerAnimated(false)
+            navController?.presentViewController(loadingViewController, animated: false, completion: nil)
+        })
+        return loadingViewController
+    }
 }

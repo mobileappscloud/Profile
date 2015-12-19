@@ -103,20 +103,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 SessionData.Instance.user = login.user;
                 SessionData.Instance.save();
                 if (login.user != nil) {
-                    ApiUtility.checkTermsAndPrivacy(self, success: self.gotoDashboard, failure: {
-                        let title = NSLocalizedString("LOGIN_VIEW_LOG_IN_NETWORK_CONNECTION_ISSUE_ALERT_TITLE", comment: "Title of alert which is displayed if a network connection issue occurs.")
-                        let message = NSLocalizedString("LOGIN_VIEW_LOG_IN_NETWORK_CONNECTION_ISSUE_ALERT_MESSAGE", comment: "Message of alert which is displayed if a network connection issue occurs.")
-                        let dismissActionTitle = NSLocalizedString("LOGIN_VIEW_LOG_IN_NETWORK_CONNECTION_ISSUE_ALERT_ACTION_TITLE_DISMISS", comment: "Title of alert action to dismiss the alert which is displayed if a network connection issue occurs.")
-                        
-                        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-                        let dismissAction = UIAlertAction(title: dismissActionTitle, style: .Default, handler: nil)
-                        alertController.addAction(dismissAction)
-                        dispatch_async(dispatch_get_main_queue(), {
-                            self.presentViewController(alertController, animated: true, completion: {
-                                self.reset()
-                            })
-                        })
-                    });
+                    ApiUtility.checkTermsAndPrivacy(self, success: { (terms, privacy) in
+                        self.gotoDashboard()
+                        }, failure: self.termsAndPrivacyFailure)
                 }
             } else {
                 let title = NSLocalizedString("LOGIN_VIEW_LOG_IN_INVALID_CREDENTIALS_ALERT_TITLE", comment: "Title of alert which is displayed if a user is unable to log in due to invalid credentials.")
@@ -133,6 +122,21 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 })
             }
         });
+    }
+    
+    func termsAndPrivacyFailure() {
+        let title = NSLocalizedString("LOGIN_VIEW_LOG_IN_NETWORK_CONNECTION_ISSUE_ALERT_TITLE", comment: "Title of alert which is displayed if a network connection issue occurs.")
+        let message = NSLocalizedString("LOGIN_VIEW_LOG_IN_NETWORK_CONNECTION_ISSUE_ALERT_MESSAGE", comment: "Message of alert which is displayed if a network connection issue occurs.")
+        let dismissActionTitle = NSLocalizedString("LOGIN_VIEW_LOG_IN_NETWORK_CONNECTION_ISSUE_ALERT_ACTION_TITLE_DISMISS", comment: "Title of alert action to dismiss the alert which is displayed if a network connection issue occurs.")
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        let dismissAction = UIAlertAction(title: dismissActionTitle, style: .Default, handler: nil)
+        alertController.addAction(dismissAction)
+        dispatch_async(dispatch_get_main_queue(), {
+            self.presentViewController(alertController, animated: true, completion: {
+                self.reset()
+            })
+        })
     }
     
     func signInFailure(operation: AFHTTPRequestOperation!, error: NSError?) {
@@ -176,7 +180,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         if (SessionController.Instance.checkins != nil && SessionController.Instance.challenges != nil && SessionController.Instance.kioskList != nil && SessionController.Instance.pulseArticles.count > 0) {
             spinner.stopAnimating();
             (UIApplication.sharedApplication().delegate as! AppDelegate).startLocationManager();
-            Utility.gotoDashboard(self);
+            Utility.gotoDashboard();
         }
     }
     

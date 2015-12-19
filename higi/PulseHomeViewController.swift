@@ -273,10 +273,28 @@ class PulseHomeViewController: BaseViewController, UITableViewDataSource, UITabl
 extension PulseHomeViewController: UniversalLinkHandler {
     
     func handleUniversalLink(URL: NSURL, pathType: PathType, parameters: [String]?) {
-        Utility.mainNavigationController()?.drawerController.navController?.popToRootViewControllerAnimated(false)
+        
+        let application = UIApplication.sharedApplication().delegate as! AppDelegate
+        if application.didRecentlyLaunchToContinueUserActivity() {
+            let loadingViewController = self.presentLoadingViewController()
+            
+            NSNotificationCenter.defaultCenter().addObserverForName(ApiUtility.PULSE, object: nil, queue: nil, usingBlock: { (notification) in
+                self.pushPulseView(URL, pathType: pathType, presentedViewController: loadingViewController)
+                NSNotificationCenter.defaultCenter().removeObserver(self)
+            })
+        } else {
+            self.pushPulseView(URL, pathType: pathType, presentedViewController: nil)
+        }
+    }
+    
+    private func pushPulseView(URL: NSURL, pathType: PathType, presentedViewController: UIViewController?) {
         let pulseHomeViewController = PulseHomeViewController(nibName: "PulseHomeView", bundle: nil);
-        Utility.mainNavigationController()?.drawerController.navController?.pushViewController(pulseHomeViewController, animated: false)
-
+        dispatch_async(dispatch_get_main_queue(), {
+            presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
+            Utility.mainNavigationController()?.drawerController.navController?.popToRootViewControllerAnimated(false)
+            Utility.mainNavigationController()?.drawerController.navController?.pushViewController(pulseHomeViewController, animated: false)
+        })
+        
         if pathType == .PulseArticle {
             let article = PulseArticle(permalink: URL);
             pulseHomeViewController.gotoArticle(article);

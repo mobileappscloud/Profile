@@ -17,6 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var locationDelegate: LocationDelegate!;
     
+    /// Retained copy of `launchOptions` parameter from `application(application, didFinishLaunchingWithOptions launchOptions)`. This property can be removed once data controllers are refactored so that specific UX paths can be rebuilt more easily.
+    var launchOptions: [NSDate: [NSObject: AnyObject]] = [:]
+    
     // MARK: - Application Lifecycle
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -43,6 +46,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             })
         }
         
+        if let launchOptions = launchOptions {
+            self.launchOptions = [NSDate() : launchOptions]
+        }
         return true
     }
 
@@ -123,13 +129,12 @@ extension AppDelegate {
 extension AppDelegate {
         
     func application(application: UIApplication, continueUserActivity userActivity: NSUserActivity, restorationHandler: ([AnyObject]?) -> Void) -> Bool {
+        
         var didContinueActivity = false;
         if userActivity.activityType == NSUserActivityTypeBrowsingWeb {
             if let webpageURL = userActivity.webpageURL {
                 if UniversalLink.canHandleURL(webpageURL) {
-                    if SessionData.Instance.user != nil {
-                        UniversalLink.handleURL(webpageURL);
-                    }
+                    self.continueUserActivityBrowsingWeb(webpageURL)
                     didContinueActivity = true;
                 } else {
                     application.openURL(webpageURL);
@@ -138,5 +143,37 @@ extension AppDelegate {
         }
         return didContinueActivity;
     }
+    
+    private func continueUserActivityBrowsingWeb(URL: NSURL) {
+        if SessionData.Instance.user == nil {
+            return
+        }
+        
+        if self.didRecentlyLaunchToContinueUserActivity() {
+            NSNotificationCenter.defaultCenter().addObserverForName("SplashViewControllerDidGoToDashboard", object: nil, queue: nil, usingBlock: { (notification) in
+                UniversalLink.handleURL(URL);
+                NSNotificationCenter.defaultCenter().removeObserver(self, name: "SplashViewControllerDidGoToDashboard", object: nil)
+            })
+        } else {
+            UniversalLink.handleURL(URL);
+        }
+    }
+    
+    func didRecentlyLaunchToContinueUserActivity() -> Bool {
+        guard let launchOptionsDict = self.launchOptions.first else {
+            return false
+        }
+        
+        var recentlyLaunchToContinueUserActivity = false
+        let launchOptions = launchOptionsDict.1
+        let launchDate = launchOptionsDict.0
+        let appLaunchThreshold = 15.0
+        if launchOptions[UIApplicationLaunchOptionsUserActivityDictionaryKey] != nil && abs(launchDate.timeIntervalSinceNow) < appLaunchThreshold {
+            recentlyLaunchToContinueUserActivity = true
+        }
+        return recentlyLaunchToContinueUserActivity
+    }
+}
+
 }
 
