@@ -24,6 +24,8 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     
     var clickedChallenge: HigiChallenge?;
     
+    var universalLinkObserver: NSObjectProtocol? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
@@ -413,9 +415,11 @@ extension ChallengesViewController: UniversalLinkHandler {
         if application.didRecentlyLaunchToContinueUserActivity() {
             let loadingViewController = self.presentLoadingViewController()
             
-            NSNotificationCenter.defaultCenter().addObserverForName(ApiUtility.CHALLENGES, object: nil, queue: nil, usingBlock: { (notification) in
+            self.universalLinkObserver = NSNotificationCenter.defaultCenter().addObserverForName(ApiUtility.CHALLENGES, object: nil, queue: nil, usingBlock: { (notification) in
                 self.handle(URL, pathType: pathType, parameters: parameters, presentedViewController: loadingViewController)
-                NSNotificationCenter.defaultCenter().removeObserver(self)
+                if let observer = self.universalLinkObserver {
+                    NSNotificationCenter.defaultCenter().removeObserver(observer)
+                }
             })
         } else {
             self.handle(URL, pathType: pathType, parameters: parameters, presentedViewController: nil)

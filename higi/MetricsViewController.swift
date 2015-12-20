@@ -21,6 +21,9 @@ class MetricsViewController: UIViewController {
     
     var previousActualOrientation: UIInterfaceOrientation!, selectedCardPosition = 0;
     
+    var universalLinkCheckinsObserver: NSObjectProtocol? = nil
+    var universalLinkActivitiesObserver: NSObjectProtocol? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         let revealController = (self.navigationController as? MainNavigationController)?.revealController;
@@ -452,15 +455,19 @@ extension MetricsViewController: UniversalLinkHandler {
         if application.didRecentlyLaunchToContinueUserActivity() {
             let loadingViewController = self.presentLoadingViewController()
             
-            NSNotificationCenter.defaultCenter().addObserverForName(ApiUtility.ACTIVITIES, object: nil, queue: nil, usingBlock: { (notification) in
+            self.universalLinkActivitiesObserver = NSNotificationCenter.defaultCenter().addObserverForName(ApiUtility.ACTIVITIES, object: nil, queue: nil, usingBlock: { (notification) in
                 loadedActivities = true
                 self.pushMetricsView(pathType, loadedActivites: loadedActivities, loadedCheckins: loadedCheckins, presentedViewController: loadingViewController)
-                NSNotificationCenter.defaultCenter().removeObserver(self)
+                if let observer = self.universalLinkActivitiesObserver {
+                    NSNotificationCenter.defaultCenter().removeObserver(observer)
+                }
             })
-            NSNotificationCenter.defaultCenter().addObserverForName(ApiUtility.CHECKINS, object: nil, queue: nil, usingBlock: { (notification) in
+            self.universalLinkCheckinsObserver = NSNotificationCenter.defaultCenter().addObserverForName(ApiUtility.CHECKINS, object: nil, queue: nil, usingBlock: { (notification) in
                 loadedCheckins = true
                 self.pushMetricsView(pathType, loadedActivites: loadedActivities, loadedCheckins: loadedCheckins, presentedViewController: loadingViewController)
-                NSNotificationCenter.defaultCenter().removeObserver(self)
+                if let observer = self.universalLinkCheckinsObserver {
+                    NSNotificationCenter.defaultCenter().removeObserver(observer)
+                }
             })
         } else {
             self.pushMetricsView(pathType, loadedActivites: true, loadedCheckins: true, presentedViewController: nil)

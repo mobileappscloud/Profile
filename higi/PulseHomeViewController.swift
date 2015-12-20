@@ -27,6 +27,8 @@ class PulseHomeViewController: BaseViewController, UITableViewDataSource, UITabl
     
     var prevArticles:[PulseArticle] = [];
     
+    var universalLinkObserver: NSObjectProtocol? = nil    
+    
     override func viewDidLoad()  {
         super.viewDidLoad();
         self.title = NSLocalizedString("PULSE_HOME_VIEW_TITLE", comment: "Title for Pulse view.");
@@ -278,9 +280,11 @@ extension PulseHomeViewController: UniversalLinkHandler {
         if application.didRecentlyLaunchToContinueUserActivity() {
             let loadingViewController = self.presentLoadingViewController()
             
-            NSNotificationCenter.defaultCenter().addObserverForName(ApiUtility.PULSE, object: nil, queue: nil, usingBlock: { (notification) in
+            self.universalLinkObserver = NSNotificationCenter.defaultCenter().addObserverForName(ApiUtility.PULSE, object: nil, queue: nil, usingBlock: { (notification) in
                 self.pushPulseView(URL, pathType: pathType, presentedViewController: loadingViewController)
-                NSNotificationCenter.defaultCenter().removeObserver(self)
+                if let observer = self.universalLinkObserver {
+                    NSNotificationCenter.defaultCenter().removeObserver(observer)
+                }
             })
         } else {
             self.pushPulseView(URL, pathType: pathType, presentedViewController: nil)

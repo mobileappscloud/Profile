@@ -106,6 +106,8 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     
     var clusterManager:GClusterManager = GClusterManager();
     
+    var universalLinkObserver: NSObjectProtocol? = nil    
+    
     override func viewDidLoad()  {
         super.viewDidLoad();
         self.fakeNavBar.alpha = 1.0;
@@ -731,8 +733,11 @@ extension FindStationViewController: UniversalLinkHandler {
         if application.didRecentlyLaunchToContinueUserActivity() {
             let loadingViewController = self.presentLoadingViewController()
             
-            NSNotificationCenter.defaultCenter().addObserverForName(ApiUtility.KIOSKS, object: nil, queue: nil, usingBlock: { (notification) in
+            self.universalLinkObserver = NSNotificationCenter.defaultCenter().addObserverForName(ApiUtility.KIOSKS, object: nil, queue: nil, usingBlock: { (notification) in
                 self.pushStationLocator(loadingViewController)
+                if let observer = self.universalLinkObserver {
+                    NSNotificationCenter.defaultCenter().removeObserver(observer)
+                }
             })
         } else {
             self.pushStationLocator(nil)
