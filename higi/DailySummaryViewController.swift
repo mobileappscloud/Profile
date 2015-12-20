@@ -46,6 +46,9 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     
     var timeOfDay:TimeOfDay!;
     
+    var universalLinkCheckinsObserver: NSObjectProtocol? = nil
+    var universalLinkActivitiesObserver: NSObjectProtocol? = nil
+    
     enum TimeOfDay {
         case Morning;
         case Afternoon;
@@ -673,15 +676,19 @@ extension DailySummaryViewController: UniversalLinkHandler {
         if application.didRecentlyLaunchToContinueUserActivity() {
             let loadingViewController = self.presentLoadingViewController()
             
-            NSNotificationCenter.defaultCenter().addObserverForName(ApiUtility.ACTIVITIES, object: nil, queue: nil, usingBlock: { (notification) in
+            self.universalLinkActivitiesObserver = NSNotificationCenter.defaultCenter().addObserverForName(ApiUtility.ACTIVITIES, object: nil, queue: nil, usingBlock: { (notification) in
                 loadedActivities = true
                 self.pushDailySummary(loadedActivities, loadedCheckins: loadedCheckins, presentedViewController: loadingViewController)
-                NSNotificationCenter.defaultCenter().removeObserver(self)
+                if let observer = self.universalLinkActivitiesObserver {
+                    NSNotificationCenter.defaultCenter().removeObserver(observer)
+                }
             })
-            NSNotificationCenter.defaultCenter().addObserverForName(ApiUtility.CHECKINS, object: nil, queue: nil, usingBlock: { (notification) in
+            self.universalLinkCheckinsObserver = NSNotificationCenter.defaultCenter().addObserverForName(ApiUtility.CHECKINS, object: nil, queue: nil, usingBlock: { (notification) in
                 loadedCheckins = true
                 self.pushDailySummary(loadedActivities, loadedCheckins: loadedCheckins, presentedViewController: loadingViewController)
-                NSNotificationCenter.defaultCenter().removeObserver(self)
+                if let observer = self.universalLinkCheckinsObserver {
+                    NSNotificationCenter.defaultCenter().removeObserver(observer)
+                }
             })
         } else {
             self.pushDailySummary(true, loadedCheckins: true, presentedViewController: nil)
