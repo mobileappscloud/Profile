@@ -1,5 +1,9 @@
 import Foundation
 
+enum BrandedDevice {
+    static let HigiActivityTracker = NSLocalizedString("BRANDED_ACTIVITY_DEVICE_NAME", comment: "Name for branded activity tracker which leverages HealthKit data.")
+}
+
 private enum TableSection: Int {
     case BrandedDevice
     case VendorDevice
@@ -20,9 +24,8 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
         var devices: [ActivityDevice] = []
         
         if HealthKitManager.isHealthDataAvailable() {
-            let name = NSLocalizedString("BRANDED_ACTIVITY_DEVICE_NAME", comment: "Name for branded activity tracker which leverages HealthKit data.")
             let description = NSLocalizedString("BRANDED_ACTIVITY_DEVICE_DESCRIPTION", comment: "Description for branded activity tracker which leverages HealthKit data.")
-            let higiTracker = ActivityDevice(name: name, description: description, imageName: "higi-activity-tracker-icon", connected: false)
+            let higiTracker = ActivityDevice(name: BrandedDevice.HigiActivityTracker, description: description, imageName: "higi-activity-tracker-icon", connected: false)
             
             HealthKitManager.checkReadAuthorizationForStepData({ isAuthorized in
                 higiTracker.connected = isAuthorized
