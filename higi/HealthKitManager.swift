@@ -7,6 +7,7 @@
 //
 
 import HealthKit
+import CoreMotion
 
 /// Class which manages interactions with HealthKit and health data.
 internal class HealthKitManager {
@@ -97,6 +98,15 @@ internal class HealthKitManager {
     }
     
     /**
+    Check if current device has a motion processor which records health data such as step activity.
+
+    - returns: `true` if the device has a motion processor, otherwise `false`.
+    */
+    internal class func deviceHasMotionProcessor() -> Bool {
+        return CMMotionManager().accelerometerAvailable
+    }
+    
+    /**
      Check if the prompt to connect the branded activity tracker has been displayed.
      
      - returns: 'true' if the prompt to connect the branded activity tracker has been displayed, otherwise `false`.
@@ -137,6 +147,8 @@ internal extension HealthKitManager {
      */
     internal class func requestReadAccessToStepData(completion: ((didRespond: Bool, error: NSError?) -> Void)!) {
         if !HealthKitManager.isHealthDataAvailable() {
+            let error = NSError(domain: HKErrorDomain, code: HKErrorCode.ErrorHealthDataUnavailable.rawValue, userInfo: nil)
+            completion?(didRespond: false, error: error)
             return
         }
         

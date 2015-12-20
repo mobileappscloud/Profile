@@ -283,6 +283,15 @@
 /* Title for alert displayed when user toggles switch to connect branded activity tracker (HealthKit) ON. */
 "CONNECT_DEVICE_ROW_CONNECT_HEALTHKIT_ALERT_TITLE" = "Connect higi activity tracker?";
 
+/* Title for alert action to acknowledge alert displayed when user toggles switch to connect branded activity tracker, but the device does not have a motion processor */
+"CONNECT_DEVICE_ROW_CONNECT_HEALTHKIT_NO_MOTION_PROCESSOR_ALERT_ACTION_ACKNOWLEDGE_ACTION" = "Got it";
+
+/* Message for alert displayed when user toggles switch to connect branded activity tracker, but the device does not have a motion processor */
+"CONNECT_DEVICE_ROW_CONNECT_HEALTHKIT_NO_MOTION_PROCESSOR_ALERT_MESSAGE" = "Unfortunately, the higi activity tracker can not be connected because this device does not have sensors to track your steps.";
+
+/* Title for alert displayed when user toggles switch to connect branded activity tracker, but the device does not have a motion processor. */
+"CONNECT_DEVICE_ROW_CONNECT_HEALTHKIT_NO_MOTION_PROCESSOR_ALERT_TITLE" = "Uh oh";
+
 /* Title for alert action to acknowledge alert displayed when user toggles switch to connect branded activity tracker (HealthKit) OFF. */
 "CONNECT_DEVICE_ROW_DISCONNECT_HEALTHKIT_ALERT_ACTION_ACKNOWLEDGE_ACTION" = "Got it";
 

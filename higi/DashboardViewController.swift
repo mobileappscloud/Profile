@@ -100,7 +100,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     }
     
     private func askToConnectActivityTracker() {
-        if !HealthKitManager.isHealthDataAvailable() {
+        if !HealthKitManager.deviceHasMotionProcessor() || !HealthKitManager.isHealthDataAvailable() {
             return
         }
 

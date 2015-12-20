@@ -25,35 +25,11 @@ class ConnectDeviceRow: UITableViewCell {
     }
     
     func connectDevice() {
-        // TODO: Don't switch on hardcoded device name
-        if device.name == "higi" {
-            if !HealthKitManager.didShowAuthorizationModal() {
-                HealthKitManager.requestReadAccessToStepData( { (didRespond, error) in
-                    if didRespond {
-                        HealthKitManager.checkReadAuthorizationForStepData({ [weak self] (isAuthorized) in
-                            if isAuthorized {
-                                HealthKitManager.enableBackgroundUpdates()
-                            } else {
-                                HealthKitManager.disableBackgroundUpdates()
-                                dispatch_async(dispatch_get_main_queue(), {
-                                    self?.connectedToggle.on = false
-                                })
-                            }
-                        })
-                    }
-                })
+        if device.name == BrandedDevice.HigiActivityTracker {
+            if HealthKitManager.deviceHasMotionProcessor() {
+                self.connectBrandedDevice()
             } else {
-                let title = NSLocalizedString("CONNECT_DEVICE_ROW_CONNECT_HEALTHKIT_ALERT_TITLE", comment: "Title for alert displayed when user toggles switch to connect branded activity tracker (HealthKit) ON.")
-                let message = NSLocalizedString("CONNECT_DEVICE_ROW_CONNECT_HEALTHKIT_ALERT_MESSAGE", comment: "Message for alert displayed when user toggles switch to connect branded activity tracker (HealthKit) ON.")
-                let dismissActionTitle = NSLocalizedString("CONNECT_DEVICE_ROW_CONNECT_HEALTHKIT_ALERT_ACTION_ACKNOWLEDGE_ACTION", comment: "Title for alert action to acknowledge alert displayed when user toggles switch to connect branded activity tracker (HealthKit) ON.")
-                let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-                let dismissAction = UIAlertAction(title: dismissActionTitle, style: .Default, handler: { [weak self] (action) in
-                    dispatch_async(dispatch_get_main_queue(), {
-                        self?.connectedToggle.on = false
-                    })
-                    })
-                alert.addAction(dismissAction)
-                self.parentController.presentViewController(alert, animated: true, completion: nil)
+                self.showUnsupportedDeviceAlert()
             }
         } else {
             self.device.connected = true;
@@ -67,9 +43,53 @@ class ConnectDeviceRow: UITableViewCell {
         }
     }
     
+    func showUnsupportedDeviceAlert() {
+        let title = NSLocalizedString("CONNECT_DEVICE_ROW_CONNECT_HEALTHKIT_NO_MOTION_PROCESSOR_ALERT_TITLE", comment: "Title for alert displayed when user toggles switch to connect branded activity tracker, but the device does not have a motion processor.")
+        let message = NSLocalizedString("CONNECT_DEVICE_ROW_CONNECT_HEALTHKIT_NO_MOTION_PROCESSOR_ALERT_MESSAGE", comment: "Message for alert displayed when user toggles switch to connect branded activity tracker, but the device does not have a motion processor")
+        let dismissActionTitle = NSLocalizedString("CONNECT_DEVICE_ROW_CONNECT_HEALTHKIT_NO_MOTION_PROCESSOR_ALERT_ACTION_ACKNOWLEDGE_ACTION", comment: "Title for alert action to acknowledge alert displayed when user toggles switch to connect branded activity tracker, but the device does not have a motion processor")
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        let dismissAction = UIAlertAction(title: dismissActionTitle, style: .Default, handler: { [weak self] (action) in
+            dispatch_async(dispatch_get_main_queue(), {
+                self?.connectedToggle.on = false
+            })
+            })
+        alert.addAction(dismissAction)
+        self.parentController.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func connectBrandedDevice() {
+        if !HealthKitManager.didShowAuthorizationModal() {
+            HealthKitManager.requestReadAccessToStepData( { (didRespond, error) in
+                if didRespond {
+                    HealthKitManager.checkReadAuthorizationForStepData({ [weak self] (isAuthorized) in
+                        if isAuthorized {
+                            HealthKitManager.enableBackgroundUpdates()
+                        } else {
+                            HealthKitManager.disableBackgroundUpdates()
+                            dispatch_async(dispatch_get_main_queue(), {
+                                self?.connectedToggle.on = false
+                            })
+                        }
+                        })
+                }
+            })
+        } else {
+            let title = NSLocalizedString("CONNECT_DEVICE_ROW_CONNECT_HEALTHKIT_ALERT_TITLE", comment: "Title for alert displayed when user toggles switch to connect branded activity tracker (HealthKit) ON.")
+            let message = NSLocalizedString("CONNECT_DEVICE_ROW_CONNECT_HEALTHKIT_ALERT_MESSAGE", comment: "Message for alert displayed when user toggles switch to connect branded activity tracker (HealthKit) ON.")
+            let dismissActionTitle = NSLocalizedString("CONNECT_DEVICE_ROW_CONNECT_HEALTHKIT_ALERT_ACTION_ACKNOWLEDGE_ACTION", comment: "Title for alert action to acknowledge alert displayed when user toggles switch to connect branded activity tracker (HealthKit) ON.")
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+            let dismissAction = UIAlertAction(title: dismissActionTitle, style: .Default, handler: { [weak self] (action) in
+                dispatch_async(dispatch_get_main_queue(), {
+                    self?.connectedToggle.on = false
+                })
+                })
+            alert.addAction(dismissAction)
+            self.parentController.presentViewController(alert, animated: true, completion: nil)
+        }
+    }
+    
     func disconnectDevice() {
-        // TODO: Don't switch on hardcoded device name
-        if device.name == "higi" {
+        if device.name == BrandedDevice.HigiActivityTracker {
             let title = NSLocalizedString("CONNECT_DEVICE_ROW_DISCONNECT_HEALTHKIT_ALERT_TITLE", comment: "Title for alert displayed when user toggles switch to connect branded activity tracker (HealthKit) OFF.")
             let message = NSLocalizedString("CONNECT_DEVICE_ROW_DISCONNECT_HEALTHKIT_ALERT_MESSAGE", comment: "Message for alert displayed when user toggles switch to connect branded activity tracker (HealthKit) OFF.")
             let dismissActionTitle = NSLocalizedString("CONNECT_DEVICE_ROW_DISCONNECT_HEALTHKIT_ALERT_ACTION_ACKNOWLEDGE_ACTION", comment: "Title for alert action to acknowledge alert displayed when user toggles switch to connect branded activity tracker (HealthKit) OFF.")
