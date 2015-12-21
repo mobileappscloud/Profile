@@ -103,7 +103,7 @@ internal class HealthKitManager {
     - returns: `true` if the device has a motion processor, otherwise `false`.
     */
     internal class func deviceHasMotionProcessor() -> Bool {
-        return CMMotionManager().accelerometerAvailable
+        return CMPedometer.isStepCountingAvailable()
     }
     
     /**
