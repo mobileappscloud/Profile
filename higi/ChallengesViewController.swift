@@ -34,12 +34,19 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
         (self.navigationController as! MainNavigationController).drawerController?.selectRowAtIndex(1);
+        
         //fix for changing orientation bug when coming back from landscape screen
         screenWidth = min(UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height);
         scrollView.frame.size.width = screenWidth;
         pager = UIPageControl(frame: CGRect(x: screenWidth / 2 - 50 / 2 , y: self.navigationController!.navigationBar.frame.size.height - 10, width: 50, height: 10));
-        pager.currentPage = currentPage;
+
+        // Ensure content offset is set to a 'page'
+        scrollView.contentOffset.x = scrollView.bounds.width * CGFloat(currentPage)        
+
         initChallengeCards();
+
+        pager.currentPage = currentPage;
+        pager.updateCurrentPageDisplay()
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -125,7 +132,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
                 }
             }
             if (clickedChallenge != nil) {
-                pager.currentPage = actualTableIndex(challengeIndex);
+                currentPage = actualTableIndex(challengeIndex);
                 changePage(pager);
                 clickedChallenge = nil;
             }
