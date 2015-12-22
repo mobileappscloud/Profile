@@ -177,7 +177,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     func gotoDashboard() {
+        ApiUtility.initializeApiData()
+        
         (UIApplication.sharedApplication().delegate as! AppDelegate).startLocationManager();
+        
         dispatch_async(dispatch_get_main_queue(), {
             self.spinner.stopAnimating();
             Utility.gotoDashboard();
