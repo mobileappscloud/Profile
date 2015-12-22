@@ -177,11 +177,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     func gotoDashboard() {
-        if (SessionController.Instance.checkins != nil && SessionController.Instance.challenges != nil && SessionController.Instance.kioskList != nil && SessionController.Instance.pulseArticles.count > 0) {
-            spinner.stopAnimating();
-            (UIApplication.sharedApplication().delegate as! AppDelegate).startLocationManager();
+        (UIApplication.sharedApplication().delegate as! AppDelegate).startLocationManager();
+        dispatch_async(dispatch_get_main_queue(), {
+            self.spinner.stopAnimating();
             Utility.gotoDashboard();
-        }
+        })
     }
     
     @IBAction func forgotPasswordClicked(sender: AnyObject) {
