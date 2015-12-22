@@ -43,6 +43,8 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         // Ensure content offset is set to a 'page'
         scrollView.contentOffset.x = scrollView.bounds.width * CGFloat(currentPage)        
 
+        // Temporary fix -- everything needs to be refactored.
+        pager.currentPage = currentPage;
         initChallengeCards();
 
         pager.currentPage = currentPage;
@@ -132,7 +134,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
                 }
             }
             if (clickedChallenge != nil) {
-                currentPage = actualTableIndex(challengeIndex);
+                pager.currentPage = actualTableIndex(challengeIndex);
                 changePage(pager);
                 clickedChallenge = nil;
             }
