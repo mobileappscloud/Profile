@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -11,8 +11,8 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="38"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="You" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gj9-zg-cQR">
-                    <rect key="frame" x="46" y="6" width="120" height="14"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="You" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gj9-zg-cQR">
+                    <rect key="frame" x="46" y="8" width="234" height="12"/>
                     <rect key="contentStretch" x="1" y="0.0" width="1" height="1"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -53,11 +53,13 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="V7f-uV-swD" firstAttribute="leading" secondItem="weF-Yk-wxc" secondAttribute="trailing" id="95b-Wd-CE1"/>
+                <constraint firstItem="gj9-zg-cQR" firstAttribute="leading" secondItem="ot0-KN-rck" secondAttribute="trailing" constant="8" id="NeG-AH-ybb"/>
                 <constraint firstItem="ot0-KN-rck" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="Q0q-Oa-Arl"/>
                 <constraint firstItem="Ara-sS-UlK" firstAttribute="leading" secondItem="V7f-uV-swD" secondAttribute="trailing" constant="8" id="chG-3n-5Yc"/>
                 <constraint firstItem="ot0-KN-rck" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="4" id="elS-nr-pFA"/>
                 <constraint firstItem="V7f-uV-swD" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="14" id="j6r-0o-lKu"/>
                 <constraint firstAttribute="bottom" secondItem="ot0-KN-rck" secondAttribute="bottom" constant="4" id="nUU-Md-1pO"/>
+                <constraint firstAttribute="trailing" secondItem="gj9-zg-cQR" secondAttribute="trailing" constant="40" id="r5d-Yv-Evw"/>
                 <constraint firstItem="weF-Yk-wxc" firstAttribute="leading" secondItem="ot0-KN-rck" secondAttribute="trailing" constant="8" id="t4J-aL-AxJ"/>
                 <constraint firstAttribute="bottom" secondItem="V7f-uV-swD" secondAttribute="bottom" constant="4" id="tbs-uc-vnS"/>
                 <constraint firstAttribute="trailing" secondItem="Ara-sS-UlK" secondAttribute="trailing" constant="8" id="yHf-pa-wSI"/>
