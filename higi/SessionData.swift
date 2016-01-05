@@ -24,7 +24,14 @@ class SessionData {
     
     var lastUpdate: NSDate!;
     
-    let savePath: String = {
+    let tempSavePath: String = {
+        let tempPath = (NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)[0])
+        let tempURL = NSURL(fileURLWithPath: tempPath)
+        let writePath = tempURL.URLByAppendingPathComponent("TempSessionData.plist")
+        return writePath.relativePath!
+    }()
+    
+    let documentsSavePath: String = {
         let documentsPath = (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0])
         let documentsURL = NSURL(fileURLWithPath: documentsPath)
         let writePath = documentsURL.URLByAppendingPathComponent("HigiSessionData.plist")
@@ -50,6 +57,11 @@ class SessionData {
     }
     
     func save() {
+        saveDocumentData()
+        saveCachedData()
+    }
+    
+    private func saveDocumentData() {
         KeychainWrapper.setString(token, forKey: "token");
         KeychainWrapper.setString(pin, forKey: "pin");
         let userId = user != nil ? user.userId : "";
@@ -59,16 +71,23 @@ class SessionData {
         saveDictionary["seenDashboard"] = seenDashboard;
         saveDictionary["seenMetrics"] = seenMetrics;
         saveDictionary["seenReminder"] = seenReminder;
-        saveDictionary["kioskList"] = kioskListString;
         saveDictionary["lastUpdate"] = lastUpdate;
         
         let dictionary: NSDictionary = saveDictionary.copy() as! NSDictionary
-        dictionary.writeToFile(savePath, atomically: false)
+        dictionary.writeToFile(documentsSavePath, atomically: false)
+    }
+    
+    private func saveCachedData() {
+        let tempDictionary = NSMutableDictionary()
+        tempDictionary["kioskList"] = kioskListString
+        
+        let immutableTempDict: NSDictionary = tempDictionary.copy() as! NSDictionary
+        immutableTempDict.writeToFile(tempSavePath, atomically: false)
     }
     
     func restore() {
-        if (NSFileManager.defaultManager().fileExistsAtPath(savePath)) {
-            let savedDictionary = NSDictionary(contentsOfFile: savePath)!;
+        if (NSFileManager.defaultManager().fileExistsAtPath(documentsSavePath)) {
+            let savedDictionary = NSDictionary(contentsOfFile: documentsSavePath)!;
 
             if let savedToken = savedDictionary["token"] as? String {
                 token = savedToken;
@@ -90,10 +109,14 @@ class SessionData {
             seenDashboard = (savedDictionary["seenDashboard"] ?? false) as! Bool;
             seenMetrics = (savedDictionary["seenMetrics"] ?? false) as! Bool;
             seenReminder = (savedDictionary["seenReminder"] ?? false) as! Bool;
-            kioskListString = (savedDictionary["kioskList"] ?? "") as! String;
             lastUpdate = (savedDictionary["lastUpdate"] ?? NSDate()) as! NSDate;
         } else {
             reset();
+        }
+        
+        if (NSFileManager.defaultManager().fileExistsAtPath(tempSavePath)) {
+            let tempDictionary = NSDictionary(contentsOfFile: tempSavePath)!;
+            kioskListString = (tempDictionary["kioskList"] ?? "") as! String;
         }
     }
     
