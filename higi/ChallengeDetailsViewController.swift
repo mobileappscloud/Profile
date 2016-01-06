@@ -256,7 +256,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             if (NSCalendar.currentCalendar().isDateInToday(endDate!)) {
                 dateDisplay = NSLocalizedString("CHALLENGE_DETAILS_VIEW_CHALLENGE_DATE_ENDS_TODAY", comment: "Message for a challenge which ends today.")
                 
-            } else if (remainingDays > 0) {
+            } else if (remainingDays >= 0) {
                 let formattedDate = NSString.localizedStringWithFormat(NSLocalizedString("DAY_COUNT_SINGLE_PLURAL", comment: "Format for pluralization of days."), remainingDays+1)
                 let format = NSLocalizedString("CHALLENGE_DETAILS_VIEW_CHALLENGE_DATE_STARTED_FORMAT", comment: "Format for a challenge which has started and has a given number of days remaining.")
                 dateDisplay = NSString.localizedStringWithFormat(format, formattedDate) as String
