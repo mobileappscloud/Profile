@@ -261,8 +261,8 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         let noCheckins = SessionController.Instance.checkins.count == 0;
         var noDevices = true;
         var devices = SessionController.Instance.devices;
-        for (key, device) in devices {
-            if (devices[key] != nil && devices[key]!.connected!) {
+        for (_, device) in devices {
+            if let connected = device.connected where connected {
                 noDevices = false;
                 break;
             }
