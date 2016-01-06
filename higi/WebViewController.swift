@@ -7,21 +7,12 @@ class WebViewController: UIViewController {
 
     var headers:[String:String!] = [:];
     
-    var device: ActivityDevice!;
-    
     @IBOutlet weak var webViewContainer: UIView!
     
     lazy private var webView: WKWebView = {
         let webView = WKWebView(frame: self.webViewContainer.bounds)
-        webView.navigationDelegate = self
         return webView
     }()
-
-    private var webData: NSMutableData!;
-    
-    private var errorMessage: String!;
-
-    private var isGone = false;
     
     // MARK: View Lifecycle
     
@@ -40,8 +31,8 @@ class WebViewController: UIViewController {
     private func URLRequest(URLString: NSString) -> NSURLRequest {
         let urlRequest = NSMutableURLRequest(URL: NSURL(string: url as String)!);
         
-        if (headers.count > 0) {
-            for (field, value) in headers {
+        if (self.headers.count > 0) {
+            for (field, value) in self.headers {
                 urlRequest.addValue(value, forHTTPHeaderField: field);
             }
         }
@@ -71,63 +62,6 @@ class WebViewController: UIViewController {
     // MARK: Navigation
     
     func goBack(sender: AnyObject!) {
-        if (!isGone) {
-            self.navigationController!.popViewControllerAnimated(true);
-            isGone = true;
-        }
-    }
-}
-
-extension WebViewController: WKNavigationDelegate {
-
-    func webView(webView: WKWebView, decidePolicyForNavigationAction navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void) {
-        
-        let request = navigationAction.request
-        
-        if (request.allHTTPHeaderFields?.indexForKey("Higi-Source") == nil && request.URL?.absoluteString == request.mainDocumentURL?.absoluteString) {
-            dispatch_async(dispatch_get_main_queue(), {
-                if let mutableRequest = request.mutableCopy() as? NSMutableURLRequest {
-                    mutableRequest.addValue("mobile-ios", forHTTPHeaderField: "Higi-Source");
-                    
-                    webView.loadRequest(mutableRequest);
-                }
-            });
-            
-            decisionHandler(.Cancel)
-            return
-        }
-        
-        if (((!isGone && request.URL!.absoluteString != "" && request.URL!.absoluteString.hasPrefix("https://www.google.com")))) {
-            webView.stopLoading();
-            let components = NSURLComponents(URL: request.URL!, resolvingAgainstBaseURL: false)!;
-            errorMessage = "";
-
-            for item in components.query!.componentsSeparatedByString("&") {
-                var keyValuePair = item.componentsSeparatedByString("=");
-
-                if (keyValuePair[0] == "error") {
-                    if (keyValuePair.count > 1 && keyValuePair[1].characters.count > 0) {
-                        device.connected = false;
-                    }
-                } else if (keyValuePair[0] == "message") {
-                    errorMessage = keyValuePair[1].stringByReplacingOccurrencesOfString("+", withString: " ", options: [], range: nil);
-                }
-            }
-            if (errorMessage != "") {
-                let alertController = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .Alert)
-                let dismissAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
-                alertController.addAction(dismissAction)
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.presentViewController(alertController, animated: true, completion: {
-                        self.goBack(self)
-                    })
-                })
-            } else {
-                goBack(self);
-            }
-        }
-
-        decisionHandler(.Allow)
-        return
+        self.navigationController!.popViewControllerAnimated(true);
     }
 }
