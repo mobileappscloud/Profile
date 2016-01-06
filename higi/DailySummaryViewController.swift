@@ -253,7 +253,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             connectDeviceCallToAction = NSLocalizedString("DAILY_SUMMARY_VIEW_BLANK_STATE_CALL_TO_ACTION_CONNECT_DEVICE", comment: "Title for call-to-action to connect a device; displayed in the Daily Summary blank-state view.");
         }
         let activityTrackerCallToAction = connectDeviceCallToAction;
-        let foursquareCallToAction = connectDeviceCallToAction;
+        let foursquareCallToAction = NSLocalizedString("DAILY_SUMMARY_VIEW_BLANK_STATE_CALL_TO_ACTION_CONNECT_DEVICE", comment: "Title for call-to-action to connect a device; displayed in the Daily Summary blank-state view.")
 
         
         let higiButtonTarget:Selector = "higiCallToActionClicked:", activityTrackerButtonTarget:Selector = "activityTrackerCallToActionClicked:", foursquareButtonTarget:Selector = "foursquareCallToActionClicked:", morningButtonTarget:Selector = "morningCallToActionClicked:", afternoonButtonTarget:Selector = "afternoonCallToActionClicked:";
@@ -266,6 +266,14 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
                 noDevices = false;
                 break;
             }
+        }
+        if noDevices {
+            let semaphore = dispatch_semaphore_create(0)
+            HealthKitManager.checkReadAuthorizationForStepData({ isAuthorized in
+                noDevices = !isAuthorized
+                dispatch_semaphore_signal(semaphore)
+            })
+            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
         }
         
         largestActivityPoints = 0;
