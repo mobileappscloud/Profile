@@ -24,9 +24,11 @@ class MetricsViewController: UIViewController {
     var universalLinkCheckinsObserver: NSObjectProtocol? = nil
     var universalLinkActivitiesObserver: NSObjectProtocol? = nil
     
+    var revealController:RevealViewController!;
+    
     override func viewDidLoad() {
         super.viewDidLoad();
-        let revealController = (self.navigationController as? MainNavigationController)?.revealController;
+        revealController = (self.navigationController as? MainNavigationController)?.revealController;
         previousSupportedOrientations = revealController?.supportedOrientations;
         previousShouldRotate = revealController?.shouldRotate;
         previousActualOrientation = UIApplication.sharedApplication().statusBarOrientation;
@@ -61,6 +63,7 @@ class MetricsViewController: UIViewController {
     }
 
     override func viewWillDisappear(animated: Bool) {
+        prepareOrientationForLeaving();
         self.navigationController?.navigationBarHidden = false;
         super.viewWillDisappear(animated);
     }
@@ -178,7 +181,6 @@ class MetricsViewController: UIViewController {
     }
     
     func backButtonClicked(sender: AnyObject) {
-        prepareOrientationForLeaving();
         self.navigationController!.popViewControllerAnimated(true);
     }
     
@@ -414,7 +416,6 @@ class MetricsViewController: UIViewController {
     }
 
     func prepareOrientationForLeaving() {
-        let revealController = (self.navigationController as! MainNavigationController).revealController;
         revealController.supportedOrientations = previousSupportedOrientations;
         revealController.shouldRotate = true;
         UIDevice.currentDevice().setValue(previousActualOrientation.rawValue, forKey: "orientation");
