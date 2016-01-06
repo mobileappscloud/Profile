@@ -234,7 +234,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             }
             challengesCard.challengeBox.layer.borderColor = Utility.colorFromHexString("#CCCCCC").CGColor;
             if (challengesCard.spinner == nil) {
-                challengesCard.spinner = CustomLoadingSpinner(frame: CGRectMake(UIScreen.mainScreen().bounds.width / 2 - 16, challengesCard.loadingContainer.frame.size.height / 2 - 16, 32, 32));
+                challengesCard.spinner = CustomLoadingSpinner(frame: CGRectMake(UIScreen.mainScreen().bounds.width / 2 - 16 - challengesCard.loadingContainer.frame.origin.x, challengesCard.loadingContainer.frame.size.height / 2 - 16, 32, 32));
                 challengesCard.loadingContainer.addSubview(challengesCard.spinner);
             }
             if (challengesCard.superview == nil) {
