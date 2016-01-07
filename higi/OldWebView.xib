@@ -23,7 +23,7 @@
                         <constraint firstAttribute="height" constant="49" id="AMy-PZ-Wg4"/>
                     </constraints>
                 </imageView>
-                <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="64A-xh-1wa">
+                <webView contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="64A-xh-1wa">
                     <rect key="frame" x="0.0" y="65" width="320" height="503"/>
                     <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
                 </webView>
