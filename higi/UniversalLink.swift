@@ -198,7 +198,7 @@ extension UniversalLinkHandler {
         let navController = Utility.mainNavigationController()?.drawerController.navController
         let loadingViewController = UIStoryboard(name: "Loading", bundle: nil).instantiateInitialViewController()!
         dispatch_async(dispatch_get_main_queue(), {
-            navController?.popToRootViewControllerAnimated(false)
+            navController?.popToRootViewControllerAnimated(true)
             navController?.presentViewController(loadingViewController, animated: false, completion: nil)
         })
         return loadingViewController

@@ -440,7 +440,7 @@ extension ChallengesViewController: UniversalLinkHandler {
         let navController = Utility.mainNavigationController()?.drawerController.navController
         dispatch_async(dispatch_get_main_queue(), {
             presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
-            navController?.popToRootViewControllerAnimated(false)
+            navController?.popToRootViewControllerAnimated(true)
         })
         
         if pathType == .ChallengeDashboard {

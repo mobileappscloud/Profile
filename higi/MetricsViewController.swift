@@ -498,7 +498,7 @@ extension MetricsViewController: UniversalLinkHandler {
 
         dispatch_async(dispatch_get_main_queue(), {
             presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
-            Utility.mainNavigationController()?.drawerController.navController?.popToRootViewControllerAnimated(false)
+            Utility.mainNavigationController()?.drawerController.navController?.popToRootViewControllerAnimated(true)
             Utility.mainNavigationController()?.drawerController.navController?.pushViewController(metricsViewController, animated: false)
         })
     }
