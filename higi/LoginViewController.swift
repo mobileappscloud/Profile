@@ -104,7 +104,25 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 SessionData.Instance.save();
                 if (login.user != nil) {
                     ApiUtility.checkTermsAndPrivacy(self, success: { (terms, privacy) in
-                        self.gotoDashboard()
+                        let user = SessionData.Instance.user;
+                        let newTerms = terms != user.termsFile;
+                        let newPrivacy = privacy != user.privacyFile;
+                        if (newTerms || newPrivacy) {
+                            let termsController = TermsViewController(nibName: "TermsView", bundle: nil);
+                            termsController.newTerms = newTerms
+                            termsController.newPrivacy = newPrivacy
+                            termsController.termsFile = terms as String;
+                            termsController.privacyFile = privacy as String;
+                            self.presentViewController(termsController, animated: true, completion: nil);
+                        } else if (user.firstName == nil || user.firstName == "" || user.lastName == nil || user.lastName == "") {
+                            let nameViewController = SignupNameViewController(nibName: "SignupNameView", bundle: nil);
+                            nameViewController.dashboardNext = true;
+                            self.presentViewController(nameViewController, animated: true, completion: nil);
+                        } else {
+                            self.gotoDashboard()
+                            NSNotificationCenter.defaultCenter().postNotificationName("SplashViewControllerDidGoToDashboard", object: nil)
+                        }
+                        
                         }, failure: self.termsAndPrivacyFailure)
                 }
             } else {
