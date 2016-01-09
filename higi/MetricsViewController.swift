@@ -497,6 +497,8 @@ extension MetricsViewController: UniversalLinkHandler {
         metricsViewController.selectedType = targetMetricsType
 
         dispatch_async(dispatch_get_main_queue(), {
+            Utility.mainNavigationController()?.revealController.setFrontViewPosition(.Left, animated: false)
+            
             presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
             Utility.mainNavigationController()?.drawerController.navController?.popToRootViewControllerAnimated(true)
             Utility.mainNavigationController()?.drawerController.navController?.pushViewController(metricsViewController, animated: false)

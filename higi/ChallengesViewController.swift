@@ -436,9 +436,10 @@ extension ChallengesViewController: UniversalLinkHandler {
     }
     
     private func handle(URL: NSURL, pathType: PathType, parameters: [String]?, presentedViewController: UIViewController?) {
-        
         let navController = Utility.mainNavigationController()?.drawerController.navController
         dispatch_async(dispatch_get_main_queue(), {
+            Utility.mainNavigationController()?.revealController.setFrontViewPosition(.Left, animated: false)
+            
             presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
             navController?.popToRootViewControllerAnimated(true)
         })

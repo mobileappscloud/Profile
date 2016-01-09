@@ -294,6 +294,8 @@ extension PulseHomeViewController: UniversalLinkHandler {
     private func pushPulseView(URL: NSURL, pathType: PathType, presentedViewController: UIViewController?) {
         let pulseHomeViewController = PulseHomeViewController(nibName: "PulseHomeView", bundle: nil);
         dispatch_async(dispatch_get_main_queue(), {
+            Utility.mainNavigationController()?.revealController.setFrontViewPosition(.Left, animated: false)
+            
             presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
             Utility.mainNavigationController()?.drawerController.navController?.popToRootViewControllerAnimated(true)
             Utility.mainNavigationController()?.drawerController.navController?.pushViewController(pulseHomeViewController, animated: false)

@@ -746,6 +746,8 @@ extension FindStationViewController: UniversalLinkHandler {
     
     private func pushStationLocator(presentedViewController: UIViewController?) {
         dispatch_async(dispatch_get_main_queue(), {
+            Utility.mainNavigationController()?.revealController.setFrontViewPosition(.Left, animated: false)
+            
             presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
             Utility.mainNavigationController()?.drawerController.navController?.popToRootViewControllerAnimated(true)
             Utility.mainNavigationController()?.drawerController.navController?.pushViewController(FindStationViewController(nibName: "FindStationView", bundle: nil), animated: false)
