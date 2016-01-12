@@ -899,6 +899,15 @@
 			name = "Web View";
 			sourceTree = "<group>";
 		};
+		412A50271C45B7EB0031D0BD /* Splash/Main */ = {
+			isa = PBXGroup;
+			children = (
+				8F3643A319460EB300C0033E /* Main.storyboard */,
+				8F296308194B8DE700E787FD /* SplashViewController.swift */,
+			);
+			name = Splash/Main;
+			sourceTree = "<group>";
+		};
 		415003A11C246ED800CA8FBA /* Loading */ = {
 			isa = PBXGroup;
 			children = (
@@ -1221,13 +1230,12 @@
 			children = (
 				8F36439F19460EB300C0033E /* AppDelegate.swift */,
 				8F5E7FDD199C0011009067E5 /* Custom Views */,
-				8F3643A319460EB300C0033E /* Main.storyboard */,
 				8F1DB450194F735000636566 /* Model */,
 				8FF851C4194F7F08005C33C6 /* Network */,
 				8F296305194B8C9F00E787FD /* Objective-C Helpers */,
+				8F296307194B8CCA00E787FD /* Scenes */,
 				8F296314194B9BDE00E787FD /* Session */,
 				8F296306194B8CB900E787FD /* Utility */,
-				8F296307194B8CCA00E787FD /* View Controllers */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1305,7 +1313,7 @@
 			name = Utility;
 			sourceTree = "<group>";
 		};
-		8F296307194B8CCA00E787FD /* View Controllers */ = {
+		8F296307194B8CCA00E787FD /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
 				41E90DF21BD984F4001DCC4C /* App Update */,
@@ -1326,7 +1334,7 @@
 				8FE056DC198FDBA600C81208 /* Settings */,
 				8F08AF9A19893B03002EE906 /* Welcome */,
 			);
-			name = "View Controllers";
+			name = Scenes;
 			sourceTree = "<group>";
 		};
 		8F296314194B9BDE00E787FD /* Session */ = {
@@ -1368,7 +1376,7 @@
 				D1E223771A8009CE006330E7 /* ConnectDeviceView.xib */,
 				D1E223791A8009E6006330E7 /* ConnectDeviceViewController.swift */,
 				415003A11C246ED800CA8FBA /* Loading */,
-				8F296308194B8DE700E787FD /* SplashViewController.swift */,
+				412A50271C45B7EB0031D0BD /* Splash/Main */,
 				D15372921A84201600954569 /* TermsAndConditionsView.xib */,
 				D15372901A841FEA00954569 /* TermsAndConditionsViewController.swift */,
 				8FA5925C19ABBCEC00622266 /* TourView.xib */,
