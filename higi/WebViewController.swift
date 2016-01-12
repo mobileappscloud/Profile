@@ -62,25 +62,29 @@ class WebViewController: UIViewController, NSURLConnectionDataDelegate, UIWebVie
             
             return false;
         }
-        if (((!isGone && request.URL!.absoluteString != "" && request.URL!.absoluteString.hasPrefix("https://www.google.com")))) {
+        if let URL = request.URL where URL.absoluteString != "" && URL.absoluteString.hasPrefix("https://www.google.com") && !isGone {
             webView.stopLoading();
-            let components = NSURLComponents(URL: request.URL!, resolvingAgainstBaseURL: false)!;
+            guard let components = NSURLComponents(URL: URL, resolvingAgainstBaseURL: false), query = components.query else {                
+                return false
+            }
+            
             errorMessage = "";
-            let params = components.query!.componentsSeparatedByString("%").split {$0 == "&"};
-            for item in components.query!.componentsSeparatedByString("&") {
-                var keyValuePair = item.componentsSeparatedByString("=");
-                let i = keyValuePair[0];
-                if (keyValuePair[0] == "error") {
-                    if (keyValuePair.count > 1 && keyValuePair[1].characters.count > 0) {
+            for item in query.componentsSeparatedByString("&") {
+                let keyValuePair = item.componentsSeparatedByString("=");
+                let key = keyValuePair[0]
+                let value = keyValuePair[1]
+                if (key == "error") {
+                    if (keyValuePair.count > 1 && value.characters.count > 0) {
                         device.connected = false;
                     }
-                } else if (keyValuePair[0] == "message") {
-                    errorMessage = keyValuePair[1].stringByReplacingOccurrencesOfString("+", withString: " ", options: [], range: nil);
+                } else if (key == "message") {
+                    errorMessage = value.stringByReplacingOccurrencesOfString("+", withString: " ", options: [], range: nil);
                 }
             }
             if (errorMessage != "") {
                 UIAlertView(title: "Error", message: "\(errorMessage)", delegate: self, cancelButtonTitle: "OK").show();
             }
+            
             goBack(self);
         }
         return true;
