@@ -10,11 +10,11 @@ import HealthKit
 import CoreMotion
 
 /// Class which manages interactions with HealthKit and health data.
-internal class HealthKitManager {
+class HealthKitManager {
     
     /// The minimum amount of time (seconds) to wait before syncing data with the API.
     private static let syncInterval: NSTimeInterval = {
-        let syncHours = 2.0
+        let syncHours = 1.0
         let minutesPerHour = 60.0
         let secondsPerMinute = 60.0
         let syncInterval: NSTimeInterval = syncHours * minutesPerHour * secondsPerMinute
@@ -93,7 +93,7 @@ internal class HealthKitManager {
      
      - returns: `true` if the device has a HealthKit data store and data is available for the current app to read, otherwise `false`.
      */
-    internal class func isHealthDataAvailable() -> Bool {
+    class func isHealthDataAvailable() -> Bool {
         return HKHealthStore.isHealthDataAvailable()
     }
     
@@ -102,7 +102,7 @@ internal class HealthKitManager {
 
     - returns: `true` if the device has a motion processor, otherwise `false`.
     */
-    internal class func deviceHasMotionProcessor() -> Bool {
+    class func deviceHasMotionProcessor() -> Bool {
         return CMPedometer.isStepCountingAvailable()
     }
     
@@ -111,7 +111,7 @@ internal class HealthKitManager {
      
      - returns: 'true' if the prompt to connect the branded activity tracker has been displayed, otherwise `false`.
      */
-    internal class func didAskToConnectActivityTracker() -> Bool {
+    class func didAskToConnectActivityTracker() -> Bool {
         return PersistentSettingsController.boolForKey(.DidAskToConnectActivityTracker)
     }
     
@@ -120,7 +120,7 @@ internal class HealthKitManager {
      
      - parameter didAsk: Boolean indicating if the user has been asked to connect an activity tracker.
      */
-    internal class func didAskToConnectActivityTracker(didAsk: Bool) {
+    class func didAskToConnectActivityTracker(didAsk: Bool) {
         PersistentSettingsController.setBool(didAsk, key: .DidAskToConnectActivityTracker)
     }
     
@@ -129,12 +129,12 @@ internal class HealthKitManager {
      
      - returns: `true` if the app has not displayed the authorization modal yet, otherwise `false`.
      */
-    internal class func didShowAuthorizationModal() -> Bool {
+    class func didShowAuthorizationModal() -> Bool {
         return PersistentSettingsController.boolForKey(.DidShowActivityTrackerAuthorizationRequest)
     }
 }
 
-internal extension HealthKitManager {
+extension HealthKitManager {
     
     /**
      Request read access to step data within the device's health store.
@@ -145,7 +145,7 @@ internal extension HealthKitManager {
      - parameter didRespond: Returns `true` if the user responded to the authorization modal, otherwise `false`.
      - parameter error:      Object representing an error encountered during execution.
      */
-    internal class func requestReadAccessToStepData(completion: ((didRespond: Bool, error: NSError?) -> Void)!) {
+    class func requestReadAccessToStepData(completion: ((didRespond: Bool, error: NSError?) -> Void)!) {
         if !HealthKitManager.isHealthDataAvailable() {
             let error = NSError(domain: HKErrorDomain, code: HKErrorCode.ErrorHealthDataUnavailable.rawValue, userInfo: nil)
             completion?(didRespond: false, error: error)
@@ -167,7 +167,7 @@ internal extension HealthKitManager {
      - parameter completion: Block to execute upon completion. The block will be passed the following parameters:
      - parameter isAuthorized: Returns `true` if the app currently has read-access to step data within the health store, otherwise `false`.
      */
-    internal class func checkReadAuthorizationForStepData(completion: ((isAuthorized: Bool) -> Void)!) {
+    class func checkReadAuthorizationForStepData(completion: ((isAuthorized: Bool) -> Void)!) {
         if !HealthKitManager.isHealthDataAvailable() {
             completion(isAuthorized: false)
             return
@@ -190,7 +190,7 @@ internal extension HealthKitManager {
      __Note:__ Success does not necessarily mean data was sent to the server. For example, if the sync interval has not been reached, this function will return `true` because the function completed without issue.
      - parameter error:                 Object representing an error encountered during execution.
      */
-    internal class func syncStepData(syncCompletionHandler: ((success: Bool, error: NSError?) -> Void)?) {
+    class func syncStepData(syncCompletionHandler: ((success: Bool, error: NSError?) -> Void)?) {
         if SessionData.Instance.user == nil {
             SessionData.Instance.restore()
             
@@ -210,26 +210,38 @@ internal extension HealthKitManager {
             
             HealthKitManager.readStepData(sampleStartDate!, endDate: nil, completion: { (statistics, error) in
                 
-                if statistics == nil || error != nil {
+                guard let statistics = statistics else {
                     syncCompletionHandler?(success: false, error: error)
                     return
                 }
                 
-                let collection = HealthKitManager.stepActivityCollection(fromHealthKitStatistics: statistics!)
-                if let parameters = collection?.dictionary() {
-                    
-                    ApiUtility.uploadStepActivities(parameters,
-                        success: {
-                            syncCompletionHandler?(success: true, error: nil)
-                        }, failure: { (error) in
-                            syncCompletionHandler?(success: false, error: error)
+                if HealthKitManager.sharedInstance.deviceSource == nil {
+                    HealthKitManager.sharedInstance.currentSource({ (source) in
+                        HealthKitManager.sharedInstance.deviceSource = source
+                        HealthKitManager.syncStepDataWithStatistics(statistics, syncCompletionHandler: syncCompletionHandler)
                     })
-                    
                 } else {
-                    syncCompletionHandler?(success: false, error: nil)
+                    HealthKitManager.syncStepDataWithStatistics(statistics, syncCompletionHandler: syncCompletionHandler)
                 }
             })
         })
+    }
+    
+    class func syncStepDataWithStatistics(statistics: [HKStatistics], syncCompletionHandler: ((success: Bool, error: NSError?) -> Void)?) {
+        
+        let collection = HealthKitManager.stepActivityCollection(fromHealthKitStatistics: statistics)
+        if let parameters = collection?.dictionary() {
+            
+            ApiUtility.uploadStepActivities(parameters,
+                success: {
+                    syncCompletionHandler?(success: true, error: nil)
+                }, failure: { (error) in
+                    syncCompletionHandler?(success: false, error: error)
+            })
+            
+        } else {
+            syncCompletionHandler?(success: false, error: nil)
+        }
     }
     
     /**
@@ -290,12 +302,12 @@ internal extension HealthKitManager {
     }
 }
 
-internal extension HealthKitManager {
+extension HealthKitManager {
     
     /**
      Enable background delivery of HealthKit data.
      */
-    internal class func enableBackgroundUpdates() {
+    class func enableBackgroundUpdates() {
         let manager = HealthKitManager.sharedInstance
         for sampleType in HealthKitManager.sharedInstance.healthKitReadTypes {
             HealthKitManager.sharedInstance.healthStore.enableBackgroundDeliveryForType(sampleType, frequency: .Hourly,
@@ -311,7 +323,7 @@ internal extension HealthKitManager {
     /**
      Disable background delivery of HealthKit data.
      */
-    internal class func disableBackgroundUpdates() {
+    class func disableBackgroundUpdates() {
         let manager = HealthKitManager.sharedInstance
         manager.healthStore.disableAllBackgroundDeliveryWithCompletion({ (success, error) in
             if success {
@@ -406,17 +418,20 @@ private extension HealthKitManager {
      - returns: Step activity collection if applicable, otherwise `nil`.
      */
     class func stepActivityCollection(fromHealthKitStatistics statistics: [HKStatistics]) -> StepActivityCollection? {
-        if let user = SessionData.Instance.user, userId = user.userId, deviceId = HealthKitManager.sharedInstance.deviceSource?.bundleIdentifier {
-            
-            var activityCollection = StepActivityCollection(higiId: userId as String, deviceId: deviceId)
-            for statistic in statistics {
-                if let activity = HealthKitManager.stepActivity(fromHealthKitStatistic: statistic) {
-                    activityCollection.dates.append(activity)
-                }
-            }
-            return activityCollection
-        } else {
+        guard let user = SessionData.Instance.user, userId = user.userId else {
             return nil
         }
+        
+        guard let deviceId = HealthKitManager.sharedInstance.deviceSource?.bundleIdentifier else {
+            return nil
+        }
+            
+        var activityCollection = StepActivityCollection(higiId: userId as String, deviceId: deviceId)
+        for statistic in statistics {
+            if let activity = HealthKitManager.stepActivity(fromHealthKitStatistic: statistic) {
+                activityCollection.dates.append(activity)
+            }
+        }
+        return activityCollection
     }
 }
