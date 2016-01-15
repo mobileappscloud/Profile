@@ -359,9 +359,10 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     }
     
     func showDetails(forChallenge challenge: HigiChallenge) {
-        let challengeDetailViewController = ChallengeDetailsViewController(nibName: "ChallengeDetailsView", bundle: nil);
-        challengeDetailViewController.challenge = challenge;
-        self.navigationController!.pushViewController(challengeDetailViewController, animated: true);
+        let challengeDetailViewController = ChallengeDetailsViewController(nibName: "ChallengeDetailsView", bundle: nil)
+        challengeDetailViewController.challenge = challenge
+        let navController = Utility.mainNavigationController()?.drawerController.navController
+        navController?.pushViewController(challengeDetailViewController, animated: true);
     }
     
     func getCurrentTable() -> UITableView? {
