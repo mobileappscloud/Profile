@@ -4,6 +4,11 @@ class ConnectDeviceRow: UITableViewCell, UIAlertViewDelegate {
 
     @IBOutlet weak var logo: UIImageView!
     @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel! {
+        didSet {
+            descriptionLabel.text = ""
+        }
+    }
     @IBOutlet weak var connectedToggle: UISwitch!
     
     var device:ActivityDevice!;
@@ -24,7 +29,7 @@ class ConnectDeviceRow: UITableViewCell, UIAlertViewDelegate {
         webView = WebViewController(nibName: "WebView", bundle: nil);
         webView.url = "\(HigiApi.webUrl)/mobileDeviceConnect";
 
-        let headers = ["Higi-Device-Connect-Url": device.connectUrl.stringByReplacingOccurrencesOfString("{redirect}", withString: "http://www.google.com".stringByReplacingPercentEscapesUsingEncoding(16)!) as String!, "User-Id": SessionData.Instance.user.userId as String!, "Token": SessionData.Instance.token as String!];
+        let headers = ["Higi-Device-Connect-Url": device.connectUrl.stringByReplacingOccurrencesOfString("{redirect}", withString: "https://www.google.com".stringByReplacingPercentEscapesUsingEncoding(16)!) as String!, "User-Id": SessionData.Instance.user.userId as String!, "Token": SessionData.Instance.token as String!];
         webView.headers = headers;
         webView.device = device;
         parentController.pushViewController(webView, animated: true);

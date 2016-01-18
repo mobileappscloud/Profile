@@ -1,38 +1,40 @@
+//
+// Third-party includes
+//
 
-#import <AFNetworking/AFNetworking.h>
-
-#import <CorePlot/CorePlot-CocoaTouch.h>
-
-#import <GoogleMaps/GoogleMaps.h>
-
-#import "NewCPTPlotRange.h"
-
-#import "NewCPTMutablePlotRange.h"
-
-#import "NewCPTScatterPlot.h"
-
-#import "NewCPTAxisLabel.h"
-
-#import "ConversionUtility.h"
-
-#import "NewCPTScatterPlotDelegate.h"
-
-#import "NSString+HTML.h"
-
-#import "SWRevealViewController.h"
-
+// AFNetworking (NSURLConnection Wrapper & Helpers)
+#import "AFNetworking.h"
 #import "UIImageView+AFNetworking.h"
 
+// Core Plot (Graphing Library)
+#import "CorePlot-CocoaTouch.h"
+#import "CPTPlotRange+SwiftCompatibility.h"
+#import "CPTScatterPlot+SwiftCompatibility.h"
+// User defined extensions
+#import "HIGIScatterPlot.h"
+
+// Feed Parsing Utility
+#import "NSString+HTML.h"
+
+// Flurry Mobile Analytics
 #import "Flurry.h"
 
-#import "UIImage+Orientation.h"
+// Google Maps SDK
+#import <GoogleMaps/GoogleMaps.h>
 
-#import "GClusterManager.h"
-
+// Google Maps Utility
 #import "ClusterManagerDelegate.h"
-
+#import "GClusterManager.h"
 #import "NonHierarchicalDistanceBasedAlgorithm.h"
-
+// User defined extensions
+#import "ClusterKiosk.h"
 #import "HigiClusterRenderer.h"
 
-#import "ClusterKiosk.h"
+// Reveal View Controller (Hamburger Menu & Navigation)
+#import "SWRevealViewController.h"
+
+//
+// Copied third-party includes, manually managed
+//
+
+#import "UIImage+Orientation.h"

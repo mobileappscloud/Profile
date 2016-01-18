@@ -7,13 +7,25 @@
 //
 
 import UIKit
+import Fabric
+import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
                             
     var window: UIWindow?
+    
+    var locationManager: CLLocationManager!;
+    
+    var locationDelegate: LocationDelegate!;
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+
+        #if DEBUG
+            Crashlytics.sharedInstance().debugMode = true;
+        #endif
+        Fabric.with([Crashlytics.self()])
+
         // Override point for customization after application launch.
         GMSServices.provideAPIKey("AIzaSyB1iNeT8pxcPd4rcwQ-Titp2hA5bLHh3-k");
         Flurry.startSession("2GSDDCY6499XJ8B5GTYZ");
@@ -22,7 +34,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window?.makeKeyAndVisible();
         
+        if (UIApplication.instancesRespondToSelector(Selector("registerUserNotificationSettings:"))) {
+            application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [UIUserNotificationType.Sound, UIUserNotificationType.Alert, UIUserNotificationType.Badge], categories: nil));
+        }
+                
         return true
+    }
+
+
+    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+        if application.applicationState == UIApplicationState.Active {
+            if let info = notification.userInfo as? Dictionary<String, Int> {
+                //99 is id of QR scanner notifications
+                if info["ID"] == 99 {
+                    if #available(iOS 8.2, *) {
+                        UIAlertView(title: notification.alertTitle, message: notification.alertBody, delegate: nil, cancelButtonTitle: "OK").show()
+                    } else {
+                        // Fallback on earlier versions
+                    };
+                }
+            }
+        }
     }
 
     func applicationWillResignActive(application: UIApplication) {
@@ -60,5 +92,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
+    func startLocationManager() {
+        if (locationManager == nil && UIApplication.sharedApplication().backgroundRefreshStatus == UIBackgroundRefreshStatus.Available) {
+            locationManager = CLLocationManager();
+            locationManager.requestAlwaysAuthorization();
+            locationDelegate = LocationDelegate();
+            locationManager.delegate = locationDelegate;
+            locationManager.pausesLocationUpdatesAutomatically = true;
+            locationManager.startMonitoringSignificantLocationChanges();
+        }
+    }
+    
+    func stopLocationManager() {
+        if locationManager != nil {
+            locationManager.stopMonitoringSignificantLocationChanges();
+            locationManager = nil;
+        }
+    }
 }
 

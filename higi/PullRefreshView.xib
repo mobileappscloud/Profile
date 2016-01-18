@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -10,14 +11,14 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="113"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UPk-JK-tkZ">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UPk-JK-tkZ">
                     <rect key="frame" x="149" y="33" width="22" height="22"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="22" id="0VY-5F-mXk"/>
                         <constraint firstAttribute="width" constant="22" id="bZt-kt-Axt"/>
                     </constraints>
                 </view>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="higi_logo_innercircle.png" translatesAutoresizingMaskIntoConstraints="NO" id="E1Z-6L-cXR">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="higi_logo_innercircle.png" translatesAutoresizingMaskIntoConstraints="NO" id="E1Z-6L-cXR">
                     <rect key="frame" x="150" y="34" width="20" height="20"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="20" id="JfS-Va-gTb"/>
@@ -25,6 +26,12 @@
                     </constraints>
                 </imageView>
             </subviews>
+            <constraints>
+                <constraint firstItem="UPk-JK-tkZ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="33" id="6iF-Jp-4os"/>
+                <constraint firstItem="UPk-JK-tkZ" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="WST-aP-r0Y"/>
+                <constraint firstItem="E1Z-6L-cXR" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="34" id="fv0-HY-psW"/>
+                <constraint firstItem="E1Z-6L-cXR" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="wvW-8P-Bxw"/>
+            </constraints>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>

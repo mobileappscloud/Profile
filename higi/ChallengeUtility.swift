@@ -78,7 +78,7 @@ class ChallengeUtility {
     class func getTeamGravityBoard(challenge: HigiChallenge) -> ([ChallengeTeam], [Int]){
         let teams = challenge.teams;
         if (teams != nil) {
-            var userTeamIndex = getUserIndex(teams, userTeam: challenge.participant.team);
+            let userTeamIndex = getUserIndex(teams, userTeam: challenge.participant.team);
             if (userTeamIndex != -1) {
                 //calculate offsets, e.g. grab 1,2,3 or 4,5,6 from gravity board
                 var startIndex:Int, endIndex:Int;

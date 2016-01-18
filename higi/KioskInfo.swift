@@ -14,13 +14,15 @@ class KioskInfo: Equatable {
     
     var kioskId: Int?;
     
-    var address1, address2, city, state, zip, type, fullAddress, cityStateZip, group, streetAddress: NSString!;
+    var address1, address2, city, state, zip, type, fullAddress, cityStateZip, status, streetAddress: NSString!;
     
     var latitude, longitude: Double?;
     
     var isMapVisible = false;
     
     var position: CLLocationCoordinate2D?;
+    
+    var location: CLLocation?;
     
     var hours: NSDictionary?;
     
@@ -38,7 +40,7 @@ class KioskInfo: Equatable {
         state = (dictionary["State"] ?? "") as! NSString;
         zip = (dictionary["Zip"] ?? "") as! NSString;
         isMapVisible = (dictionary["MapVisible"] as? NSString) == "true";
-        group =  (dictionary["Groups"] ?? "") as! NSString;
+        status =  (dictionary["Status"] ?? "") as! NSString;
         fullAddress = address1;
         if (address2 != nil && address2!.length > 0) {
             fullAddress = "\(fullAddress), \(address2)";
@@ -48,17 +50,18 @@ class KioskInfo: Equatable {
         cityStateZip = "\(city), \(state) \(zip)";
         streetAddress = "\(address1), \(cityStateZip)";
         
-        var gps = dictionary["GPS"] as? NSDictionary;
+        let gps = dictionary["GPS"] as? NSDictionary;
         if (gps != nil) {
             latitude = gps!["Latitude"] as? Double;
             longitude = gps!["Longitude"] as? Double;
             position = CLLocationCoordinate2D(latitude: latitude!, longitude: longitude!);
+            location = CLLocation(latitude: latitude!, longitude: longitude!);
         }
         
         var hoursString = dictionary["Hours"] as? NSString;
         if (hoursString != nil && hoursString! != "") {
-            hoursString = hoursString?.stringByReplacingOccurrencesOfString("&quot;", withString: "\"").stringByReplacingOccurrencesOfString("-", withString: " - ", options: nil, range: nil);
-            hours = NSJSONSerialization.JSONObjectWithData(hoursString!.dataUsingEncoding(NSUTF8StringEncoding)!, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSDictionary;
+            hoursString = hoursString?.stringByReplacingOccurrencesOfString("&quot;", withString: "\"").stringByReplacingOccurrencesOfString("-", withString: " - ", options: [], range: nil);
+            hours = (try? NSJSONSerialization.JSONObjectWithData(hoursString!.dataUsingEncoding(NSUTF8StringEncoding)!, options: NSJSONReadingOptions.MutableContainers)) as? NSDictionary;
         }
     }
     

@@ -5,6 +5,10 @@ class ApiUtility {
     
     // Notificiation names
     
+    class var QR_CHECKIN: String {
+        return "qrCheckin";
+    }
+    
     class var ACTIVITIES: String {
         return "activitiesLoaded";
     }
@@ -37,25 +41,26 @@ class ApiUtility {
     
     class func checkTermsAndPrivacy(viewController: UIViewController, success: (() -> Void)?, failure: (() -> Void)?) {
         HigiApi().sendGet("\(HigiApi.webUrl)/termsinfo", success: {operation, responseObject in
-            var user = SessionData.Instance.user;
-            var termsInfo = responseObject as! NSDictionary;
-            var termsFile = termsInfo["termsFilename"] as! NSString;
-            var privacyFile = termsInfo["privacyFilename"] as! NSString;
-            var newTerms = termsFile != user.termsFile;
-            var newPrivacy = privacyFile != user.privacyFile;
+            let user = SessionData.Instance.user;
+            let termsInfo = responseObject as! NSDictionary;
+            let termsFile = termsInfo["termsFilename"] as! NSString;
+            let privacyFile = termsInfo["privacyFilename"] as! NSString;
+            let newTerms = termsFile != user.termsFile;
+            let newPrivacy = privacyFile != user.privacyFile;
             if (newTerms || newPrivacy) {
-                var termsController = TermsViewController(nibName: "TermsView", bundle: nil);
+                let termsController = TermsViewController(nibName: "TermsView", bundle: nil);
                 termsController.newTerms = newTerms;
                 termsController.newPrivacy = newPrivacy;
                 termsController.termsFile = termsFile as String;
                 termsController.privacyFile = privacyFile as String;
                 viewController.presentViewController(termsController, animated: true, completion: nil);
             } else if (user.firstName == nil || user.firstName == "" || user.lastName == nil || user.lastName == "") {
-                var nameViewController = SignupNameViewController(nibName: "SignupNameView", bundle: nil);
+                let nameViewController = SignupNameViewController(nibName: "SignupNameView", bundle: nil);
                 nameViewController.dashboardNext = true;
                 viewController.presentViewController(nameViewController, animated: true, completion: nil);
             } else {
                 ApiUtility.initializeApiData();
+                (UIApplication.sharedApplication().delegate as! AppDelegate).startLocationManager();
                 Utility.gotoDashboard(viewController);
             }
             
@@ -78,12 +83,12 @@ class ApiUtility {
         HigiApi().sendGet( "\(HigiApi.higiApiUrl)/data/user/\(SessionData.Instance.user.userId)/checkIn", success:
             { operation, responseObject in
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                    var serverCheckins = responseObject as! NSArray;
+                    let serverCheckins = responseObject as! NSArray;
                     var checkins: [HigiCheckin] = [];
                     var lastBpCheckin, lastBmiCheckin: HigiCheckin?;
                     for checkin: AnyObject in serverCheckins {
                         if let checkinData = checkin as? NSDictionary {
-                            var checkin = HigiCheckin(dictionary: checkinData);
+                            let checkin = HigiCheckin(dictionary: checkinData);
                             checkin.prevBpCheckin = lastBpCheckin;
                             checkin.prevBmiCheckin = lastBmiCheckin;
                             if (checkin.systolic != nil) {
@@ -122,19 +127,19 @@ class ApiUtility {
         SessionData.Instance.lastUpdate = NSDate();
         let userId = SessionData.Instance.user.userId;
         ApiUtility.checkForNewActivities({
-            var startDateFormatter = NSDateFormatter();
+            let startDateFormatter = NSDateFormatter();
             startDateFormatter.dateFormat = "yyyy-MM-01";
-            var endDateFormatter = NSDateFormatter();
+            let endDateFormatter = NSDateFormatter();
             endDateFormatter.dateFormat = "yyyy-MM-dd";
-            var endDate = NSDate();
-            var dateComponents = NSDateComponents();
+            let endDate = NSDate();
+            let dateComponents = NSDateComponents();
             dateComponents.month = -6;
-            var startDate = NSCalendar.currentCalendar().dateByAddingComponents(dateComponents, toDate: endDate, options: NSCalendarOptions.allZeros)!;
+            let startDate = NSCalendar.currentCalendar().dateByAddingComponents(dateComponents, toDate: endDate, options: NSCalendarOptions())!;
             
             HigiApi().sendGet("\(HigiApi.earnditApiUrl)/user/\(userId)/activities?limit=0&startDate=\(startDateFormatter.stringFromDate(startDate))&endDate=\(endDateFormatter.stringFromDate(endDate))", success: {operation, responseObject in
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                     var activities: [String: (Int, [HigiActivity])] = [:];
-                    var serverActivities = ((responseObject as! NSDictionary)["response"] as! NSDictionary)["data"] as! NSArray;
+                    let serverActivities = ((responseObject as! NSDictionary)["response"] as! NSDictionary)["data"] as! NSArray;
                     for serverActivity: AnyObject in serverActivities {
                         let activity = HigiActivity(dictionary: serverActivity as! NSDictionary);
                         let dateString = Constants.dateFormatter.stringFromDate(activity.startTime);
@@ -203,7 +208,7 @@ class ApiUtility {
                             }
                         }
                         let serverPagingData = (((challenge as! NSDictionary)["participants"] as! NSDictionary)["paging"] as! NSDictionary)["nextUrl"] as? NSString;
-                        var pagingData = PagingData(nextUrl: serverPagingData);
+                        let pagingData = PagingData(nextUrl: serverPagingData);
                         
                         let serverComments = ((challenge as! NSDictionary)["comments"] as! NSDictionary)["data"] as? NSArray;
                         var chatter:Chatter;
@@ -245,9 +250,9 @@ class ApiUtility {
         HigiApi().sendGet("\(HigiApi.earnditApiUrl)/user/\(userId)/devices", success: {operation, responseObject in
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                 var devices: [String:ActivityDevice] = [:];
-                var serverDevices = (responseObject as! NSDictionary)["response"] as! NSArray;
+                let serverDevices = (responseObject as! NSDictionary)["response"] as! NSArray;
                 for device: AnyObject in serverDevices {
-                    var thisDevice = ActivityDevice(dictionary: device as! NSDictionary);
+                    let thisDevice = ActivityDevice(dictionary: device as! NSDictionary);
                     devices[thisDevice.name as String] = thisDevice;
                 }
                 
@@ -314,7 +319,7 @@ class ApiUtility {
     
     class func jsonStringify(value: AnyObject) -> String {
         if NSJSONSerialization.isValidJSONObject(value) {
-            if let data = NSJSONSerialization.dataWithJSONObject(value, options: nil, error: nil) {
+            if let data = try? NSJSONSerialization.dataWithJSONObject(value, options: []) {
                 if let string = NSString(data: data, encoding: NSUTF8StringEncoding) {
                     return string as String;
                 }
@@ -325,11 +330,11 @@ class ApiUtility {
     
     class func deserializeKiosks(response: String) -> [KioskInfo] {
         let jsonData = response.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false);
-        let serverKiosks = NSJSONSerialization.JSONObjectWithData(jsonData!, options: NSJSONReadingOptions.MutableContainers, error: nil) as! NSArray;
+        let serverKiosks = (try! NSJSONSerialization.JSONObjectWithData(jsonData!, options: NSJSONReadingOptions.MutableContainers)) as! NSArray;
         var kiosks: [KioskInfo] = [];
         for kiosk: AnyObject in serverKiosks {
             if let kioskData = kiosk as? NSDictionary {
-                var newKiosk = KioskInfo(dictionary: kioskData);
+                let newKiosk = KioskInfo(dictionary: kioskData);
                 if (newKiosk.position != nil) {
                     if (newKiosk.isMapVisible) {
                         kiosks.append(newKiosk);
@@ -349,26 +354,27 @@ class ApiUtility {
         return kiosks;
     }
 
+    /*
     class func updateHealthKit() {
         if (UIDevice.currentDevice().systemVersion >= "8.0" && HKHealthStore.isHealthDataAvailable()) {
             if (SessionController.Instance.healthStore == nil) {
                 SessionController.Instance.healthStore = HKHealthStore();
             }
             var healthStore = SessionController.Instance.healthStore;
-            healthStore.requestAuthorizationToShareTypes(ApiUtility.dataTypesToWrite() as Set<NSObject>, readTypes: ApiUtility.dataTypesToRead() as Set<NSObject>, completion: { success, error in
+            healthStore.requestAuthorizationToShareTypes((ApiUtility.dataTypesToWrite() as! Set<HKSampleType>), readTypes: (ApiUtility.dataTypesToRead() as! Set<HKObjectType>), completion: { success, error in
                 if (success) {
                     dispatch_async(dispatch_get_main_queue(), {
                         
-                        var startDate = NSDate.distantPast() as! NSDate;
+                        var startDate = NSDate.distantPast();
                         
-                        healthStore.executeQuery(HKSampleQuery(sampleType: HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBodyMass), predicate: HKQuery.predicateForObjectsFromSource(HKSource.defaultSource()), limit: Int(HKObjectQueryNoLimit), sortDescriptors: nil, resultsHandler: {query, results, error in
+                        healthStore.executeQuery(HKSampleQuery(sampleType: HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBodyMass)!, predicate: HKQuery.predicateForObjectsFromSource(HKSource.defaultSource()), limit: Int(HKObjectQueryNoLimit), sortDescriptors: nil, resultsHandler: {query, results, error in
                             
                             if (results != nil && (results as! [HKSample]).count > 0) {
                                 var dataResults: [HKSample] = results as! [HKSample];
                                 startDate = dataResults.last!.startDate;
                             }
                             
-                            healthStore.executeQuery(HKSampleQuery(sampleType: HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate), predicate: HKQuery.predicateForObjectsFromSource(HKSource.defaultSource()), limit: Int(HKObjectQueryNoLimit), sortDescriptors: nil, resultsHandler: {query, results, error in
+                            healthStore.executeQuery(HKSampleQuery(sampleType: HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate)!, predicate: HKQuery.predicateForObjectsFromSource(HKSource.defaultSource()), limit: Int(HKObjectQueryNoLimit), sortDescriptors: nil, resultsHandler: {query, results, error in
                                 
                                 if (results != nil && (results as! [HKSample]).count > 0) {
                                     var dataResults: [HKSample] = results as! [HKSample];
@@ -413,6 +419,7 @@ class ApiUtility {
             });
         }
     }
+    */
     
     class func saveData(startDate: NSDate) {
         
@@ -426,46 +433,47 @@ class ApiUtility {
                 continue;
             }
             if (checkin.systolic != nil) {
-                var systolic = HKQuantitySample(type: HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBloodPressureSystolic), quantity: HKQuantity(unit: HKUnit.millimeterOfMercuryUnit(), doubleValue: Double(checkin.systolic!)), startDate: checkin.dateTime, endDate: checkin.dateTime);
-                var diastolic = HKQuantitySample(type: HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBloodPressureDiastolic), quantity: HKQuantity(unit: HKUnit.millimeterOfMercuryUnit(), doubleValue: Double(checkin.diastolic!)), startDate: checkin.dateTime, endDate: checkin.dateTime);
-                var bpSet = NSSet(objects: systolic, diastolic);
-                bpSamples.append(HKCorrelation(type: HKObjectType.correlationTypeForIdentifier(HKCorrelationTypeIdentifierBloodPressure), startDate: checkin.dateTime, endDate: checkin.dateTime, objects: bpSet as Set<NSObject>));
-                pulseSamples.append(HKQuantitySample(type: HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate), quantity: HKQuantity(unit: HKUnit.countUnit().unitDividedByUnit(HKUnit.minuteUnit()), doubleValue: Double(checkin.pulseBpm!)), startDate: checkin.dateTime, endDate: checkin.dateTime));
+                let systolic = HKQuantitySample(type: HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBloodPressureSystolic)!, quantity: HKQuantity(unit: HKUnit.millimeterOfMercuryUnit(), doubleValue: Double(checkin.systolic!)), startDate: checkin.dateTime, endDate: checkin.dateTime);
+                let diastolic = HKQuantitySample(type: HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBloodPressureDiastolic)!, quantity: HKQuantity(unit: HKUnit.millimeterOfMercuryUnit(), doubleValue: Double(checkin.diastolic!)), startDate: checkin.dateTime, endDate: checkin.dateTime);
+                let bpSet = NSSet(objects: systolic, diastolic);
+                bpSamples.append(HKCorrelation(type: HKObjectType.correlationTypeForIdentifier(HKCorrelationTypeIdentifierBloodPressure)!,
+                    startDate: checkin.dateTime, endDate: checkin.dateTime, objects: bpSet as! Set<HKSample>));
+                pulseSamples.append(HKQuantitySample(type: HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate)!, quantity: HKQuantity(unit: HKUnit.countUnit().unitDividedByUnit(HKUnit.minuteUnit()), doubleValue: Double(checkin.pulseBpm!)), startDate: checkin.dateTime, endDate: checkin.dateTime));
             }
             
             if (checkin.bmi != nil) {
-                weightSamples.append(HKQuantitySample(type: HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBodyMass), quantity: HKQuantity(unit: HKUnit.poundUnit(), doubleValue: checkin.weightLbs!), startDate: checkin.dateTime, endDate: checkin.dateTime));
-                bmiSamples.append(HKQuantitySample(type: HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBodyMassIndex), quantity: HKQuantity(unit: HKUnit(fromString: ""), doubleValue: checkin.bmi!), startDate: checkin.dateTime, endDate: checkin.dateTime));
+                weightSamples.append(HKQuantitySample(type: HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBodyMass)!, quantity: HKQuantity(unit: HKUnit.poundUnit(), doubleValue: checkin.weightLbs!), startDate: checkin.dateTime, endDate: checkin.dateTime));
+                bmiSamples.append(HKQuantitySample(type: HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBodyMassIndex)!, quantity: HKQuantity(unit: HKUnit(fromString: ""), doubleValue: checkin.bmi!), startDate: checkin.dateTime, endDate: checkin.dateTime));
             }
         }
         
-        var healthStore = SessionController.Instance.healthStore;
-        healthStore.saveObjects(bpSamples, withCompletion: nil);
-        healthStore.saveObjects(pulseSamples, withCompletion: nil);
-        healthStore.saveObjects(weightSamples, withCompletion: nil);
-        healthStore.saveObjects(bmiSamples, withCompletion: nil);
+        let healthStore = SessionController.Instance.healthStore;
+        healthStore.saveObjects(bpSamples, withCompletion: {(completed, error) in });
+        healthStore.saveObjects(pulseSamples, withCompletion: {(completed, error) in });
+        healthStore.saveObjects(weightSamples, withCompletion: {(completed, error) in });
+        healthStore.saveObjects(bmiSamples, withCompletion: {(completed, error) in });
     }
     
-    class func dataTypesToWrite() -> NSSet {
-        return NSSet(array: [
-            HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBloodPressureSystolic),
-            HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBloodPressureDiastolic),
-            HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate),
-            HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBodyMassIndex),
-            HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBodyMass)]);
-    }
+//    class func dataTypesToWrite() -> NSSet {
+//        return NSSet(array: [
+//            HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBloodPressureSystolic),
+//            HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBloodPressureDiastolic),
+//            HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate),
+//            HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBodyMassIndex),
+//            HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBodyMass)]);
+//    }
     
     class func dataTypesToRead() -> NSSet {
         return NSSet(array: []);
     }
     
     class func grabNextPulseArticles(callback: (() -> Void)?) {
-        var paged = Int(SessionController.Instance.pulseArticles.count / 15) + 1;
-        var url = "\(HigiApi.webUrl)/pulse/?feed=json&posts_per_rss=15&paged=\(paged)";
+        let paged = Int(SessionController.Instance.pulseArticles.count / 15) + 1;
+        let url = "\(HigiApi.webUrl)/pulse/?feed=json&posts_per_rss=15&paged=\(paged)";
         HigiApi().sendGet(url, success: { operation, responseObject in
             
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                var serverArticles = (responseObject as! NSDictionary)["posts"] as! NSArray;
+                let serverArticles = (responseObject as! NSDictionary)["posts"] as! NSArray;
                 var articles: [PulseArticle] = [];
                 for articleData: AnyObject in serverArticles {
                     articles.append(PulseArticle(dictionary: articleData as! NSDictionary));

@@ -12,23 +12,28 @@ class MetricsViewController: UIViewController {
     
     var cardsTransitioning = false, detailsOpen = false, detailsGone = false, previousShouldRotate: Bool!;
 
-    let detailsCardPosY:CGFloat = 267, cardHeaderViewHeight:CGFloat = 54, cardDragThreshold:CGFloat = 300, detailDragThreshold:CGFloat = 50;
+    let cardHeaderViewHeight:CGFloat = 51.0, cardDragThreshold:CGFloat = 300, detailDragThreshold:CGFloat = 50;
+    var detailsCardPosY:CGFloat = 0.0;
     
     var screenWidth:CGFloat!, screenHeight: CGFloat!;
     
-    var previousSupportedOrientations: UInt!;
+    var previousSupportedOrientations: UIInterfaceOrientationMask!;
     
-    var previousActualOrientation: Int!, selectedCardPosition = 0;
+    var previousActualOrientation: UIInterfaceOrientation!, selectedCardPosition = 0;
     
     override func viewDidLoad() {
         super.viewDidLoad();
         let revealController = (self.navigationController as! MainNavigationController).revealController;
         previousSupportedOrientations = revealController.supportedOrientations;
         previousShouldRotate = revealController.shouldRotate;
-        previousActualOrientation = self.interfaceOrientation.rawValue;
+        
+        previousActualOrientation = UIApplication.sharedApplication().statusBarOrientation;
         
         screenWidth = max(UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height);
         screenHeight = min(UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height);
+        
+        detailsCardPosY = screenHeight - cardHeaderViewHeight;
+        initCards();
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -38,16 +43,16 @@ class MetricsViewController: UIViewController {
         let revealController = (self.navigationController as! MainNavigationController).revealController;
         revealController.panGestureRecognizer().enabled = false;
         revealController.shouldRotate = true;
-        revealController.supportedOrientations = UIInterfaceOrientationMask.LandscapeRight.rawValue;
+        revealController.supportedOrientations = UIInterfaceOrientationMask.LandscapeRight;
         revealController.preferredOrientation = UIInterfaceOrientation.LandscapeRight;
         UIDevice.currentDevice().setValue(UIInterfaceOrientation.LandscapeRight.rawValue, forKey: "orientation");
         UIViewController.attemptRotationToDeviceOrientation();
-        initCards();
+        
     }
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated);
-        if (detailsCard != nil && !detailsCard.blankState) {
+        if (detailsCard != nil && !detailsCard.blankState && !detailsOpen) {
             detailsCard.animateBounceIn(detailsCardPosY);
             detailsGone = false;
         }
@@ -66,8 +71,8 @@ class MetricsViewController: UIViewController {
         return true;
     }
     
-    override func supportedInterfaceOrientations() -> Int {
-        return UIInterfaceOrientation.LandscapeRight.rawValue | UIInterfaceOrientation.LandscapeLeft.rawValue;
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.Landscape;
     }
     
     override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
@@ -90,7 +95,7 @@ class MetricsViewController: UIViewController {
         var bpPoints:[GraphPoint] = [], bpAltPoints:[GraphPoint] = [], pulsePoints:[GraphPoint] = [], weightPoints:[GraphPoint] = [], fatPoints:[GraphPoint] = [], fatAltPoints:[GraphPoint] = [];
         var lastBpDate:NSTimeInterval = 0, lastPulseDate:NSTimeInterval = 0, lastWeightDate:NSTimeInterval = 0, lastFatDate:NSTimeInterval = 0;
         let normalizeFactor = (1 + (fattest - thinnest) / 150.0);
-        for checkin in SessionController.Instance.checkins.reverse() {
+        for checkin in Array(SessionController.Instance.checkins.reverse()) {
             let checkinTime = checkin.dateTime.timeIntervalSince1970;
             let checkinDate = checkinTime - (checkinTime % 86400);
             if (checkin.map != nil && checkinDate != lastBpDate) {
@@ -125,15 +130,14 @@ class MetricsViewController: UIViewController {
                 activityPoints.append(GraphPoint(x: activityDate, y: Double(total)));
             }
         }
-        activityPoints.sort({$0.x > $1.x});
+        activityPoints.sortInPlace({$0.x > $1.x});
         for subView in self.view.subviews {
             subView.removeFromSuperview();
         }
         var pos = MetricsType.allValues.count - 1;
         var card: MetricCard?;
-        for type in MetricsType.allValues.reverse() {
-            var cardFrame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight);
-            cardFrame.size.width = cardFrame.size.width - CGFloat((MetricsType.allValues.count - 1 - pos) * cardMargin);
+        for type in Array(MetricsType.allValues.reverse()) {
+            let cardFrame = CGRect(x: 0, y: 0, width: screenWidth - CGFloat((MetricsType.allValues.count - 1 - pos) * cardMargin), height: detailsCardPosY - 1);
             switch(type) {
             case MetricsType.DailySummary:
                 card = MetricCard.instanceFromNib(ActivityMetricDelegate(), frame: cardFrame, points: activityPoints, altPoints: []);
@@ -144,7 +148,7 @@ class MetricsViewController: UIViewController {
             case MetricsType.Weight:
                 let delegate = WeightMetricDelegate();
                 card = MetricCard.instanceFromNib(delegate, frame: cardFrame, points: weightPoints, altPoints: []);
-                if let secondaryGraph = delegate.getSecondaryGraph(card!.graphContainer.frame, points: fatPoints, altPoints: fatAltPoints) {
+                if let secondaryGraph = delegate.getSecondaryGraph(cardFrame, points: fatPoints, altPoints: fatAltPoints) {
                     card!.secondaryGraph = secondaryGraph;
                     card!.secondaryGraph.hidden = true;
                     if secondaryGraph.points.count > 0 {
@@ -199,7 +203,7 @@ class MetricsViewController: UIViewController {
                 }
                 }, completion:  { complete in
                     
-                    for card in viewsToSend.reverse() {
+                    for card in Array(viewsToSend.reverse()) {
                         card.frame.origin.x = 0;
                         card.headerView.frame.size.width = self.screenWidth;
                         card.frame.size.width = self.screenWidth;
@@ -224,7 +228,7 @@ class MetricsViewController: UIViewController {
     
     func cardDragged(index: Int, translation: CGPoint) {
         if (index == 0) {
-            var topCard = self.view.subviews[self.view.subviews.count - 2] as! UIView;
+            let topCard = self.view.subviews[self.view.subviews.count - 2] ;
             if (topCard.frame.origin.x + translation.x < -cardDragThreshold) {
                 if (!cardsTransitioning) {
                     cardClickedAtIndex(index + 1);
@@ -238,7 +242,7 @@ class MetricsViewController: UIViewController {
             }
         } else if (index != MetricsType.allValues.count - 1) {
             for i in 0...index {
-                var card = self.view.subviews[self.view.subviews.count - (2 + i)] as! UIView;
+                let card = self.view.subviews[self.view.subviews.count - (2 + i)] ;
                 card.center.x += translation.x;
                 if (card.frame.origin.x + translation.x < -cardDragThreshold) {
                     if (!cardsTransitioning) {
@@ -258,15 +262,15 @@ class MetricsViewController: UIViewController {
 
     func doneDragging(index: Int) {
         if (index == 0) {
-            var topCard = self.view.subviews[self.view.subviews.count - 2] as! UIView;
+            let topCard = self.view.subviews[self.view.subviews.count - 2] ;
             if (topCard.frame.origin.x >= -cardDragThreshold) {
                 topCard.frame.origin.x = 0;
             }
         } else {
-            var draggedCard = self.view.subviews[self.view.subviews.count - (2 + index)] as! UIView;
+            let draggedCard = self.view.subviews[self.view.subviews.count - (2 + index)] ;
             if (draggedCard.frame.origin.x >= -cardDragThreshold) {
                 for i in 0...index {
-                    var card = self.view.subviews[self.view.subviews.count - (2 + i)] as! UIView;
+                    let card = self.view.subviews[self.view.subviews.count - (2 + i)] ;
                     card.frame.origin.x = 0;
                 }
             }
@@ -276,7 +280,6 @@ class MetricsViewController: UIViewController {
     }
 
     func updateDetailCard() {
-        let currentCard = getCurrentCard();
         detailsCard.setMetricType(getCurrentCard().delegate);
 
         if (detailsGone) {
@@ -306,6 +309,7 @@ class MetricsViewController: UIViewController {
     func initDetailCard(card: MetricCard) -> MetricDetailCard {
         let detailCard = MetricDetailCard.instanceFromNib(card);
         detailCard.frame.origin.y = detailsOpen ? cardHeaderViewHeight : detailsCardPosY;
+        detailCard.frame.size.height = screenHeight - cardHeaderViewHeight;
         let tap = UITapGestureRecognizer(target: self, action: "detailsTapped:");
         let drag = UIPanGestureRecognizer(target: self, action: "detailDragged:");
         
@@ -401,7 +405,7 @@ class MetricsViewController: UIViewController {
     
     func prepareForPortraitOrientation() {
         let revealController = (self.navigationController as! MainNavigationController).revealController;
-        revealController.supportedOrientations = UIInterfaceOrientationMask.Portrait.rawValue;
+        revealController.supportedOrientations = UIInterfaceOrientationMask.Portrait;
         revealController.shouldRotate = true;
         UIDevice.currentDevice().setValue(UIInterfaceOrientation.Portrait.rawValue, forKey: "orientation");
         UIViewController.attemptRotationToDeviceOrientation();
@@ -412,7 +416,7 @@ class MetricsViewController: UIViewController {
         let revealController = (self.navigationController as! MainNavigationController).revealController;
         revealController.supportedOrientations = previousSupportedOrientations;
         revealController.shouldRotate = true;
-        UIDevice.currentDevice().setValue(previousActualOrientation, forKey: "orientation");
+        UIDevice.currentDevice().setValue(previousActualOrientation.rawValue, forKey: "orientation");
         UIViewController.attemptRotationToDeviceOrientation();
         revealController.shouldRotate = previousShouldRotate;
     }

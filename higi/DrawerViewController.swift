@@ -74,7 +74,15 @@ class DrawerViewController: UIViewController, UITableViewDelegate, UITableViewDa
         navigationObjects.append(NavigationObject(title: "Settings", icon: "oc_settings.png", activeIcon: "oc_settings_active.png", callback: {
             (index: NSIndexPath) in
             Flurry.logEvent("SettingsOffCanvas_Pressed");
-            self.navController?.pushViewController(SettingsViewController(nibName: "SettingsView", bundle: nil), animated: false);
+            let settingsStoryboard = UIStoryboard(name: "Settings", bundle: nil);
+            let settingsViewController = settingsStoryboard.instantiateInitialViewController();
+            self.navController?.pushViewController(settingsViewController!, animated: false);
+        }));
+        navigationObjects.append(NavigationObject(title: "Capture", icon: "oc_qr.png", activeIcon: "oc_qr.png", callback: {
+            (index: NSIndexPath) in
+            Flurry.logEvent("QrCodeOffCanvas_Pressed");
+            self.tableView.deselectRowAtIndexPath(index, animated: false);
+            self.navController?.pushViewController(QrScannerViewController(nibName: "QrScannerView", bundle: nil), animated: false);
         }));
     }
     
@@ -82,12 +90,12 @@ class DrawerViewController: UIViewController, UITableViewDelegate, UITableViewDa
         var cell = tableView.dequeueReusableCellWithIdentifier("DrawerCell") as! DrawerCell!;
         if (cell == nil) {
             cell = UINib(nibName: "DrawerCell", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! DrawerCell;
-            var selectedBgView = UIView();
+            let selectedBgView = UIView();
             selectedBgView.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.06)
             cell.selectedBackgroundView = selectedBgView;
         }
         cell.title.text = navigationObjects[indexPath.item].title;
-        if (tableView.indexPathForSelectedRow() != nil && indexPath.item == tableView.indexPathForSelectedRow()!.item && navigationObjects[indexPath.item].title != "Metrics") {
+        if (tableView.indexPathForSelectedRow != nil && indexPath.item == tableView.indexPathForSelectedRow!.item && navigationObjects[indexPath.item].title != "Metrics" && navigationObjects[indexPath.item].title != "Capture") {
             cell.icon.image = UIImage(named: navigationObjects[indexPath.item].activeIcon);
         } else {
             cell.icon.image = UIImage(named: navigationObjects[indexPath.item].icon);
@@ -98,9 +106,9 @@ class DrawerViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         navigationObjects[indexPath.row].callback(indexPath);
         revealController?.revealToggleAnimated(true);
-        if navigationObjects[indexPath.item].title != "Metrics" {
+        if navigationObjects[indexPath.item].title != "Metrics" && navigationObjects[indexPath.item].title != "Capture" {
             tableView.reloadData();
-            var cell = tableView.cellForRowAtIndexPath(indexPath) as! DrawerCell;
+            let cell = tableView.cellForRowAtIndexPath(indexPath) as! DrawerCell;
             cell.icon.image = UIImage(named: navigationObjects[indexPath.item].activeIcon);
             cell.selected = true;
         }
@@ -122,7 +130,7 @@ class DrawerViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func setScore() {
-        var score = SessionData.Instance.user.currentHigiScore;
+        let score = SessionData.Instance.user.currentHigiScore;
         higiScore.text = "0";
         if (score > 0) {
             if (arc == nil) {
@@ -133,10 +141,10 @@ class DrawerViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 arc.fillColor = UIColor.whiteColor().CGColor;
                 arc.strokeColor = Utility.colorFromHexString(Constants.higiGreen).CGColor;
                 
-                var toPath = UIBezierPath();
-                var center = CGPoint(x: 50.0, y: 50.0);
-                var radius: CGFloat = 43.0;
-                var startingPoint = CGPoint(x: center.x, y: center.y + radius);
+                let toPath = UIBezierPath();
+                let center = CGPoint(x: 50.0, y: 50.0);
+                let radius: CGFloat = 43.0;
+                let startingPoint = CGPoint(x: center.x, y: center.y + radius);
                 toPath.moveToPoint(startingPoint);
                 toPath.addArcWithCenter(center, radius: radius, startAngle: CGFloat(M_PI_2), endAngle: CGFloat(5 * M_PI_2), clockwise: true);
                 toPath.closePath();
@@ -149,14 +157,14 @@ class DrawerViewController: UIViewController, UITableViewDelegate, UITableViewDa
             CATransaction.begin();
             CATransaction.setDisableActions(true);
             arc.strokeStart = 0.0;
-            var percent = Double(score) / 999.0;
+            let percent = Double(score) / 999.0;
             arc.strokeEnd = CGFloat(percent);
             CATransaction.setDisableActions(false);
             CATransaction.commit();
             higiScore.text = "\(score)";
-            var theta = percent * M_PI * 2 + M_PI_2;
-            var x = 43.0 * cos(theta) + 43.0;
-            var y = 43.0 * sin(theta) + 43.0;
+            let theta = percent * M_PI * 2 + M_PI_2;
+            let x = 43.0 * cos(theta) + 43.0;
+            let y = 43.0 * sin(theta) + 43.0;
             scoreRingMask.frame.origin = CGPoint(x: x, y: y);
         }
         

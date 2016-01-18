@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ConnectDeviceViewController" customModule="higi" customModuleProvider="target">
@@ -17,10 +18,13 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="banner_nologo.png" translatesAutoresizingMaskIntoConstraints="NO" id="t65-XU-b27">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="banner_nologo.png" translatesAutoresizingMaskIntoConstraints="NO" id="t65-XU-b27">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="238"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="t65-XU-b27" secondAttribute="height" multiplier="160:119" id="caM-gC-dIc"/>
+                    </constraints>
                 </imageView>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" indicatorStyle="white" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="a1e-54-1yK">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" indicatorStyle="white" style="plain" separatorStyle="default" rowHeight="70" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="a1e-54-1yK">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -29,23 +33,40 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lzi-V2-YcO">
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lzi-V2-YcO">
                                 <rect key="frame" x="0.0" y="55" width="320" height="130"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Add a device to your account so you can start tracking and start earning!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PHS-On-S3b">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Add a device to your account so you can start tracking and start earning!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PHS-On-S3b">
                                         <rect key="frame" x="22" y="99" width="276" height="33"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ui_nodevices.png" translatesAutoresizingMaskIntoConstraints="NO" id="BxZ-T9-CH7">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ui_nodevices.png" translatesAutoresizingMaskIntoConstraints="NO" id="BxZ-T9-CH7">
                                         <rect key="frame" x="60" y="0.0" width="200" height="90"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="200" id="gXK-o8-Tnt"/>
+                                            <constraint firstAttribute="height" constant="90" id="qUE-ip-bJ3"/>
+                                        </constraints>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="BxZ-T9-CH7" firstAttribute="centerX" secondItem="lzi-V2-YcO" secondAttribute="centerX" id="CNH-tk-IUU"/>
+                                    <constraint firstItem="PHS-On-S3b" firstAttribute="top" secondItem="BxZ-T9-CH7" secondAttribute="bottom" constant="9" id="E9E-Me-1gE"/>
+                                    <constraint firstItem="BxZ-T9-CH7" firstAttribute="top" secondItem="lzi-V2-YcO" secondAttribute="top" id="NMj-1p-hjG"/>
+                                    <constraint firstItem="PHS-On-S3b" firstAttribute="top" secondItem="BxZ-T9-CH7" secondAttribute="bottom" constant="9" id="SXD-OI-RH9"/>
+                                    <constraint firstItem="PHS-On-S3b" firstAttribute="leading" secondItem="lzi-V2-YcO" secondAttribute="leading" constant="22" id="l55-Py-idY"/>
+                                    <constraint firstAttribute="trailing" secondItem="PHS-On-S3b" secondAttribute="trailing" constant="22" id="q4A-VE-7Iv"/>
+                                </constraints>
                             </view>
                         </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="lzi-V2-YcO" secondAttribute="trailing" id="Rdj-Ph-paq"/>
+                            <constraint firstItem="lzi-V2-YcO" firstAttribute="leading" secondItem="bn5-Qk-dYR" secondAttribute="leading" id="inv-tK-wuH"/>
+                            <constraint firstItem="lzi-V2-YcO" firstAttribute="top" secondItem="bn5-Qk-dYR" secondAttribute="top" constant="55" id="sZP-Fm-3S4"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="4IZ-4q-DSY"/>
@@ -56,9 +77,12 @@
             <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="a1e-54-1yK" secondAttribute="trailing" id="8cw-OC-TLH"/>
+                <constraint firstItem="t65-XU-b27" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="TuI-bP-Mli"/>
+                <constraint firstItem="t65-XU-b27" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="bQn-Tj-nMn"/>
                 <constraint firstAttribute="bottom" secondItem="a1e-54-1yK" secondAttribute="bottom" id="baa-2c-AZz"/>
                 <constraint firstItem="a1e-54-1yK" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="bvw-zL-0ga"/>
                 <constraint firstItem="a1e-54-1yK" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="dZr-Aj-nM7"/>
+                <constraint firstAttribute="trailing" secondItem="t65-XU-b27" secondAttribute="trailing" id="fDW-HJ-put"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
             <point key="canvasLocation" x="130" y="-24"/>

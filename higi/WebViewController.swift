@@ -19,15 +19,15 @@ class WebViewController: UIViewController, NSURLConnectionDataDelegate, UIWebVie
     override func viewDidLoad() {
         super.viewDidLoad();
         self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
-        var backButton = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton;
+        let backButton = UIButton(type: UIButtonType.Custom);
         backButton.setBackgroundImage(UIImage(named: "btn_back_black.png"), forState: UIControlState.Normal);
         backButton.addTarget(self, action: "goBack:", forControlEvents: UIControlEvents.TouchUpInside);
         backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
-        var backBarItem = UIBarButtonItem(customView: backButton);
+        let backBarItem = UIBarButtonItem(customView: backButton);
         self.navigationItem.leftBarButtonItem = backBarItem;
         self.navigationItem.hidesBackButton = true;
         
-        var urlRequest = NSMutableURLRequest(URL: NSURL(string: url as String)!);
+        let urlRequest = NSMutableURLRequest(URL: NSURL(string: url as String)!);
         
         if (headers.count > 0) {
             for (field, value) in headers {
@@ -62,25 +62,29 @@ class WebViewController: UIViewController, NSURLConnectionDataDelegate, UIWebVie
             
             return false;
         }
-        if (((!isGone && request.URL!.absoluteString != nil && request.URL!.absoluteString!.hasPrefix("http://www.google.com")))) {
+        if let URL = request.URL where URL.absoluteString != "" && URL.absoluteString.hasPrefix("https://www.google.com") && !isGone {
             webView.stopLoading();
-            var components = NSURLComponents(URL: request.URL!, resolvingAgainstBaseURL: false)!;
+            guard let components = NSURLComponents(URL: URL, resolvingAgainstBaseURL: false), query = components.query else {                
+                return false
+            }
+            
             errorMessage = "";
-            let params = split(components.query!.componentsSeparatedByString("%")) {$0 == "&"};
-            for item in components.query!.componentsSeparatedByString("&") {
-                var keyValuePair = item.componentsSeparatedByString("=");
-                let i = keyValuePair[0];
-                if (keyValuePair[0] == "error") {
-                    if (keyValuePair.count > 1 && count(keyValuePair[1]) > 0) {
+            for item in query.componentsSeparatedByString("&") {
+                let keyValuePair = item.componentsSeparatedByString("=");
+                let key = keyValuePair[0]
+                let value = keyValuePair[1]
+                if (key == "error") {
+                    if (keyValuePair.count > 1 && value.characters.count > 0) {
                         device.connected = false;
                     }
-                } else if (keyValuePair[0] == "message") {
-                    errorMessage = keyValuePair[1].stringByReplacingOccurrencesOfString("+", withString: " ", options: nil, range: nil);
+                } else if (key == "message") {
+                    errorMessage = value.stringByReplacingOccurrencesOfString("+", withString: " ", options: [], range: nil);
                 }
             }
             if (errorMessage != "") {
                 UIAlertView(title: "Error", message: "\(errorMessage)", delegate: self, cancelButtonTitle: "OK").show();
             }
+            
             goBack(self);
         }
         return true;
@@ -95,7 +99,7 @@ class WebViewController: UIViewController, NSURLConnectionDataDelegate, UIWebVie
     }
     
     func connectionDidFinishLoading(connection: NSURLConnection) {
-        webView.loadData(webData, MIMEType: "text/html", textEncodingName: "UTF-8", baseURL: nil);
+        webView.loadData(webData, MIMEType: "text/html", textEncodingName: "UTF-8", baseURL: NSURL());
     }
     
     func goBack(sender: AnyObject!) {

@@ -10,7 +10,7 @@ import Foundation
 
 class BaseViewController: UIViewController, SWRevealViewControllerDelegate {
     
-    var fakeNavBar = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 64));
+    var fakeNavBar = UIView(frame: CGRect(x: 0, y: 0, width: 500, height: 64));
     
     var pointsMeter: PointsMeter!;
     
@@ -26,7 +26,7 @@ class BaseViewController: UIViewController, SWRevealViewControllerDelegate {
         super.viewDidLoad();
         revealController = (self.navigationController as! MainNavigationController).revealController;
         revealController.shouldRotate = false;
-        revealController.supportedOrientations = UIInterfaceOrientationMask.Portrait.rawValue;
+        revealController.supportedOrientations = UIInterfaceOrientationMask.Portrait;
         self.view.addSubview(fakeNavBar);
         self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()];
         self.fakeNavBar.backgroundColor = UIColor.whiteColor();
@@ -36,11 +36,11 @@ class BaseViewController: UIViewController, SWRevealViewControllerDelegate {
         if (shouldShowDailyPoints) {
             NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveApiNotification:", name: ApiUtility.ACTIVITIES, object: nil);
         }
-        toggleButton = UIButton.buttonWithType(UIButtonType.Custom) as? UIButton;
+        toggleButton = UIButton(type: .Custom);
         toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon.png"), forState: UIControlState.Normal);
         toggleButton!.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
         toggleButton!.addTarget(self, action: Selector("toggleMenu:"), forControlEvents: UIControlEvents.TouchUpInside);
-        var menuToggle = UIBarButtonItem(customView: toggleButton!);
+        let menuToggle = UIBarButtonItem(customView: toggleButton!);
         navigationItem.leftBarButtonItem = menuToggle;
         navigationItem.hidesBackButton = true;
     
@@ -65,14 +65,16 @@ class BaseViewController: UIViewController, SWRevealViewControllerDelegate {
     func receiveApiNotification(notification: NSNotification) {
         switch (notification.name) {
         case ApiUtility.ACTIVITIES:
-            setDailyPoints(true);
+            if shouldShowDailyPoints {
+                setDailyPoints(true);
+            }
         default:
             break;
         }
     }
     
     func initDailyPoints() {
-        var summaryBarItem = UIBarButtonItem();
+        let summaryBarItem = UIBarButtonItem();
         pointsMeter = PointsMeter.create(CGRect(x: 0, y: 0, width: 30, height: 30));
         let tap = UITapGestureRecognizer(target: self, action: "gotoSummary:");
         pointsMeter.addGestureRecognizer(tap);
@@ -104,7 +106,7 @@ class BaseViewController: UIViewController, SWRevealViewControllerDelegate {
     
     func gotoSummary(sender: AnyObject) {
         Flurry.logEvent("Summary_Pressed");
-        var summaryController = DailySummaryViewController(nibName: "DailySummaryView", bundle: nil);
+        let summaryController = DailySummaryViewController(nibName: "DailySummaryView", bundle: nil);
         self.navigationController!.pushViewController(summaryController, animated: true);
     }
     

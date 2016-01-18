@@ -38,12 +38,12 @@ class HigiUser {
         profileImage = UIImage(data: NSData(contentsOfURL: NSURL(string: "\(HigiApi.higiApiUrl)/view/\(userId)/profile,400.png?t=\(photoTime)")!)!);
         fullProfileImage = UIImage(data: NSData(contentsOfURL: NSURL(string: "\(HigiApi.higiApiUrl)/view/\(userId)/profileoriginal.png?t=\(photoTime)")!)!);
         
-        var notifications = dictionary["Notifications"] as! NSDictionary;
+        let notifications = dictionary["Notifications"] as! NSDictionary;
         emailCheckins = (notifications["EmailCheckins"] as! NSString) == "True";
         emailHigiNews = (notifications["EmailHigiNews"] as! NSString) == "True";
         
-        var terms = dictionary["terms"] as! NSDictionary?;
-        var privacy = dictionary["privacyAgreed"] as! NSDictionary?;
+        let terms = dictionary["terms"] as! NSDictionary?;
+        let privacy = dictionary["privacyAgreed"] as! NSDictionary?;
         
         if (terms != nil) {
             termsFile = terms!["termsFileName"] as! NSString;
@@ -63,14 +63,14 @@ class HigiUser {
         if (fullProfileImage == nil) {
             fullProfileImage = profileImage;
         }
-        var context = CIContext(options: nil);
-        var inputImage = CIImage(CGImage: Utility.scaleImage(fullProfileImage, newSize: CGSize(width: fullProfileImage.size.width / 2, height: fullProfileImage.size.height / 2)).CGImage);
-        var filter = CIFilter(name: "CIGaussianBlur");
-        filter.setValue(inputImage, forKey: kCIInputImageKey);
-        filter.setValue(NSNumber(float: 15.0), forKey: "inputRadius");
-        var result = filter.valueForKey(kCIOutputImageKey) as! CIImage;
+        let context = CIContext(options: nil);
+        let inputImage = CIImage(CGImage: Utility.scaleImage(fullProfileImage, newSize: CGSize(width: fullProfileImage.size.width / 2, height: fullProfileImage.size.height / 2)).CGImage!);
+        let filter = CIFilter(name: "CIGaussianBlur");
+        filter!.setValue(inputImage, forKey: kCIInputImageKey);
+        filter!.setValue(NSNumber(float: 15.0), forKey: "inputRadius");
+        let result = filter!.valueForKey(kCIOutputImageKey) as! CIImage;
         
-        var cgImage = context.createCGImage(result, fromRect: inputImage.extent());
+        let cgImage = context.createCGImage(result, fromRect: inputImage.extent);
         blurredImage = UIImage(CGImage: cgImage);
         
     }

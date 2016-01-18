@@ -49,9 +49,16 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
                 }, completion: nil);
             didAnimate = true;
         }
-        let phoneWidth = phoneScrollView.frame.size.width;
-        let phoneHeight = phoneScrollView.frame.size.height;
         
+        let leftScrollViewSwipeRecognizer = UISwipeGestureRecognizer(target: self, action: "swipeLeft:");
+        leftScrollViewSwipeRecognizer.direction = UISwipeGestureRecognizerDirection.Left;
+        let rightScrollViewSwipeRecognizer = UISwipeGestureRecognizer(target: self, action: "swipeRight:");
+        rightScrollViewSwipeRecognizer.direction = UISwipeGestureRecognizerDirection.Right;
+        self.view.addGestureRecognizer(leftScrollViewSwipeRecognizer);
+        self.view.addGestureRecognizer(rightScrollViewSwipeRecognizer);
+    }
+    
+    private func setupDashboard() {
         dashboardView = UIView(frame: CGRect(x: 0, y: 2, width: phoneScrollView.frame.size.width, height: phoneScrollView.frame.size.height - 5));
         var yPos:CGFloat = 2;
         let imageMargin:CGFloat = 10;
@@ -73,7 +80,7 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         activityView.image = activityCard;
         dashboardView.addSubview(activityView);
         yPos += imageHeight;
-
+        
         let metricsCard = UIImage(named: "metrics");
         imageHeight = scaledHeightFromWidth(metricsCard!, viewWidth: imageWidth);
         MetricsView = UIImageView(frame: CGRect(x: 0, y: yPos, width: imageWidth, height: imageHeight));
@@ -93,18 +100,11 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         dashboardView.alpha = 0;
         
         phoneScrollView.addSubview(dashboardView);
-        
-        let leftScrollViewSwipeRecognizer = UISwipeGestureRecognizer(target: self, action: "swipeLeft:");
-        leftScrollViewSwipeRecognizer.direction = UISwipeGestureRecognizerDirection.Left;
-        let rightScrollViewSwipeRecognizer = UISwipeGestureRecognizer(target: self, action: "swipeRight:");
-        rightScrollViewSwipeRecognizer.direction = UISwipeGestureRecognizerDirection.Right;
-        self.view.addGestureRecognizer(leftScrollViewSwipeRecognizer);
-        self.view.addGestureRecognizer(rightScrollViewSwipeRecognizer);
     }
     
     func scaledHeightFromWidth(image: UIImage, viewWidth: CGFloat) -> CGFloat {
-        var size = image.size;
-        var ratio = viewWidth / size.width;
+        let size = image.size;
+        let ratio = viewWidth / size.width;
         return size.height * ratio;
     }
     
@@ -113,6 +113,14 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         self.navigationController!.navigationBar.hidden = true;
         self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
         buttonSeparator.frame.origin.y = signupButton.frame.origin.y - 1;
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        /** @internal This is a patch around layout issues. Since the dashboard view and subviews rely on manual frame manipulation, we perform this method knowing that autolayout has correctly resized and placed the superview. 
+        */
+        self.setupDashboard()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -136,8 +144,8 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
     }
     
     @IBAction func changePage(sender: AnyObject) {
-        var pager = sender as! UIPageControl;
-        var page = pager.currentPage;
+        let pager = sender as! UIPageControl;
+        let page = pager.currentPage;
         var frame = self.view.frame;
         frame.origin.x = frame.size.width * CGFloat(page);
         frame.origin.y = 0;

@@ -26,7 +26,7 @@ class ChallengeInvitationView: UIView {
         invitationView.goal.text = winCondition.goal.type == "most_points" ? "Most points" : "Threshold reached";
         invitationView.type.text = goalTypeDisplayHelper(winCondition.goal.type as String, winnerType: winCondition.winnerType as String);
         invitationView.prize.text = winCondition.prizeName != nil ? winCondition.prizeName as String : "No prize";
-        invitationView.participantCount.text = String(challenge.participantsCount)
+        invitationView.participantCount.text = String(challenge.participantsCount);
         invitationView.starting.text = startsInDisplayHelper(challenge.startDate);
         invitationView.dateRange.text = dateRangeDisplayHelper(challenge.startDate, endDate: challenge.endDate);
         //unicode values must be set here
@@ -37,13 +37,12 @@ class ChallengeInvitationView: UIView {
     }
     
     class func goalTypeDisplayHelper(goalType: String, winnerType: String) -> String {
-        var firstPart = winnerType == "individual" ? "Individual" : "Team";
-        var secondPart = goalType == "most_points" ? "Points Challenge" : "Goal Challenge";
+        let firstPart = winnerType == "individual" ? "Individual" : "Team";
+        let secondPart = goalType == "most_points" ? "Points Challenge" : "Goal Challenge";
         return firstPart + " " + secondPart;
     }
     
     class func startsInDisplayHelper(startDate: NSDate) -> String {
-        var days = 0;
         var dateDisplay:String!
         if (Int(startDate.timeIntervalSinceNow) > 0) {
             let days = Int(startDate.timeIntervalSinceNow / 60 / 60 / 24) + 1;
@@ -69,5 +68,10 @@ class ChallengeInvitationView: UIView {
             dateRange = "No end date";
         }
         return dateRange;
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews();
+        participantCount.sizeToFit();
     }
 }

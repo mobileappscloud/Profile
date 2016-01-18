@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChallengeDetailsViewController" customModule="higi" customModuleProvider="target">
@@ -126,7 +126,7 @@
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="1rP-kO-yoz">
+                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="1rP-kO-yoz">
                             <rect key="frame" x="150" y="201" width="20" height="20"/>
                             <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </activityIndicatorView>
@@ -138,10 +138,13 @@
                         <constraint firstItem="77J-uP-PXX" firstAttribute="top" secondItem="uDa-Lt-ibU" secondAttribute="top" constant="64" id="455-rr-zq1"/>
                         <constraint firstAttribute="trailing" secondItem="eoo-5v-2QL" secondAttribute="trailing" constant="43" id="4vm-Zr-8dx"/>
                         <constraint firstItem="rJ4-Tz-Gn1" firstAttribute="top" secondItem="eoo-5v-2QL" secondAttribute="bottom" constant="22" id="6Da-cT-Aki"/>
+                        <constraint firstAttribute="bottom" secondItem="1rP-kO-yoz" secondAttribute="bottom" constant="17" id="7ha-o0-umf"/>
                         <constraint firstItem="eXg-80-4iQ" firstAttribute="centerX" secondItem="eoo-5v-2QL" secondAttribute="centerX" id="8EW-dX-Oln"/>
                         <constraint firstItem="rJ4-Tz-Gn1" firstAttribute="top" secondItem="eoo-5v-2QL" secondAttribute="bottom" constant="22" id="Bd3-AI-j2f"/>
                         <constraint firstItem="hbV-VH-YUh" firstAttribute="top" secondItem="77J-uP-PXX" secondAttribute="bottom" constant="8" id="BzL-gY-fbS"/>
+                        <constraint firstItem="1rP-kO-yoz" firstAttribute="centerX" secondItem="uDa-Lt-ibU" secondAttribute="centerX" id="CzN-o6-1xK"/>
                         <constraint firstAttribute="centerX" secondItem="eoo-5v-2QL" secondAttribute="centerX" id="FMo-99-LTr"/>
+                        <constraint firstItem="1rP-kO-yoz" firstAttribute="top" secondItem="eoo-5v-2QL" secondAttribute="bottom" constant="31" id="Ida-BU-ROU"/>
                         <constraint firstAttribute="centerX" secondItem="77J-uP-PXX" secondAttribute="centerX" id="Lfd-i9-zy8"/>
                         <constraint firstItem="eoo-5v-2QL" firstAttribute="leading" secondItem="uDa-Lt-ibU" secondAttribute="leading" constant="44" id="Qug-rW-nkV"/>
                         <constraint firstItem="eoo-5v-2QL" firstAttribute="top" secondItem="hbV-VH-YUh" secondAttribute="bottom" constant="15" id="Sye-jY-XH6"/>
@@ -166,9 +169,12 @@
                         </mask>
                     </variation>
                 </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Dj-0Z-1GK">
+                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Dj-0Z-1GK">
                     <rect key="frame" x="0.0" y="238" width="320" height="57"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="57" id="434-Qo-W7v"/>
+                    </constraints>
                 </view>
             </subviews>
             <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -177,7 +183,9 @@
                 <constraint firstItem="3xq-86-abo" firstAttribute="leading" secondItem="PE7-hb-4Wz" secondAttribute="leading" id="AJ9-wk-cIo"/>
                 <constraint firstAttribute="bottom" secondItem="3xq-86-abo" secondAttribute="bottom" id="BHb-A1-7Ol"/>
                 <constraint firstItem="uDa-Lt-ibU" firstAttribute="top" secondItem="PE7-hb-4Wz" secondAttribute="top" id="CIv-6N-Qrk"/>
+                <constraint firstItem="0Dj-0Z-1GK" firstAttribute="leading" secondItem="PE7-hb-4Wz" secondAttribute="leading" id="GIK-rD-xmY"/>
                 <constraint firstItem="uDa-Lt-ibU" firstAttribute="leading" secondItem="PE7-hb-4Wz" secondAttribute="leading" id="e5k-FH-9UQ"/>
+                <constraint firstAttribute="trailing" secondItem="0Dj-0Z-1GK" secondAttribute="trailing" id="gap-Qf-D8u"/>
                 <constraint firstAttribute="trailing" secondItem="uDa-Lt-ibU" secondAttribute="trailing" id="kzI-nB-uS0"/>
                 <constraint firstAttribute="trailing" secondItem="3xq-86-abo" secondAttribute="trailing" id="vxZ-2w-38k"/>
             </constraints>

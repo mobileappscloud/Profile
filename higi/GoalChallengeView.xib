@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -11,7 +11,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="176"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Yz-61-rS3">
+                <view hidden="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Yz-61-rS3">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="46"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dei-tT-rzi">
@@ -44,22 +44,27 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
+                        <constraint firstAttribute="trailing" secondItem="9Vp-0h-pgJ" secondAttribute="trailing" constant="8" id="Er2-aF-Pgd"/>
                         <constraint firstAttribute="centerY" secondItem="9Vp-0h-pgJ" secondAttribute="centerY" id="Fg7-BV-OQy"/>
+                        <constraint firstItem="9Vp-0h-pgJ" firstAttribute="leading" secondItem="j6h-qm-ysG" secondAttribute="leading" id="ta2-rE-4wr"/>
                     </constraints>
                 </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="0Yz-61-rS3" firstAttribute="leading" secondItem="bms-Pq-cVl" secondAttribute="leading" id="01F-OU-XsB"/>
                 <constraint firstAttribute="centerY" secondItem="TaJ-fi-xFR" secondAttribute="centerY" id="AoA-w5-KsN"/>
+                <constraint firstAttribute="trailing" secondItem="0Yz-61-rS3" secondAttribute="trailing" id="XAM-GC-4hG"/>
                 <constraint firstAttribute="trailing" secondItem="j6h-qm-ysG" secondAttribute="trailing" constant="18" id="dnh-cR-vzk"/>
-                <constraint firstItem="j6h-qm-ysG" firstAttribute="leading" secondItem="TaJ-fi-xFR" secondAttribute="trailing" constant="16" id="mhI-Fx-3ax"/>
                 <constraint firstItem="TaJ-fi-xFR" firstAttribute="leading" secondItem="bms-Pq-cVl" secondAttribute="leading" constant="8" id="nHj-JD-LKG"/>
+                <constraint firstItem="j6h-qm-ysG" firstAttribute="leading" secondItem="bms-Pq-cVl" secondAttribute="leading" constant="54" id="pqW-xN-zan"/>
             </constraints>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="avatar" destination="TaJ-fi-xFR" id="K0S-FP-PlC"/>
                 <outlet property="complexContainer" destination="0Yz-61-rS3" id="LnJ-lm-dTh"/>
+                <outlet property="grayBar" destination="9Vp-0h-pgJ" id="nbm-ZO-6gS"/>
                 <outlet property="name" destination="TZo-C2-MK4" id="zd1-bt-kGC"/>
                 <outlet property="progress" destination="j6h-qm-ysG" id="CuG-qI-uot"/>
                 <outlet property="secondaryAvatar" destination="Dei-tT-rzi" id="CC3-PO-D5T"/>

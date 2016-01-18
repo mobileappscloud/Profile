@@ -23,11 +23,11 @@ class SignupEmailViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad();
         self.title = "Sign Up";
         self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
-        var urlRequest = NSMutableURLRequest(URL: NSURL(string: "\(HigiApi.webUrl)/termsandprivacy")!);
+        let urlRequest = NSMutableURLRequest(URL: NSURL(string: "\(HigiApi.webUrl)/termsandprivacy")!);
         urlRequest.addValue("mobile-ios", forHTTPHeaderField: "Higi-Source");
         termsWebView.loadRequest(urlRequest);
 
-        spinner = CustomLoadingSpinner(frame: CGRectMake(self.view.frame.size.width / 2 - 16, UIScreen.mainScreen().bounds.size.height - 66, 32, 32));
+        spinner = CustomLoadingSpinner(frame: CGRectMake(UIScreen.mainScreen().bounds.size.width / 2 - 16, UIScreen.mainScreen().bounds.size.height - 66, 32, 32));
         spinner.shouldAnimateFull = false;
         spinner.hidden = true;
         self.view.addSubview(spinner);
@@ -40,11 +40,11 @@ class SignupEmailViewController: UIViewController, UITextFieldDelegate {
             self.navigationController!.navigationBar.hidden = false;
             declineButton.layer.borderWidth = 1;
             declineButton.layer.borderColor = UIColor.darkGrayColor().CGColor;
-            var backButton = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton;
+            let backButton = UIButton(type: UIButtonType.Custom);
             backButton.setBackgroundImage(UIImage(named: "btn_back_black.png"), forState: UIControlState.Normal);
             backButton.addTarget(self, action: "goBack:", forControlEvents: UIControlEvents.TouchUpInside);
             backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
-            var backBarItem = UIBarButtonItem(customView: backButton);
+            let backBarItem = UIBarButtonItem(customView: backButton);
             self.navigationItem.leftBarButtonItem = backBarItem;
             self.navigationItem.hidesBackButton = true;
         }
@@ -64,14 +64,14 @@ class SignupEmailViewController: UIViewController, UITextFieldDelegate {
         signupButton.enabled = false;
         self.navigationItem.leftBarButtonItem!.customView!.hidden = true;
         var problemFound = false;
-        if (count(email.text) == 0 || email.text.rangeOfString("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$", options: NSStringCompareOptions.RegularExpressionSearch, range: nil, locale: nil) == nil) {
+        if (email.text!.characters.count == 0 || email.text!.rangeOfString("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$", options: NSStringCompareOptions.RegularExpressionSearch, range: nil, locale: nil) == nil) {
             problemFound = true;
             email.attributedPlaceholder = NSAttributedString(string: "Valid email required", attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)]);
         } else {
             email.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSForegroundColorAttributeName: UIColor.lightGrayColor()]);
         }
         
-        if (count(password.text) < 6) {
+        if (password.text!.characters.count < 6) {
             problemFound = true;
             password.attributedPlaceholder = NSAttributedString(string: "Password must be at least 6 characters", attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)]);
         } else {
@@ -88,8 +88,8 @@ class SignupEmailViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func signup(sender: AnyObject) {
         termsView.hidden = true;
-        var encodedEmail = CFURLCreateStringByAddingPercentEscapes(nil, email.text, nil, "!*'();:@&=+$,/?%#[]", CFStringBuiltInEncodings.UTF8.rawValue);
-        var encodedPassword = CFURLCreateStringByAddingPercentEscapes(nil, password.text, nil, "!*'();:@&=+$,/?%#[]", CFStringBuiltInEncodings.UTF8.rawValue);
+        let encodedEmail = CFURLCreateStringByAddingPercentEscapes(nil, email.text, nil, "!*'();:@&=+$,/?%#[]", CFStringBuiltInEncodings.UTF8.rawValue);
+        let encodedPassword = CFURLCreateStringByAddingPercentEscapes(nil, password.text, nil, "!*'();:@&=+$,/?%#[]", CFStringBuiltInEncodings.UTF8.rawValue);
         HigiApi().sendGet("\(HigiApi.higiApiUrl)/data/emailUsed/\(encodedEmail)", success: {operation, responseObject in
             
             if (responseObject as! Bool) {
@@ -98,43 +98,46 @@ class SignupEmailViewController: UIViewController, UITextFieldDelegate {
             } else {
                 HigiApi().sendGet("\(HigiApi.webUrl)/termsinfo", success: {operation, responseObject in
                     
-                    var termsInfo = responseObject as! NSDictionary;
-                    
-                    var termsFile = (termsInfo["termsFilename"] ?? "termsofuse_v7_08112014") as! NSString;
-                    var privacyFile = (termsInfo["privacyFilename"] ?? "privacypolicy_v7_08112014") as! NSString;
-                    
-                    var dateFormatter = NSDateFormatter();
-                    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ";
-                    var agreedDate = dateFormatter.stringFromDate(NSDate());
-                    
-                    var contents = NSMutableDictionary();
-                    var terms = NSMutableDictionary();
-                    var privacy = NSMutableDictionary();
-                    contents["email"] = self.email.text;
-                    terms["termsFileName"] = termsFile;
-                    terms["termsAgreedDate"] = agreedDate;
-                    privacy["privacyFileName"] = privacyFile;
-                    privacy["privacyAgreedDate"] = agreedDate;
-                    contents["terms"] = terms;
-                    contents["privacyAgreed"] = privacy;
-                    HigiApi().sendPut("\(HigiApi.higiApiUrl)/data/user?password=\(encodedPassword)", parameters: contents, success: {operation, responseObject in
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+
+                        let termsInfo = responseObject as! NSDictionary;
                         
-                        var userInfo = responseObject as! NSDictionary;
+                        let termsFile = (termsInfo["termsFilename"] ?? "termsofuse_v7_08112014") as! NSString;
+                        let privacyFile = (termsInfo["privacyFilename"] ?? "privacypolicy_v7_08112014") as! NSString;
                         
-                        var user = HigiUser();
+                        let dateFormatter = NSDateFormatter();
+                        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ";
+                        let agreedDate = dateFormatter.stringFromDate(NSDate());
                         
-                        user.userId = userInfo["id"] as! NSString;
-                        
-                        SessionData.Instance.user = user;
-                        SessionData.Instance.token = userInfo["token"] as! String;
-                        SessionData.Instance.save();
-                        SessionController.Instance.checkins = [];
-                        SessionController.Instance.activities = [:];
-                        
-                        self.navigationController!.pushViewController(SignupNameViewController(nibName: "SignupNameView", bundle: nil), animated: true);
-                        
-                        }, failure: {operation, error in
-                            self.showErrorAlert();
+                        let contents = NSMutableDictionary();
+                        let terms = NSMutableDictionary();
+                        let privacy = NSMutableDictionary();
+                        contents["email"] = self.email.text;
+                        terms["termsFileName"] = termsFile;
+                        terms["termsAgreedDate"] = agreedDate;
+                        privacy["privacyFileName"] = privacyFile;
+                        privacy["privacyAgreedDate"] = agreedDate;
+                        contents["terms"] = terms;
+                        contents["privacyAgreed"] = privacy;
+                        HigiApi().sendPut("\(HigiApi.higiApiUrl)/data/user?password=\(encodedPassword)", parameters: contents, success: {operation, responseObject in
+                            
+                            let userInfo = responseObject as! NSDictionary;
+                            
+                            let user = HigiUser();
+                            
+                            user.userId = userInfo["id"] as! NSString;
+                            
+                            SessionData.Instance.user = user;
+                            SessionData.Instance.token = userInfo["token"] as! String;
+                            SessionData.Instance.save();
+                            SessionController.Instance.checkins = [];
+                            SessionController.Instance.activities = [:];
+                            
+                            self.navigationController!.pushViewController(SignupNameViewController(nibName: "SignupNameView", bundle: nil), animated: true);
+                            
+                            }, failure: {operation, error in
+                                self.showErrorAlert();
+                        });
                     });
                     
                     }, failure: {operation, error in
@@ -171,7 +174,7 @@ class SignupEmailViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func decline(sender: AnyObject) {
-        var splashViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SplashViewController") as! UIViewController;
+        let splashViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SplashViewController") ;
         (UIApplication.sharedApplication().delegate as! AppDelegate).window?.rootViewController = splashViewController;
     }
     

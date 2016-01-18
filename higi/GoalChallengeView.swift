@@ -3,12 +3,12 @@ import Foundation
 class GoalChallengeView: ChallengeView {
     
     @IBOutlet var avatar: UIImageView!
-    
     @IBOutlet weak var secondaryAvatar: UIImageView!
     @IBOutlet weak var name: UILabel!
     @IBOutlet var progress: UIView!
-    
+    @IBOutlet weak var grayBar: UIView!
     @IBOutlet weak var complexContainer: UIView!
+    
     var participantPoints: Int!;
     
     var verticalLine, progressBar: UIView!;
@@ -31,7 +31,7 @@ class GoalChallengeView: ChallengeView {
     class func instanceFromNib(frame: CGRect, challenge: HigiChallenge, winConditions: [ChallengeWinCondition], isComplex: Bool) -> GoalChallengeView {
         let goalView = UINib(nibName: "GoalChallengeView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! GoalChallengeView;
         goalView.frame = frame;
-        goalView.autoresizingMask = UIViewAutoresizing.FlexibleWidth;
+        goalView.progress.frame.size.width = frame.size.width - (goalView.progress.frame.origin.x) - 18;
         let isTeam = winConditions[0].winnerType == "team";
         
         if isComplex {
@@ -45,7 +45,7 @@ class GoalChallengeView: ChallengeView {
                 goalView.name.text = "\(challenge.participant.displayName)";
             }
         } else {
-            if (isTeam) {
+            if isTeam {
                 goalView.avatar.setImageWithURL(Utility.loadImageFromUrl(challenge.participant.team.imageUrl as String));
             } else {
                 goalView.avatar.setImageWithURL(Utility.loadImageFromUrl(challenge.participant.imageUrl as String));
@@ -62,7 +62,7 @@ class GoalChallengeView: ChallengeView {
         }
         
         var sortedWinConditions = nonTrivialWinConditions;
-        sortedWinConditions.sort { $0.goal.minThreshold! < $1.goal.minThreshold! };
+        sortedWinConditions.sortInPlace { $0.goal.minThreshold! < $1.goal.minThreshold! };
         goalView.maxPoints = sortedWinConditions[sortedWinConditions.count - 1].goal.minThreshold;
         
         drawParticipantProgress(goalView, participantPoints: goalView.participantPoints, maxGoalValue: goalView.maxPoints);
@@ -88,7 +88,7 @@ class GoalChallengeView: ChallengeView {
         goalView.verticalLine = UIView(frame: CGRect(x: progressWidth, y: goalView.progress.frame.height / 2 - ViewConstants.verticalLineHeight - ViewConstants.labelHeight, width: 1, height: ViewConstants.verticalLineHeight));
         goalView.verticalLine.backgroundColor = UIColor.lightGrayColor();
         
-        var text = String(participantPoints);
+        let text = String(participantPoints);
         
         let labelPosY = verticalLinePosY - ViewConstants.labelHeight;
         goalView.pointsLabel = UILabel(frame: CGRectMake(0, 0, goalView.progress.frame.width, ViewConstants.labelHeight));
@@ -143,7 +143,7 @@ class GoalChallengeView: ChallengeView {
             
             labelMargin = isBottom ? -1.0 * ViewConstants.labelMargin - ViewConstants.circleRadius / 2: ViewConstants.labelMargin + ViewConstants.circleRadius * 2;
         }
-        var text = String(Int(thisGoalValue));
+        let text = String(Int(thisGoalValue));
         let labelPosX = posX + ViewConstants.circleRadius;
         let labelPosY = posY + labelMargin;
         var goalLabel:UILabel;
