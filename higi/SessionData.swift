@@ -86,36 +86,40 @@ class SessionData {
     }
     
     func restore() {
-        if (NSFileManager.defaultManager().fileExistsAtPath(documentsSavePath)) {
-            let savedDictionary = NSDictionary(contentsOfFile: documentsSavePath)!;
-
-            if let savedToken = savedDictionary["token"] as? String {
-                token = savedToken;
+        let fileManager = NSFileManager.defaultManager()
+        
+        if (fileManager.fileExistsAtPath(documentsSavePath)) {
+            if let savedDictionary = NSDictionary(contentsOfFile: documentsSavePath) {
+                if let savedToken = savedDictionary["token"] as? String {
+                    token = savedToken;
+                } else {
+                    token = KeychainWrapper.stringForKey("token");
+                }
+                if let savedPin = savedDictionary["pin"] as? String {
+                    pin = savedPin;
+                } else {
+                    pin = KeychainWrapper.stringForKey("pin");
+                }
+                user = HigiUser();
+                if let savedUserId = savedDictionary["userId"] as? NSString {
+                    user.userId = savedUserId;
+                } else {
+                    user.userId = KeychainWrapper.objectForKey("userId") as? NSString;
+                }
+                
+                seenDashboard = (savedDictionary["seenDashboard"] ?? false) as! Bool;
+                seenMetrics = (savedDictionary["seenMetrics"] ?? false) as! Bool;
+                seenReminder = (savedDictionary["seenReminder"] ?? false) as! Bool;
+                lastUpdate = (savedDictionary["lastUpdate"] ?? NSDate()) as! NSDate;
             } else {
-                token = KeychainWrapper.stringForKey("token");
+                reset()
             }
-            if let savedPin = savedDictionary["pin"] as? String {
-                pin = savedPin;
-            } else {
-                pin = KeychainWrapper.stringForKey("pin");
-            }
-            user = HigiUser();
-            if let savedUserId = savedDictionary["userId"] as? NSString {
-                user.userId = savedUserId;
-            } else {
-                user.userId = KeychainWrapper.objectForKey("userId") as? NSString;
-            }
-            
-            seenDashboard = (savedDictionary["seenDashboard"] ?? false) as! Bool;
-            seenMetrics = (savedDictionary["seenMetrics"] ?? false) as! Bool;
-            seenReminder = (savedDictionary["seenReminder"] ?? false) as! Bool;
-            lastUpdate = (savedDictionary["lastUpdate"] ?? NSDate()) as! NSDate;
         } else {
             reset();
         }
         
-        if (NSFileManager.defaultManager().fileExistsAtPath(tempSavePath)) {
-            let tempDictionary = NSDictionary(contentsOfFile: tempSavePath)!;
+        if (fileManager.fileExistsAtPath(tempSavePath)) {
+            guard let tempDictionary = NSDictionary(contentsOfFile: tempSavePath) else { return }
             kioskListString = (tempDictionary["kioskList"] ?? "") as! String;
         }
     }
