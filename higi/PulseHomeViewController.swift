@@ -35,6 +35,8 @@ class PulseHomeViewController: BaseViewController, UITableViewDataSource, UITabl
         self.automaticallyAdjustsScrollViewInsets = false;
         tableView.separatorInset = UIEdgeInsetsZero;
         tableView.backgroundView?.backgroundColor = UIColor.blackColor();
+        let pulseNib = UINib(nibName: "PulseCellView", bundle: nil)
+        tableView.registerNib(pulseNib, forCellReuseIdentifier: "PulseCell")
         
         fillTopContainer();
         
@@ -67,11 +69,8 @@ class PulseHomeViewController: BaseViewController, UITableViewDataSource, UITabl
             loadingArticles = true;
             addMoreArticles();
         }
-        var cell = tableView.dequeueReusableCellWithIdentifier("PulseCell") as! PulseCell!;
-        if (cell == nil) {
-            cell = UINib(nibName: "PulseCellView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! PulseCell;
-        }
         let article = SessionController.Instance.pulseArticles[indexPath.item + 1];
+        let cell = tableView.dequeueReusableCellWithIdentifier("PulseCell", forIndexPath: indexPath) as! PulseCell
         cell.title.frame.size = CGSize(width: 194, height: 36);
         cell.title.text = article.title as String;
         cell.title.sizeToFit();
