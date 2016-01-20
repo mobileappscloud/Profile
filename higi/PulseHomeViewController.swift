@@ -64,12 +64,21 @@ class PulseHomeViewController: BaseViewController, UITableViewDataSource, UITabl
         return SessionController.Instance.pulseArticles.count - 1;
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         if (!loadingArticles && indexPath.item == SessionController.Instance.pulseArticles.count - 2) {
             loadingArticles = true;
             addMoreArticles();
         }
-        let article = SessionController.Instance.pulseArticles[indexPath.item + 1];
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        let adjustedIndexItem = indexPath.item + 1
+        if !isValidIndex(adjustedIndexItem) {
+            return UITableViewCell()
+        }
+        let article = SessionController.Instance.pulseArticles[adjustedIndexItem]
+        
         let cell = tableView.dequeueReusableCellWithIdentifier("PulseCell", forIndexPath: indexPath) as! PulseCell
         cell.title.frame.size = CGSize(width: 194, height: 36);
         cell.title.text = article.title as String;
@@ -85,8 +94,20 @@ class PulseHomeViewController: BaseViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true);
-        gotoArticle(SessionController.Instance.pulseArticles[indexPath.item + 1]);
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        
+        let adjustedIndexItem = indexPath.item + 1
+        if !isValidIndex(adjustedIndexItem) {
+            return
+        }
+        
+        let article = SessionController.Instance.pulseArticles[adjustedIndexItem]
+        gotoArticle(article)
+    }
+    
+    private func isValidIndex(index: Int) -> Bool {
+        let maxIndex = SessionController.Instance.pulseArticles.count - 1
+        return index <= maxIndex
     }
     
     func gotoArticle(article: PulseArticle) {
