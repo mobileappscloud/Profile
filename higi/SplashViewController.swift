@@ -17,21 +17,36 @@ class SplashViewController: UIViewController {
     }
 
     func moveToNextScreen() {
-        if (SessionData.Instance.token == "") {
-            let navigationController = MainNavigationController(rootViewController: WelcomeViewController(nibName: "Welcome", bundle: nil));
-            self.presentViewController(navigationController, animated: false, completion: nil);
-        } else {
-            HigiApi().sendGet("\(HigiApi.higiApiUrl)/data/qdata/\(SessionData.Instance.user.userId)?newSession=true", success: { operation, responseObject in
-                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                        let login = HigiLogin(dictionary: responseObject as! NSDictionary);
-                        SessionData.Instance.user = login.user;
-                        ApiUtility.checkTermsAndPrivacy(self, success: self.successfullyCheckTermsAndPrivacy, failure: self.errorToWelcome);
-                    });
-                    
-                    }, failure: {operation, error in
-                        self.errorToWelcome();
-                });
+        guard let token = SessionData.Instance.token else {
+            navigateToWelcome()
+            return
         }
+        
+        if token == "" {
+            navigateToWelcome()
+        } else {
+            fetchSessionUser()
+        }
+    }
+    
+    func navigateToWelcome() {
+        let navigationController = MainNavigationController(rootViewController: WelcomeViewController(nibName: "Welcome", bundle: nil));
+        dispatch_async(dispatch_get_main_queue(), {
+            self.presentViewController(navigationController, animated: false, completion: nil);
+        })
+    }
+    
+    func fetchSessionUser() {
+        HigiApi().sendGet("\(HigiApi.higiApiUrl)/data/qdata/\(SessionData.Instance.user.userId)?newSession=true", success: { operation, responseObject in
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                let login = HigiLogin(dictionary: responseObject as! NSDictionary);
+                SessionData.Instance.user = login.user;
+                ApiUtility.checkTermsAndPrivacy(self, success: self.successfullyCheckTermsAndPrivacy, failure: self.errorToWelcome);
+            });
+            
+            }, failure: {operation, error in
+                self.errorToWelcome();
+        });
     }
     
     func successfullyCheckTermsAndPrivacy(termsFile: NSString, privacyFile: NSString) -> Void {
