@@ -161,3 +161,30 @@ class Utility {
         return navigationController;
     }
 }
+
+extension Utility {
+    
+    /**
+     Convenience method which compares two numeric strings and determines whether or not the minimum has been satisfied.
+     
+     - param minVersion: Numeric string which contains the minimum acceptable version.
+     
+     - returns: `true` if the current app version is greater than or equal to the `minVersion`
+     */
+    class func appMeetsMinimumVersionRequirement(minVersion: String) -> Bool {
+        return Utility.appVersion(Utility.appVersion(), meetsMinimumVersionRequirement: minVersion)
+    }
+    
+    /**
+    Method which compares two numeric strings and determines whether or not the minimum has been satisfied.
+
+    - param appVersion: Numeric string to test for minimum version compliance.
+    - param minVersion: Numeric string which contains the minimum acceptable version.
+    
+    - returns: `true` if `appVersion` is greater than or equal to the `minVersion`
+     */
+    class func appVersion(appVersion: String, meetsMinimumVersionRequirement minVersion: String) -> Bool {
+        let result = appVersion.compare(minVersion, options: NSStringCompareOptions.NumericSearch)
+        return result == NSComparisonResult.OrderedDescending || result == NSComparisonResult.OrderedSame
+    }
+}
