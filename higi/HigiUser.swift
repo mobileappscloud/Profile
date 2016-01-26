@@ -16,7 +16,9 @@ class HigiUser {
     
     var hasPhoto, emailCheckins, emailHigiNews: Bool!;
     
-    var profileImage, fullProfileImage, blurredImage: UIImage!;
+    var profileImage: UIImage?
+    var fullProfileImage: UIImage?
+    var blurredImage: UIImage?
     
     init() {
         hasPhoto = false;
@@ -69,11 +71,14 @@ class HigiUser {
     }
     
     func createBlurredImage() {
-        if (fullProfileImage == nil) {
-            fullProfileImage = profileImage;
+        var image: UIImage?
+        image = (fullProfileImage != nil) ? fullProfileImage : profileImage
+        guard let imageToBlur = image else {
+            return
         }
+        
         let context = CIContext(options: nil);
-        let inputImage = CIImage(CGImage: Utility.scaleImage(fullProfileImage, newSize: CGSize(width: fullProfileImage.size.width / 2, height: fullProfileImage.size.height / 2)).CGImage!);
+        let inputImage = CIImage(CGImage: Utility.scaleImage(imageToBlur, newSize: CGSize(width: imageToBlur.size.width / 2, height: imageToBlur.size.height / 2)).CGImage!);
         let filter = CIFilter(name: "CIGaussianBlur");
         filter!.setValue(inputImage, forKey: kCIInputImageKey);
         filter!.setValue(NSNumber(float: 15.0), forKey: "inputRadius");
@@ -81,7 +86,6 @@ class HigiUser {
         
         let cgImage = context.createCGImage(result, fromRect: inputImage.extent);
         blurredImage = UIImage(CGImage: cgImage);
-        
     }
     
     func retrieveProfileImages() {
