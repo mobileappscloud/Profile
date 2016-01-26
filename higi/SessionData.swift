@@ -90,21 +90,30 @@ class SessionData {
         
         if (fileManager.fileExistsAtPath(documentsSavePath)) {
             if let savedDictionary = NSDictionary(contentsOfFile: documentsSavePath) {
+                
                 if let savedToken = savedDictionary["token"] as? String {
                     token = savedToken;
+                } else if let savedToken = KeychainWrapper.stringForKey("token") {
+                    token = savedToken
                 } else {
-                    token = KeychainWrapper.stringForKey("token");
+                    token = ""
                 }
+                
                 if let savedPin = savedDictionary["pin"] as? String {
                     pin = savedPin;
+                } else if let savedPin = KeychainWrapper.stringForKey("pin") {
+                    pin = savedPin
                 } else {
-                    pin = KeychainWrapper.stringForKey("pin");
+                    pin = ""
                 }
+                
                 user = HigiUser();
                 if let savedUserId = savedDictionary["userId"] as? NSString {
                     user.userId = savedUserId;
+                } else if let savedUserId = KeychainWrapper.objectForKey("userId") as? NSString {
+                    user.userId = savedUserId
                 } else {
-                    user.userId = KeychainWrapper.objectForKey("userId") as? NSString;
+                    user.userId = ""
                 }
                 
                 seenDashboard = (savedDictionary["seenDashboard"] ?? false) as! Bool;
