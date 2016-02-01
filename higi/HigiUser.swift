@@ -89,10 +89,20 @@ class HigiUser {
     }
     
     func retrieveProfileImages() {
-        profileImage = UIImage(data: NSData(contentsOfURL: NSURL(string: "\(HigiApi.higiApiUrl)/view/\(userId)/profile,400.png?t=\(photoTime)")!)!);
-        fullProfileImage = UIImage(data: NSData(contentsOfURL: NSURL(string: "\(HigiApi.higiApiUrl)/view/\(userId)/profileoriginal.png?t=\(photoTime)")!)!);
-        createBlurredImage();
-        NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.PROFILE_PICTURES, object: nil, userInfo: ["success": true]);
+        if let profileImageURL = NSURL(string: "\(HigiApi.higiApiUrl)/view/\(userId)/profile,400.png?t=\(photoTime)") {
+            if let data = NSData(contentsOfURL: profileImageURL), image = UIImage(data: data) {
+                profileImage = image
+            }
+        }
+        
+        if let URL = NSURL(string: "\(HigiApi.higiApiUrl)/view/\(userId)/profileoriginal.png?t=\(photoTime)") {
+            if let data = NSData(contentsOfURL: URL), image = UIImage(data: data) {
+                fullProfileImage = image
+            }
+        }
+    
+        createBlurredImage()
+        NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.PROFILE_PICTURES, object: nil, userInfo: ["success": true])
     }
     
 }
