@@ -120,12 +120,12 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     }
     
     /**
-        @abstract This is a workaround to ensure the width of cards displayed on the dashboard fill
-        the device width. This approach was chosen to minimize changes necessary to support multiple
-        screen sizes. 
-    
-        @note This view is not in true compliance with adaptive layout.
-    */
+     @abstract This is a workaround to ensure the width of cards displayed on the dashboard fill
+     the device width. This approach was chosen to minimize changes necessary to support multiple
+     screen sizes.
+     
+     @note This view is not in true compliance with adaptive layout.
+     */
     private func ensureCardWidthIntegrity() {
         let width = min(CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds));
         for subview in dashboardItems {
@@ -214,75 +214,18 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     }
     
     func initChallengesCard() {
-        if (SessionController.Instance.earnditError && SessionController.Instance.challenges.count == 0) {
-            if (challengesCard.superview != nil) {
-                challengesCard.spinner.stopAnimating();
-                challengesCard.removeFromSuperview();
-            }
-            if (errorCard.superview == nil) {
-                errorCard.frame.origin.y = contentOriginY;
-                mainScrollView.addSubview(errorCard);
-                Utility.growAnimation(errorCard, startHeight: challengesCard.frame.size.height, endHeight: errorCard.frame.size.height);
-            }
+        if SessionController.Instance.earnditError && (SessionController.Instance.checkins == nil || SessionController.Instance.challenges.count == 0) {
+            removeChallengeCard()
+            showErrorCard()
         } else {
-            if SessionController.Instance.earnditError {
-                Utility.growAnimation(errorCard, startHeight: challengesCard.frame.size.height, endHeight: errorCard.frame.size.height);
-            } else {
-                if (errorCard.superview != nil) {
-                    errorCard.removeFromSuperview();
-                }
+            if !SessionController.Instance.earnditError {
+                removeErrorCard()
             }
-            challengesCard.challengeBox.layer.borderColor = Utility.colorFromHexString("#CCCCCC").CGColor;
-            if (challengesCard.spinner == nil) {
-                challengesCard.spinner = CustomLoadingSpinner(frame: CGRectMake(UIScreen.mainScreen().bounds.width / 2 - 16 - challengesCard.loadingContainer.frame.origin.x, challengesCard.loadingContainer.frame.size.height / 2 - 16, 32, 32));
-                challengesCard.loadingContainer.addSubview(challengesCard.spinner);
-            }
-            if (challengesCard.superview == nil) {
-                mainScrollView.addSubview(challengesCard);
-                challengesCard.spinner.startAnimating();
-            }
-            displayedChallenge = nil;
-            if (SessionController.Instance.challenges != nil) {
-                for challenge in SessionController.Instance.challenges {
-                    if (challenge.userStatus == "current" && challenge.status == "running") {
-                        if (displayedChallenge == nil) {
-                            displayedChallenge = challenge;
-                        } else {
-                            if (displayedChallenge.endDate == nil) {
-                                if (challenge.endDate != nil) {
-                                    displayedChallenge = challenge;
-                                }
-                            } else if (challenge.endDate != nil && displayedChallenge.endDate.compare(challenge.endDate) == NSComparisonResult.OrderedDescending) {
-                                displayedChallenge = challenge;
-                            }
-                        }
-                    }
-                }
-            }
+            
+            addChallengeCardWithSpinner()
+            displayedChallenge = getDisplayedChallenge()
             if (displayedChallenge != nil) {
-                challengesCard.loadingContainer.hidden = true;
-                challengesCard.spinner.stopAnimating();
-                challengesCard.challengeBox.hidden = false;
-                challengesCard.blankStateImage.hidden = true;
-                challengesCard.challengeAvatar.setImageWithURL(NSURL(string: displayedChallenge.imageUrl as String));
-                challengesCard.challengeTitle.text = displayedChallenge.name as String;
-                if (challengesCard.challengeBox.subviews.count > 3) {
-                    (challengesCard.challengeBox.subviews[challengesCard.challengeBox.subviews.count - 1] ).removeFromSuperview();
-                }
-                let challengeViewHeader = CGFloat(56);
-                let challengeView = ChallengeUtility.getChallengeViews(displayedChallenge, frame: CGRect(x: 0, y: challengeViewHeader, width: challengesCard.challengeBox.frame.size.width, height: 180), isComplex: false)[0];
-                challengeView.backgroundColor = UIColor.whiteColor();
-                if (challengeView.frame.size.height + challengeViewHeader > challengesCard.challengeBox.frame.size.height) {
-                    Utility.growAnimation(challengesCard.challengeBox, startHeight: challengesCard.challengeBox.frame.size.height, endHeight: challengeView.frame.size.height + challengeViewHeader + challengeViewHeader);
-                    Utility.growAnimation(challengesCard, startHeight: challengesCard.frame.size.height, endHeight: challengesCard.challengeBox.frame.origin.y + challengeView.frame.size.height + challengeViewHeader);
-                }
-                challengesCard.challengeBox.frame.size.height = challengeView.frame.size.height;
-                challengesCard.challengeBox.addSubview(challengeView);
-                challengeView.userInteractionEnabled = false;
-                challengeView.updateConstraintsIfNeeded();
-                challengeView.animate();
-                
-                challengesCard.spinner.stopAnimating();
+                setChallengeCardWithDisplayChallenge()
             } else if (challengesLoaded) {
                 challengesCard.challengeBox.hidden = true;
                 challengesCard.blankStateImage.hidden = false;
@@ -295,20 +238,106 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         challengeCardPlaced = true;
     }
     
-    func initMetricsCard() {
-        if (SessionController.Instance.earnditError) {
-            if (SessionController.Instance.challenges == nil || SessionController.Instance.challenges.count == 0) {
-            } else {
-            }
-            if (errorCard.superview == nil) {
-                errorCard.frame.origin.y = contentOriginY;
-                mainScrollView.addSubview(errorCard);
-            }
-        } else {
-            if (errorCard.superview != nil) {
-                errorCard.removeFromSuperview();
+    private func removeChallengeCard() {
+        if (challengesCard.superview != nil) {
+            challengesCard.spinner.stopAnimating();
+            challengesCard.removeFromSuperview();
+        }
+    }
+    
+    private func showErrorCard() {
+        if (errorCard.superview == nil) {
+            mainScrollView.addSubview(errorCard);
+            Utility.growAnimation(errorCard, startHeight: challengesCard.frame.size.height, endHeight: errorCard.frame.size.height);
+        }
+    }
+    
+    private func removeErrorCard() {
+        if (errorCard.superview != nil) {
+            errorCard.removeFromSuperview();
+        }
+    }
+    
+    private func addChallengeCardWithSpinner() {
+        challengesCard.challengeBox.layer.borderColor = Utility.colorFromHexString("#CCCCCC").CGColor;
+        if (challengesCard.spinner == nil) {
+            challengesCard.spinner = CustomLoadingSpinner(frame: CGRectMake(UIScreen.mainScreen().bounds.width / 2 - 16 - challengesCard.loadingContainer.frame.origin.x, challengesCard.loadingContainer.frame.size.height / 2 - 16, 32, 32));
+            challengesCard.loadingContainer.addSubview(challengesCard.spinner);
+        }
+        if (challengesCard.superview == nil) {
+            mainScrollView.addSubview(challengesCard);
+            challengesCard.spinner.startAnimating();
+        }
+    }
+    
+    private func getDisplayedChallenge() -> HigiChallenge? {
+        var displayedChallenge:HigiChallenge? = nil
+        if (SessionController.Instance.challenges != nil) {
+            for challenge in SessionController.Instance.challenges {
+                if (challenge.userStatus == "current" && challenge.status == "running") {
+                    if (displayedChallenge == nil) {
+                        displayedChallenge = challenge;
+                    } else {
+                        if (displayedChallenge!.endDate == nil) {
+                            if (challenge.endDate != nil) {
+                                displayedChallenge = challenge;
+                            }
+                        } else if (challenge.endDate != nil && displayedChallenge!.endDate.compare(challenge.endDate) == NSComparisonResult.OrderedDescending) {
+                            displayedChallenge = challenge;
+                        }
+                    }
+                }
             }
         }
+        return displayedChallenge
+    }
+    
+    private func setChallengeCardWithDisplayChallenge() {
+        challengesCard.loadingContainer.hidden = true;
+        challengesCard.spinner.stopAnimating();
+        challengesCard.challengeBox.hidden = false;
+        challengesCard.blankStateImage.hidden = true;
+        challengesCard.challengeAvatar.setImageWithURL(NSURL(string: displayedChallenge.imageUrl as String));
+        challengesCard.challengeTitle.text = displayedChallenge.name as String;
+        if (challengesCard.challengeBox.subviews.count > 3) {
+            (challengesCard.challengeBox.subviews[challengesCard.challengeBox.subviews.count - 1] ).removeFromSuperview();
+        }
+        let challengeViewHeader = CGFloat(56);
+        let challengeView = ChallengeUtility.getChallengeViews(displayedChallenge, frame: CGRect(x: 0, y: challengeViewHeader, width: challengesCard.challengeBox.frame.size.width, height: 180), isComplex: false)[0];
+        challengeView.backgroundColor = UIColor.whiteColor();
+        if (challengeView.frame.size.height + challengeViewHeader > challengesCard.challengeBox.frame.size.height) {
+            Utility.growAnimation(challengesCard.challengeBox, startHeight: challengesCard.challengeBox.frame.size.height, endHeight: challengeView.frame.size.height + challengeViewHeader + challengeViewHeader);
+            Utility.growAnimation(challengesCard, startHeight: challengesCard.frame.size.height, endHeight: challengesCard.challengeBox.frame.origin.y + challengeView.frame.size.height + challengeViewHeader);
+        }
+        challengesCard.challengeBox.frame.size.height = challengeView.frame.size.height;
+        challengesCard.challengeBox.addSubview(challengeView);
+        challengeView.userInteractionEnabled = false;
+        challengeView.updateConstraintsIfNeeded();
+        challengeView.animate();
+        
+        challengesCard.spinner.stopAnimating();
+    }
+    
+    func initMetricsCard() {
+        if SessionController.Instance.earnditError {
+            if SessionController.Instance.activities.count == 0 {
+                showErrorCard()
+            }
+        } else {
+            removeErrorCard()
+        }
+        
+        addMetricsCardWithSpinner()
+        
+        if (SessionController.Instance.checkins != nil) {
+            populateMetricsCardWithCheckins()
+        }
+        
+        layoutDashboardItems(metricsCardPlaced);
+        metricsCardPlaced = true;
+    }
+    
+    func addMetricsCardWithSpinner() {
         if (metricsSpinner == nil) {
             metricsSpinner = CustomLoadingSpinner(frame: CGRectMake(UIScreen.mainScreen().bounds.width / 2 - 16, 84, 32, 32));
             metricsCard.addSubview(metricsSpinner)
@@ -317,167 +346,165 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             mainScrollView.addSubview(metricsCard);
             metricsSpinner.startAnimating();
         }
-        if (SessionController.Instance.checkins != nil) {
-            var bps: [HigiCheckin] = [], weights: [HigiCheckin] = [], pulses: [HigiCheckin] = [];
-            var lastBpDate = "", lastBmiDate = "", lastPulseDate = "";
-            for checkin in SessionController.Instance.checkins {
-                let checkinDate = Constants.displayDateFormatter.stringFromDate(checkin.dateTime);
-                if (checkin.systolic != nil && checkin.systolic > 0) {
-                    if (checkinDate != lastBpDate) {
-                        bps.append(checkin);
-                        lastBpDate = checkinDate;
-                    } else {
-                        bps[bps.count - 1] = checkin;
-                    }
-                }
-                if (checkin.weightKG != nil && checkin.weightKG > 0) {
-                    if (checkinDate != lastBmiDate) {
-                        weights.append(checkin);
-                        lastBmiDate = checkinDate;
-                    } else {
-                        weights[weights.count - 1] = checkin;
-                    }
-                }
-                if (checkin.pulseBpm != nil && checkin.pulseBpm > 0) {
-                    if (checkinDate != lastPulseDate) {
-                        pulses.append(checkin);
-                        lastPulseDate = checkinDate;
-                    } else {
-                        pulses[pulses.count - 1] = checkin;
-                    }
+    }
+    
+    func populateMetricsCardWithCheckins() {
+        var bps: [HigiCheckin] = [], weights: [HigiCheckin] = [], pulses: [HigiCheckin] = [];
+        var lastBpDate = "", lastBmiDate = "", lastPulseDate = "";
+        for checkin in SessionController.Instance.checkins {
+            let checkinDate = Constants.displayDateFormatter.stringFromDate(checkin.dateTime);
+            if (checkin.systolic != nil && checkin.systolic > 0) {
+                if (checkinDate != lastBpDate) {
+                    bps.append(checkin);
+                    lastBpDate = checkinDate;
+                } else {
+                    bps[bps.count - 1] = checkin;
                 }
             }
-            let cardMarginX:CGFloat = 8, cardMarginY:CGFloat = 16;
-            var cardPositionY:CGFloat = 60;
-            
-            activityCard = MetricsGraphCard.instanceFromNib(0, type: MetricsType.DailySummary);
-            activityCard.frame.origin.y = cardPositionY;
-            activityCard.frame.origin.x = cardMarginX;
-            let activityTouched = UITapGestureRecognizer(target: self, action: "gotoActivityGraph:");
-            activityCard.addGestureRecognizer(activityTouched);
-            cardPositionY += activityCard.frame.size.height + cardMarginY;
-            
-            let firstDivider = UIView(frame: CGRect(x: 0, y: cardPositionY - cardMarginY / 2, width: self.view.frame.size.width, height: 1));
-            firstDivider.backgroundColor = Utility.colorFromHexString("#EEEEEE");
-            
-            var bloodPressureCard:MetricsGraphCard!
-            if (bps.count > 0) {
-                bloodPressureCard = MetricsGraphCard.instanceFromNib(bps.last!, type: MetricsType.BloodPressure);
-            } else {
-                bloodPressureCard = MetricsGraphCard.instanceFromNib(nil, type: MetricsType.BloodPressure);
+            if (checkin.weightKG != nil && checkin.weightKG > 0) {
+                if (checkinDate != lastBmiDate) {
+                    weights.append(checkin);
+                    lastBmiDate = checkinDate;
+                } else {
+                    weights[weights.count - 1] = checkin;
+                }
             }
-            bloodPressureCard.frame.origin.y = cardPositionY;
-            bloodPressureCard.frame.origin.x = cardMarginX;
-            let bpTouched = UITapGestureRecognizer(target: self, action: "gotoBloodPressureGraph:");
-            bloodPressureCard.addGestureRecognizer(bpTouched);
-            cardPositionY += bloodPressureCard.frame.size.height + cardMarginY;
-            
-            let secondDivider = UIView(frame: CGRect(x: 0, y: cardPositionY - cardMarginY / 2, width: self.view.frame.size.width, height: 1));
-            secondDivider.backgroundColor = Utility.colorFromHexString("#EEEEEE");
-            
-            var pulseCard:MetricsGraphCard!
-            if (pulses.count > 0) {
-                pulseCard = MetricsGraphCard.instanceFromNib(pulses.last!, type: MetricsType.Pulse);
-            } else {
-                pulseCard = MetricsGraphCard.instanceFromNib(nil, type: MetricsType.Pulse);
+            if (checkin.pulseBpm != nil && checkin.pulseBpm > 0) {
+                if (checkinDate != lastPulseDate) {
+                    pulses.append(checkin);
+                    lastPulseDate = checkinDate;
+                } else {
+                    pulses[pulses.count - 1] = checkin;
+                }
             }
-            pulseCard.frame.origin.y = cardPositionY;
-            pulseCard.frame.origin.x = cardMarginX;
-            let pulseTouched = UITapGestureRecognizer(target: self, action: "gotoPulseGraph:");
-            pulseCard.addGestureRecognizer(pulseTouched);
-            cardPositionY += pulseCard.frame.size.height + cardMarginY;
-            
-            let thirdDivider = UIView(frame: CGRect(x: 0, y: cardPositionY - cardMarginY / 2, width: self.view.frame.size.width, height: 1));
-            thirdDivider.backgroundColor = Utility.colorFromHexString("#EEEEEE");
-            
-            var weightCard:MetricsGraphCard!;
-            if (weights.count > 0) {
-                weightCard = MetricsGraphCard.instanceFromNib(weights.last!, type: MetricsType.Weight);
-            } else {
-                weightCard = MetricsGraphCard.instanceFromNib(nil, type: MetricsType.Weight);
-            }
-            weightCard.frame.origin.y = cardPositionY;
-            weightCard.frame.origin.x = cardMarginX;
-            let weightTouched = UITapGestureRecognizer(target: self, action: "gotoWeightGraph:");
-            weightCard.addGestureRecognizer(weightTouched);
-            cardPositionY += weightCard.frame.size.height + cardMarginY / 2;
-            
-            let checkins = SessionController.Instance.checkins;
-            if (checkins != nil && checkins.count > 0) {
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                    var mapPoints:[GraphPoint] = [], bpmPoints:[GraphPoint] = [], weightPoints:[GraphPoint] = [];
-                    for checkin in checkins {
-                        if (checkin.map != nil) {
-                            mapPoints.append(GraphPoint(x: Double(checkin.dateTime.timeIntervalSince1970), y: checkin.map));
-                        }
-                        if (checkin.pulseBpm != nil) {
-                            bpmPoints.append(GraphPoint(x: Double(checkin.dateTime.timeIntervalSince1970), y: Double(checkin.pulseBpm!)));
-                        }
-                        if (checkin.weightLbs != nil) {
-                            weightPoints.append(GraphPoint(x: Double(checkin.dateTime.timeIntervalSince1970), y: checkin.weightLbs));
-                        }
-                    }
-                    dispatch_async(dispatch_get_main_queue(), {
-                        if (mapPoints.count > self.maxPointsToShow) {
-                            mapPoints = Array(Array(mapPoints.reverse())[0..<self.maxPointsToShow]);
-                        }
-                        if (bpmPoints.count > self.maxPointsToShow) {
-                            bpmPoints = Array(Array(bpmPoints.reverse())[0..<self.maxPointsToShow]);
-                        }
-                        if (weightPoints.count > self.maxPointsToShow) {
-                            weightPoints = Array(Array(weightPoints.reverse())[0..<self.maxPointsToShow]);
-                        }
-                        bloodPressureCard.graph(mapPoints, type: MetricsType.BloodPressure);
-                        pulseCard.graph(bpmPoints, type: MetricsType.Pulse);
-                        weightCard.graph(weightPoints, type: MetricsType.Weight);
-                    });
-                });
-            } else {
-                bloodPressureCard.graph([], type: MetricsType.BloodPressure);
-                pulseCard.graph([], type: MetricsType.Pulse);
-                weightCard.graph([], type: MetricsType.Weight);
-            }
-            if (SessionController.Instance.earnditError) {
-                self.activityCard.singleValue.text = "--";
-            } else {
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                    var activityPoints:[GraphPoint] = [];
-                    let dateString = Constants.dateFormatter.stringFromDate(NSDate());
-                    var totalPoints = 0;
-                    for (date, (total, activityList)) in SessionController.Instance.activities {
-                        if (date == dateString) {
-                            totalPoints = total;
-                        }
-                        if (activityList.count > 0) {
-                            activityPoints.append(GraphPoint(x: Double(activityList[0].startTime.timeIntervalSince1970), y: Double(total)));
-                        }
-                    }
-                    activityPoints.sortInPlace({$0.x > $1.x});
-                    if (activityPoints.count > self.maxPointsToShow) {
-                        activityPoints = Array(activityPoints[0..<self.maxPointsToShow]);
-                    }
-                    activityPoints = Array(activityPoints.reverse());
-                    dispatch_async(dispatch_get_main_queue(), {
-                        self.activityCard.singleValue.text = "\(totalPoints)";
-                        self.activityCard.graph(activityPoints, type: MetricsType.DailySummary);
-                    });
-                });
-            }
-            metricsSpinner.stopAnimating();
-            metricsSpinner.removeFromSuperview();
-            metricsCard.addSubview(activityCard);
-            metricsCard.addSubview(firstDivider);
-            metricsCard.addSubview(bloodPressureCard);
-            metricsCard.addSubview(secondDivider);
-            metricsCard.addSubview(pulseCard);
-            metricsCard.addSubview(thirdDivider);
-            metricsCard.addSubview(weightCard);
-            
-            Utility.growAnimation(metricsCard, startHeight: metricsCard.frame.size.height, endHeight: cardPositionY);
         }
+        let cardMarginX:CGFloat = 8, cardMarginY:CGFloat = 16;
+        var cardPositionY:CGFloat = 60;
         
-        layoutDashboardItems(metricsCardPlaced);
-        metricsCardPlaced = true;
+        activityCard = MetricsGraphCard.instanceFromNib(0, type: MetricsType.DailySummary);
+        activityCard.frame.origin.y = cardPositionY;
+        activityCard.frame.origin.x = cardMarginX;
+        let activityTouched = UITapGestureRecognizer(target: self, action: "gotoActivityGraph:");
+        activityCard.addGestureRecognizer(activityTouched);
+        cardPositionY += activityCard.frame.size.height + cardMarginY;
+        
+        let firstDivider = UIView(frame: CGRect(x: 0, y: cardPositionY - cardMarginY / 2, width: self.view.frame.size.width, height: 1));
+        firstDivider.backgroundColor = Utility.colorFromHexString("#EEEEEE");
+        
+        var bloodPressureCard:MetricsGraphCard!
+        if (bps.count > 0) {
+            bloodPressureCard = MetricsGraphCard.instanceFromNib(bps.last!, type: MetricsType.BloodPressure);
+        } else {
+            bloodPressureCard = MetricsGraphCard.instanceFromNib(nil, type: MetricsType.BloodPressure);
+        }
+        bloodPressureCard.frame.origin.y = cardPositionY;
+        bloodPressureCard.frame.origin.x = cardMarginX;
+        let bpTouched = UITapGestureRecognizer(target: self, action: "gotoBloodPressureGraph:");
+        bloodPressureCard.addGestureRecognizer(bpTouched);
+        cardPositionY += bloodPressureCard.frame.size.height + cardMarginY;
+        
+        let secondDivider = UIView(frame: CGRect(x: 0, y: cardPositionY - cardMarginY / 2, width: self.view.frame.size.width, height: 1));
+        secondDivider.backgroundColor = Utility.colorFromHexString("#EEEEEE");
+        
+        var pulseCard:MetricsGraphCard!
+        if (pulses.count > 0) {
+            pulseCard = MetricsGraphCard.instanceFromNib(pulses.last!, type: MetricsType.Pulse);
+        } else {
+            pulseCard = MetricsGraphCard.instanceFromNib(nil, type: MetricsType.Pulse);
+        }
+        pulseCard.frame.origin.y = cardPositionY;
+        pulseCard.frame.origin.x = cardMarginX;
+        let pulseTouched = UITapGestureRecognizer(target: self, action: "gotoPulseGraph:");
+        pulseCard.addGestureRecognizer(pulseTouched);
+        cardPositionY += pulseCard.frame.size.height + cardMarginY;
+        
+        let thirdDivider = UIView(frame: CGRect(x: 0, y: cardPositionY - cardMarginY / 2, width: self.view.frame.size.width, height: 1));
+        thirdDivider.backgroundColor = Utility.colorFromHexString("#EEEEEE");
+        
+        var weightCard:MetricsGraphCard!;
+        if (weights.count > 0) {
+            weightCard = MetricsGraphCard.instanceFromNib(weights.last!, type: MetricsType.Weight);
+        } else {
+            weightCard = MetricsGraphCard.instanceFromNib(nil, type: MetricsType.Weight);
+        }
+        weightCard.frame.origin.y = cardPositionY;
+        weightCard.frame.origin.x = cardMarginX;
+        let weightTouched = UITapGestureRecognizer(target: self, action: "gotoWeightGraph:");
+        weightCard.addGestureRecognizer(weightTouched);
+        cardPositionY += weightCard.frame.size.height + cardMarginY / 2;
+        
+        let checkins = SessionController.Instance.checkins;
+        if (checkins != nil && checkins.count > 0) {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                var mapPoints:[GraphPoint] = [], bpmPoints:[GraphPoint] = [], weightPoints:[GraphPoint] = [];
+                for checkin in checkins {
+                    if (checkin.map != nil) {
+                        mapPoints.append(GraphPoint(x: Double(checkin.dateTime.timeIntervalSince1970), y: checkin.map));
+                    }
+                    if (checkin.pulseBpm != nil) {
+                        bpmPoints.append(GraphPoint(x: Double(checkin.dateTime.timeIntervalSince1970), y: Double(checkin.pulseBpm!)));
+                    }
+                    if (checkin.weightLbs != nil) {
+                        weightPoints.append(GraphPoint(x: Double(checkin.dateTime.timeIntervalSince1970), y: checkin.weightLbs));
+                    }
+                }
+                dispatch_async(dispatch_get_main_queue(), {
+                    if (mapPoints.count > self.maxPointsToShow) {
+                        mapPoints = Array(Array(mapPoints.reverse())[0..<self.maxPointsToShow]);
+                    }
+                    if (bpmPoints.count > self.maxPointsToShow) {
+                        bpmPoints = Array(Array(bpmPoints.reverse())[0..<self.maxPointsToShow]);
+                    }
+                    if (weightPoints.count > self.maxPointsToShow) {
+                        weightPoints = Array(Array(weightPoints.reverse())[0..<self.maxPointsToShow]);
+                    }
+                    bloodPressureCard.graph(mapPoints, type: MetricsType.BloodPressure);
+                    pulseCard.graph(bpmPoints, type: MetricsType.Pulse);
+                    weightCard.graph(weightPoints, type: MetricsType.Weight);
+                });
+            });
+        } else {
+            bloodPressureCard.graph([], type: MetricsType.BloodPressure);
+            pulseCard.graph([], type: MetricsType.Pulse);
+            weightCard.graph([], type: MetricsType.Weight);
+        }
+        if SessionController.Instance.earnditError && SessionController.Instance.activities.count == 0 {
+            self.activityCard.singleValue.text = "--";
+        } else {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                var activityPoints:[GraphPoint] = [];
+                let dateString = Constants.dateFormatter.stringFromDate(NSDate());
+                var totalPoints = 0;
+                for (date, (total, activityList)) in SessionController.Instance.activities {
+                    if (date == dateString) {
+                        totalPoints = total;
+                    }
+                    if (activityList.count > 0) {
+                        activityPoints.append(GraphPoint(x: Double(activityList[0].startTime.timeIntervalSince1970), y: Double(total)));
+                    }
+                }
+                activityPoints.sortInPlace({$0.x > $1.x});
+                if (activityPoints.count > self.maxPointsToShow) {
+                    activityPoints = Array(activityPoints[0..<self.maxPointsToShow]);
+                }
+                activityPoints = Array(activityPoints.reverse());
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.activityCard.singleValue.text = "\(totalPoints)";
+                    self.activityCard.graph(activityPoints, type: MetricsType.DailySummary);
+                });
+            });
+        }
+        metricsSpinner.stopAnimating();
+        metricsSpinner.removeFromSuperview();
+        metricsCard.addSubview(activityCard);
+        metricsCard.addSubview(firstDivider);
+        metricsCard.addSubview(bloodPressureCard);
+        metricsCard.addSubview(secondDivider);
+        metricsCard.addSubview(pulseCard);
+        metricsCard.addSubview(thirdDivider);
+        metricsCard.addSubview(weightCard);
+        
+        Utility.growAnimation(metricsCard, startHeight: metricsCard.frame.size.height, endHeight: cardPositionY);
     }
     
     func initPulseCard() {
