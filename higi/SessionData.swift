@@ -79,9 +79,10 @@ class SessionData {
     
     private func saveCachedData() {
         let tempDictionary = NSMutableDictionary()
-        tempDictionary["kioskList"] = kioskListString
+        tempDictionary["kioskList"] = kioskListString ?? ""
         
-        let immutableTempDict: NSDictionary = tempDictionary.copy() as! NSDictionary
+        guard let immutableTempDict: NSDictionary = tempDictionary.copy() as? NSDictionary else { return }
+        
         immutableTempDict.writeToFile(tempSavePath, atomically: false)
     }
     
@@ -128,8 +129,12 @@ class SessionData {
         }
         
         if (fileManager.fileExistsAtPath(tempSavePath)) {
+            kioskListString = ""
             guard let tempDictionary = NSDictionary(contentsOfFile: tempSavePath) else { return }
+            
             kioskListString = (tempDictionary["kioskList"] ?? "") as! String;
+        } else {
+            kioskListString = ""
         }
     }
     
