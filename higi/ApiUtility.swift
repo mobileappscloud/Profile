@@ -530,3 +530,27 @@ class ApiUtility {
         });
     }
 }
+
+extension ApiUtility {
+    
+    class func fetchTemporarySessionToken(userId: String, completion: (token: String?, error: NSError?) -> Void) {
+        let URLString = "\(HigiApi.higiApiUrl)/login/token?higiId=\(userId)"
+        HigiApi().sendGet(URLString, success: { (operation, responseObject) in
+            print(responseObject)
+            guard let responseDict = responseObject as? NSDictionary else {
+                let parseError = NSError(domain: NSStringFromClass(self), code: 99999, userInfo: [NSLocalizedDescriptionKey : "Error parsing response object."])
+                completion(token: nil, error: parseError)
+                return
+            }
+            
+            if let token = responseDict["Token"] as? String {
+                completion(token: token, error: nil)
+            } else {
+                let missingToken = NSError(domain: NSStringFromClass(self), code: 99998, userInfo: [NSLocalizedDescriptionKey : "Token missing from response object."])
+                completion(token: nil, error: missingToken)
+            }
+            }, failure: { operation, error in
+                completion(token: nil, error: error)
+        })
+    }
+}
