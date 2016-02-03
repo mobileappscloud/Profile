@@ -43,6 +43,25 @@ class ConnectDeviceRow: UITableViewCell {
         }
     }
     
+    
+    private func deviceConnectURL(temporaryToken: String) -> NSURL? {
+        guard let deviceConnectURL = device.connectUrl else { return nil }
+        guard let user = SessionData.Instance.user, let userId = user.userId as? String else { return nil }
+        
+        let resource = "mobileDeviceConnect"
+        
+        let redirectURLString = "higi://\(resource)"
+        let deviceConnectWithRedirectURLString = deviceConnectURL.stringByReplacingOccurrencesOfString("{redirect}", withString: redirectURLString)
+        
+        guard let formattedDeviceConnectURLString = deviceConnectWithRedirectURLString.stringByRemovingPercentEncoding else { return nil }
+        
+        let baseURLString = HigiApi.webUrl
+        
+        let fullyQualifiedURLString = "\(baseURLString)/\(resource)?User-id=\(userId)&Token=\(temporaryToken)&Higi-device-connect-url=\(formattedDeviceConnectURLString)"
+        
+        return NSURL(string: fullyQualifiedURLString)
+    }
+    
     func showUnsupportedDeviceAlert() {
         let title = NSLocalizedString("CONNECT_DEVICE_ROW_CONNECT_HEALTHKIT_NO_MOTION_PROCESSOR_ALERT_TITLE", comment: "Title for alert displayed when user toggles switch to connect branded activity tracker, but the device does not have a motion processor.")
         let message = NSLocalizedString("CONNECT_DEVICE_ROW_CONNECT_HEALTHKIT_NO_MOTION_PROCESSOR_ALERT_MESSAGE", comment: "Message for alert displayed when user toggles switch to connect branded activity tracker, but the device does not have a motion processor")
