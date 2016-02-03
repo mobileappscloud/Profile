@@ -536,7 +536,6 @@ extension ApiUtility {
     class func fetchTemporarySessionToken(userId: String, completion: (token: String?, error: NSError?) -> Void) {
         let URLString = "\(HigiApi.higiApiUrl)/login/token?higiId=\(userId)"
         HigiApi().sendGet(URLString, success: { (operation, responseObject) in
-            print(responseObject)
             guard let responseDict = responseObject as? NSDictionary else {
                 let parseError = NSError(domain: NSStringFromClass(self), code: 99999, userInfo: [NSLocalizedDescriptionKey : "Error parsing response object."])
                 completion(token: nil, error: parseError)
