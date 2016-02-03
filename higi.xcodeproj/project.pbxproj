@@ -31,8 +31,6 @@
 		2BBDBA591A12AC2C005A6815 /* GoalChallengeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BBDBA511A12AC2C005A6815 /* GoalChallengeView.xib */; };
 		2BC5865C1A16C63B005A7983 /* ChallengeInvitation.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BC5865B1A16C63B005A7983 /* ChallengeInvitation.xib */; };
 		2BC5865E1A16D0AF005A7983 /* ChallengeInvitationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC5865D1A16D0AF005A7983 /* ChallengeInvitationView.swift */; };
-		410ADB171C3DD5F30055F015 /* OldWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410ADB161C3DD5F30055F015 /* OldWebViewController.swift */; };
-		410ADB1B1C3DD8170055F015 /* OldWebView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 410ADB1A1C3DD8170055F015 /* OldWebView.xib */; };
 		41376C5B1BB452E40094DE7C /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41376C5A1BB452E40094DE7C /* SettingsTableViewController.swift */; };
 		41376C5D1BB459B50094DE7C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41376C5C1BB459B50094DE7C /* SettingsViewController.swift */; };
 		413E19251C10AB2C00146B29 /* UniversalLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413E19241C10AB2C00146B29 /* UniversalLink.swift */; };
@@ -414,8 +412,6 @@
 		2BC5865D1A16D0AF005A7983 /* ChallengeInvitationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeInvitationView.swift; sourceTree = "<group>"; };
 		32E39E451B756D4200BA50F9 /* Info_prod.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info_prod.plist; sourceTree = "<group>"; };
 		32E39E461B756D4200BA50F9 /* Info_qa.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info_qa.plist; sourceTree = "<group>"; };
-		410ADB161C3DD5F30055F015 /* OldWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OldWebViewController.swift; sourceTree = "<group>"; };
-		410ADB1A1C3DD8170055F015 /* OldWebView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OldWebView.xib; sourceTree = "<group>"; };
 		41376C5A1BB452E40094DE7C /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		41376C5C1BB459B50094DE7C /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		413E19241C10AB2C00146B29 /* UniversalLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UniversalLink.swift; sourceTree = "<group>"; };
@@ -893,8 +889,6 @@
 		410ADB1C1C3DD8200055F015 /* Web View */ = {
 			isa = PBXGroup;
 			children = (
-				410ADB1A1C3DD8170055F015 /* OldWebView.xib */,
-				410ADB161C3DD5F30055F015 /* OldWebViewController.swift */,
 				8F2CB5811992563E009377A8 /* WebView.xib */,
 				8F2CB57F19925631009377A8 /* WebViewController.swift */,
 			);
@@ -2198,7 +2192,6 @@
 				8FF9409C198A8C9200D319D7 /* SignupEmailView.xib in Resources */,
 				8F2B7E46198C2E28009DE89A /* DrawerView.xib in Resources */,
 				8F2B7E5C198C49A9009DE89A /* nav_ocmicon_inverted.png in Resources */,
-				410ADB1B1C3DD8170055F015 /* OldWebView.xib in Resources */,
 				D1ADD2D31BA0C14B0001E8C4 /* whatsthis.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2259,7 +2252,6 @@
 				41A0BE0E1BBB088500A314D6 /* AFNetworkReachabilityManager.m in Sources */,
 				D1FC72971B20B0DC0068CF89 /* PulseMetricDelegate.swift in Sources */,
 				416E469B1BE803F9003250D1 /* SWRevealViewController.m in Sources */,
-				410ADB171C3DD5F30055F015 /* OldWebViewController.swift in Sources */,
 				41A0BE0D1BBB088500A314D6 /* AFHTTPSessionManager.m in Sources */,
 				D1FC72931B20116F0068CF89 /* WeightMetricCard.swift in Sources */,
 				8FF94098198A8C0A00D319D7 /* BirthdateViewController.swift in Sources */,

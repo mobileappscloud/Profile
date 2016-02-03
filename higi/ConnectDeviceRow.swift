@@ -1,4 +1,5 @@
 import Foundation
+import SafariServices
 
 class ConnectDeviceRow: UITableViewCell {
 
@@ -13,7 +14,6 @@ class ConnectDeviceRow: UITableViewCell {
     
     var device:ActivityDevice!;
     var parentController:UINavigationController!;
-    var webView :OldWebViewController!;
     
     @IBAction func deviceSwitchTouch(sender: UISwitch) {
         let connected = sender.on;
@@ -33,16 +33,39 @@ class ConnectDeviceRow: UITableViewCell {
             }
         } else {
             self.device.connected = true;
-            webView = OldWebViewController(nibName: "OldWebView", bundle: nil);
-            webView.url = "\(HigiApi.webUrl)/mobileDeviceConnect";
-            
-            let headers = ["Higi-Device-Connect-Url": device.connectUrl!.stringByReplacingOccurrencesOfString("{redirect}", withString: "https://www.google.com".stringByReplacingPercentEscapesUsingEncoding(16)!) as String!, "User-Id": SessionData.Instance.user.userId as String!, "Token": SessionData.Instance.token as String!];
-            webView.headers = headers;
-            webView.device = device;
-            parentController.pushViewController(webView, animated: true);
+
+            let userId = SessionData.Instance.user.userId as String
+            ApiUtility.fetchTemporarySessionToken(userId, completion: { [weak self] (token, error) in
+                if error == nil && token != nil {
+                    guard let URL = self?.deviceConnectURL(token!) else {
+                        return
+                    }
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self?.presentOAuthBrowser(connectDeviceURL: URL)
+                    })
+                } else {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self?.showDeviceConnectError()
+                    })
+                }
+            })
         }
     }
     
+    private func presentOAuthBrowser(connectDeviceURL URL: NSURL) {
+        if #available(iOS 9.0, *) {
+            let safari = SFSafariViewController(URL: URL)
+            self.parentController.presentViewController(safari, animated: true, completion: nil)
+        } else {
+            let embeddedWebViewController = WebViewController(nibName: "WebView", bundle: nil)
+            embeddedWebViewController.url = URL.absoluteString
+            self.parentController.pushViewController(embeddedWebViewController, animated: true)
+        }
+    }
+    
+    private func showDeviceConnectError() {
+        
+    }
     
     private func deviceConnectURL(temporaryToken: String) -> NSURL? {
         guard let deviceConnectURL = device.connectUrl else { return nil }
