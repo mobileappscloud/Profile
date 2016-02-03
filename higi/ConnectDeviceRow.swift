@@ -46,18 +46,27 @@ class ConnectDeviceRow: UITableViewCell {
     
     private func deviceConnectURL(temporaryToken: String) -> NSURL? {
         guard let deviceConnectURL = device.connectUrl else { return nil }
-        guard let user = SessionData.Instance.user, let userId = user.userId as? String else { return nil }
+        guard let user = SessionData.Instance.user else { return nil }
+        let userId = user.userId as String
         
         let resource = "mobileDeviceConnect"
-        
-        let redirectURLString = "higi://\(resource)"
+        var redirectURLString: String
+        if #available(iOS 9.0, *) {
+            redirectURLString = "\(HigiApi.webUrl)/settings/apps"
+        } else {
+            redirectURLString = "higi://\(resource)"
+        }
         let deviceConnectWithRedirectURLString = deviceConnectURL.stringByReplacingOccurrencesOfString("{redirect}", withString: redirectURLString)
         
         guard let formattedDeviceConnectURLString = deviceConnectWithRedirectURLString.stringByRemovingPercentEncoding else { return nil }
         
         let baseURLString = HigiApi.webUrl
+
+        guard let encodedUserId = userId.stringByAddingPercentEncodingForURLQueryParameter() else { return nil }
+        guard let encodedToken = temporaryToken.stringByAddingPercentEncodingForURLQueryParameter() else { return nil }
         
-        let fullyQualifiedURLString = "\(baseURLString)/\(resource)?User-id=\(userId)&Token=\(temporaryToken)&Higi-device-connect-url=\(formattedDeviceConnectURLString)"
+        let fullyQualifiedURLString = "\(baseURLString)/\(resource)?User-id=\(encodedUserId)&Token=\(encodedToken)&Higi-device-connect-url=\(formattedDeviceConnectURLString)"
+        print(fullyQualifiedURLString)
         
         return NSURL(string: fullyQualifiedURLString)
     }
