@@ -39,7 +39,7 @@
 		</array>
 	</dict>
 	<key>HigiUrl</key>
-	<string>https://higiapi2.cloudapp.net</string>
+	<string>https://apiqa.superbuddytime.com</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
