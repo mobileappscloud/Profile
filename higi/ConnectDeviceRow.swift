@@ -178,7 +178,11 @@ class ConnectDeviceRow: UITableViewCell {
         
         if (device.disconnectUrl != nil) {
             self.device.connected = false;
-            HigiApi().sendDelete(device.disconnectUrl as! String, parameters: nil, success: nil,
+            HigiApi().sendDelete(device.disconnectUrl as! String, parameters: nil, success: { (operation, response) in
+                 dispatch_async(dispatch_get_main_queue(), { [weak self] in
+                    self?.parentController.viewWillAppear(false)
+                })
+                },
                 failure: { operation, error in
                     let removeMessage = NSLocalizedString("CONNECT_DEVICE_ROW_REMOVE_DEVICE_FAILURE_ALERT_MESSAGE", comment: "Message for alert displayed after failure to remove a device from a higi Profile.")
                     let alertController = UIAlertController(title: title, message: removeMessage, preferredStyle: .Alert)

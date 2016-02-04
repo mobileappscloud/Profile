@@ -82,17 +82,14 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
 
     private func sort(vendorDevices: [ActivityDevice]) -> [ActivityDevice] {
         var sortedDevices = vendorDevices;
-        sortedDevices.sortInPlace(sortByName);
-        sortedDevices.sortInPlace(sortByConnected);
+        sortedDevices.sortInPlace(sortByConnectionThenName);
         return sortedDevices;
     }
     
-    private func sortByName(this: ActivityDevice, that: ActivityDevice) -> Bool {
-        return (this.name).compare(that.name as String, options: .CaseInsensitiveSearch) == .OrderedAscending
-    }
-    
-    private func sortByConnected(this: ActivityDevice, that: ActivityDevice) -> Bool {
-        return this.connected;
+    private func sortByConnectionThenName(this: ActivityDevice, that: ActivityDevice) -> Bool {
+        return this.connected == that.connected ?
+            (this.name).compare(that.name as String, options: .CaseInsensitiveSearch) == .OrderedAscending :
+            this.connected
     }
     
     override func viewWillDisappear(animated: Bool) {
