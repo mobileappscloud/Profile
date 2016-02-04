@@ -18,6 +18,7 @@ class UniversalLinkTests: XCTestCase {
         ("https://www.higi.com/challenge/view/id/2398hfwf9h329r8/invite/testSucceeded", .ChallengeDetailSubPath),
         ("https://www.higi.com/challenge/view/id/2398hfwf9h329r8/foo/bar/etc/testSucceeded", .ChallengeDetailSubPath),
         ("https://www.higi.com/challenge/dashboard", .ChallengeDashboard),
+        ("https://www.higi.com/settings/apps", .ConnectDevice),
         ("https://www.higi.com/locator", .StationLocator),
         ("https://www.higi.com/pulse", .PulseHome),
         ("https://www.higi.com/pulse/testSucceeded", .PulseArticle),
@@ -34,6 +35,7 @@ class UniversalLinkTests: XCTestCase {
         ("https://higi.com/challenge/view/id/2398hfwf9h329r8/invite/testSucceeded", .ChallengeDetailSubPath),
         ("https://higi.com/challenge/view/id/2398hfwf9h329r8/foo/bar/etc/testSucceeded", .ChallengeDetailSubPath),
         ("https://higi.com/challenge/dashboard", .ChallengeDashboard),
+        ("https://higi.com/settings/apps", .ConnectDevice),
         ("https://higi.com/locator", .StationLocator),
         ("https://higi.com/pulse", .PulseHome),
         ("https://higi.com/pulse/testSucceeded", .PulseArticle),
@@ -59,6 +61,7 @@ class UniversalLinkTests: XCTestCase {
         "https://www.higi.com/activity",
         "https://www.higi.com/activity/",
         "https://www.higi.com/activity/invalidPath",
+        "https://www.higi.com/settings/apps/invalidPath",
         "https://higi.com/challenge/view/id",
         "https://higi.com/challenge/dashboard/invalidPath",
         "https://higi.com/locat",
@@ -70,6 +73,7 @@ class UniversalLinkTests: XCTestCase {
         "https://higi.com/stats/invalidPath",
         "https://higi.com/activity",
         "https://higi.com/activity/invalidPath",
+        "https://higi.com/settings/apps/invalidPath"
     ]
     
     func testValidUniversalLinks() {
@@ -118,6 +122,8 @@ class UniversalLinkTests: XCTestCase {
             case .StationLocator:
                 fallthrough
             case .PulseHome:
+                fallthrough
+            case .ConnectDevice:
                 break
             }
         }

@@ -252,3 +252,8 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
         
     }
 }
+extension ConnectDeviceViewController: UniversalLinkHandler {
+
+    func handleUniversalLink(URL: NSURL, pathType: PathType, parameters: [String]?) {
+    }
+}
