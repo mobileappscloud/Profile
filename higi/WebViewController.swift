@@ -9,8 +9,11 @@ class WebViewController: UIViewController {
     
     @IBOutlet weak var webViewContainer: UIView!
     
+    var navigationDelegate: WKNavigationDelegate?
+    
     lazy private var webView: WKWebView = {
         let webView = WKWebView(frame: self.webViewContainer.bounds)
+        webView.navigationDelegate = self.navigationDelegate
         return webView
     }()
     

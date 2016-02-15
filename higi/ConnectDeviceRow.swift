@@ -1,4 +1,5 @@
 import Foundation
+import WebKit
 import SafariServices
 
 class ConnectDeviceRow: UITableViewCell {
@@ -13,7 +14,8 @@ class ConnectDeviceRow: UITableViewCell {
     @IBOutlet weak var connectedToggle: UISwitch!
     
     var device:ActivityDevice!;
-    var parentController:UINavigationController!;
+    var parentController: UINavigationController!
+    var webViewController: UIViewController?
     
     @IBAction func deviceSwitchTouch(sender: UISwitch) {
         let connected = sender.on;
@@ -55,10 +57,13 @@ class ConnectDeviceRow: UITableViewCell {
     private func presentOAuthBrowser(connectDeviceURL URL: NSURL) {
         if #available(iOS 9.0, *) {
             let safari = SFSafariViewController(URL: URL)
+            self.webViewController = safari
             self.parentController.presentViewController(safari, animated: true, completion: nil)
         } else {
             let embeddedWebViewController = WebViewController(nibName: "WebView", bundle: nil)
             embeddedWebViewController.url = URL.absoluteString
+            embeddedWebViewController.navigationDelegate = self
+            self.webViewController = embeddedWebViewController
             self.parentController.pushViewController(embeddedWebViewController, animated: true)
         }
     }
@@ -197,6 +202,21 @@ class ConnectDeviceRow: UITableViewCell {
             
             dispatch_async(dispatch_get_main_queue(), {
                 self.parentController.presentViewController(alertController, animated: true, completion: nil)
+            })
+        }
+    }
+}
+
+extension ConnectDeviceRow: WKNavigationDelegate {
+    
+    func webView(webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {        
+        guard let URL = webView.URL else { return }
+                
+        let (path, _) = UniversalLink.parsePath(forURL: URL)
+        if let path = path where path == .ConnectDevice {
+            dispatch_async(dispatch_get_main_queue(), {
+                webView.stopLoading()
+                self.parentController.popViewControllerAnimated(true)
             })
         }
     }
