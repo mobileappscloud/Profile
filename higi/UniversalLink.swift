@@ -16,6 +16,7 @@ enum PathType: String {
     case ChallengeDashboard = "/challenge/dashboard"
     case ChallengeDetail = "/challenge/view/id/%@"
     case ChallengeDetailSubPath = "/challenge/view/id/%@/*]"
+    case ConnectDevice = "/settings/apps"
     case DailySummary = "/profile/checkin/%@"
     case PulseArticle = "/pulse/%@"
     case PulseHome = "/pulse"
@@ -65,6 +66,9 @@ enum PathType: String {
             fallthrough
         case .DailySummary:
             handler = DailySummaryViewController()
+            
+        case .ConnectDevice:
+            handler = ConnectDeviceViewController()
         }
         
         return handler
