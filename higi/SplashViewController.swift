@@ -95,26 +95,13 @@ class SplashViewController: UIViewController {
     
     func checkVersion() {
         HigiApi().sendGet("\(HigiApi.higiApiUrl)/app/mobile/minVersion?p=ios", success: { operation, responseObject in
-            
-            var minVersionParts = (responseObject as! NSString).componentsSeparatedByString(".") ;
-            for _ in minVersionParts.count...3 {
-                minVersionParts.append("0");
-            }
-            var myVersionParts = Utility.appVersion().componentsSeparatedByString(".") as [String];
-            
-            var isUpToDate = true;
-            
-            for i in 0..<3 {
-                let myPart = Int(myVersionParts[i])!;
-                let minPart = Int(minVersionParts[i])!;
-                if (myPart > minPart) {
-                    break;
-                } else if (myPart < minPart) {
-                    isUpToDate = false;
-                    break;
-                }
+
+            guard let minVersion = responseObject as? String else {
+                self.moveToNextScreen()
+                return
             }
             
+            let isUpToDate = Utility.appMeetsMinimumVersionRequirement(minVersion)
             if (isUpToDate) {
                 self.moveToNextScreen();
             } else {

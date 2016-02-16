@@ -79,9 +79,10 @@ class SessionData {
     
     private func saveCachedData() {
         let tempDictionary = NSMutableDictionary()
-        tempDictionary["kioskList"] = kioskListString
+        tempDictionary["kioskList"] = kioskListString ?? ""
         
-        let immutableTempDict: NSDictionary = tempDictionary.copy() as! NSDictionary
+        guard let immutableTempDict: NSDictionary = tempDictionary.copy() as? NSDictionary else { return }
+        
         immutableTempDict.writeToFile(tempSavePath, atomically: false)
     }
     
@@ -90,21 +91,30 @@ class SessionData {
         
         if (fileManager.fileExistsAtPath(documentsSavePath)) {
             if let savedDictionary = NSDictionary(contentsOfFile: documentsSavePath) {
+                
                 if let savedToken = savedDictionary["token"] as? String {
                     token = savedToken;
+                } else if let savedToken = KeychainWrapper.stringForKey("token") {
+                    token = savedToken
                 } else {
-                    token = KeychainWrapper.stringForKey("token");
+                    token = ""
                 }
+                
                 if let savedPin = savedDictionary["pin"] as? String {
                     pin = savedPin;
+                } else if let savedPin = KeychainWrapper.stringForKey("pin") {
+                    pin = savedPin
                 } else {
-                    pin = KeychainWrapper.stringForKey("pin");
+                    pin = ""
                 }
+                
                 user = HigiUser();
                 if let savedUserId = savedDictionary["userId"] as? NSString {
                     user.userId = savedUserId;
+                } else if let savedUserId = KeychainWrapper.objectForKey("userId") as? NSString {
+                    user.userId = savedUserId
                 } else {
-                    user.userId = KeychainWrapper.objectForKey("userId") as? NSString;
+                    user.userId = ""
                 }
                 
                 seenDashboard = (savedDictionary["seenDashboard"] ?? false) as! Bool;
@@ -119,8 +129,12 @@ class SessionData {
         }
         
         if (fileManager.fileExistsAtPath(tempSavePath)) {
+            kioskListString = ""
             guard let tempDictionary = NSDictionary(contentsOfFile: tempSavePath) else { return }
+            
             kioskListString = (tempDictionary["kioskList"] ?? "") as! String;
+        } else {
+            kioskListString = ""
         }
     }
     

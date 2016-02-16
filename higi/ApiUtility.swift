@@ -356,29 +356,39 @@ class ApiUtility {
     }
     
     class func deserializeKiosks(response: String) -> [KioskInfo] {
-        let jsonData = response.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false);
-        let serverKiosks = (try! NSJSONSerialization.JSONObjectWithData(jsonData!, options: NSJSONReadingOptions.MutableContainers)) as! NSArray;
-        var kiosks: [KioskInfo] = [];
+        guard let jsonData = response.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false) else { return [] }
+        
+        var serverKiosks = NSArray()
+        do {
+            if let decodedKiosks = (try NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions.MutableContainers)) as? NSArray {
+                serverKiosks = decodedKiosks
+            }
+        } catch {
+            return []
+        }
+        
+        var kiosks: [KioskInfo] = []
         for kiosk: AnyObject in serverKiosks {
-            if let kioskData = kiosk as? NSDictionary {
-                let newKiosk = KioskInfo(dictionary: kioskData);
-                if (newKiosk.position != nil) {
-                    if (newKiosk.isMapVisible) {
-                        kiosks.append(newKiosk);
-                    } else {
-                        if let checkins = SessionController.Instance.checkins {
-                            for checkin in checkins {
-                                if (checkin.kioskInfo != nil && newKiosk.kioskId == checkin.kioskInfo!.kioskId) {
-                                    kiosks.append(newKiosk);
-                                    break;
-                                }
-                            }
-                        }
+            guard let kioskDict = kiosk as? NSDictionary else { continue }
+            
+            let newKiosk = KioskInfo(dictionary: kioskDict)
+            if newKiosk.position == nil { continue }
+            
+            if (newKiosk.isMapVisible) {
+                kiosks.append(newKiosk)
+            } else {
+                guard let checkins = SessionController.Instance.checkins else { continue }
+                
+                for checkin in checkins {
+                    if let kioskInfo = checkin.kioskInfo where newKiosk.kioskId == kioskInfo.kioskId {
+                        kiosks.append(newKiosk)
+                        break
                     }
                 }
             }
         }
-        return kiosks;
+        
+        return kiosks
     }
 
     /*
