@@ -93,7 +93,7 @@ class ConnectDeviceRow: UITableViewCell {
         guard let encodedToken = temporaryToken.stringByAddingPercentEncodingForURLQueryParameter() else { return nil }
         
         let baseURLString = HigiApi.webUrl
-        let fullyQualifiedURLString = "\(baseURLString)/\(resource)?User-id=\(encodedUserId)&Token=\(encodedToken)&Higi-device-connect-url=\(formattedDeviceConnectURLString)"        
+        let fullyQualifiedURLString = "\(baseURLString)/\(resource)?User-Id=\(encodedUserId)&Token=\(encodedToken)&Higi-Device-Connect-Url=\(formattedDeviceConnectURLString)"
         return NSURL(string: fullyQualifiedURLString)
     }
     
