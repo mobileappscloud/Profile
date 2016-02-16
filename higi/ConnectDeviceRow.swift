@@ -15,7 +15,6 @@ class ConnectDeviceRow: UITableViewCell {
     
     var device:ActivityDevice!;
     var parentController: UINavigationController!
-    var webViewController: UIViewController?
     
     @IBAction func deviceSwitchTouch(sender: UISwitch) {
         let connected = sender.on;
@@ -57,19 +56,27 @@ class ConnectDeviceRow: UITableViewCell {
     private func presentOAuthBrowser(connectDeviceURL URL: NSURL) {
         if #available(iOS 9.0, *) {
             let safari = SFSafariViewController(URL: URL)
-            self.webViewController = safari
             self.parentController.presentViewController(safari, animated: true, completion: nil)
         } else {
             let embeddedWebViewController = WebViewController(nibName: "WebView", bundle: nil)
             embeddedWebViewController.url = URL.absoluteString
             embeddedWebViewController.navigationDelegate = self
-            self.webViewController = embeddedWebViewController
             self.parentController.pushViewController(embeddedWebViewController, animated: true)
         }
     }
     
     private func showDeviceConnectError() {
-        
+        let title = NSLocalizedString("CONNECT_DEVICE_ROW_CONNECT_ERROR_ALERT_TITLE", comment: "Title for alert displayed when an error occurs while attempting to connect a device.")
+        let message = NSLocalizedString("CONNECT_DEVICE_ROW_CONNECT_ERROR_ALERT_MESSAGE", comment: "Message for alert displayed when an error occurs while attempting to connect a device.")
+        let dismissActionTitle = NSLocalizedString("CONNECT_DEVICE_ROW_CONNECT_ERROR_ALERT_ACTION_ACKNOWLEDGE_ACTION", comment: "Title for alert action to acknowledge alert displayed when an error occurs while attempting to connect a device.")
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        let dismissAction = UIAlertAction(title: dismissActionTitle, style: .Default, handler: { [weak self] (action) in
+            dispatch_async(dispatch_get_main_queue(), {
+                self?.connectedToggle.on = false
+            })
+            })
+        alert.addAction(dismissAction)
+        self.parentController.presentViewController(alert, animated: true, completion: nil)
     }
     
     private func deviceConnectURL(temporaryToken: String) -> NSURL? {

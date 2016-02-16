@@ -274,6 +274,15 @@
 /* Placeholder text to display in chatter input text field. */
 "CHATTER_INPUT_VIEW_TEXT_INPUT_PLACEHOLDER" = "Talk some smack!";
 
+/* Title for alert action to acknowledge alert displayed when an error occurs while attempting to connect a device. */
+"CONNECT_DEVICE_ROW_CONNECT_ERROR_ALERT_ACTION_ACKNOWLEDGE_ACTION" = "Got it";
+
+/* Message for alert displayed when an error occurs while attempting to connect a device. */
+"CONNECT_DEVICE_ROW_CONNECT_ERROR_ALERT_MESSAGE" = "There was an error while trying to connect your device. Please try again later.";
+
+/* Title for alert displayed when an error occurs while attempting to connect a device. */
+"CONNECT_DEVICE_ROW_CONNECT_ERROR_ALERT_TITLE" = "Uh Oh";
+
 /* Title for alert action to acknowledge alert displayed when user toggles switch to connect branded activity tracker (HealthKit) ON. */
 "CONNECT_DEVICE_ROW_CONNECT_HEALTHKIT_ALERT_ACTION_ACKNOWLEDGE_ACTION" = "Got it";
 
