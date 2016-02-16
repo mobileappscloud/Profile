@@ -20,21 +20,6 @@
 	<string>2.2.3</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLIconFile</key>
-			<string>higilogo_ocmenu</string>
-			<key>CFBundleURLName</key>
-			<string>com.higi.main</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>higi</string>
-			</array>
-		</dict>
-	</array>
 	<key>CFBundleVersion</key>
 	<string>${BUILD_NUMBER}</string>
 	<key>EarnditUrl</key>
