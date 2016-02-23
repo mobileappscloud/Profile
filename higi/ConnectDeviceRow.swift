@@ -1,4 +1,6 @@
 import Foundation
+import WebKit
+import SafariServices
 
 class ConnectDeviceRow: UITableViewCell {
 
@@ -12,8 +14,7 @@ class ConnectDeviceRow: UITableViewCell {
     @IBOutlet weak var connectedToggle: UISwitch!
     
     var device:ActivityDevice!;
-    var parentController:UINavigationController!;
-    var webView :OldWebViewController!;
+    var parentController: UINavigationController!
     
     @IBAction func deviceSwitchTouch(sender: UISwitch) {
         let connected = sender.on;
@@ -33,14 +34,67 @@ class ConnectDeviceRow: UITableViewCell {
             }
         } else {
             self.device.connected = true;
-            webView = OldWebViewController(nibName: "OldWebView", bundle: nil);
-            webView.url = "\(HigiApi.webUrl)/mobileDeviceConnect";
-            
-            let headers = ["Higi-Device-Connect-Url": device.connectUrl!.stringByReplacingOccurrencesOfString("{redirect}", withString: "https://www.google.com".stringByReplacingPercentEscapesUsingEncoding(16)!) as String!, "User-Id": SessionData.Instance.user.userId as String!, "Token": SessionData.Instance.token as String!];
-            webView.headers = headers;
-            webView.device = device;
-            parentController.pushViewController(webView, animated: true);
+
+            let userId = SessionData.Instance.user.userId as String
+            ApiUtility.fetchTemporarySessionToken(userId, completion: { [weak self] (token, error) in
+                if error == nil && token != nil {
+                    guard let URL = self?.deviceConnectURL(token!) else {
+                        return
+                    }
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self?.presentOAuthBrowser(connectDeviceURL: URL)
+                    })
+                } else {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self?.showDeviceConnectError()
+                    })
+                }
+            })
         }
+    }
+    
+    private func presentOAuthBrowser(connectDeviceURL URL: NSURL) {
+        if #available(iOS 9.0, *) {
+            let safari = SFSafariViewController(URL: URL)
+            self.parentController.presentViewController(safari, animated: true, completion: nil)
+        } else {
+            let embeddedWebViewController = WebViewController(nibName: "WebView", bundle: nil)
+            embeddedWebViewController.url = URL.absoluteString
+            embeddedWebViewController.navigationDelegate = self
+            self.parentController.pushViewController(embeddedWebViewController, animated: true)
+        }
+    }
+    
+    private func showDeviceConnectError() {
+        let title = NSLocalizedString("CONNECT_DEVICE_ROW_CONNECT_ERROR_ALERT_TITLE", comment: "Title for alert displayed when an error occurs while attempting to connect a device.")
+        let message = NSLocalizedString("CONNECT_DEVICE_ROW_CONNECT_ERROR_ALERT_MESSAGE", comment: "Message for alert displayed when an error occurs while attempting to connect a device.")
+        let dismissActionTitle = NSLocalizedString("CONNECT_DEVICE_ROW_CONNECT_ERROR_ALERT_ACTION_ACKNOWLEDGE_ACTION", comment: "Title for alert action to acknowledge alert displayed when an error occurs while attempting to connect a device.")
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        let dismissAction = UIAlertAction(title: dismissActionTitle, style: .Default, handler: { [weak self] (action) in
+            dispatch_async(dispatch_get_main_queue(), {
+                self?.connectedToggle.on = false
+            })
+            })
+        alert.addAction(dismissAction)
+        self.parentController.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    private func deviceConnectURL(temporaryToken: String) -> NSURL? {
+        guard let deviceConnectURL = device.connectUrl else { return nil }
+        guard let user = SessionData.Instance.user else { return nil }
+        let userId = user.userId as String
+        
+        let resource = "mobileDeviceConnect"
+        let redirectURLString = "\(HigiApi.webUrl)/settings/apps"
+        let deviceConnectWithRedirectURLString = deviceConnectURL.stringByReplacingOccurrencesOfString("{redirect}", withString: redirectURLString)
+        
+        guard let formattedDeviceConnectURLString = deviceConnectWithRedirectURLString.stringByRemovingPercentEncoding else { return nil }
+        guard let encodedUserId = userId.stringByAddingPercentEncodingForURLQueryParameter() else { return nil }
+        guard let encodedToken = temporaryToken.stringByAddingPercentEncodingForURLQueryParameter() else { return nil }
+        
+        let baseURLString = HigiApi.webUrl
+        let fullyQualifiedURLString = "\(baseURLString)/\(resource)?User-Id=\(encodedUserId)&Token=\(encodedToken)&Higi-Device-Connect-Url=\(formattedDeviceConnectURLString)"
+        return NSURL(string: fullyQualifiedURLString)
     }
     
     func showUnsupportedDeviceAlert() {
@@ -127,7 +181,11 @@ class ConnectDeviceRow: UITableViewCell {
         
         if (device.disconnectUrl != nil) {
             self.device.connected = false;
-            HigiApi().sendDelete(device.disconnectUrl as! String, parameters: nil, success: nil,
+            HigiApi().sendDelete(device.disconnectUrl as! String, parameters: nil, success: { (operation, response) in
+                 dispatch_async(dispatch_get_main_queue(), { [weak self] in
+                    self?.parentController.viewWillAppear(false)
+                })
+                },
                 failure: { operation, error in
                     let removeMessage = NSLocalizedString("CONNECT_DEVICE_ROW_REMOVE_DEVICE_FAILURE_ALERT_MESSAGE", comment: "Message for alert displayed after failure to remove a device from a higi Profile.")
                     let alertController = UIAlertController(title: title, message: removeMessage, preferredStyle: .Alert)
@@ -151,6 +209,21 @@ class ConnectDeviceRow: UITableViewCell {
             
             dispatch_async(dispatch_get_main_queue(), {
                 self.parentController.presentViewController(alertController, animated: true, completion: nil)
+            })
+        }
+    }
+}
+
+extension ConnectDeviceRow: WKNavigationDelegate {
+    
+    func webView(webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {        
+        guard let URL = webView.URL else { return }
+                
+        let (path, _) = UniversalLink.parsePath(forURL: URL)
+        if let path = path where path == .ConnectDevice {
+            dispatch_async(dispatch_get_main_queue(), {
+                webView.stopLoading()
+                self.parentController.popViewControllerAnimated(true)
             })
         }
     }

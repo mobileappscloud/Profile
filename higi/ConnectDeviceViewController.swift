@@ -1,4 +1,5 @@
 import Foundation
+import SafariServices
 
 enum BrandedDevice {
     static let HigiActivityTracker = NSLocalizedString("BRANDED_ACTIVITY_DEVICE_NAME", comment: "Name for branded activity tracker which leverages HealthKit data.")
@@ -82,17 +83,14 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
 
     private func sort(vendorDevices: [ActivityDevice]) -> [ActivityDevice] {
         var sortedDevices = vendorDevices;
-        sortedDevices.sortInPlace(sortByName);
-        sortedDevices.sortInPlace(sortByConnected);
+        sortedDevices.sortInPlace(sortByConnectionThenName);
         return sortedDevices;
     }
     
-    private func sortByName(this: ActivityDevice, that: ActivityDevice) -> Bool {
-        return (this.name).compare(that.name as String, options: .CaseInsensitiveSearch) == .OrderedAscending
-    }
-    
-    private func sortByConnected(this: ActivityDevice, that: ActivityDevice) -> Bool {
-        return this.connected;
+    private func sortByConnectionThenName(this: ActivityDevice, that: ActivityDevice) -> Bool {
+        return this.connected == that.connected ?
+            (this.name).compare(that.name as String, options: .CaseInsensitiveSearch) == .OrderedAscending :
+            this.connected
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -248,10 +246,60 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
         }
         
         ApiUtility.retrieveDevices({
-            let devices = Array(SessionController.Instance.devices.values);
+            let devices = Array(SessionController.Instance.devices.values)
             self.vendorDevices = self.sort(devices)
-            self.table.reloadData();
-        });
+            dispatch_async(dispatch_get_main_queue(), { [weak self] in
+                self?.table.reloadData()
+                })
+        })
         
+    }
+}
+
+extension ConnectDeviceViewController: UniversalLinkHandler {
+
+    func handleUniversalLink(URL: NSURL, pathType: PathType, parameters: [String]?) {
+        guard let components = NSURLComponents(URL: URL, resolvingAgainstBaseURL: true) else { return }
+
+        if let queryItems = components.queryItems {
+            // If there are query parameters, we need to verify if the user is being routed here from redirect for mobile device connect
+            var handleRedirect = false
+            for queryItem in queryItems {
+                if queryItem.name == "success" || queryItem.name == "device" {
+                    handleRedirect = true
+                    break
+                }
+            }
+            if handleRedirect {
+                handleConnectDeviceRedirect()
+            } else {
+                navigateToConnectDevice()
+            }
+        } else {
+            navigateToConnectDevice()
+        }
+    }
+    
+    private func handleConnectDeviceRedirect() {
+        guard let appDelegate = UIApplication.sharedApplication().delegate else { return }
+        guard let window = appDelegate.window else { return }
+        guard let revealController = window?.rootViewController as? RevealViewController else { return }
+        guard let mainNav = revealController.frontViewController as? MainNavigationController else { return }
+        
+        //  We're handling a redirect, thus Safari should have been presented from the Connect Device view controller.
+        if #available(iOS 9.0, *) {
+            guard let safari = mainNav.presentedViewController as? SFSafariViewController else { return }
+            safari.dismissViewControllerAnimated(true, completion: nil)
+        }
+    }
+    
+    private func navigateToConnectDevice() {
+        guard let navController = Utility.mainNavigationController()?.drawerController.navController else { return }
+        
+        let connectDeviceViewController = ConnectDeviceViewController(nibName: "ConnectDeviceView", bundle: nil)
+        dispatch_async(dispatch_get_main_queue(), {
+            navController.popToRootViewControllerAnimated(false)
+            navController.pushViewController(connectDeviceViewController, animated: false)
+        })
     }
 }

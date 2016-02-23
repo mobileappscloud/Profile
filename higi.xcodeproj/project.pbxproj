@@ -31,26 +31,62 @@
 		2BBDBA591A12AC2C005A6815 /* GoalChallengeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BBDBA511A12AC2C005A6815 /* GoalChallengeView.xib */; };
 		2BC5865C1A16C63B005A7983 /* ChallengeInvitation.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BC5865B1A16C63B005A7983 /* ChallengeInvitation.xib */; };
 		2BC5865E1A16D0AF005A7983 /* ChallengeInvitationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC5865D1A16D0AF005A7983 /* ChallengeInvitationView.swift */; };
-		410ADB171C3DD5F30055F015 /* OldWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410ADB161C3DD5F30055F015 /* OldWebViewController.swift */; };
-		410ADB1B1C3DD8170055F015 /* OldWebView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 410ADB1A1C3DD8170055F015 /* OldWebView.xib */; };
+		410167221C555C9800A54B02 /* NewActivityMetricDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410167211C555C9800A54B02 /* NewActivityMetricDelegate.swift */; };
+		410167241C555CD700A54B02 /* NewBloodPressureMetricDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410167231C555CD700A54B02 /* NewBloodPressureMetricDelegate.swift */; };
+		410167261C555CED00A54B02 /* NewPulseMetricDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410167251C555CED00A54B02 /* NewPulseMetricDelegate.swift */; };
+		410167281C555D0600A54B02 /* NewWeightMetricDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410167271C555D0600A54B02 /* NewWeightMetricDelegate.swift */; };
+		41247DC91C5A937300DDC5EC /* SingleRowTextMenuFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41247DC81C5A937300DDC5EC /* SingleRowTextMenuFlowLayout.swift */; };
+		41247DCE1C5BD1A100DDC5EC /* MetricDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41247DCD1C5BD1A100DDC5EC /* MetricDetailViewController.swift */; };
+		41247DD51C5F29FB00DDC5EC /* MetricDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41247DD41C5F29FB00DDC5EC /* MetricDetail.storyboard */; };
+		413635871C2209450056DE8D /* MetricDataFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413635861C2209450056DE8D /* MetricDataFactory.swift */; };
+		413635891C2260B00056DE8D /* NewMetricDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413635881C2260B00056DE8D /* NewMetricDelegates.swift */; };
 		41376C5B1BB452E40094DE7C /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41376C5A1BB452E40094DE7C /* SettingsTableViewController.swift */; };
 		41376C5D1BB459B50094DE7C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41376C5C1BB459B50094DE7C /* SettingsViewController.swift */; };
+		413CC0301C6927EC0097AE56 /* ActivityDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 413CC02F1C6927EC0097AE56 /* ActivityDetailView.xib */; };
+		413CC0341C6929BA0097AE56 /* ActivityDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413CC0331C6929BA0097AE56 /* ActivityDetailView.swift */; };
 		413E19251C10AB2C00146B29 /* UniversalLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413E19241C10AB2C00146B29 /* UniversalLink.swift */; };
 		413E19291C10AB5800146B29 /* UniversalLinkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413E19281C10AB5800146B29 /* UniversalLinkTests.swift */; };
 		413E19321C10B0F400146B29 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 413E19311C10B0F400146B29 /* Fabric.framework */; };
 		413E19341C10B10200146B29 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 413E19331C10B10200146B29 /* Crashlytics.framework */; };
 		413E19361C10B41400146B29 /* higi-qa.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 413E19351C10B41400146B29 /* higi-qa.entitlements */; };
 		413E19391C10B50300146B29 /* higi.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 8FDB4B621A040B8500F57B38 /* higi.entitlements */; };
+		413E19491C10DBCA00146B29 /* Metrics.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 413E19481C10DBCA00146B29 /* Metrics.storyboard */; };
+		413E198B1C10E4D700146B29 /* MetricsPage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 413E198A1C10E4D700146B29 /* MetricsPage.storyboard */; };
+		413E198D1C10EAE000146B29 /* MetricsPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413E198C1C10EAE000146B29 /* MetricsPageViewController.swift */; };
+		413E198F1C10EB2D00146B29 /* TextMenuCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413E198E1C10EB2D00146B29 /* TextMenuCollectionViewController.swift */; };
+		413E19911C10EB6100146B29 /* MetricPlotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413E19901C10EB6100146B29 /* MetricPlotViewController.swift */; };
+		413E19931C10EB9A00146B29 /* MetricTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413E19921C10EB9A00146B29 /* MetricTableViewController.swift */; };
+		413E19951C10EBE800146B29 /* MetricChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413E19941C10EBE800146B29 /* MetricChildViewController.swift */; };
+		413E19981C11650C00146B29 /* TextCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413E19961C11650C00146B29 /* TextCollectionViewCell.swift */; };
+		413E19991C11650C00146B29 /* TextCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 413E19971C11650C00146B29 /* TextCollectionViewCell.xib */; };
+		413E199B1C1167A500146B29 /* NewMetricsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413E199A1C1167A500146B29 /* NewMetricsViewController.swift */; };
 		41411BA01BA87E3D0027F5E1 /* NotificationSettingsDeviceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41411B9F1BA87E3D0027F5E1 /* NotificationSettingsDeviceTableViewController.swift */; };
 		41411BA31BA894280027F5E1 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41411BA11BA894280027F5E1 /* SwitchTableViewCell.swift */; };
-		4150039C1C246EB500CA8FBA /* Loading.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4150039B1C246EB500CA8FBA /* Loading.storyboard */; };
-		415003A01C246ED300CA8FBA /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4150039F1C246ED300CA8FBA /* LoadingViewController.swift */; };
+		415338161C60614700ED2B82 /* MetricCheckinSummaryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 415338151C60614700ED2B82 /* MetricCheckinSummaryView.xib */; };
+		415338181C60681B00ED2B82 /* MetricCheckinSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415338171C60681B00ED2B82 /* MetricCheckinSummaryView.swift */; };
 		41545BF91BA76CFA00946358 /* NotificationSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41545BF81BA76CFA00946358 /* NotificationSettings.storyboard */; };
+		4162266D1C79407400EFA1B3 /* CPTXYGraph+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4162266C1C79407400EFA1B3 /* CPTXYGraph+Utility.swift */; };
+		4162266F1C7940B100EFA1B3 /* HigiScatterPlot+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4162266E1C7940B100EFA1B3 /* HigiScatterPlot+Utility.swift */; };
+		416226711C7940D000EFA1B3 /* CPTXYAxis+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416226701C7940D000EFA1B3 /* CPTXYAxis+Utility.swift */; };
+		416226731C7940F400EFA1B3 /* CPTMutableLineStyle+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416226721C7940F400EFA1B3 /* CPTMutableLineStyle+Utility.swift */; };
+		416226751C79412200EFA1B3 /* CPTPlotSymbol+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416226741C79412200EFA1B3 /* CPTPlotSymbol+Utility.swift */; };
+		416226791C79866000EFA1B3 /* NewMetricTableDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416226781C79866000EFA1B3 /* NewMetricTableDelegate.swift */; };
+		41643AA81C18834700258F55 /* MetricTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41643AA71C18834700258F55 /* MetricTableViewCell.xib */; };
+		41643AAC1C1886D900258F55 /* MetricDataLabelView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41643AAB1C1886D900258F55 /* MetricDataLabelView.xib */; };
+		41643AAE1C188D4800258F55 /* MetricDataLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41643AAD1C188D4800258F55 /* MetricDataLabelView.swift */; };
+		41643AB01C1891D800258F55 /* MetricTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41643AAF1C1891D800258F55 /* MetricTableViewCell.swift */; };
 		416E469B1BE803F9003250D1 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 416E469A1BE803F9003250D1 /* SWRevealViewController.m */; };
+		4179FCF01C25109D006130F5 /* Loading.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4179FCEE1C25109D006130F5 /* Loading.storyboard */; };
+		4179FCF11C25109D006130F5 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4179FCEF1C25109D006130F5 /* LoadingViewController.swift */; };
 		417F48B31BC823F1005BC49D /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 417F48B01BC823F1005BC49D /* GTMNSString+HTML.m */; };
 		417F48B41BC823F1005BC49D /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 417F48B21BC823F1005BC49D /* NSString+HTML.m */; };
-		418F195B1BFA52A900EAA820 /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418F195A1BFA52A900EAA820 /* HealthKitManager.swift */; };
+		4184846F1C6D473000C26211 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4184846E1C6D473000C26211 /* Theme.swift */; };
+		418484C81C72E27F00C26211 /* NewBodyFatMetricDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418484C71C72E27F00C26211 /* NewBodyFatMetricDelegate.swift */; };
+		418485121C73DEC600C26211 /* NewBodyMassIndexMetricDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418485111C73DEC600C26211 /* NewBodyMassIndexMetricDelegate.swift */; };
+		418485231C77D16400C26211 /* NewMetricPlotDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418485221C77D16400C26211 /* NewMetricPlotDelegate.swift */; };
+		418D4C451C7A5471008C86E7 /* higiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418D4C441C7A5471008C86E7 /* higiUITests.swift */; };
 		4192B4FE1BB5BF4500D1A2D3 /* PersistentSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4192B4FD1BB5BF4500D1A2D3 /* PersistentSettingsController.swift */; };
+		4197B58D1C58095100E46F8F /* UtilityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4197B58C1C58095100E46F8F /* UtilityTests.swift */; };
 		419D85CF1BBEDD3C00E7D844 /* HIGIScatterPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D85CE1BBEDD3C00E7D844 /* HIGIScatterPlot.m */; };
 		419D86481BBEF83000E7D844 /* GQuadItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D862D1BBEF83000E7D844 /* GQuadItem.m */; };
 		419D86491BBEF83000E7D844 /* GStaticCluster.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D862F1BBEF83000E7D844 /* GStaticCluster.m */; };
@@ -92,13 +128,20 @@
 		41B2B3581BB31CBE00B13168 /* NotificationSettingsEmailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B2B3571BB31CBD00B13168 /* NotificationSettingsEmailTableViewController.swift */; };
 		41B2B35A1BB31CE900B13168 /* NotificationSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B2B3591BB31CE900B13168 /* NotificationSettingsTableViewController.swift */; };
 		41B2B35C1BB326C800B13168 /* NotificationSettingsEmailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B2B35B1BB326C800B13168 /* NotificationSettingsEmailController.swift */; };
+		41BAD2911C4D492700E3A5AB /* MetricBlankStateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41BAD2901C4D492700E3A5AB /* MetricBlankStateViewController.swift */; };
 		41BFC9B81BCC0E0D00FD0F45 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 41BFC9B61BCC0E0D00FD0F45 /* Localizable.stringsdict */; };
 		41CAB9B41BC411A00000772C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 41CAB9B01BC411A00000772C /* Localizable.strings */; };
-		41D17C301C50380B005CAB73 /* UtilityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D17C2F1C50380B005CAB73 /* UtilityTests.swift */; };
+		41D8717E1C7A8FAD002DCDA0 /* CPTXYPlotSpace+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D8717D1C7A8FAD002DCDA0 /* CPTXYPlotSpace+Utility.swift */; };
+		41D871801C7A91BF002DCDA0 /* GraphPoint+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D8717F1C7A91BF002DCDA0 /* GraphPoint+Utility.swift */; };
+		41E6B5E41C16184200ED922B /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E6B5E31C16184200ED922B /* HealthKitManager.swift */; };
+		41E6B5E81C161FAB00ED922B /* MetricsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E6B5E71C161FAB00ED922B /* MetricsCoordinator.swift */; };
 		41E90DED1BD98494001DCC4C /* RequiredAppUpdate.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41E90DEC1BD98494001DCC4C /* RequiredAppUpdate.storyboard */; };
 		41E90DF11BD984E0001DCC4C /* RequiredAppUpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E90DF01BD984E0001DCC4C /* RequiredAppUpdateViewController.swift */; };
 		41FB22551BE2951F009139B4 /* CrashAnalyticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41FB22541BE2951F009139B4 /* CrashAnalyticsManager.swift */; };
 		41FB225B1BE2AE80009139B4 /* FabricInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41FB225A1BE2AE80009139B4 /* FabricInfo.swift */; };
+		41FFE89F1C611A80000C8DCF /* MetricDetailPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41FFE89E1C611A80000C8DCF /* MetricDetailPreviewViewController.swift */; };
+		41FFE8AB1C61319E000C8DCF /* CheckinLocationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41FFE8AA1C61319E000C8DCF /* CheckinLocationView.xib */; };
+		41FFE8AF1C61329F000C8DCF /* CheckinLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41FFE8AE1C61329F000C8DCF /* CheckinLocationView.swift */; };
 		8F02A11F19AE2BF6002FF73E /* btn_back_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A11719AE2BF6002FF73E /* btn_back_black.png */; };
 		8F02A12019AE2BF6002FF73E /* btn_back_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A11819AE2BF6002FF73E /* btn_back_black@2x.png */; };
 		8F02A12119AE2BF6002FF73E /* btn_back_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F02A11919AE2BF6002FF73E /* btn_back_white.png */; };
@@ -366,7 +409,6 @@
 		D1EFDC531B45D48400A340DD /* TriangleMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EFDC521B45D48400A340DD /* TriangleMarker.swift */; };
 		D1F10C211B62E3DB0086E728 /* fitnessband@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D1F10C201B62E3DB0086E728 /* fitnessband@2x.png */; };
 		D1FC09951A83DE960049B5C0 /* team_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D1FC09941A83DE960049B5C0 /* team_icon.png */; };
-		D1FC72931B20116F0068CF89 /* WeightMetricCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FC72921B20116F0068CF89 /* WeightMetricCard.swift */; };
 		D1FC72951B209CA40068CF89 /* MetricDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FC72941B209CA40068CF89 /* MetricDelegate.swift */; };
 		D1FC72971B20B0DC0068CF89 /* PulseMetricDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FC72961B20B0DC0068CF89 /* PulseMetricDelegate.swift */; };
 		D1FC72991B20B1B70068CF89 /* WeightMetricDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FC72981B20B1B70068CF89 /* WeightMetricDelegate.swift */; };
@@ -378,6 +420,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		418D4C471C7A5471008C86E7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8F36439219460EB300C0033E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8F36439919460EB300C0033E;
+			remoteInfo = higi;
+		};
 		41A0BE4A1BBB194700A314D6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 41A0BE441BBB194600A314D6 /* CorePlot-CocoaTouch.xcodeproj */;
@@ -414,28 +463,66 @@
 		2BC5865D1A16D0AF005A7983 /* ChallengeInvitationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeInvitationView.swift; sourceTree = "<group>"; };
 		32E39E451B756D4200BA50F9 /* Info_prod.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info_prod.plist; sourceTree = "<group>"; };
 		32E39E461B756D4200BA50F9 /* Info_qa.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info_qa.plist; sourceTree = "<group>"; };
-		410ADB161C3DD5F30055F015 /* OldWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OldWebViewController.swift; sourceTree = "<group>"; };
-		410ADB1A1C3DD8170055F015 /* OldWebView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OldWebView.xib; sourceTree = "<group>"; };
+		410167211C555C9800A54B02 /* NewActivityMetricDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewActivityMetricDelegate.swift; sourceTree = "<group>"; };
+		410167231C555CD700A54B02 /* NewBloodPressureMetricDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewBloodPressureMetricDelegate.swift; sourceTree = "<group>"; };
+		410167251C555CED00A54B02 /* NewPulseMetricDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPulseMetricDelegate.swift; sourceTree = "<group>"; };
+		410167271C555D0600A54B02 /* NewWeightMetricDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewWeightMetricDelegate.swift; sourceTree = "<group>"; };
+		41247DC81C5A937300DDC5EC /* SingleRowTextMenuFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleRowTextMenuFlowLayout.swift; sourceTree = "<group>"; };
+		41247DCD1C5BD1A100DDC5EC /* MetricDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricDetailViewController.swift; sourceTree = "<group>"; };
+		41247DD41C5F29FB00DDC5EC /* MetricDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MetricDetail.storyboard; sourceTree = "<group>"; };
+		413635861C2209450056DE8D /* MetricDataFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricDataFactory.swift; sourceTree = "<group>"; };
+		413635881C2260B00056DE8D /* NewMetricDelegates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewMetricDelegates.swift; sourceTree = "<group>"; };
 		41376C5A1BB452E40094DE7C /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		41376C5C1BB459B50094DE7C /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		413CC02F1C6927EC0097AE56 /* ActivityDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityDetailView.xib; sourceTree = "<group>"; };
+		413CC0331C6929BA0097AE56 /* ActivityDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityDetailView.swift; sourceTree = "<group>"; };
 		413E19241C10AB2C00146B29 /* UniversalLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UniversalLink.swift; sourceTree = "<group>"; };
 		413E19281C10AB5800146B29 /* UniversalLinkTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UniversalLinkTests.swift; sourceTree = "<group>"; };
 		413E19311C10B0F400146B29 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = Vendor/Fabric/iOS/Fabric.framework; sourceTree = "<group>"; };
 		413E19331C10B10200146B29 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = Vendor/Crashlytics/iOS/Crashlytics.framework; sourceTree = "<group>"; };
 		413E19351C10B41400146B29 /* higi-qa.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "higi-qa.entitlements"; sourceTree = "<group>"; };
+		413E19481C10DBCA00146B29 /* Metrics.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Metrics.storyboard; sourceTree = "<group>"; };
+		413E198A1C10E4D700146B29 /* MetricsPage.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MetricsPage.storyboard; sourceTree = "<group>"; };
+		413E198C1C10EAE000146B29 /* MetricsPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricsPageViewController.swift; sourceTree = "<group>"; };
+		413E198E1C10EB2D00146B29 /* TextMenuCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextMenuCollectionViewController.swift; sourceTree = "<group>"; };
+		413E19901C10EB6100146B29 /* MetricPlotViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricPlotViewController.swift; sourceTree = "<group>"; };
+		413E19921C10EB9A00146B29 /* MetricTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricTableViewController.swift; sourceTree = "<group>"; };
+		413E19941C10EBE800146B29 /* MetricChildViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricChildViewController.swift; sourceTree = "<group>"; };
+		413E19961C11650C00146B29 /* TextCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextCollectionViewCell.swift; sourceTree = "<group>"; };
+		413E19971C11650C00146B29 /* TextCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextCollectionViewCell.xib; sourceTree = "<group>"; };
+		413E199A1C1167A500146B29 /* NewMetricsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewMetricsViewController.swift; sourceTree = "<group>"; };
 		41411B9F1BA87E3D0027F5E1 /* NotificationSettingsDeviceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingsDeviceTableViewController.swift; sourceTree = "<group>"; };
 		41411BA11BA894280027F5E1 /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
-		4150039B1C246EB500CA8FBA /* Loading.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Loading.storyboard; sourceTree = "<group>"; };
-		4150039F1C246ED300CA8FBA /* LoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
+		415338151C60614700ED2B82 /* MetricCheckinSummaryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MetricCheckinSummaryView.xib; sourceTree = "<group>"; };
+		415338171C60681B00ED2B82 /* MetricCheckinSummaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricCheckinSummaryView.swift; sourceTree = "<group>"; };
 		41545BF81BA76CFA00946358 /* NotificationSettings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NotificationSettings.storyboard; sourceTree = "<group>"; };
+		4162266C1C79407400EFA1B3 /* CPTXYGraph+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CPTXYGraph+Utility.swift"; sourceTree = "<group>"; };
+		4162266E1C7940B100EFA1B3 /* HigiScatterPlot+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HigiScatterPlot+Utility.swift"; sourceTree = "<group>"; };
+		416226701C7940D000EFA1B3 /* CPTXYAxis+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CPTXYAxis+Utility.swift"; sourceTree = "<group>"; };
+		416226721C7940F400EFA1B3 /* CPTMutableLineStyle+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CPTMutableLineStyle+Utility.swift"; sourceTree = "<group>"; };
+		416226741C79412200EFA1B3 /* CPTPlotSymbol+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CPTPlotSymbol+Utility.swift"; sourceTree = "<group>"; };
+		416226781C79866000EFA1B3 /* NewMetricTableDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewMetricTableDelegate.swift; sourceTree = "<group>"; };
+		41643AA71C18834700258F55 /* MetricTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MetricTableViewCell.xib; sourceTree = "<group>"; };
+		41643AAB1C1886D900258F55 /* MetricDataLabelView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MetricDataLabelView.xib; sourceTree = "<group>"; };
+		41643AAD1C188D4800258F55 /* MetricDataLabelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricDataLabelView.swift; sourceTree = "<group>"; };
+		41643AAF1C1891D800258F55 /* MetricTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricTableViewCell.swift; sourceTree = "<group>"; };
 		416E46991BE803F9003250D1 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWRevealViewController.h; path = Vendor/SWRevealViewController/SWRevealViewController/SWRevealViewController.h; sourceTree = "<group>"; };
 		416E469A1BE803F9003250D1 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWRevealViewController.m; path = Vendor/SWRevealViewController/SWRevealViewController/SWRevealViewController.m; sourceTree = "<group>"; };
+		4179FCEE1C25109D006130F5 /* Loading.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Loading.storyboard; sourceTree = "<group>"; };
+		4179FCEF1C25109D006130F5 /* LoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		417F48AF1BC823F1005BC49D /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GTMNSString+HTML.h"; path = "Vendor/MWFeedParser/Classes/GTMNSString+HTML.h"; sourceTree = "<group>"; };
 		417F48B01BC823F1005BC49D /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GTMNSString+HTML.m"; path = "Vendor/MWFeedParser/Classes/GTMNSString+HTML.m"; sourceTree = "<group>"; };
 		417F48B11BC823F1005BC49D /* NSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+HTML.h"; path = "Vendor/MWFeedParser/Classes/NSString+HTML.h"; sourceTree = "<group>"; };
 		417F48B21BC823F1005BC49D /* NSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+HTML.m"; path = "Vendor/MWFeedParser/Classes/NSString+HTML.m"; sourceTree = "<group>"; };
-		418F195A1BFA52A900EAA820 /* HealthKitManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
+		4184846E1C6D473000C26211 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		418484C71C72E27F00C26211 /* NewBodyFatMetricDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewBodyFatMetricDelegate.swift; sourceTree = "<group>"; };
+		418485111C73DEC600C26211 /* NewBodyMassIndexMetricDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewBodyMassIndexMetricDelegate.swift; sourceTree = "<group>"; };
+		418485221C77D16400C26211 /* NewMetricPlotDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewMetricPlotDelegate.swift; sourceTree = "<group>"; };
+		418D4C421C7A5471008C86E7 /* higiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = higiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		418D4C441C7A5471008C86E7 /* higiUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = higiUITests.swift; sourceTree = "<group>"; };
+		418D4C461C7A5471008C86E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4192B4FD1BB5BF4500D1A2D3 /* PersistentSettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistentSettingsController.swift; sourceTree = "<group>"; };
+		4197B58C1C58095100E46F8F /* UtilityTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilityTests.swift; sourceTree = "<group>"; };
 		419D85CD1BBEDD3C00E7D844 /* HIGIScatterPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HIGIScatterPlot.h; sourceTree = "<group>"; };
 		419D85CE1BBEDD3C00E7D844 /* HIGIScatterPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HIGIScatterPlot.m; sourceTree = "<group>"; };
 		419D862B1BBEF83000E7D844 /* GClusterAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GClusterAlgorithm.h; sourceTree = "<group>"; };
@@ -516,13 +603,20 @@
 		41B2B3571BB31CBD00B13168 /* NotificationSettingsEmailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingsEmailTableViewController.swift; sourceTree = "<group>"; };
 		41B2B3591BB31CE900B13168 /* NotificationSettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingsTableViewController.swift; sourceTree = "<group>"; };
 		41B2B35B1BB326C800B13168 /* NotificationSettingsEmailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingsEmailController.swift; sourceTree = "<group>"; };
+		41BAD2901C4D492700E3A5AB /* MetricBlankStateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricBlankStateViewController.swift; sourceTree = "<group>"; };
 		41BFC9B71BCC0E0D00FD0F45 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = Base; path = Localizable.stringsdict; sourceTree = "<group>"; };
 		41CAB9B11BC411A00000772C /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Localizable.strings; sourceTree = "<group>"; };
-		41D17C2F1C50380B005CAB73 /* UtilityTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilityTests.swift; sourceTree = "<group>"; };
+		41D8717D1C7A8FAD002DCDA0 /* CPTXYPlotSpace+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CPTXYPlotSpace+Utility.swift"; sourceTree = "<group>"; };
+		41D8717F1C7A91BF002DCDA0 /* GraphPoint+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GraphPoint+Utility.swift"; sourceTree = "<group>"; };
+		41E6B5E31C16184200ED922B /* HealthKitManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
+		41E6B5E71C161FAB00ED922B /* MetricsCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricsCoordinator.swift; sourceTree = "<group>"; };
 		41E90DEC1BD98494001DCC4C /* RequiredAppUpdate.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = RequiredAppUpdate.storyboard; sourceTree = "<group>"; };
 		41E90DF01BD984E0001DCC4C /* RequiredAppUpdateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequiredAppUpdateViewController.swift; sourceTree = "<group>"; };
 		41FB22541BE2951F009139B4 /* CrashAnalyticsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrashAnalyticsManager.swift; sourceTree = "<group>"; };
 		41FB225A1BE2AE80009139B4 /* FabricInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FabricInfo.swift; sourceTree = "<group>"; };
+		41FFE89E1C611A80000C8DCF /* MetricDetailPreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricDetailPreviewViewController.swift; sourceTree = "<group>"; };
+		41FFE8AA1C61319E000C8DCF /* CheckinLocationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CheckinLocationView.xib; sourceTree = "<group>"; };
+		41FFE8AE1C61329F000C8DCF /* CheckinLocationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckinLocationView.swift; sourceTree = "<group>"; };
 		8F02A11719AE2BF6002FF73E /* btn_back_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_back_black.png; sourceTree = "<group>"; };
 		8F02A11819AE2BF6002FF73E /* btn_back_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_back_black@2x.png"; sourceTree = "<group>"; };
 		8F02A11919AE2BF6002FF73E /* btn_back_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_back_white.png; sourceTree = "<group>"; };
@@ -794,7 +888,6 @@
 		D1EFDC521B45D48400A340DD /* TriangleMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriangleMarker.swift; sourceTree = "<group>"; };
 		D1F10C201B62E3DB0086E728 /* fitnessband@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fitnessband@2x.png"; path = "images/fitnessband@2x.png"; sourceTree = "<group>"; };
 		D1FC09941A83DE960049B5C0 /* team_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = team_icon.png; path = images/team_icon.png; sourceTree = "<group>"; };
-		D1FC72921B20116F0068CF89 /* WeightMetricCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeightMetricCard.swift; sourceTree = "<group>"; };
 		D1FC72941B209CA40068CF89 /* MetricDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricDelegate.swift; sourceTree = "<group>"; };
 		D1FC72961B20B0DC0068CF89 /* PulseMetricDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PulseMetricDelegate.swift; sourceTree = "<group>"; };
 		D1FC72981B20B1B70068CF89 /* WeightMetricDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeightMetricDelegate.swift; sourceTree = "<group>"; };
@@ -806,6 +899,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		418D4C3F1C7A5471008C86E7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8F36439719460EB300C0033E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -849,19 +949,13 @@
 			isa = PBXGroup;
 			children = (
 				2BC5865D1A16D0AF005A7983 /* ChallengeInvitationView.swift */,
-				2BC5865B1A16C63B005A7983 /* ChallengeInvitation.xib */,
 				D1EEDBA41A66FA570012EFD3 /* ChallengeLeaderboardRow.swift */,
-				D1EEDBA21A66E4B10012EFD3 /* ChallengeLeaderboardRow.xib */,
 				2BBDBA4A1A12AC2C005A6815 /* ChallengeRowCell.swift */,
-				2BBDBA4B1A12AC2C005A6815 /* ChallengeRowCell.xib */,
 				D130183D1B14D2C9008DDFAD /* ChallengeUtility.swift */,
 				8FEF1B041AA9173D0036C4FB /* ChallengeView.swift */,
 				2BBDBA4D1A12AC2C005A6815 /* ChallengesViewController.swift */,
-				2BBDBA4C1A12AC2C005A6815 /* ChallengesView.xib */,
 				2BBDBA4E1A12AC2C005A6815 /* CompetitiveChallengeView.swift */,
-				2BBDBA4F1A12AC2C005A6815 /* CompetitiveChallengeView.xib */,
 				2BBDBA501A12AC2C005A6815 /* GoalChallengeView.swift */,
-				2BBDBA511A12AC2C005A6815 /* GoalChallengeView.xib */,
 			);
 			name = Challenges;
 			sourceTree = "<group>";
@@ -890,39 +984,149 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		410ADB1C1C3DD8200055F015 /* Web View */ = {
+		410167201C555C7B00A54B02 /* Delegates */ = {
 			isa = PBXGroup;
 			children = (
-				410ADB1A1C3DD8170055F015 /* OldWebView.xib */,
-				410ADB161C3DD5F30055F015 /* OldWebViewController.swift */,
-				8F2CB5811992563E009377A8 /* WebView.xib */,
+				410167211C555C9800A54B02 /* NewActivityMetricDelegate.swift */,
+				410167231C555CD700A54B02 /* NewBloodPressureMetricDelegate.swift */,
+				418484C71C72E27F00C26211 /* NewBodyFatMetricDelegate.swift */,
+				418485111C73DEC600C26211 /* NewBodyMassIndexMetricDelegate.swift */,
+				413635881C2260B00056DE8D /* NewMetricDelegates.swift */,
+				418485221C77D16400C26211 /* NewMetricPlotDelegate.swift */,
+				416226781C79866000EFA1B3 /* NewMetricTableDelegate.swift */,
+				410167251C555CED00A54B02 /* NewPulseMetricDelegate.swift */,
+				410167271C555D0600A54B02 /* NewWeightMetricDelegate.swift */,
+			);
+			name = Delegates;
+			sourceTree = "<group>";
+		};
+		410ADB2D1C3EC7740055F015 /* Web View */ = {
+			isa = PBXGroup;
+			children = (
 				8F2CB57F19925631009377A8 /* WebViewController.swift */,
 			);
 			name = "Web View";
 			sourceTree = "<group>";
 		};
-		412A50271C45B7EB0031D0BD /* Splash/Main */ = {
+		41247DCC1C5A93B400DDC5EC /* Collection View */ = {
 			isa = PBXGroup;
 			children = (
-				8F3643A319460EB300C0033E /* Main.storyboard */,
-				8F296308194B8DE700E787FD /* SplashViewController.swift */,
+				41247DC81C5A937300DDC5EC /* SingleRowTextMenuFlowLayout.swift */,
+				413E19961C11650C00146B29 /* TextCollectionViewCell.swift */,
+				413E198E1C10EB2D00146B29 /* TextMenuCollectionViewController.swift */,
 			);
-			name = Splash/Main;
+			name = "Collection View";
 			sourceTree = "<group>";
 		};
-		415003A11C246ED800CA8FBA /* Loading */ = {
+		412A50301C45B97F0031D0BD /* Splash */ = {
 			isa = PBXGroup;
 			children = (
-				4150039B1C246EB500CA8FBA /* Loading.storyboard */,
-				4150039F1C246ED300CA8FBA /* LoadingViewController.swift */,
+				8F296308194B8DE700E787FD /* SplashViewController.swift */,
 			);
-			name = Loading;
+			name = Splash;
+			sourceTree = "<group>";
+		};
+		413E19431C10D98100146B29 /* Graph Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				D1FC72941B209CA40068CF89 /* MetricDelegate.swift */,
+				D1D32D061B1FA0B500AE9B25 /* ActivityMetricDelegate.swift */,
+				D1FC729A1B20B22B0068CF89 /* BpMetricDelegate.swift */,
+				D1FC72961B20B0DC0068CF89 /* PulseMetricDelegate.swift */,
+				D1FC72981B20B1B70068CF89 /* WeightMetricDelegate.swift */,
+			);
+			name = "Graph Delegates";
+			sourceTree = "<group>";
+		};
+		413E19441C10DB1E00146B29 /* Old */ = {
+			isa = PBXGroup;
+			children = (
+				413E19431C10D98100146B29 /* Graph Delegates */,
+				D1E2DB811AE176760074CBAF /* MetricCard.swift */,
+				D10D844A1AEFFA7A00DA3278 /* MetricDetailCard.swift */,
+				D1FC729C1B20FD9F0068CF89 /* MetricGraphUtility.swift */,
+				D1740BC31AE0381F00462F6E /* MetricsType.swift */,
+				8F3643A119460EB300C0033E /* MetricsViewController.swift */,
+				D158BB071B59B4E000FA9CAF /* SelectedPoint.swift */,
+			);
+			name = Old;
+			sourceTree = "<group>";
+		};
+		413E19451C10DB2600146B29 /* New */ = {
+			isa = PBXGroup;
+			children = (
+				4147BA2E1C20C20400C71891 /* Top Level Containers */,
+				4147BA381C20CF0100C71891 /* Pages */,
+			);
+			name = New;
+			sourceTree = "<group>";
+		};
+		4147BA2B1C20BE0500C71891 /* Metric Data Views */ = {
+			isa = PBXGroup;
+			children = (
+				41FFE8AE1C61329F000C8DCF /* CheckinLocationView.swift */,
+				415338171C60681B00ED2B82 /* MetricCheckinSummaryView.swift */,
+				41643AAD1C188D4800258F55 /* MetricDataLabelView.swift */,
+				41643AAF1C1891D800258F55 /* MetricTableViewCell.swift */,
+			);
+			name = "Metric Data Views";
+			sourceTree = "<group>";
+		};
+		4147BA2E1C20C20400C71891 /* Top Level Containers */ = {
+			isa = PBXGroup;
+			children = (
+				41247DCC1C5A93B400DDC5EC /* Collection View */,
+				41E6B5E71C161FAB00ED922B /* MetricsCoordinator.swift */,
+				413E198C1C10EAE000146B29 /* MetricsPageViewController.swift */,
+				413E199A1C1167A500146B29 /* NewMetricsViewController.swift */,
+			);
+			name = "Top Level Containers";
+			sourceTree = "<group>";
+		};
+		4147BA381C20CF0100C71891 /* Pages */ = {
+			isa = PBXGroup;
+			children = (
+				410167201C555C7B00A54B02 /* Delegates */,
+				414BC2691C61D55B006F8DAC /* Detail */,
+				4147BA2B1C20BE0500C71891 /* Metric Data Views */,
+				41BAD2901C4D492700E3A5AB /* MetricBlankStateViewController.swift */,
+				413E19941C10EBE800146B29 /* MetricChildViewController.swift */,
+				413635861C2209450056DE8D /* MetricDataFactory.swift */,
+				413E19901C10EB6100146B29 /* MetricPlotViewController.swift */,
+				413E19921C10EB9A00146B29 /* MetricTableViewController.swift */,
+			);
+			name = Pages;
+			sourceTree = "<group>";
+		};
+		414BC2691C61D55B006F8DAC /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				414BC26D1C61D56D006F8DAC /* Modal */,
+				414BC26C1C61D567006F8DAC /* Preview */,
+			);
+			name = Detail;
+			sourceTree = "<group>";
+		};
+		414BC26C1C61D567006F8DAC /* Preview */ = {
+			isa = PBXGroup;
+			children = (
+				41FFE89E1C611A80000C8DCF /* MetricDetailPreviewViewController.swift */,
+			);
+			name = Preview;
+			sourceTree = "<group>";
+		};
+		414BC26D1C61D56D006F8DAC /* Modal */ = {
+			isa = PBXGroup;
+			children = (
+				413CC0331C6929BA0097AE56 /* ActivityDetailView.swift */,
+				41247DCD1C5BD1A100DDC5EC /* MetricDetailViewController.swift */,
+			);
+			name = Modal;
 			sourceTree = "<group>";
 		};
 		41545BFA1BA76D0700946358 /* Notification Settings */ = {
 			isa = PBXGroup;
 			children = (
-				41545BF81BA76CFA00946358 /* NotificationSettings.storyboard */,
 				41B2B3591BB31CE900B13168 /* NotificationSettingsTableViewController.swift */,
 				41411B9F1BA87E3D0027F5E1 /* NotificationSettingsDeviceTableViewController.swift */,
 				4192B4FD1BB5BF4500D1A2D3 /* PersistentSettingsController.swift */,
@@ -930,6 +1134,20 @@
 				41B2B3601BB440F100B13168 /* Switch Cell */,
 			);
 			name = "Notification Settings";
+			sourceTree = "<group>";
+		};
+		416226761C7941CA00EFA1B3 /* Core Plot */ = {
+			isa = PBXGroup;
+			children = (
+				416226721C7940F400EFA1B3 /* CPTMutableLineStyle+Utility.swift */,
+				416226741C79412200EFA1B3 /* CPTPlotSymbol+Utility.swift */,
+				416226701C7940D000EFA1B3 /* CPTXYAxis+Utility.swift */,
+				4162266C1C79407400EFA1B3 /* CPTXYGraph+Utility.swift */,
+				41D8717D1C7A8FAD002DCDA0 /* CPTXYPlotSpace+Utility.swift */,
+				41D8717F1C7A91BF002DCDA0 /* GraphPoint+Utility.swift */,
+				4162266E1C7940B100EFA1B3 /* HigiScatterPlot+Utility.swift */,
+			);
+			name = "Core Plot";
 			sourceTree = "<group>";
 		};
 		416E469C1BE80401003250D1 /* SWRevealViewController */ = {
@@ -941,6 +1159,14 @@
 			name = SWRevealViewController;
 			sourceTree = "<group>";
 		};
+		4179FCF41C2510A3006130F5 /* Loading */ = {
+			isa = PBXGroup;
+			children = (
+				4179FCEF1C25109D006130F5 /* LoadingViewController.swift */,
+			);
+			name = Loading;
+			sourceTree = "<group>";
+		};
 		417F48B51BC823F5005BC49D /* MWFeedParser */ = {
 			isa = PBXGroup;
 			children = (
@@ -950,6 +1176,236 @@
 				417F48B21BC823F1005BC49D /* NSString+HTML.m */,
 			);
 			name = MWFeedParser;
+			sourceTree = "<group>";
+		};
+		418D4C191C7A1E55008C86E7 /* Interface Builder */ = {
+			isa = PBXGroup;
+			children = (
+				418D4C1C1C7A1E8E008C86E7 /* App Update */,
+				418D4C1D1C7A1EA7008C86E7 /* Challenge Details */,
+				418D4C1E1C7A1EC6008C86E7 /* Challenges */,
+				418D4C1F1C7A1EE5008C86E7 /* Daily Summary */,
+				418D4C201C7A1EFA008C86E7 /* Dashboard */,
+				418D4C211C7A1F19008C86E7 /* Find Station */,
+				418D4C221C7A1F2D008C86E7 /* Login */,
+				418D4C231C7A1F5C008C86E7 /* Metrics */,
+				418D4C261C7A2079008C86E7 /* Miscellaneous */,
+				418D4C271C7A2129008C86E7 /* Navigation */,
+				418D4C281C7A2148008C86E7 /* Notification Settings */,
+				418D4C291C7A21AB008C86E7 /* Onboarding */,
+				418D4C2A1C7A21C3008C86E7 /* Pulse */,
+				418D4C2B1C7A21D2008C86E7 /* QR Scanner */,
+				41D8717A1C7A56C5002DCDA0 /* Reusable Views */,
+				418D4C2C1C7A21E6008C86E7 /* Security */,
+				418D4C2D1C7A21FB008C86E7 /* Settings */,
+				418D4C2E1C7A2212008C86E7 /* Welcome */,
+			);
+			name = "Interface Builder";
+			sourceTree = "<group>";
+		};
+		418D4C1C1C7A1E8E008C86E7 /* App Update */ = {
+			isa = PBXGroup;
+			children = (
+				41E90DEC1BD98494001DCC4C /* RequiredAppUpdate.storyboard */,
+			);
+			name = "App Update";
+			sourceTree = "<group>";
+		};
+		418D4C1D1C7A1EA7008C86E7 /* Challenge Details */ = {
+			isa = PBXGroup;
+			children = (
+				D149E9481A7845A200FBAA15 /* ChallengeDetailsChatterRow.xib */,
+				D1BA13441A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib */,
+				D149E9441A78221200FBAA15 /* ChallengeDetailsPrizes.xib */,
+				D1E1FF091A76E0AC00C8951C /* ChallengeDetailsRow.xib */,
+				D18395C01A69BC9E00D290BF /* ChallengeDetailsTab.xib */,
+				D17010C71A644414002CBFE8 /* ChallengeDetailsView.xib */,
+				D1E1FF071A76C2DB00C8951C /* ChallengeProgressLegendRow.xib */,
+				D1BA13461A8D056900E1AFE9 /* ChatterInputView.xib */,
+			);
+			name = "Challenge Details";
+			sourceTree = "<group>";
+		};
+		418D4C1E1C7A1EC6008C86E7 /* Challenges */ = {
+			isa = PBXGroup;
+			children = (
+				2BC5865B1A16C63B005A7983 /* ChallengeInvitation.xib */,
+				D1EEDBA21A66E4B10012EFD3 /* ChallengeLeaderboardRow.xib */,
+				2BBDBA4B1A12AC2C005A6815 /* ChallengeRowCell.xib */,
+				2BBDBA4C1A12AC2C005A6815 /* ChallengesView.xib */,
+				2BBDBA4F1A12AC2C005A6815 /* CompetitiveChallengeView.xib */,
+				2BBDBA511A12AC2C005A6815 /* GoalChallengeView.xib */,
+			);
+			name = Challenges;
+			sourceTree = "<group>";
+		};
+		418D4C1F1C7A1EE5008C86E7 /* Daily Summary */ = {
+			isa = PBXGroup;
+			children = (
+				D1020A2A1B3B1327001F2D81 /* BreakdownTitleRowView.xib */,
+				D17528851B0FC852006335B4 /* DailySummaryBreakdownView.xib */,
+				D17528811B0FB651006335B4 /* DailySummaryRowView.xib */,
+				D110BAD51B0E7CD700CD1E58 /* DailySummaryView.xib */,
+			);
+			name = "Daily Summary";
+			sourceTree = "<group>";
+		};
+		418D4C201C7A1EFA008C86E7 /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				8F5C38F01982F20000F51543 /* CheckinTableViewCell.xib */,
+				8FEF6F391A6EAA58001EF8A6 /* DashboardView.xib */,
+				D1CFC9841AB3742700AC54BB /* MetricGraphCardView.xib */,
+			);
+			name = Dashboard;
+			sourceTree = "<group>";
+		};
+		418D4C211C7A1F19008C86E7 /* Find Station */ = {
+			isa = PBXGroup;
+			children = (
+				8FE056E6198FDC9800C81208 /* FindStationView.xib */,
+				8F5E7FC01999674C009067E5 /* KioskListCellView.xib */,
+			);
+			name = "Find Station";
+			sourceTree = "<group>";
+		};
+		418D4C221C7A1F2D008C86E7 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				8FF94090198960C900D319D7 /* LoginView.xib */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
+		418D4C231C7A1F5C008C86E7 /* Metrics */ = {
+			isa = PBXGroup;
+			children = (
+				418D4C251C7A204A008C86E7 /* New */,
+				418D4C241C7A203E008C86E7 /* Old */,
+			);
+			name = Metrics;
+			sourceTree = "<group>";
+		};
+		418D4C241C7A203E008C86E7 /* Old */ = {
+			isa = PBXGroup;
+			children = (
+				D1618F921ABB2E26000BDA85 /* MetricCardView.xib */,
+				D10D84481AEFF9D200DA3278 /* MetricDetailCardView.xib */,
+				D1FD3FC71B263BBA007D362D /* MetricsView.xib */,
+			);
+			name = Old;
+			sourceTree = "<group>";
+		};
+		418D4C251C7A204A008C86E7 /* New */ = {
+			isa = PBXGroup;
+			children = (
+				413CC02F1C6927EC0097AE56 /* ActivityDetailView.xib */,
+				41FFE8AA1C61319E000C8DCF /* CheckinLocationView.xib */,
+				415338151C60614700ED2B82 /* MetricCheckinSummaryView.xib */,
+				41643AAB1C1886D900258F55 /* MetricDataLabelView.xib */,
+				41247DD41C5F29FB00DDC5EC /* MetricDetail.storyboard */,
+				413E19481C10DBCA00146B29 /* Metrics.storyboard */,
+				413E198A1C10E4D700146B29 /* MetricsPage.storyboard */,
+				41643AA71C18834700258F55 /* MetricTableViewCell.xib */,
+				413E19971C11650C00146B29 /* TextCollectionViewCell.xib */,
+			);
+			name = New;
+			sourceTree = "<group>";
+		};
+		418D4C261C7A2079008C86E7 /* Miscellaneous */ = {
+			isa = PBXGroup;
+			children = (
+				D1E2236D1A7FFE60006330E7 /* ConnectDeviceRow.xib */,
+				D1E223771A8009CE006330E7 /* ConnectDeviceView.xib */,
+				4179FCEE1C25109D006130F5 /* Loading.storyboard */,
+				8F3643A319460EB300C0033E /* Main.storyboard */,
+				D15372921A84201600954569 /* TermsAndConditionsView.xib */,
+				8FA5925C19ABBCEC00622266 /* TourView.xib */,
+				8F2CB5811992563E009377A8 /* WebView.xib */,
+			);
+			name = Miscellaneous;
+			sourceTree = "<group>";
+		};
+		418D4C271C7A2129008C86E7 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				8F2B7E58198C3D90009DE89A /* DrawerCell.xib */,
+				8F2B7E45198C2E28009DE89A /* DrawerView.xib */,
+				8F2B7E56198C34D0009DE89A /* RevealView.xib */,
+			);
+			name = Navigation;
+			sourceTree = "<group>";
+		};
+		418D4C281C7A2148008C86E7 /* Notification Settings */ = {
+			isa = PBXGroup;
+			children = (
+				41545BF81BA76CFA00946358 /* NotificationSettings.storyboard */,
+			);
+			name = "Notification Settings";
+			sourceTree = "<group>";
+		};
+		418D4C291C7A21AB008C86E7 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				8FF9409F198A8CCD00D319D7 /* BirthdateView.xib */,
+				8F1D979B1995554C003B5645 /* ModifyImageView.xib */,
+				8FF940A1198A8CE400D319D7 /* ProfileImageView.xib */,
+				8FF9409B198A8C9200D319D7 /* SignupEmailView.xib */,
+				8FF9409D198A8CB600D319D7 /* SignupNameView.xib */,
+			);
+			name = Onboarding;
+			sourceTree = "<group>";
+		};
+		418D4C2A1C7A21C3008C86E7 /* Pulse */ = {
+			isa = PBXGroup;
+			children = (
+				8FE0BCCF199175C800940D39 /* PulseCellView.xib */,
+				8FE056DE198FDBDC00C81208 /* PulseHomeView.xib */,
+			);
+			name = Pulse;
+			sourceTree = "<group>";
+		};
+		418D4C2B1C7A21D2008C86E7 /* QR Scanner */ = {
+			isa = PBXGroup;
+			children = (
+				D105CB5E1B7E9B2D00971AB0 /* QrScannerView.xib */,
+			);
+			name = "QR Scanner";
+			sourceTree = "<group>";
+		};
+		418D4C2C1C7A21E6008C86E7 /* Security */ = {
+			isa = PBXGroup;
+			children = (
+				8FDA6DA019A2978B00244D5F /* ChangePasswordView.xib */,
+				8F5E7FBC199965C0009067E5 /* PinCodeView.xib */,
+				8FDA6DA719A4039D00244D5F /* TermsView.xib */,
+			);
+			name = Security;
+			sourceTree = "<group>";
+		};
+		418D4C2D1C7A21FB008C86E7 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				419D865F1BBEFF1A00E7D844 /* Settings.storyboard */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
+		418D4C2E1C7A2212008C86E7 /* Welcome */ = {
+			isa = PBXGroup;
+			children = (
+				8F08AF9C198940E8002EE906 /* Welcome.xib */,
+			);
+			name = Welcome;
+			sourceTree = "<group>";
+		};
+		418D4C431C7A5471008C86E7 /* higiUITests */ = {
+			isa = PBXGroup;
+			children = (
+				418D4C441C7A5471008C86E7 /* higiUITests.swift */,
+				418D4C461C7A5471008C86E7 /* Info.plist */,
+			);
+			path = higiUITests;
 			sourceTree = "<group>";
 		};
 		419D86291BBEF83000E7D844 /* Clustering */ = {
@@ -1231,10 +1687,10 @@
 			isa = PBXGroup;
 			children = (
 				8F36439F19460EB300C0033E /* AppDelegate.swift */,
-				8F5E7FDD199C0011009067E5 /* Custom Views */,
 				8F1DB450194F735000636566 /* Model */,
 				8FF851C4194F7F08005C33C6 /* Network */,
 				8F296305194B8C9F00E787FD /* Objective-C Helpers */,
+				8F5E7FDD199C0011009067E5 /* Reusable Views */,
 				8F296307194B8CCA00E787FD /* Scenes */,
 				8F296314194B9BDE00E787FD /* Session */,
 				8F296306194B8CB900E787FD /* Utility */,
@@ -1242,10 +1698,19 @@
 			name = Classes;
 			sourceTree = "<group>";
 		};
+		41D8717A1C7A56C5002DCDA0 /* Reusable Views */ = {
+			isa = PBXGroup;
+			children = (
+				D1FC72A01B2240020068CF89 /* MetricGaugeView.xib */,
+				8FEF6F3D1A6EB437001EF8A6 /* PointsMeterView.xib */,
+				8FF873F119DF528E002A6341 /* PullRefreshView.xib */,
+			);
+			name = "Reusable Views";
+			sourceTree = "<group>";
+		};
 		41E90DF21BD984F4001DCC4C /* App Update */ = {
 			isa = PBXGroup;
 			children = (
-				41E90DEC1BD98494001DCC4C /* RequiredAppUpdate.storyboard */,
 				41E90DF01BD984E0001DCC4C /* RequiredAppUpdateViewController.swift */,
 			);
 			name = "App Update";
@@ -1255,7 +1720,6 @@
 			isa = PBXGroup;
 			children = (
 				8F29630C194B8F4600E787FD /* WelcomeViewController.swift */,
-				8F08AF9C198940E8002EE906 /* Welcome.xib */,
 			);
 			name = Welcome;
 			sourceTree = "<group>";
@@ -1264,7 +1728,6 @@
 			isa = PBXGroup;
 			children = (
 				8F296312194B912F00E787FD /* LoginViewController.swift */,
-				8FF94090198960C900D319D7 /* LoginView.xib */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -1305,10 +1768,12 @@
 			isa = PBXGroup;
 			children = (
 				D130183F1B14D943008DDFAD /* Constants.swift */,
+				416226761C7941CA00EFA1B3 /* Core Plot */,
 				41FB22541BE2951F009139B4 /* CrashAnalyticsManager.swift */,
 				8F524BF7195B829400BFC49D /* CustomFormatter.swift */,
-				418F195A1BFA52A900EAA820 /* HealthKitManager.swift */,
+				41E6B5E31C16184200ED922B /* HealthKitManager.swift */,
 				8FE206611B7CF30E00B473B0 /* LocationDelegate.swift */,
+				4184846E1C6D473000C26211 /* Theme.swift */,
 				413E19241C10AB2C00146B29 /* UniversalLink.swift */,
 				8F6D510D1947B2E700F7C769 /* Utility.swift */,
 			);
@@ -1374,16 +1839,12 @@
 			children = (
 				8FF940941989A19B00D319D7 /* BaseViewController.swift */,
 				D1E2236F1A7FFF43006330E7 /* ConnectDeviceRow.swift */,
-				D1E2236D1A7FFE60006330E7 /* ConnectDeviceRow.xib */,
-				D1E223771A8009CE006330E7 /* ConnectDeviceView.xib */,
 				D1E223791A8009E6006330E7 /* ConnectDeviceViewController.swift */,
-				415003A11C246ED800CA8FBA /* Loading */,
-				412A50271C45B7EB0031D0BD /* Splash/Main */,
-				D15372921A84201600954569 /* TermsAndConditionsView.xib */,
+				4179FCF41C2510A3006130F5 /* Loading */,
+				412A50301C45B97F0031D0BD /* Splash */,
 				D15372901A841FEA00954569 /* TermsAndConditionsViewController.swift */,
-				8FA5925C19ABBCEC00622266 /* TourView.xib */,
 				8FA5925E19ABBD3A00622266 /* TourViewController.swift */,
-				410ADB1C1C3DD8200055F015 /* Web View */,
+				410ADB2D1C3EC7740055F015 /* Web View */,
 			);
 			name = Miscellaneous;
 			sourceTree = "<group>";
@@ -1393,10 +1854,7 @@
 			children = (
 				8F6266B6197EE42700145EDB /* MainNavigationController.swift */,
 				8F2B7E52198C3097009DE89A /* DrawerCell.swift */,
-				8F2B7E58198C3D90009DE89A /* DrawerCell.xib */,
-				8F2B7E45198C2E28009DE89A /* DrawerView.xib */,
 				8F2B7E42198C2DA0009DE89A /* DrawerViewController.swift */,
-				8F2B7E56198C34D0009DE89A /* RevealView.xib */,
 				8F2B7E54198C3475009DE89A /* RevealViewController.swift */,
 				D1C906B01B0A4C5D00220C12 /* NavigationObject.swift */,
 			);
@@ -1452,6 +1910,7 @@
 				8F36439C19460EB300C0033E /* higi */,
 				3735674FA759427E8EA44775 /* Frameworks */,
 				8F3643AF19460EB300C0033E /* higiTests */,
+				418D4C431C7A5471008C86E7 /* higiUITests */,
 				8F36439B19460EB300C0033E /* Products */,
 				41A0BE2E1BBB08C500A314D6 /* Vendor */,
 			);
@@ -1462,6 +1921,7 @@
 			children = (
 				8F36439A19460EB300C0033E /* higi.app */,
 				8F3643AC19460EB300C0033E /* higiTests.xctest */,
+				418D4C421C7A5471008C86E7 /* higiUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1470,6 +1930,7 @@
 			isa = PBXGroup;
 			children = (
 				41CAB9B71BC411FF0000772C /* Classes */,
+				418D4C191C7A1E55008C86E7 /* Interface Builder */,
 				41CAB9B61BC411B70000772C /* Resources */,
 				8F36439D19460EB300C0033E /* Supporting Files */,
 			);
@@ -1492,7 +1953,7 @@
 			isa = PBXGroup;
 			children = (
 				413E19281C10AB5800146B29 /* UniversalLinkTests.swift */,
-				41D17C2F1C50380B005CAB73 /* UtilityTests.swift */,
+				4197B58C1C58095100E46F8F /* UtilityTests.swift */,
 				8F3643B019460EB300C0033E /* Supporting Files */,
 			);
 			path = higiTests;
@@ -1570,11 +2031,8 @@
 			isa = PBXGroup;
 			children = (
 				8FEF6F3B1A6EAACE001EF8A6 /* DashboardViewController.swift */,
-				8FEF6F391A6EAA58001EF8A6 /* DashboardView.xib */,
 				D1CFC9821AB360AF00AC54BB /* MetricGraphCard.swift */,
-				D1CFC9841AB3742700AC54BB /* MetricGraphCardView.xib */,
 				8F5C38EE1982EFDF00F51543 /* CheckinTableViewCell.swift */,
-				8F5C38F01982F20000F51543 /* CheckinTableViewCell.xib */,
 				8FEF6F451A6EECD5001EF8A6 /* ChallengesCard.swift */,
 				8FEF6F471A6EECDE001EF8A6 /* PulseCard.swift */,
 				D1764C541BB5DD8800577EC9 /* QrCheckinCard.swift */,
@@ -1585,17 +2043,14 @@
 		8F5E7FBB1999659C009067E5 /* Security */ = {
 			isa = PBXGroup;
 			children = (
-				8FDA6DA019A2978B00244D5F /* ChangePasswordView.xib */,
 				8FDA6DA219A2979800244D5F /* ChangePasswordViewController.swift */,
-				8F5E7FBC199965C0009067E5 /* PinCodeView.xib */,
 				8F5E7FBE199965CF009067E5 /* PinCodeViewController.swift */,
 				8FDA6DA519A4038F00244D5F /* TermsViewController.swift */,
-				8FDA6DA719A4039D00244D5F /* TermsView.xib */,
 			);
 			name = Security;
 			sourceTree = "<group>";
 		};
-		8F5E7FDD199C0011009067E5 /* Custom Views */ = {
+		8F5E7FDD199C0011009067E5 /* Reusable Views */ = {
 			isa = PBXGroup;
 			children = (
 				8F6A243D195A011F0094B73C /* Graphing */,
@@ -1605,27 +2060,14 @@
 				8FF873F519DF5474002A6341 /* Pull Refresh */,
 				D1147DEA1B5607500005E10A /* Triangle */,
 			);
-			name = "Custom Views";
+			name = "Reusable Views";
 			sourceTree = "<group>";
 		};
 		8F6266AD197EC8C700145EDB /* Metrics */ = {
 			isa = PBXGroup;
 			children = (
-				D1D32D061B1FA0B500AE9B25 /* ActivityMetricDelegate.swift */,
-				D1FC729A1B20B22B0068CF89 /* BpMetricDelegate.swift */,
-				D1E2DB811AE176760074CBAF /* MetricCard.swift */,
-				D1618F921ABB2E26000BDA85 /* MetricCardView.xib */,
-				D10D844A1AEFFA7A00DA3278 /* MetricDetailCard.swift */,
-				D10D84481AEFF9D200DA3278 /* MetricDetailCardView.xib */,
-				D1FC72941B209CA40068CF89 /* MetricDelegate.swift */,
-				D1FC729C1B20FD9F0068CF89 /* MetricGraphUtility.swift */,
-				D1740BC31AE0381F00462F6E /* MetricsType.swift */,
-				8F3643A119460EB300C0033E /* MetricsViewController.swift */,
-				D1FD3FC71B263BBA007D362D /* MetricsView.xib */,
-				D1FC72961B20B0DC0068CF89 /* PulseMetricDelegate.swift */,
-				D1FC72921B20116F0068CF89 /* WeightMetricCard.swift */,
-				D1FC72981B20B1B70068CF89 /* WeightMetricDelegate.swift */,
-				D158BB071B59B4E000FA9CAF /* SelectedPoint.swift */,
+				413E19451C10DB2600146B29 /* New */,
+				413E19441C10DB1E00146B29 /* Old */,
 			);
 			name = Metrics;
 			sourceTree = "<group>";
@@ -1674,9 +2116,7 @@
 			isa = PBXGroup;
 			children = (
 				8F5E7FC21999676E009067E5 /* KioskListCell.swift */,
-				8F5E7FC01999674C009067E5 /* KioskListCellView.xib */,
 				8FE056E8198FDCA600C81208 /* FindStationViewController.swift */,
-				8FE056E6198FDC9800C81208 /* FindStationView.xib */,
 			);
 			name = "Find Station";
 			sourceTree = "<group>";
@@ -1684,7 +2124,6 @@
 		8FE056DC198FDBA600C81208 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				419D865F1BBEFF1A00E7D844 /* Settings.storyboard */,
 				41376C5C1BB459B50094DE7C /* SettingsViewController.swift */,
 				41376C5A1BB452E40094DE7C /* SettingsTableViewController.swift */,
 			);
@@ -1695,8 +2134,6 @@
 			isa = PBXGroup;
 			children = (
 				8FE0BCCD199175BC00940D39 /* PulseCell.swift */,
-				8FE0BCCF199175C800940D39 /* PulseCellView.xib */,
-				8FE056DE198FDBDC00C81208 /* PulseHomeView.xib */,
 				8FE056E0198FDBFE00C81208 /* PulseHomeViewController.swift */,
 			);
 			name = Pulse;
@@ -1715,7 +2152,6 @@
 			isa = PBXGroup;
 			children = (
 				8FF873F319DF5394002A6341 /* PullRefresh.swift */,
-				8FF873F119DF528E002A6341 /* PullRefreshView.xib */,
 			);
 			name = "Pull Refresh";
 			sourceTree = "<group>";
@@ -1723,15 +2159,10 @@
 		8FF94096198A8BCC00D319D7 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				8FF9409F198A8CCD00D319D7 /* BirthdateView.xib */,
 				8FF94097198A8C0A00D319D7 /* BirthdateViewController.swift */,
-				8F1D979B1995554C003B5645 /* ModifyImageView.xib */,
 				8F1D97991995553B003B5645 /* ModifyImageViewController.swift */,
-				8FF940A1198A8CE400D319D7 /* ProfileImageView.xib */,
 				8FF94099198A8C1800D319D7 /* ProfileImageViewController.swift */,
-				8FF9409B198A8C9200D319D7 /* SignupEmailView.xib */,
 				8F29630E194B8F5D00E787FD /* SignupEmailViewController.swift */,
-				8FF9409D198A8CB600D319D7 /* SignupNameView.xib */,
 				8F296310194B911C00E787FD /* SignupNameViewController.swift */,
 			);
 			name = Onboarding;
@@ -1741,7 +2172,6 @@
 			isa = PBXGroup;
 			children = (
 				D105CB5C1B7E9B1F00971AB0 /* QrScannerViewController.swift */,
-				D105CB5E1B7E9B2D00971AB0 /* QrScannerView.xib */,
 			);
 			name = "QR Scanner";
 			sourceTree = "<group>";
@@ -1751,13 +2181,9 @@
 			children = (
 				D13D36521B30D78E00F18A42 /* ActivityCategory.swift */,
 				D1020A281B3B130C001F2D81 /* BreakdownTitleRow.swift */,
-				D1020A2A1B3B1327001F2D81 /* BreakdownTitleRowView.xib */,
 				D17528871B0FD332006335B4 /* DailySummaryBreakdown.swift */,
-				D17528851B0FC852006335B4 /* DailySummaryBreakdownView.xib */,
 				D17528831B0FBD49006335B4 /* DailySummaryRow.swift */,
-				D17528811B0FB651006335B4 /* DailySummaryRowView.xib */,
 				D110BAD31B0E7C5500CD1E58 /* DailySummaryViewController.swift */,
-				D110BAD51B0E7CD700CD1E58 /* DailySummaryView.xib */,
 				D1EE80F31B3BBAAD00B13CB8 /* SummaryViewUtility.swift */,
 			);
 			name = "Daily Summary";
@@ -1766,7 +2192,6 @@
 		D1147DE81B5606E90005E10A /* Points Meter */ = {
 			isa = PBXGroup;
 			children = (
-				8FEF6F3D1A6EB437001EF8A6 /* PointsMeterView.xib */,
 				8FEF6F3F1A6EB638001EF8A6 /* PointsMeter.swift */,
 			);
 			name = "Points Meter";
@@ -1776,7 +2201,6 @@
 			isa = PBXGroup;
 			children = (
 				D1FC729E1B223FE70068CF89 /* MetricGauge.swift */,
-				D1FC72A01B2240020068CF89 /* MetricGaugeView.xib */,
 			);
 			name = "Meter Gauge";
 			sourceTree = "<group>";
@@ -1802,20 +2226,12 @@
 			isa = PBXGroup;
 			children = (
 				D149E94A1A78471A00FBAA15 /* ChallengeDetailsChatterRow.swift */,
-				D149E9481A7845A200FBAA15 /* ChallengeDetailsChatterRow.xib */,
 				D10D894F1A8C11A9000402D4 /* ChallengeDetailsParticipantIcon.swift */,
-				D1BA13441A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib */,
 				D149E9461A7822D900FBAA15 /* ChallengeDetailsPrize.swift */,
-				D149E9441A78221200FBAA15 /* ChallengeDetailsPrizes.xib */,
 				D17010C81A644414002CBFE8 /* ChallengeDetailsViewController.swift */,
-				D17010C71A644414002CBFE8 /* ChallengeDetailsView.xib */,
 				D1E1FF051A76C28F00C8951C /* ChallengeProgressLegendRow.swift */,
-				D1E1FF071A76C2DB00C8951C /* ChallengeProgressLegendRow.xib */,
 				D18395C21A69CAD500D290BF /* ChallengesDetailsTab.swift */,
-				D18395C01A69BC9E00D290BF /* ChallengeDetailsTab.xib */,
-				D1E1FF091A76E0AC00C8951C /* ChallengeDetailsRow.xib */,
 				D1B6D6971A8D09FD0006F80C /* ChatterInputViewController.swift */,
-				D1BA13461A8D056900E1AFE9 /* ChatterInputView.xib */,
 			);
 			name = "Challenge Details";
 			sourceTree = "<group>";
@@ -1902,6 +2318,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		418D4C411C7A5471008C86E7 /* higiUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 418D4C491C7A5471008C86E7 /* Build configuration list for PBXNativeTarget "higiUITests" */;
+			buildPhases = (
+				418D4C3E1C7A5471008C86E7 /* Sources */,
+				418D4C3F1C7A5471008C86E7 /* Frameworks */,
+				418D4C401C7A5471008C86E7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				418D4C481C7A5471008C86E7 /* PBXTargetDependency */,
+			);
+			name = higiUITests;
+			productName = higiUITests;
+			productReference = 418D4C421C7A5471008C86E7 /* higiUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		8F36439919460EB300C0033E /* higi */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8F3643B619460EB300C0033E /* Build configuration list for PBXNativeTarget "higi" */;
@@ -1946,10 +2380,14 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftMigration = 0700;
-				LastSwiftUpdateCheck = 0710;
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "higi, LLC";
 				TargetAttributes = {
+					418D4C411C7A5471008C86E7 = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = 8F36439919460EB300C0033E;
+					};
 					41CAB9A61BC40F6F0000772C = {
 						CreatedOnToolsVersion = 7.0.1;
 					};
@@ -1991,8 +2429,9 @@
 			projectRoot = "";
 			targets = (
 				8F36439919460EB300C0033E /* higi */,
-				8F3643AB19460EB300C0033E /* higiTests */,
 				41CAB9A61BC40F6F0000772C /* Generate Localizable Strings */,
+				8F3643AB19460EB300C0033E /* higiTests */,
+				418D4C411C7A5471008C86E7 /* higiUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -2008,6 +2447,13 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
+		418D4C401C7A5471008C86E7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8F36439819460EB300C0033E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2023,11 +2469,13 @@
 				8F5C38CC19818BA900F51543 /* gauge1_normal.png in Resources */,
 				8F5F91891A7193E80042D87C /* challengewidgetblankstate.png in Resources */,
 				8FDCE1C61988072C006428C3 /* btn_close_reminder.png in Resources */,
+				415338161C60614700ED2B82 /* MetricCheckinSummaryView.xib in Resources */,
 				D1A9C6FF1A951D0D0008084B /* chatterbutton_pressed.png in Resources */,
 				8F1D97A0199558F7003B5645 /* checkmark.png in Resources */,
 				8FEF6F3A1A6EAA58001EF8A6 /* DashboardView.xib in Resources */,
 				D105CB5F1B7E9B2D00971AB0 /* QrScannerView.xib in Resources */,
 				8F5F918A1A7193E80042D87C /* dashboard_errorstate.png in Resources */,
+				413E198B1C10E4D700146B29 /* MetricsPage.storyboard in Resources */,
 				8F3643A519460EB300C0033E /* Main.storyboard in Resources */,
 				D17334471B596CF90089BBFD /* metrics.png in Resources */,
 				8F2B7E5D198C49A9009DE89A /* nav_ocmicon.png in Resources */,
@@ -2059,7 +2507,6 @@
 				8FE056E7198FDC9800C81208 /* FindStationView.xib in Resources */,
 				8FFB034A19FEA2440036228C /* oc_activity.png in Resources */,
 				2BC5865C1A16C63B005A7983 /* ChallengeInvitation.xib in Resources */,
-				4150039C1C246EB500CA8FBA /* Loading.storyboard in Resources */,
 				8F5C38E01981901600F51543 /* checkincheckmark.png in Resources */,
 				D1BA13451A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib in Resources */,
 				8F5C38CE19818BA900F51543 /* gauge2_high.png in Resources */,
@@ -2131,6 +2578,7 @@
 				8F5E7FD8199BCD52009067E5 /* graph_sincelastarrow_nochange_invert.png in Resources */,
 				8F2B7E4F198C3058009DE89A /* oc_findastation.png in Resources */,
 				D149E9491A7845A200FBAA15 /* ChallengeDetailsChatterRow.xib in Resources */,
+				413CC0301C6927EC0097AE56 /* ActivityDetailView.xib in Resources */,
 				8FD73CC11990291300BACCB2 /* nodata_map.png in Resources */,
 				8FCD2D7B19E874FD00AC5A82 /* noResults.png in Resources */,
 				8F5C38ED1982EE6D00F51543 /* higicard_icon@2x.png in Resources */,
@@ -2139,7 +2587,9 @@
 				8FF9409319899AEA00D319D7 /* createreminder.png in Resources */,
 				D1EDF3FF1B5ECCCC00BF5B91 /* activities.png in Resources */,
 				D17334451B594FCD0089BBFD /* activities_copy@2x.png in Resources */,
+				41FFE8AB1C61319E000C8DCF /* CheckinLocationView.xib in Resources */,
 				2BBDBA541A12AC2C005A6815 /* ChallengesView.xib in Resources */,
+				41247DD51C5F29FB00DDC5EC /* MetricDetail.storyboard in Resources */,
 				8F5C38E91981B2B300F51543 /* createreminder_inverted.png in Resources */,
 				8F5C38CF19818BA900F51543 /* gauge2_normal.png in Resources */,
 				8F5F918C1A7193FC0042D87C /* activitypageblankstate.png in Resources */,
@@ -2147,6 +2597,7 @@
 				8F6ACCC0199D687D00D5E157 /* mapicon_higicard.png in Resources */,
 				D1ADD2D71BA0DA4E0001E8C4 /* oc_qr.png in Resources */,
 				D17334441B594FCD0089BBFD /* bodyfat_copy@2x.png in Resources */,
+				4179FCF01C25109D006130F5 /* Loading.storyboard in Resources */,
 				8F2CB58B19942E96009377A8 /* noservicemessage.png in Resources */,
 				D175287E1B0F9669006335B4 /* dailysummary_night.png in Resources */,
 				D164D3761A7C19A600300F35 /* chat_bubble_green.png in Resources */,
@@ -2168,11 +2619,14 @@
 				8FEF35BB1BB213C800959BD1 /* (null) in Resources */,
 				D17334431B594FCD0089BBFD /* map_copy@2x.png in Resources */,
 				8F5C38CD19818BA900F51543 /* gauge2_atrisk.png in Resources */,
+				413E19991C11650C00146B29 /* TextCollectionViewCell.xib in Resources */,
 				D17C0A8D1A9FC5520010971C /* unpluggederrorstate.png in Resources */,
 				8F3643A719460EB300C0033E /* Images.xcassets in Resources */,
+				41643AA81C18834700258F55 /* MetricTableViewCell.xib in Resources */,
 				D1A713A91ACF2028008DF01A /* map_iconwithdot@2x.png in Resources */,
 				D1BA13471A8D056900E1AFE9 /* ChatterInputView.xib in Resources */,
 				D1E223781A8009CE006330E7 /* ConnectDeviceView.xib in Resources */,
+				41643AAC1C1886D900258F55 /* MetricDataLabelView.xib in Resources */,
 				D17334401B594FCD0089BBFD /* bloodpressure_copy@2x.png in Resources */,
 				8F211EFA1A1E85AE00A256C0 /* oc_dropdownmenu_up.png in Resources */,
 				D1036D041B153477003E7239 /* runicon.png in Resources */,
@@ -2184,6 +2638,7 @@
 				8FFB034919FEA2440036228C /* oc_activity_active.png in Resources */,
 				419D86651BBF000800E7D844 /* checkinsuccessicon.png in Resources */,
 				8FEF35BC1BB213C800959BD1 /* (null) in Resources */,
+				413E19491C10DBCA00146B29 /* Metrics.storyboard in Resources */,
 				8F02A12419AE2BF6002FF73E /* btn_share_black@2x.png in Resources */,
 				D17010C91A644414002CBFE8 /* ChallengeDetailsView.xib in Resources */,
 				D1E1FF0A1A76E0AC00C8951C /* ChallengeDetailsRow.xib in Resources */,
@@ -2198,7 +2653,6 @@
 				8FF9409C198A8C9200D319D7 /* SignupEmailView.xib in Resources */,
 				8F2B7E46198C2E28009DE89A /* DrawerView.xib in Resources */,
 				8F2B7E5C198C49A9009DE89A /* nav_ocmicon_inverted.png in Resources */,
-				410ADB1B1C3DD8170055F015 /* OldWebView.xib in Resources */,
 				D1ADD2D31BA0C14B0001E8C4 /* whatsthis.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2242,47 +2696,69 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		418D4C3E1C7A5471008C86E7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				418D4C451C7A5471008C86E7 /* higiUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8F36439619460EB300C0033E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				8F3643A219460EB300C0033E /* MetricsViewController.swift in Sources */,
-				418F195B1BFA52A900EAA820 /* HealthKitManager.swift in Sources */,
 				8FF940951989A19B00D319D7 /* BaseViewController.swift in Sources */,
 				419D864F1BBEF83000E7D844 /* GQTPointQuadTree.m in Sources */,
+				413635871C2209450056DE8D /* MetricDataFactory.swift in Sources */,
 				8F1D979A1995553B003B5645 /* ModifyImageViewController.swift in Sources */,
 				8FDB4B681A09731B00F57B38 /* ActivityDevice.swift in Sources */,
+				41E6B5E41C16184200ED922B /* HealthKitManager.swift in Sources */,
 				8F296316194B9BF700E787FD /* SessionController.swift in Sources */,
 				D1E2237A1A8009E6006330E7 /* ConnectDeviceViewController.swift in Sources */,
 				8F9C69DB1950C8B700449664 /* PulseArticle.swift in Sources */,
 				D15372911A841FEA00954569 /* TermsAndConditionsViewController.swift in Sources */,
+				4184846F1C6D473000C26211 /* Theme.swift in Sources */,
+				4179FCF11C25109D006130F5 /* LoadingViewController.swift in Sources */,
 				41A0BE0E1BBB088500A314D6 /* AFNetworkReachabilityManager.m in Sources */,
+				41FFE89F1C611A80000C8DCF /* MetricDetailPreviewViewController.swift in Sources */,
+				416226791C79866000EFA1B3 /* NewMetricTableDelegate.swift in Sources */,
+				418485231C77D16400C26211 /* NewMetricPlotDelegate.swift in Sources */,
+				41E6B5E81C161FAB00ED922B /* MetricsCoordinator.swift in Sources */,
+				41D871801C7A91BF002DCDA0 /* GraphPoint+Utility.swift in Sources */,
+				410167281C555D0600A54B02 /* NewWeightMetricDelegate.swift in Sources */,
 				D1FC72971B20B0DC0068CF89 /* PulseMetricDelegate.swift in Sources */,
 				416E469B1BE803F9003250D1 /* SWRevealViewController.m in Sources */,
-				410ADB171C3DD5F30055F015 /* OldWebViewController.swift in Sources */,
 				41A0BE0D1BBB088500A314D6 /* AFHTTPSessionManager.m in Sources */,
-				D1FC72931B20116F0068CF89 /* WeightMetricCard.swift in Sources */,
+				41247DC91C5A937300DDC5EC /* SingleRowTextMenuFlowLayout.swift in Sources */,
 				8FF94098198A8C0A00D319D7 /* BirthdateViewController.swift in Sources */,
 				8F2CB58019925631009377A8 /* WebViewController.swift in Sources */,
 				8FF9409A198A8C1800D319D7 /* ProfileImageViewController.swift in Sources */,
 				41FB22551BE2951F009139B4 /* CrashAnalyticsManager.swift in Sources */,
 				D1FC729F1B223FE80068CF89 /* MetricGauge.swift in Sources */,
 				D13D36531B30D78E00F18A42 /* ActivityCategory.swift in Sources */,
+				4162266D1C79407400EFA1B3 /* CPTXYGraph+Utility.swift in Sources */,
 				41B2B3581BB31CBE00B13168 /* NotificationSettingsEmailTableViewController.swift in Sources */,
 				419D85CF1BBEDD3C00E7D844 /* HIGIScatterPlot.m in Sources */,
 				8FE206621B7CF30E00B473B0 /* LocationDelegate.swift in Sources */,
 				41A0BE111BBB088500A314D6 /* AFURLRequestSerialization.m in Sources */,
+				410167241C555CD700A54B02 /* NewBloodPressureMetricDelegate.swift in Sources */,
 				417F48B41BC823F1005BC49D /* NSString+HTML.m in Sources */,
 				D17528841B0FBD49006335B4 /* DailySummaryRow.swift in Sources */,
+				413E198F1C10EB2D00146B29 /* TextMenuCollectionViewController.swift in Sources */,
 				41376C5D1BB459B50094DE7C /* SettingsViewController.swift in Sources */,
 				41A0BE271BBB08B800A314D6 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				8FEF6F401A6EB638001EF8A6 /* PointsMeter.swift in Sources */,
+				413E19911C10EB6100146B29 /* MetricPlotViewController.swift in Sources */,
 				8F9C69D71950C89B00449664 /* HigiUser.swift in Sources */,
 				41411BA01BA87E3D0027F5E1 /* NotificationSettingsDeviceTableViewController.swift in Sources */,
 				D1EEDBA51A66FA570012EFD3 /* ChallengeLeaderboardRow.swift in Sources */,
+				418485121C73DEC600C26211 /* NewBodyMassIndexMetricDelegate.swift in Sources */,
 				D17010CA1A644414002CBFE8 /* ChallengeDetailsViewController.swift in Sources */,
 				41A0BE2A1BBB08B800A314D6 /* UIImageView+AFNetworking.m in Sources */,
 				8F9C69D51950C88900449664 /* HigiCheckin.swift in Sources */,
+				413E199B1C1167A500146B29 /* NewMetricsViewController.swift in Sources */,
 				41A0BE0F1BBB088500A314D6 /* AFSecurityPolicy.m in Sources */,
 				8F5E7FBF199965CF009067E5 /* PinCodeViewController.swift in Sources */,
 				8F9C69D31950C84400449664 /* HigiLogin.swift in Sources */,
@@ -2295,6 +2771,7 @@
 				41A0BE121BBB088500A314D6 /* AFURLResponseSerialization.m in Sources */,
 				D158BB081B59B4E000FA9CAF /* SelectedPoint.swift in Sources */,
 				41B2B35C1BB326C800B13168 /* NotificationSettingsEmailController.swift in Sources */,
+				416226751C79412200EFA1B3 /* CPTPlotSymbol+Utility.swift in Sources */,
 				8FE056E9198FDCA600C81208 /* FindStationViewController.swift in Sources */,
 				2BBDBA561A12AC2C005A6815 /* CompetitiveChallengeView.swift in Sources */,
 				D17528881B0FD332006335B4 /* DailySummaryBreakdown.swift in Sources */,
@@ -2303,8 +2780,8 @@
 				D1FC729D1B20FD9F0068CF89 /* MetricGraphUtility.swift in Sources */,
 				8FEF6F481A6EECDE001EF8A6 /* PulseCard.swift in Sources */,
 				8F5E7FC31999676E009067E5 /* KioskListCell.swift in Sources */,
-				415003A01C246ED300CA8FBA /* LoadingViewController.swift in Sources */,
 				41A0BE291BBB08B800A314D6 /* UIButton+AFNetworking.m in Sources */,
+				4162266F1C7940B100EFA1B3 /* HigiScatterPlot+Utility.swift in Sources */,
 				8F7065B41A16B129002FCA10 /* ChallengeParticipant.swift in Sources */,
 				41A0BE341BBB110900A314D6 /* Empty.m in Sources */,
 				2BBDBA581A12AC2C005A6815 /* GoalChallengeView.swift in Sources */,
@@ -2314,19 +2791,25 @@
 				D1FC72951B209CA40068CF89 /* MetricDelegate.swift in Sources */,
 				8FDA6DA319A2979800244D5F /* ChangePasswordViewController.swift in Sources */,
 				D1FC729B1B20B22B0068CF89 /* BpMetricDelegate.swift in Sources */,
+				41643AB01C1891D800258F55 /* MetricTableViewCell.swift in Sources */,
 				8FE0BCCE199175BC00940D39 /* PulseCell.swift in Sources */,
 				D114B06B1B2A19900073A9CB /* TriangleView.swift in Sources */,
 				D1FC72991B20B1B70068CF89 /* WeightMetricDelegate.swift in Sources */,
 				8FEF1B051AA9173D0036C4FB /* ChallengeView.swift in Sources */,
 				8F3643A019460EB300C0033E /* AppDelegate.swift in Sources */,
+				413E19931C10EB9A00146B29 /* MetricTableViewController.swift in Sources */,
 				419D864E1BBEF83000E7D844 /* SphericalMercatorProjection.m in Sources */,
 				8F7065B81A16B46A002FCA10 /* ChallengeTeam.swift in Sources */,
+				413E19981C11650C00146B29 /* TextCollectionViewCell.swift in Sources */,
+				413635891C2260B00056DE8D /* NewMetricDelegates.swift in Sources */,
 				8F6D510E1947B2E700F7C769 /* Utility.swift in Sources */,
 				D130183E1B14D2C9008DDFAD /* ChallengeUtility.swift in Sources */,
 				8F296309194B8DE700E787FD /* SplashViewController.swift in Sources */,
 				2BC5865E1A16D0AF005A7983 /* ChallengeInvitationView.swift in Sources */,
 				D18395C31A69CAD500D290BF /* ChallengesDetailsTab.swift in Sources */,
+				415338181C60681B00ED2B82 /* MetricCheckinSummaryView.swift in Sources */,
 				2BBDBA551A12AC2C005A6815 /* ChallengesViewController.swift in Sources */,
+				413E19951C10EBE800146B29 /* MetricChildViewController.swift in Sources */,
 				41A0BE371BBB14EA00A314D6 /* KeychainWrapper.swift in Sources */,
 				419D86561BBEF9A700E7D844 /* HigiClusterRenderer.m in Sources */,
 				41A0BE2D1BBB08B800A314D6 /* UIWebView+AFNetworking.m in Sources */,
@@ -2338,23 +2821,32 @@
 				413E19251C10AB2C00146B29 /* UniversalLink.swift in Sources */,
 				8FE056E1198FDBFE00C81208 /* PulseHomeViewController.swift in Sources */,
 				8F2B7E53198C3097009DE89A /* DrawerCell.swift in Sources */,
+				41643AAE1C188D4800258F55 /* MetricDataLabelView.swift in Sources */,
 				41A0BE0C1BBB088500A314D6 /* AFHTTPRequestOperationManager.m in Sources */,
 				D1764C551BB5DD8800577EC9 /* QrCheckinCard.swift in Sources */,
 				41A0BE2C1BBB08B800A314D6 /* UIRefreshControl+AFNetworking.m in Sources */,
 				2BBDBA521A12AC2C005A6815 /* ChallengeRowCell.swift in Sources */,
 				8FDB4B641A096E1C00F57B38 /* HigiChallenge.swift in Sources */,
+				41FFE8AF1C61329F000C8DCF /* CheckinLocationView.swift in Sources */,
 				8F29630D194B8F4600E787FD /* WelcomeViewController.swift in Sources */,
 				41A0BE261BBB08B800A314D6 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				D1C906B11B0A4C5D00220C12 /* NavigationObject.swift in Sources */,
 				8FDB4B6A1A09741400F57B38 /* ChallengeWinCondition.swift in Sources */,
+				410167221C555C9800A54B02 /* NewActivityMetricDelegate.swift in Sources */,
 				D1E2DB821AE176760074CBAF /* MetricCard.swift in Sources */,
 				8F2CB5891993E68C009377A8 /* SessionData.swift in Sources */,
 				417F48B31BC823F1005BC49D /* GTMNSString+HTML.m in Sources */,
+				413E198D1C10EAE000146B29 /* MetricsPageViewController.swift in Sources */,
 				D1E223701A7FFF43006330E7 /* ConnectDeviceRow.swift in Sources */,
+				410167261C555CED00A54B02 /* NewPulseMetricDelegate.swift in Sources */,
+				416226711C7940D000EFA1B3 /* CPTXYAxis+Utility.swift in Sources */,
 				D1E1FF061A76C28F00C8951C /* ChallengeProgressLegendRow.swift in Sources */,
 				8F29630F194B8F5D00E787FD /* SignupEmailViewController.swift in Sources */,
 				8F524BF8195B829400BFC49D /* CustomFormatter.swift in Sources */,
+				41BAD2911C4D492700E3A5AB /* MetricBlankStateViewController.swift in Sources */,
+				418484C81C72E27F00C26211 /* NewBodyFatMetricDelegate.swift in Sources */,
 				D1EFDC531B45D48400A340DD /* TriangleMarker.swift in Sources */,
+				41D8717E1C7A8FAD002DCDA0 /* CPTXYPlotSpace+Utility.swift in Sources */,
 				41A0BE281BBB08B800A314D6 /* UIAlertView+AFNetworking.m in Sources */,
 				8F5C38EF1982EFDF00F51543 /* CheckinTableViewCell.swift in Sources */,
 				8F296313194B912F00E787FD /* LoginViewController.swift in Sources */,
@@ -2362,11 +2854,13 @@
 				8FEF6F3C1A6EAACE001EF8A6 /* DashboardViewController.swift in Sources */,
 				8FCD2D8019EC286900AC5A82 /* UIImage+Orientation.m in Sources */,
 				D105CB5D1B7E9B1F00971AB0 /* QrScannerViewController.swift in Sources */,
+				41247DCE1C5BD1A100DDC5EC /* MetricDetailViewController.swift in Sources */,
 				419D864C1BBEF83000E7D844 /* GClusterManager.m in Sources */,
 				41B2AEDF1BBB377E00BE9EF7 /* MetricGraph.swift in Sources */,
 				D1020A291B3B130C001F2D81 /* BreakdownTitleRow.swift in Sources */,
 				419D86501BBEF83000E7D844 /* GQTPointQuadTreeChild.m in Sources */,
 				41A0BE131BBB088500A314D6 /* AFURLSessionManager.m in Sources */,
+				413CC0341C6929BA0097AE56 /* ActivityDetailView.swift in Sources */,
 				D1CFC9831AB360AF00AC54BB /* MetricGraphCard.swift in Sources */,
 				D10D89501A8C11A9000402D4 /* ChallengeDetailsParticipantIcon.swift in Sources */,
 				D10D844B1AEFFA7A00DA3278 /* MetricDetailCard.swift in Sources */,
@@ -2378,6 +2872,7 @@
 				8F2B7E43198C2DA0009DE89A /* DrawerViewController.swift in Sources */,
 				419D86591BBEFA0A00E7D844 /* ClusterKiosk.m in Sources */,
 				41B2AEE11BBB378A00BE9EF7 /* GraphPoint.swift in Sources */,
+				416226731C7940F400EFA1B3 /* CPTMutableLineStyle+Utility.swift in Sources */,
 				41A0BE2B1BBB08B800A314D6 /* UIProgressView+AFNetworking.m in Sources */,
 				D1740BC41AE0381F00462F6E /* MetricsType.swift in Sources */,
 				419D86481BBEF83000E7D844 /* GQuadItem.m in Sources */,
@@ -2395,7 +2890,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				41D17C301C50380B005CAB73 /* UtilityTests.swift in Sources */,
+				4197B58D1C58095100E46F8F /* UtilityTests.swift in Sources */,
 				413E19291C10AB5800146B29 /* UniversalLinkTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2403,6 +2898,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		418D4C481C7A5471008C86E7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8F36439919460EB300C0033E /* higi */;
+			targetProxy = 418D4C471C7A5471008C86E7 /* PBXContainerItemProxy */;
+		};
 		41A0BE561BBB1CE000A314D6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "CorePlot-CocoaTouch";
@@ -2635,6 +3135,68 @@
 			};
 			name = ReleaseQA;
 		};
+		418D4C4A1C7A5471008C86E7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = higiUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.higi.main.higiUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = higi;
+			};
+			name = Debug;
+		};
+		418D4C4B1C7A5471008C86E7 /* DebugQA */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = higiUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.higi.main.higiUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = higi;
+			};
+			name = DebugQA;
+		};
+		418D4C4C1C7A5471008C86E7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = higiUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.higi.main.higiUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = higi;
+			};
+			name = Release;
+		};
+		418D4C4D1C7A5471008C86E7 /* ReleaseQA */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = higiUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.higi.main.higiUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = higi;
+			};
+			name = ReleaseQA;
+		};
 		41CAB9A71BC40F6F0000772C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2858,6 +3420,17 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		418D4C491C7A5471008C86E7 /* Build configuration list for PBXNativeTarget "higiUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				418D4C4A1C7A5471008C86E7 /* Debug */,
+				418D4C4B1C7A5471008C86E7 /* DebugQA */,
+				418D4C4C1C7A5471008C86E7 /* Release */,
+				418D4C4D1C7A5471008C86E7 /* ReleaseQA */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		41CAB9AD1BC40F6F0000772C /* Build configuration list for PBXAggregateTarget "Generate Localizable Strings" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

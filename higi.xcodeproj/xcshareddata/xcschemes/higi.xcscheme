@@ -11,7 +11,8 @@
             buildForRunning = "YES"
             buildForProfiling = "YES"
             buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
+            buildForAnalyzing = "YES"
+            hideIssues = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8F36439919460EB300C0033E"
@@ -35,6 +36,16 @@
                BlueprintIdentifier = "8F3643AB19460EB300C0033E"
                BuildableName = "higiTests.xctest"
                BlueprintName = "higiTests"
+               ReferencedContainer = "container:higi.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "418D4C411C7A5471008C86E7"
+               BuildableName = "higiUITests.xctest"
+               BlueprintName = "higiUITests"
                ReferencedContainer = "container:higi.xcodeproj">
             </BuildableReference>
          </TestableReference>

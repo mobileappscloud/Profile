@@ -274,6 +274,15 @@
 /* Placeholder text to display in chatter input text field. */
 "CHATTER_INPUT_VIEW_TEXT_INPUT_PLACEHOLDER" = "Talk some smack!";
 
+/* Title for alert action to acknowledge alert displayed when an error occurs while attempting to connect a device. */
+"CONNECT_DEVICE_ROW_CONNECT_ERROR_ALERT_ACTION_ACKNOWLEDGE_ACTION" = "Got it";
+
+/* Message for alert displayed when an error occurs while attempting to connect a device. */
+"CONNECT_DEVICE_ROW_CONNECT_ERROR_ALERT_MESSAGE" = "There was an error while trying to connect your device. Please try again later.";
+
+/* Title for alert displayed when an error occurs while attempting to connect a device. */
+"CONNECT_DEVICE_ROW_CONNECT_ERROR_ALERT_TITLE" = "Uh Oh";
+
 /* Title for alert action to acknowledge alert displayed when user toggles switch to connect branded activity tracker (HealthKit) ON. */
 "CONNECT_DEVICE_ROW_CONNECT_HEALTHKIT_ALERT_ACTION_ACKNOWLEDGE_ACTION" = "Got it";
 
@@ -640,6 +649,9 @@
 /* Subtitle text for body weight data shown on metrics graph card. */
 "METRICS_GRAPH_CARD_WEIGHT_SUBTITLE" = "Weight";
 
+/* Title for metrics view. */
+"METRICS_VIEW_TITLE" = "Metrics";
+
 /* Title for alert action to dismiss alert which is displayed if the server is unreachable. */
 "MODIFY_IMAGE_VIEW_SERVER_ERROR_ALERT_ACTION_TITLE_DISMISS" = "OK";
 
@@ -746,13 +758,13 @@
 "QR_SCANNER_VIEW_EXPLANATORY_LABEL_TEXT" = "What is this?";
 
 /* Text instructing user to scan QR code. */
-"QR_SCANNER_VIEW_INSTRUCTION_LABEL_TEXT" = "Scan QR code from kiosk to save your data";
+"QR_SCANNER_VIEW_INSTRUCTION_LABEL_TEXT" = "Scan QR code from higi Station to save your data";
 
 /* Title for action to dismiss alert displayed when an invalid QR code is scanned. */
 "QR_SCANNER_VIEW_INVALID_QR_ALERT_ACTION_TITLE_DISMISS" = "OK";
 
 /* Message for alert displayed when an invalid QR code is scanned. */
-"QR_SCANNER_VIEW_INVALID_QR_ALERT_MESSAGE" = "There was a problem with the QR code you scanned.  The scanner will only work for QR codes on the higi kiosk.";
+"QR_SCANNER_VIEW_INVALID_QR_ALERT_MESSAGE" = "There was a problem with the QR code you scanned.  The scanner will only work for QR codes on the higi Station.";
 
 /* Title for alert displayed when an invalid QR code is scanned. */
 "QR_SCANNER_VIEW_INVALID_QR_ALERT_TITLE" = "Uh oh";

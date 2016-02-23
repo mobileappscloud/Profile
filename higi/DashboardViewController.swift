@@ -439,13 +439,13 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                 var mapPoints:[GraphPoint] = [], bpmPoints:[GraphPoint] = [], weightPoints:[GraphPoint] = [];
                 for checkin in checkins {
                     if (checkin.map != nil) {
-                        mapPoints.append(GraphPoint(x: Double(checkin.dateTime.timeIntervalSince1970), y: checkin.map));
+                        mapPoints.append(GraphPoint(x: Double(checkin.dateTime.timeIntervalSince1970), y: checkin.map!));
                     }
                     if (checkin.pulseBpm != nil) {
                         bpmPoints.append(GraphPoint(x: Double(checkin.dateTime.timeIntervalSince1970), y: Double(checkin.pulseBpm!)));
                     }
                     if (checkin.weightLbs != nil) {
-                        weightPoints.append(GraphPoint(x: Double(checkin.dateTime.timeIntervalSince1970), y: checkin.weightLbs));
+                        weightPoints.append(GraphPoint(x: Double(checkin.dateTime.timeIntervalSince1970), y: checkin.weightLbs!));
                     }
                 }
                 dispatch_async(dispatch_get_main_queue(), {
@@ -475,7 +475,9 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
                 var activityPoints:[GraphPoint] = [];
                 let dateString = Constants.dateFormatter.stringFromDate(NSDate());
                 var totalPoints = 0;
-                for (date, (total, activityList)) in SessionController.Instance.activities {
+                for (date, activitySummary) in SessionController.Instance.activities {
+                    let total = activitySummary.totalPoints
+                    let activityList = activitySummary.activities
                     if (date == dateString) {
                         totalPoints = total;
                     }

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="VN0-lX-7Cp">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+    </dependencies>
+    <scenes>
+        <!--New Metrics View Controller-->
+        <scene sceneID="yMX-mh-OAS">
+            <objects>
+                <viewController id="hVT-QU-6lV" customClass="NewMetricsViewController" customModule="higi" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="aKq-ab-EWf"/>
+                        <viewControllerLayoutGuide type="bottom" id="Eyi-9v-m1h"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="fJ4-dV-yK2">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b8d-Ya-Owl" userLabel="Page View Container View">
+                                <rect key="frame" x="0.0" y="104" width="600" height="496"/>
+                                <connections>
+                                    <segue destination="snZ-P7-4ZA" kind="embed" identifier="EmbedPageViewStoryboardSegueIdentifier" id="IFd-A2-Hgh"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HIj-Sx-HEp" userLabel="Sub Navigation Container View">
+                                <rect key="frame" x="0.0" y="64" width="600" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Dfi-AE-dWG"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="1Eu-Zg-9Ma" kind="embed" identifier="EmbedCollectionViewStoryboardSegueIdentifier" id="MW6-ph-UJf"/>
+                                </connections>
+                            </containerView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="metrics-rotate-device-icon" translatesAutoresizingMaskIntoConstraints="NO" id="K4L-Do-of6">
+                                <rect key="frame" x="545" y="119" width="40" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="MSy-pw-PaA"/>
+                                    <constraint firstAttribute="height" constant="24" id="X9x-Ev-HjI"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="b8d-Ya-Owl" firstAttribute="top" secondItem="HIj-Sx-HEp" secondAttribute="bottom" id="2Jd-4E-cFM"/>
+                            <constraint firstAttribute="trailing" secondItem="HIj-Sx-HEp" secondAttribute="trailing" id="7eR-y9-5GO"/>
+                            <constraint firstItem="Eyi-9v-m1h" firstAttribute="top" secondItem="b8d-Ya-Owl" secondAttribute="bottom" id="80D-eF-yPW"/>
+                            <constraint firstItem="b8d-Ya-Owl" firstAttribute="leading" secondItem="fJ4-dV-yK2" secondAttribute="leading" id="9B9-Q6-xs8"/>
+                            <constraint firstItem="HIj-Sx-HEp" firstAttribute="top" secondItem="aKq-ab-EWf" secondAttribute="bottom" id="9EV-Sq-W8Z"/>
+                            <constraint firstItem="K4L-Do-of6" firstAttribute="top" secondItem="HIj-Sx-HEp" secondAttribute="bottom" constant="15" id="GLv-8e-c32"/>
+                            <constraint firstItem="HIj-Sx-HEp" firstAttribute="leading" secondItem="fJ4-dV-yK2" secondAttribute="leading" id="JtP-eg-4Rg"/>
+                            <constraint firstAttribute="trailing" secondItem="K4L-Do-of6" secondAttribute="trailing" constant="15" id="Mmi-gR-gOR"/>
+                            <constraint firstAttribute="trailing" secondItem="b8d-Ya-Owl" secondAttribute="trailing" id="uMB-bP-Ime"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="SfC-hf-Ke3"/>
+                    <connections>
+                        <outlet property="rotateDeviceImageView" destination="K4L-Do-of6" id="KRs-za-U8G"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Nm2-DF-VhS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1216" y="500"/>
+        </scene>
+        <!--Metrics Page View Controller-->
+        <scene sceneID="XQ8-KE-iKK">
+            <objects>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" pageSpacing="1" navigationOrientation="horizontal" spineLocation="none" id="snZ-P7-4ZA" customClass="MetricsPageViewController" customModule="higi" customModuleProvider="target" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2rG-Zw-4Uc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1970" y="909"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="zkH-de-Qnz">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="VN0-lX-7Cp" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="UDr-Vh-GoO">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="hVT-QU-6lV" kind="relationship" relationship="rootViewController" id="4fJ-z8-Gjx"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RH1-Vx-25X" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="404" y="500"/>
+        </scene>
+        <!--Text Collection View Controller-->
+        <scene sceneID="NiK-An-PFi">
+            <objects>
+                <collectionViewController id="1Eu-Zg-9Ma" customClass="TextCollectionViewController" customModule="higi" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" indicatorStyle="white" dataMode="prototypes" id="0eB-Cu-r1j">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="40"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="gse-Cs-Rek" customClass="SingleRowTextMenuFlowLayout" customModule="higi" customModuleProvider="target">
+                            <size key="itemSize" width="50" height="30"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells/>
+                        <connections>
+                            <outlet property="dataSource" destination="1Eu-Zg-9Ma" id="tcL-wp-eEg"/>
+                            <outlet property="delegate" destination="1Eu-Zg-9Ma" id="qxN-Rl-opA"/>
+                        </connections>
+                    </collectionView>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HvX-5s-Qxd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1970" y="217"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="metrics-rotate-device-icon" width="50" height="43"/>
+    </resources>
+</document>

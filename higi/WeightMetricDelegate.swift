@@ -129,20 +129,20 @@ class WeightMetricDelegate: MetricDelegate {
             }
             if let height = selectedWeightCheckin.heightInches {
                 let factor:Double = (height * height) / 703.0;
-                ranges.append(MetricGauge.Range(label: NSLocalizedString("WEIGHT_METRICS_WEIGHT_RANGE_UNDERWEIGHT_LABEL", comment: "Label for a weight which falls within an underweight range."), color: Utility.colorFromHexString("#fdd835"), interval: (Int(factor * 10), Int(factor * 18.5))));
-                ranges.append(MetricGauge.Range(label: NSLocalizedString("WEIGHT_METRICS_WEIGHT_RANGE_NORMAL_LABEL", comment: "Label for a weight which falls within a normal range."), color: Utility.colorFromHexString("#88c681"), interval: (Int(factor * 18.5), Int(factor * 25))));
-                ranges.append(MetricGauge.Range(label: NSLocalizedString("WEIGHT_METRICS_WEIGHT_RANGE_OVERWEIGHT_LABEL", comment: "Label for a weight which falls within an overweight range."), color: Utility.colorFromHexString("#f79a4d"), interval: (Int(factor * 25), Int(factor * 30))));
-                ranges.append(MetricGauge.Range(label: NSLocalizedString("WEIGHT_METRICS_WEIGHT_RANGE_OBESE_LABEL", comment: "Label for a weight which falls within an obese range."), color: Utility.colorFromHexString("#ef535a"), interval: (Int(factor * 30), Int(factor * 50))));
+                ranges.append(MetricGauge.Range(label: NSLocalizedString("WEIGHT_METRICS_WEIGHT_RANGE_UNDERWEIGHT_LABEL", comment: "Label for a weight which falls within an underweight range."), color: Utility.colorFromHexString("#fdd835"), interval: (factor * 10, factor * 18.5)));
+                ranges.append(MetricGauge.Range(label: NSLocalizedString("WEIGHT_METRICS_WEIGHT_RANGE_NORMAL_LABEL", comment: "Label for a weight which falls within a normal range."), color: Utility.colorFromHexString("#88c681"), interval: (factor * 18.5, factor * 25)));
+                ranges.append(MetricGauge.Range(label: NSLocalizedString("WEIGHT_METRICS_WEIGHT_RANGE_OVERWEIGHT_LABEL", comment: "Label for a weight which falls within an overweight range."), color: Utility.colorFromHexString("#f79a4d"), interval: (factor * 25, factor * 30)));
+                ranges.append(MetricGauge.Range(label: NSLocalizedString("WEIGHT_METRICS_WEIGHT_RANGE_OBESE_LABEL", comment: "Label for a weight which falls within an obese range."), color: Utility.colorFromHexString("#ef535a"), interval: (factor * 30, factor * 50)));
             }
         } else {
             let healthyLabel = NSLocalizedString("WEIGHT_METRICS_WEIGHT_RANGE_HEALTHY_LABEL", comment: "Label for a weight which falls within a healthy range.")
             let acceptableLabel = NSLocalizedString("WEIGHT_METRICS_WEIGHT_RANGE_ACCEPTABLE_LABEL", comment: "Label for a weight which falls within an acceptable range.")
             let atRiskLabel = NSLocalizedString("WEIGHT_METRICS_WEIGHT_RANGE_AT_RISK_LABEL", comment: "Label for a weight which falls within an at-risk range.")
-            if SessionData.Instance.user.gender == "m" {
+            if SessionData.Instance.user.biologicalSex == .Male {
                 ranges.append(MetricGauge.Range(label: healthyLabel, color: Utility.colorFromHexString("#88c681"), interval: (5, 18)));
                 ranges.append(MetricGauge.Range(label: acceptableLabel, color: Utility.colorFromHexString("#fdd835"), interval: (18, 25)));
                 ranges.append(MetricGauge.Range(label: atRiskLabel, color: Utility.colorFromHexString("#f79a4d"), interval: (25, 40)));
-            } else if SessionData.Instance.user.gender == "f" {
+            } else if SessionData.Instance.user.biologicalSex == .Female {
                 ranges.append(MetricGauge.Range(label: healthyLabel, color: Utility.colorFromHexString("#88c681"), interval: (10, 25)));
                 ranges.append(MetricGauge.Range(label: acceptableLabel, color: Utility.colorFromHexString("#fdd835"), interval: (25, 32)));
                 ranges.append(MetricGauge.Range(label: atRiskLabel, color: Utility.colorFromHexString("#f79a4d"), interval: (32, 45)));

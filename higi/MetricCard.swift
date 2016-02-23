@@ -45,6 +45,7 @@ class MetricCard: UIView, MetricDelegate {
         insertSubview(bgView, belowSubview: cardContainer);
         
         initFrame(frame);
+        // !!!: This method is the money path
         initGraphView();
         initHeader();
     }

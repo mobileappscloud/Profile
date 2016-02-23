@@ -165,7 +165,7 @@ class ApiUtility {
             
             HigiApi().sendGet("\(HigiApi.earnditApiUrl)/user/\(userId)/activities?limit=0&startDate=\(startDateFormatter.stringFromDate(startDate))&endDate=\(endDateFormatter.stringFromDate(endDate))", success: {operation, responseObject in
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                    var activities: [String: (Int, [HigiActivity])] = [:];
+                    var activities: [String: HigiActivitySummary] = [:];
                     let serverActivities = ((responseObject as! NSDictionary)["response"] as! NSDictionary)["data"] as! NSArray;
                     for serverActivity: AnyObject in serverActivities {
                         let activity = HigiActivity(dictionary: serverActivity as! NSDictionary);
@@ -528,5 +528,28 @@ class ApiUtility {
                 callback?();
                 
         });
+    }
+}
+
+extension ApiUtility {
+    
+    class func fetchTemporarySessionToken(userId: String, completion: (token: String?, error: NSError?) -> Void) {
+        let URLString = "\(HigiApi.higiApiUrl)/login/token?higiId=\(userId)"
+        HigiApi().sendGet(URLString, success: { (operation, responseObject) in
+            guard let responseDict = responseObject as? NSDictionary else {
+                let parseError = NSError(domain: NSStringFromClass(self), code: 99999, userInfo: [NSLocalizedDescriptionKey : "Error parsing response object."])
+                completion(token: nil, error: parseError)
+                return
+            }
+            
+            if let token = responseDict["Token"] as? String {
+                completion(token: token, error: nil)
+            } else {
+                let missingToken = NSError(domain: NSStringFromClass(self), code: 99998, userInfo: [NSLocalizedDescriptionKey : "Token missing from response object."])
+                completion(token: nil, error: missingToken)
+            }
+            }, failure: { operation, error in
+                completion(token: nil, error: error)
+        })
     }
 }

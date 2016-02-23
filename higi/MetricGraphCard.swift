@@ -48,14 +48,21 @@ class MetricsGraphCard: UIView {
     func initBlankState(type: MetricsType) {
         date.text = "";
         if (type == MetricsType.BloodPressure) {
-            firstReadingValue.text = "--";
-            firstReadingLabel.text = NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_MILLIMETERS_OF_MERCURY", comment: "General purpose abbreviated label for the units of millimeter of mercury.");
-            firstReadingSubTitle.text = NSLocalizedString("METRICS_GRAPH_CARD_MEAN_ARTERIAL_PRESSURE_SUBTITLE", comment: "Subtitle text for mean arterial pressure data shown on metrics graph card.");
-            firstReadingValue.textColor = color;
-            secondReadingValue.text = "--";
-            secondReadingLabel.text = NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_MILLIMETERS_OF_MERCURY", comment: "General purpose abbreviated label for the units of millimeter of mercury.");
-            secondReadingSubTitle.text = NSLocalizedString("METRICS_GRAPH_CARD_BLOOD_PRESSURE_SUBTITLE", comment: "Subtitle text for blood pressure data shown on metrics graph card.");
-            secondReadingValue.textColor = color;
+            firstReadingValue.hidden = true;
+            firstReadingLabel.hidden = true;
+            firstReadingSubTitle.hidden = true;
+            secondReadingValue.hidden = true;
+            secondReadingLabel.hidden = true;
+            secondReadingSubTitle.hidden = true;
+            singleValue.hidden = false;
+            singleLabel.hidden = false;
+            singleSubtitle.hidden = false;
+            
+            singleValue.text = "--";
+            singleLabel.text = NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_MILLIMETERS_OF_MERCURY", comment: "General purpose abbreviated label for the units of millimeter of mercury.");
+            singleSubtitle.text = NSLocalizedString("METRICS_GRAPH_CARD_BLOOD_PRESSURE_SUBTITLE", comment: "Subtitle text for blood pressure data shown on metrics graph card.");
+            singleValue.textColor = color;
+            
         } else if (type == MetricsType.Weight) {
             firstReadingValue.text = "--";
             firstReadingLabel.text = NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_WEIGHT_POUNDS", comment: "General purpose abbreviated label for the english units of weight measurement, pounds.");
@@ -104,19 +111,22 @@ class MetricsGraphCard: UIView {
         date.text = "\(formatter.stringFromDate(checkin.dateTime)) \(ChallengeUtility.getRankSuffix(dayFormatter.stringFromDate(checkin.dateTime)))";
         
         if (type == MetricsType.BloodPressure) {
-            if let map = checkin.map {
-                firstReadingValue.text = "\(Double(round(map * 10) / 10))";
-            } else {
-                firstReadingValue.text = "--";
-            }
-            firstReadingLabel.text = NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_MILLIMETERS_OF_MERCURY", comment: "General purpose abbreviated label for the units of millimeter of mercury.");
-            firstReadingSubTitle.text = NSLocalizedString("METRICS_GRAPH_CARD_MEAN_ARTERIAL_PRESSURE_SUBTITLE", comment: "Subtitle text for mean arterial pressure data shown on metrics graph card.");
-            firstReadingValue.textColor = color;
+            firstReadingValue.hidden = true;
+            firstReadingLabel.hidden = true;
+            firstReadingSubTitle.hidden = true;
             
-            secondReadingValue.text = checkin.systolic != nil ? "\(Int(checkin.systolic!))/\(Int(checkin.diastolic!))" : "--";
-            secondReadingLabel.text = NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_MILLIMETERS_OF_MERCURY", comment: "General purpose abbreviated label for the units of millimeter of mercury.");
-            secondReadingSubTitle.text = NSLocalizedString("METRICS_GRAPH_CARD_BLOOD_PRESSURE_SUBTITLE", comment: "Subtitle text for blood pressure data shown on metrics graph card.");
-            secondReadingValue.textColor = color;
+            secondReadingValue.hidden = true;
+            secondReadingLabel.hidden = true;
+            secondReadingSubTitle.hidden = true;
+            
+            singleValue.hidden = false;
+            singleLabel.hidden = false;
+            singleSubtitle.hidden = false;
+            
+            singleValue.text = checkin.systolic != nil ? "\(Int(checkin.systolic!))/\(Int(checkin.diastolic!))" : "--";
+            singleLabel.text = NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_MILLIMETERS_OF_MERCURY", comment: "General purpose abbreviated label for the units of millimeter of mercury.");
+            singleSubtitle.text = NSLocalizedString("METRICS_GRAPH_CARD_BLOOD_PRESSURE_SUBTITLE", comment: "Subtitle text for blood pressure data shown on metrics graph card.");
+            singleValue.textColor = color;
         } else if (type == MetricsType.Weight) {
             firstReadingValue.text = checkin.weightLbs != nil ? "\(Int(checkin.weightLbs!))" : "--";
             firstReadingLabel.text = NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_WEIGHT_POUNDS", comment: "General purpose abbreviated label for the english units of weight measurement, pounds.");
