@@ -59,9 +59,9 @@
 		<string>location</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
-	<string>Main</string>
+	<string>Loading</string>
 	<key>UIMainStoryboardFile</key>
-	<string>Main</string>
+	<string>Host</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

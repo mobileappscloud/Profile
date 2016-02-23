@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>AppUpdateURL</key>
+	<string>https://itunes.apple.com/us/app/higi/id599485135?mt=8</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -59,9 +61,9 @@
 		<string>location</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
-	<string>Main</string>
+	<string>Loading</string>
 	<key>UIMainStoryboardFile</key>
-	<string>Main</string>
+	<string>Host</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
@@ -70,7 +72,5 @@
 	<true/>
 	<key>WebUrl</key>
 	<string>https://higi.com</string>
-	<key>AppUpdateURL</key>
-	<string>https://itunes.apple.com/us/app/higi/id599485135?mt=8</string>
 </dict>
 </plist>

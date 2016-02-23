@@ -102,9 +102,8 @@ class TermsViewController: UIViewController {
         SessionController.Instance.reset();
         SessionData.Instance.reset();
         SessionData.Instance.save();
-        let splashViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SplashViewController") ;
-        (UIApplication.sharedApplication().delegate as! AppDelegate).window?.rootViewController = splashViewController;
-        
+        let hostViewController = UIStoryboard(name: "Host", bundle: nil).instantiateInitialViewController()
+        (UIApplication.sharedApplication().delegate as! AppDelegate).window?.rootViewController = hostViewController
     }
     
     func reset() {
