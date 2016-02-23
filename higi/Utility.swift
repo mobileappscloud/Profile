@@ -212,6 +212,7 @@ extension NSCharacterSet {
     class func URLQueryParameterAllowedCharacterSet() -> Self {
         return self.init(charactersInString: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._~/?")
     }
+    
 }
 
 extension String {
@@ -223,6 +224,7 @@ extension String {
         let allowedCharacters = NSCharacterSet.URLQueryParameterAllowedCharacterSet()
         return stringByAddingPercentEncodingWithAllowedCharacters(allowedCharacters)
     }
+    
 }
 
 extension Utility {
