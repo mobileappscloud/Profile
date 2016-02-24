@@ -135,6 +135,8 @@
 		41D871801C7A91BF002DCDA0 /* GraphPoint+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D8717F1C7A91BF002DCDA0 /* GraphPoint+Utility.swift */; };
 		41D871881C7CBFBB002DCDA0 /* Host.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41D871871C7CBFBB002DCDA0 /* Host.storyboard */; };
 		41D8718C1C7CBFDD002DCDA0 /* HostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D8718B1C7CBFDD002DCDA0 /* HostViewController.swift */; };
+		41D8719B1C7D16AA002DCDA0 /* TabBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41D8719A1C7D16AA002DCDA0 /* TabBar.storyboard */; };
+		41D8719D1C7D17E4002DCDA0 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D8719C1C7D17E4002DCDA0 /* TabBarController.swift */; };
 		41E6B5E41C16184200ED922B /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E6B5E31C16184200ED922B /* HealthKitManager.swift */; };
 		41E6B5E81C161FAB00ED922B /* MetricsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E6B5E71C161FAB00ED922B /* MetricsCoordinator.swift */; };
 		41E90DED1BD98494001DCC4C /* RequiredAppUpdate.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41E90DEC1BD98494001DCC4C /* RequiredAppUpdate.storyboard */; };
@@ -612,6 +614,8 @@
 		41D8717F1C7A91BF002DCDA0 /* GraphPoint+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GraphPoint+Utility.swift"; sourceTree = "<group>"; };
 		41D871871C7CBFBB002DCDA0 /* Host.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Host.storyboard; sourceTree = "<group>"; };
 		41D8718B1C7CBFDD002DCDA0 /* HostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostViewController.swift; sourceTree = "<group>"; };
+		41D8719A1C7D16AA002DCDA0 /* TabBar.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TabBar.storyboard; sourceTree = "<group>"; };
+		41D8719C1C7D17E4002DCDA0 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		41E6B5E31C16184200ED922B /* HealthKitManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
 		41E6B5E71C161FAB00ED922B /* MetricsCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricsCoordinator.swift; sourceTree = "<group>"; };
 		41E90DEC1BD98494001DCC4C /* RequiredAppUpdate.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = RequiredAppUpdate.storyboard; sourceTree = "<group>"; };
@@ -1729,6 +1733,22 @@
 			name = Host;
 			sourceTree = "<group>";
 		};
+		41D871AA1C7E515D002DCDA0 /* Main Tab Bar */ = {
+			isa = PBXGroup;
+			children = (
+				41D8719A1C7D16AA002DCDA0 /* TabBar.storyboard */,
+			);
+			name = "Main Tab Bar";
+			sourceTree = "<group>";
+		};
+		41D871AB1C7E5172002DCDA0 /* Main Tab Bar */ = {
+			isa = PBXGroup;
+			children = (
+				41D8719C1C7D17E4002DCDA0 /* TabBarController.swift */,
+			);
+			name = "Main Tab Bar";
+			sourceTree = "<group>";
+		};
 		41E90DF21BD984F4001DCC4C /* App Update */ = {
 			isa = PBXGroup;
 			children = (
@@ -1812,6 +1832,7 @@
 				8FE056DA198FDB9200C81208 /* Find Station */,
 				41D871981C7D02E8002DCDA0 /* Host */,
 				8F08AF9B198940C8002EE906 /* Login */,
+				41D871AB1C7E5172002DCDA0 /* Main Tab Bar */,
 				8F6266AD197EC8C700145EDB /* Metrics */,
 				8F2B7E33198AD8F0009DE89A /* Miscellaneous */,
 				8F2B7E44198C2DCB009DE89A /* Navigation */,
@@ -2580,6 +2601,7 @@
 				D17787221A96873500C78F8B /* activechallenges.png in Resources */,
 				8F5E7FC11999674C009067E5 /* KioskListCellView.xib in Resources */,
 				8F2B7E4E198C3058009DE89A /* oc_dashboard.png in Resources */,
+				41D8719B1C7D16AA002DCDA0 /* TabBar.storyboard in Resources */,
 				8F58D98A19C0FE5800C0EC72 /* welcome_01_logo.png in Resources */,
 				D1EEDBA31A66E4B10012EFD3 /* ChallengeLeaderboardRow.xib in Resources */,
 				41545BF91BA76CFA00946358 /* NotificationSettings.storyboard in Resources */,
@@ -2851,6 +2873,7 @@
 				41A0BE2C1BBB08B800A314D6 /* UIRefreshControl+AFNetworking.m in Sources */,
 				2BBDBA521A12AC2C005A6815 /* ChallengeRowCell.swift in Sources */,
 				8FDB4B641A096E1C00F57B38 /* HigiChallenge.swift in Sources */,
+				41D8719D1C7D17E4002DCDA0 /* TabBarController.swift in Sources */,
 				41FFE8AF1C61329F000C8DCF /* CheckinLocationView.swift in Sources */,
 				8F29630D194B8F4600E787FD /* WelcomeViewController.swift in Sources */,
 				41A0BE261BBB08B800A314D6 /* AFNetworkActivityIndicatorManager.m in Sources */,
