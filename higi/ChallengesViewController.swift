@@ -1,6 +1,6 @@
 import Foundation
 
-class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource {
+class ChallengesViewController: UIViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet var pager: UIPageControl!
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var headerImage: UIImageView!
@@ -26,14 +26,8 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     
     var universalLinkObserver: NSObjectProtocol? = nil
     
-    override func viewDidLoad() {
-        super.viewDidLoad();
-        self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
-    }
-    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
-        (self.navigationController as! MainNavigationController).drawerController?.selectRowAtIndex(1);
         
         //fix for changing orientation bug when coming back from landscape screen
         screenWidth = min(UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height);
@@ -151,44 +145,6 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         self.navigationController?.navigationBar.addSubview(pager);
         if totalPages <= 1 {
             pager.hidden = true;
-        }
-    }
-    
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        if (scrollView != self.scrollView) {
-            updateNavbar();
-        }
-    }
-    
-    func updateNavbar() {
-        if (currentTable != nil) {
-            let scrollY = currentTable.contentOffset.y;
-            if (scrollY >= 0) {
-                let alpha = min(scrollY / 75, 1);
-                self.fakeNavBar.alpha = alpha;
-                self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0 - alpha, alpha: 1.0)];
-                pager.pageIndicatorTintColor = UIColor(white: 1 - alpha, alpha: 0.2);
-                pager.currentPageIndicatorTintColor = UIColor(white: 1 - alpha, alpha: 1);
-                if (alpha < 0.5) {
-                    toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon"), forState: UIControlState.Normal);
-                    toggleButton!.alpha = 1 - alpha;
-                    pointsMeter.setLightText();
-                    self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
-                } else {
-                    toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon_inverted"), forState: UIControlState.Normal);
-                    toggleButton!.alpha = alpha;
-                    pointsMeter.setDarkText();
-                    self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
-                }
-            } else {
-                self.fakeNavBar.alpha = 0;
-                self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0, alpha: 1)];
-                self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
-                toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon"), forState: UIControlState.Normal);
-                toggleButton!.alpha = 1;
-                pager.pageIndicatorTintColor = UIColor(white: 1.0, alpha: 0.2);
-                pager.currentPageIndicatorTintColor = UIColor.whiteColor();
-            }
         }
     }
     
@@ -361,8 +317,6 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     func showDetails(forChallenge challenge: HigiChallenge) {
         let challengeDetailViewController = ChallengeDetailsViewController(nibName: "ChallengeDetailsView", bundle: nil)
         challengeDetailViewController.challenge = challenge
-        let navController = Utility.mainNavigationController()?.drawerController.navController
-        navController?.pushViewController(challengeDetailViewController, animated: true);
     }
     
     func getCurrentTable() -> UITableView? {
@@ -408,7 +362,6 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         frame.origin.x = frame.size.width * CGFloat(page);
         frame.origin.y = 0;
         scrollView.setContentOffset(frame.origin, animated: true);
-        updateNavbar();
     }
     
     func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {

@@ -14,6 +14,10 @@ final class TabBarController: UITabBarController {
         return DashboardViewController(nibName: "DashboardView", bundle: nil)
     }()
     
+    private(set) lazy var challengesViewController: ChallengesViewController = {
+        return ChallengesViewController(nibName: "ChallengesView", bundle: nil)
+    }()
+    
     // MARK: View Lifecycle
     
     override func viewDidLoad() {
@@ -21,7 +25,11 @@ final class TabBarController: UITabBarController {
         
         let homeNav = UINavigationController(rootViewController: homeViewController)
         homeNav.tabBarItem = UITabBarItem(title: "Dashboard", image: UIImage(named: "home-tab-bar-icon"), selectedImage: UIImage(named: "home-tab-bar-highlight-icon"))
-        self.viewControllers = [homeNav]
+        
+        let challengeNav = UINavigationController(rootViewController: challengesViewController)
+        challengeNav.tabBarItem = UITabBarItem(title: "Challenges", image: UIImage(named: "challenges-tab-bar-icon"), selectedImage: UIImage(named: "challenges-tab-bar-highlight-icon"))
+        
+        self.viewControllers = [homeNav, challengeNav]
         
         self.tabBar.tintColor = Theme.Color.primary
     }
