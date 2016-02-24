@@ -1,5 +1,5 @@
 //
-//  NewDashboardViewController.swift
+//  DashboardViewController.swift
 //  higi
 //
 //  Created by Dan Harms on 1/20/15.
@@ -9,8 +9,7 @@
 import Foundation
 import SafariServices
 
-class DashboardViewController: BaseViewController, UIScrollViewDelegate {
-    
+final class DashboardViewController: UIViewController, ThemeNavBar {
     
     @IBOutlet weak var challengesCardTitleLabel: UILabel! {
         didSet {
@@ -63,20 +62,28 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad();
+        
         self.title = NSLocalizedString("DASHBOARD_VIEW_TITLE", comment: "Title for Dashboard view.");
-        self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveQrCheckinNotification:", name: ApiUtility.QR_CHECKIN, object: nil);
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveApiNotification:", name: ApiUtility.ACTIVITIES, object: nil);
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveApiNotification:", name: ApiUtility.CHALLENGES, object: nil);
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveApiNotification:", name: ApiUtility.CHECKINS, object: nil);
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveApiNotification:", name: ApiUtility.PULSE, object: nil);
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveApiNotification:", name: ApiUtility.DEVICES, object: nil);
+        let notificationNames = [ApiUtility.ACTIVITIES, ApiUtility.CHALLENGES, ApiUtility.CHECKINS, ApiUtility.PULSE, ApiUtility.DEVICES]
+        for name in notificationNames {
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveApiNotification:", name: name, object: nil)
+        }
         NSNotificationCenter.defaultCenter().addObserverForName("RefreshDashboard", object: nil, queue: nil, usingBlock: { [unowned self] (notification) in
             self.refresh()
         })
+        
+        if let navController = self.navigationController {
+            configureNavBar(navController.navigationBar)
+            navController.title = self.title
+        }
+        
         createPullToRefresh();
+        
         initCards();
+        
+        self.mainScrollView.contentInset = UIEdgeInsets(top: -82.0, left: 0.0, bottom: 35.0, right: 0.0)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -84,7 +91,6 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
 
         ensureCardWidthIntegrity();
         
-        (self.navigationController as! MainNavigationController).drawerController?.selectRowAtIndex(0);
         updateNavbar();
     }
     
@@ -162,8 +168,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         qrCheckinCard.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "gotoDailySummary:"));
     }
     
-    override func receiveApiNotification(notification: NSNotification) {
-        super.receiveApiNotification(notification);
+    func receiveApiNotification(notification: NSNotification) {
         switch (notification.name) {
         case ApiUtility.ACTIVITIES:
             activitiesLoaded = true;
@@ -543,56 +548,37 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
 
     func gotoActivityGraph(sender: AnyObject) {
         Flurry.logEvent("ActivityMetric_Pressed");
-        let viewController = MetricsViewController(nibName: "MetricsView", bundle: nil);
-        viewController.selectedType = MetricsType.DailySummary;
-        self.navigationController!.pushViewController(viewController, animated: true);
     }
     
     func gotoBloodPressureGraph(sender: AnyObject) {
         Flurry.logEvent("BpMetric_Pressed");
-        let viewController = MetricsViewController(nibName: "MetricsView", bundle: nil);
-        viewController.selectedType = MetricsType.BloodPressure;
-        self.navigationController!.pushViewController(viewController, animated: true);
     }
 
     func gotoPulseGraph(sender: AnyObject) {
         Flurry.logEvent("PulseMetric_Pressed");
-        let viewController = MetricsViewController(nibName: "MetricsView", bundle: nil);
-        viewController.selectedType = MetricsType.Pulse;
-        self.navigationController!.pushViewController(viewController, animated: true);
     }
     
     func gotoWeightGraph(sender: AnyObject) {
         Flurry.logEvent("WeightMetric_Pressed");
-        let viewController = MetricsViewController(nibName: "MetricsView", bundle: nil);
-        viewController.selectedType = MetricsType.Weight;
-        self.navigationController!.pushViewController(viewController, animated: true);
     }
     
     func gotoDailySummary(sender: AnyObject) {
         Flurry.logEvent("QrCheckinCard_Pressed");
-        self.navigationController!.pushViewController(DailySummaryViewController(nibName: "DailySummaryView", bundle: nil), animated: true);
     }
     
     @IBAction func gotoConnectDevices(sender: AnyObject) {
         Flurry.logEvent("ConnectDevice_Pressed");
-        self.navigationController!.pushViewController(ConnectDeviceViewController(nibName: "ConnectDeviceView", bundle: nil), animated: true);
     }
     
     @IBAction func gotoMetrics(sender: AnyObject) {
         if (SessionController.Instance.checkins != nil && SessionController.Instance.loadedActivities) {
             Flurry.logEvent("Metrics_Pressed");
-            let metricsViewController = MetricsViewController(nibName: "MetricsView", bundle: nil);
-            self.navigationController!.pushViewController(metricsViewController, animated: true);
         }
     }
     
     @IBAction func gotoChallenges(sender: AnyObject) {
         if (SessionController.Instance.challenges != nil) {
             Flurry.logEvent("Challenges_Pressed");
-            self.navigationController!.pushViewController(ChallengesViewController(nibName: "ChallengesView", bundle: nil), animated: true);
-            (self.navigationController as! MainNavigationController).drawerController?.tableView.reloadData();
-            (self.navigationController as! MainNavigationController).drawerController?.tableView.selectRowAtIndexPath(NSIndexPath(forItem: 2, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None);
         }
     }
     
@@ -600,16 +586,10 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         Flurry.logEvent("ActiveChallenge_Pressed");
         let detailsViewController = ChallengeDetailsViewController(nibName: "ChallengeDetailsView", bundle: nil);
         detailsViewController.challenge = displayedChallenge;
-        self.navigationController!.pushViewController(detailsViewController, animated: true);
-        (self.navigationController as! MainNavigationController).drawerController?.tableView.reloadData();
-        (self.navigationController as! MainNavigationController).drawerController?.tableView.selectRowAtIndexPath(NSIndexPath(forItem: 2, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None);
     }
     
     @IBAction func gotoPulseHome(sender: AnyObject) {
         Flurry.logEvent("higiPulse_Pressed");
-        self.navigationController!.pushViewController(PulseHomeViewController(nibName: "PulseHomeView", bundle: nil), animated: true);
-        (self.navigationController as! MainNavigationController).drawerController?.tableView.reloadData();
-        (self.navigationController as! MainNavigationController).drawerController?.tableView.selectRowAtIndexPath(NSIndexPath(forItem: 5, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None);
     }
     
     @IBAction func gotoPulseArticle(sender: AnyObject) {
@@ -629,9 +609,6 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
             let webViewController = WebViewController(nibName: "WebView", bundle: nil)
             webViewController.url = URLString
             self.navigationController?.pushViewController(webViewController, animated: true);
-            
-            (self.navigationController as! MainNavigationController).drawerController?.tableView.reloadData();
-            (self.navigationController as! MainNavigationController).drawerController?.tableView.selectRowAtIndexPath(NSIndexPath(forItem: 4, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None);
         }
     }
     
@@ -641,39 +618,17 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         layoutDashboardItems(false);
     }
     
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        updateNavbar();
-    }
-    
     func updateNavbar() {
         let scrollY = mainScrollView.contentOffset.y;
         if (scrollY >= 0) {
-            headerImage.frame.origin.y = -scrollY / 2;
-            let alpha = min(scrollY / 100, 1);
-            self.fakeNavBar.alpha = alpha;
             CATransaction.setDisableActions(true);
             refreshArc.strokeStart = 0.0;
             refreshArc.strokeEnd = 0.0;
             CATransaction.setDisableActions(false);
-            self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0 - alpha, alpha: 1.0)];
-            if (alpha < 0.5) {
-                toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon"), forState: UIControlState.Normal);
-                self.navigationItem.rightBarButtonItem!.customView!.alpha = 1 - alpha;
-                toggleButton!.alpha = 1 - alpha;
-                pointsMeter.setLightText();
-                self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
-            } else {
-                toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon_inverted"), forState: UIControlState.Normal);
-                self.navigationItem.rightBarButtonItem!.customView!.alpha = alpha;
-                toggleButton!.alpha = alpha;
-                pointsMeter.setDarkText();
-                self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
-            }
-        } else {    // Pull refresh
-            headerImage.frame.origin.y = 0;
-            self.fakeNavBar.alpha = 0;
-            self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0, alpha: 0)];
-            let alpha = max(1.0 + scrollY / (mainScrollView.frame.size.height * 0.195), 0.0);
+        } else {
+            // Pull to refresh
+//            let alpha = max(1.0 + scrollY / (mainScrollView.frame.size.height * 0.195), 0.0);
+            let alpha = max(1.0 + scrollY / 100.0, 0.0);
             if (!refreshControl.refreshing && doneRefreshing) {
                 pullRefreshView.icon.alpha = 1.0 - alpha;
                 pullRefreshView.circleContainer.alpha = 1.0 - alpha;
@@ -729,7 +684,6 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
         activitiesLoaded = false;
         metricsLoaded = false;
         metricsRefreshed = false;
-        self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0, alpha: 0.0)];
         pullRefreshView.icon.alpha = 1.0;
         pullRefreshView.circleContainer.alpha = 1.0;
         CATransaction.begin();
@@ -874,5 +828,31 @@ extension DashboardViewController {
         let connectAction = UIAlertAction(title: acknowledgeActionTitle, style: .Default, handler: nil)
         alert.addAction(connectAction)
         return alert
+    }
+}
+
+// MARK: - Scroll View Delegate
+
+extension DashboardViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        updateNavbar()
+    }
+}
+
+// MARK: - Interface Orientation
+
+extension DashboardViewController {
+
+    override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
+        return .Portrait
+    }
+    
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return .Portrait
+    }
+    
+    override func shouldAutorotate() -> Bool {
+        return false
     }
 }
