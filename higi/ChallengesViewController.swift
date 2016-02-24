@@ -1,6 +1,7 @@
 import Foundation
 
-class ChallengesViewController: UIViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource {
+class ChallengesViewController: UIViewController, ThemeNavBar, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource {
+    
     @IBOutlet var pager: UIPageControl!
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var headerImage: UIImageView!
@@ -25,6 +26,14 @@ class ChallengesViewController: UIViewController, UIScrollViewDelegate, UIGestur
     var clickedChallenge: HigiChallenge?;
     
     var universalLinkObserver: NSObjectProtocol? = nil
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        if let navController = self.navigationController {
+            configureNavBar(navController.navigationBar)
+        }
+    }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
