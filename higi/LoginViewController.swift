@@ -119,6 +119,20 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                             nameViewController.dashboardNext = true;
                             self.presentViewController(nameViewController, animated: true, completion: nil);
                         } else {
+                            if HealthKitManager.deviceHasMotionProcessor() && HealthKitManager.isHealthDataAvailable() {
+                                HealthKitManager.requestReadAccessToStepData( { (didRespond, error) in
+                                    if didRespond {
+                                        HealthKitManager.checkReadAuthorizationForStepData({ (isAuthorized) in
+                                            if isAuthorized {
+                                                HealthKitManager.enableBackgroundUpdates()
+                                            } else {
+                                                HealthKitManager.disableBackgroundUpdates()
+                                            }
+                                        })
+                                    }
+                                })
+                            }
+                            
                             self.gotoDashboard()
                             NSNotificationCenter.defaultCenter().postNotificationName("SplashViewControllerDidGoToDashboard", object: nil)
                         }
