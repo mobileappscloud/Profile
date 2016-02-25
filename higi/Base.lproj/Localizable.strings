@@ -49,6 +49,12 @@
 /* Title for blood pressure within a normal range. */
 "BLOOD_PRESSURE_RANGE_NORMAL_TITLE" = "Normal";
 
+/* Text to display on the body fat metrics view if there are no body fat readings to display. */
+"BODY_FAT_METRICS_VIEW_BLANK_STATE_TEXT" = "Welcome! Sadly, you don’t have any body fat readings with us yet. Luckily, we make tracking your body fat simple, just click below to find a nearby higi Station or connect your favorite smart scale.";
+
+/* Text to display on the body mass index metrics view if there are no BMI readings to display. */
+"BODY_MASS_INDEX_METRICS_VIEW_BLANK_STATE_TEXT" = "Welcome! It looks like you don’t have any BMI readings with us. We make tracking your BMI easy, just click below to find a nearby higi Station or connect your favorite smart scale.";
+
 /* Description for branded activity tracker which leverages HealthKit data. */
 "BRANDED_ACTIVITY_DEVICE_DESCRIPTION" = "Track your steps without a separate fitness device. The higi app now includes an activity tracker. Simply keep your phone with you and get rewarded for all your steps throughout the day.";
 
@@ -642,9 +648,6 @@
 
 /* Subtitle text for body fat data shown on metrics graph card. */
 "METRICS_GRAPH_CARD_BODY_FAT_SUBTITLE" = "Body Fat";
-
-/* Subtitle text for mean arterial pressure data shown on metrics graph card. */
-"METRICS_GRAPH_CARD_MEAN_ARTERIAL_PRESSURE_SUBTITLE" = "Mean Arterial Pressure";
 
 /* Subtitle text for body weight data shown on metrics graph card. */
 "METRICS_GRAPH_CARD_WEIGHT_SUBTITLE" = "Weight";
