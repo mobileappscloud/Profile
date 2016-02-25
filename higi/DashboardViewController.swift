@@ -577,7 +577,7 @@ final class DashboardViewController: UIViewController, ThemeNavBar {
     }
     
     @IBAction func gotoChallenges(sender: AnyObject) {
-        if (SessionController.Instance.challenges != nil) {
+        if (SessionController.Instance.challenges != nil && SessionController.Instance.loadedChallenges) {
             Flurry.logEvent("Challenges_Pressed");
         }
     }
