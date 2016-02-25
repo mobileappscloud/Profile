@@ -23,6 +23,10 @@ final class TabBarController: UITabBarController {
         return navController.topViewController as! NewMetricsViewController
     }()
     
+    private(set) lazy var findStationViewController: FindStationViewController = {
+       return FindStationViewController(nibName: "FindStationView", bundle: nil)
+    }()
+    
     // MARK: View Lifecycle
     
     override func viewDidLoad() {
@@ -37,7 +41,10 @@ final class TabBarController: UITabBarController {
         let metricsNav = metricsViewController.navigationController!
         metricsNav.tabBarItem = UITabBarItem(title: "Metrics", image: UIImage(named: "metrics-tab-bar-icon"), selectedImage: UIImage(named: "metrics-tab-bar-highlight-icon"))
         
-        self.viewControllers = [homeNav, challengeNav, metricsNav]
+        let findStationNav = UINavigationController(rootViewController: findStationViewController)
+        findStationNav.tabBarItem = UITabBarItem(title: "Find Station", image: UIImage(named: "station-tab-bar-icon"), selectedImage: UIImage(named: "station-tab-bar-highlight-icon"))
+        
+        self.viewControllers = [homeNav, challengeNav, metricsNav, findStationNav]
         
         self.tabBar.tintColor = Theme.Color.primary
     }

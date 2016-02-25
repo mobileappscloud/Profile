@@ -10,7 +10,7 @@ import Foundation
 import EventKitUI
 import MapKit
 
-class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITableViewDataSource, UITableViewDelegate, EKEventEditViewDelegate, UINavigationControllerDelegate, UITextFieldDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate, ClusterManagerDelegate {
+class FindStationViewController: UIViewController, ThemeNavBar, GMSMapViewDelegate, UITableViewDataSource, UITableViewDelegate, EKEventEditViewDelegate, UINavigationControllerDelegate, UITextFieldDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate, ClusterManagerDelegate {
     
     @IBOutlet weak var mapContainer: UIView!
     
@@ -110,17 +110,13 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     
     override func viewDidLoad()  {
         super.viewDidLoad();
-        self.fakeNavBar.alpha = 1.0;
-        self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
-        (self.navigationItem.leftBarButtonItem!.customView! as! UIButton).setBackgroundImage(UIImage(named: "nav_ocmicon_inverted"), forState: UIControlState.Normal);
+        
         listButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30));
         listButton.setBackgroundImage(UIImage(named: "map_listviewicon"), forState: UIControlState.Normal);
         listButton.addTarget(self, action: "toggleList:", forControlEvents: UIControlEvents.TouchUpInside);
         let listBarItem = UIBarButtonItem();
         listBarItem.customView = listButton;
         self.navigationItem.rightBarButtonItem = listBarItem;
-        self.revealController.panGestureRecognizer().enabled = false;
-        self.shouldShowDailyPoints = false;
         
         searchField = UITextField(frame: CGRect(x: 0, y: 0, width: 95, height: 40));
         searchField.font = UIFont.systemFontOfSize(12);
@@ -135,7 +131,6 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
-        (self.navigationController as! MainNavigationController).drawerController?.selectRowAtIndex(3);
 
         mapContainer.frame = CGRect(x: 64, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height - 64);
         
@@ -220,7 +215,7 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         }
     }
     
-    override func receiveApiNotification(notification: NSNotification) {
+    func receiveApiNotification(notification: NSNotification) {
         populateClusterManager();
         clusterManager.cluster();
         updateKioskPositions();
@@ -612,7 +607,6 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     
     @IBAction func startReminder(sender: AnyObject) {
         reminderOverlay.hidden = true;
-        self.fakeNavBar.alpha = 1;
         self.navigationController!.navigationBarHidden = false;
         populateClusterManager();
     }
@@ -696,10 +690,6 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder();
         return true;
-    }
-    
-    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return gestureRecognizer != self.revealController.panGestureRecognizer() && otherGestureRecognizer != self.revealController.panGestureRecognizer();
     }
     
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
