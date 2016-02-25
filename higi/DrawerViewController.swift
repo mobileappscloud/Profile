@@ -59,7 +59,7 @@ class DrawerViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }));
         navigationObjects.append(NavigationObject(title: challengesTitle, icon: "oc_challenges.png", activeIcon: "oc_challenges_active", callback: {
             (index: NSIndexPath) in
-            if (SessionController.Instance.challenges == nil) {
+            if (SessionController.Instance.challenges == nil || !SessionController.Instance.loadedChallenges) {
                 self.tableView.deselectRowAtIndexPath(index, animated: false);
                 return;
             }
