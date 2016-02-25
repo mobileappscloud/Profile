@@ -199,15 +199,21 @@ extension MetricChildViewController {
     
     private func showBlankStateView() {
         var text: String? = nil
-        if self.type == .DailySummary {
+        switch self.type! {
+        case .DailySummary:
             text = NSLocalizedString("ACTIVITY_METRICS_VIEW_BLANK_STATE_TEXT", comment: "Text to display if a user does not have any higi points.")
-        } else if self.type == .BloodPressure {
+        case .BloodPressure:
             text = NSLocalizedString("BLOOD_PRESSURE_METRICS_VIEW_BLANK_STATE_TEXT", comment: "Text to display on blood pressure metrics view when there is no blood pressure data to display.")
-        } else if self.type == .Pulse {
+        case .Pulse:
             text = NSLocalizedString("PULSE_METRICS_VIEW_BLANK_STATE_TEXT", comment: "Text to display on pulse metrics view if there is no pulse data to display.")
-        } else if self.type == .Weight {
+        case .Weight:
             text = NSLocalizedString("WEIGHT_METRICS_VIEW_BLANK_STATE_TEXT", comment: "Text to display on the weight metrics view if there are no weight readings to display.")
+        case .BodyMassIndex:
+            text = NSLocalizedString("BODY_MASS_INDEX_METRICS_VIEW_BLANK_STATE_TEXT", comment: "Text to display on the body mass index metrics view if there are no BMI readings to display.")
+        case .BodyFat:
+            text = NSLocalizedString("BODY_FAT_METRICS_VIEW_BLANK_STATE_TEXT", comment: "Text to display on the body fat metrics view if there are no body fat readings to display.")
         }
+        
         self.blankStateViewController.configure(text,
             firstActionHandler: {
                 self.navigateToStationFinder()
