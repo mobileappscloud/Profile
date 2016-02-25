@@ -29,6 +29,7 @@ class SessionController {
     var devices: [String: ActivityDevice] = [:];
     
     var earnditError = false, askTouchId = true, loadedActivities = false, showQrCheckinCard = false;
+    var loadedChallenges = false
     
     func reset() {
         checkins = nil;
@@ -36,6 +37,7 @@ class SessionController {
         challenges = nil;
         devices = [:];
         SessionController.Instance.loadedActivities = false;
+        SessionController.Instance.loadedChallenges = false
         showQrCheckinCard = false;
     }
 }

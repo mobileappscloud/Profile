@@ -212,6 +212,7 @@ class ApiUtility {
         let userId = SessionData.Instance.user.userId;
         HigiApi().sendGet("\(HigiApi.earnditApiUrl)/user/\(userId)/challenges?&include[gravityboard]=3&include[participants]=50&include[comments]=50&include[teams.comments]=50", success: {operation, responseObject in
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                    SessionController.Instance.loadedChallenges = true
                     var challenges: [HigiChallenge] = [];
                     let serverChallenges = ((responseObject as! NSDictionary)["response"] as! NSDictionary)["data"] as! NSArray;
                     for challenge: AnyObject in serverChallenges {
@@ -263,6 +264,7 @@ class ApiUtility {
                 });
             }, failure: { operation, error in
                 SessionController.Instance.earnditError = true;
+                SessionController.Instance.loadedChallenges = true
                 if (SessionController.Instance.challenges == nil) {
                     SessionController.Instance.challenges = [];
                 }

@@ -588,7 +588,7 @@ class DashboardViewController: BaseViewController, UIScrollViewDelegate {
     }
     
     @IBAction func gotoChallenges(sender: AnyObject) {
-        if (SessionController.Instance.challenges != nil) {
+        if (SessionController.Instance.challenges != nil && SessionController.Instance.loadedChallenges) {
             Flurry.logEvent("Challenges_Pressed");
             self.navigationController!.pushViewController(ChallengesViewController(nibName: "ChallengesView", bundle: nil), animated: true);
             (self.navigationController as! MainNavigationController).drawerController?.tableView.reloadData();
