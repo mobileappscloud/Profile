@@ -99,11 +99,12 @@ class BpMetricDelegate: MetricDelegate {
             for i in 0...BpRanges.systolicRanges.count - 1 {
                 let systolicRange = BpRanges.systolicRanges[i];
                 let diastolicRange = BpRanges.diastolicRanges[i];
-                let containsSystolic = systolicRange.contains(systolic);
-                let containsDiastolic = diastolicRange.contains(diastolic);
+                let containsSystolic = systolicRange.contains(Double(systolic));
+                let containsDiastolic = diastolicRange.contains(Double(diastolic));
                 if (containsSystolic && containsDiastolic) {
-                    if ((systolic - systolicRange.lowerBound) / (systolicRange.upperBound - systolicRange.lowerBound) >
-                        (diastolic - diastolicRange.lowerBound) / (diastolicRange.upperBound - diastolicRange.lowerBound)) {
+                    let value1 = (Double(systolic) - systolicRange.lowerBound) / (systolicRange.upperBound - systolicRange.lowerBound)
+                    let value2 = (Double(diastolic) - diastolicRange.lowerBound) / (diastolicRange.upperBound - diastolicRange.lowerBound)
+                    if (value1 > value2) {
                             ranges = BpRanges.systolicRanges;
                     } else {
                         ranges = BpRanges.diastolicRanges;
@@ -185,11 +186,12 @@ class BpMetricDelegate: MetricDelegate {
         for i in 0...BpRanges.systolicRanges.count - 1 {
             let systolicRange = BpRanges.systolicRanges[i];
             let diastolicRange = BpRanges.diastolicRanges[i];
-            let containsSystolic = systolicRange.contains(systolic);
-            let containsDiastolic = diastolicRange.contains(diastolic);
+            let containsSystolic = systolicRange.contains(Double(systolic));
+            let containsDiastolic = diastolicRange.contains(Double(diastolic));
             if (containsSystolic && containsDiastolic) {
-                if ((systolic - systolicRange.lowerBound) / (systolicRange.upperBound - systolicRange.lowerBound) >
-                    (diastolic - diastolicRange.lowerBound) / (diastolicRange.upperBound - diastolicRange.lowerBound)) {
+                let value1 = (Double(systolic) - systolicRange.lowerBound) / (systolicRange.upperBound - systolicRange.lowerBound)
+                let value2 = (Double(diastolic) - diastolicRange.lowerBound) / (diastolicRange.upperBound - diastolicRange.lowerBound)
+                if (value1 > value2) {
                         isSystolic = true;
                 } else {
                     isSystolic = false;

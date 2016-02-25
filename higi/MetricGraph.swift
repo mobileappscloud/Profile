@@ -1,18 +1,25 @@
 import Foundation
 
-class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDataSource, CPTPlotSpaceDelegate {
+class MetricGraph: CPTGraphHostingView {
     
-    var points: [GraphPoint], altPoints: [GraphPoint] = [];
+    var points: [GraphPoint] = []
+    var altPoints: [GraphPoint] = []
     
-    var plot, altPlot: HIGIScatterPlot!;
+    var plot: HIGIScatterPlot!
+    var altPlot: HIGIScatterPlot!
     
-    var plotSymbol, selectedPlotSymbol, selectedAltPlotSymbol, unselectedAltPlotSymbol:CPTPlotSymbol!;
+    var plotSymbol: CPTPlotSymbol!
+    var selectedPlotSymbol: CPTPlotSymbol!
+    var selectedAltPlotSymbol: CPTPlotSymbol!
+    var unselectedAltPlotSymbol: CPTPlotSymbol!
     
-    var lastSelectedAltPlotIndex = -1, selectedPointIndex = -1;
+    var selectedPointIndex = -1
     
-    var graph: CPTXYGraph!;
+    var graph: CPTXYGraph!
     
     var shouldShowAltSymbol = false;
+    
+    // MARK: - Initializers
     
     init(frame: CGRect, points: [GraphPoint]) {
         self.points = points;
@@ -29,14 +36,13 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         fatalError("NSCoding not supported");
     }
     
-    func setup(frame: CGRect, points: [GraphPoint]) {
-        self.points = points;
-        self.frame = frame;
-    }
+    // MARK: - Setup
     
     func setupForDashboard(type: MetricsType) {
         let color = type.getColor();
+        
         var maxY = 0.0, minY = DBL_MAX, maxX = 0.0, minX = DBL_MAX;
+        
         graph = CPTXYGraph(frame: self.bounds);
         self.hostedGraph = graph;
         graph.paddingLeft = 0;
@@ -63,8 +69,10 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
             minX = 0;
             minY = 0;
         }
+        
         let yRange = maxY - minY > 1 ? maxY - minY : 1;
         let xRange = maxX - minX > 1 ? maxX - minX : 1;
+        
         let plotSpace = graph.defaultPlotSpace as! CPTXYPlotSpace;
         plotSpace.xRange = CPTPlotRange(location_: max(round(minX) - xRange * 0.05, 0), length: xRange * 1.05);
         plotSpace.yRange = CPTPlotRange(location_: round(minY) - yRange * 0.25, length: yRange * 1.5);
@@ -311,6 +319,8 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         checkinSelected(plot, idx: 0, first: true);
     }
     
+    // MARK: - Helper
+    
     func roundToLowest(var number: Double, roundTo: Double) -> Double {
         if number < 0 {
             number -= roundTo;
@@ -322,28 +332,7 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         return roundTo * Double(Int(ceil(number / roundTo)));
     }
     
-    func numberOfRecordsForPlot(plot: CPTPlot!) -> UInt {
-        if (plot.isEqual(self.plot)) {
-            return UInt(points.count);
-        } else {
-            return UInt(altPoints.count);
-        }
-    }
-
-    func numberForPlot(plot: CPTPlot!, field fieldEnum: UInt, recordIndex idx: UInt) -> NSNumber! {
-        var point:GraphPoint;
-        if (plot.isEqual(self.plot)) {
-            point = points[Int(idx)];
-        } else {
-            point = altPoints[Int(idx)];
-        }
-        if (fieldEnum == 0) {
-            return NSNumber(double: point.x);
-        } else {
-            return NSNumber(double: point.y);
-        }
-    }
-    
+    // TODO: Eliminate from Public API, if not completely remove
     func symbolFromXValue(xValue: Double) {
         var minDifference = DBL_MAX;
         var i = 0;
@@ -358,15 +347,20 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         self.plot.reloadData();
     }
     
-    func scatterPlot(plot: CPTScatterPlot!, plotSymbolWasSelectedAtRecordIndex idx: UInt) {
-        checkinSelected(plot, idx: Int(idx), first: false);
+    func getScreenPoint(xPoint: CGFloat, yPoint: CGFloat)-> CGPoint {
+        let xRange = (self.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace).xRange;
+        let yRange = (self.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace).yRange;
+        let frame = graph.frame;
+        let x = ((xPoint - CGFloat(xRange.locationDouble)) / CGFloat(xRange.lengthDouble)) * frame.size.width;
+        let y = (1.0 - ((yPoint - CGFloat(yRange.locationDouble)) / CGFloat(yRange.lengthDouble))) * (frame.size.height - 20);
+        return CGPoint(x: x, y: y);
     }
     
     func checkinSelected(plot: CPTScatterPlot!, idx: Int, first: Bool) {
         if (idx < 0) {
             return;
         }
-                
+        
         var point:GraphPoint!;
         if (plot.isEqual(self.plot)) {
             selectedPointIndex = idx;
@@ -388,15 +382,39 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
         }
     }
     
-    func getScreenPoint(xPoint: CGFloat, yPoint: CGFloat)-> CGPoint {
-        let xRange = (self.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace).xRange;
-        let yRange = (self.hostedGraph.defaultPlotSpace as! CPTXYPlotSpace).yRange;
-        let frame = graph.frame;
-        let x = ((xPoint - CGFloat(xRange.locationDouble)) / CGFloat(xRange.lengthDouble)) * frame.size.width;
-        let y = (1.0 - ((yPoint - CGFloat(yRange.locationDouble)) / CGFloat(yRange.lengthDouble))) * (frame.size.height - 20);
-        return CGPoint(x: x, y: y);
+//    func selectPlotFromPoint(point: CGPoint) {
+//        let index = Int(plot.dataIndexFromInteractionPoint(point));
+//        checkinSelected(plot as CPTScatterPlot!, idx: index, first: false);
+//    }
+}
+
+extension MetricGraph {
+    
+    func numberOfRecordsForPlot(plot: CPTPlot!) -> UInt {
+        if (plot.isEqual(self.plot)) {
+            return UInt(points.count);
+        } else {
+            return UInt(altPoints.count);
+        }
     }
     
+    func numberForPlot(plot: CPTPlot!, field fieldEnum: UInt, recordIndex idx: UInt) -> NSNumber! {
+        var point:GraphPoint;
+        if (plot.isEqual(self.plot)) {
+            point = points[Int(idx)];
+        } else {
+            point = altPoints[Int(idx)];
+        }
+        if (fieldEnum == 0) {
+            return NSNumber(double: point.x);
+        } else {
+            return NSNumber(double: point.y);
+        }
+    }
+}
+
+extension MetricGraph: CPTScatterPlotDataSource {
+
     func symbolForScatterPlot(plot: CPTScatterPlot!, recordIndex idx: UInt) -> CPTPlotSymbol! {
         if (plot.isEqual(self.plot)) {
             if selectedPointIndex == Int(idx) {
@@ -421,16 +439,21 @@ class MetricGraph: CPTGraphHostingView, CPTScatterPlotDelegate, CPTScatterPlotDa
             return unselectedAltPlotSymbol;
         }
     }
+}
+
+extension MetricGraph: CPTScatterPlotDelegate {
+    
+    func scatterPlot(plot: CPTScatterPlot!, plotSymbolWasSelectedAtRecordIndex idx: UInt) {
+        checkinSelected(plot, idx: Int(idx), first: false);
+    }
+}
+
+extension MetricGraph: CPTPlotSpaceDelegate {
     
     func plotSpace(space: CPTPlotSpace!, willChangePlotRangeTo newRange: CPTPlotRange!, forCoordinate coordinate: CPTCoordinate) -> CPTPlotRange! {
         if (coordinate.rawValue == 1) {
             return (space as! CPTXYPlotSpace).yRange;
         }
         return newRange;
-    }
-    
-    func selectPlotFromPoint(point: CGPoint) {
-        let index = Int(plot.dataIndexFromInteractionPoint(point));
-        checkinSelected(plot as CPTScatterPlot!, idx: index, first: false);
     }
 }

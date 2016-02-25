@@ -8,6 +8,8 @@
 
 import Foundation
 
+typealias HigiActivitySummary = (totalPoints: Int, activities: [HigiActivity])
+
 class SessionController {
     
     class var Instance: SessionController {
@@ -16,7 +18,7 @@ class SessionController {
     
     var checkins: [HigiCheckin]! = [];
     
-    var activities: [String: (Int, [HigiActivity])] = [:];
+    var activities: [String : HigiActivitySummary] = [:];
     
     var challenges: [HigiChallenge]! = [];
     

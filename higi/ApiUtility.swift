@@ -165,7 +165,7 @@ class ApiUtility {
             
             HigiApi().sendGet("\(HigiApi.earnditApiUrl)/user/\(userId)/activities?limit=0&startDate=\(startDateFormatter.stringFromDate(startDate))&endDate=\(endDateFormatter.stringFromDate(endDate))", success: {operation, responseObject in
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                    var activities: [String: (Int, [HigiActivity])] = [:];
+                    var activities: [String: HigiActivitySummary] = [:];
                     let serverActivities = ((responseObject as! NSDictionary)["response"] as! NSDictionary)["data"] as! NSArray;
                     for serverActivity: AnyObject in serverActivities {
                         let activity = HigiActivity(dictionary: serverActivity as! NSDictionary);

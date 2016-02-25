@@ -3,10 +3,14 @@ enum MetricsType {
     case BloodPressure
     case Pulse
     case Weight
+    case BodyMassIndex
+    case BodyFat
     
     //@todo seems like it would take some work to be able to iterate
     //over enum, this will have to do for now
-    static let allValues = [DailySummary, BloodPressure, Pulse, Weight]
+    static let allValues = [DailySummary, BloodPressure, Pulse, Weight, BodyMassIndex, BodyFat]
+    
+    static let allOldValues = [DailySummary, BloodPressure, Pulse, Weight]
     
     func getColor() -> UIColor {
         switch self {

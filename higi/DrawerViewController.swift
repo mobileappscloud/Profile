@@ -72,7 +72,13 @@ class DrawerViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
             Flurry.logEvent("MetricsOffCanvas_Pressed");
             self.tableView.deselectRowAtIndexPath(index, animated: false);
-            self.navController?.pushViewController(MetricsViewController(), animated: true);
+//            self.navController?.pushViewController(MetricsViewController(), animated: true);
+            
+            let metricsViewController = UIStoryboard(name: "Metrics", bundle: nil).instantiateInitialViewController()!
+            self.navController?.presentViewController(metricsViewController, animated: true, completion: nil)
+
+//            let metricsViewController = UIStoryboard(name: "MetricsPage", bundle: nil).instantiateInitialViewController()!
+//            self.navController?.pushViewController(metricsViewController, animated: true);
         }));
         navigationObjects.append(NavigationObject(title: stationLocatorTitle, icon: "oc_findastation.png", activeIcon: "oc_findastation_active.png", callback: { (index: NSIndexPath) in
             Flurry.logEvent("FindStationOffCanvas_Pressed");

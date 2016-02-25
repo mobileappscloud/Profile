@@ -226,3 +226,73 @@ extension String {
     }
     
 }
+
+extension Utility {
+    
+    static var mediumStyleDateFormatter: NSDateFormatter = {
+        let formatter = NSDateFormatter()
+        formatter.dateStyle = .MediumStyle
+        return formatter
+    }()
+}
+
+extension UITableView {
+    /**
+     Gets a collection of all table view cell's which are completely visible without obstruction.
+     
+     - returns: Array of table view cells which are completely visible without obstruction.
+     */
+    func fullyVisibleCells() -> [UITableViewCell] {
+        var fullyVisibleCells: [UITableViewCell] = self.visibleCells
+        if !fullyVisibleCells.isEmpty && !self.isFullyVisible(fullyVisibleCells.first) {
+            fullyVisibleCells.removeFirst()
+        }
+        if !fullyVisibleCells.isEmpty && !self.isFullyVisible(fullyVisibleCells.last) {
+            fullyVisibleCells.removeLast()
+        }
+        return fullyVisibleCells
+    }
+    
+    /**
+     Determines if a table view cell is fully visible within a table view's bounds. Said another way, this method determines if a cell's frame is fully contained within a table view's bounds.
+     
+     **Note:** This method does not take external factors into account when determining cell visisbility. This method does not gaurantee that the cell is visible on screen. For example, if a subview is covering the table view or if the table view is hidden, the cell may not be visible.
+     
+     - parameter cell: Table view cell to evaluate.
+     
+     - returns: `true` if the cell's frame is contained completely within the table view's bounds.
+     */
+    func isFullyVisible(cell: UITableViewCell?) -> Bool {
+        guard let cell = cell else { return false }
+        guard let superview = self.superview else { return false }
+        guard let indexPath = self.indexPathForCell(cell) else { return false }
+        
+        let cellRect = self.rectForRowAtIndexPath(indexPath)
+        let convertedCellRect = self.convertRect(cellRect, toView: superview)
+        return CGRectContainsRect(self.frame, convertedCellRect)
+    }
+}
+
+extension UIView {
+    
+    func addSubview(subview: UIView, pinToEdges: Bool) {
+        self.addSubview(subview)
+        subview.translatesAutoresizingMaskIntoConstraints = false
+        self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[subview]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["subview" : subview]))
+        self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[subview]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["subview" : subview]))
+    }
+}
+
+extension Utility {
+    
+    class func roundToLowest(var number: Double, roundTo: Double) -> Double {
+        if number < 0 {
+            number -= roundTo
+        }
+        return Double(Int(number / roundTo) * Int(roundTo))
+    }
+    
+    class func roundToHighest(number: Double, roundTo: Double) -> Double {
+        return roundTo * Double(Int(ceil(number / roundTo)))
+    }
+}

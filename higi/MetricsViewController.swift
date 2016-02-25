@@ -2,7 +2,7 @@ import Foundation
 
 class MetricsViewController: UIViewController {
     
-    var selectedType = MetricsType.allValues[0];
+    var selectedType = MetricsType.allOldValues[0];
     
     let cardMargin = 46;
     
@@ -104,7 +104,7 @@ class MetricsViewController: UIViewController {
             let checkinTime = checkin.dateTime.timeIntervalSince1970;
             let checkinDate = checkinTime - (checkinTime % 86400);
             if (checkin.map != nil && checkinDate != lastBpDate) {
-                bpPoints.append(GraphPoint(x: checkinTime, y: checkin.map));
+                bpPoints.append(GraphPoint(x: checkinTime, y: checkin.map!));
                 if let diastolic = checkin.diastolic {
                     bpAltPoints.append(GraphPoint(x: checkinTime, y: Double(diastolic)));
                     bpAltPoints.append(GraphPoint(x: checkinTime, y: Double(checkin.systolic!)));
@@ -119,18 +119,20 @@ class MetricsViewController: UIViewController {
                 lastPulseDate = checkinDate;
             }
             if (checkin.weightLbs != nil && checkinDate != lastWeightDate) {
-                weightPoints.append(GraphPoint(x: checkinTime, y: checkin.weightLbs));
+                weightPoints.append(GraphPoint(x: checkinTime, y: checkin.weightLbs!));
                 fatAltPoints.append(GraphPoint(x: checkinTime, y: 10 + (checkin.weightLbs! / heaviest) * fattest * normalizeFactor));
                 lastWeightDate = checkinDate;
             }
             if (checkin.fatRatio != nil && checkinDate != lastFatDate) {
-                fatPoints.append(GraphPoint(x: checkinTime, y: checkin.fatRatio));
+                fatPoints.append(GraphPoint(x: checkinTime, y: checkin.fatRatio!));
                 lastFatDate = checkinDate;
             }
         }
         var activityPoints:[GraphPoint] = [];
-        for (date, (total, activityList)) in SessionController.Instance.activities {
-            if (activityList.count > 0) {
+        for (date, activitySummary) in SessionController.Instance.activities {
+            let activities = activitySummary.activities
+            let total = activitySummary.totalPoints
+            if (activities.count > 0) {
                 let activityDate = Double(Constants.dateFormatter.dateFromString(date)!.timeIntervalSince1970);
                 activityPoints.append(GraphPoint(x: activityDate, y: Double(total)));
             }
@@ -139,10 +141,10 @@ class MetricsViewController: UIViewController {
         for subView in self.view.subviews {
             subView.removeFromSuperview();
         }
-        var pos = MetricsType.allValues.count - 1;
+        var pos = MetricsType.allOldValues.count - 1;
         var card: MetricCard?;
-        for type in Array(MetricsType.allValues.reverse()) {
-            let cardFrame = CGRect(x: 0, y: 0, width: screenWidth - CGFloat((MetricsType.allValues.count - 1 - pos) * cardMargin), height: detailsCardPosY - 1);
+        for type in Array(MetricsType.allOldValues.reverse()) {
+            let cardFrame = CGRect(x: 0, y: 0, width: screenWidth - CGFloat((MetricsType.allOldValues.count - 1 - pos) * cardMargin), height: detailsCardPosY - 1);
             switch(type) {
             case MetricsType.DailySummary:
                 card = MetricCard.instanceFromNib(ActivityMetricDelegate(), frame: cardFrame, points: activityPoints, altPoints: []);
@@ -162,6 +164,11 @@ class MetricsViewController: UIViewController {
                     }
                     card!.graphContainer.addSubview(secondaryGraph);
                 }
+                
+            case MetricsType.BodyMassIndex:
+                fallthrough
+            case MetricsType.BodyFat:
+                break
             }
             if (type == selectedType) {
                 selectedCardPosition = pos;
@@ -193,7 +200,7 @@ class MetricsViewController: UIViewController {
             }
             detailsCard.headerContainer.alpha = 0.5;
             let subViews = self.view.subviews;
-            let count = MetricsType.allValues.count;
+            let count = MetricsType.allOldValues.count;
             let distance = count - index;
             var viewsToSend:[MetricCard] = [];
             for index in distance...count - 1 {
@@ -243,7 +250,7 @@ class MetricsViewController: UIViewController {
             } else {
                 topCard.frame.origin.x = 0;
             }
-        } else if (index != MetricsType.allValues.count - 1) {
+        } else if (index != MetricsType.allOldValues.count - 1) {
             for i in 0...index {
                 let card = self.view.subviews[self.view.subviews.count - (2 + i)] ;
                 card.center.x += translation.x;
@@ -426,7 +433,7 @@ class MetricsViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews();
         let subViews = self.view.subviews;
-        let count = MetricsType.allValues.count;
+        let count = MetricsType.allOldValues.count;
         for index in 0...count - 1 {
             if index < subViews.count - 1 {
                 let card = subViews[index] as! MetricCard;

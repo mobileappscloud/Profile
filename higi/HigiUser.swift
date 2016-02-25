@@ -8,9 +8,18 @@
 
 import Foundation
 
+enum BiologicalSex {
+    case NotSet
+    case Female
+    case Male
+    case Other
+}
+
 class HigiUser {
     
-    var userId, firstName, lastName, email, gender, termsFile, privacyFile: NSString!;
+    var userId, firstName, lastName, email, termsFile, privacyFile: NSString!;
+    
+    var biologicalSex: BiologicalSex = .NotSet
     
     var currentHigiScore, photoTime: Int!;
     
@@ -32,7 +41,17 @@ class HigiUser {
         firstName = (dictionary["firstName"] ?? "") as! NSString;
         lastName = (dictionary["lastName"] ?? "") as! NSString;
         email = dictionary["email"] as! NSString;
-        gender = (dictionary["gender"] ?? "") as! NSString;
+        if let biologicalSexString = (dictionary["gender"] ?? "") as? String {
+            switch biologicalSexString {
+            case "f":
+                biologicalSex = .Female
+            case "m":
+                biologicalSex = .Male
+                
+            default:
+                biologicalSex = .NotSet
+            }
+        }
         hasPhoto = (dictionary["hasPhoto"] ?? false) as! Bool;
         currentHigiScore = (dictionary["currentHigiScore"] ?? 0) as! Int;
         photoTime = (dictionary["photoTime"] ?? 0) as! Int;

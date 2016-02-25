@@ -14,8 +14,9 @@ enum PersistentSetting: String {
     case StationNearbyNotification = "StationNearbyNotificationSettingKey"
     case DidAskToConnectActivityTracker = "DidAskToConnectActivityTrackerKey"
     case DidShowActivityTrackerAuthorizationRequest = "DidShowActivityTrackerAuthorizationRequestKey"
+    case MetricsViewDidRotateDeviceToVerticalSizeClassCompact = "MetricsViewDidRotateDeviceToVerticalSizeClassCompactKey"
     
-    static let allValues = [EnableNotifications, StationNearbyNotification, DidShowActivityTrackerAuthorizationRequest];
+    static let allValues = [EnableNotifications, StationNearbyNotification, DidAskToConnectActivityTracker, DidShowActivityTrackerAuthorizationRequest, MetricsViewDidRotateDeviceToVerticalSizeClassCompact];
 }
 
 class PersistentSettingsController {
@@ -34,7 +35,7 @@ class PersistentSettingsController {
         let trueSettings: [PersistentSetting] = [.EnableNotifications, .StationNearbyNotification];
         initializeDefaultValues(trueSettings, boolValue: true);
         
-        let falseSettings: [PersistentSetting] = [.DidAskToConnectActivityTracker, .DidShowActivityTrackerAuthorizationRequest];
+        let falseSettings: [PersistentSetting] = [.DidAskToConnectActivityTracker, .DidShowActivityTrackerAuthorizationRequest, .MetricsViewDidRotateDeviceToVerticalSizeClassCompact];
         initializeDefaultValues(falseSettings, boolValue: false);
     }
     

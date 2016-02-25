@@ -2,16 +2,18 @@ import Foundation
 
 class MetricGauge: UIView {
     
-    @IBOutlet weak var gaugeContainer: UIView!
-    @IBOutlet weak var value: UILabel!
-    @IBOutlet weak var label: UILabel!
-    @IBOutlet weak var unit: UILabel!
+    @IBOutlet private var gaugeContainer: UIView!
+    @IBOutlet private var value: UILabel!
+    @IBOutlet private var label: UILabel!
+    @IBOutlet private var unit: UILabel!
+    
+    @IBOutlet var checkinView: CheckinLocationView!
     
     private var lineWidth, radius: CGFloat!;
     
     private var ranges: [Range] = [];
     
-    private var rangeMax, rangeMin: Int!;
+    private var rangeMax, rangeMin: Double!;
     
     private var subLayers: [CAShapeLayer] = [];
     
@@ -19,16 +21,19 @@ class MetricGauge: UIView {
     
     private var triangle: TriangleMarker!;
     
+    /// Whether or not range values should be displayed as decimals. If false, the range value will be displayed as an integer.
+    var showRangeFractions = false
+    
     struct Range {
         var label: String!;
         
         var color: UIColor!;
         
-        var interval: (Int, Int)!;
+        var interval: (Double, Double)!;
         
-        var lowerBound, upperBound: Int!;
+        var lowerBound, upperBound: Double!;
         
-        init(label: String, color: UIColor, interval: (Int, Int)) {
+        init(label: String, color: UIColor, interval: (Double, Double)) {
             self.label = label;
             self.color = color;
             self.interval = interval;
@@ -36,21 +41,161 @@ class MetricGauge: UIView {
             self.upperBound = interval.1;
         }
         
-        func contains(value: Int) -> Bool {
+        func contains(value: Double) -> Bool {
             return value >= lowerBound && value < upperBound;
         }
     }
+    
     var delegate: MetricDelegate!;
     
-    let sweepAngle = 2 * M_PI * 2 / 3;
+    // 4π/3 (240 degrees)
+    private let sweepAngle = 2 * M_PI * 2 / 3; // 240 degrees
     
-    var drawAngle: Double!;
+    private var drawAngle: Double!;
     
-    var startAngle: CGFloat = 0.0;
+    /// (2π - `sweepAngle`)/2 + π/2
+    private var startAngle: CGFloat {
+        get {
+            return CGFloat((M_PI * 2 - self.sweepAngle) / 2) + CGFloat(M_PI / 2)
+        }
+    }
     
-    var userValue: Int!;
+    private var userValue: Double!;
     
-    var userRange: Range!;
+    private var userRange: Range!;
+    
+    class func gauge(frame: CGRect, value: Double, displayValue: String?, displayUnit: String?, ranges: [Range], valueName: String, valueColor: UIColor, checkin: HigiCheckin?, showRangeFractions: Bool = false) -> MetricGauge {
+        let gauge = UINib(nibName: "MetricGaugeView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! MetricGauge
+        gauge.initFrame(frame)
+        gauge.showRangeFractions = showRangeFractions
+        
+        gauge.userValue = value
+        
+        gauge.value.text = displayValue
+        gauge.unit.text = displayUnit
+
+        let dimension = min(frame.size.width, frame.size.height);
+        gauge.lineWidth = dimension * 0.05;
+        gauge.radius = (dimension / 2 - (gauge.lineWidth / 2)) * 0.95;
+        
+        gauge.label.text = valueName
+        gauge.label.textColor = valueColor
+        
+        if gauge.subLayers.count > 0 {
+            for subLayer in gauge.subLayers {
+                subLayer.removeFromSuperlayer();
+            }
+            gauge.subLayers.removeAll(keepCapacity: false);
+        }
+        if gauge.labels.count > 0 {
+            for label in gauge.labels {
+                label.removeFromSuperview();
+            }
+            gauge.labels.removeAll(keepCapacity: false);
+        }
+        
+        if ranges.count == 0 {
+            let toPath = UIBezierPath();
+            let rangeArc = CAShapeLayer();
+            rangeArc.lineWidth = gauge.lineWidth;
+            rangeArc.fillColor = UIColor.clearColor().CGColor;
+            rangeArc.strokeColor = UIColor.whiteColor().CGColor;
+            let center = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2);
+            rangeArc.strokeStart = 0;
+            rangeArc.strokeEnd = 1;
+            toPath.addArcWithCenter(center, radius: gauge.radius, startAngle: gauge.startAngle, endAngle: CGFloat(gauge.sweepAngle) + gauge.startAngle, clockwise: true);
+            rangeArc.path = toPath.CGPath;
+            gauge.gaugeContainer.layer.addSublayer(rangeArc);
+            gauge.subLayers.append(rangeArc);
+        } else {
+            gauge.drawAngle = gauge.sweepAngle / Double(ranges.count);
+            var strokeStart:CGFloat = 0.0, strokeEnd:CGFloat = 0.0;
+            var lowRange, highRange: Range!;
+            gauge.rangeMax = Double(Int.min)
+            gauge.rangeMin = Double(Int.max)
+            var rangeIndex = 0, i = 0;
+            for range in ranges {
+                let (begin, end) = range.interval;
+                let rangeInterval = 1 / CGFloat(ranges.count);
+                strokeEnd = strokeStart + rangeInterval;
+                let toPath = UIBezierPath();
+                let rangeArc = CAShapeLayer();
+                rangeArc.lineWidth = gauge.lineWidth;
+                rangeArc.fillColor = UIColor.clearColor().CGColor;
+                if (range.contains(gauge.userValue)) {
+                    gauge.userRange = range;
+                    rangeIndex = i;
+                }
+                rangeArc.strokeColor = range.color.CGColor;
+                if (begin < gauge.rangeMin) {
+                    gauge.rangeMin = begin;
+                    lowRange = range;
+                }
+                if (end > gauge.rangeMax) {
+                    gauge.rangeMax = end;
+                    highRange = range;
+                }
+                let center = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2);
+                rangeArc.strokeStart = strokeStart;
+                rangeArc.strokeEnd = strokeEnd;
+                strokeStart = strokeEnd;
+                toPath.addArcWithCenter(center, radius: gauge.radius, startAngle: gauge.startAngle, endAngle: CGFloat(gauge.sweepAngle) + gauge.startAngle, clockwise: true);
+                rangeArc.path = toPath.CGPath;
+                gauge.gaugeContainer.layer.addSublayer(rangeArc);
+                gauge.subLayers.append(rangeArc);
+                if (i < ranges.count - 1) {
+                    let rangeVal = CGFloat(i + 1);
+                    let labelWidth:CGFloat = 100;
+                    let labelMargin:CGFloat = 10;
+                    let angle = CGFloat(gauge.startAngle) + (CGFloat(gauge.sweepAngle)) * strokeEnd;
+                    var x = center.x + gauge.radius * cos(angle);
+                    let y = center.y + gauge.radius * sin(angle) - (gauge.lineWidth + labelMargin) * 2;
+                    var textAlign = NSTextAlignment.Left;
+                    if (rangeVal < CGFloat(ranges.count) / 2) {
+                        textAlign = NSTextAlignment.Right;
+                        x = x - labelWidth - labelMargin;
+                    } else if (rangeVal == CGFloat(ranges.count) / 2) {
+                        textAlign = NSTextAlignment.Center;
+                        x -= labelWidth / 2;
+                    } else {
+                        x += labelMargin;
+                    }
+                    let label = UILabel(frame: CGRect(x: x, y: y, width: labelWidth, height: 50));
+                    label.textAlignment = textAlign;
+                    let rangeEnd = gauge.showRangeFractions ? "\(end)" : "\(Int(end))"
+                    label.text = "\(rangeEnd)";
+                    label.font = UIFont.systemFontOfSize(10);
+                    gauge.gaugeContainer.addSubview(label);
+                    gauge.labels.append(label);
+                    
+                    let toPath = UIBezierPath();
+                    let rangeArc = CAShapeLayer();
+                    rangeArc.lineWidth = gauge.lineWidth;
+                    rangeArc.fillColor = UIColor.clearColor().CGColor;
+                    rangeArc.strokeColor = UIColor.lightGrayColor().CGColor;
+                    let center = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2);
+                    rangeArc.strokeStart = strokeStart;
+                    rangeArc.strokeEnd = strokeStart + 0.001;
+                    strokeStart = strokeEnd;
+                    toPath.addArcWithCenter(center, radius: gauge.radius, startAngle: gauge.startAngle, endAngle: CGFloat(gauge.sweepAngle) + gauge.startAngle, clockwise: true);
+                    rangeArc.path = toPath.CGPath;
+                    gauge.gaugeContainer.layer.addSublayer(rangeArc);
+                    strokeStart += 0.001;
+                }
+                i++;
+            }
+            if (gauge.userValue < gauge.rangeMin) {
+                gauge.userRange = lowRange;
+                rangeIndex = 0;
+            } else if (gauge.userValue > gauge.rangeMax) {
+                gauge.userRange = highRange;
+                rangeIndex = ranges.count - 1;
+            }
+            gauge.drawMarker(gauge.startAngle + CGFloat(gauge.drawAngle) * CGFloat(rangeIndex), value: gauge.userValue, range: gauge.userRange);
+        }
+        
+        return gauge
+    }
     
     class func create(frame: CGRect, delegate: MetricDelegate, tab: Int) -> MetricGauge {
         let gauge = UINib(nibName: "MetricGaugeView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! MetricGauge;
@@ -71,41 +216,37 @@ class MetricGauge: UIView {
             //in the form 20.00%
             let valueArray = value.characters.split {$0 == "."}.map { String($0) };
             if (valueArray.count > 1) {
-                userValue = Int(valueArray[0])!;
+                userValue = Double(valueArray.first!)
             }
         } else if (delegate.getType() == MetricsType.BloodPressure) {
             //in the form 120/80
             if Utility.stringIndexOf(value, needle: "/") > 0 {
                 let valueArray = value.characters.split {$0 == "/"}.map { String($0) };
                 if (valueArray.count > 1) {
-                    let systolic = Int(valueArray[0])!;
-                    let diastolic = Int(valueArray[1])!;
-                    userValue = BpMetricDelegate.valueIsSystolic(systolic, diastolic: diastolic) ? systolic : diastolic;
+                    let systolic = Double(valueArray[0])!;
+                    let diastolic = Double(valueArray[1])!;
+                    userValue = BpMetricDelegate.valueIsSystolic(Int(systolic), diastolic: Int(diastolic)) ? systolic : diastolic;
                 }
             } else if Utility.stringIndexOf(value, needle: ".") > 0 {
                 //in the form 80.0
                 let valueArray = value.characters.split {$0 == "."}.map { String($0) };
                 if (valueArray.count > 1) {
-                    userValue = Int(valueArray[0])!;
+                    userValue = Double(valueArray.first!)
                 }
             }
-        } else if Int(value) != nil {
-            userValue = Int(value)!;
+        } else if Double(value) != nil {
+            userValue = Double(value)!;
         }
 
-        self.value.text = "\(value)";
         self.frame = frame;
         gaugeContainer.frame = frame;
+        self.value.text = "\(value)";
         self.unit.text = delegate.getSelectedUnit(tab);
         self.delegate = delegate;
         let dimension = min(frame.size.width, frame.size.height);
         lineWidth = dimension * 0.05;
         radius = (dimension / 2 - (lineWidth / 2)) * 0.95;
         var center = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2);
-        
-        //expression too complex for Swift in one line
-        startAngle = CGFloat((M_PI * 2 - sweepAngle) / 2);
-        startAngle += CGFloat(M_PI / 2);
         
         let rangeClass = delegate.getSelectedClass(tab);
         self.label.text = rangeClass;
@@ -193,7 +334,8 @@ class MetricGauge: UIView {
                     }
                     let label = UILabel(frame: CGRect(x: x, y: y, width: labelWidth, height: 50));
                     label.textAlignment = textAlign;
-                    label.text = "\(end)";
+                    let rangeEnd = showRangeFractions ? "\(end)" : "\(Int(end))"
+                    label.text = "\(rangeEnd)";
                     label.font = UIFont.systemFontOfSize(10);
                     gaugeContainer.addSubview(label);
                     labels.append(label);
@@ -225,7 +367,7 @@ class MetricGauge: UIView {
         }
     }
     
-    func drawMarker(markerAngle:CGFloat, value: Int, range: Range) {
+    func drawMarker(markerAngle:CGFloat, value: Double, range: Range) {
         var valueAngle = CGFloat(value - range.lowerBound) / CGFloat(range.upperBound - range.lowerBound) * CGFloat(drawAngle) + markerAngle;
         valueAngle = min(max(valueAngle, markerAngle), startAngle + CGFloat(sweepAngle));
         
@@ -244,6 +386,8 @@ class MetricGauge: UIView {
         super.layoutSubviews();
         gaugeContainer.frame.size.width = frame.size.width;
         gaugeContainer.frame.size.height = frame.size.height;
+        gaugeContainer.layer.frame.size.width = frame.size.width
+        gaugeContainer.layer.frame.size.height = frame.size.height
         value.frame.size.width = frame.size.width;
         value.center = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2);
         label.frame.size.width = frame.size.width;

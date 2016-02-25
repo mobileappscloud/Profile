@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CheckinLocationView" customModule="higi" customModuleProvider="target">
+            <connections>
+                <outlet property="nameLabel" destination="8Pm-B2-9b9" id="lzj-RY-NTd"/>
+                <outlet property="primaryAddressLabel" destination="OxT-GJ-SQu" id="94v-Th-QrS"/>
+                <outlet property="secondaryAddressLabel" destination="ahe-zw-aqK" id="4Mq-PF-ulV"/>
+                <outlet property="view" destination="iN0-l3-epB" id="G9c-k4-w9b"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="180" height="44"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Pm-B2-9b9" userLabel="Name">
+                    <rect key="frame" x="0.0" y="0.0" width="180" height="16"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="2301 South Dr. Martin Luther King Jr. Dr." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OxT-GJ-SQu" userLabel="Address 1">
+                    <rect key="frame" x="0.0" y="16" width="180" height="16"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ahe-zw-aqK" userLabel="Address 2">
+                    <rect key="frame" x="0.0" y="32" width="180" height="16"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="OxT-GJ-SQu" secondAttribute="trailing" id="0wq-Hd-Ag2"/>
+                <constraint firstItem="8Pm-B2-9b9" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="1gu-ot-zcb"/>
+                <constraint firstItem="OxT-GJ-SQu" firstAttribute="top" secondItem="8Pm-B2-9b9" secondAttribute="bottom" id="6h5-1j-BcT"/>
+                <constraint firstAttribute="trailing" secondItem="ahe-zw-aqK" secondAttribute="trailing" id="6ml-m4-6BX"/>
+                <constraint firstItem="OxT-GJ-SQu" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="7Vw-rZ-ZH3"/>
+                <constraint firstItem="OxT-GJ-SQu" firstAttribute="top" secondItem="8Pm-B2-9b9" secondAttribute="bottom" id="MRH-Zq-LMQ"/>
+                <constraint firstItem="ahe-zw-aqK" firstAttribute="top" secondItem="OxT-GJ-SQu" secondAttribute="bottom" id="P2N-KC-tLQ"/>
+                <constraint firstItem="ahe-zw-aqK" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="ROF-6J-Bzg"/>
+                <constraint firstItem="8Pm-B2-9b9" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="bM7-0e-gvp"/>
+                <constraint firstItem="OxT-GJ-SQu" firstAttribute="top" secondItem="8Pm-B2-9b9" secondAttribute="bottom" id="d8M-I2-voS"/>
+                <constraint firstAttribute="trailing" secondItem="8Pm-B2-9b9" secondAttribute="trailing" id="sIY-gW-p9l"/>
+                <constraint firstItem="ahe-zw-aqK" firstAttribute="top" secondItem="OxT-GJ-SQu" secondAttribute="bottom" id="whR-Uj-Ozb"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+        </view>
+    </objects>
+</document>
