@@ -607,6 +607,19 @@
 /* Placeholder for password text field with invalid input on login view. */
 "LOGIN_VIEW_PASSWORD_TEXTFIELD_PLACEHOLDER_INVALID_INPUT" = "Password must be at least 6 characters";
 
+
+/* Title for Challenges tab bar item. */
+"MAIN_TAB_BAR_ITEM_TITLE_CHALLENGES" = "Challenges";
+
+/* Title for Find Station tab bar item. */
+"MAIN_TAB_BAR_ITEM_TITLE_FIND_STATION" = "Find Station";
+
+/* Title for Home tab bar item. */
+"MAIN_TAB_BAR_ITEM_TITLE_HOME" = "Home";
+
+/* Title for Metrics tab bar item. */
+"MAIN_TAB_BAR_ITEM_TITLE_METRICS" = "Metrics";
+
 /* Title for blood pressure metrics */
 "METRIC_TYPE_BLOOD_PRESSURE_TITLE" = "Blood Pressure";
 
