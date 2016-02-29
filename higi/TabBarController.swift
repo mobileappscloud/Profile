@@ -74,19 +74,91 @@ extension TabBarController {
     }
 }
 
-// MARK: - Interface Orientation
+// MARK: - Navigation
 
 extension TabBarController {
     
-    override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
-        return .Portrait
+    // MARK: Bar Button Items
+    
+    private func navigationOverflowBarButtonItem() -> UIBarButtonItem {
+        return UIBarButtonItem(image: UIImage(named: "ellipses-nav-bar-icon"), style: .Plain, target: self, action: #selector(didTapOverflowButton))
     }
     
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return .Portrait
+    private func modalDoneBarButtonItem() -> UIBarButtonItem {
+        return UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(modalDoneButtonTapped))
     }
     
-    override func shouldAutorotate() -> Bool {
-        return false
+    // MARK: Modal View Controllers
+    
+    private func pulseModalViewController() -> UIViewController {
+        let pulseViewController = PulseHomeViewController(nibName: "PulseHomeView", bundle: nil)
+        pulseViewController.navigationItem.rightBarButtonItem = modalDoneBarButtonItem()
+        let pulseNav = UINavigationController(rootViewController: pulseViewController)
+        return pulseNav
+    }
+    
+    private func settingsModalViewController() -> UIViewController {
+        let settingsStoryboard = UIStoryboard(name: "Settings", bundle: nil)
+        let settingsNavController = settingsStoryboard.instantiateInitialViewController() as! UINavigationController
+        settingsNavController.viewControllers.first?.navigationItem.rightBarButtonItem = modalDoneBarButtonItem()
+        return settingsNavController
+    }
+    
+    private func captureModalViewController() -> UIViewController {
+        let captureViewController = QrScannerViewController(nibName: "QrScannerView", bundle: nil)
+        captureViewController.navigationItem.rightBarButtonItem = modalDoneBarButtonItem()
+        let captureNav = UINavigationController(rootViewController: captureViewController)
+        return captureNav
+    }
+    
+    // MARK: Popover Alert
+    
+    private func popoverAlert(barButtonItem: UIBarButtonItem?) -> UIAlertController {
+        let popoverAlert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        popoverAlert.view.tintColor = Theme.Color.Primary.charcoal
+        popoverAlert.modalPresentationStyle = .Popover
+        popoverAlert.popoverPresentationController?.permittedArrowDirections = .Any
+        popoverAlert.popoverPresentationController?.barButtonItem = barButtonItem
+        
+        let pulseMenuTitle = NSLocalizedString("MAIN_NAVIGATION_BAR_BUTTON_ITEM_OVERFLOW_POPOVER_ACTION_TITLE_HIGI_PULSE", comment: "Title for overflow menu action item which modally presents higi Pulse.")
+        let pulse = popoverAction(pulseMenuTitle, viewController: pulseModalViewController())
+        popoverAlert.addAction(pulse)
+        
+        let settingsMenuTitle = NSLocalizedString("MAIN_NAVIGATION_BAR_BUTTON_ITEM_OVERFLOW_POPOVER_ACTION_TITLE_SETTINGS", comment: "Title for overflow menu action item which modally presents Settings.")
+        let settings = popoverAction(settingsMenuTitle, viewController: settingsModalViewController())
+        popoverAlert.addAction(settings)
+        
+        let captureMenuTitle = NSLocalizedString("MAIN_NAVIGATION_BAR_BUTTON_ITEM_OVERFLOW_POPOVER_ACTION_TITLE_CAPTURE", comment: "Title for overflow menu action item which modally presents Capture.")
+        let capture = popoverAction(captureMenuTitle, viewController: captureModalViewController())
+        popoverAlert.addAction(capture)
+        
+        let cancelMenuTitle = NSLocalizedString("MAIN_NAVIGATION_BAR_BUTTON_ITEM_OVERFLOW_POPOVER_ACTION_TITLE_CANCEL", comment: "Title for overflow menu action item which dismisses the popover.")
+        let cancel = UIAlertAction(title: cancelMenuTitle, style: .Cancel, handler: nil)
+        popoverAlert.addAction(cancel)
+        
+        return popoverAlert
+    }
+    
+    private func popoverAction(title: String, viewController: UIViewController) -> UIAlertAction {
+        let action = UIAlertAction(title: title, style: .Default, handler: { [weak self] (action) in
+            dispatch_async(dispatch_get_main_queue(), {
+                self?.presentViewController(viewController, animated: true, completion: nil)
+            })
+        })
+        return action
+    }
+    
+    // MARK: UI Action
+    
+    dynamic func didTapOverflowButton(sender: UIBarButtonItem) {
+        let popoverAlert = self.popoverAlert(sender)
+        self.presentViewController(popoverAlert, animated: true, completion: {
+            // Workaround to Apple bug where tintColor is overridden - http://stackoverflow.com/a/32695820/5897233
+            popoverAlert.view.tintColor = Theme.Color.Primary.charcoal
+        })
+    }
+    
+    func modalDoneButtonTapped(sender: UIBarButtonItem) {
+        dismissViewControllerAnimated(true, completion: nil)
     }
 }

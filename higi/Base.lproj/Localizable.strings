@@ -607,6 +607,17 @@
 /* Placeholder for password text field with invalid input on login view. */
 "LOGIN_VIEW_PASSWORD_TEXTFIELD_PLACEHOLDER_INVALID_INPUT" = "Password must be at least 6 characters";
 
+/* Title for overflow menu action item which dismisses the popover. */
+"MAIN_NAVIGATION_BAR_BUTTON_ITEM_OVERFLOW_POPOVER_ACTION_TITLE_CANCEL" = "Cancel";
+
+/* Title for overflow menu action item which modally presents Capture. */
+"MAIN_NAVIGATION_BAR_BUTTON_ITEM_OVERFLOW_POPOVER_ACTION_TITLE_CAPTURE" = "Capture";
+
+/* Title for overflow menu action item which modally presents higi Pulse. */
+"MAIN_NAVIGATION_BAR_BUTTON_ITEM_OVERFLOW_POPOVER_ACTION_TITLE_HIGI_PULSE" = "higi Pulse";
+
+/* Title for overflow menu action item which modally presents Settings. */
+"MAIN_NAVIGATION_BAR_BUTTON_ITEM_OVERFLOW_POPOVER_ACTION_TITLE_SETTINGS" = "Settings";
 
 /* Title for Challenges tab bar item. */
 "MAIN_TAB_BAR_ITEM_TITLE_CHALLENGES" = "Challenges";
