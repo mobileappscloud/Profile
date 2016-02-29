@@ -298,7 +298,6 @@
 		8FF873F419DF5394002A6341 /* PullRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF873F319DF5394002A6341 /* PullRefresh.swift */; };
 		8FF94091198960C900D319D7 /* LoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FF94090198960C900D319D7 /* LoginView.xib */; };
 		8FF9409319899AEA00D319D7 /* createreminder.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FF9409219899AEA00D319D7 /* createreminder.png */; };
-		8FF940951989A19B00D319D7 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF940941989A19B00D319D7 /* BaseViewController.swift */; };
 		8FF94098198A8C0A00D319D7 /* BirthdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF94097198A8C0A00D319D7 /* BirthdateViewController.swift */; };
 		8FF9409A198A8C1800D319D7 /* ProfileImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF94099198A8C1800D319D7 /* ProfileImageViewController.swift */; };
 		8FF9409C198A8C9200D319D7 /* SignupEmailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FF9409B198A8C9200D319D7 /* SignupEmailView.xib */; };
@@ -783,7 +782,6 @@
 		8FF873F319DF5394002A6341 /* PullRefresh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PullRefresh.swift; sourceTree = "<group>"; };
 		8FF94090198960C900D319D7 /* LoginView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginView.xib; sourceTree = "<group>"; };
 		8FF9409219899AEA00D319D7 /* createreminder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = createreminder.png; path = images/createreminder.png; sourceTree = "<group>"; };
-		8FF940941989A19B00D319D7 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		8FF94097198A8C0A00D319D7 /* BirthdateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BirthdateViewController.swift; sourceTree = "<group>"; };
 		8FF94099198A8C1800D319D7 /* ProfileImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileImageViewController.swift; sourceTree = "<group>"; };
 		8FF9409B198A8C9200D319D7 /* SignupEmailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignupEmailView.xib; sourceTree = "<group>"; };
@@ -1008,6 +1006,31 @@
 				410167271C555D0600A54B02 /* NewWeightMetricDelegate.swift */,
 			);
 			name = Delegates;
+			sourceTree = "<group>";
+		};
+		410AB90D1C84EA8200985DA3 /* Connect Device */ = {
+			isa = PBXGroup;
+			children = (
+				D1E2236F1A7FFF43006330E7 /* ConnectDeviceRow.swift */,
+				D1E223791A8009E6006330E7 /* ConnectDeviceViewController.swift */,
+			);
+			name = "Connect Device";
+			sourceTree = "<group>";
+		};
+		410AB90E1C84EA8B00985DA3 /* Terms and Conditions */ = {
+			isa = PBXGroup;
+			children = (
+				D15372901A841FEA00954569 /* TermsAndConditionsViewController.swift */,
+			);
+			name = "Terms and Conditions";
+			sourceTree = "<group>";
+		};
+		410AB90F1C84EA9300985DA3 /* Tour */ = {
+			isa = PBXGroup;
+			children = (
+				8FA5925E19ABBD3A00622266 /* TourViewController.swift */,
+			);
+			name = Tour;
 			sourceTree = "<group>";
 		};
 		410ADB2D1C3EC7740055F015 /* Web View */ = {
@@ -1885,13 +1908,11 @@
 		8F2B7E33198AD8F0009DE89A /* Miscellaneous */ = {
 			isa = PBXGroup;
 			children = (
-				8FF940941989A19B00D319D7 /* BaseViewController.swift */,
-				D1E2236F1A7FFF43006330E7 /* ConnectDeviceRow.swift */,
-				D1E223791A8009E6006330E7 /* ConnectDeviceViewController.swift */,
+				410AB90D1C84EA8200985DA3 /* Connect Device */,
 				4179FCF41C2510A3006130F5 /* Loading */,
 				412A50301C45B97F0031D0BD /* Splash */,
-				D15372901A841FEA00954569 /* TermsAndConditionsViewController.swift */,
-				8FA5925E19ABBD3A00622266 /* TourViewController.swift */,
+				410AB90E1C84EA8B00985DA3 /* Terms and Conditions */,
+				410AB90F1C84EA9300985DA3 /* Tour */,
 				410ADB2D1C3EC7740055F015 /* Web View */,
 			);
 			name = Miscellaneous;
@@ -2760,7 +2781,6 @@
 			files = (
 				41D8718C1C7CBFDD002DCDA0 /* HostViewController.swift in Sources */,
 				8F3643A219460EB300C0033E /* MetricsViewController.swift in Sources */,
-				8FF940951989A19B00D319D7 /* BaseViewController.swift in Sources */,
 				419D864F1BBEF83000E7D844 /* GQTPointQuadTree.m in Sources */,
 				413635871C2209450056DE8D /* MetricDataFactory.swift in Sources */,
 				8F1D979A1995553B003B5645 /* ModifyImageViewController.swift in Sources */,
