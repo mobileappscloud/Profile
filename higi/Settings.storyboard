@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="0qe-cJ-dNm">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10112" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="QfN-d5-8Ww">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10083"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
     </dependencies>
@@ -22,7 +23,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
-                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="raW-T9-l8f">
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="raW-T9-l8f">
                                 <rect key="frame" x="0.0" y="-44" width="600" height="644"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="kmC-ya-i0o">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="644"/>
@@ -54,13 +55,14 @@
                             <constraint firstItem="amo-12-U5u" firstAttribute="trailing" secondItem="ffa-Up-KYX" secondAttribute="trailing" id="qab-X3-Ema"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="PNd-S0-PCU"/>
                     <connections>
                         <outlet property="backgroundImageView" destination="amo-12-U5u" id="fdJ-h8-gXS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C1X-R3-Xr4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-795" y="152"/>
+            <point key="canvasLocation" x="17" y="152"/>
         </scene>
         <!--Settings Table View Controller-->
         <scene sceneID="ANj-VS-8qv">
@@ -76,7 +78,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="evs-Bh-F2V" userLabel="Profile Image View">
-                                    <rect key="frame" x="245" y="77" width="110" height="110"/>
+                                    <rect key="frame" x="245" y="50" width="110" height="110"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="110" id="frD-eZ-yDz"/>
                                         <constraint firstAttribute="width" constant="110" id="wif-Ls-dfc"/>
@@ -88,7 +90,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </imageView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kvx-pL-U7b">
-                                    <rect key="frame" x="320" y="216" width="120" height="49.5"/>
+                                    <rect key="frame" x="320" y="189" width="120" height="49.5"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="120" id="Ixb-Qb-oZg"/>
                                         <constraint firstAttribute="height" constant="49" id="hLg-sN-sN9"/>
@@ -108,7 +110,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jq0-Zx-5ln">
-                                    <rect key="frame" x="160" y="216" width="120" height="49.5"/>
+                                    <rect key="frame" x="160" y="189" width="120" height="49.5"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="120" id="Ia2-xd-Vsq"/>
                                         <constraint firstAttribute="height" constant="49" id="bri-t0-hAw"/>
@@ -132,7 +134,7 @@
                                 <constraint firstItem="Jq0-Zx-5ln" firstAttribute="trailing" secondItem="VzL-0Z-sIZ" secondAttribute="centerX" constant="-20" id="0Nq-ah-c6Q"/>
                                 <constraint firstItem="Jq0-Zx-5ln" firstAttribute="baseline" secondItem="Kvx-pL-U7b" secondAttribute="firstBaseline" id="Cf7-EO-dC3"/>
                                 <constraint firstItem="Jq0-Zx-5ln" firstAttribute="top" secondItem="Kvx-pL-U7b" secondAttribute="top" id="DcJ-jv-Knp"/>
-                                <constraint firstItem="evs-Bh-F2V" firstAttribute="top" secondItem="VzL-0Z-sIZ" secondAttribute="top" constant="77" id="GTl-0g-BTt"/>
+                                <constraint firstItem="evs-Bh-F2V" firstAttribute="top" secondItem="VzL-0Z-sIZ" secondAttribute="top" constant="50" id="GTl-0g-BTt"/>
                                 <constraint firstItem="evs-Bh-F2V" firstAttribute="centerY" secondItem="VzL-0Z-sIZ" secondAttribute="centerY" id="QMv-E9-DbB"/>
                                 <constraint firstItem="Jq0-Zx-5ln" firstAttribute="top" secondItem="evs-Bh-F2V" secondAttribute="bottom" constant="29" id="Y9o-4S-iIF"/>
                                 <constraint firstItem="Kvx-pL-U7b" firstAttribute="leading" secondItem="VzL-0Z-sIZ" secondAttribute="centerX" constant="20" id="Zgb-lK-QCO"/>
@@ -158,7 +160,25 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uqu-J6-Til" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-94" y="152"/>
+            <point key="canvasLocation" x="718" y="152"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="kzb-0j-9zf">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="QfN-d5-8Ww" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="hx2-nV-yY7">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="0qe-cJ-dNm" kind="relationship" relationship="rootViewController" id="L8m-He-YEO"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8my-Uj-C0h" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-795" y="152"/>
         </scene>
     </scenes>
 </document>
