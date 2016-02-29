@@ -16,7 +16,7 @@ private struct Storyboard {
     }
 }
 
-final class NewMetricsViewController: UIViewController, ThemeNavBar {
+final class NewMetricsViewController: UIViewController {
     
     /// Image view which hints that the view supports resizing due to image rotation
     @IBOutlet private var rotateDeviceImageView: UIImageView!
@@ -48,7 +48,6 @@ final class NewMetricsViewController: UIViewController, ThemeNavBar {
         self.title = NSLocalizedString("METRICS_VIEW_TITLE", comment: "Title for metrics view.")
 
         if let navigationController = self.navigationController {
-            configureNavBar(navigationController.navigationBar)
             navigationController.hidesBarsWhenVerticallyCompact = true
         }
         

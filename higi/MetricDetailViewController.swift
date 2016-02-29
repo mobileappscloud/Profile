@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class MetricDetailViewController: UIViewController, ThemeNavBar {
+final class MetricDetailViewController: UIViewController {
     
     @IBOutlet var headerView: MetricCheckinSummaryView!
     
@@ -41,10 +41,6 @@ final class MetricDetailViewController: UIViewController, ThemeNavBar {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if let navController = self.navigationController {
-            configureNavBar(navController.navigationBar)
-        }
         
         if dismissByTappingHeader {
             self.headerView.addGestureRecognizer(tapGestureRecognizer)

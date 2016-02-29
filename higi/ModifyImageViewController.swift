@@ -28,9 +28,7 @@ class ModifyImageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad();
-        if (fromSettings) {
-            (self.navigationController as! MainNavigationController).revealController.panGestureRecognizer().enabled = false;
-        }
+        
         self.navigationController!.interactivePopGestureRecognizer!.enabled = false;
         self.navigationController!.interactivePopGestureRecognizer!.delegate = nil;
         profileImageView.image = profileImage;

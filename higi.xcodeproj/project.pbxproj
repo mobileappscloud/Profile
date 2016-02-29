@@ -471,6 +471,8 @@
 		410167231C555CD700A54B02 /* NewBloodPressureMetricDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewBloodPressureMetricDelegate.swift; sourceTree = "<group>"; };
 		410167251C555CED00A54B02 /* NewPulseMetricDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPulseMetricDelegate.swift; sourceTree = "<group>"; };
 		410167271C555D0600A54B02 /* NewWeightMetricDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewWeightMetricDelegate.swift; sourceTree = "<group>"; };
+		410AB9071C84B74600985DA3 /* UIAppearance+Swift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAppearance+Swift.h"; sourceTree = "<group>"; };
+		410AB9081C84B77500985DA3 /* UIAppearance_Swift.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIAppearance_Swift.m; sourceTree = "<group>"; };
 		41247DC81C5A937300DDC5EC /* SingleRowTextMenuFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleRowTextMenuFlowLayout.swift; sourceTree = "<group>"; };
 		41247DCD1C5BD1A100DDC5EC /* MetricDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricDetailViewController.swift; sourceTree = "<group>"; };
 		41247DD41C5F29FB00DDC5EC /* MetricDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MetricDetail.storyboard; sourceTree = "<group>"; };
@@ -1802,6 +1804,8 @@
 				419D85CE1BBEDD3C00E7D844 /* HIGIScatterPlot.m */,
 				8FCD2D7E19EC286900AC5A82 /* UIImage+Orientation.h */,
 				8FCD2D7F19EC286900AC5A82 /* UIImage+Orientation.m */,
+				410AB9071C84B74600985DA3 /* UIAppearance+Swift.h */,
+				410AB9081C84B77500985DA3 /* UIAppearance_Swift.m */,
 			);
 			name = "Objective-C Helpers";
 			sourceTree = "<group>";

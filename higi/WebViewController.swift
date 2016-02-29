@@ -21,8 +21,6 @@ class WebViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad();
-
-        self.configureNavBar()
         
         self.addWebView(self.webView)
         
@@ -44,27 +42,10 @@ class WebViewController: UIViewController {
         return urlRequest.copy() as! NSURLRequest
     }
     
-    private func configureNavBar() {
-        self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
-        let backButton = UIButton(type: UIButtonType.Custom);
-        backButton.setBackgroundImage(UIImage(named: "btn_back_black.png"), forState: UIControlState.Normal);
-        backButton.addTarget(self, action: "goBack:", forControlEvents: UIControlEvents.TouchUpInside);
-        backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
-        let backBarItem = UIBarButtonItem(customView: backButton);
-        self.navigationItem.leftBarButtonItem = backBarItem;
-        self.navigationItem.hidesBackButton = true;
-    }
-    
     private func addWebView(aWebView: UIView) {
         self.webViewContainer.addSubview(aWebView)
         aWebView.translatesAutoresizingMaskIntoConstraints = false
         self.webViewContainer.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[aWebView]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["aWebView" : aWebView]))
         self.webViewContainer.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[aWebView]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["aWebView" : aWebView]))
-    }
-    
-    // MARK: Navigation
-    
-    func goBack(sender: AnyObject!) {
-        self.navigationController!.popViewControllerAnimated(true);
     }
 }

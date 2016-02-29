@@ -47,6 +47,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             })
         }
         
+        Theme.Appearance.applyGlobalStylings()
+        
         if let launchOptions = launchOptions {
             self.launchOptions = [NSDate() : launchOptions]
         }

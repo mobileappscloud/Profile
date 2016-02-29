@@ -8,13 +8,23 @@
 
 import Foundation
 
+/// This class contains all 
 final class Theme {
     
     /// Represents colors as specified in [style guide](http://consistify.higi.com/#/colors).
     struct Color {
         static let primary = Primary.green
     }
+    
+    /// Contains common themed stylings which can be applied to UI elements. Leverages `UIAppearance` to apply global styling.
+    struct Appearance {
+        static func applyGlobalStylings() {
+            applyStyleToNavigationBar()
+        }
+    }
 }
+
+// MARK: - Color
 
 extension Theme.Color {
     
@@ -235,22 +245,23 @@ extension Theme.Color {
     }
 }
 
-// MARK: - Protocols
+// MARK: - Appearance
 
-// MARK: Navigation Bar
-
-protocol ThemeNavBar {
+extension Theme.Appearance {
     
-    func configureNavBar(navBar: UINavigationBar)
-}
-
-extension ThemeNavBar {
-    
-    func configureNavBar(navBar: UINavigationBar) {
-        navBar.translucent = false
-        navBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
-        navBar.tintColor = UIColor.whiteColor()
-        navBar.barTintColor = Theme.Color.primary
-        navBar.barStyle = .Black
+    static func applyStyleToNavigationBar() {
+        let navigationBar = UINavigationBar.appearance()
+        navigationBar.translucent = false
+        navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : Theme.Color.Primary.white]
+        navigationBar.barTintColor = Theme.Color.primary
+        navigationBar.barStyle = .Black
+        
+        let barButtonItem: UIBarButtonItem!
+        if #available(iOS 9.0, *) {
+            barButtonItem = UIBarButtonItem.appearanceWhenContainedInInstancesOfClasses([UINavigationBar.self])
+        } else {
+            barButtonItem = UIBarButtonItem.higi_appearanceWhenContainedIn(UINavigationBar.self)
+        }
+        barButtonItem.tintColor = Theme.Color.Primary.white
     }
 }

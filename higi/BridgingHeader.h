@@ -38,3 +38,10 @@
 //
 
 #import "UIImage+Orientation.h"
+
+//
+// Custom includes
+//
+
+// Extension for UIAppearance proxy to bridge Obj-C API to Swift
+#import "UIAppearance+Swift.h"

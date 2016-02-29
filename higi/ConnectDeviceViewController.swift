@@ -11,7 +11,7 @@ private enum TableSection: Int {
     case Count
 }
 
-class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+class ConnectDeviceViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var headerImage: UIImageView!
     @IBOutlet weak var table: UITableView!
@@ -51,18 +51,6 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
     
     override func viewDidLoad() {
         super.viewDidLoad();
-
-        self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
-        (self.navigationController as! MainNavigationController).revealController.panGestureRecognizer().enabled = false;
-        backButton = UIButton(type: .Custom);
-        backButton.setBackgroundImage(UIImage(named: "btn_back_white.png"), forState: UIControlState.Normal);
-        backButton.addTarget(self, action: "goBack:", forControlEvents: UIControlEvents.TouchUpInside);
-        backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
-        let backBarItem = UIBarButtonItem(customView: backButton);
-        self.navigationItem.leftBarButtonItem = backBarItem;
-        self.navigationItem.hidesBackButton = true;
-        
-        shouldShowDailyPoints = false;
         
         self.title = NSLocalizedString("CONNECT_DEVICE_VIEW_TITLE", comment: "Title for Connect Device view.");
         table.delegate = self;
@@ -101,37 +89,6 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated);
         active = true;
-    }
-    
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        updateNavbar();
-    }
-    
-    func updateNavbar() {
-        if (active) {
-            let scrollY = table.contentOffset.y;
-            if (scrollY >= 0) {
-                headerImage.frame.origin.y = -scrollY / 2;
-                let alpha = min(scrollY / 75, 1);
-                self.fakeNavBar.alpha = alpha;
-                self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0 - alpha, alpha: 1.0)];
-                if (alpha < 0.5) {
-                    toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon"), forState: UIControlState.Normal);
-                    toggleButton!.alpha = 1 - alpha;
-                    self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
-                    backButton.setBackgroundImage(UIImage(named: "btn_back_white.png"), forState: UIControlState.Normal);
-                } else {
-                    toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon_inverted"), forState: UIControlState.Normal);
-                    toggleButton!.alpha = alpha;
-                    self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
-                    backButton.setBackgroundImage(UIImage(named: "btn_back_black.png"), forState: UIControlState.Normal);
-                }
-            } else {
-                self.fakeNavBar.alpha = 0;
-                self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0, alpha: 1)];
-                self.headerImage.frame.origin.y = 0;
-            }
-        }
     }
     
     private func device(forIndexPath indexPath: NSIndexPath) -> ActivityDevice {

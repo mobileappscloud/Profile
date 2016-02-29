@@ -9,7 +9,7 @@
 import Foundation
 import SafariServices
 
-final class DashboardViewController: UIViewController, ThemeNavBar {
+final class DashboardViewController: UIViewController {
     
     @IBOutlet weak var challengesCardTitleLabel: UILabel! {
         didSet {
@@ -73,11 +73,6 @@ final class DashboardViewController: UIViewController, ThemeNavBar {
         NSNotificationCenter.defaultCenter().addObserverForName("RefreshDashboard", object: nil, queue: nil, usingBlock: { [unowned self] (notification) in
             self.refresh()
         })
-        
-        if let navController = self.navigationController {
-            configureNavBar(navController.navigationBar)
-            navController.title = self.title
-        }
         
         createPullToRefresh();
         

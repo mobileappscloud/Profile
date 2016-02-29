@@ -77,9 +77,6 @@ class SettingsTableViewController: UITableViewController, SwitchTableViewCellDel
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
-        // ???: Why does this need to happen?
-        (self.navigationController as! MainNavigationController).drawerController?.selectRowAtIndex(5);
-        updateNavBar();
         
         /*! @internal This is left over functionality from the refactor */
         let settingsViewController = self.parentViewController as! SettingsViewController;
@@ -88,7 +85,6 @@ class SettingsTableViewController: UITableViewController, SwitchTableViewCellDel
             SessionData.Instance.user.blurredImage = user.blurredImage;
             profileImageView.image = user.profileImage;
             settingsViewController.backgroundImageView.image = user.blurredImage;
-            (self.navigationController as! MainNavigationController).drawerController.refreshData();
         }
     }
     
@@ -297,17 +293,6 @@ class SettingsTableViewController: UITableViewController, SwitchTableViewCellDel
             pinCodeViewController.removing = true;
         }
         self.navigationController!.pushViewController(pinCodeViewController, animated: true);
-    }
-    
-    // MARK: - Scroll View
-    
-    override func scrollViewDidScroll(scrollView: UIScrollView) {
-        updateNavBar();
-    }
-    
-    func updateNavBar() {
-        let settingsViewController = self.parentViewController as! SettingsViewController;
-        settingsViewController.updateNavBar();
     }
     
     // MARK: - UI Actions

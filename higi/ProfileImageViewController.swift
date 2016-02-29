@@ -37,14 +37,6 @@ class ProfileImageViewController: UIViewController, UIImagePickerControllerDeleg
         self.navigationItem.hidesBackButton = true;
         
         if (fromSettings) {
-            (self.navigationController as! MainNavigationController).revealController.panGestureRecognizer().enabled = false;
-            let backButton = UIButton(type: UIButtonType.Custom);
-            backButton.setBackgroundImage(UIImage(named: "btn_back_black.png"), forState: UIControlState.Normal);
-            backButton.addTarget(self, action: "goBack:", forControlEvents: UIControlEvents.TouchUpInside);
-            backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
-            let backBarItem = UIBarButtonItem(customView: backButton);
-            self.navigationItem.leftBarButtonItem = backBarItem;
-            
             skipButton.hidden = true;
         }
         
@@ -57,10 +49,6 @@ class ProfileImageViewController: UIViewController, UIImagePickerControllerDeleg
         spinner.shouldAnimateFull = false;
         spinner.hidden = true;
         self.view.addSubview(spinner);
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated);
     }
     
     @IBAction func chooseFromLibrary(sender: AnyObject) {
@@ -100,11 +88,7 @@ class ProfileImageViewController: UIViewController, UIImagePickerControllerDeleg
         modifyViewController.fromSettings = fromSettings;
         self.navigationController!.pushViewController(modifyViewController, animated: true);
     }
-    
-    func goBack(sender: AnyObject!) {
-        self.navigationController!.popViewControllerAnimated(true);
-    }
-    
+
     func gotoDashboard() {
         if (SessionController.Instance.checkins != nil && SessionController.Instance.challenges != nil && SessionController.Instance.kioskList != nil && SessionController.Instance.pulseArticles.count > 0 && !dashboardSent) {
             Utility.gotoDashboard();

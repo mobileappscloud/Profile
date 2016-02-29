@@ -10,7 +10,7 @@ import Foundation
 import QuartzCore
 import SafariServices
 
-class PulseHomeViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
+class PulseHomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var headerImage: UIImageView!
@@ -41,12 +41,6 @@ class PulseHomeViewController: BaseViewController, UITableViewDataSource, UITabl
         fillTopContainer();
         
         createPullToRefresh();
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated);
-        (self.navigationController as? MainNavigationController)?.drawerController?.selectRowAtIndex(4);
-        updateNavBar();
     }
     
     func fillTopContainer() {
@@ -137,23 +131,7 @@ class PulseHomeViewController: BaseViewController, UITableViewDataSource, UITabl
             pullRefreshView.icon.alpha = 0.0;
             pullRefreshView.circleContainer.alpha = 0.0;
             pullRefreshView.backgroundColor = UIColor.clearColor();
-            let alpha = min(scrollY / 100, 1);
-            self.fakeNavBar.alpha = alpha;
-            self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0 - alpha, alpha: 1.0)];
-            if (alpha < 0.5) {
-                toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon"), forState: UIControlState.Normal);
-                toggleButton!.alpha = 1 - alpha;
-                self.navigationController?.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
-                self.pointsMeter.setLightText();
-            } else {
-                toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon_inverted"), forState: UIControlState.Normal);
-                toggleButton!.alpha = alpha;
-                self.navigationController?.navigationBar.barStyle = UIBarStyle.Default;
-                self.pointsMeter.setDarkText();
-            }
         } else {
-            self.fakeNavBar.alpha = 0;
-            self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0, alpha: 0)];
             let alpha = max(1.0 + scrollY / (tableView.frame.size.height * 0.195), 0.0);
             if (!refreshControl.refreshing && doneRefreshing) {
                 pullRefreshView.icon.alpha = 1.0 - alpha;
