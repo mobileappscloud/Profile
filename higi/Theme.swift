@@ -252,16 +252,11 @@ extension Theme.Appearance {
     static func applyStyleToNavigationBar() {
         let navigationBar = UINavigationBar.appearance()
         navigationBar.translucent = false
-        navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : Theme.Color.Primary.white]
+        
         navigationBar.barTintColor = Theme.Color.primary
         navigationBar.barStyle = .Black
         
-        let barButtonItem: UIBarButtonItem!
-        if #available(iOS 9.0, *) {
-            barButtonItem = UIBarButtonItem.appearanceWhenContainedInInstancesOfClasses([UINavigationBar.self])
-        } else {
-            barButtonItem = UIBarButtonItem.higi_appearanceWhenContainedIn(UINavigationBar.self)
-        }
-        barButtonItem.tintColor = Theme.Color.Primary.white
+        navigationBar.tintColor = Theme.Color.Primary.white
+        navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : Theme.Color.Primary.white]
     }
 }
