@@ -170,12 +170,14 @@ final class DashboardViewController: UIViewController {
             if (activitiesLoaded && metricsLoaded && !metricsRefreshed) {
                 initMetricsCard();
                 metricsRefreshed = true;
+                Utility.mainTabBarController()?.metricsNavController.tabBarItem.enabled = true
             }
             activitiesRefreshed = true;
         case ApiUtility.CHALLENGES:
             challengesLoaded = true;
             if (doneRefreshing) {
                 initChallengesCard();
+                Utility.mainTabBarController()?.challengesNavController.tabBarItem.enabled = true
             }
             challengesRefreshed = true;
         case ApiUtility.CHECKINS:
@@ -183,6 +185,7 @@ final class DashboardViewController: UIViewController {
             if (activitiesLoaded && metricsLoaded && !metricsRefreshed) {
                 initMetricsCard();
                 metricsRefreshed = true;
+                Utility.mainTabBarController()?.metricsNavController.tabBarItem.enabled = true
             }
             checkinsRefreshed = true;
         case ApiUtility.PULSE:

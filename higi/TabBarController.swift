@@ -22,7 +22,7 @@ final class TabBarController: UITabBarController {
     lazy private(set) var homeNavController: UINavigationController = {
         let nav = UINavigationController(rootViewController: self.homeViewController)
         let title = NSLocalizedString("MAIN_TAB_BAR_ITEM_TITLE_HOME", comment: "Title for Home tab bar item.")
-        self.configureTab(nav, title: title, itemImageNamePrefix: "home")
+        self.configureTab(nav, title: title, itemImageNamePrefix: "home", enabled: true)
         return nav
     }()
     lazy private(set) var homeViewController: DashboardViewController = {
@@ -58,7 +58,7 @@ final class TabBarController: UITabBarController {
     lazy private(set) var findStationNavController: UINavigationController = {
         let nav = UINavigationController(rootViewController: self.findStationViewController)
         let title = NSLocalizedString("MAIN_TAB_BAR_ITEM_TITLE_FIND_STATION", comment: "Title for Find Station tab bar item.")
-        self.configureTab(nav, title: title, itemImageNamePrefix: "station")
+        self.configureTab(nav, title: title, itemImageNamePrefix: "station", enabled: true)
         return nav
     }()
     lazy private(set) var findStationViewController: FindStationViewController = {
@@ -99,10 +99,11 @@ extension TabBarController {
         }
     }
     
-    private func configureTab(navigationController: UINavigationController, title: String, itemImageNamePrefix imageNamePrefix: String) {
+    private func configureTab(navigationController: UINavigationController, title: String, itemImageNamePrefix imageNamePrefix: String, enabled: Bool = false) {
         let image = UIImage(named: "\(imageNamePrefix)-tab-bar-icon")
         let highlightImage = UIImage(named: "\(imageNamePrefix)-tab-bar-highlight-icon")
         navigationController.tabBarItem = UITabBarItem(title: title, image: image, selectedImage: highlightImage)
+        navigationController.tabBarItem.enabled = enabled
     }
 }
 
