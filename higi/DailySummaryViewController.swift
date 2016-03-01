@@ -32,8 +32,6 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     
     var minCircleRadius:CGFloat = 8, maxCircleRadius:CGFloat = 20, currentOrigin:CGFloat = 0, imageAspectRatio:CGFloat!;
     
-    var backButton:UIButton!;
-    
     var dateString: String!;
     
     var isLeaving = false, previousShouldRotate: Bool!;
@@ -41,8 +39,6 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     var previousSupportedOrientations: UIInterfaceOrientationMask!;
     
     var previousActualOrientation: UIInterfaceOrientation!;
-    
-    var fakeNavBar:UIView!;
     
     var timeOfDay:TimeOfDay!;
     
@@ -57,8 +53,8 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad();
-        self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
         self.title = NSLocalizedString("DAILY_SUMMARY_VIEW_TITLE", comment: "Title for Daily Summary view.")
+        
         pointsMeter = PointsMeter.create(CGRect(x: 0, y: 0, width: pointsMeterContainer.frame.size.width, height: pointsMeterContainer.frame.size.height));
         pointsMeterContainer.addSubview(pointsMeter);
         self.automaticallyAdjustsScrollViewInsets = false;
@@ -68,7 +64,6 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         
         imageAspectRatio = headerBackground.frame.size.width / headerBackground.frame.size.height;
         
-        initBackButton();
         initHeader();
         initSummaryview();
         
@@ -77,29 +72,12 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
-        let revealController = (navigationController as! MainNavigationController).revealController;
-        previousActualOrientation = self.interfaceOrientation;
-        previousSupportedOrientations = revealController.supportedOrientations;
-        previousShouldRotate = revealController.shouldRotate;
-        revealController.panGestureRecognizer().enabled = false;
-        revealController.supportedOrientations = UIInterfaceOrientationMask.AllButUpsideDown;
-        revealController.shouldRotate = true;
         
         activityView.frame.size.width = UIScreen.mainScreen().bounds.size.width;
         for row in titleRows {
             row.frame.size.width = UIScreen.mainScreen().bounds.size.width - row.frame.origin.x;
         }
         scrollView.setContentOffset(CGPoint(x: 0,y: 0), animated: false);
-        updateNavbar(0);
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        let revealController = (self.navigationController as? MainNavigationController)?.revealController;
-        revealController?.supportedOrientations = previousSupportedOrientations;
-        self.navigationController?.navigationBarHidden = false;
-        UIDevice.currentDevice().setValue(previousActualOrientation.rawValue, forKey: "orientation");
-        revealController?.shouldRotate = previousShouldRotate;
-        super.viewWillDisappear(animated);
     }
     
     override func viewDidLayoutSubviews() {
@@ -118,17 +96,6 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     
     override func prefersStatusBarHidden() -> Bool {
         return false;
-    }
-    
-    func initBackButton() {
-        self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
-        backButton = UIButton(type: UIButtonType.Custom);
-        backButton.setBackgroundImage(UIImage(named: "btn_back_white.png"), forState: UIControlState.Normal);
-        backButton.addTarget(self, action: "goBack:", forControlEvents: UIControlEvents.TouchUpInside);
-        backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
-        let backBarItem = UIBarButtonItem(customView: backButton);
-        self.navigationItem.leftBarButtonItem = backBarItem;
-        self.navigationItem.hidesBackButton = true;
     }
     
     func initHeader() {
@@ -171,9 +138,6 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             headerBackground.image = UIImage(named: "dailysummary_night");
         }
         let screenWidth = max(UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height);
-        fakeNavBar = UIView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 64));
-        fakeNavBar.backgroundColor = UIColor.whiteColor();
-        view.addSubview(fakeNavBar);
     }
     
     func initSummaryview() {
@@ -563,7 +527,6 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         let scrollY = scrollView.contentOffset.y;
         if (scrollY >= 0) {
             headerBackground.frame.origin.y = scrollY * -0.5;
-            updateNavbar(scrollY);
         } else {
             headerBackground.frame.origin.y = 0;
             headerView.frame.origin.y = 0;
@@ -575,30 +538,8 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         viewWillLayoutSubviews();
     }
     
-    func updateNavbar(scrollY: CGFloat) {
-        if (!isLeaving) {
-            if (scrollY >= 0) {
-                let alpha = min(scrollY / 75, 1);
-                fakeNavBar.backgroundColor = UIColor(red: 255, green: 255, blue: 255, alpha: alpha);
-                self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0 - alpha, alpha: 1.0)];
-                if (alpha < 0.5) {
-                    self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
-                    backButton.setBackgroundImage(UIImage(named: "btn_back_white.png"), forState: UIControlState.Normal);
-                } else {
-                    self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
-                    backButton.setBackgroundImage(UIImage(named: "btn_back_black.png"), forState: UIControlState.Normal);
-                }
-            } else {
-                fakeNavBar.backgroundColor = UIColor.whiteColor();
-                self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0, alpha: 1)];
-                self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
-            }
-        }
-    }
-    
     override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
         scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false);
-        updateNavbar(0);
         resizeActivityRows(toInterfaceOrientation == UIInterfaceOrientation.Portrait);
     }
     
@@ -660,11 +601,6 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         self.navigationController!.pushViewController(FindStationViewController(nibName: "FindStationView", bundle: nil), animated: true);
     }
     
-    func goBack(sender: AnyObject!) {
-        isLeaving = true;
-        self.navigationController!.popViewControllerAnimated(true);
-    }
-    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews();
         activityView.frame.size.width = scrollView.frame.size.width;
@@ -707,13 +643,12 @@ extension DailySummaryViewController: UniversalLinkHandler {
         if !loadedActivities || !loadedCheckins {
             return
         }
+        guard let mainTabBarController = Utility.mainTabBarController() else { return }
         
+        let dailySummaryViewController = DailySummaryViewController(nibName: "DailySummaryView", bundle: nil)
         dispatch_async(dispatch_get_main_queue(), {
-            Utility.mainNavigationController()?.revealController.setFrontViewPosition(.Left, animated: false)
-            
             presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
-            Utility.mainNavigationController()?.drawerController.navController?.popToRootViewControllerAnimated(true)
-            Utility.mainNavigationController()?.drawerController.navController?.pushViewController(DailySummaryViewController(nibName: "DailySummaryView", bundle: nil), animated: false)
+            mainTabBarController.presentViewController(dailySummaryViewController, animated: true, completion: nil)
         })
     }
 }
