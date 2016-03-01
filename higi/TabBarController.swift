@@ -27,6 +27,7 @@ final class TabBarController: UITabBarController {
     }()
     lazy private(set) var homeViewController: DashboardViewController = {
         let homeViewController = DashboardViewController(nibName: "DashboardView", bundle: nil)
+        homeViewController.navigationItem.rightBarButtonItem = self.navigationOverflowBarButtonItem()
         return homeViewController
     }()
     
@@ -37,7 +38,9 @@ final class TabBarController: UITabBarController {
         return nav
     }()
     lazy private(set) var challengesViewController: ChallengesViewController = {
-        return ChallengesViewController(nibName: "ChallengesView", bundle: nil)
+        let challengesViewController = ChallengesViewController(nibName: "ChallengesView", bundle: nil)
+        challengesViewController.navigationItem.rightBarButtonItem = self.navigationOverflowBarButtonItem()
+        return challengesViewController
     }()
     
     lazy private(set) var metricsNavController: UINavigationController = {
@@ -47,7 +50,9 @@ final class TabBarController: UITabBarController {
         return nav
     }()
     lazy private(set) var metricsViewController: NewMetricsViewController = {
-        return self.metricsNavController.topViewController as! NewMetricsViewController
+        let metricsViewController = self.metricsNavController.topViewController as! NewMetricsViewController
+        metricsViewController.navigationItem.rightBarButtonItem = self.navigationOverflowBarButtonItem()
+        return metricsViewController
     }()
     
     lazy private(set) var findStationNavController: UINavigationController = {
@@ -57,7 +62,9 @@ final class TabBarController: UITabBarController {
         return nav
     }()
     lazy private(set) var findStationViewController: FindStationViewController = {
-       return FindStationViewController(nibName: "FindStationView", bundle: nil)
+       let findStationViewController = FindStationViewController(nibName: "FindStationView", bundle: nil)
+        findStationViewController.navigationItem.rightBarButtonItem = self.navigationOverflowBarButtonItem()
+        return findStationViewController
     }()
     
     // MARK: - View Lifecycle
