@@ -119,8 +119,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                             nameViewController.dashboardNext = true;
                             self.presentViewController(nameViewController, animated: true, completion: nil);
                         } else {
-                            self.gotoDashboard()
-                            NSNotificationCenter.defaultCenter().postNotificationName("SplashViewControllerDidGoToDashboard", object: nil)
+                            dispatch_async(dispatch_get_main_queue(), {
+                                self.spinner.stopAnimating();
+                                self.dismissViewControllerAnimated(true, completion: nil)
+                            })
                         }
                         
                         }, failure: self.termsAndPrivacyFailure)

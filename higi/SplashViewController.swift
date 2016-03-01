@@ -69,6 +69,7 @@ class SplashViewController: UIViewController {
             (UIApplication.sharedApplication().delegate as! AppDelegate).startLocationManager();
             Utility.gotoDashboard();
             NSNotificationCenter.defaultCenter().postNotificationName("SplashViewControllerDidGoToDashboard", object: nil)
+            NSNotificationCenter.defaultCenter().postNotificationName(Notifications.SplashViewController.DidPresentMainTabBar, object: nil)
         }
     }
     
@@ -116,5 +117,12 @@ class SplashViewController: UIViewController {
     private func pushAppUpdateViewController() {
         let appUpdateViewController = UIStoryboard(name: "RequiredAppUpdate", bundle: nil).instantiateInitialViewController() as! RequiredAppUpdateViewController;
         self.presentViewController(appUpdateViewController, animated: false, completion: nil);
+    }
+}
+
+extension Notifications {
+    
+    struct SplashViewController {
+        static let DidPresentMainTabBar = "SplashViewControllerDidPresentMainTabBar"
     }
 }

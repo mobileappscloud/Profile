@@ -153,9 +153,9 @@ extension AppDelegate {
         }
         
         if self.didRecentlyLaunchToContinueUserActivity() {
-            NSNotificationCenter.defaultCenter().addObserverForName("SplashViewControllerDidGoToDashboard", object: nil, queue: nil, usingBlock: { (notification) in
+            NSNotificationCenter.defaultCenter().addObserverForName(Notifications.SplashViewController.DidPresentMainTabBar, object: nil, queue: nil, usingBlock: { (notification) in
                 UniversalLink.handleURL(URL);
-                NSNotificationCenter.defaultCenter().removeObserver(self, name: "SplashViewControllerDidGoToDashboard", object: nil)
+                NSNotificationCenter.defaultCenter().removeObserver(self, name: Notifications.SplashViewController.DidPresentMainTabBar, object: nil)
             })
         } else {
             UniversalLink.handleURL(URL);
