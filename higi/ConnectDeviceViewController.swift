@@ -230,10 +230,10 @@ extension ConnectDeviceViewController: UniversalLinkHandler {
             if handleRedirect {
                 handleConnectDeviceRedirect()
             } else {
-                navigateToConnectDevice()
+                ConnectDeviceViewController.navigateToConnectDevice()
             }
         } else {
-            navigateToConnectDevice()
+            ConnectDeviceViewController.navigateToConnectDevice()
         }
     }
     
@@ -246,7 +246,7 @@ extension ConnectDeviceViewController: UniversalLinkHandler {
         }
     }
     
-    private func navigateToConnectDevice() {
+    class func navigateToConnectDevice() {
         guard let mainTabBarController = Utility.mainTabBarController() else { return }
         
         let settingsNavController = mainTabBarController.settingsModalViewController() as! UINavigationController

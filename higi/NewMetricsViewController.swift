@@ -58,6 +58,14 @@ final class NewMetricsViewController: UIViewController {
         self.coordinator.delegate = self
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Workaround to ensure selected collection view cell is centered and visible
+        let selectedIndexPath = NSIndexPath(forItem: coordinator.selectedIndex, inSection: 0)
+        self.collectionViewController.collectionView?.scrollToItemAtIndexPath(selectedIndexPath, atScrollPosition: .CenteredHorizontally, animated: false)
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         guard let identifier = segue.identifier else { return }
         

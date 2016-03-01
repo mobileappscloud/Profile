@@ -144,29 +144,6 @@ class Utility {
         }
         return -1;
     }
-    
-    /**
-     Convenience method which traverses the view hierarchy to find the main navigation controller.
-     
-     - returns: A reference to the `MainNavigationController`.
-     */
-    internal class func mainNavigationController() -> MainNavigationController? {
-        var navigationController: MainNavigationController? = nil
-        
-        if let keyWindow = UIApplication.sharedApplication().keyWindow {
-            if let rootViewController = keyWindow.rootViewController as? RevealViewController {
-                
-                for child in rootViewController.childViewControllers {
-                    if child is MainNavigationController {
-                        navigationController = child as? MainNavigationController
-                        break;
-                    }
-                }
-            }
-        }
-        
-        return navigationController;
-    }
 }
 
 extension Utility {

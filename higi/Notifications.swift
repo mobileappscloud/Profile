@@ -6,4 +6,9 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-import Foundation
+/**
+ *  Struct for custom notification keys. Extend this struct when adding a new notification key.
+ */
+struct Notifications {
+    
+}
