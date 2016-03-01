@@ -44,13 +44,13 @@ final class TabBarController: UITabBarController {
     }()
     
     lazy private(set) var metricsNavController: UINavigationController = {
-        let nav = UIStoryboard(name: "Metrics", bundle: nil).instantiateInitialViewController() as! UINavigationController
+        let nav = UINavigationController(rootViewController: self.metricsViewController)
         let title = NSLocalizedString("MAIN_TAB_BAR_ITEM_TITLE_METRICS", comment: "Title for Metrics tab bar item.")
         self.configureTab(nav, title: title, itemImageNamePrefix: "metrics")
         return nav
     }()
     lazy private(set) var metricsViewController: NewMetricsViewController = {
-        let metricsViewController = self.metricsNavController.topViewController as! NewMetricsViewController
+        let metricsViewController = UIStoryboard(name: "Metrics", bundle: nil).instantiateInitialViewController() as! NewMetricsViewController
         metricsViewController.navigationItem.rightBarButtonItem = self.navigationOverflowBarButtonItem()
         return metricsViewController
     }()
