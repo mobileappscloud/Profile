@@ -60,7 +60,7 @@ enum PathType: String {
         case .MetricsWeight:
             fallthrough
         case .Metrics:
-            handler = MetricsViewController()
+            handler = NewMetricsViewController()
             
         case .ActivityList:
             fallthrough

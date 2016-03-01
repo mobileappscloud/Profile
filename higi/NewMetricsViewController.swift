@@ -18,6 +18,9 @@ private struct Storyboard {
 
 final class NewMetricsViewController: UIViewController {
     
+    /// Supported types of metrics
+    lazy private(set) var types = MetricsType.allValues
+    
     /// Image view which hints that the view supports resizing due to image rotation
     @IBOutlet private var rotateDeviceImageView: UIImageView!
     
@@ -28,11 +31,12 @@ final class NewMetricsViewController: UIViewController {
     private var pageViewController: MetricsPageViewController!
     
     /// Object which coordinates interactions between container views.
-    private let coordinator = MetricsCoordinator() 
+    lazy private(set) var coordinator: MetricsCoordinator = {
+       return MetricsCoordinator(types: self.types)
+    }()
     
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return UIStatusBarStyle.LightContent
-    }
+    private var universalLinkCheckinsObserver: NSObjectProtocol? = nil
+    private var universalLinkActivitiesObserver: NSObjectProtocol? = nil
     
     // MARK: - View Lifecycle
     
@@ -179,5 +183,79 @@ extension NewMetricsViewController: MetricsCoordinatorDelegate {
                 })
             })
         }
+    }
+}
+
+// MARK: - Navigation
+
+extension NewMetricsViewController {
+    
+    func navigate(toMetricViewWithType metricType: MetricsType) {
+        guard let targetIndex = self.types.indexOf(metricType) else { return }
+        
+        let indexPath = NSIndexPath(forItem: targetIndex, inSection: 0)
+        self.collectionViewController.collectionView?.selectItemAtIndexPath(indexPath, animated: false, scrollPosition: .CenteredHorizontally)
+        self.collectionViewController.collectionView?.delegate?.collectionView!(self.collectionViewController.collectionView!, didSelectItemAtIndexPath: indexPath)        
+    }
+}
+
+// MARK: - Universal Link
+
+extension NewMetricsViewController: UniversalLinkHandler {
+    
+    func handleUniversalLink(URL: NSURL, pathType: PathType, parameters: [String]?) {
+        
+        var loadedActivities = false
+        var loadedCheckins = false
+        let application = UIApplication.sharedApplication().delegate as! AppDelegate
+        if application.didRecentlyLaunchToContinueUserActivity() {
+            let loadingViewController = self.presentLoadingViewController()
+            
+            self.universalLinkActivitiesObserver = NSNotificationCenter.defaultCenter().addObserverForName(ApiUtility.ACTIVITIES, object: nil, queue: nil, usingBlock: { (notification) in
+                loadedActivities = true
+                self.navigateToMetricsView(pathType, loadedActivites: loadedActivities, loadedCheckins: loadedCheckins, presentedViewController: loadingViewController)
+                if let observer = self.universalLinkActivitiesObserver {
+                    NSNotificationCenter.defaultCenter().removeObserver(observer)
+                }
+            })
+            self.universalLinkCheckinsObserver = NSNotificationCenter.defaultCenter().addObserverForName(ApiUtility.CHECKINS, object: nil, queue: nil, usingBlock: { (notification) in
+                loadedCheckins = true
+                self.navigateToMetricsView(pathType, loadedActivites: loadedActivities, loadedCheckins: loadedCheckins, presentedViewController: loadingViewController)
+                if let observer = self.universalLinkCheckinsObserver {
+                    NSNotificationCenter.defaultCenter().removeObserver(observer)
+                }
+            })
+        } else {
+            self.navigateToMetricsView(pathType, loadedActivites: true, loadedCheckins: true, presentedViewController: nil)
+        }
+    }
+    
+    private func navigateToMetricsView(pathType: PathType, loadedActivites: Bool, loadedCheckins: Bool, presentedViewController: UIViewController?) {
+        if !loadedActivites || !loadedCheckins {
+            return
+        }
+        guard let mainTabBarController = Utility.mainTabBarController() else { return }
+        
+        let targetMetricsType: MetricsType
+        switch pathType {
+        case .MetricsBloodPressure:
+            targetMetricsType = .BloodPressure
+        case .MetricsPulse:
+            targetMetricsType = .Pulse
+        case .MetricsWeight:
+            targetMetricsType = .Weight
+        default:
+            targetMetricsType = .DailySummary
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
+            
+            mainTabBarController.selectedIndex = TabBarController.ViewControllerIndex.Metrics.rawValue
+            // Dumb workaround which ensures embedded view controllers are loaded
+            Utility.delay(0.1, closure: {
+                mainTabBarController.metricsViewController.navigate(toMetricViewWithType: targetMetricsType)
+            })
+        })
     }
 }

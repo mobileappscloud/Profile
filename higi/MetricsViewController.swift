@@ -21,9 +21,6 @@ class MetricsViewController: UIViewController {
     
     var previousActualOrientation: UIInterfaceOrientation!, selectedCardPosition = 0;
     
-    var universalLinkCheckinsObserver: NSObjectProtocol? = nil
-    var universalLinkActivitiesObserver: NSObjectProtocol? = nil
-    
     var revealController:RevealViewController!;
     
     override func viewDidLoad() {
@@ -450,65 +447,5 @@ class MetricsViewController: UIViewController {
                 }
             }
         }
-    }
-}
-
-extension MetricsViewController: UniversalLinkHandler {
-    
-    func handleUniversalLink(URL: NSURL, pathType: PathType, parameters: [String]?) {
-        
-        var loadedActivities = false
-        var loadedCheckins = false
-        let application = UIApplication.sharedApplication().delegate as! AppDelegate
-        if application.didRecentlyLaunchToContinueUserActivity() {
-            let loadingViewController = self.presentLoadingViewController()
-            
-            self.universalLinkActivitiesObserver = NSNotificationCenter.defaultCenter().addObserverForName(ApiUtility.ACTIVITIES, object: nil, queue: nil, usingBlock: { (notification) in
-                loadedActivities = true
-                self.pushMetricsView(pathType, loadedActivites: loadedActivities, loadedCheckins: loadedCheckins, presentedViewController: loadingViewController)
-                if let observer = self.universalLinkActivitiesObserver {
-                    NSNotificationCenter.defaultCenter().removeObserver(observer)
-                }
-            })
-            self.universalLinkCheckinsObserver = NSNotificationCenter.defaultCenter().addObserverForName(ApiUtility.CHECKINS, object: nil, queue: nil, usingBlock: { (notification) in
-                loadedCheckins = true
-                self.pushMetricsView(pathType, loadedActivites: loadedActivities, loadedCheckins: loadedCheckins, presentedViewController: loadingViewController)
-                if let observer = self.universalLinkCheckinsObserver {
-                    NSNotificationCenter.defaultCenter().removeObserver(observer)
-                }
-            })
-        } else {
-            self.pushMetricsView(pathType, loadedActivites: true, loadedCheckins: true, presentedViewController: nil)
-        }
-    }
-    
-    private func pushMetricsView(pathType: PathType, loadedActivites: Bool, loadedCheckins: Bool, presentedViewController: UIViewController?) {
-        if !loadedActivites || !loadedCheckins {
-            return
-        }
-        
-        let metricsViewController = MetricsViewController(nibName: "MetricsView", bundle: nil);
-        
-        let targetMetricsType: MetricsType
-        switch pathType {
-        case .MetricsBloodPressure:
-            targetMetricsType = .BloodPressure;
-        case .MetricsPulse:
-            targetMetricsType = .Pulse;
-        case .MetricsWeight:
-            targetMetricsType = .Weight;
-        default:
-            targetMetricsType = .DailySummary;
-        }
-        
-        metricsViewController.selectedType = targetMetricsType
-
-        dispatch_async(dispatch_get_main_queue(), {
-            Utility.mainNavigationController()?.revealController.setFrontViewPosition(.Left, animated: false)
-            
-            presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
-            Utility.mainNavigationController()?.drawerController.navController?.popToRootViewControllerAnimated(true)
-            Utility.mainNavigationController()?.drawerController.navController?.pushViewController(metricsViewController, animated: false)
-        })
     }
 }
