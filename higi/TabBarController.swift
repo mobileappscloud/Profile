@@ -122,14 +122,14 @@ extension TabBarController {
     
     // MARK: Modal View Controllers
     
-    private func pulseModalViewController() -> UIViewController {
+    func pulseModalViewController() -> UIViewController {
         let pulseViewController = PulseHomeViewController(nibName: "PulseHomeView", bundle: nil)
         pulseViewController.navigationItem.rightBarButtonItem = modalDismissBarButtonItem(.Done)
         let pulseNav = UINavigationController(rootViewController: pulseViewController)
         return pulseNav
     }
     
-    private func settingsModalViewController() -> UIViewController {
+    func settingsModalViewController() -> UIViewController {
         let settingsStoryboard = UIStoryboard(name: "Settings", bundle: nil)
         let settingsNavController = settingsStoryboard.instantiateInitialViewController() as! UINavigationController
         return settingsNavController

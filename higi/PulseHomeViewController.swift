@@ -32,6 +32,7 @@ class PulseHomeViewController: UIViewController, UITableViewDataSource, UITableV
     override func viewDidLoad()  {
         super.viewDidLoad();
         self.title = NSLocalizedString("PULSE_HOME_VIEW_TITLE", comment: "Title for Pulse view.");
+        
         self.automaticallyAdjustsScrollViewInsets = false;
         tableView.separatorInset = UIEdgeInsetsZero;
         tableView.backgroundView?.backgroundColor = UIColor.blackColor();
@@ -290,13 +291,17 @@ extension PulseHomeViewController: UniversalLinkHandler {
     }
     
     private func pushPulseView(URL: NSURL, pathType: PathType, presentedViewController: UIViewController?) {
-        let pulseHomeViewController = PulseHomeViewController(nibName: "PulseHomeView", bundle: nil);
+        guard let mainTabBarController = Utility.mainTabBarController() else { return }
+        
+        let pulseNavController = mainTabBarController.pulseModalViewController() as! UINavigationController
+        let pulseHomeViewController = pulseNavController.topViewController as! PulseHomeViewController
+        
         dispatch_async(dispatch_get_main_queue(), {
-            Utility.mainNavigationController()?.revealController.setFrontViewPosition(.Left, animated: false)
-            
             presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
-            Utility.mainNavigationController()?.drawerController.navController?.popToRootViewControllerAnimated(true)
-            Utility.mainNavigationController()?.drawerController.navController?.pushViewController(pulseHomeViewController, animated: false)
+            
+            mainTabBarController.presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
+            
+            mainTabBarController.presentViewController(pulseNavController, animated: false, completion: nil)
         })
         
         if pathType == .PulseArticle {

@@ -249,8 +249,7 @@ extension ConnectDeviceViewController: UniversalLinkHandler {
     private func navigateToConnectDevice() {
         guard let mainTabBarController = Utility.mainTabBarController() else { return }
         
-        let settingsStoryboard = UIStoryboard(name: "Settings", bundle: nil)
-        let settingsNavController = settingsStoryboard.instantiateInitialViewController() as! UINavigationController
+        let settingsNavController = mainTabBarController.settingsModalViewController() as! UINavigationController
         
         let connectDeviceViewController = ConnectDeviceViewController(nibName: "ConnectDeviceView", bundle: nil)
         dispatch_async(dispatch_get_main_queue(), {
