@@ -30,9 +30,6 @@
 #import "ClusterKiosk.h"
 #import "HigiClusterRenderer.h"
 
-// Reveal View Controller (Hamburger Menu & Navigation)
-#import "SWRevealViewController.h"
-
 //
 // Copied third-party includes, manually managed
 //
