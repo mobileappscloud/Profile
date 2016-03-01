@@ -199,11 +199,11 @@ extension UniversalLinkHandler {
     - returns: The loading view controller which has been presented.
     */
     func presentLoadingViewController() -> UIViewController {
-        let navController = Utility.mainNavigationController()?.drawerController.navController
+        let tabBarController = Utility.mainTabBarController()!
         let loadingViewController = UIStoryboard(name: "Loading", bundle: nil).instantiateInitialViewController()!
         dispatch_async(dispatch_get_main_queue(), {
-            navController?.popToRootViewControllerAnimated(true)
-            navController?.presentViewController(loadingViewController, animated: false, completion: nil)
+            tabBarController.navigationController?.popToRootViewControllerAnimated(false)
+            tabBarController.presentViewController(loadingViewController, animated: true, completion: nil)
         })
         return loadingViewController
     }

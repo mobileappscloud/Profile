@@ -9,21 +9,53 @@
 import UIKit
 
 final class TabBarController: UITabBarController {
+    
+    enum ViewControllerIndex: Int {
+        case Home
+        case Challenges
+        case Metrics
+        case FindStation
+        
+        private static let allValues = [Home, Challenges, Metrics, FindStation]
+    }
 
+    lazy private(set) var homeNavController: UINavigationController = {
+        let nav = UINavigationController(rootViewController: self.homeViewController)
+        let title = NSLocalizedString("MAIN_TAB_BAR_ITEM_TITLE_HOME", comment: "Title for Home tab bar item.")
+        self.configureTab(nav, title: title, itemImageNamePrefix: "home")
+        return nav
+    }()
     lazy private(set) var homeViewController: DashboardViewController = {
         let homeViewController = DashboardViewController(nibName: "DashboardView", bundle: nil)
         return homeViewController
     }()
     
+    lazy private(set) var challengesNavController: UINavigationController = {
+        let nav = UINavigationController(rootViewController: self.challengesViewController)
+        let title = NSLocalizedString("MAIN_TAB_BAR_ITEM_TITLE_CHALLENGES", comment: "Title for Challenges tab bar item.")
+        self.configureTab(nav, title: title, itemImageNamePrefix: "challenges")
+        return nav
+    }()
     lazy private(set) var challengesViewController: ChallengesViewController = {
         return ChallengesViewController(nibName: "ChallengesView", bundle: nil)
     }()
     
+    lazy private(set) var metricsNavController: UINavigationController = {
+        let nav = UIStoryboard(name: "Metrics", bundle: nil).instantiateInitialViewController() as! UINavigationController
+        let title = NSLocalizedString("MAIN_TAB_BAR_ITEM_TITLE_METRICS", comment: "Title for Metrics tab bar item.")
+        self.configureTab(nav, title: title, itemImageNamePrefix: "metrics")
+        return nav
+    }()
     lazy private(set) var metricsViewController: NewMetricsViewController = {
-        let navController = UIStoryboard(name: "Metrics", bundle: nil).instantiateInitialViewController() as! UINavigationController
-        return navController.topViewController as! NewMetricsViewController
+        return self.metricsNavController.topViewController as! NewMetricsViewController
     }()
     
+    lazy private(set) var findStationNavController: UINavigationController = {
+        let nav = UINavigationController(rootViewController: self.findStationViewController)
+        let title = NSLocalizedString("MAIN_TAB_BAR_ITEM_TITLE_FIND_STATION", comment: "Title for Find Station tab bar item.")
+        self.configureTab(nav, title: title, itemImageNamePrefix: "station")
+        return nav
+    }()
     lazy private(set) var findStationViewController: FindStationViewController = {
        return FindStationViewController(nibName: "FindStationView", bundle: nil)
     }()
@@ -33,7 +65,12 @@ final class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        addViewControllers()
+        var controllers: [UIViewController] = []
+        for index in ViewControllerIndex.allValues {
+            controllers.append(navController(viewControllerIndex: index))
+        }
+        self.viewControllers = controllers
+        
         self.tabBar.tintColor = Theme.Color.primary
     }
 }
@@ -42,35 +79,23 @@ final class TabBarController: UITabBarController {
 
 extension TabBarController {
     
-    private func addViewControllers() {
-        
-        let dashboardTitle = NSLocalizedString("MAIN_TAB_BAR_ITEM_TITLE_HOME", comment: "Title for Home tab bar item.")
-        let challengesTitle = NSLocalizedString("MAIN_TAB_BAR_ITEM_TITLE_CHALLENGES", comment: "Title for Challenges tab bar item.")
-        let metricsTitle = NSLocalizedString("MAIN_TAB_BAR_ITEM_TITLE_METRICS", comment: "Title for Metrics tab bar item.")
-        let findStationsTitle = NSLocalizedString("MAIN_TAB_BAR_ITEM_TITLE_FIND_STATION", comment: "Title for Find Station tab bar item.")
-        
-        typealias tabConfigItem = (viewController: UIViewController, navController: UINavigationController?, imageNamePrefix: String, title: String)
-        let items: [tabConfigItem] = [(homeViewController, nil, "home", dashboardTitle),
-                                      (challengesViewController, nil, "challenges", challengesTitle),
-                                      (metricsViewController, metricsViewController.navigationController, "metrics", metricsTitle),
-                                      (findStationViewController, nil, "station", findStationsTitle)
-        ]
-        
-        var configuredControllers: [UIViewController] = []
-        for var item in items {
-            item.viewController.navigationItem.rightBarButtonItem = navigationOverflowBarButtonItem()
-            if item.navController == nil {
-                item.navController = UINavigationController(rootViewController: item.viewController)
-            }
-            guard let navController = item.navController else { continue }
-            
-            let image = UIImage(named: "\(item.imageNamePrefix)-tab-bar-icon")
-            let highlightImage = UIImage(named: "\(item.imageNamePrefix)-tab-bar-highlight-icon")
-            navController.tabBarItem = UITabBarItem(title: item.title, image: image, selectedImage: highlightImage)
-            configuredControllers.append(navController)
+    private func navController(viewControllerIndex index: ViewControllerIndex) -> UINavigationController {
+        switch index {
+        case .Home:
+            return homeNavController
+        case .Challenges:
+            return challengesNavController
+        case .Metrics:
+            return metricsNavController
+        case .FindStation:
+            return findStationNavController
         }
-        
-        self.viewControllers = configuredControllers
+    }
+    
+    private func configureTab(navigationController: UINavigationController, title: String, itemImageNamePrefix imageNamePrefix: String) {
+        let image = UIImage(named: "\(imageNamePrefix)-tab-bar-icon")
+        let highlightImage = UIImage(named: "\(imageNamePrefix)-tab-bar-highlight-icon")
+        navigationController.tabBarItem = UITabBarItem(title: title, image: image, selectedImage: highlightImage)
     }
 }
 
@@ -84,15 +109,15 @@ extension TabBarController {
         return UIBarButtonItem(image: UIImage(named: "ellipses-nav-bar-icon"), style: .Plain, target: self, action: #selector(didTapOverflowButton))
     }
     
-    private func modalDoneBarButtonItem() -> UIBarButtonItem {
-        return UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(modalDoneButtonTapped))
+    private func modalDismissBarButtonItem(systemItem: UIBarButtonSystemItem) -> UIBarButtonItem {
+        return UIBarButtonItem(barButtonSystemItem: systemItem, target: self, action: #selector(modalDoneButtonTapped))
     }
     
     // MARK: Modal View Controllers
     
     private func pulseModalViewController() -> UIViewController {
         let pulseViewController = PulseHomeViewController(nibName: "PulseHomeView", bundle: nil)
-        pulseViewController.navigationItem.rightBarButtonItem = modalDoneBarButtonItem()
+        pulseViewController.navigationItem.rightBarButtonItem = modalDismissBarButtonItem(.Done)
         let pulseNav = UINavigationController(rootViewController: pulseViewController)
         return pulseNav
     }
@@ -100,13 +125,13 @@ extension TabBarController {
     private func settingsModalViewController() -> UIViewController {
         let settingsStoryboard = UIStoryboard(name: "Settings", bundle: nil)
         let settingsNavController = settingsStoryboard.instantiateInitialViewController() as! UINavigationController
-        settingsNavController.viewControllers.first?.navigationItem.rightBarButtonItem = modalDoneBarButtonItem()
+        settingsNavController.viewControllers.first?.navigationItem.rightBarButtonItem = modalDismissBarButtonItem(.Done)
         return settingsNavController
     }
     
     private func captureModalViewController() -> UIViewController {
         let captureViewController = QrScannerViewController(nibName: "QrScannerView", bundle: nil)
-        captureViewController.navigationItem.rightBarButtonItem = modalDoneBarButtonItem()
+        captureViewController.navigationItem.rightBarButtonItem = modalDismissBarButtonItem(.Cancel)
         let captureNav = UINavigationController(rootViewController: captureViewController)
         return captureNav
     }

@@ -17,6 +17,8 @@ private struct Storyboard {
 /// Host viewcontroller which serves as a router for the base UI flows. This class should be set as the app delegate's root viewcontroller.
 final class HostViewController: UIViewController {
 
+    lazy var splashViewController = UIStoryboard(name: "Splash", bundle: nil).instantiateInitialViewController() as! SplashViewController
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -25,8 +27,8 @@ final class HostViewController: UIViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(true)
+        super.viewDidAppear(animated)
      
-        self.performSegueWithIdentifier(Storyboard.Segue.splashIdentifier, sender: self)
+        self.presentViewController(splashViewController, animated: true, completion: nil)
     }
 }

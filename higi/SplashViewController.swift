@@ -4,16 +4,19 @@ class SplashViewController: UIViewController {
     
     private var spinner: CustomLoadingSpinner!;
     
+    lazy var mainTabBarController = UIStoryboard(name: "TabBar", bundle: nil).instantiateInitialViewController() as! TabBarController
+    
     override func viewDidLoad() {
         super.viewDidLoad();
+        
+        self.spinner = CustomLoadingSpinner(frame: CGRectMake(UIScreen.mainScreen().bounds.size.width / 2 - 16, UIScreen.mainScreen().bounds.size.height / 2 + 32, 32, 32));
+        self.view.addSubview(self.spinner)
+        self.spinner.startAnimating();
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated);
         checkVersion()
-        self.spinner = CustomLoadingSpinner(frame: CGRectMake(UIScreen.mainScreen().bounds.size.width / 2 - 16, UIScreen.mainScreen().bounds.size.height / 2 + 32, 32, 32));
-        self.view.addSubview(self.spinner)
-        self.spinner.startAnimating();
     }
 
     func moveToNextScreen() {
@@ -30,7 +33,7 @@ class SplashViewController: UIViewController {
     }
     
     func navigateToWelcome() {
-        let navigationController = MainNavigationController(rootViewController: WelcomeViewController(nibName: "Welcome", bundle: nil));
+        let navigationController = UINavigationController(rootViewController: WelcomeViewController(nibName: "Welcome", bundle: nil));
         dispatch_async(dispatch_get_main_queue(), {
             self.presentViewController(navigationController, animated: false, completion: nil);
         })
@@ -67,8 +70,18 @@ class SplashViewController: UIViewController {
         } else {
             ApiUtility.initializeApiData();
             (UIApplication.sharedApplication().delegate as! AppDelegate).startLocationManager();
-            Utility.gotoDashboard();
-            NSNotificationCenter.defaultCenter().postNotificationName("SplashViewControllerDidGoToDashboard", object: nil)
+            
+            dispatch_async(dispatch_get_main_queue(), { [weak self] in
+                guard let tabBarController = self?.mainTabBarController else { return }
+                
+                self?.presentViewController(tabBarController, animated: true, completion: {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        if (SessionData.Instance.pin != "") {
+                            tabBarController.presentViewController(PinCodeViewController(nibName: "PinCodeView", bundle: nil), animated: false, completion: nil);
+                        }
+                    })
+                })
+            })
             NSNotificationCenter.defaultCenter().postNotificationName(Notifications.SplashViewController.DidPresentMainTabBar, object: nil)
         }
     }
@@ -78,7 +91,7 @@ class SplashViewController: UIViewController {
         spinner.hidden = true;
         SessionData.Instance.reset();
         SessionData.Instance.save();
-        let navigationController = MainNavigationController(rootViewController: WelcomeViewController(nibName: "Welcome", bundle: nil));
+        let navigationController = UINavigationController(rootViewController: WelcomeViewController(nibName: "Welcome", bundle: nil));
         self.presentViewController(navigationController, animated: false, completion: nil);
     }
     
@@ -123,6 +136,6 @@ class SplashViewController: UIViewController {
 extension Notifications {
     
     struct SplashViewController {
-        static let DidPresentMainTabBar = "SplashViewControllerDidPresentMainTabBar"
+        static let DidPresentMainTabBar = "SplashViewControllerDidPresentMainTabBarNotificationKey"
     }
 }

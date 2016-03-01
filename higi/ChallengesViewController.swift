@@ -318,6 +318,9 @@ class ChallengesViewController: UIViewController, UIGestureRecognizerDelegate, U
     func showDetails(forChallenge challenge: HigiChallenge) {
         let challengeDetailViewController = ChallengeDetailsViewController(nibName: "ChallengeDetailsView", bundle: nil)
         challengeDetailViewController.challenge = challenge
+        dispatch_async(dispatch_get_main_queue(), { [weak self] in
+            self?.navigationController?.pushViewController(challengeDetailViewController, animated: true)
+        })
     }
     
     func getCurrentTable() -> UITableView? {
@@ -391,13 +394,10 @@ extension ChallengesViewController: UniversalLinkHandler {
     }
     
     private func handle(URL: NSURL, pathType: PathType, parameters: [String]?, presentedViewController: UIViewController?) {
-        let navController = Utility.mainNavigationController()?.drawerController.navController
-        dispatch_async(dispatch_get_main_queue(), {
-            Utility.mainNavigationController()?.revealController.setFrontViewPosition(.Left, animated: false)
-            
-            presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
-            navController?.popToRootViewControllerAnimated(true)
-        })
+
+        // Make sure there are no views presented over the tab bar controller
+        presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
+        Utility.mainTabBarController()?.navigationController?.popToRootViewControllerAnimated(true)
         
         if pathType == .ChallengeDashboard {
             self.navigateToChallengesDashboard()
@@ -411,9 +411,7 @@ extension ChallengesViewController: UniversalLinkHandler {
             } else {
                 ApiUtility.retrieveChallenges({
                     if let challenge = self.challenge(forChallengeParameters: params) {
-                        dispatch_async(dispatch_get_main_queue(), {
-                            self.navigateToChallengeDetail(challenge)
-                        })
+                        self.navigateToChallengeDetail(challenge)
                     }
                 })
             }
@@ -439,25 +437,24 @@ extension ChallengesViewController: UniversalLinkHandler {
         return challenge;
     }
     
+    private func challengesNavigationController() -> UINavigationController {
+        let tabBar = Utility.mainTabBarController()!
+        return tabBar.challengesNavController
+    }
+    
     private func navigateToChallengesDashboard() {
-        guard let navController = Utility.mainNavigationController()?.drawerController.navController else {
-            return
-        }
-        
-        let challengesViewController = ChallengesViewController(nibName: "ChallengesView", bundle: nil);
-        dispatch_async(dispatch_get_main_queue(), {
-            navController.pushViewController(challengesViewController, animated: false)
+        dispatch_async(dispatch_get_main_queue(), { [weak self] in
+            Utility.mainTabBarController()?.selectedIndex = TabBarController.ViewControllerIndex.Challenges.rawValue
+            self?.challengesNavigationController().popToRootViewControllerAnimated(false)
         })
     }
     
     private func navigateToChallengeDetail(challenge: HigiChallenge) {
-        guard let navController = Utility.mainNavigationController()?.drawerController.navController else {
-            return
-        }
+        navigateToChallengesDashboard()
+
+        guard let challengesViewController = Utility.mainTabBarController()?.challengesViewController else { return }
         
-        let challengesViewController = ChallengesViewController(nibName: "ChallengesView", bundle: nil);
-        dispatch_async(dispatch_get_main_queue(), {
-            navController.pushViewController(challengesViewController, animated: false)
+        dispatch_async(dispatch_get_main_queue(), { [weak self] in
             challengesViewController.showDetails(forChallenge: challenge)
         })
     }

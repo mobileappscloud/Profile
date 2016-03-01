@@ -37,6 +37,13 @@ class Utility {
         }
     }
     
+    class func mainTabBarController() -> TabBarController? {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        guard let hostViewController = appDelegate.window?.rootViewController as? HostViewController else { return nil }
+        
+        return hostViewController.splashViewController.mainTabBarController
+    }
+    
     class func scaleImage(image: UIImage, newSize: CGSize) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(newSize, false, image.scale);
         image.drawInRect(CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height));

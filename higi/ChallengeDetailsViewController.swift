@@ -58,7 +58,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     override func viewDidLoad() {
         super.viewDidLoad();
         
-        initBackButton();
         initializeDetailView();
     }
     
@@ -68,17 +67,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             sendUserChatter(userChatter!);
             userChatter = nil;
         }
-    }
-    
-    func initBackButton() {
-        self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
-        let backButton = UIButton(type: UIButtonType.Custom);
-        backButton.setBackgroundImage(UIImage(named: "btn_back_white.png"), forState: UIControlState.Normal);
-        backButton.addTarget(self, action: "goBack:", forControlEvents: UIControlEvents.TouchUpInside);
-        backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
-        let backBarItem = UIBarButtonItem(customView: backButton);
-        self.navigationItem.leftBarButtonItem = backBarItem;
-        self.navigationItem.hidesBackButton = true;
     }
     
     func initializeDetailView() {
@@ -922,11 +910,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         frame.origin.y = 0;
         scrollView.setContentOffset(frame.origin, animated: true);
         currentPage = page;
-    }
-    
-    func goBack(sender: AnyObject!) {
-        isLeaving = true;
-        self.navigationController!.popViewControllerAnimated(true);
     }
     
     func loadMoreParticipants(){
