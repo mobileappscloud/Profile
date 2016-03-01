@@ -114,7 +114,7 @@ class PulseHomeViewController: UIViewController, UITableViewDataSource, UITableV
         } else {
             let webController = WebViewController(nibName: "WebView", bundle: nil);
             webController.url = URLString;
-            self.navigationController!.pushViewController(webController, animated: true);
+            self.navigationController?.pushViewController(webController, animated: true);
         }
     }
     
@@ -302,11 +302,11 @@ extension PulseHomeViewController: UniversalLinkHandler {
             mainTabBarController.presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
             
             mainTabBarController.presentViewController(pulseNavController, animated: false, completion: nil)
+            
+            if pathType == .PulseArticle {
+                let article = PulseArticle(permalink: URL);
+                pulseHomeViewController.gotoArticle(article);
+            }
         })
-        
-        if pathType == .PulseArticle {
-            let article = PulseArticle(permalink: URL);
-            pulseHomeViewController.gotoArticle(article);
-        }
     }
 }

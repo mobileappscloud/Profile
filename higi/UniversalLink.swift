@@ -18,7 +18,7 @@ enum PathType: String {
     case ChallengeDetailSubPath = "/challenge/view/id/%@/*]"
     case ConnectDevice = "/settings/apps"
     case DailySummary = "/profile/checkin/%@"
-    case PulseArticle = "/pulse/%@"
+    case PulseArticle = "/pulse/*]"
     case PulseHome = "/pulse"
     case Metrics = "/stats"
     case MetricsBloodPressure = "/stats/blood_pressure"
