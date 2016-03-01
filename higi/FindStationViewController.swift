@@ -724,23 +724,23 @@ extension FindStationViewController: UniversalLinkHandler {
             let loadingViewController = self.presentLoadingViewController()
             
             self.universalLinkObserver = NSNotificationCenter.defaultCenter().addObserverForName(ApiUtility.KIOSKS, object: nil, queue: nil, usingBlock: { (notification) in
-                self.pushStationLocator(loadingViewController)
+                self.navigateToStationLocator(loadingViewController)
                 if let observer = self.universalLinkObserver {
                     NSNotificationCenter.defaultCenter().removeObserver(observer)
                 }
             })
         } else {
-            self.pushStationLocator(nil)
+            self.navigateToStationLocator(nil)
         }
     }
     
-    private func pushStationLocator(presentedViewController: UIViewController?) {
+    private func navigateToStationLocator(presentedViewController: UIViewController?) {
+        guard let mainTabBarController = Utility.mainTabBarController() else { return }
+        
         dispatch_async(dispatch_get_main_queue(), {
-            Utility.mainNavigationController()?.revealController.setFrontViewPosition(.Left, animated: false)
-            
             presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
-            Utility.mainNavigationController()?.drawerController.navController?.popToRootViewControllerAnimated(true)
-            Utility.mainNavigationController()?.drawerController.navController?.pushViewController(FindStationViewController(nibName: "FindStationView", bundle: nil), animated: false)
+            
+            mainTabBarController.selectedIndex = TabBarController.ViewControllerIndex.FindStation.rawValue
         })
     }
 }
