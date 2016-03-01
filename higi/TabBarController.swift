@@ -132,7 +132,6 @@ extension TabBarController {
     private func settingsModalViewController() -> UIViewController {
         let settingsStoryboard = UIStoryboard(name: "Settings", bundle: nil)
         let settingsNavController = settingsStoryboard.instantiateInitialViewController() as! UINavigationController
-        settingsNavController.viewControllers.first?.navigationItem.rightBarButtonItem = modalDismissBarButtonItem(.Done)
         return settingsNavController
     }
     

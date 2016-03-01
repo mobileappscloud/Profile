@@ -238,25 +238,30 @@ extension ConnectDeviceViewController: UniversalLinkHandler {
     }
     
     private func handleConnectDeviceRedirect() {
-        guard let appDelegate = UIApplication.sharedApplication().delegate else { return }
-        guard let window = appDelegate.window else { return }
-        guard let revealController = window?.rootViewController as? RevealViewController else { return }
-        guard let mainNav = revealController.frontViewController as? MainNavigationController else { return }
-        
         //  We're handling a redirect, thus Safari should have been presented from the Connect Device view controller.
         if #available(iOS 9.0, *) {
-            guard let safari = mainNav.presentedViewController as? SFSafariViewController else { return }
+            guard let tabBar = Utility.mainTabBarController() else { return }
+            guard let safari = tabBar.presentedViewController as? SFSafariViewController else { return }
             safari.dismissViewControllerAnimated(true, completion: nil)
         }
     }
     
     private func navigateToConnectDevice() {
-        guard let navController = Utility.mainNavigationController()?.drawerController.navController else { return }
+        guard let mainTabBarController = Utility.mainTabBarController() else { return }
+        
+        let settingsStoryboard = UIStoryboard(name: "Settings", bundle: nil)
+        let settingsNavController = settingsStoryboard.instantiateInitialViewController() as! UINavigationController
         
         let connectDeviceViewController = ConnectDeviceViewController(nibName: "ConnectDeviceView", bundle: nil)
         dispatch_async(dispatch_get_main_queue(), {
-            navController.popToRootViewControllerAnimated(false)
-            navController.pushViewController(connectDeviceViewController, animated: false)
+            // Make sure there are no views presented over the tab bar controller
+            mainTabBarController.presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
+            
+            mainTabBarController.presentViewController(settingsNavController, animated: false, completion: {
+                dispatch_async(dispatch_get_main_queue(), {
+                    settingsNavController.pushViewController(connectDeviceViewController, animated: false)
+                })
+            })
         })
     }
 }

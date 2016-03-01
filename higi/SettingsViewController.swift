@@ -38,4 +38,8 @@ class SettingsViewController: UIViewController {
             settingsTableViewController = segue.destinationViewController as! SettingsTableViewController;
         }
     }
+    
+    @IBAction func didTapDoneButton(sender: UIBarButtonItem) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
 }

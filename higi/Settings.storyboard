@@ -55,7 +55,13 @@
                             <constraint firstItem="amo-12-U5u" firstAttribute="trailing" secondItem="ffa-Up-KYX" secondAttribute="trailing" id="qab-X3-Ema"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="PNd-S0-PCU"/>
+                    <navigationItem key="navigationItem" id="PNd-S0-PCU">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="4FM-YI-6dE">
+                            <connections>
+                                <action selector="didTapDoneButton:" destination="0qe-cJ-dNm" id="gf9-Xd-iwu"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="backgroundImageView" destination="amo-12-U5u" id="fdJ-h8-gXS"/>
                     </connections>

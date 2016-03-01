@@ -397,7 +397,6 @@ extension ChallengesViewController: UniversalLinkHandler {
 
         // Make sure there are no views presented over the tab bar controller
         presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
-        Utility.mainTabBarController()?.navigationController?.popToRootViewControllerAnimated(true)
         
         if pathType == .ChallengeDashboard {
             self.navigateToChallengesDashboard()
