@@ -14,8 +14,6 @@ protocol MetricDelegate {
     
     func setSelected(date: NSDate);
     
-    func getSelectedPoint() -> SelectedPoint?;
-    
     func getRanges(tab: Int) -> [MetricGauge.Range];
     
     func getCopyImage(tab: Int) -> UIImage;

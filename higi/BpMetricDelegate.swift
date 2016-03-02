@@ -65,23 +65,6 @@ class BpMetricDelegate: MetricDelegate {
             }
         }
     }
-    
-    func getSelectedPoint() -> SelectedPoint? {
-        if (selectedCheckin == nil) {
-            return nil;
-        } else {
-            let date = Constants.dateFormatter.stringFromDate(selectedCheckin.dateTime);
-            let bp = selectedCheckin.systolic != nil ? "\(selectedCheckin.systolic!)/\(selectedCheckin.diastolic!)" : "";
-            let map = selectedCheckin.map != nil ? String(format: "%.1f", arguments: [selectedCheckin.map!]) : "";
-            var device = "";
-            if let kioskInfo = selectedCheckin.kioskInfo {
-                return SelectedPoint(date: date, firstPanelValue: bp, firstPanelLabel: NSLocalizedString("BLOOD_PRESSURE_METRICS_VIEW_SELECTED_POINT_PANEL_BLOOD_PRESSURE_LABEL", comment: "Label to display for a selected blood pressure data point."), firstPanelUnit: NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_MILLIMETERS_OF_MERCURY", comment: "General purpose abbreviated label for the units of millimeter of mercury."), secondPanelValue: map, secondPanelLabel: "Mean Arterial Pressure", secondPanelUnit: NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_MILLIMETERS_OF_MERCURY", comment: "General purpose abbreviated label for the units of millimeter of mercury."), kioskInfo: kioskInfo);
-            } else if let vendorId = selectedCheckin.sourceVendorId {
-                device = "\(vendorId)";
-            }
-            return SelectedPoint(date: date, firstPanelValue: bp, firstPanelLabel: NSLocalizedString("BLOOD_PRESSURE_METRICS_VIEW_SELECTED_POINT_PANEL_BLOOD_PRESSURE_LABEL", comment: "Label to display for a selected blood pressure data point."), firstPanelUnit: NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_MILLIMETERS_OF_MERCURY", comment: "General purpose abbreviated label for the units of millimeter of mercury."), secondPanelValue: map, secondPanelLabel: NSLocalizedString("BLOOD_PRESSURE_METRICS_VIEW_SELECTED_POINT_PANEL_MEAN_ARTERIAL_PRESSURE_LABEL", comment: "Label to display for a selected mean arterial pressure data point."), secondPanelUnit: NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_MILLIMETERS_OF_MERCURY", comment: "General purpose abbreviated label for the units of millimeter of mercury."), device: device);
-        }
-    }
 
     func getRanges() -> [MetricGauge.Range] {
         var ranges:[MetricGauge.Range] = [];

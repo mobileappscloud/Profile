@@ -187,7 +187,6 @@
 		8F2CB5891993E68C009377A8 /* SessionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F2CB5881993E68C009377A8 /* SessionData.swift */; };
 		8F2CB58B19942E96009377A8 /* noservicemessage.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F2CB58A19942E96009377A8 /* noservicemessage.png */; };
 		8F3643A019460EB300C0033E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F36439F19460EB300C0033E /* AppDelegate.swift */; };
-		8F3643A219460EB300C0033E /* MetricsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3643A119460EB300C0033E /* MetricsViewController.swift */; };
 		8F3643A519460EB300C0033E /* Splash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F3643A319460EB300C0033E /* Splash.storyboard */; };
 		8F3643A719460EB300C0033E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F3643A619460EB300C0033E /* Images.xcassets */; };
 		8F524BF8195B829400BFC49D /* CustomFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F524BF7195B829400BFC49D /* CustomFormatter.swift */; };
@@ -325,8 +324,6 @@
 		D1036D041B153477003E7239 /* runicon.png in Resources */ = {isa = PBXBuildFile; fileRef = D1036CFB1B153476003E7239 /* runicon.png */; };
 		D105CB5D1B7E9B1F00971AB0 /* QrScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D105CB5C1B7E9B1F00971AB0 /* QrScannerViewController.swift */; };
 		D105CB5F1B7E9B2D00971AB0 /* QrScannerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D105CB5E1B7E9B2D00971AB0 /* QrScannerView.xib */; };
-		D10D84491AEFF9D200DA3278 /* MetricDetailCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D10D84481AEFF9D200DA3278 /* MetricDetailCardView.xib */; };
-		D10D844B1AEFFA7A00DA3278 /* MetricDetailCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10D844A1AEFFA7A00DA3278 /* MetricDetailCard.swift */; };
 		D10D89501A8C11A9000402D4 /* ChallengeDetailsParticipantIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10D894F1A8C11A9000402D4 /* ChallengeDetailsParticipantIcon.swift */; };
 		D10E52431B5048560007EF10 /* ui_details.png in Resources */ = {isa = PBXBuildFile; fileRef = D10E52421B5048560007EF10 /* ui_details.png */; };
 		D10E52451B5048760007EF10 /* ui_progress.png in Resources */ = {isa = PBXBuildFile; fileRef = D10E52441B5048760007EF10 /* ui_progress.png */; };
@@ -346,8 +343,6 @@
 		D149E94B1A78471A00FBAA15 /* ChallengeDetailsChatterRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D149E94A1A78471A00FBAA15 /* ChallengeDetailsChatterRow.swift */; };
 		D15372911A841FEA00954569 /* TermsAndConditionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15372901A841FEA00954569 /* TermsAndConditionsViewController.swift */; };
 		D15372931A84201600954569 /* TermsAndConditionsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D15372921A84201600954569 /* TermsAndConditionsView.xib */; };
-		D158BB081B59B4E000FA9CAF /* SelectedPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D158BB071B59B4E000FA9CAF /* SelectedPoint.swift */; };
-		D1618F931ABB2E26000BDA85 /* MetricCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1618F921ABB2E26000BDA85 /* MetricCardView.xib */; };
 		D16432BF1B9F96B100082C8F /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = D16432BE1B9F96B100082C8F /* camera.png */; };
 		D164D3761A7C19A600300F35 /* chat_bubble_green.png in Resources */ = {isa = PBXBuildFile; fileRef = D164D3751A7C19A600300F35 /* chat_bubble_green.png */; };
 		D16FD5E91ADDADC200AF9BA5 /* back_button_white.png in Resources */ = {isa = PBXBuildFile; fileRef = D16FD5E81ADDADC200AF9BA5 /* back_button_white.png */; };
@@ -399,7 +394,6 @@
 		D1E223701A7FFF43006330E7 /* ConnectDeviceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E2236F1A7FFF43006330E7 /* ConnectDeviceRow.swift */; };
 		D1E223781A8009CE006330E7 /* ConnectDeviceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1E223771A8009CE006330E7 /* ConnectDeviceView.xib */; };
 		D1E2237A1A8009E6006330E7 /* ConnectDeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E223791A8009E6006330E7 /* ConnectDeviceViewController.swift */; };
-		D1E2DB821AE176760074CBAF /* MetricCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E2DB811AE176760074CBAF /* MetricCard.swift */; };
 		D1EDF3FF1B5ECCCC00BF5B91 /* activities.png in Resources */ = {isa = PBXBuildFile; fileRef = D1EDF3FE1B5ECCCC00BF5B91 /* activities.png */; };
 		D1EE80F41B3BBAAD00B13CB8 /* SummaryViewUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EE80F31B3BBAAD00B13CB8 /* SummaryViewUtility.swift */; };
 		D1EEDBA31A66E4B10012EFD3 /* ChallengeLeaderboardRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1EEDBA21A66E4B10012EFD3 /* ChallengeLeaderboardRow.xib */; };
@@ -661,7 +655,6 @@
 		8F2CB58A19942E96009377A8 /* noservicemessage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = noservicemessage.png; path = images/noservicemessage.png; sourceTree = "<group>"; };
 		8F36439A19460EB300C0033E /* higi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = higi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F36439F19460EB300C0033E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		8F3643A119460EB300C0033E /* MetricsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricsViewController.swift; sourceTree = "<group>"; };
 		8F3643A419460EB300C0033E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Splash.storyboard; sourceTree = "<group>"; };
 		8F3643A619460EB300C0033E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		8F3643AC19460EB300C0033E /* higiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = higiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -801,8 +794,6 @@
 		D1036CFB1B153476003E7239 /* runicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = runicon.png; path = images/runicon.png; sourceTree = "<group>"; };
 		D105CB5C1B7E9B1F00971AB0 /* QrScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QrScannerViewController.swift; sourceTree = "<group>"; };
 		D105CB5E1B7E9B2D00971AB0 /* QrScannerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QrScannerView.xib; sourceTree = "<group>"; };
-		D10D84481AEFF9D200DA3278 /* MetricDetailCardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MetricDetailCardView.xib; sourceTree = "<group>"; };
-		D10D844A1AEFFA7A00DA3278 /* MetricDetailCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricDetailCard.swift; sourceTree = "<group>"; };
 		D10D894F1A8C11A9000402D4 /* ChallengeDetailsParticipantIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeDetailsParticipantIcon.swift; sourceTree = "<group>"; };
 		D10E52421B5048560007EF10 /* ui_details.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_details.png; path = images/ui_details.png; sourceTree = "<group>"; };
 		D10E52441B5048760007EF10 /* ui_progress.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_progress.png; path = images/ui_progress.png; sourceTree = "<group>"; };
@@ -822,8 +813,6 @@
 		D149E94A1A78471A00FBAA15 /* ChallengeDetailsChatterRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeDetailsChatterRow.swift; sourceTree = "<group>"; };
 		D15372901A841FEA00954569 /* TermsAndConditionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsViewController.swift; sourceTree = "<group>"; };
 		D15372921A84201600954569 /* TermsAndConditionsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TermsAndConditionsView.xib; sourceTree = "<group>"; };
-		D158BB071B59B4E000FA9CAF /* SelectedPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedPoint.swift; sourceTree = "<group>"; };
-		D1618F921ABB2E26000BDA85 /* MetricCardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MetricCardView.xib; sourceTree = "<group>"; };
 		D16432BE1B9F96B100082C8F /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = camera.png; path = images/camera.png; sourceTree = "<group>"; };
 		D164D3751A7C19A600300F35 /* chat_bubble_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chat_bubble_green.png; path = images/chat_bubble_green.png; sourceTree = "<group>"; };
 		D16FD5E81ADDADC200AF9BA5 /* back_button_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = back_button_white.png; path = images/back_button_white.png; sourceTree = "<group>"; };
@@ -875,7 +864,6 @@
 		D1E2236F1A7FFF43006330E7 /* ConnectDeviceRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectDeviceRow.swift; sourceTree = "<group>"; };
 		D1E223771A8009CE006330E7 /* ConnectDeviceView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConnectDeviceView.xib; sourceTree = "<group>"; };
 		D1E223791A8009E6006330E7 /* ConnectDeviceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectDeviceViewController.swift; sourceTree = "<group>"; };
-		D1E2DB811AE176760074CBAF /* MetricCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricCard.swift; sourceTree = "<group>"; };
 		D1EDF3FE1B5ECCCC00BF5B91 /* activities.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = activities.png; path = images/activities.png; sourceTree = "<group>"; };
 		D1EE80F31B3BBAAD00B13CB8 /* SummaryViewUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SummaryViewUtility.swift; sourceTree = "<group>"; };
 		D1EEDBA21A66E4B10012EFD3 /* ChallengeLeaderboardRow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeLeaderboardRow.xib; sourceTree = "<group>"; };
@@ -1062,12 +1050,8 @@
 			isa = PBXGroup;
 			children = (
 				413E19431C10D98100146B29 /* Graph Delegates */,
-				D1E2DB811AE176760074CBAF /* MetricCard.swift */,
-				D10D844A1AEFFA7A00DA3278 /* MetricDetailCard.swift */,
 				D1FC729C1B20FD9F0068CF89 /* MetricGraphUtility.swift */,
 				D1740BC31AE0381F00462F6E /* MetricsType.swift */,
-				8F3643A119460EB300C0033E /* MetricsViewController.swift */,
-				D158BB071B59B4E000FA9CAF /* SelectedPoint.swift */,
 			);
 			name = Old;
 			sourceTree = "<group>";
@@ -1302,8 +1286,6 @@
 		418D4C241C7A203E008C86E7 /* Old */ = {
 			isa = PBXGroup;
 			children = (
-				D1618F921ABB2E26000BDA85 /* MetricCardView.xib */,
-				D10D84481AEFF9D200DA3278 /* MetricDetailCardView.xib */,
 				D1FD3FC71B263BBA007D362D /* MetricsView.xib */,
 			);
 			name = Old;
@@ -2569,7 +2551,6 @@
 				8F5C38CB19818BA900F51543 /* gauge1_low.png in Resources */,
 				D1036CFC1B153477003E7239 /* stepsicon.png in Resources */,
 				8F5E7FD7199BCD52009067E5 /* graph_sincelastarrow_down_invert.png in Resources */,
-				D10D84491AEFF9D200DA3278 /* MetricDetailCardView.xib in Resources */,
 				8F08AFB319895214002EE906 /* higilogo_ocmenu.png in Resources */,
 				8FFB034F19FEA2440036228C /* oc_findastation_active.png in Resources */,
 				413E19391C10B50300146B29 /* higi.entitlements in Resources */,
@@ -2580,7 +2561,6 @@
 				8FE0BCD0199175C800940D39 /* PulseCellView.xib in Resources */,
 				8F2B7E4D198C3058009DE89A /* oc_bodystats.png in Resources */,
 				8F5E7FE5199C081F009067E5 /* vital_map_icon.png in Resources */,
-				D1618F931ABB2E26000BDA85 /* MetricCardView.xib in Resources */,
 				41CAB9B41BC411A00000772C /* Localizable.strings in Resources */,
 				D1036D021B153477003E7239 /* cyclingicon.png in Resources */,
 				2BBDBA571A12AC2C005A6815 /* CompetitiveChallengeView.xib in Resources */,
@@ -2743,7 +2723,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				41D8718C1C7CBFDD002DCDA0 /* HostViewController.swift in Sources */,
-				8F3643A219460EB300C0033E /* MetricsViewController.swift in Sources */,
 				419D864F1BBEF83000E7D844 /* GQTPointQuadTree.m in Sources */,
 				413635871C2209450056DE8D /* MetricDataFactory.swift in Sources */,
 				8F1D979A1995553B003B5645 /* ModifyImageViewController.swift in Sources */,
@@ -2802,7 +2781,6 @@
 				D1B6D6981A8D09FD0006F80C /* ChatterInputViewController.swift in Sources */,
 				D149E9471A7822D900FBAA15 /* ChallengeDetailsPrize.swift in Sources */,
 				41A0BE121BBB088500A314D6 /* AFURLResponseSerialization.m in Sources */,
-				D158BB081B59B4E000FA9CAF /* SelectedPoint.swift in Sources */,
 				41B2B35C1BB326C800B13168 /* NotificationSettingsEmailController.swift in Sources */,
 				416226751C79412200EFA1B3 /* CPTPlotSymbol+Utility.swift in Sources */,
 				8FE056E9198FDCA600C81208 /* FindStationViewController.swift in Sources */,
@@ -2864,7 +2842,6 @@
 				41A0BE261BBB08B800A314D6 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				8FDB4B6A1A09741400F57B38 /* ChallengeWinCondition.swift in Sources */,
 				410167221C555C9800A54B02 /* NewActivityMetricDelegate.swift in Sources */,
-				D1E2DB821AE176760074CBAF /* MetricCard.swift in Sources */,
 				8F2CB5891993E68C009377A8 /* SessionData.swift in Sources */,
 				417F48B31BC823F1005BC49D /* GTMNSString+HTML.m in Sources */,
 				413E198D1C10EAE000146B29 /* MetricsPageViewController.swift in Sources */,
@@ -2894,7 +2871,6 @@
 				413CC0341C6929BA0097AE56 /* ActivityDetailView.swift in Sources */,
 				D1CFC9831AB360AF00AC54BB /* MetricGraphCard.swift in Sources */,
 				D10D89501A8C11A9000402D4 /* ChallengeDetailsParticipantIcon.swift in Sources */,
-				D10D844B1AEFFA7A00DA3278 /* MetricDetailCard.swift in Sources */,
 				41A0BE101BBB088500A314D6 /* AFURLConnectionOperation.m in Sources */,
 				D1EE80F41B3BBAAD00B13CB8 /* SummaryViewUtility.swift in Sources */,
 				41B2B35A1BB31CE900B13168 /* NotificationSettingsTableViewController.swift in Sources */,
