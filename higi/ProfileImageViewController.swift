@@ -33,7 +33,7 @@ class ProfileImageViewController: UIViewController, UIImagePickerControllerDeleg
     override func viewDidLoad() {
         super.viewDidLoad();
         self.title = NSLocalizedString("PROFILE_IMAGE_VIEW_TITLE", comment: "Title for Profile Image view.");
-        self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 0.0, alpha: 1.0)];
+        
         self.navigationItem.hidesBackButton = true;
         
         if (fromSettings) {
@@ -45,7 +45,7 @@ class ProfileImageViewController: UIViewController, UIImagePickerControllerDeleg
         takePhotoButton.layer.borderWidth = 1.0;
         takePhotoButton.layer.borderColor = Utility.colorFromHexString(Constants.higiGreen).CGColor;
         
-        spinner = CustomLoadingSpinner(frame: CGRectMake(UIScreen.mainScreen().bounds.size.width / 2 - 16, UIScreen.mainScreen().bounds.size.height - 66, 32, 32));
+        spinner = CustomLoadingSpinner(frame: CGRectMake(UIScreen.mainScreen().bounds.size.width / 2 - 16, UIScreen.mainScreen().bounds.size.height - 66 - self.topLayoutGuide.length, 32, 32));
         spinner.shouldAnimateFull = false;
         spinner.hidden = true;
         self.view.addSubview(spinner);
@@ -68,32 +68,39 @@ class ProfileImageViewController: UIViewController, UIImagePickerControllerDeleg
     }
     
     @IBAction func skip(sender: AnyObject) {
-        spinner.startAnimating();
-        spinner.hidden = false;
-        skipButton.hidden = true;
-        let user = SessionData.Instance.user;
-        if (user.profileImage == nil) {
-            user.retrieveProfileImages();
-        }
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+            let user = SessionData.Instance.user;
+            if (user.profileImage == nil) {
+                user.retrieveProfileImages();
+            }
+        })
         
-        ApiUtility.initializeApiData();
-        Utility.gotoDashboard();
+        dispatch_async(dispatch_get_main_queue(), {
+            self.dismissViewControllerAnimated(true, completion: nil)
+
+            self.spinner.hidden = false;
+            self.spinner.startAnimating();
+
+            self.skipButton.hidden = true;
+            self.takePhotoButton.enabled = false
+            self.chooseLibraryButton.enabled = false
+        })
     }
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-        picker.dismissViewControllerAnimated(true, completion: nil);
-        let image = (info[UIImagePickerControllerOriginalImage] as! UIImage).fixOrientation();
-        let modifyViewController = ModifyImageViewController(nibName: "ModifyImageView", bundle: nil);
-        modifyViewController.profileImage = image;
-        modifyViewController.fromSettings = fromSettings;
-        self.navigationController!.pushViewController(modifyViewController, animated: true);
-    }
-
-    func gotoDashboard() {
-        if (SessionController.Instance.checkins != nil && SessionController.Instance.challenges != nil && SessionController.Instance.kioskList != nil && SessionController.Instance.pulseArticles.count > 0 && !dashboardSent) {
-            Utility.gotoDashboard();
-            dashboardSent = true;
-        }
+        dispatch_async(dispatch_get_main_queue(), {
+            self.spinner.hidden = false;
+            self.spinner.startAnimating();
+            
+            picker.dismissViewControllerAnimated(true, completion: nil);
+            
+            let image = (info[UIImagePickerControllerOriginalImage] as! UIImage).fixOrientation();
+            let modifyViewController = ModifyImageViewController(nibName: "ModifyImageView", bundle: nil);
+            modifyViewController.profileImage = image;
+            modifyViewController.fromSettings = self.fromSettings;
+            
+            self.navigationController?.pushViewController(modifyViewController, animated: true);
+        })
     }
 }
  

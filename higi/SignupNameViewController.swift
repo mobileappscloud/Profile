@@ -41,7 +41,7 @@ class SignupNameViewController: UIViewController, UITextFieldDelegate {
         if (user.lastName != nil) {
             lastName.text = user.lastName as String;
         }
-        spinner = CustomLoadingSpinner(frame: CGRectMake(UIScreen.mainScreen().bounds.size.width / 2 - 16, UIScreen.mainScreen().bounds.size.height - 66, 32, 32));
+        spinner = CustomLoadingSpinner(frame: CGRectMake(UIScreen.mainScreen().bounds.size.width / 2 - 16, UIScreen.mainScreen().bounds.size.height - 66 - self.topLayoutGuide.length, 32, 32));
         spinner.shouldAnimateFull = false;
         spinner.hidden = true;
         self.view.addSubview(spinner);
@@ -80,11 +80,11 @@ class SignupNameViewController: UIViewController, UITextFieldDelegate {
             HigiApi().sendPost("\(HigiApi.higiApiUrl)/data/user/\(user.userId)", parameters: contents, success: {operation, responseObject in
                 
                     if (self.dashboardNext) {
-                        ApiUtility.initializeApiData();
-                        (UIApplication.sharedApplication().delegate as! AppDelegate).startLocationManager();
-                        Utility.gotoDashboard();
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.dismissViewControllerAnimated(true, completion: nil)
+                        })
                     } else {
-                        self.navigationController!.pushViewController(BirthdateViewController(nibName: "BirthdateView", bundle: nil), animated: true);
+                        self.navigationController?.pushViewController(BirthdateViewController(nibName: "BirthdateView", bundle: nil), animated: true);
                     }
                 }, failure: {operation, error in
                     

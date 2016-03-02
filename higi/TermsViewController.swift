@@ -83,19 +83,13 @@ class TermsViewController: UIViewController {
         
         HigiApi().sendPost("\(HigiApi.higiApiUrl)/data/user/\(SessionData.Instance.user.userId)", parameters: contents, success: {operation, responseObject in
             
-            ApiUtility.initializeApiData();
-            (UIApplication.sharedApplication().delegate as! AppDelegate).startLocationManager();
-            Utility.gotoDashboard();
+            dispatch_async(dispatch_get_main_queue(), {
+                self.dismissViewControllerAnimated(true, completion: nil)
+            })
             
             }, failure: {operation, error in
                 self.reset();
         });
-    }
-    
-    func gotoDashboard() {
-        if (SessionController.Instance.checkins != nil && SessionController.Instance.challenges != nil && SessionController.Instance.kioskList != nil && SessionController.Instance.pulseArticles.count > 0) {
-            Utility.gotoDashboard();
-        }
     }
     
     @IBAction func decline(sender: AnyObject) {

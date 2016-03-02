@@ -44,7 +44,9 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad();
+        
         self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
+        
         self.automaticallyAdjustsScrollViewInsets = false;
         
         pageTitle.text = "";
@@ -251,12 +253,14 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
     
     @IBAction func gotoLogin(sender: AnyObject) {
         Flurry.logEvent("Login_Pressed");
-        self.navigationController!.pushViewController(LoginViewController(nibName: "LoginView", bundle: nil), animated: true);
+        let loginViewController = LoginViewController(nibName: "LoginView", bundle: nil)
+        self.navigationController?.pushViewController(loginViewController, animated: true)
     }
     
     @IBAction func gotoSignup(sender: AnyObject) {
         Flurry.logEvent("Signup_Pressed");
-        self.navigationController!.pushViewController(SignupEmailViewController(nibName: "SignupEmailView", bundle: nil), animated: true);
+        let signupViewController = SignupEmailViewController(nibName: "SignupEmailView", bundle: nil)
+        self.navigationController?.pushViewController(signupViewController, animated: true)
     }
     
 }

@@ -33,21 +33,7 @@ class ModifyImageViewController: UIViewController {
         self.navigationController!.interactivePopGestureRecognizer!.delegate = nil;
         profileImageView.image = profileImage;
         
-        doneButton = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 30));
-        doneButton.setTitle("Done", forState: UIControlState.Normal);
-        doneButton.addTarget(self, action: "done:", forControlEvents: UIControlEvents.TouchUpInside);
-        let doneBarItem = UIBarButtonItem();
-        doneBarItem.customView = doneButton;
-        self.navigationItem.rightBarButtonItem = doneBarItem;
-        
         profileImageView.hidden = true;
-        
-        let backButton = UIButton(type: UIButtonType.Custom);
-        backButton.setBackgroundImage(UIImage(named: "btn_back_white.png"), forState: UIControlState.Normal);
-        backButton.addTarget(self, action: "goBack:", forControlEvents: UIControlEvents.TouchUpInside);
-        backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
-        let backBarItem = UIBarButtonItem(customView: backButton);
-        self.navigationItem.leftBarButtonItem = backBarItem;
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -72,7 +58,6 @@ class ModifyImageViewController: UIViewController {
     }
     
     func done(sender: AnyObject!) {
-        self.navigationItem.leftBarButtonItem?.customView?.hidden = true;
         doneButton.hidden = true;
         spinner.hidden = false;
         if (resizing) {
@@ -128,8 +113,9 @@ class ModifyImageViewController: UIViewController {
                     }
                 }
             } else {
-                ApiUtility.initializeApiData();
-                Utility.gotoDashboard();
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                })
             }
             
             }, failure: {operation, error in
@@ -154,10 +140,6 @@ class ModifyImageViewController: UIViewController {
         sender.setTranslation(CGPointZero, inView: self.view);
     }
     
-    func goBack(sender: AnyObject!) {
-        self.navigationController!.popViewControllerAnimated(true);
-    }
-    
     func showErrorAlert() {
         let title = NSLocalizedString("MODIFY_IMAGE_VIEW_SERVER_ERROR_ALERT_TITLE", comment: "Title for alert which is displayed if the server is unreachable.")
         let message = NSLocalizedString("MODIFY_IMAGE_VIEW_SERVER_ERROR_ALERT_MESSAGE", comment: "Message for alert which is displayed if the server is unreachable.")
@@ -176,7 +158,6 @@ class ModifyImageViewController: UIViewController {
     
     func reset() {
         self.navigationItem.hidesBackButton = true;
-        self.navigationItem.leftBarButtonItem?.customView?.hidden = false;
         spinner.hidden = true;
         spinner.stopAnimating();
         doneButton.hidden = false;

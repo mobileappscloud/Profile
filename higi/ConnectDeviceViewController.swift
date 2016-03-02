@@ -175,7 +175,7 @@ class ConnectDeviceViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     func goBack(sender: AnyObject!) {
-        self.navigationController!.popViewControllerAnimated(true);
+        self.navigationController?.popViewControllerAnimated(true);
     }
     
     override func viewWillAppear(animated: Bool) {
