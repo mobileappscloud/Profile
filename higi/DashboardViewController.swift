@@ -570,6 +570,7 @@ final class DashboardViewController: UIViewController {
     
     @IBAction func gotoConnectDevices(sender: AnyObject) {
         Flurry.logEvent("ConnectDevice_Pressed");
+        ConnectDeviceViewController.navigateToConnectDevice()
     }
     
     @IBAction func gotoMetrics(sender: AnyObject) {
