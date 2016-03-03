@@ -625,16 +625,19 @@ final class DashboardViewController: UIViewController {
         }
         
         let pulseArticle = SessionController.Instance.pulseArticles[sender.tag!]
-        let URLString = pulseArticle.permalink
+        let URLString = pulseArticle.permalink as String
         
-        if #available(iOS 9.0, *) {
-            let safariViewController = SFSafariViewController(URL: NSURL(string: URLString as String)!, entersReaderIfAvailable: true)
-            self.navigationController?.presentViewController(safariViewController, animated: true, completion: nil)
-        } else {
-            let webViewController = WebViewController(nibName: "WebView", bundle: nil)
-            webViewController.url = URLString
-            self.navigationController?.pushViewController(webViewController, animated: true);
-        }
+        guard let URL = NSURL(string: URLString) else { return }
+        guard let mainTabBarController = Utility.mainTabBarController() else { return }
+        
+        let pulseNavController = mainTabBarController.pulseModalViewController() as! UINavigationController
+        let pulseHomeViewController = pulseNavController.topViewController as! PulseHomeViewController
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            mainTabBarController.presentViewController(pulseNavController, animated: false, completion: nil)
+            let article = PulseArticle(permalink: URL);
+            pulseHomeViewController.gotoArticle(article);
+        })
     }
     
     @IBAction func removeQrCheckinCard(sender: AnyObject) {
