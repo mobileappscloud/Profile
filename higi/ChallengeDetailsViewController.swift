@@ -613,6 +613,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         table.scrollEnabled = true;
         table.allowsSelection = false;
         table.showsVerticalScrollIndicator = false;
+        table.contentInset = UIEdgeInsetsMake(0, 0, 108, 0)
         return table;
     }
     
