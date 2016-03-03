@@ -259,13 +259,20 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
     @IBAction func gotoLogin(sender: AnyObject) {
         Flurry.logEvent("Login_Pressed");
         let loginViewController = LoginViewController(nibName: "LoginView", bundle: nil)
-        self.navigationController?.pushViewController(loginViewController, animated: true)
+        loginViewController.navigationItem.rightBarButtonItem = modalCancelButton()
+        let loginNav = UINavigationController(rootViewController: loginViewController)
+        self.navigationController?.presentViewController(loginNav, animated: true, completion: nil)
     }
     
     @IBAction func gotoSignup(sender: AnyObject) {
         Flurry.logEvent("Signup_Pressed");
         let signupViewController = SignupEmailViewController(nibName: "SignupEmailView", bundle: nil)
         self.navigationController?.pushViewController(signupViewController, animated: true)
+    private func modalCancelButton() -> UIBarButtonItem {
+        return UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: #selector(dismissPresentedViewController))
     }
     
+    func dismissPresentedViewController(sender: UIBarButtonItem) {
+        self.presentedViewController?.dismissViewControllerAnimated(true, completion: nil)
+    }
 }
