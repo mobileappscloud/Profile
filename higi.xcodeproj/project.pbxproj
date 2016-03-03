@@ -44,6 +44,7 @@
 		41376C5D1BB459B50094DE7C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41376C5C1BB459B50094DE7C /* SettingsViewController.swift */; };
 		413CC0301C6927EC0097AE56 /* ActivityDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 413CC02F1C6927EC0097AE56 /* ActivityDetailView.xib */; };
 		413CC0341C6929BA0097AE56 /* ActivityDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413CC0331C6929BA0097AE56 /* ActivityDetailView.swift */; };
+		413CEE3F1C87BF0E00F241F7 /* UIAppearance+Swift.m in Sources */ = {isa = PBXBuildFile; fileRef = 413CEE3E1C87BF0E00F241F7 /* UIAppearance+Swift.m */; };
 		413E19251C10AB2C00146B29 /* UniversalLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413E19241C10AB2C00146B29 /* UniversalLink.swift */; };
 		413E19291C10AB5800146B29 /* UniversalLinkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413E19281C10AB5800146B29 /* UniversalLinkTests.swift */; };
 		413E19321C10B0F400146B29 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 413E19311C10B0F400146B29 /* Fabric.framework */; };
@@ -468,6 +469,8 @@
 		41376C5C1BB459B50094DE7C /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		413CC02F1C6927EC0097AE56 /* ActivityDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityDetailView.xib; sourceTree = "<group>"; };
 		413CC0331C6929BA0097AE56 /* ActivityDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityDetailView.swift; sourceTree = "<group>"; };
+		413CEE3D1C87BF0E00F241F7 /* UIAppearance+Swift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAppearance+Swift.h"; sourceTree = "<group>"; };
+		413CEE3E1C87BF0E00F241F7 /* UIAppearance+Swift.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAppearance+Swift.m"; sourceTree = "<group>"; };
 		413E19241C10AB2C00146B29 /* UniversalLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UniversalLink.swift; sourceTree = "<group>"; };
 		413E19281C10AB5800146B29 /* UniversalLinkTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UniversalLinkTests.swift; sourceTree = "<group>"; };
 		413E19311C10B0F400146B29 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = Vendor/Fabric/iOS/Fabric.framework; sourceTree = "<group>"; };
@@ -1786,6 +1789,8 @@
 				419D85CE1BBEDD3C00E7D844 /* HIGIScatterPlot.m */,
 				8FCD2D7E19EC286900AC5A82 /* UIImage+Orientation.h */,
 				8FCD2D7F19EC286900AC5A82 /* UIImage+Orientation.m */,
+				413CEE3D1C87BF0E00F241F7 /* UIAppearance+Swift.h */,
+				413CEE3E1C87BF0E00F241F7 /* UIAppearance+Swift.m */,
 			);
 			name = "Objective-C Helpers";
 			sourceTree = "<group>";
@@ -2802,6 +2807,7 @@
 				8FDA6DA319A2979800244D5F /* ChangePasswordViewController.swift in Sources */,
 				D1FC729B1B20B22B0068CF89 /* BpMetricDelegate.swift in Sources */,
 				41643AB01C1891D800258F55 /* MetricTableViewCell.swift in Sources */,
+				413CEE3F1C87BF0E00F241F7 /* UIAppearance+Swift.m in Sources */,
 				8FE0BCCE199175BC00940D39 /* PulseCell.swift in Sources */,
 				D114B06B1B2A19900073A9CB /* TriangleView.swift in Sources */,
 				D1FC72991B20B1B70068CF89 /* WeightMetricDelegate.swift in Sources */,

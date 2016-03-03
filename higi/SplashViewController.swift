@@ -62,11 +62,13 @@ class SplashViewController: UIViewController {
             termsController.newPrivacy = newPrivacy;
             termsController.termsFile = termsFile as String;
             termsController.privacyFile = privacyFile as String;
-            self.presentViewController(termsController, animated: true, completion: nil);
+            let termsNav = UINavigationController(rootViewController: termsController)
+            self.presentViewController(termsNav, animated: true, completion: nil);
         } else if (user.firstName == nil || user.firstName == "" || user.lastName == nil || user.lastName == "") {
             let nameViewController = SignupNameViewController(nibName: "SignupNameView", bundle: nil);
             nameViewController.dashboardNext = true;
-            self.presentViewController(nameViewController, animated: true, completion: nil);
+            let nameNav = UINavigationController(rootViewController: nameViewController)
+            self.presentViewController(nameNav, animated: true, completion: nil);
         } else {
             ApiUtility.initializeApiData();
             (UIApplication.sharedApplication().delegate as! AppDelegate).startLocationManager();
