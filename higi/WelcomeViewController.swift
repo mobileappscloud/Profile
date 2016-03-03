@@ -267,7 +267,11 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
     @IBAction func gotoSignup(sender: AnyObject) {
         Flurry.logEvent("Signup_Pressed");
         let signupViewController = SignupEmailViewController(nibName: "SignupEmailView", bundle: nil)
-        self.navigationController?.pushViewController(signupViewController, animated: true)
+        signupViewController.navigationItem.rightBarButtonItem = modalCancelButton()
+        let signUpNav = UINavigationController(rootViewController: signupViewController)
+        self.navigationController?.presentViewController(signUpNav, animated: true, completion: nil)
+    }
+
     private func modalCancelButton() -> UIBarButtonItem {
         return UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: #selector(dismissPresentedViewController))
     }
