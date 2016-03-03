@@ -40,7 +40,7 @@ final class DashboardViewController: UIViewController {
     @IBOutlet var errorCard: UIView!
     @IBOutlet var qrCheckinCard: QrCheckinCard!
     
-    var currentOrigin: CGFloat = 0, gap: CGFloat = 10, contentOriginY: CGFloat = 83;
+    var currentOrigin: CGFloat = 0, gap: CGFloat = 10
     
     var arc: CAShapeLayer!, circle: CAShapeLayer!, refreshArc: CAShapeLayer!;
     
@@ -77,8 +77,6 @@ final class DashboardViewController: UIViewController {
         createPullToRefresh();
         
         initCards();
-        
-        self.mainScrollView.contentInset = UIEdgeInsets(top: -82.0, left: 0.0, bottom: 35.0, right: 0.0)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -793,7 +791,7 @@ final class DashboardViewController: UIViewController {
     }
     
     func layoutDashboardItems(animated: Bool) {
-        currentOrigin = contentOriginY;
+        currentOrigin = 0.0
         for item in dashboardItems {
             if item.superview != nil {
                 if animated {
