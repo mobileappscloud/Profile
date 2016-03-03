@@ -17,8 +17,6 @@ class ChallengesViewController: UIViewController, UIGestureRecognizerDelegate, U
     
     var currentPage = 0, totalPages = 0;
     
-    let headerHeight: CGFloat = 83;
-    
     var screenWidth: CGFloat!;
     
     var currentTable: UITableView!;
@@ -181,15 +179,7 @@ class ChallengesViewController: UIViewController, UIGestureRecognizerDelegate, U
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return numberOfRowsInCurrentTableView(tableView);
     }
-    
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: headerHeight));
-    }
-    
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return headerHeight;
-    }
-    
+
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("ChallengeRowCell") as! ChallengeRowCell!;
         if (cell == nil) {
