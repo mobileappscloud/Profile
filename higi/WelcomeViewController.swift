@@ -45,8 +45,6 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad();
         
-        self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
-        
         self.automaticallyAdjustsScrollViewInsets = false;
         
         pageTitle.text = "";
@@ -128,8 +126,7 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews();
-        self.navigationController!.navigationBar.hidden = true;
-        self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
+        self.navigationController?.navigationBar.hidden = true;
         buttonSeparator.frame.origin.y = signupButton.frame.origin.y - 1;
     }
     
@@ -143,10 +140,18 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
-        self.navigationController!.navigationBar.hidden = true;
-        self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
+        self.navigationController?.navigationBar.hidden = true;
+        
+        // Ugly workaround to dismiss 'Welcome/Tour' view hierarchy after signup/login is successfully dismissed.
+        if SessionData.Instance.token != nil && SessionData.Instance.token != "" {
+            // This view is added before dismissal so that it appears as though the user is being redirected immediately to the loading view
+            let loadingViewController = UIStoryboard(name: "Loading", bundle: nil).instantiateInitialViewController()!
+            self.view.addSubview(loadingViewController.view, pinToEdges: true)
+            
+            self.dismissViewControllerAnimated(false, completion: nil)
+        }
     }
-
+    
     func swipeLeft(sender: AnyObject) {
         if (pageControl.currentPage < 4) {
             pageControl.currentPage = pageControl.currentPage + 1;
