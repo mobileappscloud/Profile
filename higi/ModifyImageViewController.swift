@@ -20,8 +20,6 @@ class ModifyImageViewController: UIViewController {
     
     var resizing = false, fromSettings = false;
     
-    var doneButton: UIButton!;
-    
     var origFrame: CGRect!;
     
     var lastScale: CGFloat! = 1.0;
@@ -31,6 +29,8 @@ class ModifyImageViewController: UIViewController {
         
         self.navigationController!.interactivePopGestureRecognizer!.enabled = false;
         self.navigationController!.interactivePopGestureRecognizer!.delegate = nil;
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(done))
+        
         profileImageView.image = profileImage;
         
         profileImageView.hidden = true;
@@ -58,8 +58,11 @@ class ModifyImageViewController: UIViewController {
     }
     
     func done(sender: AnyObject!) {
-        doneButton.hidden = true;
-        spinner.hidden = false;
+        dispatch_async(dispatch_get_main_queue(), { [weak self] in
+            self?.navigationItem.rightBarButtonItem?.enabled = false
+            self?.spinner.hidden = false;
+        })
+        
         if (resizing) {
             sendSize();
         } else {
@@ -104,19 +107,15 @@ class ModifyImageViewController: UIViewController {
                 user.photoTime = Int(NSDate().timeIntervalSince1970);
             }
             user.profileImage = UIImage(data: NSData(contentsOfURL: NSURL(string: "\(HigiApi.higiApiUrl)/view/\(user.userId)/profile,400.png?t=\(user.photoTime)")!)!);
+            
             if (self.fromSettings) {
-                for viewController in self.navigationController!.viewControllers {
-                    if (viewController.isKindOfClass(SettingsViewController)) {
-                        self.navigationController!.popToViewController(viewController, animated: false);
-                        (viewController as! SettingsViewController).pictureChanged = true;
-                        break;
-                    }
+                if let settingsViewController = self.presentingViewController as? SettingsViewController {
+                    settingsViewController.pictureChanged = true
                 }
-            } else {
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.dismissViewControllerAnimated(true, completion: nil)
-                })
             }
+            dispatch_async(dispatch_get_main_queue(), {
+                self.dismissViewControllerAnimated(true, completion: nil)
+            })
             
             }, failure: {operation, error in
                 self.showErrorAlert();
@@ -157,10 +156,12 @@ class ModifyImageViewController: UIViewController {
     }
     
     func reset() {
-        self.navigationItem.hidesBackButton = true;
-        spinner.hidden = true;
-        spinner.stopAnimating();
-        doneButton.hidden = false;
+        dispatch_async(dispatch_get_main_queue(), { [weak self] in
+            self?.navigationItem.hidesBackButton = true
+            self?.spinner.hidden = true;
+            self?.spinner.stopAnimating();
+            self?.navigationItem.rightBarButtonItem?.enabled = true
+        })
     }
     
 }

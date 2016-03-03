@@ -45,7 +45,7 @@ class ProfileImageViewController: UIViewController, UIImagePickerControllerDeleg
         takePhotoButton.layer.borderWidth = 1.0;
         takePhotoButton.layer.borderColor = Utility.colorFromHexString(Constants.higiGreen).CGColor;
         
-        spinner = CustomLoadingSpinner(frame: CGRectMake(UIScreen.mainScreen().bounds.size.width / 2 - 16, UIScreen.mainScreen().bounds.size.height - 66 - self.topLayoutGuide.length, 32, 32));
+        spinner = CustomLoadingSpinner(frame: CGRectMake(UIScreen.mainScreen().bounds.size.width / 2 - 16, UIScreen.mainScreen().bounds.size.height - 150 - self.topLayoutGuide.length, 32, 32))
         spinner.shouldAnimateFull = false;
         spinner.hidden = true;
         self.view.addSubview(spinner);

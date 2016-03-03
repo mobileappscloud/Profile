@@ -11,7 +11,8 @@ import UIKit
 class LoadingViewController: UIViewController {
 
     private lazy var spinner: CustomLoadingSpinner = {
-        let spinner = CustomLoadingSpinner(frame: CGRectMake(UIScreen.mainScreen().bounds.size.width / 2 - 16, UIScreen.mainScreen().bounds.size.height / 2 + 32, 32, 32))
+        let defaultSize: CGFloat = 32.0
+        let spinner = CustomLoadingSpinner(frame: CGRectMake(UIScreen.mainScreen().bounds.size.width / 2 - defaultSize, UIScreen.mainScreen().bounds.size.height / 2 + defaultSize, defaultSize, defaultSize))
         return spinner
     }()
     
@@ -20,5 +21,20 @@ class LoadingViewController: UIViewController {
 
         self.view.addSubview(self.spinner)
         self.spinner.startAnimating()
+    }
+}
+
+extension LoadingViewController {
+    
+    override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
+        return .Portrait
+    }
+    
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return .Portrait
+    }
+    
+    override func shouldAutorotate() -> Bool {
+        return false
     }
 }

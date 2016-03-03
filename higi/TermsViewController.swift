@@ -35,7 +35,7 @@ class TermsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad();
-        self.navigationController?.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
+        
         declineButton.layer.borderWidth = 1;
         declineButton.layer.borderColor = Utility.colorFromHexString(Constants.higiGreen).CGColor;
         var url = "";
