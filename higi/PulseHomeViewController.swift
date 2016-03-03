@@ -168,18 +168,6 @@ class PulseHomeViewController: UIViewController, UITableViewDataSource, UITableV
         gotoArticle(SessionController.Instance.pulseArticles.first!);
     }
     
-    override func shouldAutorotate() -> Bool {
-        return false;
-    }
-    
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return UIInterfaceOrientationMask.Portrait;
-    }
-    
-    override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
-        return UIInterfaceOrientation.Portrait;
-    }
-    
     func createPullToRefresh() {
         pullRefreshView = UINib(nibName: "PullRefreshView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! PullRefresh;
         
@@ -212,7 +200,6 @@ class PulseHomeViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func refresh() {
-        self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0, alpha: 0.0)];
         pullRefreshView.icon.alpha = 1.0;
         pullRefreshView.circleContainer.alpha = 1.0;
         CATransaction.begin();
