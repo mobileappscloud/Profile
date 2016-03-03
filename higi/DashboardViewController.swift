@@ -577,13 +577,21 @@ final class DashboardViewController: UIViewController {
     @IBAction func gotoChallenges(sender: AnyObject) {
         if (SessionController.Instance.challenges != nil && SessionController.Instance.loadedChallenges) {
             Flurry.logEvent("Challenges_Pressed");
+            
+            guard let mainTabBarController = Utility.mainTabBarController() else { return }
+            
+            mainTabBarController.challengesViewController.navigateToChallengesDashboard()
         }
     }
     
     @IBAction func gotoChallengeDetails(sender: AnyObject) {
-        Flurry.logEvent("ActiveChallenge_Pressed");
-        let detailsViewController = ChallengeDetailsViewController(nibName: "ChallengeDetailsView", bundle: nil);
-        detailsViewController.challenge = displayedChallenge;
+        if (SessionController.Instance.challenges != nil && SessionController.Instance.loadedChallenges) {
+            Flurry.logEvent("ActiveChallenge_Pressed");
+            
+            guard let mainTabBarController = Utility.mainTabBarController() else { return }
+            
+            mainTabBarController.challengesViewController.navigateToChallengeDetail(displayedChallenge)
+        }
     }
     
     @IBAction func gotoPulseHome(sender: AnyObject) {

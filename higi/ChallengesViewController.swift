@@ -441,14 +441,14 @@ extension ChallengesViewController: UniversalLinkHandler {
         return tabBar.challengesNavController
     }
     
-    private func navigateToChallengesDashboard() {
+    func navigateToChallengesDashboard() {
         dispatch_async(dispatch_get_main_queue(), { [weak self] in
             Utility.mainTabBarController()?.selectedIndex = TabBarController.ViewControllerIndex.Challenges.rawValue
             self?.challengesNavigationController().popToRootViewControllerAnimated(false)
         })
     }
     
-    private func navigateToChallengeDetail(challenge: HigiChallenge) {
+    func navigateToChallengeDetail(challenge: HigiChallenge) {
         navigateToChallengesDashboard()
 
         guard let challengesViewController = Utility.mainTabBarController()?.challengesViewController else { return }
