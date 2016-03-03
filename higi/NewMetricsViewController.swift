@@ -242,7 +242,6 @@ extension NewMetricsViewController: UniversalLinkHandler {
         if !loadedActivites || !loadedCheckins {
             return
         }
-        guard let mainTabBarController = Utility.mainTabBarController() else { return }
         
         let targetMetricsType: MetricsType
         switch pathType {
@@ -258,12 +257,17 @@ extension NewMetricsViewController: UniversalLinkHandler {
         
         dispatch_async(dispatch_get_main_queue(), {
             presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
-            
-            mainTabBarController.selectedIndex = TabBarController.ViewControllerIndex.Metrics.rawValue
-            // Dumb workaround which ensures embedded view controllers are loaded
-            Utility.delay(0.1, closure: {
-                mainTabBarController.metricsViewController.navigate(toMetricViewWithType: targetMetricsType)
-            })
+            self.navigate(metricsType: targetMetricsType)
+        })
+    }
+    
+    func navigate(metricsType type: MetricsType) {
+        guard let mainTabBarController = Utility.mainTabBarController() else { return }
+        
+        mainTabBarController.selectedIndex = TabBarController.ViewControllerIndex.Metrics.rawValue
+        // Dumb workaround which ensures embedded view controllers are loaded
+        Utility.delay(0.1, closure: {
+            mainTabBarController.metricsViewController.navigate(toMetricViewWithType: type)
         })
     }
 }

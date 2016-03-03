@@ -546,18 +546,22 @@ final class DashboardViewController: UIViewController {
 
     func gotoActivityGraph(sender: AnyObject) {
         Flurry.logEvent("ActivityMetric_Pressed");
+        navigateToMetrics(.DailySummary)
     }
     
     func gotoBloodPressureGraph(sender: AnyObject) {
         Flurry.logEvent("BpMetric_Pressed");
+        navigateToMetrics(.BloodPressure)
     }
 
     func gotoPulseGraph(sender: AnyObject) {
         Flurry.logEvent("PulseMetric_Pressed");
+        navigateToMetrics(.Pulse)
     }
     
     func gotoWeightGraph(sender: AnyObject) {
         Flurry.logEvent("WeightMetric_Pressed");
+        navigateToMetrics(.Weight)
     }
     
     func gotoDailySummary(sender: AnyObject) {
@@ -571,6 +575,14 @@ final class DashboardViewController: UIViewController {
     @IBAction func gotoMetrics(sender: AnyObject) {
         if (SessionController.Instance.checkins != nil && SessionController.Instance.loadedActivities) {
             Flurry.logEvent("Metrics_Pressed");
+            navigateToMetrics()
+        }
+    }
+    
+    private func navigateToMetrics(metricsType: MetricsType = .DailySummary) {
+        if (SessionController.Instance.checkins != nil && SessionController.Instance.loadedActivities) {
+            guard let mainTabBarController = Utility.mainTabBarController() else { return }
+            mainTabBarController.metricsViewController.navigate(metricsType: metricsType)
         }
     }
     
