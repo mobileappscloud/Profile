@@ -588,6 +588,13 @@ final class DashboardViewController: UIViewController {
     
     @IBAction func gotoPulseHome(sender: AnyObject) {
         Flurry.logEvent("higiPulse_Pressed");
+        
+        guard let mainTabBarController = Utility.mainTabBarController() else { return }
+        
+        let pulseHomeViewController = mainTabBarController.pulseModalViewController()
+        dispatch_async(dispatch_get_main_queue(), {
+            mainTabBarController.presentViewController(pulseHomeViewController, animated: true, completion: nil)
+        })
     }
     
     @IBAction func gotoPulseArticle(sender: AnyObject) {
