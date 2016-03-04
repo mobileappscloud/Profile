@@ -63,7 +63,10 @@ final class NewMetricsViewController: UIViewController {
         
         // Workaround to ensure selected collection view cell is centered and visible
         let selectedIndexPath = NSIndexPath(forItem: coordinator.selectedIndex, inSection: 0)
-        self.collectionViewController.collectionView?.scrollToItemAtIndexPath(selectedIndexPath, atScrollPosition: .CenteredHorizontally, animated: false)
+        // For some reason, this causes the simulator to crash. When targeting the simulator, Xcode will display a warning that this code will never execute, but that is a target specific warning.
+        if TARGET_OS_SIMULATOR != 1 {
+            self.collectionViewController.collectionView?.scrollToItemAtIndexPath(selectedIndexPath, atScrollPosition: .CenteredHorizontally, animated: false)
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
