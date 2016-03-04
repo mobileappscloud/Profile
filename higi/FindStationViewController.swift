@@ -127,7 +127,7 @@ class FindStationViewController: UIViewController, GMSMapViewDelegate, UITableVi
         listButton.addTarget(self, action: "toggleList:", forControlEvents: UIControlEvents.TouchUpInside);
         let listBarItem = UIBarButtonItem();
         listBarItem.customView = listButton;
-        self.navigationItem.rightBarButtonItem = listBarItem;
+        self.navigationItem.leftBarButtonItem = listBarItem;
         
         searchField = UITextField(frame: CGRect(x: 0, y: 0, width: 95, height: 40));
         searchField.textColor = Theme.Color.Primary.white
@@ -332,9 +332,9 @@ class FindStationViewController: UIViewController, GMSMapViewDelegate, UITableVi
     func toggleList(sender: AnyObject!) {
         searchField.resignFirstResponder();
         if (listOpen) {
-            (self.navigationItem.rightBarButtonItem!.customView! as! UIButton).setBackgroundImage(UIImage(named: "map_listviewicon.png")!.imageWithRenderingMode(.AlwaysTemplate), forState: UIControlState.Normal);
+            (self.navigationItem.leftBarButtonItem!.customView! as! UIButton).setBackgroundImage(UIImage(named: "map_listviewicon.png")!.imageWithRenderingMode(.AlwaysTemplate), forState: UIControlState.Normal);
         } else {
-            (self.navigationItem.rightBarButtonItem!.customView! as! UIButton).setBackgroundImage(UIImage(named: "map_mapviewicon.png")!.imageWithRenderingMode(.AlwaysOriginal), forState: UIControlState.Normal);
+            (self.navigationItem.leftBarButtonItem!.customView! as! UIButton).setBackgroundImage(UIImage(named: "map_mapviewicon.png")!.imageWithRenderingMode(.AlwaysOriginal), forState: UIControlState.Normal);
         }
         if (listOpen) {
             UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveEaseInOut, animations: {
