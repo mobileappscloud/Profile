@@ -105,7 +105,7 @@
                     </constraints>
                 </view>
                 <view hidden="YES" alpha="0.90000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IVQ-99-oMd">
-                    <rect key="frame" x="5" y="421" width="310" height="74"/>
+                    <rect key="frame" x="5" y="387" width="310" height="74"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="geB-oB-7Ry">
                             <rect key="frame" x="0.0" y="0.0" width="310" height="74"/>
@@ -160,7 +160,7 @@
                 <view hidden="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="icW-li-xIM">
                     <rect key="frame" x="0.0" y="498" width="320" height="323"/>
                     <subviews>
-                        <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zI5-Ex-RfT">
+                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zI5-Ex-RfT">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wfp-Xf-Afy">
@@ -409,7 +409,7 @@
                 <constraint firstItem="icW-li-xIM" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Ija-yw-ha9"/>
                 <constraint firstAttribute="trailing" secondItem="b9Y-Rs-dSP" secondAttribute="trailing" id="PHc-Bj-gyQ"/>
                 <constraint firstAttribute="bottom" secondItem="b9Y-Rs-dSP" secondAttribute="bottom" id="deD-kQ-kka"/>
-                <constraint firstAttribute="bottom" secondItem="IVQ-99-oMd" secondAttribute="bottom" constant="73" id="hGh-Vx-U3c"/>
+                <constraint firstAttribute="bottom" secondItem="IVQ-99-oMd" secondAttribute="bottom" constant="107" id="hGh-Vx-U3c"/>
                 <constraint firstItem="C1P-ni-kAe" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="hh1-wS-bzC"/>
                 <constraint firstAttribute="trailing" secondItem="Tot-YV-36o" secondAttribute="trailing" id="j08-8q-fZf"/>
                 <constraint firstItem="C1P-ni-kAe" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="lIm-uH-Z00"/>
