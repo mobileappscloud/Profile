@@ -753,8 +753,11 @@ extension FindStationViewController: UniversalLinkHandler {
         guard let mainTabBarController = Utility.mainTabBarController() else { return }
         
         dispatch_async(dispatch_get_main_queue(), {
+            InterfaceOrientation.force(.Portrait)
+            
             presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
             
+            mainTabBarController.presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
             mainTabBarController.selectedIndex = TabBarController.ViewControllerIndex.FindStation.rawValue
         })
     }

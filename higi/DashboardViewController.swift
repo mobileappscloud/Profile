@@ -866,20 +866,3 @@ extension DashboardViewController: UIScrollViewDelegate {
         updateNavbar()
     }
 }
-
-// MARK: - Interface Orientation
-
-extension DashboardViewController {
-
-    override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
-        return .Portrait
-    }
-    
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return .Portrait
-    }
-    
-    override func shouldAutorotate() -> Bool {
-        return false
-    }
-}

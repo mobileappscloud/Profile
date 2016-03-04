@@ -645,9 +645,12 @@ extension DailySummaryViewController: UniversalLinkHandler {
         }
         guard let mainTabBarController = Utility.mainTabBarController() else { return }
         
+        InterfaceOrientation.force(.Portrait)
+        
         let dailySummaryViewController = DailySummaryViewController(nibName: "DailySummaryView", bundle: nil)
         dispatch_async(dispatch_get_main_queue(), {
             presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
+            mainTabBarController.presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
             mainTabBarController.presentViewController(dailySummaryViewController, animated: true, completion: nil)
         })
     }

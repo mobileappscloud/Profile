@@ -384,7 +384,7 @@ extension ChallengesViewController: UniversalLinkHandler {
     }
     
     private func handle(URL: NSURL, pathType: PathType, parameters: [String]?, presentedViewController: UIViewController?) {
-
+        
         // Make sure there are no views presented over the tab bar controller
         presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
         
@@ -433,6 +433,9 @@ extension ChallengesViewController: UniversalLinkHandler {
     
     func navigateToChallengesDashboard() {
         dispatch_async(dispatch_get_main_queue(), { [weak self] in
+            InterfaceOrientation.force(.Portrait)
+            
+            Utility.mainTabBarController()?.presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
             Utility.mainTabBarController()?.selectedIndex = TabBarController.ViewControllerIndex.Challenges.rawValue
             self?.challengesNavigationController().popToRootViewControllerAnimated(false)
         })

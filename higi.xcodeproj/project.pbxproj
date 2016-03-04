@@ -66,6 +66,7 @@
 		415338161C60614700ED2B82 /* MetricCheckinSummaryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 415338151C60614700ED2B82 /* MetricCheckinSummaryView.xib */; };
 		415338181C60681B00ED2B82 /* MetricCheckinSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415338171C60681B00ED2B82 /* MetricCheckinSummaryView.swift */; };
 		41545BF91BA76CFA00946358 /* NotificationSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41545BF81BA76CFA00946358 /* NotificationSettings.storyboard */; };
+		4159126E1C8A288200111B39 /* InterfaceOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4159126D1C8A288200111B39 /* InterfaceOrientation.swift */; };
 		4162266D1C79407400EFA1B3 /* CPTXYGraph+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4162266C1C79407400EFA1B3 /* CPTXYGraph+Utility.swift */; };
 		4162266F1C7940B100EFA1B3 /* HigiScatterPlot+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4162266E1C7940B100EFA1B3 /* HigiScatterPlot+Utility.swift */; };
 		416226711C7940D000EFA1B3 /* CPTXYAxis+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416226701C7940D000EFA1B3 /* CPTXYAxis+Utility.swift */; };
@@ -491,6 +492,7 @@
 		415338151C60614700ED2B82 /* MetricCheckinSummaryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MetricCheckinSummaryView.xib; sourceTree = "<group>"; };
 		415338171C60681B00ED2B82 /* MetricCheckinSummaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricCheckinSummaryView.swift; sourceTree = "<group>"; };
 		41545BF81BA76CFA00946358 /* NotificationSettings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NotificationSettings.storyboard; sourceTree = "<group>"; };
+		4159126D1C8A288200111B39 /* InterfaceOrientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterfaceOrientation.swift; sourceTree = "<group>"; };
 		4162266C1C79407400EFA1B3 /* CPTXYGraph+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CPTXYGraph+Utility.swift"; sourceTree = "<group>"; };
 		4162266E1C7940B100EFA1B3 /* HigiScatterPlot+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HigiScatterPlot+Utility.swift"; sourceTree = "<group>"; };
 		416226701C7940D000EFA1B3 /* CPTXYAxis+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CPTXYAxis+Utility.swift"; sourceTree = "<group>"; };
@@ -1141,6 +1143,15 @@
 				41B2B3601BB440F100B13168 /* Switch Cell */,
 			);
 			name = "Notification Settings";
+			sourceTree = "<group>";
+		};
+		4159126A1C8A21DE00111B39 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				416226761C7941CA00EFA1B3 /* Core Plot */,
+				4159126D1C8A288200111B39 /* InterfaceOrientation.swift */,
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 		416226761C7941CA00EFA1B3 /* Core Plot */ = {
@@ -1799,9 +1810,9 @@
 			isa = PBXGroup;
 			children = (
 				D130183F1B14D943008DDFAD /* Constants.swift */,
-				416226761C7941CA00EFA1B3 /* Core Plot */,
 				41FB22541BE2951F009139B4 /* CrashAnalyticsManager.swift */,
 				8F524BF7195B829400BFC49D /* CustomFormatter.swift */,
+				4159126A1C8A21DE00111B39 /* Extensions */,
 				41E6B5E31C16184200ED922B /* HealthKitManager.swift */,
 				8FE206611B7CF30E00B473B0 /* LocationDelegate.swift */,
 				41ED6C961C85FCA300A55BED /* Notifications.swift */,
@@ -2746,6 +2757,7 @@
 				41E6B5E81C161FAB00ED922B /* MetricsCoordinator.swift in Sources */,
 				41D871801C7A91BF002DCDA0 /* GraphPoint+Utility.swift in Sources */,
 				410167281C555D0600A54B02 /* NewWeightMetricDelegate.swift in Sources */,
+				4159126E1C8A288200111B39 /* InterfaceOrientation.swift in Sources */,
 				D1FC72971B20B0DC0068CF89 /* PulseMetricDelegate.swift in Sources */,
 				41A0BE0D1BBB088500A314D6 /* AFHTTPSessionManager.m in Sources */,
 				41247DC91C5A937300DDC5EC /* SingleRowTextMenuFlowLayout.swift in Sources */,

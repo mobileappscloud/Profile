@@ -253,6 +253,8 @@ extension ConnectDeviceViewController: UniversalLinkHandler {
         
         let connectDeviceViewController = ConnectDeviceViewController(nibName: "ConnectDeviceView", bundle: nil)
         dispatch_async(dispatch_get_main_queue(), {
+            InterfaceOrientation.force(.Portrait)
+            
             // Make sure there are no views presented over the tab bar controller
             mainTabBarController.presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
             

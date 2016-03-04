@@ -284,10 +284,11 @@ extension PulseHomeViewController: UniversalLinkHandler {
         let pulseHomeViewController = pulseNavController.topViewController as! PulseHomeViewController
         
         dispatch_async(dispatch_get_main_queue(), {
+            InterfaceOrientation.force(.Portrait)
+            
             presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
             
             mainTabBarController.presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
-            
             mainTabBarController.presentViewController(pulseNavController, animated: false, completion: nil)
             
             if pathType == .PulseArticle {

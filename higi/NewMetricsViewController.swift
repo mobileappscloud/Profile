@@ -267,6 +267,7 @@ extension NewMetricsViewController: UniversalLinkHandler {
     func navigate(metricsType type: MetricsType) {
         guard let mainTabBarController = Utility.mainTabBarController() else { return }
         
+        mainTabBarController.presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
         mainTabBarController.selectedIndex = TabBarController.ViewControllerIndex.Metrics.rawValue
         // Dumb workaround which ensures embedded view controllers are loaded
         Utility.delay(0.1, closure: {

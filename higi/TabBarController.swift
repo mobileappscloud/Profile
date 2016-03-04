@@ -78,7 +78,14 @@ final class TabBarController: UITabBarController {
         }
         self.viewControllers = controllers
         
+        self.tabBar.translucent = false
         self.tabBar.tintColor = Theme.Color.primary
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        hideTabBar(forSize: self.view.frame.size)
     }
 }
 
@@ -192,5 +199,13 @@ extension TabBarController {
     
     func modalDoneButtonTapped(sender: UIBarButtonItem) {
         dismissViewControllerAnimated(true, completion: nil)
+    }
+}
+
+extension TabBarController {
+    
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        
+        hideTabBar(forSize: size)
     }
 }
