@@ -2,23 +2,41 @@ import Foundation
 
 class SplashViewController: UIViewController {
     
-    private var spinner: CustomLoadingSpinner!;
+    @IBOutlet private var spinnerContainer: UIView!
+    @IBOutlet private var spinnerContainerHeightConstraint: NSLayoutConstraint!
+    @IBOutlet private var spinnerContainerWidthContainer: NSLayoutConstraint!
+    
+    private lazy var spinner: CustomLoadingSpinner = {
+        let spinner = CustomLoadingSpinner(frame: CGRectMake(0, 0, self.spinnerContainerWidthContainer.constant, self.spinnerContainerHeightConstraint.constant))
+        return spinner
+    }()
     
     lazy var mainTabBarController = UIStoryboard(name: "TabBar", bundle: nil).instantiateInitialViewController() as! TabBarController
     
+    // MARK: - View Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad();
-        
-        self.spinner = CustomLoadingSpinner(frame: CGRectMake(UIScreen.mainScreen().bounds.size.width / 2 - 16, UIScreen.mainScreen().bounds.size.height / 2 + 32, 32, 32));
-        self.view.addSubview(self.spinner)
-        self.spinner.startAnimating();
+        spinnerContainer.addSubview(spinner)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.spinner.startAnimating()
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated);
         checkVersion()
     }
-
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        spinner.stopAnimating()
+    }
+    
+    // MARK: -
+    
     func moveToNextScreen() {
         guard let token = SessionData.Instance.token else {
             navigateToWelcome()
