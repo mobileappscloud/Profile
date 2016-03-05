@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10112" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="hVT-QU-6lV">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15A279b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="hVT-QU-6lV">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10083"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <scenes>
         <!--New Metrics View Controller-->
         <scene sceneID="yMX-mh-OAS">
             <objects>
-                <viewController id="hVT-QU-6lV" customClass="NewMetricsViewController" customModule="higi" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" id="hVT-QU-6lV" customClass="NewMetricsViewController" customModule="higi" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="aKq-ab-EWf"/>
                         <viewControllerLayoutGuide type="bottom" id="Eyi-9v-m1h"/>
@@ -17,13 +17,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b8d-Ya-Owl" userLabel="Page View Container View">
+                            <containerView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b8d-Ya-Owl" userLabel="Page View Container View">
                                 <rect key="frame" x="0.0" y="104" width="600" height="496"/>
                                 <connections>
                                     <segue destination="snZ-P7-4ZA" kind="embed" identifier="EmbedPageViewStoryboardSegueIdentifier" id="IFd-A2-Hgh"/>
                                 </connections>
                             </containerView>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HIj-Sx-HEp" userLabel="Sub Navigation Container View">
+                            <containerView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HIj-Sx-HEp" userLabel="Sub Navigation Container View">
                                 <rect key="frame" x="0.0" y="64" width="600" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="Dfi-AE-dWG"/>
@@ -32,7 +32,7 @@
                                     <segue destination="1Eu-Zg-9Ma" kind="embed" identifier="EmbedCollectionViewStoryboardSegueIdentifier" id="MW6-ph-UJf"/>
                                 </connections>
                             </containerView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="metrics-rotate-device-icon" translatesAutoresizingMaskIntoConstraints="NO" id="K4L-Do-of6">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="metrics-rotate-device-icon" translatesAutoresizingMaskIntoConstraints="NO" id="K4L-Do-of6">
                                 <rect key="frame" x="545" y="119" width="40" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="MSy-pw-PaA"/>
