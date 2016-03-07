@@ -85,6 +85,7 @@
 		418484C81C72E27F00C26211 /* NewBodyFatMetricDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418484C71C72E27F00C26211 /* NewBodyFatMetricDelegate.swift */; };
 		418485121C73DEC600C26211 /* NewBodyMassIndexMetricDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418485111C73DEC600C26211 /* NewBodyMassIndexMetricDelegate.swift */; };
 		418485231C77D16400C26211 /* NewMetricPlotDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418485221C77D16400C26211 /* NewMetricPlotDelegate.swift */; };
+		41899E921C8E468000FF5292 /* Launch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41899E911C8E468000FF5292 /* Launch.storyboard */; };
 		418D4C451C7A5471008C86E7 /* higiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418D4C441C7A5471008C86E7 /* higiUITests.swift */; };
 		4192B4FE1BB5BF4500D1A2D3 /* PersistentSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4192B4FD1BB5BF4500D1A2D3 /* PersistentSettingsController.swift */; };
 		4197B58D1C58095100E46F8F /* UtilityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4197B58C1C58095100E46F8F /* UtilityTests.swift */; };
@@ -513,6 +514,7 @@
 		418484C71C72E27F00C26211 /* NewBodyFatMetricDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewBodyFatMetricDelegate.swift; sourceTree = "<group>"; };
 		418485111C73DEC600C26211 /* NewBodyMassIndexMetricDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewBodyMassIndexMetricDelegate.swift; sourceTree = "<group>"; };
 		418485221C77D16400C26211 /* NewMetricPlotDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewMetricPlotDelegate.swift; sourceTree = "<group>"; };
+		41899E911C8E468000FF5292 /* Launch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Launch.storyboard; sourceTree = "<group>"; };
 		418D4C421C7A5471008C86E7 /* higiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = higiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		418D4C441C7A5471008C86E7 /* higiUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = higiUITests.swift; sourceTree = "<group>"; };
 		418D4C461C7A5471008C86E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1187,6 +1189,14 @@
 			name = MWFeedParser;
 			sourceTree = "<group>";
 		};
+		41899E951C8E468500FF5292 /* Launch */ = {
+			isa = PBXGroup;
+			children = (
+				41899E911C8E468000FF5292 /* Launch.storyboard */,
+			);
+			name = Launch;
+			sourceTree = "<group>";
+		};
 		418D4C191C7A1E55008C86E7 /* Interface Builder */ = {
 			isa = PBXGroup;
 			children = (
@@ -1833,6 +1843,7 @@
 				8F5C38E51981915500F51543 /* Dashboard */,
 				8FE056DA198FDB9200C81208 /* Find Station */,
 				41D871981C7D02E8002DCDA0 /* Host */,
+				41899E951C8E468500FF5292 /* Launch */,
 				8F08AF9B198940C8002EE906 /* Login */,
 				41D871AB1C7E5172002DCDA0 /* Main Tab Bar */,
 				8F6266AD197EC8C700145EDB /* Metrics */,
@@ -2660,6 +2671,7 @@
 				D17334401B594FCD0089BBFD /* bloodpressure_copy@2x.png in Resources */,
 				8F211EFA1A1E85AE00A256C0 /* oc_dropdownmenu_up.png in Resources */,
 				D1036D041B153477003E7239 /* runicon.png in Resources */,
+				41899E921C8E468000FF5292 /* Launch.storyboard in Resources */,
 				D1FC09951A83DE960049B5C0 /* team_icon.png in Resources */,
 				8F5F91881A7193E80042D87C /* activitywidgetblankstate.png in Resources */,
 				D1FD3FC81B263BBA007D362D /* MetricsView.xib in Resources */,

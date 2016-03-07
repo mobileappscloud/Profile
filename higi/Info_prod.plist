@@ -61,7 +61,7 @@
 		<string>location</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
-	<string>Loading</string>
+	<string>Launch</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Host</string>
 	<key>UIRequiredDeviceCapabilities</key>
