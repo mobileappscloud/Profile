@@ -34,11 +34,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     
     var dateString: String!;
     
-    var isLeaving = false, previousShouldRotate: Bool!;
-    
-    var previousSupportedOrientations: UIInterfaceOrientationMask!;
-    
-    var previousActualOrientation: UIInterfaceOrientation!;
+    var isLeaving = false
     
     var timeOfDay:TimeOfDay!;
     

@@ -54,6 +54,8 @@ final class MetricDetailViewController: UIViewController {
 extension MetricDetailViewController {
     
     override func traitCollectionDidChange(previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
         if self.traitCollection.verticalSizeClass != .Compact && dismissWhenNotVerticallyCompact {
             self.dismissViewControllerAnimated(true, completion: nil)
         }

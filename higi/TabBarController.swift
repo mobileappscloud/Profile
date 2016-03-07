@@ -205,7 +205,7 @@ extension TabBarController {
 extension TabBarController {
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
         hideTabBar(forSize: size)
     }
 }
