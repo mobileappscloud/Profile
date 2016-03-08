@@ -4,7 +4,6 @@ class ChallengesViewController: UIViewController, UIGestureRecognizerDelegate, U
     
     @IBOutlet var pager: UIPageControl!
     @IBOutlet var scrollView: UIScrollView!
-    @IBOutlet var headerImage: UIImageView!
     @IBOutlet weak var blankState: UIImageView!
     
     var activeTable, upcomingTable: UITableView?, availableTable: UITableView?, invitedTable: UITableView?;

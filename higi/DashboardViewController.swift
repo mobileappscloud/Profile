@@ -32,7 +32,6 @@ final class DashboardViewController: UIViewController {
         }
     }
     
-    @IBOutlet weak var headerImage: UIImageView!
     @IBOutlet weak var mainScrollView: UIScrollView!
     @IBOutlet var challengesCard: ChallengesCard!
     @IBOutlet var metricsCard: UIView!
