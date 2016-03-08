@@ -15,11 +15,6 @@ class ConnectDeviceViewController: UIViewController, UITableViewDelegate, UITabl
     
     @IBOutlet weak var headerImage: UIImageView!
     @IBOutlet weak var table: UITableView!
-    @IBOutlet weak var headerLabel: UILabel! {
-        didSet {
-            headerLabel.text = NSLocalizedString("CONNECT_DEVICE_VIEW_HEADER_TEXT", comment: "Text to display in table header on Connect Device view.")
-        }
-    }
 
     var brandedDevices: [ActivityDevice] = {
         var devices: [ActivityDevice] = []
