@@ -22,6 +22,13 @@ final class MetricDetailViewController: UIViewController {
     var dismissBySwipingHeader = true
     var dismissWhenNotVerticallyCompact = true
     
+    lazy private var graphicTapGestureRecognizer: UITapGestureRecognizer = {
+        let tap = UITapGestureRecognizer()
+        return tap
+    }()
+    
+    private var graphicTapHandler: (() -> Void)?
+    
     lazy private var tapGestureRecognizer: UITapGestureRecognizer = {
        let tap = UITapGestureRecognizer()
         tap.addTarget(self, action: Selector("tapped:"))
@@ -138,6 +145,19 @@ extension MetricDetailViewController {
     }
 }
 
+extension MetricDetailViewController {
+    
+    func configureGraphicContainerTapGesture(tapHandler: () -> Void) {
+        graphicTapGestureRecognizer.addTarget(self, action: Selector("didTapGraphicContainer:"))
+        graphicTapHandler = tapHandler
+        graphicContainerView.addGestureRecognizer(graphicTapGestureRecognizer)
+    }
+    
+    func didTapGraphicContainer(tap: UITapGestureRecognizer) {
+        self.graphicTapHandler?()
+    }
+}
+
 // MARK: Configure Info Container
 
 extension MetricDetailViewController {
@@ -167,7 +187,6 @@ extension MetricDetailViewController {
             scrollableContentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-10-[headerView]-10-[imageView]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["imageView" : imageView, "headerView" : headerView]))
         } else {
             scrollableContentView.addSubview(imageView, pinToEdges: true)
-            
         }
         
         imageView.addConstraint(NSLayoutConstraint(item: imageView, attribute: .Height, relatedBy: .Equal, toItem: imageView, attribute: .Width, multiplier: 1/aspectRatio, constant: 0.0))
