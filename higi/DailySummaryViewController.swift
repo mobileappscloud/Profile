@@ -264,9 +264,19 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         
         let textRow = SummaryViewUtility.initBreakdownRow(CGRect(x: rowX - textOffset, y: currentOrigin, width: rowWidth, height: CGFloat.max), text: text, duplicate: false);
         textRow.bulletPoint.hidden = true;
+        textRow.desc.numberOfLines = 5
+        textRow.desc.minimumScaleFactor = 0.5
+        textRow.desc.sizeToFit()
         textRow.alpha = alpha;
         
         activityContainer.addSubview(textRow);
+        textRow.translatesAutoresizingMaskIntoConstraints = false
+        
+        activityContainer.addConstraint(NSLayoutConstraint(item: textRow, attribute: .Top, relatedBy: .Equal, toItem: titleRow, attribute: .Bottom, multiplier: 1.0, constant: 5.0))
+        activityContainer.addConstraint(NSLayoutConstraint(item: textRow, attribute: .Leading, relatedBy: .Equal, toItem: titleRow.name, attribute: .Leading, multiplier: 1.0, constant: -16.0))
+        self.view.addConstraint(NSLayoutConstraint(item: textRow, attribute: .Trailing, relatedBy: .Equal, toItem: self.view, attribute: .Trailing, multiplier: 1.0, constant: -8.0))
+        textRow.setNeedsUpdateConstraints()
+        
         currentOrigin += textRow.frame.size.height + buttonMargin;
         descriptionRows.append(textRow);
         rows.append(textRow);
