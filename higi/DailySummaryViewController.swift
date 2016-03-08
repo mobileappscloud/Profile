@@ -78,6 +78,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         
         // Note 1) Hotfix to work around lack of complete autolayout constraints
         activityView.frame.size.width = UIScreen.mainScreen().bounds.width
+        scrollView.contentSize.height = activityContainer.frame.origin.y + currentOrigin + activityView.frame.origin.y;
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
