@@ -30,7 +30,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     
     var totalPoints = 0, largestActivityPoints = 0;
     
-    var minCircleRadius:CGFloat = 8, maxCircleRadius:CGFloat = 20, currentOrigin:CGFloat = 0, imageAspectRatio:CGFloat!;
+    var minCircleRadius:CGFloat = 8, maxCircleRadius:CGFloat = 20, currentOrigin:CGFloat = 0
     
     var dateString: String!;
     
@@ -47,6 +47,8 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         case Evening;
     }
     
+    // MARK: -
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         self.title = NSLocalizedString("DAILY_SUMMARY_VIEW_TITLE", comment: "Title for Daily Summary view.")
@@ -56,42 +58,30 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         self.automaticallyAdjustsScrollViewInsets = false;
         scrollView.scrollEnabled = true;
         scrollView.delegate = self;
-        scrollView.setContentOffset(CGPoint(x: 0,y: 0), animated: false);
-        
-        imageAspectRatio = headerBackground.frame.size.width / headerBackground.frame.size.height;
         
         initHeader();
         initSummaryview();
         
         pointsMeter.setActivities((totalPoints, activities));
     }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated);
-        
-        activityView.frame.size.width = UIScreen.mainScreen().bounds.size.width;
-        for row in titleRows {
-            row.frame.size.width = UIScreen.mainScreen().bounds.size.width - row.frame.origin.x;
-        }
-        scrollView.setContentOffset(CGPoint(x: 0,y: 0), animated: false);
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews();
-        scrollView.contentSize.height = activityContainer.frame.origin.y + currentOrigin + activityView.frame.origin.y;
-    }
-    
+
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated);
         pointsMeter.drawArc(true);
+        
+        // Note 1) Hotfix to work around lack of complete autolayout constraints
+        view.setNeedsLayout()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        // Note 1) Hotfix to work around lack of complete autolayout constraints
+        activityView.frame.size.width = UIScreen.mainScreen().bounds.width
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return activities.count;
-    }
-    
-    override func prefersStatusBarHidden() -> Bool {
-        return false;
     }
     
     func initHeader() {
@@ -133,7 +123,6 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             greeting.text = NSLocalizedString("DAILY_SUMMARY_VIEW_HEADER_GREETING_EVENING_TEXT", comment: "Greeting text to display in header of the Daily Summary view during the evening.")
             headerBackground.image = UIImage(named: "dailysummary_night");
         }
-        let screenWidth = max(UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height);
     }
     
     func initSummaryview() {
@@ -426,7 +415,6 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
                 currentOrigin += titleBottomMargin;
             }
         }
-        resizeActivityRows(self.interfaceOrientation.rawValue == UIInterfaceOrientation.Portrait.rawValue);
     }
 
     func initActivityRow(title: String, points: Int, totalPoints: Int, color: UIColor, alpha: CGFloat) -> DailySummaryRow {
@@ -529,43 +517,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
-        super.didRotateFromInterfaceOrientation(fromInterfaceOrientation);
-        viewWillLayoutSubviews();
-    }
-    
-    override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
-        scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false);
-        resizeActivityRows(toInterfaceOrientation == UIInterfaceOrientation.Portrait);
-    }
-    
-    func resizeActivityRows(forPortrait: Bool) {
-        if descriptionRows.count > 0 {
-            var rowWidth:CGFloat = max(UIScreen.mainScreen().bounds.size.height, UIScreen.mainScreen().bounds.size.width) - 10;
-            if forPortrait {
-                rowWidth = min(UIScreen.mainScreen().bounds.size.height, UIScreen.mainScreen().bounds.size.width) - 10;
-            }
-            rowWidth -= descriptionRows[0].frame.origin.x;
-            for row in descriptionRows {
-                row.frame.size.width = rowWidth;
-                row.frame.size.height = Utility.heightForTextView(rowWidth - 20, text: row.desc.text!, fontSize: row.desc.font.pointSize, margin: 0);
-            }
-        }
-
-        var i = 0;
-        var originY:CGFloat = 0;
-        for row in rows {
-            row.frame.origin.y = originY;
-            originY += row.frame.size.height + margins[i];
-            i++;
-        }
-        if rows.count > 0 && margins.count > 0 {
-            let row = rows.last!;
-            currentOrigin = row.frame.origin.y + row.frame.size.height + margins.last! + 8;
-        } else {
-            currentOrigin = originY;
-        }
-    }
+    // MARK: -
     
     func higiCallToActionClicked(sender: AnyObject!) {
         pushFindStationView();
@@ -595,14 +547,6 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     func pushFindStationView() {
         Flurry.logEvent("FindStation_Pressed");
         self.navigationController!.pushViewController(FindStationViewController(nibName: "FindStationView", bundle: nil), animated: true);
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews();
-        activityView.frame.size.width = scrollView.frame.size.width;
-        for row in titleRows {
-            row.frame.size.width = scrollView.frame.size.width - row.frame.origin.x;
-        }
     }
 }
 
@@ -644,10 +588,19 @@ extension DailySummaryViewController: UniversalLinkHandler {
         InterfaceOrientation.force(.Portrait)
         
         let dailySummaryViewController = DailySummaryViewController(nibName: "DailySummaryView", bundle: nil)
+        dailySummaryViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: dailySummaryViewController, action: Selector("didTapDoneButton:"))
+        let dailySummaryNav = UINavigationController(rootViewController: dailySummaryViewController)
         dispatch_async(dispatch_get_main_queue(), {
             presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
             mainTabBarController.presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
-            mainTabBarController.presentViewController(dailySummaryViewController, animated: true, completion: nil)
+            mainTabBarController.presentViewController(dailySummaryNav, animated: true, completion: nil)
         })
+    }
+}
+
+extension DailySummaryViewController {
+    
+    func didTapDoneButton(sender: UIBarButtonItem) {
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
 }
