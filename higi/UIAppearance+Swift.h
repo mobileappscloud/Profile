@@ -12,3 +12,10 @@
 + (instancetype)higi_appearanceWhenContainedIn:(Class<UIAppearanceContainer>)containerClass;
 
 @end
+
+@interface UIView (UIViewAppearance_Swift)
+
+/// appearanceWhenContainedIn: is not available in Swift. This fixes that. http://stackoverflow.com/a/27807417/5897233
++ (instancetype)higi_appearanceWhenContainedIn:(Class<UIAppearanceContainer>)containerClass;
+
+@end

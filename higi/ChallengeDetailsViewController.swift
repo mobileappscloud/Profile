@@ -58,6 +58,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     override func viewDidLoad() {
         super.viewDidLoad();
         
+        self.edgesForExtendedLayout = .None
+        
         initializeDetailView();
     }
     

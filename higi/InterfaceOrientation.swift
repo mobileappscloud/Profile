@@ -27,6 +27,8 @@ final class InterfaceOrientation {
     }
 }
 
+// MARK: - Tab Bar Controller
+
 extension TabBarController {
     
     /**
@@ -74,8 +76,17 @@ extension TabBarController {
             return selectedViewController.shouldAutorotate() ?? preference
         }
     }
-    
 }
+
+extension TabBarController {
+    
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        hideTabBar(forSize: size)
+    }
+}
+
+// MARK: - Navigation Controller
 
 extension UINavigationController {
     

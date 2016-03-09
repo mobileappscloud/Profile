@@ -77,9 +77,6 @@ final class TabBarController: UITabBarController {
             controllers.append(navController(viewControllerIndex: index))
         }
         self.viewControllers = controllers
-        
-        self.tabBar.translucent = false
-        self.tabBar.tintColor = Theme.Color.primary
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -198,13 +195,5 @@ extension TabBarController {
     
     func modalDoneButtonTapped(sender: UIBarButtonItem) {
         dismissViewControllerAnimated(true, completion: nil)
-    }
-}
-
-extension TabBarController {
-    
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-        hideTabBar(forSize: size)
     }
 }

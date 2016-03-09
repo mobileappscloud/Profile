@@ -24,6 +24,12 @@ class ChallengesViewController: UIViewController, UIGestureRecognizerDelegate, U
     
     var universalLinkObserver: NSObjectProtocol? = nil
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.edgesForExtendedLayout = .None
+    }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
         

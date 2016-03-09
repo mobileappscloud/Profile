@@ -20,6 +20,7 @@ final class Theme {
     struct Appearance {
         static func applyGlobalStylings() {
             NavigationBar.style()
+            TabBar.style()
         }
     }
 }
@@ -274,6 +275,19 @@ extension Theme.Appearance {
             barButtonItem.tintColor = navigationBar.tintColor
             barButtonItem.setTitleTextAttributes(navigationBar.titleTextAttributes, forState: .Normal)
             barButtonItem.setTitleTextAttributes([NSForegroundColorAttributeName : unselectedTintColor], forState: .Disabled)
+        }
+    }
+}
+
+extension Theme.Appearance {
+    
+    struct TabBar {
+        
+        static let tintColor = Theme.Color.primary
+        
+        static func style() {
+            let tabBar = UITabBar.appearance()
+            tabBar.tintColor = tintColor
         }
     }
 }

@@ -125,6 +125,8 @@ class FindStationViewController: UIViewController, GMSMapViewDelegate, UITableVi
     override func viewDidLoad()  {
         super.viewDidLoad();
         
+        self.edgesForExtendedLayout = .None
+        
         listButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30));
         listButton.setBackgroundImage(UIImage(named: "map_listviewicon")!.imageWithRenderingMode(.AlwaysTemplate), forState: UIControlState.Normal);
         listButton.addTarget(self, action: "toggleList:", forControlEvents: UIControlEvents.TouchUpInside);

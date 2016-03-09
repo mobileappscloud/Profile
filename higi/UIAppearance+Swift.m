@@ -15,3 +15,12 @@
 }
 
 @end
+
+@implementation UIView (UIViewAppearance_Swift)
+
++ (instancetype)higi_appearanceWhenContainedIn:(Class<UIAppearanceContainer>)containerClass {
+    return [self appearanceWhenContainedIn:containerClass, nil];
+}
+
+@end
+
