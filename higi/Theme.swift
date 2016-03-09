@@ -19,7 +19,7 @@ final class Theme {
     /// Contains common themed stylings which can be applied to UI elements. Leverages `UIAppearance` to apply global styling.
     struct Appearance {
         static func applyGlobalStylings() {
-            applyStyleToNavigationBar()
+            NavigationBar.style()
         }
     }
 }
@@ -249,24 +249,31 @@ extension Theme.Color {
 
 extension Theme.Appearance {
     
-    static func applyStyleToNavigationBar() {
-        let navigationBar = UINavigationBar.appearance()
-        navigationBar.translucent = false
+    struct NavigationBar {
         
-        navigationBar.barTintColor = Theme.Color.primary
-        navigationBar.barStyle = .Black
+        static let barTintColor = Theme.Color.primary
+        static let tintColor = Theme.Color.Primary.white
+        static let unselectedTintColor = Theme.Color.Primary.whiteGray
         
-        navigationBar.tintColor = Theme.Color.Primary.white
-        navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : Theme.Color.Primary.white]
-        
-        let barButtonItem: UIBarButtonItem!
-        if #available(iOS 9.0, *) {
-            barButtonItem = UIBarButtonItem.appearanceWhenContainedInInstancesOfClasses([UINavigationBar.self])
-        } else {
-            barButtonItem = UIBarButtonItem.higi_appearanceWhenContainedIn(UINavigationBar.self)
+        static func style() {
+            let navigationBar = UINavigationBar.appearance()
+            navigationBar.translucent = false
+            
+            navigationBar.barTintColor = barTintColor
+            navigationBar.barStyle = .Black
+            
+            navigationBar.tintColor = tintColor
+            navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : tintColor]
+            
+            let barButtonItem: UIBarButtonItem!
+            if #available(iOS 9.0, *) {
+                barButtonItem = UIBarButtonItem.appearanceWhenContainedInInstancesOfClasses([UINavigationBar.self])
+            } else {
+                barButtonItem = UIBarButtonItem.higi_appearanceWhenContainedIn(UINavigationBar.self)
+            }
+            barButtonItem.tintColor = navigationBar.tintColor
+            barButtonItem.setTitleTextAttributes(navigationBar.titleTextAttributes, forState: .Normal)
+            barButtonItem.setTitleTextAttributes([NSForegroundColorAttributeName : unselectedTintColor], forState: .Disabled)
         }
-        barButtonItem.tintColor = navigationBar.tintColor
-        barButtonItem.setTitleTextAttributes(navigationBar.titleTextAttributes, forState: .Normal)
-        barButtonItem.setTitleTextAttributes([NSForegroundColorAttributeName : Theme.Color.Primary.whiteGray], forState: .Disabled)
     }
 }
