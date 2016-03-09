@@ -23,7 +23,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     var displayLeaderboardTab = false, displayProgressTab = false, displayChatterTab = false, hasTeamGoalComponent = false, hasIndividualGoalComponent = false, hasTeamLeaderboardComponent = false, hasIndividualLeaderboardComponent = false, isIndividualLeaderboard = true, isIndividualProgress = true, showLoadingFooter = false, isLeaving = false, joinAccepted = false;
     
-    var headerContainerHeight:CGFloat = 0, buttonContainerOriginY:CGFloat = 0, headerAvatarOriginX:CGFloat = 0, headerPlaceOriginX:CGFloat = 0, headerProgressOriginX:CGFloat = 0, headerProgressOriginWidth:CGFloat = 0,headerPointsOriginX:CGFloat = 0, actionButtonY:CGFloat = 0, prizesHeight:CGFloat = 0, scrollY: CGFloat = 0;
+    var headerContainerHeight:CGFloat = 0, buttonContainerOriginY:CGFloat = 0, headerAvatarOriginX:CGFloat = 0, headerPlaceOriginX:CGFloat = 0, headerProgressOriginX:CGFloat = 0, headerProgressOriginWidth:CGFloat = 0,headerPointsOriginX:CGFloat = 0, prizesHeight:CGFloat = 0, scrollY: CGFloat = 0;
     
     var individualLeaderboardParticipants:[ChallengeParticipant] = [], teamLeaderboardParticipants:[ChallengeTeam] = [], individualGoalWinConditions:[ChallengeWinCondition] = [], teamGoalWinConditions:[ChallengeWinCondition] = [];
     
@@ -471,20 +471,28 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             chatterTable = addTableView(totalPages);
             chatterTable!.backgroundColor = Utility.colorFromHexString("#F4F4F4");
             
-            chatterView = UIView(frame: CGRect(x: chatterTable!.frame.origin.x, y: 0, width: UIScreen.mainScreen().bounds.size.width, height: UIScreen.mainScreen().bounds.size.height));
+            chatterView = UIView(frame: CGRect(x: chatterTable!.frame.origin.x, y: 0, width: UIScreen.mainScreen().bounds.size.width, height: self.view.bounds.size.height));
             chatterTable!.frame.origin.x = 0;
+            chatterView.backgroundColor = UIColor.blueColor()
             
-            let actionButtonWidth:CGFloat = 60;
-            let actionButtonMargin:CGFloat = 8;
-            actionButtonY = UIScreen.mainScreen().bounds.size.height - actionButtonWidth - actionButtonMargin;
-            actionButton = UIButton(frame: CGRect(x: UIScreen.mainScreen().bounds.size.width - (actionButtonWidth + actionButtonMargin), y: actionButtonY, width: actionButtonWidth, height: actionButtonWidth));
+            let actionButtonWidth: CGFloat = 60.0
+            actionButton = UIButton(type: .Custom)
             actionButton.setImage(UIImage(named: "chatterbutton_normal"), forState: UIControlState.Normal);
             actionButton.setImage(UIImage(named: "chatterbutton_pressed"), forState: UIControlState.Selected);
             actionButton.layer.cornerRadius = actionButtonWidth / 2;
             actionButton.addTarget(self, action: "gotoChatterInput:", forControlEvents: UIControlEvents.TouchUpInside);
             
             chatterView.addSubview(chatterTable!);
+            
             chatterView.addSubview(actionButton);
+            
+            actionButton.translatesAutoresizingMaskIntoConstraints = false
+            chatterView.addConstraint(NSLayoutConstraint(item: actionButton, attribute: .Trailing, relatedBy: .Equal, toItem: chatterView, attribute: .TrailingMargin, multiplier: 1.0, constant: 0.0))
+            chatterView.addConstraint(NSLayoutConstraint(item: actionButton, attribute: .Bottom, relatedBy: .Equal, toItem: chatterView, attribute: .BottomMargin, multiplier: 1.0, constant: 0.0))
+            chatterView.addConstraint(NSLayoutConstraint(item: actionButton, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: actionButtonWidth))
+            chatterView.addConstraint(NSLayoutConstraint(item: actionButton, attribute: .Height, relatedBy: .Equal, toItem: actionButton, attribute: .Width, multiplier: 1.0, constant: 0.0))
+            chatterView.setNeedsLayout()
+            
             scrollView.addSubview(chatterView);
             tables.append(chatterTable!);
             totalPages++;
@@ -609,7 +617,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func addTableView(page: Int) -> UITableView {
         let viewWidth = UIScreen.mainScreen().bounds.size.width;
-        let viewHeight:CGFloat = UIScreen.mainScreen().bounds.size.height;
+        let viewHeight:CGFloat = self.view.bounds.size.height - 113;
         let table = UITableView(frame: CGRect(x: CGFloat(page) * viewWidth, y: 0, width: viewWidth, height: viewHeight));
         table.dataSource = self;
         table.delegate = self;
@@ -618,7 +626,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         table.scrollEnabled = true;
         table.allowsSelection = false;
         table.showsVerticalScrollIndicator = false;
-        table.contentInset = UIEdgeInsetsMake(0, 0, 108, 0)
         return table;
     }
     
@@ -680,13 +687,13 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
 
         updateScroll();
 
-        let minTableHeight = UIScreen.mainScreen().bounds.size.height + (buttonContainerOriginY - buttonContainer.frame.size.height);
+        let minTableHeight = self.view.bounds.size.height + (buttonContainerOriginY - buttonContainer.frame.size.height);
         if (displayLeaderboardTab && leaderboardTable != nil ) {
-            leaderboardTable!.frame.size.height = UIScreen.mainScreen().bounds.size.height;
+            leaderboardTable!.frame.size.height = self.view.bounds.size.height;
             leaderboardTable!.contentSize.height = max(leaderboardTable!.contentSize.height, minTableHeight - 10);
         }
         if (displayProgressTab && progressTable != nil) {
-            progressTable!.frame.size.height = UIScreen.mainScreen().bounds.size.height;
+            progressTable!.frame.size.height = self.view.bounds.size.height;
             progressTable!.contentSize.height = max(progressTable!.contentSize.height, minTableHeight);
         }
         var frame = detailsTable.prizesContainer.frame;
@@ -696,8 +703,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         detailsTable.headerView.frame.size.height = detailsTable.termsButton.frame.origin.y + detailsTable.termsButton.frame.size.height;
         
         if (displayChatterTab && chatterTable != nil) {
-            chatterView.frame.size.height = UIScreen.mainScreen().bounds.size.height;
-            chatterTable!.frame.size.height = UIScreen.mainScreen().bounds.size.height;
+            chatterView.frame.size.height = self.view.bounds.size.height;
+            chatterTable!.frame.size.height = self.view.bounds.size.height;
             chatterTable!.contentSize.height = max(chatterTable!.contentSize.height, minTableHeight - 10);
         }
     }
