@@ -283,11 +283,22 @@ extension Theme.Appearance {
     
     struct TabBar {
         
-        static let tintColor = Theme.Color.primary
+        static let selectedTintColor = Theme.Color.primary
+        static let unselectedTintColor = Theme.Color.Primary.charcoal
         
         static func style() {
             let tabBar = UITabBar.appearance()
-            tabBar.tintColor = tintColor
+            
+            // Set color for selected tab bar item
+            tabBar.tintColor = selectedTintColor
+            
+            let tabBarItem = UITabBarItem.appearance()
+            // Set text tint color for unselected tab bar item
+            let unselectedAttributes = [NSForegroundColorAttributeName: unselectedTintColor]
+            tabBarItem.setTitleTextAttributes(unselectedAttributes, forState: .Normal)
+            
+            let selectedAttributes = [NSForegroundColorAttributeName: selectedTintColor]
+            tabBarItem.setTitleTextAttributes(selectedAttributes, forState: .Selected)
         }
     }
 }
