@@ -6,17 +6,20 @@
     },
     {
       "idiom" : "universal",
-      "filename" : "nav-home_x2_Outlines.png",
+      "filename" : "home-90.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "nav-home_x3_Outlines.png",
+      "filename" : "home-120.png",
       "scale" : "3x"
     }
   ],
   "info" : {
     "version" : 1,
     "author" : "xcode"
+  },
+  "properties" : {
+    "template-rendering-intent" : "template"
   }
 }

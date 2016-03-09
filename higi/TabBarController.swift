@@ -108,8 +108,7 @@ extension TabBarController {
     
     private func configureTab(navigationController: UINavigationController, title: String, itemImageNamePrefix imageNamePrefix: String, enabled: Bool = false) {
         let image = UIImage(named: "\(imageNamePrefix)-tab-bar-icon")
-        let highlightImage = UIImage(named: "\(imageNamePrefix)-tab-bar-highlight-icon")
-        navigationController.tabBarItem = UITabBarItem(title: title, image: image, selectedImage: highlightImage)
+        navigationController.tabBarItem = UITabBarItem(title: title, image: image, selectedImage: nil)
         navigationController.tabBarItem.enabled = enabled
     }
 }
