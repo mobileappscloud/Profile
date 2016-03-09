@@ -80,7 +80,10 @@ extension TabBarController {
 extension UINavigationController {
     
     override public func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
-        if let _ = self.topViewController as? MetricDetailViewController {
+        if let _ = self.topViewController as? NewMetricsViewController {
+            // This prevents the Metrics view from being rendered upside down after the modally presented Metric Detail view is dismissed.
+            return UIDevice.currentDevice().orientation == .LandscapeLeft ? .LandscapeRight : .LandscapeLeft
+        } else if let _ = self.topViewController as? MetricDetailViewController {
             return .LandscapeLeft
         } else {
             return .Portrait
