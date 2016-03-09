@@ -1,12 +1,6 @@
 /* Text to display if a user does not have any higi points. */
 "ACTIVITY_METRICS_VIEW_BLANK_STATE_TEXT" = "Welcome! It looks like you don’t have any higi points. Be it checking your vitals at a higi Station or counting steps with an activity tracker, higi wants to reward you for keeping tabs on your health. ";
 
-/* Label for selected point panel on Activity Metric view. */
-"ACTIVITY_METRICS_VIEW_SELECTED_POINT_PANEL_LABEL" = "Activity Points";
-
-/* Label for unit of selected point panel on Activity Metric view. */
-"ACTIVITY_METRICS_VIEW_SELECTED_POINT_PANEL_UNIT_LABEL" = "pts";
-
 /* Title for Birthdate view when confirming a user's age. */
 "BIRTHDATE_VIEW_AGE_CONFIRMATION_TITLE" = "Please confirm your age";
 
@@ -30,12 +24,6 @@
 
 /* Text to display on blood pressure metrics view when there is no blood pressure data to display. */
 "BLOOD_PRESSURE_METRICS_VIEW_BLANK_STATE_TEXT" = "Welcome! It looks like you don’t have any blood pressure readings with us. Join the millions who track their BP with higi by visiting a higi Station or connecting your wireless BP monitor.";
-
-/* Label to display for a selected blood pressure data point. */
-"BLOOD_PRESSURE_METRICS_VIEW_SELECTED_POINT_PANEL_BLOOD_PRESSURE_LABEL" = "Blood Pressure";
-
-/* Label to display for a selected mean arterial pressure data point. */
-"BLOOD_PRESSURE_METRICS_VIEW_SELECTED_POINT_PANEL_MEAN_ARTERIAL_PRESSURE_LABEL" = "Mean Arterial Pressure";
 
 /* Title for blood pressure within an at-risk range. */
 "BLOOD_PRESSURE_RANGE_AT_RISK_TITLE" = "At Risk";
@@ -340,9 +328,6 @@
 /* Title for alert displayed after failure to remove/disconnect a device from a higi Profile. */
 "CONNECT_DEVICE_ROW_REMOVE_DEVICE_FAILURE_ALERT_TITLE" = "Uh oh";
 
-/* Text to display in table header on Connect Device view. */
-"CONNECT_DEVICE_VIEW_HEADER_TEXT" = "Add a device to your account so you can start tracking and start earning!";
-
 /* Title for Connect Device view. */
 "CONNECT_DEVICE_VIEW_TITLE" = "Connect a device";
 
@@ -474,30 +459,6 @@
 
 /* Format for pluralization of days. */
 "DAY_COUNT_SINGLE_PLURAL" = "DAY_COUNT_SINGLE_PLURAL";
-
-/* Title for higi Score */
-"DRAWER_VIEW_HIGI_SCORE_TITLE" = "higi Score";
-
-/* Title for capture drawer menu item. */
-"DRAWER_VIEW_MENU_ITEM_TITLE_CAPTURE" = "Capture";
-
-/* Title for challenges drawer menu item. */
-"DRAWER_VIEW_MENU_ITEM_TITLE_CHALLENGES" = "Challenges";
-
-/* Title for dashboard drawer menu item. */
-"DRAWER_VIEW_MENU_ITEM_TITLE_DASHBOARD" = "Dashboard";
-
-/* Title for metrics drawer menu item. */
-"DRAWER_VIEW_MENU_ITEM_TITLE_METRICS" = "Metrics";
-
-/* Title for pulse drawer menu item. */
-"DRAWER_VIEW_MENU_ITEM_TITLE_PULSE" = "higi Pulse";
-
-/* Title for settings drawer menu item. */
-"DRAWER_VIEW_MENU_ITEM_TITLE_SETTINGS" = "Settings";
-
-/* Title for station locator drawer menu item. */
-"DRAWER_VIEW_MENU_ITEM_TITLE_STATION_LOCATOR" = "Find a Station";
 
 /* Titles for the various values of a user's data which can be exported. */
 "EXPORT_DATA_CSV_DATA_TITLES" = "Date,Location,Address of higi Station,Systolic Pressure (mmHg),Diastolic Pressure (mmHg),Pulse (bpm),Mean Arterial Pressure (mmHg), Weight (lbs),Body Mass Index\n";
@@ -652,15 +613,6 @@
 /* Title to display on button to find a higi Station. */
 "METRICS_CARD_VIEW_FIND_STATION_BUTTON_TITLE" = "Find a station";
 
-/* Title to display on weight metrics card displaying body fat. */
-"METRICS_CARD_VIEW_WEIGHT_BODY_FAT_TITLE" = "Body Fat%";
-
-/* Title to display on button which toggles weight metrics card from weight to body fat. */
-"METRICS_CARD_VIEW_WEIGHT_TOGGLE_BUTTON_BODY_FAT_TITLE" = "Switch to Body Fat%";
-
-/* Title to display on button which toggles weight metrics card from body fat to weight. */
-"METRICS_CARD_VIEW_WEIGHT_TOGGLE_BUTTON_WEIGHT_TITLE" = "Switch to Weight";
-
 /* Subtitle text for activity points data shown on metrics graph card. */
 "METRICS_GRAPH_CARD_ACTIVITY_POINTS_SUBTITLE" = "Activity Points";
 
@@ -741,9 +693,6 @@
 
 /* Title for Pulse view. */
 "PULSE_HOME_VIEW_TITLE" = "Pulse";
-
-/* Label for beats per minute panel. */
-"PULSE_METRIC_SELECTED_POINT_PANEL_BEATS_PER_MINUTE_LABEL" = "Beats Per Minute";
 
 /* Text to display on pulse metrics view if there is no pulse data to display. */
 "PULSE_METRICS_VIEW_BLANK_STATE_TEXT" = "Welcome! Unfortunately, you don’t have any pulse readings with us. Swing by a higi Station or connect your favorite pulse tracker and we will reward you 50 points for each Pulse / BP check-in.";
@@ -948,12 +897,6 @@
 
 /* Text to display on the weight metrics view if there are no weight readings to display. */
 "WEIGHT_METRICS_VIEW_BLANK_STATE_TEXT" = "Welcome! We don’t have any weight readings for you yet. Try visiting your local higi Station or connecting your favorite wireless weight scale to earn 50 points for each weight check.";
-
-/* Label for body fat on weight metrics view. */
-"WEIGHT_METRICS_VIEW_SELECTED_POINT_BODY_FAT_LABEL" = "Body Fat";
-
-/* Label for weight on weight metrics view. */
-"WEIGHT_METRICS_VIEW_SELECTED_POINT_WEIGHT_LABEL" = "Weight";
 
 /* Label for a weight which falls within an acceptable range. */
 "WEIGHT_METRICS_WEIGHT_RANGE_ACCEPTABLE_LABEL" = "Acceptable";
