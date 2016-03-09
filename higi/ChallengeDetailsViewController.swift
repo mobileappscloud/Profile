@@ -1019,7 +1019,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                     cell.backgroundColor = Utility.colorFromHexString("#d5ffb8");
                 }
             } else {
-                cell = ChallengeLeaderboardRow.instanceFromNib(CGRect(x: 0, y: 0, width: UIScreen.mainScreen().bounds.size.width, height: 40), challenge: challenge, team: teamLeaderboardParticipants[index], index: index);
+                cell = ChallengeLeaderboardRow.instanceFromNib(CGRect(x: 0, y: 0, width: UIScreen.mainScreen().bounds.size.width, height: 40), challenge: challenge, team: teamLeaderboardParticipants[index], rank: index+1);
                 if (challenge.participant != nil && teamLeaderboardParticipants[index].name == challenge.participant.team.name) {
                     cell.backgroundColor = Utility.colorFromHexString("#d5ffb8");
                 }
