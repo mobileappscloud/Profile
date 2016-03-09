@@ -531,33 +531,50 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     // MARK: -
     
     func higiCallToActionClicked(sender: AnyObject!) {
-        pushFindStationView();
+        navigateToFindStationView();
     }
     
     func activityTrackerCallToActionClicked(sender: AnyObject!) {
-        pushConnectDeviceView();
+        navigateToConnectDeviceView();
     }
     
     func foursquareCallToActionClicked(sender: AnyObject!) {
-        pushConnectDeviceView();
+        navigateToConnectDeviceView();
     }
     
     func morningCallToActionClicked(sender: AnyObject!) {
-        pushFindStationView();
+        navigateToFindStationView();
     }
     
     func afternoonCallToActionClicked(sender: AnyObject!) {
-        pushFindStationView();
+        navigateToFindStationView();
     }
     
-    func pushConnectDeviceView() {
+    func navigateToConnectDeviceView() {
         Flurry.logEvent("ConnectDevice_Pressed");
-        self.navigationController!.pushViewController(ConnectDeviceViewController(nibName: "ConnectDeviceView", bundle: nil), animated: true);
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            self.dismissViewControllerAnimated(true, completion: {
+                dispatch_async(dispatch_get_main_queue(), {
+                    ConnectDeviceViewController.navigateToConnectDevice()
+                })
+            })
+        })
     }
     
-    func pushFindStationView() {
+    func navigateToFindStationView() {
         Flurry.logEvent("FindStation_Pressed");
-        self.navigationController!.pushViewController(FindStationViewController(nibName: "FindStationView", bundle: nil), animated: true);
+        
+        guard let mainTabBarController = Utility.mainTabBarController() else { return }
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            self.dismissViewControllerAnimated(true, completion: {
+                dispatch_async(dispatch_get_main_queue(), {
+                    mainTabBarController.presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
+                    mainTabBarController.selectedIndex = TabBarController.ViewControllerIndex.FindStation.rawValue
+                })
+            })
+        })
     }
 }
 
