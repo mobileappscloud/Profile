@@ -497,7 +497,10 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     func gotoChatterInput(sender: AnyObject) {
         let chatterInputController = ChatterInputViewController(nibName: "ChatterInputView", bundle: nil);
         chatterInputController.parent = self;
-        self.presentViewController(chatterInputController, animated: true, completion: nil);
+        let navController = UINavigationController(rootViewController: chatterInputController)
+        dispatch_async(dispatch_get_main_queue(), {
+            self.presentViewController(navController, animated: true, completion: nil)
+        })
     }
 
     func initDetailsTable() -> ChallengeDetailsTab {
