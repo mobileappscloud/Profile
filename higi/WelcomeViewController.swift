@@ -273,7 +273,7 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
     }
 
     private func modalCancelButton() -> UIBarButtonItem {
-        return UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: #selector(dismissPresentedViewController))
+        return UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: Selector("dismissPresentedViewController:"))
     }
     
     func dismissPresentedViewController(sender: UIBarButtonItem) {
