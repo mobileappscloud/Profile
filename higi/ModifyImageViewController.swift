@@ -29,7 +29,7 @@ class ModifyImageViewController: UIViewController {
         
         self.navigationController!.interactivePopGestureRecognizer!.enabled = false;
         self.navigationController!.interactivePopGestureRecognizer!.delegate = nil;
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(done))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: Selector("done:"))
         
         profileImageView.image = profileImage;
         
