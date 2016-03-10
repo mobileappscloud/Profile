@@ -17,13 +17,13 @@ class ChallengeLeaderboardRow: UITableViewCell {
         return row;
     }
     
-    class func instanceFromNib(frame: CGRect, challenge: HigiChallenge, team: ChallengeTeam, index: Int) -> ChallengeLeaderboardRow {
+    class func instanceFromNib(frame: CGRect, challenge: HigiChallenge, team: ChallengeTeam, rank: Int) -> ChallengeLeaderboardRow {
         let row = UINib(nibName: "ChallengeLeaderboardRow", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! ChallengeLeaderboardRow;
         let highScore = challenge.teamHighScore;
         let units = Int(team.units);
 
         row.frame.size.width = frame.size.width;
-        row.setupLeaderBoardRow(team.imageUrl as String, nameText: team.name as String, pointsText: "\(units) \(challenge.abbrMetric)", placeText: ChallengeUtility.getRankSuffix(String(index + 1)));
+        row.setupLeaderBoardRow(team.imageUrl as String, nameText: team.name as String, pointsText: "\(units) \(challenge.abbrMetric)", placeText: ChallengeUtility.getRankSuffix(String(rank)));
         setProgressBar(row.progress, points: Int(team.units), highScore: Int(highScore));
         return row;
     }
