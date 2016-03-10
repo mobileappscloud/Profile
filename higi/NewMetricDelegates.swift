@@ -38,13 +38,6 @@ protocol MetricDetailDisplayDelegate {
     func configure(viewController: MetricDetailViewController)
 }
 
-extension MetricDetailDisplayDelegate {
-    
-    func configure(viewController: MetricDetailViewController) {
-        
-    }
-}
-
 // MARK: - Table
 
 protocol MetricTableDelegate: MetricTableViewConfigurator, UITableViewDataSource {

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10089" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ikf-zi-ibS">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10072.1"/>
+    </dependencies>
+    <scenes>
+        <!--Host View Controller-->
+        <scene sceneID="4MD-AA-8tE">
+            <objects>
+                <viewController id="Ikf-zi-ibS" customClass="HostViewController" customModule="higi" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Bxc-dO-9VI"/>
+                        <viewControllerLayoutGuide type="bottom" id="vm0-nO-kMy"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="897-5P-5K4">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <segue destination="kss-E0-MXb" kind="presentation" identifier="SplashViewControllerStoryboardSegueIdentifier" animates="NO" id="SK7-Qg-z2d"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="imt-uh-PiM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="283" y="282"/>
+        </scene>
+        <!--Splash-->
+        <scene sceneID="rY9-pL-R65">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Splash" id="kss-E0-MXb" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1Zz-IK-xT1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="283.5" y="756"/>
+        </scene>
+    </scenes>
+</document>

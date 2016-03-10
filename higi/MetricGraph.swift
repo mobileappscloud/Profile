@@ -371,21 +371,11 @@ class MetricGraph: CPTGraphHostingView {
             altPlot.reloadData();
         }
         
-        if (!first) {
-            let viewController = self.superview!.superview!.superview as! MetricCard?;
-            viewController!.setSelected(NSDate(timeIntervalSince1970: point.x));
-        }
-        
         self.plot.reloadData();
         if (altPoints.count > 1) {
             self.altPlot.reloadData();
         }
     }
-    
-//    func selectPlotFromPoint(point: CGPoint) {
-//        let index = Int(plot.dataIndexFromInteractionPoint(point));
-//        checkinSelected(plot as CPTScatterPlot!, idx: index, first: false);
-//    }
 }
 
 extension MetricGraph {

@@ -38,9 +38,6 @@ __The following dependencies are managed via `git submodules`:__
   - [**Google Maps Utilities**](https://github.com/higish/google-maps-ios-utils) - Utilities to supplement Google Maps such as clustering annotations.
 - [**MWFeedParser**](https://github.com/mwaterfall/MWFeedParser.git) - This repository contains a useful category which helps parse NSStrings with HTML.
 - [**Swift Keychain Wrapper**](https://github.com/jrendel/SwiftKeychainWrapper.git) - Swift-compatible wrapper around the iOS Keychain, used to store sensitive user data such as passwords.
-- [**SWRevealViewController**](https://github.com/John-Lluch/SWRevealViewController.git) - Classes for menu drawer and reveal navigation.
-
-  *Note: It is likely that this dependency will be removed for many obvious reasons, some of which are described by [Apple: Designing Intuitive User Experiences - 211 WWDC 2014 @ 31:57](http://devstreaming.apple.com/videos/wwdc/2014/211xxmyz80g30i9/211/211_hd_designing_intuitive_user_experiences.mov?dl=1). There's another interesting article [here](http://techcrunch.com/2014/05/24/before-the-hamburger-button-kills-you/), and some interesting predictions made [here](http://thenextweb.com/opinion/2015/09/14/apples-plan-to-kill-the-hamburger-menu/) which align with the general consensus of the iOS team.*
 
 - [**mergegenstrings**](https://github.com/higish/ios-merge-genstrings) - Useful, Swift-compatible python script which can be used to generate & merge localizable strings.  
 

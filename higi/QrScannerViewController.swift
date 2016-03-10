@@ -38,20 +38,15 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     
     var videoPreviewLayer:AVCaptureVideoPreviewLayer?;
     
-    var fakeNavBar:UIView!;
-    
-    let navBarHeight:CGFloat = 64;
-    
     var invalidQrAlert: UIAlertController!;
     
     var readingQrInput = false;
     
     override func viewDidLoad() {
         super.viewDidLoad();
-        self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
+        
         self.title = NSLocalizedString("QR_SCANNER_VIEW_TITLE", comment: "Title for QR Scanner view.")
         
-        initBackButton();
         infoView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "infoClicked:"));
         
         let title = NSLocalizedString("QR_SCANNER_VIEW_INVALID_QR_ALERT_TITLE", comment: "Title for alert displayed when an invalid QR code is scanned.")
@@ -72,16 +67,6 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated);
         captureSession?.stopRunning();
-    }
-    
-    func initBackButton() {
-        let backButton = UIButton(type: UIButtonType.Custom);
-        backButton.setBackgroundImage(UIImage(named: "btn_back_white.png"), forState: UIControlState.Normal);
-        backButton.addTarget(self, action: "goBack:", forControlEvents: UIControlEvents.TouchUpInside);
-        backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
-        let backBarItem = UIBarButtonItem(customView: backButton);
-        self.navigationItem.leftBarButtonItem = backBarItem;
-        self.navigationItem.hidesBackButton = true;
     }
     
     func checkPermissionsAndInitScanner() {
@@ -132,8 +117,8 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
             videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession);
             videoPreviewLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill;
             videoPreviewLayer?.frame = view.layer.bounds;
-            videoPreviewLayer?.frame.origin.y = navBarHeight;
-            videoPreviewLayer?.frame.size.height = view.layer.bounds.size.height - navBarHeight;
+            videoPreviewLayer?.frame.origin.y = self.topLayoutGuide.length;
+            videoPreviewLayer?.frame.size.height = view.layer.bounds.size.height - self.topLayoutGuide.length;
             self.view.layer.addSublayer(videoPreviewLayer!);
             captureSession?.startRunning();
             view.bringSubviewToFront(userLayer);
@@ -141,10 +126,6 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     }
     
     func showBlankState() {
-        //it is impossible to actually send the user to the settings app before iOS8
-        if (UIDevice.currentDevice().systemVersion < "8.0") {
-            self.settingsButton.hidden = true;
-        }
         self.blankStateLayer.hidden = false;
         self.userLayer.hidden = true;
     }
@@ -223,10 +204,6 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         };
     }
     
-    func requestMobileLoginCode(code:String) {
-        
-    }
-    
     func showNotification(message: String) {
         dispatch_async(dispatch_get_main_queue(), {
             let notification = UILocalNotification();
@@ -251,9 +228,7 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     }
     
     @IBAction func settingsButtonClick(sender: AnyObject) {
-        if (UIDevice.currentDevice().systemVersion >= "8.0") {
-            UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!);
-        }
+        UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!);
     }
     
     func infoClicked(sender: AnyObject) {

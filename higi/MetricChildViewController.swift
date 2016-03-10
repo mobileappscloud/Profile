@@ -235,28 +235,28 @@ extension MetricChildViewController {
 extension MetricChildViewController {
     
     private func navigateToStationFinder() {
+        guard let mainTabBarController = Utility.mainTabBarController() else { return }
         dispatch_async(dispatch_get_main_queue(), {
-            self.dismissViewControllerAnimated(false, completion: {
-                dispatch_async(dispatch_get_main_queue(), {
-                    Utility.mainNavigationController()?.revealController.setFrontViewPosition(.Left, animated: false)
-                    Utility.mainNavigationController()?.drawerController.navController?.popToRootViewControllerAnimated(true)
-                    Utility.mainNavigationController()?.drawerController.navController?.pushViewController(FindStationViewController(nibName: "FindStationView", bundle: nil), animated: false)
-                })
-            })
-            
+            mainTabBarController.presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
+            mainTabBarController.selectedIndex = TabBarController.ViewControllerIndex.FindStation.rawValue
         })
     }
     
     private func navigateToConnectDevice() {
+        guard let mainTabBarController = Utility.mainTabBarController() else { return }
+        
+        let settingsNavController = mainTabBarController.settingsModalViewController() as! UINavigationController
+        
+        let connectDeviceViewController = ConnectDeviceViewController(nibName: "ConnectDeviceView", bundle: nil)
         dispatch_async(dispatch_get_main_queue(), {
-            self.dismissViewControllerAnimated(false, completion: {
+            // Make sure there are no views presented over the tab bar controller
+            mainTabBarController.presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
+            
+            mainTabBarController.presentViewController(settingsNavController, animated: true, completion: {
                 dispatch_async(dispatch_get_main_queue(), {
-                    Utility.mainNavigationController()?.revealController.setFrontViewPosition(.Left, animated: false)
-                    Utility.mainNavigationController()?.drawerController.navController?.popToRootViewControllerAnimated(true)
-                    Utility.mainNavigationController()?.drawerController.navController?.pushViewController(ConnectDeviceViewController(nibName: "ConnectDeviceView", bundle: nil), animated: false)
+                    settingsNavController.pushViewController(connectDeviceViewController, animated: true)
                 })
             })
-            
         })
     }
 }

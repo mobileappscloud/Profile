@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10112" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10083"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SignupEmailViewController" customModule="higi" customModuleProvider="target">
@@ -55,8 +55,8 @@
                         <action selector="attemptSignup:" destination="-1" eventType="touchUpInside" id="0RG-Yk-X6t"/>
                     </connections>
                 </button>
-                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="nWH-OE-ur0">
-                    <rect key="frame" x="150" y="510" width="20" height="20"/>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="nWH-OE-ur0">
+                    <rect key="frame" x="150" y="498" width="20" height="20"/>
                 </activityIndicatorView>
                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0dG-Sw-cyC">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -150,6 +150,7 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="0dG-Sw-cyC" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="3wH-gg-g8d"/>
+                <constraint firstItem="nWH-OE-ur0" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="6dM-NN-Hs4"/>
                 <constraint firstAttribute="trailing" secondItem="0dG-Sw-cyC" secondAttribute="trailing" id="GQV-Zm-77V"/>
                 <constraint firstItem="pgQ-S1-jaI" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="GrB-gC-PL0"/>
                 <constraint firstItem="FIs-q7-bR6" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="QG0-Xd-xOi"/>
@@ -158,6 +159,7 @@
                 <constraint firstItem="0dG-Sw-cyC" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="dR7-lU-QEg"/>
                 <constraint firstItem="hbG-n5-a8B" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="fpa-Qf-X8A"/>
                 <constraint firstAttribute="trailing" secondItem="hbG-n5-a8B" secondAttribute="trailing" constant="20" id="oC4-T7-1Ci"/>
+                <constraint firstAttribute="bottom" secondItem="nWH-OE-ur0" secondAttribute="bottom" constant="50" id="wcF-sL-QAv"/>
                 <constraint firstAttribute="trailing" secondItem="FIs-q7-bR6" secondAttribute="trailing" constant="20" id="xPw-Yy-hrv"/>
             </constraints>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>

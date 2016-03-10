@@ -20,36 +20,20 @@ class ModifyImageViewController: UIViewController {
     
     var resizing = false, fromSettings = false;
     
-    var doneButton: UIButton!;
-    
     var origFrame: CGRect!;
     
     var lastScale: CGFloat! = 1.0;
     
     override func viewDidLoad() {
         super.viewDidLoad();
-        if (fromSettings) {
-            (self.navigationController as! MainNavigationController).revealController.panGestureRecognizer().enabled = false;
-        }
+        
         self.navigationController!.interactivePopGestureRecognizer!.enabled = false;
         self.navigationController!.interactivePopGestureRecognizer!.delegate = nil;
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(done))
+        
         profileImageView.image = profileImage;
         
-        doneButton = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 30));
-        doneButton.setTitle("Done", forState: UIControlState.Normal);
-        doneButton.addTarget(self, action: "done:", forControlEvents: UIControlEvents.TouchUpInside);
-        let doneBarItem = UIBarButtonItem();
-        doneBarItem.customView = doneButton;
-        self.navigationItem.rightBarButtonItem = doneBarItem;
-        
         profileImageView.hidden = true;
-        
-        let backButton = UIButton(type: UIButtonType.Custom);
-        backButton.setBackgroundImage(UIImage(named: "btn_back_white.png"), forState: UIControlState.Normal);
-        backButton.addTarget(self, action: "goBack:", forControlEvents: UIControlEvents.TouchUpInside);
-        backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
-        let backBarItem = UIBarButtonItem(customView: backButton);
-        self.navigationItem.leftBarButtonItem = backBarItem;
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -74,9 +58,11 @@ class ModifyImageViewController: UIViewController {
     }
     
     func done(sender: AnyObject!) {
-        self.navigationItem.leftBarButtonItem?.customView?.hidden = true;
-        doneButton.hidden = true;
-        spinner.hidden = false;
+        dispatch_async(dispatch_get_main_queue(), { [weak self] in
+            self?.navigationItem.rightBarButtonItem?.enabled = false
+            self?.spinner.hidden = false;
+        })
+        
         if (resizing) {
             sendSize();
         } else {
@@ -121,18 +107,15 @@ class ModifyImageViewController: UIViewController {
                 user.photoTime = Int(NSDate().timeIntervalSince1970);
             }
             user.profileImage = UIImage(data: NSData(contentsOfURL: NSURL(string: "\(HigiApi.higiApiUrl)/view/\(user.userId)/profile,400.png?t=\(user.photoTime)")!)!);
+            
             if (self.fromSettings) {
-                for viewController in self.navigationController!.viewControllers {
-                    if (viewController.isKindOfClass(SettingsViewController)) {
-                        self.navigationController!.popToViewController(viewController, animated: false);
-                        (viewController as! SettingsViewController).pictureChanged = true;
-                        break;
-                    }
+                if let settingsViewController = self.presentingViewController as? SettingsViewController {
+                    settingsViewController.pictureChanged = true
                 }
-            } else {
-                ApiUtility.initializeApiData();
-                Utility.gotoDashboard();
             }
+            dispatch_async(dispatch_get_main_queue(), {
+                self.dismissViewControllerAnimated(true, completion: nil)
+            })
             
             }, failure: {operation, error in
                 self.showErrorAlert();
@@ -156,10 +139,6 @@ class ModifyImageViewController: UIViewController {
         sender.setTranslation(CGPointZero, inView: self.view);
     }
     
-    func goBack(sender: AnyObject!) {
-        self.navigationController!.popViewControllerAnimated(true);
-    }
-    
     func showErrorAlert() {
         let title = NSLocalizedString("MODIFY_IMAGE_VIEW_SERVER_ERROR_ALERT_TITLE", comment: "Title for alert which is displayed if the server is unreachable.")
         let message = NSLocalizedString("MODIFY_IMAGE_VIEW_SERVER_ERROR_ALERT_MESSAGE", comment: "Message for alert which is displayed if the server is unreachable.")
@@ -177,11 +156,12 @@ class ModifyImageViewController: UIViewController {
     }
     
     func reset() {
-        self.navigationItem.hidesBackButton = true;
-        self.navigationItem.leftBarButtonItem?.customView?.hidden = false;
-        spinner.hidden = true;
-        spinner.stopAnimating();
-        doneButton.hidden = false;
+        dispatch_async(dispatch_get_main_queue(), { [weak self] in
+            self?.navigationItem.hidesBackButton = true
+            self?.spinner.hidden = true;
+            self?.spinner.stopAnimating();
+            self?.navigationItem.rightBarButtonItem?.enabled = true
+        })
     }
     
 }

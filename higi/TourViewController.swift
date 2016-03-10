@@ -101,17 +101,4 @@ class TourViewController: UIViewController, UIScrollViewDelegate {
         (sender as! UIButton).enabled = false;
         self.presentingViewController?.dismissViewControllerAnimated(false, completion: nil);
     }
-    
-    override func shouldAutorotate() -> Bool {
-        return false;
-    }
-    
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return UIInterfaceOrientationMask.Portrait;
-    }
-    
-    override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
-        return UIInterfaceOrientation.Portrait;
-    }
-    
 }

@@ -33,47 +33,28 @@ class NotificationSettingsDeviceTableViewController: UITableViewController, Swit
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        configureNavigationTitle();
-        configureBackButton();
+        self.title = NSLocalizedString("NOTIFICATION_SETTINGS_DEVICE_VIEW_TITLE", comment: "Title for device-specific notification settings view.")
         
         configureTableView();
     }
     
     // MARK: Configuration
     
-    func configureNavigationTitle() {
-        self.title = NSLocalizedString("NOTIFICATION_SETTINGS_DEVICE_VIEW_TITLE", comment: "Title for device-specific notification settings view.");
-        self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.blackColor()]
-        self.navigationController!.navigationBar.barStyle = .Default;
-        self.navigationController?.navigationBar.translucent = false;
-    }
-    
-    func configureBackButton() {
-        (self.navigationController as! MainNavigationController).revealController.panGestureRecognizer().enabled = false;
-        let backButton = UIButton(type: UIButtonType.Custom);
-        backButton.setBackgroundImage(UIImage(named: "btn_back_black.png"), forState: UIControlState.Normal);
-        backButton.addTarget(self, action: "didTapBackButton:", forControlEvents: UIControlEvents.TouchUpInside);
-        backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
-        let backBarItem = UIBarButtonItem(customView: backButton);
-        self.navigationItem.leftBarButtonItem = backBarItem;
-        self.navigationItem.hidesBackButton = true;
-    }
-    
-    func configureTableView() {
+    private func configureTableView() {
         tableView.registerClass(SwitchTableViewCell.self, forCellReuseIdentifier: switchCellReuseIdentifier);
     }
 
     // MARK: - Settings
     
-    func shouldSendNotifications() -> Bool {
+    private func shouldSendNotifications() -> Bool {
         return PersistentSettingsController.boolForKey(.EnableNotifications);
     }
     
-    func shouldSendStationNearbyNotifications() -> Bool {
+    private func shouldSendStationNearbyNotifications() -> Bool {
         return PersistentSettingsController.boolForKey(.StationNearbyNotification);
     }
     
-    func switchValueForIndexPath(indexPath: NSIndexPath) -> Bool {
+    private func switchValueForIndexPath(indexPath: NSIndexPath) -> Bool {
         var value = false;
         
         if let section = TableSection(rawValue: indexPath.section) {
@@ -189,7 +170,7 @@ class NotificationSettingsDeviceTableViewController: UITableViewController, Swit
         };
     }
     
-    func updateValueForNotificationSettingAtIndexPath(indexPath: NSIndexPath, value: Bool) {
+    private func updateValueForNotificationSettingAtIndexPath(indexPath: NSIndexPath, value: Bool) {
         var key: PersistentSetting = .Unknown;
         
         if let tableSection = TableSection(rawValue: indexPath.section) {
@@ -218,11 +199,5 @@ class NotificationSettingsDeviceTableViewController: UITableViewController, Swit
         }
         
         PersistentSettingsController.setBool(value, key: key);
-    }
-    
-    // MARK: - Navigation
-    
-    func didTapBackButton(sender: AnyObject!) {
-        self.navigationController!.popViewControllerAnimated(true);
     }
 }

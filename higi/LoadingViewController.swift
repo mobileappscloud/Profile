@@ -10,15 +10,43 @@ import UIKit
 
 class LoadingViewController: UIViewController {
 
+    @IBOutlet private var spinnerContainer: UIView!
+    @IBOutlet private var spinnerContainerHeightConstraint: NSLayoutConstraint!
+    @IBOutlet private var spinnerContainerWidthContainer: NSLayoutConstraint!
+    
     private lazy var spinner: CustomLoadingSpinner = {
-        let spinner = CustomLoadingSpinner(frame: CGRectMake(UIScreen.mainScreen().bounds.size.width / 2 - 16, UIScreen.mainScreen().bounds.size.height / 2 + 32, 32, 32))
+        let spinner = CustomLoadingSpinner(frame: CGRectMake(0, 0, self.spinnerContainerWidthContainer.constant, self.spinnerContainerHeightConstraint.constant))
         return spinner
     }()
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        spinnerContainer.addSubview(spinner)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        spinner.startAnimating()
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        spinner.stopAnimating()
+    }
+}
 
-        self.view.addSubview(self.spinner)
-        self.spinner.startAnimating()
+extension LoadingViewController {
+    
+    override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
+        return .Portrait
+    }
+    
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return .Portrait
+    }
+    
+    override func shouldAutorotate() -> Bool {
+        return false
     }
 }

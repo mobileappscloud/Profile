@@ -11,15 +11,10 @@ private enum TableSection: Int {
     case Count
 }
 
-class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+class ConnectDeviceViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var headerImage: UIImageView!
     @IBOutlet weak var table: UITableView!
-    @IBOutlet weak var headerLabel: UILabel! {
-        didSet {
-            headerLabel.text = NSLocalizedString("CONNECT_DEVICE_VIEW_HEADER_TEXT", comment: "Text to display in table header on Connect Device view.")
-        }
-    }
 
     var brandedDevices: [ActivityDevice] = {
         var devices: [ActivityDevice] = []
@@ -51,18 +46,6 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
     
     override func viewDidLoad() {
         super.viewDidLoad();
-
-        self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
-        (self.navigationController as! MainNavigationController).revealController.panGestureRecognizer().enabled = false;
-        backButton = UIButton(type: .Custom);
-        backButton.setBackgroundImage(UIImage(named: "btn_back_white.png"), forState: UIControlState.Normal);
-        backButton.addTarget(self, action: "goBack:", forControlEvents: UIControlEvents.TouchUpInside);
-        backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
-        let backBarItem = UIBarButtonItem(customView: backButton);
-        self.navigationItem.leftBarButtonItem = backBarItem;
-        self.navigationItem.hidesBackButton = true;
-        
-        shouldShowDailyPoints = false;
         
         self.title = NSLocalizedString("CONNECT_DEVICE_VIEW_TITLE", comment: "Title for Connect Device view.");
         table.delegate = self;
@@ -101,37 +84,6 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated);
         active = true;
-    }
-    
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        updateNavbar();
-    }
-    
-    func updateNavbar() {
-        if (active) {
-            let scrollY = table.contentOffset.y;
-            if (scrollY >= 0) {
-                headerImage.frame.origin.y = -scrollY / 2;
-                let alpha = min(scrollY / 75, 1);
-                self.fakeNavBar.alpha = alpha;
-                self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0 - alpha, alpha: 1.0)];
-                if (alpha < 0.5) {
-                    toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon"), forState: UIControlState.Normal);
-                    toggleButton!.alpha = 1 - alpha;
-                    self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
-                    backButton.setBackgroundImage(UIImage(named: "btn_back_white.png"), forState: UIControlState.Normal);
-                } else {
-                    toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon_inverted"), forState: UIControlState.Normal);
-                    toggleButton!.alpha = alpha;
-                    self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
-                    backButton.setBackgroundImage(UIImage(named: "btn_back_black.png"), forState: UIControlState.Normal);
-                }
-            } else {
-                self.fakeNavBar.alpha = 0;
-                self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0, alpha: 1)];
-                self.headerImage.frame.origin.y = 0;
-            }
-        }
     }
     
     private func device(forIndexPath indexPath: NSIndexPath) -> ActivityDevice {
@@ -218,7 +170,7 @@ class ConnectDeviceViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func goBack(sender: AnyObject!) {
-        self.navigationController!.popViewControllerAnimated(true);
+        self.navigationController?.popViewControllerAnimated(true);
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -273,33 +225,39 @@ extension ConnectDeviceViewController: UniversalLinkHandler {
             if handleRedirect {
                 handleConnectDeviceRedirect()
             } else {
-                navigateToConnectDevice()
+                ConnectDeviceViewController.navigateToConnectDevice()
             }
         } else {
-            navigateToConnectDevice()
+            ConnectDeviceViewController.navigateToConnectDevice()
         }
     }
     
     private func handleConnectDeviceRedirect() {
-        guard let appDelegate = UIApplication.sharedApplication().delegate else { return }
-        guard let window = appDelegate.window else { return }
-        guard let revealController = window?.rootViewController as? RevealViewController else { return }
-        guard let mainNav = revealController.frontViewController as? MainNavigationController else { return }
-        
         //  We're handling a redirect, thus Safari should have been presented from the Connect Device view controller.
         if #available(iOS 9.0, *) {
-            guard let safari = mainNav.presentedViewController as? SFSafariViewController else { return }
+            guard let tabBar = Utility.mainTabBarController() else { return }
+            guard let safari = tabBar.presentedViewController as? SFSafariViewController else { return }
             safari.dismissViewControllerAnimated(true, completion: nil)
         }
     }
     
-    private func navigateToConnectDevice() {
-        guard let navController = Utility.mainNavigationController()?.drawerController.navController else { return }
+    class func navigateToConnectDevice() {
+        guard let mainTabBarController = Utility.mainTabBarController() else { return }
+        
+        let settingsNavController = mainTabBarController.settingsModalViewController() as! UINavigationController
         
         let connectDeviceViewController = ConnectDeviceViewController(nibName: "ConnectDeviceView", bundle: nil)
         dispatch_async(dispatch_get_main_queue(), {
-            navController.popToRootViewControllerAnimated(false)
-            navController.pushViewController(connectDeviceViewController, animated: false)
+            InterfaceOrientation.force(.Portrait)
+            
+            // Make sure there are no views presented over the tab bar controller
+            mainTabBarController.presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
+            
+            mainTabBarController.presentViewController(settingsNavController, animated: false, completion: {
+                dispatch_async(dispatch_get_main_queue(), {
+                    settingsNavController.pushViewController(connectDeviceViewController, animated: false)
+                })
+            })
         })
     }
 }

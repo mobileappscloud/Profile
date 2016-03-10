@@ -10,7 +10,7 @@ import Foundation
 import QuartzCore
 import SafariServices
 
-class PulseHomeViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
+class PulseHomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var headerImage: UIImageView!
@@ -32,6 +32,7 @@ class PulseHomeViewController: BaseViewController, UITableViewDataSource, UITabl
     override func viewDidLoad()  {
         super.viewDidLoad();
         self.title = NSLocalizedString("PULSE_HOME_VIEW_TITLE", comment: "Title for Pulse view.");
+        
         self.automaticallyAdjustsScrollViewInsets = false;
         tableView.separatorInset = UIEdgeInsetsZero;
         tableView.backgroundView?.backgroundColor = UIColor.blackColor();
@@ -41,12 +42,6 @@ class PulseHomeViewController: BaseViewController, UITableViewDataSource, UITabl
         fillTopContainer();
         
         createPullToRefresh();
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated);
-        (self.navigationController as? MainNavigationController)?.drawerController?.selectRowAtIndex(4);
-        updateNavBar();
     }
     
     func fillTopContainer() {
@@ -119,7 +114,7 @@ class PulseHomeViewController: BaseViewController, UITableViewDataSource, UITabl
         } else {
             let webController = WebViewController(nibName: "WebView", bundle: nil);
             webController.url = URLString;
-            self.navigationController!.pushViewController(webController, animated: true);
+            self.navigationController?.pushViewController(webController, animated: true);
         }
     }
     
@@ -137,23 +132,7 @@ class PulseHomeViewController: BaseViewController, UITableViewDataSource, UITabl
             pullRefreshView.icon.alpha = 0.0;
             pullRefreshView.circleContainer.alpha = 0.0;
             pullRefreshView.backgroundColor = UIColor.clearColor();
-            let alpha = min(scrollY / 100, 1);
-            self.fakeNavBar.alpha = alpha;
-            self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0 - alpha, alpha: 1.0)];
-            if (alpha < 0.5) {
-                toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon"), forState: UIControlState.Normal);
-                toggleButton!.alpha = 1 - alpha;
-                self.navigationController?.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
-                self.pointsMeter.setLightText();
-            } else {
-                toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon_inverted"), forState: UIControlState.Normal);
-                toggleButton!.alpha = alpha;
-                self.navigationController?.navigationBar.barStyle = UIBarStyle.Default;
-                self.pointsMeter.setDarkText();
-            }
         } else {
-            self.fakeNavBar.alpha = 0;
-            self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0, alpha: 0)];
             let alpha = max(1.0 + scrollY / (tableView.frame.size.height * 0.195), 0.0);
             if (!refreshControl.refreshing && doneRefreshing) {
                 pullRefreshView.icon.alpha = 1.0 - alpha;
@@ -189,18 +168,6 @@ class PulseHomeViewController: BaseViewController, UITableViewDataSource, UITabl
         gotoArticle(SessionController.Instance.pulseArticles.first!);
     }
     
-    override func shouldAutorotate() -> Bool {
-        return false;
-    }
-    
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return UIInterfaceOrientationMask.Portrait;
-    }
-    
-    override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
-        return UIInterfaceOrientation.Portrait;
-    }
-    
     func createPullToRefresh() {
         pullRefreshView = UINib(nibName: "PullRefreshView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! PullRefresh;
         
@@ -233,7 +200,6 @@ class PulseHomeViewController: BaseViewController, UITableViewDataSource, UITabl
     }
     
     func refresh() {
-        self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0, alpha: 0.0)];
         pullRefreshView.icon.alpha = 1.0;
         pullRefreshView.circleContainer.alpha = 1.0;
         CATransaction.begin();
@@ -312,18 +278,23 @@ extension PulseHomeViewController: UniversalLinkHandler {
     }
     
     private func pushPulseView(URL: NSURL, pathType: PathType, presentedViewController: UIViewController?) {
-        let pulseHomeViewController = PulseHomeViewController(nibName: "PulseHomeView", bundle: nil);
+        guard let mainTabBarController = Utility.mainTabBarController() else { return }
+        
+        let pulseNavController = mainTabBarController.pulseModalViewController() as! UINavigationController
+        let pulseHomeViewController = pulseNavController.topViewController as! PulseHomeViewController
+        
         dispatch_async(dispatch_get_main_queue(), {
-            Utility.mainNavigationController()?.revealController.setFrontViewPosition(.Left, animated: false)
+            InterfaceOrientation.force(.Portrait)
             
             presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
-            Utility.mainNavigationController()?.drawerController.navController?.popToRootViewControllerAnimated(true)
-            Utility.mainNavigationController()?.drawerController.navController?.pushViewController(pulseHomeViewController, animated: false)
+            
+            mainTabBarController.presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
+            mainTabBarController.presentViewController(pulseNavController, animated: false, completion: nil)
+            
+            if pathType == .PulseArticle {
+                let article = PulseArticle(permalink: URL);
+                pulseHomeViewController.gotoArticle(article);
+            }
         })
-        
-        if pathType == .PulseArticle {
-            let article = PulseArticle(permalink: URL);
-            pulseHomeViewController.gotoArticle(article);
-        }
     }
 }

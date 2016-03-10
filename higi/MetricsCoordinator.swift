@@ -18,7 +18,7 @@ final class MetricsCoordinator: NSObject {
     weak var delegate: MetricsCoordinatorDelegate? = nil
     
     /// Supported types of metrics
-    let types = MetricsType.allValues
+    let types: [MetricsType]!
 
     /// Stores index of previously selected metric. **Warning:** Do not write to this property directly as it automatically tracks the `selectedIndex`.
     private(set) var previouslySelectedIndex: Int? = nil
@@ -86,7 +86,13 @@ final class MetricsCoordinator: NSObject {
         let cell = nib.instantiateWithOwner(nil, options: nil).first
         return cell as! TextCollectionViewCell
     }()
+    
+    init(types: [MetricsType]) {
+        self.types = types
+    }
 }
+
+// MARK: - Data Refresh
 
 extension MetricsCoordinator {
     

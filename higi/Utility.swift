@@ -22,19 +22,11 @@ class Utility {
         return nil;
     }
     
-    class func gotoDashboard() {
-        let dashboardController = DashboardViewController(nibName: "DashboardView", bundle: nil);
-        let navController = MainNavigationController(rootViewController: dashboardController);
-        let drawerController = DrawerViewController(nibName: "DrawerView", bundle: nil);
-        let revealController = RevealViewController(rearViewController: drawerController, frontViewController: navController);
-        drawerController.navController = navController;
-        drawerController.revealController = revealController;
-        navController.revealController = revealController;
-        navController.drawerController = drawerController;
-        (UIApplication.sharedApplication().delegate as! AppDelegate).window?.rootViewController = revealController;
-        if (SessionData.Instance.pin != "") {
-            revealController.presentViewController(PinCodeViewController(nibName: "PinCodeView", bundle: nil), animated: false, completion: nil);
-        }
+    class func mainTabBarController() -> TabBarController? {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        guard let hostViewController = appDelegate.window?.rootViewController as? HostViewController else { return nil }
+        
+        return hostViewController.splashViewController.mainTabBarController
     }
     
     class func scaleImage(image: UIImage, newSize: CGSize) -> UIImage {
@@ -136,29 +128,6 @@ class Utility {
             i++;
         }
         return -1;
-    }
-    
-    /**
-     Convenience method which traverses the view hierarchy to find the main navigation controller.
-     
-     - returns: A reference to the `MainNavigationController`.
-     */
-    internal class func mainNavigationController() -> MainNavigationController? {
-        var navigationController: MainNavigationController? = nil
-        
-        if let keyWindow = UIApplication.sharedApplication().keyWindow {
-            if let rootViewController = keyWindow.rootViewController as? RevealViewController {
-                
-                for child in rootViewController.childViewControllers {
-                    if child is MainNavigationController {
-                        navigationController = child as? MainNavigationController
-                        break;
-                    }
-                }
-            }
-        }
-        
-        return navigationController;
     }
 }
 

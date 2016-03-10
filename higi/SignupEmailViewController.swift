@@ -39,32 +39,16 @@ class SignupEmailViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad();
         self.title = NSLocalizedString("SIGN_UP_EMAIL_VIEW_TITLE", comment: "Title for Sign Up Email view.");
-        self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
+        
         let urlRequest = NSMutableURLRequest(URL: NSURL(string: "\(HigiApi.webUrl)/termsandprivacy")!);
         urlRequest.addValue("mobile-ios", forHTTPHeaderField: "Higi-Source");
         termsWebView.loadRequest(urlRequest);
 
-        spinner = CustomLoadingSpinner(frame: CGRectMake(UIScreen.mainScreen().bounds.size.width / 2 - 16, UIScreen.mainScreen().bounds.size.height - 66, 32, 32));
+        spinner = CustomLoadingSpinner(frame: CGRectMake(UIScreen.mainScreen().bounds.size.width / 2 - 16, UIScreen.mainScreen().bounds.size.height - 150 - self.topLayoutGuide.length, 32, 32))
         spinner.shouldAnimateFull = false;
         spinner.hidden = true;
         self.view.addSubview(spinner);
         self.view.sendSubviewToBack(spinner);
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews();
-        if (!setup) {
-            self.navigationController!.navigationBar.hidden = false;
-            declineButton.layer.borderWidth = 1;
-            declineButton.layer.borderColor = UIColor.darkGrayColor().CGColor;
-            let backButton = UIButton(type: UIButtonType.Custom);
-            backButton.setBackgroundImage(UIImage(named: "btn_back_black.png"), forState: UIControlState.Normal);
-            backButton.addTarget(self, action: "goBack:", forControlEvents: UIControlEvents.TouchUpInside);
-            backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
-            let backBarItem = UIBarButtonItem(customView: backButton);
-            self.navigationItem.leftBarButtonItem = backBarItem;
-            self.navigationItem.hidesBackButton = true;
-        }
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -79,7 +63,7 @@ class SignupEmailViewController: UIViewController, UITextFieldDelegate {
         spinner.startAnimating();
         spinner.hidden = false;
         signupButton.enabled = false;
-        self.navigationItem.leftBarButtonItem!.customView!.hidden = true;
+
         var problemFound = false;
         if (email.text!.characters.count == 0 || email.text!.rangeOfString("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$", options: NSStringCompareOptions.RegularExpressionSearch, range: nil, locale: nil) == nil) {
             problemFound = true;
@@ -160,7 +144,7 @@ class SignupEmailViewController: UIViewController, UITextFieldDelegate {
                             SessionController.Instance.checkins = [];
                             SessionController.Instance.activities = [:];
                             
-                            self.navigationController!.pushViewController(SignupNameViewController(nibName: "SignupNameView", bundle: nil), animated: true);
+                            self.navigationController?.pushViewController(SignupNameViewController(nibName: "SignupNameView", bundle: nil), animated: true);
                             
                             }, failure: {operation, error in
                                 self.showErrorAlert();
@@ -207,16 +191,11 @@ class SignupEmailViewController: UIViewController, UITextFieldDelegate {
         spinner.hidden = true;
         spinner.stopAnimating();
         self.title = "Sign Up";
-        self.navigationItem.leftBarButtonItem!.customView!.hidden = false;
     }
     
     @IBAction func decline(sender: AnyObject) {
-        let splashViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SplashViewController") ;
-        (UIApplication.sharedApplication().delegate as! AppDelegate).window?.rootViewController = splashViewController;
-    }
-    
-    func goBack(sender: AnyObject!) {
-        self.navigationController!.popViewControllerAnimated(true);
+        let hostViewController = UIStoryboard(name: "Host", bundle: nil).instantiateInitialViewController()
+        (UIApplication.sharedApplication().delegate as! AppDelegate).window?.rootViewController = hostViewController
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {

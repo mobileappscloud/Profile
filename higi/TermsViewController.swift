@@ -35,7 +35,7 @@ class TermsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad();
-        self.navigationController?.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
+        
         declineButton.layer.borderWidth = 1;
         declineButton.layer.borderColor = Utility.colorFromHexString(Constants.higiGreen).CGColor;
         var url = "";
@@ -83,28 +83,21 @@ class TermsViewController: UIViewController {
         
         HigiApi().sendPost("\(HigiApi.higiApiUrl)/data/user/\(SessionData.Instance.user.userId)", parameters: contents, success: {operation, responseObject in
             
-            ApiUtility.initializeApiData();
-            (UIApplication.sharedApplication().delegate as! AppDelegate).startLocationManager();
-            Utility.gotoDashboard();
+            dispatch_async(dispatch_get_main_queue(), {
+                self.dismissViewControllerAnimated(true, completion: nil)
+            })
             
             }, failure: {operation, error in
                 self.reset();
         });
     }
     
-    func gotoDashboard() {
-        if (SessionController.Instance.checkins != nil && SessionController.Instance.challenges != nil && SessionController.Instance.kioskList != nil && SessionController.Instance.pulseArticles.count > 0) {
-            Utility.gotoDashboard();
-        }
-    }
-    
     @IBAction func decline(sender: AnyObject) {
         SessionController.Instance.reset();
         SessionData.Instance.reset();
         SessionData.Instance.save();
-        let splashViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SplashViewController") ;
-        (UIApplication.sharedApplication().delegate as! AppDelegate).window?.rootViewController = splashViewController;
-        
+        let hostViewController = UIStoryboard(name: "Host", bundle: nil).instantiateInitialViewController()
+        (UIApplication.sharedApplication().delegate as! AppDelegate).window?.rootViewController = hostViewController
     }
     
     func reset() {

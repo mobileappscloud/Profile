@@ -31,7 +31,6 @@ class PinCodeViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad();
         self.navigationItem.hidesBackButton = true;
-        self.navigationController?.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
         if (newCode || modifying || removing) {
             let backButton = UIButton(type: UIButtonType.Custom);
             backButton.setBackgroundImage(UIImage(named: "btn_back_white.png"), forState: UIControlState.Normal);
