@@ -82,8 +82,6 @@ final class DashboardViewController: UIViewController {
         super.viewWillAppear(animated);
 
         ensureCardWidthIntegrity();
-        
-        updateNavbar();
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -653,7 +651,6 @@ final class DashboardViewController: UIViewController {
             CATransaction.setDisableActions(false);
         } else {
             // Pull to refresh
-//            let alpha = max(1.0 + scrollY / (mainScrollView.frame.size.height * 0.195), 0.0);
             let alpha = max(1.0 + scrollY / 100.0, 0.0);
             if (!refreshControl.refreshing && doneRefreshing) {
                 pullRefreshView.icon.alpha = 1.0 - alpha;

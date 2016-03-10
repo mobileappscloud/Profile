@@ -58,8 +58,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     override func viewDidLoad() {
         super.viewDidLoad();
         
-        self.edgesForExtendedLayout = .None
-        
         initializeDetailView();
     }
     
@@ -488,7 +486,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             
             actionButton.translatesAutoresizingMaskIntoConstraints = false
             chatterView.addConstraint(NSLayoutConstraint(item: actionButton, attribute: .Trailing, relatedBy: .Equal, toItem: chatterView, attribute: .TrailingMargin, multiplier: 1.0, constant: 0.0))
-            chatterView.addConstraint(NSLayoutConstraint(item: actionButton, attribute: .Bottom, relatedBy: .Equal, toItem: chatterView, attribute: .BottomMargin, multiplier: 1.0, constant: 0.0))
+            chatterView.addConstraint(NSLayoutConstraint(item: actionButton, attribute: .Bottom, relatedBy: .Equal, toItem: chatterView, attribute: .BottomMargin, multiplier: 1.0, constant: -49.0))
             chatterView.addConstraint(NSLayoutConstraint(item: actionButton, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: actionButtonWidth))
             chatterView.addConstraint(NSLayoutConstraint(item: actionButton, attribute: .Height, relatedBy: .Equal, toItem: actionButton, attribute: .Width, multiplier: 1.0, constant: 0.0))
             chatterView.setNeedsLayout()
@@ -619,6 +617,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         let viewWidth = UIScreen.mainScreen().bounds.size.width;
         let viewHeight:CGFloat = self.view.bounds.size.height - 113;
         let table = UITableView(frame: CGRect(x: CGFloat(page) * viewWidth, y: 0, width: viewWidth, height: viewHeight));
+        table.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 49.0, right: 0)
         table.dataSource = self;
         table.delegate = self;
         table.separatorStyle = UITableViewCellSeparatorStyle.None;

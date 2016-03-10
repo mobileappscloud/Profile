@@ -24,12 +24,6 @@ class ChallengesViewController: UIViewController, UIGestureRecognizerDelegate, U
     
     var universalLinkObserver: NSObjectProtocol? = nil
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        self.edgesForExtendedLayout = .None
-    }
-    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
         
@@ -154,6 +148,7 @@ class ChallengesViewController: UIViewController, UIGestureRecognizerDelegate, U
     
     func addTableView(page: Int) -> UITableView {
         let table = UITableView(frame: CGRect(x: CGFloat(page) * scrollView.frame.size.width, y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height));
+        table.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 49.0, right: 0)
         table.dataSource = self;
         table.delegate = self;
         table.separatorStyle = UITableViewCellSeparatorStyle.None;

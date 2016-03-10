@@ -125,7 +125,6 @@ class FindStationViewController: UIViewController, GMSMapViewDelegate, UITableVi
     override func viewDidLoad()  {
         super.viewDidLoad();
         
-        self.edgesForExtendedLayout = .None
         
         listButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30));
         listButton.setBackgroundImage(UIImage(named: "map_listviewicon")!.imageWithRenderingMode(.AlwaysTemplate), forState: UIControlState.Normal);
@@ -258,7 +257,8 @@ class FindStationViewController: UIViewController, GMSMapViewDelegate, UITableVi
         
         mapView.addConstraint(NSLayoutConstraint(item: myLocationContainer(), attribute: .Trailing, relatedBy: .Equal, toItem: mapView, attribute: .Trailing, multiplier: 1.0, constant: 0.0))
         
-        myLocationContainerBottomConstraint = NSLayoutConstraint(item: myLocationContainer(), attribute: .Bottom, relatedBy: .Equal, toItem: mapView, attribute: .Bottom, multiplier: 1.0, constant: -5.0)
+        
+        myLocationContainerBottomConstraint = NSLayoutConstraint(item: myLocationContainer(), attribute: .Bottom, relatedBy: .Equal, toItem: mapView, attribute: .Bottom, multiplier: 1.0, constant: -(49.0 + 5.0))
         mapView.addConstraint(myLocationContainerBottomConstraint)
     }
     
