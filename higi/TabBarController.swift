@@ -127,6 +127,13 @@ extension TabBarController {
     
     // MARK: Modal View Controllers
     
+    func dailySummaryModalViewController() -> UIViewController {
+        let dailySummaryViewController = DailySummaryViewController(nibName: "DailySummaryView", bundle: nil)
+        dailySummaryViewController.navigationItem.rightBarButtonItem = modalDismissBarButtonItem(.Done)
+        let dailySummaryNav = UINavigationController(rootViewController: dailySummaryViewController)
+        return dailySummaryNav
+    }
+    
     func pulseModalViewController() -> UIViewController {
         let pulseViewController = PulseHomeViewController(nibName: "PulseHomeView", bundle: nil)
         pulseViewController.navigationItem.rightBarButtonItem = modalDismissBarButtonItem(.Done)
@@ -155,6 +162,11 @@ extension TabBarController {
         popoverAlert.modalPresentationStyle = .Popover
         popoverAlert.popoverPresentationController?.permittedArrowDirections = .Any
         popoverAlert.popoverPresentationController?.barButtonItem = barButtonItem
+        
+        let dailySummaryMenuTitle = NSLocalizedString("MAIN_NAVIGATION_BAR_BUTTON_ITEM_OVERFLOW_POPOVER_ACTION_TITLE_DAILY_SUMMARY", comment: "Title for overflow menu action item which modally presents Daily Summary.")
+        let dailySummary = popoverAction(dailySummaryMenuTitle, viewController: dailySummaryModalViewController())
+        dailySummary.enabled = homeViewController.metricsLoaded && homeViewController.activitiesLoaded
+        popoverAlert.addAction(dailySummary)
         
         let pulseMenuTitle = NSLocalizedString("MAIN_NAVIGATION_BAR_BUTTON_ITEM_OVERFLOW_POPOVER_ACTION_TITLE_HIGI_PULSE", comment: "Title for overflow menu action item which modally presents higi Pulse.")
         let pulse = popoverAction(pulseMenuTitle, viewController: pulseModalViewController())
