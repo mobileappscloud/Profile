@@ -574,6 +574,9 @@
 /* Title for overflow menu action item which modally presents Capture. */
 "MAIN_NAVIGATION_BAR_BUTTON_ITEM_OVERFLOW_POPOVER_ACTION_TITLE_CAPTURE" = "Capture";
 
+/* Title for overflow menu action item which modally presents Daily Summary. */
+"MAIN_NAVIGATION_BAR_BUTTON_ITEM_OVERFLOW_POPOVER_ACTION_TITLE_DAILY_SUMMARY" = "Daily Summary";
+
 /* Title for overflow menu action item which modally presents higi Pulse. */
 "MAIN_NAVIGATION_BAR_BUTTON_ITEM_OVERFLOW_POPOVER_ACTION_TITLE_HIGI_PULSE" = "higi Pulse";
 
