@@ -25,49 +25,24 @@ class NotificationSettingsEmailTableViewController: UITableViewController, Switc
 
     let switchCellReuseIdentifier = "SwitchCellReuseIdentifier";
 
-    let dataController = NotificationSettingsEmailController();
+    private let dataController = NotificationSettingsEmailController();
     
     // MARK: - View Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad();
         
-        configureBackButton();
-        configureNavigationTitle();
+        self.title = NSLocalizedString("NOTIFICATION_SETTINGS_EMAIL_VIEW_TITLE", comment: "Title for email notification settings view.")
         
         configureTableView();
     }
     
     // MARK: Configuration
     
-    func configureNavigationTitle() {
-        self.title = NSLocalizedString("NOTIFICATION_SETTINGS_EMAIL_VIEW_TITLE", comment: "Title for email notification settings view.");
-        self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.blackColor()]
-        self.navigationController!.navigationBar.barStyle = .Default;
-        self.navigationController?.navigationBar.translucent = false;
-    }
-    
-    func configureBackButton() {
-        (self.navigationController as! MainNavigationController).revealController.panGestureRecognizer().enabled = false;
-        let backButton = UIButton(type: UIButtonType.Custom);
-        backButton.setBackgroundImage(UIImage(named: "btn_back_black.png"), forState: UIControlState.Normal);
-        backButton.addTarget(self, action: "didTapBackButton:", forControlEvents: UIControlEvents.TouchUpInside);
-        backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
-        let backBarItem = UIBarButtonItem(customView: backButton);
-        self.navigationItem.leftBarButtonItem = backBarItem;
-        self.navigationItem.hidesBackButton = true;
-    }
-    
-    func configureTableView() {
+    private func configureTableView() {
         tableView.registerClass(SwitchTableViewCell.self, forCellReuseIdentifier: switchCellReuseIdentifier);
         
         tableView.tableFooterView = UIView();
-    }
-    
-    // MARK: - Navigation
-    
-    func didTapBackButton(sender: AnyObject!) {
-        self.navigationController!.popViewControllerAnimated(true);
     }
     
     // MARK: - Table View

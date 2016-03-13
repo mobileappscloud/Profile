@@ -30,11 +30,15 @@
 #import "ClusterKiosk.h"
 #import "HigiClusterRenderer.h"
 
-// Reveal View Controller (Hamburger Menu & Navigation)
-#import "SWRevealViewController.h"
-
 //
 // Copied third-party includes, manually managed
 //
 
 #import "UIImage+Orientation.h"
+
+//
+// Custom includes
+//
+
+// Extension for UIAppearance proxy to bridge Obj-C API to Swift
+#import "UIAppearance+Swift.h"

@@ -76,44 +76,7 @@ class WeightMetricDelegate: MetricDelegate {
             }
         }
     }
-    
-    func getSelectedPoint() -> SelectedPoint? {
-        if ((weightMode && selectedWeightCheckin == nil) || (!weightMode && selectedFatCheckin == nil)){
-            return nil;
-        } else {
-            if weightMode {
-                let date = Constants.dateFormatter.stringFromDate(selectedWeightCheckin.dateTime);
-                let weight = selectedWeightCheckin.weightLbs != nil ? "\(Int(selectedWeightCheckin.weightLbs!))" : "--";
-                let firstLabel = "";
-                let firstUnit = "";
-                let secondLabel = NSLocalizedString("WEIGHT_METRICS_VIEW_SELECTED_POINT_WEIGHT_LABEL", comment: "Label for weight on weight metrics view.");
-                let secondUnit = NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_WEIGHT_POUNDS", comment: "General purpose abbreviated label for the english units of weight measurement, pounds.");
-                var device = "";
-                if let kioskInfo = selectedWeightCheckin.kioskInfo {
-                    return SelectedPoint(date: date, firstPanelValue: "", firstPanelLabel: firstLabel, firstPanelUnit: firstUnit, secondPanelValue: weight, secondPanelLabel: secondLabel, secondPanelUnit: secondUnit, kioskInfo: kioskInfo);
-                } else if let vendorId = selectedWeightCheckin.sourceVendorId {
-                    device = "\(vendorId)";
-                }
-                return SelectedPoint(date: date, firstPanelValue: "", firstPanelLabel: firstLabel, firstPanelUnit: firstUnit, secondPanelValue: weight, secondPanelLabel: secondLabel, secondPanelUnit: secondUnit, device: device);
-            } else {
-                let date = Constants.dateFormatter.stringFromDate(selectedFatCheckin.dateTime);
-                let weight = selectedFatCheckin.weightLbs != nil ? "\(Int(selectedFatCheckin.weightLbs!))" : "--";
-                let bodyFat = selectedFatCheckin.fatRatio != nil ? String(format: "%.2f", selectedFatCheckin.fatRatio!) + "%" : "--";
-                let firstLabel = NSLocalizedString("WEIGHT_METRICS_VIEW_SELECTED_POINT_WEIGHT_LABEL", comment: "Label for weight on weight metrics view.");
-                let firstUnit = NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_WEIGHT_POUNDS", comment: "General purpose abbreviated label for the english units of weight measurement, pounds.")
-                let secondLabel = NSLocalizedString("WEIGHT_METRICS_VIEW_SELECTED_POINT_BODY_FAT_LABEL", comment: "Label for body fat on weight metrics view.");
-                let secondUnit = "";
-                var device = "";
-                if let kioskInfo = selectedWeightCheckin.kioskInfo {
-                    return SelectedPoint(date: date, firstPanelValue: weight, firstPanelLabel: firstLabel, firstPanelUnit: firstUnit, secondPanelValue: bodyFat, secondPanelLabel: secondLabel, secondPanelUnit: secondUnit, kioskInfo: kioskInfo);
-                } else if let vendorId = selectedFatCheckin.sourceVendorId {
-                    device = "\(vendorId)";
-                }
-                return SelectedPoint(date: date, firstPanelValue: weight, firstPanelLabel: firstLabel, firstPanelUnit: firstUnit, secondPanelValue: bodyFat, secondPanelLabel: secondLabel, secondPanelUnit: secondUnit, device: device);
-            }
-        }
-    }
-    
+
     func getSecondaryGraph(frame: CGRect, points: [GraphPoint], altPoints:[GraphPoint]) -> MetricGraph? {
         return MetricGraphUtility.graphWithPoints(CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), points: points, altPoints: altPoints, color:  getColor(), secondaryColor: getSecondaryColor());
     }

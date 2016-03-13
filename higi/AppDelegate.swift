@@ -48,6 +48,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             })
         }
         
+        Theme.Appearance.applyGlobalStylings()
+        
         if let launchOptions = launchOptions {
             self.launchOptions = [NSDate() : launchOptions]
         }
@@ -80,7 +82,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func checkPin() {
         if (SessionData.Instance.pin != "") {
             SessionController.Instance.askTouchId = false;
-            self.window?.rootViewController!.presentViewController(PinCodeViewController(nibName: "PinCodeView", bundle: nil), animated: false, completion: nil);
+            let viewController: UIViewController? = Utility.mainTabBarController()?.presentedViewController ?? Utility.mainTabBarController()
+            viewController?.presentViewController(PinCodeViewController(nibName: "PinCodeView", bundle: nil), animated: false, completion: nil);
             NSRunLoop.currentRunLoop().runMode(NSDefaultRunLoopMode, beforeDate: NSDate(timeIntervalSinceNow: 0.2)); // Run for a bit to make sure lock screen shows up
         }
     }
@@ -152,9 +155,9 @@ extension AppDelegate {
         }
         
         if self.didRecentlyLaunchToContinueUserActivity() {
-            NSNotificationCenter.defaultCenter().addObserverForName("SplashViewControllerDidGoToDashboard", object: nil, queue: nil, usingBlock: { (notification) in
+            NSNotificationCenter.defaultCenter().addObserverForName(Notifications.SplashViewController.DidPresentMainTabBar, object: nil, queue: nil, usingBlock: { (notification) in
                 UniversalLink.handleURL(URL);
-                NSNotificationCenter.defaultCenter().removeObserver(self, name: "SplashViewControllerDidGoToDashboard", object: nil)
+                NSNotificationCenter.defaultCenter().removeObserver(self, name: Notifications.SplashViewController.DidPresentMainTabBar, object: nil)
             })
         } else {
             UniversalLink.handleURL(URL);

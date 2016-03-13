@@ -1,9 +1,9 @@
 import Foundation
 
-class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource {
+class ChallengesViewController: UIViewController, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource {
+    
     @IBOutlet var pager: UIPageControl!
     @IBOutlet var scrollView: UIScrollView!
-    @IBOutlet var headerImage: UIImageView!
     @IBOutlet weak var blankState: UIImageView!
     
     var activeTable, upcomingTable: UITableView?, availableTable: UITableView?, invitedTable: UITableView?;
@@ -16,8 +16,6 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     
     var currentPage = 0, totalPages = 0;
     
-    let headerHeight: CGFloat = 83;
-    
     var screenWidth: CGFloat!;
     
     var currentTable: UITableView!;
@@ -26,14 +24,8 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     
     var universalLinkObserver: NSObjectProtocol? = nil
     
-    override func viewDidLoad() {
-        super.viewDidLoad();
-        self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
-    }
-    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
-        (self.navigationController as! MainNavigationController).drawerController?.selectRowAtIndex(1);
         
         //fix for changing orientation bug when coming back from landscape screen
         screenWidth = min(UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height);
@@ -154,46 +146,9 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         }
     }
     
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        if (scrollView != self.scrollView) {
-            updateNavbar();
-        }
-    }
-    
-    func updateNavbar() {
-        if (currentTable != nil) {
-            let scrollY = currentTable.contentOffset.y;
-            if (scrollY >= 0) {
-                let alpha = min(scrollY / 75, 1);
-                self.fakeNavBar.alpha = alpha;
-                self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0 - alpha, alpha: 1.0)];
-                pager.pageIndicatorTintColor = UIColor(white: 1 - alpha, alpha: 0.2);
-                pager.currentPageIndicatorTintColor = UIColor(white: 1 - alpha, alpha: 1);
-                if (alpha < 0.5) {
-                    toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon"), forState: UIControlState.Normal);
-                    toggleButton!.alpha = 1 - alpha;
-                    pointsMeter.setLightText();
-                    self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
-                } else {
-                    toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon_inverted"), forState: UIControlState.Normal);
-                    toggleButton!.alpha = alpha;
-                    pointsMeter.setDarkText();
-                    self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
-                }
-            } else {
-                self.fakeNavBar.alpha = 0;
-                self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0, alpha: 1)];
-                self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
-                toggleButton!.setBackgroundImage(UIImage(named: "nav_ocmicon"), forState: UIControlState.Normal);
-                toggleButton!.alpha = 1;
-                pager.pageIndicatorTintColor = UIColor(white: 1.0, alpha: 0.2);
-                pager.currentPageIndicatorTintColor = UIColor.whiteColor();
-            }
-        }
-    }
-    
     func addTableView(page: Int) -> UITableView {
         let table = UITableView(frame: CGRect(x: CGFloat(page) * scrollView.frame.size.width, y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height));
+        table.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 49.0, right: 0)
         table.dataSource = self;
         table.delegate = self;
         table.separatorStyle = UITableViewCellSeparatorStyle.None;
@@ -224,15 +179,7 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return numberOfRowsInCurrentTableView(tableView);
     }
-    
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: headerHeight));
-    }
-    
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return headerHeight;
-    }
-    
+
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("ChallengeRowCell") as! ChallengeRowCell!;
         if (cell == nil) {
@@ -361,8 +308,9 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
     func showDetails(forChallenge challenge: HigiChallenge) {
         let challengeDetailViewController = ChallengeDetailsViewController(nibName: "ChallengeDetailsView", bundle: nil)
         challengeDetailViewController.challenge = challenge
-        let navController = Utility.mainNavigationController()?.drawerController.navController
-        navController?.pushViewController(challengeDetailViewController, animated: true);
+        dispatch_async(dispatch_get_main_queue(), { [weak self] in
+            self?.navigationController?.pushViewController(challengeDetailViewController, animated: true)
+        })
     }
     
     func getCurrentTable() -> UITableView? {
@@ -408,7 +356,6 @@ class ChallengesViewController: BaseViewController, UIScrollViewDelegate, UIGest
         frame.origin.x = frame.size.width * CGFloat(page);
         frame.origin.y = 0;
         scrollView.setContentOffset(frame.origin, animated: true);
-        updateNavbar();
     }
     
     func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -437,13 +384,9 @@ extension ChallengesViewController: UniversalLinkHandler {
     }
     
     private func handle(URL: NSURL, pathType: PathType, parameters: [String]?, presentedViewController: UIViewController?) {
-        let navController = Utility.mainNavigationController()?.drawerController.navController
-        dispatch_async(dispatch_get_main_queue(), {
-            Utility.mainNavigationController()?.revealController.setFrontViewPosition(.Left, animated: false)
-            
-            presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
-            navController?.popToRootViewControllerAnimated(true)
-        })
+        
+        // Make sure there are no views presented over the tab bar controller
+        presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
         
         if pathType == .ChallengeDashboard {
             self.navigateToChallengesDashboard()
@@ -457,9 +400,7 @@ extension ChallengesViewController: UniversalLinkHandler {
             } else {
                 ApiUtility.retrieveChallenges({
                     if let challenge = self.challenge(forChallengeParameters: params) {
-                        dispatch_async(dispatch_get_main_queue(), {
-                            self.navigateToChallengeDetail(challenge)
-                        })
+                        self.navigateToChallengeDetail(challenge)
                     }
                 })
             }
@@ -485,25 +426,27 @@ extension ChallengesViewController: UniversalLinkHandler {
         return challenge;
     }
     
-    private func navigateToChallengesDashboard() {
-        guard let navController = Utility.mainNavigationController()?.drawerController.navController else {
-            return
-        }
-        
-        let challengesViewController = ChallengesViewController(nibName: "ChallengesView", bundle: nil);
-        dispatch_async(dispatch_get_main_queue(), {
-            navController.pushViewController(challengesViewController, animated: false)
+    private func challengesNavigationController() -> UINavigationController {
+        let tabBar = Utility.mainTabBarController()!
+        return tabBar.challengesNavController
+    }
+    
+    func navigateToChallengesDashboard() {
+        dispatch_async(dispatch_get_main_queue(), { [weak self] in
+            InterfaceOrientation.force(.Portrait)
+            
+            Utility.mainTabBarController()?.presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
+            Utility.mainTabBarController()?.selectedIndex = TabBarController.ViewControllerIndex.Challenges.rawValue
+            self?.challengesNavigationController().popToRootViewControllerAnimated(false)
         })
     }
     
-    private func navigateToChallengeDetail(challenge: HigiChallenge) {
-        guard let navController = Utility.mainNavigationController()?.drawerController.navController else {
-            return
-        }
+    func navigateToChallengeDetail(challenge: HigiChallenge) {
+        navigateToChallengesDashboard()
+
+        guard let challengesViewController = Utility.mainTabBarController()?.challengesViewController else { return }
         
-        let challengesViewController = ChallengesViewController(nibName: "ChallengesView", bundle: nil);
-        dispatch_async(dispatch_get_main_queue(), {
-            navController.pushViewController(challengesViewController, animated: false)
+        dispatch_async(dispatch_get_main_queue(), { [weak self] in
             challengesViewController.showDetails(forChallenge: challenge)
         })
     }

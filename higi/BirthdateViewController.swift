@@ -26,7 +26,7 @@ class BirthdateViewController: UIViewController {
         
         datePicker.maximumDate = NSDate();
         
-        spinner = CustomLoadingSpinner(frame: CGRectMake(UIScreen.mainScreen().bounds.size.width / 2 - 16, UIScreen.mainScreen().bounds.size.height - 66, 32, 32));
+        spinner = CustomLoadingSpinner(frame: CGRectMake(UIScreen.mainScreen().bounds.size.width / 2 - 16, UIScreen.mainScreen().bounds.size.height - 150 - self.topLayoutGuide.length, 32, 32))
         spinner.shouldAnimateFull = false;
         spinner.hidden = true;
         self.view.addSubview(spinner);
@@ -70,7 +70,7 @@ class BirthdateViewController: UIViewController {
             contents["dateOfBirth"] = dateFormatter.stringFromDate(birthday);
             HigiApi().sendPost("\(HigiApi.higiApiUrl)/data/user/\(user.userId)", parameters: contents, success: {operation, responseObject in
                 
-                self.navigationController!.pushViewController(ProfileImageViewController(nibName: "ProfileImageView", bundle: nil), animated: true);
+                self.navigationController?.pushViewController(ProfileImageViewController(nibName: "ProfileImageView", bundle: nil), animated: true);
                 
                 }, failure: {operation, error in
                     let message = NSLocalizedString("BIRTHDATE_VIEW_UPDATE_BIRTHDATE_FAILURE_ALERT_MESSAGE", comment: "Message for alert to display if the server cannot be reached when attempting to update user's birthdate.")
@@ -104,8 +104,8 @@ class BirthdateViewController: UIViewController {
         HigiApi().sendGet("\(HigiApi.higiApiUrl)/data/deleteAccountAge13?userId=\(user.userId)&dob=\(dateFormatter.stringFromDate(datePicker.date))", success: nil, failure: nil);
         SessionController.Instance.reset();
         SessionData.Instance.reset();
-        let splashViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SplashViewController") ;
-        (UIApplication.sharedApplication().delegate as! AppDelegate).window?.rootViewController = splashViewController;
+        let hostViewController = UIStoryboard(name: "Host", bundle: nil).instantiateInitialViewController()
+        (UIApplication.sharedApplication().delegate as! AppDelegate).window?.rootViewController = hostViewController
     }
     
 }

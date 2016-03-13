@@ -77,9 +77,6 @@ class SettingsTableViewController: UITableViewController, SwitchTableViewCellDel
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
-        // ???: Why does this need to happen?
-        (self.navigationController as! MainNavigationController).drawerController?.selectRowAtIndex(5);
-        updateNavBar();
         
         /*! @internal This is left over functionality from the refactor */
         let settingsViewController = self.parentViewController as! SettingsViewController;
@@ -88,7 +85,6 @@ class SettingsTableViewController: UITableViewController, SwitchTableViewCellDel
             SessionData.Instance.user.blurredImage = user.blurredImage;
             profileImageView.image = user.profileImage;
             settingsViewController.backgroundImageView.image = user.blurredImage;
-            (self.navigationController as! MainNavigationController).drawerController.refreshData();
         }
     }
     
@@ -299,17 +295,6 @@ class SettingsTableViewController: UITableViewController, SwitchTableViewCellDel
         self.navigationController!.pushViewController(pinCodeViewController, animated: true);
     }
     
-    // MARK: - Scroll View
-    
-    override func scrollViewDidScroll(scrollView: UIScrollView) {
-        updateNavBar();
-    }
-    
-    func updateNavBar() {
-        let settingsViewController = self.parentViewController as! SettingsViewController;
-        settingsViewController.updateNavBar();
-    }
-    
     // MARK: - UI Actions
     
     @IBAction func didPressNewProfileImageButton(sender: AnyObject) {
@@ -370,8 +355,9 @@ class SettingsTableViewController: UITableViewController, SwitchTableViewCellDel
         
         let appDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate);
         appDelegate.stopLocationManager();
-        let splashViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SplashViewController") ;
-        appDelegate.window?.rootViewController = splashViewController;
+        
+        let hostViewController = UIStoryboard(name: "Host", bundle: nil).instantiateInitialViewController()
+        appDelegate.window?.rootViewController = hostViewController
     }
     
     func didSelectConnectDevices() {

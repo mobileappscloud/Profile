@@ -30,19 +30,11 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     
     var totalPoints = 0, largestActivityPoints = 0;
     
-    var minCircleRadius:CGFloat = 8, maxCircleRadius:CGFloat = 20, currentOrigin:CGFloat = 0, imageAspectRatio:CGFloat!;
-    
-    var backButton:UIButton!;
+    var minCircleRadius:CGFloat = 8, maxCircleRadius:CGFloat = 20, currentOrigin:CGFloat = 0
     
     var dateString: String!;
     
-    var isLeaving = false, previousShouldRotate: Bool!;
-    
-    var previousSupportedOrientations: UIInterfaceOrientationMask!;
-    
-    var previousActualOrientation: UIInterfaceOrientation!;
-    
-    var fakeNavBar:UIView!;
+    var isLeaving = false
     
     var timeOfDay:TimeOfDay!;
     
@@ -55,80 +47,42 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         case Evening;
     }
     
+    // MARK: -
+    
     override func viewDidLoad() {
         super.viewDidLoad();
-        self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
         self.title = NSLocalizedString("DAILY_SUMMARY_VIEW_TITLE", comment: "Title for Daily Summary view.")
+        
         pointsMeter = PointsMeter.create(CGRect(x: 0, y: 0, width: pointsMeterContainer.frame.size.width, height: pointsMeterContainer.frame.size.height));
         pointsMeterContainer.addSubview(pointsMeter);
         self.automaticallyAdjustsScrollViewInsets = false;
         scrollView.scrollEnabled = true;
         scrollView.delegate = self;
-        scrollView.setContentOffset(CGPoint(x: 0,y: 0), animated: false);
         
-        imageAspectRatio = headerBackground.frame.size.width / headerBackground.frame.size.height;
-        
-        initBackButton();
         initHeader();
         initSummaryview();
         
         pointsMeter.setActivities((totalPoints, activities));
     }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated);
-        let revealController = (navigationController as! MainNavigationController).revealController;
-        previousActualOrientation = self.interfaceOrientation;
-        previousSupportedOrientations = revealController.supportedOrientations;
-        previousShouldRotate = revealController.shouldRotate;
-        revealController.panGestureRecognizer().enabled = false;
-        revealController.supportedOrientations = UIInterfaceOrientationMask.AllButUpsideDown;
-        revealController.shouldRotate = true;
-        
-        activityView.frame.size.width = UIScreen.mainScreen().bounds.size.width;
-        for row in titleRows {
-            row.frame.size.width = UIScreen.mainScreen().bounds.size.width - row.frame.origin.x;
-        }
-        scrollView.setContentOffset(CGPoint(x: 0,y: 0), animated: false);
-        updateNavbar(0);
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        let revealController = (self.navigationController as? MainNavigationController)?.revealController;
-        revealController?.supportedOrientations = previousSupportedOrientations;
-        self.navigationController?.navigationBarHidden = false;
-        UIDevice.currentDevice().setValue(previousActualOrientation.rawValue, forKey: "orientation");
-        revealController?.shouldRotate = previousShouldRotate;
-        super.viewWillDisappear(animated);
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews();
-        scrollView.contentSize.height = activityContainer.frame.origin.y + currentOrigin + activityView.frame.origin.y;
-    }
-    
+
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated);
         pointsMeter.drawArc(true);
+        
+        // Note 1) Hotfix to work around lack of complete autolayout constraints
+        view.setNeedsLayout()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        // Note 1) Hotfix to work around lack of complete autolayout constraints
+        activityView.frame.size.width = UIScreen.mainScreen().bounds.width
+        scrollView.contentSize.height = activityContainer.frame.origin.y + currentOrigin + activityView.frame.origin.y;
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return activities.count;
-    }
-    
-    override func prefersStatusBarHidden() -> Bool {
-        return false;
-    }
-    
-    func initBackButton() {
-        self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
-        backButton = UIButton(type: UIButtonType.Custom);
-        backButton.setBackgroundImage(UIImage(named: "btn_back_white.png"), forState: UIControlState.Normal);
-        backButton.addTarget(self, action: "goBack:", forControlEvents: UIControlEvents.TouchUpInside);
-        backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
-        let backBarItem = UIBarButtonItem(customView: backButton);
-        self.navigationItem.leftBarButtonItem = backBarItem;
-        self.navigationItem.hidesBackButton = true;
     }
     
     func initHeader() {
@@ -170,10 +124,6 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             greeting.text = NSLocalizedString("DAILY_SUMMARY_VIEW_HEADER_GREETING_EVENING_TEXT", comment: "Greeting text to display in header of the Daily Summary view during the evening.")
             headerBackground.image = UIImage(named: "dailysummary_night");
         }
-        let screenWidth = max(UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height);
-        fakeNavBar = UIView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 64));
-        fakeNavBar.backgroundColor = UIColor.whiteColor();
-        view.addSubview(fakeNavBar);
     }
     
     func initSummaryview() {
@@ -315,9 +265,19 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         
         let textRow = SummaryViewUtility.initBreakdownRow(CGRect(x: rowX - textOffset, y: currentOrigin, width: rowWidth, height: CGFloat.max), text: text, duplicate: false);
         textRow.bulletPoint.hidden = true;
+        textRow.desc.numberOfLines = 5
+        textRow.desc.minimumScaleFactor = 0.5
+        textRow.desc.sizeToFit()
         textRow.alpha = alpha;
         
         activityContainer.addSubview(textRow);
+        textRow.translatesAutoresizingMaskIntoConstraints = false
+        
+        activityContainer.addConstraint(NSLayoutConstraint(item: textRow, attribute: .Top, relatedBy: .Equal, toItem: titleRow, attribute: .Bottom, multiplier: 1.0, constant: 5.0))
+        activityContainer.addConstraint(NSLayoutConstraint(item: textRow, attribute: .Leading, relatedBy: .Equal, toItem: titleRow.name, attribute: .Leading, multiplier: 1.0, constant: -16.0))
+        self.view.addConstraint(NSLayoutConstraint(item: textRow, attribute: .Trailing, relatedBy: .Equal, toItem: self.view, attribute: .Trailing, multiplier: 1.0, constant: -8.0))
+        textRow.setNeedsUpdateConstraints()
+        
         currentOrigin += textRow.frame.size.height + buttonMargin;
         descriptionRows.append(textRow);
         rows.append(textRow);
@@ -466,7 +426,6 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
                 currentOrigin += titleBottomMargin;
             }
         }
-        resizeActivityRows(self.interfaceOrientation.rawValue == UIInterfaceOrientation.Portrait.rawValue);
     }
 
     func initActivityRow(title: String, points: Int, totalPoints: Int, color: UIColor, alpha: CGFloat) -> DailySummaryRow {
@@ -563,114 +522,59 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         let scrollY = scrollView.contentOffset.y;
         if (scrollY >= 0) {
             headerBackground.frame.origin.y = scrollY * -0.5;
-            updateNavbar(scrollY);
         } else {
             headerBackground.frame.origin.y = 0;
             headerView.frame.origin.y = 0;
         }
     }
     
-    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
-        super.didRotateFromInterfaceOrientation(fromInterfaceOrientation);
-        viewWillLayoutSubviews();
-    }
-    
-    func updateNavbar(scrollY: CGFloat) {
-        if (!isLeaving) {
-            if (scrollY >= 0) {
-                let alpha = min(scrollY / 75, 1);
-                fakeNavBar.backgroundColor = UIColor(red: 255, green: 255, blue: 255, alpha: alpha);
-                self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0 - alpha, alpha: 1.0)];
-                if (alpha < 0.5) {
-                    self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
-                    backButton.setBackgroundImage(UIImage(named: "btn_back_white.png"), forState: UIControlState.Normal);
-                } else {
-                    self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
-                    backButton.setBackgroundImage(UIImage(named: "btn_back_black.png"), forState: UIControlState.Normal);
-                }
-            } else {
-                fakeNavBar.backgroundColor = UIColor.whiteColor();
-                self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(white: 1.0, alpha: 1)];
-                self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
-            }
-        }
-    }
-    
-    override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
-        scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false);
-        updateNavbar(0);
-        resizeActivityRows(toInterfaceOrientation == UIInterfaceOrientation.Portrait);
-    }
-    
-    func resizeActivityRows(forPortrait: Bool) {
-        if descriptionRows.count > 0 {
-            var rowWidth:CGFloat = max(UIScreen.mainScreen().bounds.size.height, UIScreen.mainScreen().bounds.size.width) - 10;
-            if forPortrait {
-                rowWidth = min(UIScreen.mainScreen().bounds.size.height, UIScreen.mainScreen().bounds.size.width) - 10;
-            }
-            rowWidth -= descriptionRows[0].frame.origin.x;
-            for row in descriptionRows {
-                row.frame.size.width = rowWidth;
-                row.frame.size.height = Utility.heightForTextView(rowWidth - 20, text: row.desc.text!, fontSize: row.desc.font.pointSize, margin: 0);
-            }
-        }
-
-        var i = 0;
-        var originY:CGFloat = 0;
-        for row in rows {
-            row.frame.origin.y = originY;
-            originY += row.frame.size.height + margins[i];
-            i++;
-        }
-        if rows.count > 0 && margins.count > 0 {
-            let row = rows.last!;
-            currentOrigin = row.frame.origin.y + row.frame.size.height + margins.last! + 8;
-        } else {
-            currentOrigin = originY;
-        }
-    }
+    // MARK: -
     
     func higiCallToActionClicked(sender: AnyObject!) {
-        pushFindStationView();
+        navigateToFindStationView();
     }
     
     func activityTrackerCallToActionClicked(sender: AnyObject!) {
-        pushConnectDeviceView();
+        navigateToConnectDeviceView();
     }
     
     func foursquareCallToActionClicked(sender: AnyObject!) {
-        pushConnectDeviceView();
+        navigateToConnectDeviceView();
     }
     
     func morningCallToActionClicked(sender: AnyObject!) {
-        pushFindStationView();
+        navigateToFindStationView();
     }
     
     func afternoonCallToActionClicked(sender: AnyObject!) {
-        pushFindStationView();
+        navigateToFindStationView();
     }
     
-    func pushConnectDeviceView() {
+    func navigateToConnectDeviceView() {
         Flurry.logEvent("ConnectDevice_Pressed");
-        self.navigationController!.pushViewController(ConnectDeviceViewController(nibName: "ConnectDeviceView", bundle: nil), animated: true);
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            self.dismissViewControllerAnimated(true, completion: {
+                dispatch_async(dispatch_get_main_queue(), {
+                    ConnectDeviceViewController.navigateToConnectDevice()
+                })
+            })
+        })
     }
     
-    func pushFindStationView() {
+    func navigateToFindStationView() {
         Flurry.logEvent("FindStation_Pressed");
-        self.navigationController!.pushViewController(FindStationViewController(nibName: "FindStationView", bundle: nil), animated: true);
-    }
-    
-    func goBack(sender: AnyObject!) {
-        isLeaving = true;
-        self.navigationController!.popViewControllerAnimated(true);
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews();
-        activityView.frame.size.width = scrollView.frame.size.width;
-        for row in titleRows {
-            row.frame.size.width = scrollView.frame.size.width - row.frame.origin.x;
-        }
+        
+        guard let mainTabBarController = Utility.mainTabBarController() else { return }
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            self.dismissViewControllerAnimated(true, completion: {
+                dispatch_async(dispatch_get_main_queue(), {
+                    mainTabBarController.presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
+                    mainTabBarController.selectedIndex = TabBarController.ViewControllerIndex.FindStation.rawValue
+                })
+            })
+        })
     }
 }
 
@@ -707,13 +611,24 @@ extension DailySummaryViewController: UniversalLinkHandler {
         if !loadedActivities || !loadedCheckins {
             return
         }
+        guard let mainTabBarController = Utility.mainTabBarController() else { return }
         
+        InterfaceOrientation.force(.Portrait)
+        
+        let dailySummaryViewController = DailySummaryViewController(nibName: "DailySummaryView", bundle: nil)
+        dailySummaryViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: dailySummaryViewController, action: Selector("didTapDoneButton:"))
+        let dailySummaryNav = UINavigationController(rootViewController: dailySummaryViewController)
         dispatch_async(dispatch_get_main_queue(), {
-            Utility.mainNavigationController()?.revealController.setFrontViewPosition(.Left, animated: false)
-            
             presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
-            Utility.mainNavigationController()?.drawerController.navController?.popToRootViewControllerAnimated(true)
-            Utility.mainNavigationController()?.drawerController.navController?.pushViewController(DailySummaryViewController(nibName: "DailySummaryView", bundle: nil), animated: false)
+            mainTabBarController.presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
+            mainTabBarController.presentViewController(dailySummaryNav, animated: true, completion: nil)
         })
+    }
+}
+
+extension DailySummaryViewController {
+    
+    func didTapDoneButton(sender: UIBarButtonItem) {
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
 }

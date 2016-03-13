@@ -8,13 +8,24 @@
 
 import Foundation
 
+/// This class contains all 
 final class Theme {
     
     /// Represents colors as specified in [style guide](http://consistify.higi.com/#/colors).
     struct Color {
         static let primary = Primary.green
     }
+    
+    /// Contains common themed stylings which can be applied to UI elements. Leverages `UIAppearance` to apply global styling.
+    struct Appearance {
+        static func applyGlobalStylings() {
+            NavigationBar.style()
+            TabBar.style()
+        }
+    }
 }
+
+// MARK: - Color
 
 extension Theme.Color {
     
@@ -235,22 +246,59 @@ extension Theme.Color {
     }
 }
 
-// MARK: - Protocols
+// MARK: - Appearance
 
-// MARK: Navigation Bar
-
-protocol ThemeNavBar {
+extension Theme.Appearance {
     
-    func configureNavBar(navBar: UINavigationBar)
+    struct NavigationBar {
+        
+        static let barTintColor = Theme.Color.primary
+        static let tintColor = Theme.Color.Primary.white
+        static let unselectedTintColor = Theme.Color.Primary.whiteGray
+        
+        static func style() {
+            let navigationBar = UINavigationBar.appearance()
+            navigationBar.translucent = false
+            
+            navigationBar.barTintColor = barTintColor
+            navigationBar.barStyle = .Black
+            
+            navigationBar.tintColor = tintColor
+            navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : tintColor]
+            
+            let barButtonItem: UIBarButtonItem!
+            if #available(iOS 9.0, *) {
+                barButtonItem = UIBarButtonItem.appearanceWhenContainedInInstancesOfClasses([UINavigationBar.self])
+            } else {
+                barButtonItem = UIBarButtonItem.higi_appearanceWhenContainedIn(UINavigationBar.self)
+            }
+            barButtonItem.tintColor = navigationBar.tintColor
+            barButtonItem.setTitleTextAttributes(navigationBar.titleTextAttributes, forState: .Normal)
+            barButtonItem.setTitleTextAttributes([NSForegroundColorAttributeName : unselectedTintColor], forState: .Disabled)
+        }
+    }
 }
 
-extension ThemeNavBar {
+extension Theme.Appearance {
     
-    func configureNavBar(navBar: UINavigationBar) {
-        navBar.translucent = false
-        navBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
-        navBar.tintColor = UIColor.whiteColor()
-        navBar.barTintColor = Theme.Color.primary
-        navBar.barStyle = .Black
+    struct TabBar {
+        
+        static let selectedTintColor = Theme.Color.primary
+        static let unselectedTintColor = Theme.Color.Primary.charcoal
+        
+        static func style() {
+            let tabBar = UITabBar.appearance()
+            
+            // Set color for selected tab bar item
+            tabBar.tintColor = selectedTintColor
+            
+            let tabBarItem = UITabBarItem.appearance()
+            // Set text tint color for unselected tab bar item
+            let unselectedAttributes = [NSForegroundColorAttributeName: unselectedTintColor]
+            tabBarItem.setTitleTextAttributes(unselectedAttributes, forState: .Normal)
+            
+            let selectedAttributes = [NSForegroundColorAttributeName: selectedTintColor]
+            tabBarItem.setTitleTextAttributes(selectedAttributes, forState: .Selected)
+        }
     }
 }

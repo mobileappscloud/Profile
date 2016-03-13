@@ -1,4 +1,3 @@
-
 //
 //  ChangePasswordViewController.swift
 //  higi
@@ -36,16 +35,6 @@ class ChangePasswordViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad();
         self.title = NSLocalizedString("CHANGE_PASSWORD_VIEW_TITLE", comment: "Title for Change Password view.");
-        self.navigationController!.navigationBar.barStyle = .Default;
-        self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.blackColor()];
-        (self.navigationController as! MainNavigationController).revealController.panGestureRecognizer().enabled = false;
-        let backButton = UIButton(type: UIButtonType.Custom);
-        backButton.setBackgroundImage(UIImage(named: "btn_back_black.png"), forState: UIControlState.Normal);
-        backButton.addTarget(self, action: "goBack:", forControlEvents: UIControlEvents.TouchUpInside);
-        backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
-        let backBarItem = UIBarButtonItem(customView: backButton);
-        self.navigationItem.leftBarButtonItem = backBarItem;
-        self.navigationItem.hidesBackButton = true;
     }
     
     @IBAction func attemptChange(sender: AnyObject) {
@@ -54,7 +43,6 @@ class ChangePasswordViewController: UIViewController, UITextFieldDelegate {
         confirmPassword.enabled = false;
         changeButton.enabled = false;
         spinner.hidden = false;
-        self.navigationItem.leftBarButtonItem!.customView!.hidden = true;
         
         var problem = false;
         
@@ -83,10 +71,10 @@ class ChangePasswordViewController: UIViewController, UITextFieldDelegate {
         if (problem) {
             reset();
         } else {
-            var user = SessionData.Instance.user;
-            var encodedEmail = CFURLCreateStringByAddingPercentEscapes(nil, user.email, nil, "!*'();:@&=+$,/?%#[]", CFStringBuiltInEncodings.UTF8.rawValue);
-            var encodedCurrentPassword = CFURLCreateStringByAddingPercentEscapes(nil, currentPassword.text, nil, "!*'();:@&=+$,/?%#[]", CFStringBuiltInEncodings.UTF8.rawValue);
-            var encodedNewPassword = CFURLCreateStringByAddingPercentEscapes(nil, newPassword.text, nil, "!*'();:@&=+$,/?%#[]", CFStringBuiltInEncodings.UTF8.rawValue);
+            let user = SessionData.Instance.user;
+            let encodedEmail = CFURLCreateStringByAddingPercentEscapes(nil, user.email, nil, "!*'();:@&=+$,/?%#[]", CFStringBuiltInEncodings.UTF8.rawValue);
+            let encodedCurrentPassword = CFURLCreateStringByAddingPercentEscapes(nil, currentPassword.text, nil, "!*'();:@&=+$,/?%#[]", CFStringBuiltInEncodings.UTF8.rawValue);
+            let encodedNewPassword = CFURLCreateStringByAddingPercentEscapes(nil, newPassword.text, nil, "!*'();:@&=+$,/?%#[]", CFStringBuiltInEncodings.UTF8.rawValue);
             
             HigiApi().sendGet("\(HigiApi.higiApiUrl)/login/login?email=\(encodedEmail)&password=\(encodedCurrentPassword)&getphoto=false&ttl=157852800", success: {request,responseObject in
                 
@@ -126,10 +114,8 @@ class ChangePasswordViewController: UIViewController, UITextFieldDelegate {
                     dispatch_async(dispatch_get_main_queue(), {
                         self.presentViewController(alertController, animated: true, completion: nil)
                     })
-            });
-            
+            });   
         }
-        
     }
     
     func reset() {
@@ -138,12 +124,6 @@ class ChangePasswordViewController: UIViewController, UITextFieldDelegate {
         confirmPassword.enabled = true;
         changeButton.enabled = true;
         spinner.hidden = true;
-        self.navigationItem.leftBarButtonItem!.customView!.hidden = false;
-        self.navigationItem.hidesBackButton = true;
-    }
-    
-    func goBack(sender: AnyObject!) {
-        self.navigationController!.popViewControllerAnimated(true);
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {

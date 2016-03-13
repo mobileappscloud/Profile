@@ -10,15 +10,21 @@ import Foundation
 import EventKitUI
 import MapKit
 
-class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITableViewDataSource, UITableViewDelegate, EKEventEditViewDelegate, UINavigationControllerDelegate, UITextFieldDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate, ClusterManagerDelegate {
+class FindStationViewController: UIViewController, GMSMapViewDelegate, UITableViewDataSource, UITableViewDelegate, EKEventEditViewDelegate, UITextFieldDelegate, CLLocationManagerDelegate, ClusterManagerDelegate {
     
     @IBOutlet weak var mapContainer: UIView!
     
     @IBOutlet weak var autoCompleteTable: UITableView!
+    @IBOutlet var autoCompleteTableTopLayoutConstraint: NSLayoutConstraint!
+    
     @IBOutlet weak var autoCompleteSpinner: UIActivityIndicatorView!
     @IBOutlet weak var noResults: UIImageView!
     @IBOutlet weak var visibleKiosksTable: UITableView!
+    @IBOutlet var visibleKioskTableTopLayoutConstraint: NSLayoutConstraint!
+    
     @IBOutlet weak var selectedKioskPane: UIView!
+    @IBOutlet var selectedKioskPaneTopLayoutConstraint: NSLayoutConstraint!
+
     @IBOutlet weak var selectedLogo: UIImageView!
     @IBOutlet weak var selectedName: UILabel!
     @IBOutlet weak var selectedAddress: UILabel!
@@ -102,42 +108,42 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     
     var currentAutoCompleteTask = NSOperationQueue(), currentVisibleKioskTask = NSOperationQueue();
     
-    var autoCompleteY, visibleY, selectedY: CGFloat!;
-    
     var clusterManager:GClusterManager = GClusterManager();
     
-    var universalLinkObserver: NSObjectProtocol? = nil    
+    var universalLinkObserver: NSObjectProtocol? = nil
+    
+    /// Height of navigation bar and status bar in portrait orientation
+    private let topBarHeight: CGFloat = 64.0
+    /// Height of tab bar in portrait orientation
+    private let bottomBarHeight: CGFloat = 49.0
+    /// Height of kiosk info header contained within the selectedKioskPane plus vertical spacing
+    private let kioskInfoHeight: CGFloat = 70.0 + 6.0
+    private let selectedPaneHeight: CGFloat = 323.0
+    
+    private var myLocationContainerBottomConstraint: NSLayoutConstraint!
     
     override func viewDidLoad()  {
         super.viewDidLoad();
-        self.fakeNavBar.alpha = 1.0;
-        self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
-        (self.navigationItem.leftBarButtonItem!.customView! as! UIButton).setBackgroundImage(UIImage(named: "nav_ocmicon_inverted"), forState: UIControlState.Normal);
+        
+        
         listButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30));
-        listButton.setBackgroundImage(UIImage(named: "map_listviewicon"), forState: UIControlState.Normal);
+        listButton.setBackgroundImage(UIImage(named: "map_listviewicon")!.imageWithRenderingMode(.AlwaysTemplate), forState: UIControlState.Normal);
         listButton.addTarget(self, action: "toggleList:", forControlEvents: UIControlEvents.TouchUpInside);
         let listBarItem = UIBarButtonItem();
         listBarItem.customView = listButton;
-        self.navigationItem.rightBarButtonItem = listBarItem;
-        self.revealController.panGestureRecognizer().enabled = false;
-        self.shouldShowDailyPoints = false;
+        self.navigationItem.leftBarButtonItem = listBarItem;
         
         searchField = UITextField(frame: CGRect(x: 0, y: 0, width: 95, height: 40));
+        searchField.textColor = Theme.Color.Primary.white
+        searchField.tintColor = Theme.Color.Primary.white
         searchField.font = UIFont.systemFontOfSize(12);
         searchField.placeholder = NSLocalizedString("FIND_STATION_VIEW_SEARCH_FIELD_PLACEHOLDER_TEXT", comment: "Placeholder text for search field on Find Station view.");
         searchField.leftViewMode = UITextFieldViewMode.Always;
-        searchField.leftView = UIImageView(image: UIImage(named: "search_icon"));
+        searchField.leftView = UIImageView(image: UIImage(named: "search_icon")!.imageWithRenderingMode(.AlwaysTemplate));
         searchField.leftView!.frame = CGRect(x: 0, y: 5, width: 30, height: 20);
         searchField.leftView!.contentMode = UIViewContentMode.ScaleAspectFit;
         searchField.clearButtonMode = UITextFieldViewMode.WhileEditing;
         searchField.delegate = self;
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated);
-        (self.navigationController as! MainNavigationController).drawerController?.selectRowAtIndex(3);
-
-        mapContainer.frame = CGRect(x: 64, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height - 64);
         
         searchField.addTarget(self, action: "textFieldChanged", forControlEvents: UIControlEvents.EditingChanged);
         self.navigationItem.titleView = searchField;
@@ -197,10 +203,6 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         autoCompleteTable.tableFooterView = UIView(frame: CGRectZero);
         visibleKiosksTable.tableFooterView = UIView(frame: CGRectZero);
         
-        selectedY = self.view.frame.height - 70;
-        visibleY = self.view.frame.height;
-        autoCompleteY = self.view.frame.height;
-        
         setupMap();
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveApiNotification:", name: ApiUtility.KIOSKS, object: nil);
@@ -220,31 +222,19 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         }
     }
     
-    override func receiveApiNotification(notification: NSNotification) {
+    func receiveApiNotification(notification: NSNotification) {
         populateClusterManager();
         clusterManager.cluster();
         updateKioskPositions();
     }
 
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews();
-        var height = self.view.frame.height;
-        if (visibleY > self.view.frame.height) {
-            selectedY = self.view.frame.height - 70;
-            visibleY = self.view.frame.height;
-            autoCompleteY = self.view.frame.height;
-            mapView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height - 64);
-        }
-        autoCompleteTable.frame.size.height = self.view.frame.size.height - 64;
-        autoCompleteTable.frame.origin.y = autoCompleteY;
-        visibleKiosksTable.frame.size.height = self.view.frame.size.height - 64;
-        visibleKiosksTable.frame.origin.y = visibleY;
-        selectedKioskPane.frame.origin = CGPoint(x: 0, y: selectedY);
-    }
-    
     override func viewDidDisappear(animated: Bool) {
         currentVisibleKioskTask.cancelAllOperations();
         super.viewDidDisappear(animated)
+    }
+    
+    func myLocationContainer() -> UIView {
+        return mapView.subviews.last!
     }
     
     func setupMap() {
@@ -257,9 +247,19 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         mapView.delegate = clusterManager;
         clusterManager.delegate = self;
         
-        let myLocationButton = mapView.subviews.last!;
-        myLocationButton.frame.origin.x = 10;
-        mapContainer.addSubview(mapView);
+        mapContainer.addSubview(mapView, pinToEdges: true)
+
+        myLocationContainer().translatesAutoresizingMaskIntoConstraints = false
+        
+        mapView.addConstraint(NSLayoutConstraint(item: myLocationContainer(), attribute: .Height, relatedBy: .Equal, toItem: .None, attribute: .NotAnAttribute, multiplier: 1.0, constant: 56.0))
+        
+        mapView.addConstraint(NSLayoutConstraint(item: myLocationContainer(), attribute: .Width, relatedBy: .Equal, toItem: mapView, attribute: .Width, multiplier: 1.0, constant: 0.0))
+        
+        mapView.addConstraint(NSLayoutConstraint(item: myLocationContainer(), attribute: .Trailing, relatedBy: .Equal, toItem: mapView, attribute: .Trailing, multiplier: 1.0, constant: 0.0))
+        
+        
+        myLocationContainerBottomConstraint = NSLayoutConstraint(item: myLocationContainer(), attribute: .Bottom, relatedBy: .Equal, toItem: mapView, attribute: .Bottom, multiplier: 1.0, constant: -(49.0 + 5.0))
+        mapView.addConstraint(myLocationContainerBottomConstraint)
     }
     
     func populateClusterManager() {
@@ -320,25 +320,21 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     }
     
     func toggleList(sender: AnyObject!) {
+        
         searchField.resignFirstResponder();
+        
         if (listOpen) {
-            (self.navigationItem.rightBarButtonItem!.customView! as! UIButton).setBackgroundImage(UIImage(named: "map_listviewicon.png"), forState: UIControlState.Normal);
+            (self.navigationItem.leftBarButtonItem!.customView! as! UIButton).setBackgroundImage(UIImage(named: "map_listviewicon.png")!.imageWithRenderingMode(.AlwaysTemplate), forState: UIControlState.Normal);
         } else {
-            (self.navigationItem.rightBarButtonItem!.customView! as! UIButton).setBackgroundImage(UIImage(named: "map_mapviewicon.png"), forState: UIControlState.Normal);
+            (self.navigationItem.leftBarButtonItem!.customView! as! UIButton).setBackgroundImage(UIImage(named: "map_mapviewicon.png")!.imageWithRenderingMode(.AlwaysOriginal), forState: UIControlState.Normal);
         }
-        if (listOpen) {
-            UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveEaseInOut, animations: {
-                
-                self.visibleKiosksTable.frame.origin.y = self.view.frame.size.height;
-                
-                }, completion: nil);
-        } else {
-            UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveEaseInOut, animations: {
-                
-                self.visibleKiosksTable.frame.origin.y = 64;
-                
-                }, completion: nil);
-        }
+        
+        let offset = listOpen ? self.view.frame.height : 0
+        
+        UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveEaseInOut, animations: {
+            self.visibleKioskTableTopLayoutConstraint.constant = offset
+            }, completion: nil);
+        
         listOpen = !listOpen;
     }
     
@@ -466,63 +462,46 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     }
     
     @IBAction func toggleSelectedPane(sender: AnyObject!) {
-        var diff: CGFloat = 0.0;
-        let bottom: CGFloat = self.view.frame.size.height - 70.0;
-        let top: CGFloat = self.view.frame.size.height - 280.0;
-        if (selectedPaneOpen) {
-            diff = selectedKioskPane.frame.origin.y - bottom;
-            self.selectedY = bottom;
-            UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveEaseInOut, animations: {
-                
-                self.selectedKioskPane.frame.origin.y = bottom;
-                
-                }, completion: nil);
-        } else {
-            diff = selectedKioskPane.frame.origin.y - top;
-            self.selectedY = top;
-            UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveEaseInOut, animations: {
-                
-                self.selectedKioskPane.frame.origin.y = top;
-                
-                }, completion: nil);
+        selectedPaneOpen = !selectedPaneOpen
+        updateSelectedPanePosition()
+    }
+    
+    private func updateSelectedPanePosition(adjustMapWithDifference adjustMap: Bool = true) {
+        let offset = selectedPaneOpen ? self.view.frame.height - self.selectedPaneHeight : self.view.frame.height - self.kioskInfoHeight
+        let diff = selectedKioskPaneTopLayoutConstraint.constant - offset
+        
+        UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveEaseInOut, animations: {
+            self.selectedKioskPaneTopLayoutConstraint.constant = offset
+            }, completion: nil)
+        
+        if adjustMap {
+            mapView.animateWithCameraUpdate(GMSCameraUpdate.scrollByX(0.0, y: diff))
         }
-        mapView.animateWithCameraUpdate(GMSCameraUpdate.scrollByX(0.0, y: diff * 0.5));
-        selectedPaneOpen = !selectedPaneOpen;
     }
     
     @IBAction func selectedPaneDragged(sender: UIPanGestureRecognizer) {
-        let bottom: CGFloat = self.view.frame.size.height - 70.0;
-        let top: CGFloat = self.view.frame.size.height - 280.0;
+        let openOffset = self.view.frame.height - self.kioskInfoHeight
+        let closedOffset = self.view.frame.height - self.selectedPaneHeight
+
         if (sender.state == UIGestureRecognizerState.Ended) {
-            if (selectedPaneOpen) {
-                if (selectedKioskPane.frame.origin.y > top + 45) {
-                    toggleSelectedPane(nil);
-                } else  {
-                    selectedPaneOpen = false;
-                    toggleSelectedPane(nil);
-                }
+            if selectedPaneOpen {
+                selectedPaneOpen = selectedKioskPaneTopLayoutConstraint.constant <= self.view.frame.height - selectedPaneHeight + (selectedPaneHeight * 0.3)
             } else {
-                if (selectedKioskPane.frame.origin.y < bottom - 45) {
-                    toggleSelectedPane(nil);
-                } else  {
-                    selectedPaneOpen = true;
-                    toggleSelectedPane(nil);
-                }
+                selectedPaneOpen = selectedKioskPaneTopLayoutConstraint.constant <= self.view.frame.height - kioskInfoHeight - (kioskInfoHeight * 0.3)
             }
+            updateSelectedPanePosition(adjustMapWithDifference: false)
+
         } else if (sender.state != UIGestureRecognizerState.Began) {
-            var translation = sender.translationInView(self.view).y;
-            selectedKioskPane.frame.origin.y += translation;
-            if (selectedKioskPane.frame.origin.y < top) {
-                translation += top - selectedKioskPane.frame.origin.y;
-                selectedKioskPane.frame.origin.y = top;
-                selectedY = top;
-            } else if (selectedKioskPane.frame.origin.y > bottom) {
-                selectedKioskPane.frame.origin.y = bottom;
-                selectedY = bottom;
-                 translation -= selectedKioskPane.frame.origin.y - bottom;
+            let translation = sender.translationInView(self.view).y
+
+            let origin = selectedKioskPaneTopLayoutConstraint.constant + translation
+            
+            if closedOffset...openOffset ~= origin {
+                selectedKioskPaneTopLayoutConstraint.constant = origin
+                mapView.moveCamera(GMSCameraUpdate.scrollByX(0, y: -translation * 0.5))
             }
-            mapView.moveCamera(GMSCameraUpdate.scrollByX(0, y: -translation * 0.5));
         }
+        
         sender.setTranslation(CGPointZero, inView: self.view);
     }
     
@@ -532,26 +511,25 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
                 toggleList(nil);
             }
             listButton.hidden = true;
-            self.autoCompleteY = 64;
+
             UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveEaseInOut, animations: {
                 
-                self.autoCompleteTable.frame.origin.y = 64;
+                self.autoCompleteTableTopLayoutConstraint.constant = 0
                 
                 }, completion: nil);
         } else {
             noResults.hidden = true;
             autoCompleteSpinner.hidden = true;
-            autoCompleteY = self.view.frame.height;
+            
             UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveEaseInOut, animations: {
                 
-                self.autoCompleteTable.frame.origin.y = self.view.frame.height;
+                self.autoCompleteTableTopLayoutConstraint.constant = self.view.frame.height;
                 
                 }, completion: { complete in
                     self.listButton.hidden = false;
             });
         }
         autoCompleteOpen = !autoCompleteOpen;
-        
     }
     
     func setSelectedKiosk(kiosk: KioskInfo) {
@@ -561,8 +539,16 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         
         searchField.resignFirstResponder();
         if (selectedKioskPane.hidden) {
+            let diff = selectedPaneOpen ? self.view.frame.height - self.selectedPaneHeight : self.view.frame.height - self.kioskInfoHeight
+            self.selectedKioskPaneTopLayoutConstraint.constant = diff
             selectedKioskPane.hidden = false;
-            mapView.subviews.last!.frame.origin.y -= 70;
+
+            let buttonOffset = -(kioskInfoHeight)
+            if myLocationContainerBottomConstraint.constant != buttonOffset {
+                myLocationContainerBottomConstraint.constant = buttonOffset
+                mapView.setNeedsLayout()
+            }
+            
             if (!SessionData.Instance.seenReminder && reminderMode) {
                 topHelp.hidden = true;
                 bottomHelp.hidden = false;
@@ -612,7 +598,6 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     
     @IBAction func startReminder(sender: AnyObject) {
         reminderOverlay.hidden = true;
-        self.fakeNavBar.alpha = 1;
         self.navigationController!.navigationBarHidden = false;
         populateClusterManager();
     }
@@ -672,7 +657,6 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
     
     func textFieldShouldClear(textField: UITextField) -> Bool {
         autoCompleteResults = [];
-        autoCompleteY = self.view.frame.height;
         autoCompleteTable.reloadData();
         toggleAutoCompleteTable();
         textField.resignFirstResponder();
@@ -698,10 +682,6 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
         return true;
     }
     
-    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return gestureRecognizer != self.revealController.panGestureRecognizer() && otherGestureRecognizer != self.revealController.panGestureRecognizer();
-    }
-    
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         // Handled by observeValueForKeyPath for 7.1 compatibility
     }
@@ -712,12 +692,6 @@ class FindStationViewController: BaseViewController, GMSMapViewDelegate, UITable
                         mapView.camera = GMSCameraPosition.cameraWithTarget(mapView.myLocation.coordinate, zoom: 11);
             updateKioskPositions();
         }
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated);
-        mapView.removeObserver(self, forKeyPath: "myLocation");
-        firstLocation = false;
     }
     
     deinit {
@@ -734,23 +708,26 @@ extension FindStationViewController: UniversalLinkHandler {
             let loadingViewController = self.presentLoadingViewController()
             
             self.universalLinkObserver = NSNotificationCenter.defaultCenter().addObserverForName(ApiUtility.KIOSKS, object: nil, queue: nil, usingBlock: { (notification) in
-                self.pushStationLocator(loadingViewController)
+                self.navigateToStationLocator(loadingViewController)
                 if let observer = self.universalLinkObserver {
                     NSNotificationCenter.defaultCenter().removeObserver(observer)
                 }
             })
         } else {
-            self.pushStationLocator(nil)
+            self.navigateToStationLocator(nil)
         }
     }
     
-    private func pushStationLocator(presentedViewController: UIViewController?) {
+    private func navigateToStationLocator(presentedViewController: UIViewController?) {
+        guard let mainTabBarController = Utility.mainTabBarController() else { return }
+        
         dispatch_async(dispatch_get_main_queue(), {
-            Utility.mainNavigationController()?.revealController.setFrontViewPosition(.Left, animated: false)
+            InterfaceOrientation.force(.Portrait)
             
             presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
-            Utility.mainNavigationController()?.drawerController.navController?.popToRootViewControllerAnimated(true)
-            Utility.mainNavigationController()?.drawerController.navController?.pushViewController(FindStationViewController(nibName: "FindStationView", bundle: nil), animated: false)
+            
+            mainTabBarController.presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
+            mainTabBarController.selectedIndex = TabBarController.ViewControllerIndex.FindStation.rawValue
         })
     }
 }

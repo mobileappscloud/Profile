@@ -18,7 +18,7 @@ enum PathType: String {
     case ChallengeDetailSubPath = "/challenge/view/id/%@/*]"
     case ConnectDevice = "/settings/apps"
     case DailySummary = "/profile/checkin/%@"
-    case PulseArticle = "/pulse/%@"
+    case PulseArticle = "/pulse/*]"
     case PulseHome = "/pulse"
     case Metrics = "/stats"
     case MetricsBloodPressure = "/stats/blood_pressure"
@@ -60,7 +60,7 @@ enum PathType: String {
         case .MetricsWeight:
             fallthrough
         case .Metrics:
-            handler = MetricsViewController()
+            handler = NewMetricsViewController()
             
         case .ActivityList:
             fallthrough
@@ -199,11 +199,11 @@ extension UniversalLinkHandler {
     - returns: The loading view controller which has been presented.
     */
     func presentLoadingViewController() -> UIViewController {
-        let navController = Utility.mainNavigationController()?.drawerController.navController
+        let tabBarController = Utility.mainTabBarController()!
         let loadingViewController = UIStoryboard(name: "Loading", bundle: nil).instantiateInitialViewController()!
         dispatch_async(dispatch_get_main_queue(), {
-            navController?.popToRootViewControllerAnimated(true)
-            navController?.presentViewController(loadingViewController, animated: false, completion: nil)
+            tabBarController.navigationController?.popToRootViewControllerAnimated(false)
+            tabBarController.presentViewController(loadingViewController, animated: true, completion: nil)
         })
         return loadingViewController
     }

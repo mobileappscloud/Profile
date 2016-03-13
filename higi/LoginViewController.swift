@@ -30,27 +30,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad();
         self.title = "Log In";
-        self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
         
-        spinner = CustomLoadingSpinner(frame: CGRectMake(UIScreen.mainScreen().bounds.size.width / 2 - 16, UIScreen.mainScreen().bounds.size.height - 100, 32, 32));
+        spinner = CustomLoadingSpinner(frame: CGRectMake(UIScreen.mainScreen().bounds.size.width / 2 - 16, UIScreen.mainScreen().bounds.size.height - 150 - self.topLayoutGuide.length, 32, 32))
         spinner.shouldAnimateFull = false;
         spinner.hidden = true;
         self.view.addSubview(spinner);
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews();
-        if (!setup) {
-            self.navigationController!.navigationBar.hidden = false;
-            let backButton = UIButton(type: UIButtonType.Custom);
-            backButton.setBackgroundImage(UIImage(named: "btn_back_black.png"), forState: UIControlState.Normal);
-            backButton.addTarget(self, action: "goBack:", forControlEvents: UIControlEvents.TouchUpInside);
-            backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
-            let backBarItem = UIBarButtonItem(customView: backButton);
-            self.navigationItem.leftBarButtonItem = backBarItem;
-            self.navigationItem.hidesBackButton = true;
-        
-        }
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -69,7 +53,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         email.enabled = false;
         password.enabled = false;
         forgotPassword.enabled = false;
-        self.navigationItem.leftBarButtonItem!.customView!.hidden = true;
         let emailPlaceholder = NSLocalizedString("LOGIN_VIEW_EMAIL_TEXTFIELD_PLACEHOLDER", comment: "Placeholder for email text field on login view.")
         email.attributedPlaceholder = NSAttributedString(string: emailPlaceholder, attributes: [NSForegroundColorAttributeName: UIColor.lightGrayColor()]);
         let passwordPlaceholder = NSLocalizedString("LOGIN_VIEW_PASSWORD_TEXTFIELD_PLACEHOLDER", comment: "Placeholder for password text field on login view.")
@@ -133,8 +116,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                                 })
                             }
                             
-                            self.gotoDashboard()
-                            NSNotificationCenter.defaultCenter().postNotificationName("SplashViewControllerDidGoToDashboard", object: nil)
+                            dispatch_async(dispatch_get_main_queue(), {
+                                self.spinner.stopAnimating();
+                                self.dismissViewControllerAnimated(true, completion: nil)
+                            })
                         }
                         
                         }, failure: self.termsAndPrivacyFailure)
@@ -205,18 +190,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         email.enabled = true;
         password.enabled = true;
         forgotPassword.enabled = true;
-        self.navigationItem.leftBarButtonItem!.customView!.hidden = false;
-    }
-    
-    func gotoDashboard() {
-        ApiUtility.initializeApiData()
-        
-        (UIApplication.sharedApplication().delegate as! AppDelegate).startLocationManager();
-        
-        dispatch_async(dispatch_get_main_queue(), {
-            self.spinner.stopAnimating();
-            Utility.gotoDashboard();
-        })
     }
     
     @IBAction func forgotPasswordClicked(sender: AnyObject) {
@@ -228,17 +201,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         } else {
             let webController = WebViewController(nibName: "WebView", bundle: nil);
             webController.url = URLString
-            self.navigationController!.pushViewController(webController, animated: true);
+            self.navigationController?.pushViewController(webController, animated: true);
         }
-    }
-    
-    func goBack(sender: AnyObject!) {
-        self.navigationController!.popViewControllerAnimated(true);
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder();
         return true;
     }
-       
 }

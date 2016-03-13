@@ -175,10 +175,18 @@ extension NewActivityMetricDelegate: MetricDetailDisplayDelegate {
         
         updateDetailPreview(viewController.headerView)
         
-        viewController.configureMeter(activityTuple)
-        
         var activities = activityTuple.activities
         activities.sortInPlace(SummaryViewUtility.sortByPoints)
+        
+        viewController.configureMeter(activityTuple)
+        viewController.configureGraphicContainerTapGesture({
+            let dailySummary = DailySummaryViewController(nibName: "DailySummaryView", bundle: nil)
+            let date = activities.first?.startTime ?? NSDate()
+            dailySummary.dateString = Constants.dateFormatter.stringFromDate(date)
+            dispatch_async(dispatch_get_main_queue(), {
+                viewController.navigationController?.pushViewController(dailySummary, animated: true)
+            })
+        })
         
         var activityKeys: [String] = [];
         var activitiesByType:[String: (Int, [HigiActivity])] = [:]

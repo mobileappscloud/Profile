@@ -50,22 +50,6 @@ class PulseMetricDelegate: MetricDelegate {
             }
         }
     }
-    
-    func getSelectedPoint() -> SelectedPoint? {
-        if (selectedCheckin == nil) {
-            return nil;
-        } else {
-            let date = Constants.dateFormatter.stringFromDate(selectedCheckin.dateTime);
-            let pulse = selectedCheckin.pulseBpm != nil ? "\(Int(selectedCheckin.pulseBpm!))" : "";
-            var device = "";
-            if let kioskInfo = selectedCheckin.kioskInfo {
-                return SelectedPoint(date: date, panelValue: pulse, panelLabel: NSLocalizedString("PULSE_METRIC_SELECTED_POINT_PANEL_BEATS_PER_MINUTE_LABEL", comment: "Label for beats per minute panel."), panelUnit: NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_BEATS_PER_MINUTE", comment: "General purpose abbreviated label for beats per minute."), kioskInfo: kioskInfo);
-            } else if let vendorId = selectedCheckin.sourceVendorId {
-                device = "\(vendorId)";
-            }
-            return SelectedPoint(date: date, panelValue: pulse, panelLabel: NSLocalizedString("PULSE_METRIC_SELECTED_POINT_PANEL_BEATS_PER_MINUTE_LABEL", comment: "Label for beats per minute panel."), panelUnit: NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_BEATS_PER_MINUTE", comment: "General purpose abbreviated label for beats per minute."), device: device);
-        }
-    }
 
     func getRanges(tab:Int) -> [MetricGauge.Range] {
         var ranges:[MetricGauge.Range] = [];

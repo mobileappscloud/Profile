@@ -28,6 +28,3 @@
 [submodule "Vendor/MWFeedParser"]
 	path = Vendor/MWFeedParser
 	url = https://github.com/mwaterfall/MWFeedParser.git
-[submodule "Vendor/SWRevealViewController"]
-	path = Vendor/SWRevealViewController
-	url = https://github.com/John-Lluch/SWRevealViewController.git

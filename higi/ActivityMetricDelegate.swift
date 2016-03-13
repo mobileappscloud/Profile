@@ -61,17 +61,6 @@ class ActivityMetricDelegate: MetricDelegate {
         }
     }
     
-    func getSelectedPoint() -> SelectedPoint? {
-        if (selectedActivity == nil) {
-            return nil;
-        } else {
-            let (date, points) = selectedActivity;
-            let panelLabel = NSLocalizedString("ACTIVITY_METRICS_VIEW_SELECTED_POINT_PANEL_LABEL", comment: "Label for selected point panel on Activity Metric view.");
-            let panelUnit = NSLocalizedString("ACTIVITY_METRICS_VIEW_SELECTED_POINT_PANEL_UNIT_LABEL", comment: "Label for unit of selected point panel on Activity Metric view.");
-            return SelectedPoint(date: date, panelValue: points, panelLabel: panelLabel, panelUnit: panelUnit, device: "");
-        }
-    }
-    
     func getRanges(tab:Int) -> [MetricGauge.Range] {
         return [];
     }

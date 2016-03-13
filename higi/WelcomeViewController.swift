@@ -44,7 +44,7 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad();
-        self.navigationController!.navigationBar.barStyle = UIBarStyle.BlackTranslucent;
+        
         self.automaticallyAdjustsScrollViewInsets = false;
         
         pageTitle.text = "";
@@ -126,8 +126,7 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews();
-        self.navigationController!.navigationBar.hidden = true;
-        self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
+        self.navigationController?.navigationBar.hidden = true;
         buttonSeparator.frame.origin.y = signupButton.frame.origin.y - 1;
     }
     
@@ -141,10 +140,18 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
-        self.navigationController!.navigationBar.hidden = true;
-        self.navigationController!.navigationBar.barStyle = UIBarStyle.Default;
+        self.navigationController?.navigationBar.hidden = true;
+        
+        // Ugly workaround to dismiss 'Welcome/Tour' view hierarchy after signup/login is successfully dismissed.
+        if SessionData.Instance.token != nil && SessionData.Instance.token != "" {
+            // This view is added before dismissal so that it appears as though the user is being redirected immediately to the loading view
+            let loadingViewController = UIStoryboard(name: "Loading", bundle: nil).instantiateInitialViewController()!
+            self.view.addSubview(loadingViewController.view, pinToEdges: true)
+            
+            self.dismissViewControllerAnimated(false, completion: nil)
+        }
     }
-
+    
     func swipeLeft(sender: AnyObject) {
         if (pageControl.currentPage < 4) {
             pageControl.currentPage = pageControl.currentPage + 1;
@@ -251,12 +258,25 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
     
     @IBAction func gotoLogin(sender: AnyObject) {
         Flurry.logEvent("Login_Pressed");
-        self.navigationController!.pushViewController(LoginViewController(nibName: "LoginView", bundle: nil), animated: true);
+        let loginViewController = LoginViewController(nibName: "LoginView", bundle: nil)
+        loginViewController.navigationItem.rightBarButtonItem = modalCancelButton()
+        let loginNav = UINavigationController(rootViewController: loginViewController)
+        self.navigationController?.presentViewController(loginNav, animated: true, completion: nil)
     }
     
     @IBAction func gotoSignup(sender: AnyObject) {
         Flurry.logEvent("Signup_Pressed");
-        self.navigationController!.pushViewController(SignupEmailViewController(nibName: "SignupEmailView", bundle: nil), animated: true);
+        let signupViewController = SignupEmailViewController(nibName: "SignupEmailView", bundle: nil)
+        signupViewController.navigationItem.rightBarButtonItem = modalCancelButton()
+        let signUpNav = UINavigationController(rootViewController: signupViewController)
+        self.navigationController?.presentViewController(signUpNav, animated: true, completion: nil)
+    }
+
+    private func modalCancelButton() -> UIBarButtonItem {
+        return UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: Selector("dismissPresentedViewController:"))
     }
     
+    func dismissPresentedViewController(sender: UIBarButtonItem) {
+        self.presentedViewController?.dismissViewControllerAnimated(true, completion: nil)
+    }
 }
