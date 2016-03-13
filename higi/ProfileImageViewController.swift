@@ -95,11 +95,13 @@ class ProfileImageViewController: UIViewController, UIImagePickerControllerDeleg
             picker.dismissViewControllerAnimated(true, completion: nil);
             
             let image = (info[UIImagePickerControllerOriginalImage] as! UIImage).fixOrientation();
+            
             let modifyViewController = ModifyImageViewController(nibName: "ModifyImageView", bundle: nil);
             modifyViewController.profileImage = image;
             modifyViewController.fromSettings = self.fromSettings;
+            let modifyNav = UINavigationController(rootViewController: modifyViewController)
             
-            self.navigationController?.pushViewController(modifyViewController, animated: true);
+            self.navigationController?.presentViewController(modifyNav, animated: true, completion: nil)
         })
     }
 }

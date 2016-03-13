@@ -27,8 +27,7 @@ class ModifyImageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad();
         
-        self.navigationController!.interactivePopGestureRecognizer!.enabled = false;
-        self.navigationController!.interactivePopGestureRecognizer!.delegate = nil;
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: Selector("cancel:"))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: Selector("done:"))
         
         profileImageView.image = profileImage;
@@ -57,8 +56,15 @@ class ModifyImageViewController: UIViewController {
         bottomMask.frame.origin.y = circleMask.frame.origin.y + circleMask.frame.size.height;
     }
     
+    func cancel(sender: AnyObject!) {
+        dispatch_async(dispatch_get_main_queue(), {
+            self.dismissViewControllerAnimated(true, completion: nil)
+        })
+    }
+    
     func done(sender: AnyObject!) {
         dispatch_async(dispatch_get_main_queue(), { [weak self] in
+            self?.navigationItem.leftBarButtonItem?.enabled = false
             self?.navigationItem.rightBarButtonItem?.enabled = false
             self?.spinner.hidden = false;
         })
@@ -108,14 +114,16 @@ class ModifyImageViewController: UIViewController {
             }
             user.profileImage = UIImage(data: NSData(contentsOfURL: NSURL(string: "\(HigiApi.higiApiUrl)/view/\(user.userId)/profile,400.png?t=\(user.photoTime)")!)!);
             
-            if (self.fromSettings) {
-                if let settingsViewController = self.presentingViewController as? SettingsViewController {
-                    settingsViewController.pictureChanged = true
-                }
+            if self.fromSettings {
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                })
+            } else {
+                dispatch_async(dispatch_get_main_queue(), {
+                    // TODO: ...yep this happened :-(
+                    self.presentingViewController?.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+                })
             }
-            dispatch_async(dispatch_get_main_queue(), {
-                self.dismissViewControllerAnimated(true, completion: nil)
-            })
             
             }, failure: {operation, error in
                 self.showErrorAlert();
@@ -160,6 +168,7 @@ class ModifyImageViewController: UIViewController {
             self?.navigationItem.hidesBackButton = true
             self?.spinner.hidden = true;
             self?.spinner.stopAnimating();
+            self?.navigationItem.leftBarButtonItem?.enabled = true
             self?.navigationItem.rightBarButtonItem?.enabled = true
         })
     }
