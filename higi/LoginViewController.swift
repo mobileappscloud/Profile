@@ -40,6 +40,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated);
         setup = true;
+        self.email.becomeFirstResponder()
     }
     
     override func didReceiveMemoryWarning() {
