@@ -43,6 +43,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         self.email.becomeFirstResponder()
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        email.resignFirstResponder()
+        password.resignFirstResponder()
+        
+        super.viewWillDisappear(animated)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning();
     }

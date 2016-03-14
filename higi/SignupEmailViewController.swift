@@ -58,6 +58,13 @@ class SignupEmailViewController: UIViewController, UITextFieldDelegate {
         setup = true;
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        email.resignFirstResponder()
+        password.resignFirstResponder()
+        
+        super.viewWillDisappear(animated)
+    }
+    
     @IBAction func attemptSignup(sender: AnyObject) {
         self.navigationItem.hidesBackButton = true;
         email.enabled = false;
