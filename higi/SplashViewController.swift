@@ -15,6 +15,8 @@ class SplashViewController: UIViewController {
     
     // MARK: - View Lifecycle
     
+    var sessionRetryCount = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         spinnerContainer.addSubview(spinner)
@@ -65,8 +67,28 @@ class SplashViewController: UIViewController {
                 ApiUtility.checkTermsAndPrivacy(self, success: self.successfullyCheckTermsAndPrivacy, failure: self.errorToWelcome);
             });
             
-            }, failure: {operation, error in
-                self.errorToWelcome();
+            }, failure: { [weak self] operation, error in
+                
+                if error.domain == NSURLErrorDomain && (error.code == NSURLErrorNotConnectedToInternet || error.code == NSURLErrorTimedOut) {
+                    
+                    if self?.sessionRetryCount < 2 {
+                        self?.sessionRetryCount += 1
+                        self?.fetchSessionUser()
+                    } else {
+                        let alert = UIAlertController(title: "Connectivity Issue", message: error.localizedDescription, preferredStyle: .Alert)
+                        let retryAction = UIAlertAction(title: "Retry", style: .Default, handler: { [weak self] (action) in
+                            self?.fetchSessionUser()
+                            })
+                        alert.addAction(retryAction)
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self?.presentViewController(alert, animated: true, completion: nil)
+                        });
+                    }
+                    
+                } else {
+                    self?.errorToWelcome()
+                }
+
         });
     }
     
