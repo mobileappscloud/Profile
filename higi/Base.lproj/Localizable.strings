@@ -838,6 +838,9 @@
 /* Title for alert displayed if a user attempts to create a duplicate account. */
 "SIGN_UP_EMAIL_VIEW_SIGN_UP_DUPLICATE_ACCOUNT_ALERT_TITLE" = "I knew you looked familiar...";
 
+/* Title for Sign Up Email view when displaying terms of service. */
+"SIGN_UP_EMAIL_VIEW_TERMS_TITLE" = "Terms";
+
 /* Title for Sign Up Email view. */
 "SIGN_UP_EMAIL_VIEW_TITLE" = "Sign Up";
 

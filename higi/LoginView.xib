@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController" customModule="higi" customModuleProvider="target">
@@ -19,16 +19,16 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="g1D-rk-Ivp">
-                    <rect key="frame" x="20" y="115" width="280" height="30"/>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="g1D-rk-Ivp">
+                    <rect key="frame" x="20" y="20" width="280" height="30"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                     <connections>
                         <outlet property="delegate" destination="-1" id="eXk-vX-YJ6"/>
                     </connections>
                 </textField>
-                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fz3-hi-fFe">
-                    <rect key="frame" x="64" y="518" width="192" height="30"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fz3-hi-fFe">
+                    <rect key="frame" x="64" y="520" width="192" height="28"/>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <state key="normal" title="Forgot Password?">
                         <color key="titleColor" red="0.18363644130000001" green="0.18363644130000001" blue="0.18363644130000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -38,8 +38,8 @@
                         <action selector="forgotPasswordClicked:" destination="-1" eventType="touchUpInside" id="78p-aD-JIQ"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GzP-45-J6f">
-                    <rect key="frame" x="20" y="235" width="280" height="40"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GzP-45-J6f">
+                    <rect key="frame" x="20" y="120" width="280" height="34"/>
                     <color key="backgroundColor" red="0.46274509800000002" green="0.75294117650000003" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                     <state key="normal" title="Log In">
@@ -55,8 +55,8 @@
                         <action selector="loginClicked:" destination="-1" eventType="touchUpInside" id="HpA-dj-RZi"/>
                     </connections>
                 </button>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="g0N-P7-gef">
-                    <rect key="frame" x="20" y="175" width="280" height="30"/>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="g0N-P7-gef">
+                    <rect key="frame" x="20" y="70" width="280" height="30"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                     <connections>
@@ -66,12 +66,15 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="g0N-P7-gef" firstAttribute="top" secondItem="g1D-rk-Ivp" secondAttribute="bottom" constant="20" id="3FQ-K2-NBu"/>
                 <constraint firstItem="g0N-P7-gef" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="5Kl-Vi-OKt"/>
                 <constraint firstAttribute="trailing" secondItem="Fz3-hi-fFe" secondAttribute="trailing" constant="64" id="Ad3-2P-YCE"/>
                 <constraint firstItem="Fz3-hi-fFe" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="64" id="Eqi-Lk-WLU"/>
+                <constraint firstItem="GzP-45-J6f" firstAttribute="top" secondItem="g0N-P7-gef" secondAttribute="bottom" constant="20" id="FPz-91-9MI"/>
                 <constraint firstAttribute="trailing" secondItem="g1D-rk-Ivp" secondAttribute="trailing" constant="20" id="Rd7-Kx-ybe"/>
                 <constraint firstItem="GzP-45-J6f" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="Uaw-Ee-SKZ"/>
                 <constraint firstAttribute="trailing" secondItem="g0N-P7-gef" secondAttribute="trailing" constant="20" id="VhM-QD-1Nf"/>
+                <constraint firstItem="g1D-rk-Ivp" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="aU9-re-dZj"/>
                 <constraint firstItem="g1D-rk-Ivp" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="cdj-I7-2mL"/>
                 <constraint firstAttribute="trailing" secondItem="GzP-45-J6f" secondAttribute="trailing" constant="20" id="dbT-ii-WJO"/>
                 <constraint firstAttribute="bottom" secondItem="Fz3-hi-fFe" secondAttribute="bottom" constant="20" id="qEr-3U-FVV"/>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10112" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10083"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SignupEmailViewController" customModule="higi" customModuleProvider="target">
@@ -22,24 +22,24 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pgQ-S1-jaI">
-                    <rect key="frame" x="20" y="115" width="280" height="30"/>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pgQ-S1-jaI">
+                    <rect key="frame" x="20" y="20" width="280" height="30"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="next"/>
                     <connections>
                         <outlet property="delegate" destination="-1" id="CJJ-wp-8Ld"/>
                     </connections>
                 </textField>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hbG-n5-a8B">
-                    <rect key="frame" x="20" y="175" width="280" height="30"/>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hbG-n5-a8B">
+                    <rect key="frame" x="20" y="70" width="280" height="30"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                     <connections>
                         <outlet property="delegate" destination="-1" id="d7m-WJ-icR"/>
                     </connections>
                 </textField>
-                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FIs-q7-bR6">
-                    <rect key="frame" x="20" y="235" width="280" height="40"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FIs-q7-bR6">
+                    <rect key="frame" x="20" y="120" width="280" height="34"/>
                     <color key="backgroundColor" red="0.46274509800000002" green="0.75294117650000003" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                     <state key="normal" title="Sign Up">
@@ -153,12 +153,15 @@
                 <constraint firstItem="nWH-OE-ur0" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="6dM-NN-Hs4"/>
                 <constraint firstAttribute="trailing" secondItem="0dG-Sw-cyC" secondAttribute="trailing" id="GQV-Zm-77V"/>
                 <constraint firstItem="pgQ-S1-jaI" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="GrB-gC-PL0"/>
+                <constraint firstItem="pgQ-S1-jaI" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="KnA-Xn-WOA"/>
                 <constraint firstItem="FIs-q7-bR6" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="QG0-Xd-xOi"/>
                 <constraint firstAttribute="bottom" secondItem="0dG-Sw-cyC" secondAttribute="bottom" id="Xwl-BF-Mkr"/>
                 <constraint firstAttribute="trailing" secondItem="pgQ-S1-jaI" secondAttribute="trailing" constant="20" id="cBi-4T-xby"/>
                 <constraint firstItem="0dG-Sw-cyC" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="dR7-lU-QEg"/>
                 <constraint firstItem="hbG-n5-a8B" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="fpa-Qf-X8A"/>
                 <constraint firstAttribute="trailing" secondItem="hbG-n5-a8B" secondAttribute="trailing" constant="20" id="oC4-T7-1Ci"/>
+                <constraint firstItem="FIs-q7-bR6" firstAttribute="top" secondItem="hbG-n5-a8B" secondAttribute="bottom" constant="20" id="ola-3U-Eho"/>
+                <constraint firstItem="hbG-n5-a8B" firstAttribute="top" secondItem="pgQ-S1-jaI" secondAttribute="bottom" constant="20" id="sO4-7U-BdU"/>
                 <constraint firstAttribute="bottom" secondItem="nWH-OE-ur0" secondAttribute="bottom" constant="50" id="wcF-sL-QAv"/>
                 <constraint firstAttribute="trailing" secondItem="FIs-q7-bR6" secondAttribute="trailing" constant="20" id="xPw-Yy-hrv"/>
             </constraints>

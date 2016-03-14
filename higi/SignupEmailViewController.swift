@@ -89,7 +89,8 @@ class SignupEmailViewController: UIViewController, UITextFieldDelegate {
         }
         
         if (!problemFound) {
-            self.title = "";
+            self.title = NSLocalizedString("SIGN_UP_EMAIL_VIEW_TERMS_TITLE", comment: "Title for Sign Up Email view when displaying terms of service.");
+            self.navigationItem.rightBarButtonItem = nil
             termsView.hidden = false;
         } else {
             reset(true);
@@ -199,7 +200,7 @@ class SignupEmailViewController: UIViewController, UITextFieldDelegate {
         signupButton.enabled = true;
         spinner.hidden = true;
         spinner.stopAnimating();
-        self.title = "Sign Up";
+        self.title = NSLocalizedString("SIGN_UP_EMAIL_VIEW_TITLE", comment: "Title for Sign Up Email view.");
     }
     
     @IBAction func decline(sender: AnyObject) {
