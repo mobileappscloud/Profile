@@ -110,20 +110,17 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                             nameViewController.dashboardNext = true;
                             self.presentViewController(nameViewController, animated: true, completion: nil);
                         } else {
-                            if HealthKitManager.deviceHasMotionProcessor() && HealthKitManager.isHealthDataAvailable() {
-                                HealthKitManager.requestReadAccessToStepData( { (didRespond, error) in
-                                    if didRespond {
-                                        HealthKitManager.checkReadAuthorizationForStepData({ (isAuthorized) in
-                                            if isAuthorized {
-                                                HealthKitManager.enableBackgroundUpdates()
-                                            } else {
-                                                HealthKitManager.disableBackgroundUpdates()
-                                            }
-                                        })
+                            if HealthKitManager.deviceHasMotionProcessor() && HealthKitManager.isHealthDataAvailable() && HealthKitManager.didShowAuthorizationModal() {
+                                
+                                HealthKitManager.checkReadAuthorizationForStepData({ (isAuthorized) in
+                                    if isAuthorized {
+                                        HealthKitManager.enableBackgroundUpdates()
+                                    } else {
+                                        HealthKitManager.disableBackgroundUpdates()
                                     }
                                 })
                             }
-                            
+                        
                             dispatch_async(dispatch_get_main_queue(), {
                                 self.spinner.stopAnimating();
                                 self.dismissViewControllerAnimated(true, completion: nil)
