@@ -237,6 +237,7 @@ extension MetricChildViewController {
     private func navigateToStationFinder() {
         guard let mainTabBarController = Utility.mainTabBarController() else { return }
         dispatch_async(dispatch_get_main_queue(), {
+            InterfaceOrientation.force(.Portrait)
             mainTabBarController.presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
             mainTabBarController.selectedIndex = TabBarController.ViewControllerIndex.FindStation.rawValue
         })
