@@ -222,6 +222,12 @@ class FindStationViewController: UIViewController, GMSMapViewDelegate, UITableVi
         }
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        clusterManager.removeItems()
+    }
+    
     func receiveApiNotification(notification: NSNotification) {
         populateClusterManager();
         clusterManager.cluster();
