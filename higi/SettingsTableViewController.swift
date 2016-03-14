@@ -298,7 +298,7 @@ class SettingsTableViewController: UITableViewController, SwitchTableViewCellDel
     @IBAction func didPressNewProfileImageButton(sender: AnyObject) {
         let profileViewController = ProfileImageViewController(nibName: "ProfileImageView", bundle: nil);
         profileViewController.fromSettings = true;
-        self.navigationController!.pushViewController(profileViewController, animated: true);
+        self.navigationController?.pushViewController(profileViewController, animated: true);
     }
     
     @IBAction func didPressResizeProfileImageButton(sender: AnyObject) {
@@ -306,6 +306,7 @@ class SettingsTableViewController: UITableViewController, SwitchTableViewCellDel
         modifyImageViewController.profileImage = SessionData.Instance.user.fullProfileImage;
         modifyImageViewController.resizing = true;
         modifyImageViewController.fromSettings = true;
+        modifyImageViewController.delegate = self
         let modifyNav = UINavigationController(rootViewController: modifyImageViewController)
         
         self.navigationController?.presentViewController(modifyNav, animated: true, completion: nil)
@@ -415,5 +416,20 @@ class SettingsTableViewController: UITableViewController, SwitchTableViewCellDel
     
     func getShareFilePath() -> String {
         return NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] + "higi_results.csv";
+    }
+}
+
+extension SettingsTableViewController: ModifyImageViewControllerDelegate {
+    
+    func modifyImageViewController(viewController: ModifyImageViewController, didTapDoneWithSuccess: Bool) {
+        if viewController.resizing {
+            self.parentViewController?.dismissViewControllerAnimated(true, completion: nil)
+        } else {
+            
+        }
+    }
+    
+    func modifyImageViewControllerDidTapCancel(viewController: ModifyImageViewController) {
+        viewController.dismissViewControllerAnimated(true, completion: nil)
     }
 }

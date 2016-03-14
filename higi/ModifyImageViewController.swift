@@ -16,6 +16,8 @@ class ModifyImageViewController: UIViewController {
     @IBOutlet weak var bottomMask: UIView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
+    weak var delegate: ModifyImageViewControllerDelegate?
+    
     var profileImage: UIImage!;
     
     var resizing = false, fromSettings = false;
@@ -57,16 +59,16 @@ class ModifyImageViewController: UIViewController {
     }
     
     func cancel(sender: AnyObject!) {
-        dispatch_async(dispatch_get_main_queue(), {
-            self.dismissViewControllerAnimated(true, completion: nil)
+        dispatch_async(dispatch_get_main_queue(), { [unowned self] in
+            self.delegate?.modifyImageViewControllerDidTapCancel(self)
         })
     }
     
     func done(sender: AnyObject!) {
-        dispatch_async(dispatch_get_main_queue(), { [weak self] in
-            self?.navigationItem.leftBarButtonItem?.enabled = false
-            self?.navigationItem.rightBarButtonItem?.enabled = false
-            self?.spinner.hidden = false;
+        dispatch_async(dispatch_get_main_queue(), { [unowned self] in
+            self.navigationItem.leftBarButtonItem?.enabled = false
+            self.navigationItem.rightBarButtonItem?.enabled = false
+            self.spinner.hidden = false;
         })
         
         if (resizing) {
@@ -114,16 +116,9 @@ class ModifyImageViewController: UIViewController {
             }
             user.profileImage = UIImage(data: NSData(contentsOfURL: NSURL(string: "\(HigiApi.higiApiUrl)/view/\(user.userId)/profile,400.png?t=\(user.photoTime)")!)!);
             
-            if self.fromSettings {
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.dismissViewControllerAnimated(true, completion: nil)
-                })
-            } else {
-                dispatch_async(dispatch_get_main_queue(), {
-                    // TODO: ...yep this happened :-(
-                    self.presentingViewController?.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
-                })
-            }
+            dispatch_async(dispatch_get_main_queue(), { [unowned self] in
+                self.delegate?.modifyImageViewController(self, didTapDoneWithSuccess: true)
+            })
             
             }, failure: {operation, error in
                 self.showErrorAlert();
@@ -172,5 +167,11 @@ class ModifyImageViewController: UIViewController {
             self?.navigationItem.rightBarButtonItem?.enabled = true
         })
     }
+}
+
+protocol ModifyImageViewControllerDelegate: class {
+
+    func modifyImageViewController(viewController: ModifyImageViewController, didTapDoneWithSuccess: Bool)
     
+    func modifyImageViewControllerDidTapCancel(viewController: ModifyImageViewController)
 }

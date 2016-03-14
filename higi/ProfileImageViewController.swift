@@ -34,7 +34,7 @@ class ProfileImageViewController: UIViewController, UIImagePickerControllerDeleg
         super.viewDidLoad();
         self.title = NSLocalizedString("PROFILE_IMAGE_VIEW_TITLE", comment: "Title for Profile Image view.");
         
-        self.navigationItem.hidesBackButton = true;
+        self.navigationItem.hidesBackButton = !fromSettings
         
         if (fromSettings) {
             skipButton.hidden = true;
@@ -47,7 +47,6 @@ class ProfileImageViewController: UIViewController, UIImagePickerControllerDeleg
         
         spinner = CustomLoadingSpinner(frame: CGRectMake(UIScreen.mainScreen().bounds.size.width / 2 - 16, UIScreen.mainScreen().bounds.size.height - 150 - self.topLayoutGuide.length, 32, 32))
         spinner.shouldAnimateFull = false;
-        spinner.hidden = true;
         self.view.addSubview(spinner);
     }
     
@@ -89,8 +88,6 @@ class ProfileImageViewController: UIViewController, UIImagePickerControllerDeleg
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         dispatch_async(dispatch_get_main_queue(), {
-            self.spinner.hidden = false;
-            self.spinner.startAnimating();
             
             picker.dismissViewControllerAnimated(true, completion: nil);
             
@@ -99,10 +96,30 @@ class ProfileImageViewController: UIViewController, UIImagePickerControllerDeleg
             let modifyViewController = ModifyImageViewController(nibName: "ModifyImageView", bundle: nil);
             modifyViewController.profileImage = image;
             modifyViewController.fromSettings = self.fromSettings;
+            modifyViewController.delegate = self
             let modifyNav = UINavigationController(rootViewController: modifyViewController)
             
             self.navigationController?.presentViewController(modifyNav, animated: true, completion: nil)
         })
+    }
+}
+
+extension ProfileImageViewController: ModifyImageViewControllerDelegate {
+    
+    func modifyImageViewController(viewController: ModifyImageViewController, didTapDoneWithSuccess: Bool) {
+        if fromSettings {
+            viewController.dismissViewControllerAnimated(false, completion: {
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.navigationController?.popViewControllerAnimated(true)
+                })
+            })
+        } else {
+            self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+        }
+    }
+    
+    func modifyImageViewControllerDidTapCancel(viewController: ModifyImageViewController) {
+        self.dismissViewControllerAnimated(true, completion: nil)        
     }
 }
  
