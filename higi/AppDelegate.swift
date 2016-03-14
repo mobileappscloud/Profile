@@ -36,8 +36,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [UIUserNotificationType.Sound, UIUserNotificationType.Alert, UIUserNotificationType.Badge], categories: nil));
         
-        
-        if HealthKitManager.isHealthDataAvailable() && HealthKitManager.didShowAuthorizationModal() {
+        if HealthKitManager.deviceHasMotionProcessor() &&
+            HealthKitManager.isHealthDataAvailable() &&
+            HealthKitManager.didShowAuthorizationModal() {
             HealthKitManager.checkReadAuthorizationForStepData({ (isAuthorized) in
                 if isAuthorized {
                     HealthKitManager.enableBackgroundUpdates()

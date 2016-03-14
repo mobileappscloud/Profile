@@ -34,7 +34,7 @@ class HealthKitManager {
     private var deviceSource: HKSource? = nil
     
     /// Observer query which handles background delivery of step data.
-    private var stepObserverQuery: HKObserverQuery = {
+    private func stepObserverQuery() -> HKObserverQuery {
         let sampleType = HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierStepCount)!
         let observerQuery = HKObserverQuery(sampleType: sampleType, predicate: nil, updateHandler: { (observerQuery, completionHandler, error) in
             
@@ -50,7 +50,7 @@ class HealthKitManager {
             })
         })
         return observerQuery
-    }()
+    }
     
     /// The store serves as a link to all data within HealthKit.
     private lazy var healthStore: HKHealthStore! = {
@@ -314,7 +314,7 @@ extension HealthKitManager {
                 withCompletion: { (success, error) in
                     
                     if success {
-                        manager.healthStore.executeQuery(manager.stepObserverQuery)
+                        manager.healthStore.executeQuery(manager.stepObserverQuery())
                     }
             })
         }
@@ -327,7 +327,7 @@ extension HealthKitManager {
         let manager = HealthKitManager.sharedInstance
         manager.healthStore.disableAllBackgroundDeliveryWithCompletion({ (success, error) in
             if success {
-                manager.healthStore.stopQuery(manager.stepObserverQuery)
+                manager.healthStore.stopQuery(manager.stepObserverQuery())
             } else {
                 HealthKitManager.disableBackgroundUpdates()
             }
