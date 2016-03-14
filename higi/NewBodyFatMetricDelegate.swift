@@ -29,7 +29,7 @@ final class NewBodyFatMetricDelegate: NSObject, NewMetricDelegate {
     
     private lazy var plotHandler: NewMetricPlotDelegate = {
         let handler = NewMetricPlotDelegate()
-        handler.points = self.data.bodyFatPoints
+        handler.points = self.data.fatWeightPoints
         handler.metricDelegate = self
         return handler
     }()
@@ -86,7 +86,7 @@ final class NewBodyFatMetricDelegate: NSObject, NewMetricDelegate {
         self.selectedAltPlotSymbol = selectedAltPlotSymbol
         self.unselectedAltPlotSymbol = unselectedAltPlotSymbol
         
-        let points = self.data.bodyFatPoints
+        let points = self.data.fatWeightPoints
         let altPoints: [GraphPoint] = []
         
         let maxY = GraphPoint.maxY([points, altPoints])
