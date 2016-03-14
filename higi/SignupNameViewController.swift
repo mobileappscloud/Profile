@@ -45,6 +45,8 @@ class SignupNameViewController: UIViewController, UITextFieldDelegate {
         spinner.shouldAnimateFull = false;
         spinner.hidden = true;
         self.view.addSubview(spinner);
+        
+        self.firstName.becomeFirstResponder()
     }
     
     @IBAction func gotoNext(sender: AnyObject) {

@@ -49,6 +49,8 @@ class SignupEmailViewController: UIViewController, UITextFieldDelegate {
         spinner.hidden = true;
         self.view.addSubview(spinner);
         self.view.sendSubviewToBack(spinner);
+        
+        self.email.becomeFirstResponder()
     }
     
     override func viewDidAppear(animated: Bool) {

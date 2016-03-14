@@ -79,13 +79,11 @@ class SettingsTableViewController: UITableViewController, SwitchTableViewCellDel
         super.viewWillAppear(animated);
         
         /*! @internal This is left over functionality from the refactor */
-        let settingsViewController = self.parentViewController as! SettingsViewController;
-        if (settingsViewController.pictureChanged) {
-            SessionData.Instance.user.profileImage = user.profileImage;
-            SessionData.Instance.user.blurredImage = user.blurredImage;
-            profileImageView.image = user.profileImage;
-            settingsViewController.backgroundImageView.image = user.blurredImage;
-        }
+        guard let settingsViewController = self.parentViewController as? SettingsViewController else { return }
+        SessionData.Instance.user.profileImage = user.profileImage
+        SessionData.Instance.user.blurredImage = user.blurredImage
+        profileImageView.image = user.profileImage
+        settingsViewController.backgroundImageView.image = user.blurredImage
     }
     
     // MARK: Configuration
@@ -308,7 +306,9 @@ class SettingsTableViewController: UITableViewController, SwitchTableViewCellDel
         modifyImageViewController.profileImage = SessionData.Instance.user.fullProfileImage;
         modifyImageViewController.resizing = true;
         modifyImageViewController.fromSettings = true;
-        self.navigationController!.pushViewController(modifyImageViewController, animated: true);
+        let modifyNav = UINavigationController(rootViewController: modifyImageViewController)
+        
+        self.navigationController?.presentViewController(modifyNav, animated: true, completion: nil)
     }
 
     func didSelectNotificationsSettings() {
