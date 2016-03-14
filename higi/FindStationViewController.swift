@@ -125,7 +125,6 @@ class FindStationViewController: UIViewController, GMSMapViewDelegate, UITableVi
     override func viewDidLoad()  {
         super.viewDidLoad();
         
-        
         listButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30));
         listButton.setBackgroundImage(UIImage(named: "map_listviewicon")!.imageWithRenderingMode(.AlwaysTemplate), forState: UIControlState.Normal);
         listButton.addTarget(self, action: "toggleList:", forControlEvents: UIControlEvents.TouchUpInside);
@@ -202,6 +201,8 @@ class FindStationViewController: UIViewController, GMSMapViewDelegate, UITableVi
         
         autoCompleteTable.tableFooterView = UIView(frame: CGRectZero);
         visibleKiosksTable.tableFooterView = UIView(frame: CGRectZero);
+        autoCompleteTable.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: bottomBarHeight, right: 0)
+        visibleKiosksTable.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: bottomBarHeight, right: 0)
         
         setupMap();
         
@@ -257,14 +258,14 @@ class FindStationViewController: UIViewController, GMSMapViewDelegate, UITableVi
 
         myLocationContainer().translatesAutoresizingMaskIntoConstraints = false
         
-        mapView.addConstraint(NSLayoutConstraint(item: myLocationContainer(), attribute: .Height, relatedBy: .Equal, toItem: .None, attribute: .NotAnAttribute, multiplier: 1.0, constant: 56.0))
+        mapView.addConstraint(NSLayoutConstraint(item: myLocationContainer(), attribute: .Height, relatedBy: .Equal, toItem: .None, attribute: .NotAnAttribute, multiplier: 1.0, constant: (bottomBarHeight + 7.0)))
         
         mapView.addConstraint(NSLayoutConstraint(item: myLocationContainer(), attribute: .Width, relatedBy: .Equal, toItem: mapView, attribute: .Width, multiplier: 1.0, constant: 0.0))
         
         mapView.addConstraint(NSLayoutConstraint(item: myLocationContainer(), attribute: .Trailing, relatedBy: .Equal, toItem: mapView, attribute: .Trailing, multiplier: 1.0, constant: 0.0))
         
         
-        myLocationContainerBottomConstraint = NSLayoutConstraint(item: myLocationContainer(), attribute: .Bottom, relatedBy: .Equal, toItem: mapView, attribute: .Bottom, multiplier: 1.0, constant: -(49.0 + 5.0))
+        myLocationContainerBottomConstraint = NSLayoutConstraint(item: myLocationContainer(), attribute: .Bottom, relatedBy: .Equal, toItem: mapView, attribute: .Bottom, multiplier: 1.0, constant: -(bottomBarHeight + 5.0))
         mapView.addConstraint(myLocationContainerBottomConstraint)
     }
     
@@ -473,7 +474,7 @@ class FindStationViewController: UIViewController, GMSMapViewDelegate, UITableVi
     }
     
     private func updateSelectedPanePosition(adjustMapWithDifference adjustMap: Bool = true) {
-        let offset = selectedPaneOpen ? self.view.frame.height - self.selectedPaneHeight : self.view.frame.height - self.kioskInfoHeight
+        let offset = selectedPaneOpen ? self.view.frame.height - self.selectedPaneHeight - bottomBarHeight : self.view.frame.height - self.kioskInfoHeight - bottomBarHeight
         let diff = selectedKioskPaneTopLayoutConstraint.constant - offset
         
         UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveEaseInOut, animations: {
@@ -486,14 +487,14 @@ class FindStationViewController: UIViewController, GMSMapViewDelegate, UITableVi
     }
     
     @IBAction func selectedPaneDragged(sender: UIPanGestureRecognizer) {
-        let openOffset = self.view.frame.height - self.kioskInfoHeight
-        let closedOffset = self.view.frame.height - self.selectedPaneHeight
+        let openOffset = self.view.frame.height - self.kioskInfoHeight - bottomBarHeight
+        let closedOffset = self.view.frame.height - self.selectedPaneHeight - bottomBarHeight
 
         if (sender.state == UIGestureRecognizerState.Ended) {
             if selectedPaneOpen {
-                selectedPaneOpen = selectedKioskPaneTopLayoutConstraint.constant <= self.view.frame.height - selectedPaneHeight + (selectedPaneHeight * 0.3)
+                selectedPaneOpen = selectedKioskPaneTopLayoutConstraint.constant <= self.view.frame.height - selectedPaneHeight - bottomBarHeight + (selectedPaneHeight * 0.3)
             } else {
-                selectedPaneOpen = selectedKioskPaneTopLayoutConstraint.constant <= self.view.frame.height - kioskInfoHeight - (kioskInfoHeight * 0.3)
+                selectedPaneOpen = selectedKioskPaneTopLayoutConstraint.constant <= self.view.frame.height - kioskInfoHeight - bottomBarHeight - (kioskInfoHeight * 0.3)
             }
             updateSelectedPanePosition(adjustMapWithDifference: false)
 
@@ -545,11 +546,11 @@ class FindStationViewController: UIViewController, GMSMapViewDelegate, UITableVi
         
         searchField.resignFirstResponder();
         if (selectedKioskPane.hidden) {
-            let diff = selectedPaneOpen ? self.view.frame.height - self.selectedPaneHeight : self.view.frame.height - self.kioskInfoHeight
+            let diff = selectedPaneOpen ? self.view.frame.height - self.selectedPaneHeight - bottomBarHeight : self.view.frame.height - self.kioskInfoHeight - bottomBarHeight
             self.selectedKioskPaneTopLayoutConstraint.constant = diff
             selectedKioskPane.hidden = false;
 
-            let buttonOffset = -(kioskInfoHeight)
+            let buttonOffset = -(kioskInfoHeight + bottomBarHeight)
             if myLocationContainerBottomConstraint.constant != buttonOffset {
                 myLocationContainerBottomConstraint.constant = buttonOffset
                 mapView.setNeedsLayout()
@@ -695,7 +696,7 @@ class FindStationViewController: UIViewController, GMSMapViewDelegate, UITableVi
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<()>) {
         if (!firstLocation && keyPath == "myLocation") {
             firstLocation = true;
-                        mapView.camera = GMSCameraPosition.cameraWithTarget(mapView.myLocation.coordinate, zoom: 11);
+            mapView.camera = GMSCameraPosition.cameraWithTarget(mapView.myLocation.coordinate, zoom: 11);
             updateKioskPositions();
         }
     }
