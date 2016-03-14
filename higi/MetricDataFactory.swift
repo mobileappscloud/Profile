@@ -103,47 +103,51 @@ extension MetricDataFactory {
         var bodyFatPoints: [GraphPoint] = []
         var fatWeightPoints: [GraphPoint] = []
         
-        var lastBloodPressureDate: NSDate? = nil
-        var lastPulseDate: NSDate? = nil
-        var lastWeightDate: NSDate? = nil
-        var lastBodyMassIndexDate: NSDate? = nil
-        var lastBodyFatDate: NSDate? = nil
-        
+        // We only want to plot the latest metric reading for a given date. Sort the checkins in reverse chronological order so that we can store the first reading for a given date and ignore preceding readings for the same date.
         let sortedCheckins = checkins.reverse()
+        
+        var lastBloodPressureDate: NSDate = NSDate.distantFuture()
+        var lastPulseDate: NSDate = NSDate.distantFuture()
+        var lastWeightDate: NSDate = NSDate.distantFuture()
+        var lastBodyMassIndexDate: NSDate = NSDate.distantFuture()
+        var lastBodyFatDate: NSDate = NSDate.distantFuture()
+
+        let calendar = NSCalendar.currentCalendar()
+        
         for checkin in sortedCheckins {
             guard let checkinId = checkin.checkinId else { continue }
             let checkinTime = checkin.dateTime.timeIntervalSince1970
             
-            if checkin.dateTime != lastBloodPressureDate {
+            if !(calendar.isDate(checkin.dateTime, inSameDayAsDate: lastBloodPressureDate)) {
                 if let diastolic = checkin.diastolic, let systolic = checkin.systolic {
                     diastolicPoints.append(GraphPoint(identifier: checkinId, x: checkinTime, y: Double(diastolic)))
                     systolicPoints.append(GraphPoint(identifier: checkinId, x: checkinTime, y: Double(systolic)))
                     lastBloodPressureDate = checkin.dateTime
                 }
             }
-            
-            if (checkin.dateTime != lastPulseDate) {
+
+            if !(calendar.isDate(checkin.dateTime, inSameDayAsDate: lastPulseDate)) {
                 if let pulseBpm = checkin.pulseBpm {
                     pulsePoints.append(GraphPoint(identifier: checkinId, x: checkinTime, y: Double(pulseBpm)))
                     lastPulseDate = checkin.dateTime
                 }
             }
             
-            if checkin.dateTime != lastWeightDate {
+            if !(calendar.isDate(checkin.dateTime, inSameDayAsDate: lastWeightDate)) {
                 if let weightLbs = checkin.weightLbs {
                     weightPoints.append(GraphPoint(identifier: checkinId, x: checkinTime, y: weightLbs))
                     lastWeightDate = checkin.dateTime
                 }
             }
             
-            if checkin.dateTime != lastBodyMassIndexDate {
+            if !(calendar.isDate(checkin.dateTime, inSameDayAsDate: lastBodyMassIndexDate)) {
                 if let bodyMassIndex = checkin.bmi where bodyMassIndex != 0 {
                     bodyMassIndexPoints.append(GraphPoint(identifier: checkinId, x: checkinTime, y: bodyMassIndex))
                     lastBodyMassIndexDate = checkin.dateTime
                 }
             }
             
-            if checkin.dateTime != lastBodyFatDate {
+            if !(calendar.isDate(checkin.dateTime, inSameDayAsDate: lastBodyFatDate)) {
                 if let fatRatio = checkin.fatRatio where fatRatio != 0, let weightLbs = checkin.weightLbs {
                     bodyFatPoints.append(GraphPoint(identifier: checkinId, x: checkinTime, y: fatRatio))
                     let fatWeightLbs = weightLbs * fatRatio/100.0
