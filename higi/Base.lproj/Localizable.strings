@@ -449,7 +449,7 @@
 "DASHBOARD_VIEW_CARD_QR_CHECKIN_UPLOAD_SUCCESS_TITLE" = "Daily Check-in Upload Complete!";
 
 /* Title for Dashboard view. */
-"DASHBOARD_VIEW_TITLE" = "Dashboard";
+"DASHBOARD_VIEW_TITLE" = "Home";
 
 /* Default date format for cached date formatter. */
 "DATE_FORMATTER_DEFAULT_DATE_FORMAT" = "yyyyMMdd";
