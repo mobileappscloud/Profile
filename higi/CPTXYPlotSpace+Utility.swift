@@ -22,23 +22,24 @@ extension CPTXYPlotSpace {
         let tickInterval = 10.0
         
         let yRange = maxY - minY > 0 ? maxY - minY : tickInterval
-        let lowerBound = Utility.roundToLowest(minY - (yRange * 0.4), roundTo: tickInterval)
         
-        var distance = Utility.roundToHighest(yRange * 1.8, roundTo: tickInterval)
-        if lowerBound + distance < maxY {
-            distance = maxY - lowerBound + tickInterval
-        }
         var visibleMin = firstPoint
         if (points.count > 12) {
             visibleMin = points[12]
         }
-        var marginX:Double = (lastPoint.x - visibleMin.x) * 0.1
+        
+        var marginX: Double = (lastPoint.x - visibleMin.x) * 0.1
         if (marginX == 0) {
             marginX = 2 * 86400 // x days
         }
         
+        var marginY: Double = tickInterval
+        let standardDeviationY = standardDeviation(points.flatMap{$0.y})
+        marginY = max(marginY, standardDeviationY * 2)
+        
         self.xRange = CPTPlotRange(location_: visibleMin.x - marginX, length: lastPoint.x - visibleMin.x + marginX * 2)
-        self.yRange = CPTPlotRange(location_: lowerBound, length: distance)
+        self.yRange = CPTPlotRange(location_: minY - marginY, length: yRange + marginY * 2)
+        
         self.globalXRange = CPTPlotRange(location_: firstPoint.x - marginX, length: lastPoint.x - firstPoint.x + marginX * 2)
         self.globalYRange = self.yRange
         
@@ -46,5 +47,11 @@ extension CPTXYPlotSpace {
         self.allowsUserInteraction = true
     }
     
-    
+    private func standardDeviation(array : [Double]) -> Double
+    {
+        let length = Double(array.count)
+        let avg = array.reduce(0, combine: {$0 + $1}) / length
+        let sumOfSquaredAvgDiff = array.map { pow($0 - avg, 2.0)}.reduce(0, combine: {$0 + $1})
+        return sqrt(sumOfSquaredAvgDiff / length)
+    }
 }
