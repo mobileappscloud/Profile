@@ -62,8 +62,13 @@ class ApiUtility {
     }
     
     class func retrieveCheckins(success: (() -> Void)?) {
+        guard let user = SessionData.Instance.user, let userId = user.userId else {
+            success?()
+            return
+        }
+        
         grabNextPulseArticles(nil);
-        HigiApi().sendGet( "\(HigiApi.higiApiUrl)/data/user/\(SessionData.Instance.user.userId)/checkIn", success:
+        HigiApi().sendGet( "\(HigiApi.higiApiUrl)/data/user/\(userId)/checkIn", success:
             { operation, responseObject in
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                     let serverCheckins = responseObject as! NSArray;
@@ -108,7 +113,11 @@ class ApiUtility {
     
     class func requestLastStepActivitySyncDate(completion: (success: Bool, syncDate: NSDate?) -> Void) {
 
-        let userId = SessionData.Instance.user.userId;
+        guard let user = SessionData.Instance.user, let userId = user.userId else {
+            completion(success: false, syncDate: nil)
+            return
+        }
+        
         let URLString = "\(HigiApi.earnditApiUrl)/user/\(userId)/activities?device=higi&type=step&limit=1"
         
         HigiApi().sendGet(URLString, success: {operation, responseObject in
@@ -147,12 +156,13 @@ class ApiUtility {
     }
     
     class func retrieveActivities(success: (() -> Void)?) {
-        if SessionData.Instance.user == nil {
-            success?();
+        guard let user = SessionData.Instance.user, let userId = user.userId else {
+            success?()
+            return
         }
         
         SessionData.Instance.lastUpdate = NSDate();
-        let userId = SessionData.Instance.user.userId;
+
         ApiUtility.checkForNewActivities({
             let startDateFormatter = NSDateFormatter();
             startDateFormatter.dateFormat = "yyyy-MM-01";
