@@ -575,6 +575,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         table.showsVerticalScrollIndicator = false;
         table.headerView.frame.size.height = termsButton.frame.origin.y + termsButton.frame.size.height;
         table.reloadData();
+        table.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 89.0, right: 0)
         table.layoutIfNeeded();
         return table;
     }
