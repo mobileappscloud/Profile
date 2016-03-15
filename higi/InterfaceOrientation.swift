@@ -96,8 +96,10 @@ extension UINavigationController {
             let currentOrientation = UIDevice.currentDevice().orientation
             if currentOrientation.isPortrait {
                 return .Portrait
+            } else if currentOrientation.isLandscape {
+                return currentOrientation == .LandscapeLeft ? .LandscapeRight : .LandscapeLeft
             } else {
-                return UIDevice.currentDevice().orientation == .LandscapeLeft ? .LandscapeRight : .LandscapeLeft
+                return self.topViewController?.presentedViewController?.interfaceOrientation ?? .Portrait
             }
         } else if let _ = self.topViewController as? MetricDetailViewController {
             return .LandscapeLeft
