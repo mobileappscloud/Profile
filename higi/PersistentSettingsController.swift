@@ -16,7 +16,7 @@ enum PersistentSetting: String {
     case DidShowActivityTrackerAuthorizationRequest = "DidShowActivityTrackerAuthorizationRequestKey"
     case MetricsViewDidRotateDeviceToVerticalSizeClassCompact = "MetricsViewDidRotateDeviceToVerticalSizeClassCompactKey"
     
-    static let allValues = [EnableNotifications, StationNearbyNotification, DidAskToConnectActivityTracker, DidShowActivityTrackerAuthorizationRequest, MetricsViewDidRotateDeviceToVerticalSizeClassCompact];
+    static let allValues = [EnableNotifications, StationNearbyNotification, DidAskToConnectActivityTracker, DidShowActivityTrackerAuthorizationRequest, MetricsViewDidRotateDeviceToVerticalSizeClassCompact]
 }
 
 class PersistentSettingsController {
@@ -77,6 +77,16 @@ class PersistentSettingsController {
     
     class func reset() {
         for setting in PersistentSetting.allValues {
+            store().removeObjectForKey(setting.rawValue);
+        }
+        PersistentSettingsController.sharedInstance.initializeDefaultValues();
+    }
+}
+
+extension PersistentSettingsController {
+    
+    class func resetSessionSettings() {
+        for setting in SessionData.sessionSettings {
             store().removeObjectForKey(setting.rawValue);
         }
         PersistentSettingsController.sharedInstance.initializeDefaultValues();

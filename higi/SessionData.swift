@@ -38,6 +38,7 @@ class SessionData {
         return writePath.relativePath!
     }()
 
+    static let sessionSettings: [PersistentSetting] = [.EnableNotifications, .StationNearbyNotification]
     
     init() {
         restore();
