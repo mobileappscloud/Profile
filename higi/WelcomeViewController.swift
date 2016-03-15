@@ -40,8 +40,6 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
     
     var didAnimate = false;
     
-    var firstLoad = false
-    
     let animDuration = 0.25;
     
     override func viewDidLoad() {
@@ -74,8 +72,6 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         rightScrollViewSwipeRecognizer.direction = UISwipeGestureRecognizerDirection.Right;
         self.view.addGestureRecognizer(leftScrollViewSwipeRecognizer);
         self.view.addGestureRecognizer(rightScrollViewSwipeRecognizer);
-        
-        firstLoad = true
     }
     
     private func setupDashboard() {
@@ -139,14 +135,7 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         
         /** @internal This is a patch around layout issues. Since the dashboard view and subviews rely on manual frame manipulation, we perform this method knowing that autolayout has correctly resized and placed the superview. 
         */
-        if firstLoad {
-            firstLoad = false
-            self.setupDashboard()
-        }
-        // Even worse workaround to deal with alpha being improperly updated for subviews...
-        if isViewLoaded() {
-            changePage(pageControl, animated: false)
-        }
+        self.setupDashboard()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -178,14 +167,7 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
     }
     
     @IBAction func changePage(sender: AnyObject) {
-        guard let pager = sender as? UIPageControl else { return }
-        changePage(pager, animated: true)
-    }
-    
-    private func changePage(pageControl: UIPageControl, animated: Bool) {
-        if !animated { return }
-        
-        let pager = pageControl
+        let pager = sender as! UIPageControl;
         let page = pager.currentPage;
         var frame = self.view.frame;
         frame.origin.x = frame.size.width * CGFloat(page);
@@ -197,49 +179,47 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         
         var title = "", subTitle = "";
         
-        let animationDuration = animated ? animDuration : 0.0
-        
         switch page {
-        case 0:
-            //welcome
-            welcomeAlpha = 1;
-            phoneAlpha = 0;
-            UIView.animateWithDuration(animationDuration, delay: 0.0, options: .CurveEaseInOut, animations: {
-                self.phoneContainer.alpha = 0;
-                }, completion: nil);
-        case 1:
-            //station
-            stationAlpha = 1;
-            dashboardAlpha = 0;
-            phoneAlpha = 0;
-            title = NSLocalizedString("WELCOME_VIEW_PAGE_STATION_TITLE", comment: "Title for station page on welcome tour.")
-            subTitle = NSLocalizedString("WELCOME_VIEW_PAGE_STATION_SUBTITLE", comment: "Subtitle for station page on welcome tour.")
-        case 2:
-            //challenges
-            dashboardAlpha = 1;
-            challengesAlpha = 1;
-            title = NSLocalizedString("WELCOME_VIEW_PAGE_CHALLENGES_TITLE", comment: "Title for challenges page on welcome tour.")
-            subTitle = NSLocalizedString("WELCOME_VIEW_PAGE_CHALLENGES_SUBTITLE", comment: "Subtitle for challenges page on welcome tour.")
-            phoneScrollView.setContentOffset(CGPoint(x: 0, y: challengeView.frame.origin.y - 20), animated: true);
-        case 3:
-            //activity
-            dashboardAlpha = 1;
-            activityAlpha = 1;
-            title = NSLocalizedString("WELCOME_VIEW_PAGE_ACTIVITY_TITLE", comment: "Title for activity page on welcome tour.")
-            subTitle = NSLocalizedString("WELCOME_VIEW_PAGE_ACTIVITY_SUBTITLE", comment: "Subtitle for activity page on welcome tour.")
-            phoneScrollView.setContentOffset(CGPoint(x: 0,y: activityView.frame.origin.y - 20), animated: true);
-        case 4:
-            //body stats
-            dashboardAlpha = 1;
-            metricsAlpha = 1;
-            title =  NSLocalizedString("WELCOME_VIEW_PAGE_BODY_STAT_TITLE", comment: "Title for body stat page on welcome tour.")
-            subTitle = NSLocalizedString("WELCOME_VIEW_PAGE_BODY_STAT_SUBTITLE", comment: "Subtitle for body stat page on welcome tour.")
-            phoneScrollView.setContentOffset(CGPoint(x: 0, y: MetricsView.frame.origin.y - 20), animated: true);
-        default:
-            let i = 0;
+            case 0:
+                //welcome
+                welcomeAlpha = 1;
+                phoneAlpha = 0;
+                UIView.animateWithDuration(animDuration, delay: 0.0, options: .CurveEaseInOut, animations: {
+                    self.phoneContainer.alpha = 0;
+                    }, completion: nil);
+            case 1:
+                //station
+                stationAlpha = 1;
+                dashboardAlpha = 0;
+                phoneAlpha = 0;
+                title = NSLocalizedString("WELCOME_VIEW_PAGE_STATION_TITLE", comment: "Title for station page on welcome tour.")
+                subTitle = NSLocalizedString("WELCOME_VIEW_PAGE_STATION_SUBTITLE", comment: "Subtitle for station page on welcome tour.")
+            case 2:
+                //challenges
+                dashboardAlpha = 1;
+                challengesAlpha = 1;
+                title = NSLocalizedString("WELCOME_VIEW_PAGE_CHALLENGES_TITLE", comment: "Title for challenges page on welcome tour.")
+                subTitle = NSLocalizedString("WELCOME_VIEW_PAGE_CHALLENGES_SUBTITLE", comment: "Subtitle for challenges page on welcome tour.")
+                phoneScrollView.setContentOffset(CGPoint(x: 0, y: challengeView.frame.origin.y - 20), animated: true);
+            case 3:
+                //activity
+                dashboardAlpha = 1;
+                activityAlpha = 1;
+                title = NSLocalizedString("WELCOME_VIEW_PAGE_ACTIVITY_TITLE", comment: "Title for activity page on welcome tour.")
+                subTitle = NSLocalizedString("WELCOME_VIEW_PAGE_ACTIVITY_SUBTITLE", comment: "Subtitle for activity page on welcome tour.")
+                phoneScrollView.setContentOffset(CGPoint(x: 0,y: activityView.frame.origin.y - 20), animated: true);
+            case 4:
+                //body stats
+                dashboardAlpha = 1;
+                metricsAlpha = 1;
+                title =  NSLocalizedString("WELCOME_VIEW_PAGE_BODY_STAT_TITLE", comment: "Title for body stat page on welcome tour.")
+                subTitle = NSLocalizedString("WELCOME_VIEW_PAGE_BODY_STAT_SUBTITLE", comment: "Subtitle for body stat page on welcome tour.")
+                phoneScrollView.setContentOffset(CGPoint(x: 0, y: MetricsView.frame.origin.y - 20), animated: true);
+            default:
+                let i = 0;
         }
-        
-        UIView.animateWithDuration(animationDuration, delay: 0.0, options: .CurveEaseInOut, animations: {
+
+        UIView.animateWithDuration(animDuration, delay: 0.0, options: .CurveEaseInOut, animations: {
             self.pageTitle.alpha = 0.0;
             self.pageSubTitle.alpha = 0.0;
             self.dashboardView.alpha = dashboardAlpha;
@@ -256,7 +236,7 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
                 finished in
                 self.pageTitle.text = title;
                 self.pageSubTitle.text = subTitle;
-                UIView.animateWithDuration(animationDuration, delay: 0.0, options: .CurveEaseInOut, animations: {
+                UIView.animateWithDuration(self.animDuration, delay: 0.0, options: .CurveEaseInOut, animations: {
                     self.pageTitle.alpha = 1.0;
                     self.pageSubTitle.alpha = 1.0;
                     self.challengeView.alpha = challengesAlpha;
