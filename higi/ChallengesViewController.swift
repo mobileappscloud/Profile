@@ -24,6 +24,12 @@ class ChallengesViewController: UIViewController, UIGestureRecognizerDelegate, U
     
     var universalLinkObserver: NSObjectProtocol? = nil
     
+    var pageTitle: String? {
+        didSet {
+            self.navigationItem.title = pageTitle
+        }
+    }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
         
@@ -131,12 +137,12 @@ class ChallengesViewController: UIViewController, UIGestureRecognizerDelegate, U
                 clickedChallenge = nil;
             }
             if (pageTitles.count > 0) {
-                title = pageTitles[currentPage];
+                pageTitle = pageTitles[currentPage];
             }
             scrollView.contentSize = CGSize(width: scrollView.frame.size.width * CGFloat(totalPages), height: scrollView.frame.size.height);
             
         } else {
-            title = NSLocalizedString("CHALLENGES_VIEW_PAGE_TITLE_CHALLENGES", comment: "Title for challenge page in challenges view with only one challenge.");
+            pageTitle = NSLocalizedString("CHALLENGES_VIEW_PAGE_TITLE_CHALLENGES", comment: "Title for challenge page in challenges view with only one challenge.");
             blankState.hidden = false;
         }
         pager.numberOfPages = totalPages;
@@ -349,7 +355,7 @@ class ChallengesViewController: UIViewController, UIGestureRecognizerDelegate, U
         let pager = sender as! UIPageControl;
         let page = pager.currentPage;
         let previousPage = currentPage;
-        title = pageTitles[page];
+        pageTitle = pageTitles[page]
         currentPage = page;
         currentTable = getCurrentTable();
         var frame = self.scrollView.frame;
