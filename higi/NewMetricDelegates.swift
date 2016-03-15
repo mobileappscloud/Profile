@@ -17,7 +17,7 @@ protocol NewMetricDelegate: MetricGraphDelegate, MetricTableDelegate, MetricDeta
     var metricColor: UIColor { get }
 }
 
-// MARK: - Detail Preview 
+// MARK: - Detail Preview
 
 protocol MetricDetailPreviewDelegate {
     
@@ -72,7 +72,7 @@ extension MetricTableDelegate {
         
         cell.checkinSummaryView.configureDisplay(dateString, primaryMetricValue: primaryMetricValue, primaryMetricUnit: primaryMetricUnit, secondaryMetricValue: secondaryMetricValue, secondaryMetricUnit: secondaryMetricUnit, boldValueColor: nil)
         
-        let color = UIColor(red: 67.0/255.0, green: 206.0/255.0, blue: 198.0/255.0, alpha: 0.3)
+        let color = Theme.Color.Metrics.TableView.selectedCellBackGround
         let backgroundColor = selected ? color : UIColor.clearColor()
         cell.backgroundColor = backgroundColor
                 

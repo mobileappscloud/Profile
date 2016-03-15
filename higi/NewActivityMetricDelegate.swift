@@ -38,6 +38,8 @@ final class NewActivityMetricDelegate: NSObject, NewMetricDelegate {
         return delegate
     }()
     
+    var dailySummaryPresentationDelegate: DailySummaryPresentationDelegate? = nil
+    
     private(set) var data: DailySummaryMetricGraphPoints
     
     func updateData(data: DailySummaryMetricGraphPoints) {
@@ -288,6 +290,8 @@ extension NewActivityMetricDelegate: MetricDetailDisplayDelegate {
 
 // MARK: - Table View
 
+// MARK: Table View Data Source 
+
 extension NewActivityMetricDelegate: UITableViewDataSource {
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -299,7 +303,6 @@ extension NewActivityMetricDelegate: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(MetricTableViewCell.cellReuseIdentifier, forIndexPath: indexPath) as! MetricTableViewCell
         
         let point = self.data.activityPoints[indexPath.row]
         
@@ -309,8 +312,77 @@ extension NewActivityMetricDelegate: UITableViewDataSource {
         
         let isSelected = (indexPath.row == self.selectedIndex)
         
-        configureMetricTableViewCell(cell, indexPath: indexPath, selected: isSelected, timeInterval: point.x, primaryMetricValue: pointValueString, primaryMetricUnit: pointUnit, secondaryMetricValue: nil, secondaryMetricUnit: nil)
+        let cell: UITableViewCell
+        if isSelected {
+            let activityCell = tableView.dequeueReusableCellWithIdentifier(ActivityTableViewCell.cellReuseIdentifier, forIndexPath: indexPath) as! ActivityTableViewCell
+
+            activityCell.meterButtonHandler = { [unowned self] in
+                self.presentDailySummary(forRowAtIndexPath: indexPath)
+            }
+            
+            let activitiesDict = SessionController.Instance.activities
+            guard let activityIdentifier = point.identifier else { return activityCell }
+            guard let activitySummary = activitiesDict[activityIdentifier] else { return activityCell }
+            
+            configureActivityTableViewCell(activityCell, indexPath: indexPath, selected: isSelected, timeInterval: point.x, value: pointValueString, unit: pointUnit, activitySummary: activitySummary)
+            
+            cell = activityCell
+        } else {
+            let metricCell = tableView.dequeueReusableCellWithIdentifier(MetricTableViewCell.cellReuseIdentifier, forIndexPath: indexPath) as! MetricTableViewCell
+            configureMetricTableViewCell(metricCell, indexPath: indexPath, selected: isSelected, timeInterval: point.x, primaryMetricValue: pointValueString, primaryMetricUnit: pointUnit, secondaryMetricValue: nil, secondaryMetricUnit: nil)
+            cell = metricCell
+        }
         
         return cell
     }
+    
+    func configureActivityTableViewCell(cell: ActivityTableViewCell, indexPath: NSIndexPath, selected: Bool, timeInterval: NSTimeInterval, value: String?, unit: String?, activitySummary: HigiActivitySummary) {
+        
+        let date = NSDate(timeIntervalSince1970: timeInterval)
+        let dateString = Utility.mediumStyleDateFormatter.stringFromDate(date)
+        
+        cell.summaryView.config(dateString, activitySummary: activitySummary, unit: unit)
+
+        let color = Theme.Color.Metrics.TableView.selectedCellBackGround
+        let backgroundColor = selected ? color : UIColor.clearColor()
+        cell.backgroundColor = backgroundColor
+        
+        cell.selectionStyle = .None
+        cell.separatorInset = UIEdgeInsetsZero
+        cell.layoutMargins = UIEdgeInsetsZero
+    }
 }
+
+// MARK: - Daily Summary
+
+extension NewActivityMetricDelegate {
+    
+    func presentDailySummary(forRowAtIndexPath indexPath: NSIndexPath) {
+        guard let dailySummaryPresentationDelegate = dailySummaryPresentationDelegate else { return }
+        
+        let activitiesDict = SessionController.Instance.activities
+        
+        let selectedPoint = data.activityPoints[indexPath.row]
+        guard let activityIdentifier = selectedPoint.identifier else { return }
+        
+        guard let activityTuple = activitiesDict[activityIdentifier] else { return }
+        
+        var activities = activityTuple.activities
+        activities.sortInPlace(SummaryViewUtility.sortByPoints)
+        
+        let dailySummary = DailySummaryViewController(nibName: "DailySummaryView", bundle: nil)
+        let date = activities.first?.startTime ?? NSDate()
+        dailySummary.dateString = Constants.dateFormatter.stringFromDate(date)
+        
+        dailySummaryPresentationDelegate.presentDailySummaryViewController(dailySummary)
+    }
+    
+}
+
+// MARK: - Modal Presentation
+
+protocol DailySummaryPresentationDelegate: class {
+    
+    func presentDailySummaryViewController(viewController: DailySummaryViewController)
+}
+

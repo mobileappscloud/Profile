@@ -62,7 +62,9 @@ final class MetricsCoordinator: NSObject {
             let delegate: NewMetricDelegate!
             switch type {
             case .DailySummary:
-                delegate = NewActivityMetricDelegate(data: self.dataSet.dailySummary)
+                let activityDelegate = NewActivityMetricDelegate(data: self.dataSet.dailySummary)
+                activityDelegate.dailySummaryPresentationDelegate = child
+                delegate = activityDelegate
             case .BloodPressure:
                 delegate = NewBloodPressureMetricDelegate(data: self.dataSet.bloodPressure)
             case .Pulse:

@@ -15,6 +15,7 @@ extension NewMetricTableDelegate: UITableViewDelegate {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         guard let metricDelegate = metricDelegate else { return }
+        if metricDelegate.selectedIndex == indexPath.row { return }
         
         metricDelegate.selectedIndex = indexPath.row
         tableView.reloadData()

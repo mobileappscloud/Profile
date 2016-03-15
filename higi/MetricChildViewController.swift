@@ -382,6 +382,19 @@ extension MetricChildViewController: MetricTableScrollDelegate {
     }
 }
 
+extension MetricChildViewController: DailySummaryPresentationDelegate {
+    
+    func presentDailySummaryViewController(viewController: DailySummaryViewController) {
+        viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: Selector("dailySummaryDidTapDone:"))
+        let nav = UINavigationController(rootViewController: viewController)
+        self.navigationController?.presentViewController(nav, animated: true, completion: nil)
+    }
+    
+    func dailySummaryDidTapDone(sender: UIBarButtonItem) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+}
+
 // MARK: - View Lifecycle Protocol
 
 protocol MetricChildViewLifecycleResponder {

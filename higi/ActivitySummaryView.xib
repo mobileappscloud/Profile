@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ActivitySummaryView" customModule="higi" customModuleProvider="target">
+            <connections>
+                <outlet property="dataLabelView" destination="fhf-6b-zPX" id="xj1-eg-t5P"/>
+                <outlet property="dateLabel" destination="lnB-Ii-cDU" id="hcK-Qe-G35"/>
+                <outlet property="meterContainerView" destination="7EP-Pd-HCp" id="R7l-Vd-iV7"/>
+                <outlet property="view" destination="cyl-fK-vX8" id="xbr-qy-5YR"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="cyl-fK-vX8" userLabel="Content View">
+            <rect key="frame" x="0.0" y="0.0" width="360" height="60"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6mY-XW-31d" userLabel="Date Container">
+                    <rect key="frame" x="0.0" y="0.0" width="216" height="60"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MMM dd, YYYY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="lnB-Ii-cDU" userLabel="Date Label">
+                            <rect key="frame" x="20" y="21" width="105.5" height="18"/>
+                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="lnB-Ii-cDU" secondAttribute="trailing" constant="15" id="WMT-nh-LJc"/>
+                        <constraint firstAttribute="width" constant="216" placeholder="YES" id="XST-cf-TyE"/>
+                        <constraint firstItem="lnB-Ii-cDU" firstAttribute="centerY" secondItem="6mY-XW-31d" secondAttribute="centerY" id="r8m-nr-hhc"/>
+                        <constraint firstItem="lnB-Ii-cDU" firstAttribute="leading" secondItem="6mY-XW-31d" secondAttribute="leading" constant="20" id="ud6-oP-uE3"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ePx-E2-Tgs" userLabel="Container View">
+                    <rect key="frame" x="216" y="0.0" width="144" height="60"/>
+                    <subviews>
+                        <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7EP-Pd-HCp">
+                            <rect key="frame" x="79" y="0.0" width="60" height="60"/>
+                            <subviews>
+                                <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fhf-6b-zPX" customClass="MetricDataLabelView" customModule="higi" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="fhf-6b-zPX" firstAttribute="leading" secondItem="7EP-Pd-HCp" secondAttribute="leading" placeholder="YES" id="8rU-m4-jhf"/>
+                                <constraint firstItem="fhf-6b-zPX" firstAttribute="centerX" secondItem="7EP-Pd-HCp" secondAttribute="centerX" id="FsH-RB-Dej"/>
+                                <constraint firstItem="fhf-6b-zPX" firstAttribute="top" secondItem="7EP-Pd-HCp" secondAttribute="top" placeholder="YES" id="L1p-9h-eO6"/>
+                                <constraint firstItem="fhf-6b-zPX" firstAttribute="centerY" secondItem="7EP-Pd-HCp" secondAttribute="centerY" id="LK8-SO-bQu"/>
+                                <constraint firstAttribute="width" constant="60" id="bvy-bV-ERo"/>
+                                <constraint firstAttribute="height" constant="60" id="vod-JP-WD5"/>
+                            </constraints>
+                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3l2-fQ-yah">
+                            <rect key="frame" x="79" y="0.0" width="120" height="60"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="120" id="KWz-KR-a6e"/>
+                                <constraint firstAttribute="height" constant="60" id="pbU-QA-Ra9"/>
+                            </constraints>
+                            <state key="normal">
+                                <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="didTapMeterButton:" destination="-1" eventType="touchUpInside" id="bU4-ro-QVr"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="7EP-Pd-HCp" secondAttribute="trailing" constant="5" id="Bac-r6-CWp"/>
+                        <constraint firstAttribute="trailing" secondItem="3l2-fQ-yah" secondAttribute="trailing" constant="-55" id="GQr-xW-FIa"/>
+                        <constraint firstItem="3l2-fQ-yah" firstAttribute="centerY" secondItem="ePx-E2-Tgs" secondAttribute="centerY" id="Gv2-nS-dLl"/>
+                        <constraint firstItem="7EP-Pd-HCp" firstAttribute="centerY" secondItem="ePx-E2-Tgs" secondAttribute="centerY" id="Zt3-Fx-2Y9"/>
+                        <constraint firstAttribute="width" constant="144" placeholder="YES" id="fn6-LN-KRw"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="6mY-XW-31d" firstAttribute="leading" secondItem="cyl-fK-vX8" secondAttribute="leading" id="8ih-Gh-MRK"/>
+                <constraint firstItem="6mY-XW-31d" firstAttribute="width" secondItem="cyl-fK-vX8" secondAttribute="width" multiplier="0.6" id="HIK-ch-gNM"/>
+                <constraint firstItem="ePx-E2-Tgs" firstAttribute="top" secondItem="cyl-fK-vX8" secondAttribute="top" id="KV5-OA-JfV"/>
+                <constraint firstAttribute="bottom" secondItem="6mY-XW-31d" secondAttribute="bottom" id="Voe-eT-jO5"/>
+                <constraint firstAttribute="bottom" secondItem="ePx-E2-Tgs" secondAttribute="bottom" id="frd-67-D0W"/>
+                <constraint firstItem="6mY-XW-31d" firstAttribute="top" secondItem="cyl-fK-vX8" secondAttribute="top" id="hSE-5E-38z"/>
+                <constraint firstAttribute="trailing" secondItem="ePx-E2-Tgs" secondAttribute="trailing" id="isF-sE-06j"/>
+                <constraint firstItem="ePx-E2-Tgs" firstAttribute="width" secondItem="cyl-fK-vX8" secondAttribute="width" multiplier="0.4" id="mj5-tP-fwF"/>
+                <constraint firstItem="ePx-E2-Tgs" firstAttribute="leading" secondItem="6mY-XW-31d" secondAttribute="trailing" id="ocy-by-QEc"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+        </view>
+    </objects>
+</document>

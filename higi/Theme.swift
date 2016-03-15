@@ -243,6 +243,11 @@ extension Theme.Color {
                 return color.colorWithAlphaComponent(0.05)
             }
         }
+        
+        struct TableView {
+            
+            static let selectedCellBackGround = Metrics.Plot.line.colorWithAlphaComponent(0.3)
+        }
     }
 }
 

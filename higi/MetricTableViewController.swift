@@ -39,6 +39,8 @@ extension MetricTableViewConfigurator {
         tableView.layer.borderColor = UIColor.lightGrayColor().CGColor
         
         tableView.registerNib(UINib(nibName: "MetricTableViewCell", bundle: nil), forCellReuseIdentifier: MetricTableViewCell.cellReuseIdentifier)
+        tableView.registerNib(UINib(nibName: "ActivityTableViewCell", bundle: nil), forCellReuseIdentifier: ActivityTableViewCell.cellReuseIdentifier)
+        
         tableView.tableFooterView = UIView()
         tableView.rowHeight = 60.0
     }

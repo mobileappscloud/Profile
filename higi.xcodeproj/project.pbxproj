@@ -81,6 +81,9 @@
 		4179FCF11C25109D006130F5 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4179FCEF1C25109D006130F5 /* LoadingViewController.swift */; };
 		417F48B31BC823F1005BC49D /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 417F48B01BC823F1005BC49D /* GTMNSString+HTML.m */; };
 		417F48B41BC823F1005BC49D /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 417F48B21BC823F1005BC49D /* NSString+HTML.m */; };
+		418111C51C97986000EE3E75 /* ActivitySummaryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 418111C41C97986000EE3E75 /* ActivitySummaryView.xib */; };
+		418111C91C97997E00EE3E75 /* ActivityTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 418111C81C97997E00EE3E75 /* ActivityTableViewCell.xib */; };
+		418111CB1C979B0800EE3E75 /* ActivitySummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418111CA1C979B0800EE3E75 /* ActivitySummaryView.swift */; };
 		4184846F1C6D473000C26211 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4184846E1C6D473000C26211 /* Theme.swift */; };
 		418484C81C72E27F00C26211 /* NewBodyFatMetricDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418484C71C72E27F00C26211 /* NewBodyFatMetricDelegate.swift */; };
 		418485121C73DEC600C26211 /* NewBodyMassIndexMetricDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418485111C73DEC600C26211 /* NewBodyMassIndexMetricDelegate.swift */; };
@@ -133,6 +136,7 @@
 		41BAD2911C4D492700E3A5AB /* MetricBlankStateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41BAD2901C4D492700E3A5AB /* MetricBlankStateViewController.swift */; };
 		41BFC9B81BCC0E0D00FD0F45 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 41BFC9B61BCC0E0D00FD0F45 /* Localizable.stringsdict */; };
 		41CAB9B41BC411A00000772C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 41CAB9B01BC411A00000772C /* Localizable.strings */; };
+		41CB52EC1C979E5F004C13E9 /* ActivityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CB52EB1C979E5F004C13E9 /* ActivityTableViewCell.swift */; };
 		41D8717E1C7A8FAD002DCDA0 /* CPTXYPlotSpace+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D8717D1C7A8FAD002DCDA0 /* CPTXYPlotSpace+Utility.swift */; };
 		41D871801C7A91BF002DCDA0 /* GraphPoint+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D8717F1C7A91BF002DCDA0 /* GraphPoint+Utility.swift */; };
 		41D871881C7CBFBB002DCDA0 /* Host.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41D871871C7CBFBB002DCDA0 /* Host.storyboard */; };
@@ -485,6 +489,9 @@
 		417F48B01BC823F1005BC49D /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GTMNSString+HTML.m"; path = "Vendor/MWFeedParser/Classes/GTMNSString+HTML.m"; sourceTree = "<group>"; };
 		417F48B11BC823F1005BC49D /* NSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+HTML.h"; path = "Vendor/MWFeedParser/Classes/NSString+HTML.h"; sourceTree = "<group>"; };
 		417F48B21BC823F1005BC49D /* NSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+HTML.m"; path = "Vendor/MWFeedParser/Classes/NSString+HTML.m"; sourceTree = "<group>"; };
+		418111C41C97986000EE3E75 /* ActivitySummaryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivitySummaryView.xib; sourceTree = "<group>"; };
+		418111C81C97997E00EE3E75 /* ActivityTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityTableViewCell.xib; sourceTree = "<group>"; };
+		418111CA1C979B0800EE3E75 /* ActivitySummaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivitySummaryView.swift; sourceTree = "<group>"; };
 		4184846E1C6D473000C26211 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		418484C71C72E27F00C26211 /* NewBodyFatMetricDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewBodyFatMetricDelegate.swift; sourceTree = "<group>"; };
 		418485111C73DEC600C26211 /* NewBodyMassIndexMetricDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewBodyMassIndexMetricDelegate.swift; sourceTree = "<group>"; };
@@ -578,6 +585,7 @@
 		41BAD2901C4D492700E3A5AB /* MetricBlankStateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricBlankStateViewController.swift; sourceTree = "<group>"; };
 		41BFC9B71BCC0E0D00FD0F45 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = Base; path = Localizable.stringsdict; sourceTree = "<group>"; };
 		41CAB9B11BC411A00000772C /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Localizable.strings; sourceTree = "<group>"; };
+		41CB52EB1C979E5F004C13E9 /* ActivityTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityTableViewCell.swift; sourceTree = "<group>"; };
 		41D8717D1C7A8FAD002DCDA0 /* CPTXYPlotSpace+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CPTXYPlotSpace+Utility.swift"; sourceTree = "<group>"; };
 		41D8717F1C7A91BF002DCDA0 /* GraphPoint+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GraphPoint+Utility.swift"; sourceTree = "<group>"; };
 		41D871871C7CBFBB002DCDA0 /* Host.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Host.storyboard; sourceTree = "<group>"; };
@@ -1025,6 +1033,8 @@
 		4147BA2B1C20BE0500C71891 /* Metric Data Views */ = {
 			isa = PBXGroup;
 			children = (
+				418111CA1C979B0800EE3E75 /* ActivitySummaryView.swift */,
+				41CB52EB1C979E5F004C13E9 /* ActivityTableViewCell.swift */,
 				41FFE8AE1C61329F000C8DCF /* CheckinLocationView.swift */,
 				415338171C60681B00ED2B82 /* MetricCheckinSummaryView.swift */,
 				41643AAD1C188D4800258F55 /* MetricDataLabelView.swift */,
@@ -1269,6 +1279,8 @@
 			isa = PBXGroup;
 			children = (
 				413CC02F1C6927EC0097AE56 /* ActivityDetailView.xib */,
+				418111C41C97986000EE3E75 /* ActivitySummaryView.xib */,
+				418111C81C97997E00EE3E75 /* ActivityTableViewCell.xib */,
 				41FFE8AA1C61319E000C8DCF /* CheckinLocationView.xib */,
 				415338151C60614700ED2B82 /* MetricCheckinSummaryView.xib */,
 				41643AAB1C1886D900258F55 /* MetricDataLabelView.xib */,
@@ -2428,6 +2440,7 @@
 				8F02A12119AE2BF6002FF73E /* btn_back_white.png in Resources */,
 				8FF940A2198A8CE400D319D7 /* ProfileImageView.xib in Resources */,
 				8F5C38D019818BA900F51543 /* gauge3_normal.png in Resources */,
+				418111C91C97997E00EE3E75 /* ActivityTableViewCell.xib in Resources */,
 				8F02A12019AE2BF6002FF73E /* btn_back_black@2x.png in Resources */,
 				8FF9409E198A8CB600D319D7 /* SignupNameView.xib in Resources */,
 				8F5C38D219818BA900F51543 /* gauge3_overweight.png in Resources */,
@@ -2480,6 +2493,7 @@
 				D1E2236E1A7FFE60006330E7 /* ConnectDeviceRow.xib in Resources */,
 				D10E52491B5048CA0007EF10 /* challenge_image.png in Resources */,
 				8FDA6DA819A4039D00244D5F /* TermsView.xib in Resources */,
+				418111C51C97986000EE3E75 /* ActivitySummaryView.xib in Resources */,
 				8F5E7FBD199965C0009067E5 /* PinCodeView.xib in Resources */,
 				D16432BF1B9F96B100082C8F /* camera.png in Resources */,
 				D17787251A96873500C78F8B /* iphone.png in Resources */,
@@ -2685,6 +2699,7 @@
 				8FE206621B7CF30E00B473B0 /* LocationDelegate.swift in Sources */,
 				41A0BE111BBB088500A314D6 /* AFURLRequestSerialization.m in Sources */,
 				410167241C555CD700A54B02 /* NewBloodPressureMetricDelegate.swift in Sources */,
+				41CB52EC1C979E5F004C13E9 /* ActivityTableViewCell.swift in Sources */,
 				417F48B41BC823F1005BC49D /* NSString+HTML.m in Sources */,
 				D17528841B0FBD49006335B4 /* DailySummaryRow.swift in Sources */,
 				413E198F1C10EB2D00146B29 /* TextMenuCollectionViewController.swift in Sources */,
@@ -2752,6 +2767,7 @@
 				413E19951C10EBE800146B29 /* MetricChildViewController.swift in Sources */,
 				41A0BE371BBB14EA00A314D6 /* KeychainWrapper.swift in Sources */,
 				419D86561BBEF9A700E7D844 /* HigiClusterRenderer.m in Sources */,
+				418111CB1C979B0800EE3E75 /* ActivitySummaryView.swift in Sources */,
 				41A0BE2D1BBB08B800A314D6 /* UIWebView+AFNetworking.m in Sources */,
 				41A0BE0B1BBB088500A314D6 /* AFHTTPRequestOperation.m in Sources */,
 				8FA5925F19ABBD3A00622266 /* TourViewController.swift in Sources */,
