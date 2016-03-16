@@ -65,8 +65,13 @@ class SessionData {
     private func saveDocumentData() {
         KeychainWrapper.setString(token, forKey: "token");
         KeychainWrapper.setString(pin, forKey: "pin");
-        let userId = user != nil ? user.userId : "";
-        KeychainWrapper.setObject(userId, forKey: "userId");
+        let savedUserId: NSString!
+        if let user = user, let userId = user.userId {
+            savedUserId = userId
+        } else {
+            savedUserId = ""
+        }
+        KeychainWrapper.setObject(savedUserId, forKey: "userId");
         
         let saveDictionary = NSMutableDictionary();
         saveDictionary["seenDashboard"] = seenDashboard;
