@@ -117,8 +117,7 @@ final class NewBloodPressureMetricDelegate: NSObject, NewMetricDelegate {
         axisFromGraph.configureAxisX(visibleRangeX)
         
         // exclusion range to hide first tickmark
-        //        let firstRange = CPTPlotRange(location_: lowerBound - 1, length: 2) as CPTPlotRange
-        let firstRange = CPTPlotRange(location_: minY - 1, length: 2) as CPTPlotRange
+        let firstRange = CPTPlotRange(location_: plotSpace.yRange.locationDouble - 1, length: 2) as CPTPlotRange
         let exclusionRanges = [firstRange]
         // method directly modifies graph's y-axis
         let yAxisFromGraph = graph.axisSet.axisForCoordinate(CPTCoordinateY, atIndex: 0) as! CPTXYAxis
