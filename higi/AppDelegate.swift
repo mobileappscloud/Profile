@@ -179,3 +179,10 @@ extension AppDelegate {
         return recentlyLaunchToContinueUserActivity
     }
 }
+
+extension AppDelegate {
+    
+    class func instance() -> AppDelegate {
+        return UIApplication.sharedApplication().delegate! as! AppDelegate
+    }
+}

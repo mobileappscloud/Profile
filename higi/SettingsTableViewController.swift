@@ -354,7 +354,7 @@ class SettingsTableViewController: UITableViewController, SwitchTableViewCellDel
         SessionData.Instance.save();
         HealthKitManager.disableBackgroundUpdates()
         
-        let appDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate);
+        let appDelegate = AppDelegate.instance()
         appDelegate.stopLocationManager();
         
         let hostViewController = UIStoryboard(name: "Host", bundle: nil).instantiateInitialViewController()

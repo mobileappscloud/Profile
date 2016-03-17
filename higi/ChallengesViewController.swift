@@ -374,8 +374,8 @@ extension ChallengesViewController: UniversalLinkHandler {
     
     func handleUniversalLink(URL: NSURL, pathType: PathType, parameters: [String]?) {
         
-        let application = UIApplication.sharedApplication().delegate as! AppDelegate
-        if application.didRecentlyLaunchToContinueUserActivity() {
+        let appDelegate = AppDelegate.instance()
+        if appDelegate.didRecentlyLaunchToContinueUserActivity() {
             let loadingViewController = self.presentLoadingViewController()
             
             self.universalLinkObserver = NSNotificationCenter.defaultCenter().addObserverForName(ApiUtility.CHALLENGES, object: nil, queue: nil, usingBlock: { (notification) in

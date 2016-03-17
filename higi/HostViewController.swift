@@ -22,8 +22,7 @@ final class HostViewController: UIViewController {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        guard let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate else { return }
-        appDelegate.window?.rootViewController = self
+        AppDelegate.instance().window?.rootViewController = self
     }
     
     override func viewDidAppear(animated: Bool) {

@@ -97,7 +97,7 @@ class TermsViewController: UIViewController {
         SessionData.Instance.reset();
         SessionData.Instance.save();
         let hostViewController = UIStoryboard(name: "Host", bundle: nil).instantiateInitialViewController()
-        (UIApplication.sharedApplication().delegate as! AppDelegate).window?.rootViewController = hostViewController
+        AppDelegate.instance().window?.rootViewController = hostViewController
     }
     
     func reset() {

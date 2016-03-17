@@ -111,7 +111,7 @@ class SplashViewController: UIViewController {
             self.presentViewController(nameNav, animated: true, completion: nil);
         } else {
             ApiUtility.initializeApiData();
-            (UIApplication.sharedApplication().delegate as! AppDelegate).startLocationManager();
+            AppDelegate.instance().startLocationManager();
             
             dispatch_async(dispatch_get_main_queue(), { [weak self] in
                 guard let tabBarController = self?.mainTabBarController else { return }

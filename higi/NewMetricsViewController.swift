@@ -218,8 +218,8 @@ extension NewMetricsViewController: UniversalLinkHandler {
         
         var loadedActivities = false
         var loadedCheckins = false
-        let application = UIApplication.sharedApplication().delegate as! AppDelegate
-        if application.didRecentlyLaunchToContinueUserActivity() {
+        let appDelegate = AppDelegate.instance()
+        if appDelegate.didRecentlyLaunchToContinueUserActivity() {
             let loadingViewController = self.presentLoadingViewController()
             
             self.universalLinkActivitiesObserver = NSNotificationCenter.defaultCenter().addObserverForName(ApiUtility.ACTIVITIES, object: nil, queue: nil, usingBlock: { (notification) in

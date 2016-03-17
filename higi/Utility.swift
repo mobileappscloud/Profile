@@ -12,7 +12,7 @@ class Utility {
     }
     
     class func mainTabBarController() -> TabBarController? {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let appDelegate = AppDelegate.instance()
         guard let hostViewController = appDelegate.window?.rootViewController as? HostViewController else { return nil }
         
         return hostViewController.splashViewController.mainTabBarController
