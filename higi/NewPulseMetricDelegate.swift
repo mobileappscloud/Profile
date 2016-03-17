@@ -100,7 +100,9 @@ final class NewPulseMetricDelegate: NSObject, NewMetricDelegate {
         xAxisFromGraph.configureAxisX(visibleRangeX)
         
         // exclusion range to hide first tickmark
-        let firstRange = CPTPlotRange(location_: plotSpace.yRange.locationDouble - 1, length: 2) as CPTPlotRange
+        let lowerBound = plotSpace.yRange.locationDouble
+        let length = lowerBound < 0 ? abs(lowerBound) : 2
+        let firstRange = CPTPlotRange(location_: lowerBound, length: length) as CPTPlotRange
         let exclusionRanges = [firstRange]
         // method directly modifies graph's y-axis
         let yAxis = graph.axisSet.axisForCoordinate(CPTCoordinateY, atIndex: 0) as! CPTXYAxis
