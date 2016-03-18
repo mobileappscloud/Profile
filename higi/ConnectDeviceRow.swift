@@ -221,9 +221,35 @@ extension ConnectDeviceRow: WKNavigationDelegate {
                 
         let (path, _) = UniversalLink.parsePath(forURL: URL)
         if let path = path where path == .ConnectDevice {
+            var viewController: ConnectDeviceViewController?
+            for childViewController in self.parentController.viewControllers {
+                if let connect = childViewController as? ConnectDeviceViewController {
+                    viewController = connect
+                    break
+                }
+            }
+            guard let connectDeviceViewController = viewController else { return }
+
+            var alert: UIAlertController? = nil
+            if let queryItems = NSURLComponents(URL: URL, resolvingAgainstBaseURL: false)?.queryItems {
+                let (_, redirectParameters) = connectDeviceViewController.shouldHandleRedirect(queryItems)
+                
+                if let error = redirectParameters.error {
+                    let title = NSLocalizedString("CONNECT_DEVICE_ROW_CONNECT_ERROR_ALERT_TITLE", comment: "Title for alert displayed when an error occurs while attempting to connect a device.")
+                    alert = UIAlertController(title: title, message: error.localizedDescription, preferredStyle: .Alert)
+                    
+                    let dismissActionTitle = NSLocalizedString("CONNECT_DEVICE_ROW_CONNECT_ERROR_ALERT_ACTION_ACKNOWLEDGE_ACTION", comment: "Title for alert action to acknowledge alert displayed when an error occurs while attempting to connect a device.")
+                    let dismissAction = UIAlertAction(title: dismissActionTitle, style: .Cancel, handler: nil)
+                    alert?.addAction(dismissAction)
+                }
+            }
+
             dispatch_async(dispatch_get_main_queue(), {
                 webView.stopLoading()
                 self.parentController.popViewControllerAnimated(true)
+                if let alert = alert {
+                    self.parentController.presentViewController(alert, animated: true, completion: nil)
+                }
             })
         }
     }

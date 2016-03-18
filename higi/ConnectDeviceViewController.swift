@@ -210,20 +210,16 @@ class ConnectDeviceViewController: UIViewController, UITableViewDelegate, UITabl
 
 extension ConnectDeviceViewController: UniversalLinkHandler {
 
+    typealias RedirectParameters = (deviceName: String?, success: Bool, error: NSError?)
+    
     func handleUniversalLink(URL: NSURL, pathType: PathType, parameters: [String]?) {
         guard let components = NSURLComponents(URL: URL, resolvingAgainstBaseURL: true) else { return }
 
         if let queryItems = components.queryItems {
             // If there are query parameters, we need to verify if the user is being routed here from redirect for mobile device connect
-            var handleRedirect = false
-            for queryItem in queryItems {
-                if queryItem.name == "success" || queryItem.name == "device" {
-                    handleRedirect = true
-                    break
-                }
-            }
-            if handleRedirect {
-                handleConnectDeviceRedirect()
+            let (shouldRedirect, redirectParameters) = shouldHandleRedirect(queryItems)
+            if shouldRedirect {
+                handleRedirect(redirectParameters)
             } else {
                 ConnectDeviceViewController.navigateToConnectDevice()
             }
@@ -232,12 +228,67 @@ extension ConnectDeviceViewController: UniversalLinkHandler {
         }
     }
     
-    private func handleConnectDeviceRedirect() {
+    func shouldHandleRedirect(queryItems: [NSURLQueryItem]) -> (shouldHandleRedirect: Bool, redirectParameters: RedirectParameters) {
+        
+        var errorType: String? = nil
+        var success: Bool = false
+        var message: String? = nil
+        var deviceName: String? = nil
+        
+        for queryItem in queryItems {
+            let name = queryItem.name
+            let value = queryItem.value?.stringByRemovingPercentEncoding?.stringByReplacingOccurrencesOfString("+", withString: " ")
+            
+            if name == "error" {
+                errorType = value
+            } else if name == "message" {
+                message = value
+            } else if name == "success" {
+                success = value == "1" ? true : false
+            } else if name == "device" {
+                deviceName = value
+            }
+        }
+        
+        var error: NSError? = nil
+        if (errorType != nil) {
+            let defaultErrorMessage = NSLocalizedString("CONNECT_DEVICE_ROW_CONNECT_ERROR_ALERT_MESSAGE", comment: "Message for alert displayed when an error occurs while attempting to connect a device.")
+            let errorMessage = message ?? defaultErrorMessage
+            error = NSError(domain: "com.higi.main.\(deviceName)", code: 4000, userInfo: [NSLocalizedDescriptionKey : errorMessage])
+        }
+
+        let handleRedirect = (error != nil) || (success == true)
+        
+        return (handleRedirect, (deviceName, success, error))
+    }
+    
+    private func handleRedirect(redirectParameters: RedirectParameters) {
         //  We're handling a redirect, thus Safari should have been presented from the Connect Device view controller.
         if #available(iOS 9.0, *) {
+
             guard let tabBar = Utility.mainTabBarController() else { return }
-            guard let safari = tabBar.presentedViewController as? SFSafariViewController else { return }
-            safari.dismissViewControllerAnimated(true, completion: nil)
+            guard let navController = tabBar.presentedViewController as? UINavigationController,
+                let connectDeviceViewController = navController.topViewController as? ConnectDeviceViewController,
+                let safari = connectDeviceViewController.presentedViewController as? SFSafariViewController else {
+                    return
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                safari.dismissViewControllerAnimated(true, completion: {
+                    if let error = redirectParameters.error {
+                        let title = NSLocalizedString("CONNECT_DEVICE_ROW_CONNECT_ERROR_ALERT_TITLE", comment: "Title for alert displayed when an error occurs while attempting to connect a device.")
+                        let alert = UIAlertController(title: title, message: error.localizedDescription, preferredStyle: .Alert)
+                        
+                        let dismissActionTitle = NSLocalizedString("CONNECT_DEVICE_ROW_CONNECT_ERROR_ALERT_ACTION_ACKNOWLEDGE_ACTION", comment: "Title for alert action to acknowledge alert displayed when an error occurs while attempting to connect a device.")
+                        let dismissAction = UIAlertAction(title: dismissActionTitle, style: .Cancel, handler: nil)
+                        alert.addAction(dismissAction)
+                        
+                        dispatch_async(dispatch_get_main_queue(), {
+                            connectDeviceViewController.presentViewController(alert, animated: true, completion: nil)
+                        })
+                    }
+                })
+            })
         }
     }
     
