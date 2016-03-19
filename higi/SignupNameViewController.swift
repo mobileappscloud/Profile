@@ -71,8 +71,8 @@ class SignupNameViewController: UIViewController, UITextFieldDelegate {
             let user = SessionData.Instance.user;
             user.firstName = firstName.text;
             user.lastName = lastName.text;
-            var contents = NSMutableDictionary();
-            var notifications = NSMutableDictionary();
+            let contents = NSMutableDictionary();
+            let notifications = NSMutableDictionary();
             notifications["EmailCheckins"] = "True";
             notifications["EmailHigiNews"] = "True";
             contents["firstName"] = firstName.text;

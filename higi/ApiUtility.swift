@@ -180,10 +180,10 @@ class ApiUtility {
                     for serverActivity: AnyObject in serverActivities {
                         let activity = HigiActivity(dictionary: serverActivity as! NSDictionary);
                         let dateString = Constants.dateFormatter.stringFromDate(activity.startTime);
-                        if var (total, processedActivities) = activities[dateString] {
-                            let points = activity.errorDescription == nil ? activity.points + total : total;
-                            processedActivities.append(activity);
-                            activities[dateString] = (points, processedActivities);
+                        if var activitySummary = activities[dateString] {
+                            let points = activity.errorDescription == nil ? activity.points + activitySummary.totalPoints : activitySummary.totalPoints;
+                            activitySummary.activities.append(activity);
+                            activities[dateString] = (points, activitySummary.activities);
                         } else {
                             let points = activity.errorDescription == nil ? activity.points : 0;
                             let processedActivities = [activity];
