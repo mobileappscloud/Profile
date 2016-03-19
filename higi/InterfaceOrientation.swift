@@ -99,7 +99,7 @@ extension UINavigationController {
             } else if currentOrientation.isLandscape {
                 return currentOrientation == .LandscapeLeft ? .LandscapeRight : .LandscapeLeft
             } else {
-                return self.topViewController?.presentedViewController?.interfaceOrientation ?? .Portrait
+                return self.topViewController?.presentedViewController?.higi_interfaceOrientation() ?? .Portrait
             }
         } else if let _ = self.topViewController as? MetricDetailViewController {
             return .LandscapeLeft

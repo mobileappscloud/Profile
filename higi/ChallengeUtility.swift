@@ -3,7 +3,6 @@ import Foundation
 class ChallengeUtility {
     class func getChallengeViews(challenge: HigiChallenge, frame: CGRect, isComplex: Bool) -> [ChallengeView] {
         var nibs:[ChallengeView] = [];
-        var winConditions:[ChallengeWinCondition] = [];
         
         let consolodatedList = consolodateWinConditions(challenge.winConditions);
         
@@ -11,7 +10,6 @@ class ChallengeUtility {
             var nib:ChallengeView!;
             let firstWinCondition = consolodatedList[index][0];
             let goalType = firstWinCondition.goal.type;
-            let winnerType = firstWinCondition.winnerType;
             
             if (goalType == "most_points" || goalType == "unit_goal_reached") {
                 nib = CompetitiveChallengeView.instanceFromNib(frame, challenge: challenge, winConditions: consolodatedList[index]);

@@ -361,13 +361,10 @@ class MetricGraph: CPTGraphHostingView {
             return;
         }
         
-        var point:GraphPoint!;
         if (plot.isEqual(self.plot)) {
             selectedPointIndex = idx;
-            point = points[idx];
         } else {
             selectedPointIndex = Int(idx / 2);
-            point = altPoints[idx];
             altPlot.reloadData();
         }
         

@@ -112,7 +112,7 @@ class PointsMeter: UIView {
             var firstActivity = true;
             let toPath = UIBezierPath();
             for type in activityTypes {
-                let (points, activity) = activitiesByType[type]!;
+                let (points, _) = activitiesByType[type]!;
                 let arc = CAShapeLayer();
                 arc.lineWidth = lineWidth;
                 arc.fillColor = UIColor.clearColor().CGColor;

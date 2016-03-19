@@ -63,6 +63,7 @@
 		413E199B1C1167A500146B29 /* NewMetricsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413E199A1C1167A500146B29 /* NewMetricsViewController.swift */; };
 		41411BA01BA87E3D0027F5E1 /* NotificationSettingsDeviceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41411B9F1BA87E3D0027F5E1 /* NotificationSettingsDeviceTableViewController.swift */; };
 		41411BA31BA894280027F5E1 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41411BA11BA894280027F5E1 /* SwitchTableViewCell.swift */; };
+		4143ED201C9DD3F50013F9B2 /* UIViewController+InterfaceOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4143ED1F1C9DD3F50013F9B2 /* UIViewController+InterfaceOrientation.m */; };
 		415338161C60614700ED2B82 /* MetricCheckinSummaryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 415338151C60614700ED2B82 /* MetricCheckinSummaryView.xib */; };
 		415338181C60681B00ED2B82 /* MetricCheckinSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415338171C60681B00ED2B82 /* MetricCheckinSummaryView.swift */; };
 		41545BF91BA76CFA00946358 /* NotificationSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41545BF81BA76CFA00946358 /* NotificationSettings.storyboard */; };
@@ -466,6 +467,8 @@
 		413E199A1C1167A500146B29 /* NewMetricsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewMetricsViewController.swift; sourceTree = "<group>"; };
 		41411B9F1BA87E3D0027F5E1 /* NotificationSettingsDeviceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingsDeviceTableViewController.swift; sourceTree = "<group>"; };
 		41411BA11BA894280027F5E1 /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
+		4143ED1E1C9DD3F50013F9B2 /* UIViewController+InterfaceOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+InterfaceOrientation.h"; sourceTree = "<group>"; };
+		4143ED1F1C9DD3F50013F9B2 /* UIViewController+InterfaceOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+InterfaceOrientation.m"; sourceTree = "<group>"; };
 		415338151C60614700ED2B82 /* MetricCheckinSummaryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MetricCheckinSummaryView.xib; sourceTree = "<group>"; };
 		415338171C60681B00ED2B82 /* MetricCheckinSummaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricCheckinSummaryView.swift; sourceTree = "<group>"; };
 		41545BF81BA76CFA00946358 /* NotificationSettings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NotificationSettings.storyboard; sourceTree = "<group>"; };
@@ -1757,6 +1760,8 @@
 				8FCD2D7F19EC286900AC5A82 /* UIImage+Orientation.m */,
 				413CEE3D1C87BF0E00F241F7 /* UIAppearance+Swift.h */,
 				413CEE3E1C87BF0E00F241F7 /* UIAppearance+Swift.m */,
+				4143ED1E1C9DD3F50013F9B2 /* UIViewController+InterfaceOrientation.h */,
+				4143ED1F1C9DD3F50013F9B2 /* UIViewController+InterfaceOrientation.m */,
 			);
 			name = "Objective-C Helpers";
 			sourceTree = "<group>";
@@ -2807,6 +2812,7 @@
 				416226731C7940F400EFA1B3 /* CPTMutableLineStyle+Utility.swift in Sources */,
 				41A0BE2B1BBB08B800A314D6 /* UIProgressView+AFNetworking.m in Sources */,
 				D1740BC41AE0381F00462F6E /* MetricsType.swift in Sources */,
+				4143ED201C9DD3F50013F9B2 /* UIViewController+InterfaceOrientation.m in Sources */,
 				419D86481BBEF83000E7D844 /* GQuadItem.m in Sources */,
 				4192B4FE1BB5BF4500D1A2D3 /* PersistentSettingsController.swift in Sources */,
 				D1D32D071B1FA0B500AE9B25 /* ActivityMetricDelegate.swift in Sources */,

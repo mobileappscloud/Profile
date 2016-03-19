@@ -56,7 +56,7 @@ class ActivityMetricDelegate: MetricDelegate {
                 break;
             }
         }
-        if let (points, list) = SessionController.Instance.activities[lastDate] {
+        if let (points, _) = SessionController.Instance.activities[lastDate] {
             selectedActivity = (lastDate, "\(points)");
         }
     }
