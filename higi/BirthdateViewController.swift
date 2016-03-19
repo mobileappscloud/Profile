@@ -40,7 +40,7 @@ class BirthdateViewController: UIViewController {
         
         let birthday = datePicker.date;
         
-        let components = NSCalendar.currentCalendar().components(.NSYearCalendarUnit, fromDate: birthday, toDate: NSDate(), options: []);
+        let components = NSCalendar.currentCalendar().components(.Year, fromDate: birthday, toDate: NSDate(), options: []);
         
         let age = components.year;
         

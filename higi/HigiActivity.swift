@@ -64,8 +64,7 @@ class HigiActivity {
         }
         let formatter = NSDateFormatter();
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss";
-        let dateString = dictionary["startTime"] as! String;
-        var time = formatter.dateFromString(dateString);
+
         startTime = formatter.dateFromString(dictionary["startTime"] as! String);
         
         if let updatedTimeString = dictionary["updatedUTC"] as? String {

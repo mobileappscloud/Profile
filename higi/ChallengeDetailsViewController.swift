@@ -138,7 +138,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             //no x padding for first button
             let xPadding = index == 0 ? buttonMargin : buttonMargin / 2;
             let buttonX = xPadding + (CGFloat(index) * table.frame.size.width / 2);
-            let buttonY = buttonContainerOriginY + buttonContainer.frame.size.height + buttonMargin;
+
             //subtract margin from width of second button
             let buttonWidth = (table.frame.size.width / 2) - (3/2 * buttonMargin);
             let buttonHeight = toggleButtonHeight - buttonMargin * 2;
@@ -696,9 +696,9 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             progressTable!.frame.size.height = self.view.bounds.size.height;
             progressTable!.contentSize.height = max(progressTable!.contentSize.height, minTableHeight);
         }
-        var frame = detailsTable.prizesContainer.frame;
+
         let height = detailsTable.prizesContainer.frame.origin.y + prizesHeight + 305;
-        var descFrame = detailsTable.descriptionView.frame;
+
         detailsTable.contentSize.height = max(height, minTableHeight);
         detailsTable.headerView.frame.size.height = detailsTable.termsButton.frame.origin.y + detailsTable.termsButton.frame.size.height;
         
@@ -883,7 +883,6 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             let teamGravityBoard = gravityTuple.0;
             let teamRanks = gravityTuple.1;
             
-            let highScore = challenge.teamHighScore;
             for index in 0...teamGravityBoard.count - 1 {
                 let name = teamGravityBoard[index].name;
                 if (name == challenge.participant.team.name) {
@@ -972,7 +971,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                 }
                 self.chatterTable!.reloadData();
                 }, failure: { operation, error in
-                    let e = error;
+
             });
         }
     }
@@ -1001,7 +1000,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                 self.chatterTable!.reloadData();
 
                 }, failure: { operation, error in
-                    let e = error;
+
             });
         }
     }

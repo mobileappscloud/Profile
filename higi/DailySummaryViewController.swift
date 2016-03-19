@@ -157,7 +157,8 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         if activities.count == 0 {
             layoutBlankState();
         } else {
-            for (type, (total, activityList)) in activitiesByType {
+            // (activityType, (totalPoints, activityList))
+            for (_, (total, _)) in activitiesByType {
                 if total > largestActivityPoints {
                     largestActivityPoints = total;
                 }
@@ -168,13 +169,13 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     }
 
     func sortByValue(key1: String, key2: String) -> Bool {
-        let (total1, list1) = activitiesByType[key1]!;
-        let (total2, list2) = activitiesByType[key2]!;
+        let (total1, _) = activitiesByType[key1]!;
+        let (total2, _) = activitiesByType[key2]!;
         return total1 > total2;
     }
 
     func layoutBlankState() {
-        let totalPoints = 140, higiPoints = 100, foursquarePoints = 15, morningPoints = 15, afternoonPoints = 15, activityTrackerPoints = 50;
+        let higiPoints = 100, foursquarePoints = 15, morningPoints = 15, afternoonPoints = 15, activityTrackerPoints = 50;
         
         let higiTitle = NSLocalizedString("DAILY_SUMMARY_VIEW_BLANK_STATE_HIGI_TITLE", comment: "Title for higi station; displayed on the Daily Summary view blank state.");
         let foursquareTitle = NSLocalizedString("DAILY_SUMMARY_VIEW_BLANK_STATE_FOURSQUARE_TITLE", comment: "Title for Foursquare; displayed on the Daily Summary view blank state.");
@@ -194,8 +195,6 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         let afternoonText = NSLocalizedString("DAILY_SUMMARY_VIEW_BLANK_STATE_AFTERNOON_TEXT", comment: "Descriptive text shown in the afternoon; displayed on the Daily Summary view blank state.");
         
         let higiCallToAction = NSLocalizedString("DAILY_SUMMARY_VIEW_BLANK_STATE_CALL_TO_ACTION_FIND_STATION", comment: "Title for call-to-action to find a higi station; displayed in the Daily Summary blank-state view.");
-        let morningCallToAction = NSLocalizedString("DAILY_SUMMARY_VIEW_BLANK_STATE_CALL_TO_ACTION_FIND_STATION", comment: "Title for call-to-action to find a higi station; displayed in the Daily Summary blank-state view.");
-        let afternoonCallToAction = NSLocalizedString("DAILY_SUMMARY_VIEW_BLANK_STATE_CALL_TO_ACTION_FIND_STATION", comment: "Title for call-to-action to find a higi station; displayed in the Daily Summary blank-state view.");
         let connectDeviceCallToAction: String
         if HealthKitManager.isHealthDataAvailable() {
             connectDeviceCallToAction = NSLocalizedString("DAILY_SUMMARY_VIEW_BLANK_STATE_CALL_TO_ACTION_CONNECT_DEVICE_BRANDED", comment: "Title for call-to-action to connect a branded device; displayed in the Daily Summary blank-state view.");
@@ -206,11 +205,11 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         let foursquareCallToAction = NSLocalizedString("DAILY_SUMMARY_VIEW_BLANK_STATE_CALL_TO_ACTION_CONNECT_DEVICE", comment: "Title for call-to-action to connect a device; displayed in the Daily Summary blank-state view.")
 
         
-        let higiButtonTarget:Selector = "higiCallToActionClicked:", activityTrackerButtonTarget:Selector = "activityTrackerCallToActionClicked:", foursquareButtonTarget:Selector = "foursquareCallToActionClicked:", morningButtonTarget:Selector = "morningCallToActionClicked:", afternoonButtonTarget:Selector = "afternoonCallToActionClicked:";
+        let higiButtonTarget:Selector = "higiCallToActionClicked:", activityTrackerButtonTarget:Selector = "activityTrackerCallToActionClicked:", foursquareButtonTarget:Selector = "foursquareCallToActionClicked:"
         
         let noCheckins = SessionController.Instance.checkins.count == 0;
         var noDevices = true;
-        var devices = SessionController.Instance.devices;
+        let devices = SessionController.Instance.devices;
         for (_, device) in devices {
             if let connected = device.connected where connected {
                 noDevices = false;
@@ -304,7 +303,6 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
             rows.append(activityRow);
             margins.append(rowMargin);
             
-            var checkinIndex = 0;
             activityContainer.addSubview(activityRow);
             currentOrigin += activityRow.frame.size.height + rowMargin;
             let rowWidth = UIScreen.mainScreen().bounds.size.width - activityRow.name.frame.origin.x;
@@ -331,7 +329,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
                 } else if key == ActivityCategory.Health.getString() {
                     let grayedAlpha: CGFloat = 0.5;
                     var hasCheckinData = false;
-                    if let checkin = findCheckin(subActivity) {
+                    if let _ = findCheckin(subActivity) {
                         hasCheckinData = true;
                     }
                     if subActivity.points > 0 || hasCheckinData {

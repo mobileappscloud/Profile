@@ -88,7 +88,7 @@ class CustomLoadingSpinner: UIView {
                     self.growArcAnimation(drawPercent);
                     self.rotation += CGFloat(drawPercent * CGFloat(M_PI * 2));
                 default:
-                    let i = 0;
+                    break
                 }
                 self.rotateAnimation();
                 let path = UIBezierPath(arcCenter: self.centerPoint, radius: self.outerRadius - self.lineWidth / 2, startAngle: 0, endAngle: CGFloat(CGFloat(M_PI * 2)), clockwise: true).CGPath;

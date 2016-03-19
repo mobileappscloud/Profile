@@ -165,7 +165,7 @@ class BpMetricDelegate: MetricDelegate {
     
     class func valueIsSystolic(systolic: Int, diastolic: Int) -> Bool {
         var isSystolic = true;
-        var ranges:[MetricGauge.Range] = [];
+
         for i in 0...BpRanges.systolicRanges.count - 1 {
             let systolicRange = BpRanges.systolicRanges[i];
             let diastolicRange = BpRanges.diastolicRanges[i];

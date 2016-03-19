@@ -15,8 +15,6 @@ enum ActivityCategory {
             return Utility.colorFromHexString("#3acec7");
         case Lifestyle:
             return Utility.colorFromHexString("#fc3767");
-        default:
-            return Utility.colorFromHexString("#FFFFFF");
         }
     }
     
@@ -28,8 +26,6 @@ enum ActivityCategory {
         case Health:
             return "Health";
         case Lifestyle:
-            return "Lifestyle";
-        default:
             return "Lifestyle";
         }
     }

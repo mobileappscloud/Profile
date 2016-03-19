@@ -363,7 +363,7 @@ extension MetricChildViewController: MetricTableScrollDelegate {
         
         // fetch right, middle, and left-most visible points on graph
         let firstPoint = points[rightIndex]
-        let midPoint = points[middleIndex]
+//        let midPoint = points[middleIndex]
         let lastPoint = points[leftIndex]
         
         var margin: Double = (lastPoint.x - firstPoint.x) * 0.1
@@ -371,9 +371,9 @@ extension MetricChildViewController: MetricTableScrollDelegate {
             margin = 2 * 86400 // x days
         }
         
-        let locationTimeInterval = firstPoint.x - margin
-        let lengthTimeInterval = (lastPoint.x - firstPoint.x) + margin * 2
-        let endRange = locationTimeInterval + lengthTimeInterval
+//        let locationTimeInterval = firstPoint.x - margin
+//        let lengthTimeInterval = (lastPoint.x - firstPoint.x) + margin * 2
+//        let endRange = locationTimeInterval + lengthTimeInterval
         
         
         // update the visible range of plot points

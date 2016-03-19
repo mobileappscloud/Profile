@@ -39,7 +39,7 @@ class ChallengeWinCondition {
         
         let prizeObject = dictionary["prize"] as! NSDictionary?;
         if (prizeObject != nil) {
-            prizeName = prizeObject!["name"] as! NSString;
+            prizeName = prizeObject!["name"] as? NSString;
             prizeImageUrl = prizeObject!["imageUrl"] as? NSString!;
         }
     }

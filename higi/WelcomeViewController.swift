@@ -216,7 +216,7 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
                 subTitle = NSLocalizedString("WELCOME_VIEW_PAGE_BODY_STAT_SUBTITLE", comment: "Subtitle for body stat page on welcome tour.")
                 phoneScrollView.setContentOffset(CGPoint(x: 0, y: MetricsView.frame.origin.y - 20), animated: true);
             default:
-                let i = 0;
+                break
         }
 
         UIView.animateWithDuration(animDuration, delay: 0.0, options: .CurveEaseInOut, animations: {

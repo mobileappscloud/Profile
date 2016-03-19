@@ -93,7 +93,7 @@ class ChallengesViewController: UIViewController, UIGestureRecognizerDelegate, U
                         challengeIndex = challengeName == challenge.name ? 3 : challengeIndex;
                     }
                 default:
-                    var i = 0;
+                    break
                 }
             }
             for index in 0...pageDisplayMaster.count-1 {
@@ -126,7 +126,7 @@ class ChallengesViewController: UIViewController, UIGestureRecognizerDelegate, U
                             currentTable = invitedTable;
                         }
                     default:
-                        var i = 0;
+                        break
                     }
                     totalPages++;
                 }
@@ -295,7 +295,7 @@ class ChallengesViewController: UIViewController, UIGestureRecognizerDelegate, U
     func gotoDetails(sender: AnyObject) {
         Flurry.logEvent("ChallengeCard_Pressed");
         let index = (sender.view as UIView!).tag;
-        var challenges:[HigiChallenge] = [];
+
         var challenge: HigiChallenge!;
         let table = getCurrentTable()!;
         if (activeTable != nil && table == activeTable) {
@@ -332,7 +332,7 @@ class ChallengesViewController: UIViewController, UIGestureRecognizerDelegate, U
         case 3:
             table = invitedTable!;
         default:
-            let i = 0;
+            break
         }
         return table!;
     }
@@ -354,7 +354,7 @@ class ChallengesViewController: UIViewController, UIGestureRecognizerDelegate, U
     @IBAction func changePage(sender: AnyObject) {
         let pager = sender as! UIPageControl;
         let page = pager.currentPage;
-        let previousPage = currentPage;
+
         pageTitle = pageTitles[page]
         currentPage = page;
         currentTable = getCurrentTable();
@@ -452,7 +452,7 @@ extension ChallengesViewController: UniversalLinkHandler {
 
         guard let challengesViewController = Utility.mainTabBarController()?.challengesViewController else { return }
         
-        dispatch_async(dispatch_get_main_queue(), { [weak self] in
+        dispatch_async(dispatch_get_main_queue(), {
             challengesViewController.showDetails(forChallenge: challenge)
         })
     }

@@ -68,7 +68,7 @@ class SignupNameViewController: UIViewController, UITextFieldDelegate {
         }
         
         if (!problemFound) {
-            var user = SessionData.Instance.user;
+            let user = SessionData.Instance.user;
             user.firstName = firstName.text;
             user.lastName = lastName.text;
             var contents = NSMutableDictionary();

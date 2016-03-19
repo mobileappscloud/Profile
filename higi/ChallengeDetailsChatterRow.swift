@@ -17,7 +17,6 @@ class ChallengeDetailsChatterRow: UITableViewCell {
         message.frame.size.height = Utility.heightForTextView(chatView.frame.size.width - 10, text: message.text!, fontSize: 12, margin: 20);
         message.sizeToFit();
         time.sizeToFit();
-        var timeFrame = time.frame;
         chatView.frame.size.height = time.frame.origin.y;
     }
     
@@ -49,9 +48,7 @@ class ChallengeDetailsChatterRow: UITableViewCell {
         row.message.text = comment;
         row.message.sizeToFit();
         row.time.text = timeSincePosted;
-        let beforeFrame = row.time.frame;
         row.time.sizeToFit();
-        var timeFrame = row.time.frame;
         row.frame.size.height = row.time.frame.origin.y;
         return row;
     }

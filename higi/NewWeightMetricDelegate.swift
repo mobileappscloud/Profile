@@ -68,8 +68,6 @@ final class NewWeightMetricDelegate: NSObject, NewMetricDelegate {
         
         let symbolLineStyle = CPTMutableLineStyle(color: color, lineWidth: 2.0)
         
-        let altSymbolLineStyle = CPTMutableLineStyle(color: color, lineWidth: 2.0)
-        
         let plotSymbol = CPTPlotSymbol.plotSymbol(CPTPlotSymbolTypeEllipse, fillColor: UIColor.whiteColor(), lineStyle: symbolLineStyle, size: plotSymbolSize)
         let selectedPlotSymbol = CPTPlotSymbol.plotSymbol(CPTPlotSymbolTypeEllipse, fillColor: color, lineStyle: symbolLineStyle, size: selectedPlotSymbolSize)
         

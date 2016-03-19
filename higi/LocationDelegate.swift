@@ -6,7 +6,7 @@ class LocationDelegate: NSObject, CLLocationManagerDelegate {
     
     private var lastKiosk: KioskInfo?;
     
-    func locationManager(manager: CLLocationManager!, didUpdateToLocation newLocation: CLLocation!, fromLocation oldLocation: CLLocation!) {
+    func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
             if (SessionController.Instance.kioskList == nil) {
                 if (!SessionData.Instance.kioskListString.isEmpty) {

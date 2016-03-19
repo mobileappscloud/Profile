@@ -93,10 +93,10 @@
 		4192B4FE1BB5BF4500D1A2D3 /* PersistentSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4192B4FD1BB5BF4500D1A2D3 /* PersistentSettingsController.swift */; };
 		4197B58D1C58095100E46F8F /* UtilityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4197B58C1C58095100E46F8F /* UtilityTests.swift */; };
 		419D85CF1BBEDD3C00E7D844 /* HIGIScatterPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D85CE1BBEDD3C00E7D844 /* HIGIScatterPlot.m */; };
-		419D86481BBEF83000E7D844 /* GQuadItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D862D1BBEF83000E7D844 /* GQuadItem.m */; };
+		419D86481BBEF83000E7D844 /* GQuadItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D862D1BBEF83000E7D844 /* GQuadItem.m */; settings = {COMPILER_FLAGS = "-w"; }; };
 		419D86491BBEF83000E7D844 /* GStaticCluster.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D862F1BBEF83000E7D844 /* GStaticCluster.m */; };
 		419D864A1BBEF83000E7D844 /* NonHierarchicalDistanceBasedAlgorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D86311BBEF83000E7D844 /* NonHierarchicalDistanceBasedAlgorithm.m */; };
-		419D864C1BBEF83000E7D844 /* GClusterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D86381BBEF83000E7D844 /* GClusterManager.m */; };
+		419D864C1BBEF83000E7D844 /* GClusterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D86381BBEF83000E7D844 /* GClusterManager.m */; settings = {COMPILER_FLAGS = "-w"; }; };
 		419D864E1BBEF83000E7D844 /* SphericalMercatorProjection.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D863F1BBEF83000E7D844 /* SphericalMercatorProjection.m */; };
 		419D864F1BBEF83000E7D844 /* GQTPointQuadTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D86441BBEF83000E7D844 /* GQTPointQuadTree.m */; };
 		419D86501BBEF83000E7D844 /* GQTPointQuadTreeChild.m in Sources */ = {isa = PBXBuildFile; fileRef = 419D86461BBEF83000E7D844 /* GQTPointQuadTreeChild.m */; };
@@ -105,13 +105,13 @@
 		419D86601BBEFF1A00E7D844 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 419D865F1BBEFF1A00E7D844 /* Settings.storyboard */; };
 		419D86641BBF000800E7D844 /* checkinerroricon.png in Resources */ = {isa = PBXBuildFile; fileRef = 419D86621BBF000800E7D844 /* checkinerroricon.png */; };
 		419D86651BBF000800E7D844 /* checkinsuccessicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 419D86631BBF000800E7D844 /* checkinsuccessicon.png */; };
-		41A0BE0B1BBB088500A314D6 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A0BDF91BBB088500A314D6 /* AFHTTPRequestOperation.m */; };
-		41A0BE0C1BBB088500A314D6 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A0BDFB1BBB088500A314D6 /* AFHTTPRequestOperationManager.m */; };
-		41A0BE0D1BBB088500A314D6 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A0BDFD1BBB088500A314D6 /* AFHTTPSessionManager.m */; };
+		41A0BE0B1BBB088500A314D6 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A0BDF91BBB088500A314D6 /* AFHTTPRequestOperation.m */; settings = {COMPILER_FLAGS = "-w"; }; };
+		41A0BE0C1BBB088500A314D6 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A0BDFB1BBB088500A314D6 /* AFHTTPRequestOperationManager.m */; settings = {COMPILER_FLAGS = "-w"; }; };
+		41A0BE0D1BBB088500A314D6 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A0BDFD1BBB088500A314D6 /* AFHTTPSessionManager.m */; settings = {COMPILER_FLAGS = "-w"; }; };
 		41A0BE0E1BBB088500A314D6 /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A0BE001BBB088500A314D6 /* AFNetworkReachabilityManager.m */; };
 		41A0BE0F1BBB088500A314D6 /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A0BE021BBB088500A314D6 /* AFSecurityPolicy.m */; };
 		41A0BE101BBB088500A314D6 /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A0BE041BBB088500A314D6 /* AFURLConnectionOperation.m */; };
-		41A0BE111BBB088500A314D6 /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A0BE061BBB088500A314D6 /* AFURLRequestSerialization.m */; };
+		41A0BE111BBB088500A314D6 /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A0BE061BBB088500A314D6 /* AFURLRequestSerialization.m */; settings = {COMPILER_FLAGS = "-w"; }; };
 		41A0BE121BBB088500A314D6 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A0BE081BBB088500A314D6 /* AFURLResponseSerialization.m */; };
 		41A0BE131BBB088500A314D6 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A0BE0A1BBB088500A314D6 /* AFURLSessionManager.m */; };
 		41A0BE261BBB08B800A314D6 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A0BE161BBB08B800A314D6 /* AFNetworkActivityIndicatorManager.m */; };
@@ -3073,7 +3073,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = higiUITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.higi.main.higiUITests;
@@ -3088,7 +3088,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = higiUITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.higi.main.higiUITests;
@@ -3104,7 +3104,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = higiUITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.higi.main.higiUITests;
@@ -3120,7 +3120,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = higiUITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.higi.main.higiUITests;

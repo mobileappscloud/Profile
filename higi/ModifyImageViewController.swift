@@ -96,8 +96,7 @@ class ModifyImageViewController: UIViewController {
     func sendSize() {
         let user = SessionData.Instance.user;
         let contents = NSMutableDictionary();
-        var frame = profileImageView.frame;
-        var iamgeSize = profileImage.size;
+
         let scale = profileImageView.frame.size.width / profileImage.size.width;
         let serverScale = 140.0 / ((self.view.frame.size.width * 0.571296296) / scale);
         let deltaX = profileImageView.frame.origin.x - origFrame.origin.x + (profileImageView.frame.size.width - origFrame.size.width) / 2;
