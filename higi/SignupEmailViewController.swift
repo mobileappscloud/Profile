@@ -98,6 +98,7 @@ class SignupEmailViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func signup(sender: AnyObject) {
+        self.title = NSLocalizedString("SIGN_UP_EMAIL_VIEW_TITLE", comment: "Title for Sign Up Email view.")
         termsView.hidden = true;
         let encodedEmail = CFURLCreateStringByAddingPercentEscapes(nil, email.text, nil, "!*'();:@&=+$,/?%#[]", CFStringBuiltInEncodings.UTF8.rawValue);
         let encodedPassword = CFURLCreateStringByAddingPercentEscapes(nil, password.text, nil, "!*'();:@&=+$,/?%#[]", CFStringBuiltInEncodings.UTF8.rawValue);
