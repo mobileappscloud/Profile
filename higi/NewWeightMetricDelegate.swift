@@ -55,8 +55,6 @@ final class NewWeightMetricDelegate: NSObject, NewMetricDelegate {
         return !data.weightPoints.isEmpty
     }
     
-    var metricColor = Theme.Color.Weight.primary
-    
     func graph(frame: CGRect) -> CPTXYGraph {
         let plotSymbolSize = 8.0
         let selectedPlotSymbolSize = 10.0        
@@ -253,7 +251,7 @@ extension NewWeightMetricDelegate: MetricDetailPreviewDelegate {
         
         let weight = Int(selectedPoint.y)
         let unit = NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_WEIGHT_POUNDS", comment: "General purpose abbreviated label for the english units of weight measurement, pounds.")
-        detailPreview.configureDisplay(formattedDateString, primaryMetricValue: "\(weight)", primaryMetricUnit: unit, secondaryMetricValue: nil, secondaryMetricUnit: nil, boldValueColor: self.metricColor)
+        detailPreview.configureDisplay(formattedDateString, primaryMetricValue: "\(weight)", primaryMetricUnit: unit, secondaryMetricValue: nil, secondaryMetricUnit: nil)
     }
 }
 

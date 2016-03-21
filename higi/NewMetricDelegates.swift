@@ -13,8 +13,6 @@ protocol NewMetricDelegate: MetricGraphDelegate, MetricTableDelegate, MetricDeta
     var selectedIndex: Int { get set }
     
     func hasData() -> Bool
-    
-    var metricColor: UIColor { get }
 }
 
 // MARK: - Detail Preview
@@ -70,7 +68,7 @@ extension MetricTableDelegate {
         let date = NSDate(timeIntervalSince1970: timeInterval)
         let dateString = Utility.longStyleDateFormatter.stringFromDate(date)
         
-        cell.checkinSummaryView.configureDisplay(dateString, primaryMetricValue: primaryMetricValue, primaryMetricUnit: primaryMetricUnit, secondaryMetricValue: secondaryMetricValue, secondaryMetricUnit: secondaryMetricUnit, boldValueColor: nil)
+        cell.checkinSummaryView.configureDisplay(dateString, primaryMetricValue: primaryMetricValue, primaryMetricUnit: primaryMetricUnit, secondaryMetricValue: secondaryMetricValue, secondaryMetricUnit: secondaryMetricUnit)
         
         let color = Theme.Color.Metrics.TableView.selectedCellBackGround
         let backgroundColor = selected ? color : UIColor.clearColor()

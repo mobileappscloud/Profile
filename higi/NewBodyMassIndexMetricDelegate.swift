@@ -54,8 +54,6 @@ final class NewBodyMassIndexMetricDelegate: NSObject, NewMetricDelegate {
         return !data.bodyMassIndexPoints.isEmpty
     }
     
-    var metricColor = Theme.Color.BodyMassIndex.primary
-    
     func graph(frame: CGRect) -> CPTXYGraph {
         let plotSymbolSize = 8.0
         let selectedPlotSymbolSize = 10.0
@@ -220,7 +218,7 @@ extension NewBodyMassIndexMetricDelegate: MetricDetailPreviewDelegate {
         
         let bmi = selectedPoint.y
         let bmiString = String.localizedStringWithFormat("%.2f", bmi)
-        detailPreview.configureDisplay(formattedDateString, primaryMetricValue: bmiString, primaryMetricUnit: "lb/in²", secondaryMetricValue: nil, secondaryMetricUnit: nil, boldValueColor: self.metricColor)
+        detailPreview.configureDisplay(formattedDateString, primaryMetricValue: bmiString, primaryMetricUnit: "lb/in²", secondaryMetricValue: nil, secondaryMetricUnit: nil)
     }
 }
 

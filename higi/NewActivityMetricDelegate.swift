@@ -56,8 +56,6 @@ final class NewActivityMetricDelegate: NSObject, NewMetricDelegate {
         return !data.activityPoints.isEmpty
     }
     
-    var metricColor = Theme.Color.Activity.primary
-    
     func graph(frame: CGRect) -> CPTXYGraph {
         let plotSymbolSize = 8.0
         let selectedPlotSymbolSize = 10.0        
@@ -156,7 +154,7 @@ extension NewActivityMetricDelegate: MetricDetailPreviewDelegate {
         
         let formattedDateString = Utility.longStyleDateFormatter.stringFromDate(activityDate)
         
-        detailPreview.configureDisplay(formattedDateString, primaryMetricValue: String(activitySummary.totalPoints), primaryMetricUnit: "Points", secondaryMetricValue: nil, secondaryMetricUnit: nil, boldValueColor: self.metricColor)
+        detailPreview.configureDisplay(formattedDateString, primaryMetricValue: String(activitySummary.totalPoints), primaryMetricUnit: "Points", secondaryMetricValue: nil, secondaryMetricUnit: nil)
     }
 }
 

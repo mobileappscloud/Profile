@@ -111,15 +111,6 @@ extension Theme.Color {
 
 // MARK: - Metrics
 
-// MARK: Activity
-
-extension Theme.Color {
-    
-    struct Activity {
-        static let primary = Primary.green
-    }
-}
-
 // MARK: Blood Pressure
 
 extension Theme.Color {
@@ -147,8 +138,6 @@ extension Theme.Color {
     
     struct Pulse {
         
-        static let primary = Utility.colorFromHexString("#5FAFDF")
-        
         struct Category {
             
             static let low = HealthStatus.blue
@@ -165,8 +154,6 @@ extension Theme.Color {
 extension Theme.Color {
     
     struct Weight {
-        
-        static let primary = BodyMassIndex.primary
         
         struct Category {
             
@@ -187,8 +174,6 @@ extension Theme.Color {
     
     struct BodyMassIndex {
         
-        static let primary = Utility.colorFromHexString("#EE6C55")
-        
         struct Category {
             
             static let underweight = HealthStatus.yellow
@@ -208,8 +193,6 @@ extension Theme.Color {
     
     struct BodyFat {
         
-        static let primary = Weight.primary
-        
         struct Category {
             
             static let healthy = HealthStatus.green
@@ -226,6 +209,8 @@ extension Theme.Color {
 extension Theme.Color {
     
     struct Metrics {
+        
+        static let text = Secondary.teal
         
         struct Plot {
             

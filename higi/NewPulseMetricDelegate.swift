@@ -54,8 +54,6 @@ final class NewPulseMetricDelegate: NSObject, NewMetricDelegate {
         return !data.pulsePoints.isEmpty
     }
     
-    var metricColor = Theme.Color.Pulse.primary
-    
     func graph(frame: CGRect) -> CPTXYGraph {
         let plotSymbolSize = 8.0
         let selectedPlotSymbolSize = 10.0
@@ -257,7 +255,7 @@ extension NewPulseMetricDelegate: MetricDetailPreviewDelegate {
         let formattedDateString = Utility.longStyleDateFormatter.stringFromDate(checkin.dateTime)
         
         let pulse = Int(selectedPoint.y)
-        detailPreview.configureDisplay(formattedDateString, primaryMetricValue: "\(pulse)", primaryMetricUnit: "bpm", secondaryMetricValue: nil, secondaryMetricUnit: nil, boldValueColor: self.metricColor)
+        detailPreview.configureDisplay(formattedDateString, primaryMetricValue: "\(pulse)", primaryMetricUnit: "bpm", secondaryMetricValue: nil, secondaryMetricUnit: nil)
     }
 }
 

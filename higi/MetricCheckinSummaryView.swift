@@ -35,7 +35,7 @@ final class MetricCheckinSummaryView: UIView {
         self.addSubview(self.view, pinToEdges: true)
     }
     
-    func configureDisplay(date: String?, primaryMetricValue: String?, primaryMetricUnit: String?, secondaryMetricValue: String?, secondaryMetricUnit: String?, boldValueColor: UIColor?) {
+    func configureDisplay(date: String?, primaryMetricValue: String?, primaryMetricUnit: String?, secondaryMetricValue: String?, secondaryMetricUnit: String?, boldValueColor: UIColor? = Theme.Color.Metrics.text) {
         
         dateLabel.text = date
         
@@ -45,13 +45,10 @@ final class MetricCheckinSummaryView: UIView {
         secondaryMetricDataLabelView.textLabel.text = secondaryMetricValue
         secondaryMetricDataLabelView.detailTextLabel.text = secondaryMetricUnit
         
-        if let boldValueColor = boldValueColor {
-            let labels = [dateLabel, primaryMetricDataLabelView.textLabel, secondaryMetricDataLabelView.textLabel]
-            
-            for label in labels {
-                label.font = UIFont.boldSystemFontOfSize(label.font.pointSize)
-                label.textColor = boldValueColor
-            }
+        let labels = [primaryMetricDataLabelView.textLabel, secondaryMetricDataLabelView.textLabel]
+        for label in labels {
+            label.font = UIFont.boldSystemFontOfSize(label.font.pointSize)
+            label.textColor = boldValueColor
         }
     }
 }

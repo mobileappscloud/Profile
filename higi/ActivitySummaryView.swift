@@ -69,6 +69,7 @@ extension ActivitySummaryView {
         pointsMeter.setActivities(activitySummary)
         pointsMeter.points.hidden = true
         
+        dataLabelView.textLabel.textColor = Theme.Color.Metrics.text
         dataLabelView.textLabel.text = pointsMeter.points.text
         dataLabelView.detailTextLabel.text = unit
         dataLabelView.setNeedsLayout()

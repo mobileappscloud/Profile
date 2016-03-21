@@ -62,8 +62,6 @@ final class NewBloodPressureMetricDelegate: NSObject, NewMetricDelegate {
         return !data.diastolicPoints.isEmpty && !data.systolicPoints.isEmpty
     }
     
-    var metricColor = Theme.Color.BloodPressure.primary
-    
     func graph(frame: CGRect) -> CPTXYGraph {
         let plotSymbolSize = 8.0
         let selectedPlotSymbolSize = 10.0        
@@ -262,7 +260,7 @@ extension NewBloodPressureMetricDelegate: MetricDetailPreviewDelegate {
         let systolicValue = Int(selectedPoint.y)
         let diastolicValue = Int(altSelectedPoint.y)
         let unit = NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_MILLIMETERS_OF_MERCURY", comment: "General purpose abbreviated label for the units of millimeter of mercury.")
-        detailPreview.configureDisplay(formattedDateString, primaryMetricValue: "\(systolicValue)/\(diastolicValue)", primaryMetricUnit: unit, secondaryMetricValue: nil, secondaryMetricUnit: nil, boldValueColor: self.metricColor)
+        detailPreview.configureDisplay(formattedDateString, primaryMetricValue: "\(systolicValue)/\(diastolicValue)", primaryMetricUnit: unit, secondaryMetricValue: nil, secondaryMetricUnit: nil)
     }
 }
 

@@ -56,8 +56,6 @@ final class NewBodyFatMetricDelegate: NSObject, NewMetricDelegate {
         return !data.bodyFatPoints.isEmpty
     }
     
-    var metricColor = Theme.Color.Weight.primary
-    
     func graph(frame: CGRect) -> CPTXYGraph {
         let plotSymbolSize = 8.0
         let selectedPlotSymbolSize = 10.0
@@ -228,7 +226,7 @@ extension NewBodyFatMetricDelegate: MetricDetailPreviewDelegate {
         let secondaryValueString = String.localizedStringWithFormat("%.2f", secondaryValue)
         let secondaryUnit = NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_WEIGHT_POUNDS", comment: "General purpose abbreviated label for the english units of weight measurement, pounds.")
         
-        detailPreview.configureDisplay(formattedDateString, primaryMetricValue: secondaryValueString, primaryMetricUnit: secondaryUnit, secondaryMetricValue: pointValueString, secondaryMetricUnit: pointUnit, boldValueColor: self.metricColor)
+        detailPreview.configureDisplay(formattedDateString, primaryMetricValue: secondaryValueString, primaryMetricUnit: secondaryUnit, secondaryMetricValue: pointValueString, secondaryMetricUnit: pointUnit)
     }
 }
 
