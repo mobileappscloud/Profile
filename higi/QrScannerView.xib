@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
@@ -35,7 +35,7 @@ data</string>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="qr_cursor.png" translatesAutoresizingMaskIntoConstraints="NO" id="YlQ-8r-LwH">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="scanner-cursor" translatesAutoresizingMaskIntoConstraints="NO" id="YlQ-8r-LwH">
                             <rect key="frame" x="32" y="128" width="240" height="186"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="YlQ-8r-LwH" secondAttribute="height" multiplier="40:31" id="jda-5y-a3a"/>
@@ -53,7 +53,7 @@ data</string>
                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="whatsthis.png" translatesAutoresizingMaskIntoConstraints="NO" id="x3d-sL-eM1">
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="scanner-whats-this-icon" translatesAutoresizingMaskIntoConstraints="NO" id="x3d-sL-eM1">
                                     <rect key="frame" x="24" y="12" width="20" height="20"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="20" id="Ngs-re-Wwz"/>
@@ -127,7 +127,7 @@ data</string>
                                 <action selector="settingsButtonClick:" destination="-1" eventType="touchUpInside" id="GKp-Pa-7L0"/>
                             </connections>
                         </button>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="camera.png" translatesAutoresizingMaskIntoConstraints="NO" id="Kk0-Pf-j2W">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="scanner-camera-icon" translatesAutoresizingMaskIntoConstraints="NO" id="Kk0-Pf-j2W">
                             <rect key="frame" x="98" y="100" width="125" height="82"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="82" id="FFt-GE-zob"/>
@@ -167,8 +167,8 @@ data</string>
         </view>
     </objects>
     <resources>
-        <image name="camera.png" width="500" height="321"/>
-        <image name="qr_cursor.png" width="290" height="290"/>
-        <image name="whatsthis.png" width="100" height="100"/>
+        <image name="scanner-camera-icon" width="250" height="160"/>
+        <image name="scanner-cursor" width="145" height="145"/>
+        <image name="scanner-whats-this-icon" width="50" height="50"/>
     </resources>
 </document>

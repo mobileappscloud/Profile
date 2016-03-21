@@ -33,7 +33,7 @@ class PinCodeViewController: UIViewController, UITextFieldDelegate {
         self.navigationItem.hidesBackButton = true;
         if (newCode || modifying || removing) {
             let backButton = UIButton(type: UIButtonType.Custom);
-            backButton.setBackgroundImage(UIImage(named: "btn_back_white.png"), forState: UIControlState.Normal);
+            backButton.setBackgroundImage(UIImage(named: "button-back-white"), forState: UIControlState.Normal);
             backButton.addTarget(self, action: "goBack:", forControlEvents: UIControlEvents.TouchUpInside);
             backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
             let backBarItem = UIBarButtonItem(customView: backButton);

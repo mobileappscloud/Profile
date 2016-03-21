@@ -440,7 +440,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     func populateScrollViewWithTables() {
         if (displayLeaderboardTab) {
             tabButtonLabels.append(NSLocalizedString("CHALLENGE_DETAILS_VIEW_TAB_BUTTON_TITLE_LEADERBOARD", comment: "Title for leaderboard tab on challenge details view."));
-            tabButtonIcons.append("ui_leaderboards.png");
+            tabButtonIcons.append("ui-leaderboards");
             leaderboardTable = addTableView(totalPages);
             leaderboardTable!.tableFooterView?.hidden = true;
             scrollView.addSubview(leaderboardTable!);
@@ -449,7 +449,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         }
         if (displayProgressTab) {
             tabButtonLabels.append(NSLocalizedString("CHALLENGE_DETAILS_VIEW_TAB_BUTTON_TITLE_PROGRESS", comment: "Title for progress tab on challenge details view."));
-            tabButtonIcons.append("ui_progress.png");
+            tabButtonIcons.append("ui-progress");
             progressTable = addTableView(totalPages);
             scrollView.addSubview(progressTable!);
             tables.append(progressTable!);
@@ -457,7 +457,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         }
         
         tabButtonLabels.append(NSLocalizedString("CHALLENGE_DETAILS_VIEW_TAB_BUTTON_TITLE_DETAILS", comment: "Title for details tab on challenge details view."));
-        tabButtonIcons.append("ui_details.png");
+        tabButtonIcons.append("ui-details");
         detailsTable = initDetailsTable();
         scrollView.addSubview(detailsTable);
         tables.append(detailsTable);
@@ -465,7 +465,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         
         if (displayChatterTab) {
             tabButtonLabels.append(NSLocalizedString("CHALLENGE_DETAILS_VIEW_TAB_BUTTON_TITLE_CHATTER", comment: "Title for chatter tab on challenge details view."));
-            tabButtonIcons.append("ui_chatter.png");
+            tabButtonIcons.append("ui-chatter");
             chatterTable = addTableView(totalPages);
             chatterTable!.backgroundColor = Utility.colorFromHexString("#F4F4F4");
             
@@ -475,8 +475,8 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             
             let actionButtonWidth: CGFloat = 60.0
             actionButton = UIButton(type: .Custom)
-            actionButton.setImage(UIImage(named: "chatterbutton_normal"), forState: UIControlState.Normal);
-            actionButton.setImage(UIImage(named: "chatterbutton_pressed"), forState: UIControlState.Selected);
+            actionButton.setImage(UIImage(named: "chatter-button-normal"), forState: UIControlState.Normal);
+            actionButton.setImage(UIImage(named: "chatter-button-selected"), forState: UIControlState.Selected);
             actionButton.layer.cornerRadius = actionButtonWidth / 2;
             actionButton.addTarget(self, action: "gotoChatterInput:", forControlEvents: UIControlEvents.TouchUpInside);
             

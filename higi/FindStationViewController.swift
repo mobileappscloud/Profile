@@ -126,7 +126,7 @@ class FindStationViewController: UIViewController, GMSMapViewDelegate, UITableVi
         super.viewDidLoad();
         
         listButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30));
-        listButton.setBackgroundImage(UIImage(named: "map_listviewicon")!.imageWithRenderingMode(.AlwaysTemplate), forState: UIControlState.Normal);
+        listButton.setBackgroundImage(UIImage(named: "map-list-view-icon")!.imageWithRenderingMode(.AlwaysTemplate), forState: UIControlState.Normal);
         listButton.addTarget(self, action: "toggleList:", forControlEvents: UIControlEvents.TouchUpInside);
         let listBarItem = UIBarButtonItem();
         listBarItem.customView = listButton;
@@ -138,7 +138,7 @@ class FindStationViewController: UIViewController, GMSMapViewDelegate, UITableVi
         searchField.font = UIFont.systemFontOfSize(12);
         searchField.placeholder = NSLocalizedString("FIND_STATION_VIEW_SEARCH_FIELD_PLACEHOLDER_TEXT", comment: "Placeholder text for search field on Find Station view.");
         searchField.leftViewMode = UITextFieldViewMode.Always;
-        searchField.leftView = UIImageView(image: UIImage(named: "search_icon")!.imageWithRenderingMode(.AlwaysTemplate));
+        searchField.leftView = UIImageView(image: UIImage(named: "search-icon")!.imageWithRenderingMode(.AlwaysTemplate));
         searchField.leftView!.frame = CGRect(x: 0, y: 5, width: 30, height: 20);
         searchField.leftView!.contentMode = UIViewContentMode.ScaleAspectFit;
         searchField.clearButtonMode = UITextFieldViewMode.WhileEditing;
@@ -193,7 +193,7 @@ class FindStationViewController: UIViewController, GMSMapViewDelegate, UITableVi
                 topHelp.layer.borderColor = Utility.colorFromHexString("#9A9A9A").CGColor;
                 topHelp.hidden = false;
                 
-                var stretchedImage = UIImage(named: "bg_tap_reminder")!;
+                var stretchedImage = UIImage(named: "background-tap-reminder")!;
                 stretchedImage = stretchedImage.resizableImageWithCapInsets(UIEdgeInsets(top: 40, left: 5, bottom: 160, right: 100));
                 bottomHelpBackground.image = stretchedImage;
             }
@@ -331,9 +331,9 @@ class FindStationViewController: UIViewController, GMSMapViewDelegate, UITableVi
         searchField.resignFirstResponder();
         
         if (listOpen) {
-            (self.navigationItem.leftBarButtonItem!.customView! as! UIButton).setBackgroundImage(UIImage(named: "map_listviewicon.png")!.imageWithRenderingMode(.AlwaysTemplate), forState: UIControlState.Normal);
+            (self.navigationItem.leftBarButtonItem!.customView! as! UIButton).setBackgroundImage(UIImage(named: "map-list-view-icon")!.imageWithRenderingMode(.AlwaysTemplate), forState: UIControlState.Normal);
         } else {
-            (self.navigationItem.leftBarButtonItem!.customView! as! UIButton).setBackgroundImage(UIImage(named: "map_mapviewicon.png")!.imageWithRenderingMode(.AlwaysOriginal), forState: UIControlState.Normal);
+            (self.navigationItem.leftBarButtonItem!.customView! as! UIButton).setBackgroundImage(UIImage(named: "map-view-icon")!.imageWithRenderingMode(.AlwaysOriginal), forState: UIControlState.Normal);
         }
         
         let offset = listOpen ? self.view.frame.height : 0

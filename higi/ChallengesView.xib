@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10115" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10084"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
@@ -24,7 +24,7 @@
                         <outlet property="delegate" destination="-1" id="lBW-wb-4Ae"/>
                     </connections>
                 </scrollView>
-                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="challengesblankstate.png" translatesAutoresizingMaskIntoConstraints="NO" id="kML-RK-oWB">
+                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="challenges-blank-state" translatesAutoresizingMaskIntoConstraints="NO" id="kML-RK-oWB">
                     <rect key="frame" x="0.0" y="100" width="320" height="370"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="kML-RK-oWB" secondAttribute="height" multiplier="32:37" id="m2u-XN-9JB"/>
@@ -46,6 +46,6 @@
         </view>
     </objects>
     <resources>
-        <image name="challengesblankstate.png" width="1080" height="1250"/>
+        <image name="challenges-blank-state" width="540" height="625"/>
     </resources>
 </document>

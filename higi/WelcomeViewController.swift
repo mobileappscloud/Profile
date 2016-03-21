@@ -81,7 +81,7 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         let imageWidth = dashboardView.frame.size.width;
         var imageHeight: CGFloat!;
         
-        let challengeCard = UIImage(named: "activechallenges");
+        let challengeCard = UIImage(named: "welcome-tour-challenges");
         imageHeight = scaledHeightFromWidth(challengeCard!, viewWidth: imageWidth);
         challengeView = UIImageView(frame: CGRect(x: 0, y: yPos, width: imageWidth, height: imageHeight));
         challengeView.contentMode = UIViewContentMode.ScaleAspectFit;
@@ -89,7 +89,7 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         dashboardView.addSubview(challengeView);
         yPos += imageHeight + imageMargin;
         
-        let activityCard = UIImage(named: "activities");
+        let activityCard = UIImage(named: "welcome-tour-activities");
         imageHeight = scaledHeightFromWidth(activityCard!, viewWidth: imageWidth);
         activityView = UIImageView(frame: CGRect(x: 0, y: yPos, width: imageWidth, height: imageHeight));
         activityView.contentMode = UIViewContentMode.ScaleAspectFit;
@@ -97,7 +97,7 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         dashboardView.addSubview(activityView);
         yPos += imageHeight;
         
-        let metricsCard = UIImage(named: "metrics");
+        let metricsCard = UIImage(named: "welcome-tour-metrics");
         imageHeight = scaledHeightFromWidth(metricsCard!, viewWidth: imageWidth);
         MetricsView = UIImageView(frame: CGRect(x: 0, y: yPos, width: imageWidth, height: imageHeight));
         MetricsView.contentMode = UIViewContentMode.ScaleAspectFit;
@@ -105,7 +105,7 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         dashboardView.addSubview(MetricsView);
         yPos += imageHeight + imageMargin;
         
-        let pulseCard = UIImage(named: "pulse_article");
+        let pulseCard = UIImage(named: "welcome-tour-pulse");
         imageHeight = scaledHeightFromWidth(pulseCard!, viewWidth: imageWidth);
         pulseView = UIImageView(frame: CGRect(x: 0, y: yPos, width: imageWidth, height: imageHeight));
         pulseView.contentMode = UIViewContentMode.ScaleAspectFit;

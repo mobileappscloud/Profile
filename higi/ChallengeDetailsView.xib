@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChallengeDetailsViewController" customModule="higi" customModuleProvider="target">
@@ -36,14 +36,14 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uDa-Lt-ibU">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="238"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="challenge_image.png" translatesAutoresizingMaskIntoConstraints="NO" id="eXg-80-4iQ">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="challenge-detail-header" translatesAutoresizingMaskIntoConstraints="NO" id="eXg-80-4iQ">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="238"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="320" id="Iyu-Oe-79Z"/>
                                 <constraint firstAttribute="height" constant="238" id="uiC-Xl-EMH"/>
                             </constraints>
                         </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="higi_logo_innercircle.png" translatesAutoresizingMaskIntoConstraints="NO" id="hbV-VH-YUh">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="higi-logo-inner-circle" translatesAutoresizingMaskIntoConstraints="NO" id="hbV-VH-YUh">
                             <rect key="frame" x="140" y="99" width="40" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="bfw-w2-pIe"/>
@@ -82,7 +82,7 @@
                                         <constraint firstAttribute="height" constant="20" id="p40-Xb-NZr"/>
                                     </constraints>
                                 </view>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="higi_logo_innercircle.png" translatesAutoresizingMaskIntoConstraints="NO" id="sYR-RX-l73">
+                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="higi-logo-inner-circle" translatesAutoresizingMaskIntoConstraints="NO" id="sYR-RX-l73">
                                     <rect key="frame" x="8" y="8" width="30" height="30"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="30" id="BCg-Cy-LLO"/>
@@ -194,7 +194,7 @@
         </view>
     </objects>
     <resources>
-        <image name="challenge_image.png" width="800" height="533"/>
-        <image name="higi_logo_innercircle.png" width="24" height="24"/>
+        <image name="challenge-detail-header" width="400" height="266"/>
+        <image name="higi-logo-inner-circle" width="24" height="24"/>
     </resources>
 </document>

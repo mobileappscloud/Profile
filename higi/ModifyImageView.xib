@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
@@ -29,7 +28,7 @@
                         <outletCollection property="gestureRecognizers" destination="bu2-Xi-XIZ" appends="YES" id="hMg-yL-5fq"/>
                     </connections>
                 </imageView>
-                <imageView userInteractionEnabled="NO" alpha="0.79999999999999982" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mask.png" translatesAutoresizingMaskIntoConstraints="NO" id="vlv-TN-D0X">
+                <imageView userInteractionEnabled="NO" alpha="0.79999999999999982" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mask" translatesAutoresizingMaskIntoConstraints="NO" id="vlv-TN-D0X">
                     <rect key="frame" x="0.0" y="124" width="320" height="320"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="vlv-TN-D0X" secondAttribute="height" multiplier="1:1" id="2ML-UC-KFy"/>
@@ -104,6 +103,6 @@
         </panGestureRecognizer>
     </objects>
     <resources>
-        <image name="mask.png" width="488" height="488"/>
+        <image name="mask" width="154" height="154"/>
     </resources>
 </document>

@@ -148,13 +148,13 @@ final class DashboardViewController: UIViewController {
     func showQrCheckinFailure() {
         qrCheckinCard.titleText.text = NSLocalizedString("DASHBOARD_VIEW_CARD_QR_CHECKIN_UPLOAD_FAILURE_TITLE", comment: "Title to display on QR check-in card when upload fails.");
         qrCheckinCard.messageText.text = NSLocalizedString("DASHBOARD_VIEW_CARD_QR_CHECKIN_UPLOAD_FAILURE_MESSAGE_TEXT", comment: "Message text to display on QR check-in card when upload fails.");
-        qrCheckinCard.loadingImage.image = UIImage(named: "checkinerroricon");
+        qrCheckinCard.loadingImage.image = UIImage(named: "checkin-error-icon");
     }
     
     func showQrCheckinSuccess() {
         qrCheckinCard.titleText.text = NSLocalizedString("DASHBOARD_VIEW_CARD_QR_CHECKIN_UPLOAD_SUCCESS_TITLE", comment: "Title to display on QR check-in card when upload succeeds.");
         qrCheckinCard.messageText.text = NSLocalizedString("DASHBOARD_VIEW_CARD_QR_CHECKIN_UPLOAD_SUCCESS_MESSAGE_TEXT", comment: "Message text to display on QR check-in card when upload succeeds.");
-        qrCheckinCard.loadingImage.image = UIImage(named: "checkinsuccessicon");
+        qrCheckinCard.loadingImage.image = UIImage(named: "checkin-success-icon");
         qrCheckinCard.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "gotoDailySummary:"));
     }
     
