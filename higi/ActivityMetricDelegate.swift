@@ -18,20 +18,8 @@ class ActivityMetricDelegate: MetricDelegate {
         return nil;
     }
     
-    func getIcon() -> UIImage {
-        return Utility.imageWithColor(UIImage(named: "workouticon")!, color: UIColor.whiteColor());
-    }
-    
     func getType() -> MetricsType {
         return MetricsType.DailySummary;
-    }
-    
-    func getCopyImage(tab: Int) -> UIImage {
-        return UIImage(named: "activities_copy")!;
-    }
-    
-    func getBlankStateImage() -> UIImage {
-        return UIImage(named: "fitnessband")!;
     }
     
     func getBlankStateText() -> String {

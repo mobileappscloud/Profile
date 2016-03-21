@@ -7,18 +7,12 @@ protocol MetricDelegate {
     func getColor() -> UIColor;
     
     func getSecondaryColor() -> UIColor?;
-    
-    func getIcon() -> UIImage;
-    
+        
     func getType() -> MetricsType;
     
     func setSelected(date: NSDate);
     
     func getRanges(tab: Int) -> [MetricGauge.Range];
-    
-    func getCopyImage(tab: Int) -> UIImage;
-    
-    func getBlankStateImage() -> UIImage;
     
     func getBlankStateText() -> String;
     

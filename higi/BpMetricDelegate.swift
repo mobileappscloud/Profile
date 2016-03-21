@@ -26,27 +26,11 @@ class BpMetricDelegate: MetricDelegate {
     func getSecondaryColor() -> UIColor? {
         return Utility.colorFromHexString("#b4a6c2")
     }
-    
-    func getIcon() -> UIImage {
-        return Utility.imageWithColor(UIImage(named: "bloodpressureicon")!, color: UIColor.whiteColor());
-    }
-    
+
     func getType() -> MetricsType {
         return MetricsType.BloodPressure;
     }
-    
-    func getCopyImage(tab: Int) -> UIImage {
-        if (tab == 0) {
-            return UIImage(named: "bloodpressure_copy")!;
-        } else {
-            return UIImage(named: "map_copy")!;
-        }
-    }
-    
-    func getBlankStateImage() -> UIImage {
-        return UIImage(named: "higistation")!;
-    }
-    
+
     func getBlankStateText() -> String {
         return NSLocalizedString("BLOOD_PRESSURE_METRICS_VIEW_BLANK_STATE_TEXT", comment: "Text to display on blood pressure metrics view when there is no blood pressure data to display.");
     }

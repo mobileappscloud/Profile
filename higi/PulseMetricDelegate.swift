@@ -15,23 +15,11 @@ class PulseMetricDelegate: MetricDelegate {
     func getSecondaryColor() -> UIColor? {
         return nil;
     }
-    
-    func getIcon() -> UIImage {
-        return Utility.imageWithColor(UIImage(named: "pulseicon")!, color: UIColor.whiteColor());
-    }
-    
+
     func getType() -> MetricsType {
         return MetricsType.Pulse;
     }
-    
-    func getCopyImage(tab: Int) -> UIImage {
-        return UIImage(named: "pulse_copy")!;
-    }
-    
-    func getBlankStateImage() -> UIImage {
-        return UIImage(named: "higistation")!;
-    }
-    
+
     func getBlankStateText() -> String {
         return NSLocalizedString("PULSE_METRICS_VIEW_BLANK_STATE_TEXT", comment: "Text to display on pulse metrics view if there is no pulse data to display.");
     }

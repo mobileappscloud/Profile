@@ -19,27 +19,11 @@ class WeightMetricDelegate: MetricDelegate {
     func getSecondaryColor() -> UIColor? {
         return Utility.colorFromHexString("#f7ada4");
     }
-    
-    func getIcon() -> UIImage {
-        return Utility.imageWithColor(UIImage(named: "weighticon")!, color: UIColor.whiteColor());
-    }
-    
+
     func getType() -> MetricsType {
         return MetricsType.Weight;
     }
-    
-    func getCopyImage(tab: Int) -> UIImage {
-        if weightMode || tab == 0 {
-            return UIImage(named: "weight_copy")!;
-        } else {
-            return UIImage(named: "bodyfat_copy")!;
-        }
-    }
-    
-    func getBlankStateImage() -> UIImage {
-        return UIImage(named: "higistation")!;
-    }
-    
+
     func getBlankStateText() -> String {
         return NSLocalizedString("WEIGHT_METRICS_VIEW_BLANK_STATE_TEXT", comment: "Text to display on the weight metrics view if there are no weight readings to display.");
     }
