@@ -68,7 +68,7 @@ extension MetricTableDelegate {
     func configureMetricTableViewCell(cell: MetricTableViewCell, indexPath: NSIndexPath, selected: Bool, timeInterval: NSTimeInterval, primaryMetricValue: String?, primaryMetricUnit: String?, secondaryMetricValue: String?, secondaryMetricUnit: String?) {
         
         let date = NSDate(timeIntervalSince1970: timeInterval)
-        let dateString = Utility.mediumStyleDateFormatter.stringFromDate(date)
+        let dateString = Utility.longStyleDateFormatter.stringFromDate(date)
         
         cell.checkinSummaryView.configureDisplay(dateString, primaryMetricValue: primaryMetricValue, primaryMetricUnit: primaryMetricUnit, secondaryMetricValue: secondaryMetricValue, secondaryMetricUnit: secondaryMetricUnit, boldValueColor: nil)
         

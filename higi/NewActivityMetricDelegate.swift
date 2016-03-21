@@ -154,7 +154,7 @@ extension NewActivityMetricDelegate: MetricDetailPreviewDelegate {
         guard let dateString = graphPoint.identifier,
             let activityDate = Constants.dateFormatter.dateFromString(dateString) else { return }
         
-        let formattedDateString = Constants.displayDateFormatter.stringFromDate(activityDate)
+        let formattedDateString = Utility.longStyleDateFormatter.stringFromDate(activityDate)
         
         detailPreview.configureDisplay(formattedDateString, primaryMetricValue: String(activitySummary.totalPoints), primaryMetricUnit: "Points", secondaryMetricValue: nil, secondaryMetricUnit: nil, boldValueColor: self.metricColor)
     }
@@ -185,7 +185,7 @@ extension NewActivityMetricDelegate: MetricDetailDisplayDelegate {
         viewController.configureGraphicContainerTapGesture({
             let dailySummary = DailySummaryViewController(nibName: "DailySummaryView", bundle: nil)
             let date = activities.first?.startTime ?? NSDate()
-            dailySummary.dateString = Constants.dateFormatter.stringFromDate(date)
+            dailySummary.dateString = Utility.longStyleDateFormatter.stringFromDate(date)
             dispatch_async(dispatch_get_main_queue(), {
                 viewController.navigationController?.pushViewController(dailySummary, animated: true)
             })
@@ -340,7 +340,7 @@ extension NewActivityMetricDelegate: UITableViewDataSource {
     func configureActivityTableViewCell(cell: ActivityTableViewCell, indexPath: NSIndexPath, selected: Bool, timeInterval: NSTimeInterval, value: String?, unit: String?, activitySummary: HigiActivitySummary) {
         
         let date = NSDate(timeIntervalSince1970: timeInterval)
-        let dateString = Utility.mediumStyleDateFormatter.stringFromDate(date)
+        let dateString = Utility.longStyleDateFormatter.stringFromDate(date)
         
         cell.summaryView.config(dateString, activitySummary: activitySummary, unit: unit)
 

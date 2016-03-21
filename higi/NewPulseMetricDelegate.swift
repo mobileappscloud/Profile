@@ -254,7 +254,7 @@ extension NewPulseMetricDelegate: MetricDetailPreviewDelegate {
         
         guard let checkin = checkins.filter({ $0.checkinId == checkinIdentifier }).first else { return }
         
-        let formattedDateString = Constants.displayDateFormatter.stringFromDate(checkin.dateTime)
+        let formattedDateString = Utility.longStyleDateFormatter.stringFromDate(checkin.dateTime)
         
         let pulse = Int(selectedPoint.y)
         detailPreview.configureDisplay(formattedDateString, primaryMetricValue: "\(pulse)", primaryMetricUnit: "bpm", secondaryMetricValue: nil, secondaryMetricUnit: nil, boldValueColor: self.metricColor)

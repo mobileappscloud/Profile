@@ -215,7 +215,7 @@ extension NewBodyFatMetricDelegate: MetricDetailPreviewDelegate {
         
         guard let checkin = checkins.filter({ $0.checkinId == checkinIdentifier }).first else { return }
         
-        let formattedDateString = Constants.displayDateFormatter.stringFromDate(checkin.dateTime)
+        let formattedDateString = Utility.longStyleDateFormatter.stringFromDate(checkin.dateTime)
         
         let fatRatio = selectedPoint.y
         let fatRatioDisplay = String.localizedStringWithFormat("%.2f", fatRatio)

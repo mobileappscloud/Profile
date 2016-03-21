@@ -192,6 +192,12 @@ extension Utility {
         formatter.dateStyle = .MediumStyle
         return formatter
     }()
+    
+    static var longStyleDateFormatter: NSDateFormatter = {
+        let formatter = NSDateFormatter()
+        formatter.dateStyle = .LongStyle
+        return formatter
+    }()
 }
 
 extension UITableView {
