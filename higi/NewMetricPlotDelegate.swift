@@ -16,9 +16,11 @@ final class NewMetricPlotDelegate: NSObject {
     
     var selectedIndex: Int = 0
     
-    let unselectedPlotSymbol = CPTPlotSymbol.plotSymbol(CPTPlotSymbolTypeEllipse, fillColor: UIColor.whiteColor(), lineStyle: CPTMutableLineStyle(color: Theme.Color.BloodPressure.secondary, lineWidth: 2.0), size: 8.0)
+    let unselectedPlotSymbol = CPTPlotSymbol.plotSymbol(CPTPlotSymbolTypeEllipse, fillColor: UIColor.whiteColor(), lineStyle: CPTMutableLineStyle(color: Theme.Color.Metrics.primary, lineWidth: 2.0), size: 8.0)
     
-    let selectedPlotSymbol = CPTPlotSymbol.plotSymbol(CPTPlotSymbolTypeEllipse, fillColor: Theme.Color.BloodPressure.secondary, lineStyle: CPTMutableLineStyle(color: Theme.Color.BloodPressure.secondary, lineWidth: 2.0), size: 10.0)
+    let altUnselectedPlotSymbol = CPTPlotSymbol.plotSymbol(CPTPlotSymbolTypeEllipse, fillColor: UIColor.whiteColor(), lineStyle: CPTMutableLineStyle(color: Theme.Color.Metrics.secondary, lineWidth: 2.0), size: 8.0)
+    
+    let selectedPlotSymbol = CPTPlotSymbol.plotSymbol(CPTPlotSymbolTypeEllipse, fillColor: Theme.Color.Metrics.secondary, lineStyle: CPTMutableLineStyle(color: Theme.Color.Metrics.secondary, lineWidth: 2.0), size: 10.0)
 }
 
 extension NewMetricPlotDelegate: CPTPlotDataSource {
@@ -40,6 +42,14 @@ extension NewMetricPlotDelegate: CPTScatterPlotDataSource {
     
     func symbolForScatterPlot(plot: CPTScatterPlot!, recordIndex idx: UInt) -> CPTPlotSymbol! {
         let index = Int(idx)
+        
+        if let delegate = metricDelegate as? NewBloodPressureMetricDelegate {
+            if plot.identifier.isEqual(delegate.systolicPlotIdentifier) {
+                return delegate.selectedIndex == index ? selectedPlotSymbol : unselectedPlotSymbol
+            } else if plot.identifier.isEqual(delegate.diastolicPlotIdentifier) {
+                return delegate.selectedIndex == index ? selectedPlotSymbol : altUnselectedPlotSymbol
+            }
+        }
         return metricDelegate?.selectedIndex == index ? selectedPlotSymbol : unselectedPlotSymbol
     }
 }

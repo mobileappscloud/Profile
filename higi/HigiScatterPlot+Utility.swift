@@ -48,11 +48,12 @@ extension HIGIScatterPlot {
         } else if (altPoints[0].y == altPoints[1].y) {
             self.interpolation = CPTScatterPlotInterpolationCurved
             
-            let dottedLineStyle = CPTMutableLineStyle()
-            dottedLineStyle.lineColor = CPTColor(CGColor: Utility.colorFromHexString("#EEEEEE").CGColor)
-            dottedLineStyle.lineWidth = 2.0
-            dottedLineStyle.dashPattern = [2]
-            self.dataLineStyle = dottedLineStyle
+            let lineStyle = CPTMutableLineStyle()
+            if let color = color {
+                lineStyle.lineColor = CPTColor(CGColor: color.CGColor)
+            }
+            lineStyle.lineWidth = 2.0
+            self.dataLineStyle = lineStyle
             
             self.plotSymbol = nil
             

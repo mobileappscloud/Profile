@@ -27,6 +27,7 @@ final class NewBloodPressureMetricDelegate: NSObject, NewMetricDelegate {
     
     private(set) var data: BloodPressureMetricGraphPoints
     
+    let diastolicPlotIdentifier = "diastolicPlotIdentifier"
     private lazy var diastolicPlotHandler: NewMetricPlotDelegate = {
         let handler = NewMetricPlotDelegate()
         handler.points = self.data.diastolicPoints
@@ -34,6 +35,7 @@ final class NewBloodPressureMetricDelegate: NSObject, NewMetricDelegate {
         return handler
     }()
     
+    let systolicPlotIdentifier = "systolicPlotIdentifier"
     private lazy var systolicPlotHandler: NewMetricPlotDelegate = {
         let handler = NewMetricPlotDelegate()
         handler.points = self.data.systolicPoints
@@ -67,17 +69,15 @@ final class NewBloodPressureMetricDelegate: NSObject, NewMetricDelegate {
         let selectedPlotSymbolSize = 10.0        
         let hitMargin = 20.0
         
-        let color = Theme.Color.Metrics.Plot.line
-        let altColor = Theme.Color.BloodPressure.secondary
-        
         let graph = CPTXYGraph(frame: frame, padding: 0.0, plotAreaFramePadding: 20.0)
         
+        let color = Theme.Color.Metrics.primary
         let symbolLineStyle = CPTMutableLineStyle(color: color, lineWidth: 2.0)
-        let altSymbolLineStyle = CPTMutableLineStyle(color: altColor, lineWidth: 2.0)
-        
         let plotSymbol = CPTPlotSymbol.plotSymbol(CPTPlotSymbolTypeEllipse, fillColor: UIColor.whiteColor(), lineStyle: symbolLineStyle, size: plotSymbolSize)
         let selectedPlotSymbol = CPTPlotSymbol.plotSymbol(CPTPlotSymbolTypeEllipse, fillColor: color, lineStyle: symbolLineStyle, size: selectedPlotSymbolSize)
-        
+
+        let altColor = Theme.Color.Metrics.secondary
+        let altSymbolLineStyle = CPTMutableLineStyle(color: altColor, lineWidth: 2.0)
         let altSymbol = CPTPlotSymbol.plotSymbol(CPTPlotSymbolTypeEllipse, fillColor: UIColor.whiteColor(), lineStyle: altSymbolLineStyle, size: plotSymbolSize)
         let selectedAltSymbol = CPTPlotSymbol.plotSymbol(CPTPlotSymbolTypeEllipse, fillColor: altColor, lineStyle: altSymbolLineStyle, size: selectedPlotSymbolSize)
         
@@ -96,7 +96,7 @@ final class NewBloodPressureMetricDelegate: NSObject, NewMetricDelegate {
         plotSpace.configure(points, maxY: maxY, minY: minY, delegate: systolicPlotHandler)
         
         let plot = HIGIScatterPlot(color: color, hitMargin: hitMargin, plotSymbol: plotSymbol, dataSource: systolicPlotHandler, delegate: systolicPlotHandler)
-        plot.identifier = "systolicPlotIdentifier"
+        plot.identifier = systolicPlotIdentifier
         
         var firstPoint: GraphPoint
         var lastPoint: GraphPoint
@@ -138,7 +138,7 @@ final class NewBloodPressureMetricDelegate: NSObject, NewMetricDelegate {
         if (altPoints.count > 1) {
             
             let altPlot = HIGIScatterPlot(secondaryPlotWithPoints: altPoints, color: altColor, hitMargin: hitMargin, dataSource: diastolicPlotHandler, delegate: diastolicPlotHandler)
-            altPlot.identifier = "diastolicPlotIdentifier"
+            altPlot.identifier = diastolicPlotIdentifier
             
             //add alt plot here so that it's drawn behind main plot
             graph.addPlot(altPlot, toPlotSpace: graph.defaultPlotSpace)

@@ -117,10 +117,6 @@ extension Theme.Color {
     
     struct BloodPressure {
         
-        static let primary = Utility.colorFromHexString("#8379B5")
-        
-        static let secondary = Utility.colorFromHexString("#2C9B95")
-        
         struct Category {
             
             static let healthy = HealthStatus.green
@@ -210,13 +206,17 @@ extension Theme.Color {
     
     struct Metrics {
         
-        static let text = Secondary.teal
+        static let primary = Secondary.teal
+
+        static let secondary = Utility.colorFromHexString("#2C9B95")
+        
+        static let text = primary
         
         struct Plot {
             
-            static let symbol = Secondary.teal
+            static let symbol = primary
             
-            static let line = Secondary.teal
+            static let line = primary
             
             static func gradientStart() -> CPTColor {
                 let color = CPTColor(CGColor: line.CGColor)
