@@ -578,6 +578,7 @@ final class DashboardViewController: UIViewController {
     private func navigateToMetrics(metricsType: MetricsType = .DailySummary) {
         if (SessionController.Instance.checkins != nil && SessionController.Instance.loadedActivities) {
             guard let mainTabBarController = Utility.mainTabBarController() else { return }
+            if !mainTabBarController.metricsViewController.tabBarItem.enabled { return }
             mainTabBarController.metricsViewController.navigate(metricsType: metricsType)
         }
     }
