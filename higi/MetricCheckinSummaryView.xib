@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MetricCheckinSummaryView" customModule="higi" customModuleProvider="target">
@@ -19,7 +20,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ppn-KZ-ozD" userLabel="Date Container">
-                    <rect key="frame" x="0.0" y="0.0" width="145" height="44"/>
+                    <rect key="frame" x="0.0" y="0.0" width="144" height="44"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MMM dd, YYYY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ttU-9X-v8g" userLabel="Date Label">
                             <rect key="frame" x="20" y="13" width="105.5" height="18"/>
@@ -31,22 +32,21 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="ttU-9X-v8g" firstAttribute="centerY" secondItem="ppn-KZ-ozD" secondAttribute="centerY" id="7LM-ra-1lD"/>
-                        <constraint firstAttribute="width" constant="145" placeholder="YES" id="Zwl-z3-Ux4"/>
                         <constraint firstItem="ttU-9X-v8g" firstAttribute="leading" secondItem="ppn-KZ-ozD" secondAttribute="leading" constant="20" id="b4u-EN-IHb"/>
                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ttU-9X-v8g" secondAttribute="trailing" constant="15" id="eS7-uN-lLN"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q1d-ss-M8v" userLabel="Metric Data Container">
-                    <rect key="frame" x="145" y="0.0" width="215" height="44"/>
+                    <rect key="frame" x="144" y="0.0" width="216" height="44"/>
                     <subviews>
-                        <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6tv-xI-UG0" userLabel="Secondary Metric Data Label View" customClass="MetricDataLabelView" customModule="higi" customModuleProvider="target">
-                            <rect key="frame" x="20" y="0.0" width="88.5" height="43.5"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6tv-xI-UG0" userLabel="Secondary Metric Data Label View" customClass="MetricDataLabelView" customModule="higi" customModuleProvider="target">
+                            <rect key="frame" x="17.5" y="0.0" width="82" height="43.5"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="82" id="uHi-Nu-lFw"/>
                             </constraints>
                         </view>
-                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Wn-a6-2Ss" userLabel="Primary Metric Data Label View" customClass="MetricDataLabelView" customModule="higi" customModuleProvider="target">
-                            <rect key="frame" x="125" y="0.0" width="81.5" height="43.5"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Wn-a6-2Ss" userLabel="Primary Metric Data Label View" customClass="MetricDataLabelView" customModule="higi" customModuleProvider="target">
+                            <rect key="frame" x="114.5" y="0.0" width="81.5" height="43.5"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="82" id="Oot-Kb-NTI"/>
                             </constraints>
@@ -54,14 +54,11 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="0Wn-a6-2Ss" firstAttribute="leading" relation="lessThanOrEqual" secondItem="6tv-xI-UG0" secondAttribute="trailing" priority="995" constant="30" id="5c6-Uv-sbU"/>
-                        <constraint firstItem="0Wn-a6-2Ss" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6tv-xI-UG0" secondAttribute="trailing" priority="995" constant="16.5" id="J0q-FQ-qtI"/>
-                        <constraint firstAttribute="width" constant="215" placeholder="YES" id="UUc-Nx-hs8"/>
-                        <constraint firstItem="6tv-xI-UG0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="q1d-ss-M8v" secondAttribute="leading" priority="995" constant="5" id="dKV-LK-WzB"/>
                         <constraint firstItem="6tv-xI-UG0" firstAttribute="top" secondItem="q1d-ss-M8v" secondAttribute="top" id="deD-vC-wYl"/>
                         <constraint firstAttribute="trailing" secondItem="0Wn-a6-2Ss" secondAttribute="trailing" constant="20" id="eQg-Rs-HCg"/>
                         <constraint firstItem="0Wn-a6-2Ss" firstAttribute="top" secondItem="q1d-ss-M8v" secondAttribute="top" id="eh6-Cq-0Wy"/>
                         <constraint firstAttribute="bottom" secondItem="6tv-xI-UG0" secondAttribute="bottom" id="rSf-PK-1Zm"/>
+                        <constraint firstItem="0Wn-a6-2Ss" firstAttribute="leading" secondItem="6tv-xI-UG0" secondAttribute="trailing" constant="15" id="uMV-VK-4xM"/>
                         <constraint firstAttribute="bottom" secondItem="0Wn-a6-2Ss" secondAttribute="bottom" id="zeO-05-Ube"/>
                     </constraints>
                 </view>
@@ -72,8 +69,10 @@
                 <constraint firstAttribute="bottom" secondItem="q1d-ss-M8v" secondAttribute="bottom" id="Ne6-84-wtK"/>
                 <constraint firstItem="ppn-KZ-ozD" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="PGL-zC-LBa"/>
                 <constraint firstItem="q1d-ss-M8v" firstAttribute="leading" secondItem="ppn-KZ-ozD" secondAttribute="trailing" id="ZnX-GM-cCO"/>
+                <constraint firstItem="ppn-KZ-ozD" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.4" id="fdw-Jk-piQ"/>
                 <constraint firstItem="ppn-KZ-ozD" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="fsW-q9-WYG"/>
                 <constraint firstAttribute="trailing" secondItem="q1d-ss-M8v" secondAttribute="trailing" id="gHF-hF-fcU"/>
+                <constraint firstItem="q1d-ss-M8v" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.6" id="hnP-Qa-Sb6"/>
                 <constraint firstItem="q1d-ss-M8v" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="v19-sl-Ux7"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
