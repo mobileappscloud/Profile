@@ -598,6 +598,9 @@
 /* Title for metric detail view displaying body fat. */
 "METRIC_DETAIL_BODY_FAT_TITLE" = "Body Fat";
 
+/* Title for metric detail view for body mass index. */
+"METRIC_DETAIL_BODY_MASS_INDEX_TITLE" = "Body Mass Index";
+
 /* Title for blood pressure metrics */
 "METRIC_TYPE_BLOOD_PRESSURE_TITLE" = "Blood Pressure";
 
@@ -612,6 +615,9 @@
 
 /* Text used to describe metric value for body fat. */
 "METRICS_BODY_FAT_VALUE_DESCRIPTON" = "body fat";
+
+/* Label for body mass index. */
+"METRICS_BODY_MASS_INDEX_UNIT_LABEL" = "bmi";
 
 /* Title to display on button to connect a branded activity device. */
 "METRICS_CARD_VIEW_CONNECT_DEVICE_BRANDED_BUTTON_TITLE" = "Connect higi";

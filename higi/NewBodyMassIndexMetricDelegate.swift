@@ -218,7 +218,8 @@ extension NewBodyMassIndexMetricDelegate: MetricDetailPreviewDelegate {
         
         let bmi = selectedPoint.y
         let bmiString = String.localizedStringWithFormat("%.2f", bmi)
-        detailPreview.configureDisplay(formattedDateString, primaryMetricValue: bmiString, primaryMetricUnit: "lb/in²", secondaryMetricValue: nil, secondaryMetricUnit: nil)
+        let unit = NSLocalizedString("METRICS_BODY_MASS_INDEX_UNIT_LABEL", comment: "Label for body mass index.")
+        detailPreview.configureDisplay(formattedDateString, primaryMetricValue: bmiString, primaryMetricUnit: unit, secondaryMetricValue: nil, secondaryMetricUnit: nil)
     }
 }
 
@@ -228,7 +229,7 @@ extension NewBodyMassIndexMetricDelegate: MetricDetailPreviewDelegate {
 extension NewBodyMassIndexMetricDelegate: MetricDetailDisplayDelegate {
     
     func configure(viewController: MetricDetailViewController) {
-        viewController.title = "Body Mass Index"
+        viewController.title = NSLocalizedString("METRIC_DETAIL_BODY_MASS_INDEX_TITLE", comment: "Title for metric detail view for body mass index.")
         
         viewController.navigationController?.hidesBarsWhenVerticallyCompact = false
         
@@ -247,9 +248,10 @@ extension NewBodyMassIndexMetricDelegate: MetricDetailDisplayDelegate {
         guard let weightCategoryString = checkin.bmiClass as? String else { return }
         guard let weightCategory = BodyMassIndexCategory(rawValue: weightCategoryString) else { return }
         let ranges = BodyMassIndexCategory.ranges()
+        let displayUnit = NSLocalizedString("METRICS_BODY_MASS_INDEX_UNIT_LABEL", comment: "Label for body mass index.")
         
         let bmiString = String.localizedStringWithFormat("%.2f", bodyMassIndex)
-        viewController.configureGauge(bodyMassIndex, displayValue: bmiString, displayUnit: "lb/in²", ranges: ranges, valueName: weightCategory.name(), valueColor: weightCategory.color(), checkin: checkin)
+        viewController.configureGauge(bodyMassIndex, displayValue: bmiString, displayUnit: displayUnit, ranges: ranges, valueName: weightCategory.name(), valueColor: weightCategory.color(), checkin: checkin)
         
         viewController.configureInfoContainer(nil, imageNamed: "metric-info-weight-copy")
     }
@@ -274,7 +276,7 @@ extension NewBodyMassIndexMetricDelegate: UITableViewDataSource {
         
         let pointValue = point.y
         let pointValueString = String.localizedStringWithFormat("%.2f", pointValue)
-        let pointUnit = "lb/in²"
+        let pointUnit = NSLocalizedString("METRICS_BODY_MASS_INDEX_UNIT_LABEL", comment: "Label for body mass index.")
         
         let isSelected = (indexPath.row == self.selectedIndex)
         
