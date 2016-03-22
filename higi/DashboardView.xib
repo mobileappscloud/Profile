@@ -274,7 +274,7 @@
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cB0-NQ-aMR">
                             <rect key="frame" x="8" y="0.0" width="304" height="133"/>
                         </imageView>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="gradient-overlay.png" translatesAutoresizingMaskIntoConstraints="NO" id="oqT-3p-waW">
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="gradient-overlay" translatesAutoresizingMaskIntoConstraints="NO" id="oqT-3p-waW">
                             <rect key="frame" x="8" y="0.0" width="304" height="133"/>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2AK-KQ-mxf">
@@ -601,11 +601,11 @@
         </view>
     </objects>
     <resources>
-        <image name="button-action-black" width="154" height="154"/>
-        <image name="button-close-reminder" width="154" height="154"/>
+        <image name="button-action-black" width="23" height="23"/>
+        <image name="button-close-reminder" width="35" height="35"/>
         <image name="challenge-card-blank-state" width="540" height="325"/>
         <image name="dashboard-error-state" width="540" height="500"/>
-        <image name="gradient-overlay.png" width="24" height="24"/>
+        <image name="gradient-overlay" width="102" height="102"/>
         <image name="icon-vitals-animation-0" width="100" height="100"/>
     </resources>
 </document>

@@ -114,15 +114,15 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         if (hour >= 4 && hour < 12) {
             timeOfDay = TimeOfDay.Morning;
             greeting.text = NSLocalizedString("DAILY_SUMMARY_VIEW_HEADER_GREETING_MORNING_TEXT", comment: "Greeting text to display in header of the Daily Summary view during the morning.")
-            headerBackground.image = UIImage(named: "daily-summary-morning");
+            headerBackground.image = UIImage(named: "daily-summary-header-morning");
         } else if (hour >= 12 && hour < 17) {
             timeOfDay = TimeOfDay.Afternoon;
             greeting.text = NSLocalizedString("DAILY_SUMMARY_VIEW_HEADER_GREETING_AFTERNOON_TEXT", comment: "Greeting text to display in header of the Daily Summary view during the afternoon.")
-            headerBackground.image = UIImage(named: "daily-summary-afternoon");
+            headerBackground.image = UIImage(named: "daily-summary-header-afternoon");
         } else {
             timeOfDay = TimeOfDay.Evening;
             greeting.text = NSLocalizedString("DAILY_SUMMARY_VIEW_HEADER_GREETING_EVENING_TEXT", comment: "Greeting text to display in header of the Daily Summary view during the evening.")
-            headerBackground.image = UIImage(named: "daily-summary-night");
+            headerBackground.image = UIImage(named: "daily-summary-header-night");
         }
     }
     
