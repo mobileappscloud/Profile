@@ -43,7 +43,7 @@ extension CPTXYAxis {
         
         self.visibleRange = visibleRange
         
-        self.axisConstraints = CPTConstraints(lowerOffset: -20.0)
+        self.axisConstraints = CPTConstraints(lowerOffset: 0.0)
         self.labelingPolicy = CPTAxisLabelingPolicyEqualDivisions
         self.preferredNumberOfMajorTicks = 5
         self.axisLineStyle = nil

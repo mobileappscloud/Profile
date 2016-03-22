@@ -69,7 +69,7 @@ final class NewBloodPressureMetricDelegate: NSObject, NewMetricDelegate {
         let selectedPlotSymbolSize = 10.0        
         let hitMargin = 20.0
         
-        let graph = CPTXYGraph(frame: frame, padding: 0.0, plotAreaFramePadding: 20.0)
+        let graph = CPTXYGraph(frame: frame, padding: 0.0, plotAreaFramePadding: 0.0)
         
         let color = Theme.Color.Metrics.primary
         let symbolLineStyle = CPTMutableLineStyle(color: color, lineWidth: 2.0)
