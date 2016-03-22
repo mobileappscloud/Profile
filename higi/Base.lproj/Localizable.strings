@@ -595,6 +595,9 @@
 /* Title for Metrics tab bar item. */
 "MAIN_TAB_BAR_ITEM_TITLE_METRICS" = "Metrics";
 
+/* Title for metric detail view displaying body fat. */
+"METRIC_DETAIL_BODY_FAT_TITLE" = "Body Fat";
+
 /* Title for blood pressure metrics */
 "METRIC_TYPE_BLOOD_PRESSURE_TITLE" = "Blood Pressure";
 
@@ -606,6 +609,9 @@
 
 /* Title for weight metrics */
 "METRIC_TYPE_WEIGHT_TITLE" = "Weight";
+
+/* Text used to describe metric value for body fat. */
+"METRICS_BODY_FAT_VALUE_DESCRIPTON" = "body fat";
 
 /* Title to display on button to connect a branded activity device. */
 "METRICS_CARD_VIEW_CONNECT_DEVICE_BRANDED_BUTTON_TITLE" = "Connect higi";

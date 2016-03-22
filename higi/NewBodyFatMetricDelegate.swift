@@ -216,17 +216,15 @@ extension NewBodyFatMetricDelegate: MetricDetailPreviewDelegate {
         let formattedDateString = Utility.longStyleDateFormatter.stringFromDate(checkin.dateTime)
         
         let fatRatio = selectedPoint.y
-        let fatRatioDisplay = String.localizedStringWithFormat("%.2f", fatRatio)
+        let fatRatioDisplay = String.localizedStringWithFormat("%.2f %%", fatRatio)
+        let fatRatioUnit = NSLocalizedString("METRICS_BODY_FAT_VALUE_DESCRIPTON", comment: "Text used to describe metric value for body fat.")
         
-        let pointValueString = "\(fatRatioDisplay) %"
-        let pointUnit = "body fat"
+        let altPoint = self.data.fatWeightPoints[selectedIndex]
+        let fatWeight = altPoint.y
+        let fatWeightDisplay = String.localizedStringWithFormat("%.2f", fatWeight)
+        let fatWeightUnit = NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_WEIGHT_POUNDS", comment: "General purpose abbreviated label for the english units of weight measurement, pounds.")
         
-        let secondPoint = self.data.fatWeightPoints[selectedIndex]
-        let secondaryValue = secondPoint.y
-        let secondaryValueString = String.localizedStringWithFormat("%.2f", secondaryValue)
-        let secondaryUnit = NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_WEIGHT_POUNDS", comment: "General purpose abbreviated label for the english units of weight measurement, pounds.")
-        
-        detailPreview.configureDisplay(formattedDateString, primaryMetricValue: secondaryValueString, primaryMetricUnit: secondaryUnit, secondaryMetricValue: pointValueString, secondaryMetricUnit: pointUnit)
+        detailPreview.configureDisplay(formattedDateString, primaryMetricValue: fatRatioDisplay, primaryMetricUnit: fatRatioUnit, secondaryMetricValue: fatWeightDisplay, secondaryMetricUnit: fatWeightUnit)
     }
 }
 
@@ -236,7 +234,7 @@ extension NewBodyFatMetricDelegate: MetricDetailPreviewDelegate {
 extension NewBodyFatMetricDelegate: MetricDetailDisplayDelegate {
     
     func configure(viewController: MetricDetailViewController) {
-        viewController.title = "Body Fat"
+        viewController.title = NSLocalizedString("METRIC_DETAIL_BODY_FAT_TITLE", comment: "Title for metric detail view displaying body fat.")
         
         viewController.navigationController?.hidesBarsWhenVerticallyCompact = false
         
@@ -249,7 +247,6 @@ extension NewBodyFatMetricDelegate: MetricDetailDisplayDelegate {
         
         updateDetailPreview(viewController.headerView)
         
-        
         // Add metric gauage and check location labels
         guard let fatRatio = checkin.fatRatio else { return }
         guard let bodyFatCategoryString = checkin.fatClass as? String else { return }
@@ -258,9 +255,10 @@ extension NewBodyFatMetricDelegate: MetricDetailDisplayDelegate {
         let ranges = BodyFatCategory.ranges(biologicalSex)
         
         let fatRatioDisplay = String.localizedStringWithFormat("%.2f", fatRatio)
-        viewController.configureGauge(fatRatio, displayValue: "\(fatRatioDisplay)", displayUnit: "% body fat", ranges: ranges, valueName: bodyFatCategory.name(), valueColor: bodyFatCategory.color(), checkin: checkin)
-
+        let fatRatioUnit = NSLocalizedString("METRICS_BODY_FAT_VALUE_DESCRIPTON", comment: "Text used to describe metric value for body fat.")
+        let displayUnit = "% \(fatRatioUnit)"
         
+        viewController.configureGauge(fatRatio, displayValue: fatRatioDisplay, displayUnit: displayUnit, ranges: ranges, valueName: bodyFatCategory.name(), valueColor: bodyFatCategory.color(), checkin: checkin)
         
         viewController.configureInfoContainer(nil, imageNamed: "metric-info-body-fat-copy")
     }
@@ -285,7 +283,7 @@ extension NewBodyFatMetricDelegate: UITableViewDataSource {
         
         let pointValue = point.y
         let pointValueString = "\(String.localizedStringWithFormat("%.2f", pointValue)) %"
-        let pointUnit = "body fat"
+        let pointUnit = NSLocalizedString("METRICS_BODY_FAT_VALUE_DESCRIPTON", comment: "Text used to describe metric value for body fat.")
         
         let isSelected = (indexPath.row == self.selectedIndex)
         
@@ -294,7 +292,7 @@ extension NewBodyFatMetricDelegate: UITableViewDataSource {
         let secondaryValueString = String.localizedStringWithFormat("%.2f", secondaryValue)
         let secondaryUnit = NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_WEIGHT_POUNDS", comment: "General purpose abbreviated label for the english units of weight measurement, pounds.")
         
-        configureMetricTableViewCell(cell, indexPath: indexPath, selected: isSelected, timeInterval: point.x, primaryMetricValue: secondaryValueString, primaryMetricUnit: secondaryUnit, secondaryMetricValue: pointValueString, secondaryMetricUnit: pointUnit)
+        configureMetricTableViewCell(cell, indexPath: indexPath, selected: isSelected, timeInterval: point.x, primaryMetricValue: pointValueString, primaryMetricUnit: pointUnit, secondaryMetricValue: secondaryValueString, secondaryMetricUnit: secondaryUnit)
         
         return cell
     }
