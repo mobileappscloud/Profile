@@ -2,11 +2,11 @@
 
 [![Build Status](http://higi-jenk-win.cloudapp.net:8080/buildStatus/icon?job=Mobile iOS Main)](http://higi-jenk-win.cloudapp.net:8080/job/Mobile%20iOS%20Main/)
 ![platform iOS](https://img.shields.io/badge/platform-ios-lightgray.svg)
-![language Swift](https://img.shields.io/badge/language-Swift%202.1.1-orange.svg)
+![language Swift](https://img.shields.io/badge/language-Swift%202.2-orange.svg)
 
 Requirements
 ------------
-- Xcode 7.2.1+
+- Xcode 7.3+
 - iOS 8.0+ SDK
 
 
