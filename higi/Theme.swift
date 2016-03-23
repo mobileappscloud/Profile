@@ -29,18 +29,6 @@ final class Theme {
 
 extension Theme.Color {
     
-    struct Secondary {
-        
-        static let teal = Utility.colorFromHexString("#3ACEC7")
-        
-        static let lavender = Utility.colorFromHexString("#BA77FF")
-        
-        static let grape = Utility.colorFromHexString("#7B3979")
-    }
-}
-
-extension Theme.Color {
-    
     struct Primary {
         
         static let green = Utility.colorFromHexString("#76C044")
@@ -54,6 +42,18 @@ extension Theme.Color {
         static let pewter = Utility.colorFromHexString("#808080")
         
         static let charcoal = Utility.colorFromHexString("#41423F")
+    }
+}
+
+extension Theme.Color {
+    
+    struct Secondary {
+        
+        static let teal = Utility.colorFromHexString("#3ACEC7")
+        
+        static let lavender = Utility.colorFromHexString("#BA77FF")
+        
+        static let grape = Utility.colorFromHexString("#7B3979")
     }
 }
 
@@ -77,23 +77,23 @@ extension Theme.Color {
     
     struct Illustration {
         
-        static let lightTeal = Secondary.teal
+        static let lightTeal = Utility.colorFromHexString("#61D8D2")
         
         static let teal = Secondary.teal
         
         static let darkTeal = Utility.colorFromHexString("#2C9B95")
         
-        static let lightLavender = Secondary.lavender
+        static let lightLavender = Utility.colorFromHexString("#C892FF")
         
         static let lavender = Secondary.lavender
         
-        static let darkLavender = Utility.colorFromHexString("#8B59Bf")
+        static let darkLavender = Utility.colorFromHexString("#8B59BF")
         
-        static let lightGrape = Secondary.grape
+        static let lightGrape = Utility.colorFromHexString("#956194")
         
         static let grape = Secondary.grape
         
-        static let darkGrape = Utility.colorFromHexString("#8B59Bf")
+        static let darkGrape = Utility.colorFromHexString("#5C2B5B")
         
         static let green = Primary.green
         
