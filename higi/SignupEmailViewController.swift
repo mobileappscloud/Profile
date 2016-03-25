@@ -40,6 +40,11 @@ class SignupEmailViewController: UIViewController, UITextFieldDelegate {
     var spinner: CustomLoadingSpinner!
     var setup = false;
     
+    lazy var cancelBarButtonItem: UIBarButtonItem = {
+        let button = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: #selector(didTapCancel))
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         self.title = NSLocalizedString("SIGN_UP_EMAIL_VIEW_TITLE", comment: "Title for Sign Up Email view.");
@@ -55,6 +60,8 @@ class SignupEmailViewController: UIViewController, UITextFieldDelegate {
         self.view.sendSubviewToBack(spinner);
         
         self.email.becomeFirstResponder()
+        
+        self.navigationItem.rightBarButtonItem = cancelBarButtonItem
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -67,6 +74,10 @@ class SignupEmailViewController: UIViewController, UITextFieldDelegate {
         password.resignFirstResponder()
         
         super.viewWillDisappear(animated)
+    }
+    
+    func didTapCancel(sender: UIBarButtonItem) {
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     @IBAction func attemptSignup(sender: AnyObject) {
@@ -196,6 +207,7 @@ class SignupEmailViewController: UIViewController, UITextFieldDelegate {
     
     func reset(clearFields: Bool) {
         self.navigationItem.hidesBackButton = true;
+        self.navigationItem.rightBarButtonItem = cancelBarButtonItem
         if (clearFields) {
             email.text = "";
             password.text = "";
