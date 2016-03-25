@@ -48,6 +48,7 @@
 		410FFF511CA5DFB2005EAC9E /* organization.json in Resources */ = {isa = PBXBuildFile; fileRef = 410FFF501CA5DFB2005EAC9E /* organization.json */; };
 		410FFF541CA5E2CD005EAC9E /* organization-partial-invalid.json in Resources */ = {isa = PBXBuildFile; fileRef = 410FFF521CA5E2CD005EAC9E /* organization-partial-invalid.json */; };
 		410FFF551CA5E2CD005EAC9E /* organization-partial-valid.json in Resources */ = {isa = PBXBuildFile; fileRef = 410FFF531CA5E2CD005EAC9E /* organization-partial-valid.json */; };
+		410FFF5D1CA5EDC5005EAC9E /* Paging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410FFF5C1CA5EDC4005EAC9E /* Paging.swift */; };
 		41247DC91C5A937300DDC5EC /* SingleRowTextMenuFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41247DC81C5A937300DDC5EC /* SingleRowTextMenuFlowLayout.swift */; };
 		41247DCE1C5BD1A100DDC5EC /* MetricDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41247DCD1C5BD1A100DDC5EC /* MetricDetailViewController.swift */; };
 		41247DD51C5F29FB00DDC5EC /* MetricDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41247DD41C5F29FB00DDC5EC /* MetricDetail.storyboard */; };
@@ -365,6 +366,7 @@
 		410FFF501CA5DFB2005EAC9E /* organization.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = organization.json; sourceTree = "<group>"; };
 		410FFF521CA5E2CD005EAC9E /* organization-partial-invalid.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "organization-partial-invalid.json"; sourceTree = "<group>"; };
 		410FFF531CA5E2CD005EAC9E /* organization-partial-valid.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "organization-partial-valid.json"; sourceTree = "<group>"; };
+		410FFF5C1CA5EDC4005EAC9E /* Paging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Paging.swift; sourceTree = "<group>"; };
 		41247DC81C5A937300DDC5EC /* SingleRowTextMenuFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleRowTextMenuFlowLayout.swift; sourceTree = "<group>"; };
 		41247DCD1C5BD1A100DDC5EC /* MetricDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricDetailViewController.swift; sourceTree = "<group>"; };
 		41247DD41C5F29FB00DDC5EC /* MetricDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MetricDetail.storyboard; sourceTree = "<group>"; };
@@ -1600,6 +1602,7 @@
 				8F9C69D61950C89B00449664 /* HigiUser.swift */,
 				8F9C69D81950C8AD00449664 /* KioskInfo.swift */,
 				410FFF401CA5CDE1005EAC9E /* Organization.swift */,
+				410FFF5C1CA5EDC4005EAC9E /* Paging.swift */,
 				8F9C69DA1950C8B700449664 /* PulseArticle.swift */,
 			);
 			name = Model;
@@ -2348,6 +2351,7 @@
 				418484C81C72E27F00C26211 /* NewBodyFatMetricDelegate.swift in Sources */,
 				D1EFDC531B45D48400A340DD /* TriangleMarker.swift in Sources */,
 				41D8717E1C7A8FAD002DCDA0 /* CPTXYPlotSpace+Utility.swift in Sources */,
+				410FFF5D1CA5EDC5005EAC9E /* Paging.swift in Sources */,
 				41A0BE281BBB08B800A314D6 /* UIAlertView+AFNetworking.m in Sources */,
 				8F296313194B912F00E787FD /* LoginViewController.swift in Sources */,
 				D149E94B1A78471A00FBAA15 /* ChallengeDetailsChatterRow.swift in Sources */,
