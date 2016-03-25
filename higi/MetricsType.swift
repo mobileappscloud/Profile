@@ -21,7 +21,7 @@ enum MetricsType {
         case Pulse:
             return Utility.colorFromHexString("#5FAFDF");
         case DailySummary:
-            return Utility.colorFromHexString(Constants.higiGreen);
+            return Theme.Color.primary;
         default:
             return Utility.colorFromHexString("#FFFFFF");
         }

@@ -399,7 +399,7 @@ class SettingsTableViewController: UITableViewController, SwitchTableViewCellDel
                 weight = "\(Int(checkin.weightLbs!))";
             }
             
-            let row = "\(Constants.displayDateFormatter.stringFromDate(checkin.dateTime)),\(organization),\(address),\(systolic),\(diastolic),\(pulse),\(map),\(weight),\(bmi)\n";
+            let row = "\(NSDateFormatter.checkinDisplayDateFormatter.stringFromDate(checkin.dateTime)),\(organization),\(address),\(systolic),\(diastolic),\(pulse),\(map),\(weight),\(bmi)\n";
             contents += row;
         }
         

@@ -37,7 +37,7 @@ class TermsViewController: UIViewController {
         super.viewDidLoad();
         
         declineButton.layer.borderWidth = 1;
-        declineButton.layer.borderColor = Utility.colorFromHexString(Constants.higiGreen).CGColor;
+        declineButton.layer.borderColor = Theme.Color.primary.CGColor;
         var url = "";
         if (newTerms && newPrivacy) {
             termsTitle.text = NSLocalizedString("TERMS_VIEW_HEADER_TEXT_UPDATED_TERMS_AND_PRIVACY", comment: "Text to display in header view when terms of use and privacy policy has changed.");

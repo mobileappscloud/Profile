@@ -43,7 +43,7 @@ class ChallengeLeaderboardRow: UITableViewCell {
         let newWidth = proportion * width;
         let barHeight:CGFloat = 4;
         let bar = UIView(frame: CGRect(x: 0, y: view.frame.origin.y - barHeight / 2, width: newWidth, height: barHeight));
-        bar.backgroundColor = Utility.colorFromHexString(Constants.higiGreen);
+        bar.backgroundColor = Theme.Color.primary;
         bar.layer.cornerRadius = barHeight / 2;
         view.addSubview(bar);
     }
