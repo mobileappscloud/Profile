@@ -31,6 +31,10 @@ class SignupEmailViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var declineButton: UIButton! {
         didSet {
             declineButton.setTitle(NSLocalizedString("SIGN_UP_EMAIL_VIEW_DECLINE_BUTTON_TITLE", comment: "Title for decline button."), forState: .Normal);
+            declineButton.layer.cornerRadius = 5.0
+            declineButton.layer.borderWidth = 1.0
+            declineButton.titleLabel?.textColor = Theme.Color.Primary.charcoal
+            declineButton.layer.borderColor = Theme.Color.Primary.charcoal.CGColor
         }
     }
     var spinner: CustomLoadingSpinner!
