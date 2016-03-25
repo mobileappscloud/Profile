@@ -268,6 +268,9 @@
 /* Placeholder text to display in chatter input text field. */
 "CHATTER_INPUT_VIEW_TEXT_INPUT_PLACEHOLDER" = "Talk some smack!";
 
+/* Title for communities view. */
+"COMMUNITIES_VIEW_TITLE" = "Communities";
+
 /* Title for alert action to acknowledge alert displayed when an error occurs while attempting to connect a device. */
 "CONNECT_DEVICE_ROW_CONNECT_ERROR_ALERT_ACTION_ACKNOWLEDGE_ACTION" = "Got it";
 
@@ -585,6 +588,9 @@
 
 /* Title for Challenges tab bar item. */
 "MAIN_TAB_BAR_ITEM_TITLE_CHALLENGES" = "Challenges";
+
+/* Title for Communities tab bar item. */
+"MAIN_TAB_BAR_ITEM_TITLE_COMMUNITIES" = "Communities";
 
 /* Title for Find Station tab bar item. */
 "MAIN_TAB_BAR_ITEM_TITLE_FIND_STATION" = "Find Station";

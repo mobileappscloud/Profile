@@ -12,11 +12,12 @@ final class TabBarController: UITabBarController {
     
     enum ViewControllerIndex: Int {
         case Home
+        case Communities
         case Challenges
         case Metrics
         case FindStation
         
-        private static let allValues = [Home, Challenges, Metrics, FindStation]
+        private static let allValues = [Home, Communities, Challenges, Metrics, FindStation]
     }
 
     lazy private(set) var homeNavController: UINavigationController = {
@@ -29,6 +30,18 @@ final class TabBarController: UITabBarController {
         let homeViewController = DashboardViewController(nibName: "DashboardView", bundle: nil)
         homeViewController.navigationItem.rightBarButtonItem = self.navigationOverflowBarButtonItem()
         return homeViewController
+    }()
+    
+    lazy private(set) var communitiesNavController: UINavigationController = {
+        let nav = UINavigationController(rootViewController: self.communitiesViewController)
+        let title = NSLocalizedString("MAIN_TAB_BAR_ITEM_TITLE_COMMUNITIES", comment: "Title for Communities tab bar item.")
+        self.configureTab(nav, title: title, itemImageNamePrefix: "communities")
+        return nav
+    }()
+    lazy private(set) var communitiesViewController: CommunitiesViewController = {
+        let communitiesViewController = UIStoryboard(name: "Communities", bundle: nil).instantiateInitialViewController() as! CommunitiesViewController
+        communitiesViewController.navigationItem.rightBarButtonItem = self.navigationOverflowBarButtonItem()
+        return communitiesViewController
     }()
     
     lazy private(set) var challengesNavController: UINavigationController = {
@@ -94,6 +107,8 @@ extension TabBarController {
         switch index {
         case .Home:
             return homeNavController
+        case .Communities:
+            return communitiesNavController
         case .Challenges:
             return challengesNavController
         case .Metrics:
