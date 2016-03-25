@@ -253,11 +253,8 @@ extension MetricChildViewController {
             // Make sure there are no views presented over the tab bar controller
             mainTabBarController.presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
             
-            mainTabBarController.presentViewController(settingsNavController, animated: true, completion: {
-                dispatch_async(dispatch_get_main_queue(), {
-                    settingsNavController.pushViewController(connectDeviceViewController, animated: true)
-                })
-            })
+            mainTabBarController.presentViewController(settingsNavController, animated: false, completion: nil)
+            settingsNavController.pushViewController(connectDeviceViewController, animated: false)
         })
     }
 }
