@@ -48,6 +48,7 @@
 		410FFF511CA5DFB2005EAC9E /* organization.json in Resources */ = {isa = PBXBuildFile; fileRef = 410FFF501CA5DFB2005EAC9E /* organization.json */; };
 		410FFF541CA5E2CD005EAC9E /* organization-partial-invalid.json in Resources */ = {isa = PBXBuildFile; fileRef = 410FFF521CA5E2CD005EAC9E /* organization-partial-invalid.json */; };
 		410FFF551CA5E2CD005EAC9E /* organization-partial-valid.json in Resources */ = {isa = PBXBuildFile; fileRef = 410FFF531CA5E2CD005EAC9E /* organization-partial-valid.json */; };
+		410FFF591CA5E9D3005EAC9E /* CommunitiesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410FFF581CA5E9D3005EAC9E /* CommunitiesController.swift */; };
 		410FFF5D1CA5EDC5005EAC9E /* Paging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410FFF5C1CA5EDC4005EAC9E /* Paging.swift */; };
 		41247DC91C5A937300DDC5EC /* SingleRowTextMenuFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41247DC81C5A937300DDC5EC /* SingleRowTextMenuFlowLayout.swift */; };
 		41247DCE1C5BD1A100DDC5EC /* MetricDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41247DCD1C5BD1A100DDC5EC /* MetricDetailViewController.swift */; };
@@ -366,6 +367,7 @@
 		410FFF501CA5DFB2005EAC9E /* organization.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = organization.json; sourceTree = "<group>"; };
 		410FFF521CA5E2CD005EAC9E /* organization-partial-invalid.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "organization-partial-invalid.json"; sourceTree = "<group>"; };
 		410FFF531CA5E2CD005EAC9E /* organization-partial-valid.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "organization-partial-valid.json"; sourceTree = "<group>"; };
+		410FFF581CA5E9D3005EAC9E /* CommunitiesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunitiesController.swift; sourceTree = "<group>"; };
 		410FFF5C1CA5EDC4005EAC9E /* Paging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Paging.swift; sourceTree = "<group>"; };
 		41247DC81C5A937300DDC5EC /* SingleRowTextMenuFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleRowTextMenuFlowLayout.swift; sourceTree = "<group>"; };
 		41247DCD1C5BD1A100DDC5EC /* MetricDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricDetailViewController.swift; sourceTree = "<group>"; };
@@ -818,6 +820,7 @@
 			isa = PBXGroup;
 			children = (
 				410FFF381CA5C716005EAC9E /* CommunitiesViewController.swift */,
+				410FFF581CA5E9D3005EAC9E /* CommunitiesController.swift */,
 			);
 			name = Communities;
 			sourceTree = "<group>";
@@ -2333,6 +2336,7 @@
 				2BBDBA521A12AC2C005A6815 /* ChallengeRowCell.swift in Sources */,
 				8FDB4B641A096E1C00F57B38 /* HigiChallenge.swift in Sources */,
 				41D8719D1C7D17E4002DCDA0 /* TabBarController.swift in Sources */,
+				410FFF591CA5E9D3005EAC9E /* CommunitiesController.swift in Sources */,
 				41FFE8AF1C61329F000C8DCF /* CheckinLocationView.swift in Sources */,
 				8F29630D194B8F4600E787FD /* WelcomeViewController.swift in Sources */,
 				41A0BE261BBB08B800A314D6 /* AFNetworkActivityIndicatorManager.m in Sources */,

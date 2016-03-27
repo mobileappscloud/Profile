@@ -11,12 +11,23 @@ import Foundation
 /// Model which represents pagination objects for fetching subsets of large collections while working with the higi API.
 struct Paging {
     
+    /// URL of current page in collection.
     let current: NSURL
+    
+    /// Page number the current result set represents with respect to all pages in collection.
     let pageNumber: Int
+    
+    /// Maximum number of results returned in each page.
     let pageSize: Int
+    
+    /// Number of results returned for current page.
     let total: Int
     
+    
+    /// URL of previous page in collection.
     var previous: NSURL?
+    
+    /// URL of next page in collection.
     var next: NSURL?
 }
 

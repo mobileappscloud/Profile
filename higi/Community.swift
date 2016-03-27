@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class Community {
+final class Community: NSObject {
     
     let identifier: String
     let organizationIdentifier: String
@@ -18,7 +18,7 @@ final class Community {
     let isActive: Bool
     let isPublished: Bool
     let name: String
-    let description: String
+    let desc: String
     let missionStatement: String
     let locale: String
     let isPublic: Bool
@@ -35,7 +35,7 @@ final class Community {
         self.isActive = isActive
         self.isPublished = isPublished
         self.name = name
-        self.description = description
+        self.desc = description
         self.missionStatement = missionStatement
         self.locale = locale
         self.isPublic = isPublic

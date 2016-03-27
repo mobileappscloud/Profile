@@ -16,10 +16,13 @@ final class CommunitiesViewController: UIViewController {
         }
     }
     
+    @IBOutlet var tableView: UITableView!
+    
+    // MARK: - View Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.title = NSLocalizedString("COMMUNITIES_VIEW_TITLE", comment: "Title for communities view.")
     }
-    
 }
