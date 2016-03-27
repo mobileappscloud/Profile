@@ -35,6 +35,10 @@
 		410167241C555CD700A54B02 /* NewBloodPressureMetricDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410167231C555CD700A54B02 /* NewBloodPressureMetricDelegate.swift */; };
 		410167261C555CED00A54B02 /* NewPulseMetricDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410167251C555CED00A54B02 /* NewPulseMetricDelegate.swift */; };
 		410167281C555D0600A54B02 /* NewWeightMetricDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410167271C555D0600A54B02 /* NewWeightMetricDelegate.swift */; };
+		410FFFA51CA77269005EAC9E /* HigiAuthorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410FFFA41CA77268005EAC9E /* HigiAuthorization.swift */; };
+		410FFFA91CA7729A005EAC9E /* HigiAuthorizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410FFFA81CA7729A005EAC9E /* HigiAuthorizationTests.swift */; };
+		410FFFAB1CA772A9005EAC9E /* JSONWebToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410FFFAA1CA772A9005EAC9E /* JSONWebToken.swift */; };
+		410FFFAD1CA772B1005EAC9E /* String+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410FFFAC1CA772B1005EAC9E /* String+Utility.swift */; };
 		41247DC91C5A937300DDC5EC /* SingleRowTextMenuFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41247DC81C5A937300DDC5EC /* SingleRowTextMenuFlowLayout.swift */; };
 		41247DCE1C5BD1A100DDC5EC /* MetricDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41247DCD1C5BD1A100DDC5EC /* MetricDetailViewController.swift */; };
 		41247DD51C5F29FB00DDC5EC /* MetricDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41247DD41C5F29FB00DDC5EC /* MetricDetail.storyboard */; };
@@ -339,6 +343,10 @@
 		410167231C555CD700A54B02 /* NewBloodPressureMetricDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewBloodPressureMetricDelegate.swift; sourceTree = "<group>"; };
 		410167251C555CED00A54B02 /* NewPulseMetricDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPulseMetricDelegate.swift; sourceTree = "<group>"; };
 		410167271C555D0600A54B02 /* NewWeightMetricDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewWeightMetricDelegate.swift; sourceTree = "<group>"; };
+		410FFFA41CA77268005EAC9E /* HigiAuthorization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HigiAuthorization.swift; sourceTree = "<group>"; };
+		410FFFA81CA7729A005EAC9E /* HigiAuthorizationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HigiAuthorizationTests.swift; sourceTree = "<group>"; };
+		410FFFAA1CA772A9005EAC9E /* JSONWebToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONWebToken.swift; sourceTree = "<group>"; };
+		410FFFAC1CA772B1005EAC9E /* String+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Utility.swift"; sourceTree = "<group>"; };
 		41247DC81C5A937300DDC5EC /* SingleRowTextMenuFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleRowTextMenuFlowLayout.swift; sourceTree = "<group>"; };
 		41247DCD1C5BD1A100DDC5EC /* MetricDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricDetailViewController.swift; sourceTree = "<group>"; };
 		41247DD41C5F29FB00DDC5EC /* MetricDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MetricDetail.storyboard; sourceTree = "<group>"; };
@@ -910,6 +918,7 @@
 				416226761C7941CA00EFA1B3 /* Core Plot */,
 				4159126D1C8A288200111B39 /* InterfaceOrientation.swift */,
 				41FC21C51CA4453400BF7FC4 /* NSDateFormatter+Utility.swift */,
+				410FFFAC1CA772B1005EAC9E /* String+Utility.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -1530,10 +1539,12 @@
 				8FDB4B691A09741400F57B38 /* ChallengeWinCondition.swift */,
 				41FB225A1BE2AE80009139B4 /* FabricInfo.swift */,
 				8FDB4B651A096ECF00F57B38 /* HigiActivity.swift */,
+				410FFFA41CA77268005EAC9E /* HigiAuthorization.swift */,
 				8FDB4B631A096E1C00F57B38 /* HigiChallenge.swift */,
 				8F9C69D41950C88900449664 /* HigiCheckin.swift */,
 				8F9C69D21950C84400449664 /* HigiLogin.swift */,
 				8F9C69D61950C89B00449664 /* HigiUser.swift */,
+				410FFFAA1CA772A9005EAC9E /* JSONWebToken.swift */,
 				8F9C69D81950C8AD00449664 /* KioskInfo.swift */,
 				8F9C69DA1950C8B700449664 /* PulseArticle.swift */,
 			);
@@ -1668,6 +1679,7 @@
 		8F3643AF19460EB300C0033E /* higiTests */ = {
 			isa = PBXGroup;
 			children = (
+				410FFFA81CA7729A005EAC9E /* HigiAuthorizationTests.swift */,
 				413E19281C10AB5800146B29 /* UniversalLinkTests.swift */,
 				4197B58C1C58095100E46F8F /* UtilityTests.swift */,
 				8F3643B019460EB300C0033E /* Supporting Files */,
@@ -2176,6 +2188,7 @@
 				413E19911C10EB6100146B29 /* MetricPlotViewController.swift in Sources */,
 				8F9C69D71950C89B00449664 /* HigiUser.swift in Sources */,
 				41411BA01BA87E3D0027F5E1 /* NotificationSettingsDeviceTableViewController.swift in Sources */,
+				410FFFAB1CA772A9005EAC9E /* JSONWebToken.swift in Sources */,
 				D1EEDBA51A66FA570012EFD3 /* ChallengeLeaderboardRow.swift in Sources */,
 				418485121C73DEC600C26211 /* NewBodyMassIndexMetricDelegate.swift in Sources */,
 				D17010CA1A644414002CBFE8 /* ChallengeDetailsViewController.swift in Sources */,
@@ -2198,6 +2211,7 @@
 				2BBDBA561A12AC2C005A6815 /* CompetitiveChallengeView.swift in Sources */,
 				D17528881B0FD332006335B4 /* DailySummaryBreakdown.swift in Sources */,
 				8F6A24311951E5D80094B73C /* ApiUtility.swift in Sources */,
+				410FFFAD1CA772B1005EAC9E /* String+Utility.swift in Sources */,
 				D1FC729D1B20FD9F0068CF89 /* MetricGraphUtility.swift in Sources */,
 				8FEF6F481A6EECDE001EF8A6 /* PulseCard.swift in Sources */,
 				8F5E7FC31999676E009067E5 /* KioskListCell.swift in Sources */,
@@ -2226,6 +2240,7 @@
 				413635891C2260B00056DE8D /* NewMetricDelegates.swift in Sources */,
 				8F6D510E1947B2E700F7C769 /* Utility.swift in Sources */,
 				D130183E1B14D2C9008DDFAD /* ChallengeUtility.swift in Sources */,
+				410FFFA51CA77269005EAC9E /* HigiAuthorization.swift in Sources */,
 				8F296309194B8DE700E787FD /* SplashViewController.swift in Sources */,
 				2BC5865E1A16D0AF005A7983 /* ChallengeInvitationView.swift in Sources */,
 				D18395C31A69CAD500D290BF /* ChallengesDetailsTab.swift in Sources */,
@@ -2309,6 +2324,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4197B58D1C58095100E46F8F /* UtilityTests.swift in Sources */,
+				410FFFA91CA7729A005EAC9E /* HigiAuthorizationTests.swift in Sources */,
 				413E19291C10AB5800146B29 /* UniversalLinkTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
