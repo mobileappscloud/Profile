@@ -62,8 +62,7 @@ class TermsViewController: UIViewController {
         loadingView.hidden = false;
         agreeButton.enabled = false;
         declineButton.enabled = false;
-        let dateFormatter = NSDateFormatter();
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ";
+        let dateFormatter = NSDateFormatter.ISO8601DateFormatter
         let agreedDate = dateFormatter.stringFromDate(NSDate());
         let contents = NSMutableDictionary();
         

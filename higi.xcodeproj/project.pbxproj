@@ -39,6 +39,8 @@
 		410FFFA91CA7729A005EAC9E /* HigiAuthorizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410FFFA81CA7729A005EAC9E /* HigiAuthorizationTests.swift */; };
 		410FFFAB1CA772A9005EAC9E /* JSONWebToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410FFFAA1CA772A9005EAC9E /* JSONWebToken.swift */; };
 		410FFFAD1CA772B1005EAC9E /* String+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410FFFAC1CA772B1005EAC9E /* String+Utility.swift */; };
+		410FFFB21CA77533005EAC9E /* AgreementInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410FFFB01CA77533005EAC9E /* AgreementInfo.swift */; };
+		410FFFB31CA77533005EAC9E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410FFFB11CA77533005EAC9E /* User.swift */; };
 		41247DC91C5A937300DDC5EC /* SingleRowTextMenuFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41247DC81C5A937300DDC5EC /* SingleRowTextMenuFlowLayout.swift */; };
 		41247DCE1C5BD1A100DDC5EC /* MetricDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41247DCD1C5BD1A100DDC5EC /* MetricDetailViewController.swift */; };
 		41247DD51C5F29FB00DDC5EC /* MetricDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41247DD41C5F29FB00DDC5EC /* MetricDetail.storyboard */; };
@@ -347,6 +349,8 @@
 		410FFFA81CA7729A005EAC9E /* HigiAuthorizationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HigiAuthorizationTests.swift; sourceTree = "<group>"; };
 		410FFFAA1CA772A9005EAC9E /* JSONWebToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONWebToken.swift; sourceTree = "<group>"; };
 		410FFFAC1CA772B1005EAC9E /* String+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Utility.swift"; sourceTree = "<group>"; };
+		410FFFB01CA77533005EAC9E /* AgreementInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgreementInfo.swift; sourceTree = "<group>"; };
+		410FFFB11CA77533005EAC9E /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		41247DC81C5A937300DDC5EC /* SingleRowTextMenuFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleRowTextMenuFlowLayout.swift; sourceTree = "<group>"; };
 		41247DCD1C5BD1A100DDC5EC /* MetricDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricDetailViewController.swift; sourceTree = "<group>"; };
 		41247DD41C5F29FB00DDC5EC /* MetricDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MetricDetail.storyboard; sourceTree = "<group>"; };
@@ -1534,6 +1538,7 @@
 			isa = PBXGroup;
 			children = (
 				8FDB4B671A09731B00F57B38 /* ActivityDevice.swift */,
+				410FFFB01CA77533005EAC9E /* AgreementInfo.swift */,
 				8F7065B31A16B129002FCA10 /* ChallengeParticipant.swift */,
 				8F7065B71A16B46A002FCA10 /* ChallengeTeam.swift */,
 				8FDB4B691A09741400F57B38 /* ChallengeWinCondition.swift */,
@@ -1547,6 +1552,7 @@
 				410FFFAA1CA772A9005EAC9E /* JSONWebToken.swift */,
 				8F9C69D81950C8AD00449664 /* KioskInfo.swift */,
 				8F9C69DA1950C8B700449664 /* PulseArticle.swift */,
+				410FFFB11CA77533005EAC9E /* User.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -2292,6 +2298,7 @@
 				41247DCE1C5BD1A100DDC5EC /* MetricDetailViewController.swift in Sources */,
 				419D864C1BBEF83000E7D844 /* GClusterManager.m in Sources */,
 				41B2AEDF1BBB377E00BE9EF7 /* MetricGraph.swift in Sources */,
+				410FFFB21CA77533005EAC9E /* AgreementInfo.swift in Sources */,
 				D1020A291B3B130C001F2D81 /* BreakdownTitleRow.swift in Sources */,
 				419D86501BBEF83000E7D844 /* GQTPointQuadTreeChild.m in Sources */,
 				41A0BE131BBB088500A314D6 /* AFURLSessionManager.m in Sources */,
@@ -2305,6 +2312,7 @@
 				419D86491BBEF83000E7D844 /* GStaticCluster.m in Sources */,
 				419D86591BBEFA0A00E7D844 /* ClusterKiosk.m in Sources */,
 				41B2AEE11BBB378A00BE9EF7 /* GraphPoint.swift in Sources */,
+				410FFFB31CA77533005EAC9E /* User.swift in Sources */,
 				416226731C7940F400EFA1B3 /* CPTMutableLineStyle+Utility.swift in Sources */,
 				41A0BE2B1BBB08B800A314D6 /* UIProgressView+AFNetworking.m in Sources */,
 				D1740BC41AE0381F00462F6E /* MetricsType.swift in Sources */,
