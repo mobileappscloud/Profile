@@ -255,7 +255,7 @@ extension NewBloodPressureMetricDelegate: MetricDetailPreviewDelegate {
         
         guard let checkin = checkins.filter({ $0.checkinId == checkinIdentifier }).first else { return }
         
-        let formattedDateString = Utility.longStyleDateFormatter.stringFromDate(checkin.dateTime)
+        let formattedDateString = NSDateFormatter.longStyleDateFormatter.stringFromDate(checkin.dateTime)
         
         let systolicValue = Int(selectedPoint.y)
         let diastolicValue = Int(altSelectedPoint.y)

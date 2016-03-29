@@ -90,7 +90,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         if (dateString == nil) {
             date = NSDate();
         } else {
-            date = Constants.dateFormatter.dateFromString(dateString);
+            date = NSDateFormatter.activityDateFormatter.dateFromString(dateString);
         }
         /*
             @internal If the date formatter assumes the current locale, then the strings for date format
@@ -128,7 +128,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     
     func initSummaryview() {
         if (dateString == nil) {
-            dateString = Constants.dateFormatter.stringFromDate(NSDate());
+            dateString = NSDateFormatter.activityDateFormatter.stringFromDate(NSDate());
         }
         if let (points, sessionActivities) = SessionController.Instance.activities[dateString] {
             totalPoints = points;
@@ -456,7 +456,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         button.setTitle(text, forState: UIControlState.Normal);
         button.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal);
         button.titleLabel?.font = UIFont.boldSystemFontOfSize(14);
-        button.backgroundColor = Utility.colorFromHexString(Constants.higiGreen);
+        button.backgroundColor = Theme.Color.primary;
         button.layer.cornerRadius = 4;
         button.addTarget(self, action: action, forControlEvents: UIControlEvents.TouchUpInside);
         button.userInteractionEnabled = true;

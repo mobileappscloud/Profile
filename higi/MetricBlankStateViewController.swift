@@ -20,7 +20,7 @@ final class MetricBlankStateViewController: UIViewController {
     @IBOutlet private var firstActionButton: UIButton! {
         didSet {
             firstActionButton.layer.cornerRadius = 4.0
-            firstActionButton.backgroundColor = Utility.colorFromHexString(Constants.higiGreen)
+            firstActionButton.backgroundColor = Theme.Color.primary
             let title = NSLocalizedString("METRICS_CARD_VIEW_FIND_STATION_BUTTON_TITLE", comment: "Title to display on button to find a higi Station.")
             firstActionButton.setTitle(title, forState: .Normal)
         }
@@ -30,7 +30,7 @@ final class MetricBlankStateViewController: UIViewController {
     @IBOutlet private var secondActionButton: UIButton! {
         didSet {
             secondActionButton.layer.cornerRadius = 4.0
-            secondActionButton.backgroundColor = Utility.colorFromHexString(Constants.higiGreen)
+            secondActionButton.backgroundColor = Theme.Color.primary
             let deviceButtonTitle: String
             if HealthKitManager.isHealthDataAvailable() {
                 deviceButtonTitle = NSLocalizedString("METRICS_CARD_VIEW_CONNECT_DEVICE_BRANDED_BUTTON_TITLE", comment: "Title to display on button to connect a branded activity device.")

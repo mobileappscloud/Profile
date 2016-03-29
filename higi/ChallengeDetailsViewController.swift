@@ -144,7 +144,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             let buttonHeight = toggleButtonHeight - buttonMargin * 2;
             let button = UIButton(type: UIButtonType.Custom);
             button.frame = CGRect(x: buttonX, y: 0, width: buttonWidth, height: buttonHeight);
-            button.setBackgroundImage(makeImageWithColor(Utility.colorFromHexString(Constants.higiGreen)), forState: UIControlState.Selected);
+            button.setBackgroundImage(makeImageWithColor(Theme.Color.primary), forState: UIControlState.Selected);
             button.setBackgroundImage(makeImageWithColor(UIColor.blackColor()), forState: UIControlState.Normal);
             button.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal);
             button.setTitle(toggleButtonsText[index], forState: UIControlState.Normal);
@@ -395,7 +395,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         label.textAlignment = NSTextAlignment.Center;
         label.text = buttonText;
         let greenBar = UIView(frame: CGRect(x: 0, y: height - 3, width: width, height: 3));
-        greenBar.backgroundColor = Utility.colorFromHexString(Constants.higiGreen);
+        greenBar.backgroundColor = Theme.Color.primary;
         greenBar.hidden = index != 0;
         greenBars.append(greenBar);
         tabView.addSubview(greenBar);
@@ -843,7 +843,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             view.addSubview(clearBar);
             
             let greenBar = UIView(frame: CGRect(x: 0, y: posY, width: newWidth, height: barHeight));
-            greenBar.backgroundColor = Utility.colorFromHexString(Constants.higiGreen);
+            greenBar.backgroundColor = Theme.Color.primary;
             greenBar.layer.cornerRadius = barHeight / 2;
             
             view.addSubview(greenBar);
@@ -853,7 +853,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                 let posX = min(width, CGFloat(goalVal) / CGFloat(largestGoal) * width) - nodeHeight / 2;
                 //** idk why this is / 4 instead of /2 ... auto-layout?
                 let goalCircle = UIView(frame: CGRect(x: posX, y: posY - nodeHeight / 4 , width: nodeHeight, height: nodeHeight));
-                let circleColor:UIColor = Double(points) >= Double(goalVal) ? Utility.colorFromHexString(Constants.higiGreen) : UIColor(white: 0.5, alpha: 1);
+                let circleColor:UIColor = Double(points) >= Double(goalVal) ? Theme.Color.primary : UIColor(white: 0.5, alpha: 1);
                 goalCircle.backgroundColor = circleColor;
                 goalCircle.layer.cornerRadius = nodeHeight / 2;
                 view.addSubview(goalCircle);
@@ -868,7 +868,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             view.addSubview(clearBar);
             
             let greenBar = UIView(frame: CGRect(x: 0, y: posY, width: newWidth, height: barHeight));
-            greenBar.backgroundColor = Utility.colorFromHexString(Constants.higiGreen);
+            greenBar.backgroundColor = Theme.Color.primary;
             greenBar.layer.cornerRadius = barHeight / 2;
             
             view.addSubview(greenBar);

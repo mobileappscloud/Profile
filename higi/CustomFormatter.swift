@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Custom class created for use with Core Plot library
 class CustomFormatter : NSFormatter {
     
     var dateFormatter: NSDateFormatter;

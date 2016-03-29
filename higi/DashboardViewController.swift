@@ -350,7 +350,7 @@ final class DashboardViewController: UIViewController {
         var bps: [HigiCheckin] = [], weights: [HigiCheckin] = [], pulses: [HigiCheckin] = [];
         var lastBpDate = "", lastBmiDate = "", lastPulseDate = "";
         for checkin in SessionController.Instance.checkins {
-            let checkinDate = Constants.displayDateFormatter.stringFromDate(checkin.dateTime);
+            let checkinDate = NSDateFormatter.checkinDisplayDateFormatter.stringFromDate(checkin.dateTime);
             if (checkin.systolic != nil && checkin.systolic > 0) {
                 if (checkinDate != lastBpDate) {
                     bps.append(checkin);
@@ -471,7 +471,7 @@ final class DashboardViewController: UIViewController {
         } else {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                 var activityPoints:[GraphPoint] = [];
-                let dateString = Constants.dateFormatter.stringFromDate(NSDate());
+                let dateString = NSDateFormatter.activityDateFormatter.stringFromDate(NSDate());
                 var totalPoints = 0;
                 for (date, activitySummary) in SessionController.Instance.activities {
                     let total = activitySummary.totalPoints
