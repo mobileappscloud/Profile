@@ -28,7 +28,7 @@ class RequiredAppUpdateViewController: UIViewController {
     }
     @IBOutlet weak var actionButton: UIButton! {
         didSet {
-            let color = Utility.colorFromHexString(Constants.higiGreen);
+            let color = Theme.Color.primary;
             actionButton.setTitleColor(color, forState: .Normal);
             let title = NSLocalizedString("REQUIRED_APP_UPDATE_VIEW_UPDATE_ACTION_BUTTON_TITLE", comment: "Title for update-action button on required app update view.");
             actionButton.setTitle(title, forState: .Normal);

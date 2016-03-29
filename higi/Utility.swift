@@ -185,21 +185,6 @@ extension String {
     
 }
 
-extension Utility {
-    
-    static var mediumStyleDateFormatter: NSDateFormatter = {
-        let formatter = NSDateFormatter()
-        formatter.dateStyle = .MediumStyle
-        return formatter
-    }()
-    
-    static var longStyleDateFormatter: NSDateFormatter = {
-        let formatter = NSDateFormatter()
-        formatter.dateStyle = .LongStyle
-        return formatter
-    }()
-}
-
 extension UITableView {
     /**
      Gets a collection of all table view cell's which are completely visible without obstruction.

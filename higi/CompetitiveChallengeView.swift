@@ -22,8 +22,8 @@ class CompetitiveChallengeView: ChallengeView, UIScrollViewDelegate {
                 let name = teamGravityBoard[index].name;
                 let row = ChallengeLeaderboardRow.instanceFromNib(frame, challenge: challenge, team: teamGravityBoard[index], rank: ranks[index]);
                 if (name == challenge.participant.team.name) {
-                    row.name.textColor = Utility.colorFromHexString(Constants.higiGreen);
-                    row.place.textColor = Utility.colorFromHexString(Constants.higiGreen);
+                    row.name.textColor = Theme.Color.primary;
+                    row.place.textColor = Theme.Color.primary;
                 }
                 rows[index].frame.size.width = frame.size.width;
                 rows[index].addSubview(row);
@@ -36,8 +36,8 @@ class CompetitiveChallengeView: ChallengeView, UIScrollViewDelegate {
                 let place = individualGravityBoard[index].place!;
                 let row = ChallengeLeaderboardRow.instanceFromNib(frame, challenge: challenge, participant: individualGravityBoard[index].participant, place: place as String);
                 if (name == challenge.participant.displayName) {
-                    row.name.textColor = Utility.colorFromHexString(Constants.higiGreen);
-                    row.place.textColor = Utility.colorFromHexString(Constants.higiGreen);
+                    row.name.textColor = Theme.Color.primary;
+                    row.place.textColor = Theme.Color.primary;
                 }
                 rows[index].frame.size.width = frame.size.width;
                 rows[index].addSubview(row);

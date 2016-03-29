@@ -179,7 +179,7 @@ class ApiUtility {
                     let serverActivities = ((responseObject as! NSDictionary)["response"] as! NSDictionary)["data"] as! NSArray;
                     for serverActivity: AnyObject in serverActivities {
                         let activity = HigiActivity(dictionary: serverActivity as! NSDictionary);
-                        let dateString = Constants.dateFormatter.stringFromDate(activity.startTime);
+                        let dateString = NSDateFormatter.activityDateFormatter.stringFromDate(activity.startTime);
                         if var activitySummary = activities[dateString] {
                             let points = activity.errorDescription == nil ? activity.points + activitySummary.totalPoints : activitySummary.totalPoints;
                             activitySummary.activities.append(activity);

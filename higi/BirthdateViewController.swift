@@ -64,8 +64,7 @@ class BirthdateViewController: UIViewController {
             }
         } else {
             let user = SessionData.Instance.user;
-            let dateFormatter = NSDateFormatter();
-            dateFormatter.dateFormat = "MM/dd/yyyy";
+            let dateFormatter = NSDateFormatter.MMddyyyyDateFormatter
             let contents = NSMutableDictionary();
             contents["dateOfBirth"] = dateFormatter.stringFromDate(birthday);
             HigiApi().sendPost("\(HigiApi.higiApiUrl)/data/user/\(user.userId)", parameters: contents, success: {operation, responseObject in
@@ -99,8 +98,7 @@ class BirthdateViewController: UIViewController {
     
     func deleteAccountAndQuit() {
         let user = SessionData.Instance.user;
-        let dateFormatter = NSDateFormatter();
-        dateFormatter.dateFormat = "MM/dd/yyyy";
+        let dateFormatter = NSDateFormatter.MMddyyyyDateFormatter
         HigiApi().sendGet("\(HigiApi.higiApiUrl)/data/deleteAccountAge13?userId=\(user.userId)&dob=\(dateFormatter.stringFromDate(datePicker.date))", success: nil, failure: nil);
         SessionController.Instance.reset();
         SessionData.Instance.reset();

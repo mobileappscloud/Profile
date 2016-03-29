@@ -35,7 +35,7 @@ class ActivityMetricDelegate: MetricDelegate {
         let selectedDate = date.timeIntervalSince1970;
         var minDifference = DBL_MAX;
         for activityDate in sortedDates {
-            let interval = Constants.dateFormatter.dateFromString(activityDate)!.timeIntervalSince1970;
+            let interval = NSDateFormatter.activityDateFormatter.dateFromString(activityDate)!.timeIntervalSince1970;
             let difference = abs(interval - selectedDate);
             if (difference < minDifference) {
                 minDifference = difference;
