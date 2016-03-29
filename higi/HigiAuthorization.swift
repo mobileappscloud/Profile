@@ -9,10 +9,9 @@
 import Foundation
 
 /**
- This class contains `OAuth2` authorization info used to securely communicate with the higi API. For more information on OAuth2 visit [OAuth2](http://oauth.net/2/)
+ This class contains [`OAuth2`](http://oauth.net/2/) authorization info used to securely communicate with the higi API.
  
- The higi API makes use of JSON web tokens which are an open, industry standard `RFC 7519` method for representing claims securely between two parties.
- For more information on JSON web tokens visit [JWT](http://jwt.io)
+ The higi API makes use of [JSON web tokens](http://jwt.io) which are an open, industry standard [`RFC 7519`](https://tools.ietf.org/html/rfc7519) method for representing claims securely between two parties.
  */
 final class HigiAuthorization: NSObject {
     
@@ -91,5 +90,18 @@ extension HigiAuthorization {
             return "Bearer \(accessToken)"
         }
         return ""
+    }
+}
+
+extension HigiAuthorization {
+    
+    /**
+     Determines if the access token has expired.
+     
+     - returns: `true` if access has expired, otherwise `false`.
+     */
+    func isExpired() -> Bool {
+        let comparison = NSDate().compare(expirationDate)
+        return comparison != .OrderedAscending
     }
 }
