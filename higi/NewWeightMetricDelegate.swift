@@ -247,7 +247,7 @@ extension NewWeightMetricDelegate: MetricDetailPreviewDelegate {
         
         guard let checkin = checkins.filter({ $0.checkinId == checkinIdentifier }).first else { return }
         
-        let formattedDateString = Utility.longStyleDateFormatter.stringFromDate(checkin.dateTime)
+        let formattedDateString = NSDateFormatter.longStyleDateFormatter.stringFromDate(checkin.dateTime)
         
         let weight = Int(selectedPoint.y)
         let unit = NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_WEIGHT_POUNDS", comment: "General purpose abbreviated label for the english units of weight measurement, pounds.")

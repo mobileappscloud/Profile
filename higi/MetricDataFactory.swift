@@ -170,7 +170,7 @@ extension MetricDataFactory {
         
         var activityPoints: [GraphPoint] = []
         for (dateString, activitySummary) in activitiesDictionary {
-            guard let date = Constants.dateFormatter.dateFromString(dateString) else { continue }
+            guard let date = NSDateFormatter.activityDateFormatter.dateFromString(dateString) else { continue }
             
             let activityDate = Double(date.timeIntervalSince1970)
             activityPoints.append(GraphPoint(identifier: dateString, x: activityDate, y: Double(activitySummary.totalPoints)))

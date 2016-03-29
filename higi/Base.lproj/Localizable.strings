@@ -454,11 +454,11 @@
 /* Title for Dashboard view. */
 "DASHBOARD_VIEW_TITLE" = "Home";
 
-/* Default date format for cached date formatter. */
-"DATE_FORMATTER_DEFAULT_DATE_FORMAT" = "yyyyMMdd";
+/* Date format for higi activities. */
+"DATE_FORMATTER_ACTIVITY_DATE_FORMAT" = "yyyyMMdd";
 
-/* Default date format for cached display date formatter. */
-"DATE_FORMATTER_DEFAULT_DISPLAY_DATE_FORMAT" = "MM/dd/yyyy";
+/* Date format for displaying check-in dates. */
+"DATE_FORMATTER_CHECKIN_DISPLAY_DATE_FORMAT" = "MM/dd/yyyy";
 
 /* Format for pluralization of days. */
 "DAY_COUNT_SINGLE_PLURAL" = "DAY_COUNT_SINGLE_PLURAL";
