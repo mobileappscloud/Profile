@@ -8,8 +8,35 @@
 
 import Foundation
 
-final class JSONWebToken {
+/**
+ [JSON web tokens](http://jwt.io) are an open, industry standard [`RFC 7519`](https://tools.ietf.org/html/rfc7519) method for representing claims securely between two parties.
+ 
+ **Warning:** This class is a partial implementation for a JSON web token and simply provides helper methods to read select claims from the token's payload.
+ */
+final class JSONWebToken: NSObject {
     
+    let token: String
+    
+    required init(token: String) {
+        self.token = token
+    }
+}
+
+extension JSONWebToken: NSCoding {
+    
+    private struct NSCodingKey {
+        static let token = "TokenCodingKey"
+    }
+    
+    convenience init?(coder aDecoder: NSCoder) {
+        guard let token = aDecoder.decodeObjectForKey(NSCodingKey.token) as? String else { return nil }
+        
+        self.init(token: token)
+    }
+    
+    func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeObject(self.token, forKey: NSCodingKey.token)
+    }
 }
 
 extension JSONWebToken {
@@ -17,13 +44,11 @@ extension JSONWebToken {
     /**
      Decodes a JSON web token and extracts the payload dictionary.
      
-     - parameter JSONWebToken: Base-64 encoded string representing a JSON web token.
-     
      - returns: Payload dictionary from a JSON web token.
      */
-    class func payload(JSONWebToken: String) -> NSDictionary? {
+    func payload() -> NSDictionary? {
         // The access token is a JSON web token. Parse the payload to read the timestamp for when the token was issued.
-        let components = JSONWebToken.componentsSeparatedByString(".")
+        let components = token.componentsSeparatedByString(".")
         let payload = components[1]
         guard let decodedPayload = payload.base64Decode() else { return nil }
         
@@ -31,17 +56,28 @@ extension JSONWebToken {
         return dictionary as? NSDictionary
     }
     
+    // MARK: Reserved Claims
+    
     /**
-     Decodes JSON web token and extracts expiration date within the payload.
+     Decodes JSON web token and extracts expiration date claim within the payload.
      
-     - parameter JSONWebToken: Base-64 encoded string representing a JSON web token.
-     
-     - returns: Expiration date for the input JSON web token.
+     - returns: Expiration date claim for JSON web token.
      */
-    class func expirationDate(JSONWebToken: String) -> NSDate? {
-        guard let payloadDictionary = payload(JSONWebToken) else { return nil }
+    func expirationDate() -> NSDate? {
+        guard let payloadDictionary = payload() else { return nil }
         guard let expirationTimestamp = payloadDictionary["exp"] as? NSTimeInterval else { return nil }
         
         return NSDate(timeIntervalSince1970: expirationTimestamp)
+    }
+    
+    /**
+     Decodes JSON web token and extracts subject claim within the payload.
+     
+     - returns: Subject claim for JSON web token.
+     */
+    func subject() -> String? {
+        guard let payloadDictionary = payload() else { return nil }
+        
+        return payloadDictionary["sub"] as? String
     }
 }

@@ -10,8 +10,6 @@ import Foundation
 
 /**
  This class contains [`OAuth2`](http://oauth.net/2/) authorization info used to securely communicate with the higi API.
- 
- The higi API makes use of [JSON web tokens](http://jwt.io) which are an open, industry standard [`RFC 7519`](https://tools.ietf.org/html/rfc7519) method for representing claims securely between two parties.
  */
 final class HigiAuthorization: NSObject {
     
@@ -19,15 +17,18 @@ final class HigiAuthorization: NSObject {
         case Bearer = "bearer"
     }
     
-    let accessToken: String
+    /// JSON web token with access information
+    let accessToken: JSONWebToken
+    
+    /// Type of `OAuth2` token.
     let type: Type
-    let expirationDate: NSDate
+    
+    /// `OAuth2` refresh token which can be used to generate a new accessToken.
     let refreshToken: String
     
-    required init(accessToken: String, type: Type, expirationDate: NSDate, refreshToken: String) {
+    required init(accessToken: JSONWebToken, type: Type, refreshToken: String) {
         self.accessToken = accessToken
         self.type = type
-        self.expirationDate = expirationDate
         self.refreshToken = refreshToken
     }
 }
@@ -37,24 +38,21 @@ extension HigiAuthorization: NSCoding {
     private struct NSCodingKey {
         static let accessToken = "AccessToken"
         static let type = "TokenType"
-        static let expirationDate = "ExpirationDate"
         static let refreshToken = "RefreshToken"
     }
     
     convenience init?(coder aDecoder: NSCoder) {
-        guard let accessToken = aDecoder.decodeObjectForKey(NSCodingKey.accessToken) as? String,
+        guard let accessToken = JSONWebToken(coder: aDecoder),
             let typeString = aDecoder.decodeObjectForKey(NSCodingKey.type) as? String,
             let type = Type(rawValue: typeString),
-            let expirationDate = aDecoder.decodeObjectForKey (NSCodingKey.expirationDate) as? NSDate,
             let refreshToken = aDecoder.decodeObjectForKey(NSCodingKey.refreshToken) as? String else { return nil }
         
-        self.init(accessToken: accessToken, type: type, expirationDate: expirationDate, refreshToken: refreshToken)
+        self.init(accessToken: accessToken, type: type, refreshToken: refreshToken)
     }
     
     func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(self.accessToken, forKey: NSCodingKey.accessToken)
+        self.accessToken.encodeWithCoder(aCoder)
         aCoder.encodeObject(self.type.rawValue, forKey: NSCodingKey.type)
-        aCoder.encodeObject(self.expirationDate, forKey: NSCodingKey.expirationDate)
         aCoder.encodeObject(self.refreshToken, forKey: NSCodingKey.refreshToken)
     }
 }
@@ -69,12 +67,12 @@ extension HigiAuthorization {
     
     convenience init?(dictionary: NSDictionary) {
         guard let accessToken = dictionary[DictionaryKeys.AccessToken] as? String,
-            let expirationDate = JSONWebToken.expirationDate(accessToken),
             let typeString = dictionary[DictionaryKeys.TokenType] as? String,
             let type = Type(rawValue: typeString),
             let refreshToken = dictionary[DictionaryKeys.RefreshToken] as? String else { return nil }
         
-        self.init(accessToken: accessToken, type: type, expirationDate: expirationDate, refreshToken: refreshToken)
+        let token = JSONWebToken(token: accessToken)
+        self.init(accessToken: token, type: type, refreshToken: refreshToken)
     }
 }
 
@@ -90,18 +88,5 @@ extension HigiAuthorization {
             return "Bearer \(accessToken)"
         }
         return ""
-    }
-}
-
-extension HigiAuthorization {
-    
-    /**
-     Determines if the access token has expired.
-     
-     - returns: `true` if access has expired, otherwise `false`.
-     */
-    func isExpired() -> Bool {
-        let comparison = NSDate().compare(expirationDate)
-        return comparison != .OrderedAscending
     }
 }

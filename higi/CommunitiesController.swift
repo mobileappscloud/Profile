@@ -17,9 +17,5 @@ final class CommunitiesController: NSObject {
     private(set) var communitiesUnjoined: [Community] = []
     
     private(set) var paging: Paging? = nil
-    
-    func fetchCommunities() {
-        
-    }
 }
 

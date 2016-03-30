@@ -8,29 +8,42 @@
 
 import Foundation
 
-final class HigiAPIClient {
+final class HigiAPIClient: HigiAPI2 {
     
-    // MARK: Definitions
-    
+    /// Client ID registered as a whitelisted application with `OAuth2` access to the higi API.
     static let clientId = "com.higi.main.ios"
     
+    /**
+     *  Common HTTP header names for use with higi API.
+     */
+    struct HTTPHeaderName {
+        static let clientId = "ClientId"
+        static let authorization = "Authorization"
+        static let refreshToken = "RefreshToken"
+    }
+    
+    /// Key used to store authorization info in `Keychain`.
     private static let authorizationKey = "HigiAuthorizationKey"
+    
+    /// Base URL for accessing the higi API.
     private static let baseURL: NSURL = {
         //        let URLString = NSBundle.mainBundle().objectForInfoDictionaryKey("HigiUrl") as! String
         let URLString = "https://api-dev.superbuddytime.com"
         return NSURL(string: URLString)!
     }()
     
-    struct HTTPHeaderName {
-        static let clientId = "ClientId"
-        static let authorization = "Authorization"
-        static let refreshToken = "RefreshToken"
-    }
+    
 }
 
+// This extension can be refactored out if `NSURLCredential` is updated to better support access tokens.
 extension HigiAPIClient {
     
-    private(set) static var authorization: HigiAuthorization? {
+    /**
+     Authorization information required for accessing protected higi API resources.
+     
+     Please refer to `cacheAuthorization(:)` and `removeCachedAuthorization()` for public access to modifying the cached authorization object.
+     */
+    private(set) class var authorization: HigiAuthorization? {
         get {
             return KeychainWrapper.objectForKey(HigiAPIClient.authorizationKey) as? HigiAuthorization
         }
@@ -46,10 +59,20 @@ extension HigiAPIClient {
         }
     }
     
+    /**
+     Securely caches a user's authentication info so that the API client can access protected resources.
+     
+     - parameter authorization: higi API authorization object.
+     */
     class func cacheAuthorization(authorization: HigiAuthorization) {
         HigiAPIClient.authorization = authorization
     }
     
+    /**
+     Removes a user's authentication info from the cache.
+     
+     **Note:** This method should be called after revoking the user's refresh token. The API does not persist a user's access token, so their access token will remain valid until the expiration date has passed.
+     */
     class func removeCachedAuthorization() {
         HigiAPIClient.authorization = nil
     }
@@ -57,36 +80,38 @@ extension HigiAPIClient {
 
 extension HigiAPIClient {
     
-    class func unauthenticatedSession() -> NSURLSession {
-        return NSURLSession.sharedSession()
-    }
-    
-    class func authenticatedSession() -> NSURLSession {
-        let authenticatedSessionConfig = NSURLSessionConfiguration()
+    class func session() -> NSURLSession {
+        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
         var headers: [String : String] = [:]
-        if let authorization = authorization {
-            headers[HTTPHeaderName.authorization] = authorization.accessToken
+        if let authorization = HigiAPIClient.authorization {
+            headers[HTTPHeaderName.authorization] = authorization.bearerToken()
         }
         headers[HTTPHeaderName.clientId] = HigiAPIClient.clientId
-        authenticatedSessionConfig.HTTPAdditionalHeaders = headers
-        let session = NSURLSession(configuration: authenticatedSessionConfig)
-        return session
-    }
-    
-    class func backgroundSession() -> NSURLSession {
-        let backgroundConfig = NSURLSessionConfiguration.backgroundSessionConfigurationWithIdentifier("com.higi.main.NSURLSession.background")
-        let session = NSURLSession(configuration: backgroundConfig)
+        configuration.HTTPAdditionalHeaders = headers
+        let session = NSURLSession(configuration: configuration)
         return session
     }
 }
 
 extension HigiAPIClient {
-
-    class func endpointURL(relativePath: String) -> NSURL {
-        return HigiAPIClient.baseURL.URLByAppendingPathComponent(relativePath)
+    
+    /**
+     Convenience method which produces a `NSURL` object resolved against the higi API base URL. This method will handle any necessary encoding applicable to the relative path and query parameters.
+     
+     - parameter relativePath: Relative path to resource. _Ex: /activity/user_
+     - parameter parameters:   Query parameters for URL.
+     
+     - returns: An instance of `NSURL` if there were no issues, otherwise `nil`.
+     */
+    class func URL(relativePath: String, parameters: [String : String]?) -> NSURL? {
+        
+        guard let percentEncodedPath = relativePath.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLPathAllowedCharacterSet()),
+            let endpointURL = NSURL(string: percentEncodedPath, relativeToURL: HigiAPIClient.baseURL) else { return nil }
+        
+        if let parameters = parameters {
+            return NetworkRequest.NSURLByAppendingQueryParameters(endpointURL, queryParameters: parameters)
+        } else {
+            return endpointURL
+        }
     }
 }
-
-protocol HigiAPITask {}
-
-protocol HigiAPIResponseParser {}

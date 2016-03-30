@@ -245,3 +245,10 @@ extension Utility {
         return roundTo * Double(Int(ceil(number / roundTo)))
     }
 }
+
+extension Utility {
+
+    class func organizationId() -> String {
+        return NSBundle.mainBundle().objectForInfoDictionaryKey("OrganizationId") as! String;
+    }
+}

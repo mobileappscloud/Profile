@@ -8,26 +8,19 @@
 
 import Foundation
 
-final class RefreshTokenTask: HigiAPITask {
-    
-    class func task(session: NSURLSession, email: String, password: String, success: (user: User) -> Void, failure: (error: NSError?) -> Void) -> NSURLSessionDataTask? {
-        guard let authorization = HigiAPIClient.authorization else {
-            failure(error: nil)
-            return nil
-        }
+final class RefreshTokenTask {}
 
+extension RefreshTokenTask: HigiAPIRequest {
+    
+    class func request(email: String, password: String) -> NSURLRequest? {
+        
         let relativePath = "/authentication/refresh"
-        let request = NSMutableURLRequest(URL: HigiAPIClient.endpointURL(relativePath))
-        request.HTTPMethod = HTTPMethod.POST
         
-        request.addValue(HigiAPIClient.clientId, forHTTPHeaderField: HigiAPIClient.HTTPHeaderName.clientId)
-        request.addValue(authorization.refreshToken, forHTTPHeaderField: HigiAPIClient.HTTPHeaderName.refreshToken)
+        guard let authorization = HigiAPIClient.authorization,
+            let mutableRequest = authenticatedRequest(relativePath, parameters: nil, method: HTTPMethod.POST)?.mutableCopy() as? NSMutableURLRequest else { return nil }
         
-        let task = NetworkRequest.JSONTask(session, request: request, success: { (JSON, response) in
-            AuthenticationParser.parse(JSON, success: success, failure: failure)
-            }, failure: { (error, response) in
-                failure(error: error)
-        })
-        return task
+        mutableRequest.addValue(authorization.refreshToken, forHTTPHeaderField: HigiAPIClient.HTTPHeaderName.refreshToken)
+        
+        return mutableRequest.copy() as? NSURLRequest
     }
 }

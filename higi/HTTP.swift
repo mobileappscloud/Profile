@@ -36,14 +36,14 @@ import Foundation
  
  */
 struct HTTPMethod {
-    static let GET = "GET"
-    static let HEAD = "HEAD"
-    static let POST = "POST"
-    static let PUT = "PUT"
-    static let DELETE = "DELETE"
-    static let CONNECT = "CONNECT"
-    static let OPTIONS = "OPTIONS"
-    static let TRACE = "TRACE"
+    static let GET: String = "GET"
+    static let HEAD: String = "HEAD"
+    static let POST: String = "POST"
+    static let PUT: String = "PUT"
+    static let DELETE: String = "DELETE"
+    static let CONNECT: String = "CONNECT"
+    static let OPTIONS: String = "OPTIONS"
+    static let TRACE: String = "TRACE"
 }
 
 /**

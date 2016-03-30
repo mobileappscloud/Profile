@@ -17,7 +17,7 @@ struct Paging {
     /// Page number the current result set represents with respect to all pages in collection.
     let pageNumber: Int
     
-    /// Maximum number of results returned in each page.
+    /// Maximum number of results returned in each page. This property can be used to limit the number of results returned. Setting this property to 0 indicates no size limit and a request for the entire dataset.
     let pageSize: Int
     
     /// Number of results returned for current page.
@@ -51,5 +51,21 @@ extension Paging {
         if let nextURLString = dictionary["next"] as? String {
             self.next = NSURL(string: nextURLString)
         }
+    }
+}
+
+extension Paging: HigiAPIRequest {
+    
+    func previousRequest() -> NSURLRequest? {
+        return request(previous)
+    }
+    
+    func nextRequest() -> NSURLRequest? {
+        return request(next)
+    }
+    
+    private func request(URL: NSURL?) -> NSURLRequest? {
+        guard let URL = URL else { return nil }
+        return NSURLRequest(URL: URL)
     }
 }
