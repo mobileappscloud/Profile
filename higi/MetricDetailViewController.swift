@@ -31,14 +31,14 @@ final class MetricDetailViewController: UIViewController {
     
     lazy private var tapGestureRecognizer: UITapGestureRecognizer = {
        let tap = UITapGestureRecognizer()
-        tap.addTarget(self, action: Selector("tapped:"))
+        tap.addTarget(self, action: #selector(MetricDetailViewController.tapped(_:)))
         return tap
     }()
     
     lazy private var swipeGestureRecognizer: UISwipeGestureRecognizer = {
         let swipe = UISwipeGestureRecognizer()
         swipe.direction = .Down
-        swipe.addTarget(self, action: Selector("swiped:"))
+        swipe.addTarget(self, action: #selector(MetricDetailViewController.swiped(_:)))
         return swipe
     }()
     
@@ -148,7 +148,7 @@ extension MetricDetailViewController {
 extension MetricDetailViewController {
     
     func configureGraphicContainerTapGesture(tapHandler: () -> Void) {
-        graphicTapGestureRecognizer.addTarget(self, action: Selector("didTapGraphicContainer:"))
+        graphicTapGestureRecognizer.addTarget(self, action: #selector(MetricDetailViewController.didTapGraphicContainer(_:)))
         graphicTapHandler = tapHandler
         graphicContainerView.addGestureRecognizer(graphicTapGestureRecognizer)
     }

@@ -114,7 +114,7 @@ class Utility {
             if char == needle {
                 return i;
             }
-            i++;
+            i += 1
         }
         return -1;
     }
@@ -234,11 +234,12 @@ extension UIView {
 
 extension Utility {
     
-    class func roundToLowest(var number: Double, roundTo: Double) -> Double {
-        if number < 0 {
-            number -= roundTo
+    class func roundToLowest(number: Double, roundTo: Double) -> Double {
+        var num = number
+        if num < 0 {
+            num -= roundTo
         }
-        return Double(Int(number / roundTo) * Int(roundTo))
+        return Double(Int(num / roundTo) * Int(roundTo))
     }
     
     class func roundToHighest(number: Double, roundTo: Double) -> Double {

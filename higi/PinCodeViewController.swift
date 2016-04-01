@@ -34,7 +34,7 @@ class PinCodeViewController: UIViewController, UITextFieldDelegate {
         if (newCode || modifying || removing) {
             let backButton = UIButton(type: UIButtonType.Custom);
             backButton.setBackgroundImage(UIImage(named: "button-back-white"), forState: UIControlState.Normal);
-            backButton.addTarget(self, action: "goBack:", forControlEvents: UIControlEvents.TouchUpInside);
+            backButton.addTarget(self, action: #selector(PinCodeViewController.goBack(_:)), forControlEvents: UIControlEvents.TouchUpInside);
             backButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30);
             let backBarItem = UIBarButtonItem(customView: backButton);
             self.navigationItem.leftBarButtonItem = backBarItem;
@@ -53,11 +53,11 @@ class PinCodeViewController: UIViewController, UITextFieldDelegate {
         } else {
             topTitle.text = NSLocalizedString("PIN_CODE_VIEW_HEADER_TITLE_UNLOCK", comment: "Header title for pin code view when unlocking app.");
         }
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "checkTouchId", name: UIApplicationWillEnterForegroundNotification, object: nil);
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "applicationWillResignActive", name: UIApplicationWillResignActiveNotification, object: nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PinCodeViewController.checkTouchId), name: UIApplicationWillEnterForegroundNotification, object: nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PinCodeViewController.applicationWillResignActive), name: UIApplicationWillResignActiveNotification, object: nil);
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:"displayPinView", name: self.touchIdCancelledNotification, object:nil);
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:"closeView", name: self.touchIdSuccessfulNotification, object:nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(PinCodeViewController.displayPinView), name: self.touchIdCancelledNotification, object:nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(PinCodeViewController.closeView), name: self.touchIdSuccessfulNotification, object:nil);
     }
     
     override func viewDidAppear(animated: Bool) {

@@ -156,11 +156,11 @@ extension MetricChildViewController {
     
     private func configureInteractiveDetailPreviewView() {
         let tap = UITapGestureRecognizer()
-        tap.addTarget(self, action: Selector("didTapDetailPreview:"))
+        tap.addTarget(self, action: #selector(MetricChildViewController.didTapDetailPreview(_:)))
         
         let swipe = UISwipeGestureRecognizer()
         swipe.direction = .Up
-        swipe.addTarget(self, action: Selector("didSwipeDetailPreview:"))
+        swipe.addTarget(self, action: #selector(MetricChildViewController.didSwipeDetailPreview(_:)))
         
         self.metricDetailPreviewViewController.headerView.gestureRecognizers = [tap, swipe]
     }
@@ -178,7 +178,7 @@ extension MetricChildViewController {
         guard let detail = storyboard.instantiateInitialViewController() as? MetricDetailViewController else { return }
         
         let nav = UINavigationController(rootViewController: detail)
-        let closeButton = UIBarButtonItem(image: UIImage(named: "close-button"), style: .Plain, target: self, action: Selector("didTapDetailCloseButton"))
+        let closeButton = UIBarButtonItem(image: UIImage(named: "close-button"), style: .Plain, target: self, action: #selector(MetricChildViewController.didTapDetailCloseButton))
         detail.navigationItem.rightBarButtonItem = closeButton
         self.navigationController?.presentViewController(nav, animated: true, completion: nil)
         
@@ -382,7 +382,7 @@ extension MetricChildViewController: MetricTableScrollDelegate {
 extension MetricChildViewController: DailySummaryPresentationDelegate {
     
     func presentDailySummaryViewController(viewController: DailySummaryViewController) {
-        viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: Selector("dailySummaryDidTapDone:"))
+        viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(MetricChildViewController.dailySummaryDidTapDone(_:)))
         let nav = UINavigationController(rootViewController: viewController)
         self.navigationController?.presentViewController(nav, animated: true, completion: nil)
     }

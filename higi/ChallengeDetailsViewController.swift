@@ -157,10 +157,10 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             
             if (table == leaderboardTable) {
                 leaderboardToggleButtons.append(button);
-                button.addTarget(self, action: "toggleLeaderboardButtons:", forControlEvents: UIControlEvents.TouchUpInside);
+                button.addTarget(self, action: #selector(ChallengeDetailsViewController.toggleLeaderboardButtons(_:)), forControlEvents: UIControlEvents.TouchUpInside);
             } else {
                 progressToggleButtons.append(button);
-                button.addTarget(self, action: "toggleProgressButtons:", forControlEvents: UIControlEvents.TouchUpInside);
+                button.addTarget(self, action: #selector(ChallengeDetailsViewController.toggleProgressButtons(_:)), forControlEvents: UIControlEvents.TouchUpInside);
             }
             header.addSubview(button);
         }
@@ -383,7 +383,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func makeTabButton(buttonText: String, buttonImageName: String, index: Int, height: CGFloat, width: CGFloat) -> UIView {
         let tabGestureRecognizer = UITapGestureRecognizer();
-        tabGestureRecognizer.addTarget(self, action: "selectTabButton:");
+        tabGestureRecognizer.addTarget(self, action: #selector(ChallengeDetailsViewController.selectTabButton(_:)));
         let tabView = UIView(frame: CGRect(x: width * CGFloat(index), y: 0, width: width, height: height));
         tabView.backgroundColor = Utility.colorFromHexString("#FDFDFD");
         tabView.tag = index;
@@ -445,7 +445,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             leaderboardTable!.tableFooterView?.hidden = true;
             scrollView.addSubview(leaderboardTable!);
             tables.append(leaderboardTable!);
-            totalPages++;
+            totalPages += 1;
         }
         if (displayProgressTab) {
             tabButtonLabels.append(NSLocalizedString("CHALLENGE_DETAILS_VIEW_TAB_BUTTON_TITLE_PROGRESS", comment: "Title for progress tab on challenge details view."));
@@ -453,7 +453,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             progressTable = addTableView(totalPages);
             scrollView.addSubview(progressTable!);
             tables.append(progressTable!);
-            totalPages++;
+            totalPages += 1;
         }
         
         tabButtonLabels.append(NSLocalizedString("CHALLENGE_DETAILS_VIEW_TAB_BUTTON_TITLE_DETAILS", comment: "Title for details tab on challenge details view."));
@@ -461,7 +461,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         detailsTable = initDetailsTable();
         scrollView.addSubview(detailsTable);
         tables.append(detailsTable);
-        totalPages++;
+        totalPages += 1;
         
         if (displayChatterTab) {
             tabButtonLabels.append(NSLocalizedString("CHALLENGE_DETAILS_VIEW_TAB_BUTTON_TITLE_CHATTER", comment: "Title for chatter tab on challenge details view."));
@@ -478,7 +478,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             actionButton.setImage(UIImage(named: "chatter-button-normal"), forState: UIControlState.Normal);
             actionButton.setImage(UIImage(named: "chatter-button-selected"), forState: UIControlState.Selected);
             actionButton.layer.cornerRadius = actionButtonWidth / 2;
-            actionButton.addTarget(self, action: "gotoChatterInput:", forControlEvents: UIControlEvents.TouchUpInside);
+            actionButton.addTarget(self, action: #selector(ChallengeDetailsViewController.gotoChatterInput(_:)), forControlEvents: UIControlEvents.TouchUpInside);
             
             chatterView.addSubview(chatterTable!);
             
@@ -493,7 +493,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             
             scrollView.addSubview(chatterView);
             tables.append(chatterTable!);
-            totalPages++;
+            totalPages += 1;
         }
         
         scrollView.delegate = self;
@@ -541,7 +541,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         
         let termsButton = table.termsButton;
         
-        termsButton.addTarget(self, action: "termsClick:", forControlEvents: UIControlEvents.TouchUpInside);
+        termsButton.addTarget(self, action: #selector(ChallengeDetailsViewController.termsClick(_:)), forControlEvents: UIControlEvents.TouchUpInside);
         
         var noPrizes = true;
         var yOffset = rowTextYOffset + 12;

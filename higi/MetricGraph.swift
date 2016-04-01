@@ -321,11 +321,12 @@ class MetricGraph: CPTGraphHostingView {
     
     // MARK: - Helper
     
-    func roundToLowest(var number: Double, roundTo: Double) -> Double {
-        if number < 0 {
-            number -= roundTo;
+    func roundToLowest(number: Double, roundTo: Double) -> Double {
+        var num = number
+        if num < 0 {
+            num -= roundTo;
         }
-        return Double(Int(number / roundTo) * Int(roundTo));
+        return Double(Int(num / roundTo) * Int(roundTo));
     }
     
     func roundToHighest(number: Double, roundTo: Double) -> Double {
@@ -342,7 +343,7 @@ class MetricGraph: CPTGraphHostingView {
                 minDifference = difference;
                 selectedPointIndex = i;
             }
-            i++;
+            i += 1
         }
         self.plot.reloadData();
     }

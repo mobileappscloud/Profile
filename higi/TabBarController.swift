@@ -118,11 +118,11 @@ extension TabBarController {
     // MARK: Bar Button Items
     
     private func navigationOverflowBarButtonItem() -> UIBarButtonItem {
-        return UIBarButtonItem(image: UIImage(named: "ellipses-nav-bar-icon"), style: .Plain, target: self, action: Selector("didTapOverflowButton:"))
+        return UIBarButtonItem(image: UIImage(named: "ellipses-nav-bar-icon"), style: .Plain, target: self, action: #selector(TabBarController.didTapOverflowButton(_:)))
     }
     
     private func modalDismissBarButtonItem(systemItem: UIBarButtonSystemItem) -> UIBarButtonItem {
-        return UIBarButtonItem(barButtonSystemItem: systemItem, target: self, action: Selector("modalDoneButtonTapped:"))
+        return UIBarButtonItem(barButtonSystemItem: systemItem, target: self, action: #selector(TabBarController.modalDoneButtonTapped(_:)))
     }
     
     // MARK: Modal View Controllers

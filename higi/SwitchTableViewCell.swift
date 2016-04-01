@@ -19,7 +19,7 @@ class SwitchTableViewCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier);
         
-        self.switchControl.addTarget(self, action: Selector("didToggleSwitch"), forControlEvents: UIControlEvents.TouchUpInside);
+        self.switchControl.addTarget(self, action: #selector(SwitchTableViewCell.didToggleSwitch), forControlEvents: UIControlEvents.TouchUpInside);
         self.accessoryView = switchControl;
         self.selectionStyle = .None;
     }

@@ -127,7 +127,7 @@ class FindStationViewController: UIViewController, GMSMapViewDelegate, UITableVi
         
         listButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30));
         listButton.setBackgroundImage(UIImage(named: "map-list-view-icon")!.imageWithRenderingMode(.AlwaysTemplate), forState: UIControlState.Normal);
-        listButton.addTarget(self, action: "toggleList:", forControlEvents: UIControlEvents.TouchUpInside);
+        listButton.addTarget(self, action: #selector(FindStationViewController.toggleList(_:)), forControlEvents: UIControlEvents.TouchUpInside);
         let listBarItem = UIBarButtonItem();
         listBarItem.customView = listButton;
         self.navigationItem.leftBarButtonItem = listBarItem;
@@ -144,7 +144,7 @@ class FindStationViewController: UIViewController, GMSMapViewDelegate, UITableVi
         searchField.clearButtonMode = UITextFieldViewMode.WhileEditing;
         searchField.delegate = self;
         
-        searchField.addTarget(self, action: "textFieldChanged", forControlEvents: UIControlEvents.EditingChanged);
+        searchField.addTarget(self, action: #selector(FindStationViewController.textFieldChanged), forControlEvents: UIControlEvents.EditingChanged);
         self.navigationItem.titleView = searchField;
         
         // TODO: l10n, this should be based on day of week, but will require some significant effort to refactor.
@@ -206,7 +206,7 @@ class FindStationViewController: UIViewController, GMSMapViewDelegate, UITableVi
         
         setupMap();
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveApiNotification:", name: ApiUtility.KIOSKS, object: nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FindStationViewController.receiveApiNotification(_:)), name: ApiUtility.KIOSKS, object: nil);
         
         mapView.addObserver(self, forKeyPath: "myLocation", options: NSKeyValueObservingOptions.New, context: nil);
     }

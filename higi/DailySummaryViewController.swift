@@ -205,7 +205,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         let foursquareCallToAction = NSLocalizedString("DAILY_SUMMARY_VIEW_BLANK_STATE_CALL_TO_ACTION_CONNECT_DEVICE", comment: "Title for call-to-action to connect a device; displayed in the Daily Summary blank-state view.")
 
         
-        let higiButtonTarget:Selector = "higiCallToActionClicked:", activityTrackerButtonTarget:Selector = "activityTrackerCallToActionClicked:", foursquareButtonTarget:Selector = "foursquareCallToActionClicked:"
+        let higiButtonTarget:Selector = #selector(DailySummaryViewController.higiCallToActionClicked(_:)), activityTrackerButtonTarget:Selector = #selector(DailySummaryViewController.activityTrackerCallToActionClicked(_:)), foursquareButtonTarget:Selector = #selector(DailySummaryViewController.foursquareCallToActionClicked(_:))
         
         let noCheckins = SessionController.Instance.checkins.count == 0;
         var noDevices = true;
@@ -614,7 +614,7 @@ extension DailySummaryViewController: UniversalLinkHandler {
         InterfaceOrientation.force(.Portrait)
         
         let dailySummaryViewController = DailySummaryViewController(nibName: "DailySummaryView", bundle: nil)
-        dailySummaryViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: dailySummaryViewController, action: Selector("didTapDoneButton:"))
+        dailySummaryViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: dailySummaryViewController, action: #selector(DailySummaryViewController.didTapDoneButton(_:)))
         let dailySummaryNav = UINavigationController(rootViewController: dailySummaryViewController)
         dispatch_async(dispatch_get_main_queue(), {
             presentedViewController?.dismissViewControllerAnimated(false, completion: nil)

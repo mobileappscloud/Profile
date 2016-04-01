@@ -43,8 +43,8 @@ final class MetricsCoordinator: NSObject {
 //        let data = MetricDataFactory().metricData(nil, activitiesDictionary: nil)
         
         let data = dataFactory.metricData(SessionController.Instance.checkins, activitiesDictionary: SessionController.Instance.activities)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRefreshData:", name: ApiUtility.ACTIVITIES, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRefreshData:", name: ApiUtility.CHECKINS, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MetricsCoordinator.didRefreshData(_:)), name: ApiUtility.ACTIVITIES, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MetricsCoordinator.didRefreshData(_:)), name: ApiUtility.CHECKINS, object: nil)
         
         return data
     }()

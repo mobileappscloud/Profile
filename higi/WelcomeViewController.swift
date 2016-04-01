@@ -66,9 +66,9 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
             didAnimate = true;
         }
         
-        let leftScrollViewSwipeRecognizer = UISwipeGestureRecognizer(target: self, action: "swipeLeft:");
+        let leftScrollViewSwipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(WelcomeViewController.swipeLeft(_:)));
         leftScrollViewSwipeRecognizer.direction = UISwipeGestureRecognizerDirection.Left;
-        let rightScrollViewSwipeRecognizer = UISwipeGestureRecognizer(target: self, action: "swipeRight:");
+        let rightScrollViewSwipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(WelcomeViewController.swipeRight(_:)));
         rightScrollViewSwipeRecognizer.direction = UISwipeGestureRecognizerDirection.Right;
         self.view.addGestureRecognizer(leftScrollViewSwipeRecognizer);
         self.view.addGestureRecognizer(rightScrollViewSwipeRecognizer);
@@ -272,7 +272,7 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
     }
 
     private func modalCancelButton() -> UIBarButtonItem {
-        return UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: Selector("dismissPresentedViewController:"))
+        return UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: #selector(WelcomeViewController.dismissPresentedViewController(_:)))
     }
     
     func dismissPresentedViewController(sender: UIBarButtonItem) {
