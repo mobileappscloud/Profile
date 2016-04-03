@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
@@ -10,6 +10,7 @@
             <connections>
                 <outlet property="dataLabelView" destination="fhf-6b-zPX" id="xj1-eg-t5P"/>
                 <outlet property="dateLabel" destination="lnB-Ii-cDU" id="hcK-Qe-G35"/>
+                <outlet property="meterButton" destination="3l2-fQ-yah" id="1J5-8A-imK"/>
                 <outlet property="meterContainerView" destination="7EP-Pd-HCp" id="R7l-Vd-iV7"/>
                 <outlet property="view" destination="cyl-fK-vX8" id="xbr-qy-5YR"/>
             </connections>
@@ -23,7 +24,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="216" height="60"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MMM dd, YYYY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="lnB-Ii-cDU" userLabel="Date Label">
-                            <rect key="frame" x="20" y="21" width="105.5" height="18"/>
+                            <rect key="frame" x="20" y="21" width="186" height="18"/>
                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -31,7 +32,7 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="lnB-Ii-cDU" secondAttribute="trailing" constant="15" id="WMT-nh-LJc"/>
+                        <constraint firstAttribute="trailing" secondItem="lnB-Ii-cDU" secondAttribute="trailing" constant="10" id="WMT-nh-LJc"/>
                         <constraint firstAttribute="width" constant="216" placeholder="YES" id="XST-cf-TyE"/>
                         <constraint firstItem="lnB-Ii-cDU" firstAttribute="centerY" secondItem="6mY-XW-31d" secondAttribute="centerY" id="r8m-nr-hhc"/>
                         <constraint firstItem="lnB-Ii-cDU" firstAttribute="leading" secondItem="6mY-XW-31d" secondAttribute="leading" constant="20" id="ud6-oP-uE3"/>

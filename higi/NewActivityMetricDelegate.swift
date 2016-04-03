@@ -311,28 +311,19 @@ extension NewActivityMetricDelegate: UITableViewDataSource {
         
         let isSelected = (indexPath.row == self.selectedIndex)
         
-        let cell: UITableViewCell
-        if isSelected {
-            let activityCell = tableView.dequeueReusableCellWithIdentifier(ActivityTableViewCell.cellReuseIdentifier, forIndexPath: indexPath) as! ActivityTableViewCell
-
-            activityCell.meterButtonHandler = { [unowned self] in
-                self.presentDailySummary(forRowAtIndexPath: indexPath)
-            }
-            
-            let activitiesDict = SessionController.Instance.activities
-            guard let activityIdentifier = point.identifier else { return activityCell }
-            guard let activitySummary = activitiesDict[activityIdentifier] else { return activityCell }
-            
-            configureActivityTableViewCell(activityCell, indexPath: indexPath, selected: isSelected, timeInterval: point.x, value: pointValueString, unit: pointUnit, activitySummary: activitySummary)
-            
-            cell = activityCell
-        } else {
-            let metricCell = tableView.dequeueReusableCellWithIdentifier(MetricTableViewCell.cellReuseIdentifier, forIndexPath: indexPath) as! MetricTableViewCell
-            configureMetricTableViewCell(metricCell, indexPath: indexPath, selected: isSelected, timeInterval: point.x, primaryMetricValue: pointValueString, primaryMetricUnit: pointUnit, secondaryMetricValue: nil, secondaryMetricUnit: nil)
-            cell = metricCell
+        let activityCell = tableView.dequeueReusableCellWithIdentifier(ActivityTableViewCell.cellReuseIdentifier, forIndexPath: indexPath) as! ActivityTableViewCell
+        
+        activityCell.meterButtonHandler = { [unowned self] in
+            self.presentDailySummary(forRowAtIndexPath: indexPath)
         }
         
-        return cell
+        let activitiesDict = SessionController.Instance.activities
+        guard let activityIdentifier = point.identifier else { return activityCell }
+        guard let activitySummary = activitiesDict[activityIdentifier] else { return activityCell }
+        
+        configureActivityTableViewCell(activityCell, indexPath: indexPath, selected: isSelected, timeInterval: point.x, value: pointValueString, unit: pointUnit, activitySummary: activitySummary)
+        
+        return activityCell
     }
     
     func configureActivityTableViewCell(cell: ActivityTableViewCell, indexPath: NSIndexPath, selected: Bool, timeInterval: NSTimeInterval, value: String?, unit: String?, activitySummary: HigiActivitySummary) {
@@ -340,7 +331,7 @@ extension NewActivityMetricDelegate: UITableViewDataSource {
         let date = NSDate(timeIntervalSince1970: timeInterval)
         let dateString = Utility.longStyleDateFormatter.stringFromDate(date)
         
-        cell.summaryView.config(dateString, activitySummary: activitySummary, unit: unit)
+        cell.summaryView.config(dateString, activitySummary: activitySummary, unit: unit, selected: selected)
 
         let color = Theme.Color.Metrics.TableView.selectedCellBackGround
         let backgroundColor = selected ? color : UIColor.clearColor()

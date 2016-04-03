@@ -30,6 +30,8 @@ final class ActivitySummaryView: UIView {
         return pointsMeter
     }()
     
+    @IBOutlet private var meterButton: UIButton!
+    
     var delegate: ActivitySummaryViewDelegate?
     
     // MARK: - Init
@@ -63,7 +65,7 @@ extension ActivitySummaryView {
 
 extension ActivitySummaryView {
 
-    func config(dateString: String, activitySummary: HigiActivitySummary, unit: String?) {
+    func config(dateString: String, activitySummary: HigiActivitySummary, unit: String?, selected: Bool) {
         dateLabel.text = dateString
         
         pointsMeter.setActivities(activitySummary)
@@ -74,9 +76,13 @@ extension ActivitySummaryView {
         dataLabelView.detailTextLabel.text = unit
         dataLabelView.setNeedsLayout()
         
-        Utility.delay(0.1, closure: {
-            self.pointsMeter.drawArc(true)
-        })
+        meterButton.enabled = selected
+        pointsMeter.hidden = !selected
+        if !pointsMeter.hidden {
+            Utility.delay(0.1, closure: {
+                self.pointsMeter.drawArc(true)
+            })
+        }
         meterContainerView.setNeedsLayout()
     }
 }
