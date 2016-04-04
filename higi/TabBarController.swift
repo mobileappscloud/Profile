@@ -27,7 +27,7 @@ final class TabBarController: UITabBarController {
     }()
     lazy private(set) var homeViewController: DashboardViewController = {
         let homeViewController = DashboardViewController(nibName: "DashboardView", bundle: nil)
-        homeViewController.navigationItem.rightBarButtonItem = self.navigationOverflowBarButtonItem()
+        homeViewController.navigationItem.rightBarButtonItems = [self.navigationOverflowBarButtonItem(), self.profileBarButtonItem()]
         return homeViewController
     }()
     
@@ -39,7 +39,7 @@ final class TabBarController: UITabBarController {
     }()
     lazy private(set) var challengesViewController: ChallengesViewController = {
         let challengesViewController = ChallengesViewController(nibName: "ChallengesView", bundle: nil)
-        challengesViewController.navigationItem.rightBarButtonItem = self.navigationOverflowBarButtonItem()
+        challengesViewController.navigationItem.rightBarButtonItems = [self.navigationOverflowBarButtonItem(), self.profileBarButtonItem()]
         return challengesViewController
     }()
     
@@ -51,7 +51,7 @@ final class TabBarController: UITabBarController {
     }()
     lazy private(set) var metricsViewController: NewMetricsViewController = {
         let metricsViewController = UIStoryboard(name: "Metrics", bundle: nil).instantiateInitialViewController() as! NewMetricsViewController
-        metricsViewController.navigationItem.rightBarButtonItem = self.navigationOverflowBarButtonItem()
+        metricsViewController.navigationItem.rightBarButtonItems = [self.navigationOverflowBarButtonItem(), self.profileBarButtonItem()]
         return metricsViewController
     }()
     
@@ -63,7 +63,7 @@ final class TabBarController: UITabBarController {
     }()
     lazy private(set) var findStationViewController: FindStationViewController = {
        let findStationViewController = FindStationViewController(nibName: "FindStationView", bundle: nil)
-        findStationViewController.navigationItem.rightBarButtonItem = self.navigationOverflowBarButtonItem()
+        findStationViewController.navigationItem.rightBarButtonItems = [self.navigationOverflowBarButtonItem(), self.profileBarButtonItem()]
         return findStationViewController
     }()
     
@@ -119,6 +119,10 @@ extension TabBarController {
     
     private func navigationOverflowBarButtonItem() -> UIBarButtonItem {
         return UIBarButtonItem(image: UIImage(named: "ellipses-nav-bar-icon"), style: .Plain, target: self, action: #selector(TabBarController.didTapOverflowButton(_:)))
+    }
+    
+    private func profileBarButtonItem() -> UIBarButtonItem {
+        return UIBarButtonItem(image: UIImage(named: "profile-nav-bar-icon"), style: .Plain, target: self, action: #selector(TabBarController.didTapProfileButton(_:)))
     }
     
     private func modalDismissBarButtonItem(systemItem: UIBarButtonSystemItem) -> UIBarButtonItem {
@@ -204,6 +208,10 @@ extension TabBarController {
             // Workaround to Apple bug where tintColor is overridden - http://stackoverflow.com/a/32695820/5897233
             popoverAlert.view.tintColor = Theme.Color.Primary.charcoal
         })
+    }
+    
+    dynamic func didTapProfileButton(sender: UIBarButtonItem) {
+        
     }
     
     func modalDoneButtonTapped(sender: UIBarButtonItem) {
