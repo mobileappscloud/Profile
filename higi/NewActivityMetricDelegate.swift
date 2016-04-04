@@ -183,7 +183,7 @@ extension NewActivityMetricDelegate: MetricDetailDisplayDelegate {
         viewController.configureGraphicContainerTapGesture({
             let dailySummary = DailySummaryViewController(nibName: "DailySummaryView", bundle: nil)
             let date = activities.first?.startTime ?? NSDate()
-            dailySummary.dateString = NSDateFormatter.longStyleDateFormatter.stringFromDate(date)
+            dailySummary.dateString = NSDateFormatter.activityDateFormatter.stringFromDate(date)
             dispatch_async(dispatch_get_main_queue(), {
                 viewController.navigationController?.pushViewController(dailySummary, animated: true)
             })
