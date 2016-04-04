@@ -30,6 +30,12 @@ class ChallengesViewController: UIViewController, UIGestureRecognizerDelegate, U
         }
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.automaticallyAdjustsScrollViewInsets = false
+    }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
         
