@@ -47,7 +47,7 @@ class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         
         self.title = NSLocalizedString("QR_SCANNER_VIEW_TITLE", comment: "Title for QR Scanner view.")
         
-        infoView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "infoClicked:"));
+        infoView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(QrScannerViewController.infoClicked(_:))));
         
         let title = NSLocalizedString("QR_SCANNER_VIEW_INVALID_QR_ALERT_TITLE", comment: "Title for alert displayed when an invalid QR code is scanned.")
         let message = NSLocalizedString("QR_SCANNER_VIEW_INVALID_QR_ALERT_MESSAGE", comment: "Message for alert displayed when an invalid QR code is scanned.")

@@ -27,7 +27,7 @@ class CompetitiveChallengeView: ChallengeView, UIScrollViewDelegate {
                 }
                 rows[index].frame.size.width = frame.size.width;
                 rows[index].addSubview(row);
-                rowCount++;
+                rowCount += 1
             }
         } else {
             let individualGravityBoard = challenge.gravityBoard;
@@ -41,7 +41,7 @@ class CompetitiveChallengeView: ChallengeView, UIScrollViewDelegate {
                 }
                 rows[index].frame.size.width = frame.size.width;
                 rows[index].addSubview(row);
-                rowCount++;
+                rowCount += 1
             }
         }
         let margin:CGFloat = 8;

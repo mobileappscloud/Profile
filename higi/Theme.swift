@@ -195,7 +195,7 @@ extension Theme.Color {
             
             static let acceptable = HealthStatus.yellow
             
-            static let atRisk = HealthStatus.red
+            static let atRisk = HealthStatus.orange
         }
     }
 }

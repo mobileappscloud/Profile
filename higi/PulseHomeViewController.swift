@@ -172,7 +172,7 @@ class PulseHomeViewController: UIViewController, UITableViewDataSource, UITableV
         pullRefreshView = UINib(nibName: "PullRefreshView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! PullRefresh;
         
         refreshControl = UIRefreshControl();
-        refreshControl.addTarget(self, action: "refresh", forControlEvents: UIControlEvents.ValueChanged);
+        refreshControl.addTarget(self, action: #selector(PulseHomeViewController.refresh), forControlEvents: UIControlEvents.ValueChanged);
         refreshControl.tintColor = UIColor.clearColor();
         refreshControl.addSubview(pullRefreshView);
         tableView.addSubview(refreshControl);

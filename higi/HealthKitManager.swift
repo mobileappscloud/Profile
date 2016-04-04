@@ -274,16 +274,17 @@ extension HealthKitManager {
      - parameter statistics: Array of HKStatistics matching the input parameters.
      - parameter error:      Object representing an error encountered during execution.
      */
-    private class func readStepData(startDate: NSDate, var endDate: NSDate?, completion: (statistics: [HKStatistics]?, error: NSError?) -> Void) {
-        if endDate == nil {
-            endDate = NSDate()
+    private class func readStepData(startDate: NSDate, endDate: NSDate?, completion: (statistics: [HKStatistics]?, error: NSError?) -> Void) {
+        var endingDate = endDate
+        if endingDate == nil {
+            endingDate = NSDate()
         }
         
         let sampleType = HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierStepCount)!
         
         let calendar = NSCalendar.currentCalendar()
         let modifiedStartDate = calendar.startOfDayForDate(startDate)
-        let modifiedEndDate = calendar.dateBySettingHour(23, minute: 59, second: 59, ofDate: endDate!, options: NSCalendarOptions())!
+        let modifiedEndDate = calendar.dateBySettingHour(23, minute: 59, second: 59, ofDate: endingDate!, options: NSCalendarOptions())!
         
         let interval = NSDateComponents()
         interval.day = 1

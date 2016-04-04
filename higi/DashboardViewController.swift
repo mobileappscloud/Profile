@@ -64,10 +64,10 @@ final class DashboardViewController: UIViewController {
         
         self.title = NSLocalizedString("DASHBOARD_VIEW_TITLE", comment: "Title for Dashboard view.");
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveQrCheckinNotification:", name: ApiUtility.QR_CHECKIN, object: nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DashboardViewController.receiveQrCheckinNotification(_:)), name: ApiUtility.QR_CHECKIN, object: nil);
         let notificationNames = [ApiUtility.ACTIVITIES, ApiUtility.CHALLENGES, ApiUtility.CHECKINS, ApiUtility.PULSE, ApiUtility.DEVICES]
         for name in notificationNames {
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveApiNotification:", name: name, object: nil)
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DashboardViewController.receiveApiNotification(_:)), name: name, object: nil)
         }
         NSNotificationCenter.defaultCenter().addObserverForName("RefreshDashboard", object: nil, queue: nil, usingBlock: { [unowned self] (notification) in
             self.refresh()
@@ -155,7 +155,7 @@ final class DashboardViewController: UIViewController {
         qrCheckinCard.titleText.text = NSLocalizedString("DASHBOARD_VIEW_CARD_QR_CHECKIN_UPLOAD_SUCCESS_TITLE", comment: "Title to display on QR check-in card when upload succeeds.");
         qrCheckinCard.messageText.text = NSLocalizedString("DASHBOARD_VIEW_CARD_QR_CHECKIN_UPLOAD_SUCCESS_MESSAGE_TEXT", comment: "Message text to display on QR check-in card when upload succeeds.");
         qrCheckinCard.loadingImage.image = UIImage(named: "checkin-success-icon");
-        qrCheckinCard.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "gotoDailySummary:"));
+        qrCheckinCard.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(DashboardViewController.gotoDailySummary(_:))));
     }
     
     func receiveApiNotification(notification: NSNotification) {
@@ -382,7 +382,7 @@ final class DashboardViewController: UIViewController {
         activityCard = MetricsGraphCard.instanceFromNib(0, type: MetricsType.DailySummary);
         activityCard.frame.origin.y = cardPositionY;
         activityCard.frame.origin.x = cardMarginX;
-        let activityTouched = UITapGestureRecognizer(target: self, action: "gotoActivityGraph:");
+        let activityTouched = UITapGestureRecognizer(target: self, action: #selector(DashboardViewController.gotoActivityGraph(_:)));
         activityCard.addGestureRecognizer(activityTouched);
         cardPositionY += activityCard.frame.size.height + cardMarginY;
         
@@ -397,7 +397,7 @@ final class DashboardViewController: UIViewController {
         }
         bloodPressureCard.frame.origin.y = cardPositionY;
         bloodPressureCard.frame.origin.x = cardMarginX;
-        let bpTouched = UITapGestureRecognizer(target: self, action: "gotoBloodPressureGraph:");
+        let bpTouched = UITapGestureRecognizer(target: self, action: #selector(DashboardViewController.gotoBloodPressureGraph(_:)));
         bloodPressureCard.addGestureRecognizer(bpTouched);
         cardPositionY += bloodPressureCard.frame.size.height + cardMarginY;
         
@@ -412,7 +412,7 @@ final class DashboardViewController: UIViewController {
         }
         pulseCard.frame.origin.y = cardPositionY;
         pulseCard.frame.origin.x = cardMarginX;
-        let pulseTouched = UITapGestureRecognizer(target: self, action: "gotoPulseGraph:");
+        let pulseTouched = UITapGestureRecognizer(target: self, action: #selector(DashboardViewController.gotoPulseGraph(_:)));
         pulseCard.addGestureRecognizer(pulseTouched);
         cardPositionY += pulseCard.frame.size.height + cardMarginY;
         
@@ -427,7 +427,7 @@ final class DashboardViewController: UIViewController {
         }
         weightCard.frame.origin.y = cardPositionY;
         weightCard.frame.origin.x = cardMarginX;
-        let weightTouched = UITapGestureRecognizer(target: self, action: "gotoWeightGraph:");
+        let weightTouched = UITapGestureRecognizer(target: self, action: #selector(DashboardViewController.gotoWeightGraph(_:)));
         weightCard.addGestureRecognizer(weightTouched);
         cardPositionY += weightCard.frame.size.height + cardMarginY / 2;
         
@@ -672,7 +672,7 @@ final class DashboardViewController: UIViewController {
         pullRefreshView = UINib(nibName: "PullRefreshView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! PullRefresh;
         
         refreshControl = UIRefreshControl();
-        refreshControl.addTarget(self, action: "refresh", forControlEvents: UIControlEvents.ValueChanged);
+        refreshControl.addTarget(self, action: #selector(DashboardViewController.refresh), forControlEvents: UIControlEvents.ValueChanged);
         refreshControl.tintColor = UIColor.clearColor();
         refreshControl.backgroundColor = UIColor.clearColor();
         refreshControl.addSubview(pullRefreshView);

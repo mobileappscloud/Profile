@@ -113,7 +113,7 @@ class GoalChallengeView: ChallengeView {
             let displayLabelBottom = closestPointIndex % 2 != counter % 2;
             //drawing goes from right to left so "index" is backwards
             addGoalNode(goalView, winCondition: winCondition, participantPoints: participantPoints, maxGoalValue: maxGoalValue, goalIndex: index + 1, isBottom: displayLabelBottom, isComplex: isComplex);
-            counter++;
+            counter += 1
         }
     }
     

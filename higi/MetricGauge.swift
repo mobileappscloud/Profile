@@ -182,7 +182,7 @@ class MetricGauge: UIView {
                     gauge.gaugeContainer.layer.addSublayer(rangeArc);
                     strokeStart += 0.001;
                 }
-                i++;
+                i += 1
             }
             if (gauge.userValue < gauge.rangeMin) {
                 gauge.userRange = lowRange;
@@ -353,7 +353,7 @@ class MetricGauge: UIView {
                     gaugeContainer.layer.addSublayer(rangeArc);
                     strokeStart += 0.001;
                 }
-                i++;
+                i += 1
             }
             if (userValue < rangeMin) {
                 userRange = lowRange;

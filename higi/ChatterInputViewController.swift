@@ -11,7 +11,7 @@ class ChatterInputViewController: UIViewController, UITextViewDelegate {
         
         self.title = NSLocalizedString("CHATTER_INPUT_VIEW_CONTROLLER_TITLE", comment: "Title for chatter input view controller.")
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: Selector("goBack:"))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: #selector(ChatterInputViewController.goBack(_:)))
         
         textInput.text = NSLocalizedString("CHATTER_INPUT_VIEW_TEXT_INPUT_PLACEHOLDER", comment: "Placeholder text to display in chatter input text field.");
         textInput.textColor = UIColor.lightGrayColor();

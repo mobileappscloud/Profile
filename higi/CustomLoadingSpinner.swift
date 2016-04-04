@@ -57,7 +57,7 @@ class CustomLoadingSpinner: UIView {
                 let currentTime = NSDate();
                 if (currentTime.timeIntervalSinceDate(phaseStartTime) > durations[phase]) {
                     phaseStartTime = currentTime;
-                    phase++;
+                    phase += 1
                     self.startingStrokeStart = self.strokeStart;
                     if (phase > 3) {
                         phase = 2;

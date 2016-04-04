@@ -29,8 +29,8 @@ class ModifyImageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad();
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: Selector("cancel:"))
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: Selector("done:"))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: #selector(ModifyImageViewController.cancel(_:)))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(ModifyImageViewController.done(_:)))
         
         profileImageView.image = profileImage;
         

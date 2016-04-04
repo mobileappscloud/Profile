@@ -26,7 +26,7 @@
         lastDrawnPointIndex--;
     }
     
-    for ( NSUInteger i = indexRange.location; i <= lastDrawnPointIndex; i++ ) {
+    for ( NSUInteger i = indexRange.location; i <= lastDrawnPointIndex; i += 1 ) {
         CGPoint viewPoint = viewPoints[i];
         
         if ( isnan(viewPoint.x) || isnan(viewPoint.y) ) {
@@ -106,7 +106,7 @@
         lastDrawnPointIndex--;
         
         // Compute control points for each sub-range
-        for ( NSUInteger i = indexRange.location; i <= lastDrawnPointIndex; i++ ) {
+        for ( NSUInteger i = indexRange.location; i <= lastDrawnPointIndex; i += 1 ) {
             CGPoint viewPoint = viewPoints[i];
             
             if ( isnan(viewPoint.x) || isnan(viewPoint.y) ) {
@@ -136,7 +136,7 @@
         
         // Build the path
         lastPointSkipped = YES;
-        for ( NSUInteger i = indexRange.location; i <= lastDrawnPointIndex; i++ ) {
+        for ( NSUInteger i = indexRange.location; i <= lastDrawnPointIndex; i += 1 ) {
             CGPoint viewPoint = viewPoints[i];
             
             if ( isnan(viewPoint.x) || isnan(viewPoint.y) ) {
@@ -207,7 +207,7 @@
                            pt0.y + CPTFloat(2.0) * pt1.y);
         
         // internal segments
-        for ( NSUInteger i = 1; i < n - 1; i++ ) {
+        for ( NSUInteger i = 1; i < n - 1; i += 1) {
             a[i] = CPTPointMake(1.0, 1.0);
             b[i] = CPTPointMake(4.0, 4.0);
             c[i] = CPTPointMake(1.0, 1.0);
@@ -229,7 +229,7 @@
                                CPTFloat(8.0) * ptn1.y + ptn.y);
         
         // solve Ax=b with the Thomas algorithm (from Wikipedia)
-        for ( NSUInteger i = 1; i < n; i++ ) {
+        for ( NSUInteger i = 1; i < n; i += 1 ) {
             CGPoint m = CGPointMake(a[i].x / b[i - 1].x,
                                     a[i].y / b[i - 1].y);
             b[i] = CGPointMake(b[i].x - m.x * c[i - 1].x,
@@ -249,7 +249,7 @@
         
         // we have p1, now compute p2
         NSUInteger rangeEnd = NSMaxRange(indexRange) - 1;
-        for ( NSUInteger i = indexRange.location + 1; i < rangeEnd; i++ ) {
+        for ( NSUInteger i = indexRange.location + 1; i < rangeEnd; i += 1 ) {
             cp2[i] = CGPointMake(CPTFloat(2.0) * viewPoints[i].x - cp1[i + 1].x,
                                  CPTFloat(2.0) * viewPoints[i].y - cp1[i + 1].y);
         }

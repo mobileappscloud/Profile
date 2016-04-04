@@ -30,6 +30,12 @@ class ChallengesViewController: UIViewController, UIGestureRecognizerDelegate, U
         }
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.automaticallyAdjustsScrollViewInsets = false
+    }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
         
@@ -128,7 +134,7 @@ class ChallengesViewController: UIViewController, UIGestureRecognizerDelegate, U
                     default:
                         break
                     }
-                    totalPages++;
+                    totalPages += 1;
                 }
             }
             if (clickedChallenge != nil) {
@@ -230,7 +236,7 @@ class ChallengesViewController: UIViewController, UIGestureRecognizerDelegate, U
         }
         //use tag to send to indentify which challenge selected when going to challenge details page
         cell.tag = indexPath.row;
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "gotoDetails:");
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ChallengesViewController.gotoDetails(_:)));
         cell.addGestureRecognizer(tapGestureRecognizer);
         if (indexPath.row != numberOfRowsInCurrentTableView(tableView) - 1) {
             let footer = UIView(frame: CGRect(x: 0, y: cell.frame.height - 10, width: cell.frame.width, height: 10));
@@ -341,7 +347,7 @@ class ChallengesViewController: UIViewController, UIGestureRecognizerDelegate, U
         var count = -1;
         for index in 0...pageDisplayMaster.count - 1 {
             if (pageDisplayMaster[index]) {
-                count++;
+                count += 1;
             }
             if (count == page) {
                 count = index;
