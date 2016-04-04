@@ -13,6 +13,11 @@ final class CommunitySubscribeTask {}
 extension CommunitySubscribeTask: HigiAPIRequest {
     
 //    class func request(communityId: String, userId: String?, subscribe: Bool) -> NSURLRequest? {
+//        
+//        
+//    }
+    
+//    class func request(communityId: String, userId: String?, subscribe: Bool) -> NSURLRequest? {
 //        guard let authorization = HigiAPIClient.authorization else { return nil }
 //        
 //        

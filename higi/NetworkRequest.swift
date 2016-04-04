@@ -89,8 +89,11 @@ extension NetworkRequest {
         var parts: [String] = []
         for (name, value) in queryParameters {
             let queryParameterCharacterSet = NSCharacterSet.URLQueryParameterAllowedCharacterSet()
-            let encodedName = name.stringByAddingPercentEncodingWithAllowedCharacters(queryParameterCharacterSet)
-            let encodedValue = value.stringByAddingPercentEncodingWithAllowedCharacters(queryParameterCharacterSet)
+            guard let encodedName = name.stringByAddingPercentEncodingWithAllowedCharacters(queryParameterCharacterSet),
+                let encodedValue = value.stringByAddingPercentEncodingWithAllowedCharacters(queryParameterCharacterSet) else {
+                    continue
+            }
+            
             let part = "\(encodedName)=\(encodedValue)"
             parts.append(part)
         }
@@ -106,6 +109,8 @@ extension NetworkRequest {
      - returns: A new NSURL.
      */
     class func NSURLByAppendingQueryParameters(URL : NSURL, queryParameters : [String : String]) -> NSURL {
+        if queryParameters.isEmpty { return URL }
+        
         let URLString = "\(URL.absoluteString)?\(stringFromQueryParameters(queryParameters))"
         return NSURL(string: URLString)!
     }

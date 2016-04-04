@@ -35,7 +35,7 @@ final class TabBarController: UITabBarController {
     lazy private(set) var communitiesNavController: UINavigationController = {
         let nav = UINavigationController(rootViewController: self.communitiesViewController)
         let title = NSLocalizedString("MAIN_TAB_BAR_ITEM_TITLE_COMMUNITIES", comment: "Title for Communities tab bar item.")
-        self.configureTab(nav, title: title, itemImageNamePrefix: "communities")
+        self.configureTab(nav, title: title, itemImageNamePrefix: "communities", enabled: true)
         return nav
     }()
     lazy private(set) var communitiesViewController: CommunitiesViewController = {

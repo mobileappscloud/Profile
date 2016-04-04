@@ -23,6 +23,8 @@ final class Community: NSObject {
     let locale: String
     let isPublic: Bool
     
+    var joinDate: NSDate?
+    var createDate: NSDate?
     var logoURL: NSURL?
     var headerImageURL: NSURL?
     
@@ -60,10 +62,16 @@ extension Community {
         
         self.init(identifier: identifier, organizationIdentifier: organizationIdentifier, memberCount: memberCount, isMember: isMember, canLeave: canLeave, isActive: isActive, isPublished: isPublished, name: name, description: description, missionStatement: missionStatement, locale: locale, isPublic: isPublic)
         
-        if let logoURI = dictionary["logoUri"] as? String {
+        if let createDateString = dictionary["createdOn"] as? String {
+            self.createDate = NSDateFormatter.ISO8601DateFormatter.dateFromString(createDateString)
+        }
+        if let joinDateString = dictionary["joinDate"] as? String {
+            self.joinDate = NSDateFormatter.ISO8601DateFormatter.dateFromString(joinDateString)
+        }
+        if let logoURI = (dictionary["logoUriCdn"] as? String) ?? (dictionary["logoUri"] as? String) {
             self.logoURL = NSURL(string: logoURI)
         }
-        if let headerImageURI = dictionary["headerImageUri"] as? String {
+        if let headerImageURI = (dictionary["headerImageUriCdn"] as? String) ?? (dictionary["headerImageUri"] as? String) {
             self.headerImageURL = NSURL(string: headerImageURI)
         }
     }

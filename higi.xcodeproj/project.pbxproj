@@ -99,6 +99,16 @@
 		415338181C60681B00ED2B82 /* MetricCheckinSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415338171C60681B00ED2B82 /* MetricCheckinSummaryView.swift */; };
 		41545BF91BA76CFA00946358 /* NotificationSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41545BF81BA76CFA00946358 /* NotificationSettings.storyboard */; };
 		4159126E1C8A288200111B39 /* InterfaceOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4159126D1C8A288200111B39 /* InterfaceOrientation.swift */; };
+		415998E01CAD7C8F001A7392 /* CommunitiesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415998DF1CAD7C8F001A7392 /* CommunitiesRequest.swift */; };
+		415998E41CADCB1D001A7392 /* CommunityCollectionParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415998E31CADCB1D001A7392 /* CommunityCollectionParser.swift */; };
+		415998E61CADEEA6001A7392 /* SectionTitleTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415998E51CADEEA6001A7392 /* SectionTitleTableHeaderView.swift */; };
+		415998E81CADEF27001A7392 /* ExpandedListTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415998E71CADEF27001A7392 /* ExpandedListTableFooterView.swift */; };
+		415998EA1CADEF4E001A7392 /* SectionTitleTableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 415998E91CADEF4E001A7392 /* SectionTitleTableHeaderView.xib */; };
+		415998EC1CADF03C001A7392 /* ExpandedListTableFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 415998EB1CADF03C001A7392 /* ExpandedListTableFooterView.xib */; };
+		415998EE1CAED619001A7392 /* CollectionParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415998ED1CAED619001A7392 /* CollectionParser.swift */; };
+		415EDCF91CAC2CFE0080EC0A /* CommunityListingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 415EDCF81CAC2CFE0080EC0A /* CommunityListingView.xib */; };
+		415EDCFD1CAC2EF80080EC0A /* CommunityListButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = 415EDCFC1CAC2EF80080EC0A /* CommunityListButton.xib */; };
+		415EDCFF1CAC3D490080EC0A /* CommunityListingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415EDCFE1CAC3D490080EC0A /* CommunityListingView.swift */; };
 		4162266D1C79407400EFA1B3 /* CPTXYGraph+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4162266C1C79407400EFA1B3 /* CPTXYGraph+Utility.swift */; };
 		4162266F1C7940B100EFA1B3 /* HigiScatterPlot+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4162266E1C7940B100EFA1B3 /* HigiScatterPlot+Utility.swift */; };
 		416226711C7940D000EFA1B3 /* CPTXYAxis+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416226701C7940D000EFA1B3 /* CPTXYAxis+Utility.swift */; };
@@ -435,6 +445,16 @@
 		415338171C60681B00ED2B82 /* MetricCheckinSummaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricCheckinSummaryView.swift; sourceTree = "<group>"; };
 		41545BF81BA76CFA00946358 /* NotificationSettings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NotificationSettings.storyboard; sourceTree = "<group>"; };
 		4159126D1C8A288200111B39 /* InterfaceOrientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterfaceOrientation.swift; sourceTree = "<group>"; };
+		415998DF1CAD7C8F001A7392 /* CommunitiesRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunitiesRequest.swift; sourceTree = "<group>"; };
+		415998E31CADCB1D001A7392 /* CommunityCollectionParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityCollectionParser.swift; sourceTree = "<group>"; };
+		415998E51CADEEA6001A7392 /* SectionTitleTableHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionTitleTableHeaderView.swift; sourceTree = "<group>"; };
+		415998E71CADEF27001A7392 /* ExpandedListTableFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandedListTableFooterView.swift; sourceTree = "<group>"; };
+		415998E91CADEF4E001A7392 /* SectionTitleTableHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SectionTitleTableHeaderView.xib; sourceTree = "<group>"; };
+		415998EB1CADF03C001A7392 /* ExpandedListTableFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExpandedListTableFooterView.xib; sourceTree = "<group>"; };
+		415998ED1CAED619001A7392 /* CollectionParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionParser.swift; sourceTree = "<group>"; };
+		415EDCF81CAC2CFE0080EC0A /* CommunityListingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommunityListingView.xib; sourceTree = "<group>"; };
+		415EDCFC1CAC2EF80080EC0A /* CommunityListButton.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommunityListButton.xib; sourceTree = "<group>"; };
+		415EDCFE1CAC3D490080EC0A /* CommunityListingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityListingView.swift; sourceTree = "<group>"; };
 		4162266C1C79407400EFA1B3 /* CPTXYGraph+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CPTXYGraph+Utility.swift"; sourceTree = "<group>"; };
 		4162266E1C7940B100EFA1B3 /* HigiScatterPlot+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HigiScatterPlot+Utility.swift"; sourceTree = "<group>"; };
 		416226701C7940D000EFA1B3 /* CPTXYAxis+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CPTXYAxis+Utility.swift"; sourceTree = "<group>"; };
@@ -844,6 +864,10 @@
 			isa = PBXGroup;
 			children = (
 				410FFF331CA5C6A3005EAC9E /* Communities.storyboard */,
+				415EDCF81CAC2CFE0080EC0A /* CommunityListingView.xib */,
+				415998E91CADEF4E001A7392 /* SectionTitleTableHeaderView.xib */,
+				415998EB1CADF03C001A7392 /* ExpandedListTableFooterView.xib */,
+				415EDCFC1CAC2EF80080EC0A /* CommunityListButton.xib */,
 			);
 			name = Communities;
 			sourceTree = "<group>";
@@ -853,6 +877,9 @@
 			children = (
 				410FFF381CA5C716005EAC9E /* CommunitiesViewController.swift */,
 				410FFF581CA5E9D3005EAC9E /* CommunitiesController.swift */,
+				415EDCFE1CAC3D490080EC0A /* CommunityListingView.swift */,
+				415998E51CADEEA6001A7392 /* SectionTitleTableHeaderView.swift */,
+				415998E71CADEF27001A7392 /* ExpandedListTableFooterView.swift */,
 			);
 			name = Communities;
 			sourceTree = "<group>";
@@ -1010,18 +1037,19 @@
 				410FFFB81CA77D34005EAC9E /* HigiAPIClient.swift */,
 				415031751CAAEE8700A3FB94 /* HigiAPIRequest.swift */,
 				415031791CAAF07C00A3FB94 /* HigiAPIResponseParser.swift */,
-				415031571CA9CC6E00A3FB94 /* Resource */,
+				415998EF1CAED86D001A7392 /* Parsing */,
+				415031571CA9CC6E00A3FB94 /* Requests */,
 			);
 			name = "higi API";
 			sourceTree = "<group>";
 		};
-		415031571CA9CC6E00A3FB94 /* Resource */ = {
+		415031571CA9CC6E00A3FB94 /* Requests */ = {
 			isa = PBXGroup;
 			children = (
 				415031581CA9CC7A00A3FB94 /* Authentication */,
 				415031651CAA1DA400A3FB94 /* Communities */,
 			);
-			name = Resource;
+			name = Requests;
 			sourceTree = "<group>";
 		};
 		415031581CA9CC7A00A3FB94 /* Authentication */ = {
@@ -1029,7 +1057,6 @@
 			children = (
 				415031541CA9C85C00A3FB94 /* LoginTask.swift */,
 				4150315B1CA9E74500A3FB94 /* RefreshTokenTask.swift */,
-				415031591CA9E68B00A3FB94 /* AuthenticationParser.swift */,
 			);
 			name = Authentication;
 			sourceTree = "<group>";
@@ -1038,6 +1065,7 @@
 			isa = PBXGroup;
 			children = (
 				4150316B1CAA47F200A3FB94 /* CommunitySubscribeTask.swift */,
+				415998DF1CAD7C8F001A7392 /* CommunitiesRequest.swift */,
 			);
 			name = Communities;
 			sourceTree = "<group>";
@@ -1063,6 +1091,16 @@
 				410FFFAC1CA772B1005EAC9E /* String+Utility.swift */,
 			);
 			name = Extensions;
+			sourceTree = "<group>";
+		};
+		415998EF1CAED86D001A7392 /* Parsing */ = {
+			isa = PBXGroup;
+			children = (
+				415031591CA9E68B00A3FB94 /* AuthenticationParser.swift */,
+				415998ED1CAED619001A7392 /* CollectionParser.swift */,
+				415998E31CADCB1D001A7392 /* CommunityCollectionParser.swift */,
+			);
+			name = Parsing;
 			sourceTree = "<group>";
 		};
 		416226761C7941CA00EFA1B3 /* Core Plot */ = {
@@ -2176,6 +2214,7 @@
 				8FEF6F3A1A6EAA58001EF8A6 /* DashboardView.xib in Resources */,
 				D105CB5F1B7E9B2D00971AB0 /* QrScannerView.xib in Resources */,
 				410FFF341CA5C6A3005EAC9E /* Communities.storyboard in Resources */,
+				415EDCF91CAC2CFE0080EC0A /* CommunityListingView.xib in Resources */,
 				413E198B1C10E4D700146B29 /* MetricsPage.storyboard in Resources */,
 				8F3643A519460EB300C0033E /* Splash.storyboard in Resources */,
 				8FF94091198960C900D319D7 /* LoginView.xib in Resources */,
@@ -2221,8 +2260,10 @@
 				2BBDBA541A12AC2C005A6815 /* ChallengesView.xib in Resources */,
 				41247DD51C5F29FB00DDC5EC /* MetricDetail.storyboard in Resources */,
 				4179FCF01C25109D006130F5 /* Loading.storyboard in Resources */,
+				415EDCFD1CAC2EF80080EC0A /* CommunityListButton.xib in Resources */,
 				D17528821B0FB651006335B4 /* DailySummaryRowView.xib in Resources */,
 				2BBDBA591A12AC2C005A6815 /* GoalChallengeView.xib in Resources */,
+				415998EC1CADF03C001A7392 /* ExpandedListTableFooterView.xib in Resources */,
 				8FF873F219DF528E002A6341 /* PullRefreshView.xib in Resources */,
 				D17528861B0FC852006335B4 /* DailySummaryBreakdownView.xib in Resources */,
 				D1E1FF081A76C2DB00C8951C /* ChallengeProgressLegendRow.xib in Resources */,
@@ -2238,6 +2279,7 @@
 				8FEF35BC1BB213C800959BD1 /* (null) in Resources */,
 				413E19491C10DBCA00146B29 /* Metrics.storyboard in Resources */,
 				D17010C91A644414002CBFE8 /* ChallengeDetailsView.xib in Resources */,
+				415998EA1CADEF4E001A7392 /* SectionTitleTableHeaderView.xib in Resources */,
 				D1E1FF0A1A76E0AC00C8951C /* ChallengeDetailsRow.xib in Resources */,
 				41BFC9B81BCC0E0D00FD0F45 /* Localizable.stringsdict in Resources */,
 				2BBDBA531A12AC2C005A6815 /* ChallengeRowCell.xib in Resources */,
@@ -2304,6 +2346,7 @@
 			files = (
 				41D8718C1C7CBFDD002DCDA0 /* HostViewController.swift in Sources */,
 				419D864F1BBEF83000E7D844 /* GQTPointQuadTree.m in Sources */,
+				415998E61CADEEA6001A7392 /* SectionTitleTableHeaderView.swift in Sources */,
 				413635871C2209450056DE8D /* MetricDataFactory.swift in Sources */,
 				8F1D979A1995553B003B5645 /* ModifyImageViewController.swift in Sources */,
 				8FDB4B681A09731B00F57B38 /* ActivityDevice.swift in Sources */,
@@ -2316,6 +2359,7 @@
 				4184846F1C6D473000C26211 /* Theme.swift in Sources */,
 				4179FCF11C25109D006130F5 /* LoadingViewController.swift in Sources */,
 				41A0BE0E1BBB088500A314D6 /* AFNetworkReachabilityManager.m in Sources */,
+				415998E41CADCB1D001A7392 /* CommunityCollectionParser.swift in Sources */,
 				41FFE89F1C611A80000C8DCF /* MetricDetailPreviewViewController.swift in Sources */,
 				416226791C79866000EFA1B3 /* NewMetricTableDelegate.swift in Sources */,
 				418485231C77D16400C26211 /* NewMetricPlotDelegate.swift in Sources */,
@@ -2349,6 +2393,7 @@
 				41376C5D1BB459B50094DE7C /* SettingsViewController.swift in Sources */,
 				41A0BE271BBB08B800A314D6 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				8FEF6F401A6EB638001EF8A6 /* PointsMeter.swift in Sources */,
+				415EDCFF1CAC3D490080EC0A /* CommunityListingView.swift in Sources */,
 				413E19911C10EB6100146B29 /* MetricPlotViewController.swift in Sources */,
 				8F9C69D71950C89B00449664 /* HigiUser.swift in Sources */,
 				41411BA01BA87E3D0027F5E1 /* NotificationSettingsDeviceTableViewController.swift in Sources */,
@@ -2396,6 +2441,7 @@
 				413CEE3F1C87BF0E00F241F7 /* UIAppearance+Swift.m in Sources */,
 				8FE0BCCE199175BC00940D39 /* PulseCell.swift in Sources */,
 				D114B06B1B2A19900073A9CB /* TriangleView.swift in Sources */,
+				415998E81CADEF27001A7392 /* ExpandedListTableFooterView.swift in Sources */,
 				D1FC72991B20B1B70068CF89 /* WeightMetricDelegate.swift in Sources */,
 				410FFF411CA5CDE1005EAC9E /* Organization.swift in Sources */,
 				8FEF1B051AA9173D0036C4FB /* ChallengeView.swift in Sources */,
@@ -2438,6 +2484,7 @@
 				4150315A1CA9E68B00A3FB94 /* AuthenticationParser.swift in Sources */,
 				410FFF591CA5E9D3005EAC9E /* CommunitiesController.swift in Sources */,
 				41FFE8AF1C61329F000C8DCF /* CheckinLocationView.swift in Sources */,
+				415998E01CAD7C8F001A7392 /* CommunitiesRequest.swift in Sources */,
 				8F29630D194B8F4600E787FD /* WelcomeViewController.swift in Sources */,
 				41A0BE261BBB08B800A314D6 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				8FDB4B6A1A09741400F57B38 /* ChallengeWinCondition.swift in Sources */,
@@ -2474,6 +2521,7 @@
 				D1CFC9831AB360AF00AC54BB /* MetricGraphCard.swift in Sources */,
 				D10D89501A8C11A9000402D4 /* ChallengeDetailsParticipantIcon.swift in Sources */,
 				41A0BE101BBB088500A314D6 /* AFURLConnectionOperation.m in Sources */,
+				415998EE1CAED619001A7392 /* CollectionParser.swift in Sources */,
 				D1EE80F41B3BBAAD00B13CB8 /* SummaryViewUtility.swift in Sources */,
 				41B2B35A1BB31CE900B13168 /* NotificationSettingsTableViewController.swift in Sources */,
 				419D864A1BBEF83000E7D844 /* NonHierarchicalDistanceBasedAlgorithm.m in Sources */,
