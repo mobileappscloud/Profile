@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PinCodeViewController">
@@ -12,6 +12,7 @@
                 <outlet property="contents" destination="pLl-kF-TxD" id="4Gh-5r-bhT"/>
                 <outlet property="pinField" destination="BZe-C7-vtz" id="1hg-dJ-mNK"/>
                 <outlet property="topTitle" destination="6Mr-rv-fDg" id="vic-WD-eI8"/>
+                <outlet property="topTitleTopLayoutConstraint" destination="M7l-o9-BnA" id="lMa-rp-vaz"/>
                 <outlet property="view" destination="iN0-l3-epB" id="YbP-T9-Q3a"/>
             </connections>
         </placeholder>
@@ -27,13 +28,13 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Protect access to your higi app with a passcode" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Mr-rv-fDg">
-                            <rect key="frame" x="46" y="84" width="229" height="45.5"/>
+                            <rect key="frame" x="33" y="40" width="255" height="45.5"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P7F-WR-oVt">
-                            <rect key="frame" x="0.0" y="154.5" width="320" height="79"/>
+                            <rect key="frame" x="0.0" y="101" width="320" height="79"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cib-ZP-lOm">
                                     <rect key="frame" x="33" y="10" width="60" height="60"/>
@@ -168,13 +169,13 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="6Mr-rv-fDg" firstAttribute="centerX" secondItem="pLl-kF-TxD" secondAttribute="centerX" id="1ki-yb-epY"/>
-                        <constraint firstItem="6Mr-rv-fDg" firstAttribute="top" secondItem="pLl-kF-TxD" secondAttribute="top" constant="84" id="M7l-o9-BnA"/>
+                        <constraint firstItem="6Mr-rv-fDg" firstAttribute="leading" secondItem="Cib-ZP-lOm" secondAttribute="leading" id="Hyh-0b-163"/>
+                        <constraint firstItem="6Mr-rv-fDg" firstAttribute="top" secondItem="pLl-kF-TxD" secondAttribute="top" constant="40" id="M7l-o9-BnA"/>
                         <constraint firstItem="P7F-WR-oVt" firstAttribute="centerX" secondItem="pLl-kF-TxD" secondAttribute="centerX" id="OzR-IA-HEu"/>
                         <constraint firstItem="BZe-C7-vtz" firstAttribute="centerY" secondItem="pLl-kF-TxD" secondAttribute="centerY" id="Xp2-tT-eTf"/>
                         <constraint firstItem="BZe-C7-vtz" firstAttribute="centerX" secondItem="pLl-kF-TxD" secondAttribute="centerX" id="Xts-wm-gcb"/>
-                        <constraint firstItem="P7F-WR-oVt" firstAttribute="top" secondItem="6Mr-rv-fDg" secondAttribute="bottom" constant="25" id="eSo-3P-2ey"/>
-                        <constraint firstAttribute="trailing" secondItem="6Mr-rv-fDg" secondAttribute="trailing" constant="45" id="fwU-rr-yGg"/>
-                        <constraint firstItem="6Mr-rv-fDg" firstAttribute="leading" secondItem="pLl-kF-TxD" secondAttribute="leading" constant="46" id="qaN-Rj-Au6"/>
+                        <constraint firstItem="P7F-WR-oVt" firstAttribute="top" secondItem="6Mr-rv-fDg" secondAttribute="bottom" constant="16" id="eSo-3P-2ey"/>
+                        <constraint firstItem="6Mr-rv-fDg" firstAttribute="trailing" secondItem="xjb-Rd-oIJ" secondAttribute="trailing" id="l2m-w7-dEA"/>
                     </constraints>
                 </view>
             </subviews>
