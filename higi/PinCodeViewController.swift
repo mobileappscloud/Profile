@@ -22,6 +22,7 @@ class PinCodeViewController: UIViewController, UITextFieldDelegate {
             topTitle.text = NSLocalizedString("PIN_CODE_VIEW_HEADER_TITLE_DEFAULT", comment: "Default header title for pin code view.")
         }
     }
+    @IBOutlet var topTitleTopLayoutConstraint: NSLayoutConstraint!
     @IBOutlet weak var contents: UIView!
     
     var newCode = false, modifying = false, removing = false, confirming = false;
@@ -58,6 +59,15 @@ class PinCodeViewController: UIViewController, UITextFieldDelegate {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(PinCodeViewController.displayPinView), name: self.touchIdCancelledNotification, object:nil);
         NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(PinCodeViewController.closeView), name: self.touchIdSuccessfulNotification, object:nil);
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        topTitleTopLayoutConstraint.constant = view.bounds.height * 0.083
+        if self.navigationController == nil {
+            topTitleTopLayoutConstraint.constant += 40.0
+        }
     }
     
     override func viewDidAppear(animated: Bool) {
