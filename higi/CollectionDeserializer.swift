@@ -1,5 +1,5 @@
 //
-//  CollectionParser.swift
+//  CollectionDeserializer.swift
 //  higi
 //
 //  Created by Remy Panicker on 4/1/16.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class CollectionParser: HigiAPIResponseParser {
+final class CollectionDeserializer: HigiAPIJSONDeserializer {
     
     class func parse(JSON: AnyObject?, success: (collection: NSArray, paging: Paging?) -> Void, failure: (error: NSError?) -> Void) {
 

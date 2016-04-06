@@ -83,9 +83,6 @@ extension HigiAPIClient {
     class func session() -> NSURLSession {
         let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
         var headers: [String : String] = [:]
-        if let authorization = HigiAPIClient.authorization {
-            headers[HTTPHeaderName.authorization] = authorization.bearerToken()
-        }
         headers[HTTPHeaderName.clientId] = HigiAPIClient.clientId
         configuration.HTTPAdditionalHeaders = headers
         let session = NSURLSession(configuration: configuration)
@@ -109,7 +106,7 @@ extension HigiAPIClient {
             let endpointURL = NSURL(string: percentEncodedPath, relativeToURL: HigiAPIClient.baseURL) else { return nil }
         
         if let parameters = parameters {
-            return NetworkRequest.NSURLByAppendingQueryParameters(endpointURL, queryParameters: parameters)
+            return NSURL.URLByAppendingQueryParameters(endpointURL, queryParameters: parameters)
         } else {
             return endpointURL
         }

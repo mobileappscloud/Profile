@@ -1,5 +1,5 @@
 //
-//  AuthenticationParser.swift
+//  AuthenticationDeserializer.swift
 //  higi
 //
 //  Created by Remy Panicker on 3/28/16.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class AuthenticationParser: HigiAPIResponseParser {
+final class AuthenticationDeserializer: HigiAPIJSONDeserializer {
  
     /**
      Parses a JSON dictionary with authentication information necessary for use with the higi API.

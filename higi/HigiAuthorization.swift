@@ -85,7 +85,7 @@ extension HigiAuthorization {
      */
     func bearerToken() -> String {
         if type == .Bearer {
-            return "Bearer \(accessToken)"
+            return "Bearer \(accessToken.token)"
         }
         return ""
     }

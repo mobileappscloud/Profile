@@ -1,5 +1,5 @@
 //
-//  CommunityCollectionParser.swift
+//  CommunityCollectionDeserializer.swift
 //  higi
 //
 //  Created by Remy Panicker on 3/31/16.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class CommunityCollectionParser: HigiAPIResponseParser {
+final class CommunityCollectionDeserializer: HigiAPIJSONDeserializer {
     
     /**
      Parses a JSON dictionary with authentication information necessary for use with the higi API.
@@ -19,7 +19,7 @@ final class CommunityCollectionParser: HigiAPIResponseParser {
      */
     class func parse(JSON: AnyObject?, success: (communities: [Community], paging: Paging?) -> Void, failure: (error: NSError?) -> Void) {
         
-        CollectionParser.parse(JSON, success: { (collection, paging) in
+        CollectionDeserializer.parse(JSON, success: { (collection, paging) in
             
             var communities: [Community] = []
             for dictionary in collection {
@@ -28,6 +28,8 @@ final class CommunityCollectionParser: HigiAPIResponseParser {
                     communities.append(community)
                 }
             }
+            
+            success(communities: communities, paging: paging)
             
             }, failure: { (error) in
                 failure(error: error)

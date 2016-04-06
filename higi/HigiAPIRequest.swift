@@ -19,6 +19,11 @@ extension HigiAPIRequest {
         let mutableRequest = NSMutableURLRequest(URL: endpointURL)
         mutableRequest.HTTPMethod = method
         
+        // The `NSURLSession` documentation advises against modifying the `Authorization` header per session, so we will attach the header to individual requests.
+        if let authorization = HigiAPIClient.authorization {
+            mutableRequest.setValue(authorization.bearerToken(), forHTTPHeaderField: HigiAPIClient.HTTPHeaderName.authorization)
+        }
+        
         return mutableRequest.copy() as? NSURLRequest
     }
 }
