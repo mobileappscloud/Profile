@@ -224,16 +224,3 @@ extension Theme.Color {
         }
     }
 }
-
-// MARK: - Community List
-
-extension Theme.Color {
-    
-    struct Communities {
-        
-        struct Cell {
-            
-            static let shadowColor = Utility.colorFromHexString("#CED2DB")
-        }
-    }
-}

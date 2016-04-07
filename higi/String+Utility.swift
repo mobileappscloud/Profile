@@ -6,8 +6,6 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-import Foundation
-
 extension String {
     
     /**
@@ -31,4 +29,17 @@ extension String {
         
         return NSData(base64EncodedString: base64, options: NSDataBase64DecodingOptions(rawValue: 0))
     }
+}
+
+extension String {
+    
+    /// Extracted from [Stack Overflow](http://stackoverflow.com/a/24888789)
+    ///
+    /// Returns a new string made from the `String` by replacing all characters not in the unreserved
+    /// character set (As defined by RFC3986) with percent encoded characters.
+    func stringByAddingPercentEncodingForURLQueryParameter() -> String? {
+        let allowedCharacters = NSCharacterSet.URLQueryParameterAllowedCharacterSet()
+        return stringByAddingPercentEncodingWithAllowedCharacters(allowedCharacters)
+    }
+    
 }

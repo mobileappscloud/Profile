@@ -94,6 +94,13 @@
 		413F68B61CB46A5C003D9571 /* CommunityListingJoinedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 413F68B51CB46A5C003D9571 /* CommunityListingJoinedCell.xib */; };
 		413F68FE1CB5E930003D9571 /* UITableViewCell+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413F68FD1CB5E930003D9571 /* UITableViewCell+Utility.swift */; };
 		413F69021CB5E99D003D9571 /* UITableView+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413F69011CB5E99D003D9571 /* UITableView+Utility.swift */; };
+		413F69081CB6AFE8003D9571 /* TitleTableHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413F69071CB6AFE8003D9571 /* TitleTableHeaderFooterView.swift */; };
+		413F690A1CB6AFFE003D9571 /* ButtonTableHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413F69091CB6AFFE003D9571 /* ButtonTableHeaderFooterView.swift */; };
+		413F690C1CB6B019003D9571 /* TitleTableHeaderFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 413F690B1CB6B019003D9571 /* TitleTableHeaderFooterView.xib */; };
+		413F690E1CB6B287003D9571 /* ButtonTableHeaderFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 413F690D1CB6B287003D9571 /* ButtonTableHeaderFooterView.xib */; };
+		413F69141CB6FDCF003D9571 /* UIImageView+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413F69131CB6FDCF003D9571 /* UIImageView+Utility.swift */; };
+		413F69161CB700C1003D9571 /* UIView+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413F69151CB700C1003D9571 /* UIView+Utility.swift */; };
+		413F69181CB718C3003D9571 /* NSCharacterSet+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413F69171CB718C3003D9571 /* NSCharacterSet+Utility.swift */; };
 		41411BA01BA87E3D0027F5E1 /* NotificationSettingsDeviceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41411B9F1BA87E3D0027F5E1 /* NotificationSettingsDeviceTableViewController.swift */; };
 		41411BA31BA894280027F5E1 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41411BA11BA894280027F5E1 /* SwitchTableViewCell.swift */; };
 		4143ED201C9DD3F50013F9B2 /* UIViewController+InterfaceOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4143ED1F1C9DD3F50013F9B2 /* UIViewController+InterfaceOrientation.m */; };
@@ -110,13 +117,8 @@
 		4159126E1C8A288200111B39 /* InterfaceOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4159126D1C8A288200111B39 /* InterfaceOrientation.swift */; };
 		415998E01CAD7C8F001A7392 /* CommunitiesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415998DF1CAD7C8F001A7392 /* CommunitiesRequest.swift */; };
 		415998E41CADCB1D001A7392 /* CommunityCollectionDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415998E31CADCB1D001A7392 /* CommunityCollectionDeserializer.swift */; };
-		415998E61CADEEA6001A7392 /* SectionTitleTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415998E51CADEEA6001A7392 /* SectionTitleTableHeaderView.swift */; };
-		415998E81CADEF27001A7392 /* ExpandedListTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415998E71CADEF27001A7392 /* ExpandedListTableFooterView.swift */; };
-		415998EA1CADEF4E001A7392 /* SectionTitleTableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 415998E91CADEF4E001A7392 /* SectionTitleTableHeaderView.xib */; };
-		415998EC1CADF03C001A7392 /* ExpandedListTableFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 415998EB1CADF03C001A7392 /* ExpandedListTableFooterView.xib */; };
 		415998EE1CAED619001A7392 /* CollectionDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415998ED1CAED619001A7392 /* CollectionDeserializer.swift */; };
 		415EDCF91CAC2CFE0080EC0A /* CommunityListingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 415EDCF81CAC2CFE0080EC0A /* CommunityListingView.xib */; };
-		415EDCFD1CAC2EF80080EC0A /* CommunityListButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = 415EDCFC1CAC2EF80080EC0A /* CommunityListButton.xib */; };
 		415EDCFF1CAC3D490080EC0A /* CommunityListingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415EDCFE1CAC3D490080EC0A /* CommunityListingView.swift */; };
 		4162266D1C79407400EFA1B3 /* CPTXYGraph+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4162266C1C79407400EFA1B3 /* CPTXYGraph+Utility.swift */; };
 		4162266F1C7940B100EFA1B3 /* HigiScatterPlot+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4162266E1C7940B100EFA1B3 /* HigiScatterPlot+Utility.swift */; };
@@ -445,6 +447,13 @@
 		413F68B01CB4525B003D9571 /* Theme+Appearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Theme+Appearance.swift"; sourceTree = "<group>"; };
 		413F68FD1CB5E930003D9571 /* UITableViewCell+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Utility.swift"; sourceTree = "<group>"; };
 		413F69011CB5E99D003D9571 /* UITableView+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Utility.swift"; sourceTree = "<group>"; };
+		413F69071CB6AFE8003D9571 /* TitleTableHeaderFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleTableHeaderFooterView.swift; sourceTree = "<group>"; };
+		413F69091CB6AFFE003D9571 /* ButtonTableHeaderFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonTableHeaderFooterView.swift; sourceTree = "<group>"; };
+		413F690B1CB6B019003D9571 /* TitleTableHeaderFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TitleTableHeaderFooterView.xib; sourceTree = "<group>"; };
+		413F690D1CB6B287003D9571 /* ButtonTableHeaderFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ButtonTableHeaderFooterView.xib; sourceTree = "<group>"; };
+		413F69131CB6FDCF003D9571 /* UIImageView+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Utility.swift"; sourceTree = "<group>"; };
+		413F69151CB700C1003D9571 /* UIView+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Utility.swift"; sourceTree = "<group>"; };
+		413F69171CB718C3003D9571 /* NSCharacterSet+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSCharacterSet+Utility.swift"; sourceTree = "<group>"; };
 		41411B9F1BA87E3D0027F5E1 /* NotificationSettingsDeviceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingsDeviceTableViewController.swift; sourceTree = "<group>"; };
 		41411BA11BA894280027F5E1 /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
 		4143ED1E1C9DD3F50013F9B2 /* UIViewController+InterfaceOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+InterfaceOrientation.h"; sourceTree = "<group>"; };
@@ -462,13 +471,8 @@
 		4159126D1C8A288200111B39 /* InterfaceOrientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterfaceOrientation.swift; sourceTree = "<group>"; };
 		415998DF1CAD7C8F001A7392 /* CommunitiesRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunitiesRequest.swift; sourceTree = "<group>"; };
 		415998E31CADCB1D001A7392 /* CommunityCollectionDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityCollectionDeserializer.swift; sourceTree = "<group>"; };
-		415998E51CADEEA6001A7392 /* SectionTitleTableHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionTitleTableHeaderView.swift; sourceTree = "<group>"; };
-		415998E71CADEF27001A7392 /* ExpandedListTableFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandedListTableFooterView.swift; sourceTree = "<group>"; };
-		415998E91CADEF4E001A7392 /* SectionTitleTableHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SectionTitleTableHeaderView.xib; sourceTree = "<group>"; };
-		415998EB1CADF03C001A7392 /* ExpandedListTableFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExpandedListTableFooterView.xib; sourceTree = "<group>"; };
 		415998ED1CAED619001A7392 /* CollectionDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionDeserializer.swift; sourceTree = "<group>"; };
 		415EDCF81CAC2CFE0080EC0A /* CommunityListingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommunityListingView.xib; sourceTree = "<group>"; };
-		415EDCFC1CAC2EF80080EC0A /* CommunityListButton.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommunityListButton.xib; sourceTree = "<group>"; };
 		415EDCFE1CAC3D490080EC0A /* CommunityListingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityListingView.swift; sourceTree = "<group>"; };
 		4162266C1C79407400EFA1B3 /* CPTXYGraph+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CPTXYGraph+Utility.swift"; sourceTree = "<group>"; };
 		4162266E1C7940B100EFA1B3 /* HigiScatterPlot+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HigiScatterPlot+Utility.swift"; sourceTree = "<group>"; };
@@ -879,10 +883,11 @@
 			isa = PBXGroup;
 			children = (
 				410FFF331CA5C6A3005EAC9E /* Communities.storyboard */,
-				415EDCF81CAC2CFE0080EC0A /* CommunityListingView.xib */,
-				415998E91CADEF4E001A7392 /* SectionTitleTableHeaderView.xib */,
-				415998EB1CADF03C001A7392 /* ExpandedListTableFooterView.xib */,
-				415EDCFC1CAC2EF80080EC0A /* CommunityListButton.xib */,
+				413F69101CB6C739003D9571 /* CommunityListingView.xib */,
+				413F68B51CB46A5C003D9571 /* CommunityListingJoinedCell.xib */,
+				413F68B31CB462CF003D9571 /* CommunityListingLoadingCell.xib */,
+				413F690B1CB6B019003D9571 /* TitleTableHeaderFooterView.xib */,
+				413F690D1CB6B287003D9571 /* ButtonTableHeaderFooterView.xib */,
 			);
 			name = Communities;
 			sourceTree = "<group>";
@@ -892,9 +897,9 @@
 			children = (
 				410FFF381CA5C716005EAC9E /* CommunitiesViewController.swift */,
 				410FFF581CA5E9D3005EAC9E /* CommunitiesController.swift */,
-				415EDCFE1CAC3D490080EC0A /* CommunityListingView.swift */,
-				415998E51CADEEA6001A7392 /* SectionTitleTableHeaderView.swift */,
-				415998E71CADEF27001A7392 /* ExpandedListTableFooterView.swift */,
+				413F69071CB6AFE8003D9571 /* TitleTableHeaderFooterView.swift */,
+				413F690F1CB6C739003D9571 /* CommunityListingView.swift */,
+				413F69091CB6AFFE003D9571 /* ButtonTableHeaderFooterView.swift */,
 			);
 			name = Communities;
 			sourceTree = "<group>";
@@ -1112,12 +1117,15 @@
 			children = (
 				416226761C7941CA00EFA1B3 /* Core Plot */,
 				4159126D1C8A288200111B39 /* InterfaceOrientation.swift */,
+				413F69171CB718C3003D9571 /* NSCharacterSet+Utility.swift */,
 				41FC21C51CA4453400BF7FC4 /* NSDateFormatter+Utility.swift */,
 				410F61F21CB41A0B00614E78 /* NSURL+Utility.swift */,
 				410F61F41CB41AA500614E78 /* NSURLSessionTask+Utility.swift */,
 				410FFFAC1CA772B1005EAC9E /* String+Utility.swift */,
-				413F68FD1CB5E930003D9571 /* UITableViewCell+Utility.swift */,
+				413F69131CB6FDCF003D9571 /* UIImageView+Utility.swift */,
 				413F69011CB5E99D003D9571 /* UITableView+Utility.swift */,
+				413F68FD1CB5E930003D9571 /* UITableViewCell+Utility.swift */,
+				413F69151CB700C1003D9571 /* UIView+Utility.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -2283,18 +2291,18 @@
 				8FE056DF198FDBDC00C81208 /* PulseHomeView.xib in Resources */,
 				8FDA6DA119A2978B00244D5F /* ChangePasswordView.xib in Resources */,
 				41D871881C7CBFBB002DCDA0 /* Host.storyboard in Resources */,
+				413F690E1CB6B287003D9571 /* ButtonTableHeaderFooterView.xib in Resources */,
 				D149E9491A7845A200FBAA15 /* ChallengeDetailsChatterRow.xib in Resources */,
 				413CC0301C6927EC0097AE56 /* ActivityDetailView.xib in Resources */,
 				41FFE8AB1C61319E000C8DCF /* CheckinLocationView.xib in Resources */,
 				2BBDBA541A12AC2C005A6815 /* ChallengesView.xib in Resources */,
 				41247DD51C5F29FB00DDC5EC /* MetricDetail.storyboard in Resources */,
 				4179FCF01C25109D006130F5 /* Loading.storyboard in Resources */,
-				415EDCFD1CAC2EF80080EC0A /* CommunityListButton.xib in Resources */,
 				D17528821B0FB651006335B4 /* DailySummaryRowView.xib in Resources */,
 				2BBDBA591A12AC2C005A6815 /* GoalChallengeView.xib in Resources */,
-				415998EC1CADF03C001A7392 /* ExpandedListTableFooterView.xib in Resources */,
 				8FF873F219DF528E002A6341 /* PullRefreshView.xib in Resources */,
 				D17528861B0FC852006335B4 /* DailySummaryBreakdownView.xib in Resources */,
+				413F690C1CB6B019003D9571 /* TitleTableHeaderFooterView.xib in Resources */,
 				D1E1FF081A76C2DB00C8951C /* ChallengeProgressLegendRow.xib in Resources */,
 				8FEF35BB1BB213C800959BD1 /* (null) in Resources */,
 				413E19991C11650C00146B29 /* TextCollectionViewCell.xib in Resources */,
@@ -2308,7 +2316,6 @@
 				8FEF35BC1BB213C800959BD1 /* (null) in Resources */,
 				413E19491C10DBCA00146B29 /* Metrics.storyboard in Resources */,
 				D17010C91A644414002CBFE8 /* ChallengeDetailsView.xib in Resources */,
-				415998EA1CADEF4E001A7392 /* SectionTitleTableHeaderView.xib in Resources */,
 				D1E1FF0A1A76E0AC00C8951C /* ChallengeDetailsRow.xib in Resources */,
 				41BFC9B81BCC0E0D00FD0F45 /* Localizable.stringsdict in Resources */,
 				2BBDBA531A12AC2C005A6815 /* ChallengeRowCell.xib in Resources */,
@@ -2375,7 +2382,6 @@
 			files = (
 				41D8718C1C7CBFDD002DCDA0 /* HostViewController.swift in Sources */,
 				419D864F1BBEF83000E7D844 /* GQTPointQuadTree.m in Sources */,
-				415998E61CADEEA6001A7392 /* SectionTitleTableHeaderView.swift in Sources */,
 				413635871C2209450056DE8D /* MetricDataFactory.swift in Sources */,
 				8F1D979A1995553B003B5645 /* ModifyImageViewController.swift in Sources */,
 				8FDB4B681A09731B00F57B38 /* ActivityDevice.swift in Sources */,
@@ -2415,6 +2421,7 @@
 				415031721CAAEE0100A3FB94 /* HigiAPI2.swift in Sources */,
 				8FE206621B7CF30E00B473B0 /* LocationDelegate.swift in Sources */,
 				41A0BE111BBB088500A314D6 /* AFURLRequestSerialization.m in Sources */,
+				413F69161CB700C1003D9571 /* UIView+Utility.swift in Sources */,
 				410FFF3D1CA5CDDB005EAC9E /* Community.swift in Sources */,
 				410167241C555CD700A54B02 /* NewBloodPressureMetricDelegate.swift in Sources */,
 				41CB52EC1C979E5F004C13E9 /* ActivityTableViewCell.swift in Sources */,
@@ -2473,7 +2480,7 @@
 				413CEE3F1C87BF0E00F241F7 /* UIAppearance+Swift.m in Sources */,
 				8FE0BCCE199175BC00940D39 /* PulseCell.swift in Sources */,
 				D114B06B1B2A19900073A9CB /* TriangleView.swift in Sources */,
-				415998E81CADEF27001A7392 /* ExpandedListTableFooterView.swift in Sources */,
+				413F69181CB718C3003D9571 /* NSCharacterSet+Utility.swift in Sources */,
 				D1FC72991B20B1B70068CF89 /* WeightMetricDelegate.swift in Sources */,
 				410FFF411CA5CDE1005EAC9E /* Organization.swift in Sources */,
 				8FEF1B051AA9173D0036C4FB /* ChallengeView.swift in Sources */,
@@ -2495,6 +2502,7 @@
 				2BBDBA551A12AC2C005A6815 /* ChallengesViewController.swift in Sources */,
 				413E19951C10EBE800146B29 /* MetricChildViewController.swift in Sources */,
 				41A0BE371BBB14EA00A314D6 /* KeychainWrapper.swift in Sources */,
+				413F690A1CB6AFFE003D9571 /* ButtonTableHeaderFooterView.swift in Sources */,
 				419D86561BBEF9A700E7D844 /* HigiClusterRenderer.m in Sources */,
 				418111CB1C979B0800EE3E75 /* ActivitySummaryView.swift in Sources */,
 				41A0BE2D1BBB08B800A314D6 /* UIWebView+AFNetworking.m in Sources */,
@@ -2509,12 +2517,14 @@
 				41643AAE1C188D4800258F55 /* MetricDataLabelView.swift in Sources */,
 				41A0BE0C1BBB088500A314D6 /* AFHTTPRequestOperationManager.m in Sources */,
 				D1764C551BB5DD8800577EC9 /* QrCheckinCard.swift in Sources */,
+				413F69141CB6FDCF003D9571 /* UIImageView+Utility.swift in Sources */,
 				41A0BE2C1BBB08B800A314D6 /* UIRefreshControl+AFNetworking.m in Sources */,
 				41ED6C971C85FCA300A55BED /* Notifications.swift in Sources */,
 				2BBDBA521A12AC2C005A6815 /* ChallengeRowCell.swift in Sources */,
 				8FDB4B641A096E1C00F57B38 /* HigiChallenge.swift in Sources */,
 				41D8719D1C7D17E4002DCDA0 /* TabBarController.swift in Sources */,
 				4150315A1CA9E68B00A3FB94 /* AuthenticationDeserializer.swift in Sources */,
+				413F69081CB6AFE8003D9571 /* TitleTableHeaderFooterView.swift in Sources */,
 				410FFF591CA5E9D3005EAC9E /* CommunitiesController.swift in Sources */,
 				41FFE8AF1C61329F000C8DCF /* CheckinLocationView.swift in Sources */,
 				415998E01CAD7C8F001A7392 /* CommunitiesRequest.swift in Sources */,

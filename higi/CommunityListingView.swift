@@ -10,27 +10,54 @@ import UIKit
 
 class CommunityListingView: UIView {
 
-    @IBOutlet var headerImageView: UIImageView!
+    @IBOutlet var view: UIView!
+    
+    @IBOutlet var headerImageView: UIImageView! {
+        didSet {
+            
+        }
+    }
     
     @IBOutlet var interactiveContainer: UIView! {
         didSet {
-            interactiveContainer.addGestureRecognizer(tapGestureRecognizer)
+            interactiveContainer.addGestureRecognizer(containerTapGestureRecognizer)
         }
     }
     
-    @IBOutlet var logoImageView: UIImageView! {
+    @IBOutlet var logoContainerView: UIView! {
         didSet {
-            logoImageView.addGestureRecognizer(tapGestureRecognizer)
-            
-            logoImageView.layer.borderWidth = 3.0
-            logoImageView.layer.borderColor = Theme.Color.Primary.whiteGray.CGColor
+            logoContainerView.addGestureRecognizer(logoTapGestureRecognizer)
         }
     }
 
-    private lazy var tapGestureRecognizer: UITapGestureRecognizer = {
+    @IBOutlet var logoImageView: UIImageView!
+    
+    private lazy var containerTapGestureRecognizer: UITapGestureRecognizer = {
         let tap = UITapGestureRecognizer(target: self, action: #selector(didTapInteractiveView))
         return tap
     }()
+    
+    private lazy var logoTapGestureRecognizer: UITapGestureRecognizer = {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(didTapInteractiveView))
+        return tap
+    }()
+    
+    // MARK: - Init
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.commonInit()
+    }
+    
+    required override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.commonInit()
+    }
+    
+    private func commonInit() {
+        self.view = NSBundle.mainBundle().loadNibNamed("CommunityListingView", owner: self, options: nil).first as! UIView
+        self.addSubview(self.view, pinToEdges: true)
+    }
 }
 
 extension CommunityListingView {

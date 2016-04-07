@@ -6,8 +6,6 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-import Foundation
-
 // MARK: - Convenience methods
 // [Type safety for stringly-typed](http://techblog.thescore.com/2016/04/04/typed-uitableview-uicollectionview-dequeuing-in-swift/)
 

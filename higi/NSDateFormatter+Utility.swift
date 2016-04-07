@@ -6,8 +6,6 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-import Foundation
-
 extension NSDateFormatter {
     
     /**

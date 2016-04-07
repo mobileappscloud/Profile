@@ -6,11 +6,13 @@
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CommunityListingView" customModule="higi" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CommunityListingView" customModule="table_cards" customModuleProvider="target">
             <connections>
                 <outlet property="headerImageView" destination="XAU-6h-a9a" id="9je-n7-bQn"/>
                 <outlet property="interactiveContainer" destination="ooO-Tg-V1j" id="sli-8D-4Cn"/>
+                <outlet property="logoContainerView" destination="26o-A2-XVE" id="FvN-p1-PNP"/>
                 <outlet property="logoImageView" destination="kk0-l9-LHP" id="Bsi-l1-KZh"/>
+                <outlet property="view" destination="iN0-l3-epB" id="mAj-cE-DOS"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -18,48 +20,69 @@
             <rect key="frame" x="0.0" y="0.0" width="345" height="211"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XAU-6h-a9a" userLabel="Header Image View">
+                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="header" translatesAutoresizingMaskIntoConstraints="NO" id="XAU-6h-a9a" userLabel="Header Image View">
                     <rect key="frame" x="0.0" y="0.0" width="345" height="150"/>
+                    <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="width" secondItem="XAU-6h-a9a" secondAttribute="height" multiplier="23:10" id="OhV-8z-251"/>
+                        <constraint firstAttribute="width" secondItem="XAU-6h-a9a" secondAttribute="height" multiplier="23:10" id="jjc-1o-Y9W"/>
                     </constraints>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ooO-Tg-V1j" userLabel="Interactive Container">
                     <rect key="frame" x="0.0" y="150" width="345" height="61"/>
                     <subviews>
-                        <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kk0-l9-LHP" userLabel="Logo Image View">
-                            <rect key="frame" x="15" y="-31" width="60" height="60"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="60" id="8Pr-S8-iS7"/>
-                                <constraint firstAttribute="width" constant="60" id="aCQ-FA-OF0"/>
-                            </constraints>
-                        </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Bm-ht-eaM" userLabel="Title Label">
-                            <rect key="frame" x="83" y="8" width="254" height="45"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Happy Healthy Eating and Dieting Community" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Bm-ht-eaM" userLabel="Title Label">
+                            <rect key="frame" x="87" y="10" width="250" height="33.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fx2-2I-L6C">
-                            <rect key="frame" x="10" y="31" width="70" height="21"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="26o-A2-XVE" userLabel="Logo Container">
+                            <rect key="frame" x="10" y="-34" width="67" height="67"/>
+                            <subviews>
+                                <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="kk0-l9-LHP" userLabel="Logo Image View">
+                                    <rect key="frame" x="2" y="2" width="63" height="63"/>
+                                    <color key="backgroundColor" red="1" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="63" id="8Pr-S8-iS7"/>
+                                        <constraint firstAttribute="width" constant="63" id="aCQ-FA-OF0"/>
+                                    </constraints>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="70" id="Lyj-Lh-uK5"/>
+                                <constraint firstItem="kk0-l9-LHP" firstAttribute="centerY" secondItem="26o-A2-XVE" secondAttribute="centerY" id="VFO-VS-k7g"/>
+                                <constraint firstAttribute="height" constant="67" id="nsz-eo-Tox"/>
+                                <constraint firstItem="kk0-l9-LHP" firstAttribute="centerX" secondItem="26o-A2-XVE" secondAttribute="centerX" id="p9b-Ou-duy"/>
+                                <constraint firstAttribute="width" constant="67" id="ta5-HW-keU"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2.5K Members" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="fx2-2I-L6C">
+                            <rect key="frame" x="10" y="37" width="67" height="12"/>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="10"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="fx2-2I-L6C" firstAttribute="centerX" secondItem="kk0-l9-LHP" secondAttribute="centerX" id="6rG-Sv-qhQ"/>
-                        <constraint firstItem="7Bm-ht-eaM" firstAttribute="top" secondItem="ooO-Tg-V1j" secondAttribute="top" constant="15" id="AFl-RW-Acz"/>
+                        <constraint firstItem="26o-A2-XVE" firstAttribute="leading" secondItem="ooO-Tg-V1j" secondAttribute="leading" constant="10" id="0ZE-Dq-zUs"/>
+                        <constraint firstItem="fx2-2I-L6C" firstAttribute="leading" secondItem="26o-A2-XVE" secondAttribute="leading" id="A8e-d4-CAt"/>
+                        <constraint firstItem="7Bm-ht-eaM" firstAttribute="top" secondItem="ooO-Tg-V1j" secondAttribute="top" constant="10" id="AFl-RW-Acz"/>
                         <constraint firstAttribute="trailing" secondItem="7Bm-ht-eaM" secondAttribute="trailing" constant="8" id="B0H-iC-fda"/>
-                        <constraint firstAttribute="bottom" secondItem="7Bm-ht-eaM" secondAttribute="bottom" constant="8" id="RL0-YB-BiH"/>
-                        <constraint firstItem="kk0-l9-LHP" firstAttribute="top" secondItem="ooO-Tg-V1j" secondAttribute="top" constant="-31" id="gpN-oK-JHe"/>
-                        <constraint firstItem="kk0-l9-LHP" firstAttribute="leading" secondItem="ooO-Tg-V1j" secondAttribute="leading" constant="15" id="m08-OV-NYe"/>
-                        <constraint firstItem="7Bm-ht-eaM" firstAttribute="leading" secondItem="kk0-l9-LHP" secondAttribute="trailing" constant="8" id="vch-n8-xur"/>
+                        <constraint firstItem="fx2-2I-L6C" firstAttribute="trailing" secondItem="26o-A2-XVE" secondAttribute="trailing" id="MQR-pH-LCb"/>
+                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="7Bm-ht-eaM" secondAttribute="bottom" priority="990" constant="6" id="RL0-YB-BiH"/>
+                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="fx2-2I-L6C" secondAttribute="bottom" priority="980" constant="6" id="Ray-0y-ngb"/>
+                        <constraint firstItem="7Bm-ht-eaM" firstAttribute="leading" secondItem="26o-A2-XVE" secondAttribute="trailing" constant="10" id="baL-i6-eLk"/>
+                        <constraint firstAttribute="width" secondItem="ooO-Tg-V1j" secondAttribute="height" multiplier="345:61" id="c6T-DT-bg1"/>
+                        <constraint firstItem="fx2-2I-L6C" firstAttribute="top" secondItem="26o-A2-XVE" secondAttribute="bottom" constant="4" id="hov-ev-RhG"/>
+                        <constraint firstItem="26o-A2-XVE" firstAttribute="top" secondItem="ooO-Tg-V1j" secondAttribute="top" constant="-34" id="iGb-jA-UcO"/>
+                        <constraint firstAttribute="height" constant="61" id="vGu-Cr-SfT"/>
                     </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="c6T-DT-bg1"/>
+                        </mask>
+                    </variation>
                 </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -79,4 +102,8 @@
             <point key="canvasLocation" x="301.5" y="200.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="header" width="1398" height="838"/>
+        <image name="logo" width="126" height="126"/>
+    </resources>
 </document>
