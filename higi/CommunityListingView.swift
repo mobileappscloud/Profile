@@ -100,11 +100,20 @@ extension CommunityListingView {
         titleLabel.text = title
         
         let (_, _, formattedCount) = Utility.abbreviatedNumber(memberCount)
-        let units = NSString.localizedStringWithFormat(NSLocalizedString("MEMBER_COUNT_SINGLE_PLURAL", comment: "Format for pluralization of members."), memberCount)
-        membersLabel.text = "\(formattedCount) \(units)"
+        let units = NSString.localizedStringWithFormat(NSLocalizedString("MEMBER_COUNT_SINGLE_PLURAL", comment: "Format for pluralization of members."), memberCount) as String
+        
+        let countFont = UIFont.boldSystemFontOfSize(10.0)
+        let attributedCount = NSAttributedString(string: formattedCount, attributes: [NSFontAttributeName : countFont])
+        
+        let unitFont = UIFont.systemFontOfSize(9.0)
+        let attributedUnit = NSAttributedString(string: units, attributes: [NSFontAttributeName : unitFont])
+        
+        let attributedText = NSMutableAttributedString(attributedString: attributedCount)
+        attributedText.appendAttributedString(NSAttributedString(string: " "))
+        attributedText.appendAttributedString(attributedUnit)
+        
+        membersLabel.attributedText = attributedText
     }
-    
-    
 }
 
 // MARK: - Tap Gesture Action

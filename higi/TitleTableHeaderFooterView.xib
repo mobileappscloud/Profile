@@ -15,7 +15,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="500" height="60"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Section Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dOt-YK-Wc0">
-                            <rect key="frame" x="8" y="16" width="484" height="28"/>
+                            <rect key="frame" x="0.0" y="16" width="492" height="28"/>
                             <fontDescription key="fontDescription" type="system" pointSize="24"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -25,7 +25,7 @@
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="dOt-YK-Wc0" secondAttribute="trailing" constant="8" id="A5S-5t-fnV"/>
                         <constraint firstAttribute="bottom" secondItem="dOt-YK-Wc0" secondAttribute="bottom" constant="16" id="CvU-9T-x01"/>
-                        <constraint firstItem="dOt-YK-Wc0" firstAttribute="leading" secondItem="x6S-so-5Oh" secondAttribute="leading" constant="8" id="VeD-Nx-HFv"/>
+                        <constraint firstItem="dOt-YK-Wc0" firstAttribute="leading" secondItem="x6S-so-5Oh" secondAttribute="leading" id="VeD-Nx-HFv"/>
                         <constraint firstItem="dOt-YK-Wc0" firstAttribute="top" secondItem="x6S-so-5Oh" secondAttribute="top" constant="16" id="mVh-yB-oOM"/>
                     </constraints>
                 </view>
