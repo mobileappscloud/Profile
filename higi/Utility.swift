@@ -168,3 +168,50 @@ extension Utility {
         return NSBundle.mainBundle().objectForInfoDictionaryKey("OrganizationId") as! String;
     }
 }
+
+extension Utility {
+    
+    /**
+     Attempts to abbreviate the number by dividing by a power (10³, 10⁶, ...). Extracts and returns the integer part and fractional part of a number along with a formatted string which appends a scientific unit where applicable.
+     
+     - parameter number: Input number to perform extraction on.
+     
+     - returns: An integer part, fractional part, and formatted string representing the abbreviated number.
+     */
+    class func abbreviatedNumber(number: Int) -> (integerPart: Int, fractionPart: Int, formattedString: String) {
+        return abbreviatedNumber(Double(number))
+    }
+    
+    /**
+     Attempts to abbreviate the number by dividing by a power (10³, 10⁶, ...). Extracts and returns the integer part and fractional part of a number along with a formatted string which appends a scientific unit where applicable.
+     
+     - parameter number: Input number to perform extraction on.
+     
+     - returns: An integer part, fractional part, and formatted string representing the abbreviated number.
+     */
+    class func abbreviatedNumber(number: Double) -> (integerPart: Int, fractionPart: Int, formattedString: String) {
+        
+        let integerPart: Int
+        let fractionPart: Int
+        var scientificUnit: String = ""
+        switch number {
+        case 1000...999999:
+            integerPart = Int(floor(number / 1000))
+            fractionPart = Int(floor((number % 1000)/100))
+            scientificUnit = "k"
+        default:
+            integerPart = Int(number)
+            fractionPart = 0
+        }
+        
+        var formattedString = String(integerPart)
+        if fractionPart != 0 {
+            formattedString = "\(formattedString).\(fractionPart)"
+        }
+        if scientificUnit != "" {
+            formattedString = "\(formattedString)\(scientificUnit)"
+        }
+        
+        return (integerPart, fractionPart, formattedString)
+    }
+}

@@ -10,12 +10,9 @@ import UIKit
 
 class TitleTableHeaderFooterView: UITableViewHeaderFooterView {
 
-    /*
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-        // Drawing code
+    @IBOutlet var titleLabel: UILabel! {
+        didSet {
+            titleLabel.text = ""
+        }
     }
-    */
-
 }
