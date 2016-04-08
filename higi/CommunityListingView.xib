@@ -8,7 +8,7 @@
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CommunityListingView" customModule="table_cards" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CommunityListingView" customModule="higi" customModuleProvider="target">
             <connections>
                 <outlet property="headerContainer" destination="V65-Cn-vLv" id="d4s-0X-i3W"/>
                 <outlet property="headerImageView" destination="XAU-6h-a9a" id="9je-n7-bQn"/>
@@ -29,7 +29,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V65-Cn-vLv" userLabel="Header Container">
                     <rect key="frame" x="0.0" y="0.0" width="345" height="150"/>
                     <subviews>
-                        <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="header" translatesAutoresizingMaskIntoConstraints="NO" id="XAU-6h-a9a" userLabel="Header Image View">
+                        <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XAU-6h-a9a" userLabel="Header Image View">
                             <rect key="frame" x="0.0" y="0.0" width="345" height="150"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
@@ -73,7 +73,7 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="26o-A2-XVE" userLabel="Logo Container">
                             <rect key="frame" x="0.0" y="0.0" width="67" height="67"/>
                             <subviews>
-                                <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="kk0-l9-LHP" userLabel="Logo Image View">
+                                <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kk0-l9-LHP" userLabel="Logo Image View">
                                     <rect key="frame" x="2" y="2" width="63" height="63"/>
                                     <color key="backgroundColor" red="0.94509804248809814" green="0.94509804248809814" blue="0.94509804248809814" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
@@ -132,8 +132,4 @@
             <point key="canvasLocation" x="301.5" y="200.5"/>
         </view>
     </objects>
-    <resources>
-        <image name="header" width="1398" height="838"/>
-        <image name="logo" width="126" height="126"/>
-    </resources>
 </document>

@@ -61,7 +61,7 @@ extension UITableView {
     }
     
     /**
-     Convenience extension which registers a class for use in creating new table cells.
+     Convenience extension which registers a nib for use in creating new table cells.
      
      Please refer to documentation for `registerNib:forCellReuseIdentifier:` to determine dequeuing, registration/unregistration specifics.
      
@@ -70,6 +70,22 @@ extension UITableView {
      */
     func register<T: UITableViewCell>(nib: UINib, forClass `class`: T.Type) {
         registerNib(nib, forCellReuseIdentifier: `class`.defaultIdentifier())
+    }
+    
+    /**
+     Convenience extension which registers a nib for use in creating new table cells.
+     
+     Please refer to documentation for `registerNib:forCellReuseIdentifier:` to determine dequeuing, registration/unregistration specifics.
+     
+     - parameter class: The class of a cell that you want to use in the table.
+     - parameter bundle: The bundle in which to search for the nib file. Default value is `nil` which searches for the file in the main bundle.
+     
+     **NOTE: The name of the cell class must match the name of the xib file.**
+     */
+    func register<T: UITableViewCell>(nibWithCellClass `class`: T.Type, bundle: NSBundle? = nil) {
+        let className = String(`class`.self)
+        let nib = UINib(nibName: className, bundle: bundle)
+        register(nib, forClass: `class`)
     }
 }
 
@@ -88,14 +104,30 @@ extension UITableView {
     }
     
     /**
-     Convenience extension which registers a class for use in creating new table header/footer views.
+     Convenience extension which registers a nib for use in creating new table header/footer views.
      
-     Please refer to documentation for `registerClass:forHeaderFooterViewReuseIdentifier:` to determine dequeuing, registration/unregistration specifics.
+     Please refer to documentation for `registerNib:forHeaderFooterViewReuseIdentifier:` to determine dequeuing, registration/unregistration specifics.
      
      - parameter nib: The nib of a table header/footer view that you want to use in the table.
      - parameter class: The class of a table header/footer view that you want to use in the table.
      */
     func register<T: UITableViewHeaderFooterView>(nib: UINib, forHeaderFooterClass `class`: T.Type) {
+        registerNib(nib, forHeaderFooterViewReuseIdentifier: `class`.defaultIdentifier())
+    }
+    
+    /**
+     Convenience extension which registers a nib for use in creating new table header/footer views.
+     
+     Please refer to documentation for `registerNib:forHeaderFooterViewReuseIdentifier:` to determine dequeuing, registration/unregistration specifics.
+     
+     - parameter class: The class of a table header/footer view that you want to use in the table.
+     - parameter bundle: The bundle in which to search for the nib file. Default value is `nil` which searches for the file in the main bundle.
+     
+     **NOTE: The name of the cell class must match the name of the xib file.**
+     */
+    func register<T: UITableViewHeaderFooterView>(nibWithHeaderFooterClass `class`: T.Type, bundle: NSBundle? = nil) {
+        let className = String(`class`.self)
+        let nib = UINib(nibName: className, bundle: bundle)
         registerNib(nib, forHeaderFooterViewReuseIdentifier: `class`.defaultIdentifier())
     }
 }

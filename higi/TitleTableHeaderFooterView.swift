@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TitleTableHeaderFooterView: UITableViewHeaderFooterView {
+final class TitleTableHeaderFooterView: UITableViewHeaderFooterView {
 
     @IBOutlet var titleLabel: UILabel! {
         didSet {
