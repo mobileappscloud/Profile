@@ -268,6 +268,12 @@
 /* Placeholder text to display in chatter input text field. */
 "CHATTER_INPUT_VIEW_TEXT_INPUT_PLACEHOLDER" = "Talk some smack!";
 
+/* Table section header for unjoined communities on Community List View. */
+"COMMUNITIES_VIEW_TABLE_SECTION_HEADER_MORE_COMMUNITIES" = "More Communities";
+
+/* Table section header for joined communities on Community List View. */
+"COMMUNITIES_VIEW_TABLE_SECTION_HEADER_YOUR_COMMUNITIES" = "Your Communities";
+
 /* Title for communities view. */
 "COMMUNITIES_VIEW_TITLE" = "Communities";
 
@@ -600,6 +606,9 @@
 
 /* Title for Metrics tab bar item. */
 "MAIN_TAB_BAR_ITEM_TITLE_METRICS" = "Metrics";
+
+/* Format for pluralization of members. */
+"MEMBER_COUNT_SINGLE_PLURAL" = "MEMBER_COUNT_SINGLE_PLURAL";
 
 /* Title for metric detail view displaying body fat. */
 "METRIC_DETAIL_BODY_FAT_TITLE" = "Body Fat";

@@ -1,29 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<!--
-   Localizable.stringsdict
-   higi
-
-   Created by Remy Panicker on 10/12/15.
-   Copyright (c) 2015 higi, LLC. All rights reserved.
--->
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-    <dict>
-        <key>DAY_COUNT_SINGLE_PLURAL</key>
-        <dict>
-            <key>NSStringLocalizedFormatKey</key>
-            <string>%#@days@</string>
-            <key>days</key>
-            <dict>
-                <key>NSStringFormatSpecTypeKey</key>
-                <string>NSStringPluralRuleType</string>
-                <key>NSStringFormatValueTypeKey</key>
-                <string>d</string>
-                <key>one</key>
-                <string>%d day</string>
-                <key>other</key>
-                <string>%d days</string>
-            </dict>
-        </dict>
-    </dict>
+<dict>
+	<key>MEMBER_COUNT_SINGLE_PLURAL</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@members@</string>
+		<key>members</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>zero</key>
+			<string>members</string>
+			<key>one</key>
+			<string>member</string>
+			<key>other</key>
+			<string>members</string>
+		</dict>
+	</dict>
+	<key>DAY_COUNT_SINGLE_PLURAL</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@days@</string>
+		<key>days</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%d day</string>
+			<key>other</key>
+			<string>%d days</string>
+		</dict>
+	</dict>
+</dict>
 </plist>
