@@ -17,12 +17,12 @@
                         <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="ZiD-tO-9pS">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZiD-tO-9pS">
                                 <rect key="frame" x="15" y="0.0" width="570" height="487"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" red="0.94509804248809814" green="0.94509804248809814" blue="0.94509804248809814" alpha="1" colorSpace="calibratedRGB"/>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.94509804248809814" green="0.94509804248809814" blue="0.94509804248809814" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="ZiD-tO-9pS" firstAttribute="leading" secondItem="Vpr-qL-PGe" secondAttribute="leading" constant="15" id="APB-5j-i3v"/>
                             <constraint firstAttribute="trailing" secondItem="ZiD-tO-9pS" secondAttribute="trailing" constant="15" id="kMM-2s-nzb"/>
@@ -39,7 +39,39 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3aC-or-18I" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1511" y="24"/>
+            <point key="canvasLocation" x="943" y="-440"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="2dr-17-7gb">
+            <objects>
+                <viewController storyboardIdentifier="CommunityListLoading" id="lkZ-oA-oxq" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="tEQ-oS-61x"/>
+                        <viewControllerLayoutGuide type="bottom" id="M4I-fu-F0N"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="yd7-G4-7W9">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="community-list-load-state" translatesAutoresizingMaskIntoConstraints="NO" id="FPH-kU-Sgx">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.94509804248809814" green="0.94509804248809814" blue="0.94509804248809814" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="FPH-kU-Sgx" secondAttribute="trailing" id="HSu-b4-09x"/>
+                            <constraint firstItem="FPH-kU-Sgx" firstAttribute="leading" secondItem="yd7-G4-7W9" secondAttribute="leading" id="Y7x-ul-0yQ"/>
+                            <constraint firstItem="FPH-kU-Sgx" firstAttribute="top" secondItem="yd7-G4-7W9" secondAttribute="top" id="cio-QF-fGX"/>
+                            <constraint firstItem="M4I-fu-F0N" firstAttribute="top" secondItem="FPH-kU-Sgx" secondAttribute="bottom" id="fKx-Hz-ub8"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Lbg-9l-dhS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="943" y="372"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="community-list-load-state" width="621" height="1007"/>
+    </resources>
 </document>

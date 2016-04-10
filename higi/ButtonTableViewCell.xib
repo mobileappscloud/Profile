@@ -17,6 +17,7 @@
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eTa-Ga-sH5">
                         <rect key="frame" x="8" y="8" width="304" height="53.5"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                         <state key="normal" title="Button">
                             <color key="titleColor" red="0.46274510025978088" green="0.75294119119644165" blue="0.26666668057441711" alpha="1" colorSpace="calibratedRGB"/>
                         </state>

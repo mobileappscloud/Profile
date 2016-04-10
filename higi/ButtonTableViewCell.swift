@@ -16,12 +16,12 @@ final class ButtonTableViewCell: UITableViewCell {
         }
     }
     
-    var buttonCellTapHandler: ((cell: ButtonTableViewCell) -> Void)?
+    var tapHandler: ((cell: ButtonTableViewCell) -> Void)?
 }
 
 extension ButtonTableViewCell {
     
     @IBAction private func didTapButton(sender: UIButton) {
-        buttonCellTapHandler?(cell: self)
+        tapHandler?(cell: self)
     }
 }

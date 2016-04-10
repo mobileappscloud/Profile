@@ -8,7 +8,8 @@
 
 import UIKit
 
-class CommunityListingView: UIView {
+@IBDesignable
+final class CommunityListingView: UIView {
     
     /// View necessary for xib reuse
     @IBOutlet private var view: UIView!
@@ -16,7 +17,7 @@ class CommunityListingView: UIView {
     // MARK: Header
     
     /// Container view for header content
-    @IBOutlet private var headerContainer: UIView!
+    @IBOutlet var headerContainer: UIView!
     
     /// Image view in cell header for displaying community banner image.
     @IBOutlet var headerImageView: UIImageView! {
@@ -28,9 +29,9 @@ class CommunityListingView: UIView {
     // MARK: Content
     
     /// Container view for cell body which allows user interactivity.
-    @IBOutlet private var interactiveContainer: UIView! {
+    @IBOutlet var interactiveContainer: UIView! {
         didSet {
-            interactiveContainer.addGestureRecognizer(containerTapGestureRecognizer)
+//            interactiveContainer.addGestureRecognizer(containerTapGestureRecognizer)
         }
     }
     /// Label for community title.
@@ -43,11 +44,11 @@ class CommunityListingView: UIView {
     // MARK: Logo/Members
     
     /// Container for community logo and member count.
-    @IBOutlet private var logoMemberContainer: UIView!
+    @IBOutlet var logoMemberContainer: UIView!
     /// Container view which frames the community logo.
     @IBOutlet private var logoContainerView: UIView! {
         didSet {
-            logoContainerView.addGestureRecognizer(logoTapGestureRecognizer)
+//            logoContainerView.addGestureRecognizer(logoTapGestureRecognizer)
         }
     }
     /// Image view for community logo.
@@ -66,15 +67,17 @@ class CommunityListingView: UIView {
     
     // MARK: Gesture Recognizers
     
-    private lazy var containerTapGestureRecognizer: UITapGestureRecognizer = {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(didTapInteractiveView))
-        return tap
-    }()
+//    private lazy var containerTapGestureRecognizer: UITapGestureRecognizer = {
+//        let tap = UITapGestureRecognizer(target: self, action: #selector(didTapInteractiveView))
+//        return tap
+//    }()
+//    
+//    private lazy var logoTapGestureRecognizer: UITapGestureRecognizer = {
+//        let tap = UITapGestureRecognizer(target: self, action: #selector(didTapInteractiveView))
+//        return tap
+//    }()
     
-    private lazy var logoTapGestureRecognizer: UITapGestureRecognizer = {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(didTapInteractiveView))
-        return tap
-    }()
+    private var tapHandler: (() -> Void)?
     
     // MARK: - Init
     
@@ -89,10 +92,13 @@ class CommunityListingView: UIView {
     }
     
     private func commonInit() {
-        self.view = NSBundle.mainBundle().loadNibNamed("CommunityListingView", owner: self, options: nil).first as! UIView
+        let bundle = NSBundle(forClass: self.dynamicType)
+        self.view = bundle.loadNibNamed("CommunityListingView", owner: self, options: nil).first as! UIView
         self.addSubview(self.view, pinToEdges: true)
     }
 }
+
+// MARK: - Configuration
 
 extension CommunityListingView {
     
@@ -117,9 +123,24 @@ extension CommunityListingView {
 }
 
 // MARK: - Tap Gesture Action
+
 extension CommunityListingView {
     
     func didTapInteractiveView(sender: AnyObject) {
-        print("did tap interactive view")
+        tapHandler?()
+    }
+}
+
+
+// MARK: - Interface Builder Designable
+
+extension CommunityListingView {
+    
+    override func prepareForInterfaceBuilder() {
+        super.prepareForInterfaceBuilder()
+        
+        configure("This is a sample community", memberCount: 3341)
+        headerImageView.image = UIImage(named: "gradient-overlay")
+        logoImageView.image = UIImage(named: "gradient-overlay")
     }
 }

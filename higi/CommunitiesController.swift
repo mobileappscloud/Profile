@@ -29,6 +29,16 @@ protocol CommunitiesController: CommunityCollectionStorage, CommunitiesNetworkRe
 
 final class JoinedCommunitiesController: CommunitiesController {
     
+    enum State {
+        case Unknown
+        case PerformingInitialDataTask
+        case CompletedInitialDataTask
+        case FailedInitialDataTask
+        case PerformingPagingTask
+        case CompletedPagingTask
+        case FailedPagingTask
+    }
+    
     private(set) var communitiesSet: Set<Community> = []
     private(set) var communities: [Community] = []
     
@@ -37,54 +47,90 @@ final class JoinedCommunitiesController: CommunitiesController {
     lazy var session: NSURLSession = {
         return HigiAPIClient.session()
     }()
+ 
+    private var fetchTask: NSURLSessionDataTask?
+    private var nextPagingTask: NSURLSessionDataTask?
+    
+    deinit {
+        session.invalidateAndCancel()
+    }
+}
+
+extension JoinedCommunitiesController {
+    
+    func taskState() -> State {
+        if let fetchTask = fetchTask {
+            switch fetchTask.state {
+            case .Suspended:
+                fallthrough
+            case .Running:
+                return .PerformingInitialDataTask
+            case .Canceling:
+                return .FailedInitialDataTask
+            case .Completed:
+                return .CompletedInitialDataTask
+            }
+        } else if let nextPagingTask = nextPagingTask {
+            switch nextPagingTask.state {
+            case .Suspended:
+                fallthrough
+            case .Running:
+                return .PerformingPagingTask
+            case .Canceling:
+                return .FailedPagingTask
+            case .Completed:
+                return .CompletedPagingTask
+            }
+        } else {
+            return .Unknown
+        }
+    }
 }
 
 extension JoinedCommunitiesController {
     
     func fetch(success: () -> Void, failure: (error: NSError?) -> Void) {
-        guard let request = CommunityCollectionRequest.request(.Joined) else {
-            failure(error: nil)
-            return
-        }
-        
-        
-//        let fileName = "communities"
-//        let filePath = NSBundle.mainBundle().pathForResource(fileName, ofType: "json")!
-//        let data = NSData(contentsOfFile: filePath)!
-//        let JSON = try! NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions())
-        
-        
-//        CommunityCollectionParser.parse(JSON, success: { (communities, paging) in
+//        guard let request = CommunityCollectionRequest.request(.Joined) else {
+//            failure(error: nil)
+//            return
+//        }
+//        
+//        fetchTask = NSURLSessionTask.JSONTask(session, request: request, success: { (JSON, response) in
 //            
-//            self.communitiesSet = Set(communities)
-//            self.communities = communities
-//            self.paging = paging
-//            success()
+//            CommunityCollectionDeserializer.parse(JSON, success: { (communities, paging) in
+//             
+//                self.communitiesSet = Set(communities)
+//                self.communities = communities
+//                self.paging = paging
+//                success()
+//                
+//                }, failure: { (error) in
+//                    failure(error: error)
+//            })
 //            
-//            }, failure: { (error) in
-//                failure(error: error)
+//            }, failure: { (error, response) in
+//             failure(error: error)
 //        })
+//        if let fetchTask = fetchTask {
+//            fetchTask.resume()
+//        }
         
         
+        let fileName = "communities-collection"
+        let filePath = NSBundle.mainBundle().pathForResource(fileName, ofType: "json")!
+        let data = NSData(contentsOfFile: filePath)!
+        let JSON = try! NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions()) as! NSDictionary
         
-        
-        let task = NetworkRequest.JSONTask(session, request: request, success: { (JSON, response) in
+        CommunityCollectionDeserializer.parse(JSON, success: { (communities, paging) in
             
-            CommunityCollectionParser.parse(JSON, success: { (communities, paging) in
-             
-                self.communitiesSet = Set(communities)
-                self.communities = communities
-                self.paging = paging
-                success()
-                
-                }, failure: { (error) in
-                    failure(error: error)
-            })
+            self.communitiesSet = Set(communities)
+            self.communities = communities
+            self.paging = paging
+            success()
             
-            }, failure: { (error, response) in
-             failure(error: error)
+            }, failure: { (error) in
+                failure(error: error)
         })
-        task.resume()
     }
     
     func fetchNext(success: () -> Void, failure: (error: NSError?) -> Void) {
@@ -94,8 +140,8 @@ extension JoinedCommunitiesController {
         }
         
         let request = NSURLRequest(URL: URL)
-        let task = NetworkRequest.JSONTask(session, request: request, success: { (JSON, response) in
-            CommunityCollectionParser.parse(JSON, success: { (communities, paging) in
+        nextPagingTask = NSURLSessionTask.JSONTask(session, request: request, success: { (JSON, response) in
+            CommunityCollectionDeserializer.parse(JSON, success: { (communities, paging) in
                 
                 // Use server response as basis for set. Union of the two sets will exclude stale data currently in-memory.
                 var newSet = Set(communities)
@@ -121,29 +167,8 @@ extension JoinedCommunitiesController {
             }, failure: { (error, response) in
                 failure(error: error)
         })
-        task.resume()
+        if let nextPagingTask = nextPagingTask {
+            nextPagingTask.resume()
+        }
     }
 }
-
-//final class UnjoinedCommunitiesController: CommunitiesController {
-//    
-//    private(set) var communitiesSet: Set<Community> = []
-//    private(set) var communities: [Community] = []
-//    
-//    private(set) var paging: Paging? = nil
-//    
-//    lazy var session: NSURLSession = {
-//        return HigiAPIClient.session()
-//    }()
-//}
-//
-//extension UnjoinedCommunitiesController {
-//    
-//    func fetch(success: () -> Void, failure: () -> Void) {
-//        
-//    }
-//    
-//    func fetchNext(success: () -> Void, failure: () -> Void) {
-//        
-//    }
-//}
