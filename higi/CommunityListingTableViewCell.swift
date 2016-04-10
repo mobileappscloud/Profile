@@ -17,24 +17,26 @@ final class CommunityListingTableViewCell: UITableViewCell {
         }
     }
     
+    // MARK: Accessory
+    
     lazy private var accessoryButton: UIButton! = {
-        let button = UIButton(type: .Custom)
+        let button = UIButton(type: .System)
         button.addTarget(self, action: #selector(didTapAccessoryButton), forControlEvents: .TouchUpInside)
+        button.layer.cornerRadius = 5.0
+        button.setTitleShadowColor(Theme.Color.Primary.charcoal, forState: .Normal)
         return button
     }()
     
     private var accessoryButtonHandler: ((cell: CommunityListingTableViewCell) -> Void)? {
-        willSet {
-            if newValue == nil {
+        didSet {
+            if accessoryButtonHandler == nil {
                 accessoryButton.removeFromSuperview()
             } else {
-                return
-                
                 let container = self.listingView.headerContainer
                 container.addSubview(accessoryButton)
                 accessoryButton.translatesAutoresizingMaskIntoConstraints = false
                 let height = NSLayoutConstraint(item: accessoryButton, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 27.0)
-                let width = NSLayoutConstraint(item: accessoryButton, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 45.0)
+                let width = NSLayoutConstraint(item: accessoryButton, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 90.0)
                 let trailing = NSLayoutConstraint(item: accessoryButton, attribute: .Trailing, relatedBy: .Equal, toItem: container, attribute: .TrailingMargin, multiplier: 1.0, constant: 0.0)
                 let bottom = NSLayoutConstraint(item: accessoryButton, attribute: .Bottom, relatedBy: .Equal, toItem: container, attribute: .BottomMargin, multiplier: 1.0, constant: 0.0)
                 container.addConstraints([height, width, trailing, bottom])
@@ -57,13 +59,13 @@ final class CommunityListingTableViewCell: UITableViewCell {
     var interactiveContentTapHandler: ((cell: CommunityListingTableViewCell) -> Void)?
 }
 
-// MARK: - Configuration
+// MARK: - Configure
 
 extension CommunityListingTableViewCell {
     
-    func configureAccessoryButton(title: String?, tintColor: UIColor?, backgroundColor: UIColor?, handler: ((cell: CommunityListingTableViewCell) -> Void)?) {
+    func configureAccessoryButton(title: String?, titleColor: UIColor?, backgroundColor: UIColor?, handler: (cell: CommunityListingTableViewCell) -> Void) {
         accessoryButton.setTitle(title, forState: .Normal)
-        accessoryButton.tintColor = tintColor
+        accessoryButton.setTitleColor(titleColor, forState: .Normal)
         accessoryButton.backgroundColor = backgroundColor
         accessoryButtonHandler = handler
     }
@@ -81,5 +83,23 @@ extension CommunityListingTableViewCell {
     func didTapAccessoryButton(sender: UIButton) {
         print("did tap accessory")
         accessoryButtonHandler?(cell: self)
+    }
+}
+
+// MARK: - Reuse
+
+extension CommunityListingTableViewCell {
+    
+    func reset() {
+        listingView.headerImageView.image = nil
+        listingView.logoImageView.image = nil
+        listingView.configure("", memberCount: 0)
+        
+        interactiveContentTapHandler = nil
+
+        accessoryButton.setTitle("", forState: .Normal)
+        accessoryButton.setTitleColor(nil, forState: .Normal)
+        accessoryButton.backgroundColor = backgroundColor
+        accessoryButtonHandler = nil
     }
 }

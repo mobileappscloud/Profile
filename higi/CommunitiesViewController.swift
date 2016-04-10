@@ -253,8 +253,8 @@ extension CommunitiesViewController {
         let index = indexPath.row / CommunitiesRowType.Count.rawValue
         let community = joinedCommunitiesController.communities[index]
         
-        cell.listingView.headerImageView.image = nil
-        cell.listingView.logoImageView.image = nil
+        cell.reset()
+        
         cell.listingView.configure(community.name, memberCount: community.memberCount)
         if let bannerURL = community.header?.URI {
             cell.listingView.headerImageView.setImageWithURL(bannerURL)
@@ -273,18 +273,19 @@ extension CommunitiesViewController {
         let index = indexPath.row / CommunitiesRowType.Count.rawValue
         let community = unjoinedCommunitiesController.communities[index]
         
-        cell.listingView.headerImageView.image = nil
-        cell.listingView.logoImageView.image = nil
+        cell.reset()
+        
         cell.listingView.configure(community.name, memberCount: community.memberCount)
-        cell.configureAccessoryButton("JOIN", tintColor: UIColor.whiteColor(), backgroundColor: Theme.Color.primary, handler: { cell in
-            
-        })
         if let bannerURL = community.header?.URI {
             cell.listingView.headerImageView.setImageWithURL(bannerURL)
         }
         if let logoURL = community.logo?.URI {
             cell.listingView.logoImageView.setImageWithURL(logoURL)
         }
+
+        cell.configureAccessoryButton("Join", titleColor: UIColor.whiteColor(), backgroundColor: Theme.Color.primary, handler: { (cell) in
+            
+        })
         
         return cell
     }

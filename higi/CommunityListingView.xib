@@ -29,7 +29,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V65-Cn-vLv" userLabel="Header Container">
                     <rect key="frame" x="0.0" y="0.0" width="345" height="150"/>
                     <subviews>
-                        <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XAU-6h-a9a" userLabel="Header Image View">
+                        <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XAU-6h-a9a" userLabel="Header Image View">
                             <rect key="frame" x="0.0" y="0.0" width="345" height="150"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
