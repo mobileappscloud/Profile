@@ -57,11 +57,6 @@ final class CommunitiesViewController: UIViewController {
         return controller
     }()
     
-//    lazy private var yourCommunitiesTableHandler: CommunityTableHandler = {
-//        let handler = CommunityTableHandler(tableView: self.tableView, controller: self.joinedCommunitiesController)
-//        return handler
-//    }()
-    
     // MARK: - View Lifecycle
     
     override func viewDidLoad() {
@@ -430,7 +425,7 @@ extension CommunitiesViewController: UINavigationControllerDelegate {
         guard let viewController = viewController as? CommunitiesExpandedViewController else { return }
         
         let section = CommunitiesExpandedViewController.TableSection.Communities.rawValue
-        let row = TableSection.YourCommunities.maxCommunityCount()
+        let row = TableSection.YourCommunities.maxCommunityCount() * CommunitiesRowType.Count.rawValue
         let indexPath = NSIndexPath(forRow: row, inSection: section)
         viewController.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
     }

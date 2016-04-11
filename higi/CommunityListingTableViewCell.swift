@@ -76,12 +76,10 @@ extension CommunityListingTableViewCell {
 extension CommunityListingTableViewCell {
     
     func didTapInteractiveContent(sender: UIButton) {
-        print("did tap interactive content")
         interactiveContentTapHandler?(cell: self)
     }
     
     func didTapAccessoryButton(sender: UIButton) {
-        print("did tap accessory")
         accessoryButtonHandler?(cell: self)
     }
 }

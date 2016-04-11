@@ -63,6 +63,10 @@
 		410FFFB31CA77533005EAC9E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410FFFB11CA77533005EAC9E /* User.swift */; };
 		410FFFBB1CA77D34005EAC9E /* HigiAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410FFFB81CA77D34005EAC9E /* HigiAPIClient.swift */; };
 		410FFFBC1CA77D34005EAC9E /* HTTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410FFFB91CA77D34005EAC9E /* HTTP.swift */; };
+		411F79711CBAF43F000D0D64 /* CommunitiesExpandedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411F79701CBAF43F000D0D64 /* CommunitiesExpandedViewController.swift */; };
+		411F79751CBB44F9000D0D64 /* ActivityIndicatorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 411F79741CBB44F9000D0D64 /* ActivityIndicatorTableViewCell.xib */; };
+		411F79771CBB457D000D0D64 /* ActivityIndicatorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411F79761CBB457D000D0D64 /* ActivityIndicatorTableViewCell.swift */; };
+		411F79791CBC05E2000D0D64 /* CommunitiesTableUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411F79781CBC05E2000D0D64 /* CommunitiesTableUtility.swift */; };
 		41247DC91C5A937300DDC5EC /* SingleRowTextMenuFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41247DC81C5A937300DDC5EC /* SingleRowTextMenuFlowLayout.swift */; };
 		41247DCE1C5BD1A100DDC5EC /* MetricDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41247DCD1C5BD1A100DDC5EC /* MetricDetailViewController.swift */; };
 		41247DD51C5F29FB00DDC5EC /* MetricDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41247DD41C5F29FB00DDC5EC /* MetricDetail.storyboard */; };
@@ -420,6 +424,10 @@
 		410FFFB11CA77533005EAC9E /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		410FFFB81CA77D34005EAC9E /* HigiAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HigiAPIClient.swift; sourceTree = "<group>"; };
 		410FFFB91CA77D34005EAC9E /* HTTP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTP.swift; sourceTree = "<group>"; };
+		411F79701CBAF43F000D0D64 /* CommunitiesExpandedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunitiesExpandedViewController.swift; sourceTree = "<group>"; };
+		411F79741CBB44F9000D0D64 /* ActivityIndicatorTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityIndicatorTableViewCell.xib; sourceTree = "<group>"; };
+		411F79761CBB457D000D0D64 /* ActivityIndicatorTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorTableViewCell.swift; sourceTree = "<group>"; };
+		411F79781CBC05E2000D0D64 /* CommunitiesTableUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunitiesTableUtility.swift; sourceTree = "<group>"; };
 		41247DC81C5A937300DDC5EC /* SingleRowTextMenuFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleRowTextMenuFlowLayout.swift; sourceTree = "<group>"; };
 		41247DCD1C5BD1A100DDC5EC /* MetricDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricDetailViewController.swift; sourceTree = "<group>"; };
 		41247DD41C5F29FB00DDC5EC /* MetricDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MetricDetail.storyboard; sourceTree = "<group>"; };
@@ -886,6 +894,7 @@
 		410FFF371CA5C6AC005EAC9E /* Communities */ = {
 			isa = PBXGroup;
 			children = (
+				411F79741CBB44F9000D0D64 /* ActivityIndicatorTableViewCell.xib */,
 				413F691C1CB7FE6E003D9571 /* ButtonTableViewCell.xib */,
 				410FFF331CA5C6A3005EAC9E /* Communities.storyboard */,
 				413F68B51CB46A5C003D9571 /* CommunityListingTableViewCell.xib */,
@@ -898,11 +907,14 @@
 		410FFF3A1CA5C71B005EAC9E /* Communities */ = {
 			isa = PBXGroup;
 			children = (
+				411F79761CBB457D000D0D64 /* ActivityIndicatorTableViewCell.swift */,
 				413F691B1CB7FE6E003D9571 /* ButtonTableViewCell.swift */,
 				410FFF581CA5E9D3005EAC9E /* CommunitiesController.swift */,
+				411F79701CBAF43F000D0D64 /* CommunitiesExpandedViewController.swift */,
 				410FFF381CA5C716005EAC9E /* CommunitiesViewController.swift */,
-				413F690F1CB6C739003D9571 /* CommunityListingView.swift */,
+				411F79781CBC05E2000D0D64 /* CommunitiesTableUtility.swift */,
 				4101EED11CB84A970010DCCA /* CommunityListingTableViewCell.swift */,
+				413F690F1CB6C739003D9571 /* CommunityListingView.swift */,
 				413F69071CB6AFE8003D9571 /* TitleTableHeaderFooterView.swift */,
 			);
 			name = Communities;
@@ -2294,6 +2306,7 @@
 				41D8719B1C7D16AA002DCDA0 /* TabBar.storyboard in Resources */,
 				D1EEDBA31A66E4B10012EFD3 /* ChallengeLeaderboardRow.xib in Resources */,
 				41545BF91BA76CFA00946358 /* NotificationSettings.storyboard in Resources */,
+				411F79751CBB44F9000D0D64 /* ActivityIndicatorTableViewCell.xib in Resources */,
 				D18395C11A69BC9E00D290BF /* ChallengeDetailsTab.xib in Resources */,
 				8FE056DF198FDBDC00C81208 /* PulseHomeView.xib in Resources */,
 				4101EED81CB8972D0010DCCA /* communities-collection.json in Resources */,
@@ -2522,6 +2535,7 @@
 				8FEF6F461A6EECD5001EF8A6 /* ChallengesCard.swift in Sources */,
 				413E19251C10AB2C00146B29 /* UniversalLink.swift in Sources */,
 				8FE056E1198FDBFE00C81208 /* PulseHomeViewController.swift in Sources */,
+				411F79791CBC05E2000D0D64 /* CommunitiesTableUtility.swift in Sources */,
 				41643AAE1C188D4800258F55 /* MetricDataLabelView.swift in Sources */,
 				41A0BE0C1BBB088500A314D6 /* AFHTTPRequestOperationManager.m in Sources */,
 				D1764C551BB5DD8800577EC9 /* QrCheckinCard.swift in Sources */,
@@ -2530,6 +2544,7 @@
 				41ED6C971C85FCA300A55BED /* Notifications.swift in Sources */,
 				2BBDBA521A12AC2C005A6815 /* ChallengeRowCell.swift in Sources */,
 				8FDB4B641A096E1C00F57B38 /* HigiChallenge.swift in Sources */,
+				411F79711CBAF43F000D0D64 /* CommunitiesExpandedViewController.swift in Sources */,
 				41D8719D1C7D17E4002DCDA0 /* TabBarController.swift in Sources */,
 				4150315A1CA9E68B00A3FB94 /* AuthenticationDeserializer.swift in Sources */,
 				413F69081CB6AFE8003D9571 /* TitleTableHeaderFooterView.swift in Sources */,
@@ -2551,6 +2566,7 @@
 				8F29630F194B8F5D00E787FD /* SignupEmailViewController.swift in Sources */,
 				8F524BF8195B829400BFC49D /* CustomFormatter.swift in Sources */,
 				41BAD2911C4D492700E3A5AB /* MetricBlankStateViewController.swift in Sources */,
+				411F79771CBB457D000D0D64 /* ActivityIndicatorTableViewCell.swift in Sources */,
 				418484C81C72E27F00C26211 /* NewBodyFatMetricDelegate.swift in Sources */,
 				D1EFDC531B45D48400A340DD /* TriangleMarker.swift in Sources */,
 				41D8717E1C7A8FAD002DCDA0 /* CPTXYPlotSpace+Utility.swift in Sources */,
