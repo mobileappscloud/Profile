@@ -10,9 +10,17 @@ import Foundation
 
 final class CommunitiesViewController: UIViewController {
     
-    private struct Storyboard {
+    struct Storyboard {
+        static let name = "Communities"
+        
         private struct Identifier {
-            static var loadingView = "CommunityListLoading"
+            static let summaryList = "CommunitiesViewControllerStoryboardIdentifier"
+            static let expandedList = "CommunitiesExpandedViewControllerStoryboardIdentifier"
+            static let loadingView = "CommunityListLoading"
+        }
+        
+        private struct Segue {
+            static let expandedList = "CommunitiesExpandedViewControllerSegue"
         }
     }
     
@@ -22,8 +30,6 @@ final class CommunitiesViewController: UIViewController {
             tableView.delegate = self
             tableView.separatorStyle = .None
             tableView.allowsSelection = false
-            tableView.clipsToBounds = false
-            tableView.layer.masksToBounds = false
             
             tableView.estimatedRowHeight = 211.0
             tableView.sectionFooterHeight = 0.0
@@ -36,7 +42,8 @@ final class CommunitiesViewController: UIViewController {
     }
     
     private var loadingViewController: UIViewController = {
-        let viewController = UIStoryboard(name: "Communities", bundle: nil).instantiateViewControllerWithIdentifier(Storyboard.Identifier.loadingView)
+        let storyboard = UIStoryboard(name: Storyboard.name, bundle: nil)
+        let viewController = storyboard.instantiateViewControllerWithIdentifier(Storyboard.Identifier.loadingView)
         return viewController
     }()
     
@@ -50,10 +57,10 @@ final class CommunitiesViewController: UIViewController {
         return controller
     }()
     
-    lazy private var yourCommunitiesTableHandler: YourCommunitiesTableHandler = {
-        let handler = YourCommunitiesTableHandler(tableView: self.tableView, controller: self.joinedCommunitiesController)
-        return handler
-    }()
+//    lazy private var yourCommunitiesTableHandler: CommunityTableHandler = {
+//        let handler = CommunityTableHandler(tableView: self.tableView, controller: self.joinedCommunitiesController)
+//        return handler
+//    }()
     
     // MARK: - View Lifecycle
     
@@ -133,8 +140,8 @@ extension CommunitiesViewController {
         case ViewAdditional
         case Count
         
-        init?(indexPath: NSIndexPath) {
-            self = CommunitiesRowType(rawValue: indexPath.row % CommunitiesRowType.Count.rawValue) ?? .Count
+        init(indexPath: NSIndexPath) {
+            self = CommunitiesRowType(rawValue: indexPath.row % CommunitiesRowType.Count.rawValue)!
         }
         
         func defaultHeight() -> CGFloat {
@@ -193,10 +200,7 @@ extension CommunitiesViewController: UITableViewDataSource {
         switch sectionType {
             
         case .YourCommunities:
-            guard let rowType = CommunitiesRowType(indexPath: indexPath) else {
-                fatalError("Invalid row type for Your Communities section.")
-            }
-            
+            let rowType = CommunitiesRowType(indexPath: indexPath)
             switch rowType {
             case .Content:
                 cell = joinedCell(forIndexPath: indexPath)
@@ -212,10 +216,7 @@ extension CommunitiesViewController: UITableViewDataSource {
             }
             
         case .MoreCommunities:
-            guard let rowType = CommunitiesRowType(indexPath: indexPath) else {
-                fatalError("Invalid row type for More Communities section.")
-            }
-            
+            let rowType = CommunitiesRowType(indexPath: indexPath)
             switch rowType {
             case .Content:
                 cell = unjoinedCell(forIndexPath: indexPath)
@@ -239,80 +240,6 @@ extension CommunitiesViewController: UITableViewDataSource {
         } else {
             fatalError("Method must produce a cell!")
         }
-    }
-}
-
-// MARK: - Custom Cells
-
-extension CommunitiesViewController {
-    
-    private func joinedCell(forIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withClass: CommunityListingTableViewCell.self, forIndexPath: indexPath)
-        cell.layer.cornerRadius = 5.0
-        
-        let index = indexPath.row / CommunitiesRowType.Count.rawValue
-        let community = joinedCommunitiesController.communities[index]
-        
-        cell.reset()
-        
-        cell.listingView.configure(community.name, memberCount: community.memberCount)
-        if let bannerURL = community.header?.URI {
-            cell.listingView.headerImageView.setImageWithURL(bannerURL)
-        }
-        if let logoURL = community.logo?.URI {
-            cell.listingView.logoImageView.setImageWithURL(logoURL)
-        }
-        
-        return cell
-    }
-    
-    private func unjoinedCell(forIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withClass: CommunityListingTableViewCell.self, forIndexPath: indexPath)
-        cell.layer.cornerRadius = 5.0
-        
-        let index = indexPath.row / CommunitiesRowType.Count.rawValue
-        let community = unjoinedCommunitiesController.communities[index]
-        
-        cell.reset()
-        
-        cell.listingView.configure(community.name, memberCount: community.memberCount)
-        if let bannerURL = community.header?.URI {
-            cell.listingView.headerImageView.setImageWithURL(bannerURL)
-        }
-        if let logoURL = community.logo?.URI {
-            cell.listingView.logoImageView.setImageWithURL(logoURL)
-        }
-
-        cell.configureAccessoryButton("Join", titleColor: UIColor.whiteColor(), backgroundColor: Theme.Color.primary, handler: { (cell) in
-            
-        })
-        
-        return cell
-    }
-    
-    private func separatorCell(forIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withClass: UITableViewCell.self, forIndexPath: indexPath)
-        cell.backgroundColor = UIColor.clearColor()
-        return cell
-    }
-    
-    private func viewAdditionalCell(forIndexPath indexPath: NSIndexPath) -> ButtonTableViewCell {
-        let cell = tableView.dequeueReusableCell(withClass: ButtonTableViewCell.self, forIndexPath: indexPath)
-        
-        guard let sectionType = TableSection(rawValue: indexPath.section) else {
-            fatalError("Invalid table section.")
-        }
-        
-        let title = sectionType == .YourCommunities ? "View All" : "View More"
-        cell.button.setTitle(title, forState: .Normal)
-        cell.tapHandler = { [weak self] (cell) in
-            let viewController = UIViewController()
-            viewController.title = sectionType == .YourCommunities ? "Your Communities" : "More Communities"
-            dispatch_async(dispatch_get_main_queue(), {
-                self?.navigationController?.pushViewController(viewController, animated: true)
-            })
-        }
-        return cell
     }
 }
 
@@ -358,7 +285,7 @@ extension CommunitiesViewController: UITableViewDelegate {
         switch sectionType {
             
         case .YourCommunities:
-            guard let rowType = CommunitiesRowType(indexPath: indexPath) else { return rowHeight }
+            let rowType = CommunitiesRowType(indexPath: indexPath)
             switch rowType {
             case .Content:
                 rowHeight = rowType.defaultHeight()
@@ -375,7 +302,7 @@ extension CommunitiesViewController: UITableViewDelegate {
             }
             
         case .MoreCommunities:
-            guard let rowType = CommunitiesRowType(indexPath: indexPath) else { return rowHeight }
+            let rowType = CommunitiesRowType(indexPath: indexPath)
             switch rowType {
             case .Content:
                 rowHeight = rowType.defaultHeight()
@@ -409,5 +336,79 @@ extension CommunitiesViewController {
         header.contentView.backgroundColor = Theme.Color.Primary.whiteGray
         header.contentView.alpha = 0.8
         return header
+    }
+}
+
+// MARK: - Custom Cells
+
+extension CommunitiesViewController {
+    
+    private func joinedCell(forIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withClass: CommunityListingTableViewCell.self, forIndexPath: indexPath)
+        cell.layer.cornerRadius = 5.0
+        
+        let index = indexPath.row / CommunitiesRowType.Count.rawValue
+        let community = joinedCommunitiesController.communities[index]
+        
+        cell.reset()
+        
+        cell.listingView.configure(community.name, memberCount: community.memberCount)
+        if let bannerURL = community.header?.URI {
+            cell.listingView.headerImageView.setImageWithURL(bannerURL)
+        }
+        if let logoURL = community.logo?.URI {
+            cell.listingView.logoImageView.setImageWithURL(logoURL)
+        }
+        
+        return cell
+    }
+    
+    private func unjoinedCell(forIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withClass: CommunityListingTableViewCell.self, forIndexPath: indexPath)
+        cell.layer.cornerRadius = 5.0
+        
+        let index = indexPath.row / CommunitiesRowType.Count.rawValue
+        let community = unjoinedCommunitiesController.communities[index]
+        
+        cell.reset()
+        
+        cell.listingView.configure(community.name, memberCount: community.memberCount)
+        if let bannerURL = community.header?.URI {
+            cell.listingView.headerImageView.setImageWithURL(bannerURL)
+        }
+        if let logoURL = community.logo?.URI {
+            cell.listingView.logoImageView.setImageWithURL(logoURL)
+        }
+        
+        cell.configureAccessoryButton("Join", titleColor: UIColor.whiteColor(), backgroundColor: Theme.Color.primary, handler: { (cell) in
+            
+        })
+        
+        return cell
+    }
+    
+    private func separatorCell(forIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withClass: UITableViewCell.self, forIndexPath: indexPath)
+        cell.backgroundColor = UIColor.clearColor()
+        return cell
+    }
+    
+    private func viewAdditionalCell(forIndexPath indexPath: NSIndexPath) -> ButtonTableViewCell {
+        let cell = tableView.dequeueReusableCell(withClass: ButtonTableViewCell.self, forIndexPath: indexPath)
+        
+        guard let sectionType = TableSection(rawValue: indexPath.section) else {
+            fatalError("Invalid table section.")
+        }
+        
+        let title = sectionType == .YourCommunities ? "View All" : "View More"
+        cell.button.setTitle(title, forState: .Normal)
+        cell.tapHandler = { [weak self] (cell) in
+            let viewController = UIViewController()
+            viewController.title = sectionType == .YourCommunities ? "Your Communities" : "More Communities"
+            dispatch_async(dispatch_get_main_queue(), {
+                self?.navigationController?.pushViewController(viewController, animated: true)
+            })
+        }
+        return cell
     }
 }
