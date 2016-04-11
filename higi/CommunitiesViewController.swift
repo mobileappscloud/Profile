@@ -13,7 +13,7 @@ final class CommunitiesViewController: UIViewController {
     struct Storyboard {
         static let name = "Communities"
         
-        private struct Identifier {
+        private struct Scene {
             static let summaryList = "CommunitiesViewControllerStoryboardIdentifier"
             static let expandedList = "CommunitiesExpandedViewControllerStoryboardIdentifier"
             static let loadingView = "CommunityListLoading"
@@ -43,7 +43,7 @@ final class CommunitiesViewController: UIViewController {
     
     private var loadingViewController: UIViewController = {
         let storyboard = UIStoryboard(name: Storyboard.name, bundle: nil)
-        let viewController = storyboard.instantiateViewControllerWithIdentifier(Storyboard.Identifier.loadingView)
+        let viewController = storyboard.instantiateViewControllerWithIdentifier(Storyboard.Scene.loadingView)
         return viewController
     }()
     
@@ -344,31 +344,20 @@ extension CommunitiesViewController {
 extension CommunitiesViewController {
     
     private func joinedCell(forIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withClass: CommunityListingTableViewCell.self, forIndexPath: indexPath)
-        cell.layer.cornerRadius = 5.0
-        
         let index = indexPath.row / CommunitiesRowType.Count.rawValue
         let community = joinedCommunitiesController.communities[index]
-        
-        cell.reset()
-        
-        cell.listingView.configure(community.name, memberCount: community.memberCount)
-        if let bannerURL = community.header?.URI {
-            cell.listingView.headerImageView.setImageWithURL(bannerURL)
-        }
-        if let logoURL = community.logo?.URI {
-            cell.listingView.logoImageView.setImageWithURL(logoURL)
-        }
-        
-        return cell
+        return cell(community, indexPath: indexPath)
     }
     
     private func unjoinedCell(forIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withClass: CommunityListingTableViewCell.self, forIndexPath: indexPath)
-        cell.layer.cornerRadius = 5.0
-        
         let index = indexPath.row / CommunitiesRowType.Count.rawValue
         let community = unjoinedCommunitiesController.communities[index]
+        return cell(community, indexPath: indexPath)
+    }
+    
+    private func cell(community: Community, indexPath: NSIndexPath) -> CommunityListingTableViewCell {
+        let cell = tableView.dequeueReusableCell(withClass: CommunityListingTableViewCell.self, forIndexPath: indexPath)
+        cell.layer.cornerRadius = 5.0
         
         cell.reset()
         
@@ -380,10 +369,12 @@ extension CommunitiesViewController {
             cell.listingView.logoImageView.setImageWithURL(logoURL)
         }
         
-        cell.configureAccessoryButton("Join", titleColor: UIColor.whiteColor(), backgroundColor: Theme.Color.primary, handler: { (cell) in
-            
-        })
-        
+        if community.isMember {
+            cell.configureAccessoryButton("Join", titleColor: UIColor.whiteColor(), backgroundColor: Theme.Color.primary, handler: { (cell) in
+                
+            })
+        }
+
         return cell
     }
     
@@ -403,12 +394,36 @@ extension CommunitiesViewController {
         let title = sectionType == .YourCommunities ? "View All" : "View More"
         cell.button.setTitle(title, forState: .Normal)
         cell.tapHandler = { [weak self] (cell) in
-            let viewController = UIViewController()
-            viewController.title = sectionType == .YourCommunities ? "Your Communities" : "More Communities"
-            dispatch_async(dispatch_get_main_queue(), {
-                self?.navigationController?.pushViewController(viewController, animated: true)
-            })
+            let userInfo = ["sectionType" : sectionType.rawValue] as AnyObject
+            self?.performSegueWithIdentifier(Storyboard.Segue.expandedList, sender: userInfo)
         }
         return cell
+    }
+}
+
+// MARK: - Navigation
+
+extension CommunitiesViewController {
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == Storyboard.Segue.expandedList {
+            guard let viewController = segue.destinationViewController as? CommunitiesExpandedViewController,
+                let userInfo = sender as? [String : Int],
+                let rawValue = userInfo["sectionType"],
+                let sectionType = TableSection(rawValue: rawValue) else { return }
+            
+            let title: String
+            let controller: CommunitiesController
+            if sectionType == .YourCommunities {
+                title = "Your Communities"
+                controller = joinedCommunitiesController
+            } else {
+                title = "More Communities"
+                controller = unjoinedCommunitiesController
+            }
+            
+            viewController.title = title
+            viewController.controller = controller
+        }
     }
 }
