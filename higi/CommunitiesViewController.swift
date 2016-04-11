@@ -107,19 +107,12 @@ extension CommunitiesViewController {
         case MoreCommunities
         case Count
         
-        func maxRowCount() -> Int {
-            switch self {
-            case .YourCommunities:
-                fallthrough
-            case .MoreCommunities:
-                return 10
-            case .Count:
-                return 0
-            }
+        func maxCommunityCount() -> Int {
+            return 10
         }
         
         func maxRowIndex() -> Int {
-            return maxRowCount() - 1
+            return maxCommunityCount() - 1
         }
         
         func defaultHeight() -> CGFloat {
@@ -175,10 +168,10 @@ extension CommunitiesViewController: UITableViewDataSource {
         
         switch sectionType {
         case .YourCommunities:
-            let communityCount = min(joinedCommunitiesController.communities.count, sectionType.maxRowCount())
+            let communityCount = min(joinedCommunitiesController.communities.count, sectionType.maxCommunityCount())
             rowCount = communityCount * CommunitiesRowType.Count.rawValue
         case .MoreCommunities:
-            let communityCount = min(unjoinedCommunitiesController.communities.count, sectionType.maxRowCount())
+            let communityCount = min(unjoinedCommunitiesController.communities.count, sectionType.maxCommunityCount())
             rowCount = communityCount * CommunitiesRowType.Count.rawValue
         case .Count:
             break
@@ -293,7 +286,7 @@ extension CommunitiesViewController: UITableViewDelegate {
                 let isMaxRow = (indexPath.row / CommunitiesRowType.Count.rawValue) == sectionType.maxRowIndex()
                 rowHeight =  isMaxRow ? 0.0 : rowType.defaultHeight()
             case .ViewAdditional:
-                let showAdditional = joinedCommunitiesController.communities.count > sectionType.maxRowCount()
+                let showAdditional = joinedCommunitiesController.communities.count > sectionType.maxCommunityCount()
                 let isMaxRow = (indexPath.row / CommunitiesRowType.Count.rawValue) == sectionType.maxRowIndex()
                 rowHeight = (showAdditional && isMaxRow) ? rowType.defaultHeight() : 0.0
                 
@@ -310,7 +303,7 @@ extension CommunitiesViewController: UITableViewDelegate {
                 let isMaxRow = (indexPath.row / CommunitiesRowType.Count.rawValue) == sectionType.maxRowIndex()
                 rowHeight =  isMaxRow ? 0.0 : rowType.defaultHeight()
             case .ViewAdditional:
-                let showAdditional = unjoinedCommunitiesController.communities.count > sectionType.maxRowCount()
+                let showAdditional = unjoinedCommunitiesController.communities.count > sectionType.maxCommunityCount()
                 let isMaxRow = (indexPath.row / CommunitiesRowType.Count.rawValue) == sectionType.maxRowIndex()
                 rowHeight = (showAdditional && isMaxRow) ? rowType.defaultHeight() : 0.0
                 
@@ -370,7 +363,8 @@ extension CommunitiesViewController {
         }
         
         if community.isMember {
-            cell.configureAccessoryButton("Join", titleColor: UIColor.whiteColor(), backgroundColor: Theme.Color.primary, handler: { (cell) in
+            let title = NSLocalizedString("COMMUNITY_LISTING_TABLE_CELL_ACCESSORY_BUTTON_TITLE_JOIN", comment: "Title for accessory button on community listing table cell to join a community.")
+            cell.configureAccessoryButton(title, titleColor: UIColor.whiteColor(), backgroundColor: Theme.Color.primary, handler: { (cell) in
                 
             })
         }
@@ -391,7 +385,8 @@ extension CommunitiesViewController {
             fatalError("Invalid table section.")
         }
         
-        let title = sectionType == .YourCommunities ? "View All" : "View More"
+        let title = sectionType == .YourCommunities ? NSLocalizedString("COMMUNITIES_LIST_VIEW_ADDITIONAL_BUTTON_TITLE_YOUR_COMMUNITIES", comment: "Title for button to view expanded list of your communities.") :
+            NSLocalizedString("COMMUNITIES_LIST_VIEW_ADDITIONAL_BUTTON_TITLE_MORE_COMMUNITIES", comment: "Title for button to view expanded list of more communities.")
         cell.button.setTitle(title, forState: .Normal)
         cell.tapHandler = { [weak self] (cell) in
             let userInfo = ["sectionType" : sectionType.rawValue] as AnyObject
@@ -415,15 +410,28 @@ extension CommunitiesViewController {
             let title: String
             let controller: CommunitiesController
             if sectionType == .YourCommunities {
-                title = "Your Communities"
+                title = NSLocalizedString("COMMUNITIES_EXPANDED_LIST_TITLE_YOUR_COMMUNITIES", comment: "Title for expanded list view of your communities.")
                 controller = joinedCommunitiesController
             } else {
-                title = "More Communities"
+                title = NSLocalizedString("COMMUNITIES_EXPANDED_LIST_TITLE_MORE_COMMUNITIES", comment: "Title for expanded list view of more communities.")
                 controller = unjoinedCommunitiesController
             }
             
             viewController.title = title
             viewController.controller = controller
+            self.navigationController?.delegate = self
         }
+    }
+}
+
+extension CommunitiesViewController: UINavigationControllerDelegate {
+    
+    func navigationController(navigationController: UINavigationController, didShowViewController viewController: UIViewController, animated: Bool) {
+        guard let viewController = viewController as? CommunitiesExpandedViewController else { return }
+        
+        let section = CommunitiesExpandedViewController.TableSection.Communities.rawValue
+        let row = TableSection.YourCommunities.maxCommunityCount()
+        let indexPath = NSIndexPath(forRow: row, inSection: section)
+        viewController.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
     }
 }

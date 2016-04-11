@@ -268,6 +268,18 @@
 /* Placeholder text to display in chatter input text field. */
 "CHATTER_INPUT_VIEW_TEXT_INPUT_PLACEHOLDER" = "Talk some smack!";
 
+/* Title for expanded list view of more communities. */
+"COMMUNITIES_EXPANDED_LIST_TITLE_MORE_COMMUNITIES" = "More Communities";
+
+/* Title for expanded list view of your communities. */
+"COMMUNITIES_EXPANDED_LIST_TITLE_YOUR_COMMUNITIES" = "Your Communities";
+
+/* Title for button to view expanded list of more communities. */
+"COMMUNITIES_LIST_VIEW_ADDITIONAL_BUTTON_TITLE_MORE_COMMUNITIES" = "View More";
+
+/* Title for button to view expanded list of your communities. */
+"COMMUNITIES_LIST_VIEW_ADDITIONAL_BUTTON_TITLE_YOUR_COMMUNITIES" = "View All";
+
 /* Table section header for unjoined communities on Community List View. */
 "COMMUNITIES_VIEW_TABLE_SECTION_HEADER_MORE_COMMUNITIES" = "More Communities";
 
@@ -276,6 +288,9 @@
 
 /* Title for communities view. */
 "COMMUNITIES_VIEW_TITLE" = "Communities";
+
+/* Title for accessory button on community listing table cell to join a community. */
+"COMMUNITY_LISTING_TABLE_CELL_ACCESSORY_BUTTON_TITLE_JOIN" = "Join";
 
 /* Title for alert action to acknowledge alert displayed when an error occurs while attempting to connect a device. */
 "CONNECT_DEVICE_ROW_CONNECT_ERROR_ALERT_ACTION_ACKNOWLEDGE_ACTION" = "Got it";
