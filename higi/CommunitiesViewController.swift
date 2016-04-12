@@ -431,3 +431,10 @@ extension CommunitiesViewController: UINavigationControllerDelegate {
         viewController.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
     }
 }
+
+extension CommunitiesViewController: TabBarTopScrollDelegate {
+    
+    func scrollToTop() {
+        tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
+    }
+}

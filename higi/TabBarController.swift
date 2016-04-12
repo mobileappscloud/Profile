@@ -80,10 +80,14 @@ final class TabBarController: UITabBarController {
         return metricsViewController
     }()
     
+    private var previousViewControllerOnSelectedTab: UIViewController? = nil
+    
     // MARK: - View Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.delegate = self
         
         var controllers: [UIViewController] = []
         for index in ViewControllerIndex.allValues {
@@ -231,4 +235,56 @@ extension TabBarController {
     func modalDoneButtonTapped(sender: UIBarButtonItem) {
         dismissViewControllerAnimated(true, completion: nil)
     }
+}
+
+// MARK: - Tab Bar Delegate
+
+extension TabBarController: UITabBarControllerDelegate {
+    
+    /**
+        The tab bar delegate will attempt to trigger the scroll to top feature if we are viewing a tab's root view controller. Each tab bar item's root view controller is contained within a navigation controller. Thus the selected view controller will always be an instance of `UINavigationController`. We will need to access the navigation controller's `topViewController` property to determine which view is currently displayed.
+ 
+        By default, iOS implements behavior where tapping on a tab bar which is already active will pop the navigation stack to the root view controller. In `(tabBarController:, shouldSelectViewController:)` the navigation controller's top view controller contains the child view controller which was pushed onto the stack. However, in `(tabBarController:, didSelectViewController:)` the navigation controller will already be popped to the root view controller. We will need to use both these methods to keep track of when a tab AND it's navigation stack have remained unchanged for successive taps on the tab bar item before we can scroll the root view's content view to the top.
+     */
+ 
+    
+    func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
+        
+        let trackPreviousViewControllerForSuccessiveTaps = (viewController == selectedViewController)
+        if trackPreviousViewControllerForSuccessiveTaps {
+            if let navigationController = viewController as? UINavigationController,
+                let topViewController = navigationController.topViewController {
+                previousViewControllerOnSelectedTab = topViewController
+            }
+        } else {
+            previousViewControllerOnSelectedTab = nil
+        }
+        
+        return true
+    }
+    
+    func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
+        guard let previousViewController = previousViewControllerOnSelectedTab else { return }
+        
+        if let navigationController = viewController as? UINavigationController,
+            let topViewController = navigationController.topViewController {
+            
+            if previousViewController == topViewController,
+                let topScrollableView = topViewController as? TabBarTopScrollDelegate {
+                topScrollableView.scrollToTop()
+            }
+        }
+    }
+}
+
+
+// MARK: - Protocols
+
+/// Protocol which enables a tab bar item's root view controller to scroll to the top of the scroll view.
+protocol TabBarTopScrollDelegate: class {
+    
+    /**
+     Scrolls the content view to the top.
+     */
+    func scrollToTop()
 }
