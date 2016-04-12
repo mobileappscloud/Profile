@@ -21,11 +21,7 @@ final class DashboardViewController: UIViewController {
             metricsCardTitleLabel.text = NSLocalizedString("DASHBOARD_VIEW_CARD_METRICS_TITLE", comment: "Title for metrics card displayed on Dashboard view.")
         }
     }
-    @IBOutlet weak var pulseCardButton: UIButton! {
-        didSet {
-            pulseCardButton.setTitle(NSLocalizedString("DASHBOARD_VIEW_CARD_PULSE_ACTION_TITLE", comment: "Title for pulse card displayed on Dashboard view."), forState: .Normal)
-        }
-    }
+    
     @IBOutlet weak var errorCardRefreshButton: UIButton! {
         didSet {
             errorCardRefreshButton.setTitle(NSLocalizedString("DASHBOARD_VIEW_CARD_ERROR_REFRESH_ACTION_TITLE", comment: "Title for refresh action on error card displayed on Dashboard view."), forState: .Normal)
@@ -35,7 +31,6 @@ final class DashboardViewController: UIViewController {
     @IBOutlet weak var mainScrollView: UIScrollView!
     @IBOutlet var challengesCard: ChallengesCard!
     @IBOutlet var metricsCard: UIView!
-    @IBOutlet weak var pulseCard: PulseCard!
     @IBOutlet var errorCard: UIView!
     @IBOutlet var qrCheckinCard: QrCheckinCard!
     
@@ -68,7 +63,7 @@ final class DashboardViewController: UIViewController {
         self.title = NSLocalizedString("DASHBOARD_VIEW_TITLE", comment: "Title for Dashboard view.");
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DashboardViewController.receiveQrCheckinNotification(_:)), name: ApiUtility.QR_CHECKIN, object: nil);
-        let notificationNames = [ApiUtility.ACTIVITIES, ApiUtility.CHALLENGES, ApiUtility.CHECKINS, ApiUtility.PULSE, ApiUtility.DEVICES]
+        let notificationNames = [ApiUtility.ACTIVITIES, ApiUtility.CHALLENGES, ApiUtility.CHECKINS, ApiUtility.DEVICES]
         for name in notificationNames {
             NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DashboardViewController.receiveApiNotification(_:)), name: name, object: nil)
         }
@@ -191,8 +186,7 @@ final class DashboardViewController: UIViewController {
                 Utility.mainTabBarController()?.metricsNavController.tabBarItem.enabled = true
             }
             checkinsRefreshed = true;
-        case ApiUtility.PULSE:
-            initPulseCard();
+        
         case ApiUtility.DEVICES:
             devicesRefreshed = true;
         default:
@@ -201,7 +195,7 @@ final class DashboardViewController: UIViewController {
     }
     
     func initCards() {
-        dashboardItems = [qrCheckinCard, errorCard, challengesCard, metricsCard, pulseCard];
+        dashboardItems = [qrCheckinCard, errorCard, challengesCard, metricsCard];
         if SessionController.Instance.showQrCheckinCard ?? false {
             addQrCheckinView();
         }
@@ -211,12 +205,8 @@ final class DashboardViewController: UIViewController {
         if (metricsCard.superview != nil) {
             metricsCard.removeFromSuperview();
         }
-        if (pulseCard.superview != nil) {
-            pulseCard.removeFromSuperview();
-        }
         initChallengesCard();
         initMetricsCard();
-        initPulseCard();
     }
     
     func initChallengesCard() {
@@ -515,38 +505,6 @@ final class DashboardViewController: UIViewController {
         Utility.growAnimation(metricsCard, startHeight: metricsCard.frame.size.height, endHeight: cardPositionY);
     }
     
-    func initPulseCard() {
-        var articles = SessionController.Instance.pulseArticles;
-        if (articles.count > 2) {
-            pulseCard.spinner.stopAnimating();
-            pulseCard.loadingContainer.hidden = true;
-            let topArticle = articles[0], middleArticle = articles[1], bottomArticle = articles[2];
-            pulseCard.topImage.setImageWithURL(NSURL(string: topArticle.imageUrl as String));
-            pulseCard.topTitle.text = topArticle.title as String;
-            pulseCard.topExcerpt.text = topArticle.excerpt as String;
-            pulseCard.middleImage.setImageWithURL(NSURL(string: middleArticle.imageUrl as String));
-            pulseCard.middleTitle.text = middleArticle.title as String;
-            pulseCard.middleExcerpt.text = middleArticle.excerpt as String;
-            pulseCard.bottomImage.setImageWithURL(NSURL(string: bottomArticle.imageUrl as String));
-            pulseCard.bottomTitle.text = bottomArticle.title as String;
-            pulseCard.bottomExcerpt.text = bottomArticle.excerpt as String;
-            pulseCard.middleTitle.sizeToFit();
-            pulseCard.middleExcerpt.sizeToFit();
-            pulseCard.bottomTitle.sizeToFit();
-            pulseCard.bottomExcerpt.sizeToFit();
-        } else {
-            // TODO make error state
-        }
-        if (pulseCard.superview == nil) {
-            pulseCard.frame.origin.y = currentOrigin;
-            currentOrigin += pulseCard.frame.size.height + gap;
-            mainScrollView.addSubview(pulseCard);
-            pulseCard.spinner.startAnimating();
-        }
-        layoutDashboardItems(pulseCardPlaced);
-        pulseCardPlaced = true;
-    }
-
     func gotoActivityGraph(sender: AnyObject) {
         Flurry.logEvent("ActivityMetric_Pressed");
         navigateToMetrics(.DailySummary)
@@ -609,40 +567,6 @@ final class DashboardViewController: UIViewController {
             
             mainTabBarController.challengesViewController.navigateToChallengeDetail(displayedChallenge)
         }
-    }
-    
-    @IBAction func gotoPulseHome(sender: AnyObject) {
-//        Flurry.logEvent("higiPulse_Pressed");
-//        
-//        guard let mainTabBarController = Utility.mainTabBarController() else { return }
-//        
-//        let pulseHomeViewController = mainTabBarController.pulseModalViewController()
-//        dispatch_async(dispatch_get_main_queue(), {
-//            mainTabBarController.presentViewController(pulseHomeViewController, animated: true, completion: nil)
-//        })
-    }
-    
-    @IBAction func gotoPulseArticle(sender: AnyObject) {
-//        if (sender.tag! == 0) {
-//            Flurry.logEvent("FeaturedPulseArticle_Pressed");
-//        } else {
-//            Flurry.logEvent("NonFeaturedPulseArticle_Pressed");
-//        }
-//        
-//        let pulseArticle = SessionController.Instance.pulseArticles[sender.tag!]
-//        let URLString = pulseArticle.permalink as String
-//        
-//        guard let URL = NSURL(string: URLString) else { return }
-//        guard let mainTabBarController = Utility.mainTabBarController() else { return }
-//        
-//        let pulseNavController = mainTabBarController.pulseModalViewController() as! UINavigationController
-//        let pulseHomeViewController = pulseNavController.topViewController as! PulseHomeViewController
-//        
-//        dispatch_async(dispatch_get_main_queue(), {
-//            mainTabBarController.presentViewController(pulseNavController, animated: false, completion: nil)
-//            let article = PulseArticle(permalink: URL);
-//            pulseHomeViewController.gotoArticle(article);
-//        })
     }
     
     @IBAction func removeQrCheckinCard(sender: AnyObject) {

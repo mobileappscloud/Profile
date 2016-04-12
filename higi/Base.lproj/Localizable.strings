@@ -451,9 +451,6 @@
 /* Title for metrics card displayed on Dashboard view. */
 "DASHBOARD_VIEW_CARD_METRICS_TITLE" = "Metrics";
 
-/* Title for pulse card displayed on Dashboard view. */
-"DASHBOARD_VIEW_CARD_PULSE_ACTION_TITLE" = "higi Pulse";
-
 /* Message text to display on QR check-in card when upload fails. */
 "DASHBOARD_VIEW_CARD_QR_CHECKIN_UPLOAD_FAILURE_MESSAGE_TEXT" = "There was a problem uploading your check-in.";
 
@@ -604,9 +601,6 @@
 /* Title for overflow menu action item which modally presents Find Station. */
 "MAIN_NAVIGATION_BAR_BUTTON_ITEM_OVERFLOW_POPOVER_ACTION_TITLE_FIND_STATION" = "Find Station";
 
-/* Title for overflow menu action item which modally presents higi Pulse. */
-"MAIN_NAVIGATION_BAR_BUTTON_ITEM_OVERFLOW_POPOVER_ACTION_TITLE_HIGI_PULSE" = "higi Pulse";
-
 /* Title for overflow menu action item which modally presents Settings. */
 "MAIN_NAVIGATION_BAR_BUTTON_ITEM_OVERFLOW_POPOVER_ACTION_TITLE_SETTINGS" = "Settings";
 
@@ -738,9 +732,6 @@
 
 /* Title for Profile Image view. */
 "PROFILE_IMAGE_VIEW_TITLE" = "What do you look like?";
-
-/* Title for Pulse view. */
-"PULSE_HOME_VIEW_TITLE" = "Pulse";
 
 /* Text to display on pulse metrics view if there is no pulse data to display. */
 "PULSE_METRICS_VIEW_BLANK_STATE_TEXT" = "Welcome! Unfortunately, you don’t have any pulse readings with us. Swing by a higi Station or connect your favorite pulse tracker and we will reward you 50 points for each Pulse / BP check-in.";
