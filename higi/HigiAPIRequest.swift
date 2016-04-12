@@ -16,13 +16,19 @@ extension HigiAPIRequest {
         
         guard let endpointURL = HigiAPIClient.URL(relativePath, parameters: parameters) else { return nil }
     
-        let mutableRequest = NSMutableURLRequest(URL: endpointURL)
+        return authenticatedRequest(endpointURL, parameters: parameters, method: method)
+    }
+    
+    static func authenticatedRequest(URL: NSURL, parameters: [String : String]?, method: String = HTTPMethod.GET) -> NSURLRequest? {
+        
+        let mutableRequest = NSMutableURLRequest(URL: URL)
         mutableRequest.HTTPMethod = method
         
         // The `NSURLSession` documentation advises against modifying the `Authorization` header per session, so we will attach the header to individual requests.
         if let authorization = HigiAPIClient.authorization {
             mutableRequest.setValue(authorization.bearerToken(), forHTTPHeaderField: HigiAPIClient.HTTPHeaderName.authorization)
         }
+        mutableRequest.setValue(Utility.organizationId(), forHTTPHeaderField: HigiAPIClient.HTTPHeaderName.organizationId)
         
         return mutableRequest.copy() as? NSURLRequest
     }

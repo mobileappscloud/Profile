@@ -19,9 +19,8 @@ extension CommunityCollectionRequest: HigiAPIRequest {
     
     class func request(filter: Filter) -> NSURLRequest? {
         
-        let organizationId = Utility.organizationId()
-//        let relativePath = "/organizations/\(organizationId)/communities"
-        let relativePath = "/community/organizations/\(organizationId)/communities"
+//        let relativePath = "/communities"
+        let relativePath = "/community/communities"
         
         var parameters: [String : String] = [:]
         

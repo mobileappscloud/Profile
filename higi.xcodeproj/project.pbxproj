@@ -67,6 +67,7 @@
 		411F79751CBB44F9000D0D64 /* ActivityIndicatorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 411F79741CBB44F9000D0D64 /* ActivityIndicatorTableViewCell.xib */; };
 		411F79771CBB457D000D0D64 /* ActivityIndicatorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411F79761CBB457D000D0D64 /* ActivityIndicatorTableViewCell.swift */; };
 		411F79791CBC05E2000D0D64 /* CommunitiesTableUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411F79781CBC05E2000D0D64 /* CommunitiesTableUtility.swift */; };
+		411F797C1CBC3ED2000D0D64 /* PagingRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411F797B1CBC3ED2000D0D64 /* PagingRequest.swift */; };
 		41247DC91C5A937300DDC5EC /* SingleRowTextMenuFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41247DC81C5A937300DDC5EC /* SingleRowTextMenuFlowLayout.swift */; };
 		41247DCE1C5BD1A100DDC5EC /* MetricDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41247DCD1C5BD1A100DDC5EC /* MetricDetailViewController.swift */; };
 		41247DD51C5F29FB00DDC5EC /* MetricDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41247DD41C5F29FB00DDC5EC /* MetricDetail.storyboard */; };
@@ -428,6 +429,7 @@
 		411F79741CBB44F9000D0D64 /* ActivityIndicatorTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityIndicatorTableViewCell.xib; sourceTree = "<group>"; };
 		411F79761CBB457D000D0D64 /* ActivityIndicatorTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorTableViewCell.swift; sourceTree = "<group>"; };
 		411F79781CBC05E2000D0D64 /* CommunitiesTableUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunitiesTableUtility.swift; sourceTree = "<group>"; };
+		411F797B1CBC3ED2000D0D64 /* PagingRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingRequest.swift; sourceTree = "<group>"; };
 		41247DC81C5A937300DDC5EC /* SingleRowTextMenuFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleRowTextMenuFlowLayout.swift; sourceTree = "<group>"; };
 		41247DCD1C5BD1A100DDC5EC /* MetricDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricDetailViewController.swift; sourceTree = "<group>"; };
 		41247DD41C5F29FB00DDC5EC /* MetricDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MetricDetail.storyboard; sourceTree = "<group>"; };
@@ -1094,6 +1096,7 @@
 			children = (
 				415031581CA9CC7A00A3FB94 /* Authentication */,
 				415031651CAA1DA400A3FB94 /* Communities */,
+				411F797B1CBC3ED2000D0D64 /* PagingRequest.swift */,
 			);
 			name = Requests;
 			sourceTree = "<group>";
@@ -2501,6 +2504,7 @@
 				413CEE3F1C87BF0E00F241F7 /* UIAppearance+Swift.m in Sources */,
 				8FE0BCCE199175BC00940D39 /* PulseCell.swift in Sources */,
 				D114B06B1B2A19900073A9CB /* TriangleView.swift in Sources */,
+				411F797C1CBC3ED2000D0D64 /* PagingRequest.swift in Sources */,
 				413F69181CB718C3003D9571 /* NSCharacterSet+Utility.swift in Sources */,
 				D1FC72991B20B1B70068CF89 /* WeightMetricDelegate.swift in Sources */,
 				410FFF411CA5CDE1005EAC9E /* Organization.swift in Sources */,

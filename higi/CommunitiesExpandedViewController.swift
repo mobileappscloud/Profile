@@ -26,22 +26,17 @@ final class CommunitiesExpandedViewController: UIViewController {
     var controller: CommunitiesController!
 }
 
-// MARK: - View Lifecycle
-
-extension CommunitiesExpandedViewController {
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        controller.fetchNext(fetchNextSuccess, failure: fetchNextFailure)
-    }
-}
-
 // MARK: -
 
 extension CommunitiesExpandedViewController {
     
+    private func fetchNextCommunities() {
+        print("fetch next page")
+        controller.fetchNext(fetchNextSuccess, failure: fetchNextFailure)
+    }
+    
     private func fetchNextSuccess() {
+        print("successfully fetched next communities")
         dispatch_async(dispatch_get_main_queue(), {
             self.tableView.reloadData()
         })
@@ -200,6 +195,14 @@ extension CommunitiesExpandedViewController: UITableViewDelegate {
         }
         
         return rowHeight
+    }
+    
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        guard let sectionType = TableSection(rawValue: indexPath.section) else { return }
+        
+        if sectionType == .InfiniteScroll {
+            fetchNextCommunities()
+        }
     }
 }
 

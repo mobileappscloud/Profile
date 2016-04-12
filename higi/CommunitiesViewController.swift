@@ -414,6 +414,7 @@ extension CommunitiesViewController {
             
             viewController.title = title
             viewController.controller = controller
+            self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
             self.navigationController?.delegate = self
         }
     }

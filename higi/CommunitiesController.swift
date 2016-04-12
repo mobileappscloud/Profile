@@ -10,7 +10,6 @@ import Foundation
 
 protocol CommunityCollectionStorage {
     
-    var communitiesSet: Set<Community> { get }
     var communities: [Community] { get }
 }
 
@@ -28,17 +27,7 @@ protocol CommunitiesNetworkRequest {
 protocol CommunitiesController: CommunityCollectionStorage, CommunitiesNetworkRequest {}
 
 final class JoinedCommunitiesController: CommunitiesController {
-    
-    enum State {
-        case Unknown
-        case PerformingInitialDataTask
-        case CompletedInitialDataTask
-        case FailedInitialDataTask
-        case PerformingPagingTask
-        case CompletedPagingTask
-        case FailedPagingTask
-    }
-    
+
     private(set) var communitiesSet: Set<Community> = []
     private(set) var communities: [Community] = []
     
@@ -48,42 +37,11 @@ final class JoinedCommunitiesController: CommunitiesController {
         return HigiAPIClient.session()
     }()
  
-    private var fetchTask: NSURLSessionDataTask?
-    private var nextPagingTask: NSURLSessionDataTask?
+    var fetchTask: NSURLSessionDataTask?
+    var nextPagingTask: NSURLSessionDataTask?
     
     deinit {
         session.invalidateAndCancel()
-    }
-}
-
-extension JoinedCommunitiesController {
-    
-    func taskState() -> State {
-        if let fetchTask = fetchTask {
-            switch fetchTask.state {
-            case .Suspended:
-                fallthrough
-            case .Running:
-                return .PerformingInitialDataTask
-            case .Canceling:
-                return .FailedInitialDataTask
-            case .Completed:
-                return .CompletedInitialDataTask
-            }
-        } else if let nextPagingTask = nextPagingTask {
-            switch nextPagingTask.state {
-            case .Suspended:
-                fallthrough
-            case .Running:
-                return .PerformingPagingTask
-            case .Canceling:
-                return .FailedPagingTask
-            case .Completed:
-                return .CompletedPagingTask
-            }
-        } else {
-            return .Unknown
-        }
     }
 }
 
@@ -102,14 +60,17 @@ extension JoinedCommunitiesController {
 //                self.communitiesSet = Set(communities)
 //                self.communities = communities
 //                self.paging = paging
+//                self.fetchTask = nil
 //                success()
 //                
 //                }, failure: { (error) in
+//                    self.fetchTask = nil
 //                    failure(error: error)
 //            })
 //            
 //            }, failure: { (error, response) in
-//             failure(error: error)
+//                self.fetchTask = nil
+//                failure(error: error)
 //        })
 //        if let fetchTask = fetchTask {
 //            fetchTask.resume()
@@ -134,12 +95,19 @@ extension JoinedCommunitiesController {
     }
     
     func fetchNext(success: () -> Void, failure: (error: NSError?) -> Void) {
+        if let nextPagingTask = nextPagingTask where nextPagingTask.state == .Running {
+            success()
+            return
+        }
         guard let URL = paging?.next else {
             success()
             return
         }
+        guard let request = PagingRequest.request(URL) else {
+            failure(error: nil)
+            return
+        }
         
-        let request = NSURLRequest(URL: URL)
         nextPagingTask = NSURLSessionTask.JSONTask(session, request: request, success: { (JSON, response) in
             CommunityCollectionDeserializer.parse(JSON, success: { (communities, paging) in
                 
@@ -158,13 +126,16 @@ extension JoinedCommunitiesController {
                 self.communitiesSet = newSet
                 self.communities = sortedCommunities
                 self.paging = paging
+                self.nextPagingTask = nil
                 success()
                 
                 
                 }, failure: { (error) in
+                    self.nextPagingTask = nil
                     failure(error: error)
             })
             }, failure: { (error, response) in
+                self.nextPagingTask = nil
                 failure(error: error)
         })
         if let nextPagingTask = nextPagingTask {
