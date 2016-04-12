@@ -280,21 +280,21 @@ extension PulseHomeViewController: UniversalLinkHandler {
     private func pushPulseView(URL: NSURL, pathType: PathType, presentedViewController: UIViewController?) {
         guard let mainTabBarController = Utility.mainTabBarController() else { return }
         
-        let pulseNavController = mainTabBarController.pulseModalViewController() as! UINavigationController
-        let pulseHomeViewController = pulseNavController.topViewController as! PulseHomeViewController
-        
-        dispatch_async(dispatch_get_main_queue(), {
-            InterfaceOrientation.force(.Portrait)
-            
-            presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
-            
-            mainTabBarController.presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
-            mainTabBarController.presentViewController(pulseNavController, animated: false, completion: nil)
-            
-            if pathType == .PulseArticle {
-                let article = PulseArticle(permalink: URL);
-                pulseHomeViewController.gotoArticle(article);
-            }
-        })
+//        let pulseNavController = mainTabBarController.pulseModalViewController() as! UINavigationController
+//        let pulseHomeViewController = pulseNavController.topViewController as! PulseHomeViewController
+//        
+//        dispatch_async(dispatch_get_main_queue(), {
+//            InterfaceOrientation.force(.Portrait)
+//            
+//            presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
+//            
+//            mainTabBarController.presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
+//            mainTabBarController.presentViewController(pulseNavController, animated: false, completion: nil)
+//            
+//            if pathType == .PulseArticle {
+//                let article = PulseArticle(permalink: URL);
+//                pulseHomeViewController.gotoArticle(article);
+//            }
+//        })
     }
 }

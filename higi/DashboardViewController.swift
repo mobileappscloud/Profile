@@ -603,39 +603,39 @@ final class DashboardViewController: UIViewController {
         }
     }
     
-    @IBAction func gotoPulseHome(sender: AnyObject) {
-        Flurry.logEvent("higiPulse_Pressed");
-        
-        guard let mainTabBarController = Utility.mainTabBarController() else { return }
-        
-        let pulseHomeViewController = mainTabBarController.pulseModalViewController()
-        dispatch_async(dispatch_get_main_queue(), {
-            mainTabBarController.presentViewController(pulseHomeViewController, animated: true, completion: nil)
-        })
-    }
-    
-    @IBAction func gotoPulseArticle(sender: AnyObject) {
-        if (sender.tag! == 0) {
-            Flurry.logEvent("FeaturedPulseArticle_Pressed");
-        } else {
-            Flurry.logEvent("NonFeaturedPulseArticle_Pressed");
-        }
-        
-        let pulseArticle = SessionController.Instance.pulseArticles[sender.tag!]
-        let URLString = pulseArticle.permalink as String
-        
-        guard let URL = NSURL(string: URLString) else { return }
-        guard let mainTabBarController = Utility.mainTabBarController() else { return }
-        
-        let pulseNavController = mainTabBarController.pulseModalViewController() as! UINavigationController
-        let pulseHomeViewController = pulseNavController.topViewController as! PulseHomeViewController
-        
-        dispatch_async(dispatch_get_main_queue(), {
-            mainTabBarController.presentViewController(pulseNavController, animated: false, completion: nil)
-            let article = PulseArticle(permalink: URL);
-            pulseHomeViewController.gotoArticle(article);
-        })
-    }
+//    @IBAction func gotoPulseHome(sender: AnyObject) {
+//        Flurry.logEvent("higiPulse_Pressed");
+//        
+//        guard let mainTabBarController = Utility.mainTabBarController() else { return }
+//        
+//        let pulseHomeViewController = mainTabBarController.pulseModalViewController()
+//        dispatch_async(dispatch_get_main_queue(), {
+//            mainTabBarController.presentViewController(pulseHomeViewController, animated: true, completion: nil)
+//        })
+//    }
+//    
+//    @IBAction func gotoPulseArticle(sender: AnyObject) {
+//        if (sender.tag! == 0) {
+//            Flurry.logEvent("FeaturedPulseArticle_Pressed");
+//        } else {
+//            Flurry.logEvent("NonFeaturedPulseArticle_Pressed");
+//        }
+//        
+//        let pulseArticle = SessionController.Instance.pulseArticles[sender.tag!]
+//        let URLString = pulseArticle.permalink as String
+//        
+//        guard let URL = NSURL(string: URLString) else { return }
+//        guard let mainTabBarController = Utility.mainTabBarController() else { return }
+//        
+//        let pulseNavController = mainTabBarController.pulseModalViewController() as! UINavigationController
+//        let pulseHomeViewController = pulseNavController.topViewController as! PulseHomeViewController
+//        
+//        dispatch_async(dispatch_get_main_queue(), {
+//            mainTabBarController.presentViewController(pulseNavController, animated: false, completion: nil)
+//            let article = PulseArticle(permalink: URL);
+//            pulseHomeViewController.gotoArticle(article);
+//        })
+//    }
     
     @IBAction func removeQrCheckinCard(sender: AnyObject) {
         SessionController.Instance.showQrCheckinCard = false;

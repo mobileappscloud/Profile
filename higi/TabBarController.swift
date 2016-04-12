@@ -156,13 +156,6 @@ extension TabBarController {
         return findStationNav
     }
     
-    func pulseModalViewController() -> UIViewController {
-        let pulseViewController = PulseHomeViewController(nibName: "PulseHomeView", bundle: nil)
-        pulseViewController.navigationItem.rightBarButtonItem = modalDismissBarButtonItem(.Done)
-        let pulseNav = UINavigationController(rootViewController: pulseViewController)
-        return pulseNav
-    }
-    
     func settingsModalViewController() -> UIViewController {
         let settingsStoryboard = UIStoryboard(name: "Settings", bundle: nil)
         let settingsNavController = settingsStoryboard.instantiateInitialViewController() as! UINavigationController
@@ -189,10 +182,6 @@ extension TabBarController {
         let dailySummary = popoverAction(dailySummaryMenuTitle, viewController: dailySummaryModalViewController())
         dailySummary.enabled = homeViewController.metricsLoaded && homeViewController.activitiesLoaded
         popoverAlert.addAction(dailySummary)
-        
-        let pulseMenuTitle = NSLocalizedString("MAIN_NAVIGATION_BAR_BUTTON_ITEM_OVERFLOW_POPOVER_ACTION_TITLE_HIGI_PULSE", comment: "Title for overflow menu action item which modally presents higi Pulse.")
-        let pulse = popoverAction(pulseMenuTitle, viewController: pulseModalViewController())
-        popoverAlert.addAction(pulse)
         
         let findStationMenuTitle = NSLocalizedString("MAIN_NAVIGATION_BAR_BUTTON_ITEM_OVERFLOW_POPOVER_ACTION_TITLE_FIND_STATION", comment: "Title for overflow menu action item which modally presents Find Station.")
         let findStation = popoverAction(findStationMenuTitle, viewController: findStationModalViewController())
