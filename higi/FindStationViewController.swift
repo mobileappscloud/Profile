@@ -121,6 +121,10 @@ class FindStationViewController: UIViewController, GMSMapViewDelegate, UITableVi
     
     private var myLocationContainerBottomConstraint: NSLayoutConstraint!
     
+    lazy private var dismissBarButtonItem: UIBarButtonItem = {
+        return UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(didTapDoneButton(_:)))
+    }()
+    
     override func viewDidLoad()  {
         super.viewDidLoad();
         
@@ -130,6 +134,7 @@ class FindStationViewController: UIViewController, GMSMapViewDelegate, UITableVi
         let listBarItem = UIBarButtonItem();
         listBarItem.customView = listButton;
         self.navigationItem.leftBarButtonItem = listBarItem;
+        self.navigationItem.rightBarButtonItem = dismissBarButtonItem
         
         searchField = UITextField(frame: CGRect(x: 0, y: 0, width: 95, height: 40));
         searchField.textColor = Theme.Color.Primary.white
@@ -705,6 +710,13 @@ class FindStationViewController: UIViewController, GMSMapViewDelegate, UITableVi
     }
 }
 
+extension FindStationViewController {
+    
+    func didTapDoneButton(sender: UIBarButtonItem) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+}
+
 extension FindStationViewController: UniversalLinkHandler {
     
     func handleUniversalLink(URL: NSURL, pathType: PathType, parameters: [String]?) {
@@ -714,26 +726,28 @@ extension FindStationViewController: UniversalLinkHandler {
             let loadingViewController = self.presentLoadingViewController()
             
             self.universalLinkObserver = NSNotificationCenter.defaultCenter().addObserverForName(ApiUtility.KIOSKS, object: nil, queue: nil, usingBlock: { (notification) in
-                self.navigateToStationLocator(loadingViewController)
+                FindStationViewController.navigateToStationLocator(loadingViewController)
                 if let observer = self.universalLinkObserver {
                     NSNotificationCenter.defaultCenter().removeObserver(observer)
                 }
             })
         } else {
-            self.navigateToStationLocator(nil)
+            FindStationViewController.navigateToStationLocator(nil)
         }
     }
     
-    private func navigateToStationLocator(presentedViewController: UIViewController?) {
+    class func navigateToStationLocator(presentedViewController: UIViewController?) {
         guard let mainTabBarController = Utility.mainTabBarController() else { return }
         
+        let findStation = FindStationViewController(nibName: "FindStationView", bundle: nil)
+        let findStationNav = UINavigationController(rootViewController: findStation)
         dispatch_async(dispatch_get_main_queue(), {
             InterfaceOrientation.force(.Portrait)
             
             presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
             
             mainTabBarController.presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
-            mainTabBarController.selectedIndex = TabBarController.ViewControllerIndex.FindStation.rawValue
+            mainTabBarController.presentViewController(findStationNav, animated: true, completion: nil)
         })
     }
 }

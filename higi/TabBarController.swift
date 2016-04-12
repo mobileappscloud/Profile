@@ -151,7 +151,6 @@ extension TabBarController {
     
     func findStationModalViewController() -> UIViewController {
         let findStationViewController = FindStationViewController(nibName: "FindStationView", bundle: nil)
-        findStationViewController.navigationItem.rightBarButtonItem = modalDismissBarButtonItem(.Done)
         let findStationNav = UINavigationController(rootViewController: findStationViewController)
         return findStationNav
     }
