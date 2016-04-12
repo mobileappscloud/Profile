@@ -186,13 +186,13 @@ extension TabBarController {
         let findStation = popoverAction(findStationMenuTitle, viewController: findStationModalViewController())
         popoverAlert.addAction(findStation)
         
-        let settingsMenuTitle = NSLocalizedString("MAIN_NAVIGATION_BAR_BUTTON_ITEM_OVERFLOW_POPOVER_ACTION_TITLE_SETTINGS", comment: "Title for overflow menu action item which modally presents Settings.")
-        let settings = popoverAction(settingsMenuTitle, viewController: settingsModalViewController())
-        popoverAlert.addAction(settings)
-        
         let captureMenuTitle = NSLocalizedString("MAIN_NAVIGATION_BAR_BUTTON_ITEM_OVERFLOW_POPOVER_ACTION_TITLE_CAPTURE", comment: "Title for overflow menu action item which modally presents Capture.")
         let capture = popoverAction(captureMenuTitle, viewController: captureModalViewController())
         popoverAlert.addAction(capture)
+        
+        let settingsMenuTitle = NSLocalizedString("MAIN_NAVIGATION_BAR_BUTTON_ITEM_OVERFLOW_POPOVER_ACTION_TITLE_SETTINGS", comment: "Title for overflow menu action item which modally presents Settings.")
+        let settings = popoverAction(settingsMenuTitle, viewController: settingsModalViewController())
+        popoverAlert.addAction(settings)
         
         let cancelMenuTitle = NSLocalizedString("MAIN_NAVIGATION_BAR_BUTTON_ITEM_OVERFLOW_POPOVER_ACTION_TITLE_CANCEL", comment: "Title for overflow menu action item which dismisses the popover.")
         let cancel = UIAlertAction(title: cancelMenuTitle, style: .Cancel, handler: nil)
