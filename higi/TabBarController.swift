@@ -15,9 +15,8 @@ final class TabBarController: UITabBarController {
         case Communities
         case Challenges
         case Metrics
-        case FindStation
         
-        private static let allValues = [Home, Communities, Challenges, Metrics, FindStation]
+        private static let allValues = [Home, Communities, Challenges, Metrics]
     }
 
     lazy private(set) var homeNavController: UINavigationController = {
@@ -68,18 +67,6 @@ final class TabBarController: UITabBarController {
         return metricsViewController
     }()
     
-    lazy private(set) var findStationNavController: UINavigationController = {
-        let nav = UINavigationController(rootViewController: self.findStationViewController)
-        let title = NSLocalizedString("MAIN_TAB_BAR_ITEM_TITLE_FIND_STATION", comment: "Title for Find Station tab bar item.")
-        self.configureTab(nav, title: title, itemImageNamePrefix: "station", enabled: true)
-        return nav
-    }()
-    lazy private(set) var findStationViewController: FindStationViewController = {
-       let findStationViewController = FindStationViewController(nibName: "FindStationView", bundle: nil)
-        findStationViewController.navigationItem.rightBarButtonItem = self.navigationOverflowBarButtonItem()
-        return findStationViewController
-    }()
-    
     // MARK: - View Lifecycle
     
     override func viewDidLoad() {
@@ -113,8 +100,6 @@ extension TabBarController {
             return challengesNavController
         case .Metrics:
             return metricsNavController
-        case .FindStation:
-            return findStationNavController
         }
     }
     
@@ -147,6 +132,13 @@ extension TabBarController {
         dailySummaryViewController.navigationItem.rightBarButtonItem = modalDismissBarButtonItem(.Done)
         let dailySummaryNav = UINavigationController(rootViewController: dailySummaryViewController)
         return dailySummaryNav
+    }
+    
+    func findStationModalViewController() -> UIViewController {
+        let findStationViewController = FindStationViewController(nibName: "FindStationView", bundle: nil)
+        findStationViewController.navigationItem.rightBarButtonItem = modalDismissBarButtonItem(.Done)
+        let findStationNav = UINavigationController(rootViewController: findStationViewController)
+        return findStationNav
     }
     
     func pulseModalViewController() -> UIViewController {
@@ -186,6 +178,10 @@ extension TabBarController {
         let pulseMenuTitle = NSLocalizedString("MAIN_NAVIGATION_BAR_BUTTON_ITEM_OVERFLOW_POPOVER_ACTION_TITLE_HIGI_PULSE", comment: "Title for overflow menu action item which modally presents higi Pulse.")
         let pulse = popoverAction(pulseMenuTitle, viewController: pulseModalViewController())
         popoverAlert.addAction(pulse)
+        
+        let findStationMenuTitle = NSLocalizedString("MAIN_NAVIGATION_BAR_BUTTON_ITEM_OVERFLOW_POPOVER_ACTION_TITLE_FIND_STATION", comment: "Title for overflow menu action item which modally presents Find Station.")
+        let findStation = popoverAction(findStationMenuTitle, viewController: findStationModalViewController())
+        popoverAlert.addAction(findStation)
         
         let settingsMenuTitle = NSLocalizedString("MAIN_NAVIGATION_BAR_BUTTON_ITEM_OVERFLOW_POPOVER_ACTION_TITLE_SETTINGS", comment: "Title for overflow menu action item which modally presents Settings.")
         let settings = popoverAction(settingsMenuTitle, viewController: settingsModalViewController())

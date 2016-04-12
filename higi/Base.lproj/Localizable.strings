@@ -601,6 +601,9 @@
 /* Title for overflow menu action item which modally presents Daily Summary. */
 "MAIN_NAVIGATION_BAR_BUTTON_ITEM_OVERFLOW_POPOVER_ACTION_TITLE_DAILY_SUMMARY" = "Daily Summary";
 
+/* Title for overflow menu action item which modally presents Find Station. */
+"MAIN_NAVIGATION_BAR_BUTTON_ITEM_OVERFLOW_POPOVER_ACTION_TITLE_FIND_STATION" = "Find Station";
+
 /* Title for overflow menu action item which modally presents higi Pulse. */
 "MAIN_NAVIGATION_BAR_BUTTON_ITEM_OVERFLOW_POPOVER_ACTION_TITLE_HIGI_PULSE" = "higi Pulse";
 
@@ -612,9 +615,6 @@
 
 /* Title for Communities tab bar item. */
 "MAIN_TAB_BAR_ITEM_TITLE_COMMUNITIES" = "Communities";
-
-/* Title for Find Station tab bar item. */
-"MAIN_TAB_BAR_ITEM_TITLE_FIND_STATION" = "Find Station";
 
 /* Title for Home tab bar item. */
 "MAIN_TAB_BAR_ITEM_TITLE_HOME" = "Home";
