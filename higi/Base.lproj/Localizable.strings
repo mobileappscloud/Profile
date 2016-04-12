@@ -622,6 +622,9 @@
 /* Title for Metrics tab bar item. */
 "MAIN_TAB_BAR_ITEM_TITLE_METRICS" = "Metrics";
 
+/* Title for Rewards tab bar item. */
+"MAIN_TAB_BAR_ITEM_TITLE_REWARDS" = "Rewards";
+
 /* Format for pluralization of members. */
 "MEMBER_COUNT_SINGLE_PLURAL" = "MEMBER_COUNT_SINGLE_PLURAL";
 

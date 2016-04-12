@@ -14,9 +14,10 @@ final class TabBarController: UITabBarController {
         case Home
         case Communities
         case Challenges
+        case Rewards
         case Metrics
         
-        private static let allValues = [Home, Communities, Challenges, Metrics]
+        private static let allValues = [Home, Communities, Challenges, Rewards, Metrics]
     }
 
     lazy private(set) var homeNavController: UINavigationController = {
@@ -53,6 +54,18 @@ final class TabBarController: UITabBarController {
         let challengesViewController = ChallengesViewController(nibName: "ChallengesView", bundle: nil)
         challengesViewController.navigationItem.rightBarButtonItem = self.navigationOverflowBarButtonItem()
         return challengesViewController
+    }()
+    
+    lazy private(set) var rewardsNavController: UINavigationController = {
+        let nav = UINavigationController(rootViewController: self.rewardsViewController)
+        let title = NSLocalizedString("MAIN_TAB_BAR_ITEM_TITLE_REWARDS", comment: "Title for Rewards tab bar item.")
+        self.configureTab(nav, title: title, itemImageNamePrefix: "rewards", enabled: true)
+        return nav
+    }()
+    lazy private(set) var rewardsViewController: UIViewController = {
+        let rewardsViewController = UIViewController()
+        rewardsViewController.navigationItem.rightBarButtonItem = self.navigationOverflowBarButtonItem()
+        return rewardsViewController
     }()
     
     lazy private(set) var metricsNavController: UINavigationController = {
@@ -98,6 +111,8 @@ extension TabBarController {
             return communitiesNavController
         case .Challenges:
             return challengesNavController
+        case .Rewards:
+            return rewardsNavController
         case .Metrics:
             return metricsNavController
         }
