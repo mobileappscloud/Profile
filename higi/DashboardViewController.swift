@@ -59,6 +59,9 @@ final class DashboardViewController: UIViewController {
     
     var dashboardItems:[UIView] = [];
     
+    /// Blank view which will cover dashboard while app is transitioned from Dashboard to Home feed.
+    let blankViewController = UIViewController()
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         
@@ -76,6 +79,9 @@ final class DashboardViewController: UIViewController {
         createPullToRefresh();
         
         initCards();
+        
+        blankViewController.view.backgroundColor = UIColor.blackColor()
+        self.view.addSubview(blankViewController.view, pinToEdges: true)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -93,6 +99,8 @@ final class DashboardViewController: UIViewController {
         }
         
         self.askToConnectActivityTracker()
+        
+        self.view.bringSubviewToFront(blankViewController.view)
     }
     
     private func askToConnectActivityTracker() {
@@ -603,7 +611,7 @@ final class DashboardViewController: UIViewController {
         }
     }
     
-//    @IBAction func gotoPulseHome(sender: AnyObject) {
+    @IBAction func gotoPulseHome(sender: AnyObject) {
 //        Flurry.logEvent("higiPulse_Pressed");
 //        
 //        guard let mainTabBarController = Utility.mainTabBarController() else { return }
@@ -612,9 +620,9 @@ final class DashboardViewController: UIViewController {
 //        dispatch_async(dispatch_get_main_queue(), {
 //            mainTabBarController.presentViewController(pulseHomeViewController, animated: true, completion: nil)
 //        })
-//    }
-//    
-//    @IBAction func gotoPulseArticle(sender: AnyObject) {
+    }
+    
+    @IBAction func gotoPulseArticle(sender: AnyObject) {
 //        if (sender.tag! == 0) {
 //            Flurry.logEvent("FeaturedPulseArticle_Pressed");
 //        } else {
@@ -635,7 +643,7 @@ final class DashboardViewController: UIViewController {
 //            let article = PulseArticle(permalink: URL);
 //            pulseHomeViewController.gotoArticle(article);
 //        })
-//    }
+    }
     
     @IBAction func removeQrCheckinCard(sender: AnyObject) {
         SessionController.Instance.showQrCheckinCard = false;
