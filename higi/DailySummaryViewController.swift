@@ -563,16 +563,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     func navigateToFindStationView() {
         Flurry.logEvent("FindStation_Pressed");
         
-        guard let mainTabBarController = Utility.mainTabBarController() else { return }
-        
-        dispatch_async(dispatch_get_main_queue(), {
-            self.dismissViewControllerAnimated(true, completion: {
-                dispatch_async(dispatch_get_main_queue(), {
-                    mainTabBarController.presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
-                    mainTabBarController.selectedIndex = TabBarController.ViewControllerIndex.FindStation.rawValue
-                })
-            })
-        })
+        FindStationViewController.navigateToStationLocator(self)
     }
 }
 

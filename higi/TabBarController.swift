@@ -14,10 +14,10 @@ final class TabBarController: UITabBarController {
         case Home
         case Communities
         case Challenges
+        case Rewards
         case Metrics
-        case FindStation
         
-        private static let allValues = [Home, Communities, Challenges, Metrics, FindStation]
+        private static let allValues = [Home, Communities, Challenges, Rewards, Metrics]
     }
 
     lazy private(set) var homeNavController: UINavigationController = {
@@ -28,7 +28,7 @@ final class TabBarController: UITabBarController {
     }()
     lazy private(set) var homeViewController: DashboardViewController = {
         let homeViewController = DashboardViewController(nibName: "DashboardView", bundle: nil)
-        homeViewController.navigationItem.rightBarButtonItem = self.navigationOverflowBarButtonItem()
+        homeViewController.navigationItem.rightBarButtonItems = [self.navigationOverflowBarButtonItem(), self.profileBarButtonItem()]
         return homeViewController
     }()
     
@@ -40,7 +40,7 @@ final class TabBarController: UITabBarController {
     }()
     lazy private(set) var communitiesViewController: CommunitiesViewController = {
         let communitiesViewController = UIStoryboard(name: "Communities", bundle: nil).instantiateInitialViewController() as! CommunitiesViewController
-        communitiesViewController.navigationItem.rightBarButtonItem = self.navigationOverflowBarButtonItem()
+        communitiesViewController.navigationItem.rightBarButtonItems = [self.navigationOverflowBarButtonItem(), self.profileBarButtonItem()]
         return communitiesViewController
     }()
     
@@ -52,8 +52,20 @@ final class TabBarController: UITabBarController {
     }()
     lazy private(set) var challengesViewController: ChallengesViewController = {
         let challengesViewController = ChallengesViewController(nibName: "ChallengesView", bundle: nil)
-        challengesViewController.navigationItem.rightBarButtonItem = self.navigationOverflowBarButtonItem()
+        challengesViewController.navigationItem.rightBarButtonItems = [self.navigationOverflowBarButtonItem(), self.profileBarButtonItem()]
         return challengesViewController
+    }()
+    
+    lazy private(set) var rewardsNavController: UINavigationController = {
+        let nav = UINavigationController(rootViewController: self.rewardsViewController)
+        let title = NSLocalizedString("MAIN_TAB_BAR_ITEM_TITLE_REWARDS", comment: "Title for Rewards tab bar item.")
+        self.configureTab(nav, title: title, itemImageNamePrefix: "rewards", enabled: true)
+        return nav
+    }()
+    lazy private(set) var rewardsViewController: UIViewController = {
+        let rewardsViewController = UIViewController()
+        rewardsViewController.navigationItem.rightBarButtonItems = [self.navigationOverflowBarButtonItem(), self.profileBarButtonItem()]
+        return rewardsViewController
     }()
     
     lazy private(set) var metricsNavController: UINavigationController = {
@@ -64,26 +76,18 @@ final class TabBarController: UITabBarController {
     }()
     lazy private(set) var metricsViewController: NewMetricsViewController = {
         let metricsViewController = UIStoryboard(name: "Metrics", bundle: nil).instantiateInitialViewController() as! NewMetricsViewController
-        metricsViewController.navigationItem.rightBarButtonItem = self.navigationOverflowBarButtonItem()
+        metricsViewController.navigationItem.rightBarButtonItems = [self.navigationOverflowBarButtonItem(), self.profileBarButtonItem()]
         return metricsViewController
     }()
     
-    lazy private(set) var findStationNavController: UINavigationController = {
-        let nav = UINavigationController(rootViewController: self.findStationViewController)
-        let title = NSLocalizedString("MAIN_TAB_BAR_ITEM_TITLE_FIND_STATION", comment: "Title for Find Station tab bar item.")
-        self.configureTab(nav, title: title, itemImageNamePrefix: "station", enabled: true)
-        return nav
-    }()
-    lazy private(set) var findStationViewController: FindStationViewController = {
-       let findStationViewController = FindStationViewController(nibName: "FindStationView", bundle: nil)
-        findStationViewController.navigationItem.rightBarButtonItem = self.navigationOverflowBarButtonItem()
-        return findStationViewController
-    }()
+    private var previousViewControllerOnSelectedTab: UIViewController? = nil
     
     // MARK: - View Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.delegate = self
         
         var controllers: [UIViewController] = []
         for index in ViewControllerIndex.allValues {
@@ -111,10 +115,10 @@ extension TabBarController {
             return communitiesNavController
         case .Challenges:
             return challengesNavController
+        case .Rewards:
+            return rewardsNavController
         case .Metrics:
             return metricsNavController
-        case .FindStation:
-            return findStationNavController
         }
     }
     
@@ -136,6 +140,10 @@ extension TabBarController {
         return UIBarButtonItem(image: UIImage(named: "ellipses-nav-bar-icon"), style: .Plain, target: self, action: #selector(TabBarController.didTapOverflowButton(_:)))
     }
     
+    private func profileBarButtonItem() -> UIBarButtonItem {
+        return UIBarButtonItem(image: UIImage(named: "profile-nav-bar-icon"), style: .Plain, target: self, action: #selector(TabBarController.didTapProfileButton(_:)))
+    }
+    
     private func modalDismissBarButtonItem(systemItem: UIBarButtonSystemItem) -> UIBarButtonItem {
         return UIBarButtonItem(barButtonSystemItem: systemItem, target: self, action: #selector(TabBarController.modalDoneButtonTapped(_:)))
     }
@@ -149,11 +157,10 @@ extension TabBarController {
         return dailySummaryNav
     }
     
-    func pulseModalViewController() -> UIViewController {
-        let pulseViewController = PulseHomeViewController(nibName: "PulseHomeView", bundle: nil)
-        pulseViewController.navigationItem.rightBarButtonItem = modalDismissBarButtonItem(.Done)
-        let pulseNav = UINavigationController(rootViewController: pulseViewController)
-        return pulseNav
+    func findStationModalViewController() -> UIViewController {
+        let findStationViewController = FindStationViewController(nibName: "FindStationView", bundle: nil)
+        let findStationNav = UINavigationController(rootViewController: findStationViewController)
+        return findStationNav
     }
     
     func settingsModalViewController() -> UIViewController {
@@ -183,17 +190,17 @@ extension TabBarController {
         dailySummary.enabled = homeViewController.metricsLoaded && homeViewController.activitiesLoaded
         popoverAlert.addAction(dailySummary)
         
-        let pulseMenuTitle = NSLocalizedString("MAIN_NAVIGATION_BAR_BUTTON_ITEM_OVERFLOW_POPOVER_ACTION_TITLE_HIGI_PULSE", comment: "Title for overflow menu action item which modally presents higi Pulse.")
-        let pulse = popoverAction(pulseMenuTitle, viewController: pulseModalViewController())
-        popoverAlert.addAction(pulse)
-        
-        let settingsMenuTitle = NSLocalizedString("MAIN_NAVIGATION_BAR_BUTTON_ITEM_OVERFLOW_POPOVER_ACTION_TITLE_SETTINGS", comment: "Title for overflow menu action item which modally presents Settings.")
-        let settings = popoverAction(settingsMenuTitle, viewController: settingsModalViewController())
-        popoverAlert.addAction(settings)
+        let findStationMenuTitle = NSLocalizedString("MAIN_NAVIGATION_BAR_BUTTON_ITEM_OVERFLOW_POPOVER_ACTION_TITLE_FIND_STATION", comment: "Title for overflow menu action item which modally presents Find Station.")
+        let findStation = popoverAction(findStationMenuTitle, viewController: findStationModalViewController())
+        popoverAlert.addAction(findStation)
         
         let captureMenuTitle = NSLocalizedString("MAIN_NAVIGATION_BAR_BUTTON_ITEM_OVERFLOW_POPOVER_ACTION_TITLE_CAPTURE", comment: "Title for overflow menu action item which modally presents Capture.")
         let capture = popoverAction(captureMenuTitle, viewController: captureModalViewController())
         popoverAlert.addAction(capture)
+        
+        let settingsMenuTitle = NSLocalizedString("MAIN_NAVIGATION_BAR_BUTTON_ITEM_OVERFLOW_POPOVER_ACTION_TITLE_SETTINGS", comment: "Title for overflow menu action item which modally presents Settings.")
+        let settings = popoverAction(settingsMenuTitle, viewController: settingsModalViewController())
+        popoverAlert.addAction(settings)
         
         let cancelMenuTitle = NSLocalizedString("MAIN_NAVIGATION_BAR_BUTTON_ITEM_OVERFLOW_POPOVER_ACTION_TITLE_CANCEL", comment: "Title for overflow menu action item which dismisses the popover.")
         let cancel = UIAlertAction(title: cancelMenuTitle, style: .Cancel, handler: nil)
@@ -221,7 +228,63 @@ extension TabBarController {
         })
     }
     
+    dynamic func didTapProfileButton(sender: UIBarButtonItem) {
+        
+    }
+    
     func modalDoneButtonTapped(sender: UIBarButtonItem) {
         dismissViewControllerAnimated(true, completion: nil)
     }
+}
+
+// MARK: - Tab Bar Delegate
+
+extension TabBarController: UITabBarControllerDelegate {
+    
+    /**
+        The tab bar delegate will attempt to trigger the scroll to top feature if we are viewing a tab's root view controller. Each tab bar item's root view controller is contained within a navigation controller. Thus the selected view controller will always be an instance of `UINavigationController`. We will need to access the navigation controller's `topViewController` property to determine which view is currently displayed.
+ 
+        By default, iOS implements behavior where tapping on a tab bar which is already active will pop the navigation stack to the root view controller. In `(tabBarController:, shouldSelectViewController:)` the navigation controller's top view controller contains the child view controller which was pushed onto the stack. However, in `(tabBarController:, didSelectViewController:)` the navigation controller will already be popped to the root view controller. We will need to use both these methods to keep track of when a tab AND it's navigation stack have remained unchanged for successive taps on the tab bar item before we can scroll the root view's content view to the top.
+     */
+ 
+    
+    func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
+        
+        let trackPreviousViewControllerForSuccessiveTaps = (viewController == selectedViewController)
+        if trackPreviousViewControllerForSuccessiveTaps {
+            if let navigationController = viewController as? UINavigationController,
+                let topViewController = navigationController.topViewController {
+                previousViewControllerOnSelectedTab = topViewController
+            }
+        } else {
+            previousViewControllerOnSelectedTab = nil
+        }
+        
+        return true
+    }
+    
+    func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
+        guard let previousViewController = previousViewControllerOnSelectedTab else { return }
+        
+        if let navigationController = viewController as? UINavigationController,
+            let topViewController = navigationController.topViewController {
+            
+            if previousViewController == topViewController,
+                let topScrollableView = topViewController as? TabBarTopScrollDelegate {
+                topScrollableView.scrollToTop()
+            }
+        }
+    }
+}
+
+
+// MARK: - Protocols
+
+/// Protocol which enables a tab bar item's root view controller to scroll to the top of the scroll view.
+protocol TabBarTopScrollDelegate: class {
+    
+    /**
+     Scrolls the content view to the top.
+     */
+    func scrollToTop()
 }

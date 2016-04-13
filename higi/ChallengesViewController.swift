@@ -376,6 +376,13 @@ class ChallengesViewController: UIViewController, UIGestureRecognizerDelegate, U
     }
 }
 
+extension ChallengesViewController: TabBarTopScrollDelegate {
+    
+    func scrollToTop() {
+        scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
+    }
+}
+
 extension ChallengesViewController: UniversalLinkHandler {
     
     func handleUniversalLink(URL: NSURL, pathType: PathType, parameters: [String]?) {

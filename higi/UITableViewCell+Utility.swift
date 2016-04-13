@@ -7,7 +7,7 @@
 //
 
 // MARK: - Convenience methods
-// [Type safety for stringly-typed](http://techblog.thescore.com/2016/04/04/typed-uitableview-uicollectionview-dequeuing-in-swift/)
+// [Type safety for stringly-typed](http://techblog.thescore.com/2016/04/04/typed-uitableview-uicollectionview-dequeuing-in-swift/ )
 
 extension UITableViewCell {
     

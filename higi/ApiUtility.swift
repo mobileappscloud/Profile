@@ -25,10 +25,6 @@ class ApiUtility {
         return "devicesLoaded";
     }
     
-    class var PULSE: String {
-        return "pulseArticlesLoaded";
-    }
-    
     class var KIOSKS: String {
         return "kiosksLoaded";
     }
@@ -58,7 +54,6 @@ class ApiUtility {
         ApiUtility.retrieveActivities(nil);
         ApiUtility.retrieveChallenges(nil);
         ApiUtility.retrieveDevices(nil);
-        ApiUtility.grabNextPulseArticles(nil);
     }
     
     class func retrieveCheckins(success: (() -> Void)?) {
@@ -67,7 +62,6 @@ class ApiUtility {
             return
         }
         
-        grabNextPulseArticles(nil);
         HigiApi().sendGet( "\(HigiApi.higiApiUrl)/data/user/\(userId)/checkIn", success:
             { operation, responseObject in
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
@@ -402,144 +396,9 @@ class ApiUtility {
         
         return kiosks
     }
-
-    /*
-    class func updateHealthKit() {
-        if (UIDevice.currentDevice().systemVersion >= "8.0" && HKHealthStore.isHealthDataAvailable()) {
-            if (SessionController.Instance.healthStore == nil) {
-                SessionController.Instance.healthStore = HKHealthStore();
-            }
-            var healthStore = SessionController.Instance.healthStore;
-            healthStore.requestAuthorizationToShareTypes((ApiUtility.dataTypesToWrite() as! Set<HKSampleType>), readTypes: (ApiUtility.dataTypesToRead() as! Set<HKObjectType>), completion: { success, error in
-                if (success) {
-                    dispatch_async(dispatch_get_main_queue(), {
-                        
-                        var startDate = NSDate.distantPast();
-                        
-                        healthStore.executeQuery(HKSampleQuery(sampleType: HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBodyMass)!, predicate: HKQuery.predicateForObjectsFromSource(HKSource.defaultSource()), limit: Int(HKObjectQueryNoLimit), sortDescriptors: nil, resultsHandler: {query, results, error in
-                            
-                            if (results != nil && (results as! [HKSample]).count > 0) {
-                                var dataResults: [HKSample] = results as! [HKSample];
-                                startDate = dataResults.last!.startDate;
-                            }
-                            
-                            healthStore.executeQuery(HKSampleQuery(sampleType: HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate)!, predicate: HKQuery.predicateForObjectsFromSource(HKSource.defaultSource()), limit: Int(HKObjectQueryNoLimit), sortDescriptors: nil, resultsHandler: {query, results, error in
-                                
-                                if (results != nil && (results as! [HKSample]).count > 0) {
-                                    var dataResults: [HKSample] = results as! [HKSample];
-                                    if (startDate.compare(dataResults.last!.startDate) == .OrderedAscending) {
-                                        startDate = dataResults.last!.startDate;
-                                    }
-                                }
-                                
-                                healthStore.executeQuery(HKSampleQuery(sampleType: HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBodyMassIndex), predicate: HKQuery.predicateForObjectsFromSource(HKSource.defaultSource()), limit: Int(HKObjectQueryNoLimit), sortDescriptors: nil, resultsHandler: {query, results, error in
-                                    
-                                    if (results != nil && (results as! [HKSample]).count > 0) {
-                                        var dataResults: [HKSample] = results as! [HKSample];
-                                        if (startDate.compare(dataResults.last!.startDate) == .OrderedAscending) {
-                                            startDate = dataResults.last!.startDate;
-                                        }
-                                    }
-                                    
-                                    healthStore.executeQuery(HKSampleQuery(sampleType: HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBloodPressureSystolic), predicate: HKQuery.predicateForObjectsFromSource(HKSource.defaultSource()), limit: Int(HKObjectQueryNoLimit), sortDescriptors: nil, resultsHandler: {query, results, error in
-                                        
-                                        if (results != nil && (results as! [HKSample]).count > 0) {
-                                            var dataResults: [HKSample] = results as! [HKSample];
-                                            if (startDate.compare(dataResults.last!.startDate) == .OrderedAscending) {
-                                                startDate = dataResults.last!.startDate;
-                                            }
-                                        }
-                                        
-                                        ApiUtility.saveData(startDate);
-                                        
-                                    }));
-                                    
-                                    
-                                }));
-                                
-                                
-                            }));
-                            
-                        }));
-                        
-                        
-                    });
-                }
-            });
-        }
-    }
-    */
-    
-//    class func saveData(startDate: NSDate) {
-//        
-//        var bpSamples: [HKSample] = [];
-//        var pulseSamples: [HKSample] = [];
-//        var bmiSamples: [HKSample] = [];
-//        var weightSamples: [HKSample] = [];
-//        
-//        for checkin: HigiCheckin in SessionController.Instance.checkins {
-//            if (checkin.dateTime.compare(startDate) != .OrderedDescending) {
-//                continue;
-//            }
-//            if (checkin.systolic != nil) {
-//                let systolic = HKQuantitySample(type: HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBloodPressureSystolic)!, quantity: HKQuantity(unit: HKUnit.millimeterOfMercuryUnit(), doubleValue: Double(checkin.systolic!)), startDate: checkin.dateTime, endDate: checkin.dateTime);
-//                let diastolic = HKQuantitySample(type: HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBloodPressureDiastolic)!, quantity: HKQuantity(unit: HKUnit.millimeterOfMercuryUnit(), doubleValue: Double(checkin.diastolic!)), startDate: checkin.dateTime, endDate: checkin.dateTime);
-//                let bpSet = NSSet(objects: systolic, diastolic);
-//                bpSamples.append(HKCorrelation(type: HKObjectType.correlationTypeForIdentifier(HKCorrelationTypeIdentifierBloodPressure)!,
-//                    startDate: checkin.dateTime, endDate: checkin.dateTime, objects: bpSet as! Set<HKSample>));
-//                pulseSamples.append(HKQuantitySample(type: HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate)!, quantity: HKQuantity(unit: HKUnit.countUnit().unitDividedByUnit(HKUnit.minuteUnit()), doubleValue: Double(checkin.pulseBpm!)), startDate: checkin.dateTime, endDate: checkin.dateTime));
-//            }
-//            
-//            if (checkin.bmi != nil) {
-//                weightSamples.append(HKQuantitySample(type: HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBodyMass)!, quantity: HKQuantity(unit: HKUnit.poundUnit(), doubleValue: checkin.weightLbs!), startDate: checkin.dateTime, endDate: checkin.dateTime));
-//                bmiSamples.append(HKQuantitySample(type: HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBodyMassIndex)!, quantity: HKQuantity(unit: HKUnit(fromString: ""), doubleValue: checkin.bmi!), startDate: checkin.dateTime, endDate: checkin.dateTime));
-//            }
-//        }
-//        
-//        let healthStore = SessionController.Instance.healthStore;
-//        healthStore.saveObjects(bpSamples, withCompletion: {(completed, error) in });
-//        healthStore.saveObjects(pulseSamples, withCompletion: {(completed, error) in });
-//        healthStore.saveObjects(weightSamples, withCompletion: {(completed, error) in });
-//        healthStore.saveObjects(bmiSamples, withCompletion: {(completed, error) in });
-//    }
-    
-//    class func dataTypesToWrite() -> NSSet {
-//        return NSSet(array: [
-//            HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBloodPressureSystolic),
-//            HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBloodPressureDiastolic),
-//            HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierHeartRate),
-//            HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBodyMassIndex),
-//            HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierBodyMass)]);
-//    }
     
     class func dataTypesToRead() -> NSSet {
         return NSSet(array: []);
-    }
-    
-    class func grabNextPulseArticles(callback: (() -> Void)?) {
-        let paged = Int(SessionController.Instance.pulseArticles.count / 15) + 1;
-        let url = "\(HigiApi.webUrl)/pulse/?feed=json&posts_per_rss=15&paged=\(paged)";
-        HigiApi().sendGet(url, success: { operation, responseObject in
-            
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                let serverArticles = (responseObject as! NSDictionary)["posts"] as! NSArray;
-                var articles: [PulseArticle] = [];
-                for articleData: AnyObject in serverArticles {
-                    articles.append(PulseArticle(dictionary: articleData as! NSDictionary));
-                }
-                
-                SessionController.Instance.pulseArticles += articles;
-                dispatch_async(dispatch_get_main_queue(), {
-                    NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.PULSE, object: nil, userInfo: ["success": true]);
-                    callback?();
-                });
-            });
-            
-            }, failure: {operation, error in
-                NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.PULSE, object: nil, userInfo: ["success": false]);
-                callback?();
-                
-        });
     }
 }
 

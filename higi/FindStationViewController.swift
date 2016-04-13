@@ -114,13 +114,16 @@ class FindStationViewController: UIViewController, GMSMapViewDelegate, UITableVi
     
     /// Height of navigation bar and status bar in portrait orientation
     private let topBarHeight: CGFloat = 64.0
-    /// Height of tab bar in portrait orientation
-    private let bottomBarHeight: CGFloat = 49.0
+
     /// Height of kiosk info header contained within the selectedKioskPane plus vertical spacing
     private let kioskInfoHeight: CGFloat = 70.0 + 6.0
     private let selectedPaneHeight: CGFloat = 323.0
     
     private var myLocationContainerBottomConstraint: NSLayoutConstraint!
+    
+    lazy private var dismissBarButtonItem: UIBarButtonItem = {
+        return UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(didTapDoneButton(_:)))
+    }()
     
     override func viewDidLoad()  {
         super.viewDidLoad();
@@ -131,6 +134,7 @@ class FindStationViewController: UIViewController, GMSMapViewDelegate, UITableVi
         let listBarItem = UIBarButtonItem();
         listBarItem.customView = listButton;
         self.navigationItem.leftBarButtonItem = listBarItem;
+        self.navigationItem.rightBarButtonItem = dismissBarButtonItem
         
         searchField = UITextField(frame: CGRect(x: 0, y: 0, width: 95, height: 40));
         searchField.textColor = Theme.Color.Primary.white
@@ -201,8 +205,8 @@ class FindStationViewController: UIViewController, GMSMapViewDelegate, UITableVi
         
         autoCompleteTable.tableFooterView = UIView(frame: CGRectZero);
         visibleKiosksTable.tableFooterView = UIView(frame: CGRectZero);
-        autoCompleteTable.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: bottomBarHeight, right: 0)
-        visibleKiosksTable.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: bottomBarHeight, right: 0)
+        autoCompleteTable.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        visibleKiosksTable.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         
         setupMap();
         
@@ -258,14 +262,14 @@ class FindStationViewController: UIViewController, GMSMapViewDelegate, UITableVi
 
         myLocationContainer().translatesAutoresizingMaskIntoConstraints = false
         
-        mapView.addConstraint(NSLayoutConstraint(item: myLocationContainer(), attribute: .Height, relatedBy: .Equal, toItem: .None, attribute: .NotAnAttribute, multiplier: 1.0, constant: (bottomBarHeight + 7.0)))
+        mapView.addConstraint(NSLayoutConstraint(item: myLocationContainer(), attribute: .Height, relatedBy: .Equal, toItem: .None, attribute: .NotAnAttribute, multiplier: 1.0, constant: 56.0))
         
         mapView.addConstraint(NSLayoutConstraint(item: myLocationContainer(), attribute: .Width, relatedBy: .Equal, toItem: mapView, attribute: .Width, multiplier: 1.0, constant: 0.0))
         
         mapView.addConstraint(NSLayoutConstraint(item: myLocationContainer(), attribute: .Trailing, relatedBy: .Equal, toItem: mapView, attribute: .Trailing, multiplier: 1.0, constant: 0.0))
         
         
-        myLocationContainerBottomConstraint = NSLayoutConstraint(item: myLocationContainer(), attribute: .Bottom, relatedBy: .Equal, toItem: mapView, attribute: .Bottom, multiplier: 1.0, constant: -(bottomBarHeight + 5.0))
+        myLocationContainerBottomConstraint = NSLayoutConstraint(item: myLocationContainer(), attribute: .Bottom, relatedBy: .Equal, toItem: mapView, attribute: .Bottom, multiplier: 1.0, constant: -5.0)
         mapView.addConstraint(myLocationContainerBottomConstraint)
     }
     
@@ -474,7 +478,7 @@ class FindStationViewController: UIViewController, GMSMapViewDelegate, UITableVi
     }
     
     private func updateSelectedPanePosition(adjustMapWithDifference adjustMap: Bool = true) {
-        let offset = selectedPaneOpen ? self.view.frame.height - self.selectedPaneHeight - bottomBarHeight : self.view.frame.height - self.kioskInfoHeight - bottomBarHeight
+        let offset = selectedPaneOpen ? self.view.frame.height - self.selectedPaneHeight : self.view.frame.height - self.kioskInfoHeight
         let diff = selectedKioskPaneTopLayoutConstraint.constant - offset
         
         UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveEaseInOut, animations: {
@@ -487,14 +491,14 @@ class FindStationViewController: UIViewController, GMSMapViewDelegate, UITableVi
     }
     
     @IBAction func selectedPaneDragged(sender: UIPanGestureRecognizer) {
-        let openOffset = self.view.frame.height - self.kioskInfoHeight - bottomBarHeight
-        let closedOffset = self.view.frame.height - self.selectedPaneHeight - bottomBarHeight
+        let openOffset = self.view.frame.height - self.kioskInfoHeight
+        let closedOffset = self.view.frame.height - self.selectedPaneHeight
 
         if (sender.state == UIGestureRecognizerState.Ended) {
             if selectedPaneOpen {
-                selectedPaneOpen = selectedKioskPaneTopLayoutConstraint.constant <= self.view.frame.height - selectedPaneHeight - bottomBarHeight + (selectedPaneHeight * 0.3)
+                selectedPaneOpen = selectedKioskPaneTopLayoutConstraint.constant <= self.view.frame.height - selectedPaneHeight + (selectedPaneHeight * 0.3)
             } else {
-                selectedPaneOpen = selectedKioskPaneTopLayoutConstraint.constant <= self.view.frame.height - kioskInfoHeight - bottomBarHeight - (kioskInfoHeight * 0.3)
+                selectedPaneOpen = selectedKioskPaneTopLayoutConstraint.constant <= self.view.frame.height - kioskInfoHeight - (kioskInfoHeight * 0.3)
             }
             updateSelectedPanePosition(adjustMapWithDifference: false)
 
@@ -546,11 +550,11 @@ class FindStationViewController: UIViewController, GMSMapViewDelegate, UITableVi
         
         searchField.resignFirstResponder();
         if (selectedKioskPane.hidden) {
-            let diff = selectedPaneOpen ? self.view.frame.height - self.selectedPaneHeight - bottomBarHeight : self.view.frame.height - self.kioskInfoHeight - bottomBarHeight
+            let diff = selectedPaneOpen ? self.view.frame.height - self.selectedPaneHeight : self.view.frame.height - self.kioskInfoHeight
             self.selectedKioskPaneTopLayoutConstraint.constant = diff
             selectedKioskPane.hidden = false;
 
-            let buttonOffset = -(kioskInfoHeight + bottomBarHeight)
+            let buttonOffset = -(kioskInfoHeight)
             if myLocationContainerBottomConstraint.constant != buttonOffset {
                 myLocationContainerBottomConstraint.constant = buttonOffset
                 mapView.setNeedsLayout()
@@ -706,6 +710,13 @@ class FindStationViewController: UIViewController, GMSMapViewDelegate, UITableVi
     }
 }
 
+extension FindStationViewController {
+    
+    func didTapDoneButton(sender: UIBarButtonItem) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+}
+
 extension FindStationViewController: UniversalLinkHandler {
     
     func handleUniversalLink(URL: NSURL, pathType: PathType, parameters: [String]?) {
@@ -715,26 +726,28 @@ extension FindStationViewController: UniversalLinkHandler {
             let loadingViewController = self.presentLoadingViewController()
             
             self.universalLinkObserver = NSNotificationCenter.defaultCenter().addObserverForName(ApiUtility.KIOSKS, object: nil, queue: nil, usingBlock: { (notification) in
-                self.navigateToStationLocator(loadingViewController)
+                FindStationViewController.navigateToStationLocator(loadingViewController)
                 if let observer = self.universalLinkObserver {
                     NSNotificationCenter.defaultCenter().removeObserver(observer)
                 }
             })
         } else {
-            self.navigateToStationLocator(nil)
+            FindStationViewController.navigateToStationLocator(nil)
         }
     }
     
-    private func navigateToStationLocator(presentedViewController: UIViewController?) {
+    class func navigateToStationLocator(presentedViewController: UIViewController?) {
         guard let mainTabBarController = Utility.mainTabBarController() else { return }
         
+        let findStation = FindStationViewController(nibName: "FindStationView", bundle: nil)
+        let findStationNav = UINavigationController(rootViewController: findStation)
         dispatch_async(dispatch_get_main_queue(), {
             InterfaceOrientation.force(.Portrait)
             
             presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
             
             mainTabBarController.presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
-            mainTabBarController.selectedIndex = TabBarController.ViewControllerIndex.FindStation.rawValue
+            mainTabBarController.presentViewController(findStationNav, animated: true, completion: nil)
         })
     }
 }

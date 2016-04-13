@@ -18,8 +18,6 @@ enum PathType: String {
     case ChallengeDetailSubPath = "/challenge/view/id/%@/*]"
     case ConnectDevice = "/settings/apps"
     case DailySummary = "/profile/checkin/%@"
-    case PulseArticle = "/pulse/*]"
-    case PulseHome = "/pulse"
     case Metrics = "/stats"
     case MetricsBloodPressure = "/stats/blood_pressure"
     case MetricsPulse = "/stats/pulse"
@@ -32,7 +30,7 @@ enum PathType: String {
     // Token specifying that all trailing characters can be ignored
     private static let trailingToken = "*]"
     
-    private static let tokenizedPaths: [PathType] = [.ChallengeDetail, .ChallengeDetailSubPath, .PulseArticle, .DailySummary]
+    private static let tokenizedPaths: [PathType] = [.ChallengeDetail, .ChallengeDetailSubPath, .DailySummary]
     
     private static func handler(forPathType pathType: PathType) -> UniversalLinkHandler? {
         var handler: UniversalLinkHandler? = nil
@@ -47,11 +45,6 @@ enum PathType: String {
             
         case .StationLocator:
             handler = FindStationViewController()
-            
-        case .PulseHome:
-            fallthrough
-        case .PulseArticle:
-            handler = PulseHomeViewController()
             
         case .MetricsBloodPressure:
             fallthrough

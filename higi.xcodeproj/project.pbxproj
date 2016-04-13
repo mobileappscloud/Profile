@@ -94,7 +94,6 @@
 		413E19981C11650C00146B29 /* TextCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413E19961C11650C00146B29 /* TextCollectionViewCell.swift */; };
 		413E19991C11650C00146B29 /* TextCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 413E19971C11650C00146B29 /* TextCollectionViewCell.xib */; };
 		413E199B1C1167A500146B29 /* NewMetricsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413E199A1C1167A500146B29 /* NewMetricsViewController.swift */; };
-		413F68AB1CB44E3B003D9571 /* Reveal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 413F68AA1CB44E3B003D9571 /* Reveal.framework */; };
 		413F68AF1CB45250003D9571 /* Theme+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413F68AE1CB45250003D9571 /* Theme+Color.swift */; };
 		413F68B11CB4525B003D9571 /* Theme+Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413F68B01CB4525B003D9571 /* Theme+Appearance.swift */; };
 		413F68B61CB46A5C003D9571 /* CommunityListingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 413F68B51CB46A5C003D9571 /* CommunityListingTableViewCell.xib */; };
@@ -267,12 +266,8 @@
 		8FDB4B661A096ECF00F57B38 /* HigiActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDB4B651A096ECF00F57B38 /* HigiActivity.swift */; };
 		8FDB4B681A09731B00F57B38 /* ActivityDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDB4B671A09731B00F57B38 /* ActivityDevice.swift */; };
 		8FDB4B6A1A09741400F57B38 /* ChallengeWinCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDB4B691A09741400F57B38 /* ChallengeWinCondition.swift */; };
-		8FE056DF198FDBDC00C81208 /* PulseHomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FE056DE198FDBDC00C81208 /* PulseHomeView.xib */; };
-		8FE056E1198FDBFE00C81208 /* PulseHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE056E0198FDBFE00C81208 /* PulseHomeViewController.swift */; };
 		8FE056E7198FDC9800C81208 /* FindStationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FE056E6198FDC9800C81208 /* FindStationView.xib */; };
 		8FE056E9198FDCA600C81208 /* FindStationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE056E8198FDCA600C81208 /* FindStationViewController.swift */; };
-		8FE0BCCE199175BC00940D39 /* PulseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE0BCCD199175BC00940D39 /* PulseCell.swift */; };
-		8FE0BCD0199175C800940D39 /* PulseCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FE0BCCF199175C800940D39 /* PulseCellView.xib */; };
 		8FE206621B7CF30E00B473B0 /* LocationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE206611B7CF30E00B473B0 /* LocationDelegate.swift */; };
 		8FEF1B031AA4E8C60036C4FB /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FEF1B021AA4E8C60036C4FB /* LocalAuthentication.framework */; };
 		8FEF1B051AA9173D0036C4FB /* ChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FEF1B041AA9173D0036C4FB /* ChallengeView.swift */; };
@@ -678,12 +673,8 @@
 		8FDB4B651A096ECF00F57B38 /* HigiActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HigiActivity.swift; sourceTree = "<group>"; };
 		8FDB4B671A09731B00F57B38 /* ActivityDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityDevice.swift; sourceTree = "<group>"; };
 		8FDB4B691A09741400F57B38 /* ChallengeWinCondition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeWinCondition.swift; sourceTree = "<group>"; };
-		8FE056DE198FDBDC00C81208 /* PulseHomeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PulseHomeView.xib; sourceTree = "<group>"; };
-		8FE056E0198FDBFE00C81208 /* PulseHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PulseHomeViewController.swift; sourceTree = "<group>"; };
 		8FE056E6198FDC9800C81208 /* FindStationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FindStationView.xib; sourceTree = "<group>"; };
 		8FE056E8198FDCA600C81208 /* FindStationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindStationViewController.swift; sourceTree = "<group>"; };
-		8FE0BCCD199175BC00940D39 /* PulseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PulseCell.swift; sourceTree = "<group>"; };
-		8FE0BCCF199175C800940D39 /* PulseCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PulseCellView.xib; sourceTree = "<group>"; };
 		8FE206611B7CF30E00B473B0 /* LocationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationDelegate.swift; sourceTree = "<group>"; };
 		8FEF1B021AA4E8C60036C4FB /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		8FEF1B041AA9173D0036C4FB /* ChallengeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeView.swift; sourceTree = "<group>"; };
@@ -1217,7 +1208,6 @@
 				418D4C261C7A2079008C86E7 /* Miscellaneous */,
 				418D4C281C7A2148008C86E7 /* Notification Settings */,
 				418D4C291C7A21AB008C86E7 /* Onboarding */,
-				418D4C2A1C7A21C3008C86E7 /* Pulse */,
 				418D4C2B1C7A21D2008C86E7 /* QR Scanner */,
 				41D8717A1C7A56C5002DCDA0 /* Reusable Views */,
 				418D4C2C1C7A21E6008C86E7 /* Security */,
@@ -1367,15 +1357,6 @@
 				8FF9409D198A8CB600D319D7 /* SignupNameView.xib */,
 			);
 			name = Onboarding;
-			sourceTree = "<group>";
-		};
-		418D4C2A1C7A21C3008C86E7 /* Pulse */ = {
-			isa = PBXGroup;
-			children = (
-				8FE0BCCF199175C800940D39 /* PulseCellView.xib */,
-				8FE056DE198FDBDC00C81208 /* PulseHomeView.xib */,
-			);
-			name = Pulse;
 			sourceTree = "<group>";
 		};
 		418D4C2B1C7A21D2008C86E7 /* QR Scanner */ = {
@@ -1845,7 +1826,6 @@
 				8F2B7E33198AD8F0009DE89A /* Miscellaneous */,
 				41545BFA1BA76D0700946358 /* Notification Settings */,
 				8FF94096198A8BCC00D319D7 /* Onboarding */,
-				8FE056DD198FDBB200C81208 /* Pulse */,
 				D105CB5B1B7E9AE500971AB0 /* QR Scanner */,
 				8F5E7FBB1999659C009067E5 /* Security */,
 				8FE056DC198FDBA600C81208 /* Settings */,
@@ -2012,15 +1992,6 @@
 				41376C5A1BB452E40094DE7C /* SettingsTableViewController.swift */,
 			);
 			name = Settings;
-			sourceTree = "<group>";
-		};
-		8FE056DD198FDBB200C81208 /* Pulse */ = {
-			isa = PBXGroup;
-			children = (
-				8FE0BCCD199175BC00940D39 /* PulseCell.swift */,
-				8FE056E0198FDBFE00C81208 /* PulseHomeViewController.swift */,
-			);
-			name = Pulse;
 			sourceTree = "<group>";
 		};
 		8FF851C4194F7F08005C33C6 /* Network */ = {
@@ -2299,7 +2270,6 @@
 				413E19391C10B50300146B29 /* higi.entitlements in Resources */,
 				8F1D979C1995554C003B5645 /* ModifyImageView.xib in Resources */,
 				D12780AE1A4A2701002EB56A /* fontawesome-webfont.ttf in Resources */,
-				8FE0BCD0199175C800940D39 /* PulseCellView.xib in Resources */,
 				41CAB9B41BC411A00000772C /* Localizable.strings in Resources */,
 				2BBDBA571A12AC2C005A6815 /* CompetitiveChallengeView.xib in Resources */,
 				8FA5925D19ABBCEC00622266 /* TourView.xib in Resources */,
@@ -2311,7 +2281,6 @@
 				41545BF91BA76CFA00946358 /* NotificationSettings.storyboard in Resources */,
 				411F79751CBB44F9000D0D64 /* ActivityIndicatorTableViewCell.xib in Resources */,
 				D18395C11A69BC9E00D290BF /* ChallengeDetailsTab.xib in Resources */,
-				8FE056DF198FDBDC00C81208 /* PulseHomeView.xib in Resources */,
 				4101EED81CB8972D0010DCCA /* communities-collection.json in Resources */,
 				8FDA6DA119A2978B00244D5F /* ChangePasswordView.xib in Resources */,
 				41D871881C7CBFBB002DCDA0 /* Host.storyboard in Resources */,
@@ -2502,7 +2471,6 @@
 				D1FC729B1B20B22B0068CF89 /* BpMetricDelegate.swift in Sources */,
 				41643AB01C1891D800258F55 /* MetricTableViewCell.swift in Sources */,
 				413CEE3F1C87BF0E00F241F7 /* UIAppearance+Swift.m in Sources */,
-				8FE0BCCE199175BC00940D39 /* PulseCell.swift in Sources */,
 				D114B06B1B2A19900073A9CB /* TriangleView.swift in Sources */,
 				411F797C1CBC3ED2000D0D64 /* PagingRequest.swift in Sources */,
 				413F69181CB718C3003D9571 /* NSCharacterSet+Utility.swift in Sources */,
@@ -2538,7 +2506,6 @@
 				8FF873F419DF5394002A6341 /* PullRefresh.swift in Sources */,
 				8FEF6F461A6EECD5001EF8A6 /* ChallengesCard.swift in Sources */,
 				413E19251C10AB2C00146B29 /* UniversalLink.swift in Sources */,
-				8FE056E1198FDBFE00C81208 /* PulseHomeViewController.swift in Sources */,
 				411F79791CBC05E2000D0D64 /* CommunitiesTableUtility.swift in Sources */,
 				41643AAE1C188D4800258F55 /* MetricDataLabelView.swift in Sources */,
 				41A0BE0C1BBB088500A314D6 /* AFHTTPRequestOperationManager.m in Sources */,
