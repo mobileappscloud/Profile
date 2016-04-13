@@ -75,7 +75,7 @@ final class DashboardViewController: UIViewController {
         
         initCards();
         
-        blankViewController.view.backgroundColor = UIColor.blackColor()
+        blankViewController.view.backgroundColor = Theme.Color.Primary.whiteGray
         self.view.addSubview(blankViewController.view, pinToEdges: true)
     }
     

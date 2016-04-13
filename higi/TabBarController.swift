@@ -64,6 +64,8 @@ final class TabBarController: UITabBarController {
     }()
     lazy private(set) var rewardsViewController: UIViewController = {
         let rewardsViewController = UIViewController()
+        rewardsViewController.view.backgroundColor = Theme.Color.Primary.whiteGray
+        rewardsViewController.title = "Rewards"
         rewardsViewController.navigationItem.rightBarButtonItems = [self.navigationOverflowBarButtonItem(), self.profileBarButtonItem()]
         return rewardsViewController
     }()
