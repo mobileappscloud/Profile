@@ -26,6 +26,15 @@ final class CommunitiesExpandedViewController: UIViewController {
     var controller: CommunitiesController!
 }
 
+extension CommunitiesExpandedViewController {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        fetchNextCommunities()
+    }
+}
+
 // MARK: -
 
 extension CommunitiesExpandedViewController {

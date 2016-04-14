@@ -32,13 +32,13 @@ final class CommunityListingTableViewCell: UITableViewCell {
             if accessoryButtonHandler == nil {
                 accessoryButton.removeFromSuperview()
             } else {
-                let container = self.listingView.bannerContainer
+                let container = self.listingView.bannerContainer.accessoryContainer
                 container.addSubview(accessoryButton)
                 accessoryButton.translatesAutoresizingMaskIntoConstraints = false
                 let height = NSLayoutConstraint(item: accessoryButton, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 25.0)
                 let width = NSLayoutConstraint(item: accessoryButton, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 90.0)
-                let trailing = NSLayoutConstraint(item: accessoryButton, attribute: .Trailing, relatedBy: .Equal, toItem: container, attribute: .TrailingMargin, multiplier: 1.0, constant: 0.0)
-                let bottom = NSLayoutConstraint(item: accessoryButton, attribute: .Bottom, relatedBy: .Equal, toItem: container, attribute: .BottomMargin, multiplier: 1.0, constant: 0.0)
+                let trailing = NSLayoutConstraint(item: accessoryButton, attribute: .Trailing, relatedBy: .Equal, toItem: container, attribute: .Trailing, multiplier: 1.0, constant: 0.0)
+                let bottom = NSLayoutConstraint(item: accessoryButton, attribute: .Bottom, relatedBy: .Equal, toItem: container, attribute: .Bottom, multiplier: 1.0, constant: 0.0)
                 container.addConstraints([height, width, trailing, bottom])
             }
         }

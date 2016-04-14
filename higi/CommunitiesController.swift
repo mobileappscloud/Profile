@@ -6,27 +6,12 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-import Foundation
-
-protocol CommunityCollectionStorage {
+final class CommunitiesController {
     
-    var communities: [Community] { get }
-}
-
-protocol CommunitiesNetworkRequest {
+    // MARK: Properties
     
-    var session: NSURLSession { get }
-    
-    var paging: Paging? { get }
-    
-    func fetch(success: () -> Void, failure: (error: NSError?) -> Void)
-    
-    func fetchNext(success: () -> Void, failure: (error: NSError?) -> Void)
-}
-
-protocol CommunitiesController: CommunityCollectionStorage, CommunitiesNetworkRequest {}
-
-final class JoinedCommunitiesController: CommunitiesController {
+    typealias Filter = CommunityCollectionRequest.Filter
+    let filter: Filter
 
     private(set) var communitiesSet: Set<Community> = []
     private(set) var communities: [Community] = []
@@ -40,12 +25,21 @@ final class JoinedCommunitiesController: CommunitiesController {
     var fetchTask: NSURLSessionDataTask?
     var nextPagingTask: NSURLSessionDataTask?
     
+    
+    // MARK: Init
+    
+    required init(filter: Filter) {
+        self.filter = filter
+    }
+    
     deinit {
         session.invalidateAndCancel()
     }
 }
 
-extension JoinedCommunitiesController {
+// MARK: - Network Request
+
+extension CommunitiesController {
     
     func fetch(success: () -> Void, failure: (error: NSError?) -> Void) {
 //        guard let request = CommunityCollectionRequest.request(.Joined) else {
@@ -96,7 +90,6 @@ extension JoinedCommunitiesController {
     
     func fetchNext(success: () -> Void, failure: (error: NSError?) -> Void) {
         if let nextPagingTask = nextPagingTask where nextPagingTask.state == .Running {
-            success()
             return
         }
         guard let URL = paging?.next else {
@@ -139,6 +132,7 @@ extension JoinedCommunitiesController {
                 failure(error: error)
         })
         if let nextPagingTask = nextPagingTask {
+            print("did resume next paging task")
             nextPagingTask.resume()
         }
     }

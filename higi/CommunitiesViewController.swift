@@ -47,13 +47,13 @@ final class CommunitiesViewController: UIViewController {
         return viewController
     }()
     
-    lazy private var joinedCommunitiesController: CommunitiesController = {
-        let controller = JoinedCommunitiesController()
+    lazy private var joinedController: CommunitiesController = {
+        let controller = CommunitiesController(filter: .Joined)
         return controller
     }()
     
-    lazy private var unjoinedCommunitiesController: CommunitiesController = {
-        let controller = JoinedCommunitiesController()
+    lazy private var unjoinedController: CommunitiesController = {
+        let controller = CommunitiesController(filter: .Unjoined)
         return controller
     }()
     
@@ -66,8 +66,8 @@ final class CommunitiesViewController: UIViewController {
         
         view.addSubview(loadingViewController.view, pinToEdges: true)
 
-        joinedCommunitiesController.fetch(communitiesFetchSuccess, failure: communitiesFetchFailure)
-        unjoinedCommunitiesController.fetch(communitiesFetchSuccess, failure: communitiesFetchFailure)
+        joinedController.fetch(communitiesFetchSuccess, failure: communitiesFetchFailure)
+        unjoinedController.fetch(communitiesFetchSuccess, failure: communitiesFetchFailure)
     }
 }
 
@@ -163,10 +163,10 @@ extension CommunitiesViewController: UITableViewDataSource {
         
         switch sectionType {
         case .YourCommunities:
-            let communityCount = min(joinedCommunitiesController.communities.count, sectionType.maxCommunityCount())
+            let communityCount = min(joinedController.communities.count, sectionType.maxCommunityCount())
             rowCount = communityCount * CommunitiesRowType.Count.rawValue
         case .MoreCommunities:
-            let communityCount = min(unjoinedCommunitiesController.communities.count, sectionType.maxCommunityCount())
+            let communityCount = min(unjoinedController.communities.count, sectionType.maxCommunityCount())
             rowCount = communityCount * CommunitiesRowType.Count.rawValue
         case .Count:
             break
@@ -273,22 +273,7 @@ extension CommunitiesViewController: UITableViewDelegate {
         switch sectionType {
             
         case .YourCommunities:
-            let rowType = CommunitiesRowType(indexPath: indexPath)
-            switch rowType {
-            case .Content:
-                rowHeight = rowType.defaultHeight()
-            case .Separator:
-                let isMaxRow = (indexPath.row / CommunitiesRowType.Count.rawValue) == sectionType.maxRowIndex()
-                rowHeight =  isMaxRow ? 0.0 : rowType.defaultHeight()
-            case .ViewAdditional:
-                let showAdditional = joinedCommunitiesController.communities.count > sectionType.maxCommunityCount()
-                let isMaxRow = (indexPath.row / CommunitiesRowType.Count.rawValue) == sectionType.maxRowIndex()
-                rowHeight = (showAdditional && isMaxRow) ? rowType.defaultHeight() : 0.0
-                
-            case .Count:
-                break
-            }
-            
+                fallthrough
         case .MoreCommunities:
             let rowType = CommunitiesRowType(indexPath: indexPath)
             switch rowType {
@@ -298,7 +283,8 @@ extension CommunitiesViewController: UITableViewDelegate {
                 let isMaxRow = (indexPath.row / CommunitiesRowType.Count.rawValue) == sectionType.maxRowIndex()
                 rowHeight =  isMaxRow ? 0.0 : rowType.defaultHeight()
             case .ViewAdditional:
-                let showAdditional = unjoinedCommunitiesController.communities.count > sectionType.maxCommunityCount()
+                let controller = (sectionType == .YourCommunities) ? joinedController : unjoinedController
+                let showAdditional = controller.communities.count > sectionType.maxCommunityCount()
                 let isMaxRow = (indexPath.row / CommunitiesRowType.Count.rawValue) == sectionType.maxRowIndex()
                 rowHeight = (showAdditional && isMaxRow) ? rowType.defaultHeight() : 0.0
                 
@@ -333,13 +319,13 @@ extension CommunitiesViewController {
     
     private func joinedCell(forIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let index = indexPath.row / CommunitiesRowType.Count.rawValue
-        let community = joinedCommunitiesController.communities[index]
+        let community = joinedController.communities[index]
         return CommunitiesTableUtility.cell(tableView, community: community, indexPath: indexPath)
     }
     
     private func unjoinedCell(forIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let index = indexPath.row / CommunitiesRowType.Count.rawValue
-        let community = unjoinedCommunitiesController.communities[index]
+        let community = unjoinedController.communities[index]
         return CommunitiesTableUtility.cell(tableView, community: community, indexPath: indexPath)
     }
     
@@ -376,10 +362,10 @@ extension CommunitiesViewController {
             let controller: CommunitiesController
             if sectionType == .YourCommunities {
                 title = NSLocalizedString("COMMUNITIES_EXPANDED_LIST_TITLE_YOUR_COMMUNITIES", comment: "Title for expanded list view of your communities.")
-                controller = joinedCommunitiesController
+                controller = joinedController
             } else {
                 title = NSLocalizedString("COMMUNITIES_EXPANDED_LIST_TITLE_MORE_COMMUNITIES", comment: "Title for expanded list view of more communities.")
-                controller = unjoinedCommunitiesController
+                controller = unjoinedController
             }
             
             viewController.title = title
