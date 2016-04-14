@@ -10,13 +10,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CommunityListingView" customModule="higi" customModuleProvider="target">
             <connections>
-                <outlet property="headerContainer" destination="V65-Cn-vLv" id="d4s-0X-i3W"/>
-                <outlet property="headerImageView" destination="XAU-6h-a9a" id="9je-n7-bQn"/>
+                <outlet property="bannerContainer" destination="V65-Cn-vLv" id="u9V-Jc-LRf"/>
                 <outlet property="interactiveContainer" destination="ooO-Tg-V1j" id="sli-8D-4Cn"/>
-                <outlet property="logoContainerView" destination="26o-A2-XVE" id="FvN-p1-PNP"/>
-                <outlet property="logoImageView" destination="kk0-l9-LHP" id="Bsi-l1-KZh"/>
-                <outlet property="logoMemberContainer" destination="XDF-hX-5h5" id="H9O-2d-nXk"/>
-                <outlet property="membersLabel" destination="fx2-2I-L6C" id="YtU-Ml-WUt"/>
+                <outlet property="logoMemberContainer" destination="XDF-hX-5h5" id="kfK-oE-lUw"/>
                 <outlet property="titleLabel" destination="7Bm-ht-eaM" id="hXO-Gw-dca"/>
                 <outlet property="view" destination="iN0-l3-epB" id="mAj-cE-DOS"/>
             </connections>
@@ -26,28 +22,10 @@
             <rect key="frame" x="0.0" y="0.0" width="345" height="211"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V65-Cn-vLv" userLabel="Header Container">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V65-Cn-vLv" userLabel="Banner View" customClass="CommunityBannerView" customModule="higi" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="345" height="150"/>
-                    <subviews>
-                        <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XAU-6h-a9a" userLabel="Header Image View">
-                            <rect key="frame" x="0.0" y="0.0" width="345" height="150"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <constraints>
-                                <constraint firstAttribute="width" secondItem="XAU-6h-a9a" secondAttribute="height" multiplier="23:10" id="jjc-1o-Y9W"/>
-                            </constraints>
-                            <variation key="default">
-                                <mask key="constraints">
-                                    <exclude reference="jjc-1o-Y9W"/>
-                                </mask>
-                            </variation>
-                        </imageView>
-                    </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="bottom" secondItem="XAU-6h-a9a" secondAttribute="bottom" id="5Yp-zc-wz3"/>
-                        <constraint firstAttribute="trailing" secondItem="XAU-6h-a9a" secondAttribute="trailing" id="OKK-IT-Mrv"/>
-                        <constraint firstItem="XAU-6h-a9a" firstAttribute="leading" secondItem="V65-Cn-vLv" secondAttribute="leading" id="W13-Tm-skh"/>
-                        <constraint firstItem="XAU-6h-a9a" firstAttribute="top" secondItem="V65-Cn-vLv" secondAttribute="top" id="e4D-2d-tuH"/>
                         <constraint firstAttribute="width" secondItem="V65-Cn-vLv" secondAttribute="height" multiplier="23:10" id="qFm-jv-UHr"/>
                     </constraints>
                 </view>
@@ -67,46 +45,12 @@
                         <constraint firstAttribute="trailing" secondItem="7Bm-ht-eaM" secondAttribute="trailing" constant="8" id="B0H-iC-fda"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XDF-hX-5h5" userLabel="Logo-Member Container">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XDF-hX-5h5" userLabel="Logo-Member Container" customClass="CommunityLogoMemberView" customModule="higi" customModuleProvider="target">
                     <rect key="frame" x="10" y="116" width="67" height="83"/>
-                    <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="26o-A2-XVE" userLabel="Logo Container">
-                            <rect key="frame" x="0.0" y="0.0" width="67" height="67"/>
-                            <subviews>
-                                <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kk0-l9-LHP" userLabel="Logo Image View">
-                                    <rect key="frame" x="2" y="2" width="63" height="63"/>
-                                    <color key="backgroundColor" red="0.94509804248809814" green="0.94509804248809814" blue="0.94509804248809814" alpha="1" colorSpace="calibratedRGB"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="63" id="8Pr-S8-iS7"/>
-                                        <constraint firstAttribute="width" constant="63" id="aCQ-FA-OF0"/>
-                                    </constraints>
-                                </imageView>
-                            </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <constraints>
-                                <constraint firstItem="kk0-l9-LHP" firstAttribute="centerY" secondItem="26o-A2-XVE" secondAttribute="centerY" id="VFO-VS-k7g"/>
-                                <constraint firstAttribute="height" constant="67" id="nsz-eo-Tox"/>
-                                <constraint firstItem="kk0-l9-LHP" firstAttribute="centerX" secondItem="26o-A2-XVE" secondAttribute="centerX" id="p9b-Ou-duy"/>
-                                <constraint firstAttribute="width" constant="67" id="ta5-HW-keU"/>
-                            </constraints>
-                        </view>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2.5K Members" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="fx2-2I-L6C">
-                            <rect key="frame" x="0.0" y="71" width="67" height="12"/>
-                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="10"/>
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="26o-A2-XVE" firstAttribute="top" secondItem="XDF-hX-5h5" secondAttribute="top" id="0nL-Tm-5Ij"/>
-                        <constraint firstItem="fx2-2I-L6C" firstAttribute="top" secondItem="26o-A2-XVE" secondAttribute="bottom" constant="4" id="BLw-n8-cbm"/>
-                        <constraint firstAttribute="trailing" secondItem="fx2-2I-L6C" secondAttribute="trailing" id="TXi-0u-vGf"/>
-                        <constraint firstAttribute="bottom" secondItem="fx2-2I-L6C" secondAttribute="bottom" id="b6q-tP-sHt"/>
-                        <constraint firstItem="26o-A2-XVE" firstAttribute="leading" secondItem="XDF-hX-5h5" secondAttribute="leading" id="blH-JZ-Vdj"/>
                         <constraint firstAttribute="height" constant="83" id="bns-Eo-D35"/>
                         <constraint firstAttribute="width" constant="67" id="p7K-oF-rkv"/>
-                        <constraint firstItem="fx2-2I-L6C" firstAttribute="leading" secondItem="XDF-hX-5h5" secondAttribute="leading" id="xs8-nN-SKK"/>
                     </constraints>
                 </view>
             </subviews>

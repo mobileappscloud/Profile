@@ -32,10 +32,10 @@ final class CommunityListingTableViewCell: UITableViewCell {
             if accessoryButtonHandler == nil {
                 accessoryButton.removeFromSuperview()
             } else {
-                let container = self.listingView.headerContainer
+                let container = self.listingView.bannerContainer
                 container.addSubview(accessoryButton)
                 accessoryButton.translatesAutoresizingMaskIntoConstraints = false
-                let height = NSLayoutConstraint(item: accessoryButton, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 27.0)
+                let height = NSLayoutConstraint(item: accessoryButton, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 25.0)
                 let width = NSLayoutConstraint(item: accessoryButton, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 90.0)
                 let trailing = NSLayoutConstraint(item: accessoryButton, attribute: .Trailing, relatedBy: .Equal, toItem: container, attribute: .TrailingMargin, multiplier: 1.0, constant: 0.0)
                 let bottom = NSLayoutConstraint(item: accessoryButton, attribute: .Bottom, relatedBy: .Equal, toItem: container, attribute: .BottomMargin, multiplier: 1.0, constant: 0.0)
@@ -89,8 +89,8 @@ extension CommunityListingTableViewCell {
 extension CommunityListingTableViewCell {
     
     func reset() {
-        listingView.headerImageView.image = nil
-        listingView.logoImageView.image = nil
+        listingView.bannerContainer.imageView.image = nil
+        listingView.logoMemberContainer.imageView.image = nil
         listingView.configure("", memberCount: 0)
         
         interactiveContentTapHandler = nil

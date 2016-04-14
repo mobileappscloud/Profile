@@ -16,24 +16,13 @@ final class CommunityListingView: UIView {
     
     // MARK: Header
     
-    /// Container view for header content
-    @IBOutlet var headerContainer: UIView!
-    
-    /// Image view in cell header for displaying community banner image.
-    @IBOutlet var headerImageView: UIImageView! {
-        didSet {
-            headerImageView.image = nil
-        }
-    }
+    @IBOutlet var bannerContainer: CommunityBannerView!
     
     // MARK: Content
     
     /// Container view for cell body which allows user interactivity.
-    @IBOutlet var interactiveContainer: UIView! {
-        didSet {
-//            interactiveContainer.addGestureRecognizer(containerTapGestureRecognizer)
-        }
-    }
+    @IBOutlet var interactiveContainer: UIView!
+    
     /// Label for community title.
     @IBOutlet private var titleLabel: UILabel! {
         didSet {
@@ -42,42 +31,8 @@ final class CommunityListingView: UIView {
     }
     
     // MARK: Logo/Members
-    
-    /// Container for community logo and member count.
-    @IBOutlet var logoMemberContainer: UIView!
-    /// Container view which frames the community logo.
-    @IBOutlet private var logoContainerView: UIView! {
-        didSet {
-//            logoContainerView.addGestureRecognizer(logoTapGestureRecognizer)
-        }
-    }
-    /// Image view for community logo.
-    @IBOutlet var logoImageView: UIImageView! {
-        didSet {
-            logoImageView.image = nil
-        }
-    }
-    /// Label which displays the number of members in a community.
-    @IBOutlet private var membersLabel: UILabel! {
-        didSet {
-            membersLabel.text = nil
-            membersLabel.attributedText = nil
-        }
-    }
-    
-    // MARK: Gesture Recognizers
-    
-//    private lazy var containerTapGestureRecognizer: UITapGestureRecognizer = {
-//        let tap = UITapGestureRecognizer(target: self, action: #selector(didTapInteractiveView))
-//        return tap
-//    }()
-//    
-//    private lazy var logoTapGestureRecognizer: UITapGestureRecognizer = {
-//        let tap = UITapGestureRecognizer(target: self, action: #selector(didTapInteractiveView))
-//        return tap
-//    }()
-    
-    private var tapHandler: (() -> Void)?
+
+    @IBOutlet var logoMemberContainer: CommunityLogoMemberView!
     
     // MARK: - Init
     
@@ -104,33 +59,9 @@ extension CommunityListingView {
     
     func configure(title: String?, memberCount: Int) {
         titleLabel.text = title
-        
-        let (_, _, formattedCount) = Utility.abbreviatedNumber(memberCount)
-        let units = NSString.localizedStringWithFormat(NSLocalizedString("MEMBER_COUNT_SINGLE_PLURAL", comment: "Format for pluralization of members."), memberCount) as String
-        
-        let countFont = UIFont.boldSystemFontOfSize(10.0)
-        let attributedCount = NSAttributedString(string: formattedCount, attributes: [NSFontAttributeName : countFont])
-        
-        let unitFont = UIFont.systemFontOfSize(9.0)
-        let attributedUnit = NSAttributedString(string: units, attributes: [NSFontAttributeName : unitFont])
-        
-        let attributedText = NSMutableAttributedString(attributedString: attributedCount)
-        attributedText.appendAttributedString(NSAttributedString(string: " "))
-        attributedText.appendAttributedString(attributedUnit)
-        
-        membersLabel.attributedText = attributedText
+        logoMemberContainer.configure(memberCount)
     }
 }
-
-// MARK: - Tap Gesture Action
-
-extension CommunityListingView {
-    
-    func didTapInteractiveView(sender: AnyObject) {
-        tapHandler?()
-    }
-}
-
 
 // MARK: - Interface Builder Designable
 
@@ -140,7 +71,5 @@ extension CommunityListingView {
         super.prepareForInterfaceBuilder()
         
         configure("This is a sample community", memberCount: 3341)
-        headerImageView.image = UIImage(named: "gradient-overlay")
-        logoImageView.image = UIImage(named: "gradient-overlay")
     }
 }

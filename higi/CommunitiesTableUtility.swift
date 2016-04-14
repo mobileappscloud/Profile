@@ -35,10 +35,10 @@ extension CommunitiesTableUtility {
         
         cell.listingView.configure(community.name, memberCount: community.memberCount)
         if let bannerURL = community.header?.URI {
-            cell.listingView.headerImageView.setImageWithURL(bannerURL)
+            cell.listingView.bannerContainer.imageView.setImageWithURL(bannerURL)
         }
         if let logoURL = community.logo?.URI {
-            cell.listingView.logoImageView.setImageWithURL(logoURL)
+            cell.listingView.logoMemberContainer.imageView.setImageWithURL(logoURL)
         }
         cell.interactiveContentTapHandler = { (cell) in
             

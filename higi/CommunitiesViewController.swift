@@ -194,7 +194,7 @@ extension CommunitiesViewController: UITableViewDataSource {
                 cell = joinedCell(forIndexPath: indexPath)
                 
             case .Separator:
-                cell = separatorCell(forIndexPath: indexPath)
+                cell = CommunitiesTableUtility.separatorCell(tableView, forIndexPath: indexPath)
                 
             case .ViewAdditional:
                 cell = viewAdditionalCell(forIndexPath: indexPath)
@@ -210,7 +210,7 @@ extension CommunitiesViewController: UITableViewDataSource {
                 cell = unjoinedCell(forIndexPath: indexPath)
                 
             case .Separator:
-                cell = separatorCell(forIndexPath: indexPath)
+                cell = CommunitiesTableUtility.separatorCell(tableView, forIndexPath: indexPath)
                 
             case .ViewAdditional:
                 cell = viewAdditionalCell(forIndexPath: indexPath)
@@ -334,43 +334,13 @@ extension CommunitiesViewController {
     private func joinedCell(forIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let index = indexPath.row / CommunitiesRowType.Count.rawValue
         let community = joinedCommunitiesController.communities[index]
-        return cell(community, indexPath: indexPath)
+        return CommunitiesTableUtility.cell(tableView, community: community, indexPath: indexPath)
     }
     
     private func unjoinedCell(forIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let index = indexPath.row / CommunitiesRowType.Count.rawValue
         let community = unjoinedCommunitiesController.communities[index]
-        return cell(community, indexPath: indexPath)
-    }
-    
-    private func cell(community: Community, indexPath: NSIndexPath) -> CommunityListingTableViewCell {
-        let cell = tableView.dequeueReusableCell(withClass: CommunityListingTableViewCell.self, forIndexPath: indexPath)
-        cell.layer.cornerRadius = 5.0
-        
-        cell.reset()
-        
-        cell.listingView.configure(community.name, memberCount: community.memberCount)
-        if let bannerURL = community.header?.URI {
-            cell.listingView.headerImageView.setImageWithURL(bannerURL)
-        }
-        if let logoURL = community.logo?.URI {
-            cell.listingView.logoImageView.setImageWithURL(logoURL)
-        }
-        
-        if community.isMember {
-            let title = NSLocalizedString("COMMUNITY_LISTING_TABLE_CELL_ACCESSORY_BUTTON_TITLE_JOIN", comment: "Title for accessory button on community listing table cell to join a community.")
-            cell.configureAccessoryButton(title, titleColor: UIColor.whiteColor(), backgroundColor: Theme.Color.primary, handler: { (cell) in
-                
-            })
-        }
-
-        return cell
-    }
-    
-    private func separatorCell(forIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withClass: UITableViewCell.self, forIndexPath: indexPath)
-        cell.backgroundColor = UIColor.clearColor()
-        return cell
+        return CommunitiesTableUtility.cell(tableView, community: community, indexPath: indexPath)
     }
     
     private func viewAdditionalCell(forIndexPath indexPath: NSIndexPath) -> ButtonTableViewCell {
@@ -423,6 +393,8 @@ extension CommunitiesViewController {
 extension CommunitiesViewController: UINavigationControllerDelegate {
     
     func navigationController(navigationController: UINavigationController, didShowViewController viewController: UIViewController, animated: Bool) {
+        
+        // Scroll the expanded list view so that the last viewed community cell is at the top of the screen
         guard let viewController = viewController as? CommunitiesExpandedViewController else { return }
         
         let section = CommunitiesExpandedViewController.TableSection.Communities.rawValue
