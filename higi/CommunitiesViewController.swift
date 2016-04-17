@@ -21,6 +21,7 @@ final class CommunitiesViewController: UIViewController {
         
         private struct Segue {
             static let expandedList = "CommunitiesExpandedViewControllerSegue"
+            static let detailView = "CommunityDetailViewControllerSegue"
         }
     }
     
@@ -320,7 +321,12 @@ extension CommunitiesViewController {
     private func joinedCell(forIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let index = indexPath.row / CommunitiesRowType.Count.rawValue
         let community = joinedController.communities[index]
-        return CommunitiesTableUtility.cell(tableView, community: community, indexPath: indexPath)
+        let cell = CommunitiesTableUtility.cell(tableView, community: community, indexPath: indexPath)
+        cell.interactiveContentTapHandler = { cell in
+            let userInfo: NSDictionary = ["community" : community]
+            self.performSegueWithIdentifier(Storyboard.Segue.detailView, sender: userInfo)
+        }
+        return cell
     }
     
     private func unjoinedCell(forIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -372,6 +378,12 @@ extension CommunitiesViewController {
             viewController.controller = controller
             self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
             self.navigationController?.delegate = self
+        } else if segue.identifier == Storyboard.Segue.detailView {
+            guard let viewController = segue.destinationViewController as? CommunityDetailViewController,
+                let userInfo = sender as? NSDictionary,
+                let community = userInfo["community"] as? Community else { return }
+            
+            viewController.community = community
         }
     }
 }

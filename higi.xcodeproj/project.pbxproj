@@ -139,6 +139,7 @@
 		41643AAC1C1886D900258F55 /* MetricDataLabelView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41643AAB1C1886D900258F55 /* MetricDataLabelView.xib */; };
 		41643AAE1C188D4800258F55 /* MetricDataLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41643AAD1C188D4800258F55 /* MetricDataLabelView.swift */; };
 		41643AB01C1891D800258F55 /* MetricTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41643AAF1C1891D800258F55 /* MetricTableViewCell.swift */; };
+		417323931CC410580009174D /* CommunityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417323921CC410580009174D /* CommunityDetailViewController.swift */; };
 		4179FCF01C25109D006130F5 /* Loading.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4179FCEE1C25109D006130F5 /* Loading.storyboard */; };
 		4179FCF11C25109D006130F5 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4179FCEF1C25109D006130F5 /* LoadingViewController.swift */; };
 		417F48B31BC823F1005BC49D /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 417F48B01BC823F1005BC49D /* GTMNSString+HTML.m */; };
@@ -501,6 +502,7 @@
 		41643AAB1C1886D900258F55 /* MetricDataLabelView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MetricDataLabelView.xib; sourceTree = "<group>"; };
 		41643AAD1C188D4800258F55 /* MetricDataLabelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricDataLabelView.swift; sourceTree = "<group>"; };
 		41643AAF1C1891D800258F55 /* MetricTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricTableViewCell.swift; sourceTree = "<group>"; };
+		417323921CC410580009174D /* CommunityDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityDetailViewController.swift; sourceTree = "<group>"; };
 		4179FCEE1C25109D006130F5 /* Loading.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Loading.storyboard; sourceTree = "<group>"; };
 		4179FCEF1C25109D006130F5 /* LoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		417F48AF1BC823F1005BC49D /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GTMNSString+HTML.h"; path = "Vendor/MWFeedParser/Classes/GTMNSString+HTML.h"; sourceTree = "<group>"; };
@@ -946,6 +948,14 @@
 				410FFF501CA5DFB2005EAC9E /* organization.json */,
 			);
 			name = "Test Data";
+			sourceTree = "<group>";
+		};
+		411F797A1CBC230C000D0D64 /* Community Detail */ = {
+			isa = PBXGroup;
+			children = (
+				417323921CC410580009174D /* CommunityDetailViewController.swift */,
+			);
+			name = "Community Detail";
 			sourceTree = "<group>";
 		};
 		41247DCC1C5A93B400DDC5EC /* Collection View */ = {
@@ -1827,6 +1837,7 @@
 				D1229A051A8167F200FB1773 /* Challenge Details */,
 				2BBDBA491A12AB73005A6815 /* Challenges */,
 				410FFF3A1CA5C71B005EAC9E /* Communities */,
+				411F797A1CBC230C000D0D64 /* Community Detail */,
 				D110BAD21B0E7C3900CD1E58 /* Daily Summary */,
 				8F5C38E51981915500F51543 /* Dashboard */,
 				8FE056DA198FDB9200C81208 /* Find Station */,
@@ -2419,6 +2430,7 @@
 				8F2CB58019925631009377A8 /* WebViewController.swift in Sources */,
 				8FF9409A198A8C1800D319D7 /* ProfileImageViewController.swift in Sources */,
 				41FC21C61CA4453400BF7FC4 /* NSDateFormatter+Utility.swift in Sources */,
+				417323931CC410580009174D /* CommunityDetailViewController.swift in Sources */,
 				41FB22551BE2951F009139B4 /* CrashAnalyticsManager.swift in Sources */,
 				D1FC729F1B223FE80068CF89 /* MetricGauge.swift in Sources */,
 				D13D36531B30D78E00F18A42 /* ActivityCategory.swift in Sources */,
