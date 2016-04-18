@@ -118,14 +118,14 @@
                         <viewControllerLayoutGuide type="bottom" id="enw-0s-g4t"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="u9u-ju-yl2">
-                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="1536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dzw-yK-Bk1">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="492"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="1492"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H6x-Tm-8Ve" userLabel="Scroll View Content">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="1127"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="2427"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="abt-Qw-BGt" userLabel="Banner Container" customClass="CommunityBannerView" customModule="higi" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="600" height="260"/>
@@ -197,14 +197,14 @@
                                                 </constraints>
                                             </view>
                                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CGf-RB-7R6" userLabel="Leaderboard Container">
-                                                <rect key="frame" x="15" y="415" width="570" height="161"/>
+                                                <rect key="frame" x="15" y="415" width="570" height="461"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <connections>
                                                     <segue destination="8kA-dU-aWX" kind="embed" id="ebI-jn-HhK"/>
                                                 </connections>
                                             </containerView>
-                                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VbT-Ds-xPt" userLabel="Page View Container">
-                                                <rect key="frame" x="0.0" y="591" width="600" height="536"/>
+                                            <containerView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VbT-Ds-xPt" userLabel="Page View Container">
+                                                <rect key="frame" x="0.0" y="891" width="600" height="453"/>
                                                 <connections>
                                                     <segue destination="fNh-2v-fW6" kind="embed" id="z8H-5c-A7n"/>
                                                 </connections>
@@ -238,12 +238,36 @@
                                     <constraint firstItem="H6x-Tm-8Ve" firstAttribute="leading" secondItem="Dzw-yK-Bk1" secondAttribute="leading" id="QzD-JD-sqY"/>
                                 </constraints>
                             </scrollView>
+                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BHW-E9-1AG" userLabel="Supplemental Title Container">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="83"/>
+                                <subviews>
+                                    <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="apY-MT-STX">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="83"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="dPq-Fg-Ey3">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="83"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        </view>
+                                        <blurEffect style="light"/>
+                                    </visualEffectView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="83" id="Pdg-Xn-6G0"/>
+                                    <constraint firstAttribute="trailing" secondItem="apY-MT-STX" secondAttribute="trailing" id="PsE-37-Wc3"/>
+                                    <constraint firstItem="apY-MT-STX" firstAttribute="top" secondItem="BHW-E9-1AG" secondAttribute="top" id="Vyd-1W-oJC"/>
+                                    <constraint firstItem="apY-MT-STX" firstAttribute="leading" secondItem="BHW-E9-1AG" secondAttribute="leading" id="fwr-2E-Nzf"/>
+                                    <constraint firstAttribute="bottom" secondItem="apY-MT-STX" secondAttribute="bottom" id="tN2-kO-v9J"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="BHW-E9-1AG" firstAttribute="leading" secondItem="u9u-ju-yl2" secondAttribute="leading" id="1tw-Y3-Qa0"/>
                             <constraint firstAttribute="trailing" secondItem="Dzw-yK-Bk1" secondAttribute="trailing" id="8Pg-es-kDG"/>
+                            <constraint firstItem="BHW-E9-1AG" firstAttribute="top" secondItem="u9u-ju-yl2" secondAttribute="top" id="DVN-OJ-w43"/>
                             <constraint firstItem="Dzw-yK-Bk1" firstAttribute="top" secondItem="aKD-i0-cPG" secondAttribute="bottom" id="ET0-pL-qpP"/>
                             <constraint firstItem="VbT-Ds-xPt" firstAttribute="height" secondItem="u9u-ju-yl2" secondAttribute="height" id="HAt-Uj-8Gd"/>
+                            <constraint firstAttribute="trailing" secondItem="BHW-E9-1AG" secondAttribute="trailing" id="Jy9-gC-sSJ"/>
                             <constraint firstItem="enw-0s-g4t" firstAttribute="top" secondItem="Dzw-yK-Bk1" secondAttribute="bottom" id="S3e-TQ-fw5"/>
                             <constraint firstItem="H6x-Tm-8Ve" firstAttribute="width" secondItem="u9u-ju-yl2" secondAttribute="width" id="Vmf-TI-g4O"/>
                             <constraint firstItem="CGf-RB-7R6" firstAttribute="height" secondItem="u9u-ju-yl2" secondAttribute="height" multiplier="0.3" id="q1P-e5-z30"/>
@@ -253,6 +277,8 @@
                     <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="600" height="1600"/>
                     <connections>
                         <outlet property="bannerContainer" destination="abt-Qw-BGt" id="N9Q-hy-LhX"/>
                         <outlet property="descriptionContainerHeightConstraint" destination="zOH-Ir-prv" id="Iql-UV-x5Y"/>
@@ -261,14 +287,19 @@
                         <outlet property="descriptionLabelTopSpacingConstraint" destination="J7S-mD-IEh" id="oh9-Vj-6tc"/>
                         <outlet property="infoButton" destination="cA9-l3-XaJ" id="Xfx-Hs-JWK"/>
                         <outlet property="logoMemberView" destination="xCA-F2-7Iv" id="xtv-ui-g82"/>
+                        <outlet property="pageViewContainer" destination="VbT-Ds-xPt" id="3mt-LX-Yot"/>
+                        <outlet property="pageViewContainerHeightConstraint" destination="HAt-Uj-8Gd" id="9YO-i3-91M"/>
                         <outlet property="scrollView" destination="Dzw-yK-Bk1" id="n5E-nc-pTe"/>
+                        <outlet property="supplementalTitleContainer" destination="BHW-E9-1AG" id="4I7-Tl-fCG"/>
+                        <outlet property="supplementalTitleContainerHeightConstraint" destination="Pdg-Xn-6G0" id="3FA-P5-v1y"/>
+                        <outlet property="supplementalTitleContainerTopConstraint" destination="DVN-OJ-w43" id="Mgc-dn-uN3"/>
                         <outlet property="titleContainer" destination="KKG-D6-bCr" id="hhi-hR-lRu"/>
                         <outlet property="titleLabel" destination="BCk-qi-Gp4" id="pIz-Go-QUd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="enW-kS-4Yx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1309" y="444"/>
+            <point key="canvasLocation" x="1309" y="926"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="3HD-T7-Lm5">
@@ -279,14 +310,14 @@
                         <viewControllerLayoutGuide type="bottom" id="wr7-1l-fFJ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="4yN-ZX-wmr">
-                        <rect key="frame" x="0.0" y="0.0" width="570" height="161"/>
+                        <rect key="frame" x="0.0" y="0.0" width="570" height="461"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bGS-Q9-rZ4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2046" y="419.5"/>
+            <point key="canvasLocation" x="2132" y="903.5"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="2F9-Be-TOH">
@@ -297,14 +328,14 @@
                         <viewControllerLayoutGuide type="bottom" id="HFU-tz-0eC"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="cPz-gP-fZB">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="453"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JnZ-3w-XQh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2067" y="960"/>
+            <point key="canvasLocation" x="2117" y="1751.5"/>
         </scene>
     </scenes>
     <resources>
