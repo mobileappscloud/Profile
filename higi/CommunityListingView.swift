@@ -71,5 +71,9 @@ extension CommunityListingView {
         super.prepareForInterfaceBuilder()
         
         configure("This is a sample community", memberCount: 3341)
+        
+        let bundle = NSBundle(forClass: self.dynamicType)
+        bannerContainer.imageView.image = UIImage(named: "higi-logo", inBundle: bundle, compatibleWithTraitCollection: nil)
+        logoMemberContainer.imageView.image = UIImage(named: "higi-logo", inBundle: bundle, compatibleWithTraitCollection: nil)
     }
 }

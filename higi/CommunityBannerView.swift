@@ -46,7 +46,8 @@ extension CommunityBannerView {
     override func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
         
-        imageView.image = UIImage(named: "higi-logo")
+        let bundle = NSBundle(forClass: self.dynamicType)
+        imageView.image = UIImage(named: "higi-logo", inBundle: bundle, compatibleWithTraitCollection: nil)
         
         let accessory = UIView(frame: CGRect(x: 0, y: 0, width: 90, height: 27))
         accessory.backgroundColor = Theme.Color.primary

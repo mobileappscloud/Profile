@@ -54,6 +54,9 @@
                 <constraint firstItem="04x-uh-HuA" firstAttribute="leading" secondItem="FcA-kC-B98" secondAttribute="leading" id="wLw-vf-bjr"/>
                 <constraint firstAttribute="width" constant="67" id="ym3-r8-xNq"/>
             </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>

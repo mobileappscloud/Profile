@@ -72,6 +72,8 @@ extension CommunityLogoMemberView {
         super.prepareForInterfaceBuilder()
         
         configure(2531)
-        imageView.image = UIImage(named: "gradient-overlay")
+        
+        let bundle = NSBundle(forClass: self.dynamicType)
+        imageView.image = UIImage(named: "higi-logo", inBundle: bundle, compatibleWithTraitCollection: nil)
     }
 }
