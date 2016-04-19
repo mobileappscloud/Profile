@@ -82,10 +82,12 @@ extension CommunityDetailViewController {
         logoMemberView.configure(community.memberCount)
         if let logo = community.logo {
             logoMemberView.imageView.setImageWithURL(logo.URI)
-            supplementalTitleContainer.configure(logo.URI, title: community.name)
+            supplementalTitleContainer.imageView.setImageWithURL(logo.URI)
         }
         
         titleLabel.text = community.name
+        supplementalTitleContainer.titleLabel.text = community.name
+        
         descriptionLabel.text = community.desc
         
         // If a community is private, users cannot invite friends
@@ -114,9 +116,34 @@ extension CommunityDetailViewController {
 
 extension CommunityDetailViewController {
     
+    @IBAction func didTapActionButton(sender: UIBarButtonItem) {
+        
+    }
+    
     @IBAction func didTapInfoButton(sender: UIButton) {
         toggleDescriptionContainer()
     }
+    
+    func didTapJoinButton(sender: UIButton) {
+        
+    }
+    
+    func didTapLeaveButton(sender: UIButton) {
+        
+    }
+    
+    func didTapInviteFriendsButton(sender: UIButton) {
+        
+    }
+    
+    func didTapPrivateCommunityOverlay(sender: UIButton) {
+        
+    }
+}
+
+// MARK: - Community Description
+
+extension CommunityDetailViewController {
     
     private func toggleDescriptionContainer() {
         view.layoutIfNeeded()
@@ -130,6 +157,12 @@ extension CommunityDetailViewController {
     private func descriptionContainerHeight() -> CGFloat {
         return descriptionLabel.intrinsicContentSize().height + descriptionLabelTopSpacingConstraint.constant + descriptionLabelBottomSpacingConstraint.constant
     }
+}
+
+// MARK: - Join/Leave
+
+extension CommunityDetailViewController {
+    
 }
 
 // MARK: - Scroll Delegate

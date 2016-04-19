@@ -907,8 +907,8 @@
 				411F7A051CBECAC6000D0D64 /* CommunityBannerView.xib */,
 				413F68B51CB46A5C003D9571 /* CommunityListingTableViewCell.xib */,
 				413F69191CB71D09003D9571 /* CommunityListingView.xib */,
-				417323BA1CC677680009174D /* CommunitySupplementalTitleView.xib */,
 				411F7A011CBECAB3000D0D64 /* CommunityLogoMemberView.xib */,
+				417323BA1CC677680009174D /* CommunitySupplementalTitleView.xib */,
 				413F690B1CB6B019003D9571 /* TitleTableHeaderFooterView.xib */,
 			);
 			name = Communities;

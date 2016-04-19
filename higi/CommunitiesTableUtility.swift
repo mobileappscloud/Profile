@@ -40,16 +40,6 @@ extension CommunitiesTableUtility {
         if let logoURL = community.logo?.URI {
             cell.listingView.logoMemberContainer.imageView.setImageWithURL(logoURL)
         }
-        cell.interactiveContentTapHandler = { (cell) in
-            
-        }
-        
-        if community.isMember {
-            let title = NSLocalizedString("COMMUNITY_LISTING_TABLE_CELL_ACCESSORY_BUTTON_TITLE_JOIN", comment: "Title for accessory button on community listing table cell to join a community.")
-            cell.configureAccessoryButton(title, titleColor: UIColor.whiteColor(), backgroundColor: Theme.Color.primary, handler: { (cell) in
-                
-            })
-        }
         
         return cell
     }

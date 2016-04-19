@@ -20,8 +20,50 @@ final class CommunitiesViewController: UIViewController {
         }
         
         private struct Segue {
-            static let expandedList = "CommunitiesExpandedViewControllerSegue"
-            static let detailView = "CommunityDetailViewControllerSegue"
+            struct ExpandedList {
+                static let identifier = "CommunitiesExpandedViewControllerSegue"
+                let sectionType: TableSection
+                
+                init(sectionType: TableSection) {
+                    self.sectionType = sectionType
+                }
+                
+                func userInfo() -> AnyObject {
+                    return ["sectionType" : sectionType.rawValue]
+                }
+                
+                init?(userInfo: AnyObject?) {
+                    guard let userInfo = userInfo as? NSDictionary,
+                        let sectionTypeRawValue = userInfo["sectionType"] as? TableSection.RawValue,
+                        let sectionType = TableSection(rawValue: sectionTypeRawValue) else { return nil }
+                    
+                    self.sectionType = sectionType
+                }
+            }
+            
+            struct DetailView {
+                static let identifier = "CommunityDetailViewControllerSegue"
+                let community: Community
+                var join: Bool = false
+                
+                init(community: Community, join: Bool = false) {
+                    self.community = community
+                    self.join = join
+                }
+                
+                func userInfo() -> AnyObject {
+                    return ["community" : community, "join" : join]
+                }
+                
+                init?(userInfo: AnyObject?) {
+                    guard let userInfo = userInfo as? NSDictionary,
+                        let community = userInfo["community"] as? Community,
+                        let join = userInfo["join"] as? Bool else { return nil }
+                    
+                    self.community = community
+                    self.join = join
+                }
+            }
         }
     }
     
@@ -192,7 +234,7 @@ extension CommunitiesViewController: UITableViewDataSource {
             let rowType = CommunitiesRowType(indexPath: indexPath)
             switch rowType {
             case .Content:
-                cell = joinedCell(forIndexPath: indexPath)
+                cell = communityCell(tableView, indexPath: indexPath, controller: joinedController)
                 
             case .Separator:
                 cell = CommunitiesTableUtility.separatorCell(tableView, forIndexPath: indexPath)
@@ -208,7 +250,7 @@ extension CommunitiesViewController: UITableViewDataSource {
             let rowType = CommunitiesRowType(indexPath: indexPath)
             switch rowType {
             case .Content:
-                cell = unjoinedCell(forIndexPath: indexPath)
+                cell = communityCell(tableView, indexPath: indexPath, controller: unjoinedController)
                 
             case .Separator:
                 cell = CommunitiesTableUtility.separatorCell(tableView, forIndexPath: indexPath)
@@ -318,21 +360,23 @@ extension CommunitiesViewController {
 
 extension CommunitiesViewController {
     
-    private func joinedCell(forIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    private func communityCell(tableView: UITableView, indexPath: NSIndexPath, controller: CommunitiesController) -> CommunityListingTableViewCell {
         let index = indexPath.row / CommunitiesRowType.Count.rawValue
-        let community = joinedController.communities[index]
+        let community = controller.communities[index]
+        
         let cell = CommunitiesTableUtility.cell(tableView, community: community, indexPath: indexPath)
-        cell.interactiveContentTapHandler = { cell in
-            let userInfo: NSDictionary = ["community" : community]
-            self.performSegueWithIdentifier(Storyboard.Segue.detailView, sender: userInfo)
+        cell.interactiveContentTapHandler = { (cell) in
+            let segue = Storyboard.Segue.DetailView(community: community)
+            self.performSegueWithIdentifier(Storyboard.Segue.DetailView.identifier, sender: segue.userInfo())
         }
+        
+        if community.isMember {
+//            let title = NSLocalizedString("COMMUNITY_LISTING_TABLE_CELL_ACCESSORY_BUTTON_TITLE_JOIN", comment: "Title for accessory button on community listing table cell to join a community.")
+//            let segueInfo = Storyboard.Segue.DetailView(community: community, join: true)
+//            self.performSegueWithIdentifier(Storyboard.Segue.DetailView.identifier, sender: segueInfo.userInfo())            
+        }
+        
         return cell
-    }
-    
-    private func unjoinedCell(forIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let index = indexPath.row / CommunitiesRowType.Count.rawValue
-        let community = unjoinedController.communities[index]
-        return CommunitiesTableUtility.cell(tableView, community: community, indexPath: indexPath)
     }
     
     private func viewAdditionalCell(forIndexPath indexPath: NSIndexPath) -> ButtonTableViewCell {
@@ -346,8 +390,8 @@ extension CommunitiesViewController {
             NSLocalizedString("COMMUNITIES_LIST_VIEW_ADDITIONAL_BUTTON_TITLE_MORE_COMMUNITIES", comment: "Title for button to view expanded list of more communities.")
         cell.button.setTitle(title, forState: .Normal)
         cell.tapHandler = { [weak self] (cell) in
-            let userInfo = ["sectionType" : sectionType.rawValue] as AnyObject
-            self?.performSegueWithIdentifier(Storyboard.Segue.expandedList, sender: userInfo)
+            let segue = Storyboard.Segue.ExpandedList(sectionType: sectionType)
+            self?.performSegueWithIdentifier(Storyboard.Segue.ExpandedList.identifier, sender: segue.userInfo())
         }
         return cell
     }
@@ -358,15 +402,13 @@ extension CommunitiesViewController {
 extension CommunitiesViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == Storyboard.Segue.expandedList {
+        if segue.identifier == Storyboard.Segue.ExpandedList.identifier {
             guard let viewController = segue.destinationViewController as? CommunitiesExpandedViewController,
-                let userInfo = sender as? [String : Int],
-                let rawValue = userInfo["sectionType"],
-                let sectionType = TableSection(rawValue: rawValue) else { return }
+                let userInfo = Storyboard.Segue.ExpandedList(userInfo: sender) else { return }
             
             let title: String
             let controller: CommunitiesController
-            if sectionType == .YourCommunities {
+            if userInfo.sectionType == .YourCommunities {
                 title = NSLocalizedString("COMMUNITIES_EXPANDED_LIST_TITLE_YOUR_COMMUNITIES", comment: "Title for expanded list view of your communities.")
                 controller = joinedController
             } else {
@@ -378,12 +420,12 @@ extension CommunitiesViewController {
             viewController.controller = controller
             self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
             self.navigationController?.delegate = self
-        } else if segue.identifier == Storyboard.Segue.detailView {
-            guard let viewController = segue.destinationViewController as? CommunityDetailViewController,
-                let userInfo = sender as? NSDictionary,
-                let community = userInfo["community"] as? Community else { return }
             
-            viewController.community = community
+        } else if segue.identifier == Storyboard.Segue.DetailView.identifier {
+            guard let viewController = segue.destinationViewController as? CommunityDetailViewController,
+                let userInfo = Storyboard.Segue.DetailView(userInfo: sender) else { return }
+            
+            viewController.community = userInfo.community
         }
     }
 }

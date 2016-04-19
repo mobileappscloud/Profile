@@ -14,13 +14,13 @@ final class CommunitySupplementalTitleView: UIView {
     /// View necessary for xib reuse
     @IBOutlet private var view: UIView!
     
-    @IBOutlet private var imageView: UIImageView! {
+    @IBOutlet var imageView: UIImageView! {
         didSet {
             imageView.image = nil
         }
     }
     
-    @IBOutlet private var titleLabel: UILabel! {
+    @IBOutlet var titleLabel: UILabel! {
         didSet {
             titleLabel.text = nil
         }
@@ -42,16 +42,6 @@ final class CommunitySupplementalTitleView: UIView {
         let bundle = NSBundle(forClass: self.dynamicType)
         self.view = bundle.loadNibNamed("CommunitySupplementalTitleView", owner: self, options: nil).first as! UIView
         self.addSubview(self.view, pinToEdges: true)
-    }
-}
-
-// MARK: - Config
-
-extension CommunitySupplementalTitleView {
- 
-    func configure(imageURL: NSURL, title: String?) {
-        imageView.setImageWithURL(imageURL)
-        titleLabel.text = title
     }
 }
 
