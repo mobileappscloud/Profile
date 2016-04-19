@@ -788,7 +788,7 @@
 "QR_SCANNER_VIEW_SETTINGS_BUTTON_TITLE" = "Go to Settings";
 
 /* Title for QR Scanner view. */
-"QR_SCANNER_VIEW_TITLE" = "Scanner";
+"QR_SCANNER_VIEW_TITLE" = "Capture";
 
 /* Title for action to dismiss alert displayed when an unsupported device is detected */
 "QR_SCANNER_VIEW_UNSUPPORTED_DEVICE_ALERT_ACTION_TITLE_DISMISS" = "OK";
