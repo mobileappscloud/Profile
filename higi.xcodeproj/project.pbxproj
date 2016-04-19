@@ -140,6 +140,8 @@
 		41643AAE1C188D4800258F55 /* MetricDataLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41643AAD1C188D4800258F55 /* MetricDataLabelView.swift */; };
 		41643AB01C1891D800258F55 /* MetricTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41643AAF1C1891D800258F55 /* MetricTableViewCell.swift */; };
 		417323931CC410580009174D /* CommunityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417323921CC410580009174D /* CommunityDetailViewController.swift */; };
+		417323BB1CC677680009174D /* CommunitySupplementalTitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 417323BA1CC677680009174D /* CommunitySupplementalTitleView.xib */; };
+		417323BF1CC6785E0009174D /* CommunitySupplementalTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417323BE1CC6785E0009174D /* CommunitySupplementalTitleView.swift */; };
 		4179FCF01C25109D006130F5 /* Loading.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4179FCEE1C25109D006130F5 /* Loading.storyboard */; };
 		4179FCF11C25109D006130F5 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4179FCEF1C25109D006130F5 /* LoadingViewController.swift */; };
 		417F48B31BC823F1005BC49D /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 417F48B01BC823F1005BC49D /* GTMNSString+HTML.m */; };
@@ -503,6 +505,8 @@
 		41643AAD1C188D4800258F55 /* MetricDataLabelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricDataLabelView.swift; sourceTree = "<group>"; };
 		41643AAF1C1891D800258F55 /* MetricTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricTableViewCell.swift; sourceTree = "<group>"; };
 		417323921CC410580009174D /* CommunityDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityDetailViewController.swift; sourceTree = "<group>"; };
+		417323BA1CC677680009174D /* CommunitySupplementalTitleView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommunitySupplementalTitleView.xib; sourceTree = "<group>"; };
+		417323BE1CC6785E0009174D /* CommunitySupplementalTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunitySupplementalTitleView.swift; sourceTree = "<group>"; };
 		4179FCEE1C25109D006130F5 /* Loading.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Loading.storyboard; sourceTree = "<group>"; };
 		4179FCEF1C25109D006130F5 /* LoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		417F48AF1BC823F1005BC49D /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GTMNSString+HTML.h"; path = "Vendor/MWFeedParser/Classes/GTMNSString+HTML.h"; sourceTree = "<group>"; };
@@ -903,6 +907,7 @@
 				411F7A051CBECAC6000D0D64 /* CommunityBannerView.xib */,
 				413F68B51CB46A5C003D9571 /* CommunityListingTableViewCell.xib */,
 				413F69191CB71D09003D9571 /* CommunityListingView.xib */,
+				417323BA1CC677680009174D /* CommunitySupplementalTitleView.xib */,
 				411F7A011CBECAB3000D0D64 /* CommunityLogoMemberView.xib */,
 				413F690B1CB6B019003D9571 /* TitleTableHeaderFooterView.xib */,
 			);
@@ -922,6 +927,7 @@
 				4101EED11CB84A970010DCCA /* CommunityListingTableViewCell.swift */,
 				413F690F1CB6C739003D9571 /* CommunityListingView.swift */,
 				411F7A091CBECCF4000D0D64 /* CommunityLogoMemberView.swift */,
+				417323BE1CC6785E0009174D /* CommunitySupplementalTitleView.swift */,
 				413F69071CB6AFE8003D9571 /* TitleTableHeaderFooterView.swift */,
 			);
 			name = Communities;
@@ -2269,6 +2275,7 @@
 				8F3643A519460EB300C0033E /* Splash.storyboard in Resources */,
 				411F7A021CBECAB3000D0D64 /* CommunityLogoMemberView.xib in Resources */,
 				8FF94091198960C900D319D7 /* LoginView.xib in Resources */,
+				417323BB1CC677680009174D /* CommunitySupplementalTitleView.xib in Resources */,
 				D1FC72A11B2240020068CF89 /* MetricGaugeView.xib in Resources */,
 				419D86601BBEFF1A00E7D844 /* Settings.storyboard in Resources */,
 				D15372931A84201600954569 /* TermsAndConditionsView.xib in Resources */,
@@ -2450,6 +2457,7 @@
 				41376C5D1BB459B50094DE7C /* SettingsViewController.swift in Sources */,
 				41A0BE271BBB08B800A314D6 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				8FEF6F401A6EB638001EF8A6 /* PointsMeter.swift in Sources */,
+				417323BF1CC6785E0009174D /* CommunitySupplementalTitleView.swift in Sources */,
 				413E19911C10EB6100146B29 /* MetricPlotViewController.swift in Sources */,
 				8F9C69D71950C89B00449664 /* HigiUser.swift in Sources */,
 				41411BA01BA87E3D0027F5E1 /* NotificationSettingsDeviceTableViewController.swift in Sources */,

@@ -40,7 +40,7 @@ final class CommunityDetailViewController: UIViewController {
     
     @IBOutlet var supplementalTitleContainerHeightConstraint: NSLayoutConstraint!
     @IBOutlet var supplementalTitleContainerTopConstraint: NSLayoutConstraint!
-    @IBOutlet var supplementalTitleContainer: UIView!
+    @IBOutlet var supplementalTitleContainer: CommunitySupplementalTitleView!
     
     @IBOutlet var pageViewContainerHeightConstraint: NSLayoutConstraint!
     @IBOutlet var pageViewContainer: UIView!
@@ -80,7 +80,10 @@ extension CommunityDetailViewController {
         bannerContainer.imageView.setImageWithURL(community.header?.URI)
         
         logoMemberView.configure(community.memberCount)
-        logoMemberView.imageView.setImageWithURL(community.logo?.URI)
+        if let logo = community.logo {
+            logoMemberView.imageView.setImageWithURL(logo.URI)
+            supplementalTitleContainer.configure(logo.URI, title: community.name)
+        }
         
         titleLabel.text = community.name
         descriptionLabel.text = community.desc
