@@ -3,8 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
@@ -33,7 +31,7 @@
                     <rect key="frame" x="0.0" y="150" width="345" height="61"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="There is a fifty five character limit to the community" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Bm-ht-eaM" userLabel="Title Label">
-                            <rect key="frame" x="87" y="-3.5" width="250" height="52.5"/>
+                            <rect key="frame" x="87" y="10" width="250" height="33.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -41,7 +39,7 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="7Bm-ht-eaM" firstAttribute="firstBaseline" secondItem="ooO-Tg-V1j" secondAttribute="top" constant="10" id="AFl-RW-Acz"/>
+                        <constraint firstItem="7Bm-ht-eaM" firstAttribute="top" secondItem="ooO-Tg-V1j" secondAttribute="top" constant="10" id="AFl-RW-Acz"/>
                         <constraint firstAttribute="trailing" secondItem="7Bm-ht-eaM" secondAttribute="trailing" constant="8" id="B0H-iC-fda"/>
                     </constraints>
                 </view>
@@ -52,6 +50,11 @@
                         <constraint firstAttribute="height" constant="83" id="bns-Eo-D35"/>
                         <constraint firstAttribute="width" constant="67" id="p7K-oF-rkv"/>
                     </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="bns-Eo-D35"/>
+                        </mask>
+                    </variation>
                 </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -59,6 +62,7 @@
                 <constraint firstItem="V65-Cn-vLv" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="O1U-G6-h8R"/>
                 <constraint firstAttribute="trailing" secondItem="V65-Cn-vLv" secondAttribute="trailing" id="PVS-hO-yNs"/>
                 <constraint firstItem="7Bm-ht-eaM" firstAttribute="leading" secondItem="XDF-hX-5h5" secondAttribute="trailing" constant="10" id="PzQ-31-MPE"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="7Bm-ht-eaM" secondAttribute="bottom" priority="995" constant="8" id="QxV-J2-X9y"/>
                 <constraint firstAttribute="trailing" secondItem="ooO-Tg-V1j" secondAttribute="trailing" id="bux-sX-x6Q"/>
                 <constraint firstItem="ooO-Tg-V1j" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="eBo-yA-Chg"/>
                 <constraint firstItem="V65-Cn-vLv" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="iIz-OF-TXY"/>
@@ -67,12 +71,17 @@
                 <constraint firstItem="7Bm-ht-eaM" firstAttribute="bottom" secondItem="XDF-hX-5h5" secondAttribute="bottom" id="ugr-EG-A0t"/>
                 <constraint firstItem="ooO-Tg-V1j" firstAttribute="top" secondItem="V65-Cn-vLv" secondAttribute="bottom" id="vmS-Wr-Kd5"/>
                 <constraint firstAttribute="bottom" secondItem="ooO-Tg-V1j" secondAttribute="bottom" id="yy5-vT-9lS"/>
-                <constraint firstItem="ooO-Tg-V1j" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="XDF-hX-5h5" secondAttribute="bottom" priority="990" constant="15" id="zLK-29-rQn"/>
+                <constraint firstItem="ooO-Tg-V1j" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="XDF-hX-5h5" secondAttribute="bottom" priority="995" constant="16" id="zLK-29-rQn"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="ugr-EG-A0t"/>
+                </mask>
+            </variation>
             <point key="canvasLocation" x="301.5" y="200.5"/>
         </view>
     </objects>

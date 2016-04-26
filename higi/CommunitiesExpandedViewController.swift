@@ -40,12 +40,10 @@ extension CommunitiesExpandedViewController {
 extension CommunitiesExpandedViewController {
     
     private func fetchNextCommunities() {
-        print("fetch next page")
         controller.fetchNext(fetchNextSuccess, failure: fetchNextFailure)
     }
     
     private func fetchNextSuccess() {
-        print("successfully fetched next communities")
         dispatch_async(dispatch_get_main_queue(), {
             self.tableView.reloadData()
         })
@@ -150,7 +148,19 @@ extension CommunitiesExpandedViewController: UITableViewDataSource {
             case .Content:
                 let index = indexPath.row / CommunitiesRowType.Count.rawValue
                 let community = controller.communities[index]
-                cell = CommunitiesTableUtility.cell(tableView, community: community, indexPath: indexPath)
+                let communityCell = CommunitiesTableUtility.cell(tableView, community: community, indexPath: indexPath)
+                communityCell.interactiveContentTapHandler = { (cell) in
+                    let segue = CommunitiesViewController.Storyboard.Segue.DetailView(community: community)
+                    self.performSegueWithIdentifier(CommunitiesViewController.Storyboard.Segue.DetailView.identifier, sender: segue.userInfo())
+                }
+                
+                if !community.isMember {
+                    let segueInfo = CommunitiesViewController.Storyboard.Segue.DetailView(community: community, join: true)
+                    let delegate = CommunityListingButtonDelegate(presentingViewController: self, segueIdentifier: CommunitiesViewController.Storyboard.Segue.DetailView.joinIdentifier, userInfo: segueInfo.userInfo())
+                    CommunitiesTableUtility.addJoinButton(toCell: communityCell, delegate: delegate)
+                }
+                
+                cell = communityCell
                 
             case .Separator:
                 cell = CommunitiesTableUtility.separatorCell(tableView, forIndexPath: indexPath)
@@ -221,5 +231,20 @@ extension CommunitiesExpandedViewController {
     
     private func indicatorCell(forIndexPath indexPath: NSIndexPath) -> ActivityIndicatorTableViewCell {
         return tableView.dequeueReusableCell(withClass: ActivityIndicatorTableViewCell.self, forIndexPath: indexPath)
+    }
+}
+
+// MARK: - Navigation
+
+extension CommunitiesExpandedViewController {
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == CommunitiesViewController.Storyboard.Segue.DetailView.identifier ||
+            segue.identifier == CommunitiesViewController.Storyboard.Segue.DetailView.joinIdentifier {
+            guard let viewController = segue.destinationViewController as? CommunityDetailViewController,
+                let userInfo = CommunitiesViewController.Storyboard.Segue.DetailView(userInfo: sender) else { return }
+            
+            viewController.community = userInfo.community
+        }
     }
 }

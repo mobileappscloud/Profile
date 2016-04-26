@@ -189,6 +189,10 @@
 		41A0BE351BBB110900A314D6 /* libFlurry_7.1.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 41A0BE331BBB110900A314D6 /* libFlurry_7.1.1.a */; };
 		41A0BE371BBB14EA00A314D6 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A0BE361BBB14EA00A314D6 /* KeychainWrapper.swift */; };
 		41A0BE541BBB1CD100A314D6 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 41A0BE4B1BBB194700A314D6 /* libCorePlot-CocoaTouch.a */; };
+		41A70EEE1CC973A00072AB06 /* CommunityListingButtonDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A70EED1CC973A00072AB06 /* CommunityListingButtonDelegate.swift */; };
+		41A70EF01CC9D9060072AB06 /* CommunityDetailJoinSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A70EEF1CC9D9060072AB06 /* CommunityDetailJoinSegue.swift */; };
+		41A70EF21CCA035C0072AB06 /* CommunitiesExpandedListSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A70EF11CCA035C0072AB06 /* CommunitiesExpandedListSegue.swift */; };
+		41A70EF41CCB1EE60072AB06 /* UINavigationController+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A70EF31CCB1EE60072AB06 /* UINavigationController+Utility.swift */; };
 		41A917FB1BBC744800CCF91E /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41A917FA1BBC744800CCF91E /* GoogleMaps.framework */; };
 		41A917FF1BBC747600CCF91E /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 41A917FE1BBC747600CCF91E /* GoogleMaps.bundle */; };
 		41B2AEDF1BBB377E00BE9EF7 /* MetricGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B2AEDE1BBB377E00BE9EF7 /* MetricGraph.swift */; };
@@ -597,6 +601,10 @@
 		41A0BE331BBB110900A314D6 /* libFlurry_7.1.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_7.1.1.a; sourceTree = "<group>"; };
 		41A0BE361BBB14EA00A314D6 /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeychainWrapper.swift; path = Vendor/SwiftKeychainWrapper/SwiftKeychainWrapper/KeychainWrapper.swift; sourceTree = "<group>"; };
 		41A0BE441BBB194600A314D6 /* CorePlot-CocoaTouch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CorePlot-CocoaTouch.xcodeproj"; path = "Vendor/CorePlot/framework/CorePlot-CocoaTouch.xcodeproj"; sourceTree = "<group>"; };
+		41A70EED1CC973A00072AB06 /* CommunityListingButtonDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityListingButtonDelegate.swift; sourceTree = "<group>"; };
+		41A70EEF1CC9D9060072AB06 /* CommunityDetailJoinSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityDetailJoinSegue.swift; sourceTree = "<group>"; };
+		41A70EF11CCA035C0072AB06 /* CommunitiesExpandedListSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunitiesExpandedListSegue.swift; sourceTree = "<group>"; };
+		41A70EF31CCB1EE60072AB06 /* UINavigationController+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Utility.swift"; sourceTree = "<group>"; };
 		41A917FA1BBC744800CCF91E /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = "Vendor/Google-Maps/Frameworks/GoogleMaps.framework"; sourceTree = "<group>"; };
 		41A917FE1BBC747600CCF91E /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = "Vendor/Google-Maps/Frameworks/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle"; sourceTree = "<group>"; };
 		41B2AEDE1BBB377E00BE9EF7 /* MetricGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricGraph.swift; path = higi/MetricGraph.swift; sourceTree = "<group>"; };
@@ -924,6 +932,9 @@
 				411F79781CBC05E2000D0D64 /* CommunitiesTableUtility.swift */,
 				410FFF381CA5C716005EAC9E /* CommunitiesViewController.swift */,
 				411F7A071CBECCE9000D0D64 /* CommunityBannerView.swift */,
+				41A70EEF1CC9D9060072AB06 /* CommunityDetailJoinSegue.swift */,
+				41A70EF11CCA035C0072AB06 /* CommunitiesExpandedListSegue.swift */,
+				41A70EED1CC973A00072AB06 /* CommunityListingButtonDelegate.swift */,
 				4101EED11CB84A970010DCCA /* CommunityListingTableViewCell.swift */,
 				413F690F1CB6C739003D9571 /* CommunityListingView.swift */,
 				411F7A091CBECCF4000D0D64 /* CommunityLogoMemberView.swift */,
@@ -1160,6 +1171,7 @@
 				410F61F21CB41A0B00614E78 /* NSURL+Utility.swift */,
 				410F61F41CB41AA500614E78 /* NSURLSessionTask+Utility.swift */,
 				410FFFAC1CA772B1005EAC9E /* String+Utility.swift */,
+				41A70EF31CCB1EE60072AB06 /* UINavigationController+Utility.swift */,
 				413F69131CB6FDCF003D9571 /* UIImageView+Utility.swift */,
 				413F69011CB5E99D003D9571 /* UITableView+Utility.swift */,
 				413F68FD1CB5E930003D9571 /* UITableViewCell+Utility.swift */,
@@ -2421,6 +2433,7 @@
 				41A0BE0E1BBB088500A314D6 /* AFNetworkReachabilityManager.m in Sources */,
 				415998E41CADCB1D001A7392 /* CommunityCollectionDeserializer.swift in Sources */,
 				41FFE89F1C611A80000C8DCF /* MetricDetailPreviewViewController.swift in Sources */,
+				41A70EEE1CC973A00072AB06 /* CommunityListingButtonDelegate.swift in Sources */,
 				416226791C79866000EFA1B3 /* NewMetricTableDelegate.swift in Sources */,
 				418485231C77D16400C26211 /* NewMetricPlotDelegate.swift in Sources */,
 				41E6B5E81C161FAB00ED922B /* MetricsCoordinator.swift in Sources */,
@@ -2539,6 +2552,7 @@
 				4150315C1CA9E74500A3FB94 /* RefreshTokenTask.swift in Sources */,
 				8FF873F419DF5394002A6341 /* PullRefresh.swift in Sources */,
 				8FEF6F461A6EECD5001EF8A6 /* ChallengesCard.swift in Sources */,
+				41A70EF21CCA035C0072AB06 /* CommunitiesExpandedListSegue.swift in Sources */,
 				413E19251C10AB2C00146B29 /* UniversalLink.swift in Sources */,
 				411F79791CBC05E2000D0D64 /* CommunitiesTableUtility.swift in Sources */,
 				41643AAE1C188D4800258F55 /* MetricDataLabelView.swift in Sources */,
@@ -2589,6 +2603,7 @@
 				410FFFB21CA77533005EAC9E /* AgreementInfo.swift in Sources */,
 				D1020A291B3B130C001F2D81 /* BreakdownTitleRow.swift in Sources */,
 				419D86501BBEF83000E7D844 /* GQTPointQuadTreeChild.m in Sources */,
+				41A70EF41CCB1EE60072AB06 /* UINavigationController+Utility.swift in Sources */,
 				41A0BE131BBB088500A314D6 /* AFURLSessionManager.m in Sources */,
 				413CC0341C6929BA0097AE56 /* ActivityDetailView.swift in Sources */,
 				D1CFC9831AB360AF00AC54BB /* MetricGraphCard.swift in Sources */,
@@ -2616,6 +2631,7 @@
 				41411BA31BA894280027F5E1 /* SwitchTableViewCell.swift in Sources */,
 				41376C5B1BB452E40094DE7C /* SettingsTableViewController.swift in Sources */,
 				8F296311194B911C00E787FD /* SignupNameViewController.swift in Sources */,
+				41A70EF01CC9D9060072AB06 /* CommunityDetailJoinSegue.swift in Sources */,
 				8FF851C6194F7F2E005C33C6 /* HigiApi.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

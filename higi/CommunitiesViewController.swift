@@ -19,7 +19,7 @@ final class CommunitiesViewController: UIViewController {
             static let loadingView = "CommunityListLoading"
         }
         
-        private struct Segue {
+        struct Segue {
             struct ExpandedList {
                 static let identifier = "CommunitiesExpandedViewControllerSegue"
                 let sectionType: TableSection
@@ -43,6 +43,8 @@ final class CommunitiesViewController: UIViewController {
             
             struct DetailView {
                 static let identifier = "CommunityDetailViewControllerSegue"
+                static let joinIdentifier = "CommunityDetailViewControllerJoinSegue"
+                
                 let community: Community
                 var join: Bool = false
                 
@@ -140,7 +142,7 @@ extension CommunitiesViewController {
 
 extension CommunitiesViewController {
     
-    private enum TableSection: Int  {
+    enum TableSection: Int  {
         case YourCommunities
         case MoreCommunities
         case Count
@@ -370,10 +372,10 @@ extension CommunitiesViewController {
             self.performSegueWithIdentifier(Storyboard.Segue.DetailView.identifier, sender: segue.userInfo())
         }
         
-        if community.isMember {
-//            let title = NSLocalizedString("COMMUNITY_LISTING_TABLE_CELL_ACCESSORY_BUTTON_TITLE_JOIN", comment: "Title for accessory button on community listing table cell to join a community.")
-//            let segueInfo = Storyboard.Segue.DetailView(community: community, join: true)
-//            self.performSegueWithIdentifier(Storyboard.Segue.DetailView.identifier, sender: segueInfo.userInfo())            
+        if !community.isMember {
+            let segueInfo = Storyboard.Segue.DetailView(community: community, join: true)
+            let delegate = CommunityListingButtonDelegate(presentingViewController: self, segueIdentifier: Storyboard.Segue.DetailView.joinIdentifier, userInfo: segueInfo.userInfo())
+            CommunitiesTableUtility.addJoinButton(toCell: cell, delegate: delegate)
         }
         
         return cell
@@ -421,7 +423,7 @@ extension CommunitiesViewController {
             self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
             self.navigationController?.delegate = self
             
-        } else if segue.identifier == Storyboard.Segue.DetailView.identifier {
+        } else if segue.identifier == Storyboard.Segue.DetailView.identifier || segue.identifier == Storyboard.Segue.DetailView.joinIdentifier {
             guard let viewController = segue.destinationViewController as? CommunityDetailViewController,
                 let userInfo = Storyboard.Segue.DetailView(userInfo: sender) else { return }
             
@@ -432,15 +434,10 @@ extension CommunitiesViewController {
 
 extension CommunitiesViewController: UINavigationControllerDelegate {
     
-    func navigationController(navigationController: UINavigationController, didShowViewController viewController: UIViewController, animated: Bool) {
-        
-        // Scroll the expanded list view so that the last viewed community cell is at the top of the screen
-        guard let viewController = viewController as? CommunitiesExpandedViewController else { return }
-        
+    func communityListMaxIndexPath() -> NSIndexPath {
         let section = CommunitiesExpandedViewController.TableSection.Communities.rawValue
         let row = TableSection.YourCommunities.maxCommunityCount() * CommunitiesRowType.Count.rawValue
-        let indexPath = NSIndexPath(forRow: row, inSection: section)
-        viewController.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
+        return NSIndexPath(forRow: row, inSection: section)
     }
 }
 

@@ -38,12 +38,12 @@ final class CommunityDetailViewController: UIViewController {
         }
     }
     
-    @IBOutlet var supplementalTitleContainerHeightConstraint: NSLayoutConstraint!
-    @IBOutlet var supplementalTitleContainerTopConstraint: NSLayoutConstraint!
-    @IBOutlet var supplementalTitleContainer: CommunitySupplementalTitleView!
+    @IBOutlet private var supplementalTitleContainerHeightConstraint: NSLayoutConstraint!
+    @IBOutlet private var supplementalTitleContainerTopConstraint: NSLayoutConstraint!
+    @IBOutlet private var supplementalTitleContainer: CommunitySupplementalTitleView!
     
-    @IBOutlet var pageViewContainerHeightConstraint: NSLayoutConstraint!
-    @IBOutlet var pageViewContainer: UIView!
+    @IBOutlet private var pageViewContainerHeightConstraint: NSLayoutConstraint!
+    @IBOutlet private var pageViewContainer: UIView!
     
     var community: Community!
 }
@@ -61,7 +61,34 @@ extension CommunityDetailViewController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
+        updateDescriptionContainerHeight()
         updatePageViewContainerHeight()
+    }
+}
+
+// MARK: - Layout
+
+extension CommunityDetailViewController {
+    
+    /**
+     Ensure page view fills visible screen space after accounting for the awesome supplemental view and bottom bars (if applicable).
+     
+     **Note: This method must be called after the view has been laid out to ensure the correct constraint values are used.**
+     */
+    private func updatePageViewContainerHeight() {
+        pageViewContainerHeightConstraint.constant = -(supplementalTitleContainerHeightConstraint.constant + self.bottomLayoutGuide.length)
+    }
+    
+    /**
+     Ensure description container has the correct height.
+     
+     **Note: This method must be called after the view has been laid out to ensure the correct constraint values are used.**
+     */
+    private func updateDescriptionContainerHeight() {
+        let isCollapsed = self.descriptionContainerHeightConstraint.constant == 0.0
+        if !isCollapsed {
+            self.descriptionContainerHeightConstraint.constant = self.descriptionContainerHeight()
+        }
     }
 }
 
@@ -101,15 +128,6 @@ extension CommunityDetailViewController {
             infoButton.hidden = true
         }
     }
-    
-    /**
-     Ensure page view fills visible screen space after accounting for the awesome supplemental view and bottom bars (if applicable).
-     
-     **Note: This method must be called after the view has been laid out to ensure the correct constraint values are used.**
-     */
-    private func updatePageViewContainerHeight() {
-        pageViewContainerHeightConstraint.constant = -(supplementalTitleContainerHeightConstraint.constant + self.bottomLayoutGuide.length)
-    }
 }
 
 // MARK: - UI Action
@@ -125,7 +143,7 @@ extension CommunityDetailViewController {
     }
     
     func didTapJoinButton(sender: UIButton) {
-        
+        joinCommunity()
     }
     
     func didTapLeaveButton(sender: UIButton) {
