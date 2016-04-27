@@ -252,7 +252,6 @@
 		8F9C69D51950C88900449664 /* HigiCheckin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C69D41950C88900449664 /* HigiCheckin.swift */; };
 		8F9C69D71950C89B00449664 /* HigiUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C69D61950C89B00449664 /* HigiUser.swift */; };
 		8F9C69D91950C8AD00449664 /* KioskInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C69D81950C8AD00449664 /* KioskInfo.swift */; };
-		8F9C69DB1950C8B700449664 /* PulseArticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9C69DA1950C8B700449664 /* PulseArticle.swift */; };
 		8FA5925D19ABBCEC00622266 /* TourView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FA5925C19ABBCEC00622266 /* TourView.xib */; };
 		8FA5925F19ABBD3A00622266 /* TourViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA5925E19ABBD3A00622266 /* TourViewController.swift */; };
 		8FCD2D8019EC286900AC5A82 /* UIImage+Orientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FCD2D7F19EC286900AC5A82 /* UIImage+Orientation.m */; };
@@ -669,7 +668,6 @@
 		8F9C69D41950C88900449664 /* HigiCheckin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HigiCheckin.swift; sourceTree = "<group>"; };
 		8F9C69D61950C89B00449664 /* HigiUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HigiUser.swift; sourceTree = "<group>"; };
 		8F9C69D81950C8AD00449664 /* KioskInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KioskInfo.swift; sourceTree = "<group>"; };
-		8F9C69DA1950C8B700449664 /* PulseArticle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PulseArticle.swift; sourceTree = "<group>"; };
 		8FA5925C19ABBCEC00622266 /* TourView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TourView.xib; sourceTree = "<group>"; };
 		8FA5925E19ABBD3A00622266 /* TourViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TourViewController.swift; sourceTree = "<group>"; };
 		8FCD2D7E19EC286900AC5A82 /* UIImage+Orientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Orientation.h"; sourceTree = "<group>"; };
@@ -1810,7 +1808,6 @@
 				8F9C69D81950C8AD00449664 /* KioskInfo.swift */,
 				410FFF401CA5CDE1005EAC9E /* Organization.swift */,
 				410FFF5C1CA5EDC4005EAC9E /* Paging.swift */,
-				8F9C69DA1950C8B700449664 /* PulseArticle.swift */,
 				410FFFB11CA77533005EAC9E /* User.swift */,
 			);
 			name = Model;
@@ -2426,7 +2423,6 @@
 				413F68FE1CB5E930003D9571 /* UITableViewCell+Utility.swift in Sources */,
 				8F296316194B9BF700E787FD /* SessionController.swift in Sources */,
 				D1E2237A1A8009E6006330E7 /* ConnectDeviceViewController.swift in Sources */,
-				8F9C69DB1950C8B700449664 /* PulseArticle.swift in Sources */,
 				D15372911A841FEA00954569 /* TermsAndConditionsViewController.swift in Sources */,
 				4184846F1C6D473000C26211 /* Theme.swift in Sources */,
 				4179FCF11C25109D006130F5 /* LoadingViewController.swift in Sources */,

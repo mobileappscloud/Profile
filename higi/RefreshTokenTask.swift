@@ -12,14 +12,24 @@ final class RefreshTokenTask {}
 
 extension RefreshTokenTask: HigiAPIRequest {
     
-    class func request(email: String, password: String) -> NSURLRequest? {
+    enum TokenType {
+        case Refresh
+        case Legacy
+    }
+    
+    class func request(token: String, tokenType: TokenType = .Refresh, user: User? = nil) -> NSURLRequest? {
         
         let relativePath = "/authentication/refresh"
         
-        guard let authorization = HigiAPIClient.authorization,
-            let mutableRequest = authenticatedRequest(relativePath, parameters: nil, method: HTTPMethod.POST)?.mutableCopy() as? NSMutableURLRequest else { return nil }
+        var parameters: [String : String] = [:]
+        if tokenType == .Legacy, let user = user {
+            parameters["user"] = user.identifier
+        }
         
-        mutableRequest.addValue(authorization.refreshToken, forHTTPHeaderField: HigiAPIClient.HTTPHeaderName.refreshToken)
+        guard let mutableRequest = authenticatedRequest(relativePath, parameters: parameters, method: HTTPMethod.POST)?.mutableCopy() as? NSMutableURLRequest else { return nil }
+        
+        let headerName = (tokenType == .Refresh) ? HigiAPIClient.HTTPHeaderName.refreshToken : HigiAPIClient.HTTPHeaderName.legacyToken
+        mutableRequest.addValue(token, forHTTPHeaderField: headerName)
         
         return mutableRequest.copy() as? NSURLRequest
     }

@@ -20,6 +20,7 @@ final class HigiAPIClient: HigiAPI2 {
         static let clientId = "ClientId"
         static let authorization = "Authorization"
         static let refreshToken = "RefreshToken"
+        static let legacyToken = "LegacyToken"
         static let organizationId = "OrganizationId"
     }
     

@@ -22,8 +22,6 @@ class SessionController {
     
     var challenges: [HigiChallenge]! = [];
     
-    var pulseArticles: [PulseArticle] = [];
-    
     var kioskList: [KioskInfo]! = [];
     
     var devices: [String: ActivityDevice] = [:];
