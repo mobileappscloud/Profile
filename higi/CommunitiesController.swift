@@ -42,50 +42,33 @@ final class CommunitiesController {
 extension CommunitiesController {
     
     func fetch(success: () -> Void, failure: (error: NSError?) -> Void) {
-//        guard let request = CommunityCollectionRequest.request(.Joined) else {
-//            failure(error: nil)
-//            return
-//        }
-//        
-//        fetchTask = NSURLSessionTask.JSONTask(session, request: request, success: { (JSON, response) in
-//            
-//            CommunityCollectionDeserializer.parse(JSON, success: { (communities, paging) in
-//             
-//                self.communitiesSet = Set(communities)
-//                self.communities = communities
-//                self.paging = paging
-//                self.fetchTask = nil
-//                success()
-//                
-//                }, failure: { (error) in
-//                    self.fetchTask = nil
-//                    failure(error: error)
-//            })
-//            
-//            }, failure: { (error, response) in
-//                self.fetchTask = nil
-//                failure(error: error)
-//        })
-//        if let fetchTask = fetchTask {
-//            fetchTask.resume()
-//        }
+        guard let request = CommunityCollectionRequest.request(filter) else {
+            failure(error: nil)
+            return
+        }
         
-        
-        let fileName = "communities-collection"
-        let filePath = NSBundle.mainBundle().pathForResource(fileName, ofType: "json")!
-        let data = NSData(contentsOfFile: filePath)!
-        let JSON = try! NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions()) as! NSDictionary
-        
-        CommunityCollectionDeserializer.parse(JSON, success: { (communities, paging) in
+        fetchTask = NSURLSessionTask.JSONTask(session, request: request, success: { (JSON, response) in
             
-            self.communitiesSet = Set(communities)
-            self.communities = communities
-            self.paging = paging
-            success()
+            CommunityCollectionDeserializer.parse(JSON, success: { (communities, paging) in
+             
+                self.communitiesSet = Set(communities)
+                self.communities = communities
+                self.paging = paging
+                self.fetchTask = nil
+                success()
+                
+                }, failure: { (error) in
+                    self.fetchTask = nil
+                    failure(error: error)
+            })
             
-            }, failure: { (error) in
+            }, failure: { (error, response) in
+                self.fetchTask = nil
                 failure(error: error)
         })
+        if let fetchTask = fetchTask {
+            fetchTask.resume()
+        }
     }
     
     func fetchNext(success: () -> Void, failure: (error: NSError?) -> Void) {
@@ -108,16 +91,12 @@ extension CommunitiesController {
                 var newSet = Set(communities)
                 newSet.unionInPlace(self.communities)
                 
-                let sortedCommunities = newSet.sort({ community1, community2 in
-                    guard let date1 = community1.joinDate,
-                        let date2 = community2.joinDate else {
-                            return true
-                    }
-                    return (date1.compare(date2) != .OrderedAscending)
-                })
-                
                 self.communitiesSet = newSet
-                self.communities = sortedCommunities
+                
+                var newCommunities = self.communities
+                newCommunities.appendContentsOf(communities)
+                self.communities = newCommunities
+                
                 self.paging = paging
                 self.nextPagingTask = nil
                 success()
@@ -131,8 +110,8 @@ extension CommunitiesController {
                 self.nextPagingTask = nil
                 failure(error: error)
         })
+        
         if let nextPagingTask = nextPagingTask {
-            print("did resume next paging task")
             nextPagingTask.resume()
         }
     }

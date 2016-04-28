@@ -122,19 +122,25 @@ extension CommunitiesViewController {
         dispatch_async(dispatch_get_main_queue(), {
             self.tableView.reloadData()
             
-            let duration: NSTimeInterval = 1.0
-            UIView.animateWithDuration(duration, animations: {
-                self.loadingViewController.view.alpha = 0.0
-                }, completion: { completed in
-                self.loadingViewController.view.removeFromSuperview()
-            })
+            self.removeLoadingState()
         })
     }
     
     func communitiesFetchFailure(error: NSError?) -> Void {
+        self.removeLoadingState()
+        
         if let error = error {
             print(error)
         }
+    }
+    
+    private func removeLoadingState() {
+        let duration: NSTimeInterval = 1.0
+        UIView.animateWithDuration(duration, animations: {
+            self.loadingViewController.view.alpha = 0.0
+            }, completion: { completed in
+                self.loadingViewController.view.removeFromSuperview()
+        })
     }
 }
 
@@ -436,7 +442,7 @@ extension CommunitiesViewController: UINavigationControllerDelegate {
     
     func communityListMaxIndexPath() -> NSIndexPath {
         let section = CommunitiesExpandedViewController.TableSection.Communities.rawValue
-        let row = TableSection.YourCommunities.maxCommunityCount() * CommunitiesRowType.Count.rawValue
+        let row = (TableSection.YourCommunities.maxCommunityCount() - 1) * CommunitiesExpandedViewController.CommunitiesRowType.Count.rawValue
         return NSIndexPath(forRow: row, inSection: section)
     }
 }

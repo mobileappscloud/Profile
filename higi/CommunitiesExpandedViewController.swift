@@ -40,12 +40,36 @@ extension CommunitiesExpandedViewController {
 extension CommunitiesExpandedViewController {
     
     private func fetchNextCommunities() {
+        guard let _ = controller.paging?.next else {
+            return
+        }
+        
         controller.fetchNext(fetchNextSuccess, failure: fetchNextFailure)
     }
     
     private func fetchNextSuccess() {
+        guard let paging = controller.paging else { return }
+        
+        let previousPageNumber = paging.pageNumber - 1
+        let previousCollectionMaxIndex = previousPageNumber * paging.pageSize
+        
+        let currentCollectionMaxIndex = controller.communities.count - 1
+        
+        let section = TableSection.Communities.rawValue
+        var indexPaths: [NSIndexPath] = []
+        
+        for index in previousCollectionMaxIndex...currentCollectionMaxIndex {
+            for rowType in 0..<CommunitiesRowType.Count.rawValue {
+                let calculatedIndex = (index * CommunitiesRowType.Count.rawValue) + rowType
+                let indexPath = NSIndexPath(forRow: calculatedIndex, inSection: section)
+                indexPaths.append(indexPath)
+            }
+        }
+        
         dispatch_async(dispatch_get_main_queue(), {
-            self.tableView.reloadData()
+            self.tableView.beginUpdates()
+            self.tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Bottom)
+            self.tableView.endUpdates()
         })
     }
     
@@ -123,10 +147,7 @@ extension CommunitiesExpandedViewController: UITableViewDataSource {
         switch sectionType {
         case .Communities:
             rowCount = controller.communities.count * CommunitiesRowType.Count.rawValue
-            break
         case .InfiniteScroll:
-            guard let paging = controller.paging,
-                let _ = paging.next else { break }
             rowCount = InfiniteScrollRowType.Count.rawValue
         case .Count:
             break
@@ -206,6 +227,11 @@ extension CommunitiesExpandedViewController: UITableViewDelegate {
             rowHeight = rowType.defaultHeight()
             
         case .InfiniteScroll:
+            guard let paging = controller.paging,
+                let _ = paging.next else {
+                    break
+            }
+            
             let rowType = InfiniteScrollRowType(indexPath: indexPath)
             rowHeight = rowType.defaultHeight()
             
