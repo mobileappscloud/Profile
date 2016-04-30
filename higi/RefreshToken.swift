@@ -8,9 +8,9 @@
 
 import Foundation
 
-final class RefreshTokenTask {}
+final class RefreshToken {}
 
-extension RefreshTokenTask: HigiAPIRequest {
+extension RefreshToken: HigiAPIRequest {
     
     enum TokenType {
         case Refresh
@@ -26,7 +26,7 @@ extension RefreshTokenTask: HigiAPIRequest {
             parameters["user"] = user.identifier
         }
         
-        guard let mutableRequest = authenticatedRequest(relativePath, parameters: parameters, method: HTTPMethod.POST)?.mutableCopy() as? NSMutableURLRequest else { return nil }
+        guard let mutableRequest = request(relativePath, parameters: parameters, method: HTTPMethod.POST)?.mutableCopy() as? NSMutableURLRequest else { return nil }
         
         let headerName = (tokenType == .Refresh) ? HigiAPIClient.HTTPHeaderName.refreshToken : HigiAPIClient.HTTPHeaderName.legacyToken
         mutableRequest.addValue(token, forHTTPHeaderField: headerName)

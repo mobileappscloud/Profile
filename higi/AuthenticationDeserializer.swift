@@ -29,7 +29,8 @@ final class AuthenticationDeserializer: HigiAPIJSONDeserializer {
             
             success(user: user)
         } else {
-            failure(error: nil)
+            let error = NSError(sender: String(self), code: 0, message: "Unable to parse response - unexpected JSON format.")
+            failure(error: error)
         }
     }
 }

@@ -23,7 +23,8 @@ final class CollectionDeserializer: HigiAPIJSONDeserializer {
             
             success(collection: collection, paging: paging)
         } else {
-            failure(error: nil)
+            let error = NSError(sender: String(self), code: 0, message: "Unable to parse response - unexpected JSON format.")
+            failure(error: error)
         }
     }
 }

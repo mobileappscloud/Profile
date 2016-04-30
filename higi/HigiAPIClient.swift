@@ -29,6 +29,7 @@ final class HigiAPIClient: HigiAPI2 {
     
     /// Base URL for accessing the higi API.
     private static let baseURL: NSURL = {
+        // TODO: WARNING UNCOMMENT
         //        let URLString = NSBundle.mainBundle().objectForInfoDictionaryKey("HigiUrl") as! String
         let URLString = "https://api-dev.superbuddytime.com"
         return NSURL(string: URLString)!

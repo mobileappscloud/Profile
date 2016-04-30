@@ -56,7 +56,8 @@ extension NSURLSessionTask {
                     let JSON = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions())
                     success(JSON: JSON, response: response)
                 } catch {
-                    failure(error: nil, response: response)
+                    let error = NSError(sender: String(self), code: 0, message: "Error serializing response.")
+                    failure(error: error, response: response)
                 }
             } else {
                 failure(error: nil, response: response)

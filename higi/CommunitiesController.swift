@@ -10,7 +10,7 @@ final class CommunitiesController {
     
     // MARK: Properties
     
-    typealias Filter = CommunityCollectionRequest.Filter
+    typealias Filter = CommunityCollection.Filter
     let filter: Filter
 
     private(set) var communitiesSet: Set<Community> = []
@@ -42,33 +42,37 @@ final class CommunitiesController {
 extension CommunitiesController {
     
     func fetch(success: () -> Void, failure: (error: NSError?) -> Void) {
-        guard let request = CommunityCollectionRequest.request(filter) else {
-            failure(error: nil)
-            return
-        }
-        
-        fetchTask = NSURLSessionTask.JSONTask(session, request: request, success: { (JSON, response) in
+        CommunityCollection.request(filter, completion: { (request, error) in
             
-            CommunityCollectionDeserializer.parse(JSON, success: { (communities, paging) in
-             
-                self.communitiesSet = Set(communities)
-                self.communities = communities
-                self.paging = paging
-                self.fetchTask = nil
-                success()
+            guard let request = request else {
+                failure(error: nil)
+                return
+            }
+
+            self.fetchTask = NSURLSessionTask.JSONTask(self.session, request: request, success: { (JSON, response) in
                 
-                }, failure: { (error) in
+                CommunityCollectionDeserializer.parse(JSON, success: { (communities, paging) in
+                    
+                    self.communitiesSet = Set(communities)
+                    self.communities = communities
+                    self.paging = paging
+                    self.fetchTask = nil
+                    success()
+                    
+                    }, failure: { (error) in
+                        self.fetchTask = nil
+                        failure(error: error)
+                })
+                
+                }, failure: { (error, response) in
                     self.fetchTask = nil
                     failure(error: error)
             })
+            if let fetchTask = self.fetchTask {
+                fetchTask.resume()
+            }
             
-            }, failure: { (error, response) in
-                self.fetchTask = nil
-                failure(error: error)
         })
-        if let fetchTask = fetchTask {
-            fetchTask.resume()
-        }
     }
     
     func fetchNext(success: () -> Void, failure: (error: NSError?) -> Void) {

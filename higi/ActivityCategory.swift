@@ -1,3 +1,4 @@
+
 enum ActivityCategory {
     case Fitness
     case Health

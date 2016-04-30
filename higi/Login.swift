@@ -16,7 +16,7 @@ extension Login: HigiAPIRequest {
         
         let relativePath = "/authentication/login"
         
-        guard let mutableRequest = authenticatedRequest(relativePath, parameters: nil, method: HTTPMethod.POST)?.mutableCopy() as? NSMutableURLRequest else { return nil }
+        guard let mutableRequest = request(relativePath, parameters: nil, method: HTTPMethod.POST)?.mutableCopy() as? NSMutableURLRequest else { return nil }
                 
         let encodedValueData = "\(email):\(password)".dataUsingEncoding(NSUTF8StringEncoding)!
         let encodedCredentials = encodedValueData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions())

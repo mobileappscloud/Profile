@@ -8,9 +8,9 @@
 
 import Foundation
 
-final class CommunitySubscribeTask {}
+final class CommunitySubscribe {}
 
-extension CommunitySubscribeTask: HigiAPIRequest {
+extension CommunitySubscribe {
     
 //    class func request(communityId: String, userId: String?, subscribe: Bool) -> NSURLRequest? {
 //        
@@ -48,4 +48,25 @@ extension CommunitySubscribeTask: HigiAPIRequest {
 //        })
 //        return task
 //    }
+}
+
+
+
+extension CommunitySubscribe: HigiAPIRequest {
+    
+    enum Filter {
+        case Join
+        case Leave
+    }
+    
+    class func request(filter: Filter, completion: (request: NSURLRequest?, error: NSError?) -> Void) {
+        
+        // TODO: UNCOMMENT 
+        //        let relativePath = "/communities"
+        let relativePath = "/community/communities"
+        
+        var parameters: [String : String] = [:]
+        
+        authenticatedRequest(relativePath, parameters: parameters, completion: completion)
+    }
 }

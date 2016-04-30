@@ -8,17 +8,18 @@
 
 import Foundation
 
-final class CommunityCollectionRequest {}
+final class CommunityCollection {}
 
-extension CommunityCollectionRequest: HigiAPIRequest {
+extension CommunityCollection: HigiAPIRequest {
     
     enum Filter {
         case Joined
         case Unjoined
     }
     
-    class func request(filter: Filter) -> NSURLRequest? {
+    class func request(filter: Filter, completion: (request: NSURLRequest?, error: NSError?) -> ()) {
         
+        // TODO: UNCOMMENT 
 //        let relativePath = "/communities"
         let relativePath = "/community/communities"
         
@@ -29,6 +30,6 @@ extension CommunityCollectionRequest: HigiAPIRequest {
         let sortParam = filterJoined ? "joinDate" : "createdOn"
         parameters["sort"] = "\(sortParam) desc"
         
-        return authenticatedRequest(relativePath, parameters: parameters)
+        authenticatedRequest(relativePath, parameters: parameters, completion: completion)
     }
 }
