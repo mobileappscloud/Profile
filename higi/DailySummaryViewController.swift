@@ -264,7 +264,7 @@ class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
         
         let textRow = SummaryViewUtility.initBreakdownRow(CGRect(x: rowX - textOffset, y: currentOrigin, width: rowWidth, height: CGFloat.max), text: text, duplicate: false);
         textRow.bulletPoint.hidden = true;
-        textRow.desc.numberOfLines = 5
+        textRow.desc.numberOfLines = 0
         textRow.desc.minimumScaleFactor = 0.5
         textRow.desc.sizeToFit()
         textRow.alpha = alpha;
