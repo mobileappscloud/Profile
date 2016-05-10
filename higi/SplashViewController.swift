@@ -109,6 +109,11 @@ class SplashViewController: UIViewController {
             nameViewController.dashboardNext = true;
             let nameNav = UINavigationController(rootViewController: nameViewController)
             self.presentViewController(nameNav, animated: true, completion: nil);
+        } else if user.dateOfBirthString == nil {
+            let birthDateViewController = BirthdateViewController(nibName: "BirthdateView", bundle: nil)
+            birthDateViewController.dashboardNext = true
+            let nav = UINavigationController(rootViewController: birthDateViewController)
+            self.presentViewController(nav, animated: true, completion: nil)
         } else {
             ApiUtility.initializeApiData();
             AppDelegate.instance().startLocationManager();
