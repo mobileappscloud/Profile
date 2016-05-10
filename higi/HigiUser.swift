@@ -25,6 +25,8 @@ class HigiUser {
     
     var hasPhoto, emailCheckins, emailHigiNews: Bool!;
     
+    var dateOfBirthString: String?
+    
     var profileImage: UIImage?
     var fullProfileImage: UIImage?
     var blurredImage: UIImage?
@@ -85,6 +87,8 @@ class HigiUser {
         } else {
             privacyFile = "";
         }
+        
+        dateOfBirthString = dictionary["dateOfBirth"] as? String
         
         createBlurredImage();
     }
