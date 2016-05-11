@@ -19,7 +19,7 @@ class BirthdateViewController: UIViewController {
     var spinner: CustomLoadingSpinner!
     var secondTry = false;
     
-    var dashboardNext = false;
+    weak var dismissOnSuccess: UIViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -72,9 +72,10 @@ class BirthdateViewController: UIViewController {
             contents["dateOfBirth"] = dateFormatter.stringFromDate(birthday);
             HigiApi().sendPost("\(HigiApi.higiApiUrl)/data/user/\(user.userId)", parameters: contents, success: {operation, responseObject in
                 
-                if (self.dashboardNext) {
-                    dispatch_async(dispatch_get_main_queue(), { [weak self] in
-                        self?.dismissViewControllerAnimated(true, completion: nil)
+                
+                if let viewController = self.dismissOnSuccess {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        viewController.dismissViewControllerAnimated(true, completion: nil)
                     })
                 } else {
                     dispatch_async(dispatch_get_main_queue(), { [weak self] in

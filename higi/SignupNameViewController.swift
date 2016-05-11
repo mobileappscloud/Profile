@@ -27,7 +27,7 @@ class SignupNameViewController: UIViewController, UITextFieldDelegate {
     }
     var spinner: CustomLoadingSpinner!
     
-    var dashboardNext = false;
+    weak var dismissOnSuccess: UIViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -81,12 +81,14 @@ class SignupNameViewController: UIViewController, UITextFieldDelegate {
             
             HigiApi().sendPost("\(HigiApi.higiApiUrl)/data/user/\(user.userId)", parameters: contents, success: {operation, responseObject in
                 
-                    if (self.dashboardNext) {
+                    if let viewController = self.dismissOnSuccess {
                         dispatch_async(dispatch_get_main_queue(), {
-                            self.dismissViewControllerAnimated(true, completion: nil)
+                            viewController.dismissViewControllerAnimated(true, completion: nil)
                         })
                     } else {
-                        self.navigationController?.pushViewController(BirthdateViewController(nibName: "BirthdateView", bundle: nil), animated: true);
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.navigationController?.pushViewController(BirthdateViewController(nibName: "BirthdateView", bundle: nil), animated: true);
+                        })
                     }
                 }, failure: {operation, error in
                     
