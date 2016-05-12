@@ -106,9 +106,17 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                             termsController.privacyFile = privacy as String;
                             self.presentViewController(termsController, animated: true, completion: nil);
                         } else if (user.firstName == nil || user.firstName == "" || user.lastName == nil || user.lastName == "") {
-                            let nameViewController = SignupNameViewController(nibName: "SignupNameView", bundle: nil);
-                            nameViewController.dashboardNext = true;
-                            self.presentViewController(nameViewController, animated: true, completion: nil);
+                            let nameViewController = SignupNameViewController(nibName: "SignupNameView", bundle: nil)
+                            let nav = UINavigationController(rootViewController: nameViewController)
+                            let splashViewController = (AppDelegate.instance().window?.rootViewController as? HostViewController)?.splashViewController
+                            nameViewController.dismissOnSuccess = splashViewController
+                            self.presentViewController(nav, animated: true, completion: nil);
+                        } else if user.dateOfBirthString == nil {
+                            let birthDateViewController = BirthdateViewController(nibName: "BirthdateView", bundle: nil)
+                            let splashViewController = (AppDelegate.instance().window?.rootViewController as? HostViewController)?.splashViewController
+                            birthDateViewController.dismissOnSuccess = splashViewController
+                            let nav = UINavigationController(rootViewController: birthDateViewController)
+                            self.presentViewController(nav, animated: true, completion: nil)
                         } else {
                             if HealthKitManager.deviceHasMotionProcessor() && HealthKitManager.isHealthDataAvailable() && HealthKitManager.didShowAuthorizationModal() {
                                 

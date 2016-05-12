@@ -106,9 +106,14 @@ class SplashViewController: UIViewController {
             self.presentViewController(termsNav, animated: true, completion: nil);
         } else if (user.firstName == nil || user.firstName == "" || user.lastName == nil || user.lastName == "") {
             let nameViewController = SignupNameViewController(nibName: "SignupNameView", bundle: nil);
-            nameViewController.dashboardNext = true;
+            nameViewController.dismissOnSuccess = nameViewController
             let nameNav = UINavigationController(rootViewController: nameViewController)
             self.presentViewController(nameNav, animated: true, completion: nil);
+        } else if user.dateOfBirthString == nil {
+            let birthDateViewController = BirthdateViewController(nibName: "BirthdateView", bundle: nil)
+            birthDateViewController.dismissOnSuccess = birthDateViewController
+            let nav = UINavigationController(rootViewController: birthDateViewController)
+            self.presentViewController(nav, animated: true, completion: nil)
         } else {
             ApiUtility.initializeApiData();
             AppDelegate.instance().startLocationManager();

@@ -19,6 +19,8 @@ class BirthdateViewController: UIViewController {
     var spinner: CustomLoadingSpinner!
     var secondTry = false;
     
+    weak var dismissOnSuccess: UIViewController?
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         self.title = NSLocalizedString("BIRTHDATE_VIEW_BIRTHDATE_ENTRY_TITLE", comment: "Title for birthdate view when asking user to enter their birthdate.")
@@ -69,7 +71,16 @@ class BirthdateViewController: UIViewController {
             contents["dateOfBirth"] = dateFormatter.stringFromDate(birthday);
             HigiApi().sendPost("\(HigiApi.higiApiUrl)/data/user/\(user.userId)", parameters: contents, success: {operation, responseObject in
                 
-                self.navigationController?.pushViewController(ProfileImageViewController(nibName: "ProfileImageView", bundle: nil), animated: true);
+                
+                if let viewController = self.dismissOnSuccess {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        viewController.dismissViewControllerAnimated(true, completion: nil)
+                    })
+                } else {
+                    dispatch_async(dispatch_get_main_queue(), { [weak self] in
+                        self?.navigationController?.pushViewController(ProfileImageViewController(nibName: "ProfileImageView", bundle: nil), animated: true)
+                    })
+                }
                 
                 }, failure: {operation, error in
                     let message = NSLocalizedString("BIRTHDATE_VIEW_UPDATE_BIRTHDATE_FAILURE_ALERT_MESSAGE", comment: "Message for alert to display if the server cannot be reached when attempting to update user's birthdate.")
