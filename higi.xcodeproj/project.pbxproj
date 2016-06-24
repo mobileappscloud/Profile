@@ -260,6 +260,7 @@
 		41E61EF91D00C5950060D882 /* StationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E61EF81D00C5950060D882 /* StationController.swift */; };
 		41E6B5E41C16184200ED922B /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E6B5E31C16184200ED922B /* HealthKitManager.swift */; };
 		41E6B5E81C161FAB00ED922B /* MetricsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E6B5E71C161FAB00ED922B /* MetricsCoordinator.swift */; };
+		41E814851D1DD0A300D8DEBD /* higi-dev.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 41E814841D1DD0A300D8DEBD /* higi-dev.entitlements */; };
 		41E90DED1BD98494001DCC4C /* RequiredAppUpdate.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41E90DEC1BD98494001DCC4C /* RequiredAppUpdate.storyboard */; };
 		41E90DF11BD984E0001DCC4C /* RequiredAppUpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E90DF01BD984E0001DCC4C /* RequiredAppUpdateViewController.swift */; };
 		41ED6C971C85FCA300A55BED /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41ED6C961C85FCA300A55BED /* Notifications.swift */; };
@@ -709,6 +710,8 @@
 		41E61EF81D00C5950060D882 /* StationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StationController.swift; sourceTree = "<group>"; };
 		41E6B5E31C16184200ED922B /* HealthKitManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
 		41E6B5E71C161FAB00ED922B /* MetricsCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricsCoordinator.swift; sourceTree = "<group>"; };
+		41E814841D1DD0A300D8DEBD /* higi-dev.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "higi-dev.entitlements"; sourceTree = "<group>"; };
+		41E814861D1DD0E700D8DEBD /* Info_dev.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info_dev.plist; sourceTree = "<group>"; };
 		41E90DEC1BD98494001DCC4C /* RequiredAppUpdate.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = RequiredAppUpdate.storyboard; sourceTree = "<group>"; };
 		41E90DF01BD984E0001DCC4C /* RequiredAppUpdateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequiredAppUpdateViewController.swift; sourceTree = "<group>"; };
 		41ED6C961C85FCA300A55BED /* Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
@@ -2003,6 +2006,26 @@
 			name = "Main Tab Bar";
 			sourceTree = "<group>";
 		};
+		41E814881D1DD1A800D8DEBD /* Entitlements */ = {
+			isa = PBXGroup;
+			children = (
+				41E814841D1DD0A300D8DEBD /* higi-dev.entitlements */,
+				413E19351C10B41400146B29 /* higi-qa.entitlements */,
+				8FDB4B621A040B8500F57B38 /* higi.entitlements */,
+			);
+			name = Entitlements;
+			sourceTree = "<group>";
+		};
+		41E814891D1DD1B200D8DEBD /* Info */ = {
+			isa = PBXGroup;
+			children = (
+				41E814861D1DD0E700D8DEBD /* Info_dev.plist */,
+				32E39E451B756D4200BA50F9 /* Info_prod.plist */,
+				32E39E461B756D4200BA50F9 /* Info_qa.plist */,
+			);
+			name = Info;
+			sourceTree = "<group>";
+		};
 		41E90DF21BD984F4001DCC4C /* App Update */ = {
 			isa = PBXGroup;
 			children = (
@@ -2205,10 +2228,8 @@
 		8F36439D19460EB300C0033E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				8FDB4B621A040B8500F57B38 /* higi.entitlements */,
-				413E19351C10B41400146B29 /* higi-qa.entitlements */,
-				32E39E451B756D4200BA50F9 /* Info_prod.plist */,
-				32E39E461B756D4200BA50F9 /* Info_qa.plist */,
+				41E814881D1DD1A800D8DEBD /* Entitlements */,
+				41E814891D1DD1B200D8DEBD /* Info */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -2557,6 +2578,7 @@
 				D105CB5F1B7E9B2D00971AB0 /* QrScannerView.xib in Resources */,
 				410FFF341CA5C6A3005EAC9E /* Communities.storyboard in Resources */,
 				413E198B1C10E4D700146B29 /* MetricsPage.storyboard in Resources */,
+				41E814851D1DD0A300D8DEBD /* higi-dev.entitlements in Resources */,
 				411F7A021CBECAB3000D0D64 /* CommunityLogoMemberView.xib in Resources */,
 				D1FC72A11B2240020068CF89 /* MetricGaugeView.xib in Resources */,
 				419D86601BBEFF1A00E7D844 /* Settings.storyboard in Resources */,
@@ -3053,6 +3075,7 @@
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CODE_SIGN_ENTITLEMENTS = "higi/higi-qa.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3149,6 +3172,7 @@
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CODE_SIGN_ENTITLEMENTS = "higi/higi-qa.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: higi llc (5D5W9WNYL2)";
+				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3287,6 +3311,249 @@
 			};
 			name = ReleaseQA;
 		};
+		41E814781D1DCB9100D8DEBD /* DebugDev */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				METAL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_SWIFT_FLAGS = "-DDEBUG";
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = DebugDev;
+		};
+		41E814791D1DCB9100D8DEBD /* DebugDev */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_LOCALIZABILITY_EMPTY_CONTEXT = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CODE_SIGN_ENTITLEMENTS = "higi/higi-dev.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Vendor/Google-Maps",
+					"$(PROJECT_DIR)/Vendor/Google-Maps/Frameworks",
+					"$(PROJECT_DIR)/Vendor/Crashlytics/iOS",
+					"$(PROJECT_DIR)/Vendor/Fabric/iOS",
+				);
+				GCC_VERSION = "";
+				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Vendor/CorePlot/framework\"/**";
+				INFOPLIST_FILE = higi/Info_dev.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Vendor/Flurry/Flurry",
+				);
+				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.higi.main-dev";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = higi/BridgingHeader.h;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = DebugDev;
+		};
+		41E8147A1D1DCB9100D8DEBD /* DebugDev */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = DebugDev;
+		};
+		41E8147B1D1DCB9100D8DEBD /* DebugDev */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/higi.app/higi";
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(PROJECT_DIR)/Vendor/Fabric/iOS",
+					"$(PROJECT_DIR)/Vendor/Crashlytics/iOS",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Vendor/CorePlot/framework\"/**";
+				INFOPLIST_FILE = higiTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				METAL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.higi.main.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+			};
+			name = DebugDev;
+		};
+		41E8147C1D1DCB9100D8DEBD /* DebugDev */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = higiUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.higi.main.higiUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = higi;
+			};
+			name = DebugDev;
+		};
+		41E8147F1D1DCB9B00D8DEBD /* ReleaseDev */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				METAL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = ReleaseDev;
+		};
+		41E814801D1DCB9B00D8DEBD /* ReleaseDev */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_LOCALIZABILITY_EMPTY_CONTEXT = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CODE_SIGN_ENTITLEMENTS = "higi/higi-dev.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: higi llc (5D5W9WNYL2)";
+				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Vendor/Google-Maps",
+					"$(PROJECT_DIR)/Vendor/Google-Maps/Frameworks",
+					"$(PROJECT_DIR)/Vendor/Crashlytics/iOS",
+					"$(PROJECT_DIR)/Vendor/Fabric/iOS",
+				);
+				GCC_VERSION = "";
+				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Vendor/CorePlot/framework\"/**";
+				INFOPLIST_FILE = higi/Info_dev.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Vendor/Flurry/Flurry",
+				);
+				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.higi.main-dev";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = higi/BridgingHeader.h;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = ReleaseDev;
+		};
+		41E814811D1DCB9B00D8DEBD /* ReleaseDev */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = ReleaseDev;
+		};
+		41E814821D1DCB9B00D8DEBD /* ReleaseDev */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/higi.app/higi";
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(PROJECT_DIR)/Vendor/Fabric/iOS",
+					"$(PROJECT_DIR)/Vendor/Crashlytics/iOS",
+				);
+				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Vendor/CorePlot/framework\"/**";
+				INFOPLIST_FILE = higiTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				METAL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.higi.main.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+			};
+			name = ReleaseDev;
+		};
+		41E814831D1DCB9B00D8DEBD /* ReleaseDev */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = higiUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.higi.main.higiUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = higi;
+			};
+			name = ReleaseDev;
+		};
 		8F3643B419460EB300C0033E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -3374,6 +3641,7 @@
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CODE_SIGN_ENTITLEMENTS = higi/higi.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3409,6 +3677,7 @@
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CODE_SIGN_ENTITLEMENTS = higi/higi.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: higi llc (5D5W9WNYL2)";
+				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3491,8 +3760,10 @@
 			buildConfigurations = (
 				418D4C4A1C7A5471008C86E7 /* Debug */,
 				418D4C4B1C7A5471008C86E7 /* DebugQA */,
+				41E8147C1D1DCB9100D8DEBD /* DebugDev */,
 				418D4C4C1C7A5471008C86E7 /* Release */,
 				418D4C4D1C7A5471008C86E7 /* ReleaseQA */,
+				41E814831D1DCB9B00D8DEBD /* ReleaseDev */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -3502,8 +3773,10 @@
 			buildConfigurations = (
 				41CAB9A71BC40F6F0000772C /* Debug */,
 				41CAB9A81BC40F6F0000772C /* DebugQA */,
+				41E8147A1D1DCB9100D8DEBD /* DebugDev */,
 				41CAB9A91BC40F6F0000772C /* Release */,
 				41CAB9AA1BC40F6F0000772C /* ReleaseQA */,
+				41E814811D1DCB9B00D8DEBD /* ReleaseDev */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -3513,8 +3786,10 @@
 			buildConfigurations = (
 				8F3643B419460EB300C0033E /* Debug */,
 				32E39E491B756D6900BA50F9 /* DebugQA */,
+				41E814781D1DCB9100D8DEBD /* DebugDev */,
 				8F3643B519460EB300C0033E /* Release */,
 				32E39E4C1B756D6F00BA50F9 /* ReleaseQA */,
+				41E8147F1D1DCB9B00D8DEBD /* ReleaseDev */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -3524,8 +3799,10 @@
 			buildConfigurations = (
 				8F3643B719460EB300C0033E /* Debug */,
 				32E39E4A1B756D6900BA50F9 /* DebugQA */,
+				41E814791D1DCB9100D8DEBD /* DebugDev */,
 				8F3643B819460EB300C0033E /* Release */,
 				32E39E4D1B756D6F00BA50F9 /* ReleaseQA */,
+				41E814801D1DCB9B00D8DEBD /* ReleaseDev */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -3535,8 +3812,10 @@
 			buildConfigurations = (
 				8F3643BA19460EB300C0033E /* Debug */,
 				32E39E4B1B756D6900BA50F9 /* DebugQA */,
+				41E8147B1D1DCB9100D8DEBD /* DebugDev */,
 				8F3643BB19460EB300C0033E /* Release */,
 				32E39E4E1B756D6F00BA50F9 /* ReleaseQA */,
+				41E814821D1DCB9B00D8DEBD /* ReleaseDev */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
