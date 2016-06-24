@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="M3w-hO-sR9">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--Home View Controller-->
+        <scene sceneID="jf2-kY-mmj">
+            <objects>
+                <viewController id="M3w-hO-sR9" customClass="HomeViewController" customModule="higi" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="1e0-lQ-jlC"/>
+                        <viewControllerLayoutGuide type="bottom" id="FX2-0h-Gow"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Hfs-P8-zUw">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gdZ-q6-evS">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <connections>
+                                    <segue destination="Sg4-Zz-XEU" kind="embed" identifier="feedEmbedSegue" id="4nK-Nd-y9x"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="gdZ-q6-evS" firstAttribute="leading" secondItem="Hfs-P8-zUw" secondAttribute="leading" id="C4Z-wS-Au0"/>
+                            <constraint firstItem="gdZ-q6-evS" firstAttribute="top" secondItem="Hfs-P8-zUw" secondAttribute="top" id="Flz-KW-cbE"/>
+                            <constraint firstItem="FX2-0h-Gow" firstAttribute="top" secondItem="gdZ-q6-evS" secondAttribute="bottom" id="NI0-Wh-aza"/>
+                            <constraint firstAttribute="trailing" secondItem="gdZ-q6-evS" secondAttribute="trailing" id="Vze-Nk-Mum"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7fT-Ra-eNU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="795" y="139"/>
+        </scene>
+        <!--Feed-->
+        <scene sceneID="SiY-J7-n2F">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Feed" id="Sg4-Zz-XEU" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h7b-zZ-sad" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1265.5" y="139"/>
+        </scene>
+    </scenes>
+</document>

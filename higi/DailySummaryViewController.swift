@@ -574,26 +574,26 @@ extension DailySummaryViewController: UniversalLinkHandler {
         var loadedActivities = false
         var loadedCheckins = false
         let appDelegate = AppDelegate.instance()
-        if appDelegate.didRecentlyLaunchToContinueUserActivity() {
-            let loadingViewController = self.presentLoadingViewController()
-            
-            self.universalLinkActivitiesObserver = NSNotificationCenter.defaultCenter().addObserverForName(ApiUtility.ACTIVITIES, object: nil, queue: nil, usingBlock: { (notification) in
-                loadedActivities = true
-                self.pushDailySummary(loadedActivities, loadedCheckins: loadedCheckins, presentedViewController: loadingViewController)
-                if let observer = self.universalLinkActivitiesObserver {
-                    NSNotificationCenter.defaultCenter().removeObserver(observer)
-                }
-            })
-            self.universalLinkCheckinsObserver = NSNotificationCenter.defaultCenter().addObserverForName(ApiUtility.CHECKINS, object: nil, queue: nil, usingBlock: { (notification) in
-                loadedCheckins = true
-                self.pushDailySummary(loadedActivities, loadedCheckins: loadedCheckins, presentedViewController: loadingViewController)
-                if let observer = self.universalLinkCheckinsObserver {
-                    NSNotificationCenter.defaultCenter().removeObserver(observer)
-                }
-            })
-        } else {
-            self.pushDailySummary(true, loadedCheckins: true, presentedViewController: nil)
-        }
+//        if appDelegate.didRecentlyLaunchToContinueUserActivity() {
+//            let loadingViewController = self.presentLoadingViewController()
+//            
+//            self.universalLinkActivitiesObserver = NSNotificationCenter.defaultCenter().addObserverForName(ApiUtility.ACTIVITIES, object: nil, queue: nil, usingBlock: { (notification) in
+//                loadedActivities = true
+//                self.pushDailySummary(loadedActivities, loadedCheckins: loadedCheckins, presentedViewController: loadingViewController)
+//                if let observer = self.universalLinkActivitiesObserver {
+//                    NSNotificationCenter.defaultCenter().removeObserver(observer)
+//                }
+//            })
+//            self.universalLinkCheckinsObserver = NSNotificationCenter.defaultCenter().addObserverForName(ApiUtility.CHECKINS, object: nil, queue: nil, usingBlock: { (notification) in
+//                loadedCheckins = true
+//                self.pushDailySummary(loadedActivities, loadedCheckins: loadedCheckins, presentedViewController: loadingViewController)
+//                if let observer = self.universalLinkCheckinsObserver {
+//                    NSNotificationCenter.defaultCenter().removeObserver(observer)
+//                }
+//            })
+//        } else {
+//            self.pushDailySummary(true, loadedCheckins: true, presentedViewController: nil)
+//        }
     }
     
     private func pushDailySummary(loadedActivities: Bool, loadedCheckins: Bool, presentedViewController: UIViewController?) {

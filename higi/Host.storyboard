@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10089" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ikf-zi-ibS">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ikf-zi-ibS">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10072.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
         <!--Host View Controller-->
@@ -16,23 +16,34 @@
                     <view key="view" contentMode="scaleToFill" id="897-5P-5K4">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H5H-uP-HIG">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <connections>
+                                    <segue destination="iiA-9d-XjM" kind="embed" id="RzF-Ie-KFu"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="H5H-uP-HIG" secondAttribute="trailing" id="ANA-Os-wxz"/>
+                            <constraint firstItem="vm0-nO-kMy" firstAttribute="top" secondItem="H5H-uP-HIG" secondAttribute="bottom" id="Cqv-uf-jqr"/>
+                            <constraint firstItem="H5H-uP-HIG" firstAttribute="leading" secondItem="897-5P-5K4" secondAttribute="leading" id="u2n-eX-wsg"/>
+                            <constraint firstItem="H5H-uP-HIG" firstAttribute="top" secondItem="897-5P-5K4" secondAttribute="top" id="ztE-vf-9Xt"/>
+                        </constraints>
                     </view>
-                    <connections>
-                        <segue destination="kss-E0-MXb" kind="presentation" identifier="SplashViewControllerStoryboardSegueIdentifier" animates="NO" id="SK7-Qg-z2d"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="imt-uh-PiM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="283" y="282"/>
         </scene>
-        <!--Splash-->
-        <scene sceneID="rY9-pL-R65">
+        <!--Loading-->
+        <scene sceneID="NKz-Tn-m9L">
             <objects>
-                <viewControllerPlaceholder storyboardName="Splash" id="kss-E0-MXb" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1Zz-IK-xT1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardName="Loading" id="iiA-9d-XjM" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KoF-6X-5WO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="283.5" y="756"/>
+            <point key="canvasLocation" x="813.5" y="282"/>
         </scene>
     </scenes>
 </document>

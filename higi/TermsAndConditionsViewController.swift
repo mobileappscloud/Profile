@@ -3,23 +3,23 @@ import WebKit
 
 class TermsAndConditionsViewController: UIViewController {
     
-    var parent:ChallengeDetailsViewController!;
+    weak var parent:ChallengeDetailsViewController!;
     var html:String!;
     var joinUrl: String!;
     var responseRequired = false;
     
-    @IBOutlet weak var webView: WKWebView!
-    @IBOutlet weak var acceptButton: UIButton! {
+    @IBOutlet var webView: WKWebView!
+    @IBOutlet var acceptButton: UIButton! {
         didSet {
             acceptButton.setTitle(NSLocalizedString("TERMS_AND_CONDITIONS_VIEW_ACCEPT_BUTTON_TITLE", comment: "Title for button to accept terms."), forState: .Normal)
         }
     }
-    @IBOutlet weak var declineButton: UIButton! {
+    @IBOutlet var declineButton: UIButton! {
         didSet {
             declineButton.setTitle(NSLocalizedString("TERMS_AND_CONDITIONS_VIEW_DECLINE_BUTTON_TITLE", comment: "Title for button to decline terms."), forState: .Normal)
         }
     }
-    @IBOutlet weak var closeButton: UIButton! {
+    @IBOutlet var closeButton: UIButton! {
     didSet {
             closeButton.setTitle(NSLocalizedString("TERMS_AND_CONDITIONS_VIEW_CLOSE_BUTTON_TITLE", comment: "Title for button to close Terms view."), forState: .Normal)
         }
@@ -28,7 +28,7 @@ class TermsAndConditionsViewController: UIViewController {
     @IBAction func acceptClick(sender: AnyObject) {
         parent.joinAccepted = true;
         self.dismissViewControllerAnimated(false, completion: {
-            self.parent.joinChallenge(self.joinUrl);
+            self.parent.joinChallenge();
         });
     }
     

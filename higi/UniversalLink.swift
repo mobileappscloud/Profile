@@ -12,16 +12,16 @@ import Foundation
 URL paths which support universal linking.
 */
 enum PathType: String {
-    case ActivityList = "/activity/list"
-    case ChallengeDashboard = "/challenge/dashboard"
-    case ChallengeDetail = "/challenge/view/id/%@"
-    case ChallengeDetailSubPath = "/challenge/view/id/%@/*]"
+    case ActivityList = "/activity/list"                        // TODO: Re-implement universal link
+    case ChallengeDashboard = "/challenge/dashboar"            // TODO: Re-implement universal link
+    case ChallengeDetail = "/challenge/view/id/%@"              // TODO: Re-implement universal link
+    case ChallengeDetailSubPath = "/challenge/view/id/%@/*]"    // TODO: Re-implement universal link
     case ConnectDevice = "/settings/apps"
-    case DailySummary = "/profile/checkin/%@"
-    case Metrics = "/stats"
-    case MetricsBloodPressure = "/stats/blood_pressure"
-    case MetricsPulse = "/stats/pulse"
-    case MetricsWeight = "/stats/weight"
+    case DailySummary = "/profile/checkin/%@"                   // TODO: Re-implement universal link
+    case Metrics = "/stats"                                     // TODO: Re-implement universal link
+    case MetricsBloodPressure = "/stats/blood_pressure"         // TODO: Re-implement universal link
+    case MetricsPulse = "/stats/pulse"                          // TODO: Re-implement universal link
+    case MetricsWeight = "/stats/weight"                        // TODO: Re-implement universal link
     case StationLocator = "/locator"
     
     // Token specifying a word which should be extracted for use as an input parameter
@@ -193,7 +193,7 @@ extension UniversalLinkHandler {
     */
     func presentLoadingViewController() -> UIViewController {
         let tabBarController = Utility.mainTabBarController()!
-        let loadingViewController = UIStoryboard(name: "Loading", bundle: nil).instantiateInitialViewController()!
+        let loadingViewController = UIStoryboard(name: "BlurredLoading", bundle: nil).instantiateInitialViewController()!
         dispatch_async(dispatch_get_main_queue(), {
             tabBarController.navigationController?.popToRootViewControllerAnimated(false)
             tabBarController.presentViewController(loadingViewController, animated: true, completion: nil)

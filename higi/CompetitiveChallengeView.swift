@@ -33,7 +33,7 @@ class CompetitiveChallengeView: ChallengeView, UIScrollViewDelegate {
             let individualGravityBoard = challenge.gravityBoard;
             for index in 0...individualGravityBoard.count - 1 {
                 let name = individualGravityBoard[index].participant.displayName;
-                let place = individualGravityBoard[index].place!;
+                guard let place = individualGravityBoard[index].place else { continue }
                 let row = ChallengeLeaderboardRow.instanceFromNib(frame, challenge: challenge, participant: individualGravityBoard[index].participant, place: place as String);
                 if (name == challenge.participant.displayName) {
                     row.name.textColor = Theme.Color.primary;

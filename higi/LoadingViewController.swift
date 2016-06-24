@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoadingViewController: UIViewController {
+final class LoadingViewController: UIViewController {
 
     @IBOutlet private var spinnerContainer: UIView!
     @IBOutlet private var spinnerContainerHeightConstraint: NSLayoutConstraint!

@@ -37,10 +37,9 @@ class ChallengeWinCondition {
         let goalObject = dictionary["goal"] as! NSDictionary;
         goal = Goal(type: goalObject["type"] as! NSString, place: (goalObject["place"] ?? 0) as! Int, minThreshold: (goalObject["min_threshold"] ?? 0) as! Int, maxThreshold: (goalObject["max_threshold"] ?? 0) as! Int);
         
-        let prizeObject = dictionary["prize"] as! NSDictionary?;
-        if (prizeObject != nil) {
-            prizeName = prizeObject!["name"] as? NSString;
-            prizeImageUrl = prizeObject!["imageUrl"] as? NSString!;
+        if let prizeObject = dictionary["prize"] as? NSDictionary {
+            prizeName = prizeObject["name"] as? NSString;
+            prizeImageUrl = prizeObject["imageUrl"] as? NSString;
         }
     }
     

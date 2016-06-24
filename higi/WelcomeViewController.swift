@@ -42,6 +42,19 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
     
     let animDuration = 0.25;
     
+    weak var delegate: WelcomeViewControllerDelegate?
+    
+    private var userCreationCoordinator: UserCreationCoordinator?
+    
+    deinit {
+        print("welcome view deinit")
+    }
+}
+
+// MARK: -
+
+extension WelcomeViewController {
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         
@@ -141,15 +154,6 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
         self.navigationController?.navigationBar.hidden = true;
-        
-        // Ugly workaround to dismiss 'Welcome/Tour' view hierarchy after signup/login is successfully dismissed.
-        if SessionData.Instance.token != nil && SessionData.Instance.token != "" {
-            // This view is added before dismissal so that it appears as though the user is being redirected immediately to the loading view
-            let loadingViewController = UIStoryboard(name: "Loading", bundle: nil).instantiateInitialViewController()!
-            self.view.addSubview(loadingViewController.view, pinToEdges: true)
-            
-            self.dismissViewControllerAnimated(false, completion: nil)
-        }
     }
     
     func swipeLeft(sender: AnyObject) {
@@ -256,26 +260,50 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
         });
     }
     
-    @IBAction func gotoLogin(sender: AnyObject) {
-        Flurry.logEvent("Login_Pressed");
-        let loginViewController = LoginViewController(nibName: "LoginView", bundle: nil)
-        loginViewController.navigationItem.rightBarButtonItem = modalCancelButton()
-        let loginNav = UINavigationController(rootViewController: loginViewController)
-        self.navigationController?.presentViewController(loginNav, animated: true, completion: nil)
+    @IBAction func navigateToLogIn(sender: UIButton) {
+        let storyboard = UIStoryboard(name: "LogIn", bundle: nil)
+        guard let logInNav = storyboard.instantiateInitialViewController() as? UINavigationController,
+            let logIn = logInNav.topViewController as? LogInViewController else { return }
+        
+        logIn.delegate = self
+        Flurry.logEvent("Login_Pressed")
+        self.navigationController?.presentViewController(logInNav, animated: true, completion: nil)
     }
     
-    @IBAction func gotoSignup(sender: AnyObject) {
-        Flurry.logEvent("Signup_Pressed");
-        let signupViewController = SignupEmailViewController(nibName: "SignupEmailView", bundle: nil)
-        let signUpNav = UINavigationController(rootViewController: signupViewController)
-        self.navigationController?.presentViewController(signUpNav, animated: true, completion: nil)
+    @IBAction func navigateToSignUp(sender: UIButton) {
+        userCreationCoordinator = UserCreationCoordinator(delegate: self, presentingViewController: self)
+        userCreationCoordinator!.beginOnboarding()
     }
+}
 
-    private func modalCancelButton() -> UIBarButtonItem {
-        return UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: #selector(WelcomeViewController.dismissPresentedViewController(_:)))
+// MARK: - Delegate
+
+extension WelcomeViewController: UserCreationCoordinatorDelegate {
+    
+    func userCreationSucceeded() {
+        delegate?.welcomeViewDidObtainAuthentication(self)
+        userCreationCoordinator = nil
     }
     
-    func dismissPresentedViewController(sender: UIBarButtonItem) {
-        self.presentedViewController?.dismissViewControllerAnimated(true, completion: nil)
+    func userCreationFailed() {
+        userCreationCoordinator = nil
     }
+}
+
+extension WelcomeViewController: LogInViewControllerDelegate {
+    
+    func logInViewDidCancel(viewController: LogInViewController) {
+        viewController.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func logInViewDidAuthenticate(viewController: LogInViewController, user: User) {
+        delegate?.welcomeViewDidObtainAuthentication(self)
+    }
+}
+
+// MARK: - Protocol
+
+protocol WelcomeViewControllerDelegate: class {
+    
+    func welcomeViewDidObtainAuthentication(viewController: WelcomeViewController)
 }

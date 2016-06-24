@@ -20,22 +20,15 @@ class SessionController {
     
     var activities: [String : HigiActivitySummary] = [:];
     
-    var challenges: [HigiChallenge]! = [];
-    
-    var kioskList: [KioskInfo]! = [];
-    
     var devices: [String: ActivityDevice] = [:];
     
     var earnditError = false, askTouchId = true, loadedActivities = false, showQrCheckinCard = false;
-    var loadedChallenges = false
     
     func reset() {
         checkins = nil;
         activities = [:];
-        challenges = nil;
         devices = [:];
         SessionController.Instance.loadedActivities = false;
-        SessionController.Instance.loadedChallenges = false
         showQrCheckinCard = false;
     }
 }

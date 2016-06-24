@@ -81,3 +81,13 @@ extension JSONWebToken {
         return payloadDictionary["sub"] as? String
     }
 }
+
+extension JSONWebToken {
+    
+    func isExpired(orExpiringWithinMinutes minutes: Double = 0.0) -> Bool {
+        let secondsPerMinute = 60.0
+        let refreshThreshold = minutes * secondsPerMinute
+        
+        return (expirationDate()!.timeIntervalSinceNow < refreshThreshold) ? false : true
+    }
+}

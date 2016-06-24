@@ -6,18 +6,18 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-import Foundation
+struct CommunityCollectionDeserializer {}
 
-final class CommunityCollectionDeserializer: HigiAPIJSONDeserializer {
+extension CommunityCollectionDeserializer: HigiAPIJSONDeserializer {
     
     /**
-     Parses a JSON dictionary with authentication information necessary for use with the higi API.
+     Parses a JSON dictionary with community collection information necessary for use with the higi API.
      
-     - parameter JSON:    JSON dictionary with authorization information.
+     - parameter JSON:    JSON dictionary with community collection information.
      - parameter success: Completion handler to be executed upon successfully parsing JSON.
      - parameter failure: Completion handler to be executed upon failure.
      */
-    class func parse(JSON: AnyObject?, success: (communities: [Community], paging: Paging?) -> Void, failure: (error: NSError?) -> Void) {
+    static func parse(JSON: AnyObject?, success: (communities: [Community], paging: Paging?) -> Void, failure: (error: NSError?) -> Void) {
         
         CollectionDeserializer.parse(JSON, success: { (collection, paging) in
             

@@ -28,7 +28,7 @@ final class Organization {
     }
 }
 
-extension Organization {
+extension Organization: HigiAPIJSONDeserializer {
 
     convenience init?(dictionary: NSDictionary) {
         guard let identifier = dictionary["id"] as? String,

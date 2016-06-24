@@ -18,18 +18,9 @@ class SessionData {
     
     var user: HigiUser!;
     
-    var kioskListString: String = "";
-    
     var seenDashboard, seenMetrics, seenReminder: Bool!;
     
     var lastUpdate: NSDate!;
-    
-    let tempSavePath: String = {
-        let tempPath = (NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)[0])
-        let tempURL = NSURL(fileURLWithPath: tempPath)
-        let writePath = tempURL.URLByAppendingPathComponent("TempSessionData.plist")
-        return writePath.relativePath!
-    }()
     
     let documentsSavePath: String = {
         let documentsPath = (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0])
@@ -59,7 +50,6 @@ class SessionData {
     
     func save() {
         saveDocumentData()
-        saveCachedData()
     }
     
     private func saveDocumentData() {
@@ -81,15 +71,6 @@ class SessionData {
         
         let dictionary: NSDictionary = saveDictionary.copy() as! NSDictionary
         dictionary.writeToFile(documentsSavePath, atomically: false)
-    }
-    
-    private func saveCachedData() {
-        let tempDictionary = NSMutableDictionary()
-        tempDictionary["kioskList"] = kioskListString ?? ""
-        
-        guard let immutableTempDict: NSDictionary = tempDictionary.copy() as? NSDictionary else { return }
-        
-        immutableTempDict.writeToFile(tempSavePath, atomically: false)
     }
     
     func restore() {
@@ -132,15 +113,6 @@ class SessionData {
             }
         } else {
             reset();
-        }
-        
-        if (fileManager.fileExistsAtPath(tempSavePath)) {
-            kioskListString = ""
-            guard let tempDictionary = NSDictionary(contentsOfFile: tempSavePath) else { return }
-            
-            kioskListString = (tempDictionary["kioskList"] ?? "") as! String;
-        } else {
-            kioskListString = ""
         }
     }
     

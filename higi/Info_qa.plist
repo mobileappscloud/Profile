@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>OrganizationId</key>
-	<string>05NzHO7OY0e1UUiMM38eiQ</string>
+	<string>higi</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -19,7 +19,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.2.4</string>
+	<string>2.2.5</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
@@ -41,7 +41,7 @@
 		</array>
 	</dict>
 	<key>HigiUrl</key>
-	<string>https://apiqa.superbuddytime.com</string>
+	<string>https://api-qa.superbuddytime.com</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -51,10 +51,6 @@
 	</dict>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string></string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>fontawesome-webfont.tff</string>
-	</array>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>

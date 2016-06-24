@@ -45,20 +45,18 @@ class SettingsTableViewController: UITableViewController, SwitchTableViewCellDel
     
     // MARK: -
     
-    let user = SessionData.Instance.user;
+    var userController: UserController!
     
     // MARK: IB Outlets
     
     @IBOutlet weak var profileImageView: UIImageView! {
         didSet {
-            profileImageView.image = SessionData.Instance.user.profileImage;
             addWhiteBorder(profileImageView);
         }
     };
     @IBOutlet weak var resizeProfileImageButton: UIButton! {
         didSet {
             addWhiteBorder(resizeProfileImageButton);
-            resizeProfileImageButton.enabled = SessionData.Instance.user.hasPhoto;
         }
     }
     @IBOutlet weak var newProfileImageButton: UIButton! {
@@ -67,7 +65,14 @@ class SettingsTableViewController: UITableViewController, SwitchTableViewCellDel
         }
     }
     
-    // MARK: - View Lifecycle
+    deinit {
+        print("deinit settings table vc")
+    }
+}
+
+// MARK: - View Lifecycle
+
+extension SettingsTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -78,15 +83,19 @@ class SettingsTableViewController: UITableViewController, SwitchTableViewCellDel
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated);
         
-        /*! @internal This is left over functionality from the refactor */
-        guard let settingsViewController = self.parentViewController as? SettingsViewController else { return }
-        SessionData.Instance.user.profileImage = user.profileImage
-        SessionData.Instance.user.blurredImage = user.blurredImage
-        profileImageView.image = user.profileImage
-        settingsViewController.backgroundImageView.image = user.blurredImage
+        if let photo = userController.user.photo {
+            profileImageView.setImageWithURL(photo.URI)
+            resizeProfileImageButton.enabled = true
+        } else {
+            profileImageView.image = nil
+            resizeProfileImageButton.enabled = false
+        }
     }
-    
-    // MARK: Configuration
+}
+
+// MARK: Configuration
+
+extension SettingsTableViewController {
     
     func configureTableView() {
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: defaultTableCellReuseIdentifier);
@@ -99,8 +108,11 @@ class SettingsTableViewController: UITableViewController, SwitchTableViewCellDel
         view.layer.borderWidth = 1.0;
         view.layer.borderColor = UIColor.whiteColor().CGColor;
     }
-    
-    // MARK: - Table View
+}
+
+// MARK: - Table View
+
+extension SettingsTableViewController {
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return TableSection.Count.rawValue;
@@ -292,22 +304,34 @@ class SettingsTableViewController: UITableViewController, SwitchTableViewCellDel
         }
         self.navigationController!.pushViewController(pinCodeViewController, animated: true);
     }
-    
-    // MARK: - UI Actions
+}
+
+// MARK: - UI Actions
+
+extension SettingsTableViewController {
     
     @IBAction func didPressNewProfileImageButton(sender: AnyObject) {
-        let profileViewController = ProfileImageViewController(nibName: "ProfileImageView", bundle: nil);
-        profileViewController.fromSettings = true;
-        self.navigationController?.pushViewController(profileViewController, animated: true);
+        let storyboard = UIStoryboard(name: "ProfileImage", bundle: nil)
+        guard let profileNav = storyboard.instantiateInitialViewController() as? UINavigationController,
+            let profileImageViewController = profileNav.topViewController as? ProfileImageViewController else {
+                return
+        }
+        profileImageViewController.configure(userController, delegate: self)
+        profileImageViewController.hideCancelButton = false
+        
+        self.navigationController?.presentViewController(profileNav, animated: true, completion: nil);
     }
-    
+
     @IBAction func didPressResizeProfileImageButton(sender: AnyObject) {
-        let modifyImageViewController = ModifyImageViewController(nibName: "ModifyImageView", bundle: nil);
-        modifyImageViewController.profileImage = SessionData.Instance.user.fullProfileImage;
-        modifyImageViewController.resizing = true;
-        modifyImageViewController.fromSettings = true;
-        modifyImageViewController.delegate = self
-        let modifyNav = UINavigationController(rootViewController: modifyImageViewController)
+        let storyboard = UIStoryboard(name: "ModifyImage", bundle: nil)
+        guard let modifyNav = storyboard.instantiateInitialViewController() as? UINavigationController,
+            let modifyViewController = modifyNav.topViewController as? ModifyImageViewController else {
+                return
+        }
+        
+        let imageURL = userController.originalPhotoURL()
+        modifyViewController.configure(userController, imageURL: imageURL, delegate: self)
+        modifyViewController.resizeMode = true
         
         self.navigationController?.presentViewController(modifyNav, animated: true, completion: nil)
     }
@@ -328,11 +352,11 @@ class SettingsTableViewController: UITableViewController, SwitchTableViewCellDel
     }
     
     func didSelectShowTerms() {
-        pushWebView("https://higi.com/terms");
+        pushWebView("\(HigiApi.webUrl)/terms");
     }
     
     func didSelectShowPrivacy() {
-        pushWebView("https://higi.com/privacy");
+        pushWebView("\(HigiApi.webUrl)/privacy");
     }
     
     func pushWebView(URLString: String) {
@@ -357,8 +381,7 @@ class SettingsTableViewController: UITableViewController, SwitchTableViewCellDel
         let appDelegate = AppDelegate.instance()
         appDelegate.stopLocationManager();
         
-        let hostViewController = UIStoryboard(name: "Host", bundle: nil).instantiateInitialViewController()
-        appDelegate.window?.rootViewController = hostViewController
+        HigiAPIClient.terminateAuthenticatedSession()
     }
     
     func didSelectConnectDevices() {
@@ -419,17 +442,46 @@ class SettingsTableViewController: UITableViewController, SwitchTableViewCellDel
     }
 }
 
-extension SettingsTableViewController: ModifyImageViewControllerDelegate {
+// MARK: - Delegate
+
+extension SettingsTableViewController: ProfileImageViewControllerDelegate {
     
-    func modifyImageViewController(viewController: ModifyImageViewController, didTapDoneWithSuccess: Bool) {
-        if viewController.resizing {
-            self.parentViewController?.dismissViewControllerAnimated(true, completion: nil)
-        } else {
-            
-        }
+    func profileImageViewDidCancel(viewController: ProfileImageViewController) {
+        dispatch_async(dispatch_get_main_queue(), {
+            viewController.dismissViewControllerAnimated(true, completion: nil)
+        })
     }
     
-    func modifyImageViewControllerDidTapCancel(viewController: ModifyImageViewController) {
-        viewController.dismissViewControllerAnimated(true, completion: nil)
+    func profileImageViewDidUpdateUserImage(viewController: ProfileImageViewController, userController: UserController) {
+        userController.fetch({
+            dispatch_async(dispatch_get_main_queue(), {
+                viewController.dismissViewControllerAnimated(true, completion: nil)
+            })
+        }, failure: {
+            dispatch_async(dispatch_get_main_queue(), {
+                viewController.dismissViewControllerAnimated(true, completion: nil)
+            })
+        })
+    }
+}
+
+extension SettingsTableViewController: ModifyImageViewControllerDelegate {
+    
+    func modifyImageViewControllerDidCancel(viewController: ModifyImageViewController) {
+        dispatch_async(dispatch_get_main_queue(), {
+            viewController.dismissViewControllerAnimated(true, completion: nil)
+        })
+    }
+    
+    func modifyImageViewController(viewController: ModifyImageViewController, didModifyWithSuccess: Bool) {
+        userController.fetch({
+            dispatch_async(dispatch_get_main_queue(), {
+                viewController.dismissViewControllerAnimated(true, completion: nil)
+            })
+        }, failure: {
+            dispatch_async(dispatch_get_main_queue(), {
+                viewController.dismissViewControllerAnimated(true, completion: nil)
+            })
+        })
     }
 }

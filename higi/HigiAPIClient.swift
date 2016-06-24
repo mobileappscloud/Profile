@@ -6,12 +6,12 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-import Foundation
+let HigiAPIClientTerminateAuthenticatedSessionNotification = "HigiAPIClientTerminateAuthenticatedSessionNotificationKey"
 
-final class HigiAPIClient: HigiAPI2 {
+struct HigiAPIClient: HigiAPI2 {
     
     /// Client ID registered as a whitelisted application with `OAuth2` access to the higi API.
-    static let clientId = "com.higi.main.ios"
+    static let clientId = "MobileiOS"
     
     /**
      *  Common HTTP header names for use with higi API.
@@ -34,8 +34,6 @@ final class HigiAPIClient: HigiAPI2 {
         let URLString = "https://api-dev.superbuddytime.com"
         return NSURL(string: URLString)!
     }()
-    
-    
 }
 
 // This extension can be refactored out if `NSURLCredential` is updated to better support access tokens.
@@ -46,7 +44,7 @@ extension HigiAPIClient {
      
      Please refer to `cacheAuthorization(:)` and `removeCachedAuthorization()` for public access to modifying the cached authorization object.
      */
-    private(set) class var authorization: HigiAuthorization? {
+    private(set) static var authorization: HigiAuthorization? {
         get {
             return KeychainWrapper.objectForKey(HigiAPIClient.authorizationKey) as? HigiAuthorization
         }
@@ -67,7 +65,7 @@ extension HigiAPIClient {
      
      - parameter authorization: higi API authorization object.
      */
-    class func cacheAuthorization(authorization: HigiAuthorization) {
+    static func cacheAuthorization(authorization: HigiAuthorization) {
         HigiAPIClient.authorization = authorization
     }
     
@@ -76,17 +74,22 @@ extension HigiAPIClient {
      
      **Note:** This method should be called after revoking the user's refresh token. The API does not persist a user's access token, so their access token will remain valid until the expiration date has passed.
      */
-    class func removeCachedAuthorization() {
+    static func removeCachedAuthorization() {
         HigiAPIClient.authorization = nil
+    }
+    
+    static func terminateAuthenticatedSession() {
+        NSNotificationCenter.defaultCenter().postNotificationName(HigiAPIClientTerminateAuthenticatedSessionNotification, object: nil)
     }
 }
 
 extension HigiAPIClient {
     
-    class func session() -> NSURLSession {
+    static func session() -> NSURLSession {
         let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
         var headers: [String : String] = [:]
         headers[HTTPHeaderName.clientId] = HigiAPIClient.clientId
+        headers[HTTPHeaderName.organizationId] = Utility.organizationId()
         configuration.HTTPAdditionalHeaders = headers
         let session = NSURLSession(configuration: configuration)
         return session
@@ -103,7 +106,7 @@ extension HigiAPIClient {
      
      - returns: An instance of `NSURL` if there were no issues, otherwise `nil`.
      */
-    class func URL(relativePath: String, parameters: [String : String]?) -> NSURL? {
+    static func URL(relativePath: String, parameters: [String : String]?) -> NSURL? {
         
         guard let percentEncodedPath = relativePath.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLPathAllowedCharacterSet()),
             let endpointURL = NSURL(string: percentEncodedPath, relativeToURL: HigiAPIClient.baseURL) else { return nil }

@@ -125,7 +125,6 @@ class HigiUser {
         }
     
         createBlurredImage()
-        NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.PROFILE_PICTURES, object: nil, userInfo: ["success": true])
     }
     
 }

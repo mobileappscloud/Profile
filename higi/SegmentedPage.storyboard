@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--Segmented Page View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="SegmentedPageViewController" customModule="higi" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3g2-cU-d3U">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="48"/>
+                                <subviews>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bordered" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="e1E-yc-T8a">
+                                        <rect key="frame" x="21" y="10" width="559" height="29"/>
+                                        <segments>
+                                            <segment title="Zero"/>
+                                            <segment title="One"/>
+                                        </segments>
+                                    </segmentedControl>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="e1E-yc-T8a" secondAttribute="bottom" constant="10" id="3Ga-c5-FAi"/>
+                                    <constraint firstItem="e1E-yc-T8a" firstAttribute="top" secondItem="3g2-cU-d3U" secondAttribute="top" constant="10" id="BxA-d4-Fcw"/>
+                                    <constraint firstItem="e1E-yc-T8a" firstAttribute="leading" secondItem="3g2-cU-d3U" secondAttribute="leading" priority="995" constant="20" id="F8P-Lw-qSY"/>
+                                    <constraint firstItem="e1E-yc-T8a" firstAttribute="centerX" secondItem="3g2-cU-d3U" secondAttribute="centerX" id="otA-j2-5gI"/>
+                                    <constraint firstAttribute="trailing" secondItem="e1E-yc-T8a" secondAttribute="trailing" priority="995" constant="20" id="q8i-tI-wAK"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nfQ-5j-WyU">
+                                <rect key="frame" x="0.0" y="48" width="600" height="552"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.94509804248809814" green="0.94509804248809814" blue="0.94509804248809814" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="3g2-cU-d3U" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="4At-la-uBk"/>
+                            <constraint firstItem="nfQ-5j-WyU" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="4y3-lf-6Pc"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="nfQ-5j-WyU" secondAttribute="bottom" id="Bzb-uy-bYf"/>
+                            <constraint firstAttribute="trailing" secondItem="3g2-cU-d3U" secondAttribute="trailing" id="NNE-1p-LnS"/>
+                            <constraint firstAttribute="trailing" secondItem="nfQ-5j-WyU" secondAttribute="trailing" id="Ro4-AY-coD"/>
+                            <constraint firstItem="nfQ-5j-WyU" firstAttribute="top" secondItem="3g2-cU-d3U" secondAttribute="bottom" id="bIf-8Y-Dsv"/>
+                            <constraint firstItem="3g2-cU-d3U" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="hVd-TB-Gxq"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="childViewContainer" destination="nfQ-5j-WyU" id="AD5-Ic-lzK"/>
+                        <outlet property="segmentedControl" destination="e1E-yc-T8a" id="kqo-dk-jRT"/>
+                        <outlet property="segmentedControlContainer" destination="3g2-cU-d3U" id="l9O-Tl-b7o"/>
+                        <outlet property="segmentedControlLeadingConstraint" destination="F8P-Lw-qSY" id="DHQ-1H-QCi"/>
+                        <outlet property="segmentedControlTrailingConstraint" destination="q8i-tI-wAK" id="VQe-PB-w47"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="306" y="387"/>
+        </scene>
+    </scenes>
+</document>

@@ -20,9 +20,6 @@ final class CommunityListingView: UIView {
     
     // MARK: Content
     
-    /// Container view for cell body which allows user interactivity.
-    @IBOutlet var interactiveContainer: UIView!
-    
     /// Label for community title.
     @IBOutlet private var titleLabel: UILabel! {
         didSet {

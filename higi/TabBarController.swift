@@ -10,6 +10,8 @@ import UIKit
 
 final class TabBarController: UITabBarController {
     
+    private(set) var userController: UserController!
+    
     enum ViewControllerIndex: Int {
         case Home
         case Communities
@@ -26,9 +28,10 @@ final class TabBarController: UITabBarController {
         self.configureTab(nav, title: title, itemImageNamePrefix: "home", enabled: true)
         return nav
     }()
-    lazy private(set) var homeViewController: DashboardViewController = {
-        let homeViewController = DashboardViewController(nibName: "DashboardView", bundle: nil)
+    lazy private(set) var homeViewController: HomeViewController = {
+        let homeViewController = UIStoryboard(name: "Home", bundle: nil).instantiateInitialViewController() as! HomeViewController
         homeViewController.navigationItem.rightBarButtonItems = [self.navigationOverflowBarButtonItem(), self.profileBarButtonItem()]
+        homeViewController.configure(self.userController)
         return homeViewController
     }()
     
@@ -41,17 +44,19 @@ final class TabBarController: UITabBarController {
     lazy private(set) var communitiesViewController: CommunitiesViewController = {
         let communitiesViewController = UIStoryboard(name: "Communities", bundle: nil).instantiateInitialViewController() as! CommunitiesViewController
         communitiesViewController.navigationItem.rightBarButtonItems = [self.navigationOverflowBarButtonItem(), self.profileBarButtonItem()]
+        communitiesViewController.configure(self.userController)
         return communitiesViewController
     }()
     
     lazy private(set) var challengesNavController: UINavigationController = {
         let nav = UINavigationController(rootViewController: self.challengesViewController)
         let title = NSLocalizedString("MAIN_TAB_BAR_ITEM_TITLE_CHALLENGES", comment: "Title for Challenges tab bar item.")
-        self.configureTab(nav, title: title, itemImageNamePrefix: "challenges")
+        self.configureTab(nav, title: title, itemImageNamePrefix: "challenges", enabled: true)
         return nav
     }()
     lazy private(set) var challengesViewController: ChallengesViewController = {
         let challengesViewController = ChallengesViewController(nibName: "ChallengesView", bundle: nil)
+        challengesViewController.configure(self.userController)
         challengesViewController.navigationItem.rightBarButtonItems = [self.navigationOverflowBarButtonItem(), self.profileBarButtonItem()]
         return challengesViewController
     }()
@@ -84,7 +89,21 @@ final class TabBarController: UITabBarController {
     
     private var previousViewControllerOnSelectedTab: UIViewController? = nil
     
-    // MARK: - View Lifecycle
+    // MARK: -
+    
+    func configure(userController: UserController) {
+        self.userController = userController
+    }
+    
+    deinit {
+        print("DEINIT TAB BAR!")
+    }
+
+}
+
+// MARK: - View Lifecycle
+
+extension TabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -168,6 +187,8 @@ extension TabBarController {
     func settingsModalViewController() -> UIViewController {
         let settingsStoryboard = UIStoryboard(name: "Settings", bundle: nil)
         let settingsNavController = settingsStoryboard.instantiateInitialViewController() as! UINavigationController
+        let settings = settingsNavController.topViewController as! SettingsViewController
+        settings.configure(userController)
         return settingsNavController
     }
     
@@ -182,37 +203,41 @@ extension TabBarController {
     
     private func popoverAlert(barButtonItem: UIBarButtonItem?) -> UIAlertController {
         let popoverAlert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
-        popoverAlert.view.tintColor = Theme.Color.Primary.charcoal
         popoverAlert.modalPresentationStyle = .Popover
         popoverAlert.popoverPresentationController?.permittedArrowDirections = .Any
         popoverAlert.popoverPresentationController?.barButtonItem = barButtonItem
         
         let dailySummaryMenuTitle = NSLocalizedString("MAIN_NAVIGATION_BAR_BUTTON_ITEM_OVERFLOW_POPOVER_ACTION_TITLE_DAILY_SUMMARY", comment: "Title for overflow menu action item which modally presents Daily Summary.")
-        let dailySummary = popoverAction(dailySummaryMenuTitle, viewController: dailySummaryModalViewController())
-        dailySummary.enabled = homeViewController.metricsLoaded && homeViewController.activitiesLoaded
+        let dailySummary = popoverAction(dailySummaryMenuTitle, viewController: dailySummaryModalViewController(), analyticsEvent: "DailySummary_Pressed")
+        dailySummary.enabled = false
         popoverAlert.addAction(dailySummary)
         
         let findStationMenuTitle = NSLocalizedString("MAIN_NAVIGATION_BAR_BUTTON_ITEM_OVERFLOW_POPOVER_ACTION_TITLE_FIND_STATION", comment: "Title for overflow menu action item which modally presents Find Station.")
-        let findStation = popoverAction(findStationMenuTitle, viewController: findStationModalViewController())
+        let findStation = popoverAction(findStationMenuTitle, viewController: findStationModalViewController(), analyticsEvent: "FindStation_Pressed")
         popoverAlert.addAction(findStation)
         
         let captureMenuTitle = NSLocalizedString("MAIN_NAVIGATION_BAR_BUTTON_ITEM_OVERFLOW_POPOVER_ACTION_TITLE_CAPTURE", comment: "Title for overflow menu action item which modally presents Capture.")
-        let capture = popoverAction(captureMenuTitle, viewController: captureModalViewController())
+        let capture = popoverAction(captureMenuTitle, viewController: captureModalViewController(), analyticsEvent: "Capture_Pressed")
         popoverAlert.addAction(capture)
         
         let settingsMenuTitle = NSLocalizedString("MAIN_NAVIGATION_BAR_BUTTON_ITEM_OVERFLOW_POPOVER_ACTION_TITLE_SETTINGS", comment: "Title for overflow menu action item which modally presents Settings.")
-        let settings = popoverAction(settingsMenuTitle, viewController: settingsModalViewController())
+        let settings = popoverAction(settingsMenuTitle, viewController: settingsModalViewController(), analyticsEvent: "Settings_Pressed")
         popoverAlert.addAction(settings)
         
         let cancelMenuTitle = NSLocalizedString("MAIN_NAVIGATION_BAR_BUTTON_ITEM_OVERFLOW_POPOVER_ACTION_TITLE_CANCEL", comment: "Title for overflow menu action item which dismisses the popover.")
-        let cancel = UIAlertAction(title: cancelMenuTitle, style: .Cancel, handler: nil)
+        let cancel = UIAlertAction(title: cancelMenuTitle, style: .Cancel, handler: { (action) in
+            Flurry.logEvent("Cancel_Pressed")
+        })
         popoverAlert.addAction(cancel)
         
         return popoverAlert
     }
     
-    private func popoverAction(title: String, viewController: UIViewController) -> UIAlertAction {
+    private func popoverAction(title: String, viewController: UIViewController, analyticsEvent: String?) -> UIAlertAction {
         let action = UIAlertAction(title: title, style: .Default, handler: { [weak self] (action) in
+            if let analyticsEvent = analyticsEvent {
+                Flurry.logEvent(analyticsEvent)
+            }
             dispatch_async(dispatch_get_main_queue(), {
                 self?.presentViewController(viewController, animated: true, completion: nil)
             })
@@ -224,14 +249,11 @@ extension TabBarController {
     
     dynamic func didTapOverflowButton(sender: UIBarButtonItem) {
         let popoverAlert = self.popoverAlert(sender)
-        self.presentViewController(popoverAlert, animated: true, completion: {
-            // Workaround to Apple bug where tintColor is overridden - http://stackoverflow.com/a/32695820/5897233
-            popoverAlert.view.tintColor = Theme.Color.Primary.charcoal
-        })
+        self.presentViewController(popoverAlert, animated: true, completion: nil)
     }
     
     dynamic func didTapProfileButton(sender: UIBarButtonItem) {
-        
+        Flurry.logEvent("ProfileButton_Pressed")
     }
     
     func modalDoneButtonTapped(sender: UIBarButtonItem) {
@@ -266,6 +288,9 @@ extension TabBarController: UITabBarControllerDelegate {
     }
     
     func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
+        
+        logAnalyticEventForButtonPress(viewController)
+        
         guard let previousViewController = previousViewControllerOnSelectedTab else { return }
         
         if let navigationController = viewController as? UINavigationController,
@@ -275,6 +300,31 @@ extension TabBarController: UITabBarControllerDelegate {
                 let topScrollableView = topViewController as? TabBarTopScrollDelegate {
                 topScrollableView.scrollToTop()
             }
+        }
+    }
+    
+    private func logAnalyticEventForButtonPress(selectedViewController: UIViewController) {
+    
+        guard let nav = (selectedViewController as? UINavigationController) else { return }
+        
+        guard let index = self.viewControllers?.indexOf(nav),
+            let viewControllerIndex = ViewControllerIndex(rawValue: index) else { return }
+        
+        var event: String?
+        switch viewControllerIndex {
+        case .Home:
+            event = "HomeButton_Pressed"
+        case .Communities:
+            event = "CommunityButton_Pressed"
+        case .Challenges:
+            event = "ChallengeButton_Pressed"
+        case .Rewards:
+            event = "RewardsButton_Pressed"
+        case .Metrics: 
+            event = "MetricsButton_Pressed"
+        }
+        if let event = event {
+            Flurry.logEvent(event)
         }
     }
 }

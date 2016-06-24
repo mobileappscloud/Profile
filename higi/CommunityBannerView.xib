@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -18,7 +18,7 @@
             <rect key="frame" x="0.0" y="0.0" width="345" height="150"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tKq-PV-98i">
+                <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tKq-PV-98i" userLabel="Banner Image View">
                     <rect key="frame" x="0.0" y="0.0" width="345" height="150"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
@@ -29,6 +29,12 @@
                             <exclude reference="Ie9-z5-4uI"/>
                         </mask>
                     </variation>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cell-gradient-overlay" translatesAutoresizingMaskIntoConstraints="NO" id="P8g-ba-p3s" userLabel="Gradient Overlay Image View">
+                    <rect key="frame" x="0.0" y="109" width="345" height="41"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="41" id="Tuy-Nn-peX"/>
+                    </constraints>
                 </imageView>
                 <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uMk-NY-c7d" userLabel="Accessory Container">
                     <rect key="frame" x="245" y="115" width="90" height="25"/>
@@ -46,6 +52,9 @@
                 <constraint firstAttribute="trailing" secondItem="tKq-PV-98i" secondAttribute="trailing" id="aIe-8w-KpR"/>
                 <constraint firstAttribute="trailing" secondItem="uMk-NY-c7d" secondAttribute="trailing" constant="10" id="cjh-uA-4IE"/>
                 <constraint firstAttribute="bottom" secondItem="tKq-PV-98i" secondAttribute="bottom" id="iyZ-Nt-nSv"/>
+                <constraint firstAttribute="trailing" secondItem="P8g-ba-p3s" secondAttribute="trailing" id="lcA-Ir-6Jd"/>
+                <constraint firstItem="P8g-ba-p3s" firstAttribute="bottom" secondItem="tKq-PV-98i" secondAttribute="bottom" id="ncK-kT-Wyc"/>
+                <constraint firstItem="P8g-ba-p3s" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="sFD-Z9-uJE"/>
                 <constraint firstItem="tKq-PV-98i" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="zNS-TR-FFj"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
@@ -54,4 +63,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>
+    <resources>
+        <image name="cell-gradient-overlay" width="562" height="82"/>
+    </resources>
 </document>

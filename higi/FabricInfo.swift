@@ -12,12 +12,12 @@ private enum Kits: String {
     case Crashlytics
 }
 
-public class FabricInfo {
+final class FabricInfo {
     
     private var APIKey: String!
     private var kits: [FabricKit] = []
     
-    public init(dictionary: NSDictionary) {
+    init(dictionary: NSDictionary) {
         APIKey = dictionary["APIKey"] as! String
         
         if let fabricKits = dictionary["Kits"] as? NSArray {
@@ -29,7 +29,7 @@ public class FabricInfo {
         }
     }
     
-    public func containsCrashlytics() -> Bool {
+    func containsCrashlytics() -> Bool {
         var containsKit = false;
         for kit in self.kits {
             if kit.name == Kits.Crashlytics.rawValue {

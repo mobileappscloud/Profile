@@ -8,6 +8,18 @@
 
 import Foundation
 
+public let HTTPErrorDomain = "com.higi.main.HTTP.HTTPErrorDomain"
+
+struct HTTPHeader {
+    struct name {
+        static let contentType = "Content-Type"
+    }
+    
+    struct value {
+        static let applicationJSON = "application/json"
+    }
+}
+
 /**
  HTTP Methods as defined in _Section 4.3 Method Definitions_ of [RFC 7231](https://tools.ietf.org/html/rfc7231)
  

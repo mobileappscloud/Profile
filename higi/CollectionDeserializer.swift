@@ -6,11 +6,9 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-import Foundation
-
-final class CollectionDeserializer: HigiAPIJSONDeserializer {
+struct CollectionDeserializer: HigiAPIJSONDeserializer {
     
-    class func parse(JSON: AnyObject?, success: (collection: NSArray, paging: Paging?) -> Void, failure: (error: NSError?) -> Void) {
+    static func parse(JSON: AnyObject?, success: (collection: NSArray, paging: Paging?) -> Void, failure: (error: NSError?) -> Void) {
 
         if let JSON = JSON as? NSDictionary {
             

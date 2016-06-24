@@ -8,11 +8,11 @@
 
 import Foundation
 
-final class PagingRequest {}
+struct PagingRequest {}
 
 extension PagingRequest: HigiAPIRequest {
     
-    class func request(URL: NSURL) -> NSURLRequest? {
-        return authenticatedRequest(URL, parameters: nil)
+    static func request(URL: NSURL, completion: HigiAPIRequestAuthenticatorCompletion) {
+        authenticatedRequest(URL, parameters: nil, completion: completion)
     }
 }

@@ -13,8 +13,9 @@ struct User {
     
     let identifier: String
     let email: String
-    let dateOfBirth: NSDate
-    let hasPhoto: Bool
+    
+    // This is a required attribute, but the API can return user objects where these properties are nil...
+    var dateOfBirth: NSDate?
     
     var firstName: String?
     var lastName: String?
@@ -31,25 +32,40 @@ struct User {
     
     var terms: AgreementInfo?
     var privacy: AgreementInfo?
+    
+    var photo: Media?
+    
+    // MARK: - Unused, but required
+    
+    var createDate: NSDate?
+    // Optional attributes unused by client, but necessary to prevent overwriting existing values when updating a user
+    
+    
+    // MARK: - Init
 
-    init(identifier: String, email: String, dateOfBirth: NSDate, hasPhoto: Bool) {
+    init(identifier: String, email: String) {
         self.identifier = identifier
         self.email = email
-        self.dateOfBirth = dateOfBirth
-        self.hasPhoto = hasPhoto
     }
 }
 
-extension User {
+extension User: HigiAPIJSONDeserializer {
     
     init?(dictionary: NSDictionary) {
         guard let identifier = dictionary["id"] as? String,
-            let email = dictionary["email"] as? String,
-            let dateOfBirthString = dictionary["dateOfBirth"] as? String,
-            let dateOfBirth = NSDateFormatter.MMddyyyyDateFormatter.dateFromString(dateOfBirthString),
-            let hasPhoto = dictionary["hasPhoto"] as? Bool else { return nil }
+            let email = dictionary["email"] as? String else {
+                return nil
+        }
         
-        self.init(identifier: identifier, email: email, dateOfBirth: dateOfBirth, hasPhoto: hasPhoto)
+        self.init(identifier: identifier, email: email)
+        
+        if let dateOfBirthString = dictionary["dateOfBirth"] as? String {
+            self.dateOfBirth = NSDateFormatter.MMddyyyyDateFormatter.dateFromString(dateOfBirthString)
+        }
+        
+        if let createDateString = dictionary["created"] as? String {
+            self.createDate = NSDateFormatter.ISO8601DateFormatter.dateFromString(createDateString)
+        }
         
         self.firstName = dictionary["firstName"] as? String
         self.lastName = dictionary["lastName"] as? String
@@ -69,19 +85,62 @@ extension User {
         self.street = dictionary["address"] as? String
         self.city = dictionary["city"] as? String
         self.state = dictionary["state"] as? String
-        self.postalCode = dictionary["zipCode"] as? String
+        self.postalCode = dictionary["zip"] as? String
         self.ISOCountryCode = dictionary["countryCode"] as? String
         
-        if let termsDateString = dictionary["termsAgreedDate"] as? String,
-            let agreedDate = NSDateFormatter.ISO8601DateFormatter.dateFromString(termsDateString),
-            let termsFileName = dictionary["termsFileName"] as? String {
-            self.terms = AgreementInfo(agreedDate: agreedDate, fileName: termsFileName)
+        if let termsDictionary = dictionary["termsAgreed"] as? NSDictionary {
+            self.terms = AgreementInfo(dictionary: termsDictionary)
         }
         
-        if let privacyDateString = dictionary["termsAgreedDate"] as? String,
-            let agreedDate = NSDateFormatter.ISO8601DateFormatter.dateFromString(privacyDateString),
-            let privacyFileName = dictionary["termsFileName"] as? String {
-            self.privacy = AgreementInfo(agreedDate: agreedDate, fileName: privacyFileName)
+        if let privacyDictionary = dictionary["privacyAgreed"] as? NSDictionary {
+            self.privacy = AgreementInfo(dictionary: privacyDictionary)
         }
+        
+        if let photoDictionary = dictionary["photo"] as? NSDictionary {
+            self.photo = Media(dictionary: photoDictionary)
+        }
+    }
+}
+
+extension User: HigiAPIJSONSerializer {
+    
+    func JSONDictionary() -> NSDictionary {
+        let mutableDictionary = NSMutableDictionary()
+        
+        mutableDictionary["id"] = identifier
+        mutableDictionary["email"] = email
+        mutableDictionary["dateOfBirth"] = (dateOfBirth != nil) ? NSDateFormatter.MMddyyyyDateFormatter.stringFromDate(dateOfBirth!) : NSNull()
+        mutableDictionary["created"] = (createDate != nil) ? NSDateFormatter.MMddyyyyDateFormatter.stringFromDate(createDate!) : NSNull()
+        
+        mutableDictionary["firstName"] = firstName ?? NSNull()
+        mutableDictionary["lastName"] = lastName  ?? NSNull()
+        
+        var sex: String?
+        switch biologicalSex {
+        case .Female:
+            sex = "f"
+        case .Male:
+            sex = "m"
+        case .NotSet:
+            fallthrough
+        case .Other:
+            break
+        }
+        mutableDictionary["gender"] = sex  ?? NSNull()
+        
+        mutableDictionary["height"] = height?.doubleValueForUnit(HKUnit.meterUnit())  ?? NSNull()
+        
+        mutableDictionary["address"] = street ?? NSNull()
+        mutableDictionary["city"] = city ?? NSNull()
+        mutableDictionary["state"] = state ?? NSNull()
+        mutableDictionary["zip"] = postalCode ?? NSNull()
+        mutableDictionary["countryCode"] = ISOCountryCode ?? NSNull()
+        
+        mutableDictionary["termsAgreed"] = terms?.JSONDictionary() ?? NSNull()
+        mutableDictionary["privacyAgreed"] = privacy?.JSONDictionary() ?? NSNull()
+        
+        // TODO: Add photo info?
+        
+        return mutableDictionary.copy() as! NSDictionary
     }
 }

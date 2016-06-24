@@ -51,9 +51,17 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     var challengeName = "";
     
-    var challenge:HigiChallenge!;
-    
     var challengeTeamSelected:Int?;
+    
+    private(set) var challenge: HigiChallenge!
+    private(set) var challengesController: ChallengesController!
+    private(set) var userController: UserController!
+    
+    func configure(userController: UserController, challengesController: ChallengesController, challenge: HigiChallenge) {
+        self.userController = userController
+        self.challengesController = challengesController
+        self.challenge = challenge
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -260,30 +268,28 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         return dateDisplay;
     }
     
-    func joinChallenge(joinUrl: String) {
-        joinButton.hidden = true;
-        loadingSpinner.hidden = false;
-        let joinUrl =  challenge.joinUrl;
-        let userId = SessionData.Instance.user.userId;
-        let contents = NSMutableDictionary();
-        contents.setObject(userId, forKey: "userId");
-        HigiApi().sendPost(joinUrl as String, parameters: contents, success: {operation, responseObject in
-            ApiUtility.retrieveChallenges(self.refreshChallenge);
-            }, failure: { operation, error in
-                
-                let alertTitle = NSLocalizedString("CHALLENGE_DETAILS_VIEW_JOIN_CHALLENGE_FAILURE_ALERT_TITLE", comment: "Title for alert which is displayed when joining a challenge fails.");
-                let alertMessage = NSLocalizedString("CHALLENGE_DETAILS_VIEW_JOIN_CHALLENGE_FAILURE_ALERT_MESSAGE", comment: "Message for alert which is displayed when joining a challenge fails.");
-                let cancelButtonTitle = NSLocalizedString("CHALLENGE_DETAILS_VIEW_JOIN_CHALLENGE_FAILURE_ALERT_ACTION_CANCEL_TITLE", comment: "Title for cancel alert action which is displayed when joining a challenge fails.");
-                let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .Alert)
-                let cancelAction = UIAlertAction(title: cancelButtonTitle, style: .Default, handler: nil)
-                alertController.addAction(cancelAction)
-                
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.presentViewController(alertController, animated: true, completion: nil)
-                    self.joinButton.hidden = false;
-                    self.loadingSpinner.hidden = true;
-                })
-        });
+    func joinChallenge() {
+        joinButton.hidden = true
+        loadingSpinner.hidden = false
+        
+        challengesController.join(challenge, user: userController.user, success: { [weak self] in
+            self?.refreshChallenge()
+        }, failure: { [weak self] in
+            guard let strongSelf = self else { return }
+            
+            let alertTitle = NSLocalizedString("CHALLENGE_DETAILS_VIEW_JOIN_CHALLENGE_FAILURE_ALERT_TITLE", comment: "Title for alert which is displayed when joining a challenge fails.");
+            let alertMessage = NSLocalizedString("CHALLENGE_DETAILS_VIEW_JOIN_CHALLENGE_FAILURE_ALERT_MESSAGE", comment: "Message for alert which is displayed when joining a challenge fails.");
+            let cancelButtonTitle = NSLocalizedString("CHALLENGE_DETAILS_VIEW_JOIN_CHALLENGE_FAILURE_ALERT_ACTION_CANCEL_TITLE", comment: "Title for cancel alert action which is displayed when joining a challenge fails.");
+            let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .Alert)
+            let cancelAction = UIAlertAction(title: cancelButtonTitle, style: .Default, handler: nil)
+            alertController.addAction(cancelAction)
+            
+            dispatch_async(dispatch_get_main_queue(), { [weak strongSelf] in
+                strongSelf?.presentViewController(alertController, animated: true, completion: nil)
+                strongSelf?.joinButton.hidden = false;
+                strongSelf?.loadingSpinner.hidden = true;
+            })
+        })
     }
 
     func showTermsAndConditions(joinUrl: String) {
@@ -292,9 +298,10 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         termsController.joinUrl = joinUrl;
         termsController.parent = self;
         termsController.responseRequired = true;
-        self.presentViewController(termsController, animated: true, completion: {
-            if (self.joinAccepted) {
-                self.joinChallenge(joinUrl);
+        self.presentViewController(termsController, animated: true, completion: { [weak self] in
+            guard let strongSelf = self else { return }
+            if (strongSelf.joinAccepted) {
+                strongSelf.joinChallenge();
             }
         });
     }
@@ -321,22 +328,26 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     }
     
     func refreshChallenge() {
-        self.loadingSpinner.hidden = true;
-        let challenges = SessionController.Instance.challenges;
-        for challenge in challenges {
-            if (self.challenge.url == challenge.url) {
-                self.challenge = challenge;
-            }
-        }
-        clearExistingViews();
-        initializeDetailView();
         
-        refreshTableScrolling();
-        
-        scrollView.contentOffset = CGPointMake(0,0);
-        updateScroll();
-        
-        headerContainer.layoutIfNeeded();
+        challengesController.fetch(challenge, user: userController.user, success: { [weak self] (challenge) in
+            guard let strongSelf = self else { return }
+            
+            strongSelf.loadingSpinner.hidden = true;
+            
+            strongSelf.challenge = challenge;
+            
+            strongSelf.clearExistingViews();
+            strongSelf.initializeDetailView();
+            
+            strongSelf.refreshTableScrolling();
+            
+            strongSelf.scrollView.contentOffset = CGPointMake(0,0);
+            strongSelf.updateScroll();
+            
+            strongSelf.headerContainer.layoutIfNeeded();
+        }, failure: {
+                
+        })
     }
     
     func refreshTableScrolling() {
@@ -893,7 +904,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
             let gravityBoard = challenge.gravityBoard;
             if (gravityBoard != nil && gravityBoard.count > 0) {
                 for index in 0...gravityBoard.count - 1 {
-                    if (gravityBoard[index].participant.url == challenge.participant.url) {
+                    if (gravityBoard[index].participant.identifier == challenge.participant.identifier) {
                         return ChallengeUtility.getRankSuffix(gravityBoard[index].place!);
                     }
                 }
@@ -936,7 +947,9 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                     var participants:[ChallengeParticipant] = [];
                     if (serverParticipants != nil) {
                         for singleParticipant: AnyObject in serverParticipants! {
-                            participants.append(ChallengeParticipant(dictionary: singleParticipant as! NSDictionary));
+                            if let participant = ChallengeParticipant(dictionary: singleParticipant as! NSDictionary) {
+                                participants.append(participant)
+                            }
                         }
                     }
                     for singleParticipant in participants {
@@ -963,10 +976,11 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                     for challengeComment in serverComments! {
                         let comment = (challengeComment as! NSDictionary)["comment"] as! NSString;
                         let timeSinceLastPost = (challengeComment as! NSDictionary)["timeSincePosted"] as! NSString;
-                        let commentParticipant = ChallengeParticipant(dictionary: (challengeComment as! NSDictionary)["participant"] as! NSDictionary);
-                        let commentTeam = commentParticipant.team;
-                        
-                        self.challengeChatterComments.append(Comments(comment: comment, timeSincePosted: timeSinceLastPost, participant: commentParticipant, team: commentTeam))
+                        if let commentParticipant = ChallengeParticipant(dictionary: (challengeComment as! NSDictionary)["participant"] as! NSDictionary) {
+                            let commentTeam = commentParticipant.team;
+                            
+                            self.challengeChatterComments.append(Comments(comment: comment, timeSincePosted: timeSinceLastPost, participant: commentParticipant, team: commentTeam))
+                        }
                     }
                 }
                 self.chatterTable!.reloadData();
@@ -989,11 +1003,11 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
                     for challengeComment in serverComments! {
                         let comment = (challengeComment as! NSDictionary)["comment"] as! NSString;
                         let timeSinceLastPost = (challengeComment as! NSDictionary)["timeSincePosted"] as! NSString;
-                        let commentParticipant = ChallengeParticipant(dictionary: (challengeComment as! NSDictionary)["participant"] as! NSDictionary);
-                        let commentTeam = commentParticipant.team;
-
-                        
-                        self.challengeChatterComments.append(Comments(comment: comment, timeSincePosted: timeSinceLastPost, participant: commentParticipant, team: commentTeam))
+                        if let commentParticipant = ChallengeParticipant(dictionary: (challengeComment as! NSDictionary)["participant"] as! NSDictionary) {
+                            let commentTeam = commentParticipant.team;
+                            
+                            self.challengeChatterComments.append(Comments(comment: comment, timeSincePosted: timeSinceLastPost, participant: commentParticipant, team: commentTeam))
+                        }
                     }
                 }
                 self.showLoadingFooter = false;
@@ -1010,7 +1024,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
         if (cell == nil) {
             if (isIndividualLeaderboard) {
                 cell = ChallengeLeaderboardRow.instanceFromNib(CGRect(x: 0, y: 0, width: UIScreen.mainScreen().bounds.size.width, height: 40),challenge: challenge, participant: individualLeaderboardParticipants[index], place: String(index + 1));
-                if (challenge.participant != nil && individualLeaderboardParticipants[index].url == challenge.participant.url) {
+                if (challenge.participant != nil && individualLeaderboardParticipants[index].identifier == challenge.participant.identifier) {
                     cell.backgroundColor = Utility.colorFromHexString("#d5ffb8");
                 }
             } else {
@@ -1077,7 +1091,7 @@ class ChallengeDetailsViewController: UIViewController, UIScrollViewDelegate, UI
     
     func createChatterTable(index: Int) -> UITableViewCell {
         let chatter = challengeChatterComments[index];
-        let cell = ChallengeDetailsChatterRow.instanceFromNib(chatter.comment as String, participant: chatter.participant, timeSincePosted: chatter.timeSincePosted as String, isYou: chatter.participant.url == challenge.participant.url, isTeam: challenge.winConditions[0].winnerType == "team");
+        let cell = ChallengeDetailsChatterRow.instanceFromNib(chatter.comment as String, participant: chatter.participant, timeSincePosted: chatter.timeSincePosted as String, isYou: chatter.participant.identifier == challenge.participant.identifier, isTeam: challenge.winConditions[0].winnerType == "team");
         cell.backgroundColor = Utility.colorFromHexString("#F4F4F4");
         return cell;
     }

@@ -44,7 +44,7 @@ final class DashboardViewController: UIViewController {
     
     var displayedChallenge: HigiChallenge!;
     
-    var doneRefreshing = true, activitiesRefreshed = true, challengesRefreshed = true, checkinsRefreshed = true, devicesRefreshed = true, metricsRefreshed = false, activitiesLoaded = false, challengesLoaded = false, metricsLoaded = false, challengeCardPlaced = false, metricsCardPlaced = false, pulseCardPlaced = false;
+    var doneRefreshing = true, activitiesRefreshed = true, checkinsRefreshed = true, devicesRefreshed = true, metricsRefreshed = false, activitiesLoaded = false,  metricsLoaded = false, metricsCardPlaced = false, pulseCardPlaced = false;
     
     var activityCard: MetricsGraphCard!;
     
@@ -63,7 +63,7 @@ final class DashboardViewController: UIViewController {
         self.title = NSLocalizedString("DASHBOARD_VIEW_TITLE", comment: "Title for Dashboard view.");
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DashboardViewController.receiveQrCheckinNotification(_:)), name: ApiUtility.QR_CHECKIN, object: nil);
-        let notificationNames = [ApiUtility.ACTIVITIES, ApiUtility.CHALLENGES, ApiUtility.CHECKINS, ApiUtility.DEVICES]
+        let notificationNames = [ApiUtility.ACTIVITIES, ApiUtility.CHECKINS, ApiUtility.DEVICES]
         for name in notificationNames {
             NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DashboardViewController.receiveApiNotification(_:)), name: name, object: nil)
         }
@@ -171,13 +171,7 @@ final class DashboardViewController: UIViewController {
                 Utility.mainTabBarController()?.metricsNavController.tabBarItem.enabled = true
             }
             activitiesRefreshed = true;
-        case ApiUtility.CHALLENGES:
-            challengesLoaded = true;
-            if (doneRefreshing) {
-                initChallengesCard();
-                Utility.mainTabBarController()?.challengesNavController.tabBarItem.enabled = true
-            }
-            challengesRefreshed = true;
+        
         case ApiUtility.CHECKINS:
             metricsLoaded = true;
             if (activitiesLoaded && metricsLoaded && !metricsRefreshed) {
@@ -199,46 +193,10 @@ final class DashboardViewController: UIViewController {
         if SessionController.Instance.showQrCheckinCard ?? false {
             addQrCheckinView();
         }
-        if (challengesCard.superview != nil) {
-            challengesCard.removeFromSuperview();
-        }
         if (metricsCard.superview != nil) {
             metricsCard.removeFromSuperview();
         }
-        initChallengesCard();
         initMetricsCard();
-    }
-    
-    func initChallengesCard() {
-        if SessionController.Instance.earnditError && (SessionController.Instance.checkins == nil || SessionController.Instance.challenges.count == 0) {
-            removeChallengeCard()
-            showErrorCard()
-        } else {
-            if !SessionController.Instance.earnditError {
-                removeErrorCard()
-            }
-            
-            addChallengeCardWithSpinner()
-            displayedChallenge = getDisplayedChallenge()
-            if (displayedChallenge != nil) {
-                setChallengeCardWithDisplayChallenge()
-            } else if (challengesLoaded) {
-                challengesCard.challengeBox.hidden = true;
-                challengesCard.blankStateImage.hidden = false;
-                Utility.growAnimation(challengesCard, startHeight: challengesCard.frame.size.height, endHeight: challengesCard.blankStateImage.frame.origin.y + challengesCard.blankStateImage.frame.size.height);
-                challengesCard.loadingContainer.hidden = true;
-                challengesCard.spinner.stopAnimating();
-            }
-        }
-        layoutDashboardItems(challengeCardPlaced);
-        challengeCardPlaced = true;
-    }
-    
-    private func removeChallengeCard() {
-        if (challengesCard.superview != nil) {
-            challengesCard.spinner.stopAnimating();
-            challengesCard.removeFromSuperview();
-        }
     }
     
     private func showErrorCard() {
@@ -252,66 +210,6 @@ final class DashboardViewController: UIViewController {
         if (errorCard.superview != nil) {
             errorCard.removeFromSuperview();
         }
-    }
-    
-    private func addChallengeCardWithSpinner() {
-        challengesCard.challengeBox.layer.borderColor = Utility.colorFromHexString("#CCCCCC").CGColor;
-        if (challengesCard.spinner == nil) {
-            challengesCard.spinner = CustomLoadingSpinner(frame: CGRectMake(UIScreen.mainScreen().bounds.width / 2 - 16 - challengesCard.loadingContainer.frame.origin.x, challengesCard.loadingContainer.frame.size.height / 2 - 16, 32, 32));
-            challengesCard.loadingContainer.addSubview(challengesCard.spinner);
-        }
-        if (challengesCard.superview == nil) {
-            mainScrollView.addSubview(challengesCard);
-            challengesCard.spinner.startAnimating();
-        }
-    }
-    
-    private func getDisplayedChallenge() -> HigiChallenge? {
-        var displayedChallenge:HigiChallenge? = nil
-        if (SessionController.Instance.challenges != nil) {
-            for challenge in SessionController.Instance.challenges {
-                if (challenge.userStatus == "current" && challenge.status == "running") {
-                    if (displayedChallenge == nil) {
-                        displayedChallenge = challenge;
-                    } else {
-                        if (displayedChallenge!.endDate == nil) {
-                            if (challenge.endDate != nil) {
-                                displayedChallenge = challenge;
-                            }
-                        } else if (challenge.endDate != nil && displayedChallenge!.endDate.compare(challenge.endDate) == NSComparisonResult.OrderedDescending) {
-                            displayedChallenge = challenge;
-                        }
-                    }
-                }
-            }
-        }
-        return displayedChallenge
-    }
-    
-    private func setChallengeCardWithDisplayChallenge() {
-        challengesCard.loadingContainer.hidden = true;
-        challengesCard.spinner.stopAnimating();
-        challengesCard.challengeBox.hidden = false;
-        challengesCard.blankStateImage.hidden = true;
-        challengesCard.challengeAvatar.setImageWithURL(NSURL(string: displayedChallenge.imageUrl as String));
-        challengesCard.challengeTitle.text = displayedChallenge.name as String;
-        if (challengesCard.challengeBox.subviews.count > 3) {
-            (challengesCard.challengeBox.subviews[challengesCard.challengeBox.subviews.count - 1] ).removeFromSuperview();
-        }
-        let challengeViewHeader = CGFloat(56);
-        let challengeView = ChallengeUtility.getChallengeViews(displayedChallenge, frame: CGRect(x: 0, y: challengeViewHeader, width: challengesCard.challengeBox.frame.size.width, height: 180), isComplex: false)[0];
-        challengeView.backgroundColor = UIColor.whiteColor();
-        if (challengeView.frame.size.height + challengeViewHeader > challengesCard.challengeBox.frame.size.height) {
-            Utility.growAnimation(challengesCard.challengeBox, startHeight: challengesCard.challengeBox.frame.size.height, endHeight: challengeView.frame.size.height + challengeViewHeader + challengeViewHeader);
-            Utility.growAnimation(challengesCard, startHeight: challengesCard.frame.size.height, endHeight: challengesCard.challengeBox.frame.origin.y + challengeView.frame.size.height + challengeViewHeader);
-        }
-        challengesCard.challengeBox.frame.size.height = challengeView.frame.size.height;
-        challengesCard.challengeBox.addSubview(challengeView);
-        challengeView.userInteractionEnabled = false;
-        challengeView.updateConstraintsIfNeeded();
-        challengeView.animate();
-        
-        challengesCard.spinner.stopAnimating();
     }
     
     func initMetricsCard() {
@@ -550,23 +448,23 @@ final class DashboardViewController: UIViewController {
     }
     
     @IBAction func gotoChallenges(sender: AnyObject) {
-        if (SessionController.Instance.challenges != nil && SessionController.Instance.loadedChallenges) {
+//        if (SessionController.Instance.challenges != nil && SessionController.Instance.loadedChallenges) {
             Flurry.logEvent("Challenges_Pressed");
             
-            guard let mainTabBarController = Utility.mainTabBarController() else { return }
-            
-            mainTabBarController.challengesViewController.navigateToChallengesDashboard()
-        }
+//            guard let mainTabBarController = Utility.mainTabBarController() else { return }
+        
+//            mainTabBarController.challengesViewController.navigateToChallengesDashboard()
+//        }
     }
     
     @IBAction func gotoChallengeDetails(sender: AnyObject) {
-        if (SessionController.Instance.challenges != nil && SessionController.Instance.loadedChallenges) {
+//        if (SessionController.Instance.challenges != nil && SessionController.Instance.loadedChallenges) {
             Flurry.logEvent("ActiveChallenge_Pressed");
             
-            guard let mainTabBarController = Utility.mainTabBarController() else { return }
-            
-            mainTabBarController.challengesViewController.navigateToChallengeDetail(displayedChallenge)
-        }
+//            guard let mainTabBarController = Utility.mainTabBarController() else { return }
+//            
+//            mainTabBarController.challengesViewController.navigateToChallengeDetail(displayedChallenge)
+//        }
     }
     
     @IBAction func removeQrCheckinCard(sender: AnyObject) {
@@ -634,7 +532,6 @@ final class DashboardViewController: UIViewController {
     func refresh() {
         SessionController.Instance.earnditError = false;
         activitiesRefreshed = false;
-        challengesRefreshed = false;
         checkinsRefreshed = false;
         devicesRefreshed = false;
         activitiesLoaded = false;
@@ -680,7 +577,7 @@ final class DashboardViewController: UIViewController {
         });
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
             
-            while (!self.activitiesRefreshed || !self.challengesRefreshed || !self.checkinsRefreshed || !self.devicesRefreshed) {
+            while (!self.activitiesRefreshed || !self.checkinsRefreshed || !self.devicesRefreshed) {
                 NSThread.sleepForTimeInterval(0.1);
             }
             
@@ -706,14 +603,12 @@ final class DashboardViewController: UIViewController {
                 SessionData.Instance.user = login.user;
                 SessionData.Instance.user.retrieveProfileImages();
                 ApiUtility.retrieveActivities(nil);
-                ApiUtility.retrieveChallenges(nil);
                 ApiUtility.retrieveCheckins(nil);
                 ApiUtility.retrieveDevices(nil);
             });
             
             }, failure: { operation, error in
                 self.activitiesRefreshed = true;
-                self.challengesRefreshed = true;
                 self.checkinsRefreshed = true;
                 self.devicesRefreshed = true;
         });

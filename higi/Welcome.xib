@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -33,21 +33,21 @@
                 <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lHv-ke-vf0">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="welcome-tour-logo" translatesAutoresizingMaskIntoConstraints="NO" id="uD8-k6-1x1">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="higi-logo" translatesAutoresizingMaskIntoConstraints="NO" id="g3B-9f-sHl">
+                            <rect key="frame" x="70" y="198" width="180" height="75"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="568" id="6Ll-ca-byy"/>
-                                <constraint firstAttribute="width" constant="320" id="6f7-xV-AIN"/>
+                                <constraint firstAttribute="height" constant="75" id="25e-6y-ZLY"/>
+                                <constraint firstAttribute="width" constant="180" id="baK-3E-7MJ"/>
                             </constraints>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Welcome" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Umu-q6-W9Q">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Umu-q6-W9Q">
                             <rect key="frame" x="8" y="300" width="304" height="21"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Higi makes it fun to keep tabs on your health and get rewarded for it" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="naM-lB-Iug">
-                            <rect key="frame" x="24" y="330" width="272" height="40"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Higi makes it fun to keep tabs on your health and get rewarded for it" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="naM-lB-Iug">
+                            <rect key="frame" x="24" y="330" width="272" height="29"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="272" id="d8t-37-BOg"/>
                             </constraints>
@@ -58,21 +58,18 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="Umu-q6-W9Q" firstAttribute="leading" secondItem="lHv-ke-vf0" secondAttribute="leading" constant="8" id="77g-Lt-WEf"/>
-                        <constraint firstItem="naM-lB-Iug" firstAttribute="top" secondItem="lHv-ke-vf0" secondAttribute="top" constant="330" id="B2w-8d-Jvb"/>
-                        <constraint firstItem="Umu-q6-W9Q" firstAttribute="top" secondItem="lHv-ke-vf0" secondAttribute="top" constant="300" id="BHJ-3Z-He2"/>
+                        <constraint firstItem="Umu-q6-W9Q" firstAttribute="leading" secondItem="lHv-ke-vf0" secondAttribute="leading" constant="8" id="2yk-By-fqS"/>
+                        <constraint firstItem="Umu-q6-W9Q" firstAttribute="top" secondItem="g3B-9f-sHl" secondAttribute="bottom" constant="26.5" id="4Wk-pm-SFx"/>
                         <constraint firstItem="Umu-q6-W9Q" firstAttribute="centerX" secondItem="lHv-ke-vf0" secondAttribute="centerX" id="GYK-P1-YYY"/>
+                        <constraint firstAttribute="trailing" secondItem="Umu-q6-W9Q" secondAttribute="trailing" constant="8" id="L2n-zR-xYf"/>
                         <constraint firstItem="naM-lB-Iug" firstAttribute="centerX" secondItem="lHv-ke-vf0" secondAttribute="centerX" id="P2N-gR-OB5"/>
-                        <constraint firstItem="uD8-k6-1x1" firstAttribute="centerX" secondItem="lHv-ke-vf0" secondAttribute="centerX" id="vzR-6r-gzI"/>
+                        <constraint firstItem="g3B-9f-sHl" firstAttribute="centerY" secondItem="lHv-ke-vf0" secondAttribute="centerY" constant="-48" id="Q8B-Q1-KbE"/>
+                        <constraint firstItem="naM-lB-Iug" firstAttribute="top" secondItem="Umu-q6-W9Q" secondAttribute="bottom" constant="9" id="XE2-lT-4fa"/>
+                        <constraint firstItem="g3B-9f-sHl" firstAttribute="centerX" secondItem="lHv-ke-vf0" secondAttribute="centerX" id="ZHh-fH-VHe"/>
                     </constraints>
-                    <variation key="default">
-                        <mask key="constraints">
-                            <exclude reference="77g-Lt-WEf"/>
-                        </mask>
-                    </variation>
                 </view>
-                <pageControl opaque="NO" alpha="0.69999999999999996" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="5" translatesAutoresizingMaskIntoConstraints="NO" id="dhs-Uw-8UU">
-                    <rect key="frame" x="100" y="20" width="121" height="37"/>
+                <pageControl opaque="NO" alpha="0.69999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="5" translatesAutoresizingMaskIntoConstraints="NO" id="dhs-Uw-8UU">
+                    <rect key="frame" x="125" y="20" width="71" height="37"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="37" id="pdC-9d-A94"/>
                     </constraints>
@@ -146,9 +143,12 @@
                         <constraint firstAttribute="width" secondItem="4q6-bB-7EQ" secondAttribute="height" multiplier="80:121" id="uyg-Fo-SVB"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ufj-qC-5L8">
-                    <rect key="frame" x="-1" y="527" width="321" height="1"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ufj-qC-5L8">
+                    <rect key="frame" x="0.0" y="527" width="320" height="1"/>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="6Jx-Ir-GCn"/>
+                    </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fKl-Ed-4Yf" userLabel="Log in">
                     <rect key="frame" x="160" y="528" width="160" height="40"/>
@@ -161,11 +161,11 @@
                         <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
-                        <action selector="gotoLogin:" destination="-1" eventType="touchUpInside" id="FZK-cq-Gw5"/>
+                        <action selector="navigateToLogIn:" destination="-1" eventType="touchUpInside" id="ZFp-fz-JsE"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hEu-Ce-PoV">
-                    <rect key="frame" x="-1" y="528" width="161" height="40"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hEu-Ce-PoV">
+                    <rect key="frame" x="0.0" y="528" width="160" height="40"/>
                     <color key="backgroundColor" red="0.46274509803921571" green="0.75294117647058822" blue="0.26666666666666666" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="T27-de-lPc"/>
@@ -175,13 +175,12 @@
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
-                        <action selector="gotoSignup:" destination="-1" eventType="touchUpInside" id="PX2-cz-SJy"/>
+                        <action selector="navigateToSignUp:" destination="-1" eventType="touchUpInside" id="xMI-Hb-oYK"/>
                     </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="Ufj-qC-5L8" firstAttribute="top" relation="greaterThanOrEqual" secondItem="cl1-BU-hFJ" secondAttribute="bottom" priority="990" constant="70" id="3ed-lG-GLv"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="4q6-bB-7EQ" secondAttribute="trailing" priority="990" constant="40" id="6KT-ZD-t62"/>
                 <constraint firstItem="ePL-qi-dzS" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="7Ra-hf-UoJ"/>
                 <constraint firstItem="4q6-bB-7EQ" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="7UT-Gp-sLx"/>
@@ -192,6 +191,7 @@
                 <constraint firstItem="cl1-BU-hFJ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="200" id="FB1-oN-1L0"/>
                 <constraint firstAttribute="bottom" secondItem="lHv-ke-vf0" secondAttribute="bottom" id="FiX-DD-7zm"/>
                 <constraint firstItem="cl1-BU-hFJ" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Fs3-Cs-b3y"/>
+                <constraint firstItem="fKl-Ed-4Yf" firstAttribute="top" secondItem="Ufj-qC-5L8" secondAttribute="bottom" id="IKp-a7-474"/>
                 <constraint firstAttribute="trailing" secondItem="lHv-ke-vf0" secondAttribute="trailing" id="Mud-xY-hux"/>
                 <constraint firstAttribute="trailing" secondItem="ePL-qi-dzS" secondAttribute="trailing" constant="8" id="Nr5-v2-KIf"/>
                 <constraint firstItem="dhs-Uw-8UU" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="Ozk-e4-YLa"/>
@@ -220,8 +220,8 @@
         </view>
     </objects>
     <resources>
+        <image name="higi-logo" width="200" height="83"/>
         <image name="welcome-tour-iphone" width="309" height="381"/>
-        <image name="welcome-tour-logo" width="1080" height="1700"/>
         <image name="welcome-tour-station" width="450" height="330"/>
     </resources>
 </document>

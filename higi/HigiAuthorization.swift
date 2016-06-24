@@ -57,7 +57,7 @@ extension HigiAuthorization: NSCoding {
     }
 }
 
-extension HigiAuthorization {
+extension HigiAuthorization: HigiAPIJSONDeserializer {
     
     struct DictionaryKeys {
         static let AccessToken: NSString = "AccessToken"

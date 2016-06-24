@@ -219,8 +219,30 @@ extension Theme.Color {
         }
         
         struct TableView {
-            
             static let selectedCellBackGround = Metrics.Plot.line.colorWithAlphaComponent(0.3)
         }
+    }
+}
+
+// MARK: - Sign Up
+
+extension Theme.Color {
+    
+    struct SignUp {
+        struct Email {
+            static let errorPlaceholder = UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)
+        }
+        
+        struct Name {
+            static let errorPlaceholder = UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)
+        }
+    }
+    
+    struct LogIn {
+        static let errorPlaceholder = UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)
+    }
+    
+    struct ChangePassword {
+        static let errorPlaceholder = UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)
     }
 }

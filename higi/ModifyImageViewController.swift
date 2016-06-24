@@ -2,175 +2,288 @@
 //  ModifyImageViewController.swift
 //  higi
 //
-//  Created by Dan Harms on 8/8/14.
-//  Copyright (c) 2014 higi, LLC. All rights reserved.
+//  Created by Remy Panicker on 5/18/16.
+//  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-import Foundation
+final class ModifyImageViewController: UIViewController {
 
-class ModifyImageViewController: UIViewController {
+    @IBOutlet private var profileImageView: UIImageView! {
+        didSet {
+            profileImageView.addGestureRecognizer(pinchGestureRecognizer)
+            profileImageView.addGestureRecognizer(panGestureRecognizer)
+            profileImageView.image = image
+            // Maintaining legacy functionality where view is hidden because frame is manipulated after view is laid out. Hiding the view eliminates an abrupt adjustment.
+            profileImageView.hidden = true
+        }
+    }
     
-    @IBOutlet weak var profileImageView: UIImageView!
-    @IBOutlet weak var topMask: UIView!
-    @IBOutlet weak var circleMask: UIImageView!
-    @IBOutlet weak var bottomMask: UIView!
-    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    lazy private var pinchGestureRecognizer: UIPinchGestureRecognizer = {
+        let pinch = UIPinchGestureRecognizer(target: self, action: #selector(didPinch))
+        return pinch
+    }()
+    
+    lazy private var panGestureRecognizer: UIPanGestureRecognizer = {
+        let pan = UIPanGestureRecognizer(target: self, action: #selector(didPan))
+        return pan
+    }()
+    
+    private var previousScale: CGFloat = 1.0
+    
+    private var originalProfileImageViewFrame: CGRect!
+    
+    @IBOutlet private var topMask: UIView!
+    
+    @IBOutlet private var circleMask: UIImageView!
+    
+    @IBOutlet private var bottomMask: UIView!
+    
+    @IBOutlet private var spinner: UIActivityIndicatorView!
     
     weak var delegate: ModifyImageViewControllerDelegate?
     
-    var profileImage: UIImage!;
+    /// Returns `true` if the client should only send the image position to the API because the image has already been uploaded to the server, otherwise upload the image and image position to the API.
+    var resizeMode = false
     
-    var resizing = false, fromSettings = false;
-    
-    var origFrame: CGRect!;
-    
-    var lastScale: CGFloat! = 1.0;
-    
-    override func viewDidLoad() {
-        super.viewDidLoad();
-        
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: #selector(ModifyImageViewController.cancel(_:)))
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(ModifyImageViewController.done(_:)))
-        
-        profileImageView.image = profileImage;
-        
-        profileImageView.hidden = true;
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated);
-        profileImageView.hidden = false;
-        var width: CGFloat, height: CGFloat;
-        if (profileImage.size.width > profileImage.size.height) {
-            width = self.view.frame.size.width;
-            height = self.view.frame.size.width * profileImage.size.height / profileImage.size.width;
-        } else {
-            width = self.view.frame.size.width * profileImage.size.width / profileImage.size.height;
-            height = self.view.frame.width;
-        }
-        origFrame = CGRect(x: self.view.frame.size.width * 0.5 - width * 0.5, y: self.view.frame.size.height * 0.5 - height * 0.5, width: width, height: height);
-        profileImageView.frame = origFrame;
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews();
-        topMask.frame.size.height = circleMask.frame.origin.y;
-        bottomMask.frame.origin.y = circleMask.frame.origin.y + circleMask.frame.size.height;
-    }
-    
-    func cancel(sender: AnyObject!) {
-        dispatch_async(dispatch_get_main_queue(), { [unowned self] in
-            self.delegate?.modifyImageViewControllerDidTapCancel(self)
-        })
-    }
-    
-    func done(sender: AnyObject!) {
-        dispatch_async(dispatch_get_main_queue(), { [unowned self] in
-            self.navigationItem.leftBarButtonItem?.enabled = false
-            self.navigationItem.rightBarButtonItem?.enabled = false
-            self.spinner.hidden = false;
-        })
-        
-        if (resizing) {
-            sendSize();
-        } else {
-            var imageData = UIImageJPEGRepresentation(profileImage, 1.0);
-            var compressionQuality: CGFloat = 0.5;
-            while (imageData!.length > 1000000) {
-                imageData = UIImageJPEGRepresentation(profileImage, compressionQuality);
-                compressionQuality -= 0.1;
+    private(set) var imageURL: NSURL?
+    private(set) var image: UIImage? {
+        didSet {
+            if self.isViewLoaded() && profileImageView != nil {
+                layoutProfileImageView()
+                profileImageView.image = image
             }
-            let user = SessionData.Instance.user;
-            HigiApi().sendBytePost("\(HigiApi.higiApiUrl)/data/user/\(user.userId)/photo", contentType: "image/jpg", body: imageData!, parameters: nil, success: {operation, responseObject in
-                user.fullProfileImage = UIImage(data: imageData!);
-                user.hasPhoto = true;
-                user.createBlurredImage();
-                self.sendSize();
-                
-                }, failure: {operation, error in
-                    self.showErrorAlert();
-            });
         }
     }
     
-    func sendSize() {
-        let user = SessionData.Instance.user;
-        let contents = NSMutableDictionary();
+    private(set) var userController: UserController!
 
-        let scale = profileImageView.frame.size.width / profileImage.size.width;
-        let serverScale = 140.0 / ((self.view.frame.size.width * 0.571296296) / scale);
-        let deltaX = profileImageView.frame.origin.x - origFrame.origin.x + (profileImageView.frame.size.width - origFrame.size.width) / 2;
-        let deltaY = profileImageView.frame.origin.y - origFrame.origin.y + (profileImageView.frame.size.height - origFrame.size.height) / 2;
-        let centerX = Int((profileImage.size.width / 2.0 - deltaX / scale) * serverScale);
-        let centerY = Int((profileImage.size.height / 2.0 - deltaY / scale) * serverScale);
-        contents.setObject(centerX, forKey: "centerX");
-        contents.setObject(centerY, forKey: "centerY");
-        contents.setObject(serverScale, forKey: "scale");
+    private var modifyImageController = ModifyImageController()
+}
+
+extension ModifyImageViewController {
+    
+    override func didReceiveMemoryWarning() {
+        image = nil
+        profileImageView.image = nil
         
-        HigiApi().sendPost("\(HigiApi.higiApiUrl)/data/user/\(user.userId)/photoPosition", parameters: contents, success: {operation, responseObject in
-            if (responseObject != nil) {
-                user.photoTime = ((responseObject as! NSDictionary)["photoTime"] ?? Int(NSDate().timeIntervalSince1970)) as! Int;
-            } else {
-                user.photoTime = Int(NSDate().timeIntervalSince1970);
-            }
-            user.profileImage = UIImage(data: NSData(contentsOfURL: NSURL(string: "\(HigiApi.higiApiUrl)/view/\(user.userId)/profile,400.png?t=\(user.photoTime)")!)!);
-            
-            dispatch_async(dispatch_get_main_queue(), { [unowned self] in
-                self.delegate?.modifyImageViewController(self, didTapDoneWithSuccess: true)
-            })
-            
-            }, failure: {operation, error in
-                self.showErrorAlert();
-        });
-    }
-    
-    @IBAction func pinchZoom(sender: UIPinchGestureRecognizer) {
-        let scale = 1.0 + sender.scale - lastScale;
-        let center = profileImageView.center;
-        profileImageView.frame.size = CGSize(width: profileImageView.frame.size.width * scale, height: profileImageView.frame.size.height * scale);
-        profileImageView.center = center;
-        lastScale = sender.scale;
-        if (sender.state == UIGestureRecognizerState.Ended) {
-            lastScale = 1;
-        }
-    }
-    
-    @IBAction func dragImage(sender: UIPanGestureRecognizer) {
-        profileImageView.frame.origin.x += sender.translationInView(self.view).x;
-        profileImageView.frame.origin.y += sender.translationInView(self.view).y;
-        sender.setTranslation(CGPointZero, inView: self.view);
-    }
-    
-    func showErrorAlert() {
-        let title = NSLocalizedString("MODIFY_IMAGE_VIEW_SERVER_ERROR_ALERT_TITLE", comment: "Title for alert which is displayed if the server is unreachable.")
-        let message = NSLocalizedString("MODIFY_IMAGE_VIEW_SERVER_ERROR_ALERT_MESSAGE", comment: "Message for alert which is displayed if the server is unreachable.")
-        let dismissTitle = NSLocalizedString("MODIFY_IMAGE_VIEW_SERVER_ERROR_ALERT_ACTION_TITLE_DISMISS", comment: "Title for alert action to dismiss alert which is displayed if the server is unreachable.")
-        
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        let dismissAction = UIAlertAction(title: dismissTitle, style: .Default, handler: nil)
-        alertController.addAction(dismissAction)
-        
-        dispatch_async(dispatch_get_main_queue(), {
-            self.presentViewController(alertController, animated: true, completion: {
-                self.reset()
-            })
-        })
-    }
-    
-    func reset() {
-        dispatch_async(dispatch_get_main_queue(), { [weak self] in
-            self?.navigationItem.hidesBackButton = true
-            self?.spinner.hidden = true;
-            self?.spinner.stopAnimating();
-            self?.navigationItem.leftBarButtonItem?.enabled = true
-            self?.navigationItem.rightBarButtonItem?.enabled = true
+        // The warning may be received before the view presentation has completed. This delay is a quick hack to ensure we don't attempt to present the alert while the view controller presentation is in progress.
+        // TODO: Reconsider solution -- this is kind of dumb
+        Utility.delay(0.3, closure: { [weak self] in
+            self?.showMemoryWarningAlert()
         })
     }
 }
 
-protocol ModifyImageViewControllerDelegate: class {
+// MARK: - Config
 
-    func modifyImageViewController(viewController: ModifyImageViewController, didTapDoneWithSuccess: Bool)
+extension ModifyImageViewController {
     
-    func modifyImageViewControllerDidTapCancel(viewController: ModifyImageViewController)
+    func configure(userController: UserController, imageURL: NSURL, delegate: ModifyImageViewControllerDelegate) {
+        self.userController = userController
+        self.delegate = delegate
+        self.imageURL = imageURL
+    }
+    
+    func configure(userController: UserController, image: UIImage, delegate: ModifyImageViewControllerDelegate) {
+        self.userController = userController
+        self.image = image
+        self.delegate = delegate
+    }
+}
+
+// MARK: - View Lifecycle 
+
+extension ModifyImageViewController {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        if image == nil, let _ = imageURL {
+            fetchImage()
+        }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        layoutProfileImageView()
+    }
+    
+    private func fetchImage() {
+        guard let imageURL = imageURL else { return }
+        
+        toggleElements(false)
+        self.navigationItem.leftBarButtonItem?.enabled = true
+        modifyImageController.fetchImage(withURL: imageURL, completion: { [weak self] (image) in
+            guard let strongSelf = self,
+                let image = image else { return }
+            
+            dispatch_async(dispatch_get_main_queue(), { [weak strongSelf] in
+                guard let strongSelf = strongSelf else { return }
+                
+                strongSelf.image = image
+                strongSelf.toggleElements(true)
+                })
+            })
+    }
+
+    private func layoutProfileImageView() {
+        guard let image = image else { return }
+        
+        // size image view to fill view's height or width based on larger dimension and scale to maintain aspect ratio
+        var width: CGFloat = 0.0
+        var height: CGFloat = 0.0
+        
+        
+        if (image.size.width > image.size.height) {
+            width = self.view.frame.size.width
+            height = self.view.frame.size.width * image.size.height / image.size.width
+        } else {
+            width = self.view.frame.size.width * image.size.width / image.size.height
+            height = self.view.frame.width
+        }
+        
+        // Center align image horizontally/vertically in view
+        originalProfileImageViewFrame = CGRect(x: self.view.frame.size.width * 0.5 - width * 0.5, y: self.view.frame.size.height * 0.5 - height * 0.5, width: width, height: height)
+        
+        if profileImageView.hidden {
+            profileImageView.alpha = 0.0
+            profileImageView.hidden = false
+            UIView.animateWithDuration(0.2, animations: {
+                self.profileImageView.alpha = 1.0
+                self.profileImageView.frame = self.originalProfileImageViewFrame
+            })
+        }
+    }
+}
+
+// MARK: - Gesture Recognizer
+
+extension ModifyImageViewController {
+    
+    func didPinch(sender: UIPinchGestureRecognizer) {
+        let scale = 1.0 + sender.scale - previousScale;
+        let center = profileImageView.center;
+
+        profileImageView.frame.size = CGSize(width: profileImageView.frame.size.width * scale, height: profileImageView.frame.size.height * scale);
+        profileImageView.center = center;
+
+        previousScale = sender.scale;
+        if (sender.state == UIGestureRecognizerState.Ended) {
+            previousScale = 1;
+        }
+    }
+    
+    func didPan(sender: UIPanGestureRecognizer) {
+        profileImageView.frame.origin.x += sender.translationInView(self.view).x
+        profileImageView.frame.origin.y += sender.translationInView(self.view).y
+        
+        sender.setTranslation(CGPointZero, inView: self.view)
+    }
+}
+
+// MARK: - UI Action
+
+extension ModifyImageViewController {
+    
+    @IBAction func didTapCancelButton(sender: UIBarButtonItem) {
+        dispatch_async(dispatch_get_main_queue(), { [unowned self] in
+            self.delegate?.modifyImageViewControllerDidCancel(self)
+            })
+    }
+    
+    @IBAction func didTapDoneButton(sender: UIBarButtonItem) {
+        toggleElements(false)
+        
+        if resizeMode {
+            updatePosition()
+        } else {
+            uploadImage()
+        }
+    }
+}
+
+// MARK: - Network Tasks
+
+extension ModifyImageViewController {
+    
+    private func uploadImage() {
+        guard let image = image else { return }
+        
+        modifyImageController.update(userController.user, image: image, success: { [weak self] in
+            self?.updatePosition()
+            }, failure: { [weak self] (error) in
+                self?.showErrorAlert(error)
+        })
+    }
+    
+    private func updatePosition() {
+        guard let image = image else { return }
+        
+        let (centerX, centerY, serverScale) = modifyImageController.calculatePosition(self.view.frame, originalImageViewFrame: originalProfileImageViewFrame, imageViewFrame: profileImageView.frame, image: image)
+        
+        modifyImageController.updateImagePosition(forUser: userController.user, centerX: centerX, centerY: centerY, serverScale: serverScale, success: { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.delegate?.modifyImageViewController(strongSelf, didModifyWithSuccess: true)
+            }, failure: { [weak self] in
+                self?.showErrorAlert(nil)
+        })
+    }
+}
+
+// MARK: -
+
+extension ModifyImageViewController {
+    
+    private func showErrorAlert(error: NSError?) {
+        let title = NSLocalizedString("MODIFY_IMAGE_VIEW_SERVER_ERROR_ALERT_TITLE", comment: "Title for alert which is displayed if the server is unreachable.")
+        let message = NSLocalizedString("MODIFY_IMAGE_VIEW_SERVER_ERROR_ALERT_MESSAGE", comment: "Message for alert which is displayed if the server is unreachable.")
+        let dismissTitle = NSLocalizedString("MODIFY_IMAGE_VIEW_SERVER_ERROR_ALERT_ACTION_TITLE_DISMISS", comment: "Title for alert action to dismiss alert which is displayed if the server is unreachable.")
+        
+        let displayMessage = (error?.userInfo[NSLocalizedDescriptionKey] as? String) ?? message
+        let alertController = UIAlertController(title: title, message: displayMessage, preferredStyle: .Alert)
+        let dismissAction = UIAlertAction(title: dismissTitle, style: .Default, handler: nil)
+        alertController.addAction(dismissAction)
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            self.toggleElements(true)
+            self.presentViewController(alertController, animated: true, completion: nil)
+        })
+    }
+    
+    private func showMemoryWarningAlert() {
+        let title = NSLocalizedString("MODIFY_IMAGE_VIEW_MEMORY_WARNING_ALERT_TITLE", comment: "Title for alert which is displayed if the view receives a memory warning.")
+        let message = NSLocalizedString("MODIFY_IMAGE_VIEW_MEMORY_WARNING_ALERT_MESSAGE", comment: "Message for alert which is displayed if the view receives a memory warning.")
+        let dismissTitle = NSLocalizedString("MODIFY_IMAGE_VIEW_MEMORY_WARNING_ALERT_ACTION_TITLE_DISMISS", comment: "Title for action to dismiss alert which is displayed if the view receives a memory warning.")
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        let dismiss = UIAlertAction(title: dismissTitle, style: .Default, handler: { (action) in
+            self.delegate?.modifyImageViewControllerDidCancel(self)
+        })
+        alertController.addAction(dismiss)
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            self.toggleElements(false)
+            self.view.userInteractionEnabled = false
+            self.presentViewController(alertController, animated: true, completion: nil)
+        })
+    }
+    
+    private func toggleElements(enableInteraction: Bool) {
+        self.navigationItem.leftBarButtonItem?.enabled = enableInteraction
+        self.navigationItem.rightBarButtonItem?.enabled = enableInteraction
+        
+        let spinnerAction = enableInteraction ? spinner.stopAnimating : spinner.startAnimating
+        spinnerAction()
+        spinner.hidden = enableInteraction
+    }
+}
+
+// MARK: - Protocol
+
+protocol ModifyImageViewControllerDelegate: class {
+    
+    func modifyImageViewController(viewController: ModifyImageViewController, didModifyWithSuccess: Bool)
+    
+    func modifyImageViewControllerDidCancel(viewController: ModifyImageViewController)
 }

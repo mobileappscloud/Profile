@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="1sS-zC-SvQ">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--Blurred Loading View Controller-->
+        <scene sceneID="3Wg-fx-bbZ">
+            <objects>
+                <viewController id="1sS-zC-SvQ" customClass="BlurredLoadingViewController" customModule="higi" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="6M3-pb-ng5"/>
+                        <viewControllerLayoutGuide type="bottom" id="dIL-0S-09Q"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="L07-CC-wqh">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EtS-s1-bxj">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="pca-HT-EzD">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oTQ-Yw-2n6">
+                                            <rect key="frame" x="284" y="284" width="32" height="32"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="32" id="8Ep-Zb-XJC"/>
+                                                <constraint firstAttribute="width" constant="32" id="cbG-Ki-5WU"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="oTQ-Yw-2n6" firstAttribute="centerY" secondItem="pca-HT-EzD" secondAttribute="centerY" id="0bH-xm-mSi"/>
+                                        <constraint firstItem="oTQ-Yw-2n6" firstAttribute="centerX" secondItem="pca-HT-EzD" secondAttribute="centerX" id="DLb-ji-Kd9"/>
+                                    </constraints>
+                                </view>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="EtS-s1-bxj" secondAttribute="trailing" id="ib3-LM-Gf2"/>
+                            <constraint firstItem="EtS-s1-bxj" firstAttribute="leading" secondItem="L07-CC-wqh" secondAttribute="leading" id="nxO-wc-Io5"/>
+                            <constraint firstItem="EtS-s1-bxj" firstAttribute="top" secondItem="L07-CC-wqh" secondAttribute="top" id="seb-DB-Jya"/>
+                            <constraint firstItem="dIL-0S-09Q" firstAttribute="top" secondItem="EtS-s1-bxj" secondAttribute="bottom" id="yE2-8m-G0g"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="spinnerContainer" destination="oTQ-Yw-2n6" id="PmS-IU-wc3"/>
+                        <outlet property="spinnerContainerHeightConstraint" destination="8Ep-Zb-XJC" id="KFZ-yF-UXb"/>
+                        <outlet property="spinnerContainerWidthConstraint" destination="cbG-Ki-5WU" id="quV-JD-ajS"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="M3X-An-uHz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="343" y="417"/>
+        </scene>
+    </scenes>
+</document>

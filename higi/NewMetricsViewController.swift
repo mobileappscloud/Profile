@@ -69,6 +69,12 @@ final class NewMetricsViewController: UIViewController {
         }
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        Flurry.logEvent("MetricsPage_Viewed")
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         guard let identifier = segue.identifier else { return }
         
@@ -219,26 +225,26 @@ extension NewMetricsViewController: UniversalLinkHandler {
         var loadedActivities = false
         var loadedCheckins = false
         let appDelegate = AppDelegate.instance()
-        if appDelegate.didRecentlyLaunchToContinueUserActivity() {
-            let loadingViewController = self.presentLoadingViewController()
-            
-            self.universalLinkActivitiesObserver = NSNotificationCenter.defaultCenter().addObserverForName(ApiUtility.ACTIVITIES, object: nil, queue: nil, usingBlock: { (notification) in
-                loadedActivities = true
-                self.navigateToMetricsView(pathType, loadedActivites: loadedActivities, loadedCheckins: loadedCheckins, presentedViewController: loadingViewController)
-                if let observer = self.universalLinkActivitiesObserver {
-                    NSNotificationCenter.defaultCenter().removeObserver(observer)
-                }
-            })
-            self.universalLinkCheckinsObserver = NSNotificationCenter.defaultCenter().addObserverForName(ApiUtility.CHECKINS, object: nil, queue: nil, usingBlock: { (notification) in
-                loadedCheckins = true
-                self.navigateToMetricsView(pathType, loadedActivites: loadedActivities, loadedCheckins: loadedCheckins, presentedViewController: loadingViewController)
-                if let observer = self.universalLinkCheckinsObserver {
-                    NSNotificationCenter.defaultCenter().removeObserver(observer)
-                }
-            })
-        } else {
-            self.navigateToMetricsView(pathType, loadedActivites: true, loadedCheckins: true, presentedViewController: nil)
-        }
+//        if appDelegate.didRecentlyLaunchToContinueUserActivity() {
+//            let loadingViewController = self.presentLoadingViewController()
+//            
+//            self.universalLinkActivitiesObserver = NSNotificationCenter.defaultCenter().addObserverForName(ApiUtility.ACTIVITIES, object: nil, queue: nil, usingBlock: { (notification) in
+//                loadedActivities = true
+//                self.navigateToMetricsView(pathType, loadedActivites: loadedActivities, loadedCheckins: loadedCheckins, presentedViewController: loadingViewController)
+//                if let observer = self.universalLinkActivitiesObserver {
+//                    NSNotificationCenter.defaultCenter().removeObserver(observer)
+//                }
+//            })
+//            self.universalLinkCheckinsObserver = NSNotificationCenter.defaultCenter().addObserverForName(ApiUtility.CHECKINS, object: nil, queue: nil, usingBlock: { (notification) in
+//                loadedCheckins = true
+//                self.navigateToMetricsView(pathType, loadedActivites: loadedActivities, loadedCheckins: loadedCheckins, presentedViewController: loadingViewController)
+//                if let observer = self.universalLinkCheckinsObserver {
+//                    NSNotificationCenter.defaultCenter().removeObserver(observer)
+//                }
+//            })
+//        } else {
+//            self.navigateToMetricsView(pathType, loadedActivites: true, loadedCheckins: true, presentedViewController: nil)
+//        }
     }
     
     private func navigateToMetricsView(pathType: PathType, loadedActivites: Bool, loadedCheckins: Bool, presentedViewController: UIViewController?) {

@@ -13,13 +13,17 @@ enum HigiAPIRequestErrorCode: Int {
     case RefreshTokenRequestError
 }
 
+private let defaultRefreshThreshold = 120.0 // 2 minutes
+
+typealias HigiAPIRequestAuthenticatorCompletion = (request: NSURLRequest?, error: NSError?) -> Void
+
 protocol HigiAPIRequest: HigiAPI2 {}
 
 // MARK: - Authenticated Requests
 
 extension HigiAPIRequest {
     
-    static func authenticatedRequest(relativePath: String, parameters: [String : String]?, method: String = HTTPMethod.GET, completion: (request: NSURLRequest?, error: NSError?) -> ()) {
+    static func authenticatedRequest(relativePath: String, parameters: [String : String]?, method: String = HTTPMethod.GET, refreshThreshold: Double = defaultRefreshThreshold, completion: HigiAPIRequestAuthenticatorCompletion) {
         
         guard let endpointURL = HigiAPIClient.URL(relativePath, parameters: parameters) else {
             let error = NSError(sender: String(self), code: HigiAPIRequestErrorCode.URLConstructor.rawValue, message: "Error creating request.")
@@ -27,10 +31,10 @@ extension HigiAPIRequest {
             return
         }
         
-        authenticatedRequest(endpointURL, parameters: parameters, method: method, completion: completion)
+        authenticatedRequest(endpointURL, parameters: parameters, method: method, refreshThreshold: refreshThreshold, completion: completion)
     }
     
-    static func authenticatedRequest(URL: NSURL, parameters: [String : String]?, method: String = HTTPMethod.GET, completion: (request: NSURLRequest?, error: NSError?) -> ()) {
+    static func authenticatedRequest(URL: NSURL, parameters: [String : String]?, method: String = HTTPMethod.GET, refreshThreshold: Double = defaultRefreshThreshold, completion: HigiAPIRequestAuthenticatorCompletion) {
         
         guard let authorization = HigiAPIClient.authorization else {
             let error = NSError(sender: String(self), code: HigiAPIRequestErrorCode.AuthorizationNotFound.rawValue, message: "Authorization info not found.")
@@ -44,16 +48,15 @@ extension HigiAPIRequest {
             return
         }
         
-        let secondsPerMinute = 60.0
-        let minutes = 2.0
-        let refreshThreshold = minutes * secondsPerMinute
-        
-        if expirationDate.timeIntervalSinceNow < refreshThreshold {
-            guard let refreshRequest = RefreshToken.request(authorization.refreshToken) else {
-                // TODO: Terminate authenticated session and kick user back to host controller
+        let enforcedThreshold = (refreshThreshold == defaultRefreshThreshold) ? defaultRefreshThreshold : refreshThreshold
+        if expirationDate.timeIntervalSinceNow < enforcedThreshold {
+            guard let refreshRequest = TokenRefreshRequest.request(authorization.refreshToken) else {
+                
+                HigiAPIClient.terminateAuthenticatedSession()
                 
                 let error = NSError(sender: String(self), code: HigiAPIRequestErrorCode.RefreshTokenRequestError.rawValue, message: "Unable to refresh access token.")
                 completion(request: nil, error: error)
+                
                 return
             }
             
@@ -61,19 +64,19 @@ extension HigiAPIRequest {
             
             let task = NSURLSessionTask.JSONTask(session, request: refreshRequest, success: { (JSON, response) in
                 
-                AuthenticationDeserializer.parse(JSON, success: { (user) in
+                AuthorizationDeserializer.parse(JSON, success: { (user) in
                     let request = authenticatedRequest(URL, parameters: parameters, method: method)
                     completion(request: request, error: nil)
-                    }, failure: { (error) in
-                        completion(request: nil, error: error)
+                }, failure: { (error) in
+                    completion(request: nil, error: error)
                 })
                 
-                }, failure: { (error, response) in
-                    if let response = response where response.statusCodeEnum.isClientError {
-                        // TODO: Terminate authenticated session and kick user back to host controller
-                    }
+            }, failure: { (error, response) in
+                if let response = response where response.statusCodeEnum.isClientError {
+                    HigiAPIClient.terminateAuthenticatedSession()
+                }
                     
-                    completion(request: nil, error: error)
+                completion(request: nil, error: error)
             })
             task.resume()
             
@@ -97,9 +100,7 @@ extension HigiAPIRequest {
     static func request(URL: NSURL, parameters: [String : String]?, method: String = HTTPMethod.GET) -> NSURLRequest? {
         let mutableRequest = NSMutableURLRequest(URL: URL)
         mutableRequest.HTTPMethod = method
-        
-        mutableRequest.setValue(Utility.organizationId(), forHTTPHeaderField: HigiAPIClient.HTTPHeaderName.organizationId)
-        
+
         return mutableRequest.copy() as? NSURLRequest
     }
     

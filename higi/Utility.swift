@@ -15,7 +15,7 @@ class Utility {
         let appDelegate = AppDelegate.instance()
         guard let hostViewController = appDelegate.window?.rootViewController as? HostViewController else { return nil }
         
-        return hostViewController.splashViewController.mainTabBarController
+        return hostViewController.presentedViewController as? TabBarController
     }
     
     class func scaleImage(image: UIImage, newSize: CGSize) -> UIImage {
@@ -213,5 +213,20 @@ extension Utility {
         }
         
         return (integerPart, fractionPart, formattedString)
+    }
+}
+
+extension Utility {
+    
+    /**
+     Unique token generated encoding 32 bytes of random data.
+     
+     - returns: Unique token with 32 bytes of encoded random data.
+     */
+    class func nonce() -> String {
+        let byteLength = 32
+        let nonceData = NSMutableData(length: byteLength)
+        SecRandomCopyBytes(kSecRandomDefault, nonceData!.length, UnsafeMutablePointer<UInt8>(nonceData!.mutableBytes))
+        return nonceData!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions())
     }
 }

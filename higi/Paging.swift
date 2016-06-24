@@ -31,7 +31,7 @@ struct Paging {
     var next: NSURL?
 }
 
-extension Paging {
+extension Paging: HigiAPIJSONDeserializer {
     
     init?(dictionary: NSDictionary) {
         guard let currentURLString = dictionary["current"] as? String,

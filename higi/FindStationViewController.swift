@@ -125,8 +125,18 @@ class FindStationViewController: UIViewController, GMSMapViewDelegate, UITableVi
         return UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(didTapDoneButton(_:)))
     }()
     
+    lazy private var stationController: StationController = {
+        return StationController()
+    }()
+    
     override func viewDidLoad()  {
         super.viewDidLoad();
+        
+        stationController.fetch({ [weak self] in
+            self?.stationFetchUpdateHandler()
+            }, failure: {
+                print("failed to fetch stations")
+        })
         
         listButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30));
         listButton.setBackgroundImage(UIImage(named: "map-list-view-icon")!.imageWithRenderingMode(.AlwaysTemplate), forState: UIControlState.Normal);
@@ -210,7 +220,7 @@ class FindStationViewController: UIViewController, GMSMapViewDelegate, UITableVi
         
         setupMap();
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FindStationViewController.receiveApiNotification(_:)), name: ApiUtility.KIOSKS, object: nil);
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FindStationViewController.receiveApiNotification(_:)), name: ApiUtility.KIOSKS, object: nil);
         
         mapView.addObserver(self, forKeyPath: "myLocation", options: NSKeyValueObservingOptions.New, context: nil);
     }
@@ -222,8 +232,8 @@ class FindStationViewController: UIViewController, GMSMapViewDelegate, UITableVi
         locationManager.requestAlwaysAuthorization();
         locationManager.delegate = self;
         
-        if (SessionController.Instance.kioskList != nil) {
-            populateClusterManager();
+        if stationController.stations.count != 0 {
+            populateClusterManager()
         }
     }
     
@@ -233,7 +243,7 @@ class FindStationViewController: UIViewController, GMSMapViewDelegate, UITableVi
         clusterManager.removeItems()
     }
     
-    func receiveApiNotification(notification: NSNotification) {
+    private func stationFetchUpdateHandler() {
         populateClusterManager();
         clusterManager.cluster();
         updateKioskPositions();
@@ -274,10 +284,10 @@ class FindStationViewController: UIViewController, GMSMapViewDelegate, UITableVi
     }
     
     func populateClusterManager() {
-        if (SessionController.Instance.kioskList == nil) {
+        if (stationController.stations.count == 0) {
             return;
         }
-        for kiosk in SessionController.Instance.kioskList {
+        for kiosk in stationController.stations {
             if (kiosk.status == "Deployed") {
                 let item = ClusterKiosk();
                 item.setPosition(kiosk.position!);
@@ -289,7 +299,7 @@ class FindStationViewController: UIViewController, GMSMapViewDelegate, UITableVi
     }
     
     func updateKioskPositions() {
-        if (SessionController.Instance.kioskList == nil) {
+        if (stationController.stations.count == 0) {
             return;
         }
         currentVisibleKioskTask.cancelAllOperations();
@@ -299,8 +309,8 @@ class FindStationViewController: UIViewController, GMSMapViewDelegate, UITableVi
         
         currentVisibleKioskTask.addOperationWithBlock({
             
-            for i in 0..<SessionController.Instance.kioskList.count {
-                let kiosk = SessionController.Instance.kioskList[i];
+            for kiosk in self.stationController.stations {
+                
                 if (kiosk.status != "Deployed") {
                     continue;
                 }
@@ -373,7 +383,7 @@ class FindStationViewController: UIViewController, GMSMapViewDelegate, UITableVi
         } else {
             currentAutoCompleteTask.addOperationWithBlock( {
                 let size = self.searchField.text!.characters.count;
-                for kiosk in SessionController.Instance.kioskList {
+                for kiosk in self.stationController.stations {
                     if (kiosk.status != "Deployed") {
                         continue;
                     }
@@ -720,20 +730,7 @@ extension FindStationViewController {
 extension FindStationViewController: UniversalLinkHandler {
     
     func handleUniversalLink(URL: NSURL, pathType: PathType, parameters: [String]?) {
-
-        let appDelegate = AppDelegate.instance()
-        if appDelegate.didRecentlyLaunchToContinueUserActivity() {
-            let loadingViewController = self.presentLoadingViewController()
-            
-            self.universalLinkObserver = NSNotificationCenter.defaultCenter().addObserverForName(ApiUtility.KIOSKS, object: nil, queue: nil, usingBlock: { (notification) in
-                FindStationViewController.navigateToStationLocator(loadingViewController)
-                if let observer = self.universalLinkObserver {
-                    NSNotificationCenter.defaultCenter().removeObserver(observer)
-                }
-            })
-        } else {
-            FindStationViewController.navigateToStationLocator(nil)
-        }
+        FindStationViewController.navigateToStationLocator(nil)
     }
     
     class func navigateToStationLocator(presentedViewController: UIViewController?) {

@@ -13,10 +13,6 @@ class ApiUtility {
         return "activitiesLoaded";
     }
     
-    class var CHALLENGES: String {
-        return "challengesLoaded";
-    }
-    
     class var CHECKINS: String {
         return "checkinsLoaded";
     }
@@ -25,34 +21,10 @@ class ApiUtility {
         return "devicesLoaded";
     }
     
-    class var KIOSKS: String {
-        return "kiosksLoaded";
-    }
-    
-    class var PROFILE_PICTURES: String {
-        return "profilePicturesLoaded";
-    }
-    
-    
-    
-    class func checkTermsAndPrivacy(viewController: UIViewController, success: ((terms: NSString, privacy: NSString) -> Void)?, failure: (() -> Void)?) {
-        HigiApi().sendGet("\(HigiApi.webUrl)/termsinfo",
-            success: {operation, responseObject in
-                let termsInfo = responseObject as! NSDictionary;
-                let termsFile = termsInfo["termsFilename"] as! NSString;
-                let privacyFile = termsInfo["privacyFilename"] as! NSString;
-                success?(terms: termsFile, privacy: privacyFile)
-                
-            }, failure: {operation, error in
-                failure?();
-        });
-    }
-    
     class func initializeApiData() {
         SessionController.Instance.earnditError = false;
         ApiUtility.retrieveCheckins(nil);
         ApiUtility.retrieveActivities(nil);
-        ApiUtility.retrieveChallenges(nil);
         ApiUtility.retrieveDevices(nil);
     }
     
@@ -86,8 +58,6 @@ class ApiUtility {
                     dispatch_async(dispatch_get_main_queue(), {
                         NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.CHECKINS, object: nil, userInfo: ["success": true]);
                     });
-                    ApiUtility.retrieveKioskList(success);
-                    
                 });
                 
             },
@@ -95,12 +65,6 @@ class ApiUtility {
                 NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.CHECKINS, object: nil, userInfo: ["success": false]);
                 if (SessionController.Instance.checkins == nil) {
                     SessionController.Instance.checkins = [];
-                }
-                if (SessionController.Instance.kioskList != nil) {
-                    ApiUtility.retrieveKioskList(nil);
-                    success?();
-                } else {
-                    ApiUtility.retrieveKioskList(success);
                 }
         });
     }
@@ -212,72 +176,6 @@ class ApiUtility {
         });
     }
     
-    class func retrieveChallenges(success: (() -> Void)?) {
-        let userId = SessionData.Instance.user.userId;
-        HigiApi().sendGet("\(HigiApi.earnditApiUrl)/user/\(userId)/challenges?&include[gravityboard]=3&include[participants]=50&include[comments]=50&include[teams.comments]=50", success: {operation, responseObject in
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                    SessionController.Instance.loadedChallenges = true
-                    var challenges: [HigiChallenge] = [];
-                    let serverChallenges = ((responseObject as! NSDictionary)["response"] as! NSDictionary)["data"] as! NSArray;
-                    for challenge: AnyObject in serverChallenges {
-                        let serverParticipant = ((challenge as! NSDictionary)["userRelation"] as! NSDictionary)["participant"] as? NSDictionary;
-                        var participant: ChallengeParticipant!;
-                        if (serverParticipant != nil) {
-                            participant = ChallengeParticipant(dictionary: serverParticipant!);
-                        }
-                        let serverGravityBoard = ((challenge as! NSDictionary)["userRelation"] as! NSDictionary)["gravityboard"] as? NSArray;
-                        var gravityBoard: [GravityParticipant] = [];
-                        if (serverGravityBoard != nil) {
-                            for boardParticipant: AnyObject in serverGravityBoard! {
-                                gravityBoard.append(GravityParticipant(place: (boardParticipant as! NSDictionary)["position"] as? NSString, participant: ChallengeParticipant(dictionary: (boardParticipant as! NSDictionary)["participant"] as! NSDictionary)));
-                            }
-                        }
-                        let serverParticipants = ((challenge as! NSDictionary)["participants"] as! NSDictionary)["data"] as? NSArray;
-                        var participants:[ChallengeParticipant] = [];
-                        if (serverParticipants != nil) {
-                            for singleParticipant: AnyObject in serverParticipants! {
-                                participants.append(ChallengeParticipant(dictionary: singleParticipant as! NSDictionary));
-                            }
-                        }
-                        let serverPagingData = (((challenge as! NSDictionary)["participants"] as! NSDictionary)["paging"] as! NSDictionary)["nextUrl"] as? NSString;
-                        let pagingData = PagingData(nextUrl: serverPagingData);
-                        
-                        let serverComments = ((challenge as! NSDictionary)["comments"] as! NSDictionary)["data"] as? NSArray;
-                        var chatter:Chatter;
-                        var comments:[Comments] = [];
-                        var commentPagingData = PagingData(nextUrl: "");
-                        if (serverComments != nil) {
-                            commentPagingData = PagingData(nextUrl: (((challenge as! NSDictionary)["comments"] as! NSDictionary)["paging"] as! NSDictionary)["nextUrl"] as? NSString);
-                            for challengeComment in serverComments! {
-                                let comment = (challengeComment as! NSDictionary)["comment"] as! NSString;
-                                let timeSinceLastPost = (challengeComment as! NSDictionary)["timeSincePosted"] as! NSString;
-                                let commentParticipant = ChallengeParticipant(dictionary: (challengeComment as! NSDictionary)["participant"] as! NSDictionary);
-                                let commentTeam = commentParticipant.team;
-                                comments.append(Comments(comment: comment, timeSincePosted: timeSinceLastPost, participant: commentParticipant, team: commentTeam))
-                            }
-                        }
-                        chatter = Chatter(comments: comments, paging: commentPagingData);
-                        challenges.append(HigiChallenge(dictionary: challenge as! NSDictionary, userStatus: ((challenge as! NSDictionary)["userRelation"] as! NSDictionary)["status"] as! NSString, participant: participant, gravityBoard: gravityBoard, participants: participants, pagingData: pagingData, chatter: chatter));
-                    }
-                    
-                    SessionController.Instance.challenges = challenges;
-                    dispatch_async(dispatch_get_main_queue(), {
-                        NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.CHALLENGES, object: nil, userInfo: ["success": true]);
-                        success?();
-                    });
-                });
-            }, failure: { operation, error in
-                SessionController.Instance.earnditError = true;
-                SessionController.Instance.loadedChallenges = true
-                if (SessionController.Instance.challenges == nil) {
-                    SessionController.Instance.challenges = [];
-                }
-                NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.CHALLENGES, object: nil, userInfo: ["success": false]);
-                success?();
-        });
-        
-    }
-    
     class func retrieveDevices(success: (() -> Void)?) {
         let userId = SessionData.Instance.user.userId;
         HigiApi().sendGet("\(HigiApi.earnditApiUrl)/user/\(userId)/devices", success: {operation, responseObject in
@@ -301,104 +199,6 @@ class ApiUtility {
                 success?();
         });
         
-    }
-    
-    class func retrieveKioskList(success: (() -> Void)?) {
-        if (SessionData.Instance.kioskListString != "") {
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                SessionController.Instance.kioskList = ApiUtility.deserializeKiosks(SessionData.Instance.kioskListString);
-                
-                HigiApi().sendGet("\(HigiApi.higiApiUrl)/data/KioskList", success:
-                    { operation, responseObject in
-                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                            
-                            let responseString = ApiUtility.jsonStringify(responseObject);
-                            SessionData.Instance.kioskListString = responseString;
-                            SessionData.Instance.save();
-                            SessionController.Instance.kioskList = ApiUtility.deserializeKiosks(responseString);
-                        });
-                        
-                    }, failure: nil);
-                dispatch_async(dispatch_get_main_queue(), {
-                    NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.KIOSKS, object: nil, userInfo: ["success": true]);
-                    success?();
-                });
-            });
-        } else {
-            HigiApi().sendGet("\(HigiApi.higiApiUrl)/data/KioskList", success:
-                { operation, responseObject in
-                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                        
-                        SessionData.Instance.kioskListString = ApiUtility.jsonStringify(responseObject);
-                        SessionData.Instance.save();
-                        SessionController.Instance.kioskList = ApiUtility.deserializeKiosks(SessionData.Instance.kioskListString);
-                        dispatch_async(dispatch_get_main_queue(), {
-                            NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.KIOSKS, object: nil, userInfo: ["success": true]);
-                            success?();
-                        });
-                    });
-                    
-                },
-                failure: { operation, error in
-                    if (SessionController.Instance.kioskList == nil) {
-                            SessionController.Instance.kioskList = [];
-                    }
-                    NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.KIOSKS, object: nil, userInfo: ["success": false]);
-                    success?();
-                    
-            });
-        }
-    }
-    
-    class func jsonStringify(value: AnyObject) -> String {
-        if NSJSONSerialization.isValidJSONObject(value) {
-            if let data = try? NSJSONSerialization.dataWithJSONObject(value, options: []) {
-                if let string = NSString(data: data, encoding: NSUTF8StringEncoding) {
-                    return string as String;
-                }
-            }
-        }
-        return "";
-    }
-    
-    class func deserializeKiosks(response: String) -> [KioskInfo] {
-        guard let jsonData = response.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false) else { return [] }
-        
-        var serverKiosks = NSArray()
-        do {
-            if let decodedKiosks = (try NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions.MutableContainers)) as? NSArray {
-                serverKiosks = decodedKiosks
-            }
-        } catch {
-            return []
-        }
-        
-        var kiosks: [KioskInfo] = []
-        for kiosk: AnyObject in serverKiosks {
-            guard let kioskDict = kiosk as? NSDictionary else { continue }
-            
-            let newKiosk = KioskInfo(dictionary: kioskDict)
-            if newKiosk.position == nil { continue }
-            
-            if (newKiosk.isMapVisible) {
-                kiosks.append(newKiosk)
-            } else {
-                guard let checkins = SessionController.Instance.checkins else { continue }
-                
-                for checkin in checkins {
-                    if let kioskInfo = checkin.kioskInfo where newKiosk.kioskId == kioskInfo.kioskId {
-                        kiosks.append(newKiosk)
-                        break
-                    }
-                }
-            }
-        }
-        
-        return kiosks
-    }
-    
-    class func dataTypesToRead() -> NSSet {
-        return NSSet(array: []);
     }
 }
 

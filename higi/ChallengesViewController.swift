@@ -1,6 +1,6 @@
 import Foundation
 
-class ChallengesViewController: UIViewController, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource {
+final class ChallengesViewController: UIViewController, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet var pager: UIPageControl!
     @IBOutlet var scrollView: UIScrollView!
@@ -11,8 +11,6 @@ class ChallengesViewController: UIViewController, UIGestureRecognizerDelegate, U
     var pageTitles:[String] = [];
     
     var pageDisplayMaster = [false, false, false, false];
-    
-    var activeChallenges, upcomingChallenges, availableChallenges, invitedChallenges:[HigiChallenge]!;
     
     var currentPage = 0, totalPages = 0;
     
@@ -30,10 +28,29 @@ class ChallengesViewController: UIViewController, UIGestureRecognizerDelegate, U
         }
     }
     
+    private(set) var userController: UserController!
+    
+    let challengesController = ChallengesController()
+    
+    func configure(userController: UserController) {
+        self.userController = userController
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.automaticallyAdjustsScrollViewInsets = false
+        
+        challengesController.fetch(forUser: userController.user, success: { [weak self] in
+            print("challenges successfully fetched")
+            guard let strongSelf = self else { return }
+            dispatch_async(dispatch_get_main_queue(), { [weak strongSelf] in
+                guard let strongSelf = strongSelf else { return }
+                strongSelf.initChallengeCards()
+                })
+            }, failure: {
+                print("challenges failed fetched")
+        })
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -49,10 +66,15 @@ class ChallengesViewController: UIViewController, UIGestureRecognizerDelegate, U
 
         // Temporary fix -- everything needs to be refactored.
         pager.currentPage = currentPage;
-        initChallengeCards();
 
         pager.currentPage = currentPage;
         pager.updateCurrentPageDisplay()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        Flurry.logEvent("ChallengeList_Viewed")
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -67,34 +89,34 @@ class ChallengesViewController: UIViewController, UIGestureRecognizerDelegate, U
         upcomingTable?.removeFromSuperview();
         availableTable?.removeFromSuperview();
         invitedTable?.removeFromSuperview();
-        activeChallenges = [];
-        upcomingChallenges = [];
-        availableChallenges = [];
-        invitedChallenges = [];
+        challengesController.activeChallenges = []
+        challengesController.upcomingChallenges = []
+        challengesController.availableChallenges = []
+        challengesController.invitedChallenges = []
         totalPages = 0;
         
-        let challenges = SessionController.Instance.challenges;
+        let challenges = challengesController.challenges
         let challengeName = clickedChallenge != nil ? clickedChallenge!.name : "";
         var challengeIndex = -1;
         
-        if (challenges != nil && challenges.count > 0) {
+        if (challenges.count > 0) {
             for challenge:HigiChallenge in challenges {
                 switch(challenge.userStatus) {
                 case "current":
-                    activeChallenges.append(challenge);
+                    challengesController.activeChallenges.append(challenge);
                     pageDisplayMaster[0] = true;
                     challengeIndex = challengeName == challenge.name ? 0 : challengeIndex;
                 case "upcoming":
-                    upcomingChallenges.append(challenge);
+                    challengesController.upcomingChallenges.append(challenge);
                     pageDisplayMaster[1] = true;
                     challengeIndex = challengeName == challenge.name ? 1 : challengeIndex;
                 case "public":
-                    availableChallenges.append(challenge);
+                    challengesController.availableChallenges.append(challenge);
                     pageDisplayMaster[2] = true;
                     challengeIndex = challengeName == challenge.name ? 2 : challengeIndex;
                 case "invited":
                     if (challenge.entryFee == 0) {
-                        invitedChallenges.append(challenge);
+                        challengesController.invitedChallenges.append(challenge);
                         pageDisplayMaster[3] = true;
                         challengeIndex = challengeName == challenge.name ? 3 : challengeIndex;
                     }
@@ -151,6 +173,7 @@ class ChallengesViewController: UIViewController, UIGestureRecognizerDelegate, U
             pageTitle = NSLocalizedString("CHALLENGES_VIEW_PAGE_TITLE_CHALLENGES", comment: "Title for challenge page in challenges view with only one challenge.");
             blankState.hidden = false;
         }
+        
         pager.numberOfPages = totalPages;
         self.navigationController?.navigationBar.addSubview(pager);
         if totalPages <= 1 {
@@ -205,13 +228,13 @@ class ChallengesViewController: UIViewController, UIGestureRecognizerDelegate, U
         //load the appropriate challenges for this table
         var challenge: HigiChallenge!;
         if (activeTable != nil && tableView == activeTable) {
-            challenge = activeChallenges[indexPath.row];
+            challenge = challengesController.activeChallenges[indexPath.row];
         } else if (upcomingTable != nil && tableView == upcomingTable) {
-            challenge = upcomingChallenges[indexPath.row];
+            challenge = challengesController.upcomingChallenges[indexPath.row];
         } else if (availableTable != nil && tableView == availableTable) {
-            challenge = availableChallenges[indexPath.row];
+            challenge = challengesController.availableChallenges[indexPath.row];
         } else {
-            challenge = invitedChallenges[indexPath.row];
+            challenge = challengesController.invitedChallenges[indexPath.row];
         }
         buildChallengeCell(cell, challenge: challenge);
         if (challenge != nil) {
@@ -250,13 +273,13 @@ class ChallengesViewController: UIViewController, UIGestureRecognizerDelegate, U
         var count = 0;
         //check display master array instead of null checks to avoid crash
         if (pageDisplayMaster[0] && tableView == activeTable) {
-            count = activeChallenges.count;
+            count = challengesController.activeChallenges.count;
         } else if (pageDisplayMaster[1] && tableView == upcomingTable) {
-            count = upcomingChallenges.count;
+            count = challengesController.upcomingChallenges.count;
         } else if (pageDisplayMaster[2] && tableView == availableTable) {
-            count = availableChallenges.count;
+            count = challengesController.availableChallenges.count;
         } else if (pageDisplayMaster[3] && tableView == invitedTable) {
-            count = invitedChallenges.count;
+            count = challengesController.invitedChallenges.count;
         }
         return count;
     }
@@ -305,13 +328,13 @@ class ChallengesViewController: UIViewController, UIGestureRecognizerDelegate, U
         var challenge: HigiChallenge!;
         let table = getCurrentTable()!;
         if (activeTable != nil && table == activeTable) {
-            challenge = activeChallenges[index];
+            challenge = challengesController.activeChallenges[index];
         } else if (availableTable != nil && table == availableTable) {
-            challenge = availableChallenges[index];
+            challenge = challengesController.availableChallenges[index];
         } else if (upcomingTable != nil && table == upcomingTable) {
-            challenge = upcomingChallenges[index];
+            challenge = challengesController.upcomingChallenges[index];
         } else if (invitedTable != nil && table == invitedTable) {
-            challenge = invitedChallenges[index];
+            challenge = challengesController.invitedChallenges[index];
         }
         clickedChallenge = challenge;
         self.showDetails(forChallenge: challenge)
@@ -319,7 +342,7 @@ class ChallengesViewController: UIViewController, UIGestureRecognizerDelegate, U
     
     func showDetails(forChallenge challenge: HigiChallenge) {
         let challengeDetailViewController = ChallengeDetailsViewController(nibName: "ChallengeDetailsView", bundle: nil)
-        challengeDetailViewController.challenge = challenge
+        challengeDetailViewController.configure(userController, challengesController: challengesController, challenge: challenge)
         dispatch_async(dispatch_get_main_queue(), { [weak self] in
             self?.navigationController?.pushViewController(challengeDetailViewController, animated: true)
         })
@@ -386,20 +409,7 @@ extension ChallengesViewController: TabBarTopScrollDelegate {
 extension ChallengesViewController: UniversalLinkHandler {
     
     func handleUniversalLink(URL: NSURL, pathType: PathType, parameters: [String]?) {
-        
-        let appDelegate = AppDelegate.instance()
-        if appDelegate.didRecentlyLaunchToContinueUserActivity() {
-            let loadingViewController = self.presentLoadingViewController()
-            
-            self.universalLinkObserver = NSNotificationCenter.defaultCenter().addObserverForName(ApiUtility.CHALLENGES, object: nil, queue: nil, usingBlock: { (notification) in
-                self.handle(URL, pathType: pathType, parameters: parameters, presentedViewController: loadingViewController)
-                if let observer = self.universalLinkObserver {
-                    NSNotificationCenter.defaultCenter().removeObserver(observer)
-                }
-            })
-        } else {
-            self.handle(URL, pathType: pathType, parameters: parameters, presentedViewController: nil)
-        }
+        handle(URL, pathType: pathType, parameters: parameters, presentedViewController: nil)
     }
     
     private func handle(URL: NSURL, pathType: PathType, parameters: [String]?, presentedViewController: UIViewController?) {
@@ -417,20 +427,17 @@ extension ChallengesViewController: UniversalLinkHandler {
             if let challenge = self.challenge(forChallengeParameters: params) {
                 self.navigateToChallengeDetail(challenge)
             } else {
-                ApiUtility.retrieveChallenges({
-                    if let challenge = self.challenge(forChallengeParameters: params) {
-                        self.navigateToChallengeDetail(challenge)
-                    }
-                })
+//                ApiUtility.retrieveChallenges({
+//                    if let challenge = self.challenge(forChallengeParameters: params) {
+//                        self.navigateToChallengeDetail(challenge)
+//                    }
+//                })
             }
         }
     }
     
     private func challenge(forChallengeParameters parameters: [String]) -> HigiChallenge? {
-        guard let challenges = SessionController.Instance.challenges else {
-            return nil
-        }
-        
+        let challenges = challengesController.challenges
         var challenge: HigiChallenge? = nil;
         for currentChallenge in challenges {
             guard let currentChallengeURL = NSURL(string: currentChallenge.url as String) else {

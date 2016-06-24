@@ -32,6 +32,9 @@ extension NSURLSessionTask {
         })
         return task
     }
+}
+
+extension NSURLSessionTask: HigiAPIJSONDeserializer {
     
     /**
      Builds a basic data task object using the given parameters. Assumes that the response will be returned as JSON.
@@ -49,22 +52,23 @@ extension NSURLSessionTask {
                         failure: (error: NSError?, response: NSHTTPURLResponse?) -> Void) -> NSURLSessionDataTask {
         
         let task = self.dataTask(session, request: request, success: { (data, response) in
-            if let data = data,
-                let response = response where response.statusCodeEnum.isSuccess {
+            if let response = response where response.statusCodeEnum.isSuccess {
                 
-                do {
-                    let JSON = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions())
-                    success(JSON: JSON, response: response)
-                } catch {
-                    let error = NSError(sender: String(self), code: 0, message: "Error serializing response.")
-                    failure(error: error, response: response)
+                if response.statusCodeEnum == .NoContent {
+                    success(JSON: nil, response: response)
+                    return
                 }
+                
+                deserialize(data, success: { (JSON) in
+                    success(JSON: JSON, response: response)
+                }, failure: { (error) in
+                    failure(error: error, response: response)
+                })
+            
             } else {
                 failure(error: nil, response: response)
             }
-            },
-                                 
-                                 failure: failure)
+        }, failure: failure)
         
         return task
     }

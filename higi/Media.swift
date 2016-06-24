@@ -14,7 +14,7 @@ struct Media {
     let contentType: String
 }
 
-extension Media {
+extension Media: HigiAPIJSONDeserializer {
     
     init?(dictionary: NSDictionary) {
         guard let URIString = dictionary["uri"] as? String,

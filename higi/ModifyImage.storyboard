@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="5Q3-mg-u4a">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <scenes>
+        <!--Modify Image View Controller-->
+        <scene sceneID="8qL-NW-mgY">
+            <objects>
+                <viewController id="nWh-4x-Csb" customClass="ModifyImageViewController" customModule="higi" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="a7u-ys-Pnc"/>
+                        <viewControllerLayoutGuide type="bottom" id="67w-cw-rQo"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="FJB-S8-FmG">
+                        <rect key="frame" x="0.0" y="64" width="414" height="672"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qtK-ar-PMd" userLabel="Profile Image View">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="672"/>
+                                <gestureRecognizers/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" alpha="0.80000001192092896" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mask" translatesAutoresizingMaskIntoConstraints="NO" id="icP-ZH-5wM" userLabel="Circle Mask Image View">
+                                <rect key="frame" x="0.0" y="129" width="414" height="414"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="icP-ZH-5wM" secondAttribute="height" multiplier="1:1" id="H1T-sb-Qdh"/>
+                                </constraints>
+                            </imageView>
+                            <view userInteractionEnabled="NO" alpha="0.80000001192092896" contentMode="scaleToFill" verticalHuggingPriority="240" verticalCompressionResistancePriority="740" translatesAutoresizingMaskIntoConstraints="NO" id="Eq7-Lv-eqS" userLabel="Bottom Mask View">
+                                <rect key="frame" x="0.0" y="543" width="414" height="129"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view userInteractionEnabled="NO" alpha="0.80000001192092896" contentMode="scaleToFill" verticalHuggingPriority="240" verticalCompressionResistancePriority="740" translatesAutoresizingMaskIntoConstraints="NO" id="Upy-Ef-bmH" userLabel="Top Mask View">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="129"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="DlI-iX-9vf">
+                                <rect key="frame" x="197" y="614" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="HM0-Tk-8IU"/>
+                                    <constraint firstAttribute="height" constant="20" id="vHo-TI-Rdm"/>
+                                </constraints>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Upy-Ef-bmH" secondAttribute="trailing" id="9sn-cq-yfU"/>
+                            <constraint firstItem="Eq7-Lv-eqS" firstAttribute="leading" secondItem="FJB-S8-FmG" secondAttribute="leading" id="BTD-01-9Dk"/>
+                            <constraint firstAttribute="trailing" secondItem="qtK-ar-PMd" secondAttribute="trailing" priority="990" id="DXA-DL-iht"/>
+                            <constraint firstItem="DlI-iX-9vf" firstAttribute="centerX" secondItem="FJB-S8-FmG" secondAttribute="centerX" id="FD2-ef-OWa"/>
+                            <constraint firstItem="Upy-Ef-bmH" firstAttribute="leading" secondItem="FJB-S8-FmG" secondAttribute="leading" id="GjW-OE-Sa4"/>
+                            <constraint firstAttribute="bottom" secondItem="Eq7-Lv-eqS" secondAttribute="bottom" id="Iew-Wt-5sG"/>
+                            <constraint firstItem="icP-ZH-5wM" firstAttribute="leading" secondItem="FJB-S8-FmG" secondAttribute="leading" id="M6D-X1-lVX"/>
+                            <constraint firstAttribute="trailing" secondItem="Eq7-Lv-eqS" secondAttribute="trailing" id="SkR-2D-Fhh"/>
+                            <constraint firstItem="Eq7-Lv-eqS" firstAttribute="top" secondItem="icP-ZH-5wM" secondAttribute="bottom" id="VYG-AG-7m5"/>
+                            <constraint firstItem="icP-ZH-5wM" firstAttribute="centerY" secondItem="FJB-S8-FmG" secondAttribute="centerY" id="WyS-xo-kWr"/>
+                            <constraint firstItem="icP-ZH-5wM" firstAttribute="centerX" secondItem="FJB-S8-FmG" secondAttribute="centerX" id="YmX-2g-xcM"/>
+                            <constraint firstAttribute="bottom" secondItem="qtK-ar-PMd" secondAttribute="bottom" priority="990" id="Yul-Ng-nND"/>
+                            <constraint firstItem="67w-cw-rQo" firstAttribute="top" secondItem="DlI-iX-9vf" secondAttribute="bottom" constant="38" id="ZNj-8Y-UtK"/>
+                            <constraint firstItem="qtK-ar-PMd" firstAttribute="leading" secondItem="FJB-S8-FmG" secondAttribute="leading" priority="990" id="dWL-uj-9kd"/>
+                            <constraint firstAttribute="trailing" secondItem="icP-ZH-5wM" secondAttribute="trailing" id="ejc-gJ-ryV"/>
+                            <constraint firstItem="Upy-Ef-bmH" firstAttribute="top" secondItem="FJB-S8-FmG" secondAttribute="top" id="kSl-Ec-RCA"/>
+                            <constraint firstItem="icP-ZH-5wM" firstAttribute="top" secondItem="Upy-Ef-bmH" secondAttribute="bottom" id="rVt-LJ-w2a"/>
+                            <constraint firstItem="qtK-ar-PMd" firstAttribute="top" secondItem="FJB-S8-FmG" secondAttribute="top" priority="990" id="tQB-FX-fzc"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="PLl-J6-qW9">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="dhD-5d-FmS">
+                            <connections>
+                                <action selector="didTapCancelButton:" destination="nWh-4x-Csb" id="39e-Tn-XCj"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="Hs9-m9-cOw">
+                            <connections>
+                                <action selector="didTapDoneButton:" destination="nWh-4x-Csb" id="Hmw-Ih-7Pj"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
+                    <connections>
+                        <outlet property="bottomMask" destination="Eq7-Lv-eqS" id="Cgd-PH-vCV"/>
+                        <outlet property="circleMask" destination="icP-ZH-5wM" id="Ga1-qq-BQB"/>
+                        <outlet property="profileImageView" destination="qtK-ar-PMd" id="Kpe-8g-80p"/>
+                        <outlet property="spinner" destination="DlI-iX-9vf" id="D8f-bO-8xy"/>
+                        <outlet property="topMask" destination="Upy-Ef-bmH" id="5Dk-9I-HH2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TE7-87-Doi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1111" y="185"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="7p5-kc-sdF">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="5Q3-mg-u4a" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="kVr-MD-Xik">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="nWh-4x-Csb" kind="relationship" relationship="rootViewController" id="veB-ad-6Yn"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="78n-F7-Hfc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="299" y="185"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="mask" width="244" height="244"/>
+    </resources>
+</document>

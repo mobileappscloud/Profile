@@ -14,7 +14,7 @@ extension UIImageView {
      - parameter image:      The image to display.
      - parameter transition: Whether or not the image should transition into view.
      */
-    func setImage(image: UIImage?, transition: Bool = true) {
+    func setImage(image: UIImage?, transition: Bool = false) {
         if !transition {
             self.image = image
             return

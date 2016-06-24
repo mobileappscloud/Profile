@@ -2,6 +2,8 @@ import Foundation
 
 class HigiChallenge {
     
+    var identifier: String!
+    
     var name, description, shortDescription, imageUrl, metric, status, userStatus, terms, abbrMetric, joinUrl, commentsUrl, url: NSString!;
     
     var startDate, endDate: NSDate!;
@@ -30,13 +32,64 @@ class HigiChallenge {
     
     var chatter:Chatter!;
     
+    convenience init?(dictionary: NSDictionary) {
+        let challenge = dictionary
+        print("challenge id = \(challenge["id"] as! String)")
+        let serverParticipant = (dictionary["userRelation"] as! NSDictionary)["participant"] as? NSDictionary;
+        var participant: ChallengeParticipant!;
+        if (serverParticipant != nil) {
+            participant = ChallengeParticipant(dictionary: serverParticipant!);
+        }
+        let serverGravityBoard = (dictionary["userRelation"] as! NSDictionary)["gravityboard"] as? NSArray;
+        var gravityBoard: [GravityParticipant] = [];
+        if (serverGravityBoard != nil) {
+            for boardParticipant: AnyObject in serverGravityBoard! {
+                gravityBoard.append(GravityParticipant(place: (boardParticipant as! NSDictionary)["position"] as? NSString, participant: ChallengeParticipant(dictionary: (boardParticipant as! NSDictionary)["participant"] as! NSDictionary)));
+            }
+        }
+        let serverParticipants = (dictionary["participants"] as! NSDictionary)["data"] as? NSArray;
+        var participants:[ChallengeParticipant] = [];
+        if (serverParticipants != nil) {
+            for singleParticipant: AnyObject in serverParticipants! {
+                if let participant = ChallengeParticipant(dictionary: singleParticipant as! NSDictionary) {
+                    participants.append(participant)
+                }
+            }
+        }
+        let serverPagingData = ((dictionary["participants"] as! NSDictionary)["paging"] as! NSDictionary)["nextUrl"] as? NSString;
+        let pagingData = PagingData(nextUrl: serverPagingData);
+        
+        let serverComments = (dictionary["comments"] as! NSDictionary)["data"] as? NSArray;
+        var chatter:Chatter;
+        var comments:[Comments] = [];
+        var commentPagingData = PagingData(nextUrl: "");
+        if (serverComments != nil) {
+            commentPagingData = PagingData(nextUrl: ((dictionary["comments"] as! NSDictionary)["paging"] as! NSDictionary)["nextUrl"] as? NSString);
+            for challengeComment in serverComments! {
+                let comment = (challengeComment as! NSDictionary)["comment"] as! NSString;
+                let timeSinceLastPost = (challengeComment as! NSDictionary)["timeSincePosted"] as! NSString;
+                if let commentParticipant = ChallengeParticipant(dictionary: (challengeComment as! NSDictionary)["participant"] as! NSDictionary) {
+                    let commentTeam = commentParticipant.team;
+                    comments.append(Comments(comment: comment, timeSincePosted: timeSinceLastPost, participant: commentParticipant, team: commentTeam))
+                }
+            }
+        }
+        chatter = Chatter(comments: comments, paging: commentPagingData);
+        
+        let userRelationDict = challenge["userRelation"] as! NSDictionary
+        let userStatus = userRelationDict["status"] as! NSString
+        self.init(dictionary: challenge, userStatus: userStatus, participant: participant, gravityBoard: gravityBoard, participants: participants, pagingData: pagingData, chatter: chatter)
+    }
+    
     init(dictionary: NSDictionary, userStatus: NSString, participant: ChallengeParticipant!, gravityBoard: [GravityParticipant]!, participants: [ChallengeParticipant]!, pagingData: PagingData?, chatter: Chatter) {
+        self.identifier = dictionary["id"] as! String
         self.userStatus = userStatus;
         self.participant = participant;
         self.gravityBoard = gravityBoard;
         self.participants = participants;
         self.pagingData = pagingData;
         self.chatter = chatter;
+        
         url = (dictionary["url"] ?? "") as! NSString;
         name = (dictionary["name"] ?? "") as! NSString;
         description = dictionary["description"] as! NSString!;
@@ -89,8 +142,6 @@ class HigiChallenge {
         if (participants.count > 0) {
             individualHighScore = participants[0].units;
         }
-
-        
     }
 }
 

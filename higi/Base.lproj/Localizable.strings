@@ -232,14 +232,8 @@
 /* Placeholder for current password text field. */
 "CHANGE_PASSWORD_VIEW_CURRENT_PASSWORD_TEXT_FIELD_PLACEHOLDER" = "Current password";
 
-/* Placeholder for current password text field requirement. */
-"CHANGE_PASSWORD_VIEW_CURRENT_PASSWORD_TEXT_FIELD_PLACEHOLDER_REQUIREMENT" = "Invalid password";
-
 /* Placeholder for new password text field. */
 "CHANGE_PASSWORD_VIEW_NEW_PASSWORD_TEXT_FIELD_PLACEHOLDER" = "New password (at least six characters)";
-
-/* Placeholder for new password text field requirement. */
-"CHANGE_PASSWORD_VIEW_NEW_PASSWORD_TEXT_FIELD_PLACEHOLDER_REQUIREMENT" = "Must be at least 6 characters long";
 
 /* Title for alert action to dismiss alert displayed after password change fails. */
 "CHANGE_PASSWORD_VIEW_PASSWORD_CHANGE_FAILURE_ALERT_ACTION_TITLE_DISMISS" = "OK";
@@ -268,26 +262,53 @@
 /* Placeholder text to display in chatter input text field. */
 "CHATTER_INPUT_VIEW_TEXT_INPUT_PLACEHOLDER" = "Talk some smack!";
 
-/* Title for expanded list view of more communities. */
-"COMMUNITIES_EXPANDED_LIST_TITLE_MORE_COMMUNITIES" = "More Communities";
+/* Title for 'Featured' communities segment on segmented control in communities list view. */
+"COMMUNITIES_VIEW_SEGMENTED_CONTROL_TITLE_FEATURED_COMMUNITIES" = "Featured";
 
-/* Title for expanded list view of your communities. */
-"COMMUNITIES_EXPANDED_LIST_TITLE_YOUR_COMMUNITIES" = "Your Communities";
-
-/* Title for button to view expanded list of more communities. */
-"COMMUNITIES_LIST_VIEW_ADDITIONAL_BUTTON_TITLE_MORE_COMMUNITIES" = "View More";
-
-/* Title for button to view expanded list of your communities. */
-"COMMUNITIES_LIST_VIEW_ADDITIONAL_BUTTON_TITLE_YOUR_COMMUNITIES" = "View All";
-
-/* Table section header for unjoined communities on Community List View. */
-"COMMUNITIES_VIEW_TABLE_SECTION_HEADER_MORE_COMMUNITIES" = "More Communities";
-
-/* Table section header for joined communities on Community List View. */
-"COMMUNITIES_VIEW_TABLE_SECTION_HEADER_YOUR_COMMUNITIES" = "Your Communities";
+/* Title for your (joined) communities segment on segmented control in communities list view. */
+"COMMUNITIES_VIEW_SEGMENTED_CONTROL_TITLE_YOUR_COMMUNITIES" = "Yours";
 
 /* Title for communities view. */
 "COMMUNITIES_VIEW_TITLE" = "Communities";
+
+/* Title for alert action to cancel from unsubscribing/leaving a community. */
+"COMMUNITY_DETAIL_ALERT_UNSUBSCRIBE_CONFIRMATION_ALERT_ACTION_TITLE_CANCEL" = "Cancel";
+
+/* Title for alert action to unsubscribe/leave a community. */
+"COMMUNITY_DETAIL_ALERT_UNSUBSCRIBE_CONFIRMATION_ALERT_ACTION_TITLE_LEAVE" = "Leave Community";
+
+/* Message to display on alert to confirm a user's intent to unsubscribe/leave a community. */
+"COMMUNITY_DETAIL_ALERT_UNSUBSCRIBE_CONFIRMATION_ALERT_MESSAGE" = "Are you sure you want to leave this community?";
+
+/* Notification message to display within community detail view when a user has successfully subscribed/joined a community. */
+"COMMUNITY_DETAIL_NOTIFICATION_MESSAGE_SUBSCRIBE_SUCCESS" = "You have successfully joined this community!";
+
+/* Notification message to display within community detail view when a user has successfully unsubscribed/left a community. */
+"COMMUNITY_DETAIL_NOTIFICATION_MESSAGE_UNSUBSCRIBE_SUCCESS" = "You are no longer a member of this community.";
+
+/* Title for item in the community detail overflow menu to cancel selection. */
+"COMMUNITY_DETAIL_OVERFLOW_MENU_ITEM_TITLE_CANCEL" = "Cancel";
+
+/* Title for menu item to leave community in the community detail overflow menu. */
+"COMMUNITY_DETAIL_OVERFLOW_MENU_ITEM_TITLE_LEAVE_COMMUNITY" = "Leave Community";
+
+/* Text to display in popover when private community button is pressed in community detail view. */
+"COMMUNITY_DETAIL_PRIVATE_COMMUNITY_POPOVER_TEXT" = "This is a private community designated for you and your colleagues.";
+
+/* Segment title for Challenges on segmented control in community detail. */
+"COMMUNITY_DETAIL_SEGMENTED_CONTROL_SEGMENT_TITLE_CHALLENGES" = "Challenges";
+
+/* Segment title for Chatter on segmented control in community detail. */
+"COMMUNITY_DETAIL_SEGMENTED_CONTROL_SEGMENT_TITLE_CHATTER" = "Chatter";
+
+/* Segment title for Feed on segmented control in community detail. */
+"COMMUNITY_DETAIL_SEGMENTED_CONTROL_SEGMENT_TITLE_FEED" = "Feed";
+
+/* Segment title for Rewards on segmented control in community detail. */
+"COMMUNITY_DETAIL_SEGMENTED_CONTROL_SEGMENT_TITLE_REWARDS" = "Rewards";
+
+/* Title for accessory button on community listing table cell to invite friends. */
+"COMMUNITY_LISTING_TABLE_CELL_ACCESSORY_BUTTON_TITLE_INVITE_FRIENDS" = "Invite Friends";
 
 /* Title for accessory button on community listing table cell to join a community. */
 "COMMUNITY_LISTING_TABLE_CELL_ACCESSORY_BUTTON_TITLE_JOIN" = "Join";
@@ -538,6 +559,9 @@
 /* General purpose abbreviated label for the english units of weight measurement, pounds. */
 "GENERAL_PURPOSE_UNIT_LABEL_ABBR_WEIGHT_POUNDS" = "lbs";
 
+/* Title for home view. */
+"HOME_VIEW_TITLE" = "Home";
+
 /* Reason for prompting Touch ID local authentication. */
 "LOCAL_AUTHENTICATION_TOUCH_ID_REASON" = "Use your fingerprint to access higi";
 
@@ -553,41 +577,29 @@
 /* Format of local notification which is displayed when a user is near a higi station. */
 "LOCATION_DELEGATE_LOCAL_NOTIFICATION_FORMAT" = "You are near the higi Station at %@ %@!";
 
-/* Placeholder for email text field on login view. */
-"LOGIN_VIEW_EMAIL_TEXTFIELD_PLACEHOLDER" = "Email";
+/* Title for alert action to dismiss alert displayed if email/password authentication fails. */
+"LOG_IN_VIEW_AUTHENTICATION_FAILURE_ALERT_DISMISS_ACTION_TITLE" = "OK";
 
-/* Placeholder for email text field with invalid input on login view. */
-"LOGIN_VIEW_EMAIL_TEXTFIELD_PLACEHOLDER_INVALID_INPUT" = "Valid email required";
+/* Message for alert displayed if email/password authentication fails. */
+"LOG_IN_VIEW_AUTHENTICATION_FAILURE_ALERT_MESSAGE" = "It looks like something went wrong while trying to log in. Please check your email and password and try again.";
+
+/* Title for alert displayed if email/password authentication fails. */
+"LOG_IN_VIEW_AUTHENTICATION_FAILURE_ALERT_TITLE" = "Uh oh";
+
+/* Placeholder for email text field. */
+"LOG_IN_VIEW_EMAIL_TEXT_FIELD_PLACEHOLDER" = "Email";
 
 /* Title for forgot password button. */
-"LOGIN_VIEW_FORGOT_PASSWORD_BUTTON_TITLE" = "Forgot Password?";
-
-/* Title of alert action to dismiss the alert which is displayed if a user is unable to log in due to invalid credentials. */
-"LOGIN_VIEW_LOG_IN_INVALID_CREDENTIALS_ALERT_ACTION_TITLE_DISMISS" = "OK";
-
-/* Message of alert which is displayed if a user is unable to log in due to invalid credentials. */
-"LOGIN_VIEW_LOG_IN_INVALID_CREDENTIALS_ALERT_MESSAGE" = "Please check your email and password and try again.";
-
-/* Title of alert which is displayed if a user is unable to log in due to invalid credentials. */
-"LOGIN_VIEW_LOG_IN_INVALID_CREDENTIALS_ALERT_TITLE" = "Invalid Credentials";
-
-/* Title of alert action to dismiss the alert which is displayed if a network connection issue occurs. */
-"LOGIN_VIEW_LOG_IN_NETWORK_CONNECTION_ISSUE_ALERT_ACTION_TITLE_DISMISS" = "OK";
-
-/* Message of alert which is displayed if a network connection issue occurs. */
-"LOGIN_VIEW_LOG_IN_NETWORK_CONNECTION_ISSUE_ALERT_MESSAGE" = "Please check your network connection and try again.";
-
-/* Title of alert which is displayed if a network connection issue occurs. */
-"LOGIN_VIEW_LOG_IN_NETWORK_CONNECTION_ISSUE_ALERT_TITLE" = "Unable to connect to server";
+"LOG_IN_VIEW_FORGOT_PASSWORD_BUTTON_TITLE" = "Forgot Password?";
 
 /* Title for login button. */
-"LOGIN_VIEW_LOGIN_BUTTON_TITLE" = "Log In";
+"LOG_IN_VIEW_LOGIN_BUTTON_TITLE" = "Log In";
 
-/* Placeholder for password text field on login view. */
-"LOGIN_VIEW_PASSWORD_TEXTFIELD_PLACEHOLDER" = "Password";
+/* Placeholder for password text field. */
+"LOG_IN_VIEW_PASSWORD_TEXT_FIELD_PLACEHOLDER" = "Password";
 
-/* Placeholder for password text field with invalid input on login view. */
-"LOGIN_VIEW_PASSWORD_TEXTFIELD_PLACEHOLDER_INVALID_INPUT" = "Password must be at least 6 characters";
+/* Title for Log In view. */
+"LOG_IN_VIEW_TITLE" = "Log In";
 
 /* Title for overflow menu action item which dismisses the popover. */
 "MAIN_NAVIGATION_BAR_BUTTON_ITEM_OVERFLOW_POPOVER_ACTION_TITLE_CANCEL" = "Cancel";
@@ -672,6 +684,15 @@
 
 /* Title for metrics view. */
 "METRICS_VIEW_TITLE" = "Metrics";
+
+/* Title for action to dismiss alert which is displayed if the view receives a memory warning. */
+"MODIFY_IMAGE_VIEW_MEMORY_WARNING_ALERT_ACTION_TITLE_DISMISS" = "Got it";
+
+/* Message for alert which is displayed if the view receives a memory warning. */
+"MODIFY_IMAGE_VIEW_MEMORY_WARNING_ALERT_MESSAGE" = "It looks like the image you have chosen may be too big to process. Please select an image with a smaller file size.";
+
+/* Title for alert which is displayed if the view receives a memory warning. */
+"MODIFY_IMAGE_VIEW_MEMORY_WARNING_ALERT_TITLE" = "Uh oh";
 
 /* Title for alert action to dismiss alert which is displayed if the server is unreachable. */
 "MODIFY_IMAGE_VIEW_SERVER_ERROR_ALERT_ACTION_TITLE_DISMISS" = "OK";
@@ -838,9 +859,6 @@
 /* Title for Settings view. */
 "SETTINGS_VIEW_TITLE" = "Settings";
 
-/* Title for decline button. */
-"SIGN_UP_EMAIL_VIEW_DECLINE_BUTTON_TITLE" = "Decline";
-
 /* Placeholder for email text field. */
 "SIGN_UP_EMAIL_VIEW_EMAIL_TEXT_FIELD_PLACEHOLDER" = "Email";
 
@@ -874,9 +892,6 @@
 /* Title for alert displayed if a user attempts to create a duplicate account. */
 "SIGN_UP_EMAIL_VIEW_SIGN_UP_DUPLICATE_ACCOUNT_ALERT_TITLE" = "I knew you looked familiar...";
 
-/* Title for Sign Up Email view when displaying terms of service. */
-"SIGN_UP_EMAIL_VIEW_TERMS_TITLE" = "Terms";
-
 /* Title for Sign Up Email view. */
 "SIGN_UP_EMAIL_VIEW_TITLE" = "Sign Up";
 
@@ -895,17 +910,20 @@
 /* Title for 'next' button on sign up view. */
 "SIGN_UP_NAME_VIEW_NEXT_BUTTON_TITLE" = "Next";
 
-/* Title for alert action to dismiss alert displayed when server communication error occurs. */
-"SIGN_UP_NAME_VIEW_SERVER_COMMUNICATION_ERROR_ALERT_ACTION_TITLE_DISMISS" = "OK";
-
-/* Message for alert to display when server communication error occurs. */
-"SIGN_UP_NAME_VIEW_SERVER_COMMUNICATION_ERROR_ALERT_MESSAGE" = "There was an error in communicating with the server. Please try again.";
-
-/* Title for alert to display when server communication error occurs. */
-"SIGN_UP_NAME_VIEW_SERVER_COMMUNICATION_ERROR_ALERT_TITLE" = "Something went wrong!";
-
 /* Title for Sign Up Name view. */
 "SIGN_UP_NAME_VIEW_TITLE" = "What's your name?";
+
+/* Title for agree button. */
+"SIGN_UP_TERMS_VIEW_BUTTON_TITLE_AGREE" = "I agree";
+
+/* Title for decline button. */
+"SIGN_UP_TERMS_VIEW_BUTTON_TITLE_DECLINE" = "I decline";
+
+/* Text to display in header of sign up terms view. */
+"SIGN_UP_TERMS_VIEW_HEADER_TEXT" = "By registering, you are agreeing to the higi Terms of Use and Privacy Policy.";
+
+/* Title for view which displays terms of service. */
+"SIGN_UP_TERMS_VIEW_TITLE" = "Terms";
 
 /* Title for button to accept terms. */
 "TERMS_AND_CONDITIONS_VIEW_ACCEPT_BUTTON_TITLE" = "Accept";
@@ -915,21 +933,6 @@
 
 /* Title for button to decline terms. */
 "TERMS_AND_CONDITIONS_VIEW_DECLINE_BUTTON_TITLE" = "Decline";
-
-/* Title for button to agree to terms of use and/or privacy policy. */
-"TERMS_VIEW_AGREE_BUTTON_TITLE" = "I agree";
-
-/* Title for button to decline to terms of use and/or privacy policy. */
-"TERMS_VIEW_DECLINE_BUTTON_TITLE" = "I decline";
-
-/* Text to display in header view when privacy policy has changed. */
-"TERMS_VIEW_HEADER_TEXT_UPDATED_PRIVACY" = "The higi Privacy Policy has changed.";
-
-/* Text to display in header view when terms of use has changed. */
-"TERMS_VIEW_HEADER_TEXT_UPDATED_TERMS" = "The higi Terms of Use has changed.";
-
-/* Text to display in header view when terms of use and privacy policy has changed. */
-"TERMS_VIEW_HEADER_TEXT_UPDATED_TERMS_AND_PRIVACY" = "The higi Terms of Use and Privacy Policy have changed.";
 
 /* Title for 'done' button on Tour view. */
 "TOUR_VIEW_DONE_BUTTON_TITLE" = "Done";
