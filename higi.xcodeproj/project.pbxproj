@@ -227,6 +227,16 @@
 		41A0BE351BBB110900A314D6 /* libFlurry_7.1.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 41A0BE331BBB110900A314D6 /* libFlurry_7.1.1.a */; };
 		41A0BE371BBB14EA00A314D6 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A0BE361BBB14EA00A314D6 /* KeychainWrapper.swift */; };
 		41A0BE541BBB1CD100A314D6 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 41A0BE4B1BBB194700A314D6 /* libCorePlot-CocoaTouch.a */; };
+		41A2749E1D20F3C000D10F8A /* FeedCollectionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A2749D1D20F3C000D10F8A /* FeedCollectionRequest.swift */; };
+		41A274AC1D20F42600D10F8A /* FeedCollectionDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A274A21D20F42600D10F8A /* FeedCollectionDeserializer.swift */; };
+		41A274AD1D20F42600D10F8A /* NSDateComponentsFormatter+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A274A31D20F42600D10F8A /* NSDateComponentsFormatter+Utility.swift */; };
+		41A274AE1D20F42600D10F8A /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A274A41D20F42600D10F8A /* Post.swift */; };
+		41A274AF1D20F42600D10F8A /* PostActionBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41A274A51D20F42600D10F8A /* PostActionBar.xib */; };
+		41A274B01D20F42600D10F8A /* PostHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41A274A61D20F42600D10F8A /* PostHeaderView.xib */; };
+		41A274B11D20F42600D10F8A /* PostMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A274A71D20F42600D10F8A /* PostMedia.swift */; };
+		41A274B21D20F42600D10F8A /* PostTextDescriptionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41A274A81D20F42600D10F8A /* PostTextDescriptionView.xib */; };
+		41A274B31D20F42600D10F8A /* TextTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A274A91D20F42600D10F8A /* TextTransform.swift */; };
+		41A274B41D20F42600D10F8A /* TransformableString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A274AA1D20F42600D10F8A /* TransformableString.swift */; };
 		41A4257A1CDBEACB00036C84 /* SignUpNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A425791CDBEACB00036C84 /* SignUpNameViewController.swift */; };
 		41A4257C1CE10CE000036C84 /* NameValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A4257B1CE10CDF00036C84 /* NameValidator.swift */; };
 		41A425801CE11ADD00036C84 /* HigiAPIJSONSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A4257F1CE11ADD00036C84 /* HigiAPIJSONSerializer.swift */; };
@@ -677,6 +687,16 @@
 		41A0BE331BBB110900A314D6 /* libFlurry_7.1.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_7.1.1.a; sourceTree = "<group>"; };
 		41A0BE361BBB14EA00A314D6 /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeychainWrapper.swift; path = Vendor/SwiftKeychainWrapper/SwiftKeychainWrapper/KeychainWrapper.swift; sourceTree = "<group>"; };
 		41A0BE441BBB194600A314D6 /* CorePlot-CocoaTouch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CorePlot-CocoaTouch.xcodeproj"; path = "Vendor/CorePlot/framework/CorePlot-CocoaTouch.xcodeproj"; sourceTree = "<group>"; };
+		41A2749D1D20F3C000D10F8A /* FeedCollectionRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedCollectionRequest.swift; sourceTree = "<group>"; };
+		41A274A21D20F42600D10F8A /* FeedCollectionDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedCollectionDeserializer.swift; sourceTree = "<group>"; };
+		41A274A31D20F42600D10F8A /* NSDateComponentsFormatter+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDateComponentsFormatter+Utility.swift"; sourceTree = "<group>"; };
+		41A274A41D20F42600D10F8A /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		41A274A51D20F42600D10F8A /* PostActionBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostActionBar.xib; sourceTree = "<group>"; };
+		41A274A61D20F42600D10F8A /* PostHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostHeaderView.xib; sourceTree = "<group>"; };
+		41A274A71D20F42600D10F8A /* PostMedia.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostMedia.swift; sourceTree = "<group>"; };
+		41A274A81D20F42600D10F8A /* PostTextDescriptionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostTextDescriptionView.xib; sourceTree = "<group>"; };
+		41A274A91D20F42600D10F8A /* TextTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextTransform.swift; sourceTree = "<group>"; };
+		41A274AA1D20F42600D10F8A /* TransformableString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformableString.swift; sourceTree = "<group>"; };
 		41A425791CDBEACB00036C84 /* SignUpNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpNameViewController.swift; sourceTree = "<group>"; };
 		41A4257B1CE10CDF00036C84 /* NameValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameValidator.swift; sourceTree = "<group>"; };
 		41A4257F1CE11ADD00036C84 /* HigiAPIJSONSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HigiAPIJSONSerializer.swift; sourceTree = "<group>"; };
@@ -1251,7 +1271,7 @@
 		4152AD301D1AEA92008E0AA7 /* Feed */ = {
 			isa = PBXGroup;
 			children = (
-				4152AD2C1D1AEA83008E0AA7 /* FeedCollectionRequest.swift */,
+				41A2749D1D20F3C000D10F8A /* FeedCollectionRequest.swift */,
 			);
 			name = Feed;
 			sourceTree = "<group>";
@@ -1311,10 +1331,11 @@
 			isa = PBXGroup;
 			children = (
 				415031591CA9E68B00A3FB94 /* AuthorizationDeserializer.swift */,
-				4116E9D21CD92122006DB167 /* UserDeserializer.swift */,
+				4199D3A01CEA968A00EF62F8 /* ChallengeCollectionDeserializer.swift */,
 				415998ED1CAED619001A7392 /* CollectionDeserializer.swift */,
 				415998E31CADCB1D001A7392 /* CommunityCollectionDeserializer.swift */,
-				4199D3A01CEA968A00EF62F8 /* ChallengeCollectionDeserializer.swift */,
+				41A274A21D20F42600D10F8A /* FeedCollectionDeserializer.swift */,
+				4116E9D21CD92122006DB167 /* UserDeserializer.swift */,
 			);
 			name = Deserialization;
 			sourceTree = "<group>";
@@ -2038,9 +2059,10 @@
 			isa = PBXGroup;
 			children = (
 				41EF92261D19E45900266AAB /* Feed.storyboard */,
-				4152AD331D1C43A7008E0AA7 /* PostHeaderView.xib */,
-				4152AD351D1C43BF008E0AA7 /* PostActionBar.xib */,
-				4152AD371D1C442C008E0AA7 /* PostTextDescriptionView.xib */,
+				41A274A51D20F42600D10F8A /* PostActionBar.xib */,
+				41A274A61D20F42600D10F8A /* PostHeaderView.xib */,
+				41A274A71D20F42600D10F8A /* PostMedia.swift */,
+				41A274A81D20F42600D10F8A /* PostTextDescriptionView.xib */,
 			);
 			name = Feed;
 			sourceTree = "<group>";
@@ -2103,6 +2125,9 @@
 				410F61E41CB31B8A00614E78 /* Media.swift */,
 				410FFF401CA5CDE1005EAC9E /* Organization.swift */,
 				410FFF5C1CA5EDC4005EAC9E /* Paging.swift */,
+				41A274A41D20F42600D10F8A /* Post.swift */,
+				41A274A91D20F42600D10F8A /* TextTransform.swift */,
+				41A274AA1D20F42600D10F8A /* TransformableString.swift */,
 				410FFFB11CA77533005EAC9E /* User.swift */,
 			);
 			name = Model;
@@ -2133,6 +2158,7 @@
 				41E6B5E31C16184200ED922B /* HealthKitManager.swift */,
 				8FE206611B7CF30E00B473B0 /* LocationDelegate.swift */,
 				41ED6C961C85FCA300A55BED /* Notifications.swift */,
+				41A274A31D20F42600D10F8A /* NSDateComponentsFormatter+Utility.swift */,
 				413F68B21CB4533E003D9571 /* Theme */,
 				413E19241C10AB2C00146B29 /* UniversalLink.swift */,
 				8F6D510D1947B2E700F7C769 /* Utility.swift */,
@@ -2610,6 +2636,7 @@
 				41A425871CE2296A00036C84 /* LogIn.storyboard in Resources */,
 				8FA5925D19ABBCEC00622266 /* TourView.xib in Resources */,
 				413E19361C10B41400146B29 /* higi-qa.entitlements in Resources */,
+				41A274B21D20F42600D10F8A /* PostTextDescriptionView.xib in Resources */,
 				41A917FF1BBC747600CCF91E /* GoogleMaps.bundle in Resources */,
 				8F5E7FC11999674C009067E5 /* KioskListCellView.xib in Resources */,
 				41D8719B1C7D16AA002DCDA0 /* TabBar.storyboard in Resources */,
@@ -2625,12 +2652,14 @@
 				41FFE8AB1C61319E000C8DCF /* CheckinLocationView.xib in Resources */,
 				411F7A061CBECAC6000D0D64 /* CommunityBannerView.xib in Resources */,
 				2BBDBA541A12AC2C005A6815 /* ChallengesView.xib in Resources */,
+				41A274AF1D20F42600D10F8A /* PostActionBar.xib in Resources */,
 				41247DD51C5F29FB00DDC5EC /* MetricDetail.storyboard in Resources */,
 				4179FCF01C25109D006130F5 /* Loading.storyboard in Resources */,
 				D17528821B0FB651006335B4 /* DailySummaryRowView.xib in Resources */,
 				41027C541CD8573D003F3AD5 /* ProfileImage.storyboard in Resources */,
 				2BBDBA591A12AC2C005A6815 /* GoalChallengeView.xib in Resources */,
 				8FF873F219DF528E002A6341 /* PullRefreshView.xib in Resources */,
+				41A274B01D20F42600D10F8A /* PostHeaderView.xib in Resources */,
 				D17528861B0FC852006335B4 /* DailySummaryBreakdownView.xib in Resources */,
 				D1E1FF081A76C2DB00C8951C /* ChallengeProgressLegendRow.xib in Resources */,
 				8FEF35BB1BB213C800959BD1 /* (null) in Resources */,
@@ -2743,6 +2772,7 @@
 				410F61F51CB41AA500614E78 /* NSURLSessionTask+Utility.swift in Sources */,
 				4199D39B1CE51A8C00EF62F8 /* BirthdateViewController.swift in Sources */,
 				41667A2A1CED162A007BB0FF /* ProfileImageViewController.swift in Sources */,
+				41A274B41D20F42600D10F8A /* TransformableString.swift in Sources */,
 				8F2CB58019925631009377A8 /* WebViewController.swift in Sources */,
 				41FC21C61CA4453400BF7FC4 /* NSDateFormatter+Utility.swift in Sources */,
 				417323931CC410580009174D /* CommunityDetailViewController.swift in Sources */,
@@ -2756,6 +2786,7 @@
 				415031721CAAEE0100A3FB94 /* HigiAPI2.swift in Sources */,
 				8FE206621B7CF30E00B473B0 /* LocationDelegate.swift in Sources */,
 				41A0BE111BBB088500A314D6 /* AFURLRequestSerialization.m in Sources */,
+				41A274B11D20F42600D10F8A /* PostMedia.swift in Sources */,
 				413F69161CB700C1003D9571 /* UIView+Utility.swift in Sources */,
 				410FFF3D1CA5CDDB005EAC9E /* Community.swift in Sources */,
 				41E61EF51D00C41D0060D882 /* StationCollectionRequest.swift in Sources */,
@@ -2765,10 +2796,13 @@
 				41CB52EC1C979E5F004C13E9 /* ActivityTableViewCell.swift in Sources */,
 				417F48B41BC823F1005BC49D /* NSString+HTML.m in Sources */,
 				D17528841B0FBD49006335B4 /* DailySummaryRow.swift in Sources */,
+				41A274AE1D20F42600D10F8A /* Post.swift in Sources */,
 				413E198F1C10EB2D00146B29 /* TextMenuCollectionViewController.swift in Sources */,
+				41A2749E1D20F3C000D10F8A /* FeedCollectionRequest.swift in Sources */,
 				41376C5D1BB459B50094DE7C /* SettingsViewController.swift in Sources */,
 				41A0BE271BBB08B800A314D6 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				8FEF6F401A6EB638001EF8A6 /* PointsMeter.swift in Sources */,
+				41A274AD1D20F42600D10F8A /* NSDateComponentsFormatter+Utility.swift in Sources */,
 				41667A251CECC1B5007BB0FF /* BirthdateController.swift in Sources */,
 				413E19911C10EB6100146B29 /* MetricPlotViewController.swift in Sources */,
 				8F9C69D71950C89B00449664 /* HigiUser.swift in Sources */,
@@ -2787,6 +2821,7 @@
 				4152AD3D1D1C4733008E0AA7 /* HomeViewController.swift in Sources */,
 				8F5E7FBF199965CF009067E5 /* PinCodeViewController.swift in Sources */,
 				8F9C69D31950C84400449664 /* HigiLogin.swift in Sources */,
+				41A274AC1D20F42600D10F8A /* FeedCollectionDeserializer.swift in Sources */,
 				41E90DF11BD984E0001DCC4C /* RequiredAppUpdateViewController.swift in Sources */,
 				41FB225B1BE2AE80009139B4 /* FabricInfo.swift in Sources */,
 				41027C581CD902A4003F3AD5 /* SignUpEmailViewController.swift in Sources */,
@@ -2964,6 +2999,7 @@
 				D1D32D071B1FA0B500AE9B25 /* ActivityMetricDelegate.swift in Sources */,
 				41411BA31BA894280027F5E1 /* SwitchTableViewCell.swift in Sources */,
 				41376C5B1BB452E40094DE7C /* SettingsTableViewController.swift in Sources */,
+				41A274B31D20F42600D10F8A /* TextTransform.swift in Sources */,
 				41A70EF01CC9D9060072AB06 /* CommunityDetailJoinSegue.swift in Sources */,
 				8FF851C6194F7F2E005C33C6 /* HigiApi.swift in Sources */,
 				4114202A1D0C6F410050473E /* TextViewController.swift in Sources */,

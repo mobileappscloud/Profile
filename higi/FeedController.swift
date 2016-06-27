@@ -8,7 +8,7 @@
 
 final class FeedController {
     
-//    private(set) var posts: [] = []
+    private(set) var posts: [Post] = []
     
     private(set) var paging: Paging? = nil
     
@@ -22,4 +22,9 @@ final class FeedController {
     deinit {
         session.invalidateAndCancel()
     }
+}
+
+extension FeedController {
+    
+    
 }
