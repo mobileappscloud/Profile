@@ -54,15 +54,8 @@ class ConnectDeviceRow: UITableViewCell {
     }
     
     private func presentOAuthBrowser(connectDeviceURL URL: NSURL) {
-        if #available(iOS 9.0, *) {
-            let safari = SFSafariViewController(URL: URL)
-            self.parentController.presentViewController(safari, animated: true, completion: nil)
-        } else {
-            let embeddedWebViewController = WebViewController(nibName: "WebView", bundle: nil)
-            embeddedWebViewController.url = URL.absoluteString
-            embeddedWebViewController.navigationDelegate = self
-            self.parentController.pushViewController(embeddedWebViewController, animated: true)
-        }
+        let safari = SFSafariViewController(URL: URL)
+        self.parentController.presentViewController(safari, animated: true, completion: nil)
     }
     
     private func showDeviceConnectError() {

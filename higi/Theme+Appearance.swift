@@ -40,12 +40,7 @@ extension Theme.Appearance {
             navigationBar.tintColor = tintColor
             navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : tintColor]
             
-            let barButtonItem: UIBarButtonItem!
-            if #available(iOS 9.0, *) {
-                barButtonItem = UIBarButtonItem.appearanceWhenContainedInInstancesOfClasses([UINavigationBar.self])
-            } else {
-                barButtonItem = UIBarButtonItem.higi_appearanceWhenContainedIn(UINavigationBar.self)
-            }
+            let barButtonItem = UIBarButtonItem.appearanceWhenContainedInInstancesOfClasses([UINavigationBar.self])
             barButtonItem.tintColor = navigationBar.tintColor
             barButtonItem.setTitleTextAttributes(navigationBar.titleTextAttributes, forState: .Normal)
             barButtonItem.setTitleTextAttributes([NSForegroundColorAttributeName : unselectedTintColor], forState: .Disabled)

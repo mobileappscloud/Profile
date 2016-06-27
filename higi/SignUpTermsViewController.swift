@@ -6,6 +6,8 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
+import WebKit
+
 final class SignUpTermsViewController: UIViewController {
     
     @IBOutlet private var headerLabel: UILabel! {
@@ -14,7 +16,7 @@ final class SignUpTermsViewController: UIViewController {
         }
     }
     
-    @IBOutlet private var webView: UIWebView! {
+    @IBOutlet private var webView: WKWebView! {
         didSet {
             if let URL = NSURL(string: "\(HigiApi.webUrl)/termsandprivacy") {
                 let request = NSMutableURLRequest(URL: URL)

@@ -264,32 +264,29 @@ extension ConnectDeviceViewController: UniversalLinkHandler {
     
     private func handleRedirect(redirectParameters: RedirectParameters) {
         //  We're handling a redirect, thus Safari should have been presented from the Connect Device view controller.
-        if #available(iOS 9.0, *) {
-
-            guard let tabBar = Utility.mainTabBarController() else { return }
-            guard let navController = tabBar.presentedViewController as? UINavigationController,
-                let connectDeviceViewController = navController.topViewController as? ConnectDeviceViewController,
-                let safari = connectDeviceViewController.presentedViewController as? SFSafariViewController else {
-                    return
-            }
-            
-            dispatch_async(dispatch_get_main_queue(), {
-                safari.dismissViewControllerAnimated(true, completion: {
-                    if let error = redirectParameters.error {
-                        let title = NSLocalizedString("CONNECT_DEVICE_ROW_CONNECT_ERROR_ALERT_TITLE", comment: "Title for alert displayed when an error occurs while attempting to connect a device.")
-                        let alert = UIAlertController(title: title, message: error.localizedDescription, preferredStyle: .Alert)
-                        
-                        let dismissActionTitle = NSLocalizedString("CONNECT_DEVICE_ROW_CONNECT_ERROR_ALERT_ACTION_ACKNOWLEDGE_ACTION", comment: "Title for alert action to acknowledge alert displayed when an error occurs while attempting to connect a device.")
-                        let dismissAction = UIAlertAction(title: dismissActionTitle, style: .Cancel, handler: nil)
-                        alert.addAction(dismissAction)
-                        
-                        dispatch_async(dispatch_get_main_queue(), {
-                            connectDeviceViewController.presentViewController(alert, animated: true, completion: nil)
-                        })
-                    }
-                })
-            })
+        guard let tabBar = Utility.mainTabBarController() else { return }
+        guard let navController = tabBar.presentedViewController as? UINavigationController,
+            let connectDeviceViewController = navController.topViewController as? ConnectDeviceViewController,
+            let safari = connectDeviceViewController.presentedViewController as? SFSafariViewController else {
+                return
         }
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            safari.dismissViewControllerAnimated(true, completion: {
+                if let error = redirectParameters.error {
+                    let title = NSLocalizedString("CONNECT_DEVICE_ROW_CONNECT_ERROR_ALERT_TITLE", comment: "Title for alert displayed when an error occurs while attempting to connect a device.")
+                    let alert = UIAlertController(title: title, message: error.localizedDescription, preferredStyle: .Alert)
+                    
+                    let dismissActionTitle = NSLocalizedString("CONNECT_DEVICE_ROW_CONNECT_ERROR_ALERT_ACTION_ACKNOWLEDGE_ACTION", comment: "Title for alert action to acknowledge alert displayed when an error occurs while attempting to connect a device.")
+                    let dismissAction = UIAlertAction(title: dismissActionTitle, style: .Cancel, handler: nil)
+                    alert.addAction(dismissAction)
+                    
+                    dispatch_async(dispatch_get_main_queue(), {
+                        connectDeviceViewController.presentViewController(alert, animated: true, completion: nil)
+                    })
+                }
+            })
+        })
     }
     
     class func navigateToConnectDevice() {

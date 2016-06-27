@@ -40,8 +40,5 @@
 // Custom includes
 //
 
-// Extension for UIAppearance proxy to bridge Obj-C API to Swift
-#import "UIAppearance+Swift.h"
-
 // Obj-C category to return UIInterfaceOrientation while silencing deprecation warning
 #import "UIViewController+InterfaceOrientation.h"
