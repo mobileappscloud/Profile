@@ -28,8 +28,9 @@ extension HomeViewController {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let identifier = segue.identifier {
+        if let identifier = segue.identifier where identifier == "feedEmbedSegue" {
             feedViewController = segue.destinationViewController as! FeedViewController
+            feedViewController.configure(userController, entity: .User, entityId: userController.user.identifier)
         }
     }
 }

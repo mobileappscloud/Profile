@@ -19,14 +19,14 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Y5g-Tv-tdo">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.94509804248809814" green="0.94509804248809814" blue="0.94509804248809814" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="dataSource" destination="3B7-ld-4RB" id="Q70-s7-fUy"/>
                                     <outlet property="delegate" destination="3B7-ld-4RB" id="o52-T8-xNY"/>
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.94509804248809814" green="0.94509804248809814" blue="0.94509804248809814" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Y5g-Tv-tdo" firstAttribute="top" secondItem="hbX-8G-B24" secondAttribute="bottom" id="2L4-QI-hNg"/>
                             <constraint firstItem="Y5g-Tv-tdo" firstAttribute="leading" secondItem="eWl-Hy-U01" secondAttribute="leading" id="evr-n8-bvL"/>

@@ -15,7 +15,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="HyZ-2E-bUD">
-                        <rect key="frame" x="0.0" y="-1" width="400" height="365"/>
+                        <rect key="frame" x="0.0" y="-1" width="400" height="364"/>
                         <subviews>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zOW-KJ-K1n" customClass="PostHeaderView" customModule="higi" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="400" height="70"/>
@@ -29,8 +29,8 @@
                                 <rect key="frame" x="0.0" y="179" width="400" height="136"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PGK-Yv-apB" customClass="PostActionBar" customModule="higi" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="315" width="400" height="50"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PGK-Yv-apB" customClass="PostActionBar" customModule="higi" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="314" width="400" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
