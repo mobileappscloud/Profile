@@ -225,11 +225,15 @@
 		41A274AE1D20F42600D10F8A /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A274A41D20F42600D10F8A /* Post.swift */; };
 		41A274AF1D20F42600D10F8A /* PostActionBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41A274A51D20F42600D10F8A /* PostActionBar.xib */; };
 		41A274B01D20F42600D10F8A /* PostHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41A274A61D20F42600D10F8A /* PostHeaderView.xib */; };
-		41A274B11D20F42600D10F8A /* PostMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A274A71D20F42600D10F8A /* PostMedia.swift */; };
 		41A274B21D20F42600D10F8A /* PostTextDescriptionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41A274A81D20F42600D10F8A /* PostTextDescriptionView.xib */; };
 		41A274B31D20F42600D10F8A /* TextTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A274A91D20F42600D10F8A /* TextTransform.swift */; };
 		41A274B41D20F42600D10F8A /* TransformableString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A274AA1D20F42600D10F8A /* TransformableString.swift */; };
 		41A274F41D21BABC00D10F8A /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A274F31D21BABC00D10F8A /* TTTAttributedLabel.m */; };
+		41A274FB1D21C71700D10F8A /* PostHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A274FA1D21C71700D10F8A /* PostHeaderView.swift */; };
+		41A274FD1D21F81B00D10F8A /* PostActionBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A274FC1D21F81B00D10F8A /* PostActionBar.swift */; };
+		41A274FF1D22263F00D10F8A /* PostTextDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A274FE1D22263F00D10F8A /* PostTextDescriptionView.swift */; };
+		41A275011D2235C300D10F8A /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A275001D2235C300D10F8A /* PostCell.swift */; };
+		41A275031D22360800D10F8A /* PostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41A275021D22360800D10F8A /* PostCell.xib */; };
 		41A4257A1CDBEACB00036C84 /* SignUpNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A425791CDBEACB00036C84 /* SignUpNameViewController.swift */; };
 		41A4257C1CE10CE000036C84 /* NameValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A4257B1CE10CDF00036C84 /* NameValidator.swift */; };
 		41A425801CE11ADD00036C84 /* HigiAPIJSONSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A4257F1CE11ADD00036C84 /* HigiAPIJSONSerializer.swift */; };
@@ -668,12 +672,16 @@
 		41A274A41D20F42600D10F8A /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		41A274A51D20F42600D10F8A /* PostActionBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostActionBar.xib; sourceTree = "<group>"; };
 		41A274A61D20F42600D10F8A /* PostHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostHeaderView.xib; sourceTree = "<group>"; };
-		41A274A71D20F42600D10F8A /* PostMedia.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostMedia.swift; sourceTree = "<group>"; };
 		41A274A81D20F42600D10F8A /* PostTextDescriptionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostTextDescriptionView.xib; sourceTree = "<group>"; };
 		41A274A91D20F42600D10F8A /* TextTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextTransform.swift; sourceTree = "<group>"; };
 		41A274AA1D20F42600D10F8A /* TransformableString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformableString.swift; sourceTree = "<group>"; };
 		41A274F21D21BABC00D10F8A /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAttributedLabel.h; sourceTree = "<group>"; };
 		41A274F31D21BABC00D10F8A /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAttributedLabel.m; sourceTree = "<group>"; };
+		41A274FA1D21C71700D10F8A /* PostHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostHeaderView.swift; sourceTree = "<group>"; };
+		41A274FC1D21F81B00D10F8A /* PostActionBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostActionBar.swift; sourceTree = "<group>"; };
+		41A274FE1D22263F00D10F8A /* PostTextDescriptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostTextDescriptionView.swift; sourceTree = "<group>"; };
+		41A275001D2235C300D10F8A /* PostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
+		41A275021D22360800D10F8A /* PostCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostCell.xib; sourceTree = "<group>"; };
 		41A425791CDBEACB00036C84 /* SignUpNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpNameViewController.swift; sourceTree = "<group>"; };
 		41A4257B1CE10CDF00036C84 /* NameValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameValidator.swift; sourceTree = "<group>"; };
 		41A4257F1CE11ADD00036C84 /* HigiAPIJSONSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HigiAPIJSONSerializer.swift; sourceTree = "<group>"; };
@@ -2023,8 +2031,8 @@
 			children = (
 				41EF92261D19E45900266AAB /* Feed.storyboard */,
 				41A274A51D20F42600D10F8A /* PostActionBar.xib */,
+				41A275021D22360800D10F8A /* PostCell.xib */,
 				41A274A61D20F42600D10F8A /* PostHeaderView.xib */,
-				41A274A71D20F42600D10F8A /* PostMedia.swift */,
 				41A274A81D20F42600D10F8A /* PostTextDescriptionView.xib */,
 			);
 			name = Feed;
@@ -2033,8 +2041,12 @@
 		41EF92291D19E54E00266AAB /* Feed */ = {
 			isa = PBXGroup;
 			children = (
-				41EF922A1D19E56F00266AAB /* FeedViewController.swift */,
 				41EF922C1D19E58200266AAB /* FeedController.swift */,
+				41EF922A1D19E56F00266AAB /* FeedViewController.swift */,
+				41A274FC1D21F81B00D10F8A /* PostActionBar.swift */,
+				41A275001D2235C300D10F8A /* PostCell.swift */,
+				41A274FA1D21C71700D10F8A /* PostHeaderView.swift */,
+				41A274FE1D22263F00D10F8A /* PostTextDescriptionView.swift */,
 			);
 			name = Feed;
 			sourceTree = "<group>";
@@ -2625,6 +2637,7 @@
 				413E19991C11650C00146B29 /* TextCollectionViewCell.xib in Resources */,
 				8F3643A719460EB300C0033E /* Images.xcassets in Resources */,
 				41643AA81C18834700258F55 /* MetricTableViewCell.xib in Resources */,
+				41A275031D22360800D10F8A /* PostCell.xib in Resources */,
 				D1BA13471A8D056900E1AFE9 /* ChatterInputView.xib in Resources */,
 				D1E223781A8009CE006330E7 /* ConnectDeviceView.xib in Resources */,
 				41643AAC1C1886D900258F55 /* MetricDataLabelView.xib in Resources */,
@@ -2723,6 +2736,7 @@
 				410167281C555D0600A54B02 /* NewWeightMetricDelegate.swift in Sources */,
 				4116E9CD1CD913E4006DB167 /* UserController.swift in Sources */,
 				4159126E1C8A288200111B39 /* InterfaceOrientation.swift in Sources */,
+				41A274FF1D22263F00D10F8A /* PostTextDescriptionView.swift in Sources */,
 				411420241D0A11310050473E /* CommunityDetailController.swift in Sources */,
 				D1FC72971B20B0DC0068CF89 /* PulseMetricDelegate.swift in Sources */,
 				41027C5A1CD907F1003F3AD5 /* EmailValidator.swift in Sources */,
@@ -2744,7 +2758,6 @@
 				415031721CAAEE0100A3FB94 /* HigiAPI2.swift in Sources */,
 				8FE206621B7CF30E00B473B0 /* LocationDelegate.swift in Sources */,
 				41A0BE111BBB088500A314D6 /* AFURLRequestSerialization.m in Sources */,
-				41A274B11D20F42600D10F8A /* PostMedia.swift in Sources */,
 				413F69161CB700C1003D9571 /* UIView+Utility.swift in Sources */,
 				410FFF3D1CA5CDDB005EAC9E /* Community.swift in Sources */,
 				41E61EF51D00C41D0060D882 /* StationCollectionRequest.swift in Sources */,
@@ -2820,6 +2833,7 @@
 				41643AB01C1891D800258F55 /* MetricTableViewCell.swift in Sources */,
 				41A425801CE11ADD00036C84 /* HigiAPIJSONSerializer.swift in Sources */,
 				D114B06B1B2A19900073A9CB /* TriangleView.swift in Sources */,
+				41A274FD1D21F81B00D10F8A /* PostActionBar.swift in Sources */,
 				411F797C1CBC3ED2000D0D64 /* PagingRequest.swift in Sources */,
 				413F69181CB718C3003D9571 /* NSCharacterSet+Utility.swift in Sources */,
 				D1FC72991B20B1B70068CF89 /* WeightMetricDelegate.swift in Sources */,
@@ -2871,6 +2885,7 @@
 				41A0BE0C1BBB088500A314D6 /* AFHTTPRequestOperationManager.m in Sources */,
 				D1764C551BB5DD8800577EC9 /* QrCheckinCard.swift in Sources */,
 				413F69141CB6FDCF003D9571 /* UIImageView+Utility.swift in Sources */,
+				41A275011D2235C300D10F8A /* PostCell.swift in Sources */,
 				41ED6C971C85FCA300A55BED /* Notifications.swift in Sources */,
 				2BBDBA521A12AC2C005A6815 /* ChallengeRowCell.swift in Sources */,
 				8FDB4B641A096E1C00F57B38 /* HigiChallenge.swift in Sources */,
@@ -2897,6 +2912,7 @@
 				4116E9CF1CD91B40006DB167 /* SignUpEmailController.swift in Sources */,
 				41667A831CFB4499007BB0FF /* ImageCache.swift in Sources */,
 				4116E9D51CD92DD8006DB167 /* UserCreationCoordinator.swift in Sources */,
+				41A274FB1D21C71700D10F8A /* PostHeaderView.swift in Sources */,
 				41BAD2911C4D492700E3A5AB /* MetricBlankStateViewController.swift in Sources */,
 				411F79771CBB457D000D0D64 /* ActivityIndicatorTableViewCell.swift in Sources */,
 				418484C81C72E27F00C26211 /* NewBodyFatMetricDelegate.swift in Sources */,

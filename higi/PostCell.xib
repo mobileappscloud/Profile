@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="LVs-sC-TSZ" customClass="PostCell" customModule="higi" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="400" height="365"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LVs-sC-TSZ" id="0VK-5d-orL">
+                <rect key="frame" x="0.0" y="0.0" width="400" height="364.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="HyZ-2E-bUD">
+                        <rect key="frame" x="0.0" y="-1" width="400" height="365"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zOW-KJ-K1n" customClass="PostHeaderView" customModule="higi" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="400" height="70"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tJ0-Ow-pXH" userLabel="Content Area">
+                                <rect key="frame" x="0.0" y="70" width="400" height="109"/>
+                                <color key="backgroundColor" red="0.50196081399917603" green="0.50196081399917603" blue="0.50196081399917603" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nYb-Ip-0za" customClass="PostTextDescriptionView" customModule="higi" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="179" width="400" height="136"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PGK-Yv-apB" customClass="PostActionBar" customModule="higi" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="315" width="400" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="HyZ-2E-bUD" firstAttribute="top" secondItem="0VK-5d-orL" secondAttribute="top" id="1bs-8z-pDu"/>
+                    <constraint firstAttribute="trailing" secondItem="HyZ-2E-bUD" secondAttribute="trailing" id="3me-Ox-CEa"/>
+                    <constraint firstItem="HyZ-2E-bUD" firstAttribute="leading" secondItem="0VK-5d-orL" secondAttribute="leading" id="54R-fa-cS8"/>
+                    <constraint firstAttribute="bottom" secondItem="HyZ-2E-bUD" secondAttribute="bottom" id="SfX-nL-dgR"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="actionBar" destination="PGK-Yv-apB" id="LwY-fO-a4c"/>
+                <outlet property="contentContainer" destination="tJ0-Ow-pXH" id="sFt-6e-1Uy"/>
+                <outlet property="headerView" destination="zOW-KJ-K1n" id="vpA-i5-Ga0"/>
+                <outlet property="textDescriptionView" destination="nYb-Ip-0za" id="ITz-Tp-A69"/>
+            </connections>
+            <point key="canvasLocation" x="235" y="226"/>
+        </tableViewCell>
+    </objects>
+</document>

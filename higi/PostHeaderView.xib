@@ -5,12 +5,66 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PostHeaderView" customModule="higi" customModuleProvider="target">
+            <connections>
+                <outlet property="avatarButton" destination="PSQ-sc-yoL" id="TDV-WC-Ey5"/>
+                <outlet property="nameActionLabel" destination="Mc8-A9-4we" id="erV-L2-ij2"/>
+                <outlet property="timestampLabel" destination="pTD-mJ-Kdh" id="JX0-tI-eZt"/>
+                <outlet property="view" destination="Po2-ct-aCH" id="s4u-9q-dOu"/>
+            </connections>
+        </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+        <view contentMode="scaleToFill" id="Po2-ct-aCH">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="90"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="top" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="sc1-zp-get">
+                    <rect key="frame" x="15" y="15" width="570" height="60"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PSQ-sc-yoL">
+                            <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                            <color key="backgroundColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="40" id="Gwi-iE-tPx"/>
+                                <constraint firstAttribute="height" constant="40" id="vSM-9t-AQp"/>
+                            </constraints>
+                        </button>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="pkT-7N-rj3">
+                            <rect key="frame" x="55" y="0.0" width="515" height="60"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iRz-Je-CaB">
+                                    <rect key="frame" x="0.0" y="0.0" width="515" height="43"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Some long username replied to a comment left by some other user in the haiigigig community." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mc8-A9-4we" customClass="TTTAttributedLabel">
+                                            <rect key="frame" x="0.0" y="0.0" width="515" height="43"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                            <color key="textColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </stackView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time stamp = 1w, 1d, 1m ago" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pTD-mJ-Kdh">
+                                    <rect key="frame" x="0.0" y="43" width="515" height="17"/>
+                                    <fontDescription key="fontDescription" type="italicSystem" pointSize="14"/>
+                                    <color key="textColor" red="0.79607844350000001" green="0.80000001190000003" blue="0.79607844350000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="sc1-zp-get" firstAttribute="leading" secondItem="Po2-ct-aCH" secondAttribute="leading" constant="15" id="EOp-nX-FT7"/>
+                <constraint firstItem="sc1-zp-get" firstAttribute="top" secondItem="Po2-ct-aCH" secondAttribute="top" constant="15" id="Owe-1c-w4v"/>
+                <constraint firstAttribute="bottom" secondItem="sc1-zp-get" secondAttribute="bottom" constant="15" id="ZPe-oY-UDW"/>
+                <constraint firstAttribute="trailing" secondItem="sc1-zp-get" secondAttribute="trailing" constant="15" id="epa-BB-fFr"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>
 </document>

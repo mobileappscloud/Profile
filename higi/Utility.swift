@@ -230,3 +230,12 @@ extension Utility {
         return nonceData!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions())
     }
 }
+
+extension Utility {
+    
+    class func abbreviatedElapsedTimeUnit(fromDate: NSDate, toDate: NSDate) -> String? {
+        let elapsedComponents = NSCalendar.currentCalendar().components([.WeekOfMonth, .Day, .Hour, .Minute, .Second], fromDate: fromDate, toDate: toDate, options:  [])
+        let formatter = NSDateComponentsFormatter.abbreviatedSingleUnitFormatter
+        return formatter.stringFromDateComponents(elapsedComponents)
+    }
+}
