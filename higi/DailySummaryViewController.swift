@@ -571,9 +571,9 @@ extension DailySummaryViewController: UniversalLinkHandler {
     
     func handleUniversalLink(URL: NSURL, pathType: PathType, parameters: [String]?) {
         
-        var loadedActivities = false
-        var loadedCheckins = false
-        let appDelegate = AppDelegate.instance()
+//        var loadedActivities = false
+//        var loadedCheckins = false
+//        let appDelegate = AppDelegate.instance()
 //        if appDelegate.didRecentlyLaunchToContinueUserActivity() {
 //            let loadingViewController = self.presentLoadingViewController()
 //            
