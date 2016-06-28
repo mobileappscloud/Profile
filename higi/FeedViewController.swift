@@ -12,6 +12,8 @@ final class FeedViewController: UIViewController {
 
     @IBOutlet private var tableView: UITableView! {
         didSet {
+            tableView.addSubview(self.refreshControl)
+            
             tableView.separatorStyle = .None
             
             tableView.estimatedRowHeight = 211.0
@@ -24,11 +26,17 @@ final class FeedViewController: UIViewController {
         }
     }
     
+    lazy private var refreshControl: UIRefreshControl = {
+        let control = UIRefreshControl()
+        control.addTarget(self, action: #selector(handleRefresh), forControlEvents: .ValueChanged)
+        return control
+    }()
+    
+    private let feedController = FeedController()
+    
     private(set) var userController: UserController!
     private(set) var entity: Post.Entity!
     private(set) var entityId: String!
-    
-    private let feedController = FeedController()
     
     func configure(userController: UserController, entity: Post.Entity, entityId: String) {
         self.userController = userController
