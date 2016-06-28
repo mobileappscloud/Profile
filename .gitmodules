@@ -28,3 +28,6 @@
 [submodule "Vendor/MWFeedParser"]
 	path = Vendor/MWFeedParser
 	url = https://github.com/mwaterfall/MWFeedParser.git
+[submodule "Vendor/TTTAttributedLabel"]
+	path = Vendor/TTTAttributedLabel
+	url = https://github.com/TTTAttributedLabel/TTTAttributedLabel.git

@@ -229,6 +229,7 @@
 		41A274B21D20F42600D10F8A /* PostTextDescriptionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41A274A81D20F42600D10F8A /* PostTextDescriptionView.xib */; };
 		41A274B31D20F42600D10F8A /* TextTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A274A91D20F42600D10F8A /* TextTransform.swift */; };
 		41A274B41D20F42600D10F8A /* TransformableString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A274AA1D20F42600D10F8A /* TransformableString.swift */; };
+		41A274F41D21BABC00D10F8A /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A274F31D21BABC00D10F8A /* TTTAttributedLabel.m */; };
 		41A4257A1CDBEACB00036C84 /* SignUpNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A425791CDBEACB00036C84 /* SignUpNameViewController.swift */; };
 		41A4257C1CE10CE000036C84 /* NameValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A4257B1CE10CDF00036C84 /* NameValidator.swift */; };
 		41A425801CE11ADD00036C84 /* HigiAPIJSONSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A4257F1CE11ADD00036C84 /* HigiAPIJSONSerializer.swift */; };
@@ -671,6 +672,8 @@
 		41A274A81D20F42600D10F8A /* PostTextDescriptionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostTextDescriptionView.xib; sourceTree = "<group>"; };
 		41A274A91D20F42600D10F8A /* TextTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextTransform.swift; sourceTree = "<group>"; };
 		41A274AA1D20F42600D10F8A /* TransformableString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformableString.swift; sourceTree = "<group>"; };
+		41A274F21D21BABC00D10F8A /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAttributedLabel.h; sourceTree = "<group>"; };
+		41A274F31D21BABC00D10F8A /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAttributedLabel.m; sourceTree = "<group>"; };
 		41A425791CDBEACB00036C84 /* SignUpNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpNameViewController.swift; sourceTree = "<group>"; };
 		41A4257B1CE10CDF00036C84 /* NameValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameValidator.swift; sourceTree = "<group>"; };
 		41A4257F1CE11ADD00036C84 /* HigiAPIJSONSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HigiAPIJSONSerializer.swift; sourceTree = "<group>"; };
@@ -1792,6 +1795,7 @@
 				419D86531BBEF83400E7D844 /* Google Maps Utilities */,
 				417F48B51BC823F5005BC49D /* MWFeedParser */,
 				41A0BE381BBB14EE00A314D6 /* SwiftKeychainWrapper */,
+				41A274F11D21BABC00D10F8A /* TTTAttributedLabel */,
 				41A0BE141BBB08B800A314D6 /* UIKit+AFNetworking */,
 			);
 			name = Vendor;
@@ -1847,6 +1851,16 @@
 				413E19331C10B10200146B29 /* Crashlytics.framework */,
 			);
 			name = Crashlytics;
+			sourceTree = "<group>";
+		};
+		41A274F11D21BABC00D10F8A /* TTTAttributedLabel */ = {
+			isa = PBXGroup;
+			children = (
+				41A274F21D21BABC00D10F8A /* TTTAttributedLabel.h */,
+				41A274F31D21BABC00D10F8A /* TTTAttributedLabel.m */,
+			);
+			name = TTTAttributedLabel;
+			path = Vendor/TTTAttributedLabel/TTTAttributedLabel;
 			sourceTree = "<group>";
 		};
 		41A425811CE11AF100036C84 /* Serialization */ = {
@@ -2841,6 +2855,7 @@
 				419D86561BBEF9A700E7D844 /* HigiClusterRenderer.m in Sources */,
 				418111CB1C979B0800EE3E75 /* ActivitySummaryView.swift in Sources */,
 				41A0BE0B1BBB088500A314D6 /* AFHTTPRequestOperation.m in Sources */,
+				41A274F41D21BABC00D10F8A /* TTTAttributedLabel.m in Sources */,
 				41EF92311D1A06D300266AAB /* PasswordUpdateRequest.swift in Sources */,
 				41667A411CF3D84E007BB0FF /* TokenRevokeRequest.swift in Sources */,
 				41667A3C1CF0FBC6007BB0FF /* LogInRequest.swift in Sources */,

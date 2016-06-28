@@ -30,6 +30,9 @@
 #import "ClusterKiosk.h"
 #import "HigiClusterRenderer.h"
 
+// TTTAttributedLabel (Replacement for UILabel with support for custom links)
+#import "TTTAttributedLabel.h"
+
 //
 // Copied third-party includes, manually managed
 //
