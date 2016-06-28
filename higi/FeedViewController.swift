@@ -35,6 +35,11 @@ final class FeedViewController: UIViewController {
         self.entity = entity
         self.entityId = entityId
     }
+    
+    deinit {
+        feedController.refreshTimer?.invalidate()
+        feedController.refreshTimer = nil
+    }
 }
 
 // MARK: - Table
@@ -87,20 +92,32 @@ extension FeedViewController {
     }
 }
 
+// MARK: - View Lifecycle
+
 extension FeedViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         fetch()
+        scheduleRefresh()
     }
 }
 
 extension FeedViewController {
     
-    private func fetch() {
+    private func scheduleRefresh() {
+        feedController.scheduleRefresh({ [weak self] in
+            self?.handleRefresh()
+        })
+    }
+}
+
+extension FeedViewController {
+    
+    private func fetch(scrollToTop: Bool = false) {
         feedController.fetch(entity, entityId: entityId, success: { [weak self] in
-            self?.fetchSuccessHandler()
+            self?.fetchSuccessHandler(scrollToTop)
         }, failure: { [weak self] (error) in
             self?.fetchFailureHandler()
         })
@@ -113,10 +130,17 @@ extension FeedViewController {
 
 extension FeedViewController {
     
-    private func fetchSuccessHandler() {
+    private func fetchSuccessHandler(scrollToTop: Bool = false) {
         print("fetch success")
         dispatch_async(dispatch_get_main_queue(), {
             self.tableView.reloadData()
+            self.refreshControl.endRefreshing()
+            if scrollToTop {
+                if self.tableView.numberOfRowsInSection(0) > 0 {
+                    let indexPath = NSIndexPath(forRow: 0, inSection: 0)
+                    self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
+                }
+            }
         })
     }
     
@@ -255,6 +279,13 @@ extension FeedViewController: UITableViewDelegate {
         if sectionType == .InfiniteScroll {
             fetchNext()
         }
+    }
+}
+
+extension FeedViewController {
+    
+    @objc private func handleRefresh() {
+        fetch(true)
     }
 }
 

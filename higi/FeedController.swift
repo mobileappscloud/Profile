@@ -19,6 +19,9 @@ final class FeedController {
     var fetchTask: NSURLSessionDataTask?
     var nextPagingTask: NSURLSessionDataTask?
     
+    weak var refreshTimer: NSTimer?
+    private var refreshCompletionHandler: (() -> Void)?
+    
     deinit {
         session.invalidateAndCancel()
     }
@@ -115,5 +118,28 @@ extension FeedController {
         if let nextPagingTask = nextPagingTask {
             nextPagingTask.resume()
         }
+    }
+}
+
+// MARK: - Scheduled Refresh
+
+/** @internal: This timer is kept on the data controller to prevent retain cycle which can occur when storing the timer on the view controller. The run loop holds a strong reference to the target of the scheduled event. Even if the view controller stores the timer as a weak property, `deinit` will never be called on the view controller because the run loop is holding a strong reference to the view controller. Moving the timer to the data controller allows us to deinit our view controller and send a message to invalidate and release the timer on our data controller, thus cleaning up all memory. For a detailed explanation, reference https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/Timers/Timers.html#//apple_ref/doc/uid/10000061i
+ */
+
+extension FeedController {
+    
+    func scheduleRefresh(completion: (() -> Void)?) {
+        let oneHour: NSTimeInterval = 3600
+        let timer = NSTimer(timeInterval: oneHour, target: self, selector: #selector(self.handleRefreshTimer(_:)), userInfo: nil, repeats: true)
+        timer.tolerance = oneHour * 0.10
+        
+        NSRunLoop.currentRunLoop().addTimer(timer, forMode: NSDefaultRunLoopMode)
+        
+        self.refreshTimer = timer
+        self.refreshCompletionHandler = completion
+    }
+    
+    @objc private func handleRefreshTimer(sender: NSTimer) {
+        refreshCompletionHandler?()
     }
 }
