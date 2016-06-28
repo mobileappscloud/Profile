@@ -34,3 +34,12 @@ extension HomeViewController {
         }
     }
 }
+
+// MARK: - Tab Bar Scroll
+
+extension HomeViewController: TabBarTopScrollDelegate {
+    
+    func scrollToTop() {
+        feedViewController.scrollToTop()
+    }
+}

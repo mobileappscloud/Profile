@@ -257,3 +257,12 @@ extension FeedViewController: UITableViewDelegate {
         }
     }
 }
+
+// MARK: - Tab Bar Scroll
+
+extension FeedViewController: TabBarTopScrollDelegate {
+    
+    func scrollToTop() {
+        tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
+    }
+}
