@@ -156,8 +156,20 @@ extension CommunityDetailViewController {
         
         for subview in bannerContainer.accessoryContainer.subviews {
             subview.removeFromSuperview()
-        }
-        if !community.isMember {
+        }        
+        if community.isMember {
+            if community.isShareable {
+                let button = CommunitiesUtility.inviteButton()
+                button.addTarget(self, action: #selector(didTapInviteFriendsButton), forControlEvents: .TouchUpInside)
+                CommunitiesUtility.addButton(button, toBannerContainer: bannerContainer, height: 30.0, width: 110.0)
+            } else {
+                if community.isWellnessGroup {
+                    let button = CommunitiesUtility.privateCommunityButton()
+                    button.addTarget(self, action: #selector(didTapPrivateCommunityOverlay), forControlEvents: .TouchUpInside)
+                    CommunitiesUtility.addButton(button, toBannerContainer: bannerContainer, height: 40.0, width: 40.0)
+                }
+            }
+        } else {
             let button = CommunitiesUtility.joinButton()
             button.addTarget(self, action: #selector(didTapJoinButton), forControlEvents: .TouchUpInside)
             CommunitiesUtility.addButton(button, toBannerContainer: bannerContainer, height: 30.0, width: 90.0)
