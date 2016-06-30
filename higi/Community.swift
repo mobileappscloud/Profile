@@ -20,14 +20,18 @@ final class Community: NSObject {
     let desc: String
     let missionStatement: String
     let locale: String
-    let isPublic: Bool
+    let isVisibleToVisitors: Bool
+    let isShareable: Bool
+    let isWellnessGroup: Bool
+    let isSponsored: Bool
+    let isLocked: Bool
     
     var joinDate: NSDate?
     var createDate: NSDate?
     var logo: Media?
     var header: Media?
     
-    required init(identifier: String, organizationIdentifier: String, memberCount: Int, isMember: Bool, isActive: Bool, isPublished: Bool, name: String, description: String, missionStatement: String, locale: String, isPublic: Bool) {
+    required init(identifier: String, organizationIdentifier: String, memberCount: Int, isMember: Bool, isActive: Bool, isPublished: Bool, name: String, description: String, missionStatement: String, locale: String, isVisibleToVisitors: Bool, isShareable: Bool, isWellnessGroup: Bool, isSponsored: Bool, isLocked: Bool) {
         self.identifier = identifier
         self.organizationIdentifier = organizationIdentifier
         self.memberCount = memberCount
@@ -38,7 +42,11 @@ final class Community: NSObject {
         self.desc = description
         self.missionStatement = missionStatement
         self.locale = locale
-        self.isPublic = isPublic
+        self.isVisibleToVisitors = isVisibleToVisitors
+        self.isShareable = isShareable
+        self.isWellnessGroup = isWellnessGroup
+        self.isSponsored = isSponsored
+        self.isLocked = isLocked
     }
 }
 
@@ -55,9 +63,14 @@ extension Community: HigiAPIJSONDeserializer {
             let description = dictionary["description"] as? String,
             let missionStatement = dictionary["missionStatement"] as? String,
             let locale = dictionary["locale"] as? String,
-            let isPublic = dictionary["isPublic"] as? Bool else { return nil }
+            let isVisibleToVisitors = dictionary["isVisibleToVisitors"] as? Bool,
+            let isShareable = dictionary["isShareable"] as? Bool,
+            let isWellnessGroup = dictionary["isWellnessGroup"] as? Bool,
+            let isSponsored = dictionary["isSponsored"] as? Bool,
+            let isLocked = dictionary["isLocked"] as? Bool
+            else { return nil }
         
-        self.init(identifier: identifier, organizationIdentifier: organizationIdentifier, memberCount: memberCount, isMember: isMember, isActive: isActive, isPublished: isPublished, name: name, description: description, missionStatement: missionStatement, locale: locale, isPublic: isPublic)
+        self.init(identifier: identifier, organizationIdentifier: organizationIdentifier, memberCount: memberCount, isMember: isMember, isActive: isActive, isPublished: isPublished, name: name, description: description, missionStatement: missionStatement, locale: locale, isVisibleToVisitors: isVisibleToVisitors, isShareable: isShareable, isWellnessGroup: isWellnessGroup, isSponsored: isSponsored, isLocked: isLocked)
         
         if let createDateString = dictionary["createdOn"] as? String {
             self.createDate = NSDateFormatter.ISO8601DateFormatter.dateFromString(createDateString)

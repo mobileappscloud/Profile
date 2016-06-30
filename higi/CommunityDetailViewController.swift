@@ -161,14 +161,6 @@ extension CommunityDetailViewController {
             let button = CommunitiesUtility.joinButton()
             button.addTarget(self, action: #selector(didTapJoinButton), forControlEvents: .TouchUpInside)
             CommunitiesUtility.addButton(button, toBannerContainer: bannerContainer, height: 30.0, width: 90.0)
-        } else if community.isPublic {
-            let button = CommunitiesUtility.inviteButton()
-            button.addTarget(self, action: #selector(didTapInviteFriendsButton), forControlEvents: .TouchUpInside)
-            CommunitiesUtility.addButton(button, toBannerContainer: bannerContainer, height: 30.0, width: 110.0)
-        } else if !community.isPublic {
-            let button = CommunitiesUtility.privateCommunityButton()
-            button.addTarget(self, action: #selector(didTapPrivateCommunityOverlay), forControlEvents: .TouchUpInside)
-            CommunitiesUtility.addButton(button, toBannerContainer: bannerContainer, height: 40.0, width: 40.0)
         }
         
         // If a user has not joined the community, do not allow them to interact with the view
