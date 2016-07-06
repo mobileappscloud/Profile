@@ -33,7 +33,7 @@ struct User {
     var terms: AgreementInfo?
     var privacy: AgreementInfo?
     
-    var photo: Media?
+    var photo: MediaAsset?
     
     // MARK: - Unused, but required
     
@@ -97,7 +97,7 @@ extension User: HigiAPIJSONDeserializer {
         }
         
         if let photoDictionary = dictionary["photo"] as? NSDictionary {
-            self.photo = Media(dictionary: photoDictionary)
+            self.photo = MediaAsset(dictionary: photoDictionary)
         }
     }
 }

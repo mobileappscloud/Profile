@@ -239,3 +239,15 @@ extension Utility {
         return formatter.stringFromDateComponents(elapsedComponents)
     }
 }
+
+extension Utility {
+    
+    class func MIMEType(fileExtension: String) -> String? {
+        let ext = fileExtension as CFStringRef
+        guard let UTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, ext, nil)?.takeRetainedValue(),
+            let cfMimeType = UTTypeCopyPreferredTagWithClass(UTI, kUTTagClassMIMEType)?.takeRetainedValue()
+            else { return nil }
+        
+        return cfMimeType as String
+    }
+}

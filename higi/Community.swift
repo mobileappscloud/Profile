@@ -28,8 +28,8 @@ final class Community: NSObject {
     
     var joinDate: NSDate?
     var createDate: NSDate?
-    var logo: Media?
-    var header: Media?
+    var logo: MediaAsset?
+    var header: MediaAsset?
     
     required init(identifier: String, organizationIdentifier: String, memberCount: Int, isMember: Bool, isActive: Bool, isPublished: Bool, name: String, description: String, missionStatement: String, locale: String, isVisibleToVisitors: Bool, isShareable: Bool, isWellnessGroup: Bool, isSponsored: Bool, isLocked: Bool) {
         self.identifier = identifier
@@ -79,10 +79,10 @@ extension Community: HigiAPIJSONDeserializer {
             self.joinDate = NSDateFormatter.ISO8601DateFormatter.dateFromString(joinDateString)
         }
         if let logoDict = dictionary["logo"] as? NSDictionary {
-            self.logo = Media(dictionary: logoDict)
+            self.logo = MediaAsset(dictionary: logoDict)
         }
         if let headerDict = dictionary["headerImage"] as? NSDictionary {
-            self.header = Media(dictionary: headerDict)
+            self.header = MediaAsset(dictionary: headerDict)
         }
     }
 }

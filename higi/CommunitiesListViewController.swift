@@ -251,8 +251,8 @@ extension CommunitiesListViewController: UITableViewDataSource {
                 
                 communityCell.reset()
                 
-                communityCell.listingView.bannerContainer.imageView.setImage(withURLFromMedia: community.header)
-                communityCell.listingView.logoMemberContainer.imageView.setImage(withURLFromMedia: community.logo)
+                communityCell.listingView.bannerContainer.imageView.setImage(withMediaAsset: community.header)
+                communityCell.listingView.logoMemberContainer.imageView.setImage(withMediaAsset: community.logo)
                 communityCell.listingView.configure(community.name, memberCount: community.memberCount)
                 
                 if !community.isMember {

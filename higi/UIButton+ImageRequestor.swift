@@ -1,8 +1,8 @@
 //
-//  UIImageView+ImageRequestor.swift
+//  UIButton+ImageRequestor.swift
 //  higi
 //
-//  Created by Remy Panicker on 5/30/16.
+//  Created by Remy Panicker on 6/30/16.
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
@@ -10,7 +10,7 @@ import ObjectiveC
 
 private var operationAssociationKey: UInt8 = 0
 
-extension UIImageView {
+extension UIButton {
     
     var imageRequestOperation: ImageRequestOperation? {
         get {
@@ -22,45 +22,40 @@ extension UIImageView {
     }
 }
 
-extension UIImageView {
+extension UIButton {
     
-    func setImage(withMediaAsset mediaAsset: MediaAsset?) {
+    func setImage(withMediaAsset mediaAsset: MediaAsset?, forState controlState: UIControlState) {
         guard let mediaAsset = mediaAsset else { return }
-        
-        self.higi_setImage(withURL: mediaAsset.URI)
-    }
-    
-    // TODO: Rename without namespace after removing conflicting extension
-    func higi_setImage(withURL URL: NSURL, transition: Bool = false) {
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { [weak self] in
             
             guard let strongSelf = self else { return }
             
             if let imageRequestOperation = strongSelf.imageRequestOperation {
-                if URL.absoluteString == imageRequestOperation.URL.absoluteString {
-//                    print("RETURN Early -- prevent duplicate operation from being added to queue")
+                if mediaAsset.URI.absoluteString == imageRequestOperation.URL.absoluteString {
+                    //                    print("RETURN Early -- prevent duplicate operation from being added to queue")
                     return
                 }
                 
-//                print("image view is requesting new image --> Cancel old operation and proceed")
-//                imageRequestOperation.cancel()
-//                strongSelf.imageRequestOperation = nil
+                //                print("image view is requesting new image --> Cancel old operation and proceed")
+                //                imageRequestOperation.cancel()
+                //                strongSelf.imageRequestOperation = nil
             }
             
-            strongSelf.imageRequestOperation = ImageRequestor.sharedInstance.fetchImage(forURL: URL, completion: { [weak strongSelf] (image) in
+            strongSelf.imageRequestOperation = ImageRequestor.sharedInstance.fetchImage(forURL: mediaAsset.URI, completion: { [weak strongSelf] (image) in
                 
                 guard let strongSelf = strongSelf else { return }
                 
-                if URL.absoluteString == strongSelf.imageRequestOperation?.URL.absoluteString {
-//                    print("imageview got image and is setting it")
+                if mediaAsset.URI.absoluteString == strongSelf.imageRequestOperation?.URL.absoluteString {
+                    //                    print("imageview got image and is setting it")
                     dispatch_async(dispatch_get_main_queue(), {
-                        strongSelf.setImage(image, transition: transition)
+                        strongSelf.setImage(image, forState: controlState)
                     })
                 }
                 
                 strongSelf.imageRequestOperation = nil
                 })
-        })
+            })
     }
 }
+

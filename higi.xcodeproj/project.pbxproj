@@ -94,6 +94,7 @@
 		41247DD51C5F29FB00DDC5EC /* MetricDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41247DD41C5F29FB00DDC5EC /* MetricDetail.storyboard */; };
 		412B63CD1CFF7AC7003F6663 /* ChallengeJoinRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412B63CC1CFF7AC7003F6663 /* ChallengeJoinRequest.swift */; };
 		412B63CF1CFF8CC5003F6663 /* CommunitiesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412B63CE1CFF8CC5003F6663 /* CommunitiesListViewController.swift */; };
+		41303CDB1D25C118009A6235 /* UIButton+ImageRequestor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41303CDA1D25C118009A6235 /* UIButton+ImageRequestor.swift */; };
 		413635871C2209450056DE8D /* MetricDataFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413635861C2209450056DE8D /* MetricDataFactory.swift */; };
 		413635891C2260B00056DE8D /* NewMetricDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413635881C2260B00056DE8D /* NewMetricDelegates.swift */; };
 		41376C5B1BB452E40094DE7C /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41376C5A1BB452E40094DE7C /* SettingsTableViewController.swift */; };
@@ -505,6 +506,7 @@
 		41247DD41C5F29FB00DDC5EC /* MetricDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MetricDetail.storyboard; sourceTree = "<group>"; };
 		412B63CC1CFF7AC7003F6663 /* ChallengeJoinRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeJoinRequest.swift; sourceTree = "<group>"; };
 		412B63CE1CFF8CC5003F6663 /* CommunitiesListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunitiesListViewController.swift; sourceTree = "<group>"; };
+		41303CDA1D25C118009A6235 /* UIButton+ImageRequestor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+ImageRequestor.swift"; sourceTree = "<group>"; };
 		413635861C2209450056DE8D /* MetricDataFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricDataFactory.swift; sourceTree = "<group>"; };
 		413635881C2260B00056DE8D /* NewMetricDelegates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewMetricDelegates.swift; sourceTree = "<group>"; };
 		41376C5A1BB452E40094DE7C /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
@@ -1288,12 +1290,13 @@
 				41667A3D1CF39F00007BB0FF /* NSData+Utility.swift */,
 				41FC21C51CA4453400BF7FC4 /* NSDateFormatter+Utility.swift */,
 				41F655611CD4258E00BD2E25 /* NSError+Utility.swift */,
+				41667A861CFCBA57007BB0FF /* NSLock+Utility.swift */,
 				410F61F21CB41A0B00614E78 /* NSURL+Utility.swift */,
 				410F61F41CB41AA500614E78 /* NSURLSessionTask+Utility.swift */,
-				41667A861CFCBA57007BB0FF /* NSLock+Utility.swift */,
 				410FFFAC1CA772B1005EAC9E /* String+Utility.swift */,
-				413F69131CB6FDCF003D9571 /* UIImageView+Utility.swift */,
+				41303CDA1D25C118009A6235 /* UIButton+ImageRequestor.swift */,
 				41667A881CFD4167007BB0FF /* UIImageView+ImageRequestor.swift */,
+				413F69131CB6FDCF003D9571 /* UIImageView+Utility.swift */,
 				41A70EF31CCB1EE60072AB06 /* UINavigationController+Utility.swift */,
 				413F69011CB5E99D003D9571 /* UITableView+Utility.swift */,
 				413F68FD1CB5E930003D9571 /* UITableViewCell+Utility.swift */,
@@ -2905,6 +2908,7 @@
 				41A425891CE22ADF00036C84 /* LogInViewController.swift in Sources */,
 				413E198D1C10EAE000146B29 /* MetricsPageViewController.swift in Sources */,
 				D1E223701A7FFF43006330E7 /* ConnectDeviceRow.swift in Sources */,
+				41303CDB1D25C118009A6235 /* UIButton+ImageRequestor.swift in Sources */,
 				410167261C555CED00A54B02 /* NewPulseMetricDelegate.swift in Sources */,
 				416226711C7940D000EFA1B3 /* CPTXYAxis+Utility.swift in Sources */,
 				D1E1FF061A76C28F00C8951C /* ChallengeProgressLegendRow.swift in Sources */,

@@ -145,10 +145,10 @@ extension CommunityDetailViewController {
     
     private func configureView() {
         
-        bannerContainer.imageView.setImage(withURLFromMedia: community.header)
+        bannerContainer.imageView.setImage(withMediaAsset: community.header)
         
         logoMemberView.configure(community.memberCount)
-        logoMemberView.imageView.setImage(withURLFromMedia: community.logo)
+        logoMemberView.imageView.setImage(withMediaAsset: community.logo)
         
         titleLabel.text = community.name
         
