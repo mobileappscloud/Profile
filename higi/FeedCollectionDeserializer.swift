@@ -24,8 +24,8 @@ extension FeedCollectionDeserializer: HigiAPIJSONDeserializer {
             var posts: [Post] = []
             for dictionary in collection {
                 if let dictionary = dictionary as? NSDictionary,
-                    let community = Post(dictionary: dictionary) {
-                    posts.append(community)
+                    let post = Post(dictionary: dictionary) {
+                    posts.append(post)
                 }
             }
             

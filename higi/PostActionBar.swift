@@ -66,6 +66,7 @@ extension PostActionBar {
             ]
             let attributedTitle = NSAttributedString(string: action.title, attributes: attributes)
             button.setAttributedTitle(attributedTitle, forState: .Normal)
+            button.addTarget(self, action: #selector(didTapButton), forControlEvents: .TouchUpInside)
             
             buttonActionMap[button] = action
             

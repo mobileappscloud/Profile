@@ -45,12 +45,13 @@ final class FeedViewController: UIViewController {
     }
     
     deinit {
+        print("dealloc home and invalidate timer!")
         feedController.refreshTimer?.invalidate()
         feedController.refreshTimer = nil
     }
 }
 
-// MARK: - Table
+// MARK: - Table Taxonomy
 
 extension FeedViewController {
     
@@ -112,31 +113,28 @@ extension FeedViewController {
     }
 }
 
+// MARK: - Fetch Data
+
 extension FeedViewController {
     
     private func scheduleRefresh() {
         feedController.scheduleRefresh({ [weak self] in
             self?.handleRefresh()
-        })
+            })
     }
 }
+
+// MARK: Request Data
 
 extension FeedViewController {
     
     private func fetch(scrollToTop: Bool = false) {
         feedController.fetch(entity, entityId: entityId, success: { [weak self] in
             self?.fetchSuccessHandler(scrollToTop)
-        }, failure: { [weak self] (error) in
-            self?.fetchFailureHandler()
-        })
+            }, failure: { [weak self] (error) in
+                self?.fetchFailureHandler()
+            })
     }
-    
-    private func fetchNext() {
-        
-    }
-}
-
-extension FeedViewController {
     
     private func fetchSuccessHandler(scrollToTop: Bool = false) {
         print("fetch success")
@@ -156,6 +154,36 @@ extension FeedViewController {
         print("fetch failure")
     }
 }
+
+extension FeedViewController {
+    
+    private func fetchNext() {
+        guard let _ = feedController.paging?.next else {
+            return
+        }
+        
+        feedController.fetchNext(fetchNextSuccess, failure: fetchNextFailure)
+    }
+    
+    private func fetchNextSuccess() {
+        print("fetch next success")
+    }
+    
+    private func fetchNextFailure(error: NSError?) {
+        print("fetch next failure")
+    }
+}
+
+// MARK: Pull To Refresh
+
+extension FeedViewController {
+    
+    @objc private func handleRefresh() {
+        fetch(true)
+    }
+}
+
+// MARK: - Table
 
 extension FeedViewController: UITableViewDataSource {
     
@@ -192,30 +220,10 @@ extension FeedViewController: UITableViewDataSource {
             let rowType = FeedRowType(indexPath: indexPath)
             switch rowType {
             case .Post:
-                let postCell = tableView.dequeueReusableCell(withClass: PostCell.self, forIndexPath: indexPath)
-                
-                let index = indexPath.row / FeedRowType.Count.rawValue
-                let post = feedController.posts[index]
-                
-                postCell.reset()
-                
-                // TODO: Remove this fake configuration code
-                postCell.headerView.avatarButton.setImage(UIImage(named: "higi-logo"), forState: .Normal)
-                postCell.headerView.nameActionLabel.text = "Remy commented on some stuff"
-                postCell.headerView.timestampLabel.text = Utility.abbreviatedElapsedTimeUnit(post.publishDate, toDate: NSDate())
-                
-                postCell.textDescriptionView.titleLabel.text = post.heading
-                postCell.textDescriptionView.descriptionLabel.text = post.subheading
-                
-                let action = PostActionBar.Action(title: "Share", handler: nil)
-                postCell.actionBar.configure([action])
-                
-                cell = postCell
+                cell = postCell(forTableView: tableView, atIndexPath: indexPath)
                 
             case .Separator:
-                let separatorCell = tableView.dequeueReusableCell(withClass: UITableViewCell.self, forIndexPath: indexPath)
-                separatorCell.backgroundColor = Theme.Color.Primary.whiteGray
-                cell = separatorCell
+                cell = separatorCell(forTableView: tableView, atIndexPath: indexPath)
                 
             case .Count:
                 break
@@ -245,15 +253,15 @@ extension FeedViewController: UITableViewDataSource {
 }
 
 extension FeedViewController: UITableViewDelegate {
+
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        // Must return non-zero value or else there is unwanted padding at top of tableview
+        return CGFloat.min
+    }
     
-//    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        // Must return non-zero value or else there is unwanted padding at top of tableview
-//        return CGFloat.min
-//    }
-//    
-//    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-//        return CGFloat.min
-//    }
+    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return CGFloat.min
+    }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         var rowHeight: CGFloat = 0.0
@@ -292,8 +300,37 @@ extension FeedViewController: UITableViewDelegate {
 
 extension FeedViewController {
     
-    @objc private func handleRefresh() {
-        fetch(true)
+    private func separatorCell(forTableView tableView: UITableView, atIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let separatorCell = tableView.dequeueReusableCell(withClass: UITableViewCell.self, forIndexPath: indexPath)
+        separatorCell.backgroundColor = Theme.Color.Primary.whiteGray
+        return separatorCell
+    }
+    
+    private func postCell(forTableView tableView: UITableView, atIndexPath indexPath: NSIndexPath) -> PostCell {
+        let postCell = tableView.dequeueReusableCell(withClass: PostCell.self, forIndexPath: indexPath)
+        
+        let index = indexPath.row / FeedRowType.Count.rawValue
+        let post = feedController.posts[index]
+        
+        postCell.reset()
+        
+        postCell.headerView.avatarButton.setImage(withMediaAsset: post.user.avatar, forState: .Normal)
+        let elapsedTime = Utility.abbreviatedElapsedTimeUnit(post.publishDate, toDate: NSDate())
+        let authorName = NSPersonNameComponentsFormatter.localizedMediumStyle(withFirstName: post.user.firstName, lastName: post.user.lastName)
+        postCell.headerView.configure(authorName, action: "commented on a thing.", timestamp: elapsedTime)
+        
+        postCell.textDescriptionView.titleLabel.text = post.heading
+        postCell.textDescriptionView.descriptionLabel.text = post.subheading
+        
+        let highFiveTitle = NSLocalizedString("FEED_VIEW_POST_TABLE_CELL_ACTION_BAR_BUTTON_TITLE_HIGH_FIVE", comment: "Title for high-five button within post action bar.")
+        let commentTitle = NSLocalizedString("FEED_VIEW_POST_TABLE_CELL_ACTION_BAR_BUTTON_TITLE_COMMENT", comment: "Title for comment button within post action bar.")
+        let shareTitle = NSLocalizedString("FEED_VIEW_POST_TABLE_CELL_ACTION_BAR_BUTTON_TITLE_SHARE", comment: "Title for share button within post action bar.")
+        let highFive = PostActionBar.Action(title: highFiveTitle, handler: nil)
+        let comment = PostActionBar.Action(title: commentTitle, handler: nil)
+        let share = PostActionBar.Action(title: shareTitle, handler: nil)
+        postCell.actionBar.configure([highFive, comment, share])
+        
+        return postCell
     }
 }
 

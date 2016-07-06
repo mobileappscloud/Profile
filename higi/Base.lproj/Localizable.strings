@@ -505,6 +505,15 @@
 /* Titles for the various values of a user's data which can be exported. */
 "EXPORT_DATA_CSV_DATA_TITLES" = "Date,Location,Address of higi Station,Systolic Pressure (mmHg),Diastolic Pressure (mmHg),Pulse (bpm),Mean Arterial Pressure (mmHg), Weight (lbs),Body Mass Index\n";
 
+/* Title for comment button within post action bar. */
+"FEED_VIEW_POST_TABLE_CELL_ACTION_BAR_BUTTON_TITLE_COMMENT" = "Comment";
+
+/* Title for high-five button within post action bar. */
+"FEED_VIEW_POST_TABLE_CELL_ACTION_BAR_BUTTON_TITLE_HIGH_FIVE" = "High-Five";
+
+/* Title for share button within post action bar. */
+"FEED_VIEW_POST_TABLE_CELL_ACTION_BAR_BUTTON_TITLE_SHARE" = "Share";
+
 /* Title of calendar reminder to check in to a higi station. */
 "FIND_STATION_VIEW_CHECK_IN_REMINDER_CALENDAR_EVENT_TITLE" = "Check in to a higi Station!";
 

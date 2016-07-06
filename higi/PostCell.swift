@@ -21,8 +21,7 @@ extension PostCell {
     
     func reset() {
         headerView.avatarButton.setImage(nil, forState: .Normal)
-        headerView.nameActionLabel.text = nil
-        headerView.timestampLabel.text = nil
+        headerView.configure(nil, action: nil, timestamp: nil)
         
         textDescriptionView.titleLabel.text = nil
         textDescriptionView.descriptionLabel.text = nil

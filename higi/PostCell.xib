@@ -14,33 +14,41 @@
                 <rect key="frame" x="0.0" y="0.0" width="400" height="364.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="HyZ-2E-bUD">
-                        <rect key="frame" x="0.0" y="-1" width="400" height="364"/>
+                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jhP-Lw-jKe" userLabel="Horizontal Stack View">
+                        <rect key="frame" x="0.0" y="0.0" width="400" height="364.5"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zOW-KJ-K1n" customClass="PostHeaderView" customModule="higi" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="400" height="70"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tJ0-Ow-pXH" userLabel="Content Area">
-                                <rect key="frame" x="0.0" y="70" width="400" height="109"/>
-                                <color key="backgroundColor" red="0.50196081399917603" green="0.50196081399917603" blue="0.50196081399917603" alpha="1" colorSpace="calibratedRGB"/>
-                            </view>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nYb-Ip-0za" customClass="PostTextDescriptionView" customModule="higi" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="179" width="400" height="136"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PGK-Yv-apB" customClass="PostActionBar" customModule="higi" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="314" width="400" height="50"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="HyZ-2E-bUD" userLabel="Vertical Stack View">
+                                <rect key="frame" x="0.0" y="0.0" width="400" height="364.5"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zOW-KJ-K1n" customClass="PostHeaderView" customModule="higi" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="400" height="70"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tJ0-Ow-pXH" userLabel="Content Area">
+                                        <rect key="frame" x="0.0" y="70" width="400" height="0.0"/>
+                                        <color key="backgroundColor" red="0.50196081399917603" green="0.50196081399917603" blue="0.50196081399917603" alpha="1" colorSpace="calibratedRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nYb-Ip-0za" customClass="PostTextDescriptionView" customModule="higi" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="70" width="400" height="244.5"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PGK-Yv-apB" customClass="PostActionBar" customModule="higi" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="314.5" width="400" height="50"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="kXr-i1-Fsr"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                            </stackView>
                         </subviews>
                     </stackView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="HyZ-2E-bUD" firstAttribute="top" secondItem="0VK-5d-orL" secondAttribute="top" id="1bs-8z-pDu"/>
-                    <constraint firstAttribute="trailing" secondItem="HyZ-2E-bUD" secondAttribute="trailing" id="3me-Ox-CEa"/>
-                    <constraint firstItem="HyZ-2E-bUD" firstAttribute="leading" secondItem="0VK-5d-orL" secondAttribute="leading" id="54R-fa-cS8"/>
-                    <constraint firstAttribute="bottom" secondItem="HyZ-2E-bUD" secondAttribute="bottom" id="SfX-nL-dgR"/>
+                    <constraint firstAttribute="trailing" secondItem="jhP-Lw-jKe" secondAttribute="trailing" id="2dL-Q7-hlv"/>
+                    <constraint firstItem="jhP-Lw-jKe" firstAttribute="top" secondItem="0VK-5d-orL" secondAttribute="top" id="62X-K6-RZr"/>
+                    <constraint firstItem="jhP-Lw-jKe" firstAttribute="leading" secondItem="0VK-5d-orL" secondAttribute="leading" id="UVw-PG-mpS"/>
+                    <constraint firstAttribute="bottom" secondItem="jhP-Lw-jKe" secondAttribute="bottom" id="gzy-O3-Aez"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
@@ -49,7 +57,7 @@
                 <outlet property="headerView" destination="zOW-KJ-K1n" id="vpA-i5-Ga0"/>
                 <outlet property="textDescriptionView" destination="nYb-Ip-0za" id="ITz-Tp-A69"/>
             </connections>
-            <point key="canvasLocation" x="235" y="226"/>
+            <point key="canvasLocation" x="235" y="225.5"/>
         </tableViewCell>
     </objects>
 </document>

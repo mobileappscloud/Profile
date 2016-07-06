@@ -95,6 +95,7 @@
 		412B63CD1CFF7AC7003F6663 /* ChallengeJoinRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412B63CC1CFF7AC7003F6663 /* ChallengeJoinRequest.swift */; };
 		412B63CF1CFF8CC5003F6663 /* CommunitiesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412B63CE1CFF8CC5003F6663 /* CommunitiesListViewController.swift */; };
 		41303CDB1D25C118009A6235 /* UIButton+ImageRequestor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41303CDA1D25C118009A6235 /* UIButton+ImageRequestor.swift */; };
+		41303CDD1D25C460009A6235 /* NSPersonNameComponentsFormatter+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41303CDC1D25C460009A6235 /* NSPersonNameComponentsFormatter+Utility.swift */; };
 		413635871C2209450056DE8D /* MetricDataFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413635861C2209450056DE8D /* MetricDataFactory.swift */; };
 		413635891C2260B00056DE8D /* NewMetricDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413635881C2260B00056DE8D /* NewMetricDelegates.swift */; };
 		41376C5B1BB452E40094DE7C /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41376C5A1BB452E40094DE7C /* SettingsTableViewController.swift */; };
@@ -507,6 +508,7 @@
 		412B63CC1CFF7AC7003F6663 /* ChallengeJoinRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeJoinRequest.swift; sourceTree = "<group>"; };
 		412B63CE1CFF8CC5003F6663 /* CommunitiesListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunitiesListViewController.swift; sourceTree = "<group>"; };
 		41303CDA1D25C118009A6235 /* UIButton+ImageRequestor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+ImageRequestor.swift"; sourceTree = "<group>"; };
+		41303CDC1D25C460009A6235 /* NSPersonNameComponentsFormatter+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSPersonNameComponentsFormatter+Utility.swift"; sourceTree = "<group>"; };
 		413635861C2209450056DE8D /* MetricDataFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricDataFactory.swift; sourceTree = "<group>"; };
 		413635881C2260B00056DE8D /* NewMetricDelegates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewMetricDelegates.swift; sourceTree = "<group>"; };
 		41376C5A1BB452E40094DE7C /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
@@ -1291,6 +1293,7 @@
 				41FC21C51CA4453400BF7FC4 /* NSDateFormatter+Utility.swift */,
 				41F655611CD4258E00BD2E25 /* NSError+Utility.swift */,
 				41667A861CFCBA57007BB0FF /* NSLock+Utility.swift */,
+				41303CDC1D25C460009A6235 /* NSPersonNameComponentsFormatter+Utility.swift */,
 				410F61F21CB41A0B00614E78 /* NSURL+Utility.swift */,
 				410F61F41CB41AA500614E78 /* NSURLSessionTask+Utility.swift */,
 				410FFFAC1CA772B1005EAC9E /* String+Utility.swift */,
@@ -2715,6 +2718,7 @@
 			files = (
 				41D8718C1C7CBFDD002DCDA0 /* HostViewController.swift in Sources */,
 				419D864F1BBEF83000E7D844 /* GQTPointQuadTree.m in Sources */,
+				41303CDD1D25C460009A6235 /* NSPersonNameComponentsFormatter+Utility.swift in Sources */,
 				413635871C2209450056DE8D /* MetricDataFactory.swift in Sources */,
 				4116E9C91CD90D29006DB167 /* PasswordValidator.swift in Sources */,
 				413922C81CDA6C2300C3672E /* MinimumVersionRequest.swift in Sources */,

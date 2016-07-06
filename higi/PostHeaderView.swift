@@ -19,13 +19,13 @@ final class PostHeaderView: UIView {
         }
     }
     
-    @IBOutlet var nameActionLabel: TTTAttributedLabel! {
+    @IBOutlet private var nameActionLabel: TTTAttributedLabel! {
         didSet {
             nameActionLabel.text = nil
         }
     }
     
-    @IBOutlet var timestampLabel: UILabel! {
+    @IBOutlet private var timestampLabel: UILabel! {
         didSet {
             timestampLabel.text = nil
         }
@@ -47,6 +47,19 @@ final class PostHeaderView: UIView {
         let bundle = NSBundle(forClass: self.dynamicType)
         self.view = bundle.loadNibNamed("PostHeaderView", owner: self, options: nil).first as! UIView
         self.addSubview(self.view, pinToEdges: true)
+    }
+}
+
+extension PostHeaderView {
+    
+    func configure(author: String?, action: String?, timestamp: String?) {
+        if let author = author {
+            nameActionLabel.text = author
+        }
+        if let action = action {
+            nameActionLabel.text = nameActionLabel.text?.stringByAppendingString(action)
+        }
+        timestampLabel.text = timestamp
     }
 }
 

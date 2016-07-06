@@ -21,7 +21,7 @@
                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="top" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="sc1-zp-get">
                     <rect key="frame" x="15" y="15" width="570" height="60"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PSQ-sc-yoL">
+                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PSQ-sc-yoL">
                             <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                             <color key="backgroundColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
@@ -30,21 +30,16 @@
                             </constraints>
                         </button>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="pkT-7N-rj3">
-                            <rect key="frame" x="55" y="0.0" width="515" height="60"/>
+                            <rect key="frame" x="55" y="0.0" width="515" height="39"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iRz-Je-CaB">
-                                    <rect key="frame" x="0.0" y="0.0" width="515" height="43"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Some long username replied to a comment left by some other user in the haiigigig community." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mc8-A9-4we" customClass="TTTAttributedLabel">
-                                            <rect key="frame" x="0.0" y="0.0" width="515" height="43"/>
-                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
-                                            <color key="textColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </stackView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Some long username replied to a comment." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mc8-A9-4we" customClass="TTTAttributedLabel">
+                                    <rect key="frame" x="0.0" y="0.0" width="515" height="22"/>
+                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                    <color key="textColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time stamp = 1w, 1d, 1m ago" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pTD-mJ-Kdh">
-                                    <rect key="frame" x="0.0" y="43" width="515" height="17"/>
+                                    <rect key="frame" x="0.0" y="22" width="515" height="17"/>
                                     <fontDescription key="fontDescription" type="italicSystem" pointSize="14"/>
                                     <color key="textColor" red="0.79607844350000001" green="0.80000001190000003" blue="0.79607844350000001" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>

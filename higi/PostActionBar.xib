@@ -50,6 +50,11 @@
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="afZ-Bc-a8K"/>
+                </mask>
+            </variation>
         </view>
     </objects>
 </document>
