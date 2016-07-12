@@ -53,7 +53,7 @@ extension CommunitiesController {
                 
                 CommunityCollectionDeserializer.parse(JSON, success: { [weak self] (communities, paging) in
                     
-                    self?.append(communities)
+                    self?.communities = communities
                     
                     self?.paging = paging
                     self?.fetchTask = nil

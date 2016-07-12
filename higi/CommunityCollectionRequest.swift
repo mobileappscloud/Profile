@@ -25,13 +25,7 @@ extension CommunityCollectionRequest: HigiAPIRequest {
         
         let filterJoined = filter == .Joined
         
-        var filterParams: [String] = []
-        filterParams.append("isMember eq \(filterJoined)")
-        if !filterJoined {
-            filterParams.append("isVisibleToVisitors eq true")
-        }
-        let filterParam = filterParams.joinWithSeparator(",")
-        parameters["filter"] = filterParam
+        parameters["filter"] = "isMember eq \(filterJoined)"
         
         let sortParam = filterJoined ? "joinDate" : "createdOn"
         parameters["sort"] = "\(sortParam) desc"
