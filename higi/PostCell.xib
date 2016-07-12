@@ -15,25 +15,37 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jhP-Lw-jKe" userLabel="Horizontal Stack View">
-                        <rect key="frame" x="0.0" y="0.0" width="400" height="364.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="400" height="365"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="HyZ-2E-bUD" userLabel="Vertical Stack View">
-                                <rect key="frame" x="0.0" y="0.0" width="400" height="364.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="400" height="365"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zOW-KJ-K1n" customClass="PostHeaderView" customModule="higi" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="400" height="70"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tJ0-Ow-pXH" userLabel="Content Area">
-                                        <rect key="frame" x="0.0" y="70" width="400" height="0.0"/>
+                                        <rect key="frame" x="0.0" y="70" width="400" height="245"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0F2-IR-b5Q">
+                                                <rect key="frame" x="0.0" y="0.0" width="400" height="245"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="lOU-Ag-ndn">
+                                                        <rect key="frame" x="0.0" y="0.0" width="400" height="245"/>
+                                                    </stackView>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
                                         <color key="backgroundColor" red="0.50196081399917603" green="0.50196081399917603" blue="0.50196081399917603" alpha="1" colorSpace="calibratedRGB"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nYb-Ip-0za" customClass="PostTextDescriptionView" customModule="higi" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="70" width="400" height="244.5"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="0F2-IR-b5Q" firstAttribute="leading" secondItem="tJ0-Ow-pXH" secondAttribute="leading" id="5gs-wM-Mrv"/>
+                                            <constraint firstItem="0F2-IR-b5Q" firstAttribute="top" secondItem="tJ0-Ow-pXH" secondAttribute="top" id="P5T-9S-xXc"/>
+                                            <constraint firstAttribute="trailing" secondItem="0F2-IR-b5Q" secondAttribute="trailing" id="fv9-Ij-mfX"/>
+                                            <constraint firstAttribute="bottom" secondItem="0F2-IR-b5Q" secondAttribute="bottom" id="xBo-BL-G6U"/>
+                                        </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PGK-Yv-apB" customClass="PostActionBar" customModule="higi" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="314.5" width="400" height="50"/>
+                                        <rect key="frame" x="0.0" y="315" width="400" height="50"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="kXr-i1-Fsr"/>
@@ -53,9 +65,8 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="actionBar" destination="PGK-Yv-apB" id="LwY-fO-a4c"/>
-                <outlet property="contentContainer" destination="tJ0-Ow-pXH" id="sFt-6e-1Uy"/>
+                <outlet property="contentStackView" destination="lOU-Ag-ndn" id="bKT-pM-ntg"/>
                 <outlet property="headerView" destination="zOW-KJ-K1n" id="vpA-i5-Ga0"/>
-                <outlet property="textDescriptionView" destination="nYb-Ip-0za" id="ITz-Tp-A69"/>
             </connections>
             <point key="canvasLocation" x="235" y="225.5"/>
         </tableViewCell>

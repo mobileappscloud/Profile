@@ -33,7 +33,7 @@ extension TextTransform: HigiAPIJSONDeserializer {
             else { return nil }
         
         self.type = type
-        self.range = text.startIndex.advancedBy(beginIndex)..<text.startIndex.advancedBy(endIndex)
+        self.range = text.startIndex.advancedBy(beginIndex)...text.startIndex.advancedBy(endIndex)
         
         if let urlString = dictionary["Url"] as? String, let url = NSURL(string: urlString) {
             self.URL = url

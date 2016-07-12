@@ -19,15 +19,15 @@ final class PostHeaderView: UIView {
         }
     }
     
-    @IBOutlet private var nameActionLabel: TTTAttributedLabel! {
+    @IBOutlet private var primaryLabel: TTTAttributedLabel! {
         didSet {
-            nameActionLabel.text = nil
+            primaryLabel.text = nil
         }
     }
     
-    @IBOutlet private var timestampLabel: UILabel! {
+    @IBOutlet private var secondaryLabel: UILabel! {
         didSet {
-            timestampLabel.text = nil
+            secondaryLabel.text = nil
         }
     }
     
@@ -54,12 +54,12 @@ extension PostHeaderView {
     
     func configure(author: String?, action: String?, timestamp: String?) {
         if let author = author {
-            nameActionLabel.text = author
+            primaryLabel.text = author
         }
         if let action = action {
-            nameActionLabel.text = nameActionLabel.text?.stringByAppendingString(action)
+            primaryLabel.text = primaryLabel.text?.stringByAppendingString(action)
         }
-        timestampLabel.text = timestamp
+        secondaryLabel.text = timestamp
     }
 }
 
@@ -74,7 +74,7 @@ extension PostHeaderView {
         let logoImage = UIImage(named: "higi-logo", inBundle: bundle, compatibleWithTraitCollection: nil)
         avatarButton.setImage(logoImage, forState: .Normal)
         
-        nameActionLabel.text = "higi user commented on a post."
-        timestampLabel.text = Utility.abbreviatedElapsedTimeUnit(NSDate().dateByAddingTimeInterval(-890000), toDate: NSDate())
+        primaryLabel.text = "higi user commented on a post."
+        secondaryLabel.text = Utility.abbreviatedElapsedTimeUnit(NSDate().dateByAddingTimeInterval(-890000), toDate: NSDate())
     }
 }

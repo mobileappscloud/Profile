@@ -19,4 +19,16 @@ extension NSDateComponentsFormatter {
         formatter.maximumUnitCount = 1
         return formatter
     }()
+    
+    /**
+    Returns a static date formatter.
+ 
+    Ideal for formatting time intervals to show video duration. 
+    */
+    @nonobjc static var videoDurationFormatter: NSDateComponentsFormatter = {
+        let formatter = NSDateComponentsFormatter()
+        formatter.zeroFormattingBehavior = [.Pad]
+        formatter.allowedUnits = [.Minute, .Second]
+        return formatter
+    }()
 }

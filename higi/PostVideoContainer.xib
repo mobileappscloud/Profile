@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PostVideoContainer" customModule="higi" customModuleProvider="target">
+            <connections>
+                <outlet property="imageView" destination="45i-8i-PJn" id="9DF-ec-DUs"/>
+                <outlet property="playButton" destination="uUL-Qo-ULq" id="kgp-TY-S8C"/>
+                <outlet property="view" destination="iN0-l3-epB" id="sdM-ba-T70"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="45i-8i-PJn">
+                    <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="45i-8i-PJn" secondAttribute="height" multiplier="1:1" id="mKb-PU-jCJ"/>
+                    </constraints>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uUL-Qo-ULq">
+                    <rect key="frame" x="60" y="60" width="80" height="80"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="80" id="Tim-mt-SmG"/>
+                        <constraint firstAttribute="width" constant="80" id="zFZ-JG-Rjd"/>
+                    </constraints>
+                    <state key="normal" image="play-icon"/>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="45i-8i-PJn" secondAttribute="trailing" id="BUB-3M-fbm"/>
+                <constraint firstItem="uUL-Qo-ULq" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="HXw-LY-fZa"/>
+                <constraint firstItem="uUL-Qo-ULq" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="N2a-tH-ucv"/>
+                <constraint firstAttribute="bottom" secondItem="45i-8i-PJn" secondAttribute="bottom" id="Sza-dE-TcZ"/>
+                <constraint firstItem="45i-8i-PJn" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="cP8-Vo-xYs"/>
+                <constraint firstItem="45i-8i-PJn" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="tWP-j6-Hnh"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="play-icon" width="80" height="80"/>
+    </resources>
+</document>

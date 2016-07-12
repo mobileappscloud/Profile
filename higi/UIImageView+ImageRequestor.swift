@@ -24,6 +24,12 @@ extension UIImageView {
 
 extension UIImageView {
     
+    func setImage(withPostImage image: Post.Image, length: Int) {
+        let scale = UIScreen.mainScreen().scale
+        let resolution = length * Int(scale)
+        self.higi_setImage(withURL: image.squareImage(resolution))
+    }
+    
     func setImage(withMediaAsset mediaAsset: MediaAsset?) {
         guard let mediaAsset = mediaAsset else { return }
         

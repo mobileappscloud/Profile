@@ -56,7 +56,7 @@ struct Post {
     
     struct Video {
         let asset: MediaAsset
-        let previewImage: MediaAsset
+        let previewImage: Image
         let height: Int
         let width: Int
         let duration: NSTimeInterval
@@ -85,13 +85,13 @@ struct Post {
     
     let template: Template
     
+    let heading: String
+    
+    let subheading: String?
+    
     let publishDate: NSDate
     
     let elements: Elements
-    
-    let heading: String?
-    
-    let subheading: String?
 }
 
 // MARK: - Initialization
@@ -115,10 +115,10 @@ extension Post.Video: HigiAPIJSONDeserializer {
             let previewImage = MediaAsset(postDictionary: previewImageDict) else { return nil }
         
         self.asset = mediaAsset
-        self.previewImage = previewImage
+        self.previewImage = Post.Image(asset: previewImage)
         self.height = height
         self.width = width
-        self.duration = durationMs * 1000
+        self.duration = durationMs / 1000
     }
 }
 

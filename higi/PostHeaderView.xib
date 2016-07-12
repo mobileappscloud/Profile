@@ -8,8 +8,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PostHeaderView" customModule="higi" customModuleProvider="target">
             <connections>
                 <outlet property="avatarButton" destination="PSQ-sc-yoL" id="TDV-WC-Ey5"/>
-                <outlet property="nameActionLabel" destination="Mc8-A9-4we" id="erV-L2-ij2"/>
-                <outlet property="timestampLabel" destination="pTD-mJ-Kdh" id="JX0-tI-eZt"/>
+                <outlet property="primaryLabel" destination="Mc8-A9-4we" id="r4c-ep-dx3"/>
+                <outlet property="secondaryLabel" destination="pTD-mJ-Kdh" id="Y3a-qY-ebv"/>
                 <outlet property="view" destination="Po2-ct-aCH" id="s4u-9q-dOu"/>
             </connections>
         </placeholder>
@@ -18,32 +18,37 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="90"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="top" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="sc1-zp-get">
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="E9D-XA-Rpp">
                     <rect key="frame" x="15" y="15" width="570" height="60"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PSQ-sc-yoL">
-                            <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
-                            <color key="backgroundColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="40" id="Gwi-iE-tPx"/>
-                                <constraint firstAttribute="height" constant="40" id="vSM-9t-AQp"/>
-                            </constraints>
-                        </button>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="pkT-7N-rj3">
-                            <rect key="frame" x="55" y="0.0" width="515" height="39"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="top" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="sc1-zp-get">
+                            <rect key="frame" x="0.0" y="0.0" width="570" height="60"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Some long username replied to a comment." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mc8-A9-4we" customClass="TTTAttributedLabel">
-                                    <rect key="frame" x="0.0" y="0.0" width="515" height="22"/>
-                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
-                                    <color key="textColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time stamp = 1w, 1d, 1m ago" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pTD-mJ-Kdh">
-                                    <rect key="frame" x="0.0" y="22" width="515" height="17"/>
-                                    <fontDescription key="fontDescription" type="italicSystem" pointSize="14"/>
-                                    <color key="textColor" red="0.79607844350000001" green="0.80000001190000003" blue="0.79607844350000001" alpha="1" colorSpace="calibratedRGB"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
+                                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PSQ-sc-yoL">
+                                    <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                    <color key="backgroundColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="40" id="Gwi-iE-tPx"/>
+                                        <constraint firstAttribute="height" constant="40" id="vSM-9t-AQp"/>
+                                    </constraints>
+                                </button>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="pkT-7N-rj3">
+                                    <rect key="frame" x="55" y="0.0" width="515" height="39"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Some long username replied to a comment." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mc8-A9-4we" customClass="TTTAttributedLabel">
+                                            <rect key="frame" x="0.0" y="0.0" width="515" height="22"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                            <color key="textColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time stamp = 1w, 1d, 1m ago" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pTD-mJ-Kdh">
+                                            <rect key="frame" x="0.0" y="22" width="515" height="17"/>
+                                            <fontDescription key="fontDescription" type="italicSystem" pointSize="14"/>
+                                            <color key="textColor" red="0.79607844350000001" green="0.80000001190000003" blue="0.79607844350000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </stackView>
                             </subviews>
                         </stackView>
                     </subviews>
@@ -51,10 +56,10 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="sc1-zp-get" firstAttribute="leading" secondItem="Po2-ct-aCH" secondAttribute="leading" constant="15" id="EOp-nX-FT7"/>
-                <constraint firstItem="sc1-zp-get" firstAttribute="top" secondItem="Po2-ct-aCH" secondAttribute="top" constant="15" id="Owe-1c-w4v"/>
-                <constraint firstAttribute="bottom" secondItem="sc1-zp-get" secondAttribute="bottom" constant="15" id="ZPe-oY-UDW"/>
-                <constraint firstAttribute="trailing" secondItem="sc1-zp-get" secondAttribute="trailing" constant="15" id="epa-BB-fFr"/>
+                <constraint firstItem="E9D-XA-Rpp" firstAttribute="leading" secondItem="Po2-ct-aCH" secondAttribute="leading" constant="15" id="J7l-fB-RYh"/>
+                <constraint firstAttribute="trailing" secondItem="E9D-XA-Rpp" secondAttribute="trailing" constant="15" id="PGn-Hu-V63"/>
+                <constraint firstItem="E9D-XA-Rpp" firstAttribute="top" secondItem="Po2-ct-aCH" secondAttribute="top" constant="15" id="RWl-GK-QHt"/>
+                <constraint firstAttribute="bottom" secondItem="E9D-XA-Rpp" secondAttribute="bottom" constant="15" id="nqU-cu-bGP"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>

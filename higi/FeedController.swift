@@ -32,6 +32,30 @@ final class FeedController {
 extension FeedController {
     
     func fetch(entity: Post.Entity, entityId: String, success: () -> Void, failure: (error: NSError?) -> Void) {
+        
+        
+        
+//        // TODO: Remove stubbing code!
+//        let filePath = NSBundle.mainBundle().pathForResource("user-feed", ofType: "json")!
+//        let data = NSData(contentsOfFile: filePath)!
+//        let JSON = try! NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions())
+//        
+//        FeedCollectionDeserializer.parse(JSON, success: { [weak self] (posts, paging) in
+//            
+//            self?.posts = posts
+//            self?.paging = paging
+//            
+//            self?.fetchTask = nil
+//            success()
+//            
+//            }, failure: { [weak self] (error) in
+//                self?.fetchTask = nil
+//                failure(error: error)
+//        })
+//        
+//        return
+        
+        
         FeedCollectionRequest.request(entity, entityId: entityId, completion: { [weak self] (request, error) in
             
             guard let request = request,
@@ -44,16 +68,7 @@ extension FeedController {
                 
                 FeedCollectionDeserializer.parse(JSON, success: { [weak self] (posts, paging) in
                     
-                    // TODO: Remove stub!
-                    var fakePosts: [Post] = []
-                    for index in 0...20 {
-                        let post = Post(identifier: String(index), type: .Default, template: .Text, heading: "Hi \(index)", subheading: "This is a subheading", publishDate: NSDate(), topText: nil, bottomText: nil)
-                        fakePosts.append(post)
-                    }
-                    self?.posts = fakePosts
-                    
-//                    self?.posts.appendContentsOf(posts)
-                    
+                    self?.posts = posts
                     self?.paging = paging
                     self?.fetchTask = nil
                     success()
