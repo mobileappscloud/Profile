@@ -149,6 +149,7 @@ extension Post: HigiAPIJSONDeserializer {
             let type = Type(rawValue: typeString),
             let templateString = dictionary["TemplateType"] as? String,
             let template = Template(rawValue: templateString),
+            let heading = dictionary["Heading"] as? String,
             let publishDateString = dictionary["PublishDate"] as? String
             // TODO: UNCOMMENT!
 //            let publishDate = NSDateFormatter.ISO8601DateFormatter.dateFromString(publishDateString)
@@ -161,9 +162,12 @@ extension Post: HigiAPIJSONDeserializer {
         self.user = user
         self.type = type
         self.template = template
+        self.heading = heading
         // TODO: FIX!
 //        self.publishDate = publishDate
         self.publishDate = NSDate().dateByAddingTimeInterval(-92349)
+
+        self.subheading = (dictionary["Subheading"] as? String) ?? nil
         
         var transformableStrings: [TransformableString] = []
         var images: [Image] = []
@@ -198,9 +202,6 @@ extension Post: HigiAPIJSONDeserializer {
             }
         }
         self.elements = Elements(transformableStrings: transformableStrings, images: images, videos: videos)
-        
-        self.heading = (dictionary["Heading"] as? String) ?? nil
-        self.subheading = (dictionary["Subheading"] as? String) ?? nil
         
         // validate template
         if !isValid() {

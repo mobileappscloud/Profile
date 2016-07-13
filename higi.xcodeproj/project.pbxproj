@@ -175,6 +175,9 @@
 		41667A871CFCBA57007BB0FF /* NSLock+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41667A861CFCBA57007BB0FF /* NSLock+Utility.swift */; };
 		41667A891CFD4167007BB0FF /* UIImageView+ImageRequestor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41667A881CFD4167007BB0FF /* UIImageView+ImageRequestor.swift */; };
 		41667A8B1CFD5997007BB0FF /* ImageRequestOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41667A8A1CFD5997007BB0FF /* ImageRequestOperation.swift */; };
+		4171B50D1D2EE38E00DA2485 /* PostVideoContainer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4171B50C1D2EE38E00DA2485 /* PostVideoContainer.xib */; };
+		4171B50F1D2EE65100DA2485 /* PostContentTapGestureRecognizerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4171B50E1D2EE65100DA2485 /* PostContentTapGestureRecognizerDelegate.swift */; };
+		4171B5111D2F07C000DA2485 /* PostVideoContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4171B5101D2F07C000DA2485 /* PostVideoContainer.swift */; };
 		417323931CC410580009174D /* CommunityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417323921CC410580009174D /* CommunityDetailViewController.swift */; };
 		4179FCF01C25109D006130F5 /* Loading.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4179FCEE1C25109D006130F5 /* Loading.storyboard */; };
 		4179FCF11C25109D006130F5 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4179FCEF1C25109D006130F5 /* LoadingViewController.swift */; };
@@ -588,6 +591,9 @@
 		41667A861CFCBA57007BB0FF /* NSLock+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSLock+Utility.swift"; sourceTree = "<group>"; };
 		41667A881CFD4167007BB0FF /* UIImageView+ImageRequestor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+ImageRequestor.swift"; sourceTree = "<group>"; };
 		41667A8A1CFD5997007BB0FF /* ImageRequestOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageRequestOperation.swift; sourceTree = "<group>"; };
+		4171B50C1D2EE38E00DA2485 /* PostVideoContainer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostVideoContainer.xib; sourceTree = "<group>"; };
+		4171B50E1D2EE65100DA2485 /* PostContentTapGestureRecognizerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostContentTapGestureRecognizerDelegate.swift; sourceTree = "<group>"; };
+		4171B5101D2F07C000DA2485 /* PostVideoContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostVideoContainer.swift; sourceTree = "<group>"; };
 		417323921CC410580009174D /* CommunityDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityDetailViewController.swift; sourceTree = "<group>"; };
 		4179FCEE1C25109D006130F5 /* Loading.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Loading.storyboard; sourceTree = "<group>"; };
 		4179FCEF1C25109D006130F5 /* LoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
@@ -1290,6 +1296,7 @@
 				4159126D1C8A288200111B39 /* InterfaceOrientation.swift */,
 				413F69171CB718C3003D9571 /* NSCharacterSet+Utility.swift */,
 				41667A3D1CF39F00007BB0FF /* NSData+Utility.swift */,
+				41A274A31D20F42600D10F8A /* NSDateComponentsFormatter+Utility.swift */,
 				41FC21C51CA4453400BF7FC4 /* NSDateFormatter+Utility.swift */,
 				41F655611CD4258E00BD2E25 /* NSError+Utility.swift */,
 				41667A861CFCBA57007BB0FF /* NSLock+Utility.swift */,
@@ -2040,6 +2047,7 @@
 				41A275021D22360800D10F8A /* PostCell.xib */,
 				41A274A61D20F42600D10F8A /* PostHeaderView.xib */,
 				41A274A81D20F42600D10F8A /* PostTextDescriptionView.xib */,
+				4171B50C1D2EE38E00DA2485 /* PostVideoContainer.xib */,
 			);
 			name = Feed;
 			sourceTree = "<group>";
@@ -2051,8 +2059,10 @@
 				41EF922A1D19E56F00266AAB /* FeedViewController.swift */,
 				41A274FC1D21F81B00D10F8A /* PostActionBar.swift */,
 				41A275001D2235C300D10F8A /* PostCell.swift */,
+				4171B50E1D2EE65100DA2485 /* PostContentTapGestureRecognizerDelegate.swift */,
 				41A274FA1D21C71700D10F8A /* PostHeaderView.swift */,
 				41A274FE1D22263F00D10F8A /* PostTextDescriptionView.swift */,
+				4171B5101D2F07C000DA2485 /* PostVideoContainer.swift */,
 			);
 			name = Feed;
 			sourceTree = "<group>";
@@ -2137,7 +2147,6 @@
 				41E6B5E31C16184200ED922B /* HealthKitManager.swift */,
 				8FE206611B7CF30E00B473B0 /* LocationDelegate.swift */,
 				41ED6C961C85FCA300A55BED /* Notifications.swift */,
-				41A274A31D20F42600D10F8A /* NSDateComponentsFormatter+Utility.swift */,
 				413F68B21CB4533E003D9571 /* Theme */,
 				413E19241C10AB2C00146B29 /* UniversalLink.swift */,
 				8F6D510D1947B2E700F7C769 /* Utility.swift */,
@@ -2642,6 +2651,7 @@
 				8FEF35BB1BB213C800959BD1 /* (null) in Resources */,
 				413E19991C11650C00146B29 /* TextCollectionViewCell.xib in Resources */,
 				8F3643A719460EB300C0033E /* Images.xcassets in Resources */,
+				4171B50D1D2EE38E00DA2485 /* PostVideoContainer.xib in Resources */,
 				41643AA81C18834700258F55 /* MetricTableViewCell.xib in Resources */,
 				41A275031D22360800D10F8A /* PostCell.xib in Resources */,
 				D1BA13471A8D056900E1AFE9 /* ChatterInputView.xib in Resources */,
@@ -2836,6 +2846,7 @@
 				410FFF391CA5C716005EAC9E /* CommunitiesViewController.swift in Sources */,
 				D1FC72951B209CA40068CF89 /* MetricDelegate.swift in Sources */,
 				8FDA6DA319A2979800244D5F /* ChangePasswordViewController.swift in Sources */,
+				4171B50F1D2EE65100DA2485 /* PostContentTapGestureRecognizerDelegate.swift in Sources */,
 				D1FC729B1B20B22B0068CF89 /* BpMetricDelegate.swift in Sources */,
 				41643AB01C1891D800258F55 /* MetricTableViewCell.swift in Sources */,
 				41A425801CE11ADD00036C84 /* HigiAPIJSONSerializer.swift in Sources */,
@@ -2926,6 +2937,7 @@
 				418484C81C72E27F00C26211 /* NewBodyFatMetricDelegate.swift in Sources */,
 				D1EFDC531B45D48400A340DD /* TriangleMarker.swift in Sources */,
 				41D8717E1C7A8FAD002DCDA0 /* CPTXYPlotSpace+Utility.swift in Sources */,
+				4171B5111D2F07C000DA2485 /* PostVideoContainer.swift in Sources */,
 				411420221D09A7BF0050473E /* CommunityRequest.swift in Sources */,
 				410FFF5D1CA5EDC5005EAC9E /* Paging.swift in Sources */,
 				D149E94B1A78471A00FBAA15 /* ChallengeDetailsChatterRow.swift in Sources */,

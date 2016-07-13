@@ -361,6 +361,7 @@ extension FeedViewController {
         case .ImageAndText:
             if let image = post.elements.images.first {
                 let imageView = postImageView(forImage: image)
+                imageView.contentMode = .ScaleAspectFill
                 arrangedSubviews.append(imageView)
             }
             if let transformableString = post.elements.transformableStrings.first {
@@ -394,6 +395,7 @@ extension FeedViewController {
                 let videoContainer = PostVideoContainer(frame: CGRect.zero)
                 let width = tableView.bounds.width
                 videoContainer.imageView.setImage(withPostImage: video.previewImage, length: Int(width))
+                videoContainer.imageView.contentMode = .ScaleAspectFit
                 videoContainer.playButtonHandler = {
                     print("Thanks for pressing play")
                 }

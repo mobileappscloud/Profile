@@ -35,11 +35,11 @@ extension MediaAsset: HigiAPIJSONDeserializer {
     init?(postDictionary dictionary: NSDictionary) {
         guard let URIString = dictionary["Url"] as? String,
             let URI = NSURL(string: URIString),
-            let fileExtension = dictionary["FileExtension"] as? String,
-            let contentType = Utility.MIMEType(fileExtension) else { return nil }
+            let fileExtension = dictionary["FileExtension"] as? String else { return nil }
         
         self.URI = URI
-        self.contentType = contentType
+        let contentType = Utility.MIMEType(fileExtension)
+        self.contentType = contentType ?? fileExtension
     }
     
     static func postDictionary(uri: String, fileExtension: String) -> NSDictionary {
