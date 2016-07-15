@@ -1,12 +1,12 @@
 //
-//  CommunitiesListViewController.swift
+//  CommunitiesTableViewController.swift
 //  higi
 //
 //  Created by Remy Panicker on 6/1/16.
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-final class CommunitiesListViewController: UIViewController {
+final class CommunitiesTableViewController: UIViewController {
 
     @IBOutlet private(set) var tableView: UITableView! {
         didSet {
@@ -21,6 +21,9 @@ final class CommunitiesListViewController: UIViewController {
             tableView.register(nibWithCellClass: CommunityListingTableViewCell.self)
             tableView.register(cellClass: UITableViewCell.self)
             tableView.register(nibWithCellClass: ActivityIndicatorTableViewCell.self)
+            
+            tableView.decelerationRate = UIScrollViewDecelerationRateNormal
+            print("deceleration rate = \(UIScrollViewDecelerationRateNormal)")
         }
     }
     
@@ -33,10 +36,10 @@ final class CommunitiesListViewController: UIViewController {
     private(set) var userController: UserController!
     private(set) var communitiesController: CommunitiesController!
     
-    private(set) weak var delegate: CommunitiesListViewControllerDelegate?
+    private(set) weak var delegate: CommunitiesTableViewControllerDelegate?
     private(set) weak var communitySubscriptionDelegate: CommunitySubscriptionDelegate?
     
-    func configure(userController: UserController, communitiesController: CommunitiesController, delegate: CommunitiesListViewControllerDelegate?, communitySubscriptionDelegate: CommunitySubscriptionDelegate?) {
+    func configure(userController: UserController, communitiesController: CommunitiesController, delegate: CommunitiesTableViewControllerDelegate?, communitySubscriptionDelegate: CommunitySubscriptionDelegate?) {
         self.userController = userController
         self.communitiesController = communitiesController
         self.delegate = delegate
@@ -48,7 +51,7 @@ final class CommunitiesListViewController: UIViewController {
     }
 }
 
-extension CommunitiesListViewController {
+extension CommunitiesTableViewController {
     
     func showPlaceholderView() {
         addChildViewController(loadingViewController)
@@ -71,7 +74,7 @@ extension CommunitiesListViewController {
 
 // MARK: - View Lifecycle
 
-extension CommunitiesListViewController {
+extension CommunitiesTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,7 +94,7 @@ extension CommunitiesListViewController {
 
 // MARK: - Fetch
 
-extension CommunitiesListViewController {
+extension CommunitiesTableViewController {
     
     func communitiesFetchSuccess() -> Void {
         dispatch_async(dispatch_get_main_queue(), { [weak self] in
@@ -114,7 +117,7 @@ extension CommunitiesListViewController {
 
 // MARK: - Paging
 
-extension CommunitiesListViewController {
+extension CommunitiesTableViewController {
     
     private func fetchNextCommunities() {
         guard let _ = communitiesController.paging?.next else {
@@ -159,7 +162,7 @@ extension CommunitiesListViewController {
 
 // MARK: - Table
 
-extension CommunitiesListViewController {
+extension CommunitiesTableViewController {
     
     enum TableSection: Int  {
         case Communities
@@ -209,7 +212,7 @@ extension CommunitiesListViewController {
 
 // MARK: - Table Data Source
 
-extension CommunitiesListViewController: UITableViewDataSource {
+extension CommunitiesTableViewController: UITableViewDataSource {
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return TableSection.Count.rawValue
@@ -295,7 +298,7 @@ extension CommunitiesListViewController: UITableViewDataSource {
 }
 // MARK: - Table Delegate
 
-extension CommunitiesListViewController: UITableViewDelegate {
+extension CommunitiesTableViewController: UITableViewDelegate {
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         // Must return non-zero value or else there is unwanted padding at top of tableview
@@ -363,7 +366,7 @@ extension CommunitiesListViewController: UITableViewDelegate {
                 let index = indexPath.row / CommunitiesRowType.Count.rawValue
                 let community = communitiesController.communities[index]
                 
-                delegate?.communitiesListViewControllerDidTapDetail(self, communitiesController: communitiesController, userController: userController, community: community, communitySubscriptionDelegate: communitySubscriptionDelegate)
+                delegate?.communitiesTableViewControllerDidTapDetail(self, communitiesController: communitiesController, userController: userController, community: community, communitySubscriptionDelegate: communitySubscriptionDelegate)
             }
         }
     }
@@ -371,14 +374,14 @@ extension CommunitiesListViewController: UITableViewDelegate {
 
 // MARK: - Cell Configuration
 
-extension CommunitiesListViewController {
+extension CommunitiesTableViewController {
     
     
 }
 
 // MARK: - Tab Bar Scroll
 
-extension CommunitiesListViewController: TabBarTopScrollDelegate {
+extension CommunitiesTableViewController: TabBarTopScrollDelegate {
     
     func scrollToTop() {
         tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
@@ -387,9 +390,9 @@ extension CommunitiesListViewController: TabBarTopScrollDelegate {
 
 // MARK: - Protocol
 
-protocol CommunitiesListViewControllerDelegate: class {
+protocol CommunitiesTableViewControllerDelegate: class {
     
-    func communitiesListViewControllerDidTapDetail(communitiesListViewController: CommunitiesListViewController, communitiesController: CommunitiesController, userController: UserController, community: Community, communitySubscriptionDelegate: CommunitySubscriptionDelegate?)
+    func communitiesTableViewControllerDidTapDetail(communitiesTableViewController: CommunitiesTableViewController, communitiesController: CommunitiesController, userController: UserController, community: Community, communitySubscriptionDelegate: CommunitySubscriptionDelegate?)
     
-    func communitiesListViewControllerDidTapJoin(communitiesListViewController: CommunitiesListViewController, communitiesController: CommunitiesController, userController: UserController, community: Community, communitySubscriptionDelegate: CommunitySubscriptionDelegate?)
+    func communitiesTableViewControllerDidTapJoin(communitiesTableViewController: CommunitiesTableViewController, communitiesController: CommunitiesController, userController: UserController, community: Community, communitySubscriptionDelegate: CommunitySubscriptionDelegate?)
 }

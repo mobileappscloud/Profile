@@ -73,10 +73,10 @@ final class CommunitiesViewController: UIViewController {
     }
     
     private var segmentedPageViewController: SegmentedPageViewController!
-    private lazy var featuredCommunitiesViewController: CommunitiesListViewController = {
+    private lazy var featuredCommunitiesViewController: CommunitiesTableViewController = {
         return self.viewController(.Unjoined)
     }()
-    private lazy var yourCommunitiesViewController: CommunitiesListViewController = {
+    private lazy var yourCommunitiesViewController: CommunitiesTableViewController = {
         return self.viewController(.Joined)
     }()
     
@@ -95,12 +95,12 @@ final class CommunitiesViewController: UIViewController {
 
 private extension CommunitiesViewController {
     
-    func viewController(filter: CommunityCollectionRequest.Filter) -> CommunitiesListViewController {
+    func viewController(filter: CommunityCollectionRequest.Filter) -> CommunitiesTableViewController {
         let storyboard = UIStoryboard(name: "Communities", bundle: nil)
-        let communitiesListViewController = storyboard.instantiateViewControllerWithIdentifier(CommunitiesViewController.Storyboard.Scene.listView) as! CommunitiesListViewController
+        let communitiesTableViewController = storyboard.instantiateViewControllerWithIdentifier(CommunitiesViewController.Storyboard.Scene.listView) as! CommunitiesTableViewController
         let controller = CommunitiesController(filter: filter)
-        communitiesListViewController.configure(userController, communitiesController: controller, delegate: self, communitySubscriptionDelegate: self)
-        return communitiesListViewController
+        communitiesTableViewController.configure(userController, communitiesController: controller, delegate: self, communitySubscriptionDelegate: self)
+        return communitiesTableViewController
     }
 }
 
@@ -161,15 +161,15 @@ extension CommunitiesViewController {
 
 // MARK: - Community List Delegate
 
-extension CommunitiesViewController: CommunitiesListViewControllerDelegate {
+extension CommunitiesViewController: CommunitiesTableViewControllerDelegate {
     
-    func communitiesListViewControllerDidTapDetail(communitiesListViewController: CommunitiesListViewController, communitiesController: CommunitiesController, userController: UserController, community: Community, communitySubscriptionDelegate: CommunitySubscriptionDelegate?) {
+    func communitiesTableViewControllerDidTapDetail(communitiesTableViewController: CommunitiesTableViewController, communitiesController: CommunitiesController, userController: UserController, community: Community, communitySubscriptionDelegate: CommunitySubscriptionDelegate?) {
         
         let segue = CommunitiesViewController.Storyboard.Segue.DetailView(community: community, userController: userController, communitySubscriptionDelegate: communitySubscriptionDelegate)
         self.performSegueWithIdentifier(CommunitiesViewController.Storyboard.Segue.DetailView.identifier, sender: segue.userInfo())
     }
     
-    func communitiesListViewControllerDidTapJoin(communitiesListViewController: CommunitiesListViewController, communitiesController: CommunitiesController, userController: UserController, community: Community, communitySubscriptionDelegate: CommunitySubscriptionDelegate?) {
+    func communitiesTableViewControllerDidTapJoin(communitiesTableViewController: CommunitiesTableViewController, communitiesController: CommunitiesController, userController: UserController, community: Community, communitySubscriptionDelegate: CommunitySubscriptionDelegate?) {
         
         
     }
@@ -185,7 +185,7 @@ extension CommunitiesViewController: CommunitySubscriptionDelegate {
         swap(community, fromViewController: yourCommunitiesViewController, toViewController: featuredCommunitiesViewController)
     }
     
-    private func swap(community: Community, fromViewController: CommunitiesListViewController, toViewController: CommunitiesListViewController) {
+    private func swap(community: Community, fromViewController: CommunitiesTableViewController, toViewController: CommunitiesTableViewController) {
         fromViewController.communitiesController.remove([community])
         toViewController.communitiesController.append([community])
         

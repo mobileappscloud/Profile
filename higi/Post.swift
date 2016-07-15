@@ -92,6 +92,10 @@ struct Post {
     let publishDate: NSDate
     
     let elements: Elements
+    
+    let commentCount: Int
+    
+    let likeCount: Int
 }
 
 // MARK: - Initialization
@@ -150,9 +154,12 @@ extension Post: HigiAPIJSONDeserializer {
             let templateString = dictionary["TemplateType"] as? String,
             let template = Template(rawValue: templateString),
             let heading = dictionary["Heading"] as? String,
-            let publishDateString = dictionary["PublishDate"] as? String
+            let publishDateString = dictionary["PublishDate"] as? String,
             // TODO: UNCOMMENT!
 //            let publishDate = NSDateFormatter.ISO8601DateFormatter.dateFromString(publishDateString)
+            let chatterDict = dictionary["Chatter"] as? NSDictionary,
+            let commentCount = chatterDict["CommentCount"] as? Int,
+            let likeCount = chatterDict["LikeCount"] as? Int
             else { return nil }
         
         // **NOTE** We are ignoring all custom templates for the time being.
@@ -166,6 +173,8 @@ extension Post: HigiAPIJSONDeserializer {
         // TODO: FIX!
 //        self.publishDate = publishDate
         self.publishDate = NSDate().dateByAddingTimeInterval(-92349)
+        self.commentCount = commentCount
+        self.likeCount = likeCount
 
         self.subheading = (dictionary["Subheading"] as? String) ?? nil
         

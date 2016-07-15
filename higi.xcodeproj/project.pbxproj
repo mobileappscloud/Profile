@@ -93,7 +93,7 @@
 		41247DCE1C5BD1A100DDC5EC /* MetricDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41247DCD1C5BD1A100DDC5EC /* MetricDetailViewController.swift */; };
 		41247DD51C5F29FB00DDC5EC /* MetricDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41247DD41C5F29FB00DDC5EC /* MetricDetail.storyboard */; };
 		412B63CD1CFF7AC7003F6663 /* ChallengeJoinRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412B63CC1CFF7AC7003F6663 /* ChallengeJoinRequest.swift */; };
-		412B63CF1CFF8CC5003F6663 /* CommunitiesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412B63CE1CFF8CC5003F6663 /* CommunitiesListViewController.swift */; };
+		412B63CF1CFF8CC5003F6663 /* CommunitiesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412B63CE1CFF8CC5003F6663 /* CommunitiesTableViewController.swift */; };
 		41303CDB1D25C118009A6235 /* UIButton+ImageRequestor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41303CDA1D25C118009A6235 /* UIButton+ImageRequestor.swift */; };
 		41303CDD1D25C460009A6235 /* NSPersonNameComponentsFormatter+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41303CDC1D25C460009A6235 /* NSPersonNameComponentsFormatter+Utility.swift */; };
 		413635871C2209450056DE8D /* MetricDataFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413635861C2209450056DE8D /* MetricDataFactory.swift */; };
@@ -509,7 +509,7 @@
 		41247DCD1C5BD1A100DDC5EC /* MetricDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricDetailViewController.swift; sourceTree = "<group>"; };
 		41247DD41C5F29FB00DDC5EC /* MetricDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MetricDetail.storyboard; sourceTree = "<group>"; };
 		412B63CC1CFF7AC7003F6663 /* ChallengeJoinRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeJoinRequest.swift; sourceTree = "<group>"; };
-		412B63CE1CFF8CC5003F6663 /* CommunitiesListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunitiesListViewController.swift; sourceTree = "<group>"; };
+		412B63CE1CFF8CC5003F6663 /* CommunitiesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunitiesTableViewController.swift; sourceTree = "<group>"; };
 		41303CDA1D25C118009A6235 /* UIButton+ImageRequestor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+ImageRequestor.swift"; sourceTree = "<group>"; };
 		41303CDC1D25C460009A6235 /* NSPersonNameComponentsFormatter+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSPersonNameComponentsFormatter+Utility.swift"; sourceTree = "<group>"; };
 		413635861C2209450056DE8D /* MetricDataFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricDataFactory.swift; sourceTree = "<group>"; };
@@ -1008,7 +1008,7 @@
 				411F79761CBB457D000D0D64 /* ActivityIndicatorTableViewCell.swift */,
 				410FFF581CA5E9D3005EAC9E /* CommunitiesController.swift */,
 				411F79781CBC05E2000D0D64 /* CommunitiesTableUtility.swift */,
-				412B63CE1CFF8CC5003F6663 /* CommunitiesListViewController.swift */,
+				412B63CE1CFF8CC5003F6663 /* CommunitiesTableViewController.swift */,
 				410FFF381CA5C716005EAC9E /* CommunitiesViewController.swift */,
 				411F7A071CBECCE9000D0D64 /* CommunityBannerView.swift */,
 				41A70EEF1CC9D9060072AB06 /* CommunityDetailJoinSegue.swift */,
@@ -2895,7 +2895,7 @@
 				8FA5925F19ABBD3A00622266 /* TourViewController.swift in Sources */,
 				4150315C1CA9E74500A3FB94 /* TokenRefreshRequest.swift in Sources */,
 				8FF873F419DF5394002A6341 /* PullRefresh.swift in Sources */,
-				412B63CF1CFF8CC5003F6663 /* CommunitiesListViewController.swift in Sources */,
+				412B63CF1CFF8CC5003F6663 /* CommunitiesTableViewController.swift in Sources */,
 				8FEF6F461A6EECD5001EF8A6 /* ChallengesCard.swift in Sources */,
 				413E19251C10AB2C00146B29 /* UniversalLink.swift in Sources */,
 				411F79791CBC05E2000D0D64 /* CommunitiesTableUtility.swift in Sources */,

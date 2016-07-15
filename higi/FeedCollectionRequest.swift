@@ -10,7 +10,7 @@ struct FeedCollectionRequest {}
 
 extension FeedCollectionRequest: HigiAPIRequest {
     
-    static func request(entity: Post.Entity, entityId: String, forceRefresh: Bool = true, completion: HigiAPIRequestAuthenticatorCompletion) {
+    static func request(entity: Post.Entity, entityId: String, forceRefresh: Bool = true, pageNumber: Int = 1, pageSize: Int = 15, completion: HigiAPIRequestAuthenticatorCompletion) {
         
         let resource: String
         switch entity {
@@ -23,15 +23,13 @@ extension FeedCollectionRequest: HigiAPIRequest {
         }
         
         let relativePath = "/feed/\(resource)/\(entityId)/posts"
-        request(relativePath: relativePath, forceRefresh: forceRefresh,completion: completion)
+        request(relativePath: relativePath, forceRefresh: forceRefresh, pageNumber: pageNumber, pageSize: pageSize, completion: completion)
     }
     
-    private static func request(relativePath relativePath: String, forceRefresh: Bool, completion: HigiAPIRequestAuthenticatorCompletion) {
+    private static func request(relativePath relativePath: String, forceRefresh: Bool, pageNumber: Int, pageSize: Int, completion: HigiAPIRequestAuthenticatorCompletion) {
         
-        let page = 1
-        let pageSize = 25
         let parameters = [
-            "page" : String(page),
+            "page" : String(pageNumber),
             "pageSize" : String(pageSize),
             "forceRefresh" : String(forceRefresh)
         ]

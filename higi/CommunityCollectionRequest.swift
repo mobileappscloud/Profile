@@ -17,7 +17,7 @@ extension CommunityCollectionRequest: HigiAPIRequest {
         case Unjoined
     }
     
-    static func request(filter: Filter, completion: HigiAPIRequestAuthenticatorCompletion) {
+    static func request(filter: Filter, pageNumber: Int = 1, pageSize: Int = 10, completion: HigiAPIRequestAuthenticatorCompletion) {
         
         let relativePath = "/community/communities"
         
@@ -29,6 +29,9 @@ extension CommunityCollectionRequest: HigiAPIRequest {
         
         let sortParam = filterJoined ? "joinDate" : "createdOn"
         parameters["sort"] = "\(sortParam) desc"
+        
+        parameters["pageNumber"] = String(pageNumber)
+        parameters["pageSize"] = String(pageSize)
         
         authenticatedRequest(relativePath, parameters: parameters, completion: completion)
     }
