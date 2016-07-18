@@ -128,28 +128,8 @@ extension CommunitiesTableViewController {
     }
     
     private func fetchNextSuccess() {
-        guard let paging = communitiesController.paging else { return }
-        
-        let previousPageNumber = paging.pageNumber - 1
-        let previousCollectionMaxIndex = previousPageNumber * paging.pageSize
-        
-        let currentCollectionMaxIndex = communitiesController.communities.count - 1
-        
-        let section = TableSection.Communities.rawValue
-        var indexPaths: [NSIndexPath] = []
-        
-        for index in previousCollectionMaxIndex...currentCollectionMaxIndex {
-            for rowType in 0..<CommunitiesRowType.Count.rawValue {
-                let calculatedIndex = (index * CommunitiesRowType.Count.rawValue) + rowType
-                let indexPath = NSIndexPath(forRow: calculatedIndex, inSection: section)
-                indexPaths.append(indexPath)
-            }
-        }
-        
         dispatch_async(dispatch_get_main_queue(), {
-            self.tableView.beginUpdates()
-            self.tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Bottom)
-            self.tableView.endUpdates()
+            self.tableView.reloadData()
         })
     }
     
