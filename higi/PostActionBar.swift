@@ -11,7 +11,8 @@ final class PostActionBar: UIView {
     
     struct Action {
         let title: String
-        var handler: ((sender: UIButton) -> Void)?
+        var imageName: String?
+        var handler: ((sender: UIButton, action: Action) -> Void)?
     }
     
     /// View necessary for xib reuse
@@ -60,12 +61,27 @@ extension PostActionBar {
         for action in actions {
             let button = UIButton(type: .System)
             
-            let attributes = [
-                NSForegroundColorAttributeName : Theme.Color.primary,
-                NSFontAttributeName : UIFont.systemFontOfSize(14.0)
-            ]
-            let attributedTitle = NSAttributedString(string: action.title, attributes: attributes)
-            button.setAttributedTitle(attributedTitle, forState: .Normal)
+            var buttonColor: UIColor = Theme.Color.primary
+            
+            if let imageName = action.imageName {
+                if let image = UIImage(named: imageName)?.imageWithRenderingMode(.AlwaysTemplate) {
+                    button.setImage(image, forState: .Normal)
+                    
+                    let imageWidth = image.size.width
+                    let margin: CGFloat = -10
+                    let inset: CGFloat = imageWidth + margin
+                    button.titleEdgeInsets.right = -inset
+                    
+                    buttonColor = Theme.Color.Primary.pewter
+                }
+            }
+            
+            button.tintColor = buttonColor
+            button.setTitleColor(buttonColor, forState: .Normal)
+            
+            button.setTitle(action.title, forState: .Normal)
+            button.titleLabel?.font = UIFont.systemFontOfSize(14.0)
+            
             button.addTarget(self, action: #selector(didTapButton), forControlEvents: .TouchUpInside)
             
             buttonActionMap[button] = action
@@ -83,7 +99,7 @@ extension PostActionBar {
         guard let action = buttonActionMap[sender],
             let handler = action.handler else { return }
         
-        handler(sender: sender)
+        handler(sender: sender, action: action)
     }
 }
 
@@ -94,10 +110,12 @@ extension PostActionBar {
     override func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
         
-        let highFive = Action(title: "High-Five", handler: nil)
-        let reply = Action(title: "Reply", handler: nil)
-        let share = Action(title: "Share", handler: nil)
+        let highFive = Action(title: "High-Five", imageName: nil, handler: nil)
+        let reply = Action(title: "Reply", imageName: nil, handler: nil)
+        let share = Action(title: "Share", imageName: nil, handler: nil)
         
-        self.configure([highFive, reply, share])
+        let highFiveCount = Action(title: "31", imageName: nil, handler: nil)
+        
+        self.configure([highFive, reply, share, highFiveCount])
     }
 }

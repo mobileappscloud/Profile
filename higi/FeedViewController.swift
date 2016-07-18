@@ -315,7 +315,7 @@ extension FeedViewController {
         return separatorCell
     }
     
-    // MARK: Post
+    // MARK: - Post
     
     private func postCell(forTableView tableView: UITableView, atIndexPath indexPath: NSIndexPath) -> PostCell {
         let postCell = tableView.dequeueReusableCell(withClass: PostCell.self, forIndexPath: indexPath)
@@ -336,7 +336,7 @@ extension FeedViewController {
         }
         postCell.contentTapGestureHandler = cellTapHandler(forPost: post)
 
-        let actions = actionBarItems(post)
+        let actions = actionBarItems(forPost: post)
         postCell.actionBar.configure(actions)
         
         return postCell
@@ -493,16 +493,59 @@ extension FeedViewController {
         return imageView
     }
     
-    private func actionBarItems(forPost: Post) -> [PostActionBar.Action] {
+    // MARK: Action Bar
+    
+    private func actionBarItems(forPost post: Post) -> [PostActionBar.Action] {
         
         let highFiveTitle = NSLocalizedString("FEED_VIEW_POST_TABLE_CELL_ACTION_BAR_BUTTON_TITLE_HIGH_FIVE", comment: "Title for high-five button within post action bar.")
+        let highFive = PostActionBar.Action(title: highFiveTitle, imageName: nil, handler: { [weak self] (button, action) in
+            self?.highFiveTapHandler(forPost: post)
+            })
+        
         let commentTitle = NSLocalizedString("FEED_VIEW_POST_TABLE_CELL_ACTION_BAR_BUTTON_TITLE_COMMENT", comment: "Title for comment button within post action bar.")
+        let comment = PostActionBar.Action(title: commentTitle, imageName: nil, handler: { [weak self] (button, action) in
+            self?.commentTapHandler(forPost: post)
+            })
+        
         let shareTitle = NSLocalizedString("FEED_VIEW_POST_TABLE_CELL_ACTION_BAR_BUTTON_TITLE_SHARE", comment: "Title for share button within post action bar.")
-        let highFive = PostActionBar.Action(title: highFiveTitle, handler: nil)
-        let comment = PostActionBar.Action(title: commentTitle, handler: nil)
-        let share = PostActionBar.Action(title: shareTitle, handler: nil)
-        return [highFive, comment, share]
+        let share = PostActionBar.Action(title: shareTitle, imageName: nil, handler: { [weak self] (button, action) in
+            self?.shareTapHandler(forPost: post)
+            })
+        
+        let highFiversTitle = post.likeCount == 0 ? "" : String(post.likeCount)
+        let highFivers = PostActionBar.Action(title: highFiversTitle, imageName: "action-bar-high-five-icon", handler: { [weak self] (button, action) in
+            self?.highFiversTapHandler(forPost: post)
+            })
+        
+        let commentersTitle = post.commentCount == 0 ? "" : String(post.commentCount)
+        let commenters = PostActionBar.Action(title: commentersTitle, imageName: "action-bar-chatter-icon", handler: { [weak self] (button, action) in
+            self?.commentersTapHandler(forPost: post)
+            })
+        
+        return [highFive, comment, share, highFivers, commenters]
     }
+    
+    private func highFiveTapHandler(forPost post: Post) {
+        
+    }
+    
+    private func commentTapHandler(forPost post: Post) {
+        
+    }
+    
+    private func shareTapHandler(forPost post: Post) {
+        
+    }
+    
+    private func highFiversTapHandler(forPost post: Post) {
+        
+    }
+    
+    private func commentersTapHandler(forPost post: Post) {
+        
+    }
+    
+    // MARK: UI Action
     
     private func cellTapHandler(forPost post: Post) -> ((cell: PostCell) -> Void)? {
         
