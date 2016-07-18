@@ -84,10 +84,17 @@ extension HigiAPIClient {
 extension HigiAPIClient {
     
     static func session() -> NSURLSession {
-        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+        let configuration = NSURLSessionConfiguration.ephemeralSessionConfiguration()
+        configuration.timeoutIntervalForResource = 30
+        configuration.HTTPShouldSetCookies = false
+        configuration.HTTPCookieAcceptPolicy = .Never
+        configuration.HTTPCookieStorage = nil
+        
         var headers: [String : String] = [:]
         headers[HTTPHeaderName.clientId] = HigiAPIClient.clientId
         headers[HTTPHeaderName.organizationId] = Utility.organizationId()
+        // TODO: Remove this header override after API issue is resolved
+        headers["Accept-Language"] = ""
         configuration.HTTPAdditionalHeaders = headers
         let session = NSURLSession(configuration: configuration)
         return session
