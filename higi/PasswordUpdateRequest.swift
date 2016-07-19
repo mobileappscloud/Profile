@@ -20,26 +20,11 @@ extension PasswordUpdateRequest: HigiAPIRequest {
         
         let relativePath = "/authentication/users/\(userId)/passwordchange"
         let method = HTTPMethod.POST
+        let body = [
+            "oldpassword" : currentPassword,
+            "newpassword" : newPassword
+        ]
         
-        authenticatedRequest(relativePath, parameters: nil, method: method, completion: { (request, error) in
-            
-            if let mutableRequest = request?.mutableCopy() as? NSMutableURLRequest {
-                do {
-                    let JSONBody = [
-                        "oldpassword" : currentPassword,
-                        "newpassword" : newPassword
-                    ] as NSDictionary
-                    mutableRequest.HTTPBody = try NSJSONSerialization.dataWithJSONObject(JSONBody, options: [])
-                    mutableRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
-                    
-                    let fullRequest = mutableRequest.copy() as! NSURLRequest
-                    completion(request: fullRequest, error: nil)
-                } catch {
-                    completion(request: nil, error: nil)
-                }
-            } else {
-                completion(request: nil, error: error)
-            }
-        })
+        authenticatedRequest(relativePath, parameters: nil, method: method, body: body, completion: completion)
     }
 }

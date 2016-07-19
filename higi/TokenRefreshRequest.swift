@@ -29,7 +29,7 @@ extension TokenRefreshRequest: HigiAPIRequest {
             parameters["includeUser"] = String(true)
         }
         
-        guard let mutableRequest = request(relativePath, parameters: parameters, method: method)?.mutableCopy() as? NSMutableURLRequest else { return nil }
+        guard let mutableRequest = request(relativePath, parameters: parameters, method: method, body: nil)?.mutableCopy() as? NSMutableURLRequest else { return nil }
         
         mutableRequest.addValue(HTTPHeader.value.applicationJSON, forHTTPHeaderField: HTTPHeader.name.contentType)
         

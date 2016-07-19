@@ -14,21 +14,11 @@ extension UserCreateRequest: HigiAPIRequest {
         
         let relativePath = "/authentication/users"
         let method = HTTPMethod.POST
-        
-        guard let mutableRequest = request(relativePath, parameters: nil, method: method)?.mutableCopy() as? NSMutableURLRequest else { return nil }
-        
-        mutableRequest.addValue(HTTPHeader.value.applicationJSON, forHTTPHeaderField: HTTPHeader.name.contentType)
-        
-        let bodyObject = [
+        let body = [
             "email": email,
             "password": password
         ]
-        do {
-            mutableRequest.HTTPBody = try NSJSONSerialization.dataWithJSONObject(bodyObject, options: [])
-        } catch {
-            return nil
-        }
         
-        return mutableRequest.copy() as? NSURLRequest
+        return request(relativePath, parameters: nil, method: method, body: body)
     }
 }

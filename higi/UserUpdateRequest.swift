@@ -20,33 +20,15 @@ extension UserUpdateRequest: HigiAPIRequest {
             guard let key = key as? String else { continue }
             userDictionary[key] = parameters[key]
         }
-        let JSONBody = userDictionary.copy() as! NSDictionary
+        guard let body = userDictionary.copy() as? NSDictionary else {
+            completion(request: nil, error: nil)
+            return
+        }
         
         let relativePath = "/user/users/\(user.identifier)"
         let method = HTTPMethod.PUT
         
-        authenticatedRequest(relativePath, parameters: nil, method: method, completion: { (request, error) in
-            
-            if let request = request {
-                if let mutableRequest = request.mutableCopy() as? NSMutableURLRequest {
-                    
-                    do {
-                        mutableRequest.HTTPBody = try NSJSONSerialization.dataWithJSONObject(JSONBody, options: [])
-                        mutableRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
-                        
-                        let fullRequest = mutableRequest.copy() as! NSURLRequest
-                        completion(request: fullRequest, error: nil)
-                    } catch {
-                        completion(request: nil, error: nil)
-                    }
-                    
-                } else {
-                    completion(request: nil, error: nil)
-                }
-            } else {
-                completion(request: nil, error: error)
-            }
-        })
+        authenticatedRequest(relativePath, parameters: nil, method: method, body: body, completion: completion)
     }
     
     static func request(user: User, termsFileName: String, privacyFileName: String, completion: HigiAPIRequestAuthenticatorCompletion) {

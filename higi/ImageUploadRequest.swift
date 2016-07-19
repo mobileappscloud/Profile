@@ -56,27 +56,12 @@ extension ImageUploadRequest: HigiAPIRequest {
         
         let relativePath = "/user/users/\(user.identifier)/photoPosition"
         let method = HTTPMethod.POST
+        let body = [
+            "centerX" : centerX,
+            "centerY" : centerY,
+            "scale" : scale
+        ]
         
-        authenticatedRequest(relativePath, parameters: [:], method: method, completion: { (request, error) in
-            
-            guard let mutableRequest = request?.mutableCopy() as? NSMutableURLRequest else {
-                completion(request: nil, error: error)
-                return
-            }
-            
-            mutableRequest.addValue(HTTPHeader.value.applicationJSON, forHTTPHeaderField: HTTPHeader.name.contentType)
-            
-            do {
-                let body = [
-                    "centerX" : centerX,
-                    "centerY" : centerY,
-                    "scale" : scale
-                ]
-                mutableRequest.HTTPBody = try NSJSONSerialization.dataWithJSONObject(body, options: [])
-            } catch {
-                completion(request: nil, error: nil)
-            }
-            completion(request: mutableRequest, error: nil)
-        })
+        authenticatedRequest(relativePath, parameters: [:], method: method, body: body, completion: completion)
     }
 }

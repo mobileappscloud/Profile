@@ -15,7 +15,6 @@ extension MinimumVersionRequest: HigiAPIRequest {
         // TODO: Update after endpoint is migrated to new core API
         let relativePath = "app/mobile/minVersion?p=ios"
         
-        let aRequest = request(relativePath, parameters: nil)
-        return aRequest
+        return request(relativePath, parameters: nil, body: nil)
     }
 }

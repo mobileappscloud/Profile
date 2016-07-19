@@ -15,7 +15,7 @@ extension LogInRequest: HigiAPIRequest {
         let relativePath = "/authentication/login"
         let method = HTTPMethod.POST
         
-        guard let mutableRequest = request(relativePath, parameters: nil, method: method)?.mutableCopy() as? NSMutableURLRequest else { return nil }
+        guard let mutableRequest = request(relativePath, parameters: nil, method: method, body: nil)?.mutableCopy() as? NSMutableURLRequest else { return nil }
         
         mutableRequest.addValue(HTTPHeader.value.applicationJSON, forHTTPHeaderField: HTTPHeader.name.contentType)
         

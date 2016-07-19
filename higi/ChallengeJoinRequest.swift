@@ -12,17 +12,9 @@ extension ChallengeJoinRequest: HigiAPIRequest {
 
     static func request(joinURL URL: NSURL, user: User, completion: HigiAPIRequestAuthenticatorCompletion) {
         
-        let bodyObject = ["userId" : user.identifier]
-        let bodyData = try? NSJSONSerialization.dataWithJSONObject(bodyObject, options: NSJSONWritingOptions())
-        
         let method = HTTPMethod.POST
+        let body = ["userId" : user.identifier]
         
-        authenticatedRequest(URL, parameters: nil, method: method, completion: { (request, error) in
-            if let request = request?.mutableCopy() as? NSMutableURLRequest {
-                request.addValue(HTTPHeader.value.applicationJSON, forHTTPHeaderField: HTTPHeader.name.contentType)
-                request.HTTPBody = bodyData
-            }
-            completion(request: request, error: error)
-        })
+        authenticatedRequest(URL, parameters: nil, method: method, body: body, completion: completion)
     }
 }
