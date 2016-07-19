@@ -29,7 +29,7 @@ extension FeedCollectionRequest: HigiAPIRequest {
     private static func request(relativePath relativePath: String, forceRefresh: Bool, pageNumber: Int, pageSize: Int, completion: HigiAPIRequestAuthenticatorCompletion) {
         
         let parameters = [
-            "page" : String(pageNumber),
+            "pageNumber" : String(pageNumber),
             "pageSize" : String(pageSize),
             "forceRefresh" : String(forceRefresh)
         ]
