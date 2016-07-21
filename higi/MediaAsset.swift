@@ -49,3 +49,17 @@ extension MediaAsset: HigiAPIJSONDeserializer {
         ]
     }
 }
+
+extension MediaAsset {
+    
+    func sizedURI(width: Int, height: Int) -> NSURL {
+        let scale = UIScreen.mainScreen().scale
+        let scaledWidth = width * Int(scale)
+        let scaledHeight = height * Int(scale)
+        let urlString = URI.absoluteString + "?w=\(String(scaledWidth))&h=\(String(scaledHeight))"
+        
+        guard let assetURL = NSURL(string: urlString) else { fatalError() }
+        
+        return assetURL
+    }
+}

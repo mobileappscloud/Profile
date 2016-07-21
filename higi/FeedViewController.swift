@@ -396,8 +396,7 @@ extension FeedViewController {
             var duration: String?
             if let video = post.elements.videos.first {
                 let videoContainer = PostVideoContainer(frame: CGRect.zero)
-                let width = tableView.bounds.width
-                videoContainer.imageView.setImage(withPostImage: video.previewImage, length: Int(width))
+                videoContainer.imageView.setImage(withMediaAsset: video.previewImage)
                 videoContainer.imageView.contentMode = .ScaleAspectFit
                 videoContainer.playButtonHandler = {
 
@@ -481,8 +480,8 @@ extension FeedViewController {
             label.hidden = true
         }
     }
-    
-    private func postImageView(forImage image: Post.Image) -> UIImageView {
+
+    private func postImageView(forImage image: MediaAsset) -> UIImageView {
         let imageView = UIImageView(frame: CGRect.zero)
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -491,7 +490,7 @@ extension FeedViewController {
         let heightConstraint = imageView.heightAnchor.constraintEqualToConstant(width)
         imageView.addConstraints([heightConstraint, widthConstraint])
         
-        imageView.setImage(withPostImage: image, length: Int(width))
+        imageView.setImage(withMediaAsset: image)
         
         return imageView
     }

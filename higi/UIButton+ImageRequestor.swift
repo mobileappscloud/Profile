@@ -24,15 +24,30 @@ extension UIButton {
 
 extension UIButton {
     
-    func setImage(withMediaAsset mediaAsset: MediaAsset?, forState controlState: UIControlState) {
+    func setImage(withMediaAsset asset: MediaAsset?, forState controlState: UIControlState) {
+        guard let asset = asset else { return }
+        
+        let width = Int(self.bounds.width)
+        let height = Int(self.bounds.height)
+        
+        self.setImage(withMediaAsset: asset, width: width, height: height, forState: controlState)
+    }
+    
+    func setImage(withMediaAsset mediaAsset: MediaAsset?, width: Int, height: Int, forState controlState: UIControlState) {
         guard let mediaAsset = mediaAsset else { return }
+        
+        let assetURL = mediaAsset.sizedURI(width, height: height)
+        self.setImage(withURL: assetURL, forState: controlState)
+    }
+    
+    func setImage(withURL assetURL: NSURL, forState controlState: UIControlState) {
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { [weak self] in
             
             guard let strongSelf = self else { return }
             
             if let imageRequestOperation = strongSelf.imageRequestOperation {
-                if mediaAsset.URI.absoluteString == imageRequestOperation.URL.absoluteString {
+                if assetURL.absoluteString == imageRequestOperation.URL.absoluteString {
                     //                    print("RETURN Early -- prevent duplicate operation from being added to queue")
                     return
                 }
@@ -42,11 +57,11 @@ extension UIButton {
                 //                strongSelf.imageRequestOperation = nil
             }
             
-            strongSelf.imageRequestOperation = ImageRequestor.sharedInstance.fetchImage(forURL: mediaAsset.URI, completion: { [weak strongSelf] (image) in
+            strongSelf.imageRequestOperation = ImageRequestor.sharedInstance.fetchImage(forURL: assetURL, completion: { [weak strongSelf] (image) in
                 
                 guard let strongSelf = strongSelf else { return }
                 
-                if mediaAsset.URI.absoluteString == strongSelf.imageRequestOperation?.URL.absoluteString {
+                if assetURL.absoluteString == strongSelf.imageRequestOperation?.URL.absoluteString {
                     //                    print("imageview got image and is setting it")
                     dispatch_async(dispatch_get_main_queue(), {
                         strongSelf.setImage(image, forState: controlState)
@@ -58,4 +73,3 @@ extension UIButton {
             })
     }
 }
-

@@ -41,22 +41,9 @@ struct Post {
         case Video
     }
     
-    struct Image {
-        let asset: MediaAsset
-        
-        func squareImage(length: Int) -> NSURL {
-            return sizedImage(length, height: length)
-        }
-        
-        func sizedImage(width: Int, height: Int) -> NSURL {
-            let urlString = asset.URI.absoluteString + "?width=\(String(width))&height=\(String(height))"
-            return NSURL(string: urlString)!
-        }
-    }
-    
     struct Video {
         let asset: MediaAsset
-        let previewImage: Image
+        let previewImage: MediaAsset
         let height: Int
         let width: Int
         let duration: NSTimeInterval
@@ -64,7 +51,7 @@ struct Post {
     
     struct Elements {
         let transformableStrings: [TransformableString]
-        let images: [Image]
+        let images: [MediaAsset]
         let videos: [Video]
     }
     
@@ -119,7 +106,7 @@ extension Post.Video: HigiAPIJSONDeserializer {
             let previewImage = MediaAsset(postDictionary: previewImageDict) else { return nil }
         
         self.asset = mediaAsset
-        self.previewImage = Post.Image(asset: previewImage)
+        self.previewImage = previewImage
         self.height = height
         self.width = width
         self.duration = durationMs / 1000
@@ -179,7 +166,7 @@ extension Post: HigiAPIJSONDeserializer {
         self.subheading = (dictionary["Subheading"] as? String) ?? nil
         
         var transformableStrings: [TransformableString] = []
-        var images: [Image] = []
+        var images: [MediaAsset] = []
         var videos: [Video] = []
         if let mediaEntities = dictionary["MediaEntities"] as? NSArray {
             for case let mediaEntity as NSDictionary in mediaEntities {
@@ -190,8 +177,7 @@ extension Post: HigiAPIJSONDeserializer {
                 case .Image:
                     if let imageDict = mediaEntity["Image"] as? NSDictionary,
                         let mediaAsset = MediaAsset(postDictionary: imageDict) {
-                        let image = Image(asset: mediaAsset)
-                        images.append(image)
+                        images.append(mediaAsset)
                     }
                     break
                     
