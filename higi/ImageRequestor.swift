@@ -71,14 +71,12 @@ extension ImageRequestor {
     }
     
     func fetchRemoteImage(forURL URL: NSURL, completion: ImageRequestorCompletion) {
-//        print("fetch remote image by adding operation to queue")
         
         let task = session.downloadTaskWithURL(URL, completionHandler: { [weak self] (responseURL, response, error) in
             
             guard let strongSelf = self else { return }
             guard let responseURL = responseURL,
                 let response = response as? NSHTTPURLResponse else {
-//                    print("no data and/or response")
                     strongSelf.completeOnMainThread(nil, completion: completion)
                     return
             }
@@ -98,20 +96,17 @@ extension ImageRequestor {
                     UIGraphicsEndImageContext()
                     
                     ImageCache.cache(image, forImageURL: URL)
-//                    print("returning downloaded image and caching for future use")
+
                     strongSelf.completeOnMainThread(redrawnImage, completion: completion)
                 } else {
-//                    print("unable to produce image")
                     strongSelf.completeOnMainThread(nil, completion: completion)
                 }
                 
             } else {
-//                print("image request failed")
                 strongSelf.completeOnMainThread(nil, completion: completion)
             }
             })
         task.resume()
-//        print("resume image request")
     }
     
     private func completeOnMainThread(image: UIImage?, completion: ImageRequestorCompletion) {

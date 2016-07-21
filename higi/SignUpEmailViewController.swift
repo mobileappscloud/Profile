@@ -35,10 +35,6 @@ final class SignUpEmailViewController: UIViewController {
     weak var delegate: SignUpEmailViewControllerDelegate?
     
     private var signUpController = SignUpEmailController()
-    
-    deinit {
-        print("Deinit SIGN UP email VC")
-    }
 }
 
 // MARK: - View Lifecycle

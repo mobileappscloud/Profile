@@ -21,10 +21,6 @@ class SettingsViewController: UIViewController {
     
     private(set) var userController: UserController!
     
-    deinit {
-        print("deinit settings vc")
-    }
-    
     func configure(userController: UserController) {
         self.userController = userController
     }

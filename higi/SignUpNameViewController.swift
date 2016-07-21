@@ -36,10 +36,6 @@ final class SignUpNameViewController: UIViewController {
     
     private(set) weak var delegate: SignUpNameViewControllerDelegate?
     
-    deinit {
-        print("deinit sign up name vc")
-    }
-    
     func configure(userController: UserController, delegate: SignUpNameViewControllerDelegate) {
         self.userController = userController
         self.delegate = delegate
@@ -146,7 +142,6 @@ extension SignUpNameViewController {
     }
     
     private func updateFailureHandler() {
-        print("error updating name")
         dispatch_async(dispatch_get_main_queue(), {
             self.toggleElements(true)
         })

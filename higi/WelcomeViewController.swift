@@ -45,10 +45,6 @@ class WelcomeViewController: UIViewController, UIScrollViewDelegate {
     weak var delegate: WelcomeViewControllerDelegate?
     
     private var userCreationCoordinator: UserCreationCoordinator?
-    
-    deinit {
-        print("welcome view deinit")
-    }
 }
 
 // MARK: -

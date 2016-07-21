@@ -32,17 +32,13 @@ final class HostViewController: UIViewController {
             return super.userActivity
         }
         set {
-            print(newValue)
-            
             if let newValue = newValue {
                 switch self.routeHandling {
                 case .Uninitialized:
                     fallthrough
                 case .Processing:
-                    print("set useractivity \(newValue)")
                     super.userActivity = newValue
                 case .Authenticated:
-                    print("set useractivity \(newValue)")
                     super.userActivity = newValue
                     self.handleUserActivity()
                     
@@ -52,7 +48,6 @@ final class HostViewController: UIViewController {
                     break
                 }
             } else {
-                print("set useractivity \(newValue)")
                 super.userActivity = newValue
             }
         }
@@ -167,11 +162,9 @@ extension HostViewController {
 extension HostViewController {
     
     private func handleUserActivity() {
-        print("handle user activity")
         guard let userActivity = userActivity,
             let webpageURL = userActivity.webpageURL else { return }
         
-        print("about to handle universal link")
         UniversalLink.handleURL(webpageURL)
         self.userActivity = nil
     }

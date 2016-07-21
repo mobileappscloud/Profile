@@ -34,7 +34,6 @@ class HigiChallenge {
     
     convenience init?(dictionary: NSDictionary) {
         let challenge = dictionary
-        print("challenge id = \(challenge["id"] as! String)")
         let serverParticipant = (dictionary["userRelation"] as! NSDictionary)["participant"] as? NSDictionary;
         var participant: ChallengeParticipant!;
         if (serverParticipant != nil) {

@@ -95,7 +95,6 @@ extension HostController {
                 
                 UserDeserializer.parse(JSON, success: { [weak strongSelf] (user) in
                     if let strongSelf = strongSelf {
-                        print("successfully fetched and parsed user. creating user controller")
                         strongSelf.userController = UserController(user: user)
                         success()
                     }

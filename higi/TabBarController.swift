@@ -94,11 +94,6 @@ final class TabBarController: UITabBarController {
     func configure(userController: UserController) {
         self.userController = userController
     }
-    
-    deinit {
-        print("DEINIT TAB BAR!")
-    }
-
 }
 
 // MARK: - View Lifecycle

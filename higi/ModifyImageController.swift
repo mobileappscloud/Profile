@@ -60,9 +60,7 @@ extension ModifyImageController {
     }
     
     func updateImagePosition(forUser user: User, centerX: Int, centerY: Int, serverScale: CGFloat, success: () -> Void, failure: () -> Void) {
-        print(centerX)
-        print(centerY)
-        print(serverScale)
+        
         ImageUploadRequest.request(user, centerX: centerX, centerY: centerY, scale: serverScale, completion: { [weak self] (request, error) in
             guard let strongSelf = self,
                 let request = request else {
@@ -99,7 +97,7 @@ extension ModifyImageController {
                         break
                     }
                     compressionQuality -= 0.1
-                    print("compression \(compressionQuality)")
+                    
                 } while (imageData?.length > maxSize && compressionQuality >= minimumCompressionQuality)
             })
             

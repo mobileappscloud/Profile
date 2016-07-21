@@ -23,7 +23,6 @@ final class CommunitiesTableViewController: UIViewController {
             tableView.register(nibWithCellClass: ActivityIndicatorTableViewCell.self)
             
             tableView.decelerationRate = UIScrollViewDecelerationRateNormal
-            print("deceleration rate = \(UIScrollViewDecelerationRateNormal)")
         }
     }
     
@@ -44,10 +43,6 @@ final class CommunitiesTableViewController: UIViewController {
         self.communitiesController = communitiesController
         self.delegate = delegate
         self.communitySubscriptionDelegate = communitySubscriptionDelegate
-    }
-    
-    deinit {
-        print("deinit \(self.dynamicType)")
     }
 }
 
@@ -110,7 +105,7 @@ extension CommunitiesTableViewController {
             })
         
         if let error = error {
-            print(error)
+            
         }
     }
 }
@@ -135,7 +130,7 @@ extension CommunitiesTableViewController {
     
     private func fetchNextFailure(error: NSError?) {
         if let error = error {
-            print(error)
+            
         }
     }
 }

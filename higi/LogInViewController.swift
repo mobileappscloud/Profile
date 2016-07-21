@@ -43,10 +43,6 @@ final class LogInViewController: UIViewController {
     private let dataController = LogInController()
     
     weak var delegate: LogInViewControllerDelegate?
-    
-    deinit {
-        print("Deinit LOG IN vc")
-    }
 }
 
 // MARK: - View Lifecycle

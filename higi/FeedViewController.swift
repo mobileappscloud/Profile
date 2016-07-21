@@ -50,7 +50,6 @@ final class FeedViewController: UIViewController {
     }
     
     deinit {
-        print("dealloc home and invalidate timer!")
         feedController.refreshTimer?.invalidate()
         feedController.refreshTimer = nil
     }
@@ -142,7 +141,6 @@ extension FeedViewController {
     }
     
     private func fetchSuccessHandler(scrollToTop: Bool = false) {
-        print("fetch success")
         dispatch_async(dispatch_get_main_queue(), {
             self.tableView.reloadData()
             self.refreshControl.endRefreshing()
@@ -156,7 +154,7 @@ extension FeedViewController {
     }
     
     private func fetchFailureHandler() {
-        print("fetch failure")
+
     }
 }
 
@@ -171,11 +169,11 @@ extension FeedViewController {
     }
     
     private func fetchNextSuccess() {
-        print("fetch next success")
+
     }
     
     private func fetchNextFailure(error: NSError?) {
-        print("fetch next failure")
+
     }
 }
 
@@ -402,7 +400,7 @@ extension FeedViewController {
                 videoContainer.imageView.setImage(withPostImage: video.previewImage, length: Int(width))
                 videoContainer.imageView.contentMode = .ScaleAspectFit
                 videoContainer.playButtonHandler = {
-                    print("Thanks for pressing play")
+
                 }
                 arrangedSubviews.append(videoContainer)
                 

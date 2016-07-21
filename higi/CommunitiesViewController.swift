@@ -82,10 +82,6 @@ final class CommunitiesViewController: UIViewController {
     
     private(set) var userController: UserController!
     
-    deinit {
-        print("deinit \(self.dynamicType)")
-    }
-    
     func configure(userController: UserController) {
         self.userController = userController
     }

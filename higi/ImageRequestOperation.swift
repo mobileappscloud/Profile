@@ -20,10 +20,6 @@ final class ImageRequestOperation: NSOperation {
         self.completionHandler = completionHandler
     }
     
-    deinit {
-//        print("deinit operation for \(URL.absoluteString)")
-    }
-    
     // MARK: - Concurrent Operation
     
     override var asynchronous: Bool {
@@ -93,7 +89,6 @@ extension ImageRequestOperation {
         }
         
         if let image = ImageCache.image(forImageURL: URL) {
-//            print("returning cached image in NSOperation!")
             completionHandler(image: image)
             completeOperation()
         } else {

@@ -28,10 +28,6 @@ final class UserCreationCoordinator {
         self.presentingViewController = presentingViewController
         self.delegate = delegate
     }
-    
-    deinit {
-        print("release user creation coordinator")
-    }
 }
 
 extension UserCreationCoordinator {

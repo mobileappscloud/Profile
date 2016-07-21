@@ -103,8 +103,6 @@ extension SignUpTermsViewController {
     }
     
     private func updateUserFailureHandler(error: NSError?) {
-        print("update failure handler")
-        print(error)
         toggleElements(true)
     }
 }

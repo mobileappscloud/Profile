@@ -60,10 +60,6 @@ final class SegmentedPageViewController: UIViewController {
     }
     
     weak var delegate: SegmentedPageViewControllerDelegate?
-    
-    deinit {
-        print("deinit \(self.dynamicType)")
-    }
 }
 
 // MARK: - View Lifecycle

@@ -55,15 +55,13 @@ extension FeedCommentViewController {
 extension FeedCommentViewController {
     
     private func fetchCommentsSuccess() {
-        print("fetch success - got comments")
-        
         dispatch_async(dispatch_get_main_queue(), {
             self.tableView.reloadData()
         })
     }
     
     private func fetchCommentsFailure() {
-        print("fetch success - no comments")
+        
     }
 }
 
@@ -254,12 +252,7 @@ extension FeedCommentViewController {
         
         let highFiveTitle = NSLocalizedString("FEED_VIEW_POST_TABLE_CELL_ACTION_BAR_BUTTON_TITLE_HIGH_FIVE", comment: "Title for high-five button within post action bar.")
         let highFive = PostActionBar.Action(type: .HighFive, title: highFiveTitle, imageName: nil, handler: { [weak self] (button, action) in
-//            self?.highFiveTapHandler(forPost: post)
-                post.likeCount += 1
-                self?.feedCommentController.post = post
-            dispatch_async(dispatch_get_main_queue(), {
-                self?.tableView.reloadData()
-            })
+            
             })
         
         let commentTitle = "Reply"

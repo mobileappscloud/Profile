@@ -25,10 +25,6 @@ final class UserValidationCoordinator {
         self.presentingViewController = presentingViewController
         self.delegate = delegate
     }
-    
-    deinit {
-        print("USER VAlidation coordinator deinitialized")
-    }
 }
 
 // MARK: - Validation
@@ -109,7 +105,6 @@ extension UserValidationCoordinator {
 extension UserValidationCoordinator {
     
     private func navigateToTermsAndPrivacyAgreementView() {
-        print("navigate to terms and privacy")
         let storyboard = UIStoryboard(name: "CreateUser", bundle: nil)
         guard let terms = storyboard.instantiateViewControllerWithIdentifier("SignUpTermsViewControllerIdentifier") as? SignUpTermsViewController,
             let termsFileName = termsFileName,
@@ -125,7 +120,6 @@ extension UserValidationCoordinator {
     }
     
     private func navigateToSignUpNameView() {
-        print("navigate to sign up name")
         let storyboard = UIStoryboard(name: "CreateUser", bundle: nil)
         guard let signUpName = storyboard.instantiateViewControllerWithIdentifier("SignUpNameViewControllerIdentifier") as? SignUpNameViewController else {
                 return
@@ -146,7 +140,6 @@ extension UserValidationCoordinator {
     }
     
     private func navigateToBirthdateView() {
-        print("navigate to birthdate view")
         let storyboard = UIStoryboard(name: "CreateUser", bundle: nil)
         guard let birthDateView = storyboard.instantiateViewControllerWithIdentifier("BirthDateViewControllerIdentifier") as? BirthdateViewController else {
             return

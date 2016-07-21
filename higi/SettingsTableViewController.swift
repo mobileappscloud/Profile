@@ -64,10 +64,6 @@ class SettingsTableViewController: UITableViewController, SwitchTableViewCellDel
             addWhiteBorder(newProfileImageButton);
         }
     }
-    
-    deinit {
-        print("deinit settings table vc")
-    }
 }
 
 // MARK: - View Lifecycle

@@ -135,7 +135,7 @@ class FindStationViewController: UIViewController, GMSMapViewDelegate, UITableVi
         stationController.fetch({ [weak self] in
             self?.stationFetchUpdateHandler()
             }, failure: {
-                print("failed to fetch stations")
+
         })
         
         listButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30));

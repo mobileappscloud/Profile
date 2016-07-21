@@ -34,12 +34,10 @@ extension ChallengesController {
         let comments = 50
         let teamComments = 50
         
-        print("set up challenges request")
         ChallengeCollectionRequest.request(user, gravityBoard: gravityBoard, participants: participants, comments: comments, teamComments: teamComments, completion: { [weak self] (request, error) in
             
             guard let strongSelf = self,
                 let request = request else {
-                    print("failed to create challenges request")
                     failure()
                     return
             }
@@ -84,7 +82,6 @@ extension ChallengesController {
             
             guard let strongSelf = self,
                 let request = request else {
-                    print("failed to create challenges request")
                     failure()
                     return
             }

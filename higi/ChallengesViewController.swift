@@ -42,14 +42,13 @@ final class ChallengesViewController: UIViewController, UIGestureRecognizerDeleg
         self.automaticallyAdjustsScrollViewInsets = false
         
         challengesController.fetch(forUser: userController.user, success: { [weak self] in
-            print("challenges successfully fetched")
             guard let strongSelf = self else { return }
             dispatch_async(dispatch_get_main_queue(), { [weak strongSelf] in
                 guard let strongSelf = strongSelf else { return }
                 strongSelf.initChallengeCards()
                 })
             }, failure: {
-                print("challenges failed fetched")
+
         })
     }
     
