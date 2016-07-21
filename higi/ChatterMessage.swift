@@ -81,15 +81,11 @@ extension ChatterMessage: HigiAPIJSONDeserializer {
         let nestingLevel = dictionary["NestingLevel"] as? Int,
         let text = dictionary["Text"] as? String,
         let dateString = dictionary["Date"] as? String,
-            //TODO : Fix this once API sends correct date format!!!
-//        let date = NSDateFormatter.ISO8601DateFormatter.dateFromString(dateString),
+        let date = NSDateFormatter.ISO8601DateFormatter.dateFromString(dateString),
         let isDeleted = dictionary["IsDeleted"] as? Bool
             else {
                 return nil
         }
-        
-        // TODO: REMOVE THIS AFTER RE-ENABLING ISO8601 date!
-        let date = NSDate()
         
         var replies: [ChatterMessage] = []
         if let replyCollection = dictionary["Replies"] as? [NSDictionary] {

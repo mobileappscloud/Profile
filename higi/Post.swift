@@ -142,8 +142,7 @@ extension Post: HigiAPIJSONDeserializer {
             let template = Template(rawValue: templateString),
             let heading = dictionary["Heading"] as? String,
             let publishDateString = dictionary["PublishDate"] as? String,
-            // TODO: UNCOMMENT!
-//            let publishDate = NSDateFormatter.ISO8601DateFormatter.dateFromString(publishDateString)
+            let publishDate = NSDateFormatter.ISO8601DateFormatter.dateFromString(publishDateString),
             let chatterDict = dictionary["Chatter"] as? NSDictionary,
             let commentCount = chatterDict["CommentCount"] as? Int,
             let likeCount = chatterDict["LikeCount"] as? Int
@@ -157,9 +156,7 @@ extension Post: HigiAPIJSONDeserializer {
         self.type = type
         self.template = template
         self.heading = heading
-        // TODO: FIX!
-//        self.publishDate = publishDate
-        self.publishDate = NSDate().dateByAddingTimeInterval(-92349)
+        self.publishDate = publishDate
         self.commentCount = commentCount
         self.likeCount = likeCount
 
