@@ -73,7 +73,7 @@ extension PostActionBar {
         removeAllButtons()
         
         for action in actions {
-            let button = UIButton(type: .System)
+            let button = UIButton(type: .Custom)
             
             var buttonColor: UIColor = Theme.Color.primary
             
