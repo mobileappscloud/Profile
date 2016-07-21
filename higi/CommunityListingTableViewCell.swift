@@ -21,6 +21,7 @@ extension CommunityListingTableViewCell {
     
     func reset() {
         listingView.bannerContainer.imageView.image = nil
+        
         listingView.logoMemberContainer.imageView.image = nil
         listingView.configure("", memberCount: 0)
         

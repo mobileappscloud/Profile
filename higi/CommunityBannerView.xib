@@ -9,6 +9,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CommunityBannerView" customModule="higi" customModuleProvider="target">
             <connections>
                 <outlet property="accessoryContainer" destination="uMk-NY-c7d" id="zuJ-c7-Sm7"/>
+                <outlet property="gradientOverlayImageView" destination="P8g-ba-p3s" id="NKR-pA-2Tz"/>
                 <outlet property="imageView" destination="tKq-PV-98i" id="cSi-zE-NtR"/>
                 <outlet property="view" destination="iN0-l3-epB" id="o8R-WG-lCM"/>
             </connections>

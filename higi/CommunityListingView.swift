@@ -71,6 +71,7 @@ extension CommunityListingView {
         
         let bundle = NSBundle(forClass: self.dynamicType)
         bannerContainer.imageView.image = UIImage(named: "higi-logo", inBundle: bundle, compatibleWithTraitCollection: nil)
+        bannerContainer.gradientOverlayImageView.hidden = false
         logoMemberContainer.imageView.image = UIImage(named: "higi-logo", inBundle: bundle, compatibleWithTraitCollection: nil)
     }
 }

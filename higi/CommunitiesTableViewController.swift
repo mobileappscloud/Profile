@@ -230,6 +230,7 @@ extension CommunitiesTableViewController: UITableViewDataSource {
                 communityCell.reset()
                 
                 communityCell.listingView.bannerContainer.imageView.setImage(withMediaAsset: community.header)
+                
                 communityCell.listingView.logoMemberContainer.imageView.setImage(withMediaAsset: community.logo)
                 communityCell.listingView.configure(community.name, memberCount: community.memberCount)
                 
