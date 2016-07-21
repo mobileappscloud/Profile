@@ -33,29 +33,6 @@ extension FeedController {
     
     func fetch(entity: Post.Entity, entityId: String, success: () -> Void, failure: (error: NSError?) -> Void) {
         
-        
-        
-//        // TODO: Remove stubbing code!
-//        let filePath = NSBundle.mainBundle().pathForResource("user-feed", ofType: "json")!
-//        let data = NSData(contentsOfFile: filePath)!
-//        let JSON = try! NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions())
-//        
-//        FeedCollectionDeserializer.parse(JSON, success: { [weak self] (posts, paging) in
-//            
-//            self?.posts = posts
-//            self?.paging = paging
-//            
-//            self?.fetchTask = nil
-//            success()
-//            
-//            }, failure: { [weak self] (error) in
-//                self?.fetchTask = nil
-//                failure(error: error)
-//        })
-//        
-//        return
-        
-        
         FeedCollectionRequest.request(entity, entityId: entityId, completion: { [weak self] (request, error) in
             
             guard let request = request,

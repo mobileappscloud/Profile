@@ -317,11 +317,15 @@ extension FeedViewController {
     
     // MARK: - Post
     
-    private func postCell(forTableView tableView: UITableView, atIndexPath indexPath: NSIndexPath) -> PostCell {
-        let postCell = tableView.dequeueReusableCell(withClass: PostCell.self, forIndexPath: indexPath)
-        
+    private func postCell(forTableView tableView: UITableView, atIndexPath indexPath: NSIndexPath) -> PostCell {        
         let index = indexPath.row / FeedRowType.Count.rawValue
         let post = feedController.posts[index]
+
+        return postCell(forTableView: tableView, atIndexPath: indexPath, post: post)
+    }
+    
+    func postCell(forTableView tableView: UITableView, atIndexPath indexPath: NSIndexPath, post: Post) -> PostCell {
+        let postCell = tableView.dequeueReusableCell(withClass: PostCell.self, forIndexPath: indexPath)
         
         postCell.reset()
         
@@ -334,8 +338,9 @@ extension FeedViewController {
         for arrangedSubview in arrangedSubviews {
             postCell.contentStackView.addArrangedSubview(arrangedSubview)
         }
+        
         postCell.contentTapGestureHandler = cellTapHandler(forPost: post)
-
+        
         let actions = actionBarItems(forPost: post)
         postCell.actionBar.configure(actions)
         
@@ -498,27 +503,27 @@ extension FeedViewController {
     private func actionBarItems(forPost post: Post) -> [PostActionBar.Action] {
         
         let highFiveTitle = NSLocalizedString("FEED_VIEW_POST_TABLE_CELL_ACTION_BAR_BUTTON_TITLE_HIGH_FIVE", comment: "Title for high-five button within post action bar.")
-        let highFive = PostActionBar.Action(title: highFiveTitle, imageName: nil, handler: { [weak self] (button, action) in
+        let highFive = PostActionBar.Action(type: .HighFive, title: highFiveTitle, imageName: nil, handler: { [weak self] (button, action) in
             self?.highFiveTapHandler(forPost: post)
             })
         
         let commentTitle = NSLocalizedString("FEED_VIEW_POST_TABLE_CELL_ACTION_BAR_BUTTON_TITLE_COMMENT", comment: "Title for comment button within post action bar.")
-        let comment = PostActionBar.Action(title: commentTitle, imageName: nil, handler: { [weak self] (button, action) in
+        let comment = PostActionBar.Action(type: .Comment, title: commentTitle, imageName: nil, handler: { [weak self] (button, action) in
             self?.commentTapHandler(forPost: post)
             })
         
         let shareTitle = NSLocalizedString("FEED_VIEW_POST_TABLE_CELL_ACTION_BAR_BUTTON_TITLE_SHARE", comment: "Title for share button within post action bar.")
-        let share = PostActionBar.Action(title: shareTitle, imageName: nil, handler: { [weak self] (button, action) in
+        let share = PostActionBar.Action(type: .Share, title: shareTitle, imageName: nil, handler: { [weak self] (button, action) in
             self?.shareTapHandler(forPost: post)
             })
         
         let highFiversTitle = post.likeCount == 0 ? "" : String(post.likeCount)
-        let highFivers = PostActionBar.Action(title: highFiversTitle, imageName: "action-bar-high-five-icon", handler: { [weak self] (button, action) in
+        let highFivers = PostActionBar.Action(type: .HighFivers, title: highFiversTitle, imageName: "action-bar-high-five-icon", handler: { [weak self] (button, action) in
             self?.highFiversTapHandler(forPost: post)
             })
         
         let commentersTitle = post.commentCount == 0 ? "" : String(post.commentCount)
-        let commenters = PostActionBar.Action(title: commentersTitle, imageName: "action-bar-chatter-icon", handler: { [weak self] (button, action) in
+        let commenters = PostActionBar.Action(type: .Commenters, title: commentersTitle, imageName: "action-bar-chatter-icon", handler: { [weak self] (button, action) in
             self?.commentersTapHandler(forPost: post)
             })
         
@@ -530,7 +535,14 @@ extension FeedViewController {
     }
     
     private func commentTapHandler(forPost post: Post) {
+        let storyboard = UIStoryboard(name: "FeedComment", bundle: nil)
+        guard let feedComment = storyboard.instantiateInitialViewController() as? FeedCommentViewController else { return }
         
+        feedComment.configure(userController, post: post)
+        
+        dispatch_async(dispatch_get_main_queue(), { [weak self] in
+            self?.targetPresentationViewController?.navigationController?.pushViewController(feedComment, animated: true)
+        })
     }
     
     private func shareTapHandler(forPost post: Post) {
