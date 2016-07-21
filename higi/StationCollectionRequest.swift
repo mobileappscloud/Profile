@@ -15,6 +15,6 @@ extension StationCollectionRequest: HigiAPIRequest {
         let URLString = "\(HigiApi.higiApiUrl)/data/KioskList"
         let URL = NSURL(string: URLString)!
         
-        return request(URL, parameters: nil)!
+        return request(URL, parameters: nil, body: nil)!
     }
 }

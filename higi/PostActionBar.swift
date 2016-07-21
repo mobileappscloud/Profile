@@ -10,13 +10,26 @@
 final class PostActionBar: UIView {
     
     struct Action {
+        
+        enum Type {
+            case HighFive
+            case Comment
+            case Share
+            case HighFivers
+            case Commenters
+        }
+        
+        let type: Type
         let title: String
         var imageName: String?
+        
         var handler: ((sender: UIButton, action: Action) -> Void)?
     }
     
     /// View necessary for xib reuse
     @IBOutlet private var view: UIView!
+    
+    @IBOutlet var stackViewLeadingConstraint: NSLayoutConstraint!
     
     @IBOutlet private var horizontalStackView: UIStackView! {
         didSet {
@@ -53,6 +66,7 @@ extension PostActionBar {
         for subview in horizontalStackView.arrangedSubviews {
             subview.removeFromSuperview()
         }
+        buttonActionMap = [:]
     }
     
     func configure(actions: [Action]) {
@@ -80,7 +94,7 @@ extension PostActionBar {
             button.setTitleColor(buttonColor, forState: .Normal)
             
             button.setTitle(action.title, forState: .Normal)
-            button.titleLabel?.font = UIFont.systemFontOfSize(14.0)
+            button.titleLabel?.font = UIFont.systemFontOfSize(13.0)
             
             button.addTarget(self, action: #selector(didTapButton), forControlEvents: .TouchUpInside)
             
@@ -110,12 +124,13 @@ extension PostActionBar {
     override func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
         
-        let highFive = Action(title: "High-Five", imageName: nil, handler: nil)
-        let reply = Action(title: "Reply", imageName: nil, handler: nil)
-        let share = Action(title: "Share", imageName: nil, handler: nil)
+        let highFive = Action(type: .HighFive, title: "High-Five", imageName: nil, handler: nil)
+        let reply = Action(type: .Comment, title: "Reply", imageName: nil, handler: nil)
+        let share = Action(type: .Share, title: "Share", imageName: nil, handler: nil)
         
-        let highFiveCount = Action(title: "31", imageName: nil, handler: nil)
+        let highFiveCount = Action(type: .HighFivers, title: "312", imageName: "action-bar-high-five-icon", handler: nil)
+        let commentCount = Action(type: .HighFivers, title: "17", imageName: "action-bar-comment-icon", handler: nil)
         
-        self.configure([highFive, reply, share, highFiveCount])
+        self.configure([highFive, reply, share, highFiveCount, commentCount])
     }
 }
