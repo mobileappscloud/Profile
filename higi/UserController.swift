@@ -10,16 +10,12 @@ final class UserController {
     
     private(set) var user: User
     
-    private(set) lazy var session: NSURLSession = {
-       return APIClient.session()
+    private lazy var session: NSURLSession = {
+       return APIClient.sharedSession
     }()
     
     init(user: User) {
         self.user = user
-    }
-    
-    deinit {
-        session.invalidateAndCancel()
     }
 }
 

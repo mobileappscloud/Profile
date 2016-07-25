@@ -10,16 +10,12 @@ final class CommunityDetailController {
     
     private(set) var community: Community
     
-    lazy var session: NSURLSession = {
-        return APIClient.session()
+    private lazy var session: NSURLSession = {
+        return APIClient.sharedSession
     }()
     
     init(community: Community) {
         self.community = community
-    }
-    
-    deinit {
-        session.invalidateAndCancel()
     }
 }
 

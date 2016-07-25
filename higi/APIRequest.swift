@@ -75,7 +75,7 @@ extension APIRequest {
                 return
             }
             
-            let session = APIClient.session()
+            let session = APIClient.sharedSession
             
             let task = NSURLSessionTask.JSONTask(session, request: refreshRequest, success: { (JSON, response) in
                 

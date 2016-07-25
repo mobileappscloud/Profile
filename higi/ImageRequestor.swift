@@ -15,7 +15,7 @@ final class ImageRequestor {
     static let sharedInstance = ImageRequestor()
     
     private lazy var session: NSURLSession = {
-       return APIClient.session()
+       return APIClient.defaultSession()
     }()
     
     private(set) var pendingOperations: [String : ImageRequestOperation] = [:]
@@ -27,7 +27,6 @@ final class ImageRequestor {
     }()
     
     deinit {
-        session.invalidateAndCancel()
         operationQueue.cancelAllOperations()
     }
 }

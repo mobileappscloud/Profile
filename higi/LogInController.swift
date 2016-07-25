@@ -8,7 +8,7 @@
 
 final class LogInController {
     
-    let session = APIClient.session()
+    let session = APIClient.sharedSession
     
     func authenticate(email: String, password: String, success: (user: User) -> (), failure: (error: NSError?) -> ()) {
         

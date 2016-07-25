@@ -15,14 +15,16 @@ final class ChallengesController {
     var availableChallenges:[HigiChallenge] = []
     var invitedChallenges:[HigiChallenge] = []
     
-    private let session = APIClient.session()
+    private lazy var session: NSURLSession = {
+        return APIClient.sharedSession
+    }()
     
     private(set) var paging: Paging?
     
     private(set) var fetchTask: NSURLSessionTask?
     
     deinit {
-        session.invalidateAndCancel()
+        fetchTask?.cancel()
     }
 }
 

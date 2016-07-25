@@ -16,7 +16,7 @@ final class FeedCommentController {
     private(set) var paging: Paging?
     
     lazy private var session: NSURLSession = {
-        return APIClient.session()
+        return APIClient.sharedSession
     }()
     
     init(post: Post) {

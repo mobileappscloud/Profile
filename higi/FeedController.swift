@@ -12,8 +12,8 @@ final class FeedController {
     
     private(set) var paging: Paging? = nil
     
-    lazy var session: NSURLSession = {
-        return APIClient.session()
+    private lazy var session: NSURLSession = {
+        return APIClient.sharedSession
     }()
     
     var fetchTask: NSURLSessionDataTask?
@@ -23,7 +23,8 @@ final class FeedController {
     private var refreshCompletionHandler: (() -> Void)?
     
     deinit {
-        session.invalidateAndCancel()
+        fetchTask?.cancel()
+        nextPagingTask?.cancel()
     }
 }
 

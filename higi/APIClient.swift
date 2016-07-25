@@ -83,21 +83,34 @@ extension APIClient {
 
 extension APIClient {
     
-    static func session() -> NSURLSession {
+    static let sharedSession: NSURLSession = {
         let configuration = NSURLSessionConfiguration.ephemeralSessionConfiguration()
         configuration.timeoutIntervalForResource = 30
         configuration.HTTPShouldSetCookies = false
         configuration.HTTPCookieAcceptPolicy = .Never
         configuration.HTTPCookieStorage = nil
         
+        APIClient.applyCommon(configuration)
+        let session = NSURLSession(configuration: configuration)
+        return session
+    }()
+    
+    static func defaultSession() -> NSURLSession {
+        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+        configuration.timeoutIntervalForResource = 30
+        
+        applyCommon(configuration)
+        let session = NSURLSession(configuration: configuration)
+        return session
+    }
+    
+    private static func applyCommon(configuration: NSURLSessionConfiguration) {
         var headers: [String : String] = [:]
         headers[HTTPHeaderName.clientId] = APIClient.clientId
         headers[HTTPHeaderName.organizationId] = Utility.organizationId()
         // TODO: Remove this header override after API issue is resolved
         headers["Accept-Language"] = ""
         configuration.HTTPAdditionalHeaders = headers
-        let session = NSURLSession(configuration: configuration)
-        return session
     }
 }
 

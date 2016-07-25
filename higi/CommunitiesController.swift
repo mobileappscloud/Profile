@@ -17,8 +17,8 @@ final class CommunitiesController {
     
     private(set) var paging: Paging? = nil
     
-    lazy var session: NSURLSession = {
-        return APIClient.session()
+    private lazy var session: NSURLSession = {
+        return APIClient.sharedSession
     }()
  
     var fetchTask: NSURLSessionDataTask?
@@ -32,7 +32,8 @@ final class CommunitiesController {
     }
     
     deinit {
-        session.invalidateAndCancel()
+        fetchTask?.cancel()
+        nextPagingTask?.cancel()
     }
 }
 

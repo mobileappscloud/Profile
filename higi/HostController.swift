@@ -8,7 +8,7 @@
 
 final class HostController {
     
-    let session = APIClient.session()
+    let session = APIClient.sharedSession
     
     var userController: UserController?
 }

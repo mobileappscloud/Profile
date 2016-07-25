@@ -8,11 +8,9 @@
 
 final class ModifyImageController {
     
-    lazy private var session = APIClient.session()
-    
-    deinit {
-        session.invalidateAndCancel()
-    }
+    private lazy var session: NSURLSession = {
+        return APIClient.sharedSession
+    }()
 }
 
 extension ModifyImageController {

@@ -11,7 +11,7 @@ final class StationController: NSObject {
     private(set) var stations: [KioskInfo] = []
     
     lazy private var session: NSURLSession = {
-       return APIClient.session()
+       return APIClient.sharedSession
     }()
     
     private let fileManager: NSFileManager = {

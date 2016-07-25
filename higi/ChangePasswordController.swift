@@ -8,7 +8,7 @@
 
 struct ChangePasswordController {
     
-    private let session = APIClient.session()
+    private let session = APIClient.sharedSession
     
     func update(currentPassword: String, newPassword: String, success: () -> Void, failure: () -> Void) {
         

@@ -8,11 +8,9 @@
 
 final class SignUpEmailController {
     
-    let session = APIClient.session()
-    
-    deinit {
-        session.invalidateAndCancel()
-    }
+    private lazy var session: NSURLSession = {
+        return APIClient.sharedSession
+    }()
 }
 
 extension SignUpEmailController {
