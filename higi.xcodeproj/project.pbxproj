@@ -148,6 +148,9 @@
 		415338161C60614700ED2B82 /* MetricCheckinSummaryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 415338151C60614700ED2B82 /* MetricCheckinSummaryView.xib */; };
 		415338181C60681B00ED2B82 /* MetricCheckinSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415338171C60681B00ED2B82 /* MetricCheckinSummaryView.swift */; };
 		41545BF91BA76CFA00946358 /* NotificationSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41545BF81BA76CFA00946358 /* NotificationSettings.storyboard */; };
+		4155F4AC1D46A0EA0014613D /* FlurryEmpty.m in Sources */ = {isa = PBXBuildFile; fileRef = 4155F4AA1D46A0EA0014613D /* FlurryEmpty.m */; };
+		4155F4AD1D46A0EA0014613D /* libFlurry_7.6.6.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4155F4AB1D46A0EA0014613D /* libFlurry_7.6.6.a */; };
+		4155F4B01D46A2240014613D /* libFlurryWatch_7.6.6.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4155F4AF1D46A2240014613D /* libFlurryWatch_7.6.6.a */; };
 		4159126E1C8A288200111B39 /* InterfaceOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4159126D1C8A288200111B39 /* InterfaceOrientation.swift */; };
 		415998E01CAD7C8F001A7392 /* CommunityCollectionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415998DF1CAD7C8F001A7392 /* CommunityCollectionRequest.swift */; };
 		415998EE1CAED619001A7392 /* CollectionDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415998ED1CAED619001A7392 /* CollectionDeserializer.swift */; };
@@ -224,8 +227,6 @@
 		41A0BE121BBB088500A314D6 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A0BE081BBB088500A314D6 /* AFURLResponseSerialization.m */; };
 		41A0BE131BBB088500A314D6 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A0BE0A1BBB088500A314D6 /* AFURLSessionManager.m */; };
 		41A0BE2A1BBB08B800A314D6 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A0BE1E1BBB08B800A314D6 /* UIImageView+AFNetworking.m */; };
-		41A0BE341BBB110900A314D6 /* Empty.m in Sources */ = {isa = PBXBuildFile; fileRef = 41A0BE301BBB110900A314D6 /* Empty.m */; };
-		41A0BE351BBB110900A314D6 /* libFlurry_7.1.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 41A0BE331BBB110900A314D6 /* libFlurry_7.1.1.a */; };
 		41A0BE371BBB14EA00A314D6 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A0BE361BBB14EA00A314D6 /* KeychainWrapper.swift */; };
 		41A0BE541BBB1CD100A314D6 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 41A0BE4B1BBB194700A314D6 /* libCorePlot-CocoaTouch.a */; };
 		41A2749E1D20F3C000D10F8A /* FeedCollectionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A2749D1D20F3C000D10F8A /* FeedCollectionRequest.swift */; };
@@ -571,6 +572,10 @@
 		415338151C60614700ED2B82 /* MetricCheckinSummaryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MetricCheckinSummaryView.xib; sourceTree = "<group>"; };
 		415338171C60681B00ED2B82 /* MetricCheckinSummaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricCheckinSummaryView.swift; sourceTree = "<group>"; };
 		41545BF81BA76CFA00946358 /* NotificationSettings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NotificationSettings.storyboard; sourceTree = "<group>"; };
+		4155F4AA1D46A0EA0014613D /* FlurryEmpty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlurryEmpty.m; sourceTree = "<group>"; };
+		4155F4AB1D46A0EA0014613D /* libFlurry_7.6.6.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_7.6.6.a; sourceTree = "<group>"; };
+		4155F4AE1D46A2240014613D /* FlurryWatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryWatch.h; sourceTree = "<group>"; };
+		4155F4AF1D46A2240014613D /* libFlurryWatch_7.6.6.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurryWatch_7.6.6.a; sourceTree = "<group>"; };
 		4159126D1C8A288200111B39 /* InterfaceOrientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterfaceOrientation.swift; sourceTree = "<group>"; };
 		415998DF1CAD7C8F001A7392 /* CommunityCollectionRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityCollectionRequest.swift; sourceTree = "<group>"; };
 		415998ED1CAED619001A7392 /* CollectionDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionDeserializer.swift; sourceTree = "<group>"; };
@@ -681,10 +686,7 @@
 		41A0BE1D1BBB08B800A314D6 /* UIImageView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AFNetworking.h"; sourceTree = "<group>"; };
 		41A0BE1E1BBB08B800A314D6 /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
 		41A0BE1F1BBB08B800A314D6 /* UIKit+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIKit+AFNetworking.h"; sourceTree = "<group>"; };
-		41A0BE301BBB110900A314D6 /* Empty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Empty.m; sourceTree = "<group>"; };
 		41A0BE311BBB110900A314D6 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
-		41A0BE321BBB110900A314D6 /* FlurryWatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryWatch.h; sourceTree = "<group>"; };
-		41A0BE331BBB110900A314D6 /* libFlurry_7.1.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_7.1.1.a; sourceTree = "<group>"; };
 		41A0BE361BBB14EA00A314D6 /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeychainWrapper.swift; path = Vendor/SwiftKeychainWrapper/SwiftKeychainWrapper/KeychainWrapper.swift; sourceTree = "<group>"; };
 		41A0BE441BBB194600A314D6 /* CorePlot-CocoaTouch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CorePlot-CocoaTouch.xcodeproj"; path = "Vendor/CorePlot/framework/CorePlot-CocoaTouch.xcodeproj"; sourceTree = "<group>"; };
 		41A2749D1D20F3C000D10F8A /* FeedCollectionRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedCollectionRequest.swift; sourceTree = "<group>"; };
@@ -894,7 +896,7 @@
 				8F5590A019ABE23C00C9B46E /* EventKitUI.framework in Frameworks */,
 				8FD73CB2199025C200BACCB2 /* OpenGLES.framework in Frameworks */,
 				8FD73CB0199025BA00BACCB2 /* libz.dylib in Frameworks */,
-				41A0BE351BBB110900A314D6 /* libFlurry_7.1.1.a in Frameworks */,
+				4155F4B01D46A2240014613D /* libFlurryWatch_7.6.6.a in Frameworks */,
 				8FD73CAE199025AB00BACCB2 /* libicucore.dylib in Frameworks */,
 				8FD73CAC199023DE00BACCB2 /* libc++.dylib in Frameworks */,
 				413E19341C10B10200146B29 /* Crashlytics.framework in Frameworks */,
@@ -909,6 +911,7 @@
 				8FD73C9E1990239E00BACCB2 /* QuartzCore.framework in Frameworks */,
 				8F6D51751948E53100F7C769 /* Accelerate.framework in Frameworks */,
 				41A0BE541BBB1CD100A314D6 /* libCorePlot-CocoaTouch.a in Frameworks */,
+				4155F4AD1D46A0EA0014613D /* libFlurry_7.6.6.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1858,10 +1861,11 @@
 		41A0BE2F1BBB110900A314D6 /* Flurry */ = {
 			isa = PBXGroup;
 			children = (
-				41A0BE301BBB110900A314D6 /* Empty.m */,
 				41A0BE311BBB110900A314D6 /* Flurry.h */,
-				41A0BE321BBB110900A314D6 /* FlurryWatch.h */,
-				41A0BE331BBB110900A314D6 /* libFlurry_7.1.1.a */,
+				4155F4AA1D46A0EA0014613D /* FlurryEmpty.m */,
+				4155F4AE1D46A2240014613D /* FlurryWatch.h */,
+				4155F4AB1D46A0EA0014613D /* libFlurry_7.6.6.a */,
+				4155F4AF1D46A2240014613D /* libFlurryWatch_7.6.6.a */,
 			);
 			name = Flurry;
 			path = Vendor/Flurry/Flurry;
@@ -2856,6 +2860,7 @@
 				41A274AD1D20F42600D10F8A /* NSDateComponentsFormatter+Utility.swift in Sources */,
 				41667A251CECC1B5007BB0FF /* BirthdateController.swift in Sources */,
 				413E19911C10EB6100146B29 /* MetricPlotViewController.swift in Sources */,
+				4155F4AC1D46A0EA0014613D /* FlurryEmpty.m in Sources */,
 				8F9C69D71950C89B00449664 /* HigiUser.swift in Sources */,
 				41411BA01BA87E3D0027F5E1 /* NotificationSettingsDeviceTableViewController.swift in Sources */,
 				410FFFAB1CA772A9005EAC9E /* JSONWebToken.swift in Sources */,
@@ -2900,7 +2905,6 @@
 				411420281D0BB7570050473E /* BlurredLoadingViewController.swift in Sources */,
 				4162266F1C7940B100EFA1B3 /* HigiScatterPlot+Utility.swift in Sources */,
 				8F7065B41A16B129002FCA10 /* ChallengeParticipant.swift in Sources */,
-				41A0BE341BBB110900A314D6 /* Empty.m in Sources */,
 				2BBDBA581A12AC2C005A6815 /* GoalChallengeView.swift in Sources */,
 				413922CA1CDA6DA000C3672E /* HostController.swift in Sources */,
 				8F9C69D91950C8AD00449664 /* KioskInfo.swift in Sources */,
