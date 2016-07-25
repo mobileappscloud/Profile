@@ -533,7 +533,7 @@ extension FeedViewController {
     
     private func commentTapHandler(forPost post: Post) {
         let storyboard = UIStoryboard(name: "FeedComment", bundle: nil)
-        guard let feedComment = storyboard.instantiateInitialViewController() as? FeedCommentViewController else { return }
+        guard let feedComment = storyboard.instantiateInitialViewController() as? CommentViewController else { return }
         
         feedComment.configure(userController, post: post)
         

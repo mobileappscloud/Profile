@@ -10,7 +10,7 @@ struct ChatterCollectionRequest {}
 
 extension ChatterCollectionRequest: APIRequest {
     
-    static func request(entity: ChatterMessage.Entity, completion: APIRequestAuthenticatorCompletion) {
+    static func request(entity: Comment.Entity, completion: APIRequestAuthenticatorCompletion) {
         
         let entityType: String
         switch entity.type {
@@ -22,7 +22,7 @@ extension ChatterCollectionRequest: APIRequest {
             entityType = "comments"
         case .Reward:
             entityType = "rewards"
-        case .FeedPost:
+        case .Post:
             entityType = "posts"
         case .Community:
             entityType = "communities"

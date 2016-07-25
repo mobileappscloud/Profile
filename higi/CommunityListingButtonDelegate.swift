@@ -6,7 +6,6 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-
 final class CommunityListingButtonDelegate {
     
     weak var presentingViewController: UIViewController?

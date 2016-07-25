@@ -1,12 +1,12 @@
 //
-//  FeedCommentViewController.swift
+//  CommentViewController.swift
 //  higi
 //
 //  Created by Remy Panicker on 7/18/16.
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-final class FeedCommentViewController: UIViewController {
+final class CommentViewController: UIViewController {
     
     @IBOutlet private(set) var tableView: UITableView! {
         didSet {
@@ -17,7 +17,7 @@ final class FeedCommentViewController: UIViewController {
             tableView.sectionFooterHeight = 0.0
             
             tableView.register(nibWithCellClass: PostCell.self)
-            tableView.register(nibWithCellClass: FeedCommentCell.self)
+            tableView.register(nibWithCellClass: CommentCell.self)
             tableView.register(cellClass: UITableViewCell.self)
             tableView.register(nibWithCellClass: ActivityIndicatorTableViewCell.self)
         }
@@ -26,25 +26,25 @@ final class FeedCommentViewController: UIViewController {
     private var tableSections: [TableSection : Range<Int>] = [:]
     
     private(set) var userController: UserController!
-    private(set) var feedCommentController: FeedCommentController!
+    private(set) var commentController: CommentController!
 }
 
-extension FeedCommentViewController {
+extension CommentViewController {
     
     func configure(userController: UserController, post: Post) {
         self.userController = userController
-        self.feedCommentController = FeedCommentController(post: post)
+        self.commentController = CommentController(post: post)
     }
 }
 
 // MARK: - View Lifecycle
 
-extension FeedCommentViewController {
+extension CommentViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        feedCommentController.fetchComments({ [weak self] in
+        commentController.fetchComments({ [weak self] in
             self?.fetchCommentsSuccess()
             }, failure: { [weak self] in
                 self?.fetchCommentsFailure()
@@ -52,7 +52,7 @@ extension FeedCommentViewController {
     }
 }
 
-extension FeedCommentViewController {
+extension CommentViewController {
     
     private func fetchCommentsSuccess() {
         dispatch_async(dispatch_get_main_queue(), {
@@ -68,7 +68,7 @@ extension FeedCommentViewController {
 
 // MARK: - Table Taxonomy
 
-extension FeedCommentViewController {
+extension CommentViewController {
     
     enum TableSection  {
         case Post
@@ -82,13 +82,13 @@ extension FeedCommentViewController {
 
 // MARK: - Table Data Source
 
-extension FeedCommentViewController: UITableViewDataSource {
+extension CommentViewController: UITableViewDataSource {
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
 
         let postRange = 0...0
         let separatorRange = postRange.endIndex...postRange.endIndex
-        let commentCount = feedCommentController.comments.count
+        let commentCount = commentController.comments.count
         let commentRangeEnd = (commentCount > 0) ? separatorRange.endIndex.advancedBy(commentCount - 1) : separatorRange.endIndex
         let commentRange = separatorRange.endIndex...commentRangeEnd
         let infiniteScrollRange = commentRange.endIndex...commentRange.endIndex
@@ -110,7 +110,7 @@ extension FeedCommentViewController: UITableViewDataSource {
             switch tableSection {
             case .Comment:
                 if let index = commentIndex(forSection: section) {
-                    let comment = feedCommentController.comments[index]
+                    let comment = commentController.comments[index]
                     rowCount += 1
                     rowCount += comment.replies.count
                 }
@@ -165,7 +165,7 @@ extension FeedCommentViewController: UITableViewDataSource {
 
 // MARK: - Table Delegate
 
-extension FeedCommentViewController: UITableViewDelegate {
+extension CommentViewController: UITableViewDelegate {
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         // Must return non-zero value or else there is unwanted padding at top of tableview
@@ -182,7 +182,7 @@ extension FeedCommentViewController: UITableViewDelegate {
         
         switch sectionType {
         case .InfiniteScroll:
-            guard let paging = feedCommentController.paging,
+            guard let paging = commentController.paging,
                 let _ = paging.next else {
                     break
             }
@@ -210,12 +210,12 @@ extension FeedCommentViewController: UITableViewDelegate {
 
 // MARK: - Custom Cells
 
-extension FeedCommentViewController {
+extension CommentViewController {
     
     private func postCell(forIndexPath indexPath: NSIndexPath) -> PostCell {
 //        let postCell = tableView.dequeueReusableCell(withClass: PostCell.self, forIndexPath: indexPath)
 //        
-        let post = feedCommentController.post
+        let post = commentController.post
         
         let postCell = FeedViewController().postCell(forTableView: tableView, atIndexPath: indexPath, post: post)
         
@@ -230,8 +230,8 @@ extension FeedCommentViewController {
         return separatorCell
     }
     
-    private func commentCell(forIndexPath indexPath: NSIndexPath) -> FeedCommentCell {
-        let commentCell = tableView.dequeueReusableCell(withClass: FeedCommentCell.self, forIndexPath: indexPath)
+    private func commentCell(forIndexPath indexPath: NSIndexPath) -> CommentCell {
+        let commentCell = tableView.dequeueReusableCell(withClass: CommentCell.self, forIndexPath: indexPath)
 //        commentCell.actionBar.hidden = true
         
         guard let index = commentIndex(forSection: indexPath.section) else { fatalError() }
@@ -242,13 +242,13 @@ extension FeedCommentViewController {
             commentCell.backgroundColor = Theme.Color.Primary.whiteGray
         }
         
-        let commentObject = feedCommentController.comments[index]
+        let commentObject = commentController.comments[index]
         
         commentCell.avatarButton.setImage(withMediaAsset: commentObject.user.avatar, forState: .Normal)
         commentCell.primaryLabel.text = "\(commentObject.user.firstName) \(commentObject.user.lastName)"
         commentCell.secondaryLabel.text = commentObject.text
         
-        var post = feedCommentController.post
+        var post = commentController.post
         
         let highFiveTitle = NSLocalizedString("FEED_VIEW_POST_TABLE_CELL_ACTION_BAR_BUTTON_TITLE_HIGH_FIVE", comment: "Title for high-five button within post action bar.")
         let highFive = PostActionBar.Action(type: .HighFive, title: highFiveTitle, imageName: nil, handler: { [weak self] (button, action) in
@@ -289,7 +289,7 @@ extension FeedCommentViewController {
 
 // MARK: - Table Helpers
 
-extension FeedCommentViewController {
+extension CommentViewController {
     
     private func tableSection(forSection section: Int) -> TableSection? {
         var tableSection: TableSection? = nil
@@ -305,7 +305,7 @@ extension FeedCommentViewController {
     private func commentIndex(forSection section: Int) -> Int? {
         guard let range = tableSections[.Comment] where range.contains(section) else { return nil }
         
-        let commentCount = feedCommentController.comments.count
+        let commentCount = commentController.comments.count
         if !(commentCount > 0) { return nil }
         
         let index = section - range.startIndex

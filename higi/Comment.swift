@@ -1,12 +1,12 @@
 //
-//  ChatterMessage.swift
+//  Comment.swift
 //  higi
 //
 //  Created by Remy Panicker on 7/19/16.
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-struct ChatterMessage {
+struct Comment {
     
     struct User {
         let identifier: String
@@ -29,7 +29,7 @@ struct ChatterMessage {
     
     let nestingLevel: Int
     
-    let replies: [ChatterMessage]
+    let replies: [Comment]
     
     let text: String
     
@@ -38,7 +38,7 @@ struct ChatterMessage {
     let isDeleted: Bool
 }
 
-extension ChatterMessage.User: JSONDeserializable, JSONInitializable {
+extension Comment.User: JSONDeserializable, JSONInitializable {
     
     init?(dictionary: NSDictionary) {
         guard let identifier = dictionary["Id"] as? String,
@@ -57,7 +57,7 @@ extension ChatterMessage.User: JSONDeserializable, JSONInitializable {
     }
 }
 
-extension ChatterMessage.Entity: JSONDeserializable, JSONInitializable {
+extension Comment.Entity: JSONDeserializable, JSONInitializable {
     
     init?(dictionary: NSDictionary) {
         guard let identifier = dictionary["EntityId"] as? String,
@@ -71,13 +71,13 @@ extension ChatterMessage.Entity: JSONDeserializable, JSONInitializable {
     }
 }
 
-extension ChatterMessage: JSONDeserializable, JSONInitializable {
+extension Comment: JSONDeserializable, JSONInitializable {
     
     init?(dictionary: NSDictionary) {
         guard let identifier = dictionary["Id"] as? String,
         let userDict = dictionary["User"] as? NSDictionary,
-        let user = ChatterMessage.User(dictionary: userDict),
-        let parentEntity = ChatterMessage.Entity(dictionary: dictionary),
+        let user = Comment.User(dictionary: userDict),
+        let parentEntity = Comment.Entity(dictionary: dictionary),
         let nestingLevel = dictionary["NestingLevel"] as? Int,
         let text = dictionary["Text"] as? String,
         let dateString = dictionary["Date"] as? String,
@@ -87,10 +87,10 @@ extension ChatterMessage: JSONDeserializable, JSONInitializable {
                 return nil
         }
         
-        var replies: [ChatterMessage] = []
+        var replies: [Comment] = []
         if let replyCollection = dictionary["Replies"] as? [NSDictionary] {
             for replyDict in replyCollection {
-                if let reply = ChatterMessage(dictionary: replyDict) {
+                if let reply = Comment(dictionary: replyDict) {
                     replies.append(reply)
                 }
             }

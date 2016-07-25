@@ -13,7 +13,7 @@ struct ChatterRequest {
         case Challenge = 2
         case Comment = 3
         case Reward = 4
-        case FeedPost = 5
+        case Post = 5
         case Community = 6
         
         static var mapping: [String : EntityType] = [
@@ -21,7 +21,7 @@ struct ChatterRequest {
             "Challenge" : .Challenge,
             "Comment" : .Comment,
             "Reward" : .Reward,
-            "Post" : .FeedPost,
+            "Post" : .Post,
             "Community" : .Community
         ]
     }

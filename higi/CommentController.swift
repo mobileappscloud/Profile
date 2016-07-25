@@ -1,17 +1,17 @@
 //
-//  FeedCommentController.swift
+//  CommentController.swift
 //  higi
 //
 //  Created by Remy Panicker on 7/18/16.
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-final class FeedCommentController {
+final class CommentController {
     
 //    private(set) var post: Post
     var post: Post
     
-    private(set) var comments: [ChatterMessage] = []
+    private(set) var comments: [Comment] = []
     
     private(set) var paging: Paging?
     
@@ -24,14 +24,14 @@ final class FeedCommentController {
     }
 }
 
-extension FeedCommentController {
+extension CommentController {
     
-    private func postEntity() -> ChatterMessage.Entity {
-        return ChatterMessage.Entity(identifier: post.identifier, type: .FeedPost)
+    private func postEntity() -> Comment.Entity {
+        return Comment.Entity(identifier: post.identifier, type: .Post)
     }
 }
 
-extension FeedCommentController {
+extension CommentController {
     
     func fetchComments(success: () -> Void, failure: () -> Void) {
         
@@ -44,7 +44,7 @@ extension FeedCommentController {
             
             let task = NSURLSessionTask.JSONTask(strongSelf.session, request: request, success: { [weak strongSelf] (JSON, response) in
                 
-                CollectionDeserializer.parse(JSON, resource: ChatterMessage.self, success: { [weak strongSelf] (messages, paging) in
+                CollectionDeserializer.parse(JSON, resource: Comment.self, success: { [weak strongSelf] (messages, paging) in
                     
                     strongSelf?.comments = messages
                     strongSelf?.paging = paging

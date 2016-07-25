@@ -1,12 +1,12 @@
 //
-//  FeedCommentCell.swift
+//  CommentCell.swift
 //  higi
 //
 //  Created by Remy Panicker on 7/19/16.
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-final class FeedCommentCell: UITableViewCell {
+final class CommentCell: UITableViewCell {
     
     @IBOutlet var leadingConstraint: NSLayoutConstraint!
     
@@ -19,7 +19,7 @@ final class FeedCommentCell: UITableViewCell {
         }
     }
     
-    var buttonHandler: ((cell: FeedCommentCell) -> Void)?
+    var buttonHandler: ((cell: CommentCell) -> Void)?
     
     @IBOutlet var primaryLabel: TTTAttributedLabel!
     
@@ -28,7 +28,7 @@ final class FeedCommentCell: UITableViewCell {
     @IBOutlet var actionBar: PostActionBar!
 }
 
-extension FeedCommentCell {
+extension CommentCell {
     
     @IBAction private func didTapAvatarButton(sender: UIButton) {
         buttonHandler?(cell: self)
