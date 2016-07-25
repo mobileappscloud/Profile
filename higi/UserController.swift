@@ -11,7 +11,7 @@ final class UserController {
     private(set) var user: User
     
     private(set) lazy var session: NSURLSession = {
-       return HigiAPIClient.session()
+       return APIClient.session()
     }()
     
     init(user: User) {
@@ -33,7 +33,7 @@ extension UserController {
 extension UserController {
     
     func fetch(success: () -> Void, failure: () -> Void) {
-        guard let authorization = HigiAPIClient.authorization,
+        guard let authorization = APIClient.authorization,
             let userId = authorization.accessToken.subject() else {
                 failure()
                 return
@@ -126,6 +126,6 @@ extension UserController {
     
     func originalPhotoURL() -> NSURL {
         let relativePath = "/user/users/\(user.identifier)/photoOriginal"
-        return HigiAPIClient.URL(relativePath, parameters: nil)!
+        return APIClient.URL(relativePath, parameters: nil)!
     }
 }

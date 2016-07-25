@@ -21,7 +21,7 @@ struct MediaAsset {
     }
 }
 
-extension MediaAsset: HigiAPIJSONDeserializer {
+extension MediaAsset: JSONDeserializable, JSONInitializable {
     
     init?(dictionary: NSDictionary) {
         guard let URIString = dictionary["uri"] as? String,

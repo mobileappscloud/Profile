@@ -8,7 +8,7 @@
 
 final class ModifyImageController {
     
-    lazy private var session = HigiAPIClient.session()
+    lazy private var session = APIClient.session()
     
     deinit {
         session.invalidateAndCancel()

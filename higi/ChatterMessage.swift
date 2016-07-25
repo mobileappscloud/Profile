@@ -38,7 +38,7 @@ struct ChatterMessage {
     let isDeleted: Bool
 }
 
-extension ChatterMessage.User: HigiAPIJSONDeserializer {
+extension ChatterMessage.User: JSONDeserializable, JSONInitializable {
     
     init?(dictionary: NSDictionary) {
         guard let identifier = dictionary["Id"] as? String,
@@ -57,7 +57,7 @@ extension ChatterMessage.User: HigiAPIJSONDeserializer {
     }
 }
 
-extension ChatterMessage.Entity: HigiAPIJSONDeserializer {
+extension ChatterMessage.Entity: JSONDeserializable, JSONInitializable {
     
     init?(dictionary: NSDictionary) {
         guard let identifier = dictionary["EntityId"] as? String,
@@ -71,7 +71,7 @@ extension ChatterMessage.Entity: HigiAPIJSONDeserializer {
     }
 }
 
-extension ChatterMessage: HigiAPIJSONDeserializer {
+extension ChatterMessage: JSONDeserializable, JSONInitializable {
     
     init?(dictionary: NSDictionary) {
         guard let identifier = dictionary["Id"] as? String,

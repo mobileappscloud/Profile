@@ -8,9 +8,9 @@
 
 struct ChallengeCollectionRequest {}
 
-extension ChallengeCollectionRequest: HigiAPIRequest {
+extension ChallengeCollectionRequest: APIRequest {
     
-    static func request(user: User, gravityBoard: Int, participants: Int, comments: Int, teamComments: Int, completion: HigiAPIRequestAuthenticatorCompletion) {
+    static func request(user: User, gravityBoard: Int, participants: Int, comments: Int, teamComments: Int, completion: APIRequestAuthenticatorCompletion) {
         
         let relativePath = "/challenge/user/\(user.identifier)/challenges"
         

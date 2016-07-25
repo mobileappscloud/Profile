@@ -1,14 +1,14 @@
 //
-//  HigiAPIClient.swift
+//  APIClient.swift
 //  higi
 //
 //  Created by Remy Panicker on 3/26/16.
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-let HigiAPIClientTerminateAuthenticatedSessionNotification = "HigiAPIClientTerminateAuthenticatedSessionNotificationKey"
+let APIClientTerminateAuthenticatedSessionNotification = "APIClientTerminateAuthenticatedSessionNotificationKey"
 
-struct HigiAPIClient: HigiAPI2 {
+struct APIClient: HigiAPI2 {
     
     /// Client ID registered as a whitelisted application with `OAuth2` access to the higi API.
     static let clientId = "MobileiOS"
@@ -35,7 +35,7 @@ struct HigiAPIClient: HigiAPI2 {
 }
 
 // This extension can be refactored out if `NSURLCredential` is updated to better support access tokens.
-extension HigiAPIClient {
+extension APIClient {
     
     /**
      Authorization information required for accessing protected higi API resources.
@@ -44,15 +44,15 @@ extension HigiAPIClient {
      */
     private(set) static var authorization: HigiAuthorization? {
         get {
-            return KeychainWrapper.objectForKey(HigiAPIClient.authorizationKey) as? HigiAuthorization
+            return KeychainWrapper.objectForKey(APIClient.authorizationKey) as? HigiAuthorization
         }
         
         set {
             if let newValue = newValue {
-                KeychainWrapper.setObject(newValue, forKey: HigiAPIClient.authorizationKey)
+                KeychainWrapper.setObject(newValue, forKey: APIClient.authorizationKey)
             } else {
-                if KeychainWrapper.objectForKey(HigiAPIClient.authorizationKey) != nil {
-                    KeychainWrapper.removeObjectForKey(HigiAPIClient.authorizationKey)
+                if KeychainWrapper.objectForKey(APIClient.authorizationKey) != nil {
+                    KeychainWrapper.removeObjectForKey(APIClient.authorizationKey)
                 }
             }
         }
@@ -64,7 +64,7 @@ extension HigiAPIClient {
      - parameter authorization: higi API authorization object.
      */
     static func cacheAuthorization(authorization: HigiAuthorization) {
-        HigiAPIClient.authorization = authorization
+        APIClient.authorization = authorization
     }
     
     /**
@@ -73,15 +73,15 @@ extension HigiAPIClient {
      **Note:** This method should be called after revoking the user's refresh token. The API does not persist a user's access token, so their access token will remain valid until the expiration date has passed.
      */
     static func removeCachedAuthorization() {
-        HigiAPIClient.authorization = nil
+        APIClient.authorization = nil
     }
     
     static func terminateAuthenticatedSession() {
-        NSNotificationCenter.defaultCenter().postNotificationName(HigiAPIClientTerminateAuthenticatedSessionNotification, object: nil)
+        NSNotificationCenter.defaultCenter().postNotificationName(APIClientTerminateAuthenticatedSessionNotification, object: nil)
     }
 }
 
-extension HigiAPIClient {
+extension APIClient {
     
     static func session() -> NSURLSession {
         let configuration = NSURLSessionConfiguration.ephemeralSessionConfiguration()
@@ -91,7 +91,7 @@ extension HigiAPIClient {
         configuration.HTTPCookieStorage = nil
         
         var headers: [String : String] = [:]
-        headers[HTTPHeaderName.clientId] = HigiAPIClient.clientId
+        headers[HTTPHeaderName.clientId] = APIClient.clientId
         headers[HTTPHeaderName.organizationId] = Utility.organizationId()
         // TODO: Remove this header override after API issue is resolved
         headers["Accept-Language"] = ""
@@ -101,7 +101,7 @@ extension HigiAPIClient {
     }
 }
 
-extension HigiAPIClient {
+extension APIClient {
     
     /**
      Convenience method which produces a `NSURL` object resolved against the higi API base URL. This method will handle any necessary encoding applicable to the relative path and query parameters.
@@ -114,7 +114,7 @@ extension HigiAPIClient {
     static func URL(relativePath: String, parameters: [String : String]?) -> NSURL? {
         
         guard let percentEncodedPath = relativePath.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLPathAllowedCharacterSet()),
-            let endpointURL = NSURL(string: percentEncodedPath, relativeToURL: HigiAPIClient.baseURL) else { return nil }
+            let endpointURL = NSURL(string: percentEncodedPath, relativeToURL: APIClient.baseURL) else { return nil }
         
         if let parameters = parameters {
             return NSURL.URLByAppendingQueryParameters(endpointURL, queryParameters: parameters)

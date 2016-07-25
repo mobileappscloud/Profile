@@ -8,9 +8,9 @@
 
 struct FeedRequest {}
 
-extension FeedRequest: HigiAPIRequest {
+extension FeedRequest: APIRequest {
     
-    static func request(postId: String, completion: HigiAPIRequestAuthenticatorCompletion) {
+    static func request(postId: String, completion: APIRequestAuthenticatorCompletion) {
         
         let relativePath = "/feed/posts/\(postId)"
         

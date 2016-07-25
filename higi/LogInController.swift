@@ -8,7 +8,7 @@
 
 final class LogInController {
     
-    let session = HigiAPIClient.session()
+    let session = APIClient.session()
     
     func authenticate(email: String, password: String, success: (user: User) -> (), failure: (error: NSError?) -> ()) {
         

@@ -8,9 +8,9 @@
 
 struct UserRequest {}
 
-extension UserRequest: HigiAPIRequest {
+extension UserRequest: APIRequest {
     
-    static func request(userId: String, completion: HigiAPIRequestAuthenticatorCompletion) {
+    static func request(userId: String, completion: APIRequestAuthenticatorCompletion) {
         let relativePath = "/user/users/\(userId)"
         authenticatedRequest(relativePath, parameters: nil, completion: completion)
     }

@@ -1,14 +1,14 @@
 //
-//  HigiAPIJSONDeserializer.swift
+//  JSONDeserializable.swift
 //  higi
 //
 //  Created by Remy Panicker on 3/29/16.
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-protocol HigiAPIJSONDeserializer: HigiAPI2 {}
+protocol JSONDeserializable: HigiAPI2 {}
 
-extension HigiAPIJSONDeserializer {
+extension JSONDeserializable {
     
     static func deserialize(data: NSData?, success: (JSON: AnyObject?) -> Void, failure: (error: NSError?) -> Void) {
         guard let data = data else {

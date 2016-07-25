@@ -6,9 +6,7 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-import Foundation
-
-final class Community: NSObject {
+final class Community {
     
     let identifier: String
     let organizationIdentifier: String
@@ -50,7 +48,7 @@ final class Community: NSObject {
     }
 }
 
-extension Community: HigiAPIJSONDeserializer {
+extension Community: JSONDeserializable, JSONInitializable {
 
     convenience init?(dictionary: NSDictionary) {
         guard let identifier = dictionary["id"] as? String,

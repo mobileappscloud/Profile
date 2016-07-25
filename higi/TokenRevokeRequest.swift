@@ -8,17 +8,17 @@
 
 struct TokenRevokeRequest {}
 
-extension TokenRevokeRequest: HigiAPIRequest {
+extension TokenRevokeRequest: APIRequest {
     
-    static func request(completion: HigiAPIRequestAuthenticatorCompletion) {
+    static func request(completion: APIRequestAuthenticatorCompletion) {
         
-        guard let authorization = HigiAPIClient.authorization where authorization.accessToken.isExpired(),
+        guard let authorization = APIClient.authorization where authorization.accessToken.isExpired(),
             let userId = authorization.accessToken.subject() else {
             completion(request: nil, error: nil)
             return
         }
         
-        let clientId = HigiAPIClient.clientId
+        let clientId = APIClient.clientId
         
         let relativePath = "/authentication/users/\(userId)/clients/\(clientId)/refreshToken"
         let method = HTTPMethod.DELETE

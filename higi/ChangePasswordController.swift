@@ -8,7 +8,7 @@
 
 struct ChangePasswordController {
     
-    private let session = HigiAPIClient.session()
+    private let session = APIClient.session()
     
     func update(currentPassword: String, newPassword: String, success: () -> Void, failure: () -> Void) {
         

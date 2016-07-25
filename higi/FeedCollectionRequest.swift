@@ -8,9 +8,9 @@
 
 struct FeedCollectionRequest {}
 
-extension FeedCollectionRequest: HigiAPIRequest {
+extension FeedCollectionRequest: APIRequest {
     
-    static func request(entity: Post.Entity, entityId: String, forceRefresh: Bool = true, pageNumber: Int = 1, pageSize: Int = 15, completion: HigiAPIRequestAuthenticatorCompletion) {
+    static func request(entity: Post.Entity, entityId: String, forceRefresh: Bool = true, pageNumber: Int = 1, pageSize: Int = 15, completion: APIRequestAuthenticatorCompletion) {
         
         let resource: String
         switch entity {
@@ -26,7 +26,7 @@ extension FeedCollectionRequest: HigiAPIRequest {
         request(relativePath: relativePath, forceRefresh: forceRefresh, pageNumber: pageNumber, pageSize: pageSize, completion: completion)
     }
     
-    private static func request(relativePath relativePath: String, forceRefresh: Bool, pageNumber: Int, pageSize: Int, completion: HigiAPIRequestAuthenticatorCompletion) {
+    private static func request(relativePath relativePath: String, forceRefresh: Bool, pageNumber: Int, pageSize: Int, completion: APIRequestAuthenticatorCompletion) {
         
         let parameters = [
             "pageNumber" : String(pageNumber),

@@ -11,7 +11,7 @@ final class CommunityDetailController {
     private(set) var community: Community
     
     lazy var session: NSURLSession = {
-        return HigiAPIClient.session()
+        return APIClient.session()
     }()
     
     init(community: Community) {

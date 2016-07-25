@@ -13,7 +13,7 @@ final class FeedController {
     private(set) var paging: Paging? = nil
     
     lazy var session: NSURLSession = {
-        return HigiAPIClient.session()
+        return APIClient.session()
     }()
     
     var fetchTask: NSURLSessionDataTask?
@@ -43,7 +43,7 @@ extension FeedController {
             
             self?.fetchTask = NSURLSessionTask.JSONTask(session, request: request, success: { [weak self] (JSON, response) in
                 
-                FeedCollectionDeserializer.parse(JSON, success: { [weak self] (posts, paging) in
+                CollectionDeserializer.parse(JSON, resource: Post.self, success: { [weak self] (posts, paging) in
                     
                     self?.posts = posts
                     self?.paging = paging
@@ -89,7 +89,7 @@ extension FeedController {
     private func performNextFetch(request: NSURLRequest, success: () -> Void, failure: (error: NSError?) -> Void) {
         
         nextPagingTask = NSURLSessionTask.JSONTask(session, request: request, success: { [weak self] (JSON, response) in
-            FeedCollectionDeserializer.parse(JSON, success: { [weak self] (posts, paging) in
+            CollectionDeserializer.parse(JSON, resource: Post.self, success: { [weak self] (posts, paging) in
                 
                 self?.posts.appendContentsOf(posts)
                 

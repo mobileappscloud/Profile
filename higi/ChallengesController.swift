@@ -15,7 +15,7 @@ final class ChallengesController {
     var availableChallenges:[HigiChallenge] = []
     var invitedChallenges:[HigiChallenge] = []
     
-    private let session = HigiAPIClient.session()
+    private let session = APIClient.session()
     
     private(set) var paging: Paging?
     
@@ -48,7 +48,7 @@ extension ChallengesController {
                 
                 strongSelf.fetchTask = nil
                 
-                ChallengeCollectionDeserializer.parse(JSON, success: { [weak strongSelf] (challenges, paging) in
+                CollectionDeserializer.parse(JSON, resource: HigiChallenge.self, success: { [weak strongSelf] (challenges, paging) in
                     guard let strongSelf = strongSelf else { return }
                     
                     strongSelf.challenges = challenges

@@ -1,32 +1,47 @@
 //
-//  HigiAPIRequest.swift
+//  APIRequest.swift
 //  higi
 //
 //  Created by Remy Panicker on 3/29/16.
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-enum HigiAPIRequestErrorCode: Int {
+enum APIRequestError: ErrorType {
     case URLConstructor
     case AuthorizationNotFound
     case TokenPayloadReadError
     case RefreshTokenRequestError
+    
+    func code() -> Int {
+        let code: Int
+        switch self {
+        case .URLConstructor:
+            code = 4000
+        case .AuthorizationNotFound:
+            code = 4001
+        case .TokenPayloadReadError:
+            code = 4002
+        case .RefreshTokenRequestError:
+            code = 4003
+        }
+        return code
+    }
 }
 
 private let defaultRefreshThreshold = 120.0 // 2 minutes
 
-typealias HigiAPIRequestAuthenticatorCompletion = (request: NSURLRequest?, error: NSError?) -> Void
+typealias APIRequestAuthenticatorCompletion = (request: NSURLRequest?, error: NSError?) -> Void
 
-protocol HigiAPIRequest: HigiAPI2 {}
+protocol APIRequest: HigiAPI2 {}
 
 // MARK: - Authenticated Requests
 
-extension HigiAPIRequest {
+extension APIRequest {
     
-    static func authenticatedRequest(relativePath: String, parameters: [String : String]?, method: String = HTTPMethod.GET, body: AnyObject? = nil, refreshThreshold: Double = defaultRefreshThreshold, completion: HigiAPIRequestAuthenticatorCompletion) {
+    static func authenticatedRequest(relativePath: String, parameters: [String : String]?, method: String = HTTPMethod.GET, body: AnyObject? = nil, refreshThreshold: Double = defaultRefreshThreshold, completion: APIRequestAuthenticatorCompletion) {
         
-        guard let endpointURL = HigiAPIClient.URL(relativePath, parameters: parameters) else {
-            let error = NSError(sender: String(self), code: HigiAPIRequestErrorCode.URLConstructor.rawValue, message: "Error creating request.")
+        guard let endpointURL = APIClient.URL(relativePath, parameters: parameters) else {
+            let error = NSError(sender: String(self), code: APIRequestError.URLConstructor.code(), message: "Error creating request.")
             completion(request: nil, error: error)
             return
         }
@@ -34,16 +49,16 @@ extension HigiAPIRequest {
         authenticatedRequest(endpointURL, parameters: parameters, method: method, body: body, refreshThreshold: refreshThreshold, completion: completion)
     }
     
-    static func authenticatedRequest(URL: NSURL, parameters: [String : String]?, method: String = HTTPMethod.GET, body: AnyObject? = nil, refreshThreshold: Double = defaultRefreshThreshold, completion: HigiAPIRequestAuthenticatorCompletion) {
+    static func authenticatedRequest(URL: NSURL, parameters: [String : String]?, method: String = HTTPMethod.GET, body: AnyObject? = nil, refreshThreshold: Double = defaultRefreshThreshold, completion: APIRequestAuthenticatorCompletion) {
         
-        guard let authorization = HigiAPIClient.authorization else {
-            let error = NSError(sender: String(self), code: HigiAPIRequestErrorCode.AuthorizationNotFound.rawValue, message: "Authorization info not found.")
+        guard let authorization = APIClient.authorization else {
+            let error = NSError(sender: String(self), code: APIRequestError.AuthorizationNotFound.code(), message: "Authorization info not found.")
             completion(request: nil, error: error)
             return
         }
         
         guard let expirationDate = authorization.accessToken.expirationDate() else {
-            let error = NSError(sender: String(self), code: HigiAPIRequestErrorCode.TokenPayloadReadError.rawValue, message: "Unable to read authorization info.")
+            let error = NSError(sender: String(self), code: APIRequestError.TokenPayloadReadError.code(), message: "Unable to read authorization info.")
             completion(request: nil, error: error)
             return
         }
@@ -52,15 +67,15 @@ extension HigiAPIRequest {
         if expirationDate.timeIntervalSinceNow < enforcedThreshold {
             guard let refreshRequest = TokenRefreshRequest.request(authorization.refreshToken) else {
                 
-                HigiAPIClient.terminateAuthenticatedSession()
+                APIClient.terminateAuthenticatedSession()
                 
-                let error = NSError(sender: String(self), code: HigiAPIRequestErrorCode.RefreshTokenRequestError.rawValue, message: "Unable to refresh access token.")
+                let error = NSError(sender: String(self), code: APIRequestError.RefreshTokenRequestError.code(), message: "Unable to refresh access token.")
                 completion(request: nil, error: error)
                 
                 return
             }
             
-            let session = HigiAPIClient.session()
+            let session = APIClient.session()
             
             let task = NSURLSessionTask.JSONTask(session, request: refreshRequest, success: { (JSON, response) in
                 
@@ -73,7 +88,7 @@ extension HigiAPIRequest {
                 
             }, failure: { (error, response) in
                 if let response = response where response.statusCodeEnum.isClientError {
-                    HigiAPIClient.terminateAuthenticatedSession()
+                    APIClient.terminateAuthenticatedSession()
                 }
                     
                 completion(request: nil, error: error)
@@ -89,13 +104,13 @@ extension HigiAPIRequest {
 
 // MARK: - Request Constructors
 
-extension HigiAPIRequest {
+extension APIRequest {
     
     // MARK: Convenience
     
     static func request(relativePath: String, parameters: [String : String]?, method: String = HTTPMethod.GET, body: AnyObject?) -> NSURLRequest? {
         
-        guard let endpointURL = HigiAPIClient.URL(relativePath, parameters: parameters) else { return nil }
+        guard let endpointURL = APIClient.URL(relativePath, parameters: parameters) else { return nil }
         return request(endpointURL, parameters: parameters, method: method, body: body)
     }
     
@@ -106,8 +121,8 @@ extension HigiAPIRequest {
         }
         
         // The `NSURLSession` documentation advises against modifying the `Authorization` header per session, so we will attach the header to individual requests.
-        if let authorization = HigiAPIClient.authorization {
-            mutableRequest.setValue(authorization.bearerToken(), forHTTPHeaderField: HigiAPIClient.HTTPHeaderName.authorization)
+        if let authorization = APIClient.authorization {
+            mutableRequest.setValue(authorization.bearerToken(), forHTTPHeaderField: APIClient.HTTPHeaderName.authorization)
         }
         
         return mutableRequest.copy() as? NSURLRequest

@@ -11,7 +11,7 @@ final class StationController: NSObject {
     private(set) var stations: [KioskInfo] = []
     
     lazy private var session: NSURLSession = {
-       return HigiAPIClient.session()
+       return APIClient.session()
     }()
     
     private let fileManager: NSFileManager = {
@@ -82,7 +82,7 @@ extension StationController {
     }
 }
 
-extension StationController: HigiAPIJSONDeserializer {
+extension StationController: JSONDeserializable {
     
     private func deserializeSavedStationList(success: () -> Void, failure: () ->  Void) {
         

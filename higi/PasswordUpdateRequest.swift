@@ -8,11 +8,11 @@
 
 struct PasswordUpdateRequest {}
 
-extension PasswordUpdateRequest: HigiAPIRequest {
+extension PasswordUpdateRequest: APIRequest {
     
-    static func request(currentPassword: String, newPassword: String, completion: HigiAPIRequestAuthenticatorCompletion) {
+    static func request(currentPassword: String, newPassword: String, completion: APIRequestAuthenticatorCompletion) {
         
-        guard let authorization = HigiAPIClient.authorization where authorization.accessToken.isExpired(),
+        guard let authorization = APIClient.authorization where authorization.accessToken.isExpired(),
             let userId = authorization.accessToken.subject() else {
                 completion(request: nil, error: nil)
                 return

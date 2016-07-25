@@ -8,9 +8,9 @@
 
 struct ImageUploadRequest {}
 
-extension ImageUploadRequest: HigiAPIRequest {
+extension ImageUploadRequest: APIRequest {
     
-    static func request(user: User, imageData: NSData, completion: HigiAPIRequestAuthenticatorCompletion) {
+    static func request(user: User, imageData: NSData, completion: APIRequestAuthenticatorCompletion) {
         
         let relativePath = "/user/users/\(user.identifier)/photo"
         let method = HTTPMethod.POST
@@ -52,7 +52,7 @@ extension ImageUploadRequest: HigiAPIRequest {
         })
     }
     
-    static func request(user: User, centerX: Int, centerY: Int, scale: CGFloat, completion: HigiAPIRequestAuthenticatorCompletion) {
+    static func request(user: User, centerX: Int, centerY: Int, scale: CGFloat, completion: APIRequestAuthenticatorCompletion) {
         
         let relativePath = "/user/users/\(user.identifier)/photoPosition"
         let method = HTTPMethod.POST

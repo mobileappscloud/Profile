@@ -49,7 +49,7 @@ struct User {
     }
 }
 
-extension User: HigiAPIJSONDeserializer {
+extension User: JSONDeserializable, JSONInitializable {
     
     init?(dictionary: NSDictionary) {
         guard let identifier = dictionary["id"] as? String,
@@ -102,7 +102,7 @@ extension User: HigiAPIJSONDeserializer {
     }
 }
 
-extension User: HigiAPIJSONSerializer {
+extension User: JSONSerializable {
     
     func JSONDictionary() -> NSDictionary {
         let mutableDictionary = NSMutableDictionary()

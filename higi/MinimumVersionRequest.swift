@@ -8,7 +8,7 @@
 
 struct MinimumVersionRequest {}
 
-extension MinimumVersionRequest: HigiAPIRequest {
+extension MinimumVersionRequest: APIRequest {
     
     static func request() -> NSURLRequest? {
         

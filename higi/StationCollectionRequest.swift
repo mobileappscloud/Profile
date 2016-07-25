@@ -8,7 +8,7 @@
 
 struct StationCollectionRequest {}
 
-extension StationCollectionRequest: HigiAPIRequest {
+extension StationCollectionRequest: APIRequest {
     
     static func request() -> NSURLRequest {
         

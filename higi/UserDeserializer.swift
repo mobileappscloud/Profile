@@ -8,7 +8,7 @@
 
 struct UserDeserializer {}
 
-extension UserDeserializer: HigiAPIJSONDeserializer {
+extension UserDeserializer: JSONDeserializable {
     
     /**
      Parses a JSON dictionary with authentication information necessary for use with the higi API.

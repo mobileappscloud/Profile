@@ -8,9 +8,9 @@
 
 struct UserUpdateRequest {}
 
-extension UserUpdateRequest: HigiAPIRequest {
+extension UserUpdateRequest: APIRequest {
 
-    private static func request(user: User, parameters: NSDictionary, completion: HigiAPIRequestAuthenticatorCompletion) {
+    private static func request(user: User, parameters: NSDictionary, completion: APIRequestAuthenticatorCompletion) {
         guard let userDictionary = user.JSONDictionary().mutableCopy() as? NSMutableDictionary else {
             completion(request: nil, error: nil)
             return
@@ -31,7 +31,7 @@ extension UserUpdateRequest: HigiAPIRequest {
         authenticatedRequest(relativePath, parameters: nil, method: method, body: body, completion: completion)
     }
     
-    static func request(user: User, termsFileName: String, privacyFileName: String, completion: HigiAPIRequestAuthenticatorCompletion) {
+    static func request(user: User, termsFileName: String, privacyFileName: String, completion: APIRequestAuthenticatorCompletion) {
         
         let agreedDateTime = NSDate()
         let terms = AgreementInfo(fileName: termsFileName, dateTime: agreedDateTime)
@@ -44,7 +44,7 @@ extension UserUpdateRequest: HigiAPIRequest {
         request(user, parameters: parameters, completion: completion)
     }
     
-    static func request(user: User, firstName: String, lastName: String, completion: HigiAPIRequestAuthenticatorCompletion) {
+    static func request(user: User, firstName: String, lastName: String, completion: APIRequestAuthenticatorCompletion) {
         
         let parameters = NSMutableDictionary()
         parameters["firstName"] = firstName
@@ -53,7 +53,7 @@ extension UserUpdateRequest: HigiAPIRequest {
         request(user, parameters: parameters, completion: completion)
     }
     
-    static func request(user: User, dateOfBirth: NSDate, completion: HigiAPIRequestAuthenticatorCompletion) {
+    static func request(user: User, dateOfBirth: NSDate, completion: APIRequestAuthenticatorCompletion) {
         
         let parameters = NSMutableDictionary()
         parameters["dateOfBirth"] = NSDateFormatter.MMddyyyyDateFormatter.stringFromDate(dateOfBirth)

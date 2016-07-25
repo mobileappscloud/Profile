@@ -8,7 +8,7 @@
 
 struct UserCreateRequest {}
 
-extension UserCreateRequest: HigiAPIRequest {
+extension UserCreateRequest: APIRequest {
     
     static func request(email: String, password: String) -> NSURLRequest? {
         

@@ -75,11 +75,11 @@ extension HostViewController {
 extension HostViewController {
     
     private func registerForNotifications() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(didRecieveAuthenticatedSessionTerminationNotification), name: HigiAPIClientTerminateAuthenticatedSessionNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(didRecieveAuthenticatedSessionTerminationNotification), name: APIClientTerminateAuthenticatedSessionNotification, object: nil)
     }
     
     private func unregisterForNotifications() {
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: HigiAPIClientTerminateAuthenticatedSessionNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: APIClientTerminateAuthenticatedSessionNotification, object: nil)
     }
     
     @objc private func didRecieveAuthenticatedSessionTerminationNotification(notification: NSNotification) {
@@ -90,7 +90,7 @@ extension HostViewController {
         hostController.revokeRefreshToken({ [weak self] in
             self?.spawnNewHost()
         })
-        HigiAPIClient.removeCachedAuthorization()
+        APIClient.removeCachedAuthorization()
     }
     
     private func spawnNewHost() {

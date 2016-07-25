@@ -371,7 +371,7 @@ extension SettingsTableViewController {
         let appDelegate = AppDelegate.instance()
         appDelegate.stopLocationManager();
         
-        HigiAPIClient.terminateAuthenticatedSession()
+        APIClient.terminateAuthenticatedSession()
     }
     
     func didSelectConnectDevices() {

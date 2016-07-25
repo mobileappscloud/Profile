@@ -8,7 +8,7 @@
 
 struct TermsInfoRequest {}
 
-extension TermsInfoRequest: HigiAPIRequest {
+extension TermsInfoRequest: APIRequest {
     
     static func request() -> NSURLRequest? {
         // TODO: yikes

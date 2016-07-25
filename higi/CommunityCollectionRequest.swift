@@ -10,14 +10,14 @@ import Foundation
 
 struct CommunityCollectionRequest {}
 
-extension CommunityCollectionRequest: HigiAPIRequest {
+extension CommunityCollectionRequest: APIRequest {
     
     enum Filter {
         case Joined
         case Unjoined
     }
     
-    static func request(filter: Filter, pageNumber: Int = 1, pageSize: Int = 10, completion: HigiAPIRequestAuthenticatorCompletion) {
+    static func request(filter: Filter, pageNumber: Int = 1, pageSize: Int = 10, completion: APIRequestAuthenticatorCompletion) {
         
         let relativePath = "/community/communities"
         

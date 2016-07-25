@@ -18,7 +18,7 @@ final class CommunitiesController {
     private(set) var paging: Paging? = nil
     
     lazy var session: NSURLSession = {
-        return HigiAPIClient.session()
+        return APIClient.session()
     }()
  
     var fetchTask: NSURLSessionDataTask?
@@ -51,7 +51,7 @@ extension CommunitiesController {
 
             self?.fetchTask = NSURLSessionTask.JSONTask(session, request: request, success: { [weak self] (JSON, response) in
                 
-                CommunityCollectionDeserializer.parse(JSON, success: { [weak self] (communities, paging) in
+                CollectionDeserializer.parse(JSON, resource: Community.self, success: { [weak self] (communities, paging) in
                     
                     self?.communities = communities
                     
@@ -98,7 +98,7 @@ extension CommunitiesController {
     private func performNextFetch(request: NSURLRequest, success: () -> Void, failure: (error: NSError?) -> Void) {
         
         nextPagingTask = NSURLSessionTask.JSONTask(session, request: request, success: { [weak self] (JSON, response) in
-            CommunityCollectionDeserializer.parse(JSON, success: { [weak self] (communities, paging) in
+            CollectionDeserializer.parse(JSON, resource: Community.self, success: { [weak self] (communities, paging) in
                 
                 self?.append(communities)
                 

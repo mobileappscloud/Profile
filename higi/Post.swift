@@ -6,7 +6,7 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-struct Post {
+final class Post {
     
     enum Entity: String {
         case Community
@@ -74,8 +74,6 @@ struct Post {
     
     let heading: String
     
-    let subheading: String?
-    
     let publishDate: NSDate
     
     let elements: Elements
@@ -83,11 +81,26 @@ struct Post {
     let commentCount: Int
     
     let likeCount: Int
+    
+    var subheading: String?
+    
+    required init(identifier: String, user: User, type: Type, template: Template, heading: String, publishDate: NSDate, elements: Elements, commentCount: Int, likeCount: Int) {
+        
+        self.identifier = identifier
+        self.user = user
+        self.type = type
+        self.template = template
+        self.heading = heading
+        self.publishDate = publishDate
+        self.elements = elements
+        self.commentCount = commentCount
+        self.likeCount = likeCount
+    }
 }
 
 // MARK: - Initialization
 
-extension Post.Video: HigiAPIJSONDeserializer {
+extension Post.Video: JSONDeserializable, JSONInitializable {
     
     init?(dictionary: NSDictionary) {
         guard let videoURLString = dictionary["VideoUrl"] as? String,
@@ -113,7 +126,7 @@ extension Post.Video: HigiAPIJSONDeserializer {
     }
 }
 
-extension Post.User: HigiAPIJSONDeserializer {
+extension Post.User: JSONDeserializable, JSONInitializable {
     
     init?(dictionary: NSDictionary) {
         guard let identifier = dictionary["Id"] as? String,
@@ -130,9 +143,9 @@ extension Post.User: HigiAPIJSONDeserializer {
     }
 }
 
-extension Post: HigiAPIJSONDeserializer {
+extension Post: JSONDeserializable, JSONInitializable {
     
-    init?(dictionary: NSDictionary) {
+    convenience init?(dictionary: NSDictionary) {
         guard let identifier = dictionary["Id"] as? String,
             let userDict = dictionary["User"] as? NSDictionary,
             let user = User(dictionary: userDict),
@@ -150,17 +163,6 @@ extension Post: HigiAPIJSONDeserializer {
         
         // **NOTE** We are ignoring all custom templates for the time being.
         if template == .Custom { return nil }
-        
-        self.identifier = identifier
-        self.user = user
-        self.type = type
-        self.template = template
-        self.heading = heading
-        self.publishDate = publishDate
-        self.commentCount = commentCount
-        self.likeCount = likeCount
-
-        self.subheading = (dictionary["Subheading"] as? String) ?? nil
         
         var transformableStrings: [TransformableString] = []
         var images: [MediaAsset] = []
@@ -193,7 +195,9 @@ extension Post: HigiAPIJSONDeserializer {
                 }
             }
         }
-        self.elements = Elements(transformableStrings: transformableStrings, images: images, videos: videos)
+        let elements = Elements(transformableStrings: transformableStrings, images: images, videos: videos)
+        
+        self.init(identifier: identifier, user: user, type: type, template: template, heading: heading, publishDate: publishDate, elements: elements, commentCount: commentCount, likeCount: likeCount)
         
         // validate template
         if !isValid() {

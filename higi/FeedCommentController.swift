@@ -16,7 +16,7 @@ final class FeedCommentController {
     private(set) var paging: Paging?
     
     lazy private var session: NSURLSession = {
-        return HigiAPIClient.session()
+        return APIClient.session()
     }()
     
     init(post: Post) {
@@ -44,7 +44,7 @@ extension FeedCommentController {
             
             let task = NSURLSessionTask.JSONTask(strongSelf.session, request: request, success: { [weak strongSelf] (JSON, response) in
                 
-                ChatterMessageCollectionDeserializer.parse(JSON, success: { [weak strongSelf] (messages, paging) in
+                CollectionDeserializer.parse(JSON, resource: ChatterMessage.self, success: { [weak strongSelf] (messages, paging) in
                     
                     strongSelf?.comments = messages
                     strongSelf?.paging = paging

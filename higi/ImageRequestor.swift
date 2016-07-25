@@ -15,7 +15,7 @@ final class ImageRequestor {
     static let sharedInstance = ImageRequestor()
     
     private lazy var session: NSURLSession = {
-       return HigiAPIClient.session()
+       return APIClient.session()
     }()
     
     private(set) var pendingOperations: [String : ImageRequestOperation] = [:]

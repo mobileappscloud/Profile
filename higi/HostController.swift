@@ -8,7 +8,7 @@
 
 final class HostController {
     
-    let session = HigiAPIClient.session()
+    let session = APIClient.session()
     
     var userController: UserController?
 }
@@ -73,7 +73,7 @@ extension HostController {
 extension HostController {
     
     func fetchUser(success: () -> Void, failure: () -> Void) {
-        guard let authorization = HigiAPIClient.authorization,
+        guard let authorization = APIClient.authorization,
             let userId = authorization.accessToken.subject() else {
             failure()
             return
@@ -132,15 +132,15 @@ extension HostController {
 extension HostController {
     
     func authorizationTokenIsCached() -> Bool {
-        return (HigiAPIClient.authorization != nil) || (legacyToken() != nil && legacyToken()!.characters.count > 0)
+        return (APIClient.authorization != nil) || (legacyToken() != nil && legacyToken()!.characters.count > 0)
     }
     
     func authorizationTokenIsLegacyToken() -> Bool {
-        return (legacyToken() != nil && legacyToken()!.characters.count > 0) && (HigiAPIClient.authorization == nil)
+        return (legacyToken() != nil && legacyToken()!.characters.count > 0) && (APIClient.authorization == nil)
     }
     
     func accessTokenIsExpired() -> Bool {
-        guard let authorization = HigiAPIClient.authorization else { return false }
+        guard let authorization = APIClient.authorization else { return false }
         return authorization.accessToken.isExpired(orExpiringWithinMinutes: 1.0)
     }
 }

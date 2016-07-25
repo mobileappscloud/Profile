@@ -14,7 +14,7 @@ struct AgreementInfo {
     let dateTime: NSDate
 }
 
-extension AgreementInfo: HigiAPIJSONDeserializer {
+extension AgreementInfo: JSONDeserializable, JSONInitializable {
     
     init?(dictionary: NSDictionary) {
         guard let fileName = dictionary["fileName"] as? String,
@@ -28,7 +28,7 @@ extension AgreementInfo: HigiAPIJSONDeserializer {
     }
 }
 
-extension AgreementInfo: HigiAPIJSONSerializer {
+extension AgreementInfo: JSONSerializable {
     
     func JSONDictionary() -> NSDictionary {
         let mutableDictionary = NSMutableDictionary()

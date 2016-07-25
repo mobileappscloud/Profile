@@ -8,7 +8,7 @@
 
 struct LogInRequest {}
 
-extension LogInRequest: HigiAPIRequest {
+extension LogInRequest: APIRequest {
     
     static func request(email: String, password: String) -> NSURLRequest? {
         
@@ -21,7 +21,7 @@ extension LogInRequest: HigiAPIRequest {
         
         let encodedValueData = "\(email):\(password)".dataUsingEncoding(NSUTF8StringEncoding)!
         let encodedCredentials = encodedValueData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions())
-        mutableRequest.addValue("Basic \(encodedCredentials)", forHTTPHeaderField: HigiAPIClient.HTTPHeaderName.authorization)
+        mutableRequest.addValue("Basic \(encodedCredentials)", forHTTPHeaderField: APIClient.HTTPHeaderName.authorization)
         
         return mutableRequest.copy() as? NSURLRequest
     }

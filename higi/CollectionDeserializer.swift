@@ -6,13 +6,20 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-struct CollectionDeserializer: HigiAPIJSONDeserializer {
+struct CollectionDeserializer: JSONDeserializable {
     
-    static func parse(JSON: AnyObject?, success: (collection: NSArray, paging: Paging?) -> Void, failure: (error: NSError?) -> Void) {
-
+    static func parse<Resource: JSONInitializable>(JSON: AnyObject?, resource: Resource.Type, success: (collection: [Resource], paging: Paging?) -> Void, failure: (error: NSError?) -> Void) {
+        
         if let JSON = JSON as? NSDictionary {
             
-            let collection: NSArray = (JSON["data"] as? NSArray) ?? []
+            let resourceDicts: NSArray = (JSON["data"] as? NSArray) ?? []
+            var collection: [Resource] = []
+            for dictionary in resourceDicts {
+                guard let dictionary = dictionary as? NSDictionary,
+                    let resource = Resource(dictionary: dictionary) else { continue }
+                
+                collection.append(resource)
+            }
             
             var paging: Paging?
             if let pagingDict = JSON["paging"] as? NSDictionary {

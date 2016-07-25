@@ -8,9 +8,9 @@
 
 struct ChatterCollectionRequest {}
 
-extension ChatterCollectionRequest: HigiAPIRequest {
+extension ChatterCollectionRequest: APIRequest {
     
-    static func request(entity: ChatterMessage.Entity, completion: HigiAPIRequestAuthenticatorCompletion) {
+    static func request(entity: ChatterMessage.Entity, completion: APIRequestAuthenticatorCompletion) {
         
         let entityType: String
         switch entity.type {

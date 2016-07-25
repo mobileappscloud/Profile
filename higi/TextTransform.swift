@@ -23,7 +23,7 @@ struct TextTransform {
     let URL: NSURL?
 }
 
-extension TextTransform: HigiAPIJSONDeserializer {
+extension TextTransform: JSONDeserializable {
     
     init?(text: String, dictionary: NSDictionary) {
         guard let typeString = dictionary["Type"] as? String,

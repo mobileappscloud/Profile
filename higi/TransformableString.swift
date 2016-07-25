@@ -13,7 +13,7 @@ struct TransformableString {
     let transforms: [TextTransform]
 }
 
-extension TransformableString: HigiAPIJSONDeserializer {
+extension TransformableString: JSONDeserializable, JSONInitializable {
     
     init?(dictionary: NSDictionary) {
         guard let text = dictionary["Text"] as? String else { return nil }

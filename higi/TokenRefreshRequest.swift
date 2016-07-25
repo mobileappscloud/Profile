@@ -10,7 +10,7 @@ import Foundation
 
 struct TokenRefreshRequest {}
 
-extension TokenRefreshRequest: HigiAPIRequest {
+extension TokenRefreshRequest: APIRequest {
     
     enum TokenType {
         case Refresh
@@ -33,7 +33,7 @@ extension TokenRefreshRequest: HigiAPIRequest {
         
         mutableRequest.addValue(HTTPHeader.value.applicationJSON, forHTTPHeaderField: HTTPHeader.name.contentType)
         
-        let headerName = (tokenType == .Refresh) ? HigiAPIClient.HTTPHeaderName.refreshToken : HigiAPIClient.HTTPHeaderName.legacyToken
+        let headerName = (tokenType == .Refresh) ? APIClient.HTTPHeaderName.refreshToken : APIClient.HTTPHeaderName.legacyToken
         mutableRequest.addValue(token, forHTTPHeaderField: headerName)
         
         return mutableRequest.copy() as? NSURLRequest

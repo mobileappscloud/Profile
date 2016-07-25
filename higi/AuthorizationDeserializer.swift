@@ -6,7 +6,7 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-struct AuthorizationDeserializer: HigiAPIJSONDeserializer {
+struct AuthorizationDeserializer: JSONDeserializable {
  
     /**
      Parses a JSON dictionary with authentication information necessary for use with the higi API.
@@ -23,7 +23,7 @@ struct AuthorizationDeserializer: HigiAPIJSONDeserializer {
             let user = User(dictionary: userDict) {
             
             // TODO: Don't forget to move this to a controller and refactor once onboarding is refactored!
-            HigiAPIClient.cacheAuthorization(authorization)
+            APIClient.cacheAuthorization(authorization)
             
             success(user: user, authorization: authorization)
         } else {

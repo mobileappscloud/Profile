@@ -8,7 +8,7 @@
 
 final class SignUpEmailController {
     
-    let session = HigiAPIClient.session()
+    let session = APIClient.session()
     
     deinit {
         session.invalidateAndCancel()

@@ -1,6 +1,6 @@
 import Foundation
 
-class HigiChallenge {
+final class HigiChallenge: JSONInitializable {
     
     var identifier: String!
     

@@ -31,7 +31,7 @@ struct Paging {
     var next: NSURL?
 }
 
-extension Paging: HigiAPIJSONDeserializer {
+extension Paging: JSONDeserializable, JSONInitializable {
     
     init?(dictionary: NSDictionary) {
         guard let currentURLString = dictionary["current"] as? String,
@@ -54,7 +54,7 @@ extension Paging: HigiAPIJSONDeserializer {
     }
 }
 
-extension Paging: HigiAPIRequest {
+extension Paging: APIRequest {
     
     func previousRequest() -> NSURLRequest? {
         return request(previous)

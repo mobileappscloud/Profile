@@ -8,9 +8,9 @@
 
 struct ChallengeJoinRequest {}
 
-extension ChallengeJoinRequest: HigiAPIRequest {
+extension ChallengeJoinRequest: APIRequest {
 
-    static func request(joinURL URL: NSURL, user: User, completion: HigiAPIRequestAuthenticatorCompletion) {
+    static func request(joinURL URL: NSURL, user: User, completion: APIRequestAuthenticatorCompletion) {
         
         let method = HTTPMethod.POST
         let body = ["userId" : user.identifier]

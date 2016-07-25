@@ -8,9 +8,9 @@
 
 struct CommunityRequest {}
 
-extension CommunityRequest: HigiAPIRequest {
+extension CommunityRequest: APIRequest {
     
-    static func request(community: Community, completion: HigiAPIRequestAuthenticatorCompletion) {
+    static func request(community: Community, completion: APIRequestAuthenticatorCompletion) {
         
         let relativePath = "/community/communities/\(community.identifier)"
         

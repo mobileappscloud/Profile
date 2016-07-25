@@ -77,7 +77,7 @@ extension UserValidationCoordinator {
             return
         }
         
-        let session = HigiAPIClient.session()
+        let session = APIClient.session()
         let task = NSURLSessionTask.JSONTask(session, request: request, success: { [weak self] (JSON, response) in
             guard let dictionary = JSON as? NSDictionary,
                 let termsFileName = dictionary["termsFilename"] as? String,

@@ -34,7 +34,7 @@ extension NSURLSessionTask {
     }
 }
 
-extension NSURLSessionTask: HigiAPIJSONDeserializer {
+extension NSURLSessionTask: JSONDeserializable {
     
     /**
      Builds a basic data task object using the given parameters. Assumes that the response will be returned as JSON.
