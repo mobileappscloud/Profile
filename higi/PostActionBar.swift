@@ -7,7 +7,7 @@
 //
 
 @IBDesignable
-final class PostActionBar: UIView {
+final class PostActionBar: ReusableXibView {
     
     struct Action {
         
@@ -26,9 +26,6 @@ final class PostActionBar: UIView {
         var handler: ((sender: UIButton, action: Action) -> Void)?
     }
     
-    /// View necessary for xib reuse
-    @IBOutlet private var view: UIView!
-    
     @IBOutlet var stackViewLeadingConstraint: NSLayoutConstraint!
     
     @IBOutlet private var horizontalStackView: UIStackView! {
@@ -38,24 +35,6 @@ final class PostActionBar: UIView {
     }
     
     private var buttonActionMap: [UIButton : Action] = [:]
-
-    // MARK: - Init
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        self.commonInit()
-    }
-    
-    required override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.commonInit()
-    }
-    
-    private func commonInit() {
-        let bundle = NSBundle(forClass: self.dynamicType)
-        self.view = bundle.loadNibNamed("PostActionBar", owner: self, options: nil).first as! UIView
-        self.addSubview(self.view, pinToEdges: true)
-    }
 }
 
 // MARK: - Configuration

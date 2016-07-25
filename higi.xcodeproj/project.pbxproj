@@ -151,6 +151,7 @@
 		4159126E1C8A288200111B39 /* InterfaceOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4159126D1C8A288200111B39 /* InterfaceOrientation.swift */; };
 		415998E01CAD7C8F001A7392 /* CommunityCollectionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415998DF1CAD7C8F001A7392 /* CommunityCollectionRequest.swift */; };
 		415998EE1CAED619001A7392 /* CollectionDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415998ED1CAED619001A7392 /* CollectionDeserializer.swift */; };
+		415B7FF61D45D9F8005A6E97 /* ReusableXibView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415B7FF51D45D9F8005A6E97 /* ReusableXibView.swift */; };
 		4162266D1C79407400EFA1B3 /* CPTXYGraph+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4162266C1C79407400EFA1B3 /* CPTXYGraph+Utility.swift */; };
 		4162266F1C7940B100EFA1B3 /* HigiScatterPlot+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4162266E1C7940B100EFA1B3 /* HigiScatterPlot+Utility.swift */; };
 		416226711C7940D000EFA1B3 /* CPTXYAxis+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416226701C7940D000EFA1B3 /* CPTXYAxis+Utility.swift */; };
@@ -573,6 +574,7 @@
 		4159126D1C8A288200111B39 /* InterfaceOrientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterfaceOrientation.swift; sourceTree = "<group>"; };
 		415998DF1CAD7C8F001A7392 /* CommunityCollectionRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityCollectionRequest.swift; sourceTree = "<group>"; };
 		415998ED1CAED619001A7392 /* CollectionDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionDeserializer.swift; sourceTree = "<group>"; };
+		415B7FF51D45D9F8005A6E97 /* ReusableXibView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReusableXibView.swift; sourceTree = "<group>"; };
 		4162266C1C79407400EFA1B3 /* CPTXYGraph+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CPTXYGraph+Utility.swift"; sourceTree = "<group>"; };
 		4162266E1C7940B100EFA1B3 /* HigiScatterPlot+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HigiScatterPlot+Utility.swift"; sourceTree = "<group>"; };
 		416226701C7940D000EFA1B3 /* CPTXYAxis+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CPTXYAxis+Utility.swift"; sourceTree = "<group>"; };
@@ -2355,6 +2357,7 @@
 				D1147DE91B56073D0005E10A /* Meter Gauge */,
 				D1147DE81B5606E90005E10A /* Points Meter */,
 				8FF873F519DF5474002A6341 /* Pull Refresh */,
+				415B7FF51D45D9F8005A6E97 /* ReusableXibView.swift */,
 				D1147DEA1B5607500005E10A /* Triangle */,
 			);
 			name = "Reusable Views";
@@ -2832,6 +2835,7 @@
 				412B63CD1CFF7AC7003F6663 /* ChallengeJoinRequest.swift in Sources */,
 				41B2B3581BB31CBE00B13168 /* NotificationSettingsEmailTableViewController.swift in Sources */,
 				419D85CF1BBEDD3C00E7D844 /* HIGIScatterPlot.m in Sources */,
+				415B7FF61D45D9F8005A6E97 /* ReusableXibView.swift in Sources */,
 				415031721CAAEE0100A3FB94 /* HigiAPI2.swift in Sources */,
 				8FE206621B7CF30E00B473B0 /* LocationDelegate.swift in Sources */,
 				41A0BE111BBB088500A314D6 /* AFURLRequestSerialization.m in Sources */,

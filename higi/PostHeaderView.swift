@@ -7,10 +7,7 @@
 //
 
 @IBDesignable
-final class PostHeaderView: UIView {
-    
-    /// View necessary for xib reuse
-    @IBOutlet private var view: UIView!
+final class PostHeaderView: ReusableXibView {
     
     @IBOutlet var avatarButton: UIButton! {
         didSet {
@@ -29,24 +26,6 @@ final class PostHeaderView: UIView {
         didSet {
             secondaryLabel.text = nil
         }
-    }
-    
-    // MARK: - Init
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        self.commonInit()
-    }
-    
-    required override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.commonInit()
-    }
-    
-    private func commonInit() {
-        let bundle = NSBundle(forClass: self.dynamicType)
-        self.view = bundle.loadNibNamed("PostHeaderView", owner: self, options: nil).first as! UIView
-        self.addSubview(self.view, pinToEdges: true)
     }
 }
 

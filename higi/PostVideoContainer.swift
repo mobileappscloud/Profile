@@ -7,11 +7,8 @@
 //
 
 @IBDesignable
-final class PostVideoContainer: UIView {
- 
-    /// View necessary for xib reuse
-    @IBOutlet private var view: UIView!
-    
+final class PostVideoContainer: ReusableXibView {
+
     @IBOutlet var imageView: UIImageView!
     
     @IBOutlet var playButton: UIButton! {
@@ -20,24 +17,6 @@ final class PostVideoContainer: UIView {
         }
     }
     var playButtonHandler: (() -> Void)?
-    
-    // MARK: - Init
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        self.commonInit()
-    }
-    
-    required override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.commonInit()
-    }
-    
-    private func commonInit() {
-        let bundle = NSBundle(forClass: self.dynamicType)
-        self.view = bundle.loadNibNamed("PostVideoContainer", owner: self, options: nil).first as! UIView
-        self.addSubview(self.view, pinToEdges: true)
-    }
 }
 
 extension PostVideoContainer {

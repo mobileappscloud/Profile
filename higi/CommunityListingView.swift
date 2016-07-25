@@ -9,10 +9,7 @@
 import UIKit
 
 @IBDesignable
-final class CommunityListingView: UIView {
-    
-    /// View necessary for xib reuse
-    @IBOutlet private var view: UIView!
+final class CommunityListingView: ReusableXibView {
     
     // MARK: Header
     
@@ -30,24 +27,6 @@ final class CommunityListingView: UIView {
     // MARK: Logo/Members
 
     @IBOutlet var logoMemberContainer: CommunityLogoMemberView!
-    
-    // MARK: - Init
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        self.commonInit()
-    }
-    
-    required override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.commonInit()
-    }
-    
-    private func commonInit() {
-        let bundle = NSBundle(forClass: self.dynamicType)
-        self.view = bundle.loadNibNamed("CommunityListingView", owner: self, options: nil).first as! UIView
-        self.addSubview(self.view, pinToEdges: true)
-    }
 }
 
 // MARK: - Configuration

@@ -7,10 +7,7 @@
 //
 
 @IBDesignable
-final class CommunityLogoMemberView: UIView {
-    
-    /// View necessary for xib reuse
-    @IBOutlet private var view: UIView!
+final class CommunityLogoMemberView: ReusableXibView {
     
     @IBOutlet var imageView: UIImageView! {
         didSet {
@@ -23,24 +20,6 @@ final class CommunityLogoMemberView: UIView {
             label.text = nil
             label.attributedText = nil
         }
-    }
-    
-    // MARK: - Init
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        self.commonInit()
-    }
-    
-    required override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.commonInit()
-    }
-    
-    private func commonInit() {
-        let bundle = NSBundle(forClass: self.dynamicType)
-        self.view = bundle.loadNibNamed("CommunityLogoMemberView", owner: self, options: nil).first as! UIView
-        self.addSubview(self.view, pinToEdges: true)
     }
 }
 

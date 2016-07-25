@@ -7,10 +7,7 @@
 //
 
 @IBDesignable
-final class CommunityBannerView: UIView {
-
-    /// View necessary for xib reuse
-    @IBOutlet private var view: UIView!
+final class CommunityBannerView: ReusableXibView {
     
     @IBOutlet var imageView: UIImageView! {
         didSet {
@@ -25,21 +22,8 @@ final class CommunityBannerView: UIView {
     
     // MARK: - Init
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        self.commonInit()
-    }
-    
-    required override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.commonInit()
-    }
-    
-    private func commonInit() {
-        let bundle = NSBundle(forClass: self.dynamicType)
-        self.view = bundle.loadNibNamed("CommunityBannerView", owner: self, options: nil).first as! UIView
-        self.addSubview(self.view, pinToEdges: true)
-        
+    override func commonInit() {
+        super.commonInit()
         addObservers()
     }
     
