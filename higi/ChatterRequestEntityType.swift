@@ -10,11 +10,11 @@ struct ChatterRequest {
     
     enum EntityType: Int {
         case Achievement = 1
-        case Challenge
-        case Comment
-        case Reward
-        case FeedPost
-        case Community
+        case Challenge = 2
+        case Comment = 3
+        case Reward = 4
+        case FeedPost = 5
+        case Community = 6
         
         static var mapping: [String : EntityType] = [
             "Acheivement" : .Achievement,
