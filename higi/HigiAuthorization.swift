@@ -36,9 +36,9 @@ final class HigiAuthorization: NSObject {
 extension HigiAuthorization: NSCoding {
     
     private struct NSCodingKey {
-        static let accessToken = "AccessToken"
-        static let type = "TokenType"
-        static let refreshToken = "RefreshToken"
+        static let accessToken = "accessToken"
+        static let type = "tokenType"
+        static let refreshToken = "refreshToken"
     }
     
     convenience init?(coder aDecoder: NSCoder) {
@@ -60,9 +60,9 @@ extension HigiAuthorization: NSCoding {
 extension HigiAuthorization: JSONDeserializable, JSONInitializable {
     
     struct DictionaryKeys {
-        static let AccessToken: NSString = "AccessToken"
-        static let TokenType: NSString = "TokenType"
-        static let RefreshToken: NSString = "RefreshToken"
+        static let AccessToken: NSString = "accessToken"
+        static let TokenType: NSString = "tokenType"
+        static let RefreshToken: NSString = "refreshToken"
     }
     
     convenience init?(dictionary: NSDictionary) {

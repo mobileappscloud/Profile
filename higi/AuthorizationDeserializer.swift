@@ -19,7 +19,7 @@ struct AuthorizationDeserializer: JSONDeserializable {
         if let JSON = JSON as? NSDictionary,
             let responseDict = JSON["data"] as? NSDictionary,
             let authorization = HigiAuthorization(dictionary: responseDict),
-            let userDict = responseDict["User"] as? NSDictionary,
+            let userDict = responseDict["user"] as? NSDictionary,
             let user = User(dictionary: userDict) {
             
             // TODO: Don't forget to move this to a controller and refactor once onboarding is refactored!
