@@ -1,6 +1,6 @@
 import Foundation
 
-class GoalChallengeView: ChallengeView {
+final class GoalChallengeView: ChallengeView {
     
     @IBOutlet var avatar: UIImageView!
     @IBOutlet weak var secondaryAvatar: UIImageView!

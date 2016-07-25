@@ -24,7 +24,7 @@ private enum SectionUniqueSettingRow: Int {
     case Count
 }
 
-class NotificationSettingsDeviceTableViewController: UITableViewController, SwitchTableViewCellDelegate {
+final class NotificationSettingsDeviceTableViewController: UITableViewController, SwitchTableViewCellDelegate {
 
     let switchCellReuseIdentifier = "SwitchCellReuseIdentifier";
     

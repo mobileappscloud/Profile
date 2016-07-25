@@ -1,6 +1,6 @@
 import Foundation
 
-class CompetitiveChallengeView: ChallengeView, UIScrollViewDelegate {
+final class CompetitiveChallengeView: ChallengeView, UIScrollViewDelegate {
     
     @IBOutlet weak var row1: UIView!
     @IBOutlet weak var row2: UIView!

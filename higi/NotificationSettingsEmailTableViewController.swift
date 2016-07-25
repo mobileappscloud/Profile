@@ -21,7 +21,7 @@ private enum MainSectionRow: Int {
     static let notification = [CheckInResults : EmailNotification.CheckInResult, HigiNews : EmailNotification.HigiNews];
 }
 
-class NotificationSettingsEmailTableViewController: UITableViewController, SwitchTableViewCellDelegate {
+final class NotificationSettingsEmailTableViewController: UITableViewController, SwitchTableViewCellDelegate {
 
     let switchCellReuseIdentifier = "SwitchCellReuseIdentifier";
 

@@ -1,6 +1,6 @@
 import Foundation
 
-class TriangleView : UIView {
+final class TriangleView : UIView {
     
     var w, h: CGFloat!;
     

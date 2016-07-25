@@ -8,7 +8,7 @@
 
 import Foundation
 
-class HigiActivity {
+final class HigiActivity {
     
     var points, steps, duration, calories: Int!;
     

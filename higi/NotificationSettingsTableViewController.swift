@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NotificationSettingsTableViewController: UITableViewController {
+final class NotificationSettingsTableViewController: UITableViewController {
     
     @IBOutlet weak var pushNotificationCell: UITableViewCell! {
         didSet {

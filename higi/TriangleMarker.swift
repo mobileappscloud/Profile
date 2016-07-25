@@ -1,6 +1,6 @@
 import Foundation
 
-class TriangleMarker : UIView {
+final class TriangleMarker : UIView {
     
     var w, h: CGFloat!;
     

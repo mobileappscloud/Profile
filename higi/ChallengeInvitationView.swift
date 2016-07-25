@@ -1,6 +1,6 @@
 import Foundation
 
-class ChallengeInvitationView: UIView {
+final class ChallengeInvitationView: UIView {
     
     @IBOutlet var inviter: UILabel!
     @IBOutlet var title: UILabel!

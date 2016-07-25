@@ -1,6 +1,6 @@
 import Foundation
 
-class BpMetricDelegate: MetricDelegate {
+final class BpMetricDelegate: MetricDelegate {
     
     var selectedCheckin: HigiCheckin!;
     

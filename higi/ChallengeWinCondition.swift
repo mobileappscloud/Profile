@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ChallengeWinCondition {
+final class ChallengeWinCondition {
     
     struct Goal {
         

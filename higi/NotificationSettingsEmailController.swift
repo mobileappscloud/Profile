@@ -27,7 +27,7 @@ public enum EmailNotification: String {
     }
 }
 
-class NotificationSettingsEmailController: NSObject {
+final class NotificationSettingsEmailController: NSObject {
 
     let user = SessionData.Instance.user;
     

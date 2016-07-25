@@ -1,6 +1,6 @@
 import Foundation
 
-class ChallengeDetailsTab: UITableView {
+final class ChallengeDetailsTab: UITableView {
     
     @IBOutlet weak var descriptionTitle: UILabel! {
         didSet {

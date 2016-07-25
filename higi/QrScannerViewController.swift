@@ -2,7 +2,7 @@ import AVFoundation
 import CoreVideo
 import CoreMedia
 
-class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
+final class QrScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
     @IBOutlet weak var instructionLabel: UILabel! {
         didSet {

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class HigiLogin {
+final class HigiLogin {
     
     var token: NSString;
     

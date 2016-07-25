@@ -1,6 +1,6 @@
 import Foundation
 
-class DailySummaryRow: UIView {
+final class DailySummaryRow: UIView {
     
     @IBOutlet weak var points: UILabel!
     @IBOutlet weak var pointUnitLabel: UILabel! {

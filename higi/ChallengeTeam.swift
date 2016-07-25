@@ -1,6 +1,6 @@
 import Foundation
 
-class ChallengeTeam {
+final class ChallengeTeam {
     
     var name, imageUrl, joinUrl: NSString!;
     

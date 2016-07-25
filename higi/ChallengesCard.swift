@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ChallengesCard: UIView {
+final class ChallengesCard: UIView {
     
     @IBOutlet weak var challengeBox: UIView!
     @IBOutlet weak var challengeAvatar: UIImageView!

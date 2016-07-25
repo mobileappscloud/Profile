@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ChallengeParticipant {
+final class ChallengeParticipant {
     
     var displayName, imageUrl: NSString!;
     

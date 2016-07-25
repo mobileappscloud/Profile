@@ -1,7 +1,7 @@
 import Foundation
 import HealthKit
 
-class ApiUtility {
+final class ApiUtility {
     
     // Notificiation names
     

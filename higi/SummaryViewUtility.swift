@@ -1,6 +1,6 @@
 import Foundation
 
-class SummaryViewUtility {
+final class SummaryViewUtility {
     
     class func sortByPoints(this: HigiActivity, that: HigiActivity) -> Bool {
         return this.points >= that.points;

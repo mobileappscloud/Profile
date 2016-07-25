@@ -1,6 +1,6 @@
 import Foundation
 
-class MetricsGraphCard: UIView {
+final class MetricsGraphCard: UIView {
     
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var date: UILabel!

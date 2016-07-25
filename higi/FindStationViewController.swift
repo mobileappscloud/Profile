@@ -10,7 +10,7 @@ import Foundation
 import EventKitUI
 import MapKit
 
-class FindStationViewController: UIViewController, GMSMapViewDelegate, UITableViewDataSource, UITableViewDelegate, EKEventEditViewDelegate, UITextFieldDelegate, CLLocationManagerDelegate, ClusterManagerDelegate {
+final class FindStationViewController: UIViewController, GMSMapViewDelegate, UITableViewDataSource, UITableViewDelegate, EKEventEditViewDelegate, UITextFieldDelegate, CLLocationManagerDelegate, ClusterManagerDelegate {
     
     @IBOutlet weak var mapContainer: UIView!
     

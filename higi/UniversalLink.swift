@@ -68,7 +68,7 @@ enum PathType: String {
     }
 }
 
-class UniversalLink {
+final class UniversalLink {
     
     /**
     Determines if a URL can be handled by the app.

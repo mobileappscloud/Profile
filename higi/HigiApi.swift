@@ -1,7 +1,7 @@
 import Foundation
 
 
-class HigiApi {
+final class HigiApi {
     
     var manager: AFHTTPRequestOperationManager;
     

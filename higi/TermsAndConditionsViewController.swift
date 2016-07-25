@@ -1,7 +1,7 @@
 import Foundation
 import WebKit
 
-class TermsAndConditionsViewController: UIViewController {
+final class TermsAndConditionsViewController: UIViewController {
     
     weak var parent:ChallengeDetailsViewController!;
     var html:String!;

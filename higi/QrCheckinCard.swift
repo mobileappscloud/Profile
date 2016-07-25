@@ -1,6 +1,6 @@
 import Foundation
 
-class QrCheckinCard: UIView {
+final class QrCheckinCard: UIView {
 
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var titleText: UILabel!

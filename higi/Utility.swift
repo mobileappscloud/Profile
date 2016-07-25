@@ -1,6 +1,6 @@
 import Foundation
 
-class Utility {
+final class Utility {
     
     class func colorFromHexString(hexString: NSString) -> UIColor {
         var rgbValue: CUnsignedInt;

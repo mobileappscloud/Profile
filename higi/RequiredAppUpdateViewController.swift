@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RequiredAppUpdateViewController: UIViewController {
+final class RequiredAppUpdateViewController: UIViewController {
     
     private let displayName = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleDisplayName") as! NSString
     

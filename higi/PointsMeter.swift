@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PointsMeter: UIView {
+final class PointsMeter: UIView {
     
     @IBOutlet weak var meterContainer: UIView!
     @IBOutlet weak var points: UILabel!

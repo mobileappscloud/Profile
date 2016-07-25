@@ -11,7 +11,7 @@ private enum TableSection: Int {
     case Count
 }
 
-class ConnectDeviceViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+final class ConnectDeviceViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var headerImage: UIImageView!
     @IBOutlet weak var table: UITableView!

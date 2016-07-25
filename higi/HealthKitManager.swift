@@ -10,7 +10,7 @@ import HealthKit
 import CoreMotion
 
 /// Class which manages interactions with HealthKit and health data.
-class HealthKitManager {
+final class HealthKitManager {
     
     /// The minimum amount of time (seconds) to wait before syncing data with the API.
     private static let syncInterval: NSTimeInterval = {

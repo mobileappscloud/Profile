@@ -1,6 +1,6 @@
 import Foundation
 
-class ActivityMetricDelegate: MetricDelegate {
+final class ActivityMetricDelegate: MetricDelegate {
     
     var selectedActivity: (date: String, points: String)!;
     

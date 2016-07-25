@@ -1,6 +1,6 @@
 import Foundation
 
-class ChallengeLeaderboardRow: UITableViewCell {
+final class ChallengeLeaderboardRow: UITableViewCell {
     @IBOutlet weak var place: UILabel!
     @IBOutlet weak var progress: UIView!
     @IBOutlet weak var name: UILabel!

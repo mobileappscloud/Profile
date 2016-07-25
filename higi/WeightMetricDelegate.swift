@@ -1,6 +1,6 @@
 import Foundation
 
-class WeightMetricDelegate: MetricDelegate {
+final class WeightMetricDelegate: MetricDelegate {
     
     var selectedWeightCheckin, selectedFatCheckin: HigiCheckin!;
 

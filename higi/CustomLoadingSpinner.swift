@@ -1,7 +1,7 @@
 import Foundation
 import QuartzCore
 
-class CustomLoadingSpinner: UIView {
+final class CustomLoadingSpinner: UIView {
     
     private let duration:CFTimeInterval = 1;
     

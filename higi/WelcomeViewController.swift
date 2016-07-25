@@ -1,6 +1,6 @@
 import Foundation
 
-class WelcomeViewController: UIViewController, UIScrollViewDelegate {
+final class WelcomeViewController: UIViewController, UIScrollViewDelegate {
     
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var loginButton: UIButton! {

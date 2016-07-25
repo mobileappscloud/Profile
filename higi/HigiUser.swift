@@ -15,7 +15,7 @@ enum BiologicalSex {
     case Other
 }
 
-class HigiUser {
+final class HigiUser {
     
     var userId, firstName, lastName, email, termsFile, privacyFile: NSString!;
     

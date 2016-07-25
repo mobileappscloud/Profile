@@ -1,6 +1,6 @@
 import Foundation
 
-class ChallengeDetailsChatterRow: UITableViewCell {
+final class ChallengeDetailsChatterRow: UITableViewCell {
     
     @IBOutlet weak var chatView: UIView!
     @IBOutlet weak var avatar: UIImageView!

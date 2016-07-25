@@ -1,6 +1,6 @@
 import Foundation
 
-class ChallengeUtility {
+final class ChallengeUtility {
     class func getChallengeViews(challenge: HigiChallenge, frame: CGRect, isComplex: Bool) -> [ChallengeView] {
         var nibs:[ChallengeView] = [];
         

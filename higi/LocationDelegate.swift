@@ -1,6 +1,6 @@
 import Foundation
 
-class LocationDelegate: NSObject, CLLocationManagerDelegate {
+final class LocationDelegate: NSObject, CLLocationManagerDelegate {
     
     private final var MAX_DISTANCE: Double = 200;
     

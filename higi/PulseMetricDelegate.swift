@@ -1,6 +1,6 @@
 import Foundation
 
-class PulseMetricDelegate: MetricDelegate {
+final class PulseMetricDelegate: MetricDelegate {
     
     var selectedCheckin: HigiCheckin!;
     

@@ -1,6 +1,6 @@
 import Foundation
 
-class MetricGauge: UIView {
+final class MetricGauge: UIView {
     
     @IBOutlet private var gaugeContainer: UIView!
     @IBOutlet private var value: UILabel!

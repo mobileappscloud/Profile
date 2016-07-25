@@ -19,7 +19,7 @@ enum PersistentSetting: String {
     static let allValues = [EnableNotifications, StationNearbyNotification, DidAskToConnectActivityTracker, DidShowActivityTrackerAuthorizationRequest, MetricsViewDidRotateDeviceToVerticalSizeClassCompact]
 }
 
-class PersistentSettingsController {
+final class PersistentSettingsController {
 
     private static var sharedInstance = PersistentSettingsController();
     

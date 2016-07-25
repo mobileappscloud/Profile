@@ -10,7 +10,7 @@ import Foundation
 
 typealias HigiActivitySummary = (totalPoints: Int, activities: [HigiActivity])
 
-class SessionController {
+final class SessionController {
     
     class var Instance: SessionController {
         return SessionControllerSharedInstance;

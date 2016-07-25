@@ -8,7 +8,7 @@
 
 import Foundation
 
-class TourViewController: UIViewController, UIScrollViewDelegate {
+final class TourViewController: UIViewController, UIScrollViewDelegate {
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var pager: UIPageControl!

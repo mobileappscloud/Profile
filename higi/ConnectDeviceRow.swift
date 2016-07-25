@@ -2,7 +2,7 @@ import Foundation
 import WebKit
 import SafariServices
 
-class ConnectDeviceRow: UITableViewCell {
+final class ConnectDeviceRow: UITableViewCell {
 
     @IBOutlet weak var logo: UIImageView!
     @IBOutlet weak var name: UILabel!

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SwitchTableViewCell: UITableViewCell {
+final class SwitchTableViewCell: UITableViewCell {
 
     let switchControl = UISwitch();
     

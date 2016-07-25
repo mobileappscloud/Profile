@@ -9,7 +9,7 @@
 import Foundation
 import LocalAuthentication
 
-class PinCodeViewController: UIViewController, UITextFieldDelegate {
+final class PinCodeViewController: UIViewController, UITextFieldDelegate {
     
     var touchIdCancelledNotification = "TouchIdCancelledNotification"
     var touchIdSuccessfulNotification = "TouchIdSuccessfulNotification"

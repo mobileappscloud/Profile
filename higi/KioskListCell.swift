@@ -8,7 +8,7 @@
 
 import Foundation
 
-class KioskListCell: UITableViewCell {
+final class KioskListCell: UITableViewCell {
     
     @IBOutlet weak var logo: UIImageView!
     @IBOutlet weak var name: UILabel!

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PullRefresh: UIView {
+final class PullRefresh: UIView {
     
     @IBOutlet weak var circleContainer: UIView!
     @IBOutlet weak var icon: UIImageView!

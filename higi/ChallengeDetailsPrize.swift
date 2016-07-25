@@ -1,6 +1,6 @@
 import Foundation
 
-class ChallengeDetailsPrize: UITableViewCell {
+final class ChallengeDetailsPrize: UITableViewCell {
     
     @IBOutlet weak var desc: UILabel!
     @IBOutlet weak var title: UILabel!

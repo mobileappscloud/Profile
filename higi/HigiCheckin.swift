@@ -8,7 +8,7 @@
 
 import Foundation
 
-class HigiCheckin {
+final class HigiCheckin {
     
     var checkinId, sourceVendorId, sourceType, sourceId, bmiClass, fatClass, bpClass, mapClass, pulseClass: NSString?;
     

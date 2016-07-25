@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ActivityDevice {
+final class ActivityDevice {
     
     var name, description: NSString!;
     var url, connectUrl, partnerHomepage, iconUrl, colorCode, disconnectUrl, imageName: NSString?;

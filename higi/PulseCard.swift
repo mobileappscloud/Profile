@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PulseCard: UIView {
+final class PulseCard: UIView {
     
     @IBOutlet weak var topImage: UIImageView!
     

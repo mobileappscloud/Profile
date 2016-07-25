@@ -36,7 +36,7 @@ private enum MainSectionRow: Int {
     the table style is plain instead of grouped. Faux header sections views
     are created to keep the appearance of a white table background.
 */
-class SettingsTableViewController: UITableViewController, SwitchTableViewCellDelegate {
+final class SettingsTableViewController: UITableViewController, SwitchTableViewCellDelegate {
 
     let separatorCellSize: CGFloat = 23.0;
     

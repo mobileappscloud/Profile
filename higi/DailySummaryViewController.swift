@@ -1,6 +1,6 @@
 import Foundation
 
-class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
+final class DailySummaryViewController: UIViewController, UIScrollViewDelegate {
     
     @IBOutlet weak var pointsMeterContainer: UIView!
     @IBOutlet weak var headerView: UIView!

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class SessionData {
+final class SessionData {
     
     class var Instance: SessionData {
         return SessionDataSharedInstance;

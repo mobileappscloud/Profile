@@ -8,7 +8,7 @@
 
 import Foundation
 
-class KioskInfo: Equatable {
+final class KioskInfo: Equatable {
     
     var organizations: [NSString];
     

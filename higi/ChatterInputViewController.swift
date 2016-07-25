@@ -1,6 +1,6 @@
 import Foundation
 
-class ChatterInputViewController: UIViewController, UITextViewDelegate {
+final class ChatterInputViewController: UIViewController, UITextViewDelegate {
     
     @IBOutlet weak var textInput: UITextView!
     

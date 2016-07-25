@@ -1,6 +1,6 @@
 import Foundation
 
-class ChallengeRowCell: UITableViewCell, UIScrollViewDelegate {
+final class ChallengeRowCell: UITableViewCell, UIScrollViewDelegate {
     
     @IBOutlet var scrollView: UIScrollView!;
     @IBOutlet var daysLeft: UILabel! {

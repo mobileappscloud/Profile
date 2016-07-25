@@ -1,6 +1,6 @@
 import Foundation
 
-class MetricGraph: CPTGraphHostingView {
+final class MetricGraph: CPTGraphHostingView {
     
     var points: [GraphPoint] = []
     var altPoints: [GraphPoint] = []

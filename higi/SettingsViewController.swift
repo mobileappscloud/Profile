@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController {
+final class SettingsViewController: UIViewController {
     
     /*! @internal This is a left over property from the refactor */
     var pictureChanged = false

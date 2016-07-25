@@ -1,6 +1,6 @@
 import Foundation
 
-class ChallengeProgressLegendRow: UITableViewCell {
+final class ChallengeProgressLegendRow: UITableViewCell {
     
     @IBOutlet weak var prizeDescription: UILabel!
     @IBOutlet weak var prizeTitle: UILabel!
