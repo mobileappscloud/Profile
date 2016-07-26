@@ -534,13 +534,13 @@ extension FeedViewController {
     }
     
     private func commentTapHandler(forPost post: Post) {
-        let storyboard = UIStoryboard(name: "FeedComment", bundle: nil)
-        guard let feedComment = storyboard.instantiateInitialViewController() as? CommentViewController else { return }
+        let storyboard = UIStoryboard(name: "Comment", bundle: nil)
+        guard let commentViewController = storyboard.instantiateInitialViewController() as? CommentViewController else { return }
         
-        feedComment.configure(userController, post: post)
+        commentViewController.configure(userController, post: post)
         
         dispatch_async(dispatch_get_main_queue(), { [weak self] in
-            self?.targetPresentationViewController?.navigationController?.pushViewController(feedComment, animated: true)
+            self?.targetPresentationViewController?.navigationController?.pushViewController(commentViewController, animated: true)
         })
     }
     

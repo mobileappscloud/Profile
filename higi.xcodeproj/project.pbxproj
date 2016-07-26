@@ -150,7 +150,6 @@
 		41545BF91BA76CFA00946358 /* NotificationSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41545BF81BA76CFA00946358 /* NotificationSettings.storyboard */; };
 		4155F4AC1D46A0EA0014613D /* FlurryEmpty.m in Sources */ = {isa = PBXBuildFile; fileRef = 4155F4AA1D46A0EA0014613D /* FlurryEmpty.m */; };
 		4155F4AD1D46A0EA0014613D /* libFlurry_7.6.6.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4155F4AB1D46A0EA0014613D /* libFlurry_7.6.6.a */; };
-		4155F4B01D46A2240014613D /* libFlurryWatch_7.6.6.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4155F4AF1D46A2240014613D /* libFlurryWatch_7.6.6.a */; };
 		4159126E1C8A288200111B39 /* InterfaceOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4159126D1C8A288200111B39 /* InterfaceOrientation.swift */; };
 		415998E01CAD7C8F001A7392 /* CommunityCollectionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415998DF1CAD7C8F001A7392 /* CommunityCollectionRequest.swift */; };
 		415998EE1CAED619001A7392 /* CollectionDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415998ED1CAED619001A7392 /* CollectionDeserializer.swift */; };
@@ -202,7 +201,7 @@
 		4199D39B1CE51A8C00EF62F8 /* BirthdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4199D39A1CE51A8C00EF62F8 /* BirthdateViewController.swift */; };
 		4199D39D1CEA930F00EF62F8 /* ChallengesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4199D39C1CEA930F00EF62F8 /* ChallengesController.swift */; };
 		4199D39F1CEA93A400EF62F8 /* ChallengeCollectionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4199D39E1CEA93A400EF62F8 /* ChallengeCollectionRequest.swift */; };
-		419AC3531D3EC1A3000DDA5D /* FeedCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 419AC3521D3EC1A3000DDA5D /* FeedCommentCell.xib */; };
+		419AC3531D3EC1A3000DDA5D /* CommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 419AC3521D3EC1A3000DDA5D /* CommentCell.xib */; };
 		419AC3571D3EC595000DDA5D /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419AC3561D3EC595000DDA5D /* CommentCell.swift */; };
 		419AC3591D3ED2D9000DDA5D /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419AC3581D3ED2D9000DDA5D /* Comment.swift */; };
 		419AC35B1D3EDC37000DDA5D /* ChatterCollectionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419AC35A1D3EDC37000DDA5D /* ChatterCollectionRequest.swift */; };
@@ -266,7 +265,7 @@
 		41C395A21D3D6C51007D222F /* ChatterRequestEntityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C395A11D3D6C51007D222F /* ChatterRequestEntityType.swift */; };
 		41C395A41D3DA1A8007D222F /* FeedRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C395A31D3DA1A8007D222F /* FeedRequest.swift */; };
 		41C395A61D3DB17E007D222F /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C395A51D3DB17E007D222F /* CommentViewController.swift */; };
-		41C395AB1D3DE2D7007D222F /* FeedComment.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41C395AA1D3DE2D7007D222F /* FeedComment.storyboard */; };
+		41C395AB1D3DE2D7007D222F /* Comment.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41C395AA1D3DE2D7007D222F /* Comment.storyboard */; };
 		41C395AE1D3DE420007D222F /* CommentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C395AD1D3DE420007D222F /* CommentController.swift */; };
 		41CAB9B41BC411A00000772C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 41CAB9B01BC411A00000772C /* Localizable.strings */; };
 		41CB52EC1C979E5F004C13E9 /* ActivityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CB52EB1C979E5F004C13E9 /* ActivityTableViewCell.swift */; };
@@ -574,8 +573,6 @@
 		41545BF81BA76CFA00946358 /* NotificationSettings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NotificationSettings.storyboard; sourceTree = "<group>"; };
 		4155F4AA1D46A0EA0014613D /* FlurryEmpty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlurryEmpty.m; sourceTree = "<group>"; };
 		4155F4AB1D46A0EA0014613D /* libFlurry_7.6.6.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_7.6.6.a; sourceTree = "<group>"; };
-		4155F4AE1D46A2240014613D /* FlurryWatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryWatch.h; sourceTree = "<group>"; };
-		4155F4AF1D46A2240014613D /* libFlurryWatch_7.6.6.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurryWatch_7.6.6.a; sourceTree = "<group>"; };
 		4159126D1C8A288200111B39 /* InterfaceOrientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterfaceOrientation.swift; sourceTree = "<group>"; };
 		415998DF1CAD7C8F001A7392 /* CommunityCollectionRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityCollectionRequest.swift; sourceTree = "<group>"; };
 		415998ED1CAED619001A7392 /* CollectionDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionDeserializer.swift; sourceTree = "<group>"; };
@@ -631,7 +628,7 @@
 		4199D39A1CE51A8C00EF62F8 /* BirthdateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BirthdateViewController.swift; sourceTree = "<group>"; };
 		4199D39C1CEA930F00EF62F8 /* ChallengesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengesController.swift; sourceTree = "<group>"; };
 		4199D39E1CEA93A400EF62F8 /* ChallengeCollectionRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeCollectionRequest.swift; sourceTree = "<group>"; };
-		419AC3521D3EC1A3000DDA5D /* FeedCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedCommentCell.xib; sourceTree = "<group>"; };
+		419AC3521D3EC1A3000DDA5D /* CommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentCell.xib; sourceTree = "<group>"; };
 		419AC3561D3EC595000DDA5D /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
 		419AC3581D3ED2D9000DDA5D /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		419AC35A1D3EDC37000DDA5D /* ChatterCollectionRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatterCollectionRequest.swift; sourceTree = "<group>"; };
@@ -727,7 +724,7 @@
 		41C395A11D3D6C51007D222F /* ChatterRequestEntityType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatterRequestEntityType.swift; sourceTree = "<group>"; };
 		41C395A31D3DA1A8007D222F /* FeedRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedRequest.swift; sourceTree = "<group>"; };
 		41C395A51D3DB17E007D222F /* CommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
-		41C395AA1D3DE2D7007D222F /* FeedComment.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FeedComment.storyboard; sourceTree = "<group>"; };
+		41C395AA1D3DE2D7007D222F /* Comment.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Comment.storyboard; sourceTree = "<group>"; };
 		41C395AD1D3DE420007D222F /* CommentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentController.swift; sourceTree = "<group>"; };
 		41CAB9B11BC411A00000772C /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Localizable.strings; sourceTree = "<group>"; };
 		41CB52EB1C979E5F004C13E9 /* ActivityTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityTableViewCell.swift; sourceTree = "<group>"; };
@@ -896,7 +893,6 @@
 				8F5590A019ABE23C00C9B46E /* EventKitUI.framework in Frameworks */,
 				8FD73CB2199025C200BACCB2 /* OpenGLES.framework in Frameworks */,
 				8FD73CB0199025BA00BACCB2 /* libz.dylib in Frameworks */,
-				4155F4B01D46A2240014613D /* libFlurryWatch_7.6.6.a in Frameworks */,
 				8FD73CAE199025AB00BACCB2 /* libicucore.dylib in Frameworks */,
 				8FD73CAC199023DE00BACCB2 /* libc++.dylib in Frameworks */,
 				413E19341C10B10200146B29 /* Crashlytics.framework in Frameworks */,
@@ -1863,9 +1859,7 @@
 			children = (
 				41A0BE311BBB110900A314D6 /* Flurry.h */,
 				4155F4AA1D46A0EA0014613D /* FlurryEmpty.m */,
-				4155F4AE1D46A2240014613D /* FlurryWatch.h */,
 				4155F4AB1D46A0EA0014613D /* libFlurry_7.6.6.a */,
-				4155F4AF1D46A2240014613D /* libFlurryWatch_7.6.6.a */,
 			);
 			name = Flurry;
 			path = Vendor/Flurry/Flurry;
@@ -1975,8 +1969,8 @@
 		41C395A71D3DB188007D222F /* Feed Comment */ = {
 			isa = PBXGroup;
 			children = (
-				41C395AA1D3DE2D7007D222F /* FeedComment.storyboard */,
-				419AC3521D3EC1A3000DDA5D /* FeedCommentCell.xib */,
+				41C395AA1D3DE2D7007D222F /* Comment.storyboard */,
+				419AC3521D3EC1A3000DDA5D /* CommentCell.xib */,
 			);
 			name = "Feed Comment";
 			sourceTree = "<group>";
@@ -2673,7 +2667,7 @@
 				413F68B61CB46A5C003D9571 /* CommunityListingTableViewCell.xib in Resources */,
 				41EF92271D19E45900266AAB /* Feed.storyboard in Resources */,
 				D1E2236E1A7FFE60006330E7 /* ConnectDeviceRow.xib in Resources */,
-				419AC3531D3EC1A3000DDA5D /* FeedCommentCell.xib in Resources */,
+				419AC3531D3EC1A3000DDA5D /* CommentCell.xib in Resources */,
 				413F691A1CB71D09003D9571 /* CommunityListingView.xib in Resources */,
 				4152AD3A1D1C46A7008E0AA7 /* Home.storyboard in Resources */,
 				41027C561CD8574C003F3AD5 /* ModifyImage.storyboard in Resources */,
@@ -2697,7 +2691,7 @@
 				41545BF91BA76CFA00946358 /* NotificationSettings.storyboard in Resources */,
 				411F79751CBB44F9000D0D64 /* ActivityIndicatorTableViewCell.xib in Resources */,
 				D18395C11A69BC9E00D290BF /* ChallengeDetailsTab.xib in Resources */,
-				41C395AB1D3DE2D7007D222F /* FeedComment.storyboard in Resources */,
+				41C395AB1D3DE2D7007D222F /* Comment.storyboard in Resources */,
 				8FDA6DA119A2978B00244D5F /* ChangePasswordView.xib in Resources */,
 				41D871881C7CBFBB002DCDA0 /* Host.storyboard in Resources */,
 				D149E9491A7845A200FBAA15 /* ChallengeDetailsChatterRow.xib in Resources */,
