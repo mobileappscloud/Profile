@@ -31,3 +31,6 @@
 [submodule "Vendor/TTTAttributedLabel"]
 	path = Vendor/TTTAttributedLabel
 	url = https://github.com/TTTAttributedLabel/TTTAttributedLabel.git
+[submodule "Vendor/Facebook"]
+	path = Vendor/Facebook
+	url = https://github.com/higish/ios-facebook-sdk.git
