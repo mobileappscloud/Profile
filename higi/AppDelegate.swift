@@ -27,6 +27,8 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Flurry.startSession("2GSDDCY6499XJ8B5GTYZ");
         
+        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+
         SessionData.Instance.restore();
         
         application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [UIUserNotificationType.Sound, UIUserNotificationType.Alert, UIUserNotificationType.Badge], categories: nil));
@@ -146,6 +148,14 @@ extension AppDelegate {
         guard let hostViewController = window?.rootViewController as? HostViewController else { return }
         
         hostViewController.userActivity = userActivity
+    }
+}
+
+extension AppDelegate {
+    
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
+        
+        return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
     }
 }
 

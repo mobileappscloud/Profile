@@ -24,6 +24,19 @@
 	<string>3.0.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>fb445986258746658</string>
+            </array>
+        </dict>
+    </array>
+    <key>FacebookAppID</key>
+    <string>445986258746658</string>
+    <key>FacebookDisplayName</key>
+    <string>higi</string>
 	<key>CFBundleVersion</key>
 	<string>${BUILD_NUMBER}</string>
 	<key>EarnditUrl</key>
