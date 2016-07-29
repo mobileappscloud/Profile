@@ -29,14 +29,14 @@
         <dict>
             <key>CFBundleURLSchemes</key>
             <array>
-                <string>fb325055647531620</string>
+                <string>${FACEBOOK_URL_SCHEME_CORE}</string>
             </array>
         </dict>
     </array>
     <key>FacebookAppID</key>
-    <string>325055647531620</string>
+    <string>${FACEBOOK_APP_ID}</string>
     <key>FacebookDisplayName</key>
-    <string>Webqa</string>
+    <string>${FACEBOOK_DISPLAY_NAME}</string>
 	<key>CFBundleVersion</key>
 	<string>${BUILD_NUMBER}</string>
 	<key>EarnditUrl</key>
