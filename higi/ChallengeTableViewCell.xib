@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="483" id="OoO-qK-RmG" userLabel="Challege Cell View" customClass="ChallengeTableViewCell" customModule="higi" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="487" height="483"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OoO-qK-RmG" id="tfk-zj-4h7">
+                <rect key="frame" x="0.0" y="0.0" width="487" height="482.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Low-aG-CRP">
+                        <rect key="frame" x="0.0" y="0.0" width="487" height="483"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nL3-Zb-zZf" userLabel="Header View">
+                                <rect key="frame" x="0.0" y="0.0" width="487" height="158"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Yy-BO-agR" userLabel="Title Label">
+                                        <rect key="frame" x="10" y="10" width="467" height="21.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <color key="textColor" red="0.25490196078431371" green="0.25882352941176467" blue="0.24705882352941178" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="4do-Sn-UFd">
+                                        <rect key="frame" x="10" y="40" width="467" height="108"/>
+                                        <subviews>
+                                            <view contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="tye-Ia-P7p" userLabel="Challenge Status Indicator View" customClass="ChallengeStatusIndicatorView" customModule="higi" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="46" width="16" height="16"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="16" id="38Y-Xm-I92"/>
+                                                    <constraint firstAttribute="width" secondItem="tye-Ia-P7p" secondAttribute="height" multiplier="1:1" id="pNj-ad-KMn"/>
+                                                </constraints>
+                                            </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" misplaced="YES" text="Date Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RW7-aZ-MHk" userLabel="Date Label">
+                                                <rect key="frame" x="24" y="46" width="277" height="17"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" misplaced="YES" text="Participants Count Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="or6-Rr-8kf" userLabel="Participants Count Label">
+                                                <rect key="frame" x="309" y="46" width="159" height="17"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="9Yy-BO-agR" firstAttribute="leading" secondItem="nL3-Zb-zZf" secondAttribute="leading" constant="10" id="32W-RP-Sey"/>
+                                    <constraint firstItem="9Yy-BO-agR" firstAttribute="top" secondItem="nL3-Zb-zZf" secondAttribute="top" constant="10" id="3zr-Vg-REO"/>
+                                    <constraint firstAttribute="trailing" secondItem="4do-Sn-UFd" secondAttribute="trailing" constant="10" id="8h6-fN-ypv"/>
+                                    <constraint firstItem="4do-Sn-UFd" firstAttribute="leading" secondItem="nL3-Zb-zZf" secondAttribute="leading" constant="10" id="MpB-NP-3eK"/>
+                                    <constraint firstAttribute="bottom" secondItem="4do-Sn-UFd" secondAttribute="bottom" constant="10" id="YuH-9h-xuC"/>
+                                    <constraint firstAttribute="trailing" secondItem="9Yy-BO-agR" secondAttribute="trailing" constant="10" id="izJ-6P-DVG"/>
+                                    <constraint firstItem="4do-Sn-UFd" firstAttribute="top" secondItem="9Yy-BO-agR" secondAttribute="bottom" constant="8" id="jPm-Cv-fSD"/>
+                                </constraints>
+                            </view>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="At3-7v-T4z" userLabel="Middle View">
+                                <rect key="frame" x="0.0" y="158" width="487" height="200"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="challenge-detail-header" translatesAutoresizingMaskIntoConstraints="NO" id="kWT-xu-vQk" userLabel="Main Image View">
+                                        <rect key="frame" x="0.0" y="0.0" width="487" height="200"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="200" id="xa0-f8-jY2"/>
+                                        </constraints>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cell-gradient-overlay" translatesAutoresizingMaskIntoConstraints="NO" id="gaZ-nt-i0C" userLabel="Gradient Image View">
+                                        <rect key="frame" x="0.0" y="100" width="487" height="100"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="100" id="tKW-cZ-ccX"/>
+                                        </constraints>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aFD-7r-FfX" userLabel="Join Button">
+                                        <rect key="frame" x="272" y="146" width="195" height="34"/>
+                                        <color key="backgroundColor" red="0.46274509803921571" green="0.75294117647058822" blue="0.26666666666666666" alpha="1" colorSpace="calibratedRGB"/>
+                                        <inset key="contentEdgeInsets" minX="8" minY="8" maxX="8" maxY="8"/>
+                                        <state key="normal" title="Join">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="3"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="joinButtonTapped:" destination="OoO-qK-RmG" eventType="touchUpInside" id="N3v-b6-3i8"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="kWT-xu-vQk" firstAttribute="leading" secondItem="At3-7v-T4z" secondAttribute="leading" id="3e5-pn-nbv"/>
+                                    <constraint firstAttribute="bottom" secondItem="aFD-7r-FfX" secondAttribute="bottom" constant="20" id="46f-4O-nce"/>
+                                    <constraint firstAttribute="trailing" secondItem="gaZ-nt-i0C" secondAttribute="trailing" id="C9X-4y-xDT"/>
+                                    <constraint firstItem="kWT-xu-vQk" firstAttribute="top" secondItem="At3-7v-T4z" secondAttribute="top" id="Cj2-b8-hqO"/>
+                                    <constraint firstAttribute="trailing" secondItem="kWT-xu-vQk" secondAttribute="trailing" id="Gmx-JN-Eea"/>
+                                    <constraint firstAttribute="bottom" secondItem="gaZ-nt-i0C" secondAttribute="bottom" id="Lth-ha-fId"/>
+                                    <constraint firstItem="aFD-7r-FfX" firstAttribute="width" relation="greaterThanOrEqual" secondItem="At3-7v-T4z" secondAttribute="width" multiplier="0.4" id="a2C-WC-RiB"/>
+                                    <constraint firstAttribute="bottom" secondItem="kWT-xu-vQk" secondAttribute="bottom" id="juh-us-aeN"/>
+                                    <constraint firstAttribute="trailing" secondItem="aFD-7r-FfX" secondAttribute="trailing" constant="20" id="whj-0C-7Pz"/>
+                                    <constraint firstItem="gaZ-nt-i0C" firstAttribute="leading" secondItem="At3-7v-T4z" secondAttribute="leading" id="ysa-xP-8OB"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SYQ-TL-PpY" userLabel="Challenge Information" customClass="ChallengeInformationView" customModule="higi" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="358" width="487" height="75"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="75" id="G7x-Z3-fPe"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JYg-cm-I5f" userLabel="Community Information">
+                                <rect key="frame" x="0.0" y="433" width="487" height="50"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="c1U-XI-4in">
+                                        <rect key="frame" x="15" y="0.0" width="457" height="50"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dVw-Q1-EFu" userLabel="Community Image View">
+                                                <rect key="frame" x="0.0" y="5" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="AR3-uF-0hW"/>
+                                                    <constraint firstAttribute="width" constant="40" id="yWv-7W-QJW"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1je-bf-Vky" userLabel="Community Label">
+                                                <rect key="frame" x="55" y="15" width="402" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.42745098039215684" green="0.42745098039215684" blue="0.42745098039215684" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="c1U-XI-4in" secondAttribute="trailing" constant="15" id="71W-Yl-eyS"/>
+                                    <constraint firstAttribute="height" constant="50" id="OVe-8P-WNk"/>
+                                    <constraint firstItem="c1U-XI-4in" firstAttribute="top" secondItem="JYg-cm-I5f" secondAttribute="top" id="Zd7-It-VJV"/>
+                                    <constraint firstAttribute="bottom" secondItem="c1U-XI-4in" secondAttribute="bottom" id="lfr-iF-kx1"/>
+                                    <constraint firstItem="c1U-XI-4in" firstAttribute="leading" secondItem="JYg-cm-I5f" secondAttribute="leading" constant="15" id="sVQ-qp-DWY"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Low-aG-CRP" firstAttribute="top" secondItem="tfk-zj-4h7" secondAttribute="top" id="1Uv-fF-urM"/>
+                    <constraint firstAttribute="bottom" secondItem="Low-aG-CRP" secondAttribute="bottom" id="Cpp-jV-NZp"/>
+                    <constraint firstItem="Low-aG-CRP" firstAttribute="leading" secondItem="tfk-zj-4h7" secondAttribute="leading" id="Qur-fx-4LE"/>
+                    <constraint firstAttribute="trailing" secondItem="Low-aG-CRP" secondAttribute="trailing" id="fMw-J9-x4v"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="challengeInformationView" destination="SYQ-TL-PpY" id="qYz-UW-Lyq"/>
+                <outlet property="challengeStatusIndicatorView" destination="tye-Ia-P7p" id="Cta-kE-dWN"/>
+                <outlet property="communityImageView" destination="dVw-Q1-EFu" id="wcj-PA-T5e"/>
+                <outlet property="communityLabel" destination="1je-bf-Vky" id="1rJ-Nb-8Jo"/>
+                <outlet property="dateLabel" destination="RW7-aZ-MHk" id="6Fq-H6-kuW"/>
+                <outlet property="gradientImageView" destination="gaZ-nt-i0C" id="tsB-ub-dPl"/>
+                <outlet property="mainImageView" destination="kWT-xu-vQk" id="VVD-3h-vDX"/>
+                <outlet property="participantCountLabel" destination="or6-Rr-8kf" id="9gC-aw-C0h"/>
+                <outlet property="titleLabel" destination="9Yy-BO-agR" id="Vdy-T4-zy7"/>
+            </connections>
+            <point key="canvasLocation" x="757.5" y="446.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="cell-gradient-overlay" width="562" height="82"/>
+        <image name="challenge-detail-header" width="400" height="266"/>
+    </resources>
+</document>

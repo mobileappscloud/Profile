@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChallengesViewController" customModule="higi" customModuleProvider="target">
             <connections>
-                <outlet property="blankState" destination="kML-RK-oWB" id="5ae-fQ-gXv"/>
-                <outlet property="scrollView" destination="Yrk-O0-ijV" id="qea-LR-cvh"/>
                 <outlet property="view" destination="iN0-l3-epB" id="q14-rk-5Lv"/>
             </connections>
         </placeholder>
@@ -17,36 +14,10 @@
         <view contentMode="scaleAspectFit" id="iN0-l3-epB">
             <rect key="frame" x="0.0" y="64" width="414" height="672"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" bounces="NO" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yrk-O0-ijV">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="672"/>
-                    <connections>
-                        <outlet property="delegate" destination="-1" id="lBW-wb-4Ae"/>
-                    </connections>
-                </scrollView>
-                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="challenges-blank-state" translatesAutoresizingMaskIntoConstraints="NO" id="kML-RK-oWB">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="478.5"/>
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="kML-RK-oWB" secondAttribute="height" multiplier="32:37" id="m2u-XN-9JB"/>
-                    </constraints>
-                </imageView>
-            </subviews>
             <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-            <constraints>
-                <constraint firstItem="kML-RK-oWB" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="2Tq-er-atE"/>
-                <constraint firstItem="Yrk-O0-ijV" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="9br-1g-NPP"/>
-                <constraint firstAttribute="trailing" secondItem="Yrk-O0-ijV" secondAttribute="trailing" id="erf-eG-U00"/>
-                <constraint firstItem="kML-RK-oWB" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="o4k-tc-gE9"/>
-                <constraint firstItem="Yrk-O0-ijV" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="xXE-JY-516"/>
-                <constraint firstAttribute="trailing" secondItem="kML-RK-oWB" secondAttribute="trailing" id="ybF-gX-1yy"/>
-                <constraint firstAttribute="bottom" secondItem="Yrk-O0-ijV" secondAttribute="bottom" id="ycM-Tt-PoE"/>
-            </constraints>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
             <point key="canvasLocation" x="159" y="329"/>
         </view>
     </objects>
-    <resources>
-        <image name="challenges-blank-state" width="540" height="625"/>
-    </resources>
 </document>

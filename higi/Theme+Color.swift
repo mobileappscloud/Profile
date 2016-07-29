@@ -246,3 +246,23 @@ extension Theme.Color {
         static let errorPlaceholder = UIColor(red: 1.0, green: 0.6, blue: 0.6, alpha: 1.0)
     }
 }
+
+
+// MARK: - Challenges
+
+extension Theme.Color {
+    
+    struct Challenge {
+        struct Status {
+            static let unjoinedAndUnderway = Primary.green
+            static let unjoinedAndNotUnderway = Utility.colorFromHexString("#F5821F")
+            static let joinedAndUnderway = Primary.green
+            static let joinedAndNotUnderway = Utility.colorFromHexString("#F5821F")
+            static let tabulatingResults = Utility.colorFromHexString("#F5821F")
+            static let challengeComplete = Utility.colorFromHexString("#A30D22")
+            static let cancelled = Utility.colorFromHexString("#A30D22")
+        }
+    }
+    
+}
+

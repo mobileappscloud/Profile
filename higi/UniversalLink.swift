@@ -41,7 +41,8 @@ enum PathType: String {
         case .ChallengeDetailSubPath:
             fallthrough
         case .ChallengeDashboard:
-            handler = ChallengesViewController()
+            //TODO: Peter Ryszkiewicz: reimplement the link handler
+            break
             
         case .StationLocator:
             handler = FindStationViewController()
