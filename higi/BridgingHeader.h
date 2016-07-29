@@ -13,6 +13,9 @@
 // User defined extensions
 #import "HIGIScatterPlot.h"
 
+// Facebook SDK
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+
 // Feed Parsing Utility
 #import "NSString+HTML.h"
 

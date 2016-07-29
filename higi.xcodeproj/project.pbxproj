@@ -40,6 +40,7 @@
 		41027C561CD8574C003F3AD5 /* ModifyImage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41027C551CD8574C003F3AD5 /* ModifyImage.storyboard */; };
 		41027C581CD902A4003F3AD5 /* SignUpEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41027C571CD902A4003F3AD5 /* SignUpEmailViewController.swift */; };
 		41027C5A1CD907F1003F3AD5 /* EmailValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41027C591CD907F1003F3AD5 /* EmailValidator.swift */; };
+		410EECEB1D4A9E37002FF052 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 410EECEA1D4A9E37002FF052 /* FBSDKCoreKit.framework */; };
 		410F61E51CB31B8A00614E78 /* MediaAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410F61E41CB31B8A00614E78 /* MediaAsset.swift */; };
 		410F61F31CB41A0B00614E78 /* NSURL+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410F61F21CB41A0B00614E78 /* NSURL+Utility.swift */; };
 		410F61F51CB41AA500614E78 /* NSURLSessionTask+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410F61F41CB41AA500614E78 /* NSURLSessionTask+Utility.swift */; };
@@ -463,6 +464,7 @@
 		41027C551CD8574C003F3AD5 /* ModifyImage.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ModifyImage.storyboard; sourceTree = "<group>"; };
 		41027C571CD902A4003F3AD5 /* SignUpEmailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpEmailViewController.swift; sourceTree = "<group>"; };
 		41027C591CD907F1003F3AD5 /* EmailValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailValidator.swift; sourceTree = "<group>"; };
+		410EECEA1D4A9E37002FF052 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = Vendor/Facebook/sdk/FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		410F61E41CB31B8A00614E78 /* MediaAsset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaAsset.swift; sourceTree = "<group>"; };
 		410F61F21CB41A0B00614E78 /* NSURL+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURL+Utility.swift"; sourceTree = "<group>"; };
 		410F61F41CB41AA500614E78 /* NSURLSessionTask+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURLSessionTask+Utility.swift"; sourceTree = "<group>"; };
@@ -906,6 +908,7 @@
 				41A917FB1BBC744800CCF91E /* GoogleMaps.framework in Frameworks */,
 				8FD73C9E1990239E00BACCB2 /* QuartzCore.framework in Frameworks */,
 				8F6D51751948E53100F7C769 /* Accelerate.framework in Frameworks */,
+				410EECEB1D4A9E37002FF052 /* FBSDKCoreKit.framework in Frameworks */,
 				41A0BE541BBB1CD100A314D6 /* libCorePlot-CocoaTouch.a in Frameworks */,
 				4155F4AD1D46A0EA0014613D /* libFlurry_7.6.6.a in Frameworks */,
 			);
@@ -1000,6 +1003,14 @@
 				8FA5925E19ABBD3A00622266 /* TourViewController.swift */,
 			);
 			name = Tour;
+			sourceTree = "<group>";
+		};
+		410EECEE1D4A9E3B002FF052 /* Facebook */ = {
+			isa = PBXGroup;
+			children = (
+				410EECEA1D4A9E37002FF052 /* FBSDKCoreKit.framework */,
+			);
+			name = Facebook;
 			sourceTree = "<group>";
 		};
 		410FFF371CA5C6AC005EAC9E /* Communities */ = {
@@ -1843,6 +1854,7 @@
 				41A0BE4E1BBB196800A314D6 /* Core Plot */,
 				41A0BE871BBB32D100A314D6 /* Crashlytics */,
 				41A0BE861BBB32CC00A314D6 /* Fabric */,
+				410EECEE1D4A9E3B002FF052 /* Facebook */,
 				41A0BE2F1BBB110900A314D6 /* Flurry */,
 				41A917F41BBC670E00CCF91E /* Google Maps */,
 				419D86531BBEF83400E7D844 /* Google Maps Utilities */,
@@ -3166,6 +3178,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
 				ENABLE_BITCODE = NO;
+				FACEBOOK_APP_ID = 325055647531620;
+				FACEBOOK_DISPLAY_NAME = Webqa;
+				FACEBOOK_URL_SCHEME_CORE = "fb${FACEBOOK_APP_ID}";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -3173,6 +3188,7 @@
 					"$(PROJECT_DIR)/Vendor/Google-Maps/Frameworks",
 					"$(PROJECT_DIR)/Vendor/Crashlytics/iOS",
 					"$(PROJECT_DIR)/Vendor/Fabric/iOS",
+					"$(PROJECT_DIR)/Vendor/Facebook/sdk",
 				);
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Vendor/CorePlot/framework\"/**";
@@ -3263,6 +3279,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: higi llc (5D5W9WNYL2)";
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
 				ENABLE_BITCODE = NO;
+				FACEBOOK_APP_ID = 325055647531620;
+				FACEBOOK_DISPLAY_NAME = Webqa;
+				FACEBOOK_URL_SCHEME_CORE = "fb${FACEBOOK_APP_ID}";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -3270,6 +3289,7 @@
 					"$(PROJECT_DIR)/Vendor/Google-Maps/Frameworks",
 					"$(PROJECT_DIR)/Vendor/Crashlytics/iOS",
 					"$(PROJECT_DIR)/Vendor/Fabric/iOS",
+					"$(PROJECT_DIR)/Vendor/Facebook/sdk",
 				);
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Vendor/CorePlot/framework\"/**";
@@ -3454,6 +3474,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
 				ENABLE_BITCODE = NO;
+				FACEBOOK_APP_ID = 394171263975444;
+				FACEBOOK_DISPLAY_NAME = "Higi Dev App - Local";
+				FACEBOOK_URL_SCHEME_CORE = "fb${FACEBOOK_APP_ID}";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -3461,6 +3484,7 @@
 					"$(PROJECT_DIR)/Vendor/Google-Maps/Frameworks",
 					"$(PROJECT_DIR)/Vendor/Crashlytics/iOS",
 					"$(PROJECT_DIR)/Vendor/Fabric/iOS",
+					"$(PROJECT_DIR)/Vendor/Facebook/sdk",
 				);
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Vendor/CorePlot/framework\"/**";
@@ -3573,6 +3597,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: higi llc (5D5W9WNYL2)";
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
 				ENABLE_BITCODE = NO;
+				FACEBOOK_APP_ID = 394171263975444;
+				FACEBOOK_DISPLAY_NAME = "Higi Dev App - Local";
+				FACEBOOK_URL_SCHEME_CORE = "fb${FACEBOOK_APP_ID}";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -3580,6 +3607,7 @@
 					"$(PROJECT_DIR)/Vendor/Google-Maps/Frameworks",
 					"$(PROJECT_DIR)/Vendor/Crashlytics/iOS",
 					"$(PROJECT_DIR)/Vendor/Fabric/iOS",
+					"$(PROJECT_DIR)/Vendor/Facebook/sdk",
 				);
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Vendor/CorePlot/framework\"/**";
@@ -3732,6 +3760,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
 				ENABLE_BITCODE = NO;
+				FACEBOOK_APP_ID = 445986258746658;
+				FACEBOOK_DISPLAY_NAME = higi;
+				FACEBOOK_URL_SCHEME_CORE = "fb${FACEBOOK_APP_ID}";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -3739,6 +3770,7 @@
 					"$(PROJECT_DIR)/Vendor/Google-Maps/Frameworks",
 					"$(PROJECT_DIR)/Vendor/Crashlytics/iOS",
 					"$(PROJECT_DIR)/Vendor/Fabric/iOS",
+					"$(PROJECT_DIR)/Vendor/Facebook/sdk",
 				);
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Vendor/CorePlot/framework\"/**";
@@ -3768,6 +3800,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: higi llc (5D5W9WNYL2)";
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
 				ENABLE_BITCODE = NO;
+				FACEBOOK_APP_ID = 445986258746658;
+				FACEBOOK_DISPLAY_NAME = higi;
+				FACEBOOK_URL_SCHEME_CORE = "fb${FACEBOOK_APP_ID}";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -3775,6 +3810,7 @@
 					"$(PROJECT_DIR)/Vendor/Google-Maps/Frameworks",
 					"$(PROJECT_DIR)/Vendor/Crashlytics/iOS",
 					"$(PROJECT_DIR)/Vendor/Fabric/iOS",
+					"$(PROJECT_DIR)/Vendor/Facebook/sdk",
 				);
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Vendor/CorePlot/framework\"/**";
