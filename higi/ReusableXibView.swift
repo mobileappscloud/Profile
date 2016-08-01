@@ -38,5 +38,7 @@ class ReusableXibView: UIView {
             view = customView
             addSubview(view, pinToEdges: true)
         }
+        
+        awakeFromNib()
     }
 }
