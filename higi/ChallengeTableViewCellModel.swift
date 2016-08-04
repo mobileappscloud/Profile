@@ -19,7 +19,8 @@ final class ChallengeTableViewCellModel {
     let challengeInformationUpperText: NSAttributedString?
     let challengeInformationLowerText: NSAttributedString?
     let challengeInformationImage: UIImage?
-    let showChallengeInformationStatus: Bool
+    let showChallengeInformationProgress: Bool
+    let progressMilestones: [CGFloat]?
     
     init(
         titleText: String,
@@ -32,7 +33,8 @@ final class ChallengeTableViewCellModel {
         challengeInformationUpperText: NSAttributedString?,
         challengeInformationLowerText: NSAttributedString?,
         challengeInformationImage: UIImage?,
-        showChallengeInformationStatus: Bool
+        showChallengeInformationProgress: Bool,
+        progressMilestones: [CGFloat]?
     ) {
         self.titleText = titleText
         self.challengeStatusState = challengeStatusState
@@ -44,6 +46,7 @@ final class ChallengeTableViewCellModel {
         self.challengeInformationUpperText = challengeInformationUpperText
         self.challengeInformationLowerText = challengeInformationLowerText
         self.challengeInformationImage = challengeInformationImage
-        self.showChallengeInformationStatus = showChallengeInformationStatus
+        self.showChallengeInformationProgress = showChallengeInformationProgress
+        self.progressMilestones = progressMilestones
     }
 }

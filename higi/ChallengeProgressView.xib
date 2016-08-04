@@ -2,37 +2,75 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10117"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChallengeProgressView" customModule="higi" customModuleProvider="target">
+            <connections>
+                <outlet property="barView" destination="83h-O7-fvI" id="m4d-at-bgu"/>
+                <outlet property="heightConstraint" destination="Aq2-Ps-TEj" id="oAP-0y-sDO"/>
+                <outlet property="progressTrailingConstraint" destination="zTt-kX-pps" id="gU6-rz-ivx"/>
+                <outlet property="trackView" destination="83h-O7-fvI" id="8aV-Ya-7sg"/>
+                <outlet property="userImageView" destination="WaA-zt-lEx" id="91P-Ya-B2i"/>
+                <outlet property="view" destination="zEx-NJ-WXD" id="fOn-78-Q7I"/>
+            </connections>
+        </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="140" id="zEx-NJ-WXD" userLabel="Challenge Progress View">
             <rect key="frame" x="0.0" y="0.0" width="368" height="129"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="83h-O7-fvI" userLabel="Bar View Mask">
-                    <rect key="frame" x="50" y="50" width="268" height="20"/>
-                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="83h-O7-fvI" userLabel="Track View">
+                    <rect key="frame" x="0.0" y="61" width="368" height="7"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5oZ-ub-TFe" userLabel="Progress View">
+                            <rect key="frame" x="0.0" y="0.0" width="368" height="7"/>
+                            <color key="backgroundColor" red="0.46274509803921571" green="0.75294117647058822" blue="0.26666666666666666" alpha="1" colorSpace="calibratedRGB"/>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="20" id="Aq2-Ps-TEj"/>
+                        <constraint firstAttribute="bottom" secondItem="5oZ-ub-TFe" secondAttribute="bottom" id="AUS-1x-a0k"/>
+                        <constraint firstAttribute="height" constant="7" id="Aq2-Ps-TEj"/>
+                        <constraint firstItem="5oZ-ub-TFe" firstAttribute="leading" secondItem="83h-O7-fvI" secondAttribute="leading" id="Blb-xY-m2t"/>
+                        <constraint firstItem="5oZ-ub-TFe" firstAttribute="top" secondItem="83h-O7-fvI" secondAttribute="top" id="vpe-4Q-LvS"/>
+                        <constraint firstItem="5oZ-ub-TFe" firstAttribute="trailing" secondItem="83h-O7-fvI" secondAttribute="trailing" id="zTt-kX-pps"/>
+                    </constraints>
+                </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile-nav-bar-icon" translatesAutoresizingMaskIntoConstraints="NO" id="WaA-zt-lEx" userLabel="User Image View">
+                    <rect key="frame" x="356" y="52" width="25" height="25"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="25" id="3i5-YL-FQ7"/>
+                        <constraint firstAttribute="height" constant="30" id="8a1-st-vDB"/>
+                        <constraint firstAttribute="width" secondItem="WaA-zt-lEx" secondAttribute="height" multiplier="1:1" id="PUZ-FD-OrD"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                            <integer key="value" value="5"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="15"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
-                </view>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="8a1-st-vDB"/>
+                        </mask>
+                    </variation>
+                </imageView>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="83h-O7-fvI" secondAttribute="trailing" constant="50" id="9ax-fw-YeG"/>
-                <constraint firstAttribute="bottom" secondItem="83h-O7-fvI" secondAttribute="bottom" constant="50" id="UOP-Ke-8Wz"/>
-                <constraint firstItem="83h-O7-fvI" firstAttribute="top" secondItem="zEx-NJ-WXD" secondAttribute="top" constant="50" id="fnQ-nO-lxT"/>
-                <constraint firstItem="83h-O7-fvI" firstAttribute="leading" secondItem="zEx-NJ-WXD" secondAttribute="leading" constant="50" id="xsB-al-LJi"/>
+                <constraint firstItem="WaA-zt-lEx" firstAttribute="centerX" secondItem="5oZ-ub-TFe" secondAttribute="trailing" id="3ZQ-Ip-eP2"/>
+                <constraint firstAttribute="trailing" secondItem="83h-O7-fvI" secondAttribute="trailing" id="EKO-jK-XJ4"/>
+                <constraint firstItem="83h-O7-fvI" firstAttribute="centerY" secondItem="zEx-NJ-WXD" secondAttribute="centerY" id="MVP-sd-lgY"/>
+                <constraint firstItem="WaA-zt-lEx" firstAttribute="centerY" secondItem="zEx-NJ-WXD" secondAttribute="centerY" id="fOt-Dj-glX"/>
+                <constraint firstItem="83h-O7-fvI" firstAttribute="centerX" secondItem="zEx-NJ-WXD" secondAttribute="centerX" id="n5K-Cy-4sp"/>
+                <constraint firstItem="83h-O7-fvI" firstAttribute="leading" secondItem="zEx-NJ-WXD" secondAttribute="leading" id="xLT-EE-3Jj"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="1332" y="269.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="profile-nav-bar-icon" width="25" height="25"/>
+    </resources>
 </document>

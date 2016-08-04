@@ -1,5 +1,5 @@
 //
-//  ActiveChallengesTableViewController.swift
+//  ChallengesTableViewController.swift
 //  higi
 //
 //  Created by Peter Ryszkiewicz on 7/27/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class ActiveChallengesTableViewController: UIViewController {
+final class ChallengesTableViewController: UIViewController {
     
     @IBOutlet var tableView: UITableView! {
         didSet {
@@ -23,7 +23,7 @@ final class ActiveChallengesTableViewController: UIViewController {
 }
 
 //MARK: - UITableViewDataSource
-extension ActiveChallengesTableViewController: UITableViewDataSource {
+extension ChallengesTableViewController: UITableViewDataSource {
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return TableSection.Count.rawValue
     }
@@ -59,21 +59,40 @@ extension ActiveChallengesTableViewController: UITableViewDataSource {
             case .Content:
                 
                 let challengeCell = tableView.dequeueReusableCell(withClass: ChallengeTableViewCell.self)!
-                
-                let model = ChallengeTableViewCellModel(
-                    titleText: "Crazy Steppers Challenge",
-                    challengeStatusState: ChallengeStatusIndicatorView.State.joinedAndUnderway,
-                    dateText: "Jan 16 - 30, 2016",
-                    participantCountText: "2.5K participating",
-                    mainImageView: UIImage(named: "challenge-detail-header")!,
-                    communityImage: UIImage(named: "chatter-button-normal")!,
-                    communityText: "We heart it",
-                    challengeInformationUpperText: NSAttributedString(string: "Goal: Most Watts Earned"),
-                    challengeInformationLowerText: NSAttributedString(string: "Prizes: No Prize"),
-                    challengeInformationImage: UIImage(named: "chat-bubble-green"),
-                    showChallengeInformationStatus: false
-                )
-                
+                let model: ChallengeTableViewCellModel
+//                if indexPath.row % 4 == 0 {
+//                    model = ChallengeTableViewCellModel(
+//                        titleText: "Crazy Steppers Challenge",
+//                        challengeStatusState: ChallengeStatusIndicatorView.State.joinedAndUnderway,
+//                        dateText: "Jan 16 - 30, 2016",
+//                        participantCountText: "2.5K participating",
+//                        mainImageView: UIImage(named: "challenge-detail-header")!,
+//                        communityImage: UIImage(named: "chatter-button-normal")!,
+//                        communityText: "We heart it",
+//                        challengeInformationUpperText: NSAttributedString(string: "Goal: Most Watts Earned"),
+//                        challengeInformationLowerText: NSAttributedString(string: "Prizes: No Prize"),
+//                        challengeInformationImage: UIImage(named: "chat-bubble-green"),
+//                        showChallengeInformationStatus: false,
+//                        progressMilestones: (0...4).map{CGFloat($0) / 4.0}
+//                    )
+//                } else {
+                    model = ChallengeTableViewCellModel(
+                        titleText: "Crazy Steppers Challenge",
+                        challengeStatusState: ChallengeStatusIndicatorView.State.joinedAndUnderway,
+                        dateText: "Jan 16 - 30, 2016",
+                        participantCountText: "2.5K participating",
+                        mainImageView: UIImage(named: "challenge-detail-header")!,
+                        communityImage: UIImage(named: "chatter-button-normal")!,
+                        communityText: "We heart it",
+                        challengeInformationUpperText: nil,
+                        challengeInformationLowerText: nil,
+                        challengeInformationImage: nil,
+                        showChallengeInformationProgress: true,
+                        progressMilestones: (0...4).map{CGFloat($0) / 4.0}
+                    )
+//                }
+
+
                 challengeCell.setModel(model)
                 
                 cell = challengeCell
@@ -112,7 +131,7 @@ extension ActiveChallengesTableViewController: UITableViewDataSource {
 }
 
 //MARK: - UITableViewDelegate
-extension ActiveChallengesTableViewController: UITableViewDelegate {
+extension ChallengesTableViewController: UITableViewDelegate {
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         var rowHeight: CGFloat = 0.0
@@ -138,7 +157,7 @@ extension ActiveChallengesTableViewController: UITableViewDelegate {
 
 // MARK: - Table Enums
 
-extension ActiveChallengesTableViewController {
+extension ChallengesTableViewController {
     
     enum TableSection: Int  {
         case Challenges
@@ -160,7 +179,7 @@ extension ActiveChallengesTableViewController {
             case .Content:
                 return UITableViewAutomaticDimension
             case .Separator:
-                return 15.0
+                return 17.0
             case .Count:
                 return 0.0
             }

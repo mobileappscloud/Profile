@@ -43,7 +43,7 @@
         <!--Active Challenges Table View Controller-->
         <scene sceneID="V1M-x3-Kx1">
             <objects>
-                <viewController storyboardIdentifier="ActiveChallengesTableViewController" id="1iN-gi-tve" userLabel="Active Challenges Table View Controller" customClass="ActiveChallengesTableViewController" customModule="higi" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChallengesTableViewController" id="1iN-gi-tve" userLabel="Active Challenges Table View Controller" customClass="ChallengesTableViewController" customModule="higi" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="byE-V3-H0B"/>
                         <viewControllerLayoutGuide type="bottom" id="hpO-NB-ZuF"/>

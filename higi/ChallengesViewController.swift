@@ -7,7 +7,7 @@ final class ChallengesViewController: UIViewController {
         }
         
         struct Identifier {
-            static let ActiveChallengesTableViewController = "ActiveChallengesTableViewController"
+            static let ChallengesTableViewController = "ChallengesTableViewController"
         }
     }
 }
@@ -25,7 +25,7 @@ extension ChallengesViewController {
             let titles = ["Active", "New", "Finished"] // TODO: Peter Ryszkiewicz: Localize
             let vc = UIViewController()
             vc.view.backgroundColor = UIColor.orangeColor()
-            let activeChallengesVC = storyboard!.instantiateViewControllerWithIdentifier(ChallengesViewController.Storyboard.Identifier.ActiveChallengesTableViewController)
+            let activeChallengesVC = storyboard!.instantiateViewControllerWithIdentifier(ChallengesViewController.Storyboard.Identifier.ChallengesTableViewController)
             
             
             let viewControllers = [activeChallengesVC, vc, vc]

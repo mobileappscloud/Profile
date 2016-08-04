@@ -8,8 +8,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChallengeInformationView" customModule="higi" customModuleProvider="target">
             <connections>
-                <outlet property="goalProgressView" destination="Cmb-di-u5w" id="IXw-1w-4lI"/>
+                <outlet property="goalProgressView" destination="Cmb-di-u5w" id="Cz1-fk-jJq"/>
                 <outlet property="lowerLabel" destination="Off-6Q-cvh" id="SHO-hY-C3q"/>
+                <outlet property="rightImageContainer" destination="1GK-wj-HI7" id="ycM-uS-Z69"/>
                 <outlet property="rightImageView" destination="pA3-kf-PWr" id="ZR0-Sl-D3u"/>
                 <outlet property="upperLabel" destination="7Bx-sx-40g" id="c6i-HI-r6m"/>
             </connections>
@@ -25,29 +26,23 @@
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sjQ-jr-dBe">
                             <rect key="frame" x="0.0" y="0.0" width="144" height="184"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Upper Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Bx-sx-40g" userLabel="Upper Label">
-                                    <rect key="frame" x="0.0" y="0.0" width="144" height="21"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upper Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Bx-sx-40g" userLabel="Upper Label">
+                                    <rect key="frame" x="0.0" y="0.0" width="144" height="103"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Lower Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Off-6Q-cvh" userLabel="Lower Label">
-                                    <rect key="frame" x="0.0" y="0.0" width="144" height="21"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lower Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Off-6Q-cvh" userLabel="Lower Label">
+                                    <rect key="frame" x="0.0" y="82" width="144" height="102"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cmb-di-u5w" userLabel="Progress View">
-                                    <rect key="frame" x="0.0" y="16" width="144" height="168"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </view>
                             </subviews>
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="7Bx-sx-40g" secondAttribute="trailing" id="3ti-E2-mkg"/>
-                                <constraint firstItem="Cmb-di-u5w" firstAttribute="leading" secondItem="sjQ-jr-dBe" secondAttribute="leading" id="PhI-iV-uhv"/>
                                 <constraint firstItem="7Bx-sx-40g" firstAttribute="height" secondItem="Off-6Q-cvh" secondAttribute="height" id="ZcI-FG-W8W"/>
                                 <constraint firstAttribute="trailing" secondItem="Off-6Q-cvh" secondAttribute="trailing" id="tal-Pi-Rk3"/>
-                                <constraint firstAttribute="trailing" secondItem="Cmb-di-u5w" secondAttribute="trailing" id="y9R-5R-K4K"/>
                             </constraints>
                         </stackView>
                         <view contentMode="scaleToFill" horizontalHuggingPriority="255" horizontalCompressionResistancePriority="755" translatesAutoresizingMaskIntoConstraints="NO" id="1GK-wj-HI7" userLabel="Right Image Container">
@@ -73,12 +68,19 @@
                         <constraint firstAttribute="bottom" secondItem="sjQ-jr-dBe" secondAttribute="bottom" id="Wbn-WW-lfW"/>
                     </constraints>
                 </stackView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cmb-di-u5w" userLabel="Progress View" customClass="ChallengeProgressView" customModule="higi" customModuleProvider="target">
+                    <rect key="frame" x="35" y="0.0" width="278" height="184"/>
+                </view>
             </subviews>
             <color key="backgroundColor" red="0.1960784314" green="0.1960784314" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="HqY-tm-SNa" firstAttribute="top" secondItem="hQg-dp-Z5b" secondAttribute="top" id="JdY-Da-9ph"/>
+                <constraint firstItem="Cmb-di-u5w" firstAttribute="leading" secondItem="hQg-dp-Z5b" secondAttribute="leading" constant="35" id="Reh-AM-S31"/>
                 <constraint firstAttribute="bottom" secondItem="HqY-tm-SNa" secondAttribute="bottom" id="ZWA-qW-d8o"/>
+                <constraint firstAttribute="trailing" secondItem="Cmb-di-u5w" secondAttribute="trailing" constant="35" id="gej-ga-DjW"/>
                 <constraint firstAttribute="trailing" secondItem="HqY-tm-SNa" secondAttribute="trailing" id="lqh-NR-oCA"/>
+                <constraint firstAttribute="bottom" secondItem="Cmb-di-u5w" secondAttribute="bottom" id="mSh-8P-Pwj"/>
+                <constraint firstItem="Cmb-di-u5w" firstAttribute="top" secondItem="hQg-dp-Z5b" secondAttribute="top" id="qDd-z8-pPe"/>
                 <constraint firstItem="HqY-tm-SNa" firstAttribute="leading" secondItem="hQg-dp-Z5b" secondAttribute="leading" constant="10" id="rnT-YB-UP8"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

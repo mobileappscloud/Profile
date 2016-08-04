@@ -13,8 +13,8 @@ final class ChallengeInformationView: ReusableXibView {
     @IBOutlet var upperLabel: UILabel!
     @IBOutlet var lowerLabel: UILabel!
     
-    @IBOutlet var goalProgressView: UIView!
+    @IBOutlet var goalProgressView: ChallengeProgressView!
     
+    @IBOutlet var rightImageContainer: UIView!
     @IBOutlet var rightImageView: UIImageView!
-    
 }
