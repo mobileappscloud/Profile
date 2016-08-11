@@ -65,7 +65,7 @@
 		<true/>
 	</dict>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string></string>
+	<string>We only use your location to let you know when there is a higi Station nearby.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
