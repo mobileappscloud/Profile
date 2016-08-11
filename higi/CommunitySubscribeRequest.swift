@@ -6,20 +6,26 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-import Foundation
+final class CommunitySubscribeRequest: ProtectedAPIRequest {
 
-struct CommunitySubscribeRequest {}
-
-extension CommunitySubscribeRequest: APIRequest {
-    
     enum Filter {
         case Join
         case Leave
     }
     
-    static func request(filter: Filter, community: Community, user: User, completion: APIRequestAuthenticatorCompletion) {
+    let filter: Filter
+    let communityId: String
+    let userId: String
+    
+    required init(filter: Filter, communityId: String, userId: String) {
+        self.filter = filter
+        self.communityId = communityId
+        self.userId = userId
+    }
+    
+    func request(completion: APIRequestAuthenticatorCompletion) {
         
-        let relativePath = "/community/communities/\(community.identifier)/users/\(user.identifier)"
+        let relativePath = "/community/communities/\(communityId)/users/\(userId)"
         
         let method = (filter == .Join) ? HTTPMethod.PUT : HTTPMethod.DELETE
         let parameters: [String : String] = [:]

@@ -205,21 +205,6 @@
 /* Text to display for a challenge goal where the winner is a team. */
 "CHALLENGE_INVITATION_VIEW_GOAL_TYPE_WINNER_TEAM" = "Team";
 
-/* Title for active challenge page in challenges view. */
-"CHALLENGES_VIEW_PAGE_TITLE_ACTIVE_CHALLENGES" = "Active Challenges";
-
-/* Title for available challenge page in challenges view. */
-"CHALLENGES_VIEW_PAGE_TITLE_AVAILABLE_CHALLENGES" = "Available Challenges";
-
-/* Title for challenge page in challenges view with only one challenge. */
-"CHALLENGES_VIEW_PAGE_TITLE_CHALLENGES" = "Challenges";
-
-/* Title for invited challenge page in challenges view. */
-"CHALLENGES_VIEW_PAGE_TITLE_INVITED_CHALLENGES" = "Invited Challenges";
-
-/* Title for upcoming challenge page in challenges view. */
-"CHALLENGES_VIEW_PAGE_TITLE_UPCOMING_CHALLENGES" = "Upcoming Challenges";
-
 /* Title for 'change' button. */
 "CHANGE_PASSWORD_VIEW_CHANGE_BUTTON_TITLE" = "Change";
 
@@ -261,6 +246,15 @@
 
 /* Placeholder text to display in chatter input text field. */
 "CHATTER_INPUT_VIEW_TEXT_INPUT_PLACEHOLDER" = "Talk some smack!";
+
+/* Format of text displayed in header label of comment for an author and time elapsed since publish date. */
+"COMMENT_CELL_HEADER_LABEL_AUTHOR_TIME_FORMAT" = "%@    %@";
+
+/* Placeholder for entering a comment in the text input field on comment view. */
+"COMMENT_VIEW_TEXT_INPUT_PLACEHOLDER_FOR_COMMENT" = "Write a comment...";
+
+/* Placeholder for entering a reply in the text input field on comment view. */
+"COMMENT_VIEW_TEXT_INPUT_PLACEHOLDER_FOR_REPLY" = "Write a reply...";
 
 /* Title for 'Featured' communities segment on segmented control in communities list view. */
 "COMMUNITIES_VIEW_SEGMENTED_CONTROL_TITLE_FEATURED_COMMUNITIES" = "Featured";
@@ -375,6 +369,27 @@
 
 /* Title for Connect Device view. */
 "CONNECT_DEVICE_VIEW_TITLE" = "Connect a device";
+
+/* Title for action in content action bar which posts a comment targeted towards a content item. */
+"CONTENT_ACTION_BAR_ACTION_TITLE_COMMENT" = "Comment";
+
+/* Title for action in content action bar which 'likes' a content item. */
+"CONTENT_ACTION_BAR_ACTION_TITLE_LIKE" = "High-Five";
+
+/* Title for action in content action bar which shows the users who have 'liked' a content item when only the current user has liked the content item. */
+"CONTENT_ACTION_BAR_ACTION_TITLE_LIKERS" = "You";
+
+/* Format of title for action in content action bar which shows the users who have 'liked' a content item when current user and others have liked the content item. */
+"CONTENT_ACTION_BAR_ACTION_TITLE_LIKERS_FORMAT" = "You + %@";
+
+/* Title for action in content action bar which posts a reply targeted towards a content item. */
+"CONTENT_ACTION_BAR_ACTION_TITLE_REPLY" = "Reply";
+
+/* Title for action in content action bar which shares a content item. */
+"CONTENT_ACTION_BAR_ACTION_TITLE_SHARE" = "Share";
+
+/* Title for action in content action bar which 'unlikes' a content item. */
+"CONTENT_ACTION_BAR_ACTION_TITLE_UNLIKE" = "High-Five";
 
 /* Label for points units as seen in the daily summary row. */
 "DAILY_SUMMARY_ROW_POINTS_UNIT_LABEL" = "pts";
@@ -504,15 +519,6 @@
 
 /* Titles for the various values of a user's data which can be exported. */
 "EXPORT_DATA_CSV_DATA_TITLES" = "Date,Location,Address of higi Station,Systolic Pressure (mmHg),Diastolic Pressure (mmHg),Pulse (bpm),Mean Arterial Pressure (mmHg), Weight (lbs),Body Mass Index\n";
-
-/* Title for comment button within post action bar. */
-"FEED_VIEW_POST_TABLE_CELL_ACTION_BAR_BUTTON_TITLE_COMMENT" = "Comment";
-
-/* Title for high-five button within post action bar. */
-"FEED_VIEW_POST_TABLE_CELL_ACTION_BAR_BUTTON_TITLE_HIGH_FIVE" = "High-Five";
-
-/* Title for share button within post action bar. */
-"FEED_VIEW_POST_TABLE_CELL_ACTION_BAR_BUTTON_TITLE_SHARE" = "Share";
 
 /* Title of calendar reminder to check in to a higi station. */
 "FIND_STATION_VIEW_CHECK_IN_REMINDER_CALENDAR_EVENT_TITLE" = "Check in to a higi Station!";
@@ -751,6 +757,36 @@
 /* Title for alert displayed if passcode does not match. */
 "PIN_CODE_VIEW_PASSCODE_MISMATCH_ALERT_TITLE" = "Passcodes do not match";
 
+/* Format of text displayed in header label of post for an author and action. */
+"POST_CELL_HEADER_LABEL_AUTHOR_ACTION_FORMAT" = "%@ %@";
+
+/* Text displayed in table view cell header explaining the author posted content with an image. */
+"POST_TABLE_VIEW_CELL_AUTHOR_ACTION_TEMPLATE_IMAGE" = "posted an image";
+
+/* Text displayed in table view cell header explaining the author posted content with an image and text. */
+"POST_TABLE_VIEW_CELL_AUTHOR_ACTION_TEMPLATE_IMAGE_TEXT" = "posted an image";
+
+/* Text displayed in table view cell header explaining the author posted content with text. */
+"POST_TABLE_VIEW_CELL_AUTHOR_ACTION_TEMPLATE_TEXT" = "created a post";
+
+/* Text displayed in table view cell header explaining the author posted content with text an image and a link. */
+"POST_TABLE_VIEW_CELL_AUTHOR_ACTION_TEMPLATE_TEXT_IMAGE_LINK" = "posted an image";
+
+/* Text displayed in table view cell header explaining the author posted content with text and a link. */
+"POST_TABLE_VIEW_CELL_AUTHOR_ACTION_TEMPLATE_TEXT_LINK" = "posted a link";
+
+/* Text displayed in table view cell header explaining the author posted content with text and a survey. */
+"POST_TABLE_VIEW_CELL_AUTHOR_ACTION_TEMPLATE_TEXT_SURVEY" = "posted a survey";
+
+/* Text displayed in table view cell header explaining the author posted content with text and a video. */
+"POST_TABLE_VIEW_CELL_AUTHOR_ACTION_TEMPLATE_TEXT_VIDEO" = "posted a video";
+
+/* Text displayed in table view cell header explaining the author posted content with text, video, and a link. */
+"POST_TABLE_VIEW_CELL_AUTHOR_ACTION_TEMPLATE_TEXT_VIDEO_LINK" = "posted a video";
+
+/* Text displayed in table view cell header explaining the author posted content with a video. */
+"POST_TABLE_VIEW_CELL_AUTHOR_ACTION_TEMPLATE_VIDEO" = "posted a video";
+
 /* Title for button to capture a photo using the device camera. */
 "PROFILE_IMAGE_VIEW_PHOTO_CAPTURE_BUTTON_TITLE" = "Take photo";
 
@@ -948,6 +984,9 @@
 
 /* Title for 'skip' button on Tour view. */
 "TOUR_VIEW_SKIP_BUTTON_TITLE" = "Skip";
+
+/* Format for elapsed time string with shortened units. */
+"UTILITY_ELAPSED_TIME_SHORT_UNIT_FORMAT" = "%@ ago";
 
 /* Text to display on the weight metrics view if there are no weight readings to display. */
 "WEIGHT_METRICS_VIEW_BLANK_STATE_TEXT" = "Welcome! We don’t have any weight readings for you yet. Try visiting your local higi Station or connecting your favorite wireless weight scale to earn 50 points for each weight check.";

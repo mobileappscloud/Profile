@@ -16,10 +16,10 @@ struct TransformableString {
 extension TransformableString: JSONDeserializable, JSONInitializable {
     
     init?(dictionary: NSDictionary) {
-        guard let text = dictionary["Text"] as? String else { return nil }
+        guard let text = dictionary["text"] as? String else { return nil }
         
         var transforms: [TextTransform] = []
-        if let transformsDicts = dictionary["Transforms"] as? NSArray {
+        if let transformsDicts = dictionary["transforms"] as? NSArray {
             for case let transformDict as NSDictionary in transformsDicts {
                 if let transform = TextTransform(text: text, dictionary: transformDict) {
                     transforms.append(transform)

@@ -8,7 +8,7 @@
 
 final class HostController {
     
-    let session = APIClient.sharedSession
+    lazy private var session = APIClient.sharedSession
     
     var userController: UserController?
 }
@@ -19,7 +19,7 @@ extension HostController {
         /** @internal: In order to preserve legacy logic, this method can only invoke the failure
             handler if the minimum version is retrieved and the app does not meet the minimum requirement. */
         
-        guard let request = MinimumVersionRequest.request() else {
+        guard let request = MinimumVersionRequest().request() else {
             success()
             return
         }
@@ -50,7 +50,7 @@ extension HostController {
     func migrateLegacyToken(success: () -> Void, failure: () -> Void) {
         guard let token = legacyToken(),
             let userId = legacyUserId(),
-            let request = TokenRefreshRequest.request(token, tokenType: .Legacy, userId: userId as String) else {
+            let request = TokenRefreshRequest(token: token, tokenType: .Legacy, userId: userId).request() else {
                 removeLegacySessionData()
                 failure()
                 return
@@ -79,7 +79,7 @@ extension HostController {
             return
         }
         
-        UserRequest.request(userId, completion: { [weak self] (request, error) in
+        UserRequest(userId: userId).request({ [weak self] (request, error) in
             guard let strongSelf = self,
                 let request = request else {
                     failure()
@@ -93,7 +93,7 @@ extension HostController {
                     return
                 }
                 
-                UserDeserializer.parse(JSON, success: { [weak strongSelf] (user) in
+                ResourceDeserializer.parse(JSON, resource: User.self, success: { [weak strongSelf] (user) in
                     if let strongSelf = strongSelf {
                         strongSelf.userController = UserController(user: user)
                         success()
@@ -112,7 +112,7 @@ extension HostController {
 extension HostController {
     
     func revokeRefreshToken(completion: () -> Void) {
-        TokenRevokeRequest.request({ [weak self] (request, error) in
+        TokenRevokeRequest().request({ [weak self] (request, error) in
             guard let strongSelf = self,
                 let request = request else {
                     completion()

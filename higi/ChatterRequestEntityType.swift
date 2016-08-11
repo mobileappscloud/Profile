@@ -8,21 +8,56 @@
 
 struct ChatterRequest {
     
-    enum EntityType: Int {
-        case Achievement = 1
-        case Challenge = 2
-        case Comment = 3
-        case Reward = 4
-        case Post = 5
-        case Community = 6
-        
-        static var mapping: [String : EntityType] = [
-            "Acheivement" : .Achievement,
-            "Challenge" : .Challenge,
-            "Comment" : .Comment,
-            "Reward" : .Reward,
-            "Post" : .Post,
-            "Community" : .Community
-        ]
+    enum EntityType {
+        case Achievement
+        case Challenge
+        case Comment
+        case Reward
+        case Post
+        case Community
+    }
+}
+
+extension ChatterRequest.EntityType {
+    
+    func string() -> String {
+        let string: String
+        switch self {
+        case .Achievement:
+            string = "Achievement"
+        case .Challenge:
+            string = "Challenge"
+        case .Comment:
+            string = "Comment"
+        case .Reward:
+            string = "Reward"
+        case .Post:
+            string = "Post"
+        case .Community:
+            string = "Community"
+        }
+        return string
+    }
+}
+
+extension ChatterRequest.EntityType {
+    
+    func urlComponent() -> String {
+        let string: String
+        switch self {
+        case .Achievement:
+            string = "achievements"
+        case .Challenge:
+            string = "challenges"
+        case .Comment:
+            string = "comments"
+        case .Reward:
+            string = "rewards"
+        case .Post:
+            string = "posts"
+        case .Community:
+            string = "communities"
+        }
+        return string
     }
 }

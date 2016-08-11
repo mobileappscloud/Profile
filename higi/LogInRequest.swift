@@ -6,12 +6,17 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-struct LogInRequest {}
-
-extension LogInRequest: APIRequest {
+final class LogInRequest: UnprotectedAPIRequest {
     
-    static func request(email: String, password: String) -> NSURLRequest? {
-        
+    let email: String
+    let password: String
+    
+    required init(email: String, password: String) {
+        self.email = email
+        self.password = password
+    }
+    
+    func request() -> NSURLRequest? {
         let relativePath = "/authentication/login"
         let method = HTTPMethod.POST
         

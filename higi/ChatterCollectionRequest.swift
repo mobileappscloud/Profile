@@ -6,29 +6,19 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-struct ChatterCollectionRequest {}
+final class ChatterCollectionRequest: ProtectedAPIRequest {
 
-extension ChatterCollectionRequest: APIRequest {
+    let entityType: ChatterRequest.EntityType
+    let entityId: String
     
-    static func request(entity: Comment.Entity, completion: APIRequestAuthenticatorCompletion) {
-        
-        let entityType: String
-        switch entity.type {
-        case .Achievement:
-            entityType = "achievements"
-        case .Challenge:
-            entityType = "challenges"
-        case .Comment:
-            entityType = "comments"
-        case .Reward:
-            entityType = "rewards"
-        case .Post:
-            entityType = "posts"
-        case .Community:
-            entityType = "communities"
-        }
-        
-        let relativePath = "/chatter/\(entityType)/\(entity.identifier)/comments"
+    required init(entityType: ChatterRequest.EntityType, entityId: String) {
+        self.entityType = entityType
+        self.entityId = entityId
+    }
+    
+    func request(completion: APIRequestAuthenticatorCompletion) {
+                
+        let relativePath = "/chatter/\(entityType.urlComponent())/\(entityId)/comments"
         
         authenticatedRequest(relativePath, parameters: nil, completion: completion)
     }

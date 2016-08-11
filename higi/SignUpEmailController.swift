@@ -8,16 +8,14 @@
 
 final class SignUpEmailController {
     
-    private lazy var session: NSURLSession = {
-        return APIClient.sharedSession
-    }()
+    private lazy var session: NSURLSession = APIClient.sharedSession
 }
 
 extension SignUpEmailController {
 
     func createUser(email: String, password: String, success: () -> (), failure: (error: NSError?) -> ()) {
         
-        guard let request = UserCreateRequest.request(email, password: password) else {
+        guard let request = UserCreateRequest(email: email, password: password).request() else {
             failure(error: nil)
             return
         }
@@ -40,7 +38,7 @@ extension SignUpEmailController {
     
     func logIn(email: String, password: String, success: (user: User) -> Void, failure: (error: NSError?) -> ()) {
         
-        guard let request = LogInRequest.request(email, password: password) else {
+        guard let request = LogInRequest(email: email, password: password).request() else {
             failure(error: nil)
             return
         }

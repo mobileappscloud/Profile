@@ -6,13 +6,15 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-import Foundation
-
-struct PagingRequest {}
-
-extension PagingRequest: APIRequest {
+final class PagingRequest: ProtectedAPIRequest {
     
-    static func request(URL: NSURL, completion: APIRequestAuthenticatorCompletion) {
+    let URL: NSURL
+
+    required init(URL: NSURL) {
+        self.URL = URL
+    }
+    
+    func request(completion: APIRequestAuthenticatorCompletion) {
         authenticatedRequest(URL, parameters: nil, completion: completion)
     }
 }

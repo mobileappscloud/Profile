@@ -8,11 +8,11 @@
 
 final class LogInController {
     
-    let session = APIClient.sharedSession
+    lazy private var session = APIClient.sharedSession
     
     func authenticate(email: String, password: String, success: (user: User) -> (), failure: (error: NSError?) -> ()) {
         
-        guard let request = LogInRequest.request(email, password: password) else {
+        guard let request = LogInRequest(email: email, password: password).request() else {
             failure(error: nil)
             return
         }

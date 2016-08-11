@@ -6,13 +6,25 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-struct ChallengeCollectionRequest {}
+final class ChallengeCollectionRequest: ProtectedAPIRequest, ChallengeRequestConfigurable {
 
-extension ChallengeCollectionRequest: APIRequest {
+    let userId: String
+    let gravityBoard: Int
+    let participants: Int
+    let comments: Int
+    let teamComments: Int
     
-    static func request(user: User, gravityBoard: Int, participants: Int, comments: Int, teamComments: Int, completion: APIRequestAuthenticatorCompletion) {
+    required init(userId: String, gravityBoard: Int, participants: Int, comments: Int, teamComments: Int) {
+        self.userId = userId
+        self.gravityBoard = gravityBoard
+        self.participants = participants
+        self.comments = comments
+        self.teamComments = teamComments
+    }
+    
+    func request(completion: APIRequestAuthenticatorCompletion) {
         
-        let relativePath = "/challenge/user/\(user.identifier)/challenges"
+        let relativePath = "/challenge/user/\(userId)/challenges"
         
         let includes = "[gravityboard]=\(gravityBoard),[participants]=\(participants),[comments]=\(comments),[teams.comments]=\(teamComments)"
         let pageSize = 0

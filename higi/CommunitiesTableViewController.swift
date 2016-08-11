@@ -103,10 +103,6 @@ extension CommunitiesTableViewController {
             self?.tableView.reloadData()
             self?.hidePlaceholderView()
             })
-        
-        if let error = error {
-            
-        }
     }
 }
 
@@ -129,9 +125,7 @@ extension CommunitiesTableViewController {
     }
     
     private func fetchNextFailure(error: NSError?) {
-        if let error = error {
-            
-        }
+        
     }
 }
 

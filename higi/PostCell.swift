@@ -6,7 +6,7 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-final class PostCell: UITableViewCell {
+final class PostCell: UITableViewCell, ActionBarDisplaying, ActionBarItemDelegate, TableCellActionBarItemDelegating {
     
     @IBOutlet var headerView: PostHeaderView!
     
@@ -16,7 +16,11 @@ final class PostCell: UITableViewCell {
         }
     }
     
-    @IBOutlet var actionBar: PostActionBar!
+    @IBOutlet var actionBar: ActionBar! {
+        didSet {
+            actionBar.actionItemDelegate = self
+        }
+    }
     
     lazy private var tapGestureRecognizer: UITapGestureRecognizer = {
         let tap = UITapGestureRecognizer(target: self, action: #selector(didTapContentArea))
@@ -27,14 +31,20 @@ final class PostCell: UITableViewCell {
         return PostContentTapGestureRecognizerDelegate()
     }()
     
-    var contentTapGestureHandler: ((cell: PostCell) -> Void)?
+    typealias ContentTapHandler = ((cell: PostCell) -> Void)
+    var contentTapGestureHandler: ContentTapHandler?
+    
+    weak var cellActionBarItemDelegate: TableCellActionBarItemDelegate?
 }
 
 extension PostCell {
     
     func reset() {
         headerView.avatarButton.setImage(nil, forState: .Normal)
-        headerView.configure(nil, action: nil, timestamp: nil)
+        headerView.primaryLabel.text = nil
+        headerView.primaryLabel.attributedText = nil
+        headerView.secondaryLabel.text = nil
+        headerView.secondaryLabel.attributedText = nil
         
         for subview in contentStackView.arrangedSubviews {
             contentStackView.removeArrangedSubview(subview)
@@ -42,6 +52,10 @@ extension PostCell {
         }
         
         actionBar.configure([])
+        
+        contentTapGestureHandler = nil
+        
+        cellActionBarItemDelegate = nil
     }
 }
 

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PostActionBar" customModule="higi" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ActionBar" customModule="higi" customModuleProvider="target">
             <connections>
                 <outlet property="horizontalStackView" destination="bmG-sf-Vnq" id="1l2-aY-CSb"/>
                 <outlet property="stackViewLeadingConstraint" destination="myk-9j-UjR" id="yRY-1i-WJR"/>
@@ -47,18 +47,12 @@
                 <constraint firstItem="uxb-xE-jDS" firstAttribute="top" secondItem="5FS-nl-QQS" secondAttribute="top" constant="5" id="1Iu-N9-dEA"/>
                 <constraint firstAttribute="trailing" secondItem="uxb-xE-jDS" secondAttribute="trailing" constant="15" id="9Ic-em-sVM"/>
                 <constraint firstAttribute="bottom" secondItem="uxb-xE-jDS" secondAttribute="bottom" constant="5" id="Lk1-nr-0xJ"/>
-                <constraint firstAttribute="height" constant="50" id="afZ-Bc-a8K"/>
                 <constraint firstItem="uxb-xE-jDS" firstAttribute="leading" secondItem="5FS-nl-QQS" secondAttribute="leading" constant="15" id="myk-9j-UjR"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <variation key="default">
-                <mask key="constraints">
-                    <exclude reference="afZ-Bc-a8K"/>
-                </mask>
-            </variation>
         </view>
     </objects>
 </document>

@@ -6,15 +6,21 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-struct ChallengeJoinRequest {}
+final class ChallengeJoinRequest: ProtectedAPIRequest {
 
-extension ChallengeJoinRequest: APIRequest {
-
-    static func request(joinURL URL: NSURL, user: User, completion: APIRequestAuthenticatorCompletion) {
+    let joinURL: NSURL
+    let user: User
+    
+    required init(joinURL: NSURL, user: User) {
+        self.joinURL = joinURL
+        self.user = user
+    }
+    
+    func request(completion: APIRequestAuthenticatorCompletion) {
         
         let method = HTTPMethod.POST
         let body = ["userId" : user.identifier]
         
-        authenticatedRequest(URL, parameters: nil, method: method, body: body, completion: completion)
+        authenticatedRequest(joinURL, parameters: nil, method: method, body: body, completion: completion)
     }
 }

@@ -6,7 +6,7 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-struct AuthorizationDeserializer: JSONDeserializable {
+final class AuthorizationDeserializer: JSONDeserializable {
  
     /**
      Parses a JSON dictionary with authentication information necessary for use with the higi API.

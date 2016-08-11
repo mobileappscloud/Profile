@@ -6,18 +6,24 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-import Foundation
+final class CommunityCollectionRequest: ProtectedAPIRequest {
 
-struct CommunityCollectionRequest {}
-
-extension CommunityCollectionRequest: APIRequest {
-    
     enum Filter {
         case Joined
         case Unjoined
     }
     
-    static func request(filter: Filter, pageNumber: Int = 1, pageSize: Int = 10, completion: APIRequestAuthenticatorCompletion) {
+    let filter: Filter
+    var pageNumber: Int
+    var pageSize: Int
+    
+    required init(filter: Filter, pageNumber: Int = 1, pageSize: Int = 10) {
+        self.filter = filter
+        self.pageNumber = pageNumber
+        self.pageSize = pageSize
+    }
+    
+    func request(completion: APIRequestAuthenticatorCompletion) {
         
         let relativePath = "/community/communities"
         

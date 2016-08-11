@@ -48,3 +48,6 @@
 
 // Obj-C category to return UIInterfaceOrientation while silencing deprecation warning
 #import "UIViewController+InterfaceOrientation.h"
+
+// UITextView subclass which automatically resizes to fit content
+#import "RGPAutoResizingTextView.h"

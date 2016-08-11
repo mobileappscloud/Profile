@@ -33,9 +33,9 @@ extension MediaAsset: JSONDeserializable, JSONInitializable {
     }
     
     init?(postDictionary dictionary: NSDictionary) {
-        guard let URIString = dictionary["Url"] as? String,
+        guard let URIString = dictionary["url"] as? String,
             let URI = NSURL(string: URIString),
-            let fileExtension = dictionary["FileExtension"] as? String else { return nil }
+            let fileExtension = dictionary["fileExtension"] as? String else { return nil }
         
         self.URI = URI
         let contentType = Utility.MIMEType(fileExtension)
@@ -44,8 +44,8 @@ extension MediaAsset: JSONDeserializable, JSONInitializable {
     
     static func postDictionary(uri: String, fileExtension: String) -> NSDictionary {
         return [
-            "Url" : "\(uri)",
-            "FileExtension" : "\(fileExtension)"
+            "url" : "\(uri)",
+            "fileExtension" : "\(fileExtension)"
         ]
     }
 }

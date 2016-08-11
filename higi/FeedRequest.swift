@@ -6,11 +6,15 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-struct FeedRequest {}
+final class FeedRequest: ProtectedAPIRequest {
 
-extension FeedRequest: APIRequest {
+    let postId: String
     
-    static func request(postId: String, completion: APIRequestAuthenticatorCompletion) {
+    required init(postId: String) {
+        self.postId = postId
+    }
+    
+    func request(completion: APIRequestAuthenticatorCompletion) {
         
         let relativePath = "/feed/posts/\(postId)"
         

@@ -233,9 +233,33 @@ extension Utility {
 
 extension Utility {
     
-    class func abbreviatedElapsedTimeUnit(fromDate: NSDate, toDate: NSDate) -> String? {
+    /**
+     Produces a localized string to describe elapsed time. 
+     
+     Ex: `1 sec ago`, `2 days ago`...
+     
+     - parameter fromDate: Start date
+     - parameter toDate:   End date
+     
+     - returns: Localized string for elapsed time between two dates.
+     */
+    class func shortElapsedTimeAgo(fromDate: NSDate, toDate: NSDate = NSDate()) -> String? {
+        guard let elapsedTime = shortElapsedTimeUnit(fromDate, toDate: toDate) else { return nil }
+        
+        let format = NSLocalizedString("UTILITY_ELAPSED_TIME_SHORT_UNIT_FORMAT", comment: "Format for elapsed time string with shortened units.")
+        return String(format: format, elapsedTime)
+    }
+    
+    class func abbreviatedElapsedTimeUnit(fromDate: NSDate, toDate: NSDate = NSDate()) -> String? {
+        return elapsedTimeUnit(fromDate, toDate: toDate, withFormatter: NSDateComponentsFormatter.abbreviatedSingleUnitFormatter)
+    }
+    
+    class func shortElapsedTimeUnit(fromDate: NSDate, toDate: NSDate = NSDate()) -> String? {
+        return elapsedTimeUnit(fromDate, toDate: toDate, withFormatter: NSDateComponentsFormatter.shortSingleUnitFormatter)
+    }
+    
+    private class func elapsedTimeUnit(fromDate: NSDate, toDate: NSDate, withFormatter formatter: NSDateComponentsFormatter) -> String? {
         let elapsedComponents = NSCalendar.currentCalendar().components([.WeekOfMonth, .Day, .Hour, .Minute, .Second], fromDate: fromDate, toDate: toDate, options:  [])
-        let formatter = NSDateComponentsFormatter.abbreviatedSingleUnitFormatter
         return formatter.stringFromDateComponents(elapsedComponents)
     }
 }

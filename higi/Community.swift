@@ -6,7 +6,7 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-final class Community {
+final class Community: UniquelyIdentifiable {
     
     let identifier: String
     let organizationIdentifier: String

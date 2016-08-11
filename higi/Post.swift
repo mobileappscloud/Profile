@@ -6,7 +6,7 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-final class Post {
+final class Post: UniquelyIdentifiable, ContentInteractable {
     
     enum Entity: String {
         case Community
@@ -55,7 +55,7 @@ final class Post {
         let videos: [Video]
     }
     
-    struct User {
+    struct User: UniquelyIdentifiable {
         let identifier: String
         let firstName: String
         let lastName: String
@@ -82,9 +82,13 @@ final class Post {
     
     let likeCount: Int
     
+    let actions: Content.Actions
+    
+    let permissions: Content.Permissions
+    
     var subheading: String?
     
-    required init(identifier: String, user: User, type: Type, template: Template, heading: String, publishDate: NSDate, elements: Elements, commentCount: Int, likeCount: Int) {
+    required init(identifier: String, user: User, type: Type, template: Template, heading: String, publishDate: NSDate, elements: Elements, commentCount: Int, likeCount: Int, actions: Content.Actions, permissions: Content.Permissions) {
         
         self.identifier = identifier
         self.user = user
@@ -95,6 +99,8 @@ final class Post {
         self.elements = elements
         self.commentCount = commentCount
         self.likeCount = likeCount
+        self.actions = actions
+        self.permissions = permissions
     }
 }
 
@@ -103,13 +109,13 @@ final class Post {
 extension Post.Video: JSONDeserializable, JSONInitializable {
     
     init?(dictionary: NSDictionary) {
-        guard let videoURLString = dictionary["VideoUrl"] as? String,
-            let videoExtension = dictionary["FileExtension"] as? String,
-            let previewImageURLString = dictionary["PreviewImageUrl"] as? String,
-            let previewImageExtension = dictionary["PreviewImageFileExtension"] as? String,
-            let height = dictionary["Height"] as? Int,
-            let width = dictionary["Width"] as? Int,
-            let durationMs = dictionary["DurationMs"] as? Double
+        guard let videoURLString = dictionary["videoUrl"] as? String,
+            let videoExtension = dictionary["fileExtension"] as? String,
+            let previewImageURLString = dictionary["previewImageUrl"] as? String,
+            let previewImageExtension = dictionary["previewImageFileExtension"] as? String,
+            let height = dictionary["height"] as? Int,
+            let width = dictionary["width"] as? Int,
+            let durationMs = dictionary["durationMs"] as? Double
             else { return nil }
         
         let videoDict = MediaAsset.postDictionary(videoURLString, fileExtension: videoExtension)
@@ -129,10 +135,10 @@ extension Post.Video: JSONDeserializable, JSONInitializable {
 extension Post.User: JSONDeserializable, JSONInitializable {
     
     init?(dictionary: NSDictionary) {
-        guard let identifier = dictionary["Id"] as? String,
-            let firstName = dictionary["FirstName"] as? String,
-            let lastName = dictionary["LastName"] as? String,
-            let avatarDict = dictionary["Avatar"] as? NSDictionary,
+        guard let identifier = dictionary["id"] as? String,
+            let firstName = dictionary["firstName"] as? String,
+            let lastName = dictionary["lastName"] as? String,
+            let avatarDict = dictionary["avatar"] as? NSDictionary,
             let avatar = MediaAsset(dictionary: avatarDict)
             else { return nil }
         
@@ -146,35 +152,37 @@ extension Post.User: JSONDeserializable, JSONInitializable {
 extension Post: JSONDeserializable, JSONInitializable {
     
     convenience init?(dictionary: NSDictionary) {
-        guard let identifier = dictionary["Id"] as? String,
-            let userDict = dictionary["User"] as? NSDictionary,
+        guard let identifier = dictionary["id"] as? String,
+            let userDict = dictionary["user"] as? NSDictionary,
             let user = User(dictionary: userDict),
-            let typeString = dictionary["Type"] as? String,
+            let typeString = dictionary["type"] as? String,
             let type = Type(rawValue: typeString),
-            let templateString = dictionary["TemplateType"] as? String,
-            let template = Template(rawValue: templateString),
-            let heading = dictionary["Heading"] as? String,
-            let publishDateString = dictionary["PublishDate"] as? String,
+            let templateString = dictionary["templateType"] as? String,
+            let template = Template(rawValue: templateString)
+            where template != .Custom, // **NOTE** We are ignoring all custom templates for the time being.
+            let heading = dictionary["heading"] as? String,
+            let publishDateString = dictionary["publishDate"] as? String,
             let publishDate = NSDateFormatter.ISO8601DateFormatter.dateFromString(publishDateString),
-            let chatterDict = dictionary["Chatter"] as? NSDictionary,
-            let commentCount = chatterDict["CommentCount"] as? Int,
-            let likeCount = chatterDict["LikeCount"] as? Int
+            let chatterDict = dictionary["chatter"] as? NSDictionary,
+            let commentCount = chatterDict["commentCount"] as? Int,
+            let likeCount = chatterDict["likeCount"] as? Int,
+            let actionsDict = dictionary["actions"] as? NSDictionary,
+            let actions = Content.Actions(dictionary: actionsDict),
+            let permissionsDict = dictionary["permissions"] as? NSDictionary,
+            let permissions = Content.Permissions(dictionary: permissionsDict)
             else { return nil }
-        
-        // **NOTE** We are ignoring all custom templates for the time being.
-        if template == .Custom { return nil }
         
         var transformableStrings: [TransformableString] = []
         var images: [MediaAsset] = []
         var videos: [Video] = []
-        if let mediaEntities = dictionary["MediaEntities"] as? NSArray {
+        if let mediaEntities = dictionary["mediaEntities"] as? NSArray {
             for case let mediaEntity as NSDictionary in mediaEntities {
-                guard let typeString = mediaEntity["Type"] as? String,
+                guard let typeString = mediaEntity["type"] as? String,
                     let type = MediaEntityType(rawValue: typeString) else { continue }
                 
                 switch type {
                 case .Image:
-                    if let imageDict = mediaEntity["Image"] as? NSDictionary,
+                    if let imageDict = mediaEntity["image"] as? NSDictionary,
                         let mediaAsset = MediaAsset(postDictionary: imageDict) {
                         images.append(mediaAsset)
                     }
@@ -187,7 +195,7 @@ extension Post: JSONDeserializable, JSONInitializable {
                     break
                     
                 case .Video:
-                    if let videoDict = mediaEntity["Video"] as? NSDictionary,
+                    if let videoDict = mediaEntity["video"] as? NSDictionary,
                         let video = Video(dictionary: videoDict) {
                         videos.append(video)
                     }
@@ -197,7 +205,7 @@ extension Post: JSONDeserializable, JSONInitializable {
         }
         let elements = Elements(transformableStrings: transformableStrings, images: images, videos: videos)
         
-        self.init(identifier: identifier, user: user, type: type, template: template, heading: heading, publishDate: publishDate, elements: elements, commentCount: commentCount, likeCount: likeCount)
+        self.init(identifier: identifier, user: user, type: type, template: template, heading: heading, publishDate: publishDate, elements: elements, commentCount: commentCount, likeCount: likeCount, actions: actions, permissions: permissions)
         
         // validate template
         if !isValid() {
@@ -280,5 +288,21 @@ extension Post {
     
     private func validVideoPost() -> Bool {
         return elements.videos.count == 1
+    }
+}
+
+// MARK: - Copying
+
+extension Post {
+    
+    func copy(likeCount: Int, actions: Content.Actions) -> Post {
+        return Post(identifier: self.identifier, user: self.user, type: self.type, template: self.template, heading: self.heading, publishDate: self.publishDate, elements: self.elements, commentCount: self.commentCount, likeCount: likeCount, actions: actions, permissions: self.permissions)
+    }
+}
+
+extension Post {
+    
+    func copy(commentCount: Int) -> Post {
+        return Post(identifier: self.identifier, user: self.user, type: self.type, template: self.template, heading: self.heading, publishDate: self.publishDate, elements: self.elements, commentCount: commentCount, likeCount: self.likeCount, actions: self.actions, permissions: self.permissions)
     }
 }

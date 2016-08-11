@@ -6,11 +6,17 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-struct UserUpdateRequest {}
+final class UserUpdateRequest: ProtectedAPIRequest {
 
-extension UserUpdateRequest: APIRequest {
-
-    private static func request(user: User, parameters: NSDictionary, completion: APIRequestAuthenticatorCompletion) {
+    let user: User
+    let parameters: NSDictionary
+    
+    required init(user: User, parameters: NSDictionary) {
+        self.user = user
+        self.parameters = parameters
+    }
+    
+    func request(completion: APIRequestAuthenticatorCompletion) {
         guard let userDictionary = user.JSONDictionary().mutableCopy() as? NSMutableDictionary else {
             completion(request: nil, error: nil)
             return
@@ -29,35 +35,5 @@ extension UserUpdateRequest: APIRequest {
         let method = HTTPMethod.PUT
         
         authenticatedRequest(relativePath, parameters: nil, method: method, body: body, completion: completion)
-    }
-    
-    static func request(user: User, termsFileName: String, privacyFileName: String, completion: APIRequestAuthenticatorCompletion) {
-        
-        let agreedDateTime = NSDate()
-        let terms = AgreementInfo(fileName: termsFileName, dateTime: agreedDateTime)
-        let privacy = AgreementInfo(fileName: privacyFileName, dateTime: agreedDateTime)
-        
-        let parameters = NSMutableDictionary()
-        parameters["termsAgreed"] = terms.JSONDictionary()
-        parameters["privacyAgreed"] = privacy.JSONDictionary()
-        
-        request(user, parameters: parameters, completion: completion)
-    }
-    
-    static func request(user: User, firstName: String, lastName: String, completion: APIRequestAuthenticatorCompletion) {
-        
-        let parameters = NSMutableDictionary()
-        parameters["firstName"] = firstName
-        parameters["lastName"] = lastName
-        
-        request(user, parameters: parameters, completion: completion)
-    }
-    
-    static func request(user: User, dateOfBirth: NSDate, completion: APIRequestAuthenticatorCompletion) {
-        
-        let parameters = NSMutableDictionary()
-        parameters["dateOfBirth"] = NSDateFormatter.MMddyyyyDateFormatter.stringFromDate(dateOfBirth)
-        
-        request(user, parameters: parameters, completion: completion)
     }
 }

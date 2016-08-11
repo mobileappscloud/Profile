@@ -6,18 +6,24 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-import Foundation
-
-struct TokenRefreshRequest {}
-
-extension TokenRefreshRequest: APIRequest {
+final class TokenRefreshRequest: UnprotectedAPIRequest {
     
     enum TokenType {
         case Refresh
         case Legacy
     }
+
+    let token: String
+    let tokenType: TokenType
+    var userId: String?
     
-    static func request(token: String, tokenType: TokenType = .Refresh, userId: String? = nil) -> NSURLRequest? {
+    required init(token: String, tokenType: TokenType, userId: String? = nil) {
+        self.token = token
+        self.tokenType = tokenType
+        self.userId = userId
+    }
+    
+    func request() -> NSURLRequest? {
         
         let relativePath = "/authentication/refresh"
         let method = HTTPMethod.POST

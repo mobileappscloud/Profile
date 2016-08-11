@@ -6,11 +6,9 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-struct MinimumVersionRequest {}
+final class MinimumVersionRequest: UnprotectedAPIRequest {
 
-extension MinimumVersionRequest: APIRequest {
-    
-    static func request() -> NSURLRequest? {
+    func request() -> NSURLRequest? {
         
         // TODO: Update after endpoint is migrated to new core API
         let relativePath = "app/mobile/minVersion?p=ios"

@@ -26,16 +26,16 @@ struct TextTransform {
 extension TextTransform: JSONDeserializable {
     
     init?(text: String, dictionary: NSDictionary) {
-        guard let typeString = dictionary["Type"] as? String,
+        guard let typeString = dictionary["type"] as? String,
             let type = Type(rawValue: typeString),
-            let beginIndex = dictionary["BeginIndex"] as? Int,
-            let endIndex = dictionary["EndIndex"] as? Int
+            let beginIndex = dictionary["beginIndex"] as? Int,
+            let endIndex = dictionary["endIndex"] as? Int
             else { return nil }
         
         self.type = type
         self.range = text.startIndex.advancedBy(beginIndex)...text.startIndex.advancedBy(endIndex)
         
-        if let urlString = dictionary["Url"] as? String, let url = NSURL(string: urlString) {
+        if let urlString = dictionary["url"] as? String, let url = NSURL(string: urlString) {
             self.URL = url
         } else {
             self.URL = nil

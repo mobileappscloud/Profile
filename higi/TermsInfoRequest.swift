@@ -6,11 +6,9 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-struct TermsInfoRequest {}
+final class TermsInfoRequest: UnprotectedAPIRequest {
 
-extension TermsInfoRequest: APIRequest {
-    
-    static func request() -> NSURLRequest? {
+    func request() -> NSURLRequest? {
         // TODO: yikes
         let webURL = NSBundle.mainBundle().objectForInfoDictionaryKey("WebUrl") as! String
         let URLString = "\(webURL)/termsinfo"

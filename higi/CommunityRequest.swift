@@ -6,13 +6,17 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-struct CommunityRequest {}
+final class CommunityRequest: ProtectedAPIRequest {
 
-extension CommunityRequest: APIRequest {
+    let communityId: String
     
-    static func request(community: Community, completion: APIRequestAuthenticatorCompletion) {
+    required init(communityId: String) {
+        self.communityId = communityId
+    }
+    
+    func request(completion: APIRequestAuthenticatorCompletion) {
         
-        let relativePath = "/community/communities/\(community.identifier)"
+        let relativePath = "/community/communities/\(communityId)"
         
         authenticatedRequest(relativePath, parameters: nil, completion: completion)
     }

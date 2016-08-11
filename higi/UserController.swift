@@ -10,9 +10,7 @@ final class UserController {
     
     private(set) var user: User
     
-    private lazy var session: NSURLSession = {
-       return APIClient.sharedSession
-    }()
+    private lazy var session: NSURLSession = APIClient.sharedSession
     
     init(user: User) {
         self.user = user
@@ -35,7 +33,7 @@ extension UserController {
                 return
         }
         
-        UserRequest.request(userId, completion: { [weak self] (request, error) in
+        UserRequest(userId: userId).request({ [weak self] (request, error) in
             guard let strongSelf = self,
                 let request = request else {
                     failure()
@@ -49,7 +47,7 @@ extension UserController {
                     return
                 }
                 
-                UserDeserializer.parse(JSON, success: { [weak strongSelf] (user) in
+                ResourceDeserializer.parse(JSON, resource: User.self, success: { [weak strongSelf] (user) in
                     if let strongSelf = strongSelf {
                         strongSelf.user = user
                         success()
@@ -68,7 +66,7 @@ extension UserController {
 extension UserController {
     
     func update(firstName: String, lastName: String, success: () -> Void, failure: (error: NSError?) -> Void) {
-        UserUpdateRequest.request(user, firstName: firstName, lastName: lastName, completion: { [weak self] (request, error) in
+        UserNameUpdateRequest(user: user, firstName: firstName, lastName: lastName).request({ [weak self] (request, error) in
             guard let strongSelf = self,
                 let request = request else {
                     failure(error: error)
@@ -80,7 +78,7 @@ extension UserController {
     }
     
     func update(termsFileName: String, privacyFileName: String, success: () -> Void, failure: (error: NSError?) -> Void) {
-        UserUpdateRequest.request(user, termsFileName: termsFileName, privacyFileName: privacyFileName, completion: { [weak self] (request, error) in
+        UserTermsUpdateRequest(user: user, termsFileName: termsFileName, privacyFileName: privacyFileName).request({ [weak self] (request, error) in
             guard let strongSelf = self,
                 let request = request else {
                     failure(error: error)
@@ -92,7 +90,7 @@ extension UserController {
     }
     
     func update(dateOfBirth: NSDate, success: () -> Void, failure: (error: NSError?) -> Void) {
-        UserUpdateRequest.request(user, dateOfBirth: dateOfBirth, completion: { [weak self] (request, error) in
+        UserDateOfBirthUpdateRequest(user: user, dateOfBirth: dateOfBirth).request({ [weak self] (request, error) in
             guard let strongSelf = self,
                 let request = request else {
                     failure(error: error)
@@ -105,7 +103,7 @@ extension UserController {
     
     private func performUpdateTask(request: NSURLRequest, success: () -> Void, failure: (error: NSError?) -> Void) {
         let task = NSURLSessionTask.JSONTask(session, request: request, success: { (JSON, response) in
-            UserDeserializer.parse(JSON, success: { [weak self] (user) in
+            ResourceDeserializer.parse(JSON, resource: User.self, success: { [weak self] (user) in
                 if let strongSelf = self {
                     strongSelf.user = user
                     success()

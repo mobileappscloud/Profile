@@ -8,9 +8,7 @@
 
 final class ModifyImageController {
     
-    private lazy var session: NSURLSession = {
-        return APIClient.sharedSession
-    }()
+    private lazy var session: NSURLSession = APIClient.sharedSession
 }
 
 extension ModifyImageController {
@@ -41,7 +39,7 @@ extension ModifyImageController {
     }
     
     private func uploadImage(forUser user: User, data: NSData, success: () -> Void, failure: (error: NSError?) -> Void) {
-        ImageUploadRequest.request(user, imageData: data, completion: { [weak self] (request, error) in
+        UserImageUploadRequest(userId: user.identifier, imageData: data).request({ [weak self] (request, error) in
             guard let strongSelf = self,
                 let request = request else {
                     failure(error: error)
@@ -59,7 +57,7 @@ extension ModifyImageController {
     
     func updateImagePosition(forUser user: User, centerX: Int, centerY: Int, serverScale: CGFloat, success: () -> Void, failure: () -> Void) {
         
-        ImageUploadRequest.request(user, centerX: centerX, centerY: centerY, scale: serverScale, completion: { [weak self] (request, error) in
+        UserImagePositionUploadRequest(userId: user.identifier, centerX: centerX, centerY: centerY, scale: serverScale).request({ [weak self] (request, error) in
             guard let strongSelf = self,
                 let request = request else {
                     failure()

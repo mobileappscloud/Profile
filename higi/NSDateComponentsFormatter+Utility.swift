@@ -21,6 +21,21 @@ extension NSDateComponentsFormatter {
     }()
     
     /**
+     Returns a static date formatter.
+     
+     Specifies a `Short` style for a single date component unit. (Ex: `1 wk`, `5 days`, `3 hrs`, `23 secs`, etc.)
+     */
+    @nonobjc static var shortSingleUnitFormatter: NSDateComponentsFormatter = {
+        let formatter = NSDateComponentsFormatter()
+        formatter.unitsStyle = .Short
+        formatter.maximumUnitCount = 1
+        return formatter
+    }()
+}
+
+extension NSDateComponentsFormatter {
+    
+    /**
     Returns a static date formatter.
  
     Ideal for formatting time intervals to show video duration. 

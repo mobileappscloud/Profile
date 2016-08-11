@@ -15,9 +15,7 @@ final class ChallengesController {
     var availableChallenges:[HigiChallenge] = []
     var invitedChallenges:[HigiChallenge] = []
     
-    private lazy var session: NSURLSession = {
-        return APIClient.sharedSession
-    }()
+    private lazy var session: NSURLSession = APIClient.sharedSession
     
     private(set) var paging: Paging?
     
@@ -36,7 +34,7 @@ extension ChallengesController {
         let comments = 50
         let teamComments = 50
         
-        ChallengeCollectionRequest.request(user, gravityBoard: gravityBoard, participants: participants, comments: comments, teamComments: teamComments, completion: { [weak self] (request, error) in
+        ChallengeCollectionRequest(userId: user.identifier, gravityBoard: gravityBoard, participants: participants, comments: comments, teamComments: teamComments).request({ [weak self] (request, error) in
             
             guard let strongSelf = self,
                 let request = request else {
@@ -80,7 +78,7 @@ extension ChallengesController {
         let comments = 50
         let teamComments = 50
         
-        ChallengeRequest.request(challenge, user: user, gravityBoard: gravityBoard, participants: participants, comments: comments, teamComments: teamComments, completion: { [weak self] (request, error) in
+        ChallengeRequest(challenge: challenge, userId: user.identifier, gravityBoard: gravityBoard, participants: participants, comments: comments, teamComments: teamComments).request({ [weak self] (request, error) in
             
             guard let strongSelf = self,
                 let request = request else {
@@ -121,7 +119,7 @@ extension ChallengesController {
                 return
         }
         
-        ChallengeJoinRequest.request(joinURL: joinURL, user: user, completion: { [weak self] (request, error) in
+        ChallengeJoinRequest(joinURL: joinURL, user: user).request({ [weak self] (request, error) in
             guard let strongSelf = self,
                 let request = request else {
                     failure()

@@ -6,9 +6,7 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-import Foundation
-
-/// Model which represents pagination objects for fetching subsets of large collections while working with the higi API.
+/// Object which describes how to fetch subsets of large collections while working with the higi API.
 struct Paging {
     
     /// URL of current page in collection.
@@ -22,7 +20,6 @@ struct Paging {
     
     /// Number of results returned for current page.
     let total: Int
-    
     
     /// URL of previous page in collection.
     var previous: NSURL?
@@ -51,21 +48,5 @@ extension Paging: JSONDeserializable, JSONInitializable {
         if let nextURLString = dictionary["next"] as? String {
             self.next = NSURL(string: nextURLString)
         }
-    }
-}
-
-extension Paging: APIRequest {
-    
-    func previousRequest() -> NSURLRequest? {
-        return request(previous)
-    }
-    
-    func nextRequest() -> NSURLRequest? {
-        return request(next)
-    }
-    
-    private func request(URL: NSURL?) -> NSURLRequest? {
-        guard let URL = URL else { return nil }
-        return NSURLRequest(URL: URL)
     }
 }

@@ -6,11 +6,24 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-struct FeedCollectionRequest {}
+final class FeedCollectionRequest: ProtectedAPIRequest {
 
-extension FeedCollectionRequest: APIRequest {
+    let entity: Post.Entity
+    let entityId: String
+    var forceRefresh: Bool
+    var pageNumber: Int
+    var pageSize: Int
     
-    static func request(entity: Post.Entity, entityId: String, forceRefresh: Bool = true, pageNumber: Int = 1, pageSize: Int = 15, completion: APIRequestAuthenticatorCompletion) {
+    required init(entity: Post.Entity, entityId: String, forceRefresh: Bool = true, pageNumber: Int = 1, pageSize: Int = 15) {
+        self.entity = entity
+        self.entityId = entityId
+
+        self.forceRefresh = forceRefresh
+        self.pageNumber = pageNumber
+        self.pageSize = pageSize
+    }
+    
+    func request(completion: APIRequestAuthenticatorCompletion) {
         
         let resource: String
         switch entity {
@@ -18,7 +31,7 @@ extension FeedCollectionRequest: APIRequest {
             resource = "communities"
         case .Tag:
             resource = "tags"
-        case .User: 
+        case .User:
             resource = "users"
         }
         
@@ -26,7 +39,7 @@ extension FeedCollectionRequest: APIRequest {
         request(relativePath: relativePath, forceRefresh: forceRefresh, pageNumber: pageNumber, pageSize: pageSize, completion: completion)
     }
     
-    private static func request(relativePath relativePath: String, forceRefresh: Bool, pageNumber: Int, pageSize: Int, completion: APIRequestAuthenticatorCompletion) {
+    private func request(relativePath relativePath: String, forceRefresh: Bool, pageNumber: Int, pageSize: Int, completion: APIRequestAuthenticatorCompletion) {
         
         let parameters = [
             "pageNumber" : String(pageNumber),

@@ -6,7 +6,7 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-struct CollectionDeserializer: JSONDeserializable {
+final class CollectionDeserializer: JSONDeserializable {
     
     static func parse<Resource: JSONInitializable>(JSON: AnyObject?, resource: Resource.Type, success: (collection: [Resource], paging: Paging?) -> Void, failure: (error: NSError?) -> Void) {
         

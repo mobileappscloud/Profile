@@ -6,11 +6,15 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-struct UserRequest {}
-
-extension UserRequest: APIRequest {
+final class UserRequest: ProtectedAPIRequest {
     
-    static func request(userId: String, completion: APIRequestAuthenticatorCompletion) {
+    let userId: String
+    
+    required init(userId: String) {
+        self.userId = userId
+    }
+    
+    func request(completion: APIRequestAuthenticatorCompletion) {
         let relativePath = "/user/users/\(userId)"
         authenticatedRequest(relativePath, parameters: nil, completion: completion)
     }

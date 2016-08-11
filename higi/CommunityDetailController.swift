@@ -10,9 +10,7 @@ final class CommunityDetailController {
     
     private(set) var community: Community
     
-    private lazy var session: NSURLSession = {
-        return APIClient.sharedSession
-    }()
+    private lazy var session: NSURLSession = APIClient.sharedSession
     
     init(community: Community) {
         self.community = community
@@ -23,7 +21,7 @@ extension CommunityDetailController {
     
     func updateSubscription(community: Community, filter: CommunitySubscribeRequest.Filter, user: User, success: (community: Community) -> Void, failure: (error: NSError?) -> Void) {
         
-        CommunitySubscribeRequest.request(filter, community: community, user: user, completion: { [weak self] (request, error) in
+        CommunitySubscribeRequest(filter: filter, communityId: community.identifier, userId: user.identifier).request({ [weak self] (request, error) in
             
             guard let strongSelf = self,
                 let request = request else {
@@ -43,7 +41,7 @@ extension CommunityDetailController {
     
     func fetch(community: Community, success: (community: Community) -> Void, failure: (error: NSError?) -> Void) {
         
-        CommunityRequest.request(community, completion: { [weak self] (request, error) in
+        CommunityRequest(communityId: community.identifier).request({ [weak self] (request, error) in
             
             guard let strongSelf = self, let request = request else {
                 failure(error: nil)
@@ -52,20 +50,18 @@ extension CommunityDetailController {
             
             let task = NSURLSessionTask.JSONTask(strongSelf.session, request: request, success: { [weak strongSelf] (JSON, response) in
                 
-                guard let strongSelf = strongSelf,
-                    let JSON = JSON as? NSDictionary,
-                    let dictionary = JSON["data"] as? NSDictionary else {
+                ResourceDeserializer.parse(JSON, resource: Community.self, success: { [weak strongSelf] (community) in
+                    guard let strongSelf = strongSelf else {
                         failure(error: nil)
                         return
-                }
-                guard let community = Community(dictionary: dictionary) else {
-                    failure(error: nil)
-                    return
-                }
-                
-                strongSelf.community = community
-                success(community: community)
-                
+                    }
+                    
+                    strongSelf.community = community
+                    success(community: community)
+                    }, failure: { (error) in
+                        
+                        failure(error: error)
+                })
                 }, failure: { (error, response) in
                     failure(error: error)
             })

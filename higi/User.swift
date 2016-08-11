@@ -9,7 +9,7 @@
 import Foundation
 import HealthKit
 
-struct User {
+struct User: UniquelyIdentifiable {
     
     let identifier: String
     let email: String

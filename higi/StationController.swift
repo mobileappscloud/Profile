@@ -10,9 +10,7 @@ final class StationController: NSObject {
     
     private(set) var stations: [KioskInfo] = []
     
-    lazy private var session: NSURLSession = {
-       return APIClient.sharedSession
-    }()
+    lazy private var session: NSURLSession = APIClient.sharedSession
     
     private let fileManager: NSFileManager = {
         return NSFileManager.defaultManager()
@@ -47,7 +45,7 @@ extension StationController {
     
     private func performDownloadTask(success: () -> Void, failure: () -> Void) {
         
-        let request = StationCollectionRequest.request()
+        let request = StationCollectionRequest().request()!
         
         let task = session.downloadTaskWithRequest(request, completionHandler: { [weak self] (responseURL, response, error) in
             

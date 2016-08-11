@@ -72,7 +72,7 @@ extension UserValidationCoordinator {
     
     private func fetchLatestTermsAndPrivacy(success: () -> Void, failure: () -> Void) {
         
-        guard let request = TermsInfoRequest.request() else {
+        guard let request = TermsInfoRequest().request() else {
             failure()
             return
         }

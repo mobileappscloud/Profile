@@ -10,7 +10,7 @@ import UIKit
 
 final class HomeViewController: UIViewController {
 
-    private var feedViewController: FeedViewController!
+    private var feedTableViewController: FeedTableViewController!
     
     private(set) var userController: UserController!
     
@@ -29,8 +29,8 @@ extension HomeViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let identifier = segue.identifier where identifier == "feedEmbedSegue" {
-            feedViewController = segue.destinationViewController as! FeedViewController
-            feedViewController.configure(userController, entity: .User, entityId: userController.user.identifier, targetPresentationViewController: self)
+            feedTableViewController = segue.destinationViewController as! FeedTableViewController
+            feedTableViewController.configure(userController, entity: .User, entityId: userController.user.identifier, targetPresentationViewController: self)
         }
     }
 }
@@ -40,6 +40,6 @@ extension HomeViewController {
 extension HomeViewController: TabBarTopScrollDelegate {
     
     func scrollToTop() {
-        feedViewController.scrollToTop()
+        feedTableViewController.scrollToTop()
     }
 }

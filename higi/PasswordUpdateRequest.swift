@@ -6,11 +6,17 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-struct PasswordUpdateRequest {}
+final class PasswordUpdateRequest: ProtectedAPIRequest {
 
-extension PasswordUpdateRequest: APIRequest {
+    let currentPassword: String
+    let newPassword: String
     
-    static func request(currentPassword: String, newPassword: String, completion: APIRequestAuthenticatorCompletion) {
+    required init(currentPassword: String, newPassword: String) {
+        self.currentPassword = currentPassword
+        self.newPassword = newPassword
+    }
+    
+    func request(completion: APIRequestAuthenticatorCompletion) {
         
         guard let authorization = APIClient.authorization where authorization.accessToken.isExpired(),
             let userId = authorization.accessToken.subject() else {

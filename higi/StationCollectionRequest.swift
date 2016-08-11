@@ -6,11 +6,9 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-struct StationCollectionRequest {}
+final class StationCollectionRequest: UnprotectedAPIRequest {
 
-extension StationCollectionRequest: APIRequest {
-    
-    static func request() -> NSURLRequest {
+    func request() -> NSURLRequest? {
         
         let URLString = "\(HigiApi.higiApiUrl)/data/KioskList"
         let URL = NSURL(string: URLString)!

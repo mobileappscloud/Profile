@@ -6,11 +6,17 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-struct UserCreateRequest {}
+final class UserCreateRequest: UnprotectedAPIRequest {
 
-extension UserCreateRequest: APIRequest {
+    let email: String
+    let password: String
     
-    static func request(email: String, password: String) -> NSURLRequest? {
+    required init(email: String, password: String) {
+        self.email = email
+        self.password = password
+    }
+    
+    func request() -> NSURLRequest? {
         
         let relativePath = "/authentication/users"
         let method = HTTPMethod.POST

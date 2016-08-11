@@ -12,12 +12,12 @@ final class FeedController {
     
     private(set) var paging: Paging? = nil
     
-    private lazy var session: NSURLSession = {
-        return APIClient.sharedSession
-    }()
+    private lazy var session: NSURLSession = APIClient.sharedSession
     
     var fetchTask: NSURLSessionDataTask?
     var nextPagingTask: NSURLSessionDataTask?
+    
+    lazy private var likeNetworkController = LikeNetworkController()
     
     weak var refreshTimer: NSTimer?
     private var refreshCompletionHandler: (() -> Void)?
@@ -33,8 +33,8 @@ final class FeedController {
 extension FeedController {
     
     func fetch(entity: Post.Entity, entityId: String, success: () -> Void, failure: (error: NSError?) -> Void) {
-        
-        FeedCollectionRequest.request(entity, entityId: entityId, completion: { [weak self] (request, error) in
+
+        FeedCollectionRequest(entity: entity, entityId: entityId).request({ [weak self] (request, error) in
             
             guard let request = request,
                 let session = self?.session else {
@@ -45,7 +45,7 @@ extension FeedController {
             self?.fetchTask = NSURLSessionTask.JSONTask(session, request: request, success: { [weak self] (JSON, response) in
                 
                 CollectionDeserializer.parse(JSON, resource: Post.self, success: { [weak self] (posts, paging) in
-                    
+
                     self?.posts = posts
                     self?.paging = paging
                     self?.fetchTask = nil
@@ -76,7 +76,7 @@ extension FeedController {
             return
         }
         
-        PagingRequest.request(URL, completion: { [weak self] (request, error) in
+        PagingRequest(URL: URL).request({ [weak self] (request, error) in
             
             guard let request = request else {
                 failure(error: nil)
@@ -110,6 +110,42 @@ extension FeedController {
         
         if let nextPagingTask = nextPagingTask {
             nextPagingTask.resume()
+        }
+    }
+}
+
+extension FeedController {
+    
+    func like<T: ContentInteractable>(post: T, forUser user: User, success: (() -> Void)?, failure: ((error: NSError?) -> Void)?) -> T {
+        
+        let entityType = ChatterRequest.EntityType.Post
+        let entityId = post.identifier
+        
+        likeNetworkController.like(entityType, entityId: entityId, forUser: user, success: success, failure: failure)
+        
+        return locallyUpdate(post, incrementedLikeCount: 1)
+    }
+    
+    func unlike<T: ContentInteractable>(post: T, success: (() -> Void)?, failure: ((error: NSError?) -> Void)?) -> T {
+        
+        let entityType = ChatterRequest.EntityType.Post
+        let entityId = post.identifier
+        
+        likeNetworkController.unlike(entityType, entityId: entityId, success: success, failure: failure)
+        
+        return locallyUpdate(post, incrementedLikeCount: -1)
+    }
+    
+    func locallyUpdate<T: ContentInteractable>(post: T, incrementedLikeCount: Int) -> T {
+        let newPost = ActionBarUtility.copy(post, incrementedLikeCount: incrementedLikeCount) as! Post
+        if let index = posts.indexOf({ $0.identifier == post.identifier }) {
+            var newPosts = posts
+            newPosts[index] = newPost
+            posts = newPosts
+            
+            return newPost as! T
+        } else {
+            return post
         }
     }
 }

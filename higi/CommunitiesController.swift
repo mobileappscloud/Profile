@@ -17,9 +17,7 @@ final class CommunitiesController {
     
     private(set) var paging: Paging? = nil
     
-    private lazy var session: NSURLSession = {
-        return APIClient.sharedSession
-    }()
+    private lazy var session: NSURLSession = APIClient.sharedSession
  
     var fetchTask: NSURLSessionDataTask?
     var nextPagingTask: NSURLSessionDataTask?
@@ -42,7 +40,7 @@ final class CommunitiesController {
 extension CommunitiesController {
     
     func fetch(success: () -> Void, failure: (error: NSError?) -> Void) {
-        CommunityCollectionRequest.request(filter, completion: { [weak self] (request, error) in
+        CommunityCollectionRequest(filter: filter).request({ [weak self] (request, error) in
             
             guard let request = request,
             let session = self?.session else {
@@ -85,7 +83,7 @@ extension CommunitiesController {
             return
         }
         
-        PagingRequest.request(URL, completion: { [weak self] (request, error) in
+        PagingRequest(URL: URL).request({ [weak self] (request, error) in
             
             guard let request = request else {
                 failure(error: nil)

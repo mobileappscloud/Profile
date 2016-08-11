@@ -6,8 +6,9 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-final class CommentCell: UITableViewCell {
+final class CommentCell: UITableViewCell, ActionBarDisplaying, ActionBarItemDelegate, TableCellActionBarItemDelegating {
     
+    // TODO: Verify if this property is necessary
     @IBOutlet var leadingConstraint: NSLayoutConstraint!
     
     @IBOutlet var avatarButton: UIButton! {
@@ -19,18 +20,32 @@ final class CommentCell: UITableViewCell {
         }
     }
     
-    var buttonHandler: ((cell: CommentCell) -> Void)?
-    
     @IBOutlet var primaryLabel: TTTAttributedLabel!
     
     @IBOutlet var secondaryLabel: UILabel!
     
-    @IBOutlet var actionBar: PostActionBar!
+    @IBOutlet var actionBar: ActionBar! {
+        didSet {
+            actionBar.actionItemDelegate = self
+        }
+    }
+    
+    weak var cellActionBarItemDelegate: TableCellActionBarItemDelegate?
 }
 
 extension CommentCell {
     
-    @IBAction private func didTapAvatarButton(sender: UIButton) {
-        buttonHandler?(cell: self)
+    func reset() {
+        avatarButton.setImage(nil, forState: .Normal)
+        
+        primaryLabel.text = nil
+        primaryLabel.attributedText = nil
+        
+        secondaryLabel.text = nil
+        secondaryLabel.attributedText = nil
+        
+        actionBar.configure([])
+        
+        cellActionBarItemDelegate = nil
     }
 }

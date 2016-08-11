@@ -6,16 +6,14 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-struct TokenRevokeRequest {}
+final class TokenRevokeRequest: ProtectedAPIRequest {
 
-extension TokenRevokeRequest: APIRequest {
-    
-    static func request(completion: APIRequestAuthenticatorCompletion) {
+    func request(completion: APIRequestAuthenticatorCompletion) {
         
         guard let authorization = APIClient.authorization where authorization.accessToken.isExpired(),
             let userId = authorization.accessToken.subject() else {
-            completion(request: nil, error: nil)
-            return
+                completion(request: nil, error: nil)
+                return
         }
         
         let clientId = APIClient.clientId

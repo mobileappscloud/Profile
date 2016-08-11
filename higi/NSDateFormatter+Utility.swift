@@ -55,7 +55,7 @@ extension NSDateFormatter {
 
 extension NSDateFormatter {
     
-    /// Date formatter which for parsing dates in the format MM/dd/yyyy.
+    /// Date formatter for parsing dates in the format MM/dd/yyyy.
     @nonobjc static var MMddyyyyDateFormatter: NSDateFormatter = {
         let formatter = NSDateFormatter()
         formatter.dateFormat = "MM/dd/yyyy"
@@ -66,13 +66,13 @@ extension NSDateFormatter {
 extension NSDateFormatter {
     
     /**
-     Date formatter which for parsing dates in [ISO 8601](http://www.iso.org/iso/home/standards/iso8601.htm) format.
+     Date formatter for parsing dates in the following [ISO 8601](http://www.iso.org/iso/home/standards/iso8601.htm) compatible format:
      
-     _yyyy-MM-dd'T'HH:mm:ssZ_
+     _yyyy-MM-dd'T'HH:mm:ss.fffK_
      */
     @nonobjc static var ISO8601DateFormatter: NSDateFormatter = {
-        let formatter = NSDateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        let formatter = NSDateFormatter()  
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.fffK"
         return formatter
     }()
 }

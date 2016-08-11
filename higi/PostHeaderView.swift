@@ -16,29 +16,16 @@ final class PostHeaderView: ReusableXibView {
         }
     }
     
-    @IBOutlet private var primaryLabel: TTTAttributedLabel! {
+    @IBOutlet var primaryLabel: TTTAttributedLabel! {
         didSet {
             primaryLabel.text = nil
         }
     }
     
-    @IBOutlet private var secondaryLabel: UILabel! {
+    @IBOutlet var secondaryLabel: UILabel! {
         didSet {
             secondaryLabel.text = nil
         }
-    }
-}
-
-extension PostHeaderView {
-    
-    func configure(author: String?, action: String?, timestamp: String?) {
-        if let author = author {
-            primaryLabel.text = author
-        }
-        if let action = action {
-            primaryLabel.text = primaryLabel.text?.stringByAppendingString(action)
-        }
-        secondaryLabel.text = timestamp
     }
 }
 
@@ -54,6 +41,6 @@ extension PostHeaderView {
         avatarButton.setImage(logoImage, forState: .Normal)
         
         primaryLabel.text = "higi user commented on a post."
-        secondaryLabel.text = Utility.abbreviatedElapsedTimeUnit(NSDate().dateByAddingTimeInterval(-890000), toDate: NSDate())
+        secondaryLabel.text = Utility.shortElapsedTimeAgo(NSDate().dateByAddingTimeInterval(-890000), toDate: NSDate())
     }
 }

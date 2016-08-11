@@ -266,3 +266,28 @@ extension Theme.Color {
     
 }
 
+
+// MARK: - Content Service
+
+extension Theme.Color {
+    
+    struct Content {}
+}
+
+extension Theme.Color.Content {
+
+    struct Comment {
+        
+        struct TextInput {
+            static let borderColor = Theme.Color.Primary.silver
+            static let buttonTintColor = Theme.Color.primary
+        }
+    }
+    
+    struct ActionBar {
+        
+        static let primary = Theme.Color.primary
+        
+        static let secondary = Theme.Color.Primary.pewter
+    }
+}

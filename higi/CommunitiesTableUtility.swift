@@ -6,11 +6,7 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-import Foundation
-
-// MARK: - Custom Section
-
-struct CommunitiesUtility {}
+final class CommunitiesUtility {}
 
 // MARK: - Buttons
 
