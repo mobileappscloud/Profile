@@ -18,11 +18,11 @@ extension PasswordUpdateRequest: APIRequest {
                 return
         }
         
-        let relativePath = "/authentication/users/\(userId)/passwordchange"
+        let relativePath = "/authentication/users/\(userId)/passwordChange"
         let method = HTTPMethod.POST
         let body = [
-            "oldpassword" : currentPassword,
-            "newpassword" : newPassword
+            "oldPassword" : currentPassword,
+            "newPassword" : newPassword
         ]
         
         authenticatedRequest(relativePath, parameters: nil, method: method, body: body, completion: completion)
