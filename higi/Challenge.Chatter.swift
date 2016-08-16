@@ -27,12 +27,11 @@ extension Challenge.Chatter: JSONInitializable {
     
     init?(dictionary: NSDictionary) {
         guard let commentDicts = dictionary["data"] as? [NSDictionary],
-            let pagingDict = dictionary["paging"] as? NSDictionary,
-            let paging = Challenge.Paging(dictionary: pagingDict)
+            let paging = Challenge.Paging(fromJSONObject: dictionary["paging"])
             else { return nil }
         
-        let comments = CollectionDeserializer.parse(commentDicts, forResource: Challenge.Chatter.Comment.self)
-        
+        let comments = CollectionDeserializer.parse(dictionaries: commentDicts, forResource: Challenge.Chatter.Comment.self)
+
         self.comments = comments
         self.paging = paging
     }

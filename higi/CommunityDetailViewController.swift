@@ -152,7 +152,7 @@ extension CommunityDetailViewController {
         
         titleLabel.text = community.name
         
-        descriptionLabel.text = community.desc
+        descriptionLabel.text = community.description
         
         for subview in bannerContainer.accessoryContainer.subviews {
             subview.removeFromSuperview()

@@ -42,22 +42,20 @@ extension UserController {
             
             let task = NSURLSessionTask.JSONTask(strongSelf.session, request: request, success: { [weak strongSelf] (JSON, response) in
                 
-                guard let strongSelf = strongSelf else {
+                guard let strongSelf = strongSelf else { return }
+                
+                if let user = ResourceDeserializer.parse(JSON, resource: User.self) {
+                    strongSelf.user = user
+                    success()
+                } else {
                     failure()
-                    return
                 }
                 
-                ResourceDeserializer.parse(JSON, resource: User.self, success: { [weak strongSelf] (user) in
-                    if let strongSelf = strongSelf {
-                        strongSelf.user = user
-                        success()
-                    }
-                    }, failure: { (error) in
-                        failure()
-                })
-                }, failure: { (error, response) in
+                }, failure: { [weak strongSelf] (error, response) in
+                    guard strongSelf != nil else { return }
+                    
                     failure()
-            })
+                })
             task.resume()
             })
     }
@@ -102,16 +100,21 @@ extension UserController {
     }
     
     private func performUpdateTask(request: NSURLRequest, success: () -> Void, failure: (error: NSError?) -> Void) {
-        let task = NSURLSessionTask.JSONTask(session, request: request, success: { (JSON, response) in
-            ResourceDeserializer.parse(JSON, resource: User.self, success: { [weak self] (user) in
-                if let strongSelf = self {
-                    strongSelf.user = user
-                    success()
-                }
-                }, failure: failure)
-            }, failure: { (error, response) in
+        let task = NSURLSessionTask.JSONTask(session, request: request, success: { [weak self] (JSON, response) in
+            guard let strongSelf = self else { return }
+            
+            if let user = ResourceDeserializer.parse(JSON, resource: User.self) {
+                strongSelf.user = user
+                success()
+            } else {
+                failure(error: nil)
+            }
+            
+            }, failure: { [weak self] (error, response) in
+                guard self != nil else { return }
+                
                 failure(error: error)
-        })
+            })
         task.resume()
     }
 }

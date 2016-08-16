@@ -75,8 +75,8 @@ extension HostController {
     func fetchUser(success: () -> Void, failure: () -> Void) {
         guard let authorization = APIClient.authorization,
             let userId = authorization.accessToken.subject() else {
-            failure()
-            return
+                failure()
+                return
         }
         
         UserRequest(userId: userId).request({ [weak self] (request, error) in
@@ -85,27 +85,25 @@ extension HostController {
                     failure()
                     return
             }
-
+            
             let task = NSURLSessionTask.JSONTask(strongSelf.session, request: request, success: { [weak strongSelf] (JSON, response) in
                 
-                guard let strongSelf = strongSelf else {
+                guard let strongSelf = strongSelf else { return }
+                guard let user = ResourceDeserializer.parse(JSON, resource: User.self) else {
                     failure()
                     return
                 }
                 
-                ResourceDeserializer.parse(JSON, resource: User.self, success: { [weak strongSelf] (user) in
-                    if let strongSelf = strongSelf {
-                        strongSelf.userController = UserController(user: user)
-                        success()
-                    }
-                    }, failure: { (error) in
-                        failure()
-                })
-                }, failure: { (error, response) in
+                strongSelf.userController = UserController(user: user)
+                success()
+                
+                }, failure: { [weak strongSelf] (error, response) in
+                    guard strongSelf != nil else { return }
+                    
                     failure()
-            })
+                })
             task.resume()
-        })
+            })
     }
 }
 

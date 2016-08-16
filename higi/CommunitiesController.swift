@@ -50,21 +50,18 @@ extension CommunitiesController {
 
             self?.fetchTask = NSURLSessionTask.JSONTask(session, request: request, success: { [weak self] (JSON, response) in
                 
-                CollectionDeserializer.parse(JSON, resource: Community.self, success: { [weak self] (communities, paging) in
-                    
-                    self?.communities = communities
-                    
-                    self?.paging = paging
-                    self?.fetchTask = nil
-                    success()
-                    
-                    }, failure: { (error) in
-                        self?.fetchTask = nil
-                        failure(error: error)
-                })
+                guard let strongSelf = self else { return }
                 
-                }, failure: { (error, response) in
-                    self?.fetchTask = nil
+                let result = CollectionDeserializer.parse(collectionJSONResponse: JSON, forResource: Community.self)
+                strongSelf.communities = result.collection
+                strongSelf.paging = result.paging
+                strongSelf.fetchTask = nil
+                success()
+                
+                }, failure: { [weak self] (error, response) in
+                    guard let strongSelf = self else { return }
+                    
+                    strongSelf.fetchTask = nil
                     failure(error: error)
             })
             if let fetchTask = self?.fetchTask {
@@ -97,23 +94,21 @@ extension CommunitiesController {
     private func performNextFetch(request: NSURLRequest, success: () -> Void, failure: (error: NSError?) -> Void) {
         
         nextPagingTask = NSURLSessionTask.JSONTask(session, request: request, success: { [weak self] (JSON, response) in
-            CollectionDeserializer.parse(JSON, resource: Community.self, success: { [weak self] (communities, paging) in
+            
+            guard let strongSelf = self else { return }
+            
+            let result = CollectionDeserializer.parse(collectionJSONResponse: JSON, forResource: Community.self)
+            strongSelf.append(result.collection)
+            strongSelf.paging = result.paging
+            strongSelf.nextPagingTask = nil
+            success()
+            
+            }, failure: { [weak self] (error, response) in
+                guard let strongSelf = self else { return }
                 
-                self?.append(communities)
-                
-                self?.paging = paging
-                self?.nextPagingTask = nil
-                success()
-                
-                
-                }, failure: { (error) in
-                    self?.nextPagingTask = nil
-                    failure(error: error)
-            })
-            }, failure: { (error, response) in
-                self.nextPagingTask = nil
+                strongSelf.nextPagingTask = nil
                 failure(error: error)
-        })
+            })
         
         if let nextPagingTask = nextPagingTask {
             nextPagingTask.resume()

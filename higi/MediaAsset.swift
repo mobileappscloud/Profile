@@ -6,14 +6,18 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-import Foundation
-
+/**
+ *  Represents a media asset.
+ */
 struct MediaAsset {
     
+    /// Uniform Resource Identifier for an asset.
     let URI: NSURL
     
     /// Specifies the nature of the data in the body of an entity, by giving type and subtype identifiers
     let contentType: String
+    
+    // MARK: Init
     
     init(URI: NSURL, contentType: String) {
         self.URI = URI
@@ -21,7 +25,9 @@ struct MediaAsset {
     }
 }
 
-extension MediaAsset: JSONDeserializable, JSONInitializable {
+// MARK: - JSON
+
+extension MediaAsset: JSONInitializable {
     
     init?(dictionary: NSDictionary) {
         guard let URIString = dictionary["uri"] as? String,
@@ -31,6 +37,8 @@ extension MediaAsset: JSONDeserializable, JSONInitializable {
         self.URI = URI
         self.contentType = contentType
     }
+    
+    // MARK: Post Convenience
     
     init?(postDictionary dictionary: NSDictionary) {
         guard let URIString = dictionary["url"] as? String,
@@ -69,6 +77,16 @@ extension MediaAsset: JSONDeserializable, JSONInitializable {
 
 extension MediaAsset {
     
+    /**
+     Convenience method which modifies the `URI` of an image media asset and appends parameters which specifies the desired height and width of the image. 
+     
+     This method automatically handles conversion from points to pixels based on device pixel density.
+     
+     - parameter width:  Width in points.
+     - parameter height: Height in points.
+     
+     - returns: Modified URL for an image of the specified width and height.
+     */
     func sizedURI(width: Int, height: Int) -> NSURL {
         let scale = UIScreen.mainScreen().scale
         let scaledWidth = width * Int(scale)

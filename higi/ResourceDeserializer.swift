@@ -7,24 +7,21 @@
 //
 
 final class ResourceDeserializer: JSONDeserializable {
-    
+
     /**
      Parses a JSON dictionary with data for a single resource.
      
      - parameter JSON:    JSON dictionary with resource data.
-     - parameter success: Completion handler to be executed upon successfully parsing JSON.
-     - parameter failure: Completion handler to be executed upon failure.
+     - parameter resource: Type of resource to parse.
+     
+     - returns: A new model from the JSON passed in.
      */
-    static func parse<Resource: JSONInitializable>(JSON: AnyObject?, resource: Resource.Type, success: (resource: Resource) -> Void, failure: (error: NSError?) -> Void) {
-        
+    static func parse<T: JSONInitializable>(JSON: AnyObject?, resource: T.Type) -> T? {
         guard let responseDict = JSON as? NSDictionary,
-            let dictionary = responseDict["data"] as? NSDictionary,
-            let resource = Resource(dictionary: dictionary) else {
-                let error = NSError(sender: String(self), code: 0, message: "Unable to parse response - unexpected JSON format.")
-                failure(error: error)
-                return
+            let dictionary = responseDict["data"] as? NSDictionary else {
+                return nil
         }
         
-        success(resource: resource)
+        return T(dictionary: dictionary)
     }
 }

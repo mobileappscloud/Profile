@@ -1417,11 +1417,11 @@
 			isa = PBXGroup;
 			children = (
 				410FFFB81CA77D34005EAC9E /* APIClient.swift */,
-				4127AB281D591EDC005AEF54 /* Protocols */,
 				4163CCD21D5267B700424500 /* Controllers */,
-				415998EF1CAED86D001A7392 /* Deserialization */,
-				41667A8C1CFD5B1B007BB0FF /* Image Handling */,
+				415998EF1CAED86D001A7392 /* Deserializers */,
+				41667A8C1CFD5B1B007BB0FF /* Image Handlers */,
 				415031511CA98A1100A3FB94 /* Legacy (To Be Deprecated) */,
+				4127AB281D591EDC005AEF54 /* Protocols */,
 				415031571CA9CC6E00A3FB94 /* Requests */,
 			);
 			name = "higi API";
@@ -1527,14 +1527,14 @@
 			name = Extensions;
 			sourceTree = "<group>";
 		};
-		415998EF1CAED86D001A7392 /* Deserialization */ = {
+		415998EF1CAED86D001A7392 /* Deserializers */ = {
 			isa = PBXGroup;
 			children = (
 				415031591CA9E68B00A3FB94 /* AuthorizationDeserializer.swift */,
 				415998ED1CAED619001A7392 /* CollectionDeserializer.swift */,
 				4163CCC51D512E5E00424500 /* ResourceDeserializer.swift */,
 			);
-			name = Deserialization;
+			name = Deserializers;
 			sourceTree = "<group>";
 		};
 		416226761C7941CA00EFA1B3 /* Core Plot */ = {
@@ -1651,14 +1651,14 @@
 			name = "Profile Image";
 			sourceTree = "<group>";
 		};
-		41667A8C1CFD5B1B007BB0FF /* Image Handling */ = {
+		41667A8C1CFD5B1B007BB0FF /* Image Handlers */ = {
 			isa = PBXGroup;
 			children = (
 				41667A821CFB4499007BB0FF /* ImageCache.swift */,
 				41667A841CFB6686007BB0FF /* ImageRequestor.swift */,
 				41667A8A1CFD5997007BB0FF /* ImageRequestOperation.swift */,
 			);
-			name = "Image Handling";
+			name = "Image Handlers";
 			sourceTree = "<group>";
 		};
 		41667A8D1CFD5B3F007BB0FF /* User */ = {

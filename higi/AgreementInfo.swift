@@ -6,15 +6,21 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-import Foundation
-
+/**
+ *  Represents an agreement such as acceptance of terms of service or privacy policy.
+ */
 struct AgreementInfo {
     
+    /// Name of the file of the agreement.
     let fileName: String
+    
+    /// Date the agreement was agreed to.
     let dateTime: NSDate
 }
 
-extension AgreementInfo: JSONDeserializable, JSONInitializable {
+// MARK: - JSON
+
+extension AgreementInfo: JSONInitializable {
     
     init?(dictionary: NSDictionary) {
         guard let fileName = dictionary["fileName"] as? String,

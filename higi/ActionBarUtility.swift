@@ -134,10 +134,10 @@ extension ActionBarUtility {
         
         if content is Comment {
             let content = content as! Comment
-            return content.copy(likeCount, actions: actions) as! T
+            return content.copy(likeCount: likeCount, actions: actions) as! T
         } else if content is Post {
             let content = content as! Post
-            return content.copy(likeCount, actions: actions) as! T
+            return content.copy(likeCount: likeCount, actions: actions) as! T
         } else {
             fatalError("Unsupported content type.")
         }

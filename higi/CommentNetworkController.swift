@@ -32,23 +32,17 @@ extension CommentNetworkController {
             }
             
             let task = NSURLSessionTask.JSONTask(strongSelf.session, request: request, success: { [weak strongSelf] (JSON, response) in
-                guard let strongSelf = strongSelf else { return }
                 
-                CollectionDeserializer.parse(JSON, resource: Comment.self, success: { [weak strongSelf] (comments, paging) in
-                    guard strongSelf != nil else { return }
-                    
-                    success(comment: comments, paging: paging)
-                    }, failure: { [weak strongSelf] (error) in
-                        guard strongSelf != nil else { return }
-                        
-                        failure(error: error)
-                })
+                guard strongSelf != nil else { return }
+                
+                let result = CollectionDeserializer.parse(collectionJSONResponse: JSON, forResource: Comment.self)
+                success(comment: result.collection, paging: result.paging)
                 
                 }, failure: { [weak strongSelf] (error, response) in
                     guard strongSelf != nil else { return }
                     
                     failure(error: error)
-            })
+                })
             task.resume()
             })
     }
@@ -86,17 +80,13 @@ extension CommentNetworkController {
             }
             
             let task = NSURLSessionTask.JSONTask(strongSelf.session, request: request, success: { [weak strongSelf] (JSON, response) in
-                guard let strongSelf = strongSelf else { return }
+                guard strongSelf != nil else { return }
+                guard let comment = ResourceDeserializer.parse(JSON, resource: Comment.self) else {
+                    failure(error: nil)
+                    return
+                }
                 
-                ResourceDeserializer.parse(JSON, resource: Comment.self, success: { [weak strongSelf] (comment) in
-                    guard strongSelf != nil else { return }
-                    
-                    success(comment: comment)
-                    }, failure: { [weak strongSelf] error in
-                        guard strongSelf != nil else { return }
-                        
-                        failure(error: error)
-                })
+                success(comment: comment)
                 
                 }, failure: { [weak strongSelf] (error, response) in
                     guard strongSelf != nil else { return }

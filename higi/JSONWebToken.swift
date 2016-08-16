@@ -6,8 +6,6 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-import Foundation
-
 /**
  [JSON web tokens](http://jwt.io) are an open, industry standard [`RFC 7519`](https://tools.ietf.org/html/rfc7519) method for representing claims securely between two parties.
  
@@ -15,12 +13,17 @@ import Foundation
  */
 final class JSONWebToken: NSObject {
     
+    /// Value of the JSON web token.
     let token: String
+    
+    // MARK: Init
     
     required init(token: String) {
         self.token = token
     }
 }
+
+// MARK: - NSCoding
 
 extension JSONWebToken: NSCoding {
     
@@ -38,6 +41,8 @@ extension JSONWebToken: NSCoding {
         aCoder.encodeObject(self.token, forKey: NSCodingKey.token)
     }
 }
+
+// MARK: - Convenience
 
 extension JSONWebToken {
     
@@ -84,6 +89,13 @@ extension JSONWebToken {
 
 extension JSONWebToken {
     
+    /**
+     Whether or not a JSON web token is expired. Optionally, determines if a JSON web token is expiring within a given time interval.
+     
+     - parameter minutes: Optionally specify the number of minutes from the current time to verify that the JSON web token will be valid for.
+     
+     - returns: `true` if the JSON web token is expired (or expiring), else `false`.
+     */
     func isExpired(orExpiringWithinMinutes minutes: Double = 0.0) -> Bool {
         let secondsPerMinute = 60.0
         let refreshThreshold = minutes * secondsPerMinute

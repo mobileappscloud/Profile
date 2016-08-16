@@ -6,50 +6,88 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-import Foundation
 import HealthKit
 
+/**
+ *  Represents a higi user.
+ */
 struct User: UniquelyIdentifiable {
     
+    // MARK: Required
+    
+    /// Unique identifier.
     let identifier: String
+    
+    /// User's registered email address.
     let email: String
     
+    // MARK: Optional
+    
     // This is a required attribute, but the API can return user objects where these properties are nil...
-    var dateOfBirth: NSDate?
+    /// Date of birth.
+    let dateOfBirth: NSDate?
     
-    var firstName: String?
-    var lastName: String?
+    /// Given (first) name of the user.
+    let firstName: String?
     
-    var biologicalSex: HKBiologicalSex = .NotSet
+    /// Family (last) name of the user.
+    let lastName: String?
     
-    var height: HKQuantity?
+    /// Biological sex of the user.
+    let biologicalSex: HKBiologicalSex
     
-    var street: String?
-    var city: String?
-    var state: String?
-    var postalCode: String?
-    var ISOCountryCode: String?
+    /// Height in meters.
+    let height: HKQuantity?
     
-    var terms: AgreementInfo?
-    var privacy: AgreementInfo?
+    /// Street address
+    let street: String?
     
-    var photo: MediaAsset?
+    /// City
+    let city: String?
     
-    // MARK: - Unused, but required
+    /// State/province
+    let state: String?
     
-    var createDate: NSDate?
-    // Optional attributes unused by client, but necessary to prevent overwriting existing values when updating a user
+    /// Postal code
+    let postalCode: String?
     
+    /// Country code represented in [ISO 3166](http://www.iso.org/iso/country_codes) format.
+    let ISOCountryCode: String?
     
-    // MARK: - Init
-
-    init(identifier: String, email: String) {
+    /// Represents terms of service agreement info.
+    let terms: AgreementInfo?
+    
+    /// Represents privacy policy agreement info.
+    let privacy: AgreementInfo?
+    
+    /// Image media asset with a photo of the user.
+    let photo: MediaAsset?
+    
+    // MARK: Init
+    
+    init(identifier: String, email: String, dateOfBirth: NSDate? = nil, firstName: String? = nil, lastName: String? = nil, biologicalSex: HKBiologicalSex = .NotSet, height: HKQuantity? = nil, street: String? = nil, city: String? = nil, state: String? = nil, postalCode: String? = nil, ISOCountryCode: String? = nil, terms: AgreementInfo? = nil, privacy: AgreementInfo? = nil, photo: MediaAsset? = nil) {
         self.identifier = identifier
         self.email = email
+        
+        self.dateOfBirth = dateOfBirth
+        self.firstName = firstName
+        self.lastName = lastName
+        self.biologicalSex = biologicalSex
+        self.height = height
+        self.street = street
+        self.city = city
+        self.state = state
+        self.postalCode = postalCode
+        self.ISOCountryCode = ISOCountryCode
+        self.terms = terms
+        self.privacy = privacy
+        self.photo = photo
     }
 }
 
-extension User: JSONDeserializable, JSONInitializable {
+// MARK: - JSON
+
+extension User: JSONInitializable {
     
     init?(dictionary: NSDictionary) {
         guard let identifier = dictionary["id"] as? String,
@@ -57,48 +95,33 @@ extension User: JSONDeserializable, JSONInitializable {
                 return nil
         }
         
-        self.init(identifier: identifier, email: email)
+        let dateOfBirth = NSDateFormatter.MMddyyyyDateFormatter.date(fromObject: dictionary["dateOfBirth"])
+        let firstName = dictionary["firstName"] as? String
+        let lastName = dictionary["lastName"] as? String
         
-        if let dateOfBirthString = dictionary["dateOfBirth"] as? String {
-            self.dateOfBirth = NSDateFormatter.MMddyyyyDateFormatter.dateFromString(dateOfBirthString)
-        }
-        
-        if let createDateString = dictionary["created"] as? String {
-            self.createDate = NSDateFormatter.ISO8601DateFormatter.dateFromString(createDateString)
-        }
-        
-        self.firstName = dictionary["firstName"] as? String
-        self.lastName = dictionary["lastName"] as? String
-        
+        var biologicalSex: HKBiologicalSex = .NotSet
         if let biologicalSexString = dictionary["gender"] as? String {
             if biologicalSexString == "m" {
-                self.biologicalSex = .Male
+                biologicalSex = .Male
             } else if biologicalSexString == "f" {
-                self.biologicalSex = .Female
+                biologicalSex = .Female
             }
         }
         
-        if let height = dictionary["height"] as? Double {
-            self.height = HKQuantity(unit: HKUnit.meterUnit(), doubleValue: height)
-        }
+        let heightValue = dictionary["height"] as? Double ?? 0.0
+        let height = HKQuantity(unit: HKUnit.meterUnit(), doubleValue: heightValue)
         
-        self.street = dictionary["address"] as? String
-        self.city = dictionary["city"] as? String
-        self.state = dictionary["state"] as? String
-        self.postalCode = dictionary["zip"] as? String
-        self.ISOCountryCode = dictionary["countryCode"] as? String
+        let street = dictionary["address"] as? String
+        let city = dictionary["city"] as? String
+        let state = dictionary["state"] as? String
+        let postalCode = dictionary["zip"] as? String
+        let ISOCountryCode = dictionary["countryCode"] as? String
         
-        if let termsDictionary = dictionary["termsAgreed"] as? NSDictionary {
-            self.terms = AgreementInfo(dictionary: termsDictionary)
-        }
+        let terms = AgreementInfo(fromJSONObject: dictionary["termsAgreed"])
+        let privacy = AgreementInfo(fromJSONObject: dictionary["privacyAgreed"])
+        let photo = MediaAsset(fromJSONObject: dictionary["photo"])
         
-        if let privacyDictionary = dictionary["privacyAgreed"] as? NSDictionary {
-            self.privacy = AgreementInfo(dictionary: privacyDictionary)
-        }
-        
-        if let photoDictionary = dictionary["photo"] as? NSDictionary {
-            self.photo = MediaAsset(dictionary: photoDictionary)
-        }
+        self.init(identifier: identifier, email: email, dateOfBirth: dateOfBirth, firstName: firstName, lastName: lastName, biologicalSex: biologicalSex, height: height, street: street, city: city, state: state, postalCode: postalCode, ISOCountryCode: ISOCountryCode, terms: terms, privacy: privacy, photo: photo)
     }
 }
 
@@ -110,7 +133,6 @@ extension User: JSONSerializable {
         mutableDictionary["id"] = identifier
         mutableDictionary["email"] = email
         mutableDictionary["dateOfBirth"] = (dateOfBirth != nil) ? NSDateFormatter.MMddyyyyDateFormatter.stringFromDate(dateOfBirth!) : NSNull()
-        mutableDictionary["created"] = (createDate != nil) ? NSDateFormatter.MMddyyyyDateFormatter.stringFromDate(createDate!) : NSNull()
         
         mutableDictionary["firstName"] = firstName ?? NSNull()
         mutableDictionary["lastName"] = lastName  ?? NSNull()

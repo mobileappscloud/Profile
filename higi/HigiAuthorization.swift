@@ -6,14 +6,12 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-import Foundation
-
 /**
  This class contains [`OAuth2`](http://oauth.net/2/) authorization info used to securely communicate with the higi API.
  */
-final class HigiAuthorization: NSObject {
+final class HigiAuthorization: NSObject, HigiAPI2 {
     
-    enum Type: String {
+    enum Type: APIString {
         case Bearer = "bearer"
     }
     
@@ -26,12 +24,16 @@ final class HigiAuthorization: NSObject {
     /// `OAuth2` refresh token which can be used to generate a new accessToken.
     let refreshToken: String
     
+    // MARK: Init
+    
     required init(accessToken: JSONWebToken, type: Type, refreshToken: String) {
         self.accessToken = accessToken
         self.type = type
         self.refreshToken = refreshToken
     }
 }
+
+// MARK: - NSCoding
 
 extension HigiAuthorization: NSCoding {
     
@@ -57,7 +59,9 @@ extension HigiAuthorization: NSCoding {
     }
 }
 
-extension HigiAuthorization: JSONDeserializable, JSONInitializable {
+// MARK: - JSON
+
+extension HigiAuthorization: JSONInitializable {
     
     struct DictionaryKeys {
         static let AccessToken: NSString = "accessToken"
@@ -67,14 +71,15 @@ extension HigiAuthorization: JSONDeserializable, JSONInitializable {
     
     convenience init?(dictionary: NSDictionary) {
         guard let accessToken = dictionary[DictionaryKeys.AccessToken] as? String,
-            let typeString = dictionary[DictionaryKeys.TokenType] as? String,
-            let type = Type(rawValue: typeString),
+            let type = Type(rawJSONValue: dictionary[DictionaryKeys.TokenType]),
             let refreshToken = dictionary[DictionaryKeys.RefreshToken] as? String else { return nil }
         
         let token = JSONWebToken(token: accessToken)
         self.init(accessToken: token, type: type, refreshToken: refreshToken)
     }
 }
+
+// MARK: - Convenience
 
 extension HigiAuthorization {
     

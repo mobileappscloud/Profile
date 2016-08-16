@@ -6,12 +6,11 @@
 //  Copyright © 2015 higi, LLC. All rights reserved.
 //
 
-import Foundation
-
 private enum Kits: String {
     case Crashlytics
 }
 
+/// Convenience class for dealing with plist data related to the Fabric third-party integration.
 final class FabricInfo {
     
     private var APIKey: String!

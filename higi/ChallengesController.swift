@@ -47,16 +47,9 @@ extension ChallengesController {
                 guard let strongSelf = strongSelf else { return }
                 
                 strongSelf.fetchTask = nil
-                
-                CollectionDeserializer.parse(JSON, resource: HigiChallenge.self, success: { [weak strongSelf] (challenges, paging) in
-                    guard let strongSelf = strongSelf else { return }
-                    
-                    strongSelf.challenges = challenges
-                    success()
-
-                }, failure: { (error) in
-                    failure()
-                })
+                let results = CollectionDeserializer.parse(collectionJSONResponse: JSON, forResource: HigiChallenge.self)
+                strongSelf.challenges = results.collection
+                success()
                 
             }, failure: { [weak strongSelf] (error, response) in
                 guard let strongSelf = strongSelf else { return }

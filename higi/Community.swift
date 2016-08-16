@@ -6,30 +6,73 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
+/// Represents a community.
 final class Community: UniquelyIdentifiable {
     
+    // MARK: Required
+    
+    /// Unique identifier.
     let identifier: String
+    
+    /// Identifier of the organization the community belongs to.
     let organizationIdentifier: String
+    
+    /// Number of users who are members of the community.
     let memberCount: Int
+    
+    /// Whether or not the current user is a member of the community.
     let isMember: Bool
+    
+    /// Whether or not the community is active.
     let isActive: Bool
+    
+    /// Whether or not the community has been published.
     let isPublished: Bool
+    
+    /// Name of the community.
     let name: String
-    let desc: String
+    
+    /// Description of the community.
+    let description: String
+    
+    /// Mission statement for the community.
     let missionStatement: String
+    
+    /// Locale of the community.
     let locale: String
+    
+    /// Whether or not the community is visible to users who are not members of the community.
     let isVisibleToVisitors: Bool
+    
+    /// Whether or not the community can be shared.
     let isShareable: Bool
+    
+    /// Whether or not the community is a wellness group.
     let isWellnessGroup: Bool
+    
+    /// Whether or not the community is sponsored.
     let isSponsored: Bool
+    
+    /// Whether or not the community is locked.
     let isLocked: Bool
     
-    var joinDate: NSDate?
-    var createDate: NSDate?
-    var logo: MediaAsset?
-    var header: MediaAsset?
+    // MARK: Optional
     
-    required init(identifier: String, organizationIdentifier: String, memberCount: Int, isMember: Bool, isActive: Bool, isPublished: Bool, name: String, description: String, missionStatement: String, locale: String, isVisibleToVisitors: Bool, isShareable: Bool, isWellnessGroup: Bool, isSponsored: Bool, isLocked: Bool) {
+    /// Date a user joined the community, if applicable.
+    let joinDate: NSDate?
+    
+    /// Date the community was created.
+    let createDate: NSDate?
+    
+    /// Logo asset for the community.
+    let logo: MediaAsset?
+    
+    /// Header (banner) asset for the community.
+    let header: MediaAsset?
+    
+    // MARK: Init
+    
+    required init(identifier: String, organizationIdentifier: String, memberCount: Int, isMember: Bool, isActive: Bool, isPublished: Bool, name: String, description: String, missionStatement: String, locale: String, isVisibleToVisitors: Bool, isShareable: Bool, isWellnessGroup: Bool, isSponsored: Bool, isLocked: Bool, joinDate: NSDate? = nil, createDate: NSDate? = nil, logo: MediaAsset? = nil, header: MediaAsset? = nil) {
         self.identifier = identifier
         self.organizationIdentifier = organizationIdentifier
         self.memberCount = memberCount
@@ -37,7 +80,7 @@ final class Community: UniquelyIdentifiable {
         self.isActive = isActive
         self.isPublished = isPublished
         self.name = name
-        self.desc = description
+        self.description = description
         self.missionStatement = missionStatement
         self.locale = locale
         self.isVisibleToVisitors = isVisibleToVisitors
@@ -45,11 +88,18 @@ final class Community: UniquelyIdentifiable {
         self.isWellnessGroup = isWellnessGroup
         self.isSponsored = isSponsored
         self.isLocked = isLocked
+        
+        self.joinDate = joinDate
+        self.createDate = createDate
+        self.logo = logo
+        self.header = header
     }
 }
 
-extension Community: JSONDeserializable, JSONInitializable {
+// MARK: - JSON
 
+extension Community: JSONInitializable {
+    
     convenience init?(dictionary: NSDictionary) {
         guard let identifier = dictionary["id"] as? String,
             let organizationIdentifier = dictionary["organizationId"] as? String,
@@ -68,19 +118,11 @@ extension Community: JSONDeserializable, JSONInitializable {
             let isLocked = dictionary["isLocked"] as? Bool
             else { return nil }
         
-        self.init(identifier: identifier, organizationIdentifier: organizationIdentifier, memberCount: memberCount, isMember: isMember, isActive: isActive, isPublished: isPublished, name: name, description: description, missionStatement: missionStatement, locale: locale, isVisibleToVisitors: isVisibleToVisitors, isShareable: isShareable, isWellnessGroup: isWellnessGroup, isSponsored: isSponsored, isLocked: isLocked)
+        let createDate = NSDateFormatter.ISO8601DateFormatter.date(fromObject: dictionary["createdOn"])
+        let joinDate = NSDateFormatter.ISO8601DateFormatter.date(fromObject: dictionary["joinDate"])
+        let logo = MediaAsset(fromJSONObject: dictionary["logo"])
+        let header = MediaAsset(fromJSONObject: dictionary["headerImage"])
         
-        if let createDateString = dictionary["createdOn"] as? String {
-            self.createDate = NSDateFormatter.ISO8601DateFormatter.dateFromString(createDateString)
-        }
-        if let joinDateString = dictionary["joinDate"] as? String {
-            self.joinDate = NSDateFormatter.ISO8601DateFormatter.dateFromString(joinDateString)
-        }
-        if let logoDict = dictionary["logo"] as? NSDictionary {
-            self.logo = MediaAsset(dictionary: logoDict)
-        }
-        if let headerDict = dictionary["headerImage"] as? NSDictionary {
-            self.header = MediaAsset(dictionary: headerDict)
-        }
+        self.init(identifier: identifier, organizationIdentifier: organizationIdentifier, memberCount: memberCount, isMember: isMember, isActive: isActive, isPublished: isPublished, name: name, description: description, missionStatement: missionStatement, locale: locale, isVisibleToVisitors: isVisibleToVisitors, isShareable: isShareable, isWellnessGroup: isWellnessGroup, isSponsored: isSponsored, isLocked: isLocked, joinDate: joinDate, createDate: createDate, logo: logo, header: header)
     }
 }

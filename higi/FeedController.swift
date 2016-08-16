@@ -44,19 +44,15 @@ extension FeedController {
             
             self?.fetchTask = NSURLSessionTask.JSONTask(session, request: request, success: { [weak self] (JSON, response) in
                 
-                CollectionDeserializer.parse(JSON, resource: Post.self, success: { [weak self] (posts, paging) in
-
-                    self?.posts = posts
-                    self?.paging = paging
-                    self?.fetchTask = nil
-                    success()
-                    
-                    }, failure: { (error) in
-                        self?.fetchTask = nil
-                        failure(error: error)
-                })
+                guard let strongSelf = self else { return }
                 
-                }, failure: { (error, response) in
+                let result = CollectionDeserializer.parse(collectionJSONResponse: JSON, forResource: Post.self)
+                strongSelf.posts = result.collection
+                strongSelf.paging = result.paging
+                strongSelf.fetchTask = nil
+                success()
+                
+                }, failure: { [weak self] (error, response) in
                     self?.fetchTask = nil
                     failure(error: error)
             })
@@ -90,19 +86,15 @@ extension FeedController {
     private func performNextFetch(request: NSURLRequest, success: () -> Void, failure: (error: NSError?) -> Void) {
         
         nextPagingTask = NSURLSessionTask.JSONTask(session, request: request, success: { [weak self] (JSON, response) in
-            CollectionDeserializer.parse(JSON, resource: Post.self, success: { [weak self] (posts, paging) in
-                
-                self?.posts.appendContentsOf(posts)
-                
-                self?.paging = paging
-                self?.nextPagingTask = nil
-                success()
-                
-                
-                }, failure: { (error) in
-                    self?.nextPagingTask = nil
-                    failure(error: error)
-            })
+            
+            guard let strongSelf = self else { return }
+            
+            let result = CollectionDeserializer.parse(collectionJSONResponse: JSON, forResource: Post.self)
+            strongSelf.posts.appendContentsOf(result.collection)
+            strongSelf.paging = result.paging
+            strongSelf.nextPagingTask = nil
+            success()
+            
             }, failure: { (error, response) in
                 self.nextPagingTask = nil
                 failure(error: error)

@@ -6,7 +6,7 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
-enum ActivityMetric: String {
+enum ActivityMetric: APIString {
     case Bike = "distanceBike"
     case Board = "distanceBoard"
     case CrossCountrySki = "distanceCrossCountrySki"

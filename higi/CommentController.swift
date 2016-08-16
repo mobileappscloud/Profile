@@ -114,7 +114,7 @@ extension CommentController {
                 
                 var newReplies = parentComment.replies
                 newReplies[replyIndex] = comment
-                let newParentComment = parentComment.copy(newReplies)
+                let newParentComment = parentComment.copy(replies: newReplies)
                 comments[parentCommentIndex] = newParentComment
             } else {
                 guard let commentIndex = comments.indexOf({ $0.identifier == comment.identifier }) else { return }
@@ -129,7 +129,7 @@ extension CommentController {
                 let parentComment = comments[parentCommentIndex]
                 var newReplies = parentComment.replies
                 newReplies.insert(comment, atIndex: 0)
-                let newParentComment = parentComment.copy(newReplies)
+                let newParentComment = parentComment.copy(replies: newReplies)
                 comments[parentCommentIndex] = newParentComment
             }
         } else {
@@ -137,7 +137,7 @@ extension CommentController {
             newComments.insert(comment, atIndex: 0)
             comments = newComments
             
-            let updatedPost = post.copy(comments.count)
+            let updatedPost = post.copy(commentCount: comments.count)
             post = updatedPost
         }
     }

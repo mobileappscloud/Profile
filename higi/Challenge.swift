@@ -177,8 +177,8 @@ extension Challenge: JSONInitializable {
             let status = Status(rawJSONValue: dictionary["status"]),
             let dailyLimit = dictionary["dailyLimit"] as? Int,
             let participantCount = dictionary["participantsCount"] as? Int,
-            let devices = CollectionDeserializer.parse(dictionary["devices"], forResource: ActivityDevice.self),
-            let winConditions = CollectionDeserializer.parse(dictionary["winConditions"], forResource: Challenge.WinCondition.self),
+            let devices = CollectionDeserializer.parse(JSONDictionaries: dictionary["devices"], forResource: ActivityDevice.self),
+            let winConditions = CollectionDeserializer.parse(JSONDictionaries: dictionary["winConditions"], forResource: Challenge.WinCondition.self),
             let userRelation = Challenge.UserRelation(fromJSONObject: dictionary["userRelation"]),
             let chatter = Chatter(fromJSONObject: dictionary["comments"]),
             let startDate = NSDateFormatter.YYYYMMddDateFormatter.date(fromObject: dictionary["startDate"])
@@ -187,11 +187,11 @@ extension Challenge: JSONInitializable {
         var participants: [Participant] = []
         if let participantsResponseObject = dictionary["participants"] as? NSDictionary,
             let participantsDicts = participantsResponseObject["data"] as? [NSDictionary] {
-            participants = CollectionDeserializer.parse(participantsDicts, forResource: Participant.self)
+            participants = CollectionDeserializer.parse(dictionaries: participantsDicts, forResource: Participant.self)
         }
         
         let community = Community(fromJSONObject: dictionary["community"])
-        let teams: [Team] = CollectionDeserializer.parse(dictionary["teams"], forResource: Challenge.Team.self) ?? []
+        let teams: [Team] = CollectionDeserializer.parse(JSONDictionaries: dictionary["teams"], forResource: Challenge.Team.self) ?? []
         let terms = dictionary["terms"] as? String
         let endDate = NSDateFormatter.YYYYMMddDateFormatter.date(fromObject: dictionary["endDate"])
         let entryFee = dictionary["entryFee"] as? Double

@@ -49,22 +49,19 @@ extension CommunityDetailController {
             }
             
             let task = NSURLSessionTask.JSONTask(strongSelf.session, request: request, success: { [weak strongSelf] (JSON, response) in
+                guard strongSelf != nil else { return }
                 
-                ResourceDeserializer.parse(JSON, resource: Community.self, success: { [weak strongSelf] (community) in
-                    guard let strongSelf = strongSelf else {
-                        failure(error: nil)
-                        return
-                    }
-                    
-                    strongSelf.community = community
+                if let community = ResourceDeserializer.parse(JSON, resource: Community.self) {
                     success(community: community)
-                    }, failure: { (error) in
-                        
-                        failure(error: error)
-                })
-                }, failure: { (error, response) in
+                } else {
+                    failure(error: nil)
+                }
+                
+                }, failure: { [weak strongSelf] (error, response) in
+                    guard strongSelf != nil else { return }
+                    
                     failure(error: error)
-            })
+                })
             task.resume()
             })
     }
