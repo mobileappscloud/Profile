@@ -8,14 +8,14 @@
 
 import Foundation
 
-final class ActivityDevice {
+final class ActivityDevice: JSONInitializable {
     
     var name, description: NSString!;
     var url, connectUrl, partnerHomepage, iconUrl, colorCode, disconnectUrl, imageName: NSString?;
     
     var connected: Bool!;
     
-    init(dictionary: NSDictionary) {
+    init?(dictionary: NSDictionary) {
         name = dictionary["name"] as! NSString;
         description = dictionary["description"] as! NSString;
         url = dictionary["url"] as? NSString;

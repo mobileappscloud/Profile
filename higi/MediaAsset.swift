@@ -48,7 +48,24 @@ extension MediaAsset: JSONDeserializable, JSONInitializable {
             "fileExtension" : "\(fileExtension)"
         ]
     }
+    
+    // MARK: Legacy Convenience
+    
+    init?(fromLegacyJSONObject JSON: AnyObject?, imageKey: String = "imageUrl") {
+        guard let JSON = JSON as? NSDictionary,
+            let imageDict = JSON[imageKey] as? NSDictionary,
+            let imageURLString = imageDict["default"] as? String,
+            let URI = NSURL(string: imageURLString) else { return nil }
+        
+        let fileExtension = imageURLString.componentsSeparatedByString(".").last ?? "png"
+        let contentType = "image/\(fileExtension)"
+        
+        self.URI = URI
+        self.contentType = contentType
+    }
 }
+
+// MARK: - Convenience
 
 extension MediaAsset {
     

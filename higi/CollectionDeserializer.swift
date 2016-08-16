@@ -33,3 +33,38 @@ final class CollectionDeserializer: JSONDeserializable {
         }
     }
 }
+
+extension CollectionDeserializer {
+    
+    /**
+     Initialization of a collection of generic resources.
+     
+     - parameter resourceType:   Type of resource being initialized.
+     - parameter dictionaries:   An array of dictionaries representing the specified resource type.
+     
+     - returns: A collection of serialized resources.
+     */
+    static func parse<T: JSONInitializable>(dictionaries: [NSDictionary], forResource resource: T.Type) -> [T] {
+        var collection: [T] = []
+        for dictionary in dictionaries {
+            guard let resource = T(dictionary: dictionary) else { continue }
+            
+            collection.append(resource)
+        }
+        return collection
+    }
+    
+    /**
+     Failable initializer for of a collection of generic resources.
+     
+     - parameter JSONDictionaries: JSON representation of a collection of dictionaries.
+     - parameter resource:         Type of resource being initialized.
+     
+     - returns: A collection of serialized resources.
+     */
+    static func parse<T: JSONInitializable>(JSONDictionaries: AnyObject?, forResource resource: T.Type) -> [T]? {
+        guard let JSONDictionaries = JSONDictionaries as? [NSDictionary] else { return nil }
+
+        return parse(JSONDictionaries, forResource: resource)
+    }
+}

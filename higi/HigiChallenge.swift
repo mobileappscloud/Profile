@@ -123,7 +123,7 @@ final class HigiChallenge: JSONInitializable {
         let serverDevices = dictionary["devices"] as? NSArray;
         if (serverDevices != nil) {
             for device: AnyObject in serverDevices! {
-                devices.append(ActivityDevice(dictionary: device as! NSDictionary));
+                devices.append(ActivityDevice(dictionary: device as! NSDictionary)!);
             }
         }
         

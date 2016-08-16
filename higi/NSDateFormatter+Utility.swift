@@ -76,3 +76,13 @@ extension NSDateFormatter {
         return formatter
     }()
 }
+
+extension NSDateFormatter {
+    
+    /// Date formatter for parsing dates in the format YYYY-MM-dd.
+    @nonobjc static var YYYYMMddDateFormatter: NSDateFormatter = {
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "YYYY-MM-dd"
+        return formatter
+    }()
+}

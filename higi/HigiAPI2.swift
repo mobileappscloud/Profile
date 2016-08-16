@@ -7,3 +7,6 @@
 //
 
 protocol HigiAPI2 {}
+
+/// Signifies that the value is a string representation of a type-value which has been defined by the API.
+typealias APIString = String

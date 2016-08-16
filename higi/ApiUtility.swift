@@ -184,7 +184,7 @@ final class ApiUtility {
                 let serverDevices = (responseObject as! NSDictionary)["response"] as! NSArray;
                 for device: AnyObject in serverDevices {
                     let thisDevice = ActivityDevice(dictionary: device as! NSDictionary);
-                    devices[thisDevice.name as String] = thisDevice;
+                    devices[thisDevice!.name as String] = thisDevice;
                 }
                 
                 SessionController.Instance.devices = devices;

@@ -114,6 +114,7 @@
 		4127AB251D58DA4E005AEF54 /* UserDateOfBirthUpdateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4127AB241D58DA4E005AEF54 /* UserDateOfBirthUpdateRequest.swift */; };
 		4127AB2D1D591F9C005AEF54 /* ProtectedAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4127AB2C1D591F9C005AEF54 /* ProtectedAPIRequest.swift */; };
 		4127AB2F1D591FF6005AEF54 /* UnprotectedAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4127AB2E1D591FF6005AEF54 /* UnprotectedAPIRequest.swift */; };
+		4127AB381D5A792A005AEF54 /* Challenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4127AB371D5A792A005AEF54 /* Challenge.swift */; };
 		412B63CD1CFF7AC7003F6663 /* ChallengeJoinRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412B63CC1CFF7AC7003F6663 /* ChallengeJoinRequest.swift */; };
 		412B63CF1CFF8CC5003F6663 /* CommunitiesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412B63CE1CFF8CC5003F6663 /* CommunitiesTableViewController.swift */; };
 		41303CDB1D25C118009A6235 /* UIButton+ImageRequestor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41303CDA1D25C118009A6235 /* UIButton+ImageRequestor.swift */; };
@@ -286,6 +287,14 @@
 		41A70F001CD3C6CB0072AB06 /* ActivityMetric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A70EFF1CD3C6CB0072AB06 /* ActivityMetric.swift */; };
 		41A917FB1BBC744800CCF91E /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41A917FA1BBC744800CCF91E /* GoogleMaps.framework */; };
 		41A917FF1BBC747600CCF91E /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 41A917FE1BBC747600CCF91E /* GoogleMaps.bundle */; };
+		41B108AC1D5E3F36001B79AF /* Challenge.UserRelation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B108AB1D5E3F36001B79AF /* Challenge.UserRelation.swift */; };
+		41B108AE1D5E3F5D001B79AF /* Challenge.WinCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B108AD1D5E3F5D001B79AF /* Challenge.WinCondition.swift */; };
+		41B108B01D5E3FB6001B79AF /* Challenge.Prize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B108AF1D5E3FB6001B79AF /* Challenge.Prize.swift */; };
+		41B108B21D5E3FCC001B79AF /* Challenge.Winner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B108B11D5E3FCC001B79AF /* Challenge.Winner.swift */; };
+		41B108B41D5E3FD5001B79AF /* Challenge.Participant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B108B31D5E3FD5001B79AF /* Challenge.Participant.swift */; };
+		41B108B61D5E4019001B79AF /* Challenge.Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B108B51D5E4019001B79AF /* Challenge.Team.swift */; };
+		41B108B81D5E4031001B79AF /* Challenge.Chatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B108B71D5E4031001B79AF /* Challenge.Chatter.swift */; };
+		41B108BA1D5E4065001B79AF /* Challenge.Paging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B108B91D5E4065001B79AF /* Challenge.Paging.swift */; };
 		41B2AEDF1BBB377E00BE9EF7 /* MetricGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B2AEDE1BBB377E00BE9EF7 /* MetricGraph.swift */; };
 		41B2AEE11BBB378A00BE9EF7 /* GraphPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B2AEE01BBB378A00BE9EF7 /* GraphPoint.swift */; };
 		41B2B3581BB31CBE00B13168 /* NotificationSettingsEmailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B2B3571BB31CBD00B13168 /* NotificationSettingsEmailTableViewController.swift */; };
@@ -572,6 +581,7 @@
 		4127AB241D58DA4E005AEF54 /* UserDateOfBirthUpdateRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDateOfBirthUpdateRequest.swift; sourceTree = "<group>"; };
 		4127AB2C1D591F9C005AEF54 /* ProtectedAPIRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProtectedAPIRequest.swift; sourceTree = "<group>"; };
 		4127AB2E1D591FF6005AEF54 /* UnprotectedAPIRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnprotectedAPIRequest.swift; sourceTree = "<group>"; };
+		4127AB371D5A792A005AEF54 /* Challenge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Challenge.swift; sourceTree = "<group>"; };
 		412B63CC1CFF7AC7003F6663 /* ChallengeJoinRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeJoinRequest.swift; sourceTree = "<group>"; };
 		412B63CE1CFF8CC5003F6663 /* CommunitiesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunitiesTableViewController.swift; sourceTree = "<group>"; };
 		41303CDA1D25C118009A6235 /* UIButton+ImageRequestor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+ImageRequestor.swift"; sourceTree = "<group>"; };
@@ -779,6 +789,14 @@
 		41A70EFF1CD3C6CB0072AB06 /* ActivityMetric.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityMetric.swift; sourceTree = "<group>"; };
 		41A917FA1BBC744800CCF91E /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = "Vendor/Google-Maps/Frameworks/GoogleMaps.framework"; sourceTree = "<group>"; };
 		41A917FE1BBC747600CCF91E /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = "Vendor/Google-Maps/Frameworks/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle"; sourceTree = "<group>"; };
+		41B108AB1D5E3F36001B79AF /* Challenge.UserRelation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Challenge.UserRelation.swift; sourceTree = "<group>"; };
+		41B108AD1D5E3F5D001B79AF /* Challenge.WinCondition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Challenge.WinCondition.swift; sourceTree = "<group>"; };
+		41B108AF1D5E3FB6001B79AF /* Challenge.Prize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Challenge.Prize.swift; sourceTree = "<group>"; };
+		41B108B11D5E3FCC001B79AF /* Challenge.Winner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Challenge.Winner.swift; sourceTree = "<group>"; };
+		41B108B31D5E3FD5001B79AF /* Challenge.Participant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Challenge.Participant.swift; sourceTree = "<group>"; };
+		41B108B51D5E4019001B79AF /* Challenge.Team.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Challenge.Team.swift; sourceTree = "<group>"; };
+		41B108B71D5E4031001B79AF /* Challenge.Chatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Challenge.Chatter.swift; sourceTree = "<group>"; };
+		41B108B91D5E4065001B79AF /* Challenge.Paging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Challenge.Paging.swift; sourceTree = "<group>"; };
 		41B2AEDE1BBB377E00BE9EF7 /* MetricGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricGraph.swift; path = higi/MetricGraph.swift; sourceTree = "<group>"; };
 		41B2AEE01BBB378A00BE9EF7 /* GraphPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GraphPoint.swift; path = higi/GraphPoint.swift; sourceTree = "<group>"; };
 		41B2B3571BB31CBD00B13168 /* NotificationSettingsEmailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingsEmailTableViewController.swift; sourceTree = "<group>"; };
@@ -2159,6 +2177,30 @@
 			name = Framework;
 			sourceTree = "<group>";
 		};
+		41B108A81D5E3F17001B79AF /* Challenge */ = {
+			isa = PBXGroup;
+			children = (
+				4127AB371D5A792A005AEF54 /* Challenge.swift */,
+				41B108BB1D5E40A4001B79AF /* Nested Types */,
+			);
+			name = Challenge;
+			sourceTree = "<group>";
+		};
+		41B108BB1D5E40A4001B79AF /* Nested Types */ = {
+			isa = PBXGroup;
+			children = (
+				41B108B71D5E4031001B79AF /* Challenge.Chatter.swift */,
+				41B108B91D5E4065001B79AF /* Challenge.Paging.swift */,
+				41B108B31D5E3FD5001B79AF /* Challenge.Participant.swift */,
+				41B108AF1D5E3FB6001B79AF /* Challenge.Prize.swift */,
+				41B108B51D5E4019001B79AF /* Challenge.Team.swift */,
+				41B108AB1D5E3F36001B79AF /* Challenge.UserRelation.swift */,
+				41B108AD1D5E3F5D001B79AF /* Challenge.WinCondition.swift */,
+				41B108B11D5E3FCC001B79AF /* Challenge.Winner.swift */,
+			);
+			name = "Nested Types";
+			sourceTree = "<group>";
+		};
 		41B2B35F1BB440D200B13168 /* Email */ = {
 			isa = PBXGroup;
 			children = (
@@ -2387,6 +2429,7 @@
 				419AC35E1D40B333000DDA5D /* Deprecation Candidates */,
 				41A70EFF1CD3C6CB0072AB06 /* ActivityMetric.swift */,
 				410FFFB01CA77533005EAC9E /* AgreementInfo.swift */,
+				41B108A81D5E3F17001B79AF /* Challenge */,
 				419AC3581D3ED2D9000DDA5D /* Comment.swift */,
 				410FFF3C1CA5CDDB005EAC9E /* Community.swift */,
 				410EED4E1D4BE9C5002FF052 /* Content.swift */,
@@ -3077,6 +3120,7 @@
 				41E61EF51D00C41D0060D882 /* StationCollectionRequest.swift in Sources */,
 				4199D39D1CEA930F00EF62F8 /* ChallengesController.swift in Sources */,
 				410167241C555CD700A54B02 /* NewBloodPressureMetricDelegate.swift in Sources */,
+				41B108AC1D5E3F36001B79AF /* Challenge.UserRelation.swift in Sources */,
 				41A4257C1CE10CE000036C84 /* NameValidator.swift in Sources */,
 				41CB52EC1C979E5F004C13E9 /* ActivityTableViewCell.swift in Sources */,
 				417F48B41BC823F1005BC49D /* NSString+HTML.m in Sources */,
@@ -3111,6 +3155,7 @@
 				8F9C69D31950C84400449664 /* HigiLogin.swift in Sources */,
 				41E90DF11BD984E0001DCC4C /* RequiredAppUpdateViewController.swift in Sources */,
 				41FB225B1BE2AE80009139B4 /* FabricInfo.swift in Sources */,
+				41B108B01D5E3FB6001B79AF /* Challenge.Prize.swift in Sources */,
 				41027C581CD902A4003F3AD5 /* SignUpEmailViewController.swift in Sources */,
 				D110BAD41B0E7C5500CD1E58 /* DailySummaryViewController.swift in Sources */,
 				413F68B11CB4525B003D9571 /* Theme+Appearance.swift in Sources */,
@@ -3155,6 +3200,7 @@
 				8FDA6DA319A2979800244D5F /* ChangePasswordViewController.swift in Sources */,
 				4171B50F1D2EE65100DA2485 /* PostContentTapGestureRecognizerDelegate.swift in Sources */,
 				D1FC729B1B20B22B0068CF89 /* BpMetricDelegate.swift in Sources */,
+				4127AB381D5A792A005AEF54 /* Challenge.swift in Sources */,
 				41643AB01C1891D800258F55 /* MetricTableViewCell.swift in Sources */,
 				41A425801CE11ADD00036C84 /* JSONSerializable.swift in Sources */,
 				419AC35B1D3EDC37000DDA5D /* ChatterCollectionRequest.swift in Sources */,
@@ -3181,6 +3227,7 @@
 				413635891C2260B00056DE8D /* NewMetricDelegates.swift in Sources */,
 				41667A2E1CED7B63007BB0FF /* ModifyImageController.swift in Sources */,
 				8F6D510E1947B2E700F7C769 /* Utility.swift in Sources */,
+				41B108B21D5E3FCC001B79AF /* Challenge.Winner.swift in Sources */,
 				D130183E1B14D2C9008DDFAD /* ChallengeUtility.swift in Sources */,
 				410FFFA51CA77269005EAC9E /* HigiAuthorization.swift in Sources */,
 				2BC5865E1A16D0AF005A7983 /* ChallengeInvitationView.swift in Sources */,
@@ -3244,6 +3291,7 @@
 				41303CDB1D25C118009A6235 /* UIButton+ImageRequestor.swift in Sources */,
 				410167261C555CED00A54B02 /* NewPulseMetricDelegate.swift in Sources */,
 				273DFFB11D49320A00AF7032 /* ChallengeTableViewCell.swift in Sources */,
+				41B108B61D5E4019001B79AF /* Challenge.Team.swift in Sources */,
 				416226711C7940D000EFA1B3 /* CPTXYAxis+Utility.swift in Sources */,
 				D1E1FF061A76C28F00C8951C /* ChallengeProgressLegendRow.swift in Sources */,
 				4163CCD61D526A3900424500 /* CollectionRequestable.swift in Sources */,
@@ -3260,6 +3308,7 @@
 				27B6604D1D4FE2FF00BD9390 /* NSLayoutConstraint+Utility.swift in Sources */,
 				41D8717E1C7A8FAD002DCDA0 /* CPTXYPlotSpace+Utility.swift in Sources */,
 				4171B5111D2F07C000DA2485 /* PostVideoContainer.swift in Sources */,
+				41B108AE1D5E3F5D001B79AF /* Challenge.WinCondition.swift in Sources */,
 				411420221D09A7BF0050473E /* CommunityRequest.swift in Sources */,
 				410FFF5D1CA5EDC5005EAC9E /* Paging.swift in Sources */,
 				D149E94B1A78471A00FBAA15 /* ChallengeDetailsChatterRow.swift in Sources */,
@@ -3271,16 +3320,19 @@
 				41247DCE1C5BD1A100DDC5EC /* MetricDetailViewController.swift in Sources */,
 				419D864C1BBEF83000E7D844 /* GClusterManager.m in Sources */,
 				41B2AEDF1BBB377E00BE9EF7 /* MetricGraph.swift in Sources */,
+				41B108B41D5E3FD5001B79AF /* Challenge.Participant.swift in Sources */,
 				410FFFB21CA77533005EAC9E /* AgreementInfo.swift in Sources */,
 				D1020A291B3B130C001F2D81 /* BreakdownTitleRow.swift in Sources */,
 				41E61EF91D00C5950060D882 /* StationController.swift in Sources */,
 				41667A851CFB6686007BB0FF /* ImageRequestor.swift in Sources */,
 				41EF922D1D19E58200266AAB /* FeedController.swift in Sources */,
 				4127AB2F1D591FF6005AEF54 /* UnprotectedAPIRequest.swift in Sources */,
+				41B108B81D5E4031001B79AF /* Challenge.Chatter.swift in Sources */,
 				41A425851CE1278600036C84 /* UserUpdateRequest.swift in Sources */,
 				41667A3E1CF39F00007BB0FF /* NSData+Utility.swift in Sources */,
 				419D86501BBEF83000E7D844 /* GQTPointQuadTreeChild.m in Sources */,
 				41A70EF41CCB1EE60072AB06 /* UINavigationController+Utility.swift in Sources */,
+				41B108BA1D5E4065001B79AF /* Challenge.Paging.swift in Sources */,
 				41A0BE131BBB088500A314D6 /* AFURLSessionManager.m in Sources */,
 				413CC0341C6929BA0097AE56 /* ActivityDetailView.swift in Sources */,
 				D1CFC9831AB360AF00AC54BB /* MetricGraphCard.swift in Sources */,
