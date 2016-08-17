@@ -23,21 +23,32 @@ final class ChallengeTableViewCell: UITableViewCell {
     @IBOutlet var communityImageView: UIImageView!
     @IBOutlet var communityLabel: UILabel!
     
-    private var challengeProgressView: ChallengeProgressView?
+    private(set) var challengeProgressView: ChallengeProgressView?
         
     func setModel(model: ChallengeTableViewCellModel) {
         titleLabel.text = model.titleText
+        challengeStatusIndicatorView.state = model.challengeStatusState
         dateLabel.text = model.dateText
         participantCountLabel.text = model.participantCountText
-        mainImageView.image = model.mainImageView
-        communityImageView.image = model.communityImage
+        mainImageView.setImage(withMediaAsset: model.mainImageAsset, transition: true)
+        communityImageView.setImage(withMediaAsset: model.communityImageAsset, transition: true)
         communityLabel.text = model.communityText
         
-        if model.showChallengeInformationProgress {
-            displayChallengeProgressView(model: model)
-        } else {
+        switch model.challengeStatusState {
+        case .unjoinedAndUnderway, .unjoinedAndNotUnderway, .joinedAndNotUnderway:
             displayChallengeInformationView(model: model)
+        case .joinedAndUnderway:
+            displayChallengeProgressView(model: model)
+        case .tabulatingResults:
+            displayTabulatingResults()
+        case .challengeComplete:
+            displayChallengeComplete()
+        case .cancelled:
+            displayChallengeCancelled()
         }
+        
+        gradientImageView.hidden = !model.isChallengeJoinable
+        joinButton.hidden = !model.isChallengeJoinable
     }
     
     private func displayChallengeProgressView(model model: ChallengeTableViewCellModel) {
@@ -50,6 +61,48 @@ final class ChallengeTableViewCell: UITableViewCell {
         if let progressMilestones = model.progressMilestones {
             challengeProgressView.progressMilestones = progressMilestones
         }
+    }
+    
+    private func displayTabulatingResults() {
+        let challengeInformationView = ChallengeInformationView()
+        challengeInformationView.upperLabel.attributedText = NSAttributedString(
+            string: NSLocalizedString("CHALLENGES_VIEW_CARD_INFORMATION_TABULATING_RESULTS_TEXT", comment: "Text for Tabulating Results on the challenge card information view.")
+        )
+        challengeInformationView.upperLabel.hidden = false
+        
+        challengeInformationView.lowerLabel.hidden = true
+        challengeInformationView.rightImageView.hidden = false //TODO: Peter Ryszkiewicz: Get assets, https://higidocs.atlassian.net/wiki/display/PD/Challenge+Card+Conditions
+        challengeInformationView.rightImageContainer.hidden = false
+        
+        challengeInformationContainerView.addSubview(challengeInformationView, pinToEdges: true)
+    }
+    
+    private func displayChallengeComplete() {
+        let challengeInformationView = ChallengeInformationView()
+        challengeInformationView.upperLabel.attributedText = NSAttributedString(
+            string: NSLocalizedString("CHALLENGES_VIEW_CARD_INFORMATION_CHALLENGE_COMPLETE_TEXT", comment: "Text for Challenge is Complete on the challenge card information view.")
+        )
+        challengeInformationView.upperLabel.hidden = false
+        
+        challengeInformationView.lowerLabel.hidden = true
+        challengeInformationView.rightImageView.hidden = true
+        challengeInformationView.rightImageContainer.hidden = true
+        
+        challengeInformationContainerView.addSubview(challengeInformationView, pinToEdges: true)
+    }
+
+    private func displayChallengeCancelled() {
+        let challengeInformationView = ChallengeInformationView()
+        challengeInformationView.upperLabel.attributedText = NSAttributedString(
+            string: NSLocalizedString("CHALLENGES_VIEW_CARD_INFORMATION_CHALLENGE_CANCELLED_TEXT", comment: "Text for Challenge is Cancelled on the challenge card information view.")
+        )
+        challengeInformationView.upperLabel.hidden = false
+        
+        challengeInformationView.lowerLabel.hidden = true
+        challengeInformationView.rightImageView.hidden = true
+        challengeInformationView.rightImageContainer.hidden = true
+        
+        challengeInformationContainerView.addSubview(challengeInformationView, pinToEdges: true)
     }
     
     private func displayChallengeInformationView(model model: ChallengeTableViewCellModel) {
@@ -72,5 +125,11 @@ final class ChallengeTableViewCell: UITableViewCell {
         challengeStatusIndicatorView.state = .cancelled
         let rand = CGFloat(arc4random_uniform(10))/9.0
         challengeProgressView?.progress = rand
+    }
+    
+    override func prepareForReuse() {
+        challengeInformationContainerView.subviews.forEach { $0.removeFromSuperview() }
+        challengeProgressView = nil
+        mainImageView.image = nil
     }
 }

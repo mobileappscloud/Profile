@@ -205,6 +205,33 @@
 /* Text to display for a challenge goal where the winner is a team. */
 "CHALLENGE_INVITATION_VIEW_GOAL_TYPE_WINNER_TEAM" = "Team";
 
+/* Text for Challenge is Cancelled on the challenge card information view. */
+"CHALLENGES_VIEW_CARD_INFORMATION_CHALLENGE_CANCELLED_TEXT" = "Challenge is Cancelled";
+
+/* Text for Challenge is Complete on the challenge card information view. */
+"CHALLENGES_VIEW_CARD_INFORMATION_CHALLENGE_COMPLETE_TEXT" = "Challenge is Complete";
+
+/* Text for Goal on the challenge card information view. */
+"CHALLENGES_VIEW_CARD_INFORMATION_GOAL_TEXT" = "Goal";
+
+/* Text for Prizes on the challenge card information view. */
+"CHALLENGES_VIEW_CARD_INFORMATION_PRIZES_TEXT" = "Prizes";
+
+/* Text for Tabulating Results on the challenge card information view. */
+"CHALLENGES_VIEW_CARD_INFORMATION_TABULATING_RESULTS_TEXT" = "Tabulating Results";
+
+/* Text for the number of people participating in a challenge. */
+"CHALLENGES_VIEW_CARD_PARTICIPATING_TEXT" = "participating";
+
+/* Segment title for Current on segmented control in the challenges view. */
+"CHALLENGES_VIEW_SEGMENTED_CONTROL_SEGMENT_TITLE_CURRENT" = "Current";
+
+/* Segment title for Finished on segmented control in the challenges view. */
+"CHALLENGES_VIEW_SEGMENTED_CONTROL_SEGMENT_TITLE_FINISHED" = "Finished";
+
+/* Title for challenges view. */
+"CHALLENGES_VIEW_TITLE" = "Challenges";
+
 /* Title for 'change' button. */
 "CHANGE_PASSWORD_VIEW_CHANGE_BUTTON_TITLE" = "Change";
 
@@ -510,6 +537,15 @@
 
 /* Date format for higi activities. */
 "DATE_FORMATTER_ACTIVITY_DATE_FORMAT" = "yyyyMMdd";
+
+/* Date format for displaying the end date of a challenge. */
+"DATE_FORMATTER_CHALLENGE_CARD_END_DATE_FORMAT" = "MMM d, y";
+
+/* Date format for displaying the end date of a challenge, omitting the month. */
+"DATE_FORMATTER_CHALLENGE_CARD_END_DATE_NO_MONTH_FORMAT" = "d, y";
+
+/* Date format for displaying the start date of a challenge. */
+"DATE_FORMATTER_CHALLENGE_CARD_START_DATE_FORMAT" = "MMM d";
 
 /* Date format for displaying check-in dates. */
 "DATE_FORMATTER_CHECKIN_DISPLAY_DATE_FORMAT" = "MM/dd/yyyy";

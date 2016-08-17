@@ -86,3 +86,26 @@ extension NSDateFormatter {
         return formatter
     }()
 }
+
+//MARK: - For Challenge cards
+extension NSDateFormatter {
+    
+    @nonobjc static var challengeCardStartDateFormatter: NSDateFormatter = {
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = NSLocalizedString("DATE_FORMATTER_CHALLENGE_CARD_START_DATE_FORMAT", comment: "Date format for displaying the start date of a challenge.")
+        return formatter
+    }()
+
+    @nonobjc static var challengeCardEndDateFormatter: NSDateFormatter = {
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = NSLocalizedString("DATE_FORMATTER_CHALLENGE_CARD_END_DATE_FORMAT", comment: "Date format for displaying the end date of a challenge.")
+        return formatter
+    }()
+
+    @nonobjc static var challengeCardEndDateNoMonthFormatter: NSDateFormatter = {
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = NSLocalizedString("DATE_FORMATTER_CHALLENGE_CARD_END_DATE_NO_MONTH_FORMAT", comment: "Date format for displaying the end date of a challenge, omitting the month.")
+        return formatter
+    }()
+
+}

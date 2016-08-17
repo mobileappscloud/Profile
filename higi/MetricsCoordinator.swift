@@ -222,7 +222,7 @@ extension MetricsCoordinator: UICollectionViewDataSource {
     
     private enum Sections: Int {
         case Metrics
-        case Count
+        case _count
     }
     
     private enum MetricCell: Int {
@@ -232,11 +232,11 @@ extension MetricsCoordinator: UICollectionViewDataSource {
         case Weight
         case BodyMassIndex
         case BodyFat
-        case Count
+        case _count
     }
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return Sections.Count.rawValue
+        return Sections._count.rawValue
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -245,8 +245,8 @@ extension MetricsCoordinator: UICollectionViewDataSource {
         if let aSection = Sections(rawValue: section) {
             switch aSection {
             case .Metrics:
-                count = MetricCell.Count.rawValue
-            case .Count:
+                count = MetricCell._count.rawValue
+            case ._count:
                 break
             }
         }
@@ -265,7 +265,7 @@ extension MetricsCoordinator: UICollectionViewDataSource {
                 self.configureCell(textCell, indexPath: indexPath)
                 
                 cell = textCell
-            case .Count:
+            case ._count:
                 break
             }
         }
@@ -290,7 +290,7 @@ extension MetricsCoordinator: UICollectionViewDataSource {
                 text = "BMI"
             case .BodyFat:
                 text = "Body Fat"
-            case .Count:
+            case ._count:
                 break
             }
         }

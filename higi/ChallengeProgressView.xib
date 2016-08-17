@@ -10,6 +10,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChallengeProgressView" customModule="higi" customModuleProvider="target">
             <connections>
                 <outlet property="barView" destination="83h-O7-fvI" id="m4d-at-bgu"/>
+                <outlet property="goalMilestonesView" destination="37U-JM-Sve" id="4hn-9q-r08"/>
                 <outlet property="heightConstraint" destination="Aq2-Ps-TEj" id="oAP-0y-sDO"/>
                 <outlet property="progressTrailingConstraint" destination="zTt-kX-pps" id="gU6-rz-ivx"/>
                 <outlet property="trackView" destination="83h-O7-fvI" id="8aV-Ya-7sg"/>
@@ -39,6 +40,9 @@
                         <constraint firstItem="5oZ-ub-TFe" firstAttribute="trailing" secondItem="83h-O7-fvI" secondAttribute="trailing" id="zTt-kX-pps"/>
                     </constraints>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="37U-JM-Sve" userLabel="Goal Milestones View">
+                    <rect key="frame" x="0.0" y="61" width="368" height="7"/>
+                </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile-nav-bar-icon" translatesAutoresizingMaskIntoConstraints="NO" id="WaA-zt-lEx" userLabel="User Image View">
                     <rect key="frame" x="356" y="52" width="25" height="25"/>
                     <constraints>
@@ -48,7 +52,7 @@
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                            <real key="value" value="15"/>
+                            <real key="value" value="12.5"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <variation key="default">
@@ -59,10 +63,14 @@
                 </imageView>
             </subviews>
             <constraints>
+                <constraint firstItem="37U-JM-Sve" firstAttribute="bottom" secondItem="83h-O7-fvI" secondAttribute="bottom" id="003-YS-G6x"/>
                 <constraint firstItem="WaA-zt-lEx" firstAttribute="centerX" secondItem="5oZ-ub-TFe" secondAttribute="trailing" id="3ZQ-Ip-eP2"/>
                 <constraint firstAttribute="trailing" secondItem="83h-O7-fvI" secondAttribute="trailing" id="EKO-jK-XJ4"/>
+                <constraint firstItem="37U-JM-Sve" firstAttribute="trailing" secondItem="83h-O7-fvI" secondAttribute="trailing" id="GKD-X9-aWJ"/>
                 <constraint firstItem="83h-O7-fvI" firstAttribute="centerY" secondItem="zEx-NJ-WXD" secondAttribute="centerY" id="MVP-sd-lgY"/>
+                <constraint firstItem="37U-JM-Sve" firstAttribute="top" secondItem="83h-O7-fvI" secondAttribute="top" id="UDC-Cr-tYl"/>
                 <constraint firstItem="WaA-zt-lEx" firstAttribute="centerY" secondItem="zEx-NJ-WXD" secondAttribute="centerY" id="fOt-Dj-glX"/>
+                <constraint firstItem="37U-JM-Sve" firstAttribute="leading" secondItem="83h-O7-fvI" secondAttribute="leading" id="k1x-XO-XeW"/>
                 <constraint firstItem="83h-O7-fvI" firstAttribute="centerX" secondItem="zEx-NJ-WXD" secondAttribute="centerX" id="n5K-Cy-4sp"/>
                 <constraint firstItem="83h-O7-fvI" firstAttribute="leading" secondItem="zEx-NJ-WXD" secondAttribute="leading" id="xLT-EE-3Jj"/>
             </constraints>

@@ -136,16 +136,16 @@ extension CommunitiesTableViewController {
     enum TableSection: Int  {
         case Communities
         case InfiniteScroll
-        case Count
+        case _count
     }
     
     enum CommunitiesRowType: Int {
         case Content
         case Separator
-        case Count
+        case _count
         
         init(indexPath: NSIndexPath) {
-            self = CommunitiesRowType(rawValue: indexPath.row % CommunitiesRowType.Count.rawValue)!
+            self = CommunitiesRowType(rawValue: indexPath.row % CommunitiesRowType._count.rawValue)!
         }
         
         func defaultHeight() -> CGFloat {
@@ -154,7 +154,7 @@ extension CommunitiesTableViewController {
                 return UITableViewAutomaticDimension
             case .Separator:
                 return 15.0
-            case .Count:
+            case ._count:
                 return 0.0
             }
         }
@@ -162,17 +162,17 @@ extension CommunitiesTableViewController {
     
     enum InfiniteScrollRowType: Int {
         case ActivityIndicator
-        case Count
+        case _count
         
         init(indexPath: NSIndexPath) {
-            self = InfiniteScrollRowType(rawValue: indexPath.row % InfiniteScrollRowType.Count.rawValue)!
+            self = InfiniteScrollRowType(rawValue: indexPath.row % InfiniteScrollRowType._count.rawValue)!
         }
         
         func defaultHeight() -> CGFloat {
             switch self {
             case .ActivityIndicator:
                 return 70.0
-            case .Count:
+            case ._count:
                 return 0.0
             }
         }
@@ -184,7 +184,7 @@ extension CommunitiesTableViewController {
 extension CommunitiesTableViewController: UITableViewDataSource {
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return TableSection.Count.rawValue
+        return TableSection._count.rawValue
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -195,10 +195,10 @@ extension CommunitiesTableViewController: UITableViewDataSource {
         
         switch sectionType {
         case .Communities:
-            rowCount = communitiesController.communities.count * CommunitiesRowType.Count.rawValue
+            rowCount = communitiesController.communities.count * CommunitiesRowType._count.rawValue
         case .InfiniteScroll:
-            rowCount = InfiniteScrollRowType.Count.rawValue
-        case .Count:
+            rowCount = InfiniteScrollRowType._count.rawValue
+        case ._count:
             break
         }
         
@@ -218,7 +218,7 @@ extension CommunitiesTableViewController: UITableViewDataSource {
             case .Content:
                 let communityCell = tableView.dequeueReusableCell(withClass: CommunityListingTableViewCell.self, forIndexPath: indexPath)
                 
-                let index = indexPath.row / CommunitiesRowType.Count.rawValue
+                let index = indexPath.row / CommunitiesRowType._count.rawValue
                 let community = communitiesController.communities[index]
                 
                 communityCell.reset()
@@ -240,7 +240,7 @@ extension CommunitiesTableViewController: UITableViewDataSource {
                 separatorCell.backgroundColor = Theme.Color.Primary.whiteGray
                 cell = separatorCell
                 
-            case .Count:
+            case ._count:
                 break
             }
             
@@ -250,11 +250,11 @@ extension CommunitiesTableViewController: UITableViewDataSource {
             case .ActivityIndicator:
                 cell = tableView.dequeueReusableCell(withClass: ActivityIndicatorTableViewCell.self, forIndexPath: indexPath)
                 
-            case .Count:
+            case ._count:
                 break
             }
             
-        case .Count:
+        case ._count:
             break
         }
         
@@ -298,7 +298,7 @@ extension CommunitiesTableViewController: UITableViewDelegate {
             let rowType = InfiniteScrollRowType(indexPath: indexPath)
             rowHeight = rowType.defaultHeight()
             
-        case .Count:
+        case ._count:
             break
         }
         
@@ -315,13 +315,13 @@ extension CommunitiesTableViewController: UITableViewDelegate {
             switch rowType {
             case .ActivityIndicator:
                 fetchNextCommunities()
-            case .Count:
+            case ._count:
                 break
             }
             
         case .Communities:
             fallthrough
-        case .Count:
+        case ._count:
             break
         }
     }
@@ -333,7 +333,7 @@ extension CommunitiesTableViewController: UITableViewDelegate {
             let rowType = CommunitiesRowType(indexPath: indexPath)
             if rowType == .Content {
                 
-                let index = indexPath.row / CommunitiesRowType.Count.rawValue
+                let index = indexPath.row / CommunitiesRowType._count.rawValue
                 let community = communitiesController.communities[index]
                 
                 delegate?.communitiesTableViewControllerDidTapDetail(self, communitiesController: communitiesController, userController: userController, community: community, communitySubscriptionDelegate: communitySubscriptionDelegate)

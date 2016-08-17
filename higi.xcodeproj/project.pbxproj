@@ -1012,9 +1012,10 @@
 		270ED5731D480F4200476E6A /* Challenges */ = {
 			isa = PBXGroup;
 			children = (
-				27416E631D49477500876873 /* ChallengesTableViewController.swift */,
 				273AC8521D4A60A300828FF1 /* ChallengeInformationView.swift */,
 				27A4AE761D4BB4CA00FEAFF0 /* ChallengeProgressView.swift */,
+				4199D39C1CEA930F00EF62F8 /* ChallengesController.swift */,
+				27416E631D49477500876873 /* ChallengesTableViewController.swift */,
 				273DFFA81D49087300AF7032 /* ChallengeStatusIndicatorView.swift */,
 				2BBDBA4D1A12AC2C005A6815 /* ChallengesViewController.swift */,
 				273DFFB01D49320A00AF7032 /* ChallengeTableViewCell.swift */,
@@ -1041,7 +1042,6 @@
 				2BC5865D1A16D0AF005A7983 /* ChallengeInvitationView.swift */,
 				D1EEDBA41A66FA570012EFD3 /* ChallengeLeaderboardRow.swift */,
 				2BBDBA4A1A12AC2C005A6815 /* ChallengeRowCell.swift */,
-				4199D39C1CEA930F00EF62F8 /* ChallengesController.swift */,
 				D130183D1B14D2C9008DDFAD /* ChallengeUtility.swift */,
 				8FEF1B041AA9173D0036C4FB /* ChallengeView.swift */,
 				2BBDBA4E1A12AC2C005A6815 /* CompetitiveChallengeView.swift */,

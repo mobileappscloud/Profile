@@ -11,7 +11,7 @@ import SafariServices
 
 private enum TableSection: Int {
     case Main
-    case Count
+    case _count
 }
 
 private enum MainSectionRow: Int {
@@ -28,7 +28,7 @@ private enum MainSectionRow: Int {
     case SeparatorFour
     case LogOut
     case BuildNumber
-    case Count
+    case _count
 }
 
 /*!
@@ -111,7 +111,7 @@ extension SettingsTableViewController {
 extension SettingsTableViewController {
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return TableSection.Count.rawValue;
+        return TableSection._count.rawValue;
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -119,7 +119,7 @@ extension SettingsTableViewController {
         if let tableSection = TableSection(rawValue: section) {
             switch tableSection {
             case .Main:
-                rowCount = MainSectionRow.Count.rawValue;
+                rowCount = MainSectionRow._count.rawValue;
             default:
                 break;
             }

@@ -12,7 +12,7 @@ final class NewWeightMetricDelegate: NSObject, NewMetricDelegate {
     
     enum TableSection: Int {
         case Main
-        case Count
+        case _count
     }
     
     var selectedIndex: Int = 0
@@ -296,7 +296,7 @@ extension NewWeightMetricDelegate: MetricDetailDisplayDelegate {
 extension NewWeightMetricDelegate: UITableViewDataSource {
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return TableSection.Count.rawValue
+        return TableSection._count.rawValue
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

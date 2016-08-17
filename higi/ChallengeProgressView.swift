@@ -14,6 +14,7 @@ class ChallengeProgressView: ReusableXibView {
     @IBOutlet var progressTrailingConstraint: NSLayoutConstraint!
     @IBOutlet var userImageView: UIImageView!
     @IBOutlet var trackView: UIView!
+    @IBOutlet var goalMilestonesView: UIView!
     
     @IBInspectable var height: CGFloat {
         get {
@@ -58,13 +59,10 @@ class ChallengeProgressView: ReusableXibView {
         }
     }
     
-    private var milestoneViews: [UIView] = []
-    
     private func renderMilestones() {
-        milestoneViews.forEach { (milestoneView) in
+        goalMilestonesView.subviews.forEach { (milestoneView) in
             milestoneView.removeFromSuperview()
         }
-        milestoneViews = []
         progressMilestones.forEach { (milestone) in
             renderMilestoneAt(fractionalDistance: milestone)
         }
@@ -80,8 +78,7 @@ class ChallengeProgressView: ReusableXibView {
         goalCircle.translatesAutoresizingMaskIntoConstraints = false
         goalCircle.backgroundColor = Theme.Color.Primary.green
         goalCircle.cornerRadius = nodeHeight / 2
-        milestoneViews.append(goalCircle)
-        insertSubview(goalCircle, belowSubview: userImageView) // FIXME: Goal circles are still underneath the user image
+        goalMilestonesView.addSubview(goalCircle)
         
         addConstraints([
             NSLayoutConstraint(item: goalCircle, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: barView, attribute: NSLayoutAttribute.Trailing, multiplier: fractionalDistance, constant: 0.0),

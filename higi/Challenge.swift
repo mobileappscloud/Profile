@@ -56,7 +56,10 @@ final class Challenge: UniquelyIdentifiable {
     
     /// Start date for a challenge.
     let startDate: NSDate
-    
+
+    /// A description of the goal for this challenge.
+    let goalDescription: String
+
     // MARK: Optional-Modified
     // These properties are optionally returned by the API, but can be modeled as non-optional properties
     
@@ -79,10 +82,13 @@ final class Challenge: UniquelyIdentifiable {
     
     /// Entree fee to join if a paid challenge.
     let entryFee: Double?
-    
+
+    /// A description of the prize for this challenge.
+    let prizeDescription: String?
+
     // MARK: Init
     
-    required init(identifier: String, name: String, description: String, let shortDescription: String, image: MediaAsset, metric: Metric, status: Status, dailyLimit: Int, participantCount: Int, devices: [ActivityDevice], winConditions: [Challenge.WinCondition], userRelation: UserRelation, chatter: Chatter, startDate: NSDate, participants: [Participant], community: Community? = nil, teams: [Team]? = nil, terms: String? = nil, endDate: NSDate? = nil, entryFee: Double? = nil) {
+    required init(identifier: String, name: String, description: String, let shortDescription: String, image: MediaAsset, metric: Metric, status: Status, dailyLimit: Int, participantCount: Int, devices: [ActivityDevice], winConditions: [Challenge.WinCondition], userRelation: UserRelation, chatter: Chatter, startDate: NSDate, goalDescription: String, participants: [Participant], community: Community? = nil, teams: [Team]? = nil, terms: String? = nil, endDate: NSDate? = nil, entryFee: Double? = nil, prizeDescription: String? = nil) {
         self.identifier = identifier
         self.name = name
         self.description = description
@@ -97,6 +103,7 @@ final class Challenge: UniquelyIdentifiable {
         self.userRelation = userRelation
         self.chatter = chatter
         self.startDate = startDate
+        self.goalDescription = goalDescription
         
         self.participants = participants
         
@@ -105,6 +112,7 @@ final class Challenge: UniquelyIdentifiable {
         self.terms = terms
         self.endDate = endDate
         self.entryFee = entryFee
+        self.prizeDescription = prizeDescription
     }
 }
 
@@ -117,6 +125,7 @@ extension Challenge {
         guard let teams = teams else { return 0.0 }
         return teams.map({$0.units}).maxElement() ?? 0.0
     }
+    
 }
 
 extension Challenge {
@@ -181,7 +190,8 @@ extension Challenge: JSONInitializable {
             let winConditions = CollectionDeserializer.parse(JSONDictionaries: dictionary["winConditions"], forResource: Challenge.WinCondition.self),
             let userRelation = Challenge.UserRelation(fromJSONObject: dictionary["userRelation"]),
             let chatter = Chatter(fromJSONObject: dictionary["comments"]),
-            let startDate = NSDateFormatter.YYYYMMddDateFormatter.date(fromObject: dictionary["startDate"])
+            let startDate = NSDateFormatter.YYYYMMddDateFormatter.date(fromObject: dictionary["startDate"]),
+            let goalDescription = dictionary["goalDescription"] as? String
             else { return nil }
         
         var participants: [Participant] = []
@@ -195,7 +205,8 @@ extension Challenge: JSONInitializable {
         let terms = dictionary["terms"] as? String
         let endDate = NSDateFormatter.YYYYMMddDateFormatter.date(fromObject: dictionary["endDate"])
         let entryFee = dictionary["entryFee"] as? Double
+        let prizeDescription = dictionary["prizeDescription"] as? String
         
-        self.init(identifier: identifier, name: name, description: description, shortDescription: shortDescription, image: image, metric: metric, status: status, dailyLimit: dailyLimit, participantCount: participantCount, devices: devices, winConditions: winConditions, userRelation: userRelation, chatter: chatter, startDate: startDate, participants: participants, community: community, teams: teams, terms: terms, endDate: endDate, entryFee: entryFee)
+        self.init(identifier: identifier, name: name, description: description, shortDescription: shortDescription, image: image, metric: metric, status: status, dailyLimit: dailyLimit, participantCount: participantCount, devices: devices, winConditions: winConditions, userRelation: userRelation, chatter: chatter, startDate: startDate, goalDescription: goalDescription, participants: participants, community: community, teams: teams, terms: terms, endDate: endDate, entryFee: entryFee, prizeDescription: prizeDescription)
     }
 }

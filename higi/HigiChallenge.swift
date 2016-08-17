@@ -32,6 +32,10 @@ final class HigiChallenge: JSONInitializable {
     
     var chatter:Chatter!;
     
+    var goalDescription, prizeDescription, communityName: String
+    
+    var communityLogoImageUrl: NSURL
+    
     convenience init?(dictionary: NSDictionary) {
         let challenge = dictionary
         let serverParticipant = (dictionary["userRelation"] as! NSDictionary)["participant"] as? NSDictionary;
@@ -113,6 +117,11 @@ final class HigiChallenge: JSONInitializable {
         }
         participantsCount = dictionary["participantsCount"] as! Int;
         terms = (dictionary["terms"] ?? "") as? NSString;
+        goalDescription = dictionary["goalDescription"] as? String ?? ""
+        prizeDescription = dictionary["prizeDescription"] as? String ?? ""
+        communityName = (dictionary["community"] as? NSDictionary)?["name"] as? String ?? ""
+        communityLogoImageUrl = NSURL(string: ((dictionary["community"] as? NSDictionary)?["logo"] as? NSDictionary)?["uri"] as? String ?? "") ?? NSURL()
+        
         let conditions = dictionary["winConditions"] as? NSArray;
         if (conditions != nil) {
             for condition: AnyObject in conditions! {

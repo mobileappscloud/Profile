@@ -5,10 +5,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
-        <!--Challenges View Controller-->
+        <!--Challenges-->
         <scene sceneID="3Po-b1-urd">
             <objects>
-                <viewController id="2nh-3k-lNc" customClass="ChallengesViewController" customModule="higi" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Challenges" id="2nh-3k-lNc" customClass="ChallengesViewController" customModule="higi" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Nsy-Oi-KhH"/>
                         <viewControllerLayoutGuide type="bottom" id="udw-aF-QwJ"/>
@@ -40,10 +40,10 @@
             </objects>
             <point key="canvasLocation" x="321" y="369"/>
         </scene>
-        <!--Active Challenges Table View Controller-->
+        <!--Challenges Table View Controller-->
         <scene sceneID="V1M-x3-Kx1">
             <objects>
-                <viewController storyboardIdentifier="ChallengesTableViewController" id="1iN-gi-tve" userLabel="Active Challenges Table View Controller" customClass="ChallengesTableViewController" customModule="higi" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChallengesTableViewController" id="1iN-gi-tve" customClass="ChallengesTableViewController" customModule="higi" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="byE-V3-H0B"/>
                         <viewControllerLayoutGuide type="bottom" id="hpO-NB-ZuF"/>

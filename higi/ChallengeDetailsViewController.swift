@@ -272,24 +272,25 @@ final class ChallengeDetailsViewController: UIViewController, UIScrollViewDelega
         joinButton.hidden = true
         loadingSpinner.hidden = false
         
-        challengesController.join(challenge, user: userController.user, success: { [weak self] in
-            self?.refreshChallenge()
-        }, failure: { [weak self] in
-            guard let strongSelf = self else { return }
-            
-            let alertTitle = NSLocalizedString("CHALLENGE_DETAILS_VIEW_JOIN_CHALLENGE_FAILURE_ALERT_TITLE", comment: "Title for alert which is displayed when joining a challenge fails.");
-            let alertMessage = NSLocalizedString("CHALLENGE_DETAILS_VIEW_JOIN_CHALLENGE_FAILURE_ALERT_MESSAGE", comment: "Message for alert which is displayed when joining a challenge fails.");
-            let cancelButtonTitle = NSLocalizedString("CHALLENGE_DETAILS_VIEW_JOIN_CHALLENGE_FAILURE_ALERT_ACTION_CANCEL_TITLE", comment: "Title for cancel alert action which is displayed when joining a challenge fails.");
-            let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .Alert)
-            let cancelAction = UIAlertAction(title: cancelButtonTitle, style: .Default, handler: nil)
-            alertController.addAction(cancelAction)
-            
-            dispatch_async(dispatch_get_main_queue(), { [weak strongSelf] in
-                strongSelf?.presentViewController(alertController, animated: true, completion: nil)
-                strongSelf?.joinButton.hidden = false;
-                strongSelf?.loadingSpinner.hidden = true;
-            })
-        })
+        // Keeping until file is refactored
+//        challengesController.join(challenge, user: userController.user, success: { [weak self] in
+//            self?.refreshChallenge()
+//        }, failure: { [weak self] in
+//            guard let strongSelf = self else { return }
+//            
+//            let alertTitle = NSLocalizedString("CHALLENGE_DETAILS_VIEW_JOIN_CHALLENGE_FAILURE_ALERT_TITLE", comment: "Title for alert which is displayed when joining a challenge fails.");
+//            let alertMessage = NSLocalizedString("CHALLENGE_DETAILS_VIEW_JOIN_CHALLENGE_FAILURE_ALERT_MESSAGE", comment: "Message for alert which is displayed when joining a challenge fails.");
+//            let cancelButtonTitle = NSLocalizedString("CHALLENGE_DETAILS_VIEW_JOIN_CHALLENGE_FAILURE_ALERT_ACTION_CANCEL_TITLE", comment: "Title for cancel alert action which is displayed when joining a challenge fails.");
+//            let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .Alert)
+//            let cancelAction = UIAlertAction(title: cancelButtonTitle, style: .Default, handler: nil)
+//            alertController.addAction(cancelAction)
+//            
+//            dispatch_async(dispatch_get_main_queue(), { [weak strongSelf] in
+//                strongSelf?.presentViewController(alertController, animated: true, completion: nil)
+//                strongSelf?.joinButton.hidden = false;
+//                strongSelf?.loadingSpinner.hidden = true;
+//            })
+//        })
     }
 
     func showTermsAndConditions(joinUrl: String) {
@@ -329,25 +330,26 @@ final class ChallengeDetailsViewController: UIViewController, UIScrollViewDelega
     
     func refreshChallenge() {
         
-        challengesController.fetch(challenge, user: userController.user, success: { [weak self] (challenge) in
-            guard let strongSelf = self else { return }
-            
-            strongSelf.loadingSpinner.hidden = true;
-            
-            strongSelf.challenge = challenge;
-            
-            strongSelf.clearExistingViews();
-            strongSelf.initializeDetailView();
-            
-            strongSelf.refreshTableScrolling();
-            
-            strongSelf.scrollView.contentOffset = CGPointMake(0,0);
-            strongSelf.updateScroll();
-            
-            strongSelf.headerContainer.layoutIfNeeded();
-        }, failure: {
-                
-        })
+        // Keeping until file is refactored
+//        challengesController.fetch(challenge, user: userController.user, success: { [weak self] (challenge) in
+//            guard let strongSelf = self else { return }
+//            
+//            strongSelf.loadingSpinner.hidden = true;
+//            
+//            strongSelf.challenge = challenge;
+//            
+//            strongSelf.clearExistingViews();
+//            strongSelf.initializeDetailView();
+//            
+//            strongSelf.refreshTableScrolling();
+//            
+//            strongSelf.scrollView.contentOffset = CGPointMake(0,0);
+//            strongSelf.updateScroll();
+//            
+//            strongSelf.headerContainer.layoutIfNeeded();
+//        }, failure: {
+//                
+//        })
     }
     
     func refreshTableScrolling() {

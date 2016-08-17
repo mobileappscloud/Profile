@@ -13,13 +13,20 @@ final class ChallengeCollectionRequest: ProtectedAPIRequest, ChallengeRequestCon
     let participants: Int
     let comments: Int
     let teamComments: Int
+    let filters: [Filter]?
     
-    required init(userId: String, gravityBoard: Int, participants: Int, comments: Int, teamComments: Int) {
+    private var filtersFormatted: String? {
+        guard let filters = filters else { return nil }
+        return filters.map{"[]=\($0)"}.joinWithSeparator(",")
+    }
+    
+    required init(userId: String, gravityBoard: Int, participants: Int, comments: Int, teamComments: Int, filters: [Filter]?) {
         self.userId = userId
         self.gravityBoard = gravityBoard
         self.participants = participants
         self.comments = comments
         self.teamComments = teamComments
+        self.filters = filters
     }
     
     func request(completion: APIRequestAuthenticatorCompletion) {
@@ -28,11 +35,25 @@ final class ChallengeCollectionRequest: ProtectedAPIRequest, ChallengeRequestCon
         
         let includes = "[gravityboard]=\(gravityBoard),[participants]=\(participants),[comments]=\(comments),[teams.comments]=\(teamComments)"
         let pageSize = 0
-        let parameters = [
+        var parameters = [
             "includes" : includes,
             "pageSize" : "\(pageSize)"
         ]
         
+        if let filtersFormatted = filtersFormatted {
+            parameters["filters"] = filtersFormatted
+        }
+        
         authenticatedRequest(relativePath, parameters: parameters, completion: completion)
+    }
+}
+
+extension ChallengeCollectionRequest {
+    enum Filter: APIString {
+        case `public`
+        case invited
+        case upcoming
+        case current
+        case finished
     }
 }

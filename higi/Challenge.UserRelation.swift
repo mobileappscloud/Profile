@@ -40,7 +40,7 @@ extension Challenge.UserRelation {
     /**
      Status of the challenge in relation to the current user.
      
-     - public_:  Challenge is public, but the user has not joined.
+     - \`public\`:  Challenge is public, but the user has not joined.
      - invited:  User has been invited to the challenge, but has not joined.
      - upcoming: User has joined the challenge and the challenge is currently in `registration` status.
      - current:  User has joined the challenge and the challenge is either in `running`, `calculating`, or `finished` status and has been finished for <= 7 days.
@@ -52,6 +52,15 @@ extension Challenge.UserRelation {
         case upcoming
         case current
         case finished
+        
+        var isJoined: Bool {
+            switch self {
+            case .`public`, .invited:
+                return false
+            case .upcoming, .current, .finished:
+                return true
+            }
+        }
     }
 }
 

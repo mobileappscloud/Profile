@@ -10,41 +10,12 @@ import UIKit
 
 @IBDesignable
 final class ChallengeStatusIndicatorView: ReusableXibView {
-    enum State {
-        case unjoinedAndUnderway
-        case unjoinedAndNotUnderway
-        case joinedAndUnderway
-        case joinedAndNotUnderway
-        case tabulatingResults
-        case challengeComplete
-        case cancelled
-        
-        var color: UIColor {
-            switch self {
-            case unjoinedAndUnderway:
-                return Theme.Color.Challenge.Status.unjoinedAndUnderway
-            case unjoinedAndNotUnderway:
-                return Theme.Color.Challenge.Status.unjoinedAndNotUnderway
-            case joinedAndUnderway:
-                return Theme.Color.Challenge.Status.joinedAndUnderway
-            case joinedAndNotUnderway:
-                return Theme.Color.Challenge.Status.joinedAndNotUnderway
-            case tabulatingResults:
-                return Theme.Color.Challenge.Status.tabulatingResults
-            case challengeComplete:
-                return Theme.Color.Challenge.Status.challengeComplete
-            case cancelled:
-                return Theme.Color.Challenge.Status.cancelled
-            }
-        }
-    }
-    
     @IBOutlet var strikethroughView: UIView!
     
     private let animationDuration = 0.5
     private let strikethroughAngle = CGFloat(M_PI_4)
     
-    var state: State = .joinedAndUnderway {
+    var state: ChallengeTableViewCellModel.State = .joinedAndUnderway {
         didSet {
             UIView.animateWithDuration(animationDuration) {
                 self.configureStateChanged()
@@ -52,8 +23,27 @@ final class ChallengeStatusIndicatorView: ReusableXibView {
         }
     }
     
+    private var color: UIColor {
+        switch state {
+        case .unjoinedAndUnderway:
+            return Theme.Color.Challenge.Status.unjoinedAndUnderway
+        case .unjoinedAndNotUnderway:
+            return Theme.Color.Challenge.Status.unjoinedAndNotUnderway
+        case .joinedAndUnderway:
+            return Theme.Color.Challenge.Status.joinedAndUnderway
+        case .joinedAndNotUnderway:
+            return Theme.Color.Challenge.Status.joinedAndNotUnderway
+        case .tabulatingResults:
+            return Theme.Color.Challenge.Status.tabulatingResults
+        case .challengeComplete:
+            return Theme.Color.Challenge.Status.challengeComplete
+        case .cancelled:
+            return Theme.Color.Challenge.Status.cancelled
+        }
+    }
+    
     private func configureStateChanged() {
-        self.backgroundColor = self.state.color
+        self.backgroundColor = color
         self.strikethroughView.alpha = self.state == .cancelled ? 1.0 : 0.0
     }
     

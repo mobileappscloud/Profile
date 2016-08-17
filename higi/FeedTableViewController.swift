@@ -60,16 +60,16 @@ extension FeedTableViewController {
     enum TableSection: Int  {
         case Feed
         case InfiniteScroll
-        case Count
+        case _count
     }
     
     enum FeedRowType: Int {
         case Post
         case Separator
-        case Count
+        case _count
         
         init(indexPath: NSIndexPath) {
-            self = FeedRowType(rawValue: indexPath.row % FeedRowType.Count.rawValue)!
+            self = FeedRowType(rawValue: indexPath.row % FeedRowType._count.rawValue)!
         }
         
         func defaultHeight() -> CGFloat {
@@ -78,7 +78,7 @@ extension FeedTableViewController {
                 return UITableViewAutomaticDimension
             case .Separator:
                 return 15.0
-            case .Count:
+            case ._count:
                 return 0.0
             }
         }
@@ -86,17 +86,17 @@ extension FeedTableViewController {
     
     enum InfiniteScrollRowType: Int {
         case ActivityIndicator
-        case Count
+        case _count
         
         init(indexPath: NSIndexPath) {
-            self = InfiniteScrollRowType(rawValue: indexPath.row % InfiniteScrollRowType.Count.rawValue)!
+            self = InfiniteScrollRowType(rawValue: indexPath.row % InfiniteScrollRowType._count.rawValue)!
         }
         
         func defaultHeight() -> CGFloat {
             switch self {
             case .ActivityIndicator:
                 return 70.0
-            case .Count:
+            case ._count:
                 return 0.0
             }
         }
@@ -197,7 +197,7 @@ extension FeedTableViewController {
 extension FeedTableViewController: UITableViewDataSource {
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return TableSection.Count.rawValue
+        return TableSection._count.rawValue
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -208,10 +208,10 @@ extension FeedTableViewController: UITableViewDataSource {
         
         switch sectionType {
         case .Feed:
-            rowCount = feedController.posts.count * FeedRowType.Count.rawValue
+            rowCount = feedController.posts.count * FeedRowType._count.rawValue
         case .InfiniteScroll:
-            rowCount = InfiniteScrollRowType.Count.rawValue
-        case .Count:
+            rowCount = InfiniteScrollRowType._count.rawValue
+        case ._count:
             break
         }
         
@@ -234,7 +234,7 @@ extension FeedTableViewController: UITableViewDataSource {
             case .Separator:
                 cell = separatorCell(forTableView: tableView, atIndexPath: indexPath)
                 
-            case .Count:
+            case ._count:
                 break
             }
             
@@ -244,11 +244,11 @@ extension FeedTableViewController: UITableViewDataSource {
             case .ActivityIndicator:
                 cell = tableView.dequeueReusableCell(withClass: ActivityIndicatorTableViewCell.self, forIndexPath: indexPath)
                 
-            case .Count:
+            case ._count:
                 break
             }
             
-        case .Count:
+        case ._count:
             break
         }
         
@@ -291,7 +291,7 @@ extension FeedTableViewController: UITableViewDelegate {
             let rowType = InfiniteScrollRowType(indexPath: indexPath)
             rowHeight = rowType.defaultHeight()
             
-        case .Count:
+        case ._count:
             break
         }
         
@@ -327,7 +327,7 @@ extension FeedTableViewController {
             fatalError("This method assumes an indexPath in the Feed section")
         }
         
-        return indexPath.row / FeedRowType.Count.rawValue
+        return indexPath.row / FeedRowType._count.rawValue
     }
     
     private func postCell(forTableView tableView: UITableView, atIndexPath indexPath: NSIndexPath) -> PostCell {        

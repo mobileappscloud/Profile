@@ -10,13 +10,13 @@ import UIKit
 
 private enum TableSection: Int {
     case Main
-    case Count
+    case _count
 }
 
 private enum MainSectionRow: Int {
     case CheckInResults
     case HigiNews
-    case Count
+    case _count
         
     static let notification = [CheckInResults : EmailNotification.CheckInResult, HigiNews : EmailNotification.HigiNews];
 }
@@ -48,7 +48,7 @@ final class NotificationSettingsEmailTableViewController: UITableViewController,
     // MARK: - Table View
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return TableSection.Count.rawValue;
+        return TableSection._count.rawValue;
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -56,7 +56,7 @@ final class NotificationSettingsEmailTableViewController: UITableViewController,
         if let tableSection = TableSection(rawValue: section) {
             switch tableSection {
             case .Main:
-                rowCount = MainSectionRow.Count.rawValue;
+                rowCount = MainSectionRow._count.rawValue;
             default:
                 break;
             }

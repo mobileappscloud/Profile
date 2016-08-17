@@ -8,14 +8,14 @@
 
 final class ChallengeRequest: ProtectedAPIRequest, ChallengeRequestConfigurable {
 
-    let challenge: HigiChallenge
+    let challenge: Challenge
     let userId: String
     let gravityBoard: Int
     let participants: Int
     let comments: Int
     let teamComments: Int
     
-    required init(challenge: HigiChallenge, userId: String, gravityBoard: Int, participants: Int, comments: Int, teamComments: Int) {
+    required init(challenge: Challenge, userId: String, gravityBoard: Int, participants: Int, comments: Int, teamComments: Int) {
         self.challenge = challenge
         self.userId = userId
         self.gravityBoard = gravityBoard

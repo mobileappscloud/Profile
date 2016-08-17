@@ -69,7 +69,7 @@ final class CommunitiesViewController: UIViewController {
     private enum SegmentedControl: Int {
         case Featured
         case Yours
-        case Count
+        case _count
     }
     
     private var segmentedPageViewController: SegmentedPageViewController!

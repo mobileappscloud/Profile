@@ -9,6 +9,11 @@
 import UIKit
 
 final class ChallengesTableViewController: UIViewController {
+    private var userController: UserController!
+    private var tableType: TableType!
+    
+    private lazy var activeChallengeViewModels: [ChallengeTableViewCellModel] = []
+    private lazy var challengesController = ChallengesController()
     
     @IBOutlet var tableView: UITableView! {
         didSet {
@@ -20,12 +25,38 @@ final class ChallengesTableViewController: UIViewController {
             tableView.register(nibWithCellClass: ActivityIndicatorTableViewCell.self)
         }
     }
+    
+    override func viewDidLoad() {
+        fetchChallenges()
+    }
+    
+    func configureWith(userController userController: UserController, tableType: TableType) {
+        self.userController = userController
+        self.tableType = tableType
+    }
+    
+    private func fetchChallenges() {
+        challengesController.fetch(forUser: userController.user, challengesType: tableType.asChallengeType, success: {
+            [weak self] in
+            dispatch_async(dispatch_get_main_queue()) {
+                guard let strongSelf = self else { return }
+                strongSelf.activeChallengeViewModels = strongSelf.challengesController.challenges.map(ChallengeTableViewCellModel.init)
+                strongSelf.tableView.reloadData()
+            }
+        }, failure: {
+            //TODO: Peter Ryszkiewicz: handle failure
+        })
+    }
 }
 
 //MARK: - UITableViewDataSource
 extension ChallengesTableViewController: UITableViewDataSource {
+    var separatorCount: Int {
+        return activeChallengeViewModels.count
+    }
+    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return TableSection.Count.rawValue
+        return TableSection._count.rawValue
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -36,10 +67,10 @@ extension ChallengesTableViewController: UITableViewDataSource {
         
         switch sectionType {
         case .Challenges:
-            rowCount = 5 //TODO: Peter Ryszkiewicz: Make dynamic
+            rowCount = activeChallengeViewModels.count + separatorCount
         case .InfiniteScroll:
-            rowCount = InfiniteScrollRowType.Count.rawValue
-        case .Count:
+            rowCount = InfiniteScrollRowType._count.rawValue
+        case ._count:
             break
         }
         
@@ -57,44 +88,9 @@ extension ChallengesTableViewController: UITableViewDataSource {
             let rowType = ChallengesRowType(indexPath: indexPath)
             switch rowType {
             case .Content:
-                
                 let challengeCell = tableView.dequeueReusableCell(withClass: ChallengeTableViewCell.self)!
-                let model: ChallengeTableViewCellModel
-//                if indexPath.row % 4 == 0 {
-//                    model = ChallengeTableViewCellModel(
-//                        titleText: "Crazy Steppers Challenge",
-//                        challengeStatusState: ChallengeStatusIndicatorView.State.joinedAndUnderway,
-//                        dateText: "Jan 16 - 30, 2016",
-//                        participantCountText: "2.5K participating",
-//                        mainImageView: UIImage(named: "challenge-detail-header")!,
-//                        communityImage: UIImage(named: "chatter-button-normal")!,
-//                        communityText: "We heart it",
-//                        challengeInformationUpperText: NSAttributedString(string: "Goal: Most Watts Earned"),
-//                        challengeInformationLowerText: NSAttributedString(string: "Prizes: No Prize"),
-//                        challengeInformationImage: UIImage(named: "chat-bubble-green"),
-//                        showChallengeInformationStatus: false,
-//                        progressMilestones: (0...4).map{CGFloat($0) / 4.0}
-//                    )
-//                } else {
-                    model = ChallengeTableViewCellModel(
-                        titleText: "Crazy Steppers Challenge",
-                        challengeStatusState: ChallengeStatusIndicatorView.State.joinedAndUnderway,
-                        dateText: "Jan 16 - 30, 2016",
-                        participantCountText: "2.5K participating",
-                        mainImageView: UIImage(named: "challenge-detail-header")!,
-                        communityImage: UIImage(named: "chatter-button-normal")!,
-                        communityText: "We heart it",
-                        challengeInformationUpperText: nil,
-                        challengeInformationLowerText: nil,
-                        challengeInformationImage: nil,
-                        showChallengeInformationProgress: true,
-                        progressMilestones: (0...4).map{CGFloat($0) / 4.0}
-                    )
-//                }
-
-
-                challengeCell.setModel(model)
-                
+                challengeCell.setModel(activeChallengeViewModels[indexPath.row / ChallengesRowType._count.rawValue])
+                challengeCell.challengeProgressView?.userImageView.setImage(withMediaAsset: userController.user.photo, transition: true)
                 cell = challengeCell
                 
             case .Separator:
@@ -102,7 +98,7 @@ extension ChallengesTableViewController: UITableViewDataSource {
                 separatorCell.backgroundColor = Theme.Color.Primary.whiteGray
                 cell = separatorCell
                 
-            case .Count:
+            case ._count:
                 break
             }
             
@@ -112,11 +108,11 @@ extension ChallengesTableViewController: UITableViewDataSource {
             case .ActivityIndicator:
                 cell = tableView.dequeueReusableCell(withClass: ActivityIndicatorTableViewCell.self, forIndexPath: indexPath)
                 
-            case .Count:
+            case ._count:
                 break
             }
             
-        case .Count:
+        case ._count:
             break
         }
         
@@ -147,7 +143,7 @@ extension ChallengesTableViewController: UITableViewDelegate {
             let rowType = InfiniteScrollRowType(indexPath: indexPath)
             rowHeight = rowType.defaultHeight()
             
-        case .Count:
+        case ._count:
             break
         }
         
@@ -158,20 +154,33 @@ extension ChallengesTableViewController: UITableViewDelegate {
 // MARK: - Table Enums
 
 extension ChallengesTableViewController {
+    enum TableType {
+        case Current
+        case Finished
+        case CommunityDetail
+        
+        var asChallengeType: ChallengesController.ChallengeType {
+            switch self {
+                case .Current: return ChallengesController.ChallengeType.Current
+                case .Finished: return ChallengesController.ChallengeType.Finished
+                case .CommunityDetail: return ChallengesController.ChallengeType.Current //TODO: Peter Ryszkiewicz: FIXME
+            }
+        }
+    }
     
     enum TableSection: Int  {
         case Challenges
         case InfiniteScroll
-        case Count
+        case _count
     }
     
     enum ChallengesRowType: Int {
         case Content
         case Separator
-        case Count
+        case _count
         
         init(indexPath: NSIndexPath) {
-            self = ChallengesRowType(rawValue: indexPath.row % ChallengesRowType.Count.rawValue)!
+            self = ChallengesRowType(rawValue: indexPath.row % ChallengesRowType._count.rawValue)!
         }
         
         func defaultHeight() -> CGFloat {
@@ -180,7 +189,7 @@ extension ChallengesTableViewController {
                 return UITableViewAutomaticDimension
             case .Separator:
                 return 17.0
-            case .Count:
+            case ._count:
                 return 0.0
             }
         }
@@ -188,17 +197,17 @@ extension ChallengesTableViewController {
     
     enum InfiniteScrollRowType: Int {
         case ActivityIndicator
-        case Count
+        case _count
         
         init(indexPath: NSIndexPath) {
-            self = InfiniteScrollRowType(rawValue: indexPath.row % InfiniteScrollRowType.Count.rawValue)!
+            self = InfiniteScrollRowType(rawValue: indexPath.row % InfiniteScrollRowType._count.rawValue)!
         }
         
         func defaultHeight() -> CGFloat {
             switch self {
             case .ActivityIndicator:
                 return 70.0
-            case .Count:
+            case ._count:
                 return 0.0
             }
         }

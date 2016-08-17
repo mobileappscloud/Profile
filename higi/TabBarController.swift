@@ -57,6 +57,7 @@ final class TabBarController: UITabBarController {
     lazy private(set) var challengesViewController: ChallengesViewController = {
         let challengesViewController = UIStoryboard(name: "Challenges", bundle: nil).instantiateInitialViewController() as! ChallengesViewController
         challengesViewController.navigationItem.rightBarButtonItems = [self.navigationOverflowBarButtonItem(), self.profileBarButtonItem()]
+        challengesViewController.configureWith(userController: self.userController)
         return challengesViewController
     }()
     

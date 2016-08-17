@@ -11,17 +11,17 @@ import UIKit
 private enum TableSection: Int {
     case GlobalSetting
     case UniqueSetting
-    case Count
+    case _count
 }
 
 private enum SectionGlobalSettingRow: Int {
     case AllowNotifications
-    case Count
+    case _count
 }
 
 private enum SectionUniqueSettingRow: Int {
     case StationNearby
-    case Count
+    case _count
 }
 
 final class NotificationSettingsDeviceTableViewController: UITableViewController, SwitchTableViewCellDelegate {
@@ -90,7 +90,7 @@ final class NotificationSettingsDeviceTableViewController: UITableViewController
     // MARK: - Table View
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return shouldSendNotifications() ? TableSection.Count.rawValue : 1;
+        return shouldSendNotifications() ? TableSection._count.rawValue : 1;
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -98,9 +98,9 @@ final class NotificationSettingsDeviceTableViewController: UITableViewController
         if let tableSection = TableSection(rawValue: section) {
             switch tableSection {
             case .GlobalSetting:
-                rowCount = SectionGlobalSettingRow.Count.rawValue;
+                rowCount = SectionGlobalSettingRow._count.rawValue;
             case .UniqueSetting:
-                rowCount = SectionUniqueSettingRow.Count.rawValue;
+                rowCount = SectionUniqueSettingRow._count.rawValue;
             default:
                 break;
             }

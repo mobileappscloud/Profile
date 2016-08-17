@@ -12,7 +12,7 @@ final class NewBodyMassIndexMetricDelegate: NSObject, NewMetricDelegate {
     
     enum TableSection: Int {
         case Main
-        case Count
+        case _count
     }
     
     var selectedIndex: Int = 0
@@ -262,7 +262,7 @@ extension NewBodyMassIndexMetricDelegate: MetricDetailDisplayDelegate {
 extension NewBodyMassIndexMetricDelegate: UITableViewDataSource {
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return TableSection.Count.rawValue
+        return TableSection._count.rawValue
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

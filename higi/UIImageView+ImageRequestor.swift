@@ -24,22 +24,22 @@ extension UIImageView {
 
 extension UIImageView {
     
-    func setImage(withMediaAsset asset: MediaAsset?) {
+    func setImage(withMediaAsset asset: MediaAsset?, transition: Bool = false) {
         guard let asset = asset else { return }
         
         let width = Int(self.bounds.width)
         let height = Int(self.bounds.height)
         
-        setImage(withMediaAsset: asset, width: width, height: height)
+        setImage(withMediaAsset: asset, width: width, height: height, transition: transition)
     }
     
-    func setImage(withMediaAsset asset: MediaAsset, length: Int) {
-        self.setImage(withMediaAsset: asset, width: length, height: length)
+    func setImage(withMediaAsset asset: MediaAsset, length: Int, transition: Bool = false) {
+        self.setImage(withMediaAsset: asset, width: length, height: length, transition: transition)
     }
     
-    func setImage(withMediaAsset asset: MediaAsset, width: Int, height: Int) {
+    func setImage(withMediaAsset asset: MediaAsset, width: Int, height: Int, transition: Bool = false) {
         let assetURL = asset.sizedURI(width, height: height)
-        self.higi_setImage(withURL: assetURL)
+        self.higi_setImage(withURL: assetURL, transition: transition)
     }
     
     // TODO: Rename without namespace after removing conflicting extension

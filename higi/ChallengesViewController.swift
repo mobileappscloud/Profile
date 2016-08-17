@@ -10,6 +10,16 @@ final class ChallengesViewController: UIViewController {
             static let ChallengesTableViewController = "ChallengesTableViewController"
         }
     }
+    
+    private var userController: UserController!
+    
+    func configureWith(userController userController: UserController) {
+        self.userController = userController
+    }
+    
+    override func viewDidLoad() {
+        title = NSLocalizedString("CHALLENGES_VIEW_TITLE", comment: "Title for challenges view.")
+    }
 }
 
 // MARK: - Navigation
@@ -19,18 +29,16 @@ extension ChallengesViewController {
         if segue.identifier == ChallengesViewController.Storyboard.Segue.segmentedPage {
             let segmentedPageViewController = segue.destinationViewController as! SegmentedPageViewController
             
-            let horizontalMargin: CGFloat = 60.0
-            segmentedPageViewController.segmentedControlHorizontalMargin = horizontalMargin
-            
-            let titles = ["Active", "New", "Finished"] // TODO: Peter Ryszkiewicz: Localize
-            let vc = UIViewController()
-            vc.view.backgroundColor = UIColor.orangeColor()
-            let activeChallengesVC = storyboard!.instantiateViewControllerWithIdentifier(ChallengesViewController.Storyboard.Identifier.ChallengesTableViewController)
-            
-            
-            let viewControllers = [activeChallengesVC, vc, vc]
-            
-            segmentedPageViewController.set(viewControllers, titles: titles)
+            let titles = [
+                NSLocalizedString("CHALLENGES_VIEW_SEGMENTED_CONTROL_SEGMENT_TITLE_CURRENT", comment: "Segment title for Current on segmented control in the challenges view."),
+                NSLocalizedString("CHALLENGES_VIEW_SEGMENTED_CONTROL_SEGMENT_TITLE_FINISHED", comment: "Segment title for Finished on segmented control in the challenges view.")
+            ]
+            let currentChallengesVC = storyboard!.instantiateViewControllerWithIdentifier(ChallengesViewController.Storyboard.Identifier.ChallengesTableViewController) as! ChallengesTableViewController
+            currentChallengesVC.configureWith(userController: userController, tableType: .Current)
+            let finishedChallengesVC = storyboard!.instantiateViewControllerWithIdentifier(ChallengesViewController.Storyboard.Identifier.ChallengesTableViewController) as! ChallengesTableViewController
+            finishedChallengesVC.configureWith(userController: userController, tableType: .Finished)
+
+            segmentedPageViewController.set([currentChallengesVC, finishedChallengesVC], titles: titles)
         }
         
     }

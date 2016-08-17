@@ -364,13 +364,15 @@ extension CommunityDetailViewController {
             let feedTitle = NSLocalizedString("COMMUNITY_DETAIL_SEGMENTED_CONTROL_SEGMENT_TITLE_FEED", comment: "Segment title for Feed on segmented control in community detail.")
             let feedTableViewController = UIStoryboard(name: "Feed", bundle: nil).instantiateInitialViewController() as! FeedTableViewController
             feedTableViewController.configure(userController, entity: .Community, entityId: community.identifier, targetPresentationViewController: self)
-            
+            let challengesVC = UIStoryboard(name: "Challenges", bundle: nil).instantiateViewControllerWithIdentifier(ChallengesViewController.Storyboard.Identifier.ChallengesTableViewController) as! ChallengesTableViewController
+            challengesVC.configureWith(userController: userController, tableType: .CommunityDetail)
+
             let challengesTitle = NSLocalizedString("COMMUNITY_DETAIL_SEGMENTED_CONTROL_SEGMENT_TITLE_CHALLENGES", comment: "Segment title for Challenges on segmented control in community detail.")
             let chatterTitle = NSLocalizedString("COMMUNITY_DETAIL_SEGMENTED_CONTROL_SEGMENT_TITLE_CHATTER", comment: "Segment title for Chatter on segmented control in community detail.")
             let rewardsTitle = NSLocalizedString("COMMUNITY_DETAIL_SEGMENTED_CONTROL_SEGMENT_TITLE_REWARDS", comment: "Segment title for Rewards on segmented control in community detail.")
             
             let titles = [feedTitle, challengesTitle, chatterTitle, rewardsTitle]
-            let viewControllers = [feedTableViewController, UIViewController(), UIViewController(), UIViewController()]
+            let viewControllers = [feedTableViewController, challengesVC, UIViewController(), UIViewController()]
             segmentedPage.set(viewControllers, titles: titles)
         }
     }

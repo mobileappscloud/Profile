@@ -8,7 +8,7 @@ enum BrandedDevice {
 private enum TableSection: Int {
     case BrandedDevice
     case VendorDevice
-    case Count
+    case _count
 }
 
 final class ConnectDeviceViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -94,7 +94,7 @@ final class ConnectDeviceViewController: UIViewController, UITableViewDelegate, 
                 device = brandedDevices[indexPath.row]
             case .VendorDevice:
                 device = vendorDevices[indexPath.row]
-            case .Count:
+            case ._count:
                 break;
             }
         }
@@ -151,7 +151,7 @@ final class ConnectDeviceViewController: UIViewController, UITableViewDelegate, 
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return TableSection.Count.rawValue
+        return TableSection._count.rawValue
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -162,7 +162,7 @@ final class ConnectDeviceViewController: UIViewController, UITableViewDelegate, 
                 rowCount = HealthKitManager.isHealthDataAvailable() ? brandedDevices.count : 0
             case .VendorDevice:
                 rowCount = vendorDevices.count
-            case .Count:
+            case ._count:
                 break
             }
         }

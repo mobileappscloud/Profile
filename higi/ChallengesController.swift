@@ -8,12 +8,7 @@
 
 final class ChallengesController {
     
-    private(set) var challenges: [HigiChallenge] = []
-    
-    var activeChallenges:[HigiChallenge] = []
-    var upcomingChallenges:[HigiChallenge] = []
-    var availableChallenges:[HigiChallenge] = []
-    var invitedChallenges:[HigiChallenge] = []
+    private(set) var challenges: [Challenge] = []
     
     private lazy var session: NSURLSession = APIClient.sharedSession
     
@@ -26,15 +21,30 @@ final class ChallengesController {
     }
 }
 
+//MARK: - Enums
+extension ChallengesController {
+    enum ChallengeType {
+        case Current
+        case Finished
+        
+        var asFilter: [ChallengeCollectionRequest.Filter] {
+            switch self {
+                case .Current: return [.current, .upcoming]
+                case .Finished: return [.finished]
+            }
+        }
+    }
+}
+
 extension ChallengesController {
     
-    func fetch(forUser user: User, success: () -> Void, failure: () -> Void) {
+    func fetch(forUser user: User, challengesType: ChallengeType, success: () -> Void, failure: () -> Void) {
         let gravityBoard = 3
         let participants = 50
         let comments = 50
         let teamComments = 50
         
-        ChallengeCollectionRequest(userId: user.identifier, gravityBoard: gravityBoard, participants: participants, comments: comments, teamComments: teamComments).request({ [weak self] (request, error) in
+        ChallengeCollectionRequest(userId: user.identifier, gravityBoard: gravityBoard, participants: participants, comments: comments, teamComments: teamComments, filters: challengesType.asFilter).request({ [weak self] (request, error) in
             
             guard let strongSelf = self,
                 let request = request else {
@@ -47,7 +57,7 @@ extension ChallengesController {
                 guard let strongSelf = strongSelf else { return }
                 
                 strongSelf.fetchTask = nil
-                let results = CollectionDeserializer.parse(collectionJSONResponse: JSON, forResource: HigiChallenge.self)
+                let results = CollectionDeserializer.parse(collectionJSONResponse: JSON, forResource: Challenge.self)
                 strongSelf.challenges = results.collection
                 success()
                 
@@ -64,7 +74,7 @@ extension ChallengesController {
 
 extension ChallengesController {
     
-    func fetch(challenge: HigiChallenge, user: User, success: (challenge: HigiChallenge) -> Void, failure: () -> Void) {
+    func fetch(challenge: Challenge, user: User, success: (challenge: Challenge) -> Void, failure: () -> Void) {
         
         let gravityBoard = 3
         let participants = 50
@@ -83,7 +93,7 @@ extension ChallengesController {
                 
                 guard let strongSelf = strongSelf,
                     let challengeDictionary = JSON as? NSDictionary,
-                    let updatedChallenge = HigiChallenge(dictionary: challengeDictionary) else {
+                    let updatedChallenge = Challenge(dictionary: challengeDictionary) else {
                         failure()
                         return
                 }
@@ -105,11 +115,10 @@ extension ChallengesController {
 
 extension ChallengesController {
     
-    func join(challenge: HigiChallenge, user: User, success: () -> Void, failure: () -> Void) {
-        guard let URLString = challenge.joinUrl,
-            let joinURL = NSURL(string: URLString as String) else {
-                failure()
-                return
+    func join(challenge: Challenge, user: User, success: () -> Void, failure: () -> Void) {
+        guard let joinURL = challenge.userRelation.joinURL else {
+            failure()
+            return
         }
         
         ChallengeJoinRequest(joinURL: joinURL, user: user).request({ [weak self] (request, error) in

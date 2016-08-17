@@ -8,7 +8,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChallengeInformationView" customModule="higi" customModuleProvider="target">
             <connections>
-                <outlet property="goalProgressView" destination="Cmb-di-u5w" id="Cz1-fk-jJq"/>
                 <outlet property="lowerLabel" destination="Off-6Q-cvh" id="SHO-hY-C3q"/>
                 <outlet property="rightImageContainer" destination="1GK-wj-HI7" id="ycM-uS-Z69"/>
                 <outlet property="rightImageView" destination="pA3-kf-PWr" id="ZR0-Sl-D3u"/>
@@ -68,19 +67,12 @@
                         <constraint firstAttribute="bottom" secondItem="sjQ-jr-dBe" secondAttribute="bottom" id="Wbn-WW-lfW"/>
                     </constraints>
                 </stackView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cmb-di-u5w" userLabel="Progress View" customClass="ChallengeProgressView" customModule="higi" customModuleProvider="target">
-                    <rect key="frame" x="35" y="0.0" width="278" height="184"/>
-                </view>
             </subviews>
             <color key="backgroundColor" red="0.1960784314" green="0.1960784314" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="HqY-tm-SNa" firstAttribute="top" secondItem="hQg-dp-Z5b" secondAttribute="top" id="JdY-Da-9ph"/>
-                <constraint firstItem="Cmb-di-u5w" firstAttribute="leading" secondItem="hQg-dp-Z5b" secondAttribute="leading" constant="35" id="Reh-AM-S31"/>
                 <constraint firstAttribute="bottom" secondItem="HqY-tm-SNa" secondAttribute="bottom" id="ZWA-qW-d8o"/>
-                <constraint firstAttribute="trailing" secondItem="Cmb-di-u5w" secondAttribute="trailing" constant="35" id="gej-ga-DjW"/>
                 <constraint firstAttribute="trailing" secondItem="HqY-tm-SNa" secondAttribute="trailing" id="lqh-NR-oCA"/>
-                <constraint firstAttribute="bottom" secondItem="Cmb-di-u5w" secondAttribute="bottom" id="mSh-8P-Pwj"/>
-                <constraint firstItem="Cmb-di-u5w" firstAttribute="top" secondItem="hQg-dp-Z5b" secondAttribute="top" id="qDd-z8-pPe"/>
                 <constraint firstItem="HqY-tm-SNa" firstAttribute="leading" secondItem="hQg-dp-Z5b" secondAttribute="leading" constant="10" id="rnT-YB-UP8"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
