@@ -12,7 +12,7 @@ final class ChallengesTableViewController: UIViewController {
     private var userController: UserController!
     private var tableType: TableType!
     
-    private lazy var activeChallengeViewModels: [ChallengeTableViewCellModel] = []
+    private lazy var challengeViewModels: [ChallengeTableViewCellModel] = []
     private lazy var challengesController = ChallengesController()
     
     @IBOutlet var tableView: UITableView! {
@@ -40,7 +40,7 @@ final class ChallengesTableViewController: UIViewController {
             [weak self] in
             dispatch_async(dispatch_get_main_queue()) {
                 guard let strongSelf = self else { return }
-                strongSelf.activeChallengeViewModels = strongSelf.challengesController.challenges.map(ChallengeTableViewCellModel.init)
+                strongSelf.challengeViewModels = strongSelf.challengesController.challenges.map(ChallengeTableViewCellModel.init)
                 strongSelf.tableView.reloadData()
             }
         }, failure: {
@@ -52,7 +52,7 @@ final class ChallengesTableViewController: UIViewController {
 //MARK: - UITableViewDataSource
 extension ChallengesTableViewController: UITableViewDataSource {
     var separatorCount: Int {
-        return activeChallengeViewModels.count
+        return challengeViewModels.count
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -67,7 +67,7 @@ extension ChallengesTableViewController: UITableViewDataSource {
         
         switch sectionType {
         case .Challenges:
-            rowCount = activeChallengeViewModels.count + separatorCount
+            rowCount = challengeViewModels.count + separatorCount
         case .InfiniteScroll:
             rowCount = InfiniteScrollRowType._count.rawValue
         case ._count:
@@ -89,7 +89,7 @@ extension ChallengesTableViewController: UITableViewDataSource {
             switch rowType {
             case .Content:
                 let challengeCell = tableView.dequeueReusableCell(withClass: ChallengeTableViewCell.self)!
-                challengeCell.setModel(activeChallengeViewModels[indexPath.row / ChallengesRowType._count.rawValue])
+                challengeCell.setModel(challengeViewModels[indexPath.row / ChallengesRowType._count.rawValue])
                 challengeCell.challengeProgressView?.userImageView.setImage(withMediaAsset: userController.user.photo, transition: true)
                 cell = challengeCell
                 

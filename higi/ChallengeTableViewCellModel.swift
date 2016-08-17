@@ -29,7 +29,10 @@ final class ChallengeTableViewCellModel {
         titleText = challenge.name
         challengeStatusState = State(withChallenge: challenge)
         dateText = ChallengeTableViewCellModel.getFormattedDateRangeFor(startDate: challenge.startDate, endDate: challenge.endDate)
-        participantCountText = "\(challenge.participantCount) \(NSLocalizedString("CHALLENGES_VIEW_CARD_PARTICIPATING_TEXT", comment: "Text for the number of people participating in a challenge."))"
+        let participantCountFormat = NSLocalizedString("CHALLENGES_VIEW_CARD_PARTICIPANT_COUNT_FORMAT", comment: "Format for the number of people participating in a challenge. For example, 12k participating")
+        let participantCount = Utility.abbreviatedNumber(challenge.participantCount).formattedString
+        let participatingText = NSLocalizedString("CHALLENGES_VIEW_CARD_PARTICIPATING_TEXT", comment: "Text for the number of people participating in a challenge.")
+        participantCountText = String(format: participantCountFormat, arguments: [participantCount, participatingText])
         mainImageAsset = challenge.image
         communityImageAsset = challenge.community?.logo
         communityText = challenge.community?.name
@@ -68,29 +71,35 @@ extension ChallengeTableViewCellModel {
             endDateFormatter = NSDateFormatter.challengeCardEndDateFormatter
         }
         
-        return "\(startDateFormatter.stringFromDate(startDate)) - \(endDateFormatter.stringFromDate(endDate))"
+        return String(
+            format: NSLocalizedString("CHALLENGES_VIEW_CARD_INFORMATION_DATE_RANGE_FORMAT", comment: "Format for displaying a range of dates in the Challenge card, like startDate - endDate."),
+            arguments: [startDateFormatter.stringFromDate(startDate), endDateFormatter.stringFromDate(endDate)]
+        )
     }
     
     private class func makeAttributedStringFor(goalDescription goalDescriptionString: String) -> NSAttributedString {
-        let goalString = "\(NSLocalizedString("CHALLENGES_VIEW_CARD_INFORMATION_GOAL_TEXT", comment: "Text for Goal on the challenge card information view.")): "
-        return makeAttributedStringFor(title: goalString, description:  goalDescriptionString)
+        let goalFormat = NSLocalizedString("CHALLENGES_VIEW_CARD_INFORMATION_GOAL_FORMAT", comment: "Format for the goal description on the challenge card information view.")
+        let goalString = NSLocalizedString("CHALLENGES_VIEW_CARD_INFORMATION_GOAL_TEXT", comment: "Text for Goal for the goal description on the challenge card information view.")
+        return makeAttributedStringFor(format: goalFormat, title: goalString, description: goalDescriptionString)
     }
     
     private class func makeAttributedStringFor(prizesDescription prizesDescriptionString: String) -> NSAttributedString {
-        let prizesString = "\(NSLocalizedString("CHALLENGES_VIEW_CARD_INFORMATION_PRIZES_TEXT", comment: "Text for Prizes on the challenge card information view.")): "
-        return makeAttributedStringFor(title: prizesString, description:  prizesDescriptionString)
+        let prizesFormat = NSLocalizedString("CHALLENGES_VIEW_CARD_INFORMATION_PRIZES_FORMAT", comment: "Format for the prize description on the challenge card information view.")
+        let prizesString = NSLocalizedString("CHALLENGES_VIEW_CARD_INFORMATION_PRIZES_TEXT", comment: "Text for Prizes for the prize description on the challenge card information view.")
+        return makeAttributedStringFor(format: prizesFormat, title: prizesString, description:  prizesDescriptionString)
     }
     
-    private class func makeAttributedStringFor(title titleString: String, description descriptionString: String) -> NSAttributedString {
-        let entireAttributedString = NSMutableAttributedString(string: titleString, attributes: [
+    private class func makeAttributedStringFor(format formatString: String, title titleString: String, description descriptionString: String) -> NSAttributedString {
+        let attributedString = NSMutableAttributedString(string: String(format: formatString, arguments: [titleString, descriptionString]))
+        let rangeOfTitleText = (attributedString.string as NSString).rangeOfString(titleString)
+        attributedString.setAttributes([
             NSFontAttributeName: UIFont.boldSystemFontOfSize(challengeInfoFontSize)
-        ])
-        
-        entireAttributedString.appendAttributedString(NSMutableAttributedString(string: descriptionString, attributes: [
+        ], range: rangeOfTitleText)
+        let rangeOfDescriptionText = (attributedString.string as NSString).rangeOfString(descriptionString)
+        attributedString.setAttributes([
             NSFontAttributeName: UIFont.systemFontOfSize(challengeInfoFontSize)
-        ]))
-        
-        return entireAttributedString
+        ], range: rangeOfDescriptionText)
+        return attributedString
     }
 }
 

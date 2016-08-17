@@ -211,14 +211,26 @@
 /* Text for Challenge is Complete on the challenge card information view. */
 "CHALLENGES_VIEW_CARD_INFORMATION_CHALLENGE_COMPLETE_TEXT" = "Challenge is Complete";
 
-/* Text for Goal on the challenge card information view. */
+/* Format for displaying a range of dates in the Challenge card, like startDate - endDate. */
+"CHALLENGES_VIEW_CARD_INFORMATION_DATE_RANGE_FORMAT" = "%@ - %@";
+
+/* Format for the goal description on the challenge card information view. */
+"CHALLENGES_VIEW_CARD_INFORMATION_GOAL_FORMAT" = "%@: %@";
+
+/* Text for Goal for the goal description on the challenge card information view. */
 "CHALLENGES_VIEW_CARD_INFORMATION_GOAL_TEXT" = "Goal";
 
-/* Text for Prizes on the challenge card information view. */
+/* Format for the prize description on the challenge card information view. */
+"CHALLENGES_VIEW_CARD_INFORMATION_PRIZES_FORMAT" = "%@: %@";
+
+/* Text for Prizes for the prize description on the challenge card information view. */
 "CHALLENGES_VIEW_CARD_INFORMATION_PRIZES_TEXT" = "Prizes";
 
 /* Text for Tabulating Results on the challenge card information view. */
 "CHALLENGES_VIEW_CARD_INFORMATION_TABULATING_RESULTS_TEXT" = "Tabulating Results";
+
+/* Format for the number of people participating in a challenge. For example, 12k participating */
+"CHALLENGES_VIEW_CARD_PARTICIPANT_COUNT_FORMAT" = "%@ %@";
 
 /* Text for the number of people participating in a challenge. */
 "CHALLENGES_VIEW_CARD_PARTICIPATING_TEXT" = "participating";
@@ -600,6 +612,9 @@
 
 /* General purpose abbreviated label for beats per minute. */
 "GENERAL_PURPOSE_UNIT_LABEL_ABBR_BEATS_PER_MINUTE" = "bpm";
+
+/* General purpose abbreviated label for the scientific unit, kilo. */
+"GENERAL_PURPOSE_UNIT_LABEL_ABBR_KILO" = "k";
 
 /* General purpose abbreviated label for the units of millimeter of mercury. */
 "GENERAL_PURPOSE_UNIT_LABEL_ABBR_MILLIMETERS_OF_MERCURY" = "mmHg";

@@ -198,7 +198,7 @@ extension Utility {
         case 1000...999999:
             integerPart = Int(floor(number / 1000))
             fractionPart = Int(floor((number % 1000)/100))
-            scientificUnit = "k"
+            scientificUnit = NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_KILO", comment: "General purpose abbreviated label for the scientific unit, kilo.")
         default:
             integerPart = Int(number)
             fractionPart = 0
