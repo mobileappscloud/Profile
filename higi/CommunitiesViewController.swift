@@ -11,9 +11,13 @@ final class CommunitiesViewController: UIViewController {
     struct Storyboard {
         static let name = "Communities"
         
-        private struct Scene {
+        struct Scene {
             static let listView = "CommunitiesListView"
             static let loadingView = "CommunityListLoading"
+            
+            struct Detail {
+                static let identifier = "CommunityDetailViewController"
+            }
         }
         
         struct Segue {

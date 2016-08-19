@@ -27,18 +27,18 @@ final class TermsAndConditionsViewController: UIViewController {
     
     @IBAction func acceptClick(sender: AnyObject) {
         parent.joinAccepted = true;
-        self.dismissViewControllerAnimated(false, completion: {
+        self.dismissViewControllerAnimated(true, completion: {
             self.parent.joinChallenge();
         });
     }
     
     @IBAction func declineClick(sender: AnyObject) {
         parent.joinAccepted = false;
-        self.dismissViewControllerAnimated(false, completion: nil);
+        self.dismissViewControllerAnimated(true, completion: nil);
     }
     
     @IBAction func closeButtonClick(sender: AnyObject) {
-        self.dismissViewControllerAnimated(false, completion: nil);
+        self.dismissViewControllerAnimated(true, completion: nil);
     }
     
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {

@@ -266,6 +266,18 @@ extension Theme.Color {
     
 }
 
+extension Theme.Color.Challenge {
+    
+    struct Detail {}
+}
+
+extension Theme.Color.Challenge.Detail {
+    
+    struct Segment {
+        static let officialRulesText = Utility.colorFromHexString("#8CC63F")
+    }
+}
+
 
 // MARK: - Content Service
 

@@ -131,7 +131,7 @@
         <!--Community Detail View Controller-->
         <scene sceneID="xb6-ta-jQq">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="vMv-wY-HRM" customClass="CommunityDetailViewController" customModule="higi" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CommunityDetailViewController" automaticallyAdjustsScrollViewInsets="NO" id="vMv-wY-HRM" customClass="CommunityDetailViewController" customModule="higi" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="aKD-i0-cPG"/>
                         <viewControllerLayoutGuide type="bottom" id="enw-0s-g4t"/>

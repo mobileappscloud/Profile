@@ -17,10 +17,20 @@ final class Challenge: UniquelyIdentifiable {
     /// Name of a challenge.
     let name: String
     
-    /// Full description for a challenge in `HTML`.
+    /**
+     Full description for a challenge in `HTML`.
+     
+     - SeeAlso `shortDescription`
+     */
     let description: String
     
-    /// Text-only short description for a challenge.
+    /**
+     Text-only short description for a challenge.
+     
+     **Note** This property may need to be sanitized before it is display-ready.
+     
+     - SeeAlso `sanitizedShortDescription`
+     */
     let shortDescription: String
     
     /// Logo image for a challenge
@@ -133,6 +143,17 @@ extension Challenge {
     /// Highest score amongst all individual participants.
     var individualHighScore: Double {
         return participants.map({$0.units}).maxElement() ?? 0.0
+    }
+}
+
+extension Challenge {
+    
+    /// Sanitizes `shortDescription` by removing `HTML` entities and select whitespace characters to produce a display-ready string.
+    var sanitizedShortDescription: String {
+        var sanitizedShortDescription = shortDescription.stringByDecodingHTMLEntities();
+        sanitizedShortDescription = sanitizedShortDescription.stringByReplacingOccurrencesOfString("\r", withString: "", options: .LiteralSearch, range: nil)
+        sanitizedShortDescription = sanitizedShortDescription.stringByReplacingOccurrencesOfString("\t", withString: "", options: .LiteralSearch, range: nil)
+        return sanitizedShortDescription
     }
 }
 

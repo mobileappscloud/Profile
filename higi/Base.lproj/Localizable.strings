@@ -49,6 +49,30 @@
 /* Name for branded activity tracker which leverages HealthKit data. */
 "BRANDED_ACTIVITY_DEVICE_NAME" = "higi";
 
+/* Header for description section within the detail segment on challenge details. */
+"CHALLENGE_DETAIL_SEGMENT_HEADER_DESCRIPTION" = "Description";
+
+/* Header for goal section within the detail segment on challenge details. */
+"CHALLENGE_DETAIL_SEGMENT_HEADER_GOAL" = "Goal";
+
+/* Title for view within challenge detail segment which navigates the user to the official rules. */
+"CHALLENGE_DETAIL_SEGMENT_OFFICIAL_RULES_TITLE" = "Official Rules";
+
+/* Title for 'chatter' segment on segmented control within the challenge detail view. */
+"CHALLENGE_DETAIL_SEGMENTED_PAGE_SEGMENT_TITLE_CHATTER" = "Chatter";
+
+/* Title for 'detail' segment on segmented control within the challenge detail view. */
+"CHALLENGE_DETAIL_SEGMENTED_PAGE_SEGMENT_TITLE_DETAIL" = "Details";
+
+/* Title for 'leaderboard' segment on segmented control within the challenge detail view. */
+"CHALLENGE_DETAIL_SEGMENTED_PAGE_SEGMENT_TITLE_LEADERBOARD" = "Leaderboard";
+
+/* Title for 'participants' segment on segmented control within the challenge detail view. */
+"CHALLENGE_DETAIL_SEGMENTED_PAGE_SEGMENT_TITLE_PARTICIPANTS" = "Participants";
+
+/* Title for 'prizes' segment on segmented control within the challenge detail view. */
+"CHALLENGE_DETAIL_SEGMENTED_PAGE_SEGMENT_TITLE_PRIZES" = "Prizes";
+
 /* Text label for challenge detail participant icon units. */
 "CHALLENGE_DETAILS_PARTICIPANT_ICON_LABEL_UNITS" = "Individuals";
 
