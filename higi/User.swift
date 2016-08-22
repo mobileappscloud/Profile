@@ -95,7 +95,7 @@ extension User: JSONInitializable {
                 return nil
         }
         
-        let dateOfBirth = NSDateFormatter.MMddyyyyDateFormatter.date(fromObject: dictionary["dateOfBirth"])
+        let dateOfBirth = NSDateFormatter.YYYYMMddDateFormatter.date(fromObject: dictionary["dateOfBirth"])
         let firstName = dictionary["firstName"] as? String
         let lastName = dictionary["lastName"] as? String
         
@@ -132,7 +132,7 @@ extension User: JSONSerializable {
         
         mutableDictionary["id"] = identifier
         mutableDictionary["email"] = email
-        mutableDictionary["dateOfBirth"] = (dateOfBirth != nil) ? NSDateFormatter.MMddyyyyDateFormatter.stringFromDate(dateOfBirth!) : NSNull()
+        mutableDictionary["dateOfBirth"] = (dateOfBirth != nil) ? NSDateFormatter.YYYYMMddDateFormatter.stringFromDate(dateOfBirth!) : NSNull()
         
         mutableDictionary["firstName"] = firstName ?? NSNull()
         mutableDictionary["lastName"] = lastName  ?? NSNull()

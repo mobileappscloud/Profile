@@ -19,7 +19,7 @@ final class UserDateOfBirthUpdateRequest: ProtectedAPIRequest {
     func request(completion: APIRequestAuthenticatorCompletion) {
         
         let parameters = NSMutableDictionary()
-        parameters["dateOfBirth"] = NSDateFormatter.MMddyyyyDateFormatter.stringFromDate(dateOfBirth)
+        parameters["dateOfBirth"] = NSDateFormatter.YYYYMMddDateFormatter.stringFromDate(dateOfBirth)
         
         UserUpdateRequest(user: user, parameters: parameters).request(completion)
     }
