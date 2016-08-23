@@ -20,12 +20,14 @@ final class ChallengeTableViewCellModel {
     let challengeInformationLowerText: NSAttributedString?
     let challengeInformationImage: UIImage?
     let progressMilestones: [CGFloat]?
+    let challenge: Challenge
 
     var isChallengeJoinable: Bool {
-        return challengeStatusState.isJoinable
+        return challenge.canBeJoined && challenge.userRelation.joinURL != nil
     }
     
     init(challenge: Challenge) {
+        self.challenge = challenge
         titleText = challenge.name
         challengeStatusState = State(withChallenge: challenge)
         dateText = ChallengeTableViewCellModel.getFormattedDateRangeFor(startDate: challenge.startDate, endDate: challenge.endDate)
@@ -140,13 +142,6 @@ extension ChallengeTableViewCellModel {
                 return
             }
             self = .unjoinedAndNotUnderway
-        }
-        
-        var isJoinable: Bool {
-            switch self {
-                case .unjoinedAndUnderway, .unjoinedAndNotUnderway: return true
-                default: return false
-            }
         }
     }
 }

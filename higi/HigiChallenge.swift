@@ -4,7 +4,7 @@ final class HigiChallenge: JSONInitializable {
     
     var identifier: String!
     
-    var name, description, shortDescription, imageUrl, metric, status, userStatus, terms, abbrMetric, joinUrl, commentsUrl, url: NSString!;
+    var name, description, shortDescription, imageUrl, metric, status, userStatus, terms, abbrMetric, joinURL, commentsUrl, url: NSString!;
     
     var startDate, endDate: NSDate!;
     
@@ -104,7 +104,7 @@ final class HigiChallenge: JSONInitializable {
         abbrMetric = metric.stringByReplacingOccurrencesOfString("points", withString: "pts");
         dailyLimit = dictionary["dailyLimit"] as! Int;
         let userRelation = dictionary["userRelation"] as! NSDictionary;
-        joinUrl = userRelation["joinUrl"] as? NSString;
+        joinURL = userRelation["joinUrl"] as? NSString;
         commentsUrl = dictionary["commentsUrl"] as? NSString;
         entryFee = (dictionary["entryFee"] ?? 0) as! Float;
         let formatter = NSDateFormatter();

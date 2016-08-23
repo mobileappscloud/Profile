@@ -74,7 +74,7 @@ extension Challenge.UserRelation: JSONInitializable {
         self.status = status
         self.gravityBoard = GravityBoard(fromJSONObject: dictionary)
         self.participant = Challenge.Participant(fromJSONObject: dictionary["participant"])
-        self.joinURL = NSURL(responseObject: dictionary["joinURL"])
+        self.joinURL = NSURL(responseObject: dictionary["joinUrl"])
     }
 }
 

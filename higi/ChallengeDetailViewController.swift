@@ -91,6 +91,14 @@ final class ChallengeDetailViewController: UIViewController {
     
     /// Controller for challenge details.
     private var challengeDetailController: ChallengeDetailController!
+    
+    private var userDidJoinChallengeCallback: (() -> ())?
+    
+    lazy private var blurredLoadingViewController: BlurredLoadingViewController = {
+        let storyboard = UIStoryboard(name: "BlurredLoading", bundle: nil)
+        return storyboard.instantiateInitialViewController() as! BlurredLoadingViewController
+    }()
+    
 }
 
 // MARK: - Dependency Injection
@@ -103,9 +111,10 @@ extension ChallengeDetailViewController {
      - parameter userController: Controller for current authenticated user.
      - parameter challenge:      Challenge to view details for.
      */
-    func configure(withUserController userController: UserController, challenge: Challenge) {
+    func configure(withUserController userController: UserController, challenge: Challenge, userDidJoinChallengeCallback: (() -> ())?) {
         self.userController = userController
         self.challengeDetailController = ChallengeDetailController(challenge: challenge)
+        self.userDidJoinChallengeCallback = userDidJoinChallengeCallback
     }
 }
 
@@ -214,5 +223,51 @@ extension ChallengeDetailViewController {
         segmentedPageViewController.set(viewControllers, titles: titles)
         segmentedPageViewController.view.backgroundColor = UIColor.clearColor()
         segmentedPageViewController.segmentedControlHorizontalMargin = 0.0
+    }
+}
+
+//MARK: - Joining a challenge
+
+extension ChallengeDetailViewController: TermsAndConditionsDelegate {
+    func joinChallenge() {
+        showTermsAndConditions()
+    }
+    
+    private func showTermsAndConditions() {
+        guard let challengeTerms = challengeDetailController.challenge.terms else {
+            // bad state, user attempted to join non-joinable challenge
+            return
+        }
+        let termsViewController = TermsAndConditionsViewController(nibName: "TermsAndConditionsView", bundle: nil)
+        termsViewController.configure(delegate: self, html: challengeTerms, responseRequired: true)
+        presentViewController(termsViewController, animated: true, completion: nil)
+    }
+    
+    func acceptTerms(withValue accepted: Bool) {
+        dismissViewControllerAnimated(true, completion: {
+            guard accepted else { return }
+            self.joinChallengeApiCall(withChallenge: self.challengeDetailController.challenge)
+        })
+    }
+    
+    func closeTerms() {} // should never happen from this, since a response is required
+
+    private func joinChallengeApiCall(withChallenge challenge: Challenge) {
+        guard let user = userController?.user else { return }
+        blurredLoadingViewController.show(self)
+        challengeDetailController.join(challenge, user: user, success: {
+            [weak self] in
+            dispatch_async(dispatch_get_main_queue()) {
+                self?.userDidJoinChallengeCallback?()
+                self?.blurredLoadingViewController.hide()
+            }
+            //TODO: Peter Ryszkiewicz: hide join and show invite button
+        }, failure: {
+            [weak self] in
+            dispatch_async(dispatch_get_main_queue()) {
+                self?.blurredLoadingViewController.hide()
+                //TODO: Peter Ryszkiewicz
+            }
+        })
     }
 }

@@ -117,22 +117,19 @@ extension HostViewController {
     }
     
     private func checkCachedToken() {
-        if hostController.authorizationTokenIsCached() {
-            if hostController.authorizationTokenIsLegacyToken() {
-                
-                hostController.migrateLegacyToken({ [weak self] in
-                    self?.initAuthenticatedUserFlow()
-                }, failure: { [weak self] in
-                    self?.navigateToWelcomeView()
-                })
-                
-            } else {
-                // We can skip validation of OAuth2 access token because the networking layer automatically wraps authenticated requests with logic to refresh invalid tokens and log out if a refreshed access token can not be obtained.
-                initAuthenticatedUserFlow()
-            }
-        } else {
-            navigateToWelcomeView()
+        guard hostController.authorizationTokenIsCached() else {
+            return navigateToWelcomeView()
         }
+        if hostController.authorizationTokenIsLegacyToken() {
+            hostController.migrateLegacyToken({ [weak self] in
+                self?.initAuthenticatedUserFlow()
+            }, failure: { [weak self] in
+                self?.navigateToWelcomeView()
+            })
+            return
+        }
+        // We can skip validation of OAuth2 access token because the networking layer automatically wraps authenticated requests with logic to refresh invalid tokens and log out if a refreshed access token can not be obtained.
+        initAuthenticatedUserFlow()
     }
 }
 

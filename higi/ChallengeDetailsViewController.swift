@@ -227,8 +227,8 @@ final class ChallengeDetailsViewController: UIViewController, UIScrollViewDelega
     
     @IBAction func joinButtonClick(sender: AnyObject) {
         Flurry.logEvent("ChallengeJoined");
-        if (challenge.joinUrl != nil) {
-            showTermsAndConditions(challenge.joinUrl as String);
+        if (challenge.joinURL != nil) {
+            showTermsAndConditions(challenge.joinURL as String);
         } else {
             showTeamsPicker();
         }
@@ -293,12 +293,10 @@ final class ChallengeDetailsViewController: UIViewController, UIScrollViewDelega
 //        })
     }
 
-    func showTermsAndConditions(joinUrl: String) {
+    func showTermsAndConditions(joinURL: String) {
         let termsController = TermsAndConditionsViewController(nibName: "TermsAndConditionsView", bundle: nil);
-        termsController.html = challenge.terms as String;
-        termsController.joinUrl = joinUrl;
-        termsController.parent = self;
-        termsController.responseRequired = true;
+//        termsController.html = challenge.terms as String;
+//        termsController.responseRequired = true;
         self.presentViewController(termsController, animated: true, completion: { [weak self] in
             guard let strongSelf = self else { return }
             if (strongSelf.joinAccepted) {
@@ -313,7 +311,7 @@ final class ChallengeDetailsViewController: UIViewController, UIScrollViewDelega
         
         for team in challenge.teams {
             let sheetAction = UIAlertAction(title: team.name as String, style: .Default, handler: { action in
-                self.showTermsAndConditions(team.joinUrl as String);
+                self.showTermsAndConditions(team.joinURL as String);
             })
             teamPickerSheet.addAction(sheetAction);
         }
@@ -623,7 +621,7 @@ final class ChallengeDetailsViewController: UIViewController, UIScrollViewDelega
     
     func termsClick(sender: AnyObject) {
         let termsController = TermsAndConditionsViewController(nibName: "TermsAndConditionsView", bundle: nil);
-        termsController.html = challenge.terms as String;
+//        termsController.html = challenge.terms as String;
         self.presentViewController(termsController, animated: true, completion: nil);
     }
     

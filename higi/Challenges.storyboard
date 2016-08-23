@@ -71,11 +71,20 @@
                     </view>
                     <connections>
                         <outlet property="tableView" destination="cSf-Cx-jmG" id="gR8-d6-2et"/>
+                        <segue destination="74M-xa-c2h" kind="custom" identifier="ShowChallengeDetailJoin" customClass="ChallengeDetailJoinSegue" customModule="higi" customModuleProvider="target" id="2HT-Sm-LP8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s2T-Le-GHF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1702" y="369"/>
+            <point key="canvasLocation" x="1934" y="369"/>
+        </scene>
+        <!--ChallengeDetail-->
+        <scene sceneID="kAt-79-1jF">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ChallengeDetail" id="74M-xa-c2h" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oVj-Wj-dgu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2476.5" y="369"/>
         </scene>
         <!--SegmentedPage-->
         <scene sceneID="yIe-VW-uRd">

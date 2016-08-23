@@ -22,9 +22,18 @@ final class ChallengeTableViewCell: UITableViewCell {
     
     @IBOutlet var communityImageView: UIImageView!
     @IBOutlet var communityLabel: UILabel!
+    @IBOutlet var communityInformationView: UIView!
     
-    private(set) var challengeProgressView: ChallengeProgressView?
-        
+    private var challengeProgressView: ChallengeProgressView?
+    
+    private var joinButtonTappedCallback: (() -> ())?
+    
+    func configure(withModel model: ChallengeTableViewCellModel, joinButtonTappedCallback: () -> (), userPhoto: MediaAsset?) {
+        setModel(model)
+        self.joinButtonTappedCallback = joinButtonTappedCallback
+        challengeProgressView?.userImageView.setImage(withMediaAsset: userPhoto, transition: true)
+    }
+    
     func setModel(model: ChallengeTableViewCellModel) {
         titleLabel.text = model.titleText
         challengeStatusIndicatorView.state = model.challengeStatusState
@@ -49,6 +58,8 @@ final class ChallengeTableViewCell: UITableViewCell {
         
         gradientImageView.hidden = !model.isChallengeJoinable
         joinButton.hidden = !model.isChallengeJoinable
+        
+        communityInformationView.hidden = model.communityText == nil || model.communityImageAsset == nil
     }
     
     private func displayChallengeProgressView(model model: ChallengeTableViewCellModel) {
@@ -121,10 +132,17 @@ final class ChallengeTableViewCell: UITableViewCell {
         challengeInformationContainerView.addSubview(challengeInformationView, pinToEdges: true)
     }
     
+    func userDidJoinChallenge() {
+        hideJoinButtonAndGradient()
+    }
+    
+    private func hideJoinButtonAndGradient() {
+        gradientImageView.hidden = true
+        joinButton.hidden = true
+    }
+    
     @IBAction func joinButtonTapped(sender: UIButton) {
-        challengeStatusIndicatorView.state = .cancelled
-        let rand = CGFloat(arc4random_uniform(10))/9.0
-        challengeProgressView?.progress = rand
+        joinButtonTappedCallback?()
     }
     
     override func prepareForReuse() {

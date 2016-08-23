@@ -165,6 +165,7 @@
                 <outlet property="challengeInformationContainerView" destination="SYQ-TL-PpY" id="vXe-iD-8tA"/>
                 <outlet property="challengeStatusIndicatorView" destination="tye-Ia-P7p" id="Cta-kE-dWN"/>
                 <outlet property="communityImageView" destination="dVw-Q1-EFu" id="wcj-PA-T5e"/>
+                <outlet property="communityInformationView" destination="JYg-cm-I5f" id="VeU-H3-cYc"/>
                 <outlet property="communityLabel" destination="1je-bf-Vky" id="1rJ-Nb-8Jo"/>
                 <outlet property="dateLabel" destination="RW7-aZ-MHk" id="6Fq-H6-kuW"/>
                 <outlet property="gradientImageView" destination="gaZ-nt-i0C" id="tsB-ub-dPl"/>

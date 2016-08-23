@@ -2,7 +2,7 @@ import Foundation
 
 final class ChallengeTeam {
     
-    var name, imageUrl, joinUrl: NSString!;
+    var name, imageUrl, joinURL: NSString!;
     
     var memberCount: Int!;
     
@@ -17,7 +17,7 @@ final class ChallengeTeam {
         let imageUrls = dictionary["imageUrl"] as! NSDictionary;
         imageUrl = imageUrls["default"] as! NSString;
         let userRelation = dictionary["userRelation"] as! NSDictionary;
-        joinUrl = userRelation["joinUrl"] as? NSString;
+        joinURL = userRelation["joinUrl"] as? NSString;
     }
     
 }

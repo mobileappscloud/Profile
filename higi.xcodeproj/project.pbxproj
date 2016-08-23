@@ -35,7 +35,9 @@
 		27416E621D49408800876873 /* Challenges.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27416E611D49408800876873 /* Challenges.storyboard */; };
 		279B3B011D49543200058AD6 /* ChallengeTableViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279B3B001D49543200058AD6 /* ChallengeTableViewCellModel.swift */; };
 		27A4AE771D4BB4CA00FEAFF0 /* ChallengeProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A4AE761D4BB4CA00FEAFF0 /* ChallengeProgressView.swift */; };
+		27AC77561D6CD5EF0048316B /* AnyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AC77551D6CD5EF0048316B /* AnyWrapper.swift */; };
 		27B6604D1D4FE2FF00BD9390 /* NSLayoutConstraint+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B6604C1D4FE2FF00BD9390 /* NSLayoutConstraint+Utility.swift */; };
+		27F9F3361D6B4D5F001FA583 /* ChallengeDetailJoinSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F9F3351D6B4D5F001FA583 /* ChallengeDetailJoinSegue.swift */; };
 		27F9F33F1D6B8F00001FA583 /* LeaderboardStatusWidgetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27F9F33E1D6B8F00001FA583 /* LeaderboardStatusWidgetView.xib */; };
 		27F9F3431D6B9290001FA583 /* LeaderboardStatusWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F9F3421D6B9290001FA583 /* LeaderboardStatusWidgetView.swift */; };
 		2BBDBA521A12AC2C005A6815 /* ChallengeRowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBDBA4A1A12AC2C005A6815 /* ChallengeRowCell.swift */; };
@@ -517,7 +519,9 @@
 		27416E631D49477500876873 /* ChallengesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengesTableViewController.swift; sourceTree = "<group>"; };
 		279B3B001D49543200058AD6 /* ChallengeTableViewCellModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeTableViewCellModel.swift; sourceTree = "<group>"; };
 		27A4AE761D4BB4CA00FEAFF0 /* ChallengeProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeProgressView.swift; sourceTree = "<group>"; };
+		27AC77551D6CD5EF0048316B /* AnyWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyWrapper.swift; sourceTree = "<group>"; };
 		27B6604C1D4FE2FF00BD9390 /* NSLayoutConstraint+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSLayoutConstraint+Utility.swift"; sourceTree = "<group>"; };
+		27F9F3351D6B4D5F001FA583 /* ChallengeDetailJoinSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeDetailJoinSegue.swift; sourceTree = "<group>"; };
 		27F9F33E1D6B8F00001FA583 /* LeaderboardStatusWidgetView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeaderboardStatusWidgetView.xib; sourceTree = "<group>"; };
 		27F9F3421D6B9290001FA583 /* LeaderboardStatusWidgetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderboardStatusWidgetView.swift; sourceTree = "<group>"; };
 		2BBDBA4A1A12AC2C005A6815 /* ChallengeRowCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeRowCell.swift; sourceTree = "<group>"; };
@@ -1066,6 +1070,7 @@
 		270ED5731D480F4200476E6A /* Challenges */ = {
 			isa = PBXGroup;
 			children = (
+				27F9F3351D6B4D5F001FA583 /* ChallengeDetailJoinSegue.swift */,
 				273AC8521D4A60A300828FF1 /* ChallengeInformationView.swift */,
 				27A4AE761D4BB4CA00FEAFF0 /* ChallengeProgressView.swift */,
 				4199D39C1CEA930F00EF62F8 /* ChallengesController.swift */,
@@ -2563,6 +2568,7 @@
 		8F296306194B8CB900E787FD /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				27AC77551D6CD5EF0048316B /* AnyWrapper.swift */,
 				41FB22541BE2951F009139B4 /* CrashAnalyticsManager.swift */,
 				8F524BF7195B829400BFC49D /* CustomFormatter.swift */,
 				41E6B5E31C16184200ED922B /* HealthKitManager.swift */,
@@ -3291,6 +3297,7 @@
 				41141FCF1D01E58C0050473E /* ChallengeRequest.swift in Sources */,
 				41F4E5351D67976E003FC114 /* ChallengeDetailSupplementalInfoView.swift in Sources */,
 				413922C61CDA5EB300C3672E /* TermsInfoRequest.swift in Sources */,
+				27F9F3361D6B4D5F001FA583 /* ChallengeDetailJoinSegue.swift in Sources */,
 				4150317A1CAAF07C00A3FB94 /* JSONDeserializable.swift in Sources */,
 				D1FC729D1B20FD9F0068CF89 /* MetricGraphUtility.swift in Sources */,
 				273DFFA91D49087300AF7032 /* ChallengeStatusIndicatorView.swift in Sources */,
@@ -3419,6 +3426,7 @@
 				41BAD2911C4D492700E3A5AB /* MetricBlankStateViewController.swift in Sources */,
 				411F79771CBB457D000D0D64 /* ActivityIndicatorTableViewCell.swift in Sources */,
 				4127AB211D58D974005AEF54 /* UserTermsUpdateRequest.swift in Sources */,
+				27AC77561D6CD5EF0048316B /* AnyWrapper.swift in Sources */,
 				418484C81C72E27F00C26211 /* NewBodyFatMetricDelegate.swift in Sources */,
 				D1EFDC531B45D48400A340DD /* TriangleMarker.swift in Sources */,
 				27B6604D1D4FE2FF00BD9390 /* NSLayoutConstraint+Utility.swift in Sources */,

@@ -27,7 +27,18 @@ final class ChallengesTableViewController: UIViewController {
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         fetchChallenges()
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == ChallengesTableViewController.Storyboard.Segue.showChallengeDetailJoin {
+            guard let challenge = sender?["challenge"] as? Challenge,
+                let userDidJoinChallengeCallback = sender?["userDidJoinChallengeCallback"] as? AnyWrapper<()->()> else { return }
+            (segue.destinationViewController as? ChallengeDetailViewController)?.configure(
+                withUserController: userController, challenge: challenge, userDidJoinChallengeCallback: userDidJoinChallengeCallback.object
+            )
+        }
     }
     
     func configureWith(userController userController: UserController, tableType: TableType) {
@@ -91,9 +102,17 @@ extension ChallengesTableViewController: UITableViewDataSource {
             let rowType = ChallengesRowType(indexPath: indexPath)
             switch rowType {
             case .Content:
-                let challengeCell = tableView.dequeueReusableCell(withClass: ChallengeTableViewCell.self)!
-                challengeCell.setModel(challengeViewModels[indexPath.row / ChallengesRowType._count.rawValue])
-                challengeCell.challengeProgressView?.userImageView.setImage(withMediaAsset: userController.user.photo, transition: true)
+                let challengeViewModel = challengeViewModels[indexPath.row / ChallengesRowType._count.rawValue]
+                let challengeCell = tableView.dequeueReusableCell(withClass: ChallengeTableViewCell.self, forIndexPath: indexPath)
+                challengeCell.configure(withModel: challengeViewModel, joinButtonTappedCallback: {
+                    [unowned challengeCell, unowned challengeViewModel, unowned self] in
+                    let wrappedFunction = AnyWrapper(object: challengeCell.userDidJoinChallenge)
+                    self.performSegueWithIdentifier(ChallengesTableViewController.Storyboard.Segue.showChallengeDetailJoin, sender: [
+                        "challenge": challengeViewModel.challenge,
+                        "userDidJoinChallengeCallback": wrappedFunction
+                    ])
+                }, userPhoto: userController.user.photo)
+                
                 cell = challengeCell
                 
             case .Separator:
@@ -230,6 +249,15 @@ extension ChallengesTableViewController {
             case ._count:
                 return 0.0
             }
+        }
+    }
+    
+    struct Storyboard {
+        static let name = "Challenges"
+        
+        struct Segue {
+            static let showChallengeDetail = "ShowChallengeDetail"
+            static let showChallengeDetailJoin = "ShowChallengeDetailJoin"
         }
     }
 }

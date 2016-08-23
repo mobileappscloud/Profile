@@ -148,7 +148,7 @@ extension ChallengeDetailSegmentViewController {
         guard targetPresentationViewController != nil else { return }
         
         let termsViewController = TermsAndConditionsViewController(nibName: "TermsAndConditionsView", bundle: nil);
-        termsViewController.html = terms
+//        termsViewController.html = terms
         let navigationController = UINavigationController(rootViewController: termsViewController)
         
         dispatch_async(dispatch_get_main_queue(), { [weak self] in

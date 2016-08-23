@@ -112,28 +112,3 @@ extension ChallengesController {
         })
     }
 }
-
-extension ChallengesController {
-    
-    func join(challenge: Challenge, user: User, success: () -> Void, failure: () -> Void) {
-        guard let joinURL = challenge.userRelation.joinURL else {
-            failure()
-            return
-        }
-        
-        ChallengeJoinRequest(joinURL: joinURL, user: user).request({ [weak self] (request, error) in
-            guard let strongSelf = self,
-                let request = request else {
-                    failure()
-                    return
-            }
-            
-            let task = NSURLSessionTask.JSONTask(strongSelf.session, request: request, success: { (JSON, response) in
-                success()
-            }, failure: { (error, response) in
-                failure()
-            })
-            task.resume()
-        })
-    }
-}
