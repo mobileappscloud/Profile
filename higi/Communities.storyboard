@@ -144,7 +144,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="1492"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H6x-Tm-8Ve" userLabel="Scroll View Content">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="2051"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="2069"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="abt-Qw-BGt" userLabel="Banner Container" customClass="CommunityBannerView" customModule="higi" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="600" height="300"/>
@@ -220,18 +220,15 @@
                                                     <constraint firstAttribute="height" constant="40" id="zOH-Ir-prv"/>
                                                 </constraints>
                                             </view>
-                                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CGf-RB-7R6" userLabel="Leaderboard Container">
-                                                <rect key="frame" x="16" y="468" width="568" height="80"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vck-fK-FQe" userLabel="Leaderboard View" customClass="LeaderboardWidgetView" customModule="higi" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="460" width="600" height="122"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="80" id="wdS-ES-q9Q"/>
+                                                    <constraint firstAttribute="height" constant="122" id="wVQ-Wa-LhZ"/>
                                                 </constraints>
-                                                <connections>
-                                                    <segue destination="8kA-dU-aWX" kind="embed" id="ebI-jn-HhK"/>
-                                                </connections>
-                                            </containerView>
+                                            </view>
                                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VbT-Ds-xPt" userLabel="Page View Container">
-                                                <rect key="frame" x="0.0" y="564" width="600" height="1487"/>
+                                                <rect key="frame" x="0.0" y="582" width="600" height="1487"/>
                                                 <color key="backgroundColor" red="0.94509804248809814" green="0.94509804248809814" blue="0.94509804248809814" alpha="1" colorSpace="calibratedRGB"/>
                                                 <connections>
                                                     <segue destination="XbM-wj-4IB" kind="embed" identifier="DetailViewSegmentedPageViewEmbedSegue" id="vRj-mD-x8Z"/>
@@ -241,8 +238,8 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="KKG-D6-bCr" firstAttribute="leading" secondItem="H6x-Tm-8Ve" secondAttribute="leading" id="0yW-iz-DdQ"/>
+                                            <constraint firstAttribute="trailing" secondItem="vck-fK-FQe" secondAttribute="trailing" id="7rK-Uu-gea"/>
                                             <constraint firstAttribute="trailing" secondItem="abt-Qw-BGt" secondAttribute="trailing" id="GHM-eh-GQx"/>
-                                            <constraint firstItem="CGf-RB-7R6" firstAttribute="top" secondItem="k9o-mF-RkZ" secondAttribute="bottom" constant="8" id="IAu-0S-i5m"/>
                                             <constraint firstAttribute="trailing" secondItem="VbT-Ds-xPt" secondAttribute="trailing" id="Qtu-x7-y07"/>
                                             <constraint firstItem="KKG-D6-bCr" firstAttribute="top" secondItem="abt-Qw-BGt" secondAttribute="bottom" id="TFl-2x-7m4"/>
                                             <constraint firstAttribute="bottom" secondItem="VbT-Ds-xPt" secondAttribute="bottom" id="UQF-Po-oPd"/>
@@ -250,12 +247,12 @@
                                             <constraint firstAttribute="trailing" secondItem="KKG-D6-bCr" secondAttribute="trailing" id="VbF-X0-OUq"/>
                                             <constraint firstItem="VbT-Ds-xPt" firstAttribute="leading" secondItem="H6x-Tm-8Ve" secondAttribute="leading" id="Y3d-mi-LVr"/>
                                             <constraint firstItem="k9o-mF-RkZ" firstAttribute="leading" secondItem="H6x-Tm-8Ve" secondAttribute="leading" id="Y8g-a0-iXA"/>
-                                            <constraint firstAttribute="trailing" secondItem="CGf-RB-7R6" secondAttribute="trailing" constant="16" id="YUp-kJ-Lag"/>
-                                            <constraint firstItem="CGf-RB-7R6" firstAttribute="leading" secondItem="H6x-Tm-8Ve" secondAttribute="leading" constant="16" id="bLk-sC-eya"/>
                                             <constraint firstItem="k9o-mF-RkZ" firstAttribute="top" secondItem="KKG-D6-bCr" secondAttribute="bottom" id="bjb-9u-hXw"/>
+                                            <constraint firstItem="vck-fK-FQe" firstAttribute="top" secondItem="k9o-mF-RkZ" secondAttribute="bottom" id="e48-Cs-n0Y"/>
                                             <constraint firstItem="abt-Qw-BGt" firstAttribute="top" secondItem="H6x-Tm-8Ve" secondAttribute="top" id="hki-vU-FZN"/>
+                                            <constraint firstItem="vck-fK-FQe" firstAttribute="leading" secondItem="H6x-Tm-8Ve" secondAttribute="leading" id="lfI-UD-iIc"/>
                                             <constraint firstAttribute="trailing" secondItem="k9o-mF-RkZ" secondAttribute="trailing" id="qeh-Dq-k9f"/>
-                                            <constraint firstItem="VbT-Ds-xPt" firstAttribute="top" secondItem="CGf-RB-7R6" secondAttribute="bottom" constant="16" id="wLs-3b-hdD"/>
+                                            <constraint firstItem="VbT-Ds-xPt" firstAttribute="top" secondItem="vck-fK-FQe" secondAttribute="bottom" id="tFt-Ct-dCl"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -311,7 +308,7 @@
                         <viewControllerLayoutGuide type="bottom" id="wr7-1l-fFJ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="4yN-ZX-wmr">
-                        <rect key="frame" x="0.0" y="0.0" width="568" height="80"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.94509804248809814" green="0.94509804248809814" blue="0.94509804248809814" alpha="1" colorSpace="calibratedRGB"/>
                     </view>

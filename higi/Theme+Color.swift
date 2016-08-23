@@ -303,3 +303,16 @@ extension Theme.Color.Content {
         static let secondary = Theme.Color.Primary.pewter
     }
 }
+
+
+// MARK: - Leaderboard
+
+extension Theme.Color {
+    
+    struct Leaderboard {
+        struct User {
+            static let borderColor = UIColor(red: 220.0/255.0, green: 220.0/255.0, blue: 220.0/255.0, alpha: 1.0)
+        }
+    }
+    
+}

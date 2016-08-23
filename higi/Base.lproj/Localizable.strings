@@ -652,6 +652,12 @@
 /* Title for home view. */
 "HOME_VIEW_TITLE" = "Home";
 
+/* Text for see leaderboard in the leaderboard widget */
+"LEADERBOARD_VIEW_SEE_LEADERBOARD_TEXT" = "see leaderboard ›";
+
+/* Text for Top 10 on Leaderboard in the leaderboard widget */
+"LEADERBOARD_VIEW_TOP_10_TITLE" = "Top 10 on Leaderboard";
+
 /* Reason for prompting Touch ID local authentication. */
 "LOCAL_AUTHENTICATION_TOUCH_ID_REASON" = "Use your fingerprint to access higi";
 

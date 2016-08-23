@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LeaderboardUserView" customModule="higi" customModuleProvider="target">
+            <connections>
+                <outlet property="placementLabel" destination="sNF-kS-0Pu" id="Lhf-Yr-vMy"/>
+                <outlet property="userImageView" destination="CTW-wR-YaE" id="YIc-Go-9Hy"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" placeholderIntrinsicWidth="80" placeholderIntrinsicHeight="85" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="80" height="85"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c7m-1l-9mK" userLabel="Hard Sized View">
+                    <rect key="frame" x="0.0" y="0.0" width="80" height="85"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Fa-FR-6Bt" userLabel="Centered View">
+                            <rect key="frame" x="15" y="3" width="50" height="75"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sNF-kS-0Pu" userLabel="Placement Label">
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="21"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" red="0.40000000000000002" green="0.71764705880000002" blue="0.20392156859999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="higi-activity-tracker-icon" translatesAutoresizingMaskIntoConstraints="NO" id="CTW-wR-YaE" userLabel="User Image View">
+                                    <rect key="frame" x="0.0" y="25" width="50" height="50"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="CTW-wR-YaE" secondAttribute="height" multiplier="1:1" id="cmm-x5-cMS"/>
+                                        <constraint firstAttribute="width" constant="50" id="pRd-Ov-Q6R"/>
+                                    </constraints>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="CTW-wR-YaE" firstAttribute="top" secondItem="sNF-kS-0Pu" secondAttribute="bottom" constant="4" id="0yj-dR-Po0"/>
+                                <constraint firstItem="CTW-wR-YaE" firstAttribute="leading" secondItem="0Fa-FR-6Bt" secondAttribute="leading" id="2lh-DQ-fts"/>
+                                <constraint firstItem="sNF-kS-0Pu" firstAttribute="leading" secondItem="0Fa-FR-6Bt" secondAttribute="leading" id="EVv-HA-Exi"/>
+                                <constraint firstAttribute="bottom" secondItem="CTW-wR-YaE" secondAttribute="bottom" id="KdI-9P-g86"/>
+                                <constraint firstItem="sNF-kS-0Pu" firstAttribute="top" secondItem="0Fa-FR-6Bt" secondAttribute="top" id="Mc1-kY-ZZJ"/>
+                                <constraint firstAttribute="trailing" secondItem="CTW-wR-YaE" secondAttribute="trailing" id="Pao-BL-hxx"/>
+                                <constraint firstAttribute="trailing" secondItem="sNF-kS-0Pu" secondAttribute="trailing" id="cEm-Bx-2NZ"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="0Fa-FR-6Bt" firstAttribute="centerY" secondItem="c7m-1l-9mK" secondAttribute="centerY" constant="-2" id="KDI-VN-itR"/>
+                        <constraint firstAttribute="height" constant="85" id="frg-e7-MXs"/>
+                        <constraint firstAttribute="width" constant="80" id="sad-IS-dwW"/>
+                        <constraint firstItem="0Fa-FR-6Bt" firstAttribute="centerX" secondItem="c7m-1l-9mK" secondAttribute="centerX" id="zZy-eI-vtl"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="c7m-1l-9mK" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="1cI-tg-Y7N"/>
+                <constraint firstItem="c7m-1l-9mK" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Mug-sq-cPO"/>
+                <constraint firstAttribute="bottom" secondItem="c7m-1l-9mK" secondAttribute="bottom" id="j6s-lM-v8k"/>
+                <constraint firstAttribute="trailing" secondItem="c7m-1l-9mK" secondAttribute="trailing" id="x51-Ch-acH"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                    <integer key="value" value="10"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
+                    <color key="value" red="0.9917942533557047" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+        </view>
+    </objects>
+    <resources>
+        <image name="higi-activity-tracker-icon" width="50" height="50"/>
+    </resources>
+</document>
