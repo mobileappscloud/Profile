@@ -53,9 +53,9 @@ final class ChallengeDetailViewController: UIViewController {
     private var segmentedPageViewController: SegmentedPageViewController!
     
     /// View controller for detail segment embedded in the `segmentedPageViewController`.
-    private lazy var challengeDetailSegmentViewController: ChallengeDetailSegmentViewController = {
+    private lazy var challengeDetailTableViewController: ChallengeDetailTableViewController = {
         let storyboard = UIStoryboard(name: Storyboard.name, bundle: nil)
-        let viewController = storyboard.instantiateViewControllerWithIdentifier(Storyboard.Scene.DetailSegment.identifier) as! ChallengeDetailSegmentViewController
+        let viewController = storyboard.instantiateViewControllerWithIdentifier(Storyboard.Scene.DetailTable.identifier) as! ChallengeDetailTableViewController
         
         viewController.configure(withUserController: self.userController, challengeDetailController: self.challengeDetailController, targetPresentationViewController: self)
         
@@ -133,22 +133,72 @@ extension ChallengeDetailViewController {
 
 private extension ChallengeDetailViewController {
     
+    /**
+     Configures the view based on the challenge.
+     
+     - parameter challenge: Challenge to view details for.
+     */
     func configureView(forChallenge challenge: Challenge) {
         title = challenge.name
         
         bannerImageView.setImage(withMediaAsset: challenge.image, transition: true)
         titleLabel.text = challenge.name
         
-        // TODO: Remy - Implement view config with shared function
+        // TODO: Remy - update status indicator after state is refactored
         challengeStatusIndicatorView.state = ChallengeTableViewCellModel.State(withChallenge: challenge)
-        dateLabel.text = NSDateFormatter.challengeCardStartDateFormatter.stringFromDate(challenge.startDate)
-        participantLabel.text = String(challenge.participantCount) + " Participants"
+        dateLabel.text = NewChallengeUtility.formattedDateRange(forStartDate: challenge.startDate, endDate: challenge.endDate)
+        participantLabel.text = NewChallengeUtility.formattedParticipantCount(forParticipantCount: challenge.participantCount)
         
         if challenge.userRelation.status.isJoined {
-            // TODO: Remy - Add invite button
+            addCallToAction(inviteButton())
         } else {
-            // TODO: Remy - Add join button
+            addCallToAction(joinButton())
         }
+    }
+    
+    // MARK: Call to Action
+    
+    private func addCallToAction(button: UIButton) {
+        callToActionContainerView.addSubview(button, pinToEdges: true)
+    }
+    
+    private func callToActionButton(withTitle title: String, backgroundColor: UIColor) -> UIButton {
+        let button = UIButton(type: .System)
+        button.titleLabel?.font = UIFont.systemFontOfSize(15.0, weight: UIFontWeightSemibold)
+        button.setTitleColor(Theme.Color.Challenge.Detail.buttonText, forState: .Normal)
+        button.setTitle(title, forState: .Normal)
+        button.backgroundColor = backgroundColor
+        button.layer.cornerRadius = 5.0
+        return button
+    }
+    
+    private func joinButton() -> UIButton {
+        let title = NSLocalizedString("CHALLENGE_DETAIL_BUTTON_TITLE_JOIN", comment: "Title for join button on challenge detail.")
+        let backgroundColor = Theme.Color.Challenge.Detail.joinButton
+        let button = callToActionButton(withTitle: title, backgroundColor: backgroundColor)
+        button.addTarget(self, action: #selector(didTapJoinButton(_:)), forControlEvents: .TouchUpInside)
+        return button
+    }
+    
+    private func inviteButton() -> UIButton {
+        let title = NSLocalizedString("CHALLENGE_DETAIL_BUTTON_TITLE_INVITE", comment: "Title for invite button on challenge detail.")
+        let backgroundColor = Theme.Color.Challenge.Detail.inviteButton
+        let button = callToActionButton(withTitle: title, backgroundColor: backgroundColor)
+        button.addTarget(self, action: #selector(didTapInviteButton(_:)), forControlEvents: .TouchUpInside)
+        return button
+    }
+}
+
+// MARK: - UI Action
+
+extension ChallengeDetailViewController {
+    
+    func didTapJoinButton(sender: UIButton) {
+        
+    }
+    
+    func didTapInviteButton(sender: UIButton) {
+        
     }
 }
 
@@ -174,8 +224,8 @@ extension ChallengeDetailViewController {
                 static let identifier = "ChallengeDetailViewController"
             }
             
-            struct DetailSegment {
-                static let identifier = "ChallengeDetailSegmentViewController"
+            struct DetailTable {
+                static let identifier = "ChallengeDetailTableViewController"
             }
         }
         
@@ -211,7 +261,7 @@ extension ChallengeDetailViewController {
         let leaderboardTitle = NSLocalizedString("CHALLENGE_DETAIL_SEGMENTED_PAGE_SEGMENT_TITLE_LEADERBOARD", comment: "Title for 'leaderboard' segment on segmented control within the challenge detail view.")
         
         var titles = [detailTitle, prizesTitle, chatterTitle]
-        var viewControllers = [challengeDetailSegmentViewController, prizeViewController, chatterViewController]
+        var viewControllers = [challengeDetailTableViewController, prizeViewController, chatterViewController]
         if challengeDetailController.challenge.status == .registration {
             titles.append(participantsTitle)
             viewControllers.append(participantsViewController)
@@ -222,13 +272,14 @@ extension ChallengeDetailViewController {
         
         segmentedPageViewController.set(viewControllers, titles: titles)
         segmentedPageViewController.view.backgroundColor = UIColor.clearColor()
-        segmentedPageViewController.segmentedControlHorizontalMargin = 0.0
+        segmentedPageViewController.segmentedControlHorizontalMargin = 15.0
     }
 }
 
 //MARK: - Joining a challenge
 
-extension ChallengeDetailViewController: TermsAndConditionsDelegate {
+extension ChallengeDetailViewController {
+    
     func joinChallenge() {
         showTermsAndConditions()
     }
@@ -239,19 +290,10 @@ extension ChallengeDetailViewController: TermsAndConditionsDelegate {
             return
         }
         let termsViewController = TermsAndConditionsViewController(nibName: "TermsAndConditionsView", bundle: nil)
-        termsViewController.configure(delegate: self, html: challengeTerms, responseRequired: true)
+        termsViewController.configure(withHTML: challengeTerms, responseRequired: true, acceptanceDelegate: self)
         presentViewController(termsViewController, animated: true, completion: nil)
     }
     
-    func acceptTerms(withValue accepted: Bool) {
-        dismissViewControllerAnimated(true, completion: {
-            guard accepted else { return }
-            self.joinChallengeApiCall(withChallenge: self.challengeDetailController.challenge)
-        })
-    }
-    
-    func closeTerms() {} // should never happen from this, since a response is required
-
     private func joinChallengeApiCall(withChallenge challenge: Challenge) {
         guard let user = userController?.user else { return }
         blurredLoadingViewController.show(self)
@@ -262,12 +304,25 @@ extension ChallengeDetailViewController: TermsAndConditionsDelegate {
                 self?.blurredLoadingViewController.hide()
             }
             //TODO: Peter Ryszkiewicz: hide join and show invite button
-        }, failure: {
-            [weak self] in
-            dispatch_async(dispatch_get_main_queue()) {
-                self?.blurredLoadingViewController.hide()
-                //TODO: Peter Ryszkiewicz
-            }
+            }, failure: {
+                [weak self] in
+                dispatch_async(dispatch_get_main_queue()) {
+                    self?.blurredLoadingViewController.hide()
+                    //TODO: Peter Ryszkiewicz
+                }
+            })
+    }
+
+}
+
+// MARK: - Terms & Condition Delegate
+
+extension ChallengeDetailViewController: TermsAndConditionsAcceptanceDelegate {
+    
+    func acceptTerms(withValue accepted: Bool) {
+        dismissViewControllerAnimated(true, completion: {
+            guard accepted else { return }
+            self.joinChallengeApiCall(withChallenge: self.challengeDetailController.challenge)
         })
     }
 }

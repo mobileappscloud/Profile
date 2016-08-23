@@ -268,13 +268,19 @@ extension Theme.Color {
 
 extension Theme.Color.Challenge {
     
-    struct Detail {}
+    struct Detail {
+        static let joinButton = Theme.Color.Primary.green
+        static let inviteButton = Theme.Color.Secondary.teal
+        static let buttonText = Theme.Color.Primary.white
+    }
 }
 
 extension Theme.Color.Challenge.Detail {
     
     struct Segment {
         static let officialRulesText = Utility.colorFromHexString("#8CC63F")
+        static let chevron = Utility.colorFromHexString("#8CC63F")
+        static let defaultTint = UIColor.blackColor()
     }
 }
 

@@ -30,11 +30,8 @@ final class ChallengeTableViewCellModel {
         self.challenge = challenge
         titleText = challenge.name
         challengeStatusState = State(withChallenge: challenge)
-        dateText = ChallengeTableViewCellModel.getFormattedDateRangeFor(startDate: challenge.startDate, endDate: challenge.endDate)
-        let participantCountFormat = NSLocalizedString("CHALLENGES_VIEW_CARD_PARTICIPANT_COUNT_FORMAT", comment: "Format for the number of people participating in a challenge. For example, 12k participating")
-        let participantCount = Utility.abbreviatedNumber(challenge.participantCount).formattedString
-        let participatingText = NSLocalizedString("CHALLENGES_VIEW_CARD_PARTICIPATING_TEXT", comment: "Text for the number of people participating in a challenge.")
-        participantCountText = String(format: participantCountFormat, arguments: [participantCount, participatingText])
+        dateText = NewChallengeUtility.formattedDateRange(forStartDate: challenge.startDate, endDate: challenge.endDate)
+        participantCountText = NewChallengeUtility.formattedParticipantCount(forParticipantCount: challenge.participantCount)
         mainImageAsset = challenge.image
         communityImageAsset = challenge.community?.logo
         communityText = challenge.community?.name
@@ -48,36 +45,6 @@ final class ChallengeTableViewCellModel {
 //MARK: - Static Helpers and Properties
 extension ChallengeTableViewCellModel {
     private static let challengeInfoFontSize: CGFloat = 15.0
-
-    private class func areDatesInSameYearAndMonth(startDate startDate: NSDate, endDate: NSDate?) -> Bool {
-        guard let endDate = endDate else {
-            return false
-        }
-        let calendar = NSCalendar.currentCalendar()
-        let startDateComponents = calendar.components([.Year, .Month, .Day], fromDate: startDate)
-        let endDateComponents = calendar.components([.Year, .Month, .Day], fromDate: endDate)
-        return startDateComponents.year == endDateComponents.year && startDateComponents.month == endDateComponents.month
-    }
-    
-    private class func getFormattedDateRangeFor(startDate startDate: NSDate, endDate: NSDate?) -> String {
-        guard let endDate = endDate else {
-            return NSLocalizedString("CHALLENGE_INVITATION_VIEW_DATE_RANGE_NO_END_DATE", comment: "Text to display on a challenge invitation if there is no end date.")
-        }
-        
-        let startDateFormatter = NSDateFormatter.challengeCardStartDateFormatter
-        
-        let endDateFormatter: NSDateFormatter
-        if areDatesInSameYearAndMonth(startDate: startDate, endDate: endDate) {
-            endDateFormatter = NSDateFormatter.challengeCardEndDateNoMonthFormatter
-        } else {
-            endDateFormatter = NSDateFormatter.challengeCardEndDateFormatter
-        }
-        
-        return String(
-            format: NSLocalizedString("CHALLENGES_VIEW_CARD_INFORMATION_DATE_RANGE_FORMAT", comment: "Format for displaying a range of dates in the Challenge card, like startDate - endDate."),
-            arguments: [startDateFormatter.stringFromDate(startDate), endDateFormatter.stringFromDate(endDate)]
-        )
-    }
     
     private class func makeAttributedStringFor(goalDescription goalDescriptionString: String) -> NSAttributedString {
         let goalFormat = NSLocalizedString("CHALLENGES_VIEW_CARD_INFORMATION_GOAL_FORMAT", comment: "Format for the goal description on the challenge card information view.")

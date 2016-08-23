@@ -2,8 +2,9 @@ import Foundation
 import WebKit
 
 final class TermsAndConditionsViewController: UIViewController {
-    private weak var delegate: TermsAndConditionsDelegate?
-    private var html: String?
+    private var html: String!
+    private weak var acceptanceDelegate: TermsAndConditionsAcceptanceDelegate?
+    private weak var viewingDelegate: TermsAndConditionsViewingDelegate?
     private var responseRequired = false
     
     @IBOutlet var webView: WKWebView!
@@ -24,15 +25,15 @@ final class TermsAndConditionsViewController: UIViewController {
     }
     
     @IBAction func acceptClick(sender: AnyObject) {
-        delegate?.acceptTerms(withValue: true)
+        acceptanceDelegate?.acceptTerms(withValue: true)
     }
     
     @IBAction func declineClick(sender: AnyObject) {
-        delegate?.acceptTerms(withValue: false)
+        acceptanceDelegate?.acceptTerms(withValue: false)
     }
     
     @IBAction func closeButtonClick(sender: AnyObject) {
-        delegate?.closeTerms()
+        viewingDelegate?.closeTerms()
     }
     
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
@@ -60,14 +61,19 @@ final class TermsAndConditionsViewController: UIViewController {
         webView.loadHTMLString(html, baseURL: nil)
     }
     
-    func configure(delegate delegate: TermsAndConditionsDelegate, html: String?, responseRequired: Bool) {
-        self.delegate = delegate
+    func configure(withHTML html: String, responseRequired: Bool = false, acceptanceDelegate: TermsAndConditionsAcceptanceDelegate? = nil, viewingDelegate: TermsAndConditionsViewingDelegate? = nil) {
         self.html = html
+        self.acceptanceDelegate = acceptanceDelegate
+        self.viewingDelegate = viewingDelegate
         self.responseRequired = responseRequired
     }
 }
 
-protocol TermsAndConditionsDelegate: class {
+protocol TermsAndConditionsAcceptanceDelegate: class {
     func acceptTerms(withValue accepted: Bool)
+}
+
+protocol TermsAndConditionsViewingDelegate: class {
     func closeTerms()
 }
+

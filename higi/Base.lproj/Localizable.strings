@@ -49,14 +49,11 @@
 /* Name for branded activity tracker which leverages HealthKit data. */
 "BRANDED_ACTIVITY_DEVICE_NAME" = "higi";
 
-/* Header for description section within the detail segment on challenge details. */
-"CHALLENGE_DETAIL_SEGMENT_HEADER_DESCRIPTION" = "Description";
+/* Title for invite button on challenge detail. */
+"CHALLENGE_DETAIL_BUTTON_TITLE_INVITE" = "Invite Friends";
 
-/* Header for goal section within the detail segment on challenge details. */
-"CHALLENGE_DETAIL_SEGMENT_HEADER_GOAL" = "Goal";
-
-/* Title for view within challenge detail segment which navigates the user to the official rules. */
-"CHALLENGE_DETAIL_SEGMENT_OFFICIAL_RULES_TITLE" = "Official Rules";
+/* Title for join button on challenge detail. */
+"CHALLENGE_DETAIL_BUTTON_TITLE_JOIN" = "Join Challenge";
 
 /* Title for 'chatter' segment on segmented control within the challenge detail view. */
 "CHALLENGE_DETAIL_SEGMENTED_PAGE_SEGMENT_TITLE_CHATTER" = "Chatter";
@@ -72,6 +69,15 @@
 
 /* Title for 'prizes' segment on segmented control within the challenge detail view. */
 "CHALLENGE_DETAIL_SEGMENTED_PAGE_SEGMENT_TITLE_PRIZES" = "Prizes";
+
+/* Text for cell in challenge detail table for description header. */
+"CHALLENGE_DETAIL_TABLE_CELL_DESCRIPTION_HEADER_TEXT" = "Description";
+
+/* Text for cell in challenge detail table for goal header. */
+"CHALLENGE_DETAIL_TABLE_CELL_GOAL_HEADER_TEXT" = "Goal";
+
+/* Text for official rules cell in challenge detail table. */
+"CHALLENGE_DETAIL_TABLE_CELL_OFFICIAL_RULES_TEXT" = "Official Rules";
 
 /* Text label for challenge detail participant icon units. */
 "CHALLENGE_DETAILS_PARTICIPANT_ICON_LABEL_UNITS" = "Individuals";
