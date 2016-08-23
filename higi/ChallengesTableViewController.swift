@@ -36,16 +36,19 @@ final class ChallengesTableViewController: UIViewController {
     }
     
     private func fetchChallenges() {
-        challengesController.fetch(forUser: userController.user, challengesType: tableType.asChallengeType, success: {
+        challengesController.fetch(forEntityType: tableType.asEntityType, entityId: tableType.entityId, challengesType: tableType.asChallengeType, success: {
             [weak self] in
-            dispatch_async(dispatch_get_main_queue()) {
-                guard let strongSelf = self else { return }
-                strongSelf.challengeViewModels = strongSelf.challengesController.challenges.map(ChallengeTableViewCellModel.init)
-                strongSelf.tableView.reloadData()
-            }
+            self?.handleFetchChallengesSuccess()
         }, failure: {
             //TODO: Peter Ryszkiewicz: handle failure
         })
+    }
+    
+    private func handleFetchChallengesSuccess() {
+        dispatch_async(dispatch_get_main_queue()) {
+            self.challengeViewModels = self.challengesController.challenges.map(ChallengeTableViewCellModel.init)
+            self.tableView.reloadData()
+        }
     }
 }
 
@@ -155,15 +158,32 @@ extension ChallengesTableViewController: UITableViewDelegate {
 
 extension ChallengesTableViewController {
     enum TableType {
-        case Current
-        case Finished
-        case CommunityDetail
+        case Current(userId: String)
+        case Finished(userId: String)
+        case CommunityDetail(communityId: String)
         
-        var asChallengeType: ChallengesController.ChallengeType {
+        var asChallengeType: ChallengesController.ChallengeType? {
             switch self {
                 case .Current: return ChallengesController.ChallengeType.Current
                 case .Finished: return ChallengesController.ChallengeType.Finished
-                case .CommunityDetail: return ChallengesController.ChallengeType.Current //TODO: Peter Ryszkiewicz: FIXME
+                case .CommunityDetail: nil as ChallengesController.ChallengeType?
+            }
+            return nil
+        }
+        
+        var asEntityType: ChallengeCollectionRequest.EntityType {
+            switch self {
+                case .Current: return .user
+                case .Finished: return .user
+                case .CommunityDetail(communityId: _): return .communities
+            }
+        }
+        
+        var entityId: String {
+            switch self {
+                case .Current(let userId): return userId
+                case .Finished(let userId): return userId
+                case .CommunityDetail(let communityId): return communityId
             }
         }
     }

@@ -27,8 +27,8 @@ final class SegmentedPageViewController: UIViewController {
     /// Value to use for the segmented control leading and trailing constraint constant. Refer to `segmentedControlHorizontalMarginDefault` for the default leading/trailing constraint constant.
     var segmentedControlHorizontalMargin: CGFloat = segmentedControlHorizontalMarginDefault {
         didSet {
-            segmentedControlLeadingConstraint.constant = segmentedControlHorizontalMargin
-            segmentedControlTrailingConstraint.constant = segmentedControlHorizontalMargin
+            segmentedControlLeadingConstraint?.constant = segmentedControlHorizontalMargin
+            segmentedControlTrailingConstraint?.constant = segmentedControlHorizontalMargin
         }
     }
     

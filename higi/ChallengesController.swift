@@ -38,13 +38,13 @@ extension ChallengesController {
 
 extension ChallengesController {
     
-    func fetch(forUser user: User, challengesType: ChallengeType, success: () -> Void, failure: () -> Void) {
+    func fetch(forEntityType entityType: ChallengeCollectionRequest.EntityType, entityId: String, challengesType: ChallengeType? = nil, success: () -> Void, failure: () -> Void) {
         let gravityBoard = 3
         let participants = 50
         let comments = 50
         let teamComments = 50
         
-        ChallengeCollectionRequest(userId: user.identifier, gravityBoard: gravityBoard, participants: participants, comments: comments, teamComments: teamComments, filters: challengesType.asFilter).request({ [weak self] (request, error) in
+        ChallengeCollectionRequest(entityType: entityType, entityId: entityId, gravityBoard: gravityBoard, participants: participants, comments: comments, teamComments: teamComments, filters: challengesType?.asFilter).request({ [weak self] (request, error) in
             
             guard let strongSelf = self,
                 let request = request else {

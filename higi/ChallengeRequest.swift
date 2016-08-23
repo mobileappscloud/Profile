@@ -37,7 +37,6 @@ final class ChallengeRequest: ProtectedAPIRequest, ChallengeRequestConfigurable 
 
 protocol ChallengeRequestConfigurable: HigiAPI2 {
     
-    var userId: String { get }
     var gravityBoard: Int { get }
     var participants: Int { get }
     var comments: Int { get }

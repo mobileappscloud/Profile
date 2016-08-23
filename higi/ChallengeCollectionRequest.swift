@@ -8,7 +8,8 @@
 
 final class ChallengeCollectionRequest: ProtectedAPIRequest, ChallengeRequestConfigurable {
 
-    let userId: String
+    let entityType: EntityType
+    let entityId: String
     let gravityBoard: Int
     let participants: Int
     let comments: Int
@@ -20,8 +21,9 @@ final class ChallengeCollectionRequest: ProtectedAPIRequest, ChallengeRequestCon
         return filters.map{"[]=\($0)"}.joinWithSeparator(",")
     }
     
-    required init(userId: String, gravityBoard: Int, participants: Int, comments: Int, teamComments: Int, filters: [Filter]?) {
-        self.userId = userId
+    required init(entityType: EntityType, entityId: String, gravityBoard: Int, participants: Int, comments: Int, teamComments: Int, filters: [Filter]? = nil) {
+        self.entityType = entityType
+        self.entityId = entityId
         self.gravityBoard = gravityBoard
         self.participants = participants
         self.comments = comments
@@ -31,7 +33,7 @@ final class ChallengeCollectionRequest: ProtectedAPIRequest, ChallengeRequestCon
     
     func request(completion: APIRequestAuthenticatorCompletion) {
         
-        let relativePath = "/challenge/user/\(userId)/challenges"
+        let relativePath = "/challenge/\(entityType)/\(entityId)/challenges"
         
         let includes = "[gravityboard]=\(gravityBoard),[participants]=\(participants),[comments]=\(comments),[teams.comments]=\(teamComments)"
         let pageSize = 0
@@ -55,5 +57,10 @@ extension ChallengeCollectionRequest {
         case upcoming
         case current
         case finished
+    }
+    
+    enum EntityType: APIString {
+        case user
+        case communities
     }
 }

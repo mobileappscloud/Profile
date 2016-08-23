@@ -34,9 +34,9 @@ extension ChallengesViewController {
                 NSLocalizedString("CHALLENGES_VIEW_SEGMENTED_CONTROL_SEGMENT_TITLE_FINISHED", comment: "Segment title for Finished on segmented control in the challenges view.")
             ]
             let currentChallengesVC = storyboard!.instantiateViewControllerWithIdentifier(ChallengesViewController.Storyboard.Identifier.ChallengesTableViewController) as! ChallengesTableViewController
-            currentChallengesVC.configureWith(userController: userController, tableType: .Current)
+            currentChallengesVC.configureWith(userController: userController, tableType: .Current(userId: userController.user.identifier))
             let finishedChallengesVC = storyboard!.instantiateViewControllerWithIdentifier(ChallengesViewController.Storyboard.Identifier.ChallengesTableViewController) as! ChallengesTableViewController
-            finishedChallengesVC.configureWith(userController: userController, tableType: .Finished)
+            finishedChallengesVC.configureWith(userController: userController, tableType: .Finished(userId: userController.user.identifier))
 
             segmentedPageViewController.set([currentChallengesVC, finishedChallengesVC], titles: titles)
         }
