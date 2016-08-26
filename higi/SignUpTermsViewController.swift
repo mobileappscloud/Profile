@@ -10,6 +10,17 @@ import WebKit
 
 final class SignUpTermsViewController: UIViewController {
     
+    /**
+     Mode of function for the view controller.
+     
+     - updating: The view controller will attempt to update a user based on the response.
+     - viewing:  The terms and privacy will be shown and the user's response will be reported back to the delegate.
+     */
+    private enum Mode {
+        case updating
+        case viewing
+    }
+    
     @IBOutlet private var headerLabel: UILabel! {
         didSet {
             headerLabel.text = NSLocalizedString("SIGN_UP_TERMS_VIEW_HEADER_TEXT", comment: "Text to display in header of sign up terms view.")
@@ -43,19 +54,34 @@ final class SignUpTermsViewController: UIViewController {
         }
     }
     
-    private(set) var userController: UserController!
+    private var mode: Mode!
     
-    private(set) var termsFileName: String!
+    private(set) var userController: UserController?
     
-    private(set) var privacyFileName: String!
+    private(set) var termsFileName: String?
     
-    private weak var delegate: SignUpTermsViewControllerDelegate?
+    private(set) var privacyFileName: String?
     
-    func configure(userController: UserController, termsFileName: String, privacyFileName: String, delegate: SignUpTermsViewControllerDelegate) {
+    private weak var updatingDelegate: SignUpTermsViewControllerUpdatingDelegate?
+    
+    private weak var viewingDelegate: SignUpTermsViewControllerViewingDelegate?
+}
+
+// MARK: - Dependency Injection
+
+extension SignUpTermsViewController {
+    
+    func configure(forUpdatingWithUserController userController: UserController, termsFileName: String, privacyFileName: String, updatingDelegate: SignUpTermsViewControllerUpdatingDelegate?) {
+        self.mode = .updating
         self.userController = userController
         self.termsFileName = termsFileName
         self.privacyFileName = privacyFileName
-        self.delegate = delegate
+        self.updatingDelegate = updatingDelegate
+    }
+    
+    func configure(forViewingWithDelegate viewingDelegate: SignUpTermsViewControllerViewingDelegate?) {
+        self.mode = .viewing
+        self.viewingDelegate = viewingDelegate
     }
 }
 
@@ -75,11 +101,19 @@ extension SignUpTermsViewController {
 extension SignUpTermsViewController {
     
     @IBAction func didTapAgreeButton(sender: UIButton) {
-        updateUser()
+        if mode == .viewing {
+            viewingDelegate?.signUpTermsViewDidAgree(self)
+        } else if mode == .updating {
+            updateUser()
+        }
     }
     
     @IBAction func didTapDeclineButton(sender: UIButton) {
-        delegate?.signUpTermsViewDidDecline(self)
+        if mode == .viewing {
+            viewingDelegate?.signUpTermsViewDidDecline(self)
+        } else if mode == .updating {
+            updatingDelegate?.signUpTermsViewDidDecline(self)
+        }
     }
 }
 
@@ -88,18 +122,22 @@ extension SignUpTermsViewController {
 extension SignUpTermsViewController {
     
     private func updateUser() {
+        guard let userController = userController,
+            let termsFileName = termsFileName,
+            let privacyFileName = privacyFileName else { return }
+        
         toggleElements(false)
         
         userController.update(termsFileName, privacyFileName: privacyFileName, success: { [weak self] in
             guard let strongSelf = self else { return }
-            strongSelf.updateUserSuccessHandler(strongSelf.userController)
+            strongSelf.updateUserSuccessHandler(strongSelf.userController!)
         }, failure: { [weak self] (error) in
             self?.updateUserFailureHandler(error)
-        })
+        })   
     }
     
     private func updateUserSuccessHandler(userController: UserController) {
-        delegate?.signUpTermsViewDidAgree(self, userController: userController)
+        updatingDelegate?.signUpTermsViewDidAgree(self, userController: userController)
     }
     
     private func updateUserFailureHandler(error: NSError?) {
@@ -117,11 +155,20 @@ extension SignUpTermsViewController {
     }
 }
 
-// MARK: - Protocol
+// MARK: - Updating Protocol
 
-protocol SignUpTermsViewControllerDelegate: class {
+protocol SignUpTermsViewControllerUpdatingDelegate: class {
 
     func signUpTermsViewDidDecline(viewController: SignUpTermsViewController)
     
     func signUpTermsViewDidAgree(viewController: SignUpTermsViewController, userController: UserController)
+}
+
+// MARK: - Viewing Protocol
+
+protocol SignUpTermsViewControllerViewingDelegate: class {
+    
+    func signUpTermsViewDidDecline(viewController: SignUpTermsViewController)
+    
+    func signUpTermsViewDidAgree(viewController: SignUpTermsViewController)
 }

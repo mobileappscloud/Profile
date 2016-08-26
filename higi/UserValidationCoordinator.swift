@@ -111,7 +111,7 @@ extension UserValidationCoordinator {
             let privacyFileName = privacyFileName else {
                 return
         }
-        terms.configure(userController, termsFileName: termsFileName, privacyFileName: privacyFileName, delegate: self)
+        terms.configure(forUpdatingWithUserController: userController, termsFileName: termsFileName, privacyFileName: privacyFileName, updatingDelegate: self)
         let nav = UINavigationController(rootViewController: terms)
 
         dispatch_async(dispatch_get_main_queue(), {
@@ -125,18 +125,7 @@ extension UserValidationCoordinator {
                 return
         }
         signUpName.configure(userController, delegate: self)
-        
-        if let navigationController = self.presentingViewController?.navigationController {
-            dispatch_async(dispatch_get_main_queue(), {
-                navigationController.pushViewController(signUpName, animated: true)
-            })
-        } else {
-            let nav = UINavigationController(rootViewController: signUpName)
-            dispatch_async(dispatch_get_main_queue(), {
-                self.presentingViewController?.presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
-                self.presentingViewController?.presentViewController(nav, animated: true, completion: nil)
-            })
-        }
+        show(viewController: signUpName)
     }
     
     private func navigateToBirthdateView() {
@@ -145,13 +134,16 @@ extension UserValidationCoordinator {
             return
         }
         birthDateView.configure(userController, delegate: self)
-        
+        show(viewController: birthDateView)
+    }
+    
+    private func show(viewController viewController: UIViewController) {
         if let navigationController = self.presentingViewController?.navigationController {
             dispatch_async(dispatch_get_main_queue(), {
-                navigationController.pushViewController(birthDateView, animated: true)
+                navigationController.pushViewController(viewController, animated: true)
             })
         } else {
-            let nav = UINavigationController(rootViewController: birthDateView)
+            let nav = UINavigationController(rootViewController: viewController)
             dispatch_async(dispatch_get_main_queue(), {
                 self.presentingViewController?.presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
                 self.presentingViewController?.presentViewController(nav, animated: true, completion: nil)
@@ -162,7 +154,7 @@ extension UserValidationCoordinator {
 
 // MARK: - Delegates
 
-extension UserValidationCoordinator: SignUpTermsViewControllerDelegate {
+extension UserValidationCoordinator: SignUpTermsViewControllerUpdatingDelegate {
     
     func signUpTermsViewDidDecline(viewController: SignUpTermsViewController) {
         if let presentingViewController = self.presentingViewController {

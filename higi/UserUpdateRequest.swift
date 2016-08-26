@@ -17,7 +17,7 @@ final class UserUpdateRequest: ProtectedAPIRequest {
     }
     
     func request(completion: APIRequestAuthenticatorCompletion) {
-        guard let userDictionary = user.JSONDictionary().mutableCopy() as? NSMutableDictionary else {
+        guard let userDictionary = user.requiredPropertiesSerialized().mutableCopy() as? NSMutableDictionary else {
             completion(request: nil, error: nil)
             return
         }

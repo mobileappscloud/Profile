@@ -9,47 +9,22 @@
 final class SignUpEmailController {
     
     private lazy var session: NSURLSession = APIClient.sharedSession
+    
+    private lazy var authenticationNetworkController = AuthenticationNetworkController()
+    
+    private lazy var termsAndPrivacyNetworkController = TermsAndPrivacyNetworkController()
 }
 
 extension SignUpEmailController {
 
-    func createUser(email: String, password: String, success: () -> (), failure: (error: NSError?) -> ()) {
-        
-        guard let request = UserCreateRequest(email: email, password: password).request() else {
-            failure(error: nil)
-            return
-        }
-        
-        let task = NSURLSessionTask.JSONTask(session, request: request, success: { (JSON, response) in
-            success()
-            }, failure: { (error, response) in
-                if let response = response where response.statusCodeEnum == .Conflict {
-                    let duplicateError = NSError(domain: HTTPErrorDomain, code: response.statusCode, userInfo: nil)
-                    failure(error: duplicateError)
-                } else {
-                    failure(error: error)
-                }
-        })
-        task.resume()
+    func createUser(email: String, password: String, termsFileName: String, privacyFileName: String, success: (user: User) -> (), failure: (error: NSError?) -> ()) {
+        authenticationNetworkController.createUser(email, password: password, termsFileName: termsFileName, privacyFileName: privacyFileName, success: success, failure: failure)
     }
 }
 
 extension SignUpEmailController {
     
-    func logIn(email: String, password: String, success: (user: User) -> Void, failure: (error: NSError?) -> ()) {
-        
-        guard let request = LogInRequest(email: email, password: password).request() else {
-            failure(error: nil)
-            return
-        }
-        
-        let task = NSURLSessionTask.JSONTask(session, request: request, success: { (JSON, response) in
-            AuthorizationDeserializer.parse(JSON, success: { (user, authorization) in
-                success(user: user)
-                }, failure: failure)
-            }, failure: { (error, response) in
-                failure(error: error)
-        })
-        task.resume()
+    func fetchTermsAndPrivacyInfo(success: (termsFileName: String, privacyFileName: String) -> Void, failure: (error: NSError?) -> Void) {
+        termsAndPrivacyNetworkController.fetchTermsAndPrivacyInfo(success, failure: failure)
     }
 }

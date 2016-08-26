@@ -215,7 +215,7 @@ extension Challenge: JSONInitializable {
             let winConditions = CollectionDeserializer.parse(JSONDictionaries: dictionary["winConditions"], forResource: Challenge.WinCondition.self),
             let userRelation = Challenge.UserRelation(fromJSONObject: dictionary["userRelation"]),
             let chatter = Chatter(fromJSONObject: dictionary["comments"]),
-            let startDate = NSDateFormatter.YYYYMMddDateFormatter.date(fromObject: dictionary["startDate"]),
+            let startDate = NSDateFormatter.yyyyMMddDateFormatter.date(fromObject: dictionary["startDate"]),
             let goalDescription = dictionary["goalDescription"] as? String,
             let canBeJoined = dictionary["canBeJoined"] as? Bool
             else { return nil }
@@ -229,7 +229,7 @@ extension Challenge: JSONInitializable {
         let community = Community(fromJSONObject: dictionary["community"])
         let teams: [Team] = CollectionDeserializer.parse(JSONDictionaries: dictionary["teams"], forResource: Challenge.Team.self) ?? []
         let terms = dictionary["terms"] as? String
-        let endDate = NSDateFormatter.YYYYMMddDateFormatter.date(fromObject: dictionary["endDate"])
+        let endDate = NSDateFormatter.yyyyMMddDateFormatter.date(fromObject: dictionary["endDate"])
         let entryFee = dictionary["entryFee"] as? Double
         let prizeDescription = dictionary["prizeDescription"] as? String
         

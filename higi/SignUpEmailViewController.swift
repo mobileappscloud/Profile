@@ -34,7 +34,11 @@ final class SignUpEmailViewController: UIViewController {
     
     weak var delegate: SignUpEmailViewControllerDelegate?
     
-    private var signUpController = SignUpEmailController()
+    private lazy var signUpController = SignUpEmailController()
+    
+    private var _validatedEmail: String?
+    
+    private var _validatedPassword: String?
 }
 
 // MARK: - View Lifecycle
@@ -75,7 +79,9 @@ extension SignUpEmailViewController {
         let email = emailTextField.text
         let password = passwordTextField.text
         if validateInput(email, password: password) {
-            createUser(email!, password: password!)
+            _validatedEmail = email
+            _validatedPassword = password
+            navigateToTermsAndPrivacy()
         } else {
             toggleElements(true)
         }
@@ -122,27 +128,33 @@ extension SignUpEmailViewController {
     }
 }
 
+// MARK: - Terms and Conditions
+
+extension SignUpEmailViewController {
+
+    private func navigateToTermsAndPrivacy() {
+        performSegueWithIdentifier(Storyboard.Segue.showTerms, sender: nil)
+    }
+}
+
 // MARK: - Create User
 
 extension SignUpEmailViewController {
     
-    private func createUser(email: String, password: String) {
-        signUpController.createUser(email, password: password, success: { [weak self] in
-            self?.signUpSuccess(email, password: password)
+    private func createUser(withTermsFileName termsFileName: String, privacyFileName: String) {
+        guard let email = _validatedEmail,
+            let password = _validatedPassword else { return }
+        
+        signUpController.createUser(email, password: password, termsFileName: termsFileName, privacyFileName: privacyFileName, success: { [weak self] (user) in
+            self?.signUpSuccess(user)
         }, failure: { [weak self] (error) in
             self?.signUpFailure(error)
         })
     }
     
-    private func signUpSuccess(email: String, password: String) {
-        signUpController.logIn(email, password: password, success: { [weak self] (user) in
-            guard let strongSelf = self else { return }
-            
-            let userController = UserController(user: user)
-            strongSelf.delegate?.signUpEmailViewDidCreateUser(strongSelf, userController: userController)
-        }, failure: { [weak self] (error) in
-            self?.signUpFailure(error)
-        })
+    private func signUpSuccess(user: User) {
+        let userController = UserController(user: user)
+        delegate?.signUpEmailViewDidCreateUser(self, userController: userController)
     }
     
     private func signUpFailure(error: NSError?) {
@@ -186,6 +198,73 @@ extension SignUpEmailViewController {
                 self.toggleElements(true)
                 })
         })
+    }
+}
+
+// MARK: - Segue
+
+extension SignUpEmailViewController {
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        guard let identifier = segue.identifier else { return }
+        
+        if identifier == Storyboard.Segue.showTerms {
+            guard let navigationController = segue.destinationViewController as? UINavigationController,
+                let signUpTermsViewController = navigationController.topViewController as? SignUpTermsViewController else { return }
+            
+            signUpTermsViewController.configure(forViewingWithDelegate: self)
+        }
+    }
+}
+
+// MARK: - Terms and Privacy Viewing Delegate
+
+extension SignUpEmailViewController: SignUpTermsViewControllerViewingDelegate {
+    
+    func signUpTermsViewDidAgree(viewController: SignUpTermsViewController) {
+        dispatch_async(dispatch_get_main_queue(), {
+            self.dismissViewControllerAnimated(false, completion: nil)
+            })
+        
+        signUpController.fetchTermsAndPrivacyInfo({ [weak self] (termsFileName, privacyFileName) in
+            self?.createUser(withTermsFileName: termsFileName, privacyFileName: privacyFileName)
+            }, failure: { [weak self] (error) in
+                self?.displayServerError()
+            })
+    }
+    
+    func signUpTermsViewDidDecline(viewController: SignUpTermsViewController) {
+        dispatch_async(dispatch_get_main_queue(), {
+            self.dismissViewControllerAnimated(false, completion: nil)
+            self.delegate?.signUpEmailViewDidCancel(self)
+        })
+    }
+}
+
+// MARK: - Text Field Delegate 
+
+extension SignUpEmailViewController: UITextFieldDelegate {
+    
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        if textField == emailTextField {
+            _validatedEmail = nil
+        } else if textField == passwordTextField {
+            _validatedPassword = nil
+        }
+        return true
+    }
+}
+
+// MARK: - Storyboard
+
+private extension SignUpEmailViewController {
+
+    struct Storyboard {
+        static let name = "CreateUser"
+        
+        struct Segue {
+            static let showTerms = "signUpTermsSegue"
+        }
     }
 }
 

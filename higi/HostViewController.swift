@@ -23,9 +23,7 @@ final class HostViewController: UIViewController {
     
     private var userValidationCoordinator: UserValidationCoordinator?
     
-    lazy private var routeHandling: RouteHandling = {
-        return RouteHandling.Uninitialized
-    }()
+    private lazy var routeHandling: RouteHandling = .Uninitialized
     
     override var userActivity: NSUserActivity? {
         get {

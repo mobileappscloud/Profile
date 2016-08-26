@@ -8,24 +8,12 @@
 
 final class LogInController {
     
-    lazy private var session = APIClient.sharedSession
+    private lazy var authenticationNetworkController = AuthenticationNetworkController()
+}
+
+extension LogInController {
     
     func authenticate(email: String, password: String, success: (user: User) -> (), failure: (error: NSError?) -> ()) {
-        
-        guard let request = LogInRequest(email: email, password: password).request() else {
-            failure(error: nil)
-            return
-        }
-        
-        let task = NSURLSessionTask.JSONTask(session, request: request, success: { (JSON, response) in
-            
-            AuthorizationDeserializer.parse(JSON, success: { (user, authorization) in
-                success(user: user)
-            }, failure: failure)
-            
-        }, failure: { (error, response) in
-            failure(error: error)
-        })
-        task.resume()
+        authenticationNetworkController.authenticate(email, password: password, success: success, failure: failure)
     }
 }

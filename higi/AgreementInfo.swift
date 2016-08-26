@@ -24,8 +24,7 @@ extension AgreementInfo: JSONInitializable {
     
     init?(dictionary: NSDictionary) {
         guard let fileName = dictionary["fileName"] as? String,
-            let dateTimeString = dictionary["agreedDatetime"] as? String,
-            let dateTime = NSDateFormatter.ISO8601DateFormatter.dateFromString(dateTimeString) else {
+            let dateTime = NSDateFormatter.ISO8601DateFormatter.date(fromObject: dictionary["agreedDatetime"]) else {
                 return nil
         }
         

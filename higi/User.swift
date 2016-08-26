@@ -95,7 +95,7 @@ extension User: JSONInitializable {
                 return nil
         }
         
-        let dateOfBirth = NSDateFormatter.YYYYMMddDateFormatter.date(fromObject: dictionary["dateOfBirth"])
+        let dateOfBirth = NSDateFormatter.yyyyMMddDateFormatter.date(fromObject: dictionary["dateOfBirth"])
         let firstName = dictionary["firstName"] as? String
         let lastName = dictionary["lastName"] as? String
         
@@ -127,41 +127,16 @@ extension User: JSONInitializable {
 
 extension User: JSONSerializable {
     
-    func JSONDictionary() -> NSDictionary {
+    /**
+     Serializes the required properties on a user object into a dictionary.
+     
+     - returns: A dictionary with required properties on a user object.
+     */
+    func requiredPropertiesSerialized() -> NSDictionary {
         let mutableDictionary = NSMutableDictionary()
         
         mutableDictionary["id"] = identifier
         mutableDictionary["email"] = email
-        mutableDictionary["dateOfBirth"] = (dateOfBirth != nil) ? NSDateFormatter.YYYYMMddDateFormatter.stringFromDate(dateOfBirth!) : NSNull()
-        
-        mutableDictionary["firstName"] = firstName ?? NSNull()
-        mutableDictionary["lastName"] = lastName  ?? NSNull()
-        
-        var sex: String?
-        switch biologicalSex {
-        case .Female:
-            sex = "f"
-        case .Male:
-            sex = "m"
-        case .NotSet:
-            fallthrough
-        case .Other:
-            break
-        }
-        mutableDictionary["gender"] = sex  ?? NSNull()
-        
-        mutableDictionary["height"] = height?.doubleValueForUnit(HKUnit.meterUnit())  ?? NSNull()
-        
-        mutableDictionary["address"] = street ?? NSNull()
-        mutableDictionary["city"] = city ?? NSNull()
-        mutableDictionary["state"] = state ?? NSNull()
-        mutableDictionary["zip"] = postalCode ?? NSNull()
-        mutableDictionary["countryCode"] = ISOCountryCode ?? NSNull()
-        
-        mutableDictionary["termsAgreed"] = terms?.JSONDictionary() ?? NSNull()
-        mutableDictionary["privacyAgreed"] = privacy?.JSONDictionary() ?? NSNull()
-        
-        // TODO: Add photo info?
         
         return mutableDictionary.copy() as! NSDictionary
     }

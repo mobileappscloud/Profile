@@ -344,6 +344,8 @@
 		41E814851D1DD0A300D8DEBD /* higi-dev.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 41E814841D1DD0A300D8DEBD /* higi-dev.entitlements */; };
 		41E90DED1BD98494001DCC4C /* RequiredAppUpdate.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41E90DEC1BD98494001DCC4C /* RequiredAppUpdate.storyboard */; };
 		41E90DF11BD984E0001DCC4C /* RequiredAppUpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E90DF01BD984E0001DCC4C /* RequiredAppUpdateViewController.swift */; };
+		41EBD2BC1D6FFCA200DE7251 /* TermsAndPrivacyNetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EBD2BB1D6FFCA200DE7251 /* TermsAndPrivacyNetworkController.swift */; };
+		41EBD2C11D70007700DE7251 /* AuthenticationNetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EBD2C01D70007700DE7251 /* AuthenticationNetworkController.swift */; };
 		41ED6C971C85FCA300A55BED /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41ED6C961C85FCA300A55BED /* Notifications.swift */; };
 		41EF92251D1909B400266AAB /* TextNotificationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EF92241D1909B400266AAB /* TextNotificationCoordinator.swift */; };
 		41EF92271D19E45900266AAB /* Feed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41EF92261D19E45900266AAB /* Feed.storyboard */; };
@@ -868,6 +870,8 @@
 		41E814861D1DD0E700D8DEBD /* Info_dev.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info_dev.plist; sourceTree = "<group>"; };
 		41E90DEC1BD98494001DCC4C /* RequiredAppUpdate.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = RequiredAppUpdate.storyboard; sourceTree = "<group>"; };
 		41E90DF01BD984E0001DCC4C /* RequiredAppUpdateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequiredAppUpdateViewController.swift; sourceTree = "<group>"; };
+		41EBD2BB1D6FFCA200DE7251 /* TermsAndPrivacyNetworkController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsAndPrivacyNetworkController.swift; sourceTree = "<group>"; };
+		41EBD2C01D70007700DE7251 /* AuthenticationNetworkController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationNetworkController.swift; sourceTree = "<group>"; };
 		41ED6C961C85FCA300A55BED /* Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		41EF92241D1909B400266AAB /* TextNotificationCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextNotificationCoordinator.swift; sourceTree = "<group>"; };
 		41EF92261D19E45900266AAB /* Feed.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Feed.storyboard; sourceTree = "<group>"; };
@@ -1657,7 +1661,9 @@
 		4163CCD21D5267B700424500 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				41EBD2C21D70024300DE7251 /* Authentication */,
 				4163CCDF1D52D94300424500 /* Chatter */,
+				41EBD2BF1D6FFCD100DE7251 /* Misc */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -2470,6 +2476,22 @@
 				41E90DF01BD984E0001DCC4C /* RequiredAppUpdateViewController.swift */,
 			);
 			name = "App Update";
+			sourceTree = "<group>";
+		};
+		41EBD2BF1D6FFCD100DE7251 /* Misc */ = {
+			isa = PBXGroup;
+			children = (
+				41EBD2BB1D6FFCA200DE7251 /* TermsAndPrivacyNetworkController.swift */,
+			);
+			name = Misc;
+			sourceTree = "<group>";
+		};
+		41EBD2C21D70024300DE7251 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				41EBD2C01D70007700DE7251 /* AuthenticationNetworkController.swift */,
+			);
+			name = Authentication;
 			sourceTree = "<group>";
 		};
 		41EF92281D19E46400266AAB /* Feed */ = {
@@ -3366,6 +3388,7 @@
 				419448C81D6AC21B00F4FF45 /* NewChallengeUtility.swift in Sources */,
 				41A0BE371BBB14EA00A314D6 /* KeychainWrapper.swift in Sources */,
 				419D86561BBEF9A700E7D844 /* HigiClusterRenderer.m in Sources */,
+				41EBD2BC1D6FFCA200DE7251 /* TermsAndPrivacyNetworkController.swift in Sources */,
 				418111CB1C979B0800EE3E75 /* ActivitySummaryView.swift in Sources */,
 				41A0BE0B1BBB088500A314D6 /* AFHTTPRequestOperation.m in Sources */,
 				41A274F41D21BABC00D10F8A /* TTTAttributedLabel.m in Sources */,
@@ -3471,6 +3494,7 @@
 				415998EE1CAED619001A7392 /* CollectionDeserializer.swift in Sources */,
 				D1EE80F41B3BBAAD00B13CB8 /* SummaryViewUtility.swift in Sources */,
 				41B2B35A1BB31CE900B13168 /* NotificationSettingsTableViewController.swift in Sources */,
+				41EBD2C11D70007700DE7251 /* AuthenticationNetworkController.swift in Sources */,
 				419D864A1BBEF83000E7D844 /* NonHierarchicalDistanceBasedAlgorithm.m in Sources */,
 				419D86491BBEF83000E7D844 /* GStaticCluster.m in Sources */,
 				419D86591BBEFA0A00E7D844 /* ClusterKiosk.m in Sources */,
