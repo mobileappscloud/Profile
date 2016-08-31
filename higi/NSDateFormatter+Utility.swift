@@ -79,7 +79,7 @@ extension NSDateFormatter {
     }()
 }
 
-//MARK: - For Challenge cards
+// MARK: - For Challenge cards
 extension NSDateFormatter {
     
     @nonobjc static var challengeCardStartDateFormatter: NSDateFormatter = {

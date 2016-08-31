@@ -34,9 +34,14 @@ extension ChallengesViewController {
                 NSLocalizedString("CHALLENGES_VIEW_SEGMENTED_CONTROL_SEGMENT_TITLE_FINISHED", comment: "Segment title for Finished on segmented control in the challenges view.")
             ]
             let currentChallengesVC = storyboard!.instantiateViewControllerWithIdentifier(ChallengesViewController.Storyboard.Identifier.ChallengesTableViewController) as! ChallengesTableViewController
-            currentChallengesVC.configureWith(userController: userController, tableType: .Current(userId: userController.user.identifier))
+            let currentChallengesTableType = ChallengesTableViewController.TableType(challengeType: .Current, entityType: .user, entityId: userController.user.identifier, pageSize: 0)
+            let emptyTableString = NSLocalizedString("CHALLENGES_VIEW_CURRENT_TABLE_EMPTY_TEXT", comment: "Text for when there are no current challenges for the Current Challenges table.")
+            currentChallengesVC.configureWith(userController: userController, tableType: currentChallengesTableType, emptyTableString: emptyTableString)
+            
             let finishedChallengesVC = storyboard!.instantiateViewControllerWithIdentifier(ChallengesViewController.Storyboard.Identifier.ChallengesTableViewController) as! ChallengesTableViewController
-            finishedChallengesVC.configureWith(userController: userController, tableType: .Finished(userId: userController.user.identifier))
+            let finishedChallengesTableType = ChallengesTableViewController.TableType(challengeType: .Finished, entityType: .user, entityId: userController.user.identifier, pageSize: 10)
+            let finishedEmptyTableString = NSLocalizedString("CHALLENGES_VIEW_FINISHED_TABLE_EMPTY_TEXT", comment: "Text for when there are no finished challenges for the Finished Challenges table.")
+            finishedChallengesVC.configureWith(userController: userController, tableType: finishedChallengesTableType, emptyTableString: finishedEmptyTableString)
 
             segmentedPageViewController.set([currentChallengesVC, finishedChallengesVC], titles: titles)
         }

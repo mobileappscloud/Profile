@@ -235,6 +235,18 @@
 /* Text to display for a challenge goal where the winner is a team. */
 "CHALLENGE_INVITATION_VIEW_GOAL_TYPE_WINNER_TEAM" = "Team";
 
+/* Text for the cancel button of the join community prompt to the user. */
+"CHALLENGES_DETAIL_JOIN_COMMUNITY_CANCEL_STRING" = "Cancel";
+
+/* Text for the title of the join community message to the user, Community Membership. */
+"CHALLENGES_DETAIL_JOIN_COMMUNITY_COMMUNITY_MEMBERSHIP_TITLE" = "Community Membership";
+
+/* Format for the join community message displayed to the user. */
+"CHALLENGES_DETAIL_JOIN_COMMUNITY_MESSAGE_FORMAT" = "This challenge has been created by the %@ Community.\n\nWhen you join this challenge you will automatically become a community member.";
+
+/* Text for the OK button of the join community prompt to the user. */
+"CHALLENGES_DETAIL_JOIN_COMMUNITY_OK_STRING" = "OK";
+
 /* Text for Challenge is Cancelled on the challenge card information view. */
 "CHALLENGES_VIEW_CARD_INFORMATION_CHALLENGE_CANCELLED_TEXT" = "Challenge is Cancelled";
 
@@ -250,6 +262,9 @@
 /* Text for Goal for the goal description on the challenge card information view. */
 "CHALLENGES_VIEW_CARD_INFORMATION_GOAL_TEXT" = "Goal";
 
+/* Text for No Prize for the prizes description on the challenge card information view. */
+"CHALLENGES_VIEW_CARD_INFORMATION_NO_PRIZE_TEXT" = "No Prize";
+
 /* Format for the prize description on the challenge card information view. */
 "CHALLENGES_VIEW_CARD_INFORMATION_PRIZES_FORMAT" = "%@: %@";
 
@@ -264,6 +279,21 @@
 
 /* Text for the number of people participating in a challenge. */
 "CHALLENGES_VIEW_CARD_PARTICIPATING_TEXT" = "participating";
+
+/* Text for when there are no current challenges for the Current Challenges table. */
+"CHALLENGES_VIEW_CURRENT_TABLE_EMPTY_TEXT" = "No currently active challenges";
+
+/* Text for when there are no finished challenges for the Finished Challenges table. */
+"CHALLENGES_VIEW_FINISHED_TABLE_EMPTY_TEXT" = "No finished challenges";
+
+/* Text for Previous Challenges in the challenge table view. */
+"CHALLENGES_VIEW_PREVIOUS_CHALLENGES_TEXT" = "Previous Challenges";
+
+/* Title text for Previous Challenges in the challenge table view. */
+"CHALLENGES_VIEW_PREVIOUS_CHALLENGES_TITLE_TEXT" = "Previous Challenges";
+
+/* Text for when there are no previous challenges for the Previous Challenges table. */
+"CHALLENGES_VIEW_PREVIOUS_TABLE_EMPTY_TEXT" = "No previous challenges";
 
 /* Segment title for Current on segmented control in the challenges view. */
 "CHALLENGES_VIEW_SEGMENTED_CONTROL_SEGMENT_TITLE_CURRENT" = "Current";

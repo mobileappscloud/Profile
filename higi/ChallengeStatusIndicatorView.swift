@@ -15,7 +15,7 @@ final class ChallengeStatusIndicatorView: ReusableXibView {
     private let animationDuration = 0.5
     private let strikethroughAngle = CGFloat(M_PI_4)
     
-    var state: ChallengeTableViewCellModel.State = .joinedAndUnderway {
+    var state: Challenge.UserState = .joinedAndUnderway {
         didSet {
             UIView.animateWithDuration(animationDuration) {
                 self.configureStateChanged()

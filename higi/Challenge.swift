@@ -70,8 +70,8 @@ final class Challenge: UniquelyIdentifiable {
     /// A description of the goal for this challenge.
     let goalDescription: String
 
-    /// Determines whether the challenge can be joined by the user.
-    let canBeJoined: Bool
+    /// Determines whether the challenge can be joined by the user. Private so that clients do not use this. Instead, use any of the isJoinable[...] properties.
+    private let canBeJoined: Bool
 
     // MARK: Optional-Modified
     // These properties are optionally returned by the API, but can be modeled as non-optional properties
@@ -83,7 +83,7 @@ final class Challenge: UniquelyIdentifiable {
     
     /// Community a challenge belongs to if applicable
     let community: Community?
-    
+
     /// Teams participating in challenge. Always included on team challenges; sorted by place if challenge started.
     let teams: [Team]?
     
@@ -140,6 +140,22 @@ extension Challenge {
         return teams.map({$0.units}).maxElement() ?? 0.0
     }
     
+    var isJoinable: Bool {
+        return isDirectlyJoinable || isJoinableAfterCommunityIsJoined
+    }
+    
+    var isDirectlyJoinable: Bool {
+        return canBeJoined && userRelation.joinURL != nil
+    }
+    
+    var needToJoinCommunityFirst: Bool {
+        return !isDirectlyJoinable && isJoinableAfterCommunityIsJoined
+    }
+    
+    //TODO: Peter Ryszkiewicz: Validate/audit this logic
+    var isJoinableAfterCommunityIsJoined: Bool {
+        return community != nil && userRelation.participant == nil && (status != .finished || status != .canceled)
+    }
 }
 
 extension Challenge {
@@ -194,6 +210,42 @@ extension Challenge {
         case calculating
         case finished
         case canceled
+    }
+}
+
+// MARK: - States
+
+extension Challenge {
+    enum UserState {
+        case unjoinedAndUnderway
+        case unjoinedAndNotUnderway
+        case joinedAndUnderway
+        case joinedAndNotUnderway
+        case tabulatingResults
+        case challengeComplete
+        case cancelled
+    }
+    
+    var userState: UserState {
+        if status == .canceled {
+            return .cancelled
+        }
+        if status == .finished {
+            return .challengeComplete
+        }
+        if status == .calculating {
+            return .tabulatingResults
+        }
+        if status == .running {
+            if userRelation.status.isJoined {
+                return .joinedAndUnderway
+            }
+            return .unjoinedAndUnderway
+        }
+        if userRelation.status.isJoined {
+            return .joinedAndNotUnderway
+        }
+        return .unjoinedAndNotUnderway
     }
 }
 

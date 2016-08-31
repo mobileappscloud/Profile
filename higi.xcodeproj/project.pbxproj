@@ -36,6 +36,8 @@
 		279B3B011D49543200058AD6 /* ChallengeTableViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279B3B001D49543200058AD6 /* ChallengeTableViewCellModel.swift */; };
 		27A4AE771D4BB4CA00FEAFF0 /* ChallengeProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A4AE761D4BB4CA00FEAFF0 /* ChallengeProgressView.swift */; };
 		27AC77561D6CD5EF0048316B /* AnyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AC77551D6CD5EF0048316B /* AnyWrapper.swift */; };
+		27AC77611D6F9E3D0048316B /* PreviousChallengesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27AC77601D6F9E3D0048316B /* PreviousChallengesTableViewCell.xib */; };
+		27AC77651D7091FF0048316B /* PreviousChallengesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AC77641D7091FF0048316B /* PreviousChallengesTableViewCell.swift */; };
 		27B6604D1D4FE2FF00BD9390 /* NSLayoutConstraint+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B6604C1D4FE2FF00BD9390 /* NSLayoutConstraint+Utility.swift */; };
 		27F9F3361D6B4D5F001FA583 /* ChallengeDetailJoinSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F9F3351D6B4D5F001FA583 /* ChallengeDetailJoinSegue.swift */; };
 		27F9F33F1D6B8F00001FA583 /* LeaderboardStatusWidgetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27F9F33E1D6B8F00001FA583 /* LeaderboardStatusWidgetView.xib */; };
@@ -523,6 +525,8 @@
 		279B3B001D49543200058AD6 /* ChallengeTableViewCellModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeTableViewCellModel.swift; sourceTree = "<group>"; };
 		27A4AE761D4BB4CA00FEAFF0 /* ChallengeProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeProgressView.swift; sourceTree = "<group>"; };
 		27AC77551D6CD5EF0048316B /* AnyWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyWrapper.swift; sourceTree = "<group>"; };
+		27AC77601D6F9E3D0048316B /* PreviousChallengesTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreviousChallengesTableViewCell.xib; sourceTree = "<group>"; };
+		27AC77641D7091FF0048316B /* PreviousChallengesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviousChallengesTableViewCell.swift; sourceTree = "<group>"; };
 		27B6604C1D4FE2FF00BD9390 /* NSLayoutConstraint+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSLayoutConstraint+Utility.swift"; sourceTree = "<group>"; };
 		27F9F3351D6B4D5F001FA583 /* ChallengeDetailJoinSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeDetailJoinSegue.swift; sourceTree = "<group>"; };
 		27F9F33E1D6B8F00001FA583 /* LeaderboardStatusWidgetView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeaderboardStatusWidgetView.xib; sourceTree = "<group>"; };
@@ -1086,6 +1090,7 @@
 				273DFFB01D49320A00AF7032 /* ChallengeTableViewCell.swift */,
 				279B3B001D49543200058AD6 /* ChallengeTableViewCellModel.swift */,
 				419448C71D6AC21B00F4FF45 /* NewChallengeUtility.swift */,
+				27AC77641D7091FF0048316B /* PreviousChallengesTableViewCell.swift */,
 			);
 			name = Challenges;
 			sourceTree = "<group>";
@@ -1098,6 +1103,7 @@
 				27416E611D49408800876873 /* Challenges.storyboard */,
 				273DFFAC1D491C3800AF7032 /* ChallengeStatusIndicatorView.xib */,
 				270ED5751D480F6E00476E6A /* ChallengeTableViewCell.xib */,
+				27AC77601D6F9E3D0048316B /* PreviousChallengesTableViewCell.xib */,
 			);
 			name = Challenges;
 			sourceTree = "<group>";
@@ -3043,6 +3049,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				273DFFAD1D491C3800AF7032 /* ChallengeStatusIndicatorView.xib in Resources */,
+				27AC77611D6F9E3D0048316B /* PreviousChallengesTableViewCell.xib in Resources */,
 				418111C91C97997E00EE3E75 /* ActivityTableViewCell.xib in Resources */,
 				415338161C60614700ED2B82 /* MetricCheckinSummaryView.xib in Resources */,
 				8FEF6F3A1A6EAA58001EF8A6 /* DashboardView.xib in Resources */,
@@ -3263,6 +3270,7 @@
 				41A4257C1CE10CE000036C84 /* NameValidator.swift in Sources */,
 				41CB52EC1C979E5F004C13E9 /* ActivityTableViewCell.swift in Sources */,
 				417F48B41BC823F1005BC49D /* NSString+HTML.m in Sources */,
+				27AC77651D7091FF0048316B /* PreviousChallengesTableViewCell.swift in Sources */,
 				D17528841B0FBD49006335B4 /* DailySummaryRow.swift in Sources */,
 				41A274AE1D20F42600D10F8A /* Post.swift in Sources */,
 				413E198F1C10EB2D00146B29 /* TextMenuCollectionViewController.swift in Sources */,

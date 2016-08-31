@@ -56,6 +56,9 @@ final class Community: UniquelyIdentifiable {
     /// Whether or not the community is locked.
     let isLocked: Bool
     
+    /// Whether or not the community has challenges. (Does this comment add any value?)
+    let hasChallenges: Bool
+    
     // MARK: Optional
     
     /// Date a user joined the community, if applicable.
@@ -72,7 +75,7 @@ final class Community: UniquelyIdentifiable {
     
     // MARK: Init
     
-    required init(identifier: String, organizationIdentifier: String, memberCount: Int, isMember: Bool, isActive: Bool, isPublished: Bool, name: String, description: String, missionStatement: String, locale: String, isVisibleToVisitors: Bool, isShareable: Bool, isWellnessGroup: Bool, isSponsored: Bool, isLocked: Bool, joinDate: NSDate? = nil, createDate: NSDate? = nil, logo: MediaAsset? = nil, header: MediaAsset? = nil) {
+    required init(identifier: String, organizationIdentifier: String, memberCount: Int, isMember: Bool, isActive: Bool, isPublished: Bool, name: String, description: String, missionStatement: String, locale: String, isVisibleToVisitors: Bool, isShareable: Bool, isWellnessGroup: Bool, isSponsored: Bool, isLocked: Bool, hasChallenges: Bool, joinDate: NSDate? = nil, createDate: NSDate? = nil, logo: MediaAsset? = nil, header: MediaAsset? = nil) {
         self.identifier = identifier
         self.organizationIdentifier = organizationIdentifier
         self.memberCount = memberCount
@@ -88,6 +91,7 @@ final class Community: UniquelyIdentifiable {
         self.isWellnessGroup = isWellnessGroup
         self.isSponsored = isSponsored
         self.isLocked = isLocked
+        self.hasChallenges = hasChallenges
         
         self.joinDate = joinDate
         self.createDate = createDate
@@ -115,7 +119,8 @@ extension Community: JSONInitializable {
             let isShareable = dictionary["isShareable"] as? Bool,
             let isWellnessGroup = dictionary["isWellnessGroup"] as? Bool,
             let isSponsored = dictionary["isSponsored"] as? Bool,
-            let isLocked = dictionary["isLocked"] as? Bool
+            let isLocked = dictionary["isLocked"] as? Bool,
+            let hasChallenges = dictionary["hasChallenges"] as? Bool
             else { return nil }
         
         let createDate = NSDateFormatter.ISO8601DateFormatter.date(fromObject: dictionary["createdOn"])
@@ -123,6 +128,6 @@ extension Community: JSONInitializable {
         let logo = MediaAsset(fromJSONObject: dictionary["logo"])
         let header = MediaAsset(fromJSONObject: dictionary["headerImage"])
         
-        self.init(identifier: identifier, organizationIdentifier: organizationIdentifier, memberCount: memberCount, isMember: isMember, isActive: isActive, isPublished: isPublished, name: name, description: description, missionStatement: missionStatement, locale: locale, isVisibleToVisitors: isVisibleToVisitors, isShareable: isShareable, isWellnessGroup: isWellnessGroup, isSponsored: isSponsored, isLocked: isLocked, joinDate: joinDate, createDate: createDate, logo: logo, header: header)
+        self.init(identifier: identifier, organizationIdentifier: organizationIdentifier, memberCount: memberCount, isMember: isMember, isActive: isActive, isPublished: isPublished, name: name, description: description, missionStatement: missionStatement, locale: locale, isVisibleToVisitors: isVisibleToVisitors, isShareable: isShareable, isWellnessGroup: isWellnessGroup, isSponsored: isSponsored, isLocked: isLocked, hasChallenges: hasChallenges, joinDate: joinDate, createDate: createDate, logo: logo, header: header)
     }
 }

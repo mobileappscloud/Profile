@@ -12,7 +12,6 @@ final class ChallengesTableViewController: UIViewController {
     private var userController: UserController!
     private var tableType: TableType!
     
-    private lazy var challengeViewModels: [ChallengeTableViewCellModel] = []
     private lazy var challengesController = ChallengesController()
     
     @IBOutlet var tableView: UITableView! {
@@ -20,19 +19,66 @@ final class ChallengesTableViewController: UIViewController {
             tableView.rowHeight = UITableViewAutomaticDimension
             tableView.estimatedRowHeight = 400
             
-            tableView.register(nibWithCellClass: ChallengeTableViewCell.self)
             tableView.register(cellClass: UITableViewCell.self)
+            tableView.register(nibWithCellClass: ChallengeTableViewCell.self)
             tableView.register(nibWithCellClass: ActivityIndicatorTableViewCell.self)
+            tableView.register(nibWithCellClass: PreviousChallengesTableViewCell.self)
         }
     }
     
+    @IBOutlet var emptyLabelContainerView: UIView!
+    @IBOutlet var emptyLabel: UILabel! {
+        didSet {
+            emptyLabel.text = emptyTableString
+        }
+    }
+    
+    private var emptyTableString: String?
+    
+    func configureWith(userController userController: UserController, tableType: TableType, titleString: String? = nil, emptyTableString: String?) {
+        self.userController = userController
+        self.tableType = tableType
+        challengesController.pageSize = tableType.pageSize
+        if let titleString = titleString {
+            navigationItem.title = titleString
+        }
+        self.emptyTableString = emptyTableString
+    }
+    
+    private func fetchChallenges() {
+        challengesController.fetch(forEntityType: tableType.entityType, entityId: tableType.entityId, challengesType: tableType.challengeType, success: {
+            [weak self] in
+            self?.handleFetchChallengesSuccess()
+        }, failure: {_ in 
+            //TODO: Peter Ryszkiewicz: handle failure
+        })
+    }
+    
+    private func handleFetchChallengesSuccess() {
+        dispatch_async(dispatch_get_main_queue()) {
+            let sectionSet = NSIndexSet(indexesInRange: NSRange(0..<self.tableView.numberOfSections))
+            self.tableView.reloadSections(sectionSet, withRowAnimation: .Automatic)
+        }
+    }
+}
+
+// MARK: - Lifecycle
+
+extension ChallengesTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchChallenges()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        if let selectedIndexPath = tableView.indexPathForSelectedRow {
+            tableView.deselectRowAtIndexPath(selectedIndexPath, animated: true)
+        }
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == ChallengesTableViewController.Storyboard.Segue.showChallengeDetailJoin {
+        if segue.identifier == ChallengesTableViewController.Storyboard.Segue.showChallengeDetail || segue.identifier == ChallengesTableViewController.Storyboard.Segue.showChallengeDetailJoin {
             guard let challenge = sender?["challenge"] as? Challenge,
                 let userDidJoinChallengeCallback = sender?["userDidJoinChallengeCallback"] as? AnyWrapper<()->()> else { return }
             (segue.destinationViewController as? ChallengeDetailViewController)?.configure(
@@ -40,36 +86,20 @@ final class ChallengesTableViewController: UIViewController {
             )
         }
     }
-    
-    func configureWith(userController userController: UserController, tableType: TableType) {
-        self.userController = userController
-        self.tableType = tableType
-    }
-    
-    private func fetchChallenges() {
-        challengesController.fetch(forEntityType: tableType.asEntityType, entityId: tableType.entityId, challengesType: tableType.asChallengeType, success: {
-            [weak self] in
-            self?.handleFetchChallengesSuccess()
-        }, failure: {
-            //TODO: Peter Ryszkiewicz: handle failure
-        })
-    }
-    
-    private func handleFetchChallengesSuccess() {
-        dispatch_async(dispatch_get_main_queue()) {
-            self.challengeViewModels = self.challengesController.challenges.map(ChallengeTableViewCellModel.init)
-            self.tableView.reloadData()
-        }
-    }
 }
 
-//MARK: - UITableViewDataSource
+// MARK: - UITableViewDataSource
 extension ChallengesTableViewController: UITableViewDataSource {
     var separatorCount: Int {
-        return challengeViewModels.count
+        return challengesController.challenges.count
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        if challengesController.challenges.isEmpty && (tableType.entityType != .communities || tableType.challengeType == .Finished) {
+            emptyLabelContainerView.hidden = false
+        } else {
+            emptyLabelContainerView.hidden = true
+        }
         return TableSection._count.rawValue
     }
     
@@ -81,9 +111,19 @@ extension ChallengesTableViewController: UITableViewDataSource {
         
         switch sectionType {
         case .Challenges:
-            rowCount = challengeViewModels.count + separatorCount
+            rowCount = challengesController.challenges.count + separatorCount
+        case .PreviousChallenges:
+            if tableType.entityType == .communities && tableType.challengeType == .Current {
+                rowCount = 1
+            } else {
+                rowCount = 0
+            }
         case .InfiniteScroll:
-            rowCount = InfiniteScrollRowType._count.rawValue
+            if let _ = challengesController.paging?.next {
+                rowCount = 1
+            } else {
+                rowCount = 0
+            }
         case ._count:
             break
         }
@@ -97,18 +137,20 @@ extension ChallengesTableViewController: UITableViewDataSource {
         }
         
         var cell: UITableViewCell!
+        var selectionStyle: UITableViewCellSelectionStyle?
         switch sectionType {
         case .Challenges:
             let rowType = ChallengesRowType(indexPath: indexPath)
             switch rowType {
             case .Content:
-                let challengeViewModel = challengeViewModels[indexPath.row / ChallengesRowType._count.rawValue]
+                let challenge = challengeForIndexPath(indexPath)
+                let challengeViewModel = ChallengeTableViewCellModel(challenge: challenge)
                 let challengeCell = tableView.dequeueReusableCell(withClass: ChallengeTableViewCell.self, forIndexPath: indexPath)
                 challengeCell.configure(withModel: challengeViewModel, joinButtonTappedCallback: {
-                    [unowned challengeCell, unowned challengeViewModel, unowned self] in
+                    [unowned challengeCell, unowned self] in
                     let wrappedFunction = AnyWrapper(object: challengeCell.userDidJoinChallenge)
                     self.performSegueWithIdentifier(ChallengesTableViewController.Storyboard.Segue.showChallengeDetailJoin, sender: [
-                        "challenge": challengeViewModel.challenge,
+                        "challenge": challenge,
                         "userDidJoinChallengeCallback": wrappedFunction
                     ])
                 }, userPhoto: userController.user.photo)
@@ -124,12 +166,15 @@ extension ChallengesTableViewController: UITableViewDataSource {
                 break
             }
             
+        case .PreviousChallenges:
+            cell = tableView.dequeueReusableCell(withClass: PreviousChallengesTableViewCell.self, forIndexPath: indexPath)
+            selectionStyle = .Default
+           
         case .InfiniteScroll:
             let rowType = InfiniteScrollRowType(indexPath: indexPath)
             switch rowType {
             case .ActivityIndicator:
                 cell = tableView.dequeueReusableCell(withClass: ActivityIndicatorTableViewCell.self, forIndexPath: indexPath)
-                
             case ._count:
                 break
             }
@@ -142,13 +187,13 @@ extension ChallengesTableViewController: UITableViewDataSource {
             fatalError("Method must produce a cell!")
         }
         
-        cell.selectionStyle = .None
+        cell.selectionStyle = selectionStyle ?? .None
         return cell
     }
     
 }
 
-//MARK: - UITableViewDelegate
+// MARK: - UITableViewDelegate
 extension ChallengesTableViewController: UITableViewDelegate {
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -161,6 +206,10 @@ extension ChallengesTableViewController: UITableViewDelegate {
             let rowType = ChallengesRowType(indexPath: indexPath)
             rowHeight = rowType.defaultHeight()
             
+        case .PreviousChallenges:
+            let rowType = PreviousChallengesRowType(indexPath: indexPath)
+            rowHeight = rowType.defaultHeight()
+            
         case .InfiniteScroll:
             let rowType = InfiniteScrollRowType(indexPath: indexPath)
             rowHeight = rowType.defaultHeight()
@@ -171,44 +220,98 @@ extension ChallengesTableViewController: UITableViewDelegate {
         
         return rowHeight
     }
+    
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        guard let sectionType = TableSection(rawValue: indexPath.section) else { return }
+        
+        switch sectionType {
+            
+        case .InfiniteScroll:
+            let rowType = InfiniteScrollRowType(indexPath: indexPath)
+            switch rowType {
+            case .ActivityIndicator:
+                fetchNextChallenges()
+            case ._count:
+                break
+            }
+            
+        case .PreviousChallenges:
+            break
+        case .Challenges:
+            break
+        case ._count:
+            break
+        }
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        guard let sectionType = TableSection(rawValue: indexPath.section) else { return }
+        
+        switch sectionType {
+        case .InfiniteScroll:
+            break
+        case .PreviousChallenges:
+            let previousChallengesVC = UIStoryboard(name: "Challenges", bundle: nil).instantiateViewControllerWithIdentifier(ChallengesViewController.Storyboard.Identifier.ChallengesTableViewController) as! ChallengesTableViewController
+            let challengesTableType = ChallengesTableViewController.TableType(challengeType: .Finished, entityType: .communities, entityId: tableType.entityId, pageSize: 10)
+            let emptyTableString = NSLocalizedString("CHALLENGES_VIEW_PREVIOUS_TABLE_EMPTY_TEXT", comment: "Text for when there are no previous challenges for the Previous Challenges table.")
+            previousChallengesVC.configureWith(userController: userController, tableType: challengesTableType, titleString: NSLocalizedString("CHALLENGES_VIEW_PREVIOUS_CHALLENGES_TITLE_TEXT", comment: "Title text for Previous Challenges in the challenge table view."), emptyTableString: emptyTableString)
+            navigationController?.pushViewController(previousChallengesVC, animated: true)
+            
+        case .Challenges:
+            if let challengeCell = tableView.cellForRowAtIndexPath(indexPath) as? ChallengeTableViewCell {
+                let challenge = challengeForIndexPath(indexPath)
+                let wrappedFunction = AnyWrapper(object: challengeCell.userDidJoinChallenge)
+                self.performSegueWithIdentifier(ChallengesTableViewController.Storyboard.Segue.showChallengeDetail, sender: [
+                    "challenge": challenge,
+                    "userDidJoinChallengeCallback": wrappedFunction
+                ])
+            }
+        case ._count:
+            break
+        }
+    }
+}
+
+// MARK: - Helpers
+
+extension ChallengesTableViewController {
+    private func challengeForIndexPath(indexPath: NSIndexPath) -> Challenge {
+        return challengesController.challenges[indexPath.row / ChallengesRowType._count.rawValue]
+    }
+}
+// MARK: - Paging
+
+extension ChallengesTableViewController {
+    private func fetchNextChallenges() {
+        guard let _ = challengesController.paging?.next else { return }
+        
+        challengesController.fetchNext(fetchNextSuccess, failure: fetchNextFailure)
+    }
+    
+    private func fetchNextSuccess() {
+        dispatch_async(dispatch_get_main_queue(), {
+            self.tableView.reloadData()
+        })
+    }
+    
+    private func fetchNextFailure(error: ErrorType) {
+        
+    }
 }
 
 // MARK: - Table Enums
 
 extension ChallengesTableViewController {
-    enum TableType {
-        case Current(userId: String)
-        case Finished(userId: String)
-        case CommunityDetail(communityId: String)
-        
-        var asChallengeType: ChallengesController.ChallengeType? {
-            switch self {
-                case .Current: return ChallengesController.ChallengeType.Current
-                case .Finished: return ChallengesController.ChallengeType.Finished
-                case .CommunityDetail: nil as ChallengesController.ChallengeType?
-            }
-            return nil
-        }
-        
-        var asEntityType: ChallengeCollectionRequest.EntityType {
-            switch self {
-                case .Current: return .user
-                case .Finished: return .user
-                case .CommunityDetail(communityId: _): return .communities
-            }
-        }
-        
-        var entityId: String {
-            switch self {
-                case .Current(let userId): return userId
-                case .Finished(let userId): return userId
-                case .CommunityDetail(let communityId): return communityId
-            }
-        }
+    struct TableType {
+        let challengeType: ChallengesController.ChallengeType?
+        let entityType: ChallengeCollectionRequest.EntityType
+        let entityId: String
+        let pageSize: Int
     }
     
     enum TableSection: Int  {
         case Challenges
+        case PreviousChallenges
         case InfiniteScroll
         case _count
     }
@@ -228,6 +331,24 @@ extension ChallengesTableViewController {
                 return UITableViewAutomaticDimension
             case .Separator:
                 return 17.0
+            case ._count:
+                return 0.0
+            }
+        }
+    }
+    
+    enum PreviousChallengesRowType: Int {
+        case Content
+        case _count
+        
+        init(indexPath: NSIndexPath) {
+            self = .Content
+        }
+        
+        func defaultHeight() -> CGFloat {
+            switch self {
+            case .Content:
+                return 44.0
             case ._count:
                 return 0.0
             }

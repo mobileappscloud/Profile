@@ -210,7 +210,11 @@ extension FeedTableViewController: UITableViewDataSource {
         case .Feed:
             rowCount = feedController.posts.count * FeedRowType._count.rawValue
         case .InfiniteScroll:
-            rowCount = InfiniteScrollRowType._count.rawValue
+            if let _ = feedController.paging?.next {
+                rowCount = 1
+            } else {
+                rowCount = 0
+            }
         case ._count:
             break
         }
@@ -283,11 +287,6 @@ extension FeedTableViewController: UITableViewDelegate {
             rowHeight = rowType.defaultHeight()
             
         case .InfiniteScroll:
-            guard let paging = feedController.paging,
-                let _ = paging.next else {
-                    break
-            }
-            
             let rowType = InfiniteScrollRowType(indexPath: indexPath)
             rowHeight = rowType.defaultHeight()
             

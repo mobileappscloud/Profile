@@ -8,20 +8,22 @@
 
 final class ChallengeCollectionRequest: ProtectedAPIRequest, ChallengeRequestConfigurable {
 
-    let entityType: EntityType
-    let entityId: String
+    private let entityType: EntityType
+    private let entityId: String
+    private let filters: [Filter]?
+    private let pageSize: Int
+    
     let gravityBoard: Int
     let participants: Int
     let comments: Int
     let teamComments: Int
-    let filters: [Filter]?
     
     private var filtersFormatted: String? {
         guard let filters = filters else { return nil }
         return filters.map{"[]=\($0)"}.joinWithSeparator(",")
     }
     
-    required init(entityType: EntityType, entityId: String, gravityBoard: Int, participants: Int, comments: Int, teamComments: Int, filters: [Filter]? = nil) {
+    required init(entityType: EntityType, entityId: String, gravityBoard: Int, participants: Int, comments: Int, teamComments: Int, filters: [Filter]? = nil, pageSize: Int = 0) {
         self.entityType = entityType
         self.entityId = entityId
         self.gravityBoard = gravityBoard
@@ -29,14 +31,13 @@ final class ChallengeCollectionRequest: ProtectedAPIRequest, ChallengeRequestCon
         self.comments = comments
         self.teamComments = teamComments
         self.filters = filters
+        self.pageSize = pageSize
     }
     
     func request(completion: APIRequestAuthenticatorCompletion) {
         
         let relativePath = "/challenge/\(entityType)/\(entityId)/challenges"
         
-        let includes = "[gravityboard]=\(gravityBoard),[participants]=\(participants),[comments]=\(comments),[teams.comments]=\(teamComments)"
-        let pageSize = 0
         var parameters = [
             "includes" : includes,
             "pageSize" : "\(pageSize)"

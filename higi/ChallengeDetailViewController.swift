@@ -145,7 +145,7 @@ private extension ChallengeDetailViewController {
         titleLabel.text = challenge.name
         
         // TODO: Remy - update status indicator after state is refactored
-        challengeStatusIndicatorView.state = ChallengeTableViewCellModel.State(withChallenge: challenge)
+        challengeStatusIndicatorView.state = challenge.userState
         dateLabel.text = NewChallengeUtility.formattedDateRange(forStartDate: challenge.startDate, endDate: challenge.endDate)
         participantLabel.text = NewChallengeUtility.formattedParticipantCount(forParticipantCount: challenge.participantCount)
         
@@ -194,7 +194,7 @@ private extension ChallengeDetailViewController {
 extension ChallengeDetailViewController {
     
     func didTapJoinButton(sender: UIButton) {
-        
+        joinChallenge()
     }
     
     func didTapInviteButton(sender: UIButton) {
@@ -276,12 +276,34 @@ extension ChallengeDetailViewController {
     }
 }
 
-//MARK: - Joining a challenge
+// MARK: - Joining a challenge
 
 extension ChallengeDetailViewController {
-    
     func joinChallenge() {
-        showTermsAndConditions()
+        if challengeDetailController.challenge.isDirectlyJoinable {
+            showTermsAndConditions()
+        } else if challengeDetailController.challenge.isJoinableAfterCommunityIsJoined {
+            showJoinCommunityAlert()
+        } else {
+            //TODO: Log bad state
+        }
+    }
+    
+    private func showJoinCommunityAlert() {
+        guard let community = challengeDetailController.challenge.community else { return }
+        let communityMembershipTitleString = NSLocalizedString("CHALLENGES_DETAIL_JOIN_COMMUNITY_COMMUNITY_MEMBERSHIP_TITLE", comment: "Text for the title of the join community message to the user, Community Membership.")
+        let communityMembershipMessageFormat = NSLocalizedString("CHALLENGES_DETAIL_JOIN_COMMUNITY_MESSAGE_FORMAT", comment: "Format for the join community message displayed to the user.")
+        let communityMembershipMessageString = String(format: communityMembershipMessageFormat, arguments: [community.name])
+        let alertViewController = UIAlertController(title: communityMembershipTitleString, message: communityMembershipMessageString, preferredStyle: .Alert)
+        let cancelString = NSLocalizedString("CHALLENGES_DETAIL_JOIN_COMMUNITY_CANCEL_STRING", comment: "Text for the cancel button of the join community prompt to the user.")
+        let cancelAction = UIAlertAction(title: cancelString, style: .Cancel, handler: nil)
+        let okString = NSLocalizedString("CHALLENGES_DETAIL_JOIN_COMMUNITY_OK_STRING", comment: "Text for the OK button of the join community prompt to the user.")
+        let okAction = UIAlertAction(title: okString, style: .Default) { (_) in
+            self.showTermsAndConditions()
+        }
+        alertViewController.addAction(cancelAction)
+        alertViewController.addAction(okAction)
+        presentViewController(alertViewController, animated: true, completion: nil)
     }
     
     private func showTermsAndConditions() {
@@ -297,13 +319,26 @@ extension ChallengeDetailViewController {
     private func joinChallengeApiCall(withChallenge challenge: Challenge) {
         guard let user = userController?.user else { return }
         blurredLoadingViewController.show(self)
+        
+        if challengeDetailController.challenge.needToJoinCommunityFirst {
+            //TODO: Peter Ryszkiewicz: Once the challenge api gets fixed and returns the community inside of it, join community and update community model
+            // On success, join challenge; on failure, tbd
+        }
+        
         challengeDetailController.join(challenge, user: user, success: {
             [weak self] in
-            dispatch_async(dispatch_get_main_queue()) {
-                self?.userDidJoinChallengeCallback?()
-                self?.blurredLoadingViewController.hide()
-            }
-            //TODO: Peter Ryszkiewicz: hide join and show invite button
+            self?.challengeDetailController.refreshChallenge(success: { (_) in
+                dispatch_async(dispatch_get_main_queue()) {
+                    self?.userDidJoinChallengeCallback?()
+                    //TODO: Peter Ryszkiewicz: Update State of Detail VC, hide join and show invite button
+                    self?.blurredLoadingViewController.hide()
+                }
+            }, failure: { (error) in
+                dispatch_async(dispatch_get_main_queue()) {
+                    //TODO: Peter Ryszkiewicz: Better handling
+                    self?.blurredLoadingViewController.hide()
+                }
+            })
             }, failure: {
                 [weak self] in
                 dispatch_async(dispatch_get_main_queue()) {

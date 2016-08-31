@@ -36,14 +36,14 @@ final class ChallengeTableViewCell: UITableViewCell {
     
     func setModel(model: ChallengeTableViewCellModel) {
         titleLabel.text = model.titleText
-        challengeStatusIndicatorView.state = model.challengeStatusState
+        challengeStatusIndicatorView.state = model.challenge.userState
         dateLabel.text = model.dateText
         participantCountLabel.text = model.participantCountText
         mainImageView.setImage(withMediaAsset: model.mainImageAsset, transition: true)
         communityImageView.setImage(withMediaAsset: model.communityImageAsset, transition: true)
         communityLabel.text = model.communityText
         
-        switch model.challengeStatusState {
+        switch model.challenge.userState {
         case .unjoinedAndUnderway, .unjoinedAndNotUnderway, .joinedAndNotUnderway:
             displayChallengeInformationView(model: model)
         case .joinedAndUnderway:
@@ -56,8 +56,8 @@ final class ChallengeTableViewCell: UITableViewCell {
             displayChallengeCancelled()
         }
         
-        gradientImageView.hidden = !model.isChallengeJoinable
-        joinButton.hidden = !model.isChallengeJoinable
+        gradientImageView.hidden = !model.challenge.isJoinable
+        joinButton.hidden = !model.challenge.isJoinable
         
         communityInformationView.hidden = model.communityText == nil || model.communityImageAsset == nil
     }

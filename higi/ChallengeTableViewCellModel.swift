@@ -10,7 +10,6 @@ import Foundation
 
 final class ChallengeTableViewCellModel {
     let titleText: String
-    let challengeStatusState: State
     let dateText: String
     let participantCountText: String
     let mainImageAsset: MediaAsset
@@ -21,28 +20,25 @@ final class ChallengeTableViewCellModel {
     let challengeInformationImage: UIImage?
     let progressMilestones: [CGFloat]?
     let challenge: Challenge
-
-    var isChallengeJoinable: Bool {
-        return challenge.canBeJoined && challenge.userRelation.joinURL != nil
-    }
     
     init(challenge: Challenge) {
         self.challenge = challenge
         titleText = challenge.name
-        challengeStatusState = State(withChallenge: challenge)
         dateText = NewChallengeUtility.formattedDateRange(forStartDate: challenge.startDate, endDate: challenge.endDate)
         participantCountText = NewChallengeUtility.formattedParticipantCount(forParticipantCount: challenge.participantCount)
         mainImageAsset = challenge.image
         communityImageAsset = challenge.community?.logo
         communityText = challenge.community?.name
         challengeInformationUpperText = ChallengeTableViewCellModel.makeAttributedStringFor(goalDescription: challenge.goalDescription)
-        challengeInformationLowerText = ChallengeTableViewCellModel.makeAttributedStringFor(prizesDescription: challenge.prizeDescription ?? "") //FIXME: Peter Ryszkiewicz: Is this supposed to be optional?
+        challengeInformationLowerText = ChallengeTableViewCellModel.makeAttributedStringFor(
+            prizesDescription: challenge.prizeDescription ?? NSLocalizedString("CHALLENGES_VIEW_CARD_INFORMATION_NO_PRIZE_TEXT", comment: "Text for No Prize for the prizes description on the challenge card information view.")
+        )
         challengeInformationImage = nil //TODO: Fill in with an asset based on the state of the challenge
         progressMilestones = nil
     }
 }
 
-//MARK: - Static Helpers and Properties
+// MARK: - Static Helpers and Properties
 extension ChallengeTableViewCellModel {
     private static let challengeInfoFontSize: CGFloat = 15.0
     
@@ -72,43 +68,3 @@ extension ChallengeTableViewCellModel {
     }
 }
 
-//MARK: - Enums
-extension ChallengeTableViewCellModel {
-    enum State {
-        case unjoinedAndUnderway
-        case unjoinedAndNotUnderway
-        case joinedAndUnderway
-        case joinedAndNotUnderway
-        case tabulatingResults
-        case challengeComplete
-        case cancelled
-        
-        init(withChallenge challenge: Challenge) {
-            if challenge.status == .canceled {
-                self = .cancelled
-                return
-            }
-            if challenge.status == .finished {
-                self = .challengeComplete
-                return
-            }
-            if challenge.status == .calculating {
-                self = .tabulatingResults
-                return
-            }
-            if challenge.status == .running {
-                if challenge.userRelation.status.isJoined {
-                    self = .joinedAndUnderway
-                    return
-                }
-                self = .unjoinedAndUnderway
-                return
-            }
-            if challenge.userRelation.status.isJoined {
-                self = .joinedAndNotUnderway
-                return
-            }
-            self = .unjoinedAndNotUnderway
-        }
-    }
-}
