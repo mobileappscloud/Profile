@@ -189,16 +189,16 @@ final class QrScannerViewController: UIViewController, AVCaptureMetadataOutputOb
                 self.showNotification(notification);
                 NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.QR_CHECKIN, object: nil, userInfo: ["success": true]);
                 }, failure: { (operation, error) in
-                    if operation.response.statusCode != 400 {
-                        self.clearNotification();
-                        let notification = NSLocalizedString("LOCAL_NOTIFICATION_SCANNED_CHECK_IN_ISSUE_MESSAGE", comment: "Message to display via local notification when a scanned check-in encounters an issue while being uploaded.");
-                        self.showNotification(notification);
-                        NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.QR_CHECKIN, object: nil, userInfo: ["success": false]);
-                    } else {
+                    if operation?.response?.statusCode == 400 {
                         let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(10 * Double(NSEC_PER_SEC)))
                         dispatch_after(delayTime, dispatch_get_main_queue()) {
                             self.sendCheckinResults(code);
                         }
+                    } else {
+                        self.clearNotification();
+                        let notification = NSLocalizedString("LOCAL_NOTIFICATION_SCANNED_CHECK_IN_ISSUE_MESSAGE", comment: "Message to display via local notification when a scanned check-in encounters an issue while being uploaded.");
+                        self.showNotification(notification);
+                        NSNotificationCenter.defaultCenter().postNotificationName(ApiUtility.QR_CHECKIN, object: nil, userInfo: ["success": false]);
                     }
             });
         };
