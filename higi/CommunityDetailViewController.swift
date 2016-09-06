@@ -80,7 +80,7 @@ final class CommunityDetailViewController: UIViewController {
     }()
     
     func configure(community: Community, userController: UserController, communitySubscriptionDelegate: CommunitySubscriptionDelegate?) {
-        self.communityDetailController = CommunityDetailController(community: community)
+        self.communityDetailController = CommunityDetailController(community: community, communityRepository: userController.communityRepository)
         self.userController = userController
         self.communitySubscriptionDelegate = communitySubscriptionDelegate
     }
@@ -103,12 +103,15 @@ extension CommunityDetailViewController {
         super.viewDidLoad()
         
         self.title = community.name
-        
         self.navigationItem.rightBarButtonItem = navigationOverflowBarButtonItem()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         
         configureView()
     }
-    
+
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
     
@@ -314,25 +317,25 @@ extension CommunityDetailViewController {
         updateSubscription(.Leave)
     }
     
-    private func updateSubscription(filter: CommunitySubscribeRequest.Filter) {
+    private func updateSubscription(subscribeAction: CommunitySubscribeRequest.SubscribeAction) {
         
         blurredLoadingViewController.show(self)
         
-        communityDetailController.updateSubscription(community, filter: filter, user: userController.user, success: { [weak self] (community) in
-            self?.updateSubscriptionSuccess(filter, community: community)
-            }, failure: { [weak self] (error) in
-                self?.updateSubscriptionFailure(filter, error: error)
-            })
+        communityDetailController.updateSubscription(community, subscribeAction: subscribeAction, user: userController.user, success: { [weak self] (community) in
+            self?.updateSubscriptionSuccess(subscribeAction, community: community)
+        }, failure: { [weak self] (error) in
+            self?.updateSubscriptionFailure(subscribeAction, error: error)
+        })
     }
     
-    private func updateSubscriptionSuccess(filter: CommunitySubscribeRequest.Filter, community: Community) {
+    private func updateSubscriptionSuccess(filter: CommunitySubscribeRequest.SubscribeAction, community: Community) {
         let subscribeMessage = NSLocalizedString("COMMUNITY_DETAIL_NOTIFICATION_MESSAGE_SUBSCRIBE_SUCCESS", comment: "Notification message to display within community detail view when a user has successfully subscribed/joined a community.")
         let unsubscribeMessage = NSLocalizedString("COMMUNITY_DETAIL_NOTIFICATION_MESSAGE_UNSUBSCRIBE_SUCCESS", comment: "Notification message to display within community detail view when a user has successfully unsubscribed/left a community.")
         let message = (filter == .Join) ? subscribeMessage : unsubscribeMessage
         
         dispatch_async(dispatch_get_main_queue(), {
             self.blurredLoadingViewController.hide()
-            self.configureView()
+//            self.configureView()
             self.textNotificationCoordinator.textViewController.label.text = message
             self.textNotificationCoordinator.textViewController.label.setNeedsDisplay()
             self.textNotificationCoordinator.showNotification()
@@ -345,7 +348,7 @@ extension CommunityDetailViewController {
         }
     }
     
-    private func updateSubscriptionFailure(filter: CommunitySubscribeRequest.Filter, error: NSError?) {
+    private func updateSubscriptionFailure(filter: CommunitySubscribeRequest.SubscribeAction, error: ErrorType) {
         dispatch_async(dispatch_get_main_queue(), {
             self.blurredLoadingViewController.hide()
         })

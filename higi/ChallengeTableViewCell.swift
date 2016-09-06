@@ -58,8 +58,8 @@ final class ChallengeTableViewCell: UITableViewCell {
         
         gradientImageView.hidden = !model.challenge.isJoinable
         joinButton.hidden = !model.challenge.isJoinable
-        
-        communityInformationView.hidden = model.communityText == nil || model.communityImageAsset == nil
+
+        communityInformationView.hidden = model.hideCommunityInfo || model.communityText == nil || model.communityImageAsset == nil
     }
     
     private func displayChallengeProgressView(model model: ChallengeTableViewCellModel) {
@@ -82,7 +82,7 @@ final class ChallengeTableViewCell: UITableViewCell {
         challengeInformationView.upperLabel.hidden = false
         
         challengeInformationView.lowerLabel.hidden = true
-        challengeInformationView.rightImageView.hidden = false //TODO: Peter Ryszkiewicz: Get assets, https://higidocs.atlassian.net/wiki/display/PD/Challenge+Card+Conditions
+        challengeInformationView.rightImageView.image = UIImage(named: "challenge-card-tabulating-results") //TODO: Peter Ryszkiewicz: Get updated assets with better resolution
         challengeInformationView.rightImageContainer.hidden = false
         
         challengeInformationContainerView.addSubview(challengeInformationView, pinToEdges: true)
@@ -92,12 +92,12 @@ final class ChallengeTableViewCell: UITableViewCell {
         let challengeInformationView = ChallengeInformationView()
         challengeInformationView.upperLabel.attributedText = NSAttributedString(
             string: NSLocalizedString("CHALLENGES_VIEW_CARD_INFORMATION_CHALLENGE_COMPLETE_TEXT", comment: "Text for Challenge is Complete on the challenge card information view.")
-        )
+        ) //TODO: Fix this text; look at challenge completed wires https://higidocs.atlassian.net/wiki/display/PD/Challenge+Card+Conditions
         challengeInformationView.upperLabel.hidden = false
         
         challengeInformationView.lowerLabel.hidden = true
-        challengeInformationView.rightImageView.hidden = true
-        challengeInformationView.rightImageContainer.hidden = true
+        challengeInformationView.rightImageView.image = UIImage(named: "challenge-card-checker-flag")
+        challengeInformationView.rightImageContainer.hidden = false
         
         challengeInformationContainerView.addSubview(challengeInformationView, pinToEdges: true)
     }

@@ -106,13 +106,7 @@
                             <constraint firstAttribute="trailing" secondItem="FPH-kU-Sgx" secondAttribute="trailing" id="HSu-b4-09x"/>
                             <constraint firstItem="FPH-kU-Sgx" firstAttribute="leading" secondItem="yd7-G4-7W9" secondAttribute="leading" id="Y7x-ul-0yQ"/>
                             <constraint firstItem="FPH-kU-Sgx" firstAttribute="top" secondItem="yd7-G4-7W9" secondAttribute="top" id="cio-QF-fGX"/>
-                            <constraint firstItem="M4I-fu-F0N" firstAttribute="top" secondItem="FPH-kU-Sgx" secondAttribute="bottom" id="fKx-Hz-ub8"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="fKx-Hz-ub8"/>
-                            </mask>
-                        </variation>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                 </viewController>

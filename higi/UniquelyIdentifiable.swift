@@ -11,5 +11,7 @@
  */
 protocol UniquelyIdentifiable {
     
-    var identifier: String { get }
+    var identifier: UniqueId { get }
 }
+
+typealias UniqueId = String

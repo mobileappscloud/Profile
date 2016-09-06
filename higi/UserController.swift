@@ -8,9 +8,19 @@
 
 final class UserController {
     
-    private(set) var user: User
+    private(set) var user: User {
+        didSet {
+            challengeRepository = UserDataRepository<Challenge>()
+            communityRepository = UserDataRepository<Community>()
+        }
+    }
     
     private lazy var session: NSURLSession = APIClient.sharedSession
+    
+    /// Dictionary of string identifiers to their associated objects.
+    /// The objects can be anything from the server: Communities, Challenges, etc.
+    private(set) var challengeRepository = UserDataRepository<Challenge>()
+    private(set) var communityRepository = UserDataRepository<Community>()
     
     init(user: User) {
         self.user = user

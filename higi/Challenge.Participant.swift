@@ -43,14 +43,13 @@ extension Challenge.Participant: JSONInitializable {
             let identifier = userPublicDict["id"] as? String,
             let displayName = userPublicDict["displayName"] as? String,
             let image = MediaAsset(fromLegacyJSONObject: userPublicDict),
-            let units = dictionary["units"] as? Double,
-            let team = Challenge.Team(fromJSONObject: dictionary["team"])
+            let units = dictionary["units"] as? Double
             else { return nil }
 
         self.identifier = identifier
         self.displayName = displayName
         self.image = image
         self.units = units
-        self.team = team
+        self.team = Challenge.Team(fromJSONObject: dictionary["team"])
     }
 }

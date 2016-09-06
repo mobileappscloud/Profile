@@ -20,8 +20,9 @@ final class ChallengeTableViewCellModel {
     let challengeInformationImage: UIImage?
     let progressMilestones: [CGFloat]?
     let challenge: Challenge
+    let hideCommunityInfo: Bool
     
-    init(challenge: Challenge) {
+    init(challenge: Challenge, hideCommunityInfo: Bool) {
         self.challenge = challenge
         titleText = challenge.name
         dateText = NewChallengeUtility.formattedDateRange(forStartDate: challenge.startDate, endDate: challenge.endDate)
@@ -35,6 +36,7 @@ final class ChallengeTableViewCellModel {
         )
         challengeInformationImage = nil //TODO: Fill in with an asset based on the state of the challenge
         progressMilestones = nil
+        self.hideCommunityInfo = hideCommunityInfo
     }
 }
 

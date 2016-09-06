@@ -33,8 +33,11 @@
 		273DFFAF1D491CE600AF7032 /* ChallengeProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 273DFFAE1D491CE600AF7032 /* ChallengeProgressView.xib */; };
 		273DFFB11D49320A00AF7032 /* ChallengeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273DFFB01D49320A00AF7032 /* ChallengeTableViewCell.swift */; };
 		27416E621D49408800876873 /* Challenges.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27416E611D49408800876873 /* Challenges.storyboard */; };
+		2798A2761D7A1FD00072EC1A /* CommunitiesNetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2798A2751D7A1FD00072EC1A /* CommunitiesNetworkController.swift */; };
+		2798A2791D7A304D0072EC1A /* ChallengesNetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2798A2781D7A304D0072EC1A /* ChallengesNetworkController.swift */; };
 		279B3B011D49543200058AD6 /* ChallengeTableViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279B3B001D49543200058AD6 /* ChallengeTableViewCellModel.swift */; };
 		27A4AE771D4BB4CA00FEAFF0 /* ChallengeProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A4AE761D4BB4CA00FEAFF0 /* ChallengeProgressView.swift */; };
+		27A79EAC1D7776DC00242CF7 /* UserDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A79EAB1D7776DC00242CF7 /* UserDataRepository.swift */; };
 		27AC77561D6CD5EF0048316B /* AnyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AC77551D6CD5EF0048316B /* AnyWrapper.swift */; };
 		27AC77611D6F9E3D0048316B /* PreviousChallengesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27AC77601D6F9E3D0048316B /* PreviousChallengesTableViewCell.xib */; };
 		27AC77651D7091FF0048316B /* PreviousChallengesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AC77641D7091FF0048316B /* PreviousChallengesTableViewCell.swift */; };
@@ -532,8 +535,11 @@
 		273DFFB01D49320A00AF7032 /* ChallengeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeTableViewCell.swift; sourceTree = "<group>"; };
 		27416E611D49408800876873 /* Challenges.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Challenges.storyboard; sourceTree = "<group>"; };
 		27416E631D49477500876873 /* ChallengesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengesTableViewController.swift; sourceTree = "<group>"; };
+		2798A2751D7A1FD00072EC1A /* CommunitiesNetworkController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunitiesNetworkController.swift; sourceTree = "<group>"; };
+		2798A2781D7A304D0072EC1A /* ChallengesNetworkController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengesNetworkController.swift; sourceTree = "<group>"; };
 		279B3B001D49543200058AD6 /* ChallengeTableViewCellModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeTableViewCellModel.swift; sourceTree = "<group>"; };
 		27A4AE761D4BB4CA00FEAFF0 /* ChallengeProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeProgressView.swift; sourceTree = "<group>"; };
+		27A79EAB1D7776DC00242CF7 /* UserDataRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDataRepository.swift; sourceTree = "<group>"; };
 		27AC77551D6CD5EF0048316B /* AnyWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyWrapper.swift; sourceTree = "<group>"; };
 		27AC77601D6F9E3D0048316B /* PreviousChallengesTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreviousChallengesTableViewCell.xib; sourceTree = "<group>"; };
 		27AC77641D7091FF0048316B /* PreviousChallengesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviousChallengesTableViewCell.swift; sourceTree = "<group>"; };
@@ -1124,6 +1130,22 @@
 				273DFFAC1D491C3800AF7032 /* ChallengeStatusIndicatorView.xib */,
 				270ED5751D480F6E00476E6A /* ChallengeTableViewCell.xib */,
 				27AC77601D6F9E3D0048316B /* PreviousChallengesTableViewCell.xib */,
+			);
+			name = Challenges;
+			sourceTree = "<group>";
+		};
+		2798A2721D7A1FB00072EC1A /* Communities */ = {
+			isa = PBXGroup;
+			children = (
+				2798A2751D7A1FD00072EC1A /* CommunitiesNetworkController.swift */,
+			);
+			name = Communities;
+			sourceTree = "<group>";
+		};
+		2798A2771D7A30380072EC1A /* Challenges */ = {
+			isa = PBXGroup;
+			children = (
+				2798A2781D7A304D0072EC1A /* ChallengesNetworkController.swift */,
 			);
 			name = Challenges;
 			sourceTree = "<group>";
@@ -1735,7 +1757,9 @@
 			isa = PBXGroup;
 			children = (
 				41EBD2C21D70024300DE7251 /* Authentication */,
+				2798A2771D7A30380072EC1A /* Challenges */,
 				4163CCDF1D52D94300424500 /* Chatter */,
+				2798A2721D7A1FB00072EC1A /* Communities */,
 				41EBD2BF1D6FFCD100DE7251 /* Misc */,
 			);
 			name = Controllers;
@@ -2627,13 +2651,13 @@
 		8F1DB450194F735000636566 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				419AC35E1D40B333000DDA5D /* Deprecation Candidates */,
 				41A70EFF1CD3C6CB0072AB06 /* ActivityMetric.swift */,
 				410FFFB01CA77533005EAC9E /* AgreementInfo.swift */,
 				41B108A81D5E3F17001B79AF /* Challenge */,
 				419AC3581D3ED2D9000DDA5D /* Comment.swift */,
 				410FFF3C1CA5CDDB005EAC9E /* Community.swift */,
 				410EED4E1D4BE9C5002FF052 /* Content.swift */,
+				419AC35E1D40B333000DDA5D /* Deprecation Candidates */,
 				41FB225A1BE2AE80009139B4 /* FabricInfo.swift */,
 				410FFFA41CA77268005EAC9E /* HigiAuthorization.swift */,
 				410FFFAA1CA772A9005EAC9E /* JSONWebToken.swift */,
@@ -2641,10 +2665,11 @@
 				410F61E41CB31B8A00614E78 /* MediaAsset.swift */,
 				410FFF5C1CA5EDC4005EAC9E /* Paging.swift */,
 				41A274A41D20F42600D10F8A /* Post.swift */,
+				412387991D6278DD0020D673 /* PublicUser.swift */,
 				41A274A91D20F42600D10F8A /* TextTransform.swift */,
 				41A274AA1D20F42600D10F8A /* TransformableString.swift */,
 				410FFFB11CA77533005EAC9E /* User.swift */,
-				412387991D6278DD0020D673 /* PublicUser.swift */,
+				27A79EAB1D7776DC00242CF7 /* UserDataRepository.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -3309,6 +3334,7 @@
 				41A274FF1D22263F00D10F8A /* PostTextDescriptionView.swift in Sources */,
 				411420241D0A11310050473E /* CommunityDetailController.swift in Sources */,
 				D1FC72971B20B0DC0068CF89 /* PulseMetricDelegate.swift in Sources */,
+				2798A2761D7A1FD00072EC1A /* CommunitiesNetworkController.swift in Sources */,
 				41027C5A1CD907F1003F3AD5 /* EmailValidator.swift in Sources */,
 				41A0BE0D1BBB088500A314D6 /* AFHTTPSessionManager.m in Sources */,
 				419AC3571D3EC595000DDA5D /* CommentCell.swift in Sources */,
@@ -3420,6 +3446,7 @@
 				8F7065B41A16B129002FCA10 /* ChallengeParticipant.swift in Sources */,
 				2BBDBA581A12AC2C005A6815 /* GoalChallengeView.swift in Sources */,
 				41BA3E731D4D76D2009BF365 /* ActionBarUtility.swift in Sources */,
+				27A79EAC1D7776DC00242CF7 /* UserDataRepository.swift in Sources */,
 				413922CA1CDA6DA000C3672E /* HostController.swift in Sources */,
 				8F9C69D91950C8AD00449664 /* KioskInfo.swift in Sources */,
 				410F10BD1D790B4D0008F68E /* ChallengeWinnerTableViewController.swift in Sources */,
@@ -3466,6 +3493,7 @@
 				410FFFA51CA77269005EAC9E /* HigiAuthorization.swift in Sources */,
 				2BC5865E1A16D0AF005A7983 /* ChallengeInvitationView.swift in Sources */,
 				D18395C31A69CAD500D290BF /* ChallengesDetailsTab.swift in Sources */,
+				2798A2791D7A304D0072EC1A /* ChallengesNetworkController.swift in Sources */,
 				415338181C60681B00ED2B82 /* MetricCheckinSummaryView.swift in Sources */,
 				2BBDBA551A12AC2C005A6815 /* ChallengesViewController.swift in Sources */,
 				41667A2C1CED1639007BB0FF /* ModifyImageViewController.swift in Sources */,

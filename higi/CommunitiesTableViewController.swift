@@ -51,7 +51,8 @@ extension CommunitiesTableViewController {
     func showPlaceholderView() {
         addChildViewController(loadingViewController)
         loadingViewController.view.alpha = 1.0
-        tableView.addSubview(loadingViewController.view, pinToEdges: false)
+        tableView.addSubview(loadingViewController.view)
+        loadingViewController.view.frame = tableView.bounds
         loadingViewController.didMoveToParentViewController(self)
     }
     
@@ -77,28 +78,20 @@ extension CommunitiesTableViewController {
         showPlaceholderView()
         communitiesController.fetch(communitiesFetchSuccess, failure: communitiesFetchFailure)
     }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        
-        // TODO: Fix this by setting constraints
-        loadingViewController.view.frame = tableView.bounds
-        loadingViewController.view.frame.size.height = UIScreen.mainScreen().bounds.height
-    }
 }
 
 // MARK: - Fetch
 
 extension CommunitiesTableViewController {
     
-    func communitiesFetchSuccess() -> Void {
+    private func communitiesFetchSuccess() -> Void {
         dispatch_async(dispatch_get_main_queue(), { [weak self] in
             self?.tableView.reloadData()
             self?.hidePlaceholderView()
             })
     }
     
-    func communitiesFetchFailure(error: NSError?) -> Void {
+    private func communitiesFetchFailure(error: NSError?) -> Void {
         dispatch_async(dispatch_get_main_queue(), { [weak self] in
             self?.tableView.reloadData()
             self?.hidePlaceholderView()

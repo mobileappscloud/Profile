@@ -98,7 +98,7 @@ private extension CommunitiesViewController {
     func viewController(filter: CommunityCollectionRequest.Filter) -> CommunitiesTableViewController {
         let storyboard = UIStoryboard(name: "Communities", bundle: nil)
         let communitiesTableViewController = storyboard.instantiateViewControllerWithIdentifier(CommunitiesViewController.Storyboard.Scene.listView) as! CommunitiesTableViewController
-        let controller = CommunitiesController(filter: filter)
+        let controller = CommunitiesController(filter: filter, communityRepository: userController.communityRepository)
         communitiesTableViewController.configure(userController, communitiesController: controller, delegate: self, communitySubscriptionDelegate: self)
         return communitiesTableViewController
     }

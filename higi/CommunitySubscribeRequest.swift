@@ -8,17 +8,17 @@
 
 final class CommunitySubscribeRequest: ProtectedAPIRequest {
 
-    enum Filter {
+    enum SubscribeAction {
         case Join
         case Leave
     }
     
-    let filter: Filter
+    let subscribeAction: SubscribeAction
     let communityId: String
     let userId: String
     
-    required init(filter: Filter, communityId: String, userId: String) {
-        self.filter = filter
+    required init(subscribeAction: SubscribeAction, communityId: String, userId: String) {
+        self.subscribeAction = subscribeAction
         self.communityId = communityId
         self.userId = userId
     }
@@ -27,7 +27,7 @@ final class CommunitySubscribeRequest: ProtectedAPIRequest {
         
         let relativePath = "/community/communities/\(communityId)/users/\(userId)"
         
-        let method = (filter == .Join) ? HTTPMethod.PUT : HTTPMethod.DELETE
+        let method = (subscribeAction == .Join) ? HTTPMethod.PUT : HTTPMethod.DELETE
         let parameters: [String : String] = [:]
         
         authenticatedRequest(relativePath, parameters: parameters, method: method, completion: completion)

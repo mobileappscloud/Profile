@@ -145,7 +145,7 @@ extension Challenge {
     }
     
     var isDirectlyJoinable: Bool {
-        return canBeJoined && userRelation.joinURL != nil
+        return canBeJoined && userRelation.joinURL != nil && status != .finished && status != .canceled && status != .calculating
     }
     
     var needToJoinCommunityFirst: Bool {
@@ -154,7 +154,7 @@ extension Challenge {
     
     //TODO: Peter Ryszkiewicz: Validate/audit this logic
     var isJoinableAfterCommunityIsJoined: Bool {
-        return community != nil && userRelation.participant == nil && (status != .finished || status != .canceled)
+        return community != nil && userRelation.participant == nil && status != .finished && status != .canceled && status != .calculating
     }
 }
 

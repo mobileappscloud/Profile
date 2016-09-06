@@ -8,7 +8,17 @@
 
 final class ChallengesController {
     
-    private(set) var challenges: [Challenge] = []
+    private var challengeIds: [UniqueId] = []
+    private let challengeRepository: UserDataRepository<Challenge>
+    private(set) var challenges: [Challenge] {
+        get {
+            return challengeRepository.objects(forIds: challengeIds)
+        }
+        set {
+            challengeRepository.add(objects: newValue)
+            challengeIds = newValue.map({$0.identifier})
+        }
+    }
     
     private lazy var session: NSURLSession = APIClient.sharedSession
     
@@ -18,6 +28,10 @@ final class ChallengesController {
     private var nextPagingTask: NSURLSessionDataTask?
     
     var pageSize = 0
+    
+    init(challengeRepository: UserDataRepository<Challenge>) {
+        self.challengeRepository = challengeRepository
+    }
 
     deinit {
         fetchTask?.cancel()
@@ -118,6 +132,28 @@ extension ChallengesController {
     }
 }
 
+//MARK: - Communities requests
+extension ChallengesController {
+    func updateSubscription(community: Community, subscribeAction: CommunitySubscribeRequest.SubscribeAction, user: User, success: (community: Community) -> Void, failure: (error: ErrorType) -> Void) {
+        CommunitiesNetworkController.updateSubscriptionFor(community: community, subscribeAction: subscribeAction, user: user, session: session, success: success, failure: failure)
+    }
+    
+    func fetch(community: Community, success: (community: Community) -> Void, failure: (error: ErrorType) -> Void) {
+        CommunitiesNetworkController.fetch(community: community, session: session, success: success, failure: failure)
+    }
+}
+
+//MARK: - Refresh
+
+extension ChallengesController {
+    func refreshChallenge(challenge: Challenge, success: () -> Void, failure: (error: ErrorType) -> Void) {
+        ChallengesNetworkController.fetch(challenge: challenge, session: session, success: { (challenge) in
+            //TODO: Peter Ryszkiewicz: add the updated challenge to the data repository
+            success()
+        }, failure: failure)
+    }
+}
+
 // MARK: - Errors
 extension ChallengesController {
     enum Error: ErrorType {
@@ -125,21 +161,23 @@ extension ChallengesController {
         case authenticationError
         case challengeCollectionRetrievalError
         case parsingError
+        case challengeRetrievalError
     }
 }
 
-// MARK: - Errors
+// MARK: - Ordering
 extension ChallengesController {
     static func sortChallenges(challenges: [Challenge]) -> [Challenge] {
+        // Priorities talked about with Andrew Campbell
         func priority(challenge: Challenge) -> Int {
             switch challenge.userState {
-                case .joinedAndUnderway: return 0
-                case .unjoinedAndUnderway: return 1
-                case .joinedAndNotUnderway: return 2
-                case .unjoinedAndNotUnderway: return 3
-                case .tabulatingResults: return 5
-                case .challengeComplete: return 4
-                case .cancelled: return 6
+                case .tabulatingResults: return 0
+                case .challengeComplete: return 1
+                case .cancelled: return 2
+                case .joinedAndUnderway: return 3
+                case .unjoinedAndUnderway: return 4
+                case .joinedAndNotUnderway: return 5
+                case .unjoinedAndNotUnderway: return 6
             }
         }
         func ordering(challenge1: Challenge, challenge2: Challenge) -> Bool {

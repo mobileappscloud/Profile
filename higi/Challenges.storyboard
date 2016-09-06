@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Challenges-->
@@ -119,7 +120,43 @@
             </objects>
             <point key="canvasLocation" x="1057.5" y="369"/>
         </scene>
+        <!--Loading View Controller-->
+        <scene sceneID="pVB-L2-S6B">
+            <objects>
+                <viewController storyboardIdentifier="ChallengesListLoading" id="SE0-Ne-Bgc" userLabel="Loading View Controller" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Rfd-fb-aqC"/>
+                        <viewControllerLayoutGuide type="bottom" id="Rw7-GC-ZJV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="SkU-7D-eeG">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="challenge-list-load-state" translatesAutoresizingMaskIntoConstraints="NO" id="o1C-9R-FfI">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="985"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="o1C-9R-FfI" secondAttribute="height" multiplier="820:1950" id="h3T-HH-wdu"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.94509804249999996" green="0.94509804249999996" blue="0.94509804249999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="o1C-9R-FfI" secondAttribute="trailing" id="4qh-NH-kkH"/>
+                            <constraint firstItem="o1C-9R-FfI" firstAttribute="leading" secondItem="SkU-7D-eeG" secondAttribute="leading" id="IpD-zh-mdB"/>
+                            <constraint firstItem="o1C-9R-FfI" firstAttribute="top" secondItem="SkU-7D-eeG" secondAttribute="top" id="dZX-tx-Tch"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xuk-eM-1t6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="525" y="-1473"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="challenge-list-load-state" width="410" height="975"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="2HT-Sm-LP8"/>
     </inferredMetricsTieBreakers>

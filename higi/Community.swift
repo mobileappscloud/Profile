@@ -12,7 +12,7 @@ final class Community: UniquelyIdentifiable {
     // MARK: Required
     
     /// Unique identifier.
-    let identifier: String
+    let identifier: UniqueId
     
     /// Identifier of the organization the community belongs to.
     let organizationIdentifier: String

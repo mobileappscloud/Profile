@@ -128,7 +128,7 @@ extension ChallengeDetailViewController {
      */
     func configure(withUserController userController: UserController, challenge: Challenge, userDidJoinChallengeCallback: (() -> ())?) {
         self.userController = userController
-        self.challengeDetailController = ChallengeDetailController(challenge: challenge)
+        self.challengeDetailController = ChallengeDetailController(challenge: challenge, challengeRepository: userController.challengeRepository, communityRepository: userController.communityRepository)
         self.userDidJoinChallengeCallback = userDidJoinChallengeCallback
     }
 }
@@ -137,8 +137,8 @@ extension ChallengeDetailViewController {
 
 extension ChallengeDetailViewController {
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         
         configureView(forChallenge: challengeDetailController.challenge)
     }
@@ -340,38 +340,29 @@ extension ChallengeDetailViewController {
         presentViewController(termsViewController, animated: true, completion: nil)
     }
     
-    private func joinChallengeApiCall(withChallenge challenge: Challenge) {
-        guard let user = userController?.user else { return }
-        blurredLoadingViewController.show(self)
-        
+    private func joinChallengeWithCommunityApiCall(success success: () -> (), failure: (error: ErrorType) -> ()) {
         if challengeDetailController.challenge.needToJoinCommunityFirst {
-            //TODO: Peter Ryszkiewicz: Once the challenge api gets fixed and returns the community inside of it, join community and update community model
-            // On success, join challenge; on failure, tbd
+            return joinCommunityApiCall(success: success, failure: failure)
         }
         
-        challengeDetailController.join(challenge, user: user, success: {
-            [weak self] in
-            self?.challengeDetailController.refreshChallenge(success: { (_) in
-                dispatch_async(dispatch_get_main_queue()) {
-                    self?.userDidJoinChallengeCallback?()
-                    //TODO: Peter Ryszkiewicz: Update State of Detail VC, hide join and show invite button
-                    self?.blurredLoadingViewController.hide()
-                }
-            }, failure: { (error) in
-                dispatch_async(dispatch_get_main_queue()) {
-                    //TODO: Peter Ryszkiewicz: Better handling
-                    self?.blurredLoadingViewController.hide()
-                }
-            })
-            }, failure: {
-                [weak self] in
-                dispatch_async(dispatch_get_main_queue()) {
-                    self?.blurredLoadingViewController.hide()
-                    //TODO: Peter Ryszkiewicz
-                }
-            })
+        joinChallengeApiCall(success: success, failure: failure)
     }
-
+    
+    private func joinCommunityApiCall(success success: () -> (), failure: (error: ErrorType) -> ()) {
+        //TODO: Peter Ryszkiewicz: update community model
+        // On success, join challenge; on failure, tbd
+        guard let community = challengeDetailController.challenge.community else { return failure(error: Error.unknown) }
+        challengeDetailController.updateSubscriptionFor(community: community, subscribeAction: .Join, user: userController.user, success: {
+            [weak self] _ in
+            self?.challengeDetailController.refreshChallenge(success: { _ in // refresh challenge to obtain the joinUrl, now that it should be joinable
+                self?.joinChallengeApiCall(success: success, failure: failure)
+            }, failure: failure)
+        }, failure: failure)
+    }
+    
+    private func joinChallengeApiCall(success success: () -> (), failure: (error: ErrorType) -> ()) {
+        challengeDetailController.join(challenge: challengeDetailController.challenge, user: userController.user, success: success, failure: failure)
+    }
 }
 
 // MARK: - Terms & Condition Delegate
@@ -381,7 +372,27 @@ extension ChallengeDetailViewController: TermsAndConditionsAcceptanceDelegate {
     func acceptTerms(withValue accepted: Bool) {
         dismissViewControllerAnimated(true, completion: {
             guard accepted else { return }
-            self.joinChallengeApiCall(withChallenge: self.challengeDetailController.challenge)
+            self.blurredLoadingViewController.show(self)
+            self.joinChallengeWithCommunityApiCall(success: {
+                [weak self] in
+                dispatch_async(dispatch_get_main_queue()) {
+                    self?.userDidJoinChallengeCallback?()
+                    self?.blurredLoadingViewController.hide()
+                }
+            }, failure: {
+                [weak self] _ in
+                dispatch_async(dispatch_get_main_queue()) {
+                    self?.blurredLoadingViewController.hide()
+                }
+                //TODO: Peter Ryszkiewicz: handle
+            })
         })
+    }
+}
+
+// MARK: - Errors
+extension ChallengeDetailViewController {
+    enum Error: ErrorType {
+        case unknown
     }
 }

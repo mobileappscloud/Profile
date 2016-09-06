@@ -11,9 +11,18 @@ final class CommunitiesController {
     // MARK: Properties
     
     typealias Filter = CommunityCollectionRequest.Filter
-    let filter: Filter
-
-    private(set) var communities: [Community] = []
+    private let filter: Filter
+    private let communityRepository: UserDataRepository<Community>
+    private var communityIds: [UniqueId] = []
+    private(set) var communities: [Community] {
+        get {
+            return communityRepository.objects(forIds: communityIds)
+        }
+        set {
+            communityRepository.add(objects: newValue)
+            communityIds = newValue.map({$0.identifier})
+        }
+    }
     
     private(set) var paging: Paging? = nil
     
@@ -25,8 +34,9 @@ final class CommunitiesController {
     
     // MARK: Init
     
-    required init(filter: Filter) {
+    required init(filter: Filter, communityRepository: UserDataRepository<Community>) {
         self.filter = filter
+        self.communityRepository = communityRepository
     }
     
     deinit {

@@ -10,6 +10,7 @@ extension UIView {
     
     func addSubview(subview: UIView, pinToEdges: Bool) {
         self.addSubview(subview)
+        guard pinToEdges else { return }
         subview.translatesAutoresizingMaskIntoConstraints = false
         self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[subview]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["subview" : subview]))
         self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[subview]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["subview" : subview]))

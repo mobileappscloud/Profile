@@ -9,75 +9,72 @@
 /// Responsible for data interaction related to challenge details.
 final class ChallengeDetailController {
     
-    /// Challenge to view details for.
-    private(set) var challenge: Challenge
-    
+    private let challengeRepository: UserDataRepository<Challenge>
+    private let communityRepository: UserDataRepository<Community>
+    private let challengeId: UniqueId
+    private(set) var challenge: Challenge {
+        get {
+            return challengeRepository.object(forId: challengeId)!
+        }
+        set {
+            challengeRepository.add(object: newValue)
+        }
+    }
+
     private lazy var session: NSURLSession = APIClient.sharedSession
 
     // MARK: Init
     
-    required init(challenge: Challenge) {
+    required init(challenge: Challenge, challengeRepository: UserDataRepository<Challenge>, communityRepository: UserDataRepository<Community>) {
+        self.challengeRepository = challengeRepository
+        self.communityRepository = communityRepository
+        challengeId = challenge.identifier
         self.challenge = challenge
     }
 }
 
 // MARK: - Joining a challenge
 extension ChallengeDetailController {
-    func join(challenge: Challenge, user: User, success: () -> Void, failure: () -> Void) {
-        guard let joinURL = challenge.userRelation.joinURL else {
-            failure()
-            return
-        }
-        
-        ChallengeJoinRequest(joinURL: joinURL, user: user).request({ [weak self] (request, error) in
-            guard let strongSelf = self,
-                let request = request else {
-                    failure()
-                    return
-            }
-            
-            let task = NSURLSessionTask.JSONTask(strongSelf.session, request: request, success: { (JSON, response) in
-                    success()
-                }, failure: { (error, response) in
-                    failure()
-                }
-            )
-            task.resume()
-        })
+    func join(challenge challenge: Challenge, user: User, success: () -> Void, failure: (error: ErrorType) -> Void) {
+        ChallengesNetworkController.join(challenge: challenge, user: user, session: session, success: {
+            [weak self] (challenge) in
+            self?.challenge = challenge
+            success()
+        }, failure: failure)
+    }
+}
+
+// MARK: - Joining a community before joining the challenge
+
+extension ChallengeDetailController {
+    
+    func updateSubscriptionFor(community community: Community, subscribeAction: CommunitySubscribeRequest.SubscribeAction, user: User, success: (community: Community) -> Void, failure: (error: ErrorType) -> Void) {
+        CommunitiesNetworkController.updateSubscriptionFor(community: community, subscribeAction: subscribeAction, user: user, session: session, success: {
+            [weak self]
+            community in
+            self?.communityRepository.add(object: community)
+            success(community: community)
+        }, failure: failure)
+    }
+    
+    func fetch(community: Community, success: (community: Community) -> Void, failure: (error: ErrorType) -> Void) {
+        CommunitiesNetworkController.fetch(community: community, session: session, success: {
+            [weak self]
+            community in
+            self?.communityRepository.add(object: community)
+            success(community: community)
+        }, failure: failure)
     }
 }
 
 // MARK: - Fetching a challenge
 extension ChallengeDetailController {
-    func refreshChallenge(success success: (challenge: Challenge) -> Void, failure: (error: ErrorType) -> Void) {
-        
-        let gravityBoard = 3
-        let participants = 50
-        let comments = 50
-        let teamComments = 50
-        
-        ChallengeRequest(challenge: challenge, gravityBoard: gravityBoard, participants: participants, comments: comments, teamComments: teamComments).request({ [weak self] (request, error) in
-            
-            guard let strongSelf = self,
-                let request = request else {
-                    failure(error: error ?? Error.authenticationError)
-                    return
-            }
-            
-            let task = NSURLSessionTask.JSONTask(strongSelf.session, request: request, success: { [weak strongSelf] (JSON, response) in
-                guard let strongSelf = strongSelf else { return }
-                
-                guard let challengeDictionary = JSON as? NSDictionary, let updatedChallenge = Challenge(dictionary: challengeDictionary) else {
-                    return failure(error: Error.parsingError)
-                }
-                
-                strongSelf.challenge = updatedChallenge
-                success(challenge: updatedChallenge)
-            }, failure: { (error, response) in
-                failure(error: error ?? Error.challengeRetrievalError)
-            })
-            task.resume()
-        })
+    func refreshChallenge(success success: () -> Void, failure: (error: ErrorType) -> Void) {
+        ChallengesNetworkController.fetch(challenge: challenge, session: session, success: {
+            [weak self] (challenge) in
+            self?.challenge = challenge
+            success()
+        }, failure: failure)
     }
 }
 
@@ -85,8 +82,9 @@ extension ChallengeDetailController {
 extension ChallengeDetailController {
     enum Error: ErrorType {
         case unknown
-        case authenticationError
-        case parsingError
-        case challengeRetrievalError
+        case noJoinUrl
+        case authentication
+        case parsing
+        case challengeRetrieval
     }
 }
