@@ -62,12 +62,27 @@ final class ChallengeDetailViewController: UIViewController {
         return viewController
     }()
     
-    // TODO: Remy - Add view controllers when they become available
-    
     /// View controller for prizes segment embedded in the `segmentedPageViewController`.
     private lazy var prizeViewController: UIViewController = {
-        return UIViewController()
+        let storyboard = UIStoryboard(name: Storyboard.name, bundle: nil)
+        let viewController = storyboard.instantiateViewControllerWithIdentifier(Storyboard.Scene.Prize.identifier) as! ChallengeWinConditionTableViewController
+        
+        viewController.configure(withChallenge: self.challengeDetailController.challenge)
+        
+        return viewController
     }()
+    
+    /// View controller for prizes segment embedded in the `segmentedPageViewController`. Shown after a challenge has completed.
+    private lazy var winnerViewController: UIViewController = {
+        let storyboard = UIStoryboard(name: Storyboard.name, bundle: nil)
+        let viewController = storyboard.instantiateViewControllerWithIdentifier(Storyboard.Scene.Winners.identifier) as! ChallengeWinnerTableViewController
+        
+        viewController.configure(withChallenge: self.challengeDetailController.challenge)
+        
+        return viewController
+    }()
+    
+    // TODO: Remy - Add view controllers when they become available
     
     /// View controller for chatter segment embedded in the `segmentedPageViewController`.
     private lazy var chatterViewController: UIViewController = {
@@ -227,6 +242,14 @@ extension ChallengeDetailViewController {
             struct DetailTable {
                 static let identifier = "ChallengeDetailTableViewController"
             }
+            
+            struct Prize {
+                static let identifier = "ChallengeWinConditionTableViewController"
+            }
+            
+            struct Winners {
+                static let identifier = "ChallengeWinnerTableViewController"
+            }
         }
         
         struct Segue {
@@ -261,6 +284,7 @@ extension ChallengeDetailViewController {
         let leaderboardTitle = NSLocalizedString("CHALLENGE_DETAIL_SEGMENTED_PAGE_SEGMENT_TITLE_LEADERBOARD", comment: "Title for 'leaderboard' segment on segmented control within the challenge detail view.")
         
         var titles = [detailTitle, prizesTitle, chatterTitle]
+        let prizeViewController = challengeDetailController.challenge.status != .finished ? winnerViewController : self.prizeViewController
         var viewControllers = [challengeDetailTableViewController, prizeViewController, chatterViewController]
         if challengeDetailController.challenge.status == .registration {
             titles.append(participantsTitle)

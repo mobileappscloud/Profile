@@ -18,7 +18,7 @@ extension Challenge {
         /// Present if winner is a participant.
         let participant: Participant?
         
-        /// Presenter if winner is a team.
+        /// Present if winner is a team.
         let team: Team?
     }
 }

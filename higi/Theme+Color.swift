@@ -284,6 +284,15 @@ extension Theme.Color.Challenge.Detail {
     }
 }
 
+extension Theme.Color.Challenge.Detail {
+    
+    struct WinCondition {
+        static let placeLabel = Theme.Color.Primary.charcoal
+        static let winConditionLabel = Theme.Color.Primary.charcoal
+        static let prizeLabel = Theme.Color.Primary.charcoal
+    }
+}
+
 
 // MARK: - Content Service
 

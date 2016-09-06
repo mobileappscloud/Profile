@@ -79,6 +79,9 @@
 /* Text for official rules cell in challenge detail table. */
 "CHALLENGE_DETAIL_TABLE_CELL_OFFICIAL_RULES_TEXT" = "Official Rules";
 
+/* Format of win condition name displayed within challenge detail prizes segment. */
+"CHALLENGE_DETAIL_WIN_CONDITION_NAME_FORMAT" = "%@ %@";
+
 /* Text label for challenge detail participant icon units. */
 "CHALLENGE_DETAILS_PARTICIPANT_ICON_LABEL_UNITS" = "Individuals";
 
@@ -234,6 +237,9 @@
 
 /* Text to display for a challenge goal where the winner is a team. */
 "CHALLENGE_INVITATION_VIEW_GOAL_TYPE_WINNER_TEAM" = "Team";
+
+/* Format for pluralization of winners. */
+"CHALLENGE_WIN_CONDITION_WINNER_SINGLE_PLURAL" = "CHALLENGE_WIN_CONDITION_WINNER_SINGLE_PLURAL";
 
 /* Text for the cancel button of the join community prompt to the user. */
 "CHALLENGES_DETAIL_JOIN_COMMUNITY_CANCEL_STRING" = "Cancel";

@@ -42,6 +42,12 @@ extension Challenge {
         
         /// Exists if there is a prize that will be awarded for winning.
         let prize: Prize?
+        
+        /// The number of winners to be randomly selected for drawing tieHandling.
+        let drawingQuantity: Int?
+        
+        /// Winners of this condition. This will be `nil` until a challenge has completed.
+        let winners: [Challenge.Winner]?
     }
 }
 
@@ -85,6 +91,8 @@ extension Challenge.WinCondition: JSONInitializable {
 //        self.winnerType = winnerType
         
         self.prize = Challenge.Prize(fromJSONObject: dictionary["prize"])
+        self.drawingQuantity = dictionary["drawingQuantity"] as? Int
+        self.winners = CollectionDeserializer.parse(JSONDictionaries: dictionary["winners"], forResource: Challenge.Winner.self)
     }
 }
 

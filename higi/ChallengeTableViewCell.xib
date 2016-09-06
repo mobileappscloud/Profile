@@ -67,7 +67,7 @@
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="At3-7v-T4z" userLabel="Middle View">
                                 <rect key="frame" x="0.0" y="178" width="487" height="195"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="challenge-detail-header" translatesAutoresizingMaskIntoConstraints="NO" id="kWT-xu-vQk" userLabel="Main Image View">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="higi-logo" translatesAutoresizingMaskIntoConstraints="NO" id="kWT-xu-vQk" userLabel="Main Image View">
                                         <rect key="frame" x="0.0" y="0.0" width="487" height="195"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="kWT-xu-vQk" secondAttribute="height" multiplier="5:2" id="gYy-8W-dz8"/>
@@ -179,6 +179,6 @@
     </objects>
     <resources>
         <image name="cell-gradient-overlay" width="562" height="82"/>
-        <image name="challenge-detail-header" width="400" height="266"/>
+        <image name="higi-logo" width="200" height="83"/>
     </resources>
 </document>

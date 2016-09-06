@@ -199,5 +199,85 @@
             </objects>
             <point key="canvasLocation" x="2851.5" y="387"/>
         </scene>
+        <!--Challenge Win Condition Table View Controller-->
+        <scene sceneID="5a1-pN-ke3">
+            <objects>
+                <viewController storyboardIdentifier="ChallengeWinConditionTableViewController" id="B0w-9P-EAR" customClass="ChallengeWinConditionTableViewController" customModule="higi" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="zHR-kp-OGz"/>
+                        <viewControllerLayoutGuide type="bottom" id="i5e-70-Gao"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="FER-NX-rOD">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cnT-aq-NOr">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="15" maxY="0.0"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="B0w-9P-EAR" id="Jzc-PV-q1k"/>
+                                    <outlet property="delegate" destination="B0w-9P-EAR" id="LK9-cK-8Ye"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="i5e-70-Gao" firstAttribute="top" secondItem="cnT-aq-NOr" secondAttribute="bottom" id="ClA-Cj-xfD"/>
+                            <constraint firstAttribute="trailing" secondItem="cnT-aq-NOr" secondAttribute="trailing" id="FRC-IK-5sa"/>
+                            <constraint firstItem="cnT-aq-NOr" firstAttribute="top" secondItem="zHR-kp-OGz" secondAttribute="bottom" id="ji3-vP-4Sf"/>
+                            <constraint firstItem="cnT-aq-NOr" firstAttribute="leading" secondItem="FER-NX-rOD" secondAttribute="leading" id="xCU-Jq-rh0"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="tableView" destination="cnT-aq-NOr" id="Euw-9a-JOC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EjZ-jq-tBg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3798.5" y="386.5"/>
+        </scene>
+        <!--Challenge Winner Table View Controller-->
+        <scene sceneID="vSP-7K-GCI">
+            <objects>
+                <viewController storyboardIdentifier="ChallengeWinnerTableViewController" id="2jV-ge-Zmz" customClass="ChallengeWinnerTableViewController" customModule="higi" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="xfk-hA-Jyh"/>
+                        <viewControllerLayoutGuide type="bottom" id="V6c-UW-iDe"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bKw-kq-JuO">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="nAy-t3-l3R">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="15" maxY="0.0"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="2jV-ge-Zmz" id="6hv-1m-z41"/>
+                                    <outlet property="delegate" destination="2jV-ge-Zmz" id="liI-MK-HxG"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="nAy-t3-l3R" secondAttribute="trailing" id="JXR-bQ-POl"/>
+                            <constraint firstItem="nAy-t3-l3R" firstAttribute="leading" secondItem="bKw-kq-JuO" secondAttribute="leading" id="TSy-Yx-yLh"/>
+                            <constraint firstItem="V6c-UW-iDe" firstAttribute="top" secondItem="nAy-t3-l3R" secondAttribute="bottom" id="Tgd-Z1-kPf"/>
+                            <constraint firstItem="nAy-t3-l3R" firstAttribute="top" secondItem="xfk-hA-Jyh" secondAttribute="bottom" id="a59-zh-i18"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="tableView" destination="nAy-t3-l3R" id="k48-Qt-4M6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5ex-zc-uYn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4366.5" y="386.5"/>
+        </scene>
     </scenes>
 </document>
