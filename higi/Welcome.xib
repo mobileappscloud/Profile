@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -80,7 +80,7 @@
                     </connections>
                 </pageControl>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ePL-qi-dzS">
-                    <rect key="frame" x="8" y="70" width="304" height="20.5"/>
+                    <rect key="frame" x="8" y="70" width="304" height="21"/>
                     <constraints>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20.5" id="dU5-tQ-eR6"/>
                     </constraints>
@@ -97,19 +97,8 @@
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="welcome-tour-station" translatesAutoresizingMaskIntoConstraints="NO" id="cl1-BU-hFJ">
-                    <rect key="frame" x="40" y="200" width="240" height="225"/>
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="cl1-BU-hFJ" secondAttribute="height" multiplier="16:15" id="Xy2-z9-4cm"/>
-                        <constraint firstAttribute="height" constant="225" id="YHK-gO-udX"/>
-                        <constraint firstAttribute="width" constant="240" id="YdQ-OE-2hT"/>
-                    </constraints>
-                    <variation key="default">
-                        <mask key="constraints">
-                            <exclude reference="YHK-gO-udX"/>
-                            <exclude reference="YdQ-OE-2hT"/>
-                        </mask>
-                    </variation>
+                <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="welcome-tour-station" translatesAutoresizingMaskIntoConstraints="NO" id="cl1-BU-hFJ">
+                    <rect key="frame" x="40" y="200" width="240" height="330"/>
                 </imageView>
                 <view clearsContextBeforeDrawing="NO" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4q6-bB-7EQ">
                     <rect key="frame" x="40" y="165" width="240" height="363"/>

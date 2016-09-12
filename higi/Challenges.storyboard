@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="2nh-3k-lNc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="2nh-3k-lNc">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -61,40 +61,16 @@
                                     <outlet property="delegate" destination="1iN-gi-tve" id="QaP-yP-HGF"/>
                                 </connections>
                             </tableView>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s4a-Dc-zPp" userLabel="Empty Label Container View">
-                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="200" verticalHuggingPriority="200" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Zc-YS-W19" userLabel="Empty Label">
-                                        <rect key="frame" x="20" y="20" width="560" height="540"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" red="0.94509803920000002" green="0.94509803920000002" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="9Zc-YS-W19" secondAttribute="trailing" constant="20" id="8sT-Zb-MnW"/>
-                                    <constraint firstItem="9Zc-YS-W19" firstAttribute="leading" secondItem="s4a-Dc-zPp" secondAttribute="leading" constant="20" id="eMx-a2-BpJ"/>
-                                    <constraint firstAttribute="bottom" secondItem="9Zc-YS-W19" secondAttribute="bottom" constant="20" id="hhh-CH-L7B"/>
-                                    <constraint firstItem="9Zc-YS-W19" firstAttribute="top" secondItem="s4a-Dc-zPp" secondAttribute="top" constant="20" id="v3d-DB-1nW"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="s4a-Dc-zPp" firstAttribute="top" secondItem="byE-V3-H0B" secondAttribute="bottom" id="5pt-1h-PRK"/>
                             <constraint firstItem="hpO-NB-ZuF" firstAttribute="top" secondItem="cSf-Cx-jmG" secondAttribute="bottom" id="FCL-Bi-pZO"/>
                             <constraint firstItem="cSf-Cx-jmG" firstAttribute="top" secondItem="byE-V3-H0B" secondAttribute="bottom" id="Fvg-aP-cXd"/>
                             <constraint firstItem="cSf-Cx-jmG" firstAttribute="leading" secondItem="9m5-AG-dnN" secondAttribute="leading" id="U98-cG-pz5"/>
-                            <constraint firstItem="s4a-Dc-zPp" firstAttribute="leading" secondItem="9m5-AG-dnN" secondAttribute="leading" id="lO8-6c-kR6"/>
                             <constraint firstAttribute="trailing" secondItem="cSf-Cx-jmG" secondAttribute="trailing" id="pJm-BR-hrz"/>
-                            <constraint firstItem="hpO-NB-ZuF" firstAttribute="top" secondItem="s4a-Dc-zPp" secondAttribute="bottom" id="pRM-gW-rGw"/>
-                            <constraint firstAttribute="trailing" secondItem="s4a-Dc-zPp" secondAttribute="trailing" id="weJ-O3-a8w"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="emptyLabel" destination="9Zc-YS-W19" id="wm3-Ac-NIR"/>
-                        <outlet property="emptyLabelContainerView" destination="s4a-Dc-zPp" id="eBP-9O-MOS"/>
                         <outlet property="tableView" destination="cSf-Cx-jmG" id="gR8-d6-2et"/>
                         <segue destination="74M-xa-c2h" kind="custom" identifier="ShowChallengeDetailJoin" customClass="ChallengeDetailJoinSegue" customModule="higi" customModuleProvider="target" id="2HT-Sm-LP8"/>
                         <segue destination="74M-xa-c2h" kind="show" identifier="ShowChallengeDetail" id="etO-Q5-ryY"/>
@@ -155,7 +131,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="challenge-list-load-state" width="410" height="975"/>
+        <image name="challenge-list-load-state" width="414" height="988"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="2HT-Sm-LP8"/>

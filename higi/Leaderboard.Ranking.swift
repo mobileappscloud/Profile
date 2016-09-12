@@ -8,10 +8,30 @@
 
 extension Leaderboard {
     
+    struct Rankings: JSONInitializable {
+        let rankings: [Ranking]
+        let paging: Paging
+        let renderInfo: Leaderboard.Member.Analysis.RenderInfo
+
+        init?(dictionary: NSDictionary) {
+            guard let rankingsArray = dictionary["data"] as? NSArray,
+                let paging = Paging(fromJSONObject: dictionary["paging"]),
+                let renderInfo = Leaderboard.Member.Analysis.RenderInfo(fromJSONObject: dictionary["renderInfo"]) else { return nil }
+            
+            self.rankings = rankingsArray.flatMap(Leaderboard.Rankings.Ranking.init)
+            self.paging = paging
+            self.renderInfo = renderInfo
+        }
+    }
+}
+
+// MARK: JSON
+
+extension Leaderboard.Rankings {
     /**
      *  Represents a user and their ranking within a leaderboard.
      */
-    struct Ranking {
+    struct Ranking: JSONInitializable {
         
         /// The overall ranking for a user.
         let ranking: Int
@@ -24,23 +44,19 @@ extension Leaderboard {
         
         /// Publicly consumable representation of a user.
         let user: PublicUser
-    }
-}
-
-// MARK: JSON
-
-extension Leaderboard.Ranking: JSONInitializable {
-    
-    init?(dictionary: NSDictionary) {
-        guard let ranking = dictionary["ranking"] as? Int,
-            let percentile = dictionary["percentile"] as? Int,
-            let score = dictionary["score"] as? Int,
-            let userDict = dictionary["user"] as? NSDictionary,
-            let user = PublicUser.init(dictionary: userDict) else { return nil }
         
-        self.ranking = ranking
-        self.percentile = percentile
-        self.score = score
-        self.user = user
+        init?(dictionary: NSDictionary) {
+            guard let ranking = dictionary["ranking"] as? Int,
+                let percentile = dictionary["percentage"] as? Int, //TODO: update apiary docs of difference
+                let score = dictionary["score"] as? Int,
+                let user = PublicUser(fromJSONObject: dictionary["user"]) else { return nil }
+            
+            self.ranking = ranking
+            self.percentile = percentile
+            self.score = score
+            self.user = user
+        }
     }
+    
+    
 }

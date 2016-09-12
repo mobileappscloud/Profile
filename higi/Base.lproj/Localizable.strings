@@ -286,26 +286,32 @@
 /* Text for the number of people participating in a challenge. */
 "CHALLENGES_VIEW_CARD_PARTICIPATING_TEXT" = "participating";
 
-/* Text for when there are no current challenges for the Current Challenges table. */
-"CHALLENGES_VIEW_CURRENT_TABLE_EMPTY_TEXT" = "No currently active challenges";
-
-/* Text for when there are no finished challenges for the Finished Challenges table. */
-"CHALLENGES_VIEW_FINISHED_TABLE_EMPTY_TEXT" = "No finished challenges";
-
 /* Text for Previous Challenges in the challenge table view. */
 "CHALLENGES_VIEW_PREVIOUS_CHALLENGES_TEXT" = "Previous Challenges";
 
 /* Title text for Previous Challenges in the challenge table view. */
 "CHALLENGES_VIEW_PREVIOUS_CHALLENGES_TITLE_TEXT" = "Previous Challenges";
 
-/* Text for when there are no previous challenges for the Previous Challenges table. */
-"CHALLENGES_VIEW_PREVIOUS_TABLE_EMPTY_TEXT" = "No previous challenges";
-
 /* Segment title for Current on segmented control in the challenges view. */
 "CHALLENGES_VIEW_SEGMENTED_CONTROL_SEGMENT_TITLE_CURRENT" = "Current";
 
 /* Segment title for Finished on segmented control in the challenges view. */
 "CHALLENGES_VIEW_SEGMENTED_CONTROL_SEGMENT_TITLE_FINISHED" = "Finished";
+
+/* Message for when the challenges table, within the community detail view, is empty */
+"CHALLENGES_VIEW_TABLE_COMMUNITY_DETAIL_EMPTY_MESSAGE" = "Check back later for our newest challenges.";
+
+/* Title for when the challenges table, within the community detail view, is empty */
+"CHALLENGES_VIEW_TABLE_COMMUNITY_DETAIL_EMPTY_TITLE" = "Polishing the trophies!";
+
+/* Text telling the user to explore communities for when the challenges table is empty */
+"CHALLENGES_VIEW_TABLE_EMPTY_BOTTOM_TEXT" = "explore communities ›";
+
+/* Message for when the challenges table is empty */
+"CHALLENGES_VIEW_TABLE_EMPTY_MESSAGE" = "Joining a community will unlock all of its challenges.";
+
+/* Title for when the challenges table is empty */
+"CHALLENGES_VIEW_TABLE_EMPTY_TITLE" = "Looking for a challenge?";
 
 /* Title for challenges view. */
 "CHALLENGES_VIEW_TITLE" = "Challenges";
@@ -699,6 +705,9 @@
 
 /* Text for Top 10 on Leaderboard in the leaderboard widget */
 "LEADERBOARD_VIEW_TOP_10_TITLE" = "Top 10 on Leaderboard";
+
+/* Format for displaying how many watts a user has */
+"LEADERBOARD_VIEW_WATTS_FORMAT" = "%@ watts";
 
 /* Reason for prompting Touch ID local authentication. */
 "LOCAL_AUTHENTICATION_TOUCH_ID_REASON" = "Use your fingerprint to access higi";

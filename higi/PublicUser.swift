@@ -22,9 +22,6 @@ struct PublicUser: UniquelyIdentifiable {
     /// Family (last) name of the user.
     let lastName: String
     
-    /// Whether or not the user has a photo.
-    let hasPhoto: Bool
-    
     // MARK: Optional with natural defaults
     
     /// Whether or not the user can be viewed by other users.
@@ -40,25 +37,23 @@ struct PublicUser: UniquelyIdentifiable {
     let followRequestSent: Bool
     
     // MARK: Optional
-    
-    /// Epock timestamp of when user photo was uploaded.
-    let photoTime: NSTimeInterval?
+
+    /// Image media asset with a photo of the user.
+    let photo: MediaAsset?
     
     // MARK: Init
     
-    init(identifier: String, firstName: String, lastName: String, hasPhoto: Bool, isViewable: Bool = true, isFollower: Bool = false, isFollowing: Bool = false, followRequestSent: Bool = false, photoTime: NSTimeInterval?) {
+    init(identifier: String, firstName: String, lastName: String, isViewable: Bool = true, isFollower: Bool = false, isFollowing: Bool = false, followRequestSent: Bool = false, photo: MediaAsset?) {
         
         self.identifier = identifier
         self.firstName = firstName
         self.lastName = lastName
-        self.hasPhoto = hasPhoto
         
         self.isViewable = isViewable
         self.isFollower = isFollower
         self.isFollowing = isFollowing
         self.followRequestSent = followRequestSent
-        
-        self.photoTime = photoTime
+        self.photo = photo
     }
 }
 
@@ -69,16 +64,14 @@ extension PublicUser: JSONInitializable {
     init?(dictionary: NSDictionary) {
         guard let identifier = dictionary["id"] as? String,
             let firstName = dictionary["firstName"] as? String,
-            let lastName = dictionary["lastName"] as? String,
-            let hasPhoto = dictionary["hasPhoto"] as? Bool else { return nil }
+            let lastName = dictionary["lastName"] as? String else { return nil }
         
         let isViewable = (dictionary["isViewable"] as? Bool) ?? true
         let isFollower = (dictionary["isFollower"] as? Bool) ?? false
         let isFollowing = (dictionary["isFollowing"] as? Bool) ?? false
         let followRequestSent = (dictionary["followRequestSent"] as? Bool) ?? false
+        let photo = MediaAsset(fromJSONObject: dictionary["photo"])
         
-        let photoTime = dictionary["photoTime"] as? NSTimeInterval
-        
-        self.init(identifier: identifier, firstName: firstName, lastName: lastName, hasPhoto: hasPhoto, isViewable: isViewable, isFollower: isFollower, isFollowing: isFollowing, followRequestSent: followRequestSent, photoTime: photoTime)
+        self.init(identifier: identifier, firstName: firstName, lastName: lastName, isViewable: isViewable, isFollower: isFollower, isFollowing: isFollowing, followRequestSent: followRequestSent, photo: photo)
     }
 }

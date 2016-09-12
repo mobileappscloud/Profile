@@ -59,9 +59,9 @@ extension Leaderboard: JSONInitializable {
     
     init?(dictionary: NSDictionary) {
         guard let identifier = dictionary["id"] as? String,
-        let owner = Owner(fromJSONObject: dictionary["owner"]),
-        let scoreType = ScoreType(rawJSONValue: dictionary["scoreType"]),
-        let startDate = NSDateFormatter.ISO8601DateFormatter.date(fromObject: dictionary["startDate"]),
+            let owner = Owner(fromJSONObject: dictionary["owner"]),
+            let scoreType = ScoreType(rawJSONValue: dictionary["scoreType"]),
+            let startDate = NSDateFormatter.ISO8601DateFormatter.date(fromObject: dictionary["startDate"]),
             let isLive = dictionary["isLive"] as? Bool else { return nil }
         
         let endDate = NSDateFormatter.ISO8601DateFormatter.date(fromObject: dictionary["endDate"])

@@ -14,7 +14,7 @@ extension Leaderboard {
     struct Owner: UniquelyIdentifiable {
         
         /// Object type of the leaderboard owner.
-        let type: Type
+        let type: `Type`
         
         /// Unique identifier.
         let identifier: String
@@ -31,7 +31,7 @@ extension Leaderboard.Owner {
      - community: Represents a community.
      - profile:   Represents a user.
      */
-    enum Type: APIString {
+    enum `Type`: APIString {
         case community
         case profile
     }
@@ -42,7 +42,7 @@ extension Leaderboard.Owner {
 extension Leaderboard.Owner: JSONInitializable {
     
     init?(dictionary: NSDictionary) {
-        guard let type = Type(rawJSONValue: dictionary["type"]),
+        guard let type = `Type`(rawJSONValue: dictionary["type"]),
             let identifier = dictionary["id"] as? String else {return nil }
         
         self.type = type

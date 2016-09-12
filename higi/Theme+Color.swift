@@ -293,6 +293,14 @@ extension Theme.Color.Challenge.Detail {
     }
 }
 
+extension Theme.Color.Challenge {
+    
+    struct Table {
+        static let topLabel = UIColor.blackColor()
+        static let middleLabel = Theme.Color.Primary.pewter
+        static let exploreCommunitiesLabel = Theme.Color.primary
+    }
+}
 
 // MARK: - Content Service
 
@@ -329,5 +337,15 @@ extension Theme.Color {
             static let borderColor = UIColor(red: 220.0/255.0, green: 220.0/255.0, blue: 220.0/255.0, alpha: 1.0)
         }
     }
+}
+
+extension Theme.Color.Leaderboard {
     
+    struct Ranking {
+        static let topThird = Theme.Color.Primary.green
+        static let middleThird = Theme.Color.Secondary.teal
+        static let bottomThird = Theme.Color.Secondary.grape
+        static let number = Theme.Color.Primary.white
+        static let userCellBackground = UIColor(red: 220/255, green: 247/255, blue: 245/255, alpha: 1.0)
+    }
 }

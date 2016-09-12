@@ -146,10 +146,11 @@ extension ChallengesController {
 //MARK: - Refresh
 
 extension ChallengesController {
-    func refreshChallenge(challenge: Challenge, success: () -> Void, failure: (error: ErrorType) -> Void) {
-        ChallengesNetworkController.fetch(challenge: challenge, session: session, success: { (challenge) in
-            //TODO: Peter Ryszkiewicz: add the updated challenge to the data repository
-            success()
+    func refreshChallenge(challenge: Challenge, success: (challenge: Challenge) -> Void, failure: (error: ErrorType) -> Void) {
+        ChallengesNetworkController.fetch(challenge: challenge, session: session, success: {
+            [weak self] (challenge) in
+            self?.challengeRepository.add(object: challenge)
+            success(challenge: challenge)
         }, failure: failure)
     }
 }

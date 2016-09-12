@@ -58,6 +58,12 @@ final class CommunityDetailViewController: UIViewController {
     @IBOutlet private var pageViewContainer: UIView!
     @IBOutlet private var pageViewContainerHeightConstraint: NSLayoutConstraint!
     
+    @IBOutlet var leaderboardView: UIView!
+    @IBOutlet var leaderboardHeightConstraint: NSLayoutConstraint!
+    
+    private let naturalLeaderboardHeight: CGFloat = 122
+    private let leaderboardAnimationDuration = 0.4
+    
     lazy private var blurredLoadingViewController: BlurredLoadingViewController = {
         let storyboard = UIStoryboard(name: "BlurredLoading", bundle: nil)
         return storyboard.instantiateInitialViewController() as! BlurredLoadingViewController
@@ -104,6 +110,8 @@ extension CommunityDetailViewController {
         
         self.title = community.name
         self.navigationItem.rightBarButtonItem = navigationOverflowBarButtonItem()
+        
+        configureLeaderboardWidget()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -335,7 +343,7 @@ extension CommunityDetailViewController {
         
         dispatch_async(dispatch_get_main_queue(), {
             self.blurredLoadingViewController.hide()
-//            self.configureView()
+            self.configureView()
             self.textNotificationCoordinator.textViewController.label.text = message
             self.textNotificationCoordinator.textViewController.label.setNeedsDisplay()
             self.textNotificationCoordinator.showNotification()
@@ -360,7 +368,7 @@ extension CommunityDetailViewController {
 extension CommunityDetailViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let identifier = segue.identifier where identifier == CommunitiesViewController.Storyboard.Segue.DetailView.Segue.segmentedPage {
+        if segue.identifier == CommunitiesViewController.Storyboard.Segue.DetailView.Segue.segmentedPage {
             
             guard let segmentedPage = segue.destinationViewController as? SegmentedPageViewController else { return }
             
@@ -373,8 +381,7 @@ extension CommunityDetailViewController {
             if community.hasChallenges {
                 challengesVC = UIStoryboard(name: "Challenges", bundle: nil).instantiateViewControllerWithIdentifier(ChallengesViewController.Storyboard.Identifier.ChallengesTableViewController) as? ChallengesTableViewController
                 let challengesTableType = ChallengesTableViewController.TableType(challengeType: .Current, entityType: .communities, entityId: community.identifier, pageSize: 0)
-                let tableEmptyString = NSLocalizedString("CHALLENGES_VIEW_CURRENT_TABLE_EMPTY_TEXT", comment: "Text for when there are no current challenges for the Current Challenges table.")
-                challengesVC?.configureWith(userController: userController, tableType: challengesTableType, emptyTableString: tableEmptyString)
+                challengesVC?.configureWith(userController: userController, tableType: challengesTableType)
                 
                 challengesTitle = NSLocalizedString("COMMUNITY_DETAIL_SEGMENTED_CONTROL_SEGMENT_TITLE_CHALLENGES", comment: "Segment title for Challenges on segmented control in community detail.")
             }
@@ -391,6 +398,12 @@ extension CommunityDetailViewController {
             viewControllers += [UIViewController(), UIViewController()]
             
             segmentedPage.set(viewControllers, titles: titles)
+        } else if segue.identifier == CommunitiesViewController.Storyboard.Segue.toLeaderboardAAA {
+            if let aaaLeaderboardWrapped = (sender as? NSDictionary)?["aaaLeaderboard"] as? AnyWrapper<LeaderboardMemberAnalysisAndRankings>
+                 {
+                let aaaLeaderboard = aaaLeaderboardWrapped.object
+                (segue.destinationViewController as? LeaderboardAAAViewController)?.configure(userController: userController, leaderboardAAAController: LeaderboardAAAController(leaderboardMemberAnalysisAndRankings: aaaLeaderboard))
+            }
         }
     }
 }
@@ -416,6 +429,64 @@ extension CommunityDetailViewController: SegmentedPageViewControllerDelegate {
         }
         if let event = event {
             Flurry.logEvent(event)
+        }
+    }
+}
+
+// MARK: - Leaderboards
+
+extension CommunityDetailViewController {
+    private func configureLeaderboardWidget() {
+        communityDetailController.fetchLeaderboardAnalysisOrRankings(userController.user, success: {
+            [weak self]
+            (communityWidgetLeaderboard) in
+            guard let strongSelf = self else { return }
+            strongSelf.communityDetailController.fetchLeaderboardAnalysisAndRankings(strongSelf.userController.user, success: { aaaLeaderboard in //TODO: make parallel
+                dispatch_async(dispatch_get_main_queue(), {
+                    self?.display(communityLeaderboard: communityWidgetLeaderboard, aaaLeaderboard: aaaLeaderboard)
+                })
+            }) { (error) in
+                // TODO: Peter Ryszkiewicz: handle
+            }
+        }) { (error) in
+            // TODO: Peter Ryszkiewicz: handle
+        }
+    }
+    
+    private func display(communityLeaderboard communityLeaderboard: LeaderboardMemberAnalysisAndRankings, aaaLeaderboard: LeaderboardMemberAnalysisAndRankings) {
+        if let rankings = communityLeaderboard.rankings {
+            if rankings.rankings.count < 10 {
+                return
+            }
+            leaderboardHeightConstraint.constant = naturalLeaderboardHeight
+            UIView.animateWithDuration(leaderboardAnimationDuration, animations: {
+                self.view.layoutIfNeeded()
+            })
+            let leaderboardWidgetView = LeaderboardWidgetView(frame: CGRect.zero)
+            leaderboardWidgetView.setRankings(rankings)
+            leaderboardWidgetView.viewTapped = {
+                [weak self] in
+                self?.performSegueWithIdentifier("toLeaderboardAAA", sender: [
+                    "aaaLeaderboard": AnyWrapper(object: aaaLeaderboard)
+                ])
+            }
+            leaderboardView.addSubview(leaderboardWidgetView, pinToEdges: true)
+        } else if let analysis = communityLeaderboard.analysis {
+            leaderboardHeightConstraint.constant = naturalLeaderboardHeight
+            UIView.animateWithDuration(leaderboardAnimationDuration, animations: {
+                self.view.layoutIfNeeded()
+            })
+            let leaderboardStatusWidgetView = LeaderboardStatusWidgetView(frame: CGRect.zero)
+            leaderboardStatusWidgetView.setAnalysis(analysis)
+            leaderboardStatusWidgetView.viewTapped = {
+                [weak self] in
+                self?.performSegueWithIdentifier("toLeaderboardAAA", sender: [
+                    "aaaLeaderboard": AnyWrapper(object: aaaLeaderboard)
+                ])
+            }
+            leaderboardView.addSubview(leaderboardStatusWidgetView, pinToEdges: true)
+        } else {
+            // TODO: Peter Ryszkiewicz: handle
         }
     }
 }

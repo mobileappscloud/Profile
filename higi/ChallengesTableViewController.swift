@@ -22,6 +22,7 @@ final class ChallengesTableViewController: UIViewController {
             tableView.register(nibWithCellClass: ChallengeTableViewCell.self)
             tableView.register(nibWithCellClass: ActivityIndicatorTableViewCell.self)
             tableView.register(nibWithCellClass: PreviousChallengesTableViewCell.self)
+            tableView.register(nibWithCellClass: ChallengesEmptyTableViewCell.self)
         }
     }
     
@@ -31,21 +32,12 @@ final class ChallengesTableViewController: UIViewController {
         return viewController
     }()
     
-    @IBOutlet var emptyLabelContainerView: UIView!
-    @IBOutlet var emptyLabel: UILabel! {
-        didSet {
-            emptyLabel.text = emptyTableString
-        }
-    }
-    
-    private var emptyTableString: String?
-    
     lazy private var blurredLoadingViewController: BlurredLoadingViewController = {
         let storyboard = UIStoryboard(name: "BlurredLoading", bundle: nil)
         return storyboard.instantiateInitialViewController() as! BlurredLoadingViewController
     }()
     
-    func configureWith(userController userController: UserController, tableType: TableType, titleString: String? = nil, emptyTableString: String?) {
+    func configureWith(userController userController: UserController, tableType: TableType, titleString: String? = nil) {
         self.userController = userController
         self.challengesController = ChallengesController(challengeRepository: userController.challengeRepository)
         self.tableType = tableType
@@ -53,7 +45,6 @@ final class ChallengesTableViewController: UIViewController {
         if let titleString = titleString {
             navigationItem.title = titleString
         }
-        self.emptyTableString = emptyTableString
     }
     
     private func fetchChallenges() {
@@ -117,11 +108,6 @@ extension ChallengesTableViewController: UITableViewDataSource {
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        if challengesController.challenges.isEmpty && (tableType.entityType != .communities || tableType.challengeType == .Finished) {
-            emptyLabelContainerView.hidden = true // TODO: modify this once we get assets for empty tables
-        } else {
-            emptyLabelContainerView.hidden = true // TODO: same as above
-        }
         return TableSection._count.rawValue
     }
     
@@ -137,6 +123,10 @@ extension ChallengesTableViewController: UITableViewDataSource {
         case .PreviousChallenges:
             if tableType.entityType == .communities && tableType.challengeType == .Current {
                 rowCount = PreviousChallengesRowType._count.rawValue
+            }
+        case .EmptyState:
+            if challengesController.challenges.count == 0 {
+                rowCount = EmptyStateRowType._count.rawValue
             }
         case .InfiniteScroll:
             if let _ = challengesController.paging?.next {
@@ -198,7 +188,22 @@ extension ChallengesTableViewController: UITableViewDataSource {
             case ._count:
                 break
             }
-           
+
+        case .EmptyState:
+            let rowType = EmptyStateRowType(indexPath: indexPath)
+            switch rowType {
+            case .Content:
+                let emptyStateCell = tableView.dequeueReusableCell(withClass: ChallengesEmptyTableViewCell.self, forIndexPath: indexPath)
+                emptyStateCell.setState(tableType.entityType)
+                cell = emptyStateCell
+            case .Separator:
+                let separatorCell = tableView.dequeueReusableCell(withClass: UITableViewCell.self, forIndexPath: indexPath)
+                separatorCell.backgroundColor = Theme.Color.Primary.whiteGray
+                cell = separatorCell
+            case ._count:
+                break
+            }
+
         case .InfiniteScroll:
             let rowType = InfiniteScrollRowType(indexPath: indexPath)
             switch rowType {
@@ -239,6 +244,10 @@ extension ChallengesTableViewController: UITableViewDelegate {
             let rowType = PreviousChallengesRowType(indexPath: indexPath)
             rowHeight = rowType.defaultHeight()
             
+        case .EmptyState:
+            let rowType = EmptyStateRowType(indexPath: indexPath)
+            rowHeight = rowType.defaultHeight()
+            
         case .InfiniteScroll:
             let rowType = InfiniteScrollRowType(indexPath: indexPath)
             rowHeight = rowType.defaultHeight()
@@ -266,6 +275,8 @@ extension ChallengesTableViewController: UITableViewDelegate {
             
         case .PreviousChallenges:
             break
+        case .EmptyState:
+            break
         case .Challenges:
             break
         case ._count:
@@ -282,8 +293,7 @@ extension ChallengesTableViewController: UITableViewDelegate {
         case .PreviousChallenges:
             let previousChallengesVC = UIStoryboard(name: "Challenges", bundle: nil).instantiateViewControllerWithIdentifier(ChallengesViewController.Storyboard.Identifier.ChallengesTableViewController) as! ChallengesTableViewController
             let challengesTableType = ChallengesTableViewController.TableType(challengeType: .Finished, entityType: .communities, entityId: tableType.entityId, pageSize: 10)
-            let emptyTableString = NSLocalizedString("CHALLENGES_VIEW_PREVIOUS_TABLE_EMPTY_TEXT", comment: "Text for when there are no previous challenges for the Previous Challenges table.")
-            previousChallengesVC.configureWith(userController: userController, tableType: challengesTableType, titleString: NSLocalizedString("CHALLENGES_VIEW_PREVIOUS_CHALLENGES_TITLE_TEXT", comment: "Title text for Previous Challenges in the challenge table view."), emptyTableString: emptyTableString)
+            previousChallengesVC.configureWith(userController: userController, tableType: challengesTableType, titleString: NSLocalizedString("CHALLENGES_VIEW_PREVIOUS_CHALLENGES_TITLE_TEXT", comment: "Title text for Previous Challenges in the challenge table view."))
             navigationController?.pushViewController(previousChallengesVC, animated: true)
             
         case .Challenges:
@@ -295,6 +305,12 @@ extension ChallengesTableViewController: UITableViewDelegate {
                     "userDidJoinChallengeCallback": wrappedFunction
                 ])
             }
+            
+        case .EmptyState:
+            if tableType.entityType == .user {
+                navigateToCommunities()
+            }
+            break
         case ._count:
             break
         }
@@ -336,11 +352,11 @@ extension ChallengesTableViewController {
             self.blurredLoadingViewController.show(self)
             self.joinCommunity(community: community, success: {
                 [weak self] in
-                self?.challengesController.refreshChallenge(challenge, success: { _ in // refresh challenge to obtain the joinUrl, now that it should be joinable
+                self?.challengesController.refreshChallenge(challenge, success: { updatedChallenge in // refresh challenge to obtain the joinUrl, now that it should be joinable
                     dispatch_async(dispatch_get_main_queue()) {
                         self?.tableView.reloadData()
                         self?.blurredLoadingViewController.hide()
-                        self?.segueToChallengeDetailJoinFor(challengeCell: challengeCell, challenge: challenge)
+                        self?.segueToChallengeDetailJoinFor(challengeCell: challengeCell, challenge: updatedChallenge)
                     }
                 }, failure: failureHandler)
             }, failure: failureHandler)
@@ -356,6 +372,12 @@ extension ChallengesTableViewController {
         }, failure: {error in
             failure(error: error ?? Error.joinCommunity)
         })
+    }
+    
+    func navigateToCommunities() {
+        guard let mainTabBarController = Utility.mainTabBarController() else { return }
+        mainTabBarController.presentedViewController?.dismissViewControllerAnimated(false, completion: nil)
+        mainTabBarController.selectedIndex = TabBarController.ViewControllerIndex.Communities.rawValue //To Remy: should we pop all the way up the communities nav stack?
     }
 }
 
@@ -424,6 +446,7 @@ extension ChallengesTableViewController {
     enum TableSection: Int  {
         case Challenges
         case PreviousChallenges
+        case EmptyState
         case InfiniteScroll
         case _count
     }
@@ -469,7 +492,28 @@ extension ChallengesTableViewController {
             }
         }
     }
-    
+
+    enum EmptyStateRowType: Int {
+        case Content
+        case Separator
+        case _count
+        
+        init(indexPath: NSIndexPath) {
+            self = EmptyStateRowType(rawValue: indexPath.row % EmptyStateRowType._count.rawValue)!
+        }
+        
+        func defaultHeight() -> CGFloat {
+            switch self {
+            case .Content:
+                return UITableViewAutomaticDimension
+            case .Separator:
+                return 17.0
+            case ._count:
+                return 0.0
+            }
+        }
+    }
+
     enum InfiniteScrollRowType: Int {
         case ActivityIndicator
         case _count

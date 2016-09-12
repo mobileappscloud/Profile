@@ -50,16 +50,36 @@ extension Leaderboard.Member {
      */
     struct Analysis {
         
+        // Required properties
+        
         /// Display-ready text containing an analysis of a member's position within the leaderboard.
         let text: String
         
+        let configId: String
+        
+        // Optional properties
+        
         /// Supplementary image which illustrates the type of analysis.
-        let image: MediaAsset
+        let image: MediaAsset?
         
         /// Action for user to take.
-        let action: Action
+        let action: Action?
+    }
+}
+
+// MARK: JSON
+
+extension Leaderboard.Member.Analysis: JSONInitializable {
+    
+    init?(dictionary: NSDictionary) {
+        guard let text = dictionary["analysisText"] as? String,
+            let configId = dictionary["configId"] as? String else { return nil }
         
-        //        let configId: String
+        self.text = text
+        self.configId = configId
+        
+        self.image = MediaAsset(fromJSONObject: dictionary["image"])
+        self.action = Action(dictionary: dictionary)
     }
 }
 
@@ -82,7 +102,7 @@ extension Leaderboard.Member.Analysis.Container {
      - communityWidget: Container intended for use as a widget on community detail views.
      - profileWidget:   Container intended for use as a widget on profile views.
      */
-    enum Type: APIString {
+    enum `Type`: APIString {
         case aaa
         case communityWidget
         case profileWidget
@@ -96,7 +116,7 @@ extension Leaderboard.Member.Analysis {
     /**
      *  Supplemental information for rendering a leaderboard.
      */
-    struct RenderInfo {
+    struct RenderInfo: JSONInitializable {
         
         /// Type of score (unit) leaderboard values represent.
         let scoreType: Leaderboard.ScoreType
@@ -106,6 +126,21 @@ extension Leaderboard.Member.Analysis {
         
         /// End date for a leaderboard. `nil` if there is no end date.
         let endDate: NSDate?
+        
+        init?(dictionary: NSDictionary) {
+            guard let scoreTypeString = dictionary["scoreType"] as? String,
+                let scoreType = Leaderboard.ScoreType(rawValue: scoreTypeString),
+                let startDateString = dictionary["startDate"] as? String,
+                let startDate = NSDateFormatter.ISO8601DateFormatter.dateFromString(startDateString) else { return nil }
+            
+            self.scoreType = scoreType
+            self.startDate = startDate
+            if let endDateString = dictionary["endDate"] as? String {
+                self.endDate = NSDateFormatter.ISO8601DateFormatter.dateFromString(endDateString)
+            } else {
+                self.endDate = nil
+            }
+        }
     }
 }
 
@@ -141,7 +176,7 @@ extension Leaderboard.Member.Analysis.Action {
      - promoteStepTracker:    Promote the idea of a step tracker and link to sync tracking devices.
      - share:                 Share analysis with friends via social sharing.
      */
-    enum Type {
+    enum `Type`: APIString {
         case invite
         case linkToChallenges
         case linkToCommunitiesList
@@ -153,3 +188,18 @@ extension Leaderboard.Member.Analysis.Action {
         case share
     }
 }
+
+// MARK: JSON
+
+extension Leaderboard.Member.Analysis.Action: JSONInitializable {
+    
+    init?(dictionary: NSDictionary) {
+        guard let actionString = dictionary["action"] as? String,
+            let type = Type(rawValue: actionString),
+            let teaserString = dictionary["actionTeaser"] as? String else { return nil }
+        
+        self.type = type
+        self.teaser = teaserString
+    }
+}
+

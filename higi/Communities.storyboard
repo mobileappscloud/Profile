@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Eac-cF-n9N">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Eac-cF-n9N">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -82,10 +82,10 @@
             </objects>
             <point key="canvasLocation" x="1245" y="-1473"/>
         </scene>
-        <!--View Controller-->
+        <!--Communities Loading View Controller-->
         <scene sceneID="2dr-17-7gb">
             <objects>
-                <viewController storyboardIdentifier="CommunityListLoading" id="lkZ-oA-oxq" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CommunityListLoading" id="lkZ-oA-oxq" userLabel="Communities Loading View Controller" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="tEQ-oS-61x"/>
                         <viewControllerLayoutGuide type="bottom" id="M4I-fu-F0N"/>
@@ -138,7 +138,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="1492"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H6x-Tm-8Ve" userLabel="Scroll View Content">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="2069"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="1947"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="abt-Qw-BGt" userLabel="Banner Container" customClass="CommunityBannerView" customModule="higi" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="600" height="300"/>
@@ -214,15 +214,15 @@
                                                     <constraint firstAttribute="height" constant="40" id="zOH-Ir-prv"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vck-fK-FQe" userLabel="Leaderboard View" customClass="LeaderboardWidgetView" customModule="higi" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="460" width="600" height="122"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vck-fK-FQe" userLabel="Leaderboard View">
+                                                <rect key="frame" x="0.0" y="460" width="600" height="0.0"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="122" id="wVQ-Wa-LhZ"/>
+                                                    <constraint firstAttribute="height" id="wVQ-Wa-LhZ"/>
                                                 </constraints>
                                             </view>
                                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VbT-Ds-xPt" userLabel="Page View Container">
-                                                <rect key="frame" x="0.0" y="582" width="600" height="1487"/>
+                                                <rect key="frame" x="0.0" y="460" width="600" height="1487"/>
                                                 <color key="backgroundColor" red="0.94509804248809814" green="0.94509804248809814" blue="0.94509804248809814" alpha="1" colorSpace="calibratedRGB"/>
                                                 <connections>
                                                     <segue destination="XbM-wj-4IB" kind="embed" identifier="DetailViewSegmentedPageViewEmbedSegue" id="vRj-mD-x8Z"/>
@@ -281,17 +281,28 @@
                         <outlet property="descriptionLabelBottomSpacingConstraint" destination="cql-0Q-23c" id="V7E-Zu-p47"/>
                         <outlet property="descriptionLabelTopSpacingConstraint" destination="J7S-mD-IEh" id="oh9-Vj-6tc"/>
                         <outlet property="descriptionToggleButton" destination="cA9-l3-XaJ" id="XRU-XN-Fgf"/>
+                        <outlet property="leaderboardHeightConstraint" destination="wVQ-Wa-LhZ" id="tT4-vX-duz"/>
+                        <outlet property="leaderboardView" destination="vck-fK-FQe" id="Fe5-Yv-yDu"/>
                         <outlet property="logoMemberView" destination="xCA-F2-7Iv" id="xtv-ui-g82"/>
                         <outlet property="pageViewContainer" destination="VbT-Ds-xPt" id="3mt-LX-Yot"/>
                         <outlet property="pageViewContainerHeightConstraint" destination="HAt-Uj-8Gd" id="9YO-i3-91M"/>
                         <outlet property="scrollView" destination="Dzw-yK-Bk1" id="n5E-nc-pTe"/>
                         <outlet property="titleContainer" destination="KKG-D6-bCr" id="hhi-hR-lRu"/>
                         <outlet property="titleLabel" destination="BCk-qi-Gp4" id="pIz-Go-QUd"/>
+                        <segue destination="VTV-mq-B41" kind="show" identifier="toLeaderboardAAA" id="zbc-pe-fOR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="enW-kS-4Yx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2152" y="-412"/>
+        </scene>
+        <!--LeaderboardAAA-->
+        <scene sceneID="7bL-A9-K14">
+            <objects>
+                <viewControllerPlaceholder storyboardName="LeaderboardAAA" id="VTV-mq-B41" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MOl-3F-i66" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2670.5" y="-432"/>
         </scene>
         <!--SegmentedPage-->
         <scene sceneID="0pS-eu-u7y">
@@ -299,7 +310,7 @@
                 <viewControllerPlaceholder storyboardName="SegmentedPage" id="XbM-wj-4IB" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gtx-kg-8kb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2636.5" y="-261"/>
+            <point key="canvasLocation" x="2653.5" y="-388"/>
         </scene>
     </scenes>
     <resources>

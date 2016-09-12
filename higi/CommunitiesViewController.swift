@@ -22,9 +22,9 @@ final class CommunitiesViewController: UIViewController {
         
         struct Segue {
             static let segmentedPage = "SegmentedPageViewEmbedSegue"
+            static let toLeaderboardAAA = "toLeaderboardAAA"
             
             struct DetailView {
-                
                 struct Segue {
                     static let segmentedPage = "DetailViewSegmentedPageViewEmbedSegue"
                 }
