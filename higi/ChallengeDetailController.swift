@@ -37,8 +37,8 @@ final class ChallengeDetailController {
 extension ChallengeDetailController {
     func join(challenge challenge: Challenge, user: User, success: () -> Void, failure: (error: ErrorType) -> Void) {
         ChallengesNetworkController.join(challenge: challenge, user: user, session: session, success: {
-            [weak self] (challenge) in
-            self?.challenge = challenge
+            [weak self] (updatedChallenge) in
+            self?.challenge = updatedChallenge
             success()
         }, failure: failure)
     }
@@ -71,8 +71,8 @@ extension ChallengeDetailController {
 extension ChallengeDetailController {
     func refreshChallenge(success success: () -> Void, failure: (error: ErrorType) -> Void) {
         ChallengesNetworkController.fetch(challenge: challenge, session: session, success: {
-            [weak self] (challenge) in
-            self?.challenge = challenge
+            [weak self] (updatedChallenge) in
+            self?.challenge = updatedChallenge
             success()
         }, failure: failure)
     }

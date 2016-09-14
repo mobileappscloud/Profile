@@ -140,7 +140,7 @@ extension ChallengeDetailViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        configureView(forChallenge: challengeDetailController.challenge)
+        configureView()
     }
 }
 
@@ -153,7 +153,8 @@ private extension ChallengeDetailViewController {
      
      - parameter challenge: Challenge to view details for.
      */
-    func configureView(forChallenge challenge: Challenge) {
+    func configureView() {
+        let challenge = challengeDetailController.challenge
         title = challenge.name
         
         bannerImageView.setImage(withMediaAsset: challenge.image, transition: true)
@@ -354,9 +355,7 @@ extension ChallengeDetailViewController {
         guard let community = challengeDetailController.challenge.community else { return failure(error: Error.unknown) }
         challengeDetailController.updateSubscriptionFor(community: community, subscribeAction: .Join, user: userController.user, success: {
             [weak self] _ in
-            self?.challengeDetailController.refreshChallenge(success: { _ in // refresh challenge to obtain the joinUrl, now that it should be joinable
-                self?.joinChallengeApiCall(success: success, failure: failure)
-            }, failure: failure)
+            self?.joinChallengeApiCall(success: success, failure: failure)
         }, failure: failure)
     }
     
@@ -376,6 +375,7 @@ extension ChallengeDetailViewController: TermsAndConditionsAcceptanceDelegate {
             self.joinChallengeWithCommunityApiCall(success: {
                 [weak self] in
                 dispatch_async(dispatch_get_main_queue()) {
+                    self?.configureView()
                     self?.userDidJoinChallengeCallback?()
                     self?.blurredLoadingViewController.hide()
                 }

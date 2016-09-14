@@ -11,11 +11,8 @@ struct ChallengesNetworkController { }
 
 // MARK: - Joining a challenge
 extension ChallengesNetworkController {
-    static func join(challenge challenge: Challenge, user: User, session: NSURLSession = APIClient.sharedSession, success: (challenge: Challenge) -> Void, failure: (error: ErrorType) -> Void) {
-        guard let joinURL = challenge.userRelation.joinURL else {
-            return failure(error: Error.noJoinUrl)
-        }
-        ChallengeJoinRequest(joinURL: joinURL, user: user).request({(request, error) in
+    static func join(challenge challenge: Challenge, user: User, session: NSURLSession = APIClient.sharedSession, success: (updatedChallenge: Challenge) -> Void, failure: (error: ErrorType) -> Void) {
+        ChallengeJoinRequest(challenge: challenge, user: user).request({(request, error) in
             guard let request = request else {
                 return failure(error: error ?? Error.authentication)
             }
@@ -31,7 +28,7 @@ extension ChallengesNetworkController {
 
 // MARK: - Fetch a challenge
 extension ChallengesNetworkController {
-    static func fetch(challenge challenge: Challenge, session: NSURLSession = APIClient.sharedSession, success: (challenge: Challenge) -> Void, failure: (error: ErrorType) -> Void) {
+    static func fetch(challenge challenge: Challenge, session: NSURLSession = APIClient.sharedSession, success: (updatedChallenge: Challenge) -> Void, failure: (error: ErrorType) -> Void) {
         let gravityBoard = 3
         let participants = 50
         let comments = 50
@@ -47,7 +44,7 @@ extension ChallengesNetworkController {
                 guard let updatedChallenge = ResourceDeserializer.parse(JSON, resource: Challenge.self) else {
                     return failure(error: Error.parsing)
                 }
-                success(challenge: updatedChallenge)
+                success(updatedChallenge: updatedChallenge)
             }, failure: { (error, response) in
                 failure(error: error ?? Error.challengeRetrieval)
             })

@@ -8,19 +8,19 @@
 
 final class ChallengeJoinRequest: ProtectedAPIRequest {
 
-    let joinURL: NSURL
+    let challenge: Challenge
     let user: User
     
-    required init(joinURL: NSURL, user: User) {
-        self.joinURL = joinURL
+    required init(challenge: Challenge, user: User) {
+        self.challenge = challenge
         self.user = user
     }
     
     func request(completion: APIRequestAuthenticatorCompletion) {
-        
         let method = HTTPMethod.POST
         let body = ["userId" : user.identifier]
+        let relativePath = "/challenge/challenges/\(challenge.identifier)/participants"
         
-        authenticatedRequest(joinURL, parameters: nil, method: method, body: body, completion: completion)
+        authenticatedRequest(relativePath, parameters: nil, method: method, body: body, completion: completion)
     }
 }

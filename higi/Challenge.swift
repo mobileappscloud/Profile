@@ -73,14 +73,14 @@ final class Challenge: UniquelyIdentifiable {
     /// A description of the goal for this challenge.
     let goalDescription: String
 
-    /// Determines whether the challenge can be joined by the user. Private so that clients do not use this. Instead, use any of the isJoinable[...] properties.
-    private let canBeJoined: Bool
-
     // MARK: Optional-Modified
     // These properties are optionally returned by the API, but can be modeled as non-optional properties
     
     /// Current participants for a challenge.
     let participants: [Participant]
+    
+    /// Conveys the state of the joinability of the challenge
+    let joinableState: JoinableState
     
     // MARK: Optional
     
@@ -104,7 +104,7 @@ final class Challenge: UniquelyIdentifiable {
 
     // MARK: Init
     
-    required init(identifier: String, name: String, description: String, let shortDescription: String, image: MediaAsset, metric: Metric, template: Template, status: Status, dailyLimit: Int, participantCount: Int, devices: [ActivityDevice], winConditions: [Challenge.WinCondition], userRelation: UserRelation, chatter: Chatter, startDate: NSDate, goalDescription: String, canBeJoined: Bool, participants: [Participant], community: Community? = nil, teams: [Team]? = nil, terms: String? = nil, endDate: NSDate? = nil, entryFee: Double? = nil, prizeDescription: String? = nil) {
+    required init(identifier: String, name: String, description: String, let shortDescription: String, image: MediaAsset, metric: Metric, template: Template, status: Status, dailyLimit: Int, participantCount: Int, devices: [ActivityDevice], winConditions: [Challenge.WinCondition], userRelation: UserRelation, chatter: Chatter, startDate: NSDate, goalDescription: String, participants: [Participant], joinableState: JoinableState, community: Community? = nil, teams: [Team]? = nil, terms: String? = nil, endDate: NSDate? = nil, entryFee: Double? = nil, prizeDescription: String? = nil) {
         self.identifier = identifier
         self.name = name
         self.description = description
@@ -121,9 +121,8 @@ final class Challenge: UniquelyIdentifiable {
         self.chatter = chatter
         self.startDate = startDate
         self.goalDescription = goalDescription
-        self.canBeJoined = canBeJoined
-        
         self.participants = participants
+        self.joinableState = joinableState
         
         self.community = community
         self.teams = teams
@@ -143,16 +142,16 @@ extension Challenge {
     }
     
     var isDirectlyJoinable: Bool {
-        return canBeJoined && userRelation.joinURL != nil && status != .finished && status != .canceled && status != .calculating
+        return joinableState == .joinable
     }
     
     var needToJoinCommunityFirst: Bool {
-        return !isDirectlyJoinable && isJoinableAfterCommunityIsJoined
+        return isJoinableAfterCommunityIsJoined
     }
     
     //TODO: Peter Ryszkiewicz: Validate/audit this logic
     var isJoinableAfterCommunityIsJoined: Bool {
-        return community != nil && userRelation.participant == nil && status != .finished && status != .canceled && status != .calculating
+        return joinableState == .joinCommunity
     }
 }
 
@@ -290,6 +289,12 @@ extension Challenge {
         case cancelled
     }
     
+    enum JoinableState: APIString {
+        case joinable
+        case notJoinable
+        case joinCommunity
+    }
+    
     var userState: UserState {
         if status == .canceled {
             return .cancelled
@@ -334,7 +339,7 @@ extension Challenge: JSONInitializable {
             let chatter = Chatter(fromJSONObject: dictionary["comments"]),
             let startDate = NSDateFormatter.yyyyMMddDateFormatter.date(fromObject: dictionary["startDate"]),
             let goalDescription = dictionary["goalDescription"] as? String,
-            let canBeJoined = dictionary["canBeJoined"] as? Bool
+            let joinableState = JoinableState(rawJSONValue: dictionary["joinableState"])
             else { return nil }
         
         var participants: [Participant] = []
@@ -350,7 +355,7 @@ extension Challenge: JSONInitializable {
         let entryFee = dictionary["entryFee"] as? Double
         let prizeDescription = dictionary["prizeDescription"] as? String
         
-        self.init(identifier: identifier, name: name, description: description, shortDescription: shortDescription, image: image, metric: metric, template: template, status: status, dailyLimit: dailyLimit, participantCount: participantCount, devices: devices, winConditions: winConditions, userRelation: userRelation, chatter: chatter, startDate: startDate, goalDescription: goalDescription, canBeJoined: canBeJoined, participants: participants, community: community, teams: teams, terms: terms, endDate: endDate, entryFee: entryFee, prizeDescription: prizeDescription)
+        self.init(identifier: identifier, name: name, description: description, shortDescription: shortDescription, image: image, metric: metric, template: template,status: status, dailyLimit: dailyLimit, participantCount: participantCount, devices: devices, winConditions: winConditions, userRelation: userRelation, chatter: chatter, startDate: startDate, goalDescription: goalDescription, participants: participants, joinableState: joinableState, community: community, teams: teams, terms: terms, endDate: endDate, entryFee: entryFee, prizeDescription: prizeDescription)
     }
 }
 
