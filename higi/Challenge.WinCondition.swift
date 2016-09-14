@@ -29,14 +29,11 @@ extension Challenge {
         /// The order of importance of this condition relative to others. By default conditions will be ordered by this value.
         let displayOrder: Int
         
-        /// How a winner will be determined in the event of a tie.
-        let tieHandling: TieHandling
-        
         /// Number of winners.
         let winnersCount: Int
         
         /// Type of participants the win condition is applicable to.
-//        let winnerType: Challenge.Winner.Type
+        let winnerType: Challenge.Winner.`Type`
         
         // MARK: Optional 
         
@@ -51,24 +48,6 @@ extension Challenge {
     }
 }
 
-extension Challenge.WinCondition {
-    
-    /**
-     Options for handling a tie to determine winner of a win condition.
-     
-     - manual:   Winner is manually selected.
-     - everyone: Everyone wins!
-     - drawing:  Winner is randomly drawn.
-     - split:    Participants split the winnings.
-     */
-    enum TieHandling: APIString {
-        case manual
-        case everyone
-        case drawing
-        case split
-    }
-}
-
 // MARK: JSON
 
 extension Challenge.WinCondition: JSONInitializable {
@@ -78,17 +57,15 @@ extension Challenge.WinCondition: JSONInitializable {
             let name = dictionary["name"] as? String,
             let description = dictionary["description"] as? String,
             let displayOrder = dictionary["displayOrder"] as? Int,
-            let tieHandling = TieHandling(rawJSONValue: dictionary["tieHandling"]),
             let winnersCount = dictionary["winnersCount"] as? Int,
-            let winnerType = Challenge.Winner.Type(rawJSONValue: dictionary["winnerType"]) else { return nil }
+            let winnerType = Challenge.Winner.`Type`(rawJSONValue: dictionary["winnerType"]) else { return nil }
         
         self.goal = goal
         self.name = name
         self.description = description
         self.displayOrder = displayOrder
-        self.tieHandling = tieHandling
         self.winnersCount = winnersCount
-//        self.winnerType = winnerType
+        self.winnerType = winnerType
         
         self.prize = Challenge.Prize(fromJSONObject: dictionary["prize"])
         self.drawingQuantity = dictionary["drawingQuantity"] as? Int

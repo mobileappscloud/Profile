@@ -36,8 +36,9 @@ extension ChallengesNetworkController {
         let participants = 50
         let comments = 50
         let teamComments = 50
+        let winConditionWinners = 0
         
-        ChallengeRequest(challenge: challenge, gravityBoard: gravityBoard, participants: participants, comments: comments, teamComments: teamComments).request({(request, error) in
+        ChallengeRequest(challenge: challenge, gravityBoard: gravityBoard, participants: participants, comments: comments, teamComments: teamComments, winConditionWinners: winConditionWinners).request({(request, error) in
             guard let request = request else {
                 return failure(error: error ?? Error.authentication)
             }

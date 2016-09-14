@@ -61,8 +61,9 @@ extension ChallengesController {
         let participants = 50
         let comments = 50
         let teamComments = 50
+        let winConditionWinners = 0 
         
-        ChallengeCollectionRequest(entityType: entityType, entityId: entityId, gravityBoard: gravityBoard, participants: participants, comments: comments, teamComments: teamComments, filters: challengesType?.asFilter, pageSize: pageSize).request({ [weak self] (request, error) in
+        ChallengeCollectionRequest(entityType: entityType, entityId: entityId, gravityBoard: gravityBoard, participants: participants, comments: comments, teamComments: teamComments, winConditionWinners: winConditionWinners, filters: challengesType?.asFilter, pageSize: pageSize).request({ [weak self] (request, error) in
             
             guard let strongSelf = self,
                 let request = request else {

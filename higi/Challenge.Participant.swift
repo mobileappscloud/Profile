@@ -11,7 +11,7 @@ extension Challenge {
     /**
      Represents an entity (team/individual) participating in a challenge. Contains information about a user's progress in a challenge along with a participant's team information when applicable.
      */
-    struct Participant: UniquelyIdentifiable {
+    struct Participant: UniquelyIdentifiable, ChallengeParticipating {
         
         // MARK: Required
         
@@ -19,15 +19,15 @@ extension Challenge {
         let identifier: String
         
         /// Display-ready name for a challenge participant.
-        let displayName: String
-        
-        /// Avatar for the challenge participant.
-        let image: MediaAsset
+        let name: String
         
         /// User's score in the challenge. See challenge to know what type of units are being used.
         let units: Double
         
         // MARK: Optional
+        
+        /// Avatar for the challenge participant.
+        let image: MediaAsset?
         
         /// Team which the current participant is a member of.
         let team: Team?
@@ -41,15 +41,15 @@ extension Challenge.Participant: JSONInitializable {
     init?(dictionary: NSDictionary) {
         guard let userPublicDict = dictionary["userPublic"] as? NSDictionary,
             let identifier = userPublicDict["id"] as? String,
-            let displayName = userPublicDict["displayName"] as? String,
-            let image = MediaAsset(fromLegacyJSONObject: userPublicDict),
+            let name = userPublicDict["displayName"] as? String,
             let units = dictionary["units"] as? Double
             else { return nil }
 
         self.identifier = identifier
-        self.displayName = displayName
-        self.image = image
+        self.name = name
         self.units = units
+        
+        self.image = MediaAsset(fromLegacyJSONObject: userPublicDict)
         self.team = Challenge.Team(fromJSONObject: dictionary["team"])
     }
 }

@@ -302,6 +302,15 @@ extension Theme.Color.Challenge {
     }
 }
 
+extension Theme.Color.Challenge.Detail {
+    
+    struct Participants {
+        static let userprogressTint = Theme.Color.primary
+        static let progressTint = Utility.colorFromHexString("#599033")
+    }
+}
+
+
 // MARK: - Content Service
 
 extension Theme.Color {

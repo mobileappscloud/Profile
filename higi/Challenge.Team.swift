@@ -11,7 +11,7 @@ extension Challenge {
     /**
      *  Provides information about the progress of a team during a challenge as well as information about the team's members.
      */
-    struct Team {
+    struct Team: ChallengeParticipating {
         
         // MARK: Required
         

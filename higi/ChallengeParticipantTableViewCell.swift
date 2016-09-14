@@ -18,4 +18,16 @@ final class ChallengeParticipantTableViewCell: UITableViewCell {
     @IBOutlet var contentStackView: UIStackView!
 }
 
-
+extension ChallengeParticipantTableViewCell {
+    
+    func reset() {
+        avatarImageView.image = nil
+        nameLabel.text = nil
+        
+        for subview in contentStackView.arrangedSubviews {
+            if subview == nameLabel { continue }
+            contentStackView.removeArrangedSubview(subview)
+            subview.removeFromSuperview()
+        }
+    }
+}

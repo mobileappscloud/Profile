@@ -63,7 +63,7 @@ final class ChallengeDetailViewController: UIViewController {
     }()
     
     /// View controller for prizes segment embedded in the `segmentedPageViewController`.
-    private lazy var prizeViewController: UIViewController = {
+    private lazy var prizeViewController: ChallengeWinConditionTableViewController = {
         let storyboard = UIStoryboard(name: Storyboard.name, bundle: nil)
         let viewController = storyboard.instantiateViewControllerWithIdentifier(Storyboard.Scene.Prize.identifier) as! ChallengeWinConditionTableViewController
         
@@ -73,7 +73,7 @@ final class ChallengeDetailViewController: UIViewController {
     }()
     
     /// View controller for prizes segment embedded in the `segmentedPageViewController`. Shown after a challenge has completed.
-    private lazy var winnerViewController: UIViewController = {
+    private lazy var winnerViewController: ChallengeWinnerTableViewController = {
         let storyboard = UIStoryboard(name: Storyboard.name, bundle: nil)
         let viewController = storyboard.instantiateViewControllerWithIdentifier(Storyboard.Scene.Winners.identifier) as! ChallengeWinnerTableViewController
         
@@ -82,20 +82,20 @@ final class ChallengeDetailViewController: UIViewController {
         return viewController
     }()
     
+    /// View controller for leaderboard (participant) segment embedded in the `segmentedPageViewController`.
+    private lazy var leaderboardViewController: ChallengeParticipantTableViewController = {
+        let storyboard = UIStoryboard(name: Storyboard.name, bundle: nil)
+        let viewController = storyboard.instantiateViewControllerWithIdentifier(Storyboard.Scene.Participants.identifier) as! ChallengeParticipantTableViewController
+        
+        viewController.configure(withChallenge: self.challengeDetailController.challenge, challengeRepository: self.userController.challengeRepository)
+        
+        return viewController
+    }()
+    
     // TODO: Remy - Add view controllers when they become available
     
     /// View controller for chatter segment embedded in the `segmentedPageViewController`.
     private lazy var chatterViewController: UIViewController = {
-        return UIViewController()
-    }()
-    
-    /// View controller for participants segment embedded in the `segmentedPageViewController`.
-    private lazy var participantsViewController: UIViewController = {
-        return UIViewController()
-    }()
-    
-    /// View controller for leaderboard segment embedded in the `segmentedPageViewController`.
-    private lazy var leaderboardViewController: UIViewController = {
         return UIViewController()
     }()
     
@@ -159,7 +159,6 @@ private extension ChallengeDetailViewController {
         bannerImageView.setImage(withMediaAsset: challenge.image, transition: true)
         titleLabel.text = challenge.name
         
-        // TODO: Remy - update status indicator after state is refactored
         challengeStatusIndicatorView.state = challenge.userState
         dateLabel.text = NewChallengeUtility.formattedDateRange(forStartDate: challenge.startDate, endDate: challenge.endDate)
         participantLabel.text = NewChallengeUtility.formattedParticipantCount(forParticipantCount: challenge.participantCount)
@@ -250,6 +249,10 @@ extension ChallengeDetailViewController {
             struct Winners {
                 static let identifier = "ChallengeWinnerTableViewController"
             }
+            
+            struct Participants {
+                static let identifier = "ChallengeParticipantTableViewController"
+            }
         }
         
         struct Segue {
@@ -284,15 +287,12 @@ extension ChallengeDetailViewController {
         let leaderboardTitle = NSLocalizedString("CHALLENGE_DETAIL_SEGMENTED_PAGE_SEGMENT_TITLE_LEADERBOARD", comment: "Title for 'leaderboard' segment on segmented control within the challenge detail view.")
         
         var titles = [detailTitle, prizesTitle, chatterTitle]
-        let prizeViewController = challengeDetailController.challenge.status != .finished ? winnerViewController : self.prizeViewController
+        let prizeViewController = challengeDetailController.challenge.status == .finished ? winnerViewController : self.prizeViewController
         var viewControllers = [challengeDetailTableViewController, prizeViewController, chatterViewController]
-        if challengeDetailController.challenge.status == .registration {
-            titles.append(participantsTitle)
-            viewControllers.append(participantsViewController)
-        } else {
-            titles.append(leaderboardTitle)
-            viewControllers.append(leaderboardViewController)
-        }
+        
+        let participantSegmentTitle = challengeDetailController.challenge.status == .registration ? participantsTitle : leaderboardTitle
+        titles.append(participantSegmentTitle)
+        viewControllers.append(leaderboardViewController)
         
         segmentedPageViewController.set(viewControllers, titles: titles)
         segmentedPageViewController.view.backgroundColor = UIColor.clearColor()

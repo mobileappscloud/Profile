@@ -48,7 +48,32 @@ extension ChallengeWinnerTableViewController: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let winCondition = challengeWinnerController.challenge.winConditions[indexPath.section]
+        guard let winners = winCondition.winners else { fatalError("Attempted to produce cell for challenge winner, but winCondition.winners is nil.") }
+        
         let participantCell = tableView.dequeueReusableCell(withClass: ChallengeParticipantTableViewCell.self, forIndexPath: indexPath)
+        participantCell.reset()
+        
+        let winner = winners[indexPath.row]
+        let winnerParticipater: ChallengeParticipating?
+        switch winCondition.winnerType {
+        case .individual:
+            winnerParticipater = winner.participant
+        case .team:
+            winnerParticipater = winner.team
+        }
+        guard let participater = winnerParticipater else { fatalError("Unable to produce the expected challenge participating entity.") }
+        
+        participantCell.avatarImageView.setImage(withMediaAsset: participater.image)
+        participantCell.nameLabel.text = participater.name
+        
+        if let prize = winCondition.prize {
+            let prizeLabel = UILabel()
+            prizeLabel.numberOfLines = 0
+            prizeLabel.text = prize.name
+            participantCell.contentStackView.addArrangedSubview(prizeLabel)
+        }
+        
         return participantCell
     }
 }

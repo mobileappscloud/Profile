@@ -17,19 +17,21 @@ final class ChallengeCollectionRequest: ProtectedAPIRequest, ChallengeRequestCon
     let participants: Int
     let comments: Int
     let teamComments: Int
+    let winConditionWinners: Int
     
     private var filtersFormatted: String? {
         guard let filters = filters else { return nil }
         return filters.map{"[]=\($0)"}.joinWithSeparator(",")
     }
     
-    required init(entityType: EntityType, entityId: String, gravityBoard: Int, participants: Int, comments: Int, teamComments: Int, filters: [Filter]? = nil, pageSize: Int = 0) {
+    required init(entityType: EntityType, entityId: String, gravityBoard: Int, participants: Int, comments: Int, teamComments: Int, winConditionWinners: Int, filters: [Filter]? = nil, pageSize: Int = 0) {
         self.entityType = entityType
         self.entityId = entityId
         self.gravityBoard = gravityBoard
         self.participants = participants
         self.comments = comments
         self.teamComments = teamComments
+        self.winConditionWinners = winConditionWinners
         self.filters = filters
         self.pageSize = pageSize
     }

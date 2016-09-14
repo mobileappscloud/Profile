@@ -77,6 +77,7 @@
 		41027C561CD8574C003F3AD5 /* ModifyImage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41027C551CD8574C003F3AD5 /* ModifyImage.storyboard */; };
 		41027C581CD902A4003F3AD5 /* SignUpEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41027C571CD902A4003F3AD5 /* SignUpEmailViewController.swift */; };
 		41027C5A1CD907F1003F3AD5 /* EmailValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41027C591CD907F1003F3AD5 /* EmailValidator.swift */; };
+		410953EB1D7F6AAB00904483 /* ChallengeParticipantTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410953EA1D7F6AAB00904483 /* ChallengeParticipantTableViewController.swift */; };
 		410EECEB1D4A9E37002FF052 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 410EECEA1D4A9E37002FF052 /* FBSDKCoreKit.framework */; };
 		410EED4B1D4BE989002FF052 /* PostCellUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410EED481D4BE989002FF052 /* PostCellUtility.swift */; };
 		410EED4D1D4BE9BB002FF052 /* ActionBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 410EED4C1D4BE9BB002FF052 /* ActionBar.xib */; };
@@ -168,6 +169,7 @@
 		413922C81CDA6C2300C3672E /* MinimumVersionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413922C71CDA6C2300C3672E /* MinimumVersionRequest.swift */; };
 		413922CA1CDA6DA000C3672E /* HostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413922C91CDA6DA000C3672E /* HostController.swift */; };
 		413922CC1CDA94DD00C3672E /* UserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413922CB1CDA94DD00C3672E /* UserRequest.swift */; };
+		413C45F11D7F6BA8009B81A7 /* ChallengeParticipantController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413C45F01D7F6BA8009B81A7 /* ChallengeParticipantController.swift */; };
 		413CC0301C6927EC0097AE56 /* ActivityDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 413CC02F1C6927EC0097AE56 /* ActivityDetailView.xib */; };
 		413CC0341C6929BA0097AE56 /* ActivityDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413CC0331C6929BA0097AE56 /* ActivityDetailView.swift */; };
 		413E19251C10AB2C00146B29 /* UniversalLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413E19241C10AB2C00146B29 /* UniversalLink.swift */; };
@@ -594,6 +596,7 @@
 		41027C551CD8574C003F3AD5 /* ModifyImage.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ModifyImage.storyboard; sourceTree = "<group>"; };
 		41027C571CD902A4003F3AD5 /* SignUpEmailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpEmailViewController.swift; sourceTree = "<group>"; };
 		41027C591CD907F1003F3AD5 /* EmailValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailValidator.swift; sourceTree = "<group>"; };
+		410953EA1D7F6AAB00904483 /* ChallengeParticipantTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeParticipantTableViewController.swift; sourceTree = "<group>"; };
 		410EECEA1D4A9E37002FF052 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = Vendor/Facebook/sdk/FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		410EED481D4BE989002FF052 /* PostCellUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCellUtility.swift; sourceTree = "<group>"; };
 		410EED4C1D4BE9BB002FF052 /* ActionBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActionBar.xib; sourceTree = "<group>"; };
@@ -685,6 +688,7 @@
 		413922C71CDA6C2300C3672E /* MinimumVersionRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MinimumVersionRequest.swift; sourceTree = "<group>"; };
 		413922C91CDA6DA000C3672E /* HostController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostController.swift; sourceTree = "<group>"; };
 		413922CB1CDA94DD00C3672E /* UserRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRequest.swift; sourceTree = "<group>"; };
+		413C45F01D7F6BA8009B81A7 /* ChallengeParticipantController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeParticipantController.swift; sourceTree = "<group>"; };
 		413CC02F1C6927EC0097AE56 /* ActivityDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityDetailView.xib; sourceTree = "<group>"; };
 		413CC0331C6929BA0097AE56 /* ActivityDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityDetailView.swift; sourceTree = "<group>"; };
 		413E19241C10AB2C00146B29 /* UniversalLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UniversalLink.swift; sourceTree = "<group>"; };
@@ -1262,6 +1266,15 @@
 				410167271C555D0600A54B02 /* NewWeightMetricDelegate.swift */,
 			);
 			name = Delegates;
+			sourceTree = "<group>";
+		};
+		410953EE1D7F6AB100904483 /* Participant */ = {
+			isa = PBXGroup;
+			children = (
+				413C45F01D7F6BA8009B81A7 /* ChallengeParticipantController.swift */,
+				410953EA1D7F6AAB00904483 /* ChallengeParticipantTableViewController.swift */,
+			);
+			name = Participant;
 			sourceTree = "<group>";
 		};
 		410AB90D1C84EA8200985DA3 /* Connect Device */ = {
@@ -2475,6 +2488,10 @@
 				410F10731D7786380008F68E /* Details */,
 				410F10721D77862C0008F68E /* Prizes (Win Conditions) */,
 				410F10BE1D790B530008F68E /* Winners */,
+				410F10731D7786380008F68E /* Details */,
+				410953EE1D7F6AB100904483 /* Participant */,
+				410F10721D77862C0008F68E /* Prizes (Win Conditions) */,
+				410F10BE1D790B530008F68E /* Winners */,
 			);
 			name = "Challenge Detail";
 			sourceTree = "<group>";
@@ -3367,6 +3384,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				410953EB1D7F6AAB00904483 /* ChallengeParticipantTableViewController.swift in Sources */,
 				41D8718C1C7CBFDD002DCDA0 /* HostViewController.swift in Sources */,
 				419D864F1BBEF83000E7D844 /* GQTPointQuadTree.m in Sources */,
 				41303CDD1D25C460009A6235 /* NSPersonNameComponentsFormatter+Utility.swift in Sources */,
@@ -3535,6 +3553,7 @@
 				41643AB01C1891D800258F55 /* MetricTableViewCell.swift in Sources */,
 				41A425801CE11ADD00036C84 /* JSONSerializable.swift in Sources */,
 				419AC35B1D3EDC37000DDA5D /* ChatterCollectionRequest.swift in Sources */,
+				413C45F11D7F6BA8009B81A7 /* ChallengeParticipantController.swift in Sources */,
 				D114B06B1B2A19900073A9CB /* TriangleView.swift in Sources */,
 				411F797C1CBC3ED2000D0D64 /* PagingRequest.swift in Sources */,
 				413F69181CB718C3003D9571 /* NSCharacterSet+Utility.swift in Sources */,

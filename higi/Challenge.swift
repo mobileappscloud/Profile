@@ -39,6 +39,9 @@ final class Challenge: UniquelyIdentifiable {
     /// Metric type used for score in this challenge.
     let metric: Metric
     
+    /// Template type for this challenge. Useful for determining characteristics about the challenge.
+    let template: Template
+    
     /// Status of a challenge
     let status: Status
     
@@ -101,13 +104,14 @@ final class Challenge: UniquelyIdentifiable {
 
     // MARK: Init
     
-    required init(identifier: String, name: String, description: String, let shortDescription: String, image: MediaAsset, metric: Metric, status: Status, dailyLimit: Int, participantCount: Int, devices: [ActivityDevice], winConditions: [Challenge.WinCondition], userRelation: UserRelation, chatter: Chatter, startDate: NSDate, goalDescription: String, canBeJoined: Bool, participants: [Participant], community: Community? = nil, teams: [Team]? = nil, terms: String? = nil, endDate: NSDate? = nil, entryFee: Double? = nil, prizeDescription: String? = nil) {
+    required init(identifier: String, name: String, description: String, let shortDescription: String, image: MediaAsset, metric: Metric, template: Template, status: Status, dailyLimit: Int, participantCount: Int, devices: [ActivityDevice], winConditions: [Challenge.WinCondition], userRelation: UserRelation, chatter: Chatter, startDate: NSDate, goalDescription: String, canBeJoined: Bool, participants: [Participant], community: Community? = nil, teams: [Team]? = nil, terms: String? = nil, endDate: NSDate? = nil, entryFee: Double? = nil, prizeDescription: String? = nil) {
         self.identifier = identifier
         self.name = name
         self.description = description
         self.shortDescription = shortDescription
         self.image = image
         self.metric = metric
+        self.template = template
         self.status = status
         self.dailyLimit = dailyLimit
         self.participantCount = participantCount
@@ -134,12 +138,6 @@ final class Challenge: UniquelyIdentifiable {
 
 extension Challenge {
     
-    /// Highest score amongst all team participants.
-    var teamHighScore: Double {
-        guard let teams = teams else { return 0.0 }
-        return teams.map({$0.units}).maxElement() ?? 0.0
-    }
-    
     var isJoinable: Bool {
         return isDirectlyJoinable || isJoinableAfterCommunityIsJoined
     }
@@ -160,9 +158,53 @@ extension Challenge {
 
 extension Challenge {
     
+    /// Highest score amongst all team participants.
+    var teamHighScore: Double {
+        guard let teams = teams else { return 0.0 }
+        return teams.map({$0.units}).maxElement() ?? 0.0
+    }
+    
     /// Highest score amongst all individual participants.
     var individualHighScore: Double {
         return participants.map({$0.units}).maxElement() ?? 0.0
+    }
+}
+
+extension Challenge {
+    
+    /**
+     Whether or not a challenge is competitive.
+     
+     - note: There may be win conditions for both teams and individuals, but this property informs whether or not the primary experience of the challenge should be competitive.
+     */
+    var isCompetitive: Bool {
+        let isCompetitive: Bool
+        switch template {
+        case .individualCompetitive, .individualCompetitiveGoal, .teamCompetitive, .teamCompetitiveGoal:
+            isCompetitive = true
+        case .individualGoalAccumulation, .teamGoalAccumulation:
+            isCompetitive = false
+        }
+        return isCompetitive
+    }
+}
+
+extension Challenge {
+    
+    /**
+     Whether or not a challenge is primarily intended to be participated by teams. If `false`, it can be assumed that the challenge is primarily intended to be participated by individuals.
+     
+     - note: There may be win conditions for both teams and individuals, but this property informs whether or not the primary experience of the challenge should emphasize the team.
+     */
+    var isTeamChallenge: Bool {
+        let isTeamChallenge: Bool
+        switch template {
+        case .teamCompetitive, .teamGoalAccumulation, .teamCompetitiveGoal:
+            isTeamChallenge = true
+        case .individualGoalAccumulation, .individualCompetitiveGoal, .individualCompetitive:
+            isTeamChallenge = false
+        }
+        return isTeamChallenge
     }
 }
 
@@ -213,6 +255,28 @@ extension Challenge {
     }
 }
 
+extension Challenge {
+    
+    /**
+     Template which guides the experience of a challenge.
+     
+     - individualGoalAccumulation: Get users to work towards a goal over a period of time.
+     - individualCompetitive:      Get users to compete for one of the top spot over a period of time.
+     - individualCompetitiveGoal:  Get users to compete to be the first to complete a goal.
+     - teamGoalAccumulation:       Get users to work collectively towards a goal over a period of time.
+     - teamCompetitive:            Get users to work collectively for one of the top spot over a period of time.
+     - teamCompetitiveGoal:        Get users to work collectively to be the first to complete a goal.
+     */
+    enum Template: APIString {
+        case individualGoalAccumulation = "individual-goal-accumulation"
+        case individualCompetitive = "individual-competative"
+        case individualCompetitiveGoal = "individual-competitive-goal"
+        case teamGoalAccumulation = "team-goal-accumulation"
+        case teamCompetitive = "team-competitive"
+        case teamCompetitiveGoal = "team-competitive-goal"
+    }
+}
+
 // MARK: - States
 
 extension Challenge {
@@ -260,6 +324,7 @@ extension Challenge: JSONInitializable {
             let shortDescription = dictionary["shortDescription"] as? String,
             let image = MediaAsset(fromLegacyJSONObject: dictionary),
             let metric = Metric(rawJSONValue: dictionary["metric"]),
+            let template = Template(rawJSONValue: dictionary["challengeTemplate"]),
             let status = Status(rawJSONValue: dictionary["status"]),
             let dailyLimit = dictionary["dailyLimit"] as? Int,
             let participantCount = dictionary["participantsCount"] as? Int,
@@ -285,6 +350,23 @@ extension Challenge: JSONInitializable {
         let entryFee = dictionary["entryFee"] as? Double
         let prizeDescription = dictionary["prizeDescription"] as? String
         
-        self.init(identifier: identifier, name: name, description: description, shortDescription: shortDescription, image: image, metric: metric, status: status, dailyLimit: dailyLimit, participantCount: participantCount, devices: devices, winConditions: winConditions, userRelation: userRelation, chatter: chatter, startDate: startDate, goalDescription: goalDescription, canBeJoined: canBeJoined, participants: participants, community: community, teams: teams, terms: terms, endDate: endDate, entryFee: entryFee, prizeDescription: prizeDescription)
+        self.init(identifier: identifier, name: name, description: description, shortDescription: shortDescription, image: image, metric: metric, template: template, status: status, dailyLimit: dailyLimit, participantCount: participantCount, devices: devices, winConditions: winConditions, userRelation: userRelation, chatter: chatter, startDate: startDate, goalDescription: goalDescription, canBeJoined: canBeJoined, participants: participants, community: community, teams: teams, terms: terms, endDate: endDate, entryFee: entryFee, prizeDescription: prizeDescription)
     }
+}
+
+// MARK: - Protocol
+
+/**
+ *  Protocol for types which can participate in a challenge.
+ */
+protocol ChallengeParticipating {
+    
+    /// Name of the participating entity.
+    var name: String { get }
+    
+    /// Participating entity's score in the challenge. See challenge to know what type of units are being used.
+    var units: Double { get }
+    
+    /// Avatar for the participating entity.
+    var image: MediaAsset? { get }
 }

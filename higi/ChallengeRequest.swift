@@ -13,13 +13,15 @@ final class ChallengeRequest: ProtectedAPIRequest, ChallengeRequestConfigurable 
     let participants: Int
     let comments: Int
     let teamComments: Int
+    let winConditionWinners: Int
     
-    required init(challenge: Challenge, gravityBoard: Int, participants: Int, comments: Int, teamComments: Int) {
+    required init(challenge: Challenge, gravityBoard: Int, participants: Int, comments: Int, teamComments: Int, winConditionWinners: Int) {
         self.challenge = challenge
         self.gravityBoard = gravityBoard
         self.participants = participants
         self.comments = comments
         self.teamComments = teamComments
+        self.winConditionWinners = winConditionWinners
     }
     
     func request(completion: APIRequestAuthenticatorCompletion) {
@@ -37,10 +39,13 @@ protocol ChallengeRequestConfigurable: HigiAPI2 {
     var participants: Int { get }
     var comments: Int { get }
     var teamComments: Int { get }
+    var winConditionWinners: Int { get }
+    
     var includes: String { get }
 }
 
 extension ChallengeRequestConfigurable {
+    
     /// Outputs a string like "[gravityboard]=1,[participants]=50,[comments]=50,[teams.comments]=10,[community]=0"
     var includes: String {
         let includesMapping = [
@@ -48,7 +53,8 @@ extension ChallengeRequestConfigurable {
             ("participants", participants),
             ("comments", comments),
             ("teams.comments", teamComments),
-            ("community", 0)
+            ("community", 0),
+            ("winConditions.winners", winConditionWinners)
         ]
         let includesMappingPieces = includesMapping.map { (includesPiece) -> String in
             return "[\(includesPiece.0)]=\(includesPiece.1)"

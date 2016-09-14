@@ -43,7 +43,7 @@ extension Challenge.Winner {
      - individual: Winner is an individual challenge participant.
      - team:       Winner is a team of challenge participants.
      */
-    enum Type: APIString {
+    enum `Type`: APIString {
         case individual
         case team
     }
