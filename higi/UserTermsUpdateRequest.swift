@@ -20,9 +20,9 @@ final class UserTermsUpdateRequest: ProtectedAPIRequest {
     
     func request(completion: APIRequestAuthenticatorCompletion) {
         
-        let agreedDateTime = NSDate()
-        let terms = AgreementInfo(fileName: termsFileName, dateTime: agreedDateTime)
-        let privacy = AgreementInfo(fileName: privacyFileName, dateTime: agreedDateTime)
+        let effectiveDatetime = NSDate()
+        let terms = AgreementInfo(fileName: termsFileName, dateTime: effectiveDatetime)
+        let privacy = AgreementInfo(fileName: privacyFileName, dateTime: effectiveDatetime)
         
         let parameters = NSMutableDictionary()
         parameters["termsAgreed"] = terms.JSONDictionary()

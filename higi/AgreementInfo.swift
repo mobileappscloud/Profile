@@ -24,7 +24,7 @@ extension AgreementInfo: JSONInitializable {
     
     init?(dictionary: NSDictionary) {
         guard let fileName = dictionary["fileName"] as? String,
-            let dateTime = NSDateFormatter.ISO8601DateFormatter.date(fromObject: dictionary["agreedDatetime"]) else {
+            let dateTime = NSDateFormatter.ISO8601DateFormatter.date(fromObject: dictionary["effectiveDatetime"]) else {
                 return nil
         }
         
@@ -39,7 +39,7 @@ extension AgreementInfo: JSONSerializable {
         let mutableDictionary = NSMutableDictionary()
         
         mutableDictionary["fileName"] = fileName
-        mutableDictionary["agreedDatetime"] = NSDateFormatter.ISO8601DateFormatter.stringFromDate(dateTime)
+        mutableDictionary["effectiveDatetime"] = NSDateFormatter.ISO8601DateFormatter.stringFromDate(dateTime)
         
         return mutableDictionary.copy() as! NSDictionary
     }

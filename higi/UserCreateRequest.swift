@@ -29,9 +29,9 @@ final class UserCreateRequest: UnprotectedAPIRequest {
         let relativePath = "/authentication/users"
         let method = HTTPMethod.POST
         
-        let agreedDateTime = NSDate()
-        let terms = AgreementInfo(fileName: termsFileName, dateTime: agreedDateTime)
-        let privacy = AgreementInfo(fileName: privacyFileName, dateTime: agreedDateTime)
+        let effectiveDatetime = NSDate()
+        let terms = AgreementInfo(fileName: termsFileName, dateTime: effectiveDatetime)
+        let privacy = AgreementInfo(fileName: privacyFileName, dateTime: effectiveDatetime)
         
         let body = [
             "email" : email,
