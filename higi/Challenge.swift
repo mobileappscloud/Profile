@@ -80,7 +80,7 @@ final class Challenge: UniquelyIdentifiable {
     let participants: [Participant]
     
     /// Conveys the state of the joinability of the challenge
-    let joinableState: JoinableState
+    let joinableStatus: JoinableStatus
     
     // MARK: Optional
     
@@ -104,7 +104,7 @@ final class Challenge: UniquelyIdentifiable {
 
     // MARK: Init
     
-    required init(identifier: String, name: String, description: String, let shortDescription: String, image: MediaAsset, metric: Metric, template: Template, status: Status, dailyLimit: Int, participantCount: Int, devices: [ActivityDevice], winConditions: [Challenge.WinCondition], userRelation: UserRelation, chatter: Chatter, startDate: NSDate, goalDescription: String, participants: [Participant], joinableState: JoinableState, community: Community? = nil, teams: [Team]? = nil, terms: String? = nil, endDate: NSDate? = nil, entryFee: Double? = nil, prizeDescription: String? = nil) {
+    required init(identifier: String, name: String, description: String, let shortDescription: String, image: MediaAsset, metric: Metric, template: Template, status: Status, dailyLimit: Int, participantCount: Int, devices: [ActivityDevice], winConditions: [Challenge.WinCondition], userRelation: UserRelation, chatter: Chatter, startDate: NSDate, goalDescription: String, participants: [Participant], joinableStatus: JoinableStatus, community: Community? = nil, teams: [Team]? = nil, terms: String? = nil, endDate: NSDate? = nil, entryFee: Double? = nil, prizeDescription: String? = nil) {
         self.identifier = identifier
         self.name = name
         self.description = description
@@ -122,7 +122,7 @@ final class Challenge: UniquelyIdentifiable {
         self.startDate = startDate
         self.goalDescription = goalDescription
         self.participants = participants
-        self.joinableState = joinableState
+        self.joinableStatus = joinableStatus
         
         self.community = community
         self.teams = teams
@@ -142,7 +142,7 @@ extension Challenge {
     }
     
     var isDirectlyJoinable: Bool {
-        return joinableState == .joinable
+        return joinableStatus == .joinable
     }
     
     var needToJoinCommunityFirst: Bool {
@@ -151,7 +151,7 @@ extension Challenge {
     
     //TODO: Peter Ryszkiewicz: Validate/audit this logic
     var isJoinableAfterCommunityIsJoined: Bool {
-        return joinableState == .joinCommunity
+        return joinableStatus == .joinCommunity
     }
 }
 
@@ -268,7 +268,7 @@ extension Challenge {
      */
     enum Template: APIString {
         case individualGoalAccumulation = "individual-goal-accumulation"
-        case individualCompetitive = "individual-competative"
+        case individualCompetitive = "individual-competitive"
         case individualCompetitiveGoal = "individual-competitive-goal"
         case teamGoalAccumulation = "team-goal-accumulation"
         case teamCompetitive = "team-competitive"
@@ -289,7 +289,7 @@ extension Challenge {
         case cancelled
     }
     
-    enum JoinableState: APIString {
+    enum JoinableStatus: APIString {
         case joinable
         case notJoinable
         case joinCommunity
@@ -339,7 +339,7 @@ extension Challenge: JSONInitializable {
             let chatter = Chatter(fromJSONObject: dictionary["comments"]),
             let startDate = NSDateFormatter.yyyyMMddDateFormatter.date(fromObject: dictionary["startDate"]),
             let goalDescription = dictionary["goalDescription"] as? String,
-            let joinableState = JoinableState(rawJSONValue: dictionary["joinableState"])
+            let joinableStatus = JoinableStatus(rawJSONValue: dictionary["joinableStatus"])
             else { return nil }
         
         var participants: [Participant] = []
@@ -355,7 +355,7 @@ extension Challenge: JSONInitializable {
         let entryFee = dictionary["entryFee"] as? Double
         let prizeDescription = dictionary["prizeDescription"] as? String
         
-        self.init(identifier: identifier, name: name, description: description, shortDescription: shortDescription, image: image, metric: metric, template: template,status: status, dailyLimit: dailyLimit, participantCount: participantCount, devices: devices, winConditions: winConditions, userRelation: userRelation, chatter: chatter, startDate: startDate, goalDescription: goalDescription, participants: participants, joinableState: joinableState, community: community, teams: teams, terms: terms, endDate: endDate, entryFee: entryFee, prizeDescription: prizeDescription)
+        self.init(identifier: identifier, name: name, description: description, shortDescription: shortDescription, image: image, metric: metric, template: template,status: status, dailyLimit: dailyLimit, participantCount: participantCount, devices: devices, winConditions: winConditions, userRelation: userRelation, chatter: chatter, startDate: startDate, goalDescription: goalDescription, participants: participants, joinableStatus: joinableStatus, community: community, teams: teams, terms: terms, endDate: endDate, entryFee: entryFee, prizeDescription: prizeDescription)
     }
 }
 
