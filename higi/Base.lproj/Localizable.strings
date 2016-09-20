@@ -700,8 +700,29 @@
 /* Title for home view. */
 "HOME_VIEW_TITLE" = "Home";
 
+/* Text for telling the user, 'you' */
+"LEADERBOARD_COMPARISON_VIEW_YOU_TEXT" = "YOU";
+
+/* Format for telling the user what place they are in */
+"LEADERBOARD_VIEW_COMPARISON_PLACEMENT_FORMAT" = "You are %@ of %@ members";
+
+/* Text for the button telling the user to 'Jump to Top', for the leaderboard table. */
+"LEADERBOARD_VIEW_JUMP_TO_TOP_TEXT" = "Jump to Top";
+
+/* Text for the button telling the user to 'Jump to You', for the leaderboard table. */
+"LEADERBOARD_VIEW_JUMP_TO_YOU_TEXT" = "Jump to You";
+
 /* Text for see leaderboard in the leaderboard widget */
 "LEADERBOARD_VIEW_SEE_LEADERBOARD_TEXT" = "see leaderboard ›";
+
+/* Format for text that tells the user since when they had a leaderboard analysis. */
+"LEADERBOARD_VIEW_SINCE_DATE_FORMAT" = "%@ %@";
+
+/* Text that tells the user 'since' when they had a leaderboard analysis. */
+"LEADERBOARD_VIEW_SINCE_TEXT" = "Since";
+
+/* The text for the title of the leaderboard view. */
+"LEADERBOARD_VIEW_TITLE_TEXT" = "Leaderboard";
 
 /* Text for Top 10 on Leaderboard in the leaderboard widget */
 "LEADERBOARD_VIEW_TOP_10_TITLE" = "Top 10 on Leaderboard";

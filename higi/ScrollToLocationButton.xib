@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ScrollToLocationButton" customModule="higi" customModuleProvider="target">
+            <connections>
+                <outlet property="backgroundView" destination="947-L6-TYu" id="Ouf-38-V3J"/>
+                <outlet property="chevronImageView" destination="mvO-LO-76T" id="uPd-pY-qem"/>
+                <outlet property="scrollToLabel" destination="MM1-Og-BWT" id="lx6-GR-hiK"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="V5h-ei-W4B">
+            <rect key="frame" x="0.0" y="0.0" width="299" height="41"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view alpha="0.94999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="947-L6-TYu" userLabel="Background View">
+                    <rect key="frame" x="102" y="0.0" width="96" height="41"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mvO-LO-76T" userLabel="Chevron Image View">
+                            <rect key="frame" x="12" y="15" width="20" height="12"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="mvO-LO-76T" secondAttribute="height" multiplier="1.7:1" id="2aV-Ru-1eJ"/>
+                                <constraint firstAttribute="width" constant="20" id="cC7-Ku-owZ"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MM1-Og-BWT" userLabel="Scroll To Label">
+                            <rect key="frame" x="42" y="10" width="42" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="MM1-Og-BWT" firstAttribute="leading" secondItem="mvO-LO-76T" secondAttribute="trailing" constant="10" id="1no-Nb-gMn"/>
+                        <constraint firstItem="MM1-Og-BWT" firstAttribute="top" secondItem="947-L6-TYu" secondAttribute="top" constant="10" id="5yl-kB-fr8"/>
+                        <constraint firstItem="mvO-LO-76T" firstAttribute="centerY" secondItem="947-L6-TYu" secondAttribute="centerY" id="NK4-qd-V7o"/>
+                        <constraint firstAttribute="trailing" secondItem="MM1-Og-BWT" secondAttribute="trailing" constant="12" id="SdT-OW-lhO"/>
+                        <constraint firstAttribute="bottom" secondItem="MM1-Og-BWT" secondAttribute="bottom" constant="10" id="kUw-ds-9ai"/>
+                        <constraint firstItem="mvO-LO-76T" firstAttribute="leading" secondItem="947-L6-TYu" secondAttribute="leading" constant="12" id="yry-EW-LuP"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="947-L6-TYu" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="V5h-ei-W4B" secondAttribute="leading" id="R9T-ZT-Fsv"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="947-L6-TYu" secondAttribute="trailing" id="Wwg-3G-GSM"/>
+                <constraint firstItem="947-L6-TYu" firstAttribute="centerY" secondItem="V5h-ei-W4B" secondAttribute="centerY" id="cJp-Fe-SAp"/>
+                <constraint firstItem="947-L6-TYu" firstAttribute="centerX" secondItem="V5h-ei-W4B" secondAttribute="centerX" id="nPz-cm-JPX"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="658.5" y="462.5"/>
+        </view>
+    </objects>
+</document>

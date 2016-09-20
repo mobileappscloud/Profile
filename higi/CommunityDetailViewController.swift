@@ -63,6 +63,7 @@ final class CommunityDetailViewController: UIViewController {
     
     private let naturalLeaderboardHeight: CGFloat = 122
     private let leaderboardAnimationDuration = 0.4
+    private let maxLeaderboardParticipants = 10
     
     lazy private var blurredLoadingViewController: BlurredLoadingViewController = {
         let storyboard = UIStoryboard(name: "BlurredLoading", bundle: nil)
@@ -399,11 +400,7 @@ extension CommunityDetailViewController {
             
             segmentedPage.set(viewControllers, titles: titles)
         } else if segue.identifier == CommunitiesViewController.Storyboard.Segue.toLeaderboardAAA {
-            if let aaaLeaderboardWrapped = (sender as? NSDictionary)?["aaaLeaderboard"] as? AnyWrapper<LeaderboardMemberAnalysisAndRankings>
-                 {
-                let aaaLeaderboard = aaaLeaderboardWrapped.object
-                (segue.destinationViewController as? LeaderboardAAAViewController)?.configure(userController: userController, leaderboardAAAController: LeaderboardAAAController(leaderboardMemberAnalysisAndRankings: aaaLeaderboard))
-            }
+            (segue.destinationViewController as? LeaderboardAAAViewController)?.configure(userController: userController, leaderboardOwnerId: community.identifier)
         }
     }
 }
@@ -440,22 +437,17 @@ extension CommunityDetailViewController {
         communityDetailController.fetchLeaderboardAnalysisOrRankings(userController.user, success: {
             [weak self]
             (communityWidgetLeaderboard) in
-            guard let strongSelf = self else { return }
-            strongSelf.communityDetailController.fetchLeaderboardAnalysisAndRankings(strongSelf.userController.user, success: { aaaLeaderboard in //TODO: make parallel
-                dispatch_async(dispatch_get_main_queue(), {
-                    self?.display(communityLeaderboard: communityWidgetLeaderboard, aaaLeaderboard: aaaLeaderboard)
-                })
-            }) { (error) in
-                // TODO: Peter Ryszkiewicz: handle
-            }
+            dispatch_async(dispatch_get_main_queue(), {
+                self?.display(communityLeaderboard: communityWidgetLeaderboard)
+            })
         }) { (error) in
             // TODO: Peter Ryszkiewicz: handle
         }
     }
     
-    private func display(communityLeaderboard communityLeaderboard: LeaderboardMemberAnalysisAndRankings, aaaLeaderboard: LeaderboardMemberAnalysisAndRankings) {
+    private func display(communityLeaderboard communityLeaderboard: LeaderboardMemberAnalysisAndRankings) {
         if let rankings = communityLeaderboard.rankings {
-            if rankings.rankings.count < 10 {
+            if rankings.rankings.count < maxLeaderboardParticipants {
                 return
             }
             leaderboardHeightConstraint.constant = naturalLeaderboardHeight
@@ -463,12 +455,11 @@ extension CommunityDetailViewController {
                 self.view.layoutIfNeeded()
             })
             let leaderboardWidgetView = LeaderboardWidgetView(frame: CGRect.zero)
-            leaderboardWidgetView.setRankings(rankings)
+            let topTenRankings = Array(rankings.rankings[0..<maxLeaderboardParticipants])
+            leaderboardWidgetView.setRankings(topTenRankings)
             leaderboardWidgetView.viewTapped = {
                 [weak self] in
-                self?.performSegueWithIdentifier("toLeaderboardAAA", sender: [
-                    "aaaLeaderboard": AnyWrapper(object: aaaLeaderboard)
-                ])
+                self?.performSegueWithIdentifier("toLeaderboardAAA", sender: nil)
             }
             leaderboardView.addSubview(leaderboardWidgetView, pinToEdges: true)
         } else if let analysis = communityLeaderboard.analysis {
@@ -480,9 +471,7 @@ extension CommunityDetailViewController {
             leaderboardStatusWidgetView.setAnalysis(analysis)
             leaderboardStatusWidgetView.viewTapped = {
                 [weak self] in
-                self?.performSegueWithIdentifier("toLeaderboardAAA", sender: [
-                    "aaaLeaderboard": AnyWrapper(object: aaaLeaderboard)
-                ])
+                self?.performSegueWithIdentifier("toLeaderboardAAA", sender: nil)
             }
             leaderboardView.addSubview(leaderboardStatusWidgetView, pinToEdges: true)
         } else {

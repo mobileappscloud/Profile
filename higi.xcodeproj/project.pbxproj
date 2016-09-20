@@ -55,6 +55,9 @@
 		27AC77651D7091FF0048316B /* PreviousChallengesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AC77641D7091FF0048316B /* PreviousChallengesTableViewCell.swift */; };
 		27B6604D1D4FE2FF00BD9390 /* NSLayoutConstraint+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B6604C1D4FE2FF00BD9390 /* NSLayoutConstraint+Utility.swift */; };
 		27C071041D82810200B5B9D3 /* LeaderboardAAAController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C071031D82810200B5B9D3 /* LeaderboardAAAController.swift */; };
+		27C071291D88648500B5B9D3 /* LeaderboardComparisonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C071281D88648500B5B9D3 /* LeaderboardComparisonViewController.swift */; };
+		27EC94AC1D8B2C360014DB5C /* ScrollToLocationButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27EC94AB1D8B2C360014DB5C /* ScrollToLocationButton.xib */; };
+		27EC94B01D8B2CC70014DB5C /* ScrollToLocationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EC94AF1D8B2CC70014DB5C /* ScrollToLocationButton.swift */; };
 		27F9F3361D6B4D5F001FA583 /* ChallengeDetailJoinSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F9F3351D6B4D5F001FA583 /* ChallengeDetailJoinSegue.swift */; };
 		27F9F33F1D6B8F00001FA583 /* LeaderboardStatusWidgetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27F9F33E1D6B8F00001FA583 /* LeaderboardStatusWidgetView.xib */; };
 		27F9F3431D6B9290001FA583 /* LeaderboardStatusWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F9F3421D6B9290001FA583 /* LeaderboardStatusWidgetView.swift */; };
@@ -572,6 +575,9 @@
 		27AC77641D7091FF0048316B /* PreviousChallengesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviousChallengesTableViewCell.swift; sourceTree = "<group>"; };
 		27B6604C1D4FE2FF00BD9390 /* NSLayoutConstraint+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSLayoutConstraint+Utility.swift"; sourceTree = "<group>"; };
 		27C071031D82810200B5B9D3 /* LeaderboardAAAController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderboardAAAController.swift; sourceTree = "<group>"; };
+		27C071281D88648500B5B9D3 /* LeaderboardComparisonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderboardComparisonViewController.swift; sourceTree = "<group>"; };
+		27EC94AB1D8B2C360014DB5C /* ScrollToLocationButton.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScrollToLocationButton.xib; sourceTree = "<group>"; };
+		27EC94AF1D8B2CC70014DB5C /* ScrollToLocationButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollToLocationButton.swift; sourceTree = "<group>"; };
 		27F9F3351D6B4D5F001FA583 /* ChallengeDetailJoinSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeDetailJoinSegue.swift; sourceTree = "<group>"; };
 		27F9F33E1D6B8F00001FA583 /* LeaderboardStatusWidgetView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeaderboardStatusWidgetView.xib; sourceTree = "<group>"; };
 		27F9F3421D6B9290001FA583 /* LeaderboardStatusWidgetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderboardStatusWidgetView.swift; sourceTree = "<group>"; };
@@ -1121,6 +1127,7 @@
 				27F9F33E1D6B8F00001FA583 /* LeaderboardStatusWidgetView.xib */,
 				270342B11D66684100B84E28 /* LeaderboardUserView.xib */,
 				270342AF1D6663CC00B84E28 /* LeaderboardWidgetView.xib */,
+				27EC94AB1D8B2C360014DB5C /* ScrollToLocationButton.xib */,
 			);
 			name = Leaderboard;
 			sourceTree = "<group>";
@@ -1130,12 +1137,14 @@
 			children = (
 				27C071031D82810200B5B9D3 /* LeaderboardAAAController.swift */,
 				273191CB1D81BC9F00F12C5F /* LeaderboardAAAViewController.swift */,
+				27C071281D88648500B5B9D3 /* LeaderboardComparisonViewController.swift */,
 				273191CF1D81C7E700F12C5F /* LeaderboardRankingsController.swift */,
 				273191D11D81E1BF00F12C5F /* LeaderboardRankingTableViewCell.swift */,
 				27F9F3421D6B9290001FA583 /* LeaderboardStatusWidgetView.swift */,
 				273191CD1D81C4EC00F12C5F /* LeaderboardTableViewController.swift */,
 				270342B41D666A9C00B84E28 /* LeaderboardUserView.swift */,
 				270342B61D666BCA00B84E28 /* LeaderboardWidgetView.swift */,
+				27EC94AF1D8B2CC70014DB5C /* ScrollToLocationButton.swift */,
 			);
 			name = Leaderboard;
 			sourceTree = "<group>";
@@ -2486,9 +2495,6 @@
 				41C006271D6636110093D7B5 /* ChallengeDetailController.swift */,
 				41C005AB1D64D7C30093D7B5 /* ChallengeDetailViewController.swift */,
 				410F10731D7786380008F68E /* Details */,
-				410F10721D77862C0008F68E /* Prizes (Win Conditions) */,
-				410F10BE1D790B530008F68E /* Winners */,
-				410F10731D7786380008F68E /* Details */,
 				410953EE1D7F6AB100904483 /* Participant */,
 				410F10721D77862C0008F68E /* Prizes (Win Conditions) */,
 				410F10BE1D790B530008F68E /* Winners */,
@@ -3223,6 +3229,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27EC94AC1D8B2C360014DB5C /* ScrollToLocationButton.xib in Resources */,
 				410F10711D777D710008F68E /* ChallengeWinConditionTableViewCell.xib in Resources */,
 				273DFFAD1D491C3800AF7032 /* ChallengeStatusIndicatorView.xib in Resources */,
 				27AC77611D6F9E3D0048316B /* PreviousChallengesTableViewCell.xib in Resources */,
@@ -3605,6 +3612,7 @@
 				41667A3C1CF0FBC6007BB0FF /* LogInRequest.swift in Sources */,
 				4127AADD1D55B072005AEF54 /* VideoPlayer.swift in Sources */,
 				4150316C1CAA47F200A3FB94 /* CommunitySubscribeRequest.swift in Sources */,
+				27C071291D88648500B5B9D3 /* LeaderboardComparisonViewController.swift in Sources */,
 				8FA5925F19ABBD3A00622266 /* TourViewController.swift in Sources */,
 				4150315C1CA9E74500A3FB94 /* TokenRefreshRequest.swift in Sources */,
 				8FF873F419DF5394002A6341 /* PullRefresh.swift in Sources */,
@@ -3674,6 +3682,7 @@
 				D149E94B1A78471A00FBAA15 /* ChallengeDetailsChatterRow.swift in Sources */,
 				8FEF6F3C1A6EAACE001EF8A6 /* DashboardViewController.swift in Sources */,
 				410FFFBC1CA77D34005EAC9E /* HTTP.swift in Sources */,
+				27EC94B01D8B2CC70014DB5C /* ScrollToLocationButton.swift in Sources */,
 				8FCD2D8019EC286900AC5A82 /* UIImage+Orientation.m in Sources */,
 				413714EA1D45C23E00A74BBC /* JSONInitializable.swift in Sources */,
 				D105CB5D1B7E9B1F00971AB0 /* QrScannerViewController.swift in Sources */,

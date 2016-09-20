@@ -31,13 +31,13 @@
                         <constraint firstAttribute="width" secondItem="17m-Hk-qRn" secondAttribute="height" multiplier="10:9" id="TSI-X3-0Ij"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Jane, you finished 64th last week with 1,980 watts." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lAz-9L-Azz" userLabel="Placement Description Label">
-                    <rect key="frame" x="106" y="43" width="252" height="41"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Jane, you finished 64th last week with 1,980 watts." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lAz-9L-Azz" userLabel="Placement Description Label">
+                    <rect key="frame" x="106" y="25" width="252" height="59"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="see leaderboard ›" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fr9-qt-7JK" userLabel="see leaderboard Label">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="see leaderboard ›" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fr9-qt-7JK" userLabel="see leaderboard Label">
                     <rect key="frame" x="106" y="85" width="252" height="17"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" red="0.40000000000000002" green="0.71764705880000002" blue="0.20392156859999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -46,11 +46,13 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="Fr9-qt-7JK" firstAttribute="top" secondItem="lAz-9L-Azz" secondAttribute="bottom" constant="1" id="2UO-t0-0mq"/>
                 <constraint firstItem="wEs-if-Na9" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="4e8-IT-Z1h"/>
                 <constraint firstAttribute="bottom" secondItem="Fr9-qt-7JK" secondAttribute="bottom" constant="10" id="AyV-Xz-5RB"/>
                 <constraint firstAttribute="bottom" secondItem="17m-Hk-qRn" secondAttribute="bottom" constant="10" id="D8t-hi-R8O"/>
                 <constraint firstItem="17m-Hk-qRn" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="LOR-NI-zBj"/>
                 <constraint firstItem="Fr9-qt-7JK" firstAttribute="leading" secondItem="17m-Hk-qRn" secondAttribute="trailing" constant="10" id="PCh-7l-4E3"/>
+                <constraint firstItem="lAz-9L-Azz" firstAttribute="top" secondItem="wEs-if-Na9" secondAttribute="bottom" constant="10" id="dik-KG-hZw"/>
                 <constraint firstAttribute="trailing" secondItem="wEs-if-Na9" secondAttribute="trailing" id="hqv-64-L5H"/>
                 <constraint firstAttribute="trailing" secondItem="Fr9-qt-7JK" secondAttribute="trailing" constant="10" id="hri-UH-nWG"/>
                 <constraint firstItem="17m-Hk-qRn" firstAttribute="top" secondItem="wEs-if-Na9" secondAttribute="bottom" constant="10" id="rPf-9A-Bsh"/>
@@ -65,6 +67,7 @@
             <variation key="default">
                 <mask key="constraints">
                     <exclude reference="rX7-jv-D9C"/>
+                    <exclude reference="vbk-N1-1nM"/>
                 </mask>
             </variation>
             <point key="canvasLocation" x="335" y="91"/>

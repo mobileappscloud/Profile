@@ -49,13 +49,13 @@ final class LeaderboardWidgetView: ReusableXibView {
         }
     }
     
-    func setRankings(rankings: Leaderboard.Rankings) {
+    func setRankings(rankings: [Leaderboard.Rankings.Ranking]) {
         leaderboardUsersStackView.subviews.forEach({ $0.removeFromSuperview() })
 
-        for i in 0..<rankings.rankings.count {
+        for i in 0..<rankings.count {
             let leaderboardUserView = LeaderboardUserView()
-            leaderboardUserView.placementLabel.text = "\(rankings.rankings[i].ranking)"
-            leaderboardUserView.userImageView.setImage(withMediaAsset: rankings.rankings[i].user.photo)
+            leaderboardUserView.placementLabel.text = "\(rankings[i].ranking)"
+            leaderboardUserView.userImageView.setImage(withMediaAsset: rankings[i].user.photo)
             leaderboardUsersStackView.addArrangedSubview(leaderboardUserView)
         }
     }

@@ -51,9 +51,4 @@ extension CommunityDetailController {
     func fetchLeaderboardAnalysisOrRankings(user: User, success: (leaderboard: LeaderboardMemberAnalysisAndRankings) -> Void, failure: (error: ErrorType) -> Void) {
         LeaderboardNetworkController.fetchLeaderboardAnalysisAndRankings(forOwnerId: community.identifier, user: user, containerType: Leaderboard.Member.Analysis.Container.`Type`.communityWidget, session: session, success: success, failure: failure)
     }
-    
-    func fetchLeaderboardAnalysisAndRankings(user: User, success: (leaderboard: LeaderboardMemberAnalysisAndRankings) -> Void, failure: (error: ErrorType) -> Void) {
-        LeaderboardNetworkController.fetchLeaderboardAnalysisAndRankings(forOwnerId: community.identifier, user: user, containerType: Leaderboard.Member.Analysis.Container.`Type`.aaa, session: session, success: success, failure: failure)
-    }
-
 }

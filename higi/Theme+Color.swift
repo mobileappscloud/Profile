@@ -351,10 +351,30 @@ extension Theme.Color {
 extension Theme.Color.Leaderboard {
     
     struct Ranking {
-        static let topThird = Theme.Color.Primary.green
-        static let middleThird = Theme.Color.Secondary.teal
-        static let bottomThird = Theme.Color.Secondary.grape
-        static let number = Theme.Color.Primary.white
-        static let userCellBackground = UIColor(red: 220/255, green: 247/255, blue: 245/255, alpha: 1.0)
+        static let topThirdBackgroundColor = Theme.Color.Primary.green
+        static let middleThirdBackgroundColor = Theme.Color.Secondary.teal
+        static let bottomThirdBackgroundColor = Theme.Color.Secondary.grape
+        static let numberLabel = Theme.Color.Primary.white
+        static let userNameLabel = Theme.Color.primary
+        static let userCellBackgroundColor = UIColor(red: 220/255, green: 247/255, blue: 245/255, alpha: 1.0)
+        static let defaultCellBackgroundColor = Theme.Color.Primary.white
+        static let jumpToLocationButtonBackground = Theme.Color.Primary.charcoal
+        static let jumpToLocationButtonContentColor = Theme.Color.Primary.white
+    }
+}
+
+extension Theme.Color.Leaderboard {
+    struct AAAView {
+        static let progressionTimeText = Theme.Color.Primary.silver
+        static let leaderboardMessageText = Theme.Color.Primary.charcoal
+        static let inviteYourFriendsText = Theme.Color.primary
+        static let pageViewControllerBackground = Theme.Color.Primary.whiteGray
+    }
+}
+
+extension Theme.Color.Leaderboard {
+    struct ComparisonView {
+        static let placementAnnotations = UIColor(red: 50/255, green: 51/255, blue: 48/255, alpha: 1.0)
+        static let placementBottomText = Theme.Color.Primary.charcoal
     }
 }

@@ -16,8 +16,15 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O3B-sz-8S7" userLabel="Margin View">
+                        <rect key="frame" x="0.0" y="0.0" width="3" height="44"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="3" id="Gj2-5u-TWp"/>
+                        </constraints>
+                    </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cmr-qC-Krv" userLabel="Rank View">
-                        <rect key="frame" x="0.0" y="0.0" width="66" height="44"/>
+                        <rect key="frame" x="3" y="0.0" width="66" height="44"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.90000000000000002" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gnX-ei-ZRH">
                                 <rect key="frame" x="4" y="11" width="58" height="21"/>
@@ -35,7 +42,7 @@
                         </constraints>
                     </view>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="SAz-YO-g2Q" userLabel="User Image View">
-                        <rect key="frame" x="76" y="2" width="40" height="40"/>
+                        <rect key="frame" x="79" y="2" width="40" height="40"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="5Vf-iO-MyB"/>
                             <constraint firstAttribute="width" constant="40" id="CoG-gO-77k"/>
@@ -48,7 +55,7 @@
                         </variation>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TP4-Fk-Nai" userLabel="User Name Label">
-                        <rect key="frame" x="126" y="12" width="124" height="21"/>
+                        <rect key="frame" x="129" y="12" width="121" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -59,18 +66,31 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DMY-h4-vU1" userLabel="Margin View">
+                        <rect key="frame" x="317" y="0.0" width="3" height="44"/>
+                        <color key="backgroundColor" red="0.94509803920000002" green="0.94509803920000002" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="3" id="kJs-aX-TtL"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="DMY-h4-vU1" secondAttribute="trailing" id="6ta-Sr-uHB"/>
                     <constraint firstItem="6nH-Oe-yvU" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="JCH-4J-Tqv"/>
                     <constraint firstItem="Cmr-qC-Krv" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Jam-1H-Mo3"/>
+                    <constraint firstItem="O3B-sz-8S7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="RQe-Oe-hlw"/>
+                    <constraint firstAttribute="bottom" secondItem="O3B-sz-8S7" secondAttribute="bottom" id="SQf-1s-A0B"/>
                     <constraint firstAttribute="trailingMargin" secondItem="6nH-Oe-yvU" secondAttribute="trailing" constant="10" id="Sp7-qp-zDi"/>
+                    <constraint firstItem="O3B-sz-8S7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="UZY-G9-BXc"/>
                     <constraint firstItem="TP4-Fk-Nai" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Ve0-oE-uAx"/>
                     <constraint firstItem="6nH-Oe-yvU" firstAttribute="leading" secondItem="TP4-Fk-Nai" secondAttribute="trailing" constant="10" id="ccu-dA-JQL"/>
                     <constraint firstItem="TP4-Fk-Nai" firstAttribute="leading" secondItem="SAz-YO-g2Q" secondAttribute="trailing" constant="10" id="iHR-Xt-vey"/>
+                    <constraint firstItem="O3B-sz-8S7" firstAttribute="trailing" secondItem="Cmr-qC-Krv" secondAttribute="leading" id="jYI-f2-tGb"/>
+                    <constraint firstAttribute="bottom" secondItem="DMY-h4-vU1" secondAttribute="bottom" id="k7g-bc-vCN"/>
                     <constraint firstItem="SAz-YO-g2Q" firstAttribute="leading" secondItem="Cmr-qC-Krv" secondAttribute="trailing" constant="10" id="mzD-xe-nPr"/>
+                    <constraint firstItem="DMY-h4-vU1" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="pgi-fD-TU7"/>
                     <constraint firstAttribute="bottom" secondItem="Cmr-qC-Krv" secondAttribute="bottom" id="wd0-mM-PTX"/>
                     <constraint firstItem="SAz-YO-g2Q" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="yBj-zl-aTH"/>
-                    <constraint firstItem="Cmr-qC-Krv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="yHn-jT-F2o"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
