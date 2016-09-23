@@ -310,6 +310,21 @@ extension Theme.Color.Challenge.Detail {
     }
 }
 
+extension Theme.Color.Challenge {
+    struct ProgressView {
+        static let trackColor = Theme.Color.Primary.white
+        static let progressColor = Theme.Color.Primary.green
+        static let milestoneBorderColor = Theme.Color.Primary.green
+    }
+}
+
+extension Theme.Color.Challenge {
+    struct UserProgress {
+        static let pointsContainerBackground = Utility.colorFromHexString("#6D6D6D")
+        static let pointsContainerText = UIColor.whiteColor()
+        static let dashedLineColor = Utility.colorFromHexString("#6D6D6D")
+    }
+}
 
 // MARK: - Content Service
 

@@ -21,6 +21,7 @@ final class ChallengeDetailTableViewController: UIViewController {
             
             tableView.register(cellClass: UITableViewCell.self)
             tableView.register(nibWithCellClass: ChallengeInfoTableViewCell.self)
+            tableView.register(nibWithCellClass: ChallengeDetailUserProgressTableViewCell.self)
         }
     }
     
@@ -34,6 +35,12 @@ final class ChallengeDetailTableViewController: UIViewController {
     
     /// View controller to target for presentation of views. This property should be set when this view controller is a child view controller.
     private(set) weak var targetPresentationViewController: UIViewController?
+    
+    // MARK: - Properties
+    
+    private var challenge: Challenge {
+        return challengeDetailController.challenge
+    }
 }
 
 // MARK: - Dependency Injection
@@ -58,6 +65,7 @@ extension ChallengeDetailTableViewController {
 private extension ChallengeDetailTableViewController {
     
     enum TableSection: Int {
+        case userProgress
         case info
         case officialRules
         case community
@@ -65,6 +73,17 @@ private extension ChallengeDetailTableViewController {
     }
     
     // MARK: Rows
+    
+    enum UserProgressRow: Int {
+        case content
+        case _count
+        static func numberOfRows(forChallenge challenge: Challenge) -> Int {
+            if [Challenge.Status.running, Challenge.Status.calculating, Challenge.Status.finished].contains(challenge.status) {
+                return UserProgressRow._count.rawValue
+            }
+            return 0
+        }
+    }
     
     enum InfoSectionRow: Int {
         case content
@@ -145,6 +164,9 @@ extension ChallengeDetailTableViewController: UITableViewDataSource {
         
         var rowCount = 0
         switch tableSection {
+        case .userProgress:
+            rowCount = UserProgressRow.numberOfRows(forChallenge: challenge)
+            
         case .info:
             rowCount = InfoSectionRow._count.rawValue
             
@@ -167,6 +189,15 @@ extension ChallengeDetailTableViewController: UITableViewDataSource {
         
         var cell: UITableViewCell!
         switch tableSection {
+        case .userProgress:
+            guard let row = UserProgressRow(rawValue: indexPath.row) else { break }
+            switch row {
+            case .content:
+                cell = userProgressCell(forTableView: tableView, atIndexPath: indexPath)
+            case ._count:
+                break
+            }
+            
         case .info:
             guard let row = InfoSectionRow(rawValue: indexPath.row) else { break }
             switch row {
@@ -209,6 +240,64 @@ extension ChallengeDetailTableViewController: UITableViewDataSource {
 // MARK: - Cell Configuration
 
 extension ChallengeDetailTableViewController {
+
+    // MARK: User Progress
+    
+    private func userProgressCell(forTableView tableView: UITableView, atIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withClass: ChallengeDetailUserProgressTableViewCell.self, forIndexPath: indexPath)
+        
+        if let endDate = challenge.endDate {
+            let daysRemainingFormat = NSLocalizedString("CHALLENGE_DETAIL_VIEW_DAYS_REMAINING_SINGLE_PLURAL", comment: "Format for the number of days remaining for a challenge")
+            let components = NSCalendar.currentCalendar().components([.Day], fromDate: NSDate(), toDate: endDate, options: [])
+            let daysRemaining = components.day
+            if daysRemaining >= 0 {
+                cell.daysRemainingLabel.text = String(format: daysRemainingFormat, arguments: [daysRemaining])
+            } else {
+                cell.daysRemainingLabel.text = nil
+            }
+        } else {
+            cell.daysRemainingLabel.text = nil
+        }
+        
+        if let pointsForGoalReached = pointsForGoalReached {
+            let goalReachedFormat = NSLocalizedString("CHALLENGE_DETAIL_VIEW_GOAL_REACHED_SINGLE_PLURAL", comment: "Format for a Points Goal Reached for a challenge")
+            cell.goalReachedLabel.text = String(format: goalReachedFormat, arguments: [pointsForGoalReached])
+            cell.goalReachedStackView.hidden = false
+        } else {
+            cell.goalReachedLabel.text = nil
+            cell.goalReachedStackView.hidden = true
+        }
+        
+        configureProgressContainer(for: cell)
+        
+        cell.selectionStyle = .None
+        return cell
+    }
+    
+    private var pointsForGoalReached: Int? {
+        guard let userPoints = challenge.userRelation.participant?.units else { return nil }
+        for winCondition in challenge.winConditions {
+            guard let minThreshold = winCondition.goal.minThreshold else { continue }
+            if userPoints > Double(minThreshold) {
+                return minThreshold
+            }
+        }
+        return nil
+    }
+    
+    
+    private func configureProgressContainer(for cell: ChallengeDetailUserProgressTableViewCell) {
+        guard let maxPoints = challenge.maxPoints, progressProportion = challenge.userProgressProportion, winConditionProportions = challenge.winConditionProportions else {
+            cell.challengeProgressContainerView.hidden = true
+            return
+        }
+        
+        cell.challengeProgressView.userImageWidthConstraint.constant = 40
+        cell.challengeProgressView.progressMilestones = winConditionProportions
+        cell.challengeProgressView.userImageView.setImage(withMediaAsset: userController.user.photo)
+        cell.challengeProgressView.progress = CGFloat(progressProportion)
+        cell.numberOfPointsLabel.text = "\(Int(maxPoints))"
+    }
     
     // MARK: Info
     

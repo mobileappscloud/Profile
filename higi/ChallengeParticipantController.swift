@@ -23,7 +23,7 @@ final class ChallengeParticipantController {
     
     private var _participaters: [ChallengeParticipating] = []
     
-    private var _maxUnits: Double = 0.0
+    private var _maxUnits: Double? = 0.0
     
     // MARK: Init
     
@@ -48,7 +48,7 @@ extension ChallengeParticipantController {
         }
     }
     
-    var maxUnits: Double {
+    var maxUnits: Double? {
         get {
             return _maxUnits
         }
@@ -78,11 +78,11 @@ extension ChallengeParticipantController {
      */
     func isUser(associatedWithChallengeParticipater challengeParticipater: ChallengeParticipating) -> Bool {
         var isUserAssociated = false
-        if challengeParticipater is Challenge.Team {
+        if let challengeParticipater = challengeParticipater as? Challenge.Team {
             // There is no unique identifier on `Challenge.Team`, so we'll use the team name as the basis for equality.
-            isUserAssociated = userTeam?.name == (challengeParticipater as! Challenge.Team).name
-        } else if challengeParticipater is Challenge.Participant {
-            isUserAssociated = user?.identifier == (challengeParticipater as! Challenge.Participant).identifier
+            isUserAssociated = userTeam?.name == challengeParticipater.name
+        } else if let challengeParticipater = challengeParticipater as? Challenge.Participant {
+            isUserAssociated = user?.identifier == challengeParticipater.identifier
         }
         return isUserAssociated
     }
@@ -123,24 +123,7 @@ extension ChallengeParticipantController {
         return participaters
     }
     
-    private func calculate(maxUnitsForChallenge challenge: Challenge) -> Double {
-        guard let primaryWinCondition = challenge.winConditions.first else { fatalError("Challenge (\(challenge.name)) with id \(challenge.identifier) does not contain any win conditions.") }
-        
-        // Teams and participants are sorted in descending order by  `units`, so the first element should contain the highest value for `units`.
-        let participatingEntity: ChallengeParticipating? = challenge.isTeamChallenge ? challenge.teams?.first : challenge.participants.first
-        guard let participater = participatingEntity else { fatalError("Unable to obtain the required participating entity for challenge: (\(challenge.name)) with id \(challenge.identifier).") }
-        
-        let maxUnits: Double
-        switch primaryWinCondition.goal.type {
-        case .mostPoints:
-            maxUnits = participater.units
-        case .thresholdReached:
-            let threshold = (primaryWinCondition.goal.minThreshold ?? primaryWinCondition.goal.maxThreshold) ?? 0
-            maxUnits = Double(threshold)
-        case .unitGoalReached:
-            let unitGoal = primaryWinCondition.goal.unitGoal ?? 0
-            maxUnits = Double(unitGoal)
-        }
-        return maxUnits
+    private func calculate(maxUnitsForChallenge challenge: Challenge) -> Double? {
+        return challenge.maxPoints
     }
 }

@@ -21,7 +21,7 @@ final class ChallengeParticipantTableViewCell: UITableViewCell {
 extension ChallengeParticipantTableViewCell {
     
     func reset() {
-        avatarImageView.image = nil
+        avatarImageView.image = UIImage(named: "profile-placeholder")
         nameLabel.text = nil
         
         for subview in contentStackView.arrangedSubviews {

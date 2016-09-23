@@ -8,12 +8,18 @@
 
 import UIKit
 
-class ChallengeProgressView: ReusableXibView {
+final class ChallengeProgressView: ReusableXibView {
     @IBOutlet var heightConstraint: NSLayoutConstraint!
-    @IBOutlet var barView: UIView!
+    @IBOutlet var progressView: UIView!
     @IBOutlet var progressTrailingConstraint: NSLayoutConstraint!
     @IBOutlet var userImageView: UIImageView!
-    @IBOutlet var trackView: UIView!
+    @IBOutlet var userImageWidthConstraint: NSLayoutConstraint!
+    @IBOutlet var trackView: UIView! {
+        didSet {
+            trackView.layer.borderColor = progressColor.CGColor
+            trackView.layer.borderWidth = 1.0
+        }
+    }
     @IBOutlet var goalMilestonesView: UIView!
     
     @IBInspectable var height: CGFloat {
@@ -22,17 +28,24 @@ class ChallengeProgressView: ReusableXibView {
         }
         set {
             heightConstraint.constant = newValue
-            barView.cornerRadius = heightConstraint.constant / 2
+            trackView.cornerRadius = heightConstraint.constant / 2
         }
     }
     
+    @IBInspectable var progressColor: UIColor = Theme.Color.Challenge.ProgressView.progressColor {
+        didSet {
+            progressView.backgroundColor = progressColor
+            trackView.layer.borderColor = progressColor.CGColor
+            renderMilestones()
+        }
+    }
+
     private var _progress: CGFloat = 0.0 {
         didSet {
-            UIView.animateWithDuration(progressBarAnimationDuration) {
-                let fractionalDistance = self._progress == 0 ? CGFloat.min : self._progress
-                self.progressTrailingConstraint = self.progressTrailingConstraint.setMultiplier(fractionalDistance)
-                self.layoutIfNeeded()
-            }
+            self.renderMilestones()
+            let fractionalDistance = self._progress == 0 ? CGFloat.min : self._progress
+            self.progressTrailingConstraint = self.progressTrailingConstraint.setMultiplier(fractionalDistance)
+            self.layoutIfNeeded()
         }
     }
     
@@ -45,10 +58,13 @@ class ChallengeProgressView: ReusableXibView {
             return _progress
         }
         set {
-            guard newValue >= 0.0 && newValue <= 1.0 else {
-                return
+            if newValue >= 1.0 {
+                _progress = 1.0
+            } else if newValue <= 0 {
+                _progress = 0.0
+            } else {
+                _progress = newValue
             }
-            _progress = newValue
         }
     }
     
@@ -59,46 +75,57 @@ class ChallengeProgressView: ReusableXibView {
         }
     }
     
-    private func renderMilestones() {
-        goalMilestonesView.subviews.forEach { (milestoneView) in
-            milestoneView.removeFromSuperview()
-        }
-        progressMilestones.forEach { (milestone) in
-            renderMilestoneAt(fractionalDistance: milestone)
-        }
-    }
-    
     var nodeHeight: CGFloat {
-        return 12.0
+        return 14.0
     }
     
-    private func renderMilestoneAt(fractionalDistance fractionalDistance: CGFloat) {
-        let fractionalDistance = fractionalDistance == 0 ? CGFloat.min : fractionalDistance
-        let goalCircle = UIView(frame: CGRect.zero)
-        goalCircle.translatesAutoresizingMaskIntoConstraints = false
-        goalCircle.backgroundColor = Theme.Color.Primary.green
-        goalCircle.cornerRadius = nodeHeight / 2
-        goalMilestonesView.addSubview(goalCircle)
-        
-        addConstraints([
-            NSLayoutConstraint(item: goalCircle, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: barView, attribute: NSLayoutAttribute.Trailing, multiplier: fractionalDistance, constant: 0.0),
-            NSLayoutConstraint(item: goalCircle, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: barView, attribute: NSLayoutAttribute.CenterY, multiplier: 1.0, constant: 0.0)
-        ])
-        goalCircle.addConstraints([
-            NSLayoutConstraint(item: goalCircle, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1.0, constant: nodeHeight),
-            NSLayoutConstraint(item: goalCircle, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1.0, constant: nodeHeight)
-        ])
-    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        barView.cornerRadius = heightConstraint.constant / 2
+        trackView.cornerRadius = heightConstraint.constant / 2
         renderMilestones()
         progressBarAnimationDuration = defaultProgressBarAnimation
     }
     
     override func layoutSubviews() {
         renderMilestones()
+    }
+    
+}
+
+// MARK: - Helpers
+
+extension ChallengeProgressView {
+    private func renderMilestoneAt(fractionalDistance fractionalDistance: CGFloat) {
+        let fractionalDistance = fractionalDistance == 0 ? CGFloat.min : fractionalDistance
+        let goalCircle = UIView(frame: CGRect.zero)
+        goalCircle.translatesAutoresizingMaskIntoConstraints = false
+        goalCircle.cornerRadius = nodeHeight / 2
+        if fractionalDistance > progress {
+            goalCircle.backgroundColor = Theme.Color.Challenge.ProgressView.trackColor
+            goalCircle.layer.borderColor = progressColor.CGColor
+            goalCircle.layer.borderWidth = 1.0
+        } else {
+            goalCircle.backgroundColor = progressColor
+        }
+        
+        goalMilestonesView.addSubview(goalCircle)
+        
+        addConstraints([
+            NSLayoutConstraint(item: goalCircle, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: trackView, attribute: NSLayoutAttribute.Trailing, multiplier: fractionalDistance, constant: 0.0),
+            NSLayoutConstraint(item: goalCircle, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: trackView, attribute: NSLayoutAttribute.CenterY, multiplier: 1.0, constant: 0.0)
+        ])
+        goalCircle.addConstraints([
+            NSLayoutConstraint(item: goalCircle, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1.0, constant: nodeHeight),
+            NSLayoutConstraint(item: goalCircle, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1.0, constant: nodeHeight)
+        ])
+    }
+
+    private func renderMilestones() {
+        goalMilestonesView.subviews.forEach { (milestoneView) in
+            milestoneView.removeFromSuperview()
+        }
+        progressMilestones.forEach(renderMilestoneAt)
     }
     
 }

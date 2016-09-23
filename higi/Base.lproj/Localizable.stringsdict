@@ -36,21 +36,51 @@
 			<string>%d days</string>
 		</dict>
 	</dict>
-    <key>CHALLENGE_WIN_CONDITION_WINNER_SINGLE_PLURAL</key>
-    <dict>
-        <key>NSStringLocalizedFormatKey</key>
-        <string>%#@winners@</string>
-        <key>winners</key>
-        <dict>
-            <key>NSStringFormatSpecTypeKey</key>
-            <string>NSStringPluralRuleType</string>
-            <key>NSStringFormatValueTypeKey</key>
-            <string>d</string>
-            <key>one</key>
-            <string>(%d) Winner</string>
-            <key>other</key>
-            <string>(%d) Winners</string>
-        </dict>
-    </dict>
+	<key>CHALLENGE_WIN_CONDITION_WINNER_SINGLE_PLURAL</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@winners@</string>
+		<key>winners</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>(%d) Winner</string>
+			<key>other</key>
+			<string>(%d) Winners</string>
+		</dict>
+	</dict>
+	<key>CHALLENGE_DETAIL_VIEW_DAYS_REMAINING_SINGLE_PLURAL</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@days@</string>
+		<key>days</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%d day remaining</string>
+			<key>other</key>
+			<string>%d days remaining</string>
+		</dict>
+	</dict>
+	<key>CHALLENGE_DETAIL_VIEW_GOAL_REACHED_SINGLE_PLURAL</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@points@</string>
+		<key>points</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%d Goal Reached</string>
+		</dict>
+	</dict>
 </dict>
 </plist>

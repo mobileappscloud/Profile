@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="123" id="KGk-i7-Jjw" customClass="ChallengeProgressTableViewCell" customModule="higi" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="345" height="123"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="345" height="122.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eYO-zz-7Ak" userLabel="Dashed Line View" customClass="ChallengeVerticalDashedLineView" customModule="higi" customModuleProvider="target">
+                        <rect key="frame" x="305" y="0.0" width="1" height="123"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="1" id="fip-jX-MR1"/>
+                        </constraints>
+                    </view>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="b2y-X7-AT1">
+                        <rect key="frame" x="40" y="10" width="265" height="103"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1gu-Cb-m7I" userLabel="User Name Label">
+                                <rect key="frame" x="0.0" y="0.0" width="265" height="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eaF-QL-Pnn" customClass="ChallengeProgressView" customModule="higi" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="26" width="265" height="77"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="eYO-zz-7Ak" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="1Tu-dH-8hg"/>
+                    <constraint firstItem="b2y-X7-AT1" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="RJR-Rz-iRc"/>
+                    <constraint firstAttribute="trailing" secondItem="eYO-zz-7Ak" secondAttribute="centerX" constant="40" id="di9-UK-R1f"/>
+                    <constraint firstAttribute="bottom" secondItem="b2y-X7-AT1" secondAttribute="bottom" constant="10" id="f57-WZ-p1i"/>
+                    <constraint firstAttribute="bottom" secondItem="eYO-zz-7Ak" secondAttribute="bottom" id="fFT-rE-tAd"/>
+                    <constraint firstItem="b2y-X7-AT1" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="40" id="kjs-Nn-89z"/>
+                    <constraint firstAttribute="trailing" secondItem="b2y-X7-AT1" secondAttribute="trailing" constant="40" id="m0c-Ih-qHY"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="challengeProgressView" destination="eaF-QL-Pnn" id="noe-1C-wts"/>
+                <outlet property="dashedLineView" destination="eYO-zz-7Ak" id="StU-ch-m18"/>
+                <outlet property="userNameLabel" destination="1gu-Cb-m7I" id="wUY-cd-9K5"/>
+            </connections>
+            <point key="canvasLocation" x="151.5" y="491.5"/>
+        </tableViewCell>
+    </objects>
+</document>

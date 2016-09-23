@@ -6,6 +6,8 @@
 //  Copyright © 2016 higi, LLC. All rights reserved.
 //
 
+import Crashlytics
+
 /// This resource contains information about a challenge.
 final class Challenge: UniquelyIdentifiable {
     
@@ -58,7 +60,7 @@ final class Challenge: UniquelyIdentifiable {
     /// List of devices allowed in this challenge.
     let devices: [ActivityDevice]
     
-    /// Conditions which must be met in order for a participant to win a challenge.
+    /// Conditions which must be met in order for a participant to win a challenge. There must be at least 1 win condition for a challenge to be valid.
     let winConditions: [Challenge.WinCondition]
     
     /// Current user's relationship to the challenge.
@@ -153,6 +155,62 @@ extension Challenge {
     var isJoinableAfterCommunityIsJoined: Bool {
         return joinableStatus == .joinCommunity
     }
+    
+    /// Returns a value in [0.0, 1.0] that corresponds to how far a user is in completing a challenge.
+    /// Useful for progress views.
+    var userProgressProportion: Double? {
+        guard let userPoints = userRelation.participant?.units else { return nil }
+        guard let maxPoints = maxPoints else { return nil }
+        return userPoints / Double(maxPoints)
+    }
+    
+    /// The maximum number of points for this challenge for winning the highest win condition.
+    /// Guaranteed to be finite and > 0, if it exists
+    var maxPoints: Double? {
+        guard let primaryWinCondition = winConditions.first else { fatalError("Challenge (\(name)) with id \(identifier) does not contain any win conditions.") }
+        
+        var maxUnits: Double? = nil
+        switch primaryWinCondition.goal.type {
+        case .mostPoints:
+            // Teams and participants are sorted in descending order by  `units`, so the first element should contain the highest value for `units`.
+            let participatingEntity: ChallengeParticipating? = isTeamChallenge ? teams?.first : participants.first
+            maxUnits = participatingEntity?.units
+        case .thresholdReached:
+            if let threshold = primaryWinCondition.goal.minThreshold ?? primaryWinCondition.goal.maxThreshold {
+                maxUnits = Double(threshold)
+            }
+        case .unitGoalReached:
+            if let unitGoal = primaryWinCondition.goal.unitGoal {
+                maxUnits = Double(unitGoal)
+            }
+        }
+        if let maxUnits = maxUnits where maxUnits.isFinite && maxUnits > 0 {
+            return maxUnits
+        }
+        return nil
+    }
+    
+    /// Returns values in [0.0, 1.0] that corresponds to how far the win conditions are relative to the highest win condition.
+    /// Useful for progress views.
+    var winConditionProportions: [CGFloat]? {
+        guard let maxPoints = maxPoints else { return nil }
+        var winConditionProportions: [CGFloat] = []
+        for winCondition in winConditions {
+            switch winCondition.goal.type {
+            case .mostPoints: break;
+            case .thresholdReached:
+                if let threshold = winCondition.goal.minThreshold ?? winCondition.goal.maxThreshold {
+                    winConditionProportions.append(CGFloat(threshold) / CGFloat(maxPoints))
+                }
+            case .unitGoalReached:
+                if let unitGoal = winCondition.goal.unitGoal {
+                    winConditionProportions.append(CGFloat(unitGoal) / CGFloat(maxPoints))
+                }
+            }
+        }
+        return winConditionProportions
+    }
+
 }
 
 extension Challenge {
@@ -181,7 +239,7 @@ extension Challenge {
         switch template {
         case .individualCompetitive, .individualCompetitiveGoal, .teamCompetitive, .teamCompetitiveGoal:
             isCompetitive = true
-        case .individualGoalAccumulation, .teamGoalAccumulation:
+        case .individualGoalAccumulation, .individualGoalFrequency, .teamGoalAccumulation:
             isCompetitive = false
         }
         return isCompetitive
@@ -200,7 +258,7 @@ extension Challenge {
         switch template {
         case .teamCompetitive, .teamGoalAccumulation, .teamCompetitiveGoal:
             isTeamChallenge = true
-        case .individualGoalAccumulation, .individualCompetitiveGoal, .individualCompetitive:
+        case .individualGoalAccumulation, .individualGoalFrequency, .individualCompetitiveGoal, .individualCompetitive:
             isTeamChallenge = false
         }
         return isTeamChallenge
@@ -211,7 +269,7 @@ extension Challenge {
     
     /// Sanitizes `shortDescription` by removing `HTML` entities and select whitespace characters to produce a display-ready string.
     var sanitizedShortDescription: String {
-        var sanitizedShortDescription = shortDescription.stringByDecodingHTMLEntities();
+        var sanitizedShortDescription = shortDescription.stringByDecodingHTMLEntities()
         sanitizedShortDescription = sanitizedShortDescription.stringByReplacingOccurrencesOfString("\r", withString: "", options: .LiteralSearch, range: nil)
         sanitizedShortDescription = sanitizedShortDescription.stringByReplacingOccurrencesOfString("\t", withString: "", options: .LiteralSearch, range: nil)
         return sanitizedShortDescription
@@ -268,6 +326,7 @@ extension Challenge {
      */
     enum Template: APIString {
         case individualGoalAccumulation = "individual-goal-accumulation"
+        case individualGoalFrequency = "individual-goal-frequency"
         case individualCompetitive = "individual-competitive"
         case individualCompetitiveGoal = "individual-competitive-goal"
         case teamGoalAccumulation = "team-goal-accumulation"
@@ -295,6 +354,7 @@ extension Challenge {
         case joinCommunity
     }
     
+    /// An abstraction for the combination of the user state and the challenge state.
     var userState: UserState {
         if status == .canceled {
             return .cancelled
@@ -340,7 +400,10 @@ extension Challenge: JSONInitializable {
             let startDate = NSDateFormatter.yyyyMMddDateFormatter.date(fromObject: dictionary["startDate"]),
             let goalDescription = dictionary["goalDescription"] as? String,
             let joinableStatus = JoinableStatus(rawJSONValue: dictionary["joinableStatus"])
-            else { return nil }
+            else {
+                CLSLogv("Challenge parse error", getVaList([]))
+                return nil
+        }
         
         var participants: [Participant] = []
         if let participantsResponseObject = dictionary["participants"] as? NSDictionary,
@@ -354,6 +417,11 @@ extension Challenge: JSONInitializable {
         let endDate = NSDateFormatter.yyyyMMddDateFormatter.date(fromObject: dictionary["endDate"])
         let entryFee = dictionary["entryFee"] as? Double
         let prizeDescription = dictionary["prizeDescription"] as? String
+        
+        if winConditions.isEmpty {
+            CLSLogv("Challenge parse error: missing win conditions", getVaList([]))
+            return nil
+        }
         
         self.init(identifier: identifier, name: name, description: description, shortDescription: shortDescription, image: image, metric: metric, template: template,status: status, dailyLimit: dailyLimit, participantCount: participantCount, devices: devices, winConditions: winConditions, userRelation: userRelation, chatter: chatter, startDate: startDate, goalDescription: goalDescription, participants: participants, joinableStatus: joinableStatus, community: community, teams: teams, terms: terms, endDate: endDate, entryFee: entryFee, prizeDescription: prizeDescription)
     }

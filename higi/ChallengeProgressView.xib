@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -9,12 +9,13 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChallengeProgressView" customModule="higi" customModuleProvider="target">
             <connections>
-                <outlet property="barView" destination="83h-O7-fvI" id="m4d-at-bgu"/>
                 <outlet property="goalMilestonesView" destination="37U-JM-Sve" id="4hn-9q-r08"/>
                 <outlet property="heightConstraint" destination="Aq2-Ps-TEj" id="oAP-0y-sDO"/>
                 <outlet property="progressTrailingConstraint" destination="zTt-kX-pps" id="gU6-rz-ivx"/>
+                <outlet property="progressView" destination="5oZ-ub-TFe" id="X1w-lR-ttK"/>
                 <outlet property="trackView" destination="83h-O7-fvI" id="8aV-Ya-7sg"/>
                 <outlet property="userImageView" destination="WaA-zt-lEx" id="91P-Ya-B2i"/>
+                <outlet property="userImageWidthConstraint" destination="3i5-YL-FQ7" id="jE3-UL-8Zh"/>
                 <outlet property="view" destination="zEx-NJ-WXD" id="fOn-78-Q7I"/>
             </connections>
         </placeholder>
@@ -43,11 +44,10 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="37U-JM-Sve" userLabel="Goal Milestones View">
                     <rect key="frame" x="0.0" y="61" width="368" height="7"/>
                 </view>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile-nav-bar-icon" translatesAutoresizingMaskIntoConstraints="NO" id="WaA-zt-lEx" userLabel="User Image View">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="WaA-zt-lEx" userLabel="User Image View">
                     <rect key="frame" x="356" y="52" width="25" height="25"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="25" id="3i5-YL-FQ7"/>
-                        <constraint firstAttribute="height" constant="30" id="8a1-st-vDB"/>
                         <constraint firstAttribute="width" secondItem="WaA-zt-lEx" secondAttribute="height" multiplier="1:1" id="PUZ-FD-OrD"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
@@ -55,19 +55,18 @@
                             <real key="value" value="12.5"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
-                    <variation key="default">
-                        <mask key="constraints">
-                            <exclude reference="8a1-st-vDB"/>
-                        </mask>
-                    </variation>
                 </imageView>
             </subviews>
             <constraints>
                 <constraint firstItem="37U-JM-Sve" firstAttribute="bottom" secondItem="83h-O7-fvI" secondAttribute="bottom" id="003-YS-G6x"/>
                 <constraint firstItem="WaA-zt-lEx" firstAttribute="centerX" secondItem="5oZ-ub-TFe" secondAttribute="trailing" id="3ZQ-Ip-eP2"/>
+                <constraint firstItem="WaA-zt-lEx" firstAttribute="top" secondItem="zEx-NJ-WXD" secondAttribute="top" priority="900" id="AeJ-Se-c4o"/>
                 <constraint firstAttribute="trailing" secondItem="83h-O7-fvI" secondAttribute="trailing" id="EKO-jK-XJ4"/>
                 <constraint firstItem="37U-JM-Sve" firstAttribute="trailing" secondItem="83h-O7-fvI" secondAttribute="trailing" id="GKD-X9-aWJ"/>
+                <constraint firstAttribute="bottom" secondItem="WaA-zt-lEx" secondAttribute="bottom" priority="900" id="HJe-R6-294"/>
+                <constraint firstItem="83h-O7-fvI" firstAttribute="top" secondItem="zEx-NJ-WXD" secondAttribute="top" priority="800" id="KKZ-SJ-5UC"/>
                 <constraint firstItem="83h-O7-fvI" firstAttribute="centerY" secondItem="zEx-NJ-WXD" secondAttribute="centerY" id="MVP-sd-lgY"/>
+                <constraint firstAttribute="bottom" secondItem="83h-O7-fvI" secondAttribute="bottom" priority="800" id="Pra-3w-RT2"/>
                 <constraint firstItem="37U-JM-Sve" firstAttribute="top" secondItem="83h-O7-fvI" secondAttribute="top" id="UDC-Cr-tYl"/>
                 <constraint firstItem="WaA-zt-lEx" firstAttribute="centerY" secondItem="zEx-NJ-WXD" secondAttribute="centerY" id="fOt-Dj-glX"/>
                 <constraint firstItem="37U-JM-Sve" firstAttribute="leading" secondItem="83h-O7-fvI" secondAttribute="leading" id="k1x-XO-XeW"/>
@@ -79,6 +78,6 @@
         </view>
     </objects>
     <resources>
-        <image name="profile-nav-bar-icon" width="25" height="25"/>
+        <image name="profile-placeholder" width="100" height="100"/>
     </resources>
 </document>

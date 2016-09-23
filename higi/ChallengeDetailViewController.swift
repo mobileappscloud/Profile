@@ -72,7 +72,7 @@ final class ChallengeDetailViewController: UIViewController {
         return viewController
     }()
     
-    /// View controller for prizes segment embedded in the `segmentedPageViewController`. Shown after a challenge has completed.
+    /// View controller for prizes/winners segment embedded in the `segmentedPageViewController`. Shown after a challenge has completed.
     private lazy var winnerViewController: ChallengeWinnerTableViewController = {
         let storyboard = UIStoryboard(name: Storyboard.name, bundle: nil)
         let viewController = storyboard.instantiateViewControllerWithIdentifier(Storyboard.Scene.Winners.identifier) as! ChallengeWinnerTableViewController
@@ -285,19 +285,34 @@ extension ChallengeDetailViewController {
         let chatterTitle = NSLocalizedString("CHALLENGE_DETAIL_SEGMENTED_PAGE_SEGMENT_TITLE_CHATTER", comment: "Title for 'chatter' segment on segmented control within the challenge detail view.")
         
         let participantsTitle = NSLocalizedString("CHALLENGE_DETAIL_SEGMENTED_PAGE_SEGMENT_TITLE_PARTICIPANTS", comment: "Title for 'participants' segment on segmented control within the challenge detail view.")
-        let leaderboardTitle = NSLocalizedString("CHALLENGE_DETAIL_SEGMENTED_PAGE_SEGMENT_TITLE_LEADERBOARD", comment: "Title for 'leaderboard' segment on segmented control within the challenge detail view.")
         
         var titles = [detailTitle, prizesTitle, chatterTitle]
         let prizeViewController = challengeDetailController.challenge.status == .finished ? winnerViewController : self.prizeViewController
         var viewControllers = [challengeDetailTableViewController, prizeViewController, chatterViewController]
         
-        let participantSegmentTitle = challengeDetailController.challenge.status == .registration ? participantsTitle : leaderboardTitle
-        titles.append(participantSegmentTitle)
-        viewControllers.append(leaderboardViewController)
+        if !challengeDetailController.challenge.participants.isEmpty {
+            let participantSegmentTitle = challengeDetailController.challenge.status == .registration ? participantsTitle : titleForLastTab()
+            titles.append(participantSegmentTitle)
+            viewControllers.append(leaderboardViewController)
+        }
         
         segmentedPageViewController.set(viewControllers, titles: titles)
         segmentedPageViewController.view.backgroundColor = UIColor.clearColor()
         segmentedPageViewController.segmentedControlHorizontalMargin = 15.0
+    }
+    
+    private func titleForLastTab() -> String {
+        switch challengeDetailController.challenge.template {
+            case .individualGoalAccumulation:
+                return NSLocalizedString("CHALLENGE_DETAIL_SEGMENTED_PAGE_SEGMENT_TITLE_PROGRESS", comment: "Title for 'Progress' segment on segmented control within the challenge detail view.")
+            case .individualGoalFrequency: fatalError("Not implemented")
+            case .individualCompetitive:
+                return NSLocalizedString("CHALLENGE_DETAIL_SEGMENTED_PAGE_SEGMENT_TITLE_LEADERBOARD", comment: "Title for 'leaderboard' segment on segmented control within the challenge detail view.")
+            case .individualCompetitiveGoal: fatalError("Not implemented")
+            case .teamGoalAccumulation: fatalError("Not implemented")
+            case .teamCompetitive: fatalError("Not implemented")
+            case .teamCompetitiveGoal: fatalError("Not implemented")
+        }
     }
 }
 

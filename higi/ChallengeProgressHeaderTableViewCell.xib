@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="114" id="yKj-oX-aUx" customClass="ChallengeProgressHeaderTableViewCell" customModule="higi" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="114"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yKj-oX-aUx" id="l0a-x5-cuH">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="113.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" verticalHuggingPriority="255" translatesAutoresizingMaskIntoConstraints="NO" id="upI-SN-vVl" userLabel="Max Points Container View">
+                        <rect key="frame" x="233" y="10" width="94" height="94"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="DuG-cN-WcI">
+                                <rect key="frame" x="12" y="12" width="70" height="70"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zKr-xN-gE8" userLabel="Number of Points Label">
+                                        <rect key="frame" x="0.0" y="0.0" width="70" height="35"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="widthClass=compact" misplaced="YES">
+                                            <rect key="frame" x="0.0" y="0.0" width="116" height="58"/>
+                                        </variation>
+                                        <variation key="widthClass=regular" misplaced="YES">
+                                            <rect key="frame" x="0.0" y="0.0" width="116" height="58"/>
+                                        </variation>
+                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                            <rect key="frame" x="0.0" y="0.0" width="116" height="58"/>
+                                        </variation>
+                                        <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                            <rect key="frame" x="0.0" y="0.0" width="29" height="15"/>
+                                        </variation>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mN6-v1-HBQ" userLabel="Points Text Label">
+                                        <rect key="frame" x="0.0" y="35" width="70" height="35"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="widthClass=compact" misplaced="YES">
+                                            <rect key="frame" x="0.0" y="58" width="116" height="58"/>
+                                        </variation>
+                                        <variation key="widthClass=regular" misplaced="YES">
+                                            <rect key="frame" x="0.0" y="58" width="116" height="58"/>
+                                        </variation>
+                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                            <rect key="frame" x="0.0" y="58" width="116" height="58"/>
+                                        </variation>
+                                        <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                            <rect key="frame" x="0.0" y="15" width="29" height="15"/>
+                                        </variation>
+                                    </label>
+                                </subviews>
+                                <variation key="widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="12" y="12" width="116" height="116"/>
+                                </variation>
+                                <variation key="widthClass=regular" misplaced="YES">
+                                    <rect key="frame" x="12" y="12" width="116" height="116"/>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="12" y="12" width="116" height="116"/>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                    <rect key="frame" x="12" y="12" width="29" height="29"/>
+                                </variation>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="DuG-cN-WcI" firstAttribute="leading" secondItem="upI-SN-vVl" secondAttribute="leading" constant="12" id="Ghc-DJ-IQ5"/>
+                            <constraint firstItem="DuG-cN-WcI" firstAttribute="top" secondItem="upI-SN-vVl" secondAttribute="top" constant="12" id="NA3-ur-ndu"/>
+                            <constraint firstAttribute="trailing" secondItem="DuG-cN-WcI" secondAttribute="trailing" constant="12" id="m51-Cc-1rC"/>
+                            <constraint firstAttribute="bottom" secondItem="DuG-cN-WcI" secondAttribute="bottom" constant="12" id="nG8-dJ-VW4"/>
+                            <constraint firstAttribute="width" secondItem="upI-SN-vVl" secondAttribute="height" multiplier="1:1" identifier="PointsSquareContainer" id="sNt-6I-Hb2" userLabel="PointsSquareContainer"/>
+                        </constraints>
+                        <variation key="widthClass=compact" misplaced="YES">
+                            <rect key="frame" x="229" y="0.0" width="140" height="140"/>
+                        </variation>
+                        <variation key="widthClass=regular" misplaced="YES">
+                            <rect key="frame" x="229" y="0.0" width="140" height="140"/>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                            <rect key="frame" x="229" y="0.0" width="140" height="140"/>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                            <rect key="frame" x="317" y="0.0" width="52" height="53"/>
+                        </variation>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TA4-8J-180" userLabel="Dashed Line View" customClass="ChallengeVerticalDashedLineView" customModule="higi" customModuleProvider="target">
+                        <rect key="frame" x="279" y="104" width="1" height="10"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="1" id="b5G-4b-MA3"/>
+                            <constraint firstAttribute="height" constant="10" id="uce-Ro-09f"/>
+                        </constraints>
+                        <variation key="widthClass=compact" misplaced="YES">
+                            <rect key="frame" x="299" y="140" width="1" height="70"/>
+                        </variation>
+                        <variation key="widthClass=regular" misplaced="YES">
+                            <rect key="frame" x="299" y="140" width="1" height="70"/>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                            <rect key="frame" x="299" y="140" width="1" height="70"/>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                            <rect key="frame" x="343" y="53" width="1" height="70"/>
+                        </variation>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="TA4-8J-180" firstAttribute="top" secondItem="upI-SN-vVl" secondAttribute="bottom" id="G8e-Gn-aOG"/>
+                    <constraint firstItem="TA4-8J-180" firstAttribute="centerX" secondItem="upI-SN-vVl" secondAttribute="centerX" id="HpF-i1-Kfy"/>
+                    <constraint firstAttribute="bottom" secondItem="TA4-8J-180" secondAttribute="bottom" id="e6J-5w-hWz"/>
+                    <constraint firstItem="upI-SN-vVl" firstAttribute="top" secondItem="l0a-x5-cuH" secondAttribute="top" constant="10" id="pj3-JB-9MZ"/>
+                    <constraint firstAttribute="trailing" secondItem="TA4-8J-180" secondAttribute="centerX" constant="40" id="xf7-0V-yrO"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="dashedLineView" destination="TA4-8J-180" id="Ngd-P3-Bu1"/>
+                <outlet property="maxPointsContainerView" destination="upI-SN-vVl" id="gHl-Vq-qtP"/>
+                <outlet property="numberOfPointsLabel" destination="zKr-xN-gE8" id="UNn-4N-KIY"/>
+                <outlet property="pointsTextLabel" destination="mN6-v1-HBQ" id="hFB-si-HPS"/>
+            </connections>
+            <point key="canvasLocation" x="191" y="281"/>
+        </tableViewCell>
+    </objects>
+</document>

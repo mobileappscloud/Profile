@@ -26,6 +26,12 @@
 		270342B51D666A9C00B84E28 /* LeaderboardUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270342B41D666A9C00B84E28 /* LeaderboardUserView.swift */; };
 		270342B71D666BCA00B84E28 /* LeaderboardWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270342B61D666BCA00B84E28 /* LeaderboardWidgetView.swift */; };
 		270ED5761D480F6E00476E6A /* ChallengeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 270ED5751D480F6E00476E6A /* ChallengeTableViewCell.xib */; };
+		271BECBC1D92CF1700F78498 /* ChallengeDetailUserProgressTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 271BECBB1D92CF1700F78498 /* ChallengeDetailUserProgressTableViewCell.xib */; };
+		271BECC01D92D21800F78498 /* ChallengeDetailUserProgressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271BECBF1D92D21800F78498 /* ChallengeDetailUserProgressTableViewCell.swift */; };
+		271BECE51D94687C00F78498 /* ChallengeProgressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271BECE31D94687C00F78498 /* ChallengeProgressTableViewCell.swift */; };
+		271BECE61D94687C00F78498 /* ChallengeProgressTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 271BECE41D94687C00F78498 /* ChallengeProgressTableViewCell.xib */; };
+		271BECE81D94879600F78498 /* ChallengeProgressHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271BECE71D94879600F78498 /* ChallengeProgressHeaderView.swift */; };
+		271BECEA1D9487BC00F78498 /* ChallengeProgressHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 271BECE91D9487BC00F78498 /* ChallengeProgressHeaderTableViewCell.xib */; };
 		273191C61D805E3600F12C5F /* LeaderboardNetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273191C51D805E3600F12C5F /* LeaderboardNetworkController.swift */; };
 		273191C81D806B9C00F12C5F /* LeaderboardMemberAnalysisAndRankings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273191C71D806B9C00F12C5F /* LeaderboardMemberAnalysisAndRankings.swift */; };
 		273191CA1D81BC6700F12C5F /* LeaderboardAAA.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 273191C91D81BC6700F12C5F /* LeaderboardAAA.storyboard */; };
@@ -41,6 +47,8 @@
 		273DFFAF1D491CE600AF7032 /* ChallengeProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 273DFFAE1D491CE600AF7032 /* ChallengeProgressView.xib */; };
 		273DFFB11D49320A00AF7032 /* ChallengeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273DFFB01D49320A00AF7032 /* ChallengeTableViewCell.swift */; };
 		27416E621D49408800876873 /* Challenges.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27416E611D49408800876873 /* Challenges.storyboard */; };
+		275C6BD91D95BD3A00F221BB /* ChallengeVerticalDashedLineView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 275C6BD81D95BD3A00F221BB /* ChallengeVerticalDashedLineView.xib */; };
+		275C6BDB1D95BD6200F221BB /* ChallengeVerticalDashedLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275C6BDA1D95BD6200F221BB /* ChallengeVerticalDashedLineView.swift */; };
 		278D9F741D7F68EE00989334 /* ChallengesEmptyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278D9F721D7F68EE00989334 /* ChallengesEmptyTableViewCell.swift */; };
 		278D9F751D7F68EE00989334 /* ChallengesEmptyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 278D9F731D7F68EE00989334 /* ChallengesEmptyTableViewCell.xib */; };
 		2798A2761D7A1FD00072EC1A /* CommunitiesNetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2798A2751D7A1FD00072EC1A /* CommunitiesNetworkController.swift */; };
@@ -545,6 +553,12 @@
 		270342B41D666A9C00B84E28 /* LeaderboardUserView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderboardUserView.swift; sourceTree = "<group>"; };
 		270342B61D666BCA00B84E28 /* LeaderboardWidgetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderboardWidgetView.swift; sourceTree = "<group>"; };
 		270ED5751D480F6E00476E6A /* ChallengeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeTableViewCell.xib; sourceTree = "<group>"; };
+		271BECBB1D92CF1700F78498 /* ChallengeDetailUserProgressTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailUserProgressTableViewCell.xib; sourceTree = "<group>"; };
+		271BECBF1D92D21800F78498 /* ChallengeDetailUserProgressTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeDetailUserProgressTableViewCell.swift; sourceTree = "<group>"; };
+		271BECE31D94687C00F78498 /* ChallengeProgressTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeProgressTableViewCell.swift; sourceTree = "<group>"; };
+		271BECE41D94687C00F78498 /* ChallengeProgressTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeProgressTableViewCell.xib; sourceTree = "<group>"; };
+		271BECE71D94879600F78498 /* ChallengeProgressHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeProgressHeaderView.swift; sourceTree = "<group>"; };
+		271BECE91D9487BC00F78498 /* ChallengeProgressHeaderTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeProgressHeaderTableViewCell.xib; sourceTree = "<group>"; };
 		273191C51D805E3600F12C5F /* LeaderboardNetworkController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderboardNetworkController.swift; sourceTree = "<group>"; };
 		273191C71D806B9C00F12C5F /* LeaderboardMemberAnalysisAndRankings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderboardMemberAnalysisAndRankings.swift; sourceTree = "<group>"; };
 		273191C91D81BC6700F12C5F /* LeaderboardAAA.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LeaderboardAAA.storyboard; sourceTree = "<group>"; };
@@ -561,6 +575,8 @@
 		273DFFB01D49320A00AF7032 /* ChallengeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeTableViewCell.swift; sourceTree = "<group>"; };
 		27416E611D49408800876873 /* Challenges.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Challenges.storyboard; sourceTree = "<group>"; };
 		27416E631D49477500876873 /* ChallengesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengesTableViewController.swift; sourceTree = "<group>"; };
+		275C6BD81D95BD3A00F221BB /* ChallengeVerticalDashedLineView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeVerticalDashedLineView.xib; sourceTree = "<group>"; };
+		275C6BDA1D95BD6200F221BB /* ChallengeVerticalDashedLineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeVerticalDashedLineView.swift; sourceTree = "<group>"; };
 		278D9F721D7F68EE00989334 /* ChallengesEmptyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengesEmptyTableViewCell.swift; sourceTree = "<group>"; };
 		278D9F731D7F68EE00989334 /* ChallengesEmptyTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengesEmptyTableViewCell.xib; sourceTree = "<group>"; };
 		2798A2751D7A1FD00072EC1A /* CommunitiesNetworkController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunitiesNetworkController.swift; sourceTree = "<group>"; };
@@ -1179,6 +1195,38 @@
 			name = Challenges;
 			sourceTree = "<group>";
 		};
+		271BECDF1D94660400F78498 /* Leaderboard / Participants / Progress Tab */ = {
+			isa = PBXGroup;
+			children = (
+				410F10C31D7F1CDA0008F68E /* ChallengeParticipantTableViewCell.xib */,
+				271BECE91D9487BC00F78498 /* ChallengeProgressHeaderTableViewCell.xib */,
+				271BECE41D94687C00F78498 /* ChallengeProgressTableViewCell.xib */,
+			);
+			name = "Leaderboard / Participants / Progress Tab";
+			sourceTree = "<group>";
+		};
+		271BECE01D9466AF00F78498 /* Details Tab */ = {
+			isa = PBXGroup;
+			children = (
+				271BECBB1D92CF1700F78498 /* ChallengeDetailUserProgressTableViewCell.xib */,
+			);
+			name = "Details Tab";
+			sourceTree = "<group>";
+		};
+		271BECE11D9466CD00F78498 /* Chatter Tab */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Chatter Tab";
+			sourceTree = "<group>";
+		};
+		271BECE21D9466D900F78498 /* Chatter Tab */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Chatter Tab";
+			sourceTree = "<group>";
+		};
 		273191C41D805E1100F12C5F /* Leaderboard */ = {
 			isa = PBXGroup;
 			children = (
@@ -1277,13 +1325,15 @@
 			name = Delegates;
 			sourceTree = "<group>";
 		};
-		410953EE1D7F6AB100904483 /* Participant */ = {
+		410953EE1D7F6AB100904483 /* Leaderboard / Participants / Progress Tab */ = {
 			isa = PBXGroup;
 			children = (
 				413C45F01D7F6BA8009B81A7 /* ChallengeParticipantController.swift */,
 				410953EA1D7F6AAB00904483 /* ChallengeParticipantTableViewController.swift */,
+				271BECE71D94879600F78498 /* ChallengeProgressHeaderView.swift */,
+				271BECE31D94687C00F78498 /* ChallengeProgressTableViewCell.swift */,
 			);
-			name = Participant;
+			name = "Leaderboard / Participants / Progress Tab";
 			sourceTree = "<group>";
 		};
 		410AB90D1C84EA8200985DA3 /* Connect Device */ = {
@@ -1319,43 +1369,37 @@
 			name = Facebook;
 			sourceTree = "<group>";
 		};
-		410F10721D77862C0008F68E /* Prizes (Win Conditions) */ = {
-			isa = PBXGroup;
-			children = (
-				410F10801D78B7AB0008F68E /* ChallengeWinConditionController.swift */,
-				410F106C1D777D450008F68E /* ChallengeWinConditionTableViewCell.swift */,
-				410F10741D77869B0008F68E /* ChallengeWinConditionTableViewController.swift */,
-			);
-			name = "Prizes (Win Conditions)";
-			sourceTree = "<group>";
-		};
-		410F10731D7786380008F68E /* Details */ = {
+		410F10731D7786380008F68E /* Details Tab */ = {
 			isa = PBXGroup;
 			children = (
 				4190AF111D68E91000AA5109 /* ChallengeDetailTableViewController.swift */,
+				271BECBF1D92D21800F78498 /* ChallengeDetailUserProgressTableViewCell.swift */,
 				419448D01D6B95ED00F4FF45 /* ChallengeInfoTableViewCell.swift */,
 			);
-			name = Details;
+			name = "Details Tab";
 			sourceTree = "<group>";
 		};
-		410F10BE1D790B530008F68E /* Winners */ = {
+		410F10BE1D790B530008F68E /* Prizes / Winners Tab */ = {
 			isa = PBXGroup;
 			children = (
 				410F10C11D7F1CAF0008F68E /* ChallengeParticipantTableViewCell.swift */,
+				410F10801D78B7AB0008F68E /* ChallengeWinConditionController.swift */,
+				410F106C1D777D450008F68E /* ChallengeWinConditionTableViewCell.swift */,
+				410F10741D77869B0008F68E /* ChallengeWinConditionTableViewController.swift */,
 				410F10BF1D790C370008F68E /* ChallengeWinnerController.swift */,
 				410F10BC1D790B4D0008F68E /* ChallengeWinnerTableViewController.swift */,
 				41450D251D7F2257005A56BD /* ChallengeWinnerTableViewHeaderView.swift */,
 			);
-			name = Winners;
+			name = "Prizes / Winners Tab";
 			sourceTree = "<group>";
 		};
-		410F10C51D7F203D0008F68E /* Winners */ = {
+		410F10C51D7F203D0008F68E /* Prizes / Winners Tab */ = {
 			isa = PBXGroup;
 			children = (
-				410F10C31D7F1CDA0008F68E /* ChallengeParticipantTableViewCell.xib */,
+				410F10701D777D710008F68E /* ChallengeWinConditionTableViewCell.xib */,
 				41450D231D7F2157005A56BD /* ChallengeWinnerTableViewHeaderView.xib */,
 			);
-			name = Winners;
+			name = "Prizes / Winners Tab";
 			sourceTree = "<group>";
 		};
 		410FFF371CA5C6AC005EAC9E /* Communities */ = {
@@ -1592,14 +1636,6 @@
 				413F68B01CB4525B003D9571 /* Theme+Appearance.swift */,
 			);
 			name = Theme;
-			sourceTree = "<group>";
-		};
-		41450D201D7F205D005A56BD /* Prizes (Win Conditions) */ = {
-			isa = PBXGroup;
-			children = (
-				410F10701D777D710008F68E /* ChallengeWinConditionTableViewCell.xib */,
-			);
-			name = "Prizes (Win Conditions)";
 			sourceTree = "<group>";
 		};
 		4147BA2B1C20BE0500C71891 /* Metric Data Views */ = {
@@ -2494,10 +2530,11 @@
 			children = (
 				41C006271D6636110093D7B5 /* ChallengeDetailController.swift */,
 				41C005AB1D64D7C30093D7B5 /* ChallengeDetailViewController.swift */,
-				410F10731D7786380008F68E /* Details */,
-				410953EE1D7F6AB100904483 /* Participant */,
-				410F10721D77862C0008F68E /* Prizes (Win Conditions) */,
-				410F10BE1D790B530008F68E /* Winners */,
+				275C6BDA1D95BD6200F221BB /* ChallengeVerticalDashedLineView.swift */,
+				271BECE11D9466CD00F78498 /* Chatter Tab */,
+				410F10731D7786380008F68E /* Details Tab */,
+				410953EE1D7F6AB100904483 /* Leaderboard / Participants / Progress Tab */,
+				410F10BE1D790B530008F68E /* Prizes / Winners Tab */,
 			);
 			name = "Challenge Detail";
 			sourceTree = "<group>";
@@ -2711,8 +2748,11 @@
 			children = (
 				41F4E52F1D678CCD003FC114 /* ChallengeDetail.storyboard */,
 				419448D11D6B95ED00F4FF45 /* ChallengeInfoTableViewCell.xib */,
-				41450D201D7F205D005A56BD /* Prizes (Win Conditions) */,
-				410F10C51D7F203D0008F68E /* Winners */,
+				275C6BD81D95BD3A00F221BB /* ChallengeVerticalDashedLineView.xib */,
+				271BECE21D9466D900F78498 /* Chatter Tab */,
+				271BECE01D9466AF00F78498 /* Details Tab */,
+				271BECDF1D94660400F78498 /* Leaderboard / Participants / Progress Tab */,
+				410F10C51D7F203D0008F68E /* Prizes / Winners Tab */,
 			);
 			name = "Challenge Detail";
 			sourceTree = "<group>";
@@ -3259,6 +3299,7 @@
 				8FE056E7198FDC9800C81208 /* FindStationView.xib in Resources */,
 				2BC5865C1A16C63B005A7983 /* ChallengeInvitation.xib in Resources */,
 				D1BA13451A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib in Resources */,
+				271BECE61D94687C00F78498 /* ChallengeProgressTableViewCell.xib in Resources */,
 				8F08AF9D198940E8002EE906 /* Welcome.xib in Resources */,
 				41E90DED1BD98494001DCC4C /* RequiredAppUpdate.storyboard in Resources */,
 				41450D241D7F2157005A56BD /* ChallengeWinnerTableViewHeaderView.xib in Resources */,
@@ -3299,6 +3340,7 @@
 				D149E9491A7845A200FBAA15 /* ChallengeDetailsChatterRow.xib in Resources */,
 				413CC0301C6927EC0097AE56 /* ActivityDetailView.xib in Resources */,
 				41FFE8AB1C61319E000C8DCF /* CheckinLocationView.xib in Resources */,
+				275C6BD91D95BD3A00F221BB /* ChallengeVerticalDashedLineView.xib in Resources */,
 				411F7A061CBECAC6000D0D64 /* CommunityBannerView.xib in Resources */,
 				2BBDBA541A12AC2C005A6815 /* ChallengesView.xib in Resources */,
 				41247DD51C5F29FB00DDC5EC /* MetricDetail.storyboard in Resources */,
@@ -3319,6 +3361,7 @@
 				41A275031D22360800D10F8A /* PostCell.xib in Resources */,
 				270342B01D6663CC00B84E28 /* LeaderboardWidgetView.xib in Resources */,
 				D1BA13471A8D056900E1AFE9 /* ChatterInputView.xib in Resources */,
+				271BECBC1D92CF1700F78498 /* ChallengeDetailUserProgressTableViewCell.xib in Resources */,
 				D1E223781A8009CE006330E7 /* ConnectDeviceView.xib in Resources */,
 				41643AAC1C1886D900258F55 /* MetricDataLabelView.xib in Resources */,
 				41899E921C8E468000FF5292 /* Launch.storyboard in Resources */,
@@ -3327,6 +3370,7 @@
 				4110445D1D4FAD0400ECF974 /* TextInputView.xib in Resources */,
 				413E19491C10DBCA00146B29 /* Metrics.storyboard in Resources */,
 				D17010C91A644414002CBFE8 /* ChallengeDetailsView.xib in Resources */,
+				271BECEA1D9487BC00F78498 /* ChallengeProgressHeaderTableViewCell.xib in Resources */,
 				41667A3A1CEF68DB007BB0FF /* CreateUser.storyboard in Resources */,
 				D1E1FF0A1A76E0AC00C8951C /* ChallengeDetailsRow.xib in Resources */,
 				41BFC9B81BCC0E0D00FD0F45 /* Localizable.stringsdict in Resources */,
@@ -3395,6 +3439,7 @@
 				41D8718C1C7CBFDD002DCDA0 /* HostViewController.swift in Sources */,
 				419D864F1BBEF83000E7D844 /* GQTPointQuadTree.m in Sources */,
 				41303CDD1D25C460009A6235 /* NSPersonNameComponentsFormatter+Utility.swift in Sources */,
+				271BECE51D94687C00F78498 /* ChallengeProgressTableViewCell.swift in Sources */,
 				413635871C2209450056DE8D /* MetricDataFactory.swift in Sources */,
 				4116E9C91CD90D29006DB167 /* PasswordValidator.swift in Sources */,
 				413922C81CDA6C2300C3672E /* MinimumVersionRequest.swift in Sources */,
@@ -3469,6 +3514,7 @@
 				41A274AE1D20F42600D10F8A /* Post.swift in Sources */,
 				413E198F1C10EB2D00146B29 /* TextMenuCollectionViewController.swift in Sources */,
 				273191CE1D81C4EC00F12C5F /* LeaderboardTableViewController.swift in Sources */,
+				271BECC01D92D21800F78498 /* ChallengeDetailUserProgressTableViewCell.swift in Sources */,
 				273191CC1D81BC9F00F12C5F /* LeaderboardAAAViewController.swift in Sources */,
 				41A2749E1D20F3C000D10F8A /* FeedCollectionRequest.swift in Sources */,
 				41376C5D1BB459B50094DE7C /* SettingsViewController.swift in Sources */,
@@ -3497,6 +3543,7 @@
 				41A0BE0F1BBB088500A314D6 /* AFSecurityPolicy.m in Sources */,
 				4152AD3D1D1C4733008E0AA7 /* HomeViewController.swift in Sources */,
 				410EED4F1D4BE9C5002FF052 /* Content.swift in Sources */,
+				271BECE81D94879600F78498 /* ChallengeProgressHeaderView.swift in Sources */,
 				8F5E7FBF199965CF009067E5 /* PinCodeViewController.swift in Sources */,
 				4163CCBE1D5121B600424500 /* ChatterLikeRequest.swift in Sources */,
 				8F9C69D31950C84400449664 /* HigiLogin.swift in Sources */,
@@ -3569,6 +3616,7 @@
 				41C395A41D3DA1A8007D222F /* FeedRequest.swift in Sources */,
 				4101EED21CB84A970010DCCA /* CommunityListingTableViewCell.swift in Sources */,
 				8FEF1B051AA9173D0036C4FB /* ChallengeView.swift in Sources */,
+				275C6BDB1D95BD6200F221BB /* ChallengeVerticalDashedLineView.swift in Sources */,
 				273191C61D805E3600F12C5F /* LeaderboardNetworkController.swift in Sources */,
 				4127AAD41D553302005AEF54 /* UniquelyIdentifiable.swift in Sources */,
 				413F69021CB5E99D003D9571 /* UITableView+Utility.swift in Sources */,

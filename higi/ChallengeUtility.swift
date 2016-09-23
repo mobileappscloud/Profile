@@ -57,6 +57,7 @@ final class ChallengeUtility {
     }
 
     // TODO: Convert to utility extension
+    // TODO: Utilize NSNumberFormatterStyle.OrdinalStyle
     class func getRankSuffix(rank: NSString) -> String {
         if ( rank == "11" || rank == "12" || rank == "13") {
             return rank as String + "th"

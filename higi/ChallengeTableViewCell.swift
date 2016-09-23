@@ -72,6 +72,12 @@ final class ChallengeTableViewCell: UITableViewCell {
         if let progressMilestones = model.progressMilestones {
             challengeProgressView.progressMilestones = progressMilestones
         }
+        if let progressProportion = model.challenge.userProgressProportion {
+            challengeProgressView.progress = CGFloat(progressProportion)
+        } else {
+            challengeProgressView.progress = 0
+        }
+
     }
     
     private func displayTabulatingResults() {

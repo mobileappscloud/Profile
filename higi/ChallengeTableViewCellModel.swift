@@ -34,8 +34,12 @@ final class ChallengeTableViewCellModel {
         challengeInformationLowerText = ChallengeTableViewCellModel.makeAttributedStringFor(
             prizesDescription: challenge.prizeDescription ?? NSLocalizedString("CHALLENGES_VIEW_CARD_INFORMATION_NO_PRIZE_TEXT", comment: "Text for No Prize for the prizes description on the challenge card information view.")
         )
-        challengeInformationImage = nil //TODO: Fill in with an asset based on the state of the challenge
-        progressMilestones = nil
+        switch challenge.status {
+            case .calculating: challengeInformationImage = UIImage(named: "challenge-card-tabulating-results")!
+            case .finished: challengeInformationImage = UIImage(named: "challenge-card-checker-flag")!
+            default: challengeInformationImage = nil
+        }
+        progressMilestones = challenge.winConditionProportions
         self.hideCommunityInfo = hideCommunityInfo
     }
 }

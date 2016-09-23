@@ -70,6 +70,9 @@
 /* Title for 'prizes' segment on segmented control within the challenge detail view. */
 "CHALLENGE_DETAIL_SEGMENTED_PAGE_SEGMENT_TITLE_PRIZES" = "Prizes";
 
+/* Title for 'Progress' segment on segmented control within the challenge detail view. */
+"CHALLENGE_DETAIL_SEGMENTED_PAGE_SEGMENT_TITLE_PROGRESS" = "Progress";
+
 /* Text for cell in challenge detail table for description header. */
 "CHALLENGE_DETAIL_TABLE_CELL_DESCRIPTION_HEADER_TEXT" = "Description";
 
@@ -78,6 +81,15 @@
 
 /* Text for official rules cell in challenge detail table. */
 "CHALLENGE_DETAIL_TABLE_CELL_OFFICIAL_RULES_TEXT" = "Official Rules";
+
+/* Format for the number of days remaining for a challenge */
+"CHALLENGE_DETAIL_VIEW_DAYS_REMAINING_SINGLE_PLURAL" = "CHALLENGE_DETAIL_VIEW_DAYS_REMAINING_SINGLE_PLURAL";
+
+/* Format for a Points Goal Reached for a challenge */
+"CHALLENGE_DETAIL_VIEW_GOAL_REACHED_SINGLE_PLURAL" = "CHALLENGE_DETAIL_VIEW_GOAL_REACHED_SINGLE_PLURAL";
+
+/* Text for watts in the challenge detail view */
+"CHALLENGE_DETAIL_VIEW_WATTS_TEXT" = "watts";
 
 /* Format of win condition name displayed within challenge detail prizes segment. */
 "CHALLENGE_DETAIL_WIN_CONDITION_NAME_FORMAT" = "%@ %@";
