@@ -21,7 +21,7 @@ final class ChallengeParticipantTableViewController: UIViewController {
             
             tableView.tableFooterView = UIView()
             
-            tableView.register(nibWithCellClass: ChallengeParticipantTableViewCell.self)
+            tableView.register(nibWithCellClass: ChallengeLeaderboardTableViewCell.self)
             tableView.register(nibWithCellClass: ChallengeProgressTableViewCell.self)
             tableView.register(nibWithCellClass: ChallengeProgressHeaderTableViewCell.self)
             
@@ -160,7 +160,7 @@ extension ChallengeParticipantTableViewController {
     // MARK: individualCompetitiveCell
 
     private func individualCompetitiveCell(for tableView: UITableView, for indexPath: NSIndexPath) -> UITableViewCell {
-        let participantCell = tableView.dequeueReusableCell(withClass: ChallengeParticipantTableViewCell.self, forIndexPath: indexPath)
+        let participantCell = tableView.dequeueReusableCell(withClass: ChallengeLeaderboardTableViewCell.self, forIndexPath: indexPath)
         participantCell.reset()
         
         let participater = challengeParticipantController.participaters[indexPath.row]
@@ -181,20 +181,19 @@ extension ChallengeParticipantTableViewController {
         return participantCell
     }
     
-    private func configureProgressView(for cell: ChallengeParticipantTableViewCell, participater: ChallengeParticipating, maxValue: Double, isCurrentUser: Bool) {
-        let progressView = UIProgressView(progressViewStyle: .Bar)
-        progressView.translatesAutoresizingMaskIntoConstraints = false
-        progressView.layer.cornerRadius = progressViewCornerRadius
-        progressView.layer.masksToBounds = true
-        progressView.progress = 1.0
-        progressView.progressTintColor = isCurrentUser ? Theme.Color.Challenge.Detail.Participants.userprogressTint : Theme.Color.Challenge.Detail.Participants.progressTint
-        cell.contentStackView.addArrangedSubview(progressView)
-        progressView.heightAnchor.constraintEqualToConstant(progressViewHeight).active = true
-        var widthProportion = CGFloat(participater.units/maxValue)
-        if widthProportion == 0 {
-            widthProportion = CGFloat.min
-        }
-        progressView.widthAnchor.constraintEqualToAnchor(cell.contentStackView.widthAnchor, multiplier: widthProportion).active = true
+    private func configureProgressView(for cell: ChallengeLeaderboardTableViewCell, participater: RankedChallengeParticipating, maxValue: Double, isCurrentUser: Bool) {
+        cell.challengeProgressView.height = ChallengeProgressView.heightForCompetitiveBar
+        let wattCountFormat = NSLocalizedString("CHALLENGE_LEADERBOARD_WATT_COUNT_SINGLE_PLURAL", comment: "Format for the number of watts a user has, like, '1500 watts'.")
+        let wattsCountText = String(format: wattCountFormat, arguments: [Int(participater.units)])
+        cell.challengeProgressView.wattsLabel.text = wattsCountText
+        cell.challengeProgressView.progressColor = isCurrentUser ? Theme.Color.Challenge.Detail.Participants.userprogressTint : Theme.Color.Challenge.Detail.Participants.progressTint
+        
+        cell.placementLabel.text = ChallengeUtility.getRankWithSuffix(participater.rank)
+        
+        let progressViewWidthProportion = CGFloat(participater.units/maxValue)
+        
+        cell.layoutIfNeeded()
+        cell.setProgressViewProportion(progressViewWidthProportion)
     }
 }
 

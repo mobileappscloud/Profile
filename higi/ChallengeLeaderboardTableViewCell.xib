@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="64" id="JJ4-F8-Z0s" customClass="ChallengeLeaderboardTableViewCell" customModule="higi" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="477" height="64"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JJ4-F8-Z0s" id="nLQ-ON-Lt7">
+                <rect key="frame" x="0.0" y="0.0" width="477" height="63.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="LSO-PI-rrm" userLabel="Cell Stack View">
+                        <rect key="frame" x="15" y="10" width="447" height="44"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="31N-rV-You">
+                                <rect key="frame" x="0.0" y="2" width="40" height="40"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="31N-rV-You" secondAttribute="height" multiplier="1:1" id="0Sd-A2-jWZ"/>
+                                    <constraint firstAttribute="width" constant="40" id="Fdq-fG-H9U"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" distribution="fillProportionally" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="REF-YJ-Y9B" userLabel="Content Stack View">
+                                <rect key="frame" x="50" y="0.0" width="397" height="44"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rI1-IH-YyW">
+                                        <rect key="frame" x="0.0" y="0.0" width="397" height="12"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QtA-zU-zzU">
+                                        <rect key="frame" x="0.0" y="16" width="397" height="28"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="260" verticalHuggingPriority="251" horizontalCompressionResistancePriority="760" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HOH-EM-w2c">
+                                                <rect key="frame" x="0.0" y="0.0" width="42" height="0.0"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xDW-V3-8v6" userLabel="Challenge Progress View Container">
+                                                <rect key="frame" x="47" y="0.0" width="350" height="0.0"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QGK-rI-oth" userLabel="Challenge Progress View" customClass="ChallengeProgressView" customModule="higi" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="355" height="0.0"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="355" id="caC-FS-iOg"/>
+                                                        </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="progress">
+                                                                <real key="value" value="1"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </view>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="QGK-rI-oth" secondAttribute="bottom" id="UPn-Wg-D6b"/>
+                                                    <constraint firstItem="QGK-rI-oth" firstAttribute="leading" secondItem="xDW-V3-8v6" secondAttribute="leading" id="n2l-ew-ICb"/>
+                                                    <constraint firstItem="QGK-rI-oth" firstAttribute="top" secondItem="xDW-V3-8v6" secondAttribute="top" id="wtc-Iu-ynk"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="HOH-EM-w2c" secondAttribute="bottom" id="Cpl-hK-36Y"/>
+                                            <constraint firstAttribute="trailing" secondItem="xDW-V3-8v6" secondAttribute="trailing" id="H4b-Xd-Rmk"/>
+                                            <constraint firstItem="HOH-EM-w2c" firstAttribute="leading" secondItem="QtA-zU-zzU" secondAttribute="leading" id="WmI-A2-lpr"/>
+                                            <constraint firstItem="xDW-V3-8v6" firstAttribute="leading" secondItem="HOH-EM-w2c" secondAttribute="trailing" constant="5" id="cmA-pa-8AA"/>
+                                            <constraint firstAttribute="bottom" secondItem="xDW-V3-8v6" secondAttribute="bottom" id="ifT-YI-WRp"/>
+                                            <constraint firstItem="HOH-EM-w2c" firstAttribute="top" secondItem="QtA-zU-zzU" secondAttribute="top" id="kAf-fa-BKU"/>
+                                            <constraint firstItem="xDW-V3-8v6" firstAttribute="top" secondItem="QtA-zU-zzU" secondAttribute="top" id="o2m-Hn-Him"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="LSO-PI-rrm" secondAttribute="trailing" constant="15" id="A4g-25-QjO"/>
+                    <constraint firstItem="LSO-PI-rrm" firstAttribute="leading" secondItem="nLQ-ON-Lt7" secondAttribute="leading" constant="15" id="b3D-PS-0M5"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="LSO-PI-rrm" secondAttribute="bottom" constant="10" id="eAF-Z3-HL5"/>
+                    <constraint firstItem="LSO-PI-rrm" firstAttribute="top" secondItem="nLQ-ON-Lt7" secondAttribute="top" constant="10" id="m0x-G0-1ZJ"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="avatarImageView" destination="31N-rV-You" id="UbT-sv-HYZ"/>
+                <outlet property="challengeProgressView" destination="QGK-rI-oth" id="fUq-Ux-lti"/>
+                <outlet property="challengeProgressViewContainer" destination="xDW-V3-8v6" id="8FB-bF-83S"/>
+                <outlet property="challengeProgressWidthConstraint" destination="caC-FS-iOg" id="gjN-1e-jAj"/>
+                <outlet property="nameLabel" destination="rI1-IH-YyW" id="CiN-Nf-iEk"/>
+                <outlet property="placementLabel" destination="HOH-EM-w2c" id="lGK-r3-drN"/>
+            </connections>
+            <point key="canvasLocation" x="289.5" y="170"/>
+        </tableViewCell>
+    </objects>
+</document>

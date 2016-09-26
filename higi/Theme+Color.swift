@@ -315,6 +315,7 @@ extension Theme.Color.Challenge {
         static let trackColor = Theme.Color.Primary.white
         static let progressColor = Theme.Color.Primary.green
         static let milestoneBorderColor = Theme.Color.Primary.green
+        static let wattsLabel = Theme.Color.Primary.white
     }
 }
 

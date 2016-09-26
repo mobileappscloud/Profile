@@ -49,6 +49,8 @@
 		27416E621D49408800876873 /* Challenges.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27416E611D49408800876873 /* Challenges.storyboard */; };
 		275C6BD91D95BD3A00F221BB /* ChallengeVerticalDashedLineView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 275C6BD81D95BD3A00F221BB /* ChallengeVerticalDashedLineView.xib */; };
 		275C6BDB1D95BD6200F221BB /* ChallengeVerticalDashedLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275C6BDA1D95BD6200F221BB /* ChallengeVerticalDashedLineView.swift */; };
+		275C6BE21D999C4F00F221BB /* ChallengeLeaderboardTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 275C6BE11D999C4F00F221BB /* ChallengeLeaderboardTableViewCell.xib */; };
+		275C6BE61D999C6F00F221BB /* ChallengeLeaderboardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275C6BE51D999C6F00F221BB /* ChallengeLeaderboardTableViewCell.swift */; };
 		278D9F741D7F68EE00989334 /* ChallengesEmptyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278D9F721D7F68EE00989334 /* ChallengesEmptyTableViewCell.swift */; };
 		278D9F751D7F68EE00989334 /* ChallengesEmptyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 278D9F731D7F68EE00989334 /* ChallengesEmptyTableViewCell.xib */; };
 		2798A2761D7A1FD00072EC1A /* CommunitiesNetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2798A2751D7A1FD00072EC1A /* CommunitiesNetworkController.swift */; };
@@ -590,6 +592,8 @@
 		27416E631D49477500876873 /* ChallengesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengesTableViewController.swift; sourceTree = "<group>"; };
 		275C6BD81D95BD3A00F221BB /* ChallengeVerticalDashedLineView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeVerticalDashedLineView.xib; sourceTree = "<group>"; };
 		275C6BDA1D95BD6200F221BB /* ChallengeVerticalDashedLineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeVerticalDashedLineView.swift; sourceTree = "<group>"; };
+		275C6BE11D999C4F00F221BB /* ChallengeLeaderboardTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeLeaderboardTableViewCell.xib; sourceTree = "<group>"; };
+		275C6BE51D999C6F00F221BB /* ChallengeLeaderboardTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeLeaderboardTableViewCell.swift; sourceTree = "<group>"; };
 		278D9F721D7F68EE00989334 /* ChallengesEmptyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengesEmptyTableViewCell.swift; sourceTree = "<group>"; };
 		278D9F731D7F68EE00989334 /* ChallengesEmptyTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengesEmptyTableViewCell.xib; sourceTree = "<group>"; };
 		2798A2751D7A1FD00072EC1A /* CommunitiesNetworkController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunitiesNetworkController.swift; sourceTree = "<group>"; };
@@ -1224,6 +1228,7 @@
 		271BECDF1D94660400F78498 /* Leaderboard / Participants / Progress Tab */ = {
 			isa = PBXGroup;
 			children = (
+				275C6BE11D999C4F00F221BB /* ChallengeLeaderboardTableViewCell.xib */,
 				410F10C31D7F1CDA0008F68E /* ChallengeParticipantTableViewCell.xib */,
 				271BECE91D9487BC00F78498 /* ChallengeProgressHeaderTableViewCell.xib */,
 				271BECE41D94687C00F78498 /* ChallengeProgressTableViewCell.xib */,
@@ -1358,6 +1363,7 @@
 				410953EA1D7F6AAB00904483 /* ChallengeParticipantTableViewController.swift */,
 				271BECE71D94879600F78498 /* ChallengeProgressHeaderView.swift */,
 				271BECE31D94687C00F78498 /* ChallengeProgressTableViewCell.swift */,
+				275C6BE51D999C6F00F221BB /* ChallengeLeaderboardTableViewCell.swift */,
 			);
 			name = "Leaderboard / Participants / Progress Tab";
 			sourceTree = "<group>";
@@ -3413,6 +3419,7 @@
 				415338161C60614700ED2B82 /* MetricCheckinSummaryView.xib in Resources */,
 				410F10C41D7F1CDA0008F68E /* ChallengeParticipantTableViewCell.xib in Resources */,
 				8FEF6F3A1A6EAA58001EF8A6 /* DashboardView.xib in Resources */,
+				275C6BE21D999C4F00F221BB /* ChallengeLeaderboardTableViewCell.xib in Resources */,
 				D105CB5F1B7E9B2D00971AB0 /* QrScannerView.xib in Resources */,
 				410FFF341CA5C6A3005EAC9E /* Communities.storyboard in Resources */,
 				413E198B1C10E4D700146B29 /* MetricsPage.storyboard in Resources */,
@@ -3666,6 +3673,7 @@
 				8F9C69D71950C89B00449664 /* HigiUser.swift in Sources */,
 				41411BA01BA87E3D0027F5E1 /* NotificationSettingsDeviceTableViewController.swift in Sources */,
 				410FFFAB1CA772A9005EAC9E /* JSONWebToken.swift in Sources */,
+				275C6BE61D999C6F00F221BB /* ChallengeLeaderboardTableViewCell.swift in Sources */,
 				D1EEDBA51A66FA570012EFD3 /* ChallengeLeaderboardRow.swift in Sources */,
 				273191D31D81E1BF00F12C5F /* LeaderboardRankingTableViewCell.swift in Sources */,
 				4116E9D11CD91CD4006DB167 /* UserCreateRequest.swift in Sources */,

@@ -443,3 +443,25 @@ protocol ChallengeParticipating {
     /// Avatar for the participating entity.
     var image: MediaAsset? { get }
 }
+
+/// Decorator for ChallengeParticipating, including a rank
+struct RankedChallengeParticipating {
+    
+    // Properties
+    
+    let challengeParticipating: ChallengeParticipating
+    let rank: Int
+    
+    // Initializer
+    
+    init(challengeParticipating: ChallengeParticipating, rank: Int) {
+        self.challengeParticipating = challengeParticipating
+        self.rank = rank
+    }
+}
+
+extension RankedChallengeParticipating: ChallengeParticipating {
+    var name: String { return challengeParticipating.name }
+    var units: Double { return challengeParticipating.units }
+    var image: MediaAsset? { return challengeParticipating.image }
+}

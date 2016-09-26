@@ -21,7 +21,7 @@ final class ChallengeParticipantController {
     
     // Backing store for calculated variables
     
-    private var _participaters: [ChallengeParticipating] = []
+    private var _participaters: [RankedChallengeParticipating] = []
     
     private var _maxUnits: Double? = 0.0
     
@@ -42,7 +42,7 @@ extension ChallengeParticipantController {
     /// Provides a collection of participating entities based on the type of challenge.
     ///
     /// - note: The authenticated user or the team which the authenticated user belongs to will always be the first participater in the collection if said user has joined the challenge.
-    var participaters: [ChallengeParticipating] {
+    var participaters: [RankedChallengeParticipating] {
         get {
             return _participaters
         }
@@ -97,28 +97,22 @@ extension ChallengeParticipantController {
         _maxUnits = calculate(maxUnitsForChallenge: challenge)
     }
     
-    private func participaters(forChallenge challenge: Challenge) -> [ChallengeParticipating] {
-        var participaters: [ChallengeParticipating] = []
+    private func participaters(forChallenge challenge: Challenge) -> [RankedChallengeParticipating] {
+        var participaters: [RankedChallengeParticipating] = []
+        var originalParticipators: [ChallengeParticipating]
         if challenge.isTeamChallenge, let teams = challenge.teams {
-            if let userTeam = userTeam {
-                participaters.append(userTeam as ChallengeParticipating)
-            }
-            for team in teams {
-                if isUser(associatedWithChallengeParticipater: team) { continue }
-                
-                let participater = team as ChallengeParticipating
-                participaters.append(participater)
-            }
+            originalParticipators = teams.map({$0 as ChallengeParticipating})
         } else {
-            if let user = user {
-                participaters.append(user as ChallengeParticipating)
+            originalParticipators = challenge.participants.map({$0 as ChallengeParticipating})
+        }
+        var rank = 1
+        for participator in originalParticipators {
+            if isUser(associatedWithChallengeParticipater: participator) {
+                participaters.insert(RankedChallengeParticipating(challengeParticipating: participator, rank: rank), atIndex: 0)
+            } else {
+                participaters.append(RankedChallengeParticipating(challengeParticipating: participator, rank: rank))
             }
-            for participant in challenge.participants {
-                if isUser(associatedWithChallengeParticipater: participant) { continue }
-                
-                let participater = participant as ChallengeParticipating
-                participaters.append(participater)
-            }
+            rank += 1
         }
         return participaters
     }

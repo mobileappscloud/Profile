@@ -9,14 +9,16 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChallengeProgressView" customModule="higi" customModuleProvider="target">
             <connections>
+                <outlet property="goalMilestoneOverlayView" destination="fgk-5t-970" id="ek3-ky-dYM"/>
                 <outlet property="goalMilestonesView" destination="37U-JM-Sve" id="4hn-9q-r08"/>
                 <outlet property="heightConstraint" destination="Aq2-Ps-TEj" id="oAP-0y-sDO"/>
-                <outlet property="progressTrailingConstraint" destination="zTt-kX-pps" id="gU6-rz-ivx"/>
                 <outlet property="progressView" destination="5oZ-ub-TFe" id="X1w-lR-ttK"/>
+                <outlet property="progressWidthConstraint" destination="KEk-cI-4J3" id="sU6-r7-Smn"/>
                 <outlet property="trackView" destination="83h-O7-fvI" id="8aV-Ya-7sg"/>
                 <outlet property="userImageView" destination="WaA-zt-lEx" id="91P-Ya-B2i"/>
                 <outlet property="userImageWidthConstraint" destination="3i5-YL-FQ7" id="jE3-UL-8Zh"/>
                 <outlet property="view" destination="zEx-NJ-WXD" id="fOn-78-Q7I"/>
+                <outlet property="wattsLabel" destination="DQG-D5-3iQ" id="QF5-sq-3ce"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -26,26 +28,33 @@
             <subviews>
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="83h-O7-fvI" userLabel="Track View">
                     <rect key="frame" x="0.0" y="61" width="368" height="7"/>
-                    <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5oZ-ub-TFe" userLabel="Progress View">
-                            <rect key="frame" x="0.0" y="0.0" width="368" height="7"/>
-                            <color key="backgroundColor" red="0.46274509803921571" green="0.75294117647058822" blue="0.26666666666666666" alpha="1" colorSpace="calibratedRGB"/>
-                        </view>
-                    </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="bottom" secondItem="5oZ-ub-TFe" secondAttribute="bottom" id="AUS-1x-a0k"/>
                         <constraint firstAttribute="height" constant="7" id="Aq2-Ps-TEj"/>
-                        <constraint firstItem="5oZ-ub-TFe" firstAttribute="leading" secondItem="83h-O7-fvI" secondAttribute="leading" id="Blb-xY-m2t"/>
-                        <constraint firstItem="5oZ-ub-TFe" firstAttribute="top" secondItem="83h-O7-fvI" secondAttribute="top" id="vpe-4Q-LvS"/>
-                        <constraint firstItem="5oZ-ub-TFe" firstAttribute="trailing" secondItem="83h-O7-fvI" secondAttribute="trailing" id="zTt-kX-pps"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="37U-JM-Sve" userLabel="Goal Milestones View">
                     <rect key="frame" x="0.0" y="61" width="368" height="7"/>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5oZ-ub-TFe" userLabel="Progress View">
+                    <rect key="frame" x="0.0" y="61" width="0.0" height="7"/>
+                    <color key="backgroundColor" red="0.46274509803921571" green="0.75294117647058822" blue="0.26666666666666666" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" priority="900" id="KEk-cI-4J3"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fgk-5t-970" userLabel="Goal Milestone Overlay View">
+                    <rect key="frame" x="0.0" y="62" width="368" height="5"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DQG-D5-3iQ" userLabel="Watts Label">
+                    <rect key="frame" x="6" y="61" width="356" height="7"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="WaA-zt-lEx" userLabel="User Image View">
-                    <rect key="frame" x="356" y="52" width="25" height="25"/>
+                    <rect key="frame" x="-12" y="52" width="25" height="25"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="25" id="3i5-YL-FQ7"/>
                         <constraint firstAttribute="width" secondItem="WaA-zt-lEx" secondAttribute="height" multiplier="1:1" id="PUZ-FD-OrD"/>
@@ -59,19 +68,30 @@
             </subviews>
             <constraints>
                 <constraint firstItem="37U-JM-Sve" firstAttribute="bottom" secondItem="83h-O7-fvI" secondAttribute="bottom" id="003-YS-G6x"/>
-                <constraint firstItem="WaA-zt-lEx" firstAttribute="centerX" secondItem="5oZ-ub-TFe" secondAttribute="trailing" id="3ZQ-Ip-eP2"/>
+                <constraint firstItem="83h-O7-fvI" firstAttribute="trailing" secondItem="fgk-5t-970" secondAttribute="trailing" id="806-Mu-eRQ"/>
+                <constraint firstItem="5oZ-ub-TFe" firstAttribute="bottom" secondItem="83h-O7-fvI" secondAttribute="bottom" id="8TH-1Z-nR0"/>
                 <constraint firstItem="WaA-zt-lEx" firstAttribute="top" secondItem="zEx-NJ-WXD" secondAttribute="top" priority="900" id="AeJ-Se-c4o"/>
+                <constraint firstItem="DQG-D5-3iQ" firstAttribute="bottom" secondItem="83h-O7-fvI" secondAttribute="bottom" id="EHB-Hj-6wy"/>
                 <constraint firstAttribute="trailing" secondItem="83h-O7-fvI" secondAttribute="trailing" id="EKO-jK-XJ4"/>
                 <constraint firstItem="37U-JM-Sve" firstAttribute="trailing" secondItem="83h-O7-fvI" secondAttribute="trailing" id="GKD-X9-aWJ"/>
+                <constraint firstItem="5oZ-ub-TFe" firstAttribute="top" secondItem="83h-O7-fvI" secondAttribute="top" id="GjR-CI-FEL"/>
                 <constraint firstAttribute="bottom" secondItem="WaA-zt-lEx" secondAttribute="bottom" priority="900" id="HJe-R6-294"/>
                 <constraint firstItem="83h-O7-fvI" firstAttribute="top" secondItem="zEx-NJ-WXD" secondAttribute="top" priority="800" id="KKZ-SJ-5UC"/>
                 <constraint firstItem="83h-O7-fvI" firstAttribute="centerY" secondItem="zEx-NJ-WXD" secondAttribute="centerY" id="MVP-sd-lgY"/>
                 <constraint firstAttribute="bottom" secondItem="83h-O7-fvI" secondAttribute="bottom" priority="800" id="Pra-3w-RT2"/>
+                <constraint firstItem="DQG-D5-3iQ" firstAttribute="top" secondItem="83h-O7-fvI" secondAttribute="top" id="Rhj-TE-SnB"/>
+                <constraint firstItem="5oZ-ub-TFe" firstAttribute="trailing" secondItem="WaA-zt-lEx" secondAttribute="centerX" id="U19-0S-GLP"/>
                 <constraint firstItem="37U-JM-Sve" firstAttribute="top" secondItem="83h-O7-fvI" secondAttribute="top" id="UDC-Cr-tYl"/>
+                <constraint firstItem="DQG-D5-3iQ" firstAttribute="leading" secondItem="zEx-NJ-WXD" secondAttribute="leading" priority="900" constant="6" id="etv-S5-R4y"/>
                 <constraint firstItem="WaA-zt-lEx" firstAttribute="centerY" secondItem="zEx-NJ-WXD" secondAttribute="centerY" id="fOt-Dj-glX"/>
                 <constraint firstItem="37U-JM-Sve" firstAttribute="leading" secondItem="83h-O7-fvI" secondAttribute="leading" id="k1x-XO-XeW"/>
                 <constraint firstItem="83h-O7-fvI" firstAttribute="centerX" secondItem="zEx-NJ-WXD" secondAttribute="centerX" id="n5K-Cy-4sp"/>
+                <constraint firstAttribute="trailing" secondItem="DQG-D5-3iQ" secondAttribute="trailing" priority="900" constant="6" id="pbq-V1-UHQ"/>
+                <constraint firstItem="5oZ-ub-TFe" firstAttribute="bottom" secondItem="fgk-5t-970" secondAttribute="bottom" constant="1" id="qsd-0C-YJQ"/>
+                <constraint firstItem="5oZ-ub-TFe" firstAttribute="leading" secondItem="83h-O7-fvI" secondAttribute="leading" id="vUg-u4-4Rq"/>
                 <constraint firstItem="83h-O7-fvI" firstAttribute="leading" secondItem="zEx-NJ-WXD" secondAttribute="leading" id="xLT-EE-3Jj"/>
+                <constraint firstItem="fgk-5t-970" firstAttribute="leading" secondItem="5oZ-ub-TFe" secondAttribute="trailing" id="ySL-Hr-mUd"/>
+                <constraint firstItem="fgk-5t-970" firstAttribute="top" secondItem="5oZ-ub-TFe" secondAttribute="top" constant="1" id="yhx-OT-VWj"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="1332" y="269.5"/>

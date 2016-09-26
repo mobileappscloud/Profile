@@ -57,8 +57,9 @@ final class ChallengeUtility {
     }
 
     // TODO: Convert to utility extension
-    // TODO: Utilize NSNumberFormatterStyle.OrdinalStyle
+    /// Deprecated. Use `getRankWithSuffix(rank: Int)`
     class func getRankSuffix(rank: NSString) -> String {
+        // FIME: Does not handle for cases > ...1x, for exampe, 112th. Refactor to just use `getRankWithSuffix(rank: Int)`
         if ( rank == "11" || rank == "12" || rank == "13") {
             return rank as String + "th"
         }
@@ -73,6 +74,13 @@ final class ChallengeUtility {
         default:
             return rank as String + "th"
         }
+    }
+    
+    class func getRankWithSuffix(rank: Int) -> String {
+        let formatter = NSNumberFormatter()
+        formatter.numberStyle = .OrdinalStyle
+        formatter.locale = NSLocale.currentLocale()
+        return formatter.stringFromNumber(rank)! // Works for integers
     }
     
     class func getTeamGravityBoard(challenge: HigiChallenge) -> ([ChallengeTeam], [Int]){

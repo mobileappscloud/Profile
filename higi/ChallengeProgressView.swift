@@ -9,11 +9,19 @@
 import UIKit
 
 final class ChallengeProgressView: ReusableXibView {
+    
+    // MARK: Outlets
+    
     @IBOutlet var heightConstraint: NSLayoutConstraint!
     @IBOutlet var progressView: UIView!
-    @IBOutlet var progressTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet var progressWidthConstraint: NSLayoutConstraint!
     @IBOutlet var userImageView: UIImageView!
     @IBOutlet var userImageWidthConstraint: NSLayoutConstraint!
+    @IBOutlet var goalMilestoneOverlayView: UIView! {
+        didSet {
+            goalMilestoneOverlayView.backgroundColor = Theme.Color.Challenge.ProgressView.trackColor
+        }
+    }
     @IBOutlet var trackView: UIView! {
         didSet {
             trackView.layer.borderColor = progressColor.CGColor
@@ -28,9 +36,17 @@ final class ChallengeProgressView: ReusableXibView {
         }
         set {
             heightConstraint.constant = newValue
-            trackView.cornerRadius = heightConstraint.constant / 2
+            updateCornerRadii()
         }
     }
+    
+    @IBOutlet var wattsLabel: UILabel! {
+        didSet {
+            wattsLabel.textColor = Theme.Color.Challenge.ProgressView.wattsLabel
+        }
+    }
+    
+    // MARK: Properties
     
     @IBInspectable var progressColor: UIColor = Theme.Color.Challenge.ProgressView.progressColor {
         didSet {
@@ -42,10 +58,9 @@ final class ChallengeProgressView: ReusableXibView {
 
     private var _progress: CGFloat = 0.0 {
         didSet {
-            self.renderMilestones()
-            let fractionalDistance = self._progress == 0 ? CGFloat.min : self._progress
-            self.progressTrailingConstraint = self.progressTrailingConstraint.setMultiplier(fractionalDistance)
-            self.layoutIfNeeded()
+            updateProgressWidth()
+            renderMilestones()
+            layoutIfNeeded()
         }
     }
     
@@ -76,19 +91,28 @@ final class ChallengeProgressView: ReusableXibView {
     }
     
     var nodeHeight: CGFloat {
-        return 14.0
+        return heightConstraint.constant * 2
     }
     
+    static let heightForCompetitiveBar: CGFloat = 15
+    static let heightForNonCompetitiveBar: CGFloat = 7
+    
+    // MARK: Lifecycle
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        trackView.cornerRadius = heightConstraint.constant / 2
+        setNeedsLayout()
+        layoutIfNeeded()
+        updateCornerRadii()
         renderMilestones()
         progressBarAnimationDuration = defaultProgressBarAnimation
     }
     
     override func layoutSubviews() {
+        super.layoutSubviews()
+        updateProgressWidth()
         renderMilestones()
+        truncateLabel()
     }
     
 }
@@ -128,4 +152,27 @@ extension ChallengeProgressView {
         progressMilestones.forEach(renderMilestoneAt)
     }
     
+    private func updateCornerRadii() {
+        trackView.cornerRadius = heightConstraint.constant / 2
+        progressView.cornerRadius = heightConstraint.constant / 2
+        goalMilestoneOverlayView.cornerRadius = heightConstraint.constant / 2
+    }
+    
+    private func updateProgressWidth() {
+        layoutIfNeeded()
+        let fractionalDistance = self._progress == 0 ? CGFloat.min : self._progress
+        progressWidthConstraint.constant = trackView.bounds.width * fractionalDistance
+    }
+    
+    private func truncateLabel() {
+        if let text = wattsLabel.text where textIsTruncated(text) {
+            wattsLabel.text = nil
+        }
+    }
+    
+    private func textIsTruncated(text: String) -> Bool {
+        return (text as NSString).sizeWithAttributes([
+            NSFontAttributeName: wattsLabel.font
+        ]).width > wattsLabel.bounds.width
+    }
 }

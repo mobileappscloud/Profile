@@ -82,5 +82,21 @@
 			<string>%d Goal Reached</string>
 		</dict>
 	</dict>
+	<key>CHALLENGE_LEADERBOARD_WATT_COUNT_SINGLE_PLURAL</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@watts@</string>
+		<key>watts</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%d watt</string>
+			<key>other</key>
+			<string>%d watts</string>
+		</dict>
+	</dict>
 </dict>
 </plist>
