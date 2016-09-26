@@ -59,10 +59,10 @@ extension MediaAsset: JSONInitializable {
     
     // MARK: Legacy Convenience
     
-    init?(fromLegacyJSONObject JSON: AnyObject?, imageKey: String = "imageUrl") {
+    init?(fromLegacyJSONObject JSON: AnyObject?, imageKey: String = "imageUrl", imageTypeKey: String = "default") {
         guard let JSON = JSON as? NSDictionary,
             let imageDict = JSON[imageKey] as? NSDictionary,
-            let imageURLString = imageDict["default"] as? String,
+            let imageURLString = imageDict[imageTypeKey] as? String,
             let URI = NSURL(string: imageURLString) else { return nil }
         
         let fileExtension = imageURLString.componentsSeparatedByString(".").last ?? "png"

@@ -19,7 +19,7 @@ private struct Storyboard {
 final class NewMetricsViewController: UIViewController {
     
     /// Supported types of metrics
-    lazy private(set) var types = MetricsType.allValues
+    private(set) lazy var types = MetricsType.allValues
     
     /// Image view which hints that the view supports resizing due to image rotation
     @IBOutlet private var rotateDeviceImageView: UIImageView!
@@ -31,7 +31,7 @@ final class NewMetricsViewController: UIViewController {
     private var pageViewController: MetricsPageViewController!
     
     /// Object which coordinates interactions between container views.
-    lazy private(set) var coordinator: MetricsCoordinator = {
+    private(set) lazy var coordinator: MetricsCoordinator = {
        return MetricsCoordinator(types: self.types)
     }()
     
@@ -277,7 +277,8 @@ extension NewMetricsViewController: UniversalLinkHandler {
         mainTabBarController.selectedIndex = TabBarController.ViewControllerIndex.Metrics.rawValue
         // Dumb workaround which ensures embedded view controllers are loaded
         Utility.delay(0.1, closure: {
-            mainTabBarController.metricsViewController.navigate(toMetricViewWithType: type)
+            //TODO: Remy - Reimplement
+//            mainTabBarController.metricsViewController.navigate(toMetricViewWithType: type)
         })
     }
 }

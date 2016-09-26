@@ -168,7 +168,7 @@ final class DashboardViewController: UIViewController {
             if (activitiesLoaded && metricsLoaded && !metricsRefreshed) {
                 initMetricsCard();
                 metricsRefreshed = true;
-                Utility.mainTabBarController()?.metricsNavController.tabBarItem.enabled = true
+//                Utility.mainTabBarController()?.metricsNavController.tabBarItem.enabled = true
             }
             activitiesRefreshed = true;
         
@@ -177,7 +177,7 @@ final class DashboardViewController: UIViewController {
             if (activitiesLoaded && metricsLoaded && !metricsRefreshed) {
                 initMetricsCard();
                 metricsRefreshed = true;
-                Utility.mainTabBarController()?.metricsNavController.tabBarItem.enabled = true
+//                Utility.mainTabBarController()?.metricsNavController.tabBarItem.enabled = true
             }
             checkinsRefreshed = true;
         
@@ -442,8 +442,8 @@ final class DashboardViewController: UIViewController {
     private func navigateToMetrics(metricsType: MetricsType = .DailySummary) {
         if (SessionController.Instance.checkins != nil && SessionController.Instance.loadedActivities) {
             guard let mainTabBarController = Utility.mainTabBarController() else { return }
-            if !mainTabBarController.metricsViewController.tabBarItem.enabled { return }
-            mainTabBarController.metricsViewController.navigate(metricsType: metricsType)
+//            if !mainTabBarController.metricsViewController.tabBarItem.enabled { return }
+//            mainTabBarController.metricsViewController.navigate(metricsType: metricsType)
         }
     }
     

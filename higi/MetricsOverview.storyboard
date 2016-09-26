@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Jh9-uv-Z6Q">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--Metrics Overview View Controller-->
+        <scene sceneID="58t-JF-eFb">
+            <objects>
+                <viewController id="Jh9-uv-Z6Q" customClass="MetricsOverviewViewController" customModule="higi" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hMT-hq-2CM"/>
+                        <viewControllerLayoutGuide type="bottom" id="lPn-OR-CEO"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="T4c-yl-T3Z">
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Bt-VC-Nd9">
+                                <rect key="frame" x="0.0" y="10" width="375" height="534"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="4cj-Aa-qx3">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="560"/>
+                                        <subviews>
+                                            <containerView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LNn-zI-GYw">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="128"/>
+                                                <connections>
+                                                    <segue destination="P7V-pq-0Fx" kind="embed" identifier="wattsEmbedSegue" id="rc8-yX-cg7"/>
+                                                </connections>
+                                            </containerView>
+                                            <containerView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pur-zA-rVg">
+                                                <rect key="frame" x="0.0" y="144" width="375" height="128"/>
+                                                <connections>
+                                                    <segue destination="xka-7c-w7L" kind="embed" identifier="bloodPressureEmbedSegue" id="Qa4-63-nxG"/>
+                                                </connections>
+                                            </containerView>
+                                            <containerView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ruY-ZD-dX9">
+                                                <rect key="frame" x="0.0" y="288" width="375" height="128"/>
+                                                <connections>
+                                                    <segue destination="4FL-Zc-ILq" kind="embed" identifier="pulseEmbedSegue" id="S6P-QF-PKR"/>
+                                                </connections>
+                                            </containerView>
+                                            <containerView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dzj-7M-RdH">
+                                                <rect key="frame" x="0.0" y="432" width="375" height="128"/>
+                                                <connections>
+                                                    <segue destination="lYP-an-gpB" kind="embed" identifier="weightEmbedSegue" id="vWM-7D-yzr"/>
+                                                </connections>
+                                            </containerView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="4cj-Aa-qx3" secondAttribute="bottom" id="C6P-3D-xBc"/>
+                                    <constraint firstAttribute="trailing" secondItem="4cj-Aa-qx3" secondAttribute="trailing" id="Naz-oI-ErH"/>
+                                    <constraint firstItem="4cj-Aa-qx3" firstAttribute="width" secondItem="9Bt-VC-Nd9" secondAttribute="width" id="U5N-yd-n69"/>
+                                    <constraint firstItem="4cj-Aa-qx3" firstAttribute="leading" secondItem="9Bt-VC-Nd9" secondAttribute="leading" id="UwT-3N-AMu"/>
+                                    <constraint firstItem="4cj-Aa-qx3" firstAttribute="top" secondItem="9Bt-VC-Nd9" secondAttribute="top" id="aR3-w9-Yao"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.94509804248809814" green="0.94509804248809814" blue="0.94509804248809814" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="9Bt-VC-Nd9" secondAttribute="trailing" id="R8k-X4-VlF"/>
+                            <constraint firstItem="9Bt-VC-Nd9" firstAttribute="width" secondItem="T4c-yl-T3Z" secondAttribute="width" id="SKr-rx-szs"/>
+                            <constraint firstItem="9Bt-VC-Nd9" firstAttribute="leading" secondItem="T4c-yl-T3Z" secondAttribute="leading" id="aKm-v4-mjx"/>
+                            <constraint firstItem="lPn-OR-CEO" firstAttribute="top" secondItem="9Bt-VC-Nd9" secondAttribute="bottom" id="erg-7G-f3a"/>
+                            <constraint firstItem="9Bt-VC-Nd9" firstAttribute="top" secondItem="hMT-hq-2CM" secondAttribute="bottom" id="t7F-yw-wAH"/>
+                        </constraints>
+                    </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="D3z-JJ-UmC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1297.5" y="-143.5"/>
+        </scene>
+        <!--MetricRecentSummary-->
+        <scene sceneID="5zJ-xR-coY">
+            <objects>
+                <viewControllerPlaceholder storyboardName="MetricRecentSummary" id="P7V-pq-0Fx" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fK3-VB-xtS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1777.5" y="-348"/>
+        </scene>
+        <!--MetricRecentSummary-->
+        <scene sceneID="xh7-rK-lSQ">
+            <objects>
+                <viewControllerPlaceholder storyboardName="MetricRecentSummary" id="lYP-an-gpB" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JNA-cm-Y8r" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1777.5" y="97"/>
+        </scene>
+        <!--MetricRecentSummary-->
+        <scene sceneID="rFP-rC-ZB5">
+            <objects>
+                <viewControllerPlaceholder storyboardName="MetricRecentSummary" id="4FL-Zc-ILq" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bTh-qm-rbd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1777.5" y="-51"/>
+        </scene>
+        <!--MetricRecentSummary-->
+        <scene sceneID="omn-H6-A70">
+            <objects>
+                <viewControllerPlaceholder storyboardName="MetricRecentSummary" id="xka-7c-w7L" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gGu-t3-wVd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1777.5" y="-208"/>
+        </scene>
+    </scenes>
+</document>

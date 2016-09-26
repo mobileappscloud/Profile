@@ -10,6 +10,7 @@ final class UserController {
     
     private(set) var user: User {
         didSet {
+            guard oldValue.identifier == user.identifier else { return }
             challengeRepository = UserDataRepository<Challenge>()
             communityRepository = UserDataRepository<Community>()
         }

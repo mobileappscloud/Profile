@@ -12,7 +12,6 @@ final class MetricsGraphCard: UIView {
     @IBOutlet weak var secondReadingLabel: UILabel!
     @IBOutlet weak var secondReadingSubTitle: UILabel!
     @IBOutlet weak var graphView: UIView!
-    @IBOutlet weak var backgroundView: UIView!
     
     @IBOutlet weak var singleSubtitle: UILabel!
     @IBOutlet weak var singleLabel: UILabel!
@@ -203,10 +202,49 @@ final class MetricsGraphCard: UIView {
         secondReadingValue.textColor = color;
     }
     
-    func graph(points: [GraphPoint], type: MetricsType) {
-        let graph = MetricGraph(frame: CGRect(x: 0, y: 0, width: graphView.frame.size.width, height: graphView.frame.size.height), points: points);
+    func graph(points: [GraphPoint], altPoints: [GraphPoint] = [], type: MetricsType) {
+        let graph = MetricGraph(frame: CGRect(x: 0, y: 0, width: graphView.frame.size.width, height: graphView.frame.size.height), points: points, altPoints: altPoints);
         graph.setupForDashboard(type);
         graph.userInteractionEnabled = false;
         graphView.addSubview(graph);
+    }
+}
+
+extension MetricsGraphCard {
+    
+    func update(withActivity activity: Activity, forMetricType metricType: MetricsType) {
+        
+        let checkin = HigiCheckin(dateTime: activity.dateUTC)
+        
+        switch metricType {
+        case .DailySummary:
+            guard let points = activity.watts else { break }
+            setActivity(points)
+            
+        case .BloodPressure:
+            guard let diastolic = activity.metadata.diastolic,
+                let systolic = activity.metadata.systolic else { break }
+            
+            checkin.diastolic = Int(diastolic)
+            checkin.systolic = Int(systolic)
+            setCheckinData(checkin, type: metricType)
+            
+        case .Pulse:
+            guard let pulse = activity.metadata.pulse else { break }
+            checkin.pulseBpm = Int(pulse)
+            setCheckinData(checkin, type: metricType)
+            
+        case .Weight:
+            guard let weight = activity.metadata.weight,
+                let weightImperial = activity.metadata.weightImperial,
+                let fatRatio = activity.metadata.fatRatio else { break }
+            checkin.weightKG = weight
+            checkin.weightLbs = weightImperial
+            checkin.fatRatio = fatRatio
+            setCheckinData(checkin, type: metricType)
+            
+        case .BodyMassIndex, .BodyFat:
+            break
+        }
     }
 }

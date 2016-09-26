@@ -22,6 +22,10 @@ final class HigiCheckin {
     
     var prevBpCheckin, prevBmiCheckin: HigiCheckin?;
     
+    required init(dateTime: NSDate) {
+        self.dateTime = dateTime
+    }
+    
     init(dictionary: NSDictionary) {
         checkinId = dictionary["id"] as? NSString;
         sourceVendorId = (dictionary["sourceVendorID"] ?? "") as? NSString;

@@ -862,6 +862,9 @@
 /* Subtitle text for body weight data shown on metrics graph card. */
 "METRICS_GRAPH_CARD_WEIGHT_SUBTITLE" = "Weight";
 
+/* Title for health metrics overview (primary view for metrics tab). */
+"METRICS_OVERVIEW_VIEW_TITLE" = "Metrics";
+
 /* Title for metrics view. */
 "METRICS_VIEW_TITLE" = "Metrics";
 

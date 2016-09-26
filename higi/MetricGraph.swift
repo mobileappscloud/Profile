@@ -20,13 +20,8 @@ final class MetricGraph: CPTGraphHostingView {
     var shouldShowAltSymbol = false;
     
     // MARK: - Initializers
-    
-    init(frame: CGRect, points: [GraphPoint]) {
-        self.points = points;
-        super.init(frame: frame);
-    }
 
-    init(frame: CGRect, points: [GraphPoint], altPoints: [GraphPoint]) {
+    init(frame: CGRect, points: [GraphPoint], altPoints: [GraphPoint] = []) {
         self.points = points;
         self.altPoints = altPoints;
         super.init(frame: frame);

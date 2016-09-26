@@ -25,7 +25,7 @@ final class TabBarController: UITabBarController {
     lazy private(set) var homeNavController: UINavigationController = {
         let nav = UINavigationController(rootViewController: self.homeViewController)
         let title = NSLocalizedString("MAIN_TAB_BAR_ITEM_TITLE_HOME", comment: "Title for Home tab bar item.")
-        self.configureTab(nav, title: title, itemImageNamePrefix: "home", enabled: true)
+        self.configureTab(nav, title: title, itemImageNamePrefix: "home")
         return nav
     }()
     lazy private(set) var homeViewController: HomeViewController = {
@@ -38,7 +38,7 @@ final class TabBarController: UITabBarController {
     lazy private(set) var communitiesNavController: UINavigationController = {
         let nav = UINavigationController(rootViewController: self.communitiesViewController)
         let title = NSLocalizedString("MAIN_TAB_BAR_ITEM_TITLE_COMMUNITIES", comment: "Title for Communities tab bar item.")
-        self.configureTab(nav, title: title, itemImageNamePrefix: "communities", enabled: true)
+        self.configureTab(nav, title: title, itemImageNamePrefix: "communities")
         return nav
     }()
     lazy private(set) var communitiesViewController: CommunitiesViewController = {
@@ -51,7 +51,7 @@ final class TabBarController: UITabBarController {
     lazy private(set) var challengesNavController: UINavigationController = {
         let nav = UINavigationController(rootViewController: self.challengesViewController)
         let title = NSLocalizedString("MAIN_TAB_BAR_ITEM_TITLE_CHALLENGES", comment: "Title for Challenges tab bar item.")
-        self.configureTab(nav, title: title, itemImageNamePrefix: "challenges", enabled: true)
+        self.configureTab(nav, title: title, itemImageNamePrefix: "challenges")
         return nav
     }()
     lazy private(set) var challengesViewController: ChallengesViewController = {
@@ -64,7 +64,7 @@ final class TabBarController: UITabBarController {
     lazy private(set) var rewardsNavController: UINavigationController = {
         let nav = UINavigationController(rootViewController: self.rewardsViewController)
         let title = NSLocalizedString("MAIN_TAB_BAR_ITEM_TITLE_REWARDS", comment: "Title for Rewards tab bar item.")
-        self.configureTab(nav, title: title, itemImageNamePrefix: "rewards", enabled: true)
+        self.configureTab(nav, title: title, itemImageNamePrefix: "rewards")
         return nav
     }()
     lazy private(set) var rewardsViewController: UIViewController = {
@@ -75,16 +75,17 @@ final class TabBarController: UITabBarController {
         return rewardsViewController
     }()
     
-    lazy private(set) var metricsNavController: UINavigationController = {
-        let nav = UINavigationController(rootViewController: self.metricsViewController)
+    lazy private(set) var metricsOverviewNavController: UINavigationController = {
+        let nav = UINavigationController(rootViewController: self.metricsOverviewViewController)
         let title = NSLocalizedString("MAIN_TAB_BAR_ITEM_TITLE_METRICS", comment: "Title for Metrics tab bar item.")
         self.configureTab(nav, title: title, itemImageNamePrefix: "metrics")
         return nav
     }()
-    lazy private(set) var metricsViewController: NewMetricsViewController = {
-        let metricsViewController = UIStoryboard(name: "Metrics", bundle: nil).instantiateInitialViewController() as! NewMetricsViewController
-        metricsViewController.navigationItem.rightBarButtonItems = [self.navigationOverflowBarButtonItem(), self.profileBarButtonItem()]
-        return metricsViewController
+    lazy private(set) var metricsOverviewViewController: MetricsOverviewViewController = {
+        let metricsOverviewViewController = UIStoryboard(name: "MetricsOverview", bundle: nil).instantiateInitialViewController() as! MetricsOverviewViewController
+        metricsOverviewViewController.configure(withUserController: self.userController)
+        metricsOverviewViewController.navigationItem.rightBarButtonItems = [self.navigationOverflowBarButtonItem(), self.profileBarButtonItem()]
+        return metricsOverviewViewController
     }()
     
     private var previousViewControllerOnSelectedTab: UIViewController? = nil
@@ -134,15 +135,14 @@ extension TabBarController {
         case .Rewards:
             return rewardsNavController
         case .Metrics:
-            return metricsNavController
+            return metricsOverviewNavController
         }
     }
     
-    private func configureTab(navigationController: UINavigationController, title: String, itemImageNamePrefix imageNamePrefix: String, enabled: Bool = false) {
+    private func configureTab(navigationController: UINavigationController, title: String, itemImageNamePrefix imageNamePrefix: String) {
         let image = UIImage(named: "\(imageNamePrefix)-tab-bar-icon")
         let selectedImage = UIImage(named: "\(imageNamePrefix)-selected-tab-bar-icon")
         navigationController.tabBarItem = UITabBarItem(title: title, image: image, selectedImage: selectedImage)
-        navigationController.tabBarItem.enabled = enabled
     }
 }
 

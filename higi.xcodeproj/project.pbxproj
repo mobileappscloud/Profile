@@ -181,6 +181,11 @@
 		413922CA1CDA6DA000C3672E /* HostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413922C91CDA6DA000C3672E /* HostController.swift */; };
 		413922CC1CDA94DD00C3672E /* UserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413922CB1CDA94DD00C3672E /* UserRequest.swift */; };
 		413C45F11D7F6BA8009B81A7 /* ChallengeParticipantController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413C45F01D7F6BA8009B81A7 /* ChallengeParticipantController.swift */; };
+		413C46011D81BDC4009B81A7 /* MetricsOverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413C46001D81BDC4009B81A7 /* MetricsOverviewViewController.swift */; };
+		413C46081D81BE81009B81A7 /* MetricsOverview.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 413C46071D81BE81009B81A7 /* MetricsOverview.storyboard */; };
+		413C460C1D81C886009B81A7 /* ActivityCollectionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413C460B1D81C886009B81A7 /* ActivityCollectionRequest.swift */; };
+		413C460E1D81CC35009B81A7 /* ActivityNetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413C460D1D81CC35009B81A7 /* ActivityNetworkController.swift */; };
+		413C46151D81EEE7009B81A7 /* Activity.Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413C46141D81EEE7009B81A7 /* Activity.Metadata.swift */; };
 		413CC0301C6927EC0097AE56 /* ActivityDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 413CC02F1C6927EC0097AE56 /* ActivityDetailView.xib */; };
 		413CC0341C6929BA0097AE56 /* ActivityDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413CC0331C6929BA0097AE56 /* ActivityDetailView.swift */; };
 		413E19251C10AB2C00146B29 /* UniversalLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413E19241C10AB2C00146B29 /* UniversalLink.swift */; };
@@ -215,6 +220,7 @@
 		41450D241D7F2157005A56BD /* ChallengeWinnerTableViewHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41450D231D7F2157005A56BD /* ChallengeWinnerTableViewHeaderView.xib */; };
 		41450D261D7F2257005A56BD /* ChallengeWinnerTableViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41450D251D7F2257005A56BD /* ChallengeWinnerTableViewHeaderView.swift */; };
 		4145182C1D539D5400A88867 /* ChallengesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27416E631D49477500876873 /* ChallengesTableViewController.swift */; };
+		4145E6B61D92ED1600AE81FE /* MetricRecentSummaryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4145E6B51D92ED1600AE81FE /* MetricRecentSummaryController.swift */; };
 		41466CB01D4FC7E300F9C344 /* TextInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41466CAF1D4FC7E300F9C344 /* TextInputView.swift */; };
 		41466CC41D50078900F9C344 /* ChatterCommentCreateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41466CC31D50078900F9C344 /* ChatterCommentCreateRequest.swift */; };
 		4150315A1CA9E68B00A3FB94 /* AuthorizationDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415031591CA9E68B00A3FB94 /* AuthorizationDeserializer.swift */; };
@@ -342,7 +348,7 @@
 		41A70EEE1CC973A00072AB06 /* CommunityListingButtonDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A70EED1CC973A00072AB06 /* CommunityListingButtonDelegate.swift */; };
 		41A70EF01CC9D9060072AB06 /* CommunityDetailJoinSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A70EEF1CC9D9060072AB06 /* CommunityDetailJoinSegue.swift */; };
 		41A70EF41CCB1EE60072AB06 /* UINavigationController+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A70EF31CCB1EE60072AB06 /* UINavigationController+Utility.swift */; };
-		41A70F001CD3C6CB0072AB06 /* ActivityMetric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A70EFF1CD3C6CB0072AB06 /* ActivityMetric.swift */; };
+		41A70F001CD3C6CB0072AB06 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A70EFF1CD3C6CB0072AB06 /* Activity.swift */; };
 		41A917FB1BBC744800CCF91E /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41A917FA1BBC744800CCF91E /* GoogleMaps.framework */; };
 		41A917FF1BBC747600CCF91E /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 41A917FE1BBC747600CCF91E /* GoogleMaps.bundle */; };
 		41B108AC1D5E3F36001B79AF /* Challenge.UserRelation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B108AB1D5E3F36001B79AF /* Challenge.UserRelation.swift */; };
@@ -372,6 +378,8 @@
 		41C395AE1D3DE420007D222F /* CommentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C395AD1D3DE420007D222F /* CommentController.swift */; };
 		41CAB9B41BC411A00000772C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 41CAB9B01BC411A00000772C /* Localizable.strings */; };
 		41CB52EC1C979E5F004C13E9 /* ActivityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CB52EB1C979E5F004C13E9 /* ActivityTableViewCell.swift */; };
+		41D74A2A1D91BDD000532FA7 /* MetricRecentSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D74A291D91BDD000532FA7 /* MetricRecentSummaryViewController.swift */; };
+		41D74A2E1D91C02A00532FA7 /* MetricRecentSummary.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41D74A2D1D91C02A00532FA7 /* MetricRecentSummary.storyboard */; };
 		41D8717E1C7A8FAD002DCDA0 /* CPTXYPlotSpace+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D8717D1C7A8FAD002DCDA0 /* CPTXYPlotSpace+Utility.swift */; };
 		41D871801C7A91BF002DCDA0 /* GraphPoint+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D8717F1C7A91BF002DCDA0 /* GraphPoint+Utility.swift */; };
 		41D871881C7CBFBB002DCDA0 /* Host.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41D871871C7CBFBB002DCDA0 /* Host.storyboard */; };
@@ -385,6 +393,11 @@
 		41E814851D1DD0A300D8DEBD /* higi-dev.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 41E814841D1DD0A300D8DEBD /* higi-dev.entitlements */; };
 		41E90DED1BD98494001DCC4C /* RequiredAppUpdate.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41E90DEC1BD98494001DCC4C /* RequiredAppUpdate.storyboard */; };
 		41E90DF11BD984E0001DCC4C /* RequiredAppUpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E90DF01BD984E0001DCC4C /* RequiredAppUpdateViewController.swift */; };
+		41EBD25A1D6CFE2800DE7251 /* Activity.Metric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EBD2591D6CFE2800DE7251 /* Activity.Metric.swift */; };
+		41EBD26A1D6E135000DE7251 /* Activity.Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EBD2691D6E135000DE7251 /* Activity.Category.swift */; };
+		41EBD2B31D6F8B8C00DE7251 /* Activity.Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EBD2B21D6F8B8C00DE7251 /* Activity.Service.swift */; };
+		41EBD2B51D6F8C9100DE7251 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EBD2B41D6F8C9100DE7251 /* Device.swift */; };
+		41EBD2B71D6F916600DE7251 /* Device.Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EBD2B61D6F916600DE7251 /* Device.Identifier.swift */; };
 		41EBD2BC1D6FFCA200DE7251 /* TermsAndPrivacyNetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EBD2BB1D6FFCA200DE7251 /* TermsAndPrivacyNetworkController.swift */; };
 		41EBD2C11D70007700DE7251 /* AuthenticationNetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EBD2C01D70007700DE7251 /* AuthenticationNetworkController.swift */; };
 		41ED6C971C85FCA300A55BED /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41ED6C961C85FCA300A55BED /* Notifications.swift */; };
@@ -711,6 +724,11 @@
 		413922C91CDA6DA000C3672E /* HostController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostController.swift; sourceTree = "<group>"; };
 		413922CB1CDA94DD00C3672E /* UserRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRequest.swift; sourceTree = "<group>"; };
 		413C45F01D7F6BA8009B81A7 /* ChallengeParticipantController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeParticipantController.swift; sourceTree = "<group>"; };
+		413C46001D81BDC4009B81A7 /* MetricsOverviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricsOverviewViewController.swift; sourceTree = "<group>"; };
+		413C46071D81BE81009B81A7 /* MetricsOverview.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MetricsOverview.storyboard; sourceTree = "<group>"; };
+		413C460B1D81C886009B81A7 /* ActivityCollectionRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityCollectionRequest.swift; sourceTree = "<group>"; };
+		413C460D1D81CC35009B81A7 /* ActivityNetworkController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityNetworkController.swift; sourceTree = "<group>"; };
+		413C46141D81EEE7009B81A7 /* Activity.Metadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Activity.Metadata.swift; sourceTree = "<group>"; };
 		413CC02F1C6927EC0097AE56 /* ActivityDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityDetailView.xib; sourceTree = "<group>"; };
 		413CC0331C6929BA0097AE56 /* ActivityDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityDetailView.swift; sourceTree = "<group>"; };
 		413E19241C10AB2C00146B29 /* UniversalLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UniversalLink.swift; sourceTree = "<group>"; };
@@ -744,6 +762,7 @@
 		4143ED1F1C9DD3F50013F9B2 /* UIViewController+InterfaceOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+InterfaceOrientation.m"; sourceTree = "<group>"; };
 		41450D231D7F2157005A56BD /* ChallengeWinnerTableViewHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeWinnerTableViewHeaderView.xib; sourceTree = "<group>"; };
 		41450D251D7F2257005A56BD /* ChallengeWinnerTableViewHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeWinnerTableViewHeaderView.swift; sourceTree = "<group>"; };
+		4145E6B51D92ED1600AE81FE /* MetricRecentSummaryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricRecentSummaryController.swift; sourceTree = "<group>"; };
 		41466CAF1D4FC7E300F9C344 /* TextInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextInputView.swift; sourceTree = "<group>"; };
 		41466CC31D50078900F9C344 /* ChatterCommentCreateRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatterCommentCreateRequest.swift; sourceTree = "<group>"; };
 		415031591CA9E68B00A3FB94 /* AuthorizationDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationDeserializer.swift; sourceTree = "<group>"; };
@@ -907,7 +926,7 @@
 		41A70EED1CC973A00072AB06 /* CommunityListingButtonDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityListingButtonDelegate.swift; sourceTree = "<group>"; };
 		41A70EEF1CC9D9060072AB06 /* CommunityDetailJoinSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityDetailJoinSegue.swift; sourceTree = "<group>"; };
 		41A70EF31CCB1EE60072AB06 /* UINavigationController+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Utility.swift"; sourceTree = "<group>"; };
-		41A70EFF1CD3C6CB0072AB06 /* ActivityMetric.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityMetric.swift; sourceTree = "<group>"; };
+		41A70EFF1CD3C6CB0072AB06 /* Activity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		41A917FA1BBC744800CCF91E /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = "Vendor/Google-Maps/Frameworks/GoogleMaps.framework"; sourceTree = "<group>"; };
 		41A917FE1BBC747600CCF91E /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = "Vendor/Google-Maps/Frameworks/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle"; sourceTree = "<group>"; };
 		41B108AB1D5E3F36001B79AF /* Challenge.UserRelation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Challenge.UserRelation.swift; sourceTree = "<group>"; };
@@ -938,6 +957,8 @@
 		41C395AD1D3DE420007D222F /* CommentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentController.swift; sourceTree = "<group>"; };
 		41CAB9B11BC411A00000772C /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Localizable.strings; sourceTree = "<group>"; };
 		41CB52EB1C979E5F004C13E9 /* ActivityTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityTableViewCell.swift; sourceTree = "<group>"; };
+		41D74A291D91BDD000532FA7 /* MetricRecentSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricRecentSummaryViewController.swift; sourceTree = "<group>"; };
+		41D74A2D1D91C02A00532FA7 /* MetricRecentSummary.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MetricRecentSummary.storyboard; sourceTree = "<group>"; };
 		41D8717D1C7A8FAD002DCDA0 /* CPTXYPlotSpace+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CPTXYPlotSpace+Utility.swift"; sourceTree = "<group>"; };
 		41D8717F1C7A91BF002DCDA0 /* GraphPoint+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GraphPoint+Utility.swift"; sourceTree = "<group>"; };
 		41D871871C7CBFBB002DCDA0 /* Host.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Host.storyboard; sourceTree = "<group>"; };
@@ -952,6 +973,11 @@
 		41E814861D1DD0E700D8DEBD /* Info_dev.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info_dev.plist; sourceTree = "<group>"; };
 		41E90DEC1BD98494001DCC4C /* RequiredAppUpdate.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = RequiredAppUpdate.storyboard; sourceTree = "<group>"; };
 		41E90DF01BD984E0001DCC4C /* RequiredAppUpdateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequiredAppUpdateViewController.swift; sourceTree = "<group>"; };
+		41EBD2591D6CFE2800DE7251 /* Activity.Metric.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Activity.Metric.swift; sourceTree = "<group>"; };
+		41EBD2691D6E135000DE7251 /* Activity.Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Activity.Category.swift; sourceTree = "<group>"; };
+		41EBD2B21D6F8B8C00DE7251 /* Activity.Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Activity.Service.swift; sourceTree = "<group>"; };
+		41EBD2B41D6F8C9100DE7251 /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		41EBD2B61D6F916600DE7251 /* Device.Identifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.Identifier.swift; sourceTree = "<group>"; };
 		41EBD2BB1D6FFCA200DE7251 /* TermsAndPrivacyNetworkController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsAndPrivacyNetworkController.swift; sourceTree = "<group>"; };
 		41EBD2C01D70007700DE7251 /* AuthenticationNetworkController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationNetworkController.swift; sourceTree = "<group>"; };
 		41ED6C961C85FCA300A55BED /* Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
@@ -1597,6 +1623,58 @@
 			name = Request;
 			sourceTree = "<group>";
 		};
+		413C46041D81BDD0009B81A7 /* Collection */ = {
+			isa = PBXGroup;
+			children = (
+				413E19451C10DB2600146B29 /* New */,
+				413E19441C10DB1E00146B29 /* Old */,
+			);
+			name = Collection;
+			sourceTree = "<group>";
+		};
+		413C46051D81BDDE009B81A7 /* Overview */ = {
+			isa = PBXGroup;
+			children = (
+				413C46001D81BDC4009B81A7 /* MetricsOverviewViewController.swift */,
+				41DB8C451D95C78200273686 /* Recent Summary */,
+			);
+			name = Overview;
+			sourceTree = "<group>";
+		};
+		413C46061D81BE00009B81A7 /* Collection */ = {
+			isa = PBXGroup;
+			children = (
+				418D4C251C7A204A008C86E7 /* New */,
+				418D4C241C7A203E008C86E7 /* Old */,
+			);
+			name = Collection;
+			sourceTree = "<group>";
+		};
+		413C46091D81BE8D009B81A7 /* Overview */ = {
+			isa = PBXGroup;
+			children = (
+				413C46071D81BE81009B81A7 /* MetricsOverview.storyboard */,
+				41DB8C481D95C8A300273686 /* Recent Summary */,
+			);
+			name = Overview;
+			sourceTree = "<group>";
+		};
+		413C460A1D81C824009B81A7 /* Activity */ = {
+			isa = PBXGroup;
+			children = (
+				413C460B1D81C886009B81A7 /* ActivityCollectionRequest.swift */,
+			);
+			name = Activity;
+			sourceTree = "<group>";
+		};
+		413C460F1D81CC41009B81A7 /* Activity */ = {
+			isa = PBXGroup;
+			children = (
+				413C460D1D81CC35009B81A7 /* ActivityNetworkController.swift */,
+			);
+			name = Activity;
+			sourceTree = "<group>";
+		};
 		413E19431C10D98100146B29 /* Graph Delegates */ = {
 			isa = PBXGroup;
 			children = (
@@ -1729,6 +1807,7 @@
 		415031571CA9CC6E00A3FB94 /* Requests */ = {
 			isa = PBXGroup;
 			children = (
+				413C460A1D81C824009B81A7 /* Activity */,
 				415031581CA9CC7A00A3FB94 /* Authentication */,
 				41667A8E1CFD5B4B007BB0FF /* Challenge */,
 				41C3959C1D3D651D007D222F /* Chatter */,
@@ -1876,6 +1955,7 @@
 		4163CCD21D5267B700424500 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				413C460F1D81CC41009B81A7 /* Activity */,
 				41EBD2C21D70024300DE7251 /* Authentication */,
 				2798A2771D7A30380072EC1A /* Challenges */,
 				4163CCDF1D52D94300424500 /* Chatter */,
@@ -2134,8 +2214,8 @@
 		418D4C231C7A1F5C008C86E7 /* Metrics */ = {
 			isa = PBXGroup;
 			children = (
-				418D4C251C7A204A008C86E7 /* New */,
-				418D4C241C7A203E008C86E7 /* Old */,
+				413C46091D81BE8D009B81A7 /* Overview */,
+				413C46061D81BE00009B81A7 /* Collection */,
 			);
 			name = Metrics;
 			sourceTree = "<group>";
@@ -2671,6 +2751,23 @@
 			name = "Main Tab Bar";
 			sourceTree = "<group>";
 		};
+		41DB8C451D95C78200273686 /* Recent Summary */ = {
+			isa = PBXGroup;
+			children = (
+				41D74A291D91BDD000532FA7 /* MetricRecentSummaryViewController.swift */,
+				4145E6B51D92ED1600AE81FE /* MetricRecentSummaryController.swift */,
+			);
+			name = "Recent Summary";
+			sourceTree = "<group>";
+		};
+		41DB8C481D95C8A300273686 /* Recent Summary */ = {
+			isa = PBXGroup;
+			children = (
+				41D74A2D1D91C02A00532FA7 /* MetricRecentSummary.storyboard */,
+			);
+			name = "Recent Summary";
+			sourceTree = "<group>";
+		};
 		41E814881D1DD1A800D8DEBD /* Entitlements */ = {
 			isa = PBXGroup;
 			children = (
@@ -2697,6 +2794,43 @@
 				41E90DF01BD984E0001DCC4C /* RequiredAppUpdateViewController.swift */,
 			);
 			name = "App Update";
+			sourceTree = "<group>";
+		};
+		41EBD2671D6E132400DE7251 /* Activity */ = {
+			isa = PBXGroup;
+			children = (
+				41A70EFF1CD3C6CB0072AB06 /* Activity.swift */,
+				41EBD2681D6E132B00DE7251 /* Nested Types */,
+			);
+			name = Activity;
+			sourceTree = "<group>";
+		};
+		41EBD2681D6E132B00DE7251 /* Nested Types */ = {
+			isa = PBXGroup;
+			children = (
+				41EBD2691D6E135000DE7251 /* Activity.Category.swift */,
+				413C46141D81EEE7009B81A7 /* Activity.Metadata.swift */,
+				41EBD2591D6CFE2800DE7251 /* Activity.Metric.swift */,
+				41EBD2B21D6F8B8C00DE7251 /* Activity.Service.swift */,
+			);
+			name = "Nested Types";
+			sourceTree = "<group>";
+		};
+		41EBD2B81D6F917100DE7251 /* Device */ = {
+			isa = PBXGroup;
+			children = (
+				41EBD2B41D6F8C9100DE7251 /* Device.swift */,
+				41EBD2B91D6F917A00DE7251 /* Nested Types */,
+			);
+			name = Device;
+			sourceTree = "<group>";
+		};
+		41EBD2B91D6F917A00DE7251 /* Nested Types */ = {
+			isa = PBXGroup;
+			children = (
+				41EBD2B61D6F916600DE7251 /* Device.Identifier.swift */,
+			);
+			name = "Nested Types";
 			sourceTree = "<group>";
 		};
 		41EBD2BF1D6FFCD100DE7251 /* Misc */ = {
@@ -2777,13 +2911,14 @@
 		8F1DB450194F735000636566 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				41A70EFF1CD3C6CB0072AB06 /* ActivityMetric.swift */,
+				419AC35E1D40B333000DDA5D /* Deprecation Candidates */,
+				41EBD2671D6E132400DE7251 /* Activity */,
 				410FFFB01CA77533005EAC9E /* AgreementInfo.swift */,
 				41B108A81D5E3F17001B79AF /* Challenge */,
 				419AC3581D3ED2D9000DDA5D /* Comment.swift */,
 				410FFF3C1CA5CDDB005EAC9E /* Community.swift */,
 				410EED4E1D4BE9C5002FF052 /* Content.swift */,
-				419AC35E1D40B333000DDA5D /* Deprecation Candidates */,
+				41EBD2B81D6F917100DE7251 /* Device */,
 				41FB225A1BE2AE80009139B4 /* FabricInfo.swift */,
 				410FFFA41CA77268005EAC9E /* HigiAuthorization.swift */,
 				410FFFAA1CA772A9005EAC9E /* JSONWebToken.swift */,
@@ -2990,8 +3125,8 @@
 		8F6266AD197EC8C700145EDB /* Metrics */ = {
 			isa = PBXGroup;
 			children = (
-				413E19451C10DB2600146B29 /* New */,
-				413E19441C10DB1E00146B29 /* Old */,
+				413C46051D81BDDE009B81A7 /* Overview */,
+				413C46041D81BDD0009B81A7 /* Collection */,
 			);
 			name = Metrics;
 			sourceTree = "<group>";
@@ -3344,6 +3479,7 @@
 				411F7A061CBECAC6000D0D64 /* CommunityBannerView.xib in Resources */,
 				2BBDBA541A12AC2C005A6815 /* ChallengesView.xib in Resources */,
 				41247DD51C5F29FB00DDC5EC /* MetricDetail.storyboard in Resources */,
+				41D74A2E1D91C02A00532FA7 /* MetricRecentSummary.storyboard in Resources */,
 				4179FCF01C25109D006130F5 /* Loading.storyboard in Resources */,
 				270342B21D66684100B84E28 /* LeaderboardUserView.xib in Resources */,
 				D17528821B0FB651006335B4 /* DailySummaryRowView.xib in Resources */,
@@ -3375,6 +3511,7 @@
 				D1E1FF0A1A76E0AC00C8951C /* ChallengeDetailsRow.xib in Resources */,
 				41BFC9B81BCC0E0D00FD0F45 /* Localizable.stringsdict in Resources */,
 				2BBDBA531A12AC2C005A6815 /* ChallengeRowCell.xib in Resources */,
+				413C46081D81BE81009B81A7 /* MetricsOverview.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3482,6 +3619,7 @@
 				278D9F741D7F68EE00989334 /* ChallengesEmptyTableViewCell.swift in Sources */,
 				41667A2A1CED162A007BB0FF /* ProfileImageViewController.swift in Sources */,
 				41A274B41D20F42600D10F8A /* TransformableString.swift in Sources */,
+				41EBD26A1D6E135000DE7251 /* Activity.Category.swift in Sources */,
 				41466CC41D50078900F9C344 /* ChatterCommentCreateRequest.swift in Sources */,
 				41FC21C61CA4453400BF7FC4 /* NSDateFormatter+Utility.swift in Sources */,
 				417323931CC410580009174D /* CommunityDetailViewController.swift in Sources */,
@@ -3560,6 +3698,7 @@
 				D149E9471A7822D900FBAA15 /* ChallengeDetailsPrize.swift in Sources */,
 				41A0BE121BBB088500A314D6 /* AFURLResponseSerialization.m in Sources */,
 				41B2B35C1BB326C800B13168 /* NotificationSettingsEmailController.swift in Sources */,
+				41D74A2A1D91BDD000532FA7 /* MetricRecentSummaryViewController.swift in Sources */,
 				416226751C79412200EFA1B3 /* CPTPlotSymbol+Utility.swift in Sources */,
 				8FE056E9198FDCA600C81208 /* FindStationViewController.swift in Sources */,
 				41EF922B1D19E56F00266AAB /* FeedTableViewController.swift in Sources */,
@@ -3571,7 +3710,7 @@
 				27A4AE771D4BB4CA00FEAFF0 /* ChallengeProgressView.swift in Sources */,
 				41BA3E721D4D76D2009BF365 /* ActionBar.swift in Sources */,
 				D17528881B0FD332006335B4 /* DailySummaryBreakdown.swift in Sources */,
-				41A70F001CD3C6CB0072AB06 /* ActivityMetric.swift in Sources */,
+				41A70F001CD3C6CB0072AB06 /* Activity.swift in Sources */,
 				8F6A24311951E5D80094B73C /* ApiUtility.swift in Sources */,
 				410FFFAD1CA772B1005EAC9E /* String+Utility.swift in Sources */,
 				410F10811D78B7AB0008F68E /* ChallengeWinConditionController.swift in Sources */,
@@ -3593,6 +3732,7 @@
 				27A79EAC1D7776DC00242CF7 /* UserDataRepository.swift in Sources */,
 				413922CA1CDA6DA000C3672E /* HostController.swift in Sources */,
 				8F9C69D91950C8AD00449664 /* KioskInfo.swift in Sources */,
+				4145E6B61D92ED1600AE81FE /* MetricRecentSummaryController.swift in Sources */,
 				410F10BD1D790B4D0008F68E /* ChallengeWinnerTableViewController.swift in Sources */,
 				D1DC365E1AC9E9F000CB124D /* CustomLoadingSpinner.swift in Sources */,
 				8FDB4B661A096ECF00F57B38 /* HigiActivity.swift in Sources */,
@@ -3640,12 +3780,15 @@
 				D130183E1B14D2C9008DDFAD /* ChallengeUtility.swift in Sources */,
 				410FFFA51CA77269005EAC9E /* HigiAuthorization.swift in Sources */,
 				2BC5865E1A16D0AF005A7983 /* ChallengeInvitationView.swift in Sources */,
+				41EBD2B31D6F8B8C00DE7251 /* Activity.Service.swift in Sources */,
 				D18395C31A69CAD500D290BF /* ChallengesDetailsTab.swift in Sources */,
 				2798A2791D7A304D0072EC1A /* ChallengesNetworkController.swift in Sources */,
 				415338181C60681B00ED2B82 /* MetricCheckinSummaryView.swift in Sources */,
 				2BBDBA551A12AC2C005A6815 /* ChallengesViewController.swift in Sources */,
+				413C46151D81EEE7009B81A7 /* Activity.Metadata.swift in Sources */,
 				41667A2C1CED1639007BB0FF /* ModifyImageViewController.swift in Sources */,
 				41A4257A1CDBEACB00036C84 /* SignUpNameViewController.swift in Sources */,
+				41EBD2B51D6F8C9100DE7251 /* Device.swift in Sources */,
 				413E19951C10EBE800146B29 /* MetricChildViewController.swift in Sources */,
 				413922CC1CDA94DD00C3672E /* UserRequest.swift in Sources */,
 				419448C81D6AC21B00F4FF45 /* NewChallengeUtility.swift in Sources */,
@@ -3672,6 +3815,7 @@
 				419AC3591D3ED2D9000DDA5D /* Comment.swift in Sources */,
 				8FEF6F461A6EECD5001EF8A6 /* ChallengesCard.swift in Sources */,
 				413E19251C10AB2C00146B29 /* UniversalLink.swift in Sources */,
+				41EBD2B71D6F916600DE7251 /* Device.Identifier.swift in Sources */,
 				411F79791CBC05E2000D0D64 /* CommunitiesTableUtility.swift in Sources */,
 				41643AAE1C188D4800258F55 /* MetricDataLabelView.swift in Sources */,
 				41A0BE0C1BBB088500A314D6 /* AFHTTPRequestOperationManager.m in Sources */,
@@ -3697,6 +3841,7 @@
 				410167221C555C9800A54B02 /* NewActivityMetricDelegate.swift in Sources */,
 				8F2CB5891993E68C009377A8 /* SessionData.swift in Sources */,
 				417F48B31BC823F1005BC49D /* GTMNSString+HTML.m in Sources */,
+				413C460E1D81CC35009B81A7 /* ActivityNetworkController.swift in Sources */,
 				4127AB1F1D58D8F1005AEF54 /* UserImagePositionUploadRequest.swift in Sources */,
 				273AC8531D4A60A300828FF1 /* ChallengeInformationView.swift in Sources */,
 				41A425891CE22ADF00036C84 /* LogInViewController.swift in Sources */,
@@ -3728,11 +3873,14 @@
 				411420221D09A7BF0050473E /* CommunityRequest.swift in Sources */,
 				410FFF5D1CA5EDC5005EAC9E /* Paging.swift in Sources */,
 				D149E94B1A78471A00FBAA15 /* ChallengeDetailsChatterRow.swift in Sources */,
+				413C460C1D81C886009B81A7 /* ActivityCollectionRequest.swift in Sources */,
 				8FEF6F3C1A6EAACE001EF8A6 /* DashboardViewController.swift in Sources */,
 				410FFFBC1CA77D34005EAC9E /* HTTP.swift in Sources */,
 				27EC94B01D8B2CC70014DB5C /* ScrollToLocationButton.swift in Sources */,
+				41EBD25A1D6CFE2800DE7251 /* Activity.Metric.swift in Sources */,
 				8FCD2D8019EC286900AC5A82 /* UIImage+Orientation.m in Sources */,
 				413714EA1D45C23E00A74BBC /* JSONInitializable.swift in Sources */,
+				413C46011D81BDC4009B81A7 /* MetricsOverviewViewController.swift in Sources */,
 				D105CB5D1B7E9B1F00971AB0 /* QrScannerViewController.swift in Sources */,
 				41247DCE1C5BD1A100DDC5EC /* MetricDetailViewController.swift in Sources */,
 				419D864C1BBEF83000E7D844 /* GClusterManager.m in Sources */,
