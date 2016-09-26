@@ -18,15 +18,16 @@ final class MetricRecentSummaryController {
 
 extension MetricRecentSummaryController {
     
-    func fetch(activitiesForMetric metric: MetricRecentSummaryViewController.Metric, forOverview: Bool, forUser user: User, success: () -> Void, failure: (error: ErrorType) -> Void) {
+    func fetch(activitiesForMetric metric: MetricRecentSummaryViewController.Metric, forUser user: User, success: () -> Void, failure: (error: ErrorType) -> Void) {
         
-        let dateRange = activityDateRange(forMetricOverview: forOverview)
-        guard let startDate = dateRange.startDate,
-            let endDate = dateRange.endDate else {
-                failure(error: Error.unknownDate)
-                return
+        let today = NSDate()
+        guard let startDate = date(byAddingMonthComponent: -monthsToInclude, toDate: today) else {
+            failure(error: Error.unknownDate)
+            return
         }
-        let pageSize = forOverview ? maxActivities : 0
+        let endDate = today
+        
+        let pageSize = maxActivities
         let sortDescending = true
         let includeWatts = metric == .watts
         
@@ -69,20 +70,6 @@ extension MetricRecentSummaryController {
 // MARK: Date Helper
 
 extension MetricRecentSummaryController {
-    
-    private func activityDateRange(forMetricOverview forMetricOverview: Bool) -> (startDate: NSDate?, endDate: NSDate?) {
-        let endDate: NSDate?
-        let startDate: NSDate?
-        let today = NSDate()
-        if forMetricOverview {
-            startDate = date(byAddingMonthComponent: -monthsToInclude, toDate: today)
-            endDate = today
-        } else {
-            startDate = NSDate.distantPast()
-            endDate = date(byAddingMonthComponent: -monthsToInclude, toDate: today)
-        }
-        return (startDate, endDate)
-    }
     
     private func date(byAddingMonthComponent month: Int, toDate: NSDate) -> NSDate? {
         let dateComponents = NSDateComponents()

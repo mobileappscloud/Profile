@@ -410,6 +410,7 @@
 		41EF92311D1A06D300266AAB /* PasswordUpdateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EF92301D1A06D300266AAB /* PasswordUpdateRequest.swift */; };
 		41EF92331D1A19F600266AAB /* ChangePasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EF92321D1A19F600266AAB /* ChangePasswordController.swift */; };
 		41F4E5301D678CCD003FC114 /* ChallengeDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41F4E52F1D678CCD003FC114 /* ChallengeDetail.storyboard */; };
+		41F549D91D999305001B56EA /* MetricGraphPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F549D81D999305001B56EA /* MetricGraphPoints.swift */; };
 		41F655621CD4258E00BD2E25 /* NSError+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F655611CD4258E00BD2E25 /* NSError+Utility.swift */; };
 		41FB22551BE2951F009139B4 /* CrashAnalyticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41FB22541BE2951F009139B4 /* CrashAnalyticsManager.swift */; };
 		41FB225B1BE2AE80009139B4 /* FabricInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41FB225A1BE2AE80009139B4 /* FabricInfo.swift */; };
@@ -992,6 +993,7 @@
 		41EF92301D1A06D300266AAB /* PasswordUpdateRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordUpdateRequest.swift; sourceTree = "<group>"; };
 		41EF92321D1A19F600266AAB /* ChangePasswordController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordController.swift; sourceTree = "<group>"; };
 		41F4E52F1D678CCD003FC114 /* ChallengeDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ChallengeDetail.storyboard; sourceTree = "<group>"; };
+		41F549D81D999305001B56EA /* MetricGraphPoints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricGraphPoints.swift; sourceTree = "<group>"; };
 		41F655611CD4258E00BD2E25 /* NSError+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSError+Utility.swift"; sourceTree = "<group>"; };
 		41FB22541BE2951F009139B4 /* CrashAnalyticsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrashAnalyticsManager.swift; sourceTree = "<group>"; };
 		41FB225A1BE2AE80009139B4 /* FabricInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FabricInfo.swift; sourceTree = "<group>"; };
@@ -2930,6 +2932,7 @@
 				410FFFAA1CA772A9005EAC9E /* JSONWebToken.swift */,
 				4123878B1D6264FE0020D673 /* Leaderboard */,
 				410F61E41CB31B8A00614E78 /* MediaAsset.swift */,
+				41F549D81D999305001B56EA /* MetricGraphPoints.swift */,
 				410FFF5C1CA5EDC4005EAC9E /* Paging.swift */,
 				41A274A41D20F42600D10F8A /* Post.swift */,
 				412387991D6278DD0020D673 /* PublicUser.swift */,
@@ -3870,6 +3873,7 @@
 				41A274FB1D21C71700D10F8A /* PostHeaderView.swift in Sources */,
 				41BAD2911C4D492700E3A5AB /* MetricBlankStateViewController.swift in Sources */,
 				411F79771CBB457D000D0D64 /* ActivityIndicatorTableViewCell.swift in Sources */,
+				41F549D91D999305001B56EA /* MetricGraphPoints.swift in Sources */,
 				4127AB211D58D974005AEF54 /* UserTermsUpdateRequest.swift in Sources */,
 				27AC77561D6CD5EF0048316B /* AnyWrapper.swift in Sources */,
 				418484C81C72E27F00C26211 /* NewBodyFatMetricDelegate.swift in Sources */,
