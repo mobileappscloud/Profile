@@ -24,11 +24,23 @@ final class ChallengeLeaderboardTableViewCell: UITableViewCell {
     
     @IBOutlet var challengeProgressWidthConstraint: NSLayoutConstraint!
     
+    @IBOutlet var dashedLineView: ChallengeVerticalDashedLineView!
+    
+    // Properties
+    
     private var proportion: CGFloat = 1.0 {
         didSet {
-            configureProgressBarConstraint()
+            setNeedsLayout()
         }
     }
+    
+    var hasGoal: Bool = false {
+        didSet {
+            dashedLineView.hidden = !hasGoal
+        }
+    }
+    
+    var minimumProgressViewWidth = ChallengeProgressView.heightForNonCompetitiveBar
 }
 
 // MARK: - Helpers
@@ -38,12 +50,15 @@ extension ChallengeLeaderboardTableViewCell {
     func reset() {
         avatarImageView.image = UIImage(named: "profile-placeholder")
         nameLabel.text = nil
+        placementLabel.text = nil
+        challengeProgressView.wattsLabel.text = nil
     }
     
     // This is how large the progress view should be relative to its superview
     func setProgressViewProportion(proportion: CGFloat) {
         self.proportion = proportion
     }
+    
 }
 
 // MARK: - Lifecycle
@@ -52,12 +67,22 @@ extension ChallengeLeaderboardTableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        configureProgressBarConstraint()
+        configureProgressBarWidthConstraint()
     }
     
-    private func configureProgressBarConstraint() {
-        layoutIfNeeded()
-        challengeProgressWidthConstraint.constant = proportion * challengeProgressViewContainer.bounds.width
+    private func configureProgressBarWidthConstraint() {
+        var newProportion = proportion
+        let potentialWidth = newProportion * challengeProgressViewContainer.bounds.width
+        if potentialWidth < minimumProgressViewWidth {
+            newProportion = minimumProgressViewWidth / challengeProgressViewContainer.bounds.width
+        }
+
+        let newWidth = newProportion * challengeProgressViewContainer.bounds.width
+        if challengeProgressWidthConstraint.constant != newWidth {
+            challengeProgressWidthConstraint.constant = newProportion * challengeProgressViewContainer.bounds.width
+            challengeProgressView.setNeedsLayout()
+            challengeProgressView.layoutIfNeeded()
+        }
     }
 }
 

@@ -47,7 +47,7 @@ extension ChallengesController {
         
         var asFilter: [ChallengeCollectionRequest.Filter] {
             switch self {
-                case .Current: return [.current, .upcoming]
+                case .Current: return []
                 case .Finished: return [.finished]
             }
         }

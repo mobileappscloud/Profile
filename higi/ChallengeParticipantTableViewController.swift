@@ -71,7 +71,7 @@ extension ChallengeParticipantTableViewController: UITableViewDataSource {
             case .individualGoalAccumulation: numberOfRows = 1
             case .individualGoalFrequency: break
             case .individualCompetitive: break
-            case .individualCompetitiveGoal: break
+            case .individualCompetitiveGoal: numberOfRows = 1
             case .teamGoalAccumulation: break
             case .teamCompetitive: break
             case .teamCompetitiveGoal: break
@@ -95,7 +95,7 @@ extension ChallengeParticipantTableViewController: UITableViewDataSource {
             case .individualGoalAccumulation: return individualGoalAccumulationHeaderCell(for: tableView, indexPath: indexPath)
             case .individualGoalFrequency: fatalError("No cell for section")
             case .individualCompetitive: fatalError("No cell for section")
-            case .individualCompetitiveGoal: fatalError("No cell for section")
+            case .individualCompetitiveGoal: return individualGoalAccumulationHeaderCell(for: tableView, indexPath: indexPath)
             case .teamGoalAccumulation: fatalError("No cell for section")
             case .teamCompetitive: fatalError("No cell for section")
             case .teamCompetitiveGoal: fatalError("No cell for section")
@@ -106,7 +106,7 @@ extension ChallengeParticipantTableViewController: UITableViewDataSource {
             case .individualGoalAccumulation: return individualGoalAccumulationCell(for: tableView, indexPath: indexPath)
             case .individualGoalFrequency: fatalError("Not implemented")
             case .individualCompetitive: return individualCompetitiveCell(for: tableView, for: indexPath)
-            case .individualCompetitiveGoal: fatalError("Not implemented")
+            case .individualCompetitiveGoal: return individualCompetitiveGoalCell(for: tableView, for: indexPath)
             case .teamGoalAccumulation: fatalError("Not implemented")
             case .teamCompetitive: fatalError("Not implemented")
             case .teamCompetitiveGoal: fatalError("Not implemented")
@@ -159,7 +159,7 @@ extension ChallengeParticipantTableViewController {
     
     // MARK: individualCompetitiveCell
 
-    private func individualCompetitiveCell(for tableView: UITableView, for indexPath: NSIndexPath) -> UITableViewCell {
+    private func individualCompetitiveCell(for tableView: UITableView, for indexPath: NSIndexPath) -> ChallengeLeaderboardTableViewCell {
         let participantCell = tableView.dequeueReusableCell(withClass: ChallengeLeaderboardTableViewCell.self, forIndexPath: indexPath)
         participantCell.reset()
         
@@ -191,10 +191,20 @@ extension ChallengeParticipantTableViewController {
         cell.placementLabel.text = ChallengeUtility.getRankWithSuffix(participater.rank)
         
         let progressViewWidthProportion = CGFloat(participater.units/maxValue)
-        
-        cell.layoutIfNeeded()
+        cell.minimumProgressViewWidth = ChallengeProgressView.heightForCompetitiveBar
         cell.setProgressViewProportion(progressViewWidthProportion)
+        
+        cell.challengeProgressView.setNeedsLayout() // need to layout to update bar and watts label truncation
     }
+    
+    // MARK: individualGoalCompetitiveCell
+
+    private func individualCompetitiveGoalCell(for tableView: UITableView, for indexPath: NSIndexPath) -> UITableViewCell {
+        let participantCell = individualCompetitiveCell(for: tableView, for: indexPath)
+        participantCell.hasGoal = true
+        return participantCell
+    }
+
 }
 
 extension ChallengeParticipantTableViewController {

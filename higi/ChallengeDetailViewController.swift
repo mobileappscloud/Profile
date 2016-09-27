@@ -308,10 +308,14 @@ extension ChallengeDetailViewController {
             case .individualGoalFrequency: fatalError("Not implemented")
             case .individualCompetitive:
                 return NSLocalizedString("CHALLENGE_DETAIL_SEGMENTED_PAGE_SEGMENT_TITLE_LEADERBOARD", comment: "Title for 'leaderboard' segment on segmented control within the challenge detail view.")
-            case .individualCompetitiveGoal: fatalError("Not implemented")
-            case .teamGoalAccumulation: fatalError("Not implemented")
-            case .teamCompetitive: fatalError("Not implemented")
-            case .teamCompetitiveGoal: fatalError("Not implemented")
+            case .individualCompetitiveGoal:
+                return NSLocalizedString("CHALLENGE_DETAIL_SEGMENTED_PAGE_SEGMENT_TITLE_LEADERBOARD", comment: "Title for 'leaderboard' segment on segmented control within the challenge detail view.")
+            case .teamGoalAccumulation:
+                return NSLocalizedString("CHALLENGE_DETAIL_SEGMENTED_PAGE_SEGMENT_TITLE_PROGRESS", comment: "Title for 'Progress' segment on segmented control within the challenge detail view.")
+            case .teamCompetitive:
+                return NSLocalizedString("CHALLENGE_DETAIL_SEGMENTED_PAGE_SEGMENT_TITLE_LEADERBOARD", comment: "Title for 'leaderboard' segment on segmented control within the challenge detail view.")
+            case .teamCompetitiveGoal:
+                return NSLocalizedString("CHALLENGE_DETAIL_SEGMENTED_PAGE_SEGMENT_TITLE_LEADERBOARD", comment: "Title for 'leaderboard' segment on segmented control within the challenge detail view.")
         }
     }
 }

@@ -60,6 +60,7 @@ final class ChallengeProgressView: ReusableXibView {
         didSet {
             updateProgressWidth()
             renderMilestones()
+            setNeedsLayout()
             layoutIfNeeded()
         }
     }
@@ -171,6 +172,7 @@ extension ChallengeProgressView {
     }
     
     private func textIsTruncated(text: String) -> Bool {
+        wattsLabel.layoutIfNeeded()
         return (text as NSString).sizeWithAttributes([
             NSFontAttributeName: wattsLabel.font
         ]).width > wattsLabel.bounds.width

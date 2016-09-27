@@ -45,7 +45,6 @@
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fgk-5t-970" userLabel="Goal Milestone Overlay View">
                     <rect key="frame" x="0.0" y="62" width="368" height="5"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DQG-D5-3iQ" userLabel="Watts Label">
                     <rect key="frame" x="6" y="61" width="356" height="7"/>
