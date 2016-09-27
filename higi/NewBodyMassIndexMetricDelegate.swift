@@ -15,6 +15,8 @@ final class NewBodyMassIndexMetricDelegate: NSObject, NewMetricDelegate {
         case _count
     }
     
+    var activities: [Activity] = []
+    
     var selectedIndex: Int = 0
     
     var plotSymbol: CPTPlotSymbol? = nil
@@ -123,83 +125,6 @@ final class NewBodyMassIndexMetricDelegate: NSObject, NewMetricDelegate {
     
 }
 
-// MARK: - Metric Gauge
-
-extension NewBodyMassIndexMetricDelegate {
-    
-    enum BodyMassIndexCategory: String {
-        case Underweight
-        case Normal
-        case Overweight
-        case Obese
-        
-        static let allValues: [BodyMassIndexCategory] = [.Underweight, .Normal, .Overweight, .Obese]
-        
-        /**
-         Body Mass Index (BMI) range as classified by the Center for Disease Control and Prevention.
-         [CDC Reference](http://www.cdc.gov/healthyweight/assessing/bmi/adult_bmi/)
-         
-         - returns: Body Mass Index range for a given weight category.
-         */
-        func range() -> (lowerBounds: Double, upperBounds: Double) {
-            let range: (lowerBounds: Double, upperBounds: Double)!
-            switch self {
-            case .Underweight:
-                range = (10.0, 18.5)
-            case .Normal:
-                range = (18.5, 25.0)
-            case .Overweight:
-                range = (25.0, 30.0)
-            case .Obese:
-                range = (30.0, 50.0)
-            }
-            return range
-        }
-        
-        func name() -> String {
-            let name: String
-            switch self {
-            case .Underweight:
-                name = NSLocalizedString("WEIGHT_METRICS_WEIGHT_RANGE_UNDERWEIGHT_LABEL", comment: "Label for a weight which falls within an underweight range.")
-            case .Normal:
-                name = NSLocalizedString("WEIGHT_METRICS_WEIGHT_RANGE_NORMAL_LABEL", comment: "Label for a weight which falls within a normal range.")
-            case .Overweight:
-                name = NSLocalizedString("WEIGHT_METRICS_WEIGHT_RANGE_OVERWEIGHT_LABEL", comment: "Label for a weight which falls within an overweight range.")
-            case .Obese:
-                name = NSLocalizedString("WEIGHT_METRICS_WEIGHT_RANGE_OBESE_LABEL", comment: "Label for a weight which falls within an obese range.")
-            }
-            return name
-        }
-        
-        func color() -> UIColor {
-            let color: UIColor
-            switch self {
-            case .Underweight:
-                color = Theme.Color.BodyMassIndex.Category.underweight
-            case .Normal:
-                color = Theme.Color.BodyMassIndex.Category.normal
-            case .Overweight:
-                color = Theme.Color.BodyMassIndex.Category.overweight
-            case .Obese:
-                color = Theme.Color.BodyMassIndex.Category.obese
-            }
-            return color
-        }
-        
-        static func ranges() -> [MetricGauge.Range] {
-            var ranges: [MetricGauge.Range] = []
-            for category in BodyMassIndexCategory.allValues {
-                let label = category.name()
-                let color = category.color()
-                let interval = category.range()
-                let range = MetricGauge.Range(label: label, color: color, interval: interval)
-                ranges.append(range)
-            }
-            return ranges
-        }
-    }
-}
-
 // MARK: - Detail Preview
 
 extension NewBodyMassIndexMetricDelegate: MetricDetailPreviewDelegate {
@@ -207,14 +132,10 @@ extension NewBodyMassIndexMetricDelegate: MetricDetailPreviewDelegate {
     func updateDetailPreview(detailPreview: MetricCheckinSummaryView) {
         if !self.hasData() { return }
         
-        guard let checkins = SessionController.Instance.checkins else { return }
-        
         let selectedPoint = data.bodyMassIndexPoints[selectedIndex]
-        guard let checkinIdentifier = selectedPoint.identifier else { return }
+        guard let activity = activity(forGraphPoint: selectedPoint) else { return }
         
-        guard let checkin = checkins.filter({ $0.checkinId == checkinIdentifier }).first else { return }
-        
-        let formattedDateString = NSDateFormatter.longStyleDateFormatter.stringFromDate(checkin.dateTime)
+        let formattedDateString = NSDateFormatter.longStyleDateFormatter.stringFromDate(activity.dateUTC)
         
         let bmi = selectedPoint.y
         let bmiString = String.localizedStringWithFormat("%.2f", bmi)
@@ -233,25 +154,19 @@ extension NewBodyMassIndexMetricDelegate: MetricDetailDisplayDelegate {
         
         viewController.navigationController?.hidesBarsWhenVerticallyCompact = false
         
-        let checkins = SessionController.Instance.checkins
-        
         let selectedPoint = data.bodyMassIndexPoints[selectedIndex]
-        guard let checkinIdentifier = selectedPoint.identifier else { return }
-        
-        guard let checkin = checkins.filter({ $0.checkinId == checkinIdentifier }).first else { return }
+        guard let activity = activity(forGraphPoint: selectedPoint) else { return }
         
         updateDetailPreview(viewController.headerView)
         
-        
         // Add metric gauage and check location labels
-        guard let bodyMassIndex = checkin.bmi else { return }
-        guard let weightCategoryString = checkin.bmiClass as? String else { return }
-        guard let weightCategory = BodyMassIndexCategory(rawValue: weightCategoryString) else { return }
-        let ranges = BodyMassIndexCategory.ranges()
+        guard let bodyMassIndex = activity.metadata.bodyMassIndex else { return }
+        guard let bodyMassIndexClass = activity.metadata.bodyMassIndexClass else { return }
+        let ranges = Activity.Metric.BodyMassIndex.Class.ranges()
         let displayUnit = NSLocalizedString("METRICS_BODY_MASS_INDEX_UNIT_LABEL", comment: "Label for body mass index.")
         
         let bmiString = String.localizedStringWithFormat("%.2f", bodyMassIndex)
-        viewController.configureGauge(bodyMassIndex, displayValue: bmiString, displayUnit: displayUnit, ranges: ranges, valueName: weightCategory.name(), valueColor: weightCategory.color(), checkin: checkin)
+        viewController.configureGauge(bodyMassIndex, displayValue: bmiString, displayUnit: displayUnit, ranges: ranges, valueName: bodyMassIndexClass.name(), valueColor: bodyMassIndexClass.color(), activity: activity)
         
         viewController.configureInfoContainer(nil, imageNamed: "metric-info-weight-copy")
     }

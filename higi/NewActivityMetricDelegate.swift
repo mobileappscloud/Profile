@@ -15,6 +15,8 @@ final class NewActivityMetricDelegate: NSObject, NewMetricDelegate {
         case _count
     }
     
+    var activities: [Activity] = []
+    
     var selectedIndex: Int = 0
     
     var plotSymbol: CPTPlotSymbol? = nil

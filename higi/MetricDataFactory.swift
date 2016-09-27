@@ -8,114 +8,61 @@
 
 import Foundation
 
-/// Class with methods to extract, transform, and load graph points from activities and checkins.
+/// Class with methods to extract, transform, and load graph points from activities.
 final class MetricDataFactory {
-
-}
-
-// These functions are partially-refactored versions of the original ETL code.
-extension MetricDataFactory {
-    
-    func metricData(checkins: [HigiCheckin]?, activitiesDictionary: [String: (totalPoints: Int, activities: [HigiActivity])]?) -> MetricGraphPoints {
+   
+    class func updateGraphPoints(fromActivities activities: [Activity], forMetricsType metricsType: MetricsType, inout metricGraphPoints: MetricGraphPoints) {
         
-        let checkinPoints = graphPoints(checkins)
-        let activityPoints = graphPoints(activitiesDictionary)
-        let metricsPoints = MetricGraphPoints(dailySummary: activityPoints, bloodPressure: checkinPoints.bloodPressure, pulse: checkinPoints.pulse, weight: checkinPoints.weight, bodyMassIndex: checkinPoints.bodyMassIndex, bodyFat: checkinPoints.bodyFat)
-        
-        return metricsPoints
+        switch metricsType {
+        case .DailySummary:
+            break
+        case .BloodPressure:
+            metricGraphPoints.bloodPressure.diastolicPoints = graphPoints(fromActivities: activities, forActivityMetric: .diastolic)
+            metricGraphPoints.bloodPressure.systolicPoints = graphPoints(fromActivities: activities, forActivityMetric: .systolic)
+        case .Pulse:
+            metricGraphPoints.pulse.pulsePoints = graphPoints(fromActivities: activities, forActivityMetric: .pulse)
+        case .Weight:
+            metricGraphPoints.weight.weightPoints = graphPoints(fromActivities: activities, forActivityMetric: .weight)
+        case .BodyMassIndex: 
+            metricGraphPoints.bodyMassIndex.bodyMassIndexPoints = graphPoints(fromActivities: activities, forActivityMetric: .bodyMassIndex)
+        case .BodyFat:
+            metricGraphPoints.bodyFat.bodyFatPoints = graphPoints(fromActivities: activities, forActivityMetric: .fatRatio)
+            metricGraphPoints.bodyFat.fatWeightPoints = graphPoints(fromActivities: activities, forActivityMetric: .fatMass)
+        }
     }
     
-    func graphPoints(checkins: [HigiCheckin]?) -> (bloodPressure: BloodPressureMetricGraphPoints, pulse: PulseMetricGraphPoints, weight: WeightMetricGraphPoints, bodyMassIndex: BodyMassIndexGraphPoints, bodyFat: BodyFatMetricGraphPoints) {
-        guard let checkins = checkins else {
-            return (BloodPressureMetricGraphPoints(), PulseMetricGraphPoints(), WeightMetricGraphPoints(), BodyMassIndexGraphPoints(), BodyFatMetricGraphPoints())
-        }
-        
-        var diastolicPoints: [GraphPoint] = []
-        var systolicPoints: [GraphPoint] = []
-        
-        var pulsePoints: [GraphPoint] = []
-        
-        var weightPoints: [GraphPoint] = []
-        
-        var bodyMassIndexPoints: [GraphPoint] = []
-        
-        var bodyFatPoints: [GraphPoint] = []
-        var fatWeightPoints: [GraphPoint] = []
-        
-        // We only want to plot the latest metric reading for a given date. Sort the checkins in reverse chronological order so that we can store the first reading for a given date and ignore preceding readings for the same date.
-        let sortedCheckins = checkins.reverse()
-        
-        var lastBloodPressureDate: NSDate = NSDate.distantFuture()
-        var lastPulseDate: NSDate = NSDate.distantFuture()
-        var lastWeightDate: NSDate = NSDate.distantFuture()
-        var lastBodyMassIndexDate: NSDate = NSDate.distantFuture()
-        var lastBodyFatDate: NSDate = NSDate.distantFuture()
-
-        let calendar = NSCalendar.currentCalendar()
-        
-        for checkin in sortedCheckins {
-            guard let checkinId = checkin.checkinId else { continue }
-            let checkinTime = checkin.dateTime.timeIntervalSince1970
-            
-            if !(calendar.isDate(checkin.dateTime, inSameDayAsDate: lastBloodPressureDate)) {
-                if let diastolic = checkin.diastolic, let systolic = checkin.systolic {
-                    diastolicPoints.append(GraphPoint(identifier: checkinId, x: checkinTime, y: Double(diastolic)))
-                    systolicPoints.append(GraphPoint(identifier: checkinId, x: checkinTime, y: Double(systolic)))
-                    lastBloodPressureDate = checkin.dateTime
-                }
-            }
-
-            if !(calendar.isDate(checkin.dateTime, inSameDayAsDate: lastPulseDate)) {
-                if let pulseBpm = checkin.pulseBpm {
-                    pulsePoints.append(GraphPoint(identifier: checkinId, x: checkinTime, y: Double(pulseBpm)))
-                    lastPulseDate = checkin.dateTime
-                }
-            }
-            
-            if !(calendar.isDate(checkin.dateTime, inSameDayAsDate: lastWeightDate)) {
-                if let weightLbs = checkin.weightLbs {
-                    weightPoints.append(GraphPoint(identifier: checkinId, x: checkinTime, y: weightLbs))
-                    lastWeightDate = checkin.dateTime
-                }
-            }
-            
-            if !(calendar.isDate(checkin.dateTime, inSameDayAsDate: lastBodyMassIndexDate)) {
-                if let bodyMassIndex = checkin.bmi where bodyMassIndex != 0 {
-                    bodyMassIndexPoints.append(GraphPoint(identifier: checkinId, x: checkinTime, y: bodyMassIndex))
-                    lastBodyMassIndexDate = checkin.dateTime
-                }
-            }
-            
-            if !(calendar.isDate(checkin.dateTime, inSameDayAsDate: lastBodyFatDate)) {
-                if let fatRatio = checkin.fatRatio where fatRatio != 0, let weightLbs = checkin.weightLbs {
-                    bodyFatPoints.append(GraphPoint(identifier: checkinId, x: checkinTime, y: fatRatio))
-                    let fatWeightLbs = weightLbs * fatRatio/100.0
-                    fatWeightPoints.append(GraphPoint(identifier: checkinId, x: checkinTime, y: fatWeightLbs))
-                    lastBodyFatDate = checkin.dateTime
-                }
-            }
-        }
-        
-        let bloodPressure = BloodPressureMetricGraphPoints(systolicPoints: systolicPoints, diastolicPoints: diastolicPoints)
-        let pulse = PulseMetricGraphPoints(pulsePoints: pulsePoints)
-        let weight = WeightMetricGraphPoints(weightPoints: weightPoints)
-        let bodyMassIndex = BodyMassIndexGraphPoints(bodyMassIndexPoints: bodyMassIndexPoints)
-        let bodyFat = BodyFatMetricGraphPoints(bodyFatPoints: bodyFatPoints, fatWeightPoints: fatWeightPoints)
-        return (bloodPressure, pulse, weight, bodyMassIndex, bodyFat)
+    private class func graphPoints(fromActivities activities: [Activity], forActivityMetric activityMetric: Activity.Metric.Identifier) -> [GraphPoint] {
+        return activities.flatMap({ graphPoint(forActivity: $0, activityMetric: activityMetric) })
     }
     
-    func graphPoints(activitiesDictionary: [String: (totalPoints: Int, activities: [HigiActivity])]?) -> DailySummaryMetricGraphPoints {
-        guard let activitiesDictionary = activitiesDictionary else { return DailySummaryMetricGraphPoints() }
+    private class func graphPoint(forActivity activity: Activity, activityMetric: Activity.Metric.Identifier) -> GraphPoint? {
         
-        var activityPoints: [GraphPoint] = []
-        for (dateString, activitySummary) in activitiesDictionary {
-            guard let date = NSDateFormatter.activityDateFormatter.dateFromString(dateString) else { continue }
-            
-            let activityDate = Double(date.timeIntervalSince1970)
-            activityPoints.append(GraphPoint(identifier: dateString, x: activityDate, y: Double(activitySummary.totalPoints)))
+        var metricValue: Double?
+        switch activityMetric {
+        case .diastolic:
+            metricValue = activity.metadata.diastolic
+        case .systolic:
+            metricValue = activity.metadata.systolic
+        case .pulse:
+            metricValue = activity.metadata.pulse
+        case .weight:
+            metricValue = activity.metadata.weight
+        case .fatRatio:
+            metricValue = activity.metadata.fatRatio
+        case .fatMass:
+            metricValue = activity.metadata.fatMass
+        case .bodyMassIndex:
+            metricValue = activity.metadata.bodyMassIndex
+        case .checkinFitnessLocation, .steps:
+            break
         }
-        activityPoints.sortInPlace({$0.x > $1.x})
         
-        return DailySummaryMetricGraphPoints(activityPoints: activityPoints)
+        guard let value = metricValue else { return nil }
+        
+        return graphPoint(forActivity: activity, value: value)
+    }
+    
+    private class func graphPoint(forActivity activity: Activity, value: Double) -> GraphPoint {
+        return GraphPoint(identifier: activity.identifier, x: activity.dateUTC.timeIntervalSince1970, y: value)
     }
 }

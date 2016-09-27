@@ -143,7 +143,7 @@ extension MetricRecentSummaryController {
             metricValue = activity.metadata.weight
         case .fatRatio:
             metricValue = activity.metadata.fatRatio
-        case .bmi, .checkinFitnessLocation, .fatFreeMass, .fatMass, .steps:
+        case .bodyMassIndex, .checkinFitnessLocation, .fatMass, .steps:
             break
         }
         

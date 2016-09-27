@@ -15,6 +15,8 @@ final class NewBloodPressureMetricDelegate: NSObject, NewMetricDelegate {
         case _count
     }
 
+    var activities: [Activity] = []
+    
     var selectedIndex: Int = 0
     
     var plotSymbol: CPTPlotSymbol? = nil
@@ -156,90 +158,6 @@ final class NewBloodPressureMetricDelegate: NSObject, NewMetricDelegate {
     }
 }
 
-extension NewBloodPressureMetricDelegate {
-    
-    private enum BloodPressureReading {
-        case Systolic
-        case Diastolic
-     
-        enum BloodPressureCategory: String {
-            // Raw values are here for backward compatibility :-\
-            case Healthy = "Normal"
-            case AtRisk = "At risk"
-            case High
-            
-            static let allValues: [BloodPressureCategory] = [.Healthy, .AtRisk, .High]
-            
-            func name() -> String {
-                var name: String!
-                switch self {
-                case .Healthy:
-                    name = NSLocalizedString("BLOOD_PRESSURE_RANGE_NORMAL_TITLE", comment: "Title for blood pressure within a normal range.")
-                case .AtRisk:
-                    name = NSLocalizedString("BLOOD_PRESSURE_RANGE_AT_RISK_TITLE", comment: "Title for blood pressure within an at-risk range.")
-                case .High:
-                    name = NSLocalizedString("BLOOD_PRESSURE_RANGE_HIGH_TITLE", comment: "Title for blood pressure within a high range.")
-                }
-                return name
-            }
-            
-            func color() -> UIColor {
-                var color: UIColor!
-                switch self {
-                case .Healthy:
-                    color = Theme.Color.BloodPressure.Category.healthy
-                case .AtRisk:
-                    color = Theme.Color.BloodPressure.Category.atRisk
-                case .High:
-                    color = Theme.Color.BloodPressure.Category.high
-                }
-                return color
-            }
-        }
-        
-        func range(category: BloodPressureCategory) -> (lowerBounds: Double, upperBounds: Double) {
-            let range: (lowerBounds: Double, upperBounds: Double)
-            switch self {
-            case .Systolic:
-                switch category {
-                case .Healthy:
-                    range = (90, 120)
-                case .AtRisk:
-                    range = (120, 140)
-                case .High:
-                    range = (140, 200)
-                }
-            case .Diastolic:
-                switch category {
-                case .Healthy:
-                    range = (60, 80)
-                case .AtRisk:
-                    range = (80, 90)
-                case .High:
-                    range = (90, 120)
-                }
-            }
-            return range
-        }
-        
-        private func categories() -> [BloodPressureCategory] {
-            return BloodPressureCategory.allValues
-        }
-        
-        func ranges() -> [MetricGauge.Range] {
-            var ranges: [MetricGauge.Range] = []
-            for category in categories() {
-                let name = category.name()
-                let color = category.color()
-                let interval = self.range(category)
-                let range = MetricGauge.Range(label: name, color: color, interval: interval)
-                ranges.append(range)
-            }
-            return ranges
-        }
-    }
-}
-
 // MARK: - Detail Preview
 
 extension NewBloodPressureMetricDelegate: MetricDetailPreviewDelegate {
@@ -247,15 +165,12 @@ extension NewBloodPressureMetricDelegate: MetricDetailPreviewDelegate {
     func updateDetailPreview(detailPreview: MetricCheckinSummaryView) {
         if !self.hasData() { return }
         
-        guard let checkins = SessionController.Instance.checkins else { return }
-        
         let selectedPoint = data.systolicPoints[selectedIndex]
         let altSelectedPoint = data.diastolicPoints[selectedIndex]
-        guard let checkinIdentifier = selectedPoint.identifier else { return }
         
-        guard let checkin = checkins.filter({ $0.checkinId == checkinIdentifier }).first else { return }
+        guard let activity = activity(forGraphPoint: selectedPoint) else { return }
         
-        let formattedDateString = NSDateFormatter.longStyleDateFormatter.stringFromDate(checkin.dateTime)
+        let formattedDateString = NSDateFormatter.longStyleDateFormatter.stringFromDate(activity.dateUTC)
         
         let systolicValue = Int(selectedPoint.y)
         let diastolicValue = Int(altSelectedPoint.y)
@@ -274,26 +189,22 @@ extension NewBloodPressureMetricDelegate: MetricDetailDisplayDelegate {
 
         viewController.navigationController?.hidesBarsWhenVerticallyCompact = false
         
-        let checkins = SessionController.Instance.checkins
-        
         let selectedPoint = data.systolicPoints[selectedIndex]
         let altSelectedPoint = data.diastolicPoints[selectedIndex]
-        guard let checkinIdentifier = selectedPoint.identifier else { return }
-        guard let checkin = checkins.filter({ $0.checkinId == checkinIdentifier }).first else { return }
+        guard let activity = activity(forGraphPoint: selectedPoint) else { return }
 
         updateDetailPreview(viewController.headerView)
         
         // Add metric gauage and check location labels
 
-        guard let bpCategoryString = checkin.bpClass as? String else { return }
-        guard let bpCategory = BloodPressureReading.BloodPressureCategory(rawValue: bpCategoryString) else { return }
-        let reading = BloodPressureReading.Diastolic
-        let ranges = reading.ranges()
-        let valueName = bpCategory.name()
-        let valueColor = bpCategory.color()
+        guard let bloodPressureClass = activity.metadata.bloodPressureClass else { return }
+        let reading = Activity.Metric.BloodPressure.Reading.diastolic
+        let ranges = Activity.Metric.BloodPressure.ranges(forReading: reading)
+        let valueName = bloodPressureClass.name()
+        let valueColor = bloodPressureClass.color()
         let unit = NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_MILLIMETERS_OF_MERCURY", comment: "General purpose abbreviated label for the units of millimeter of mercury.")
         
-        viewController.configureGauge(altSelectedPoint.y, displayValue: "\(Int(selectedPoint.y))/\(Int(altSelectedPoint.y))", displayUnit: unit, ranges: ranges, valueName: valueName, valueColor: valueColor, checkin: checkin)
+        viewController.configureGauge(altSelectedPoint.y, displayValue: "\(Int(selectedPoint.y))/\(Int(altSelectedPoint.y))", displayUnit: unit, ranges: ranges, valueName: valueName, valueColor: valueColor, activity: activity)
 
         viewController.configureInfoContainer(nil, imageNamed: "metric-info-blood-pressure-copy")
     }

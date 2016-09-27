@@ -20,8 +20,8 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Bt-VC-Nd9">
                                 <rect key="frame" x="0.0" y="10" width="375" height="534"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="4cj-Aa-qx3">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="560"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="4cj-Aa-qx3">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="515"/>
                                         <subviews>
                                             <containerView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LNn-zI-GYw">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="128"/>
@@ -30,19 +30,19 @@
                                                 </connections>
                                             </containerView>
                                             <containerView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pur-zA-rVg">
-                                                <rect key="frame" x="0.0" y="144" width="375" height="128"/>
+                                                <rect key="frame" x="0.0" y="129" width="375" height="128"/>
                                                 <connections>
                                                     <segue destination="xka-7c-w7L" kind="embed" identifier="bloodPressureEmbedSegue" id="Qa4-63-nxG"/>
                                                 </connections>
                                             </containerView>
                                             <containerView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ruY-ZD-dX9">
-                                                <rect key="frame" x="0.0" y="288" width="375" height="128"/>
+                                                <rect key="frame" x="0.0" y="258" width="375" height="128"/>
                                                 <connections>
                                                     <segue destination="4FL-Zc-ILq" kind="embed" identifier="pulseEmbedSegue" id="S6P-QF-PKR"/>
                                                 </connections>
                                             </containerView>
                                             <containerView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dzj-7M-RdH">
-                                                <rect key="frame" x="0.0" y="432" width="375" height="128"/>
+                                                <rect key="frame" x="0.0" y="387" width="375" height="128"/>
                                                 <connections>
                                                     <segue destination="lYP-an-gpB" kind="embed" identifier="weightEmbedSegue" id="vWM-7D-yzr"/>
                                                 </connections>

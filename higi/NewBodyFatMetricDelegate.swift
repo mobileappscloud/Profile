@@ -17,6 +17,8 @@ final class NewBodyFatMetricDelegate: NSObject, NewMetricDelegate {
         case _count
     }
     
+    var activities: [Activity] = []
+    
     var selectedIndex: Int = 0
     
     var plotSymbol: CPTPlotSymbol? = nil
@@ -47,9 +49,11 @@ final class NewBodyFatMetricDelegate: NSObject, NewMetricDelegate {
         self.plotHandler.points = data.fatWeightPoints
     }
     
-    init(data: BodyFatMetricGraphPoints) {
+    private let user: User
+    
+    required init(data: BodyFatMetricGraphPoints, user: User) {
         self.data = data
-        super.init()
+        self.user = user
     }
     
     func hasData() -> Bool {
@@ -134,71 +138,6 @@ final class NewBodyFatMetricDelegate: NSObject, NewMetricDelegate {
     
 }
 
-// MARK: - Metric Gauge
-
-extension NewBodyFatMetricDelegate {
-    
-    private enum BodyFatCategory: String {
-        case Healthy
-        case Acceptable
-        case AtRisk = "At risk"
-        
-        static let allValues = [Healthy, Acceptable, AtRisk]
-        
-        func range(biologicalSex: BiologicalSex) -> (lowerBounds: Double, upperBounds: Double) {
-            let range: (lowerBounds: Double, upperBounds: Double)
-            let isMale = biologicalSex == .Male
-            switch self {
-            case .Healthy:
-                range = isMale ? (5, 18) : (10, 25)
-            case .Acceptable:
-                range = isMale ? (18, 25) : (25, 32)
-            case .AtRisk:
-                range = isMale ? (25, 40) : (32, 45)
-            }
-            return range
-        }
-
-        func name() -> String {
-            let name: String
-            switch self {
-            case .Healthy:
-                name = NSLocalizedString("WEIGHT_METRICS_WEIGHT_RANGE_HEALTHY_LABEL", comment: "Label for a weight which falls within a healthy range.")
-            case .Acceptable:
-                name = NSLocalizedString("WEIGHT_METRICS_WEIGHT_RANGE_ACCEPTABLE_LABEL", comment: "Label for a weight which falls within an acceptable range.")
-            case .AtRisk:
-                name = NSLocalizedString("WEIGHT_METRICS_WEIGHT_RANGE_AT_RISK_LABEL", comment: "Label for a weight which falls within an at-risk range.")
-            }
-            return name
-        }
-        
-        func color() -> UIColor {
-            let color: UIColor
-            switch self {
-            case .Healthy:
-                color = Theme.Color.BodyFat.Category.healthy
-            case .Acceptable:
-                color = Theme.Color.BodyFat.Category.acceptable
-            case .AtRisk:
-                color = Theme.Color.BodyFat.Category.atRisk
-            }
-            return color
-        }
-        
-        static func ranges(biologicalSex: BiologicalSex) -> [MetricGauge.Range] {
-            var ranges: [MetricGauge.Range] = []
-            for category in BodyFatCategory.allValues {
-                let label = category.name()
-                let color = category.color()
-                let interval = category.range(biologicalSex)
-                let range = MetricGauge.Range(label: label, color: color, interval: interval)
-                ranges.append(range)
-            }
-            return ranges
-        }
-    }
-}
-
 // MARK: - Detail Preview
 
 extension NewBodyFatMetricDelegate: MetricDetailPreviewDelegate {
@@ -206,14 +145,10 @@ extension NewBodyFatMetricDelegate: MetricDetailPreviewDelegate {
     func updateDetailPreview(detailPreview: MetricCheckinSummaryView) {
         if !self.hasData() { return }
         
-        guard let checkins = SessionController.Instance.checkins else { return }
-        
         let selectedPoint = data.bodyFatPoints[selectedIndex]
-        guard let checkinIdentifier = selectedPoint.identifier else { return }
+        guard let activity = activity(forGraphPoint: selectedPoint) else { return }
         
-        guard let checkin = checkins.filter({ $0.checkinId == checkinIdentifier }).first else { return }
-        
-        let formattedDateString = NSDateFormatter.longStyleDateFormatter.stringFromDate(checkin.dateTime)
+        let formattedDateString = NSDateFormatter.longStyleDateFormatter.stringFromDate(activity.dateUTC)
         
         let fatRatio = selectedPoint.y
         let fatRatioDisplay = String.localizedStringWithFormat("%.2f %%", fatRatio)
@@ -238,27 +173,22 @@ extension NewBodyFatMetricDelegate: MetricDetailDisplayDelegate {
         
         viewController.navigationController?.hidesBarsWhenVerticallyCompact = false
         
-        let checkins = SessionController.Instance.checkins
-        
         let selectedPoint = data.bodyFatPoints[selectedIndex]
-        guard let checkinIdentifier = selectedPoint.identifier else { return }
-        
-        guard let checkin = checkins.filter({ $0.checkinId == checkinIdentifier }).first else { return }
+        guard let activity = activity(forGraphPoint: selectedPoint) else { return }
         
         updateDetailPreview(viewController.headerView)
         
         // Add metric gauage and check location labels
-        guard let fatRatio = checkin.fatRatio else { return }
-        guard let bodyFatCategoryString = checkin.fatClass as? String else { return }
-        guard let bodyFatCategory = BodyFatCategory(rawValue: bodyFatCategoryString) else { return }
-        let biologicalSex = SessionData.Instance.user.biologicalSex
-        let ranges = BodyFatCategory.ranges(biologicalSex)
+        guard let fatRatio = activity.metadata.fatRatio else { return }
+        guard let fatClass = activity.metadata.fatClass else { return }
+        let biologicalSex = user.biologicalSex
+        let ranges = Activity.Metric.Fat.Class.ranges(biologicalSex)
         
         let fatRatioDisplay = String.localizedStringWithFormat("%.2f", fatRatio)
         let fatRatioUnit = NSLocalizedString("METRICS_BODY_FAT_VALUE_DESCRIPTON", comment: "Text used to describe metric value for body fat.")
         let displayUnit = "% \(fatRatioUnit)"
         
-        viewController.configureGauge(fatRatio, displayValue: fatRatioDisplay, displayUnit: displayUnit, ranges: ranges, valueName: bodyFatCategory.name(), valueColor: bodyFatCategory.color(), checkin: checkin)
+        viewController.configureGauge(fatRatio, displayValue: fatRatioDisplay, displayUnit: displayUnit, ranges: ranges, valueName: fatClass.name(), valueColor: fatClass.color(), activity: activity)
         
         viewController.configureInfoContainer(nil, imageNamed: "metric-info-body-fat-copy")
     }

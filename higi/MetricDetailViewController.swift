@@ -117,30 +117,31 @@ extension MetricDetailViewController {
         meter.drawArc(true)
     }
     
-    func configureGauge(value: Double, displayValue: String?, displayUnit: String?, ranges: [MetricGauge.Range], valueName: String, valueColor: UIColor, checkin: HigiCheckin?) {
+    func configureGauge(value: Double, displayValue: String?, displayUnit: String?, ranges: [MetricGauge.Range], valueName: String, valueColor: UIColor, activity: Activity?) {
         
         let screenBounds = UIScreen.mainScreen().bounds
         var gaugeFrame = screenBounds
         gaugeFrame.size.width = (screenBounds.size.width/2) * 0.6
         gaugeFrame.size.height = gaugeFrame.width
         
-        let gauge = MetricGauge.gauge(gaugeFrame, value: value, displayValue: displayValue, displayUnit: displayUnit, ranges: ranges, valueName: valueName, valueColor: valueColor, checkin: checkin)
+        let gauge = MetricGauge.gauge(gaugeFrame, value: value, displayValue: displayValue, displayUnit: displayUnit, ranges: ranges, valueName: valueName, valueColor: valueColor)
         
         self.graphicContainerView.addSubview(gauge, pinToEdges: true)
         
-        guard let checkin = checkin else { return }
+        guard let activity = activity else { return }
         
         var title: String?
         var address1: String?
         var address2: String?
-        if let device = checkin.sourceVendorId {
-            title = device as String
+        if let device = activity.deviceId {
+            title = device.rawValue
         }
-        if let kioskInfo = checkin.kioskInfo {
-            title = kioskInfo.organizations.first as? String
-            address1 = "\(kioskInfo.address1)"
-            address2 = "\(kioskInfo.cityStateZip)"
-        }
+        // TODO: Remy - figure out how this gets mapped with the new model
+//        if let kioskInfo = checkin.kioskInfo {
+//            title = kioskInfo.organizations.first as? String
+//            address1 = "\(kioskInfo.address1)"
+//            address2 = "\(kioskInfo.cityStateZip)"
+//        }
         gauge.checkinView.configure(title, address1: address1, address2: address2)
     }
 }

@@ -15,6 +15,8 @@ final class NewPulseMetricDelegate: NSObject, NewMetricDelegate {
         case _count
     }
     
+    var activities: [Activity] = []
+    
     var selectedIndex: Int = 0
 
     var plotSymbol: CPTPlotSymbol? = nil
@@ -178,66 +180,6 @@ final class NewPulseMetricDelegate: NSObject, NewMetricDelegate {
 
 }
 
-extension NewPulseMetricDelegate {
- 
-    enum PulseCategory: String {
-        case Low
-        case Normal
-        case High
-        
-        static let allValues: [PulseCategory] = [.Low, .Normal, .High]
-
-        static func ranges() -> [MetricGauge.Range] {
-            var ranges: [MetricGauge.Range] = []
-            for category in PulseCategory.allValues {
-                let label = category.name()
-                let color = category.color()
-                let interval = category.range()
-                let range = MetricGauge.Range(label: label, color: color, interval: interval)
-                ranges.append(range)
-            }
-            return ranges
-        }
-        
-        func range() -> (lowerBounds: Double, upperBounds: Double) {
-            switch self {
-            case .Low:
-                return (40.0, 60.0)
-            case .Normal:
-                return (60.0, 100.0)
-            case .High:
-                return (100.0, 120.0)
-            }
-        }
-        
-        func name() -> String {
-            let name: String
-            switch self {
-            case .Low:
-                name = NSLocalizedString("PULSE_RANGE_LOW_TITLE", comment: "Title for pulse reading which falls within a low range.")
-            case .Normal:
-                name = NSLocalizedString("PULSE_RANGE_NORMAL_TITLE", comment: "Title for pulse reading which falls within a normal range.")
-            case .High:
-                name = NSLocalizedString("PULSE_RANGE_HIGH_TITLE", comment: "Title for pulse reading which falls within a high range.")
-            }
-            return name
-        }
-        
-        func color() -> UIColor {
-            let color: UIColor
-            switch self {
-            case .Low:
-                color = Theme.Color.Pulse.Category.low
-            case .Normal:
-                color = Theme.Color.Pulse.Category.normal
-            case .High:
-                color = Theme.Color.Pulse.Category.high
-            }
-            return color
-        }
-    }
-}
-
 // MARK: - Detail Preview
 
 extension NewPulseMetricDelegate: MetricDetailPreviewDelegate {
@@ -245,14 +187,10 @@ extension NewPulseMetricDelegate: MetricDetailPreviewDelegate {
     func updateDetailPreview(detailPreview: MetricCheckinSummaryView) {
         if !self.hasData() { return }
         
-        guard let checkins = SessionController.Instance.checkins else { return }
-        
         let selectedPoint = data.pulsePoints[selectedIndex]
-        guard let checkinIdentifier = selectedPoint.identifier else { return }
+        guard let activity = activity(forGraphPoint: selectedPoint) else { return }
         
-        guard let checkin = checkins.filter({ $0.checkinId == checkinIdentifier }).first else { return }
-        
-        let formattedDateString = NSDateFormatter.longStyleDateFormatter.stringFromDate(checkin.dateTime)
+        let formattedDateString = NSDateFormatter.longStyleDateFormatter.stringFromDate(activity.dateUTC)
         
         let pulse = Int(selectedPoint.y)
         detailPreview.configureDisplay(formattedDateString, primaryMetricValue: "\(pulse)", primaryMetricUnit: "bpm", secondaryMetricValue: nil, secondaryMetricUnit: nil)
@@ -269,29 +207,20 @@ extension NewPulseMetricDelegate: MetricDetailDisplayDelegate {
         
         viewController.navigationController?.hidesBarsWhenVerticallyCompact = false
         
-        
-        
-        let checkins = SessionController.Instance.checkins
-        
         let selectedPoint = data.pulsePoints[selectedIndex]
-        guard let checkinIdentifier = selectedPoint.identifier else { return }
-        
-        guard let checkin = checkins.filter({ $0.checkinId == checkinIdentifier }).first else { return }
+        guard let activity = activity(forGraphPoint: selectedPoint) else { return }
         
         updateDetailPreview(viewController.headerView)
         
+        // Add metric gauage and check location labels
         
-          // Add metric gauage and check location labels
-        
-        guard let pulse = checkin.pulseBpm else { return }
-        guard let pulseCategoryString = checkin.pulseClass as? String else { return }
-        guard let pulseCategory = PulseCategory(rawValue: pulseCategoryString) else { return }
-        let ranges = PulseCategory.ranges()
-        let valueName = pulseCategory.name()
-        let valueColor = pulseCategory.color()
+        guard let pulse = activity.metadata.pulse else { return }
+        guard let pulseClass = activity.metadata.pulseClass else { return }
+        let ranges = Activity.Metric.Pulse.Class.ranges()
+        let valueName = pulseClass.name()
+        let valueColor = pulseClass.color()
     
-        viewController.configureGauge(Double(pulse), displayValue: "\(pulse)", displayUnit: "bpm", ranges: ranges, valueName: valueName, valueColor: valueColor, checkin: checkin)
-        
+        viewController.configureGauge(Double(pulse), displayValue: "\(pulse)", displayUnit: "bpm", ranges: ranges, valueName: valueName, valueColor: valueColor, activity: activity)
         
         viewController.configureInfoContainer(nil, imageNamed: "metric-info-pulse-copy")
     }

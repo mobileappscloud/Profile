@@ -11,6 +11,7 @@ final class MetricsOverviewViewController: UIViewController {
     lazy var metricsViewController: NewMetricsViewController = {
         let storyboard = UIStoryboard(name: "Metrics", bundle: nil)
         let metricsViewController = storyboard.instantiateInitialViewController() as! NewMetricsViewController
+        metricsViewController.configure(withUserController: self.userController)
         return metricsViewController
     }()
     

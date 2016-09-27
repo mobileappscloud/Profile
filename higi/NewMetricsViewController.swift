@@ -21,8 +21,12 @@ final class NewMetricsViewController: UIViewController {
     /// Supported types of metrics
     private(set) lazy var types = MetricsType.allValues
     
+    // MARK: Outlets
+    
     /// Image view which hints that the view supports resizing due to image rotation
     @IBOutlet private var rotateDeviceImageView: UIImageView!
+    
+    // MARK: Embedded Views
     
     /// Collection view which serves as navigation menu.
     private var collectionViewController: TextCollectionViewController!
@@ -32,13 +36,22 @@ final class NewMetricsViewController: UIViewController {
     
     /// Object which coordinates interactions between container views.
     private(set) lazy var coordinator: MetricsCoordinator = {
-       return MetricsCoordinator(types: self.types)
+        return MetricsCoordinator(types: self.types)
     }()
+}
+
+// MARK: Dependency Injection
+
+extension NewMetricsViewController {
     
-    private var universalLinkCheckinsObserver: NSObjectProtocol? = nil
-    private var universalLinkActivitiesObserver: NSObjectProtocol? = nil
-    
-    // MARK: - View Lifecycle
+    func configure(withUserController userController: UserController) {
+        coordinator.configure(withUserController: userController)
+    }
+}
+
+// MARK: - View Lifecycle
+
+extension NewMetricsViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -222,29 +235,6 @@ extension NewMetricsViewController: UniversalLinkHandler {
     
     func handleUniversalLink(URL: NSURL, pathType: PathType, parameters: [String]?) {
         
-//        var loadedActivities = false
-//        var loadedCheckins = false
-//        let appDelegate = AppDelegate.instance()
-//        if appDelegate.didRecentlyLaunchToContinueUserActivity() {
-//            let loadingViewController = self.presentLoadingViewController()
-//            
-//            self.universalLinkActivitiesObserver = NSNotificationCenter.defaultCenter().addObserverForName(ApiUtility.ACTIVITIES, object: nil, queue: nil, usingBlock: { (notification) in
-//                loadedActivities = true
-//                self.navigateToMetricsView(pathType, loadedActivites: loadedActivities, loadedCheckins: loadedCheckins, presentedViewController: loadingViewController)
-//                if let observer = self.universalLinkActivitiesObserver {
-//                    NSNotificationCenter.defaultCenter().removeObserver(observer)
-//                }
-//            })
-//            self.universalLinkCheckinsObserver = NSNotificationCenter.defaultCenter().addObserverForName(ApiUtility.CHECKINS, object: nil, queue: nil, usingBlock: { (notification) in
-//                loadedCheckins = true
-//                self.navigateToMetricsView(pathType, loadedActivites: loadedActivities, loadedCheckins: loadedCheckins, presentedViewController: loadingViewController)
-//                if let observer = self.universalLinkCheckinsObserver {
-//                    NSNotificationCenter.defaultCenter().removeObserver(observer)
-//                }
-//            })
-//        } else {
-//            self.navigateToMetricsView(pathType, loadedActivites: true, loadedCheckins: true, presentedViewController: nil)
-//        }
     }
     
     private func navigateToMetricsView(pathType: PathType, loadedActivites: Bool, loadedCheckins: Bool, presentedViewController: UIViewController?) {

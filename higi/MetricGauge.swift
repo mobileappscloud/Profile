@@ -64,7 +64,7 @@ final class MetricGauge: UIView {
     
     private var userRange: Range!;
     
-    class func gauge(frame: CGRect, value: Double, displayValue: String?, displayUnit: String?, ranges: [Range], valueName: String, valueColor: UIColor, checkin: HigiCheckin?, showRangeFractions: Bool = false) -> MetricGauge {
+    class func gauge(frame: CGRect, value: Double, displayValue: String?, displayUnit: String?, ranges: [Range], valueName: String, valueColor: UIColor, showRangeFractions: Bool = false) -> MetricGauge {
         let gauge = UINib(nibName: "MetricGaugeView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! MetricGauge
         gauge.initFrame(frame)
         gauge.showRangeFractions = showRangeFractions

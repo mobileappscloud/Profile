@@ -63,6 +63,9 @@ final class MetricChildViewController: UIViewController {
             if let metricTableViewController = self.metricTableViewController {
                 metricTableViewController.tableView.reloadData()
             }
+            if let metricDetailPreviewViewController = self.metricDetailPreviewViewController {
+                metricDelegate.updateDetailPreview(metricDetailPreviewViewController.headerView)
+            }
         } else {
             showBlankStateView()
         }

@@ -18,9 +18,6 @@ extension Activity {
         /// Ratio of fat mass to fat-free mass (%).
         let fatRatio: Double?
         
-        /// Mass which is fat-free (kg).
-        let fatFreeMass: Double?
-        
         /// Mass which is comprised of fat (kg).
         let fatMass: Double?
         
@@ -34,7 +31,7 @@ extension Activity {
         let systolic: Double?
         
         /// Body mass index calculation (kg/m^2).
-        let bmi: Double?
+        let bodyMassIndex: Double?
         
         /// Heart beats per minute (count/minute)
         let pulse: Double?
@@ -43,6 +40,22 @@ extension Activity {
         
         /// Whether or not the activity is a check-in to a fitness location.
         let checkinFitnessLocation: Bool?
+        
+        // MARK: Characteristics
+        
+        let height: Double?
+        
+        // MARK: Legacy Properties - These are undocumented in the new apiary docs and may be removed, but are currently required for migration
+        
+        // MARK: Classification
+        
+        let bloodPressureClass: Activity.Metric.BloodPressure.`Class`?
+        
+        let bodyMassIndexClass: Activity.Metric.BodyMassIndex.`Class`?
+        
+        let pulseClass: Activity.Metric.Pulse.`Class`?
+        
+        let fatClass: Activity.Metric.Fat.`Class`?
     }
 }
 
@@ -53,11 +66,21 @@ extension Activity.Metadata {
    
     var weightImperial: Double? {
         get {
-            guard let weight = weight else { return nil }
-            
             let conversionFactor = 2.20462
-            return weight * conversionFactor
+            return imperialValue(fromMetricValue: weight, conversionFactor: conversionFactor)
         }
+    }
+    
+    var heightImperial: Double? {
+        get {
+            let conversionFactor = 39.3701
+            return imperialValue(fromMetricValue: height, conversionFactor: conversionFactor)
+        }
+    }
+    
+    private func imperialValue(fromMetricValue metricValue: Double?, conversionFactor: Double) -> Double? {
+        guard let metricValue = metricValue else { return nil }
+        return metricValue * conversionFactor
     }
 }
 
@@ -66,14 +89,20 @@ extension Activity.Metadata: JSONInitializable {
     init?(dictionary: NSDictionary) {
         self.steps = dictionary[Activity.Metric.Identifier.steps.rawValue] as? Int
         self.fatRatio = dictionary[Activity.Metric.Identifier.fatRatio.rawValue] as? Double
-        self.fatFreeMass = dictionary[Activity.Metric.Identifier.fatFreeMass.rawValue] as? Double
         self.fatMass = dictionary[Activity.Metric.Identifier.fatMass.rawValue] as? Double
         self.weight = dictionary[Activity.Metric.Identifier.weight.rawValue] as? Double
         self.diastolic = dictionary[Activity.Metric.Identifier.diastolic.rawValue] as? Double
         self.systolic = dictionary[Activity.Metric.Identifier.systolic.rawValue] as? Double
-        self.bmi = dictionary[Activity.Metric.Identifier.bmi.rawValue] as? Double
+        self.bodyMassIndex = dictionary[Activity.Metric.Identifier.bodyMassIndex.rawValue] as? Double
         self.pulse = dictionary[Activity.Metric.Identifier.pulse.rawValue] as? Double
         
         self.checkinFitnessLocation = dictionary[Activity.Metric.Identifier.checkinFitnessLocation.rawValue] as? Bool
+        
+        self.height = dictionary["height"] as? Double
+        
+        self.bloodPressureClass = Activity.Metric.BloodPressure.`Class`(rawJSONValue: dictionary["bpClass"])
+        self.bodyMassIndexClass = Activity.Metric.BodyMassIndex.`Class`(rawJSONValue: dictionary["bmiClass"])
+        self.pulseClass = Activity.Metric.Pulse.`Class`(rawJSONValue: dictionary["pulseClass"])
+        self.fatClass = Activity.Metric.Fat.`Class`(rawJSONValue: dictionary["fatClass"])
     }
 }

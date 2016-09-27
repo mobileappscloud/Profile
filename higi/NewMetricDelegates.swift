@@ -10,9 +10,21 @@ import Foundation
 
 protocol NewMetricDelegate: MetricGraphDelegate, MetricTableDelegate, MetricDetailPreviewDelegate, MetricDetailDisplayDelegate {
     
+    var activities: [Activity] { get set }
+    
     var selectedIndex: Int { get set }
     
     func hasData() -> Bool
+    
+    func activity(forGraphPoint graphPoint: GraphPoint) -> Activity?
+}
+
+extension NewMetricDelegate {
+    
+    func activity(forGraphPoint graphPoint: GraphPoint) -> Activity? {
+        guard let activityIdentifier = graphPoint.identifier else { return nil }
+        return activities.filter({ $0.identifier == activityIdentifier }).first
+    }
 }
 
 // MARK: - Detail Preview

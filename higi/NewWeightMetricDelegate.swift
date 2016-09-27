@@ -15,6 +15,8 @@ final class NewWeightMetricDelegate: NSObject, NewMetricDelegate {
         case _count
     }
     
+    var activities: [Activity] = []
+    
     var selectedIndex: Int = 0
     
     var plotSymbol: CPTPlotSymbol? = nil
@@ -240,14 +242,10 @@ extension NewWeightMetricDelegate: MetricDetailPreviewDelegate {
     func updateDetailPreview(detailPreview: MetricCheckinSummaryView) {
         if !self.hasData() { return }
         
-        guard let checkins = SessionController.Instance.checkins else { return }
-        
         let selectedPoint = data.weightPoints[selectedIndex]
-        guard let checkinIdentifier = selectedPoint.identifier else { return }
+        guard let activity = activity(forGraphPoint: selectedPoint) else { return }
         
-        guard let checkin = checkins.filter({ $0.checkinId == checkinIdentifier }).first else { return }
-        
-        let formattedDateString = NSDateFormatter.longStyleDateFormatter.stringFromDate(checkin.dateTime)
+        let formattedDateString = NSDateFormatter.longStyleDateFormatter.stringFromDate(activity.dateUTC)
         
         let weight = Int(selectedPoint.y)
         let unit = NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_WEIGHT_POUNDS", comment: "General purpose abbreviated label for the english units of weight measurement, pounds.")
@@ -265,27 +263,19 @@ extension NewWeightMetricDelegate: MetricDetailDisplayDelegate {
         
         viewController.navigationController?.hidesBarsWhenVerticallyCompact = false
         
-        let checkins = SessionController.Instance.checkins
-        
         let selectedPoint = data.weightPoints[selectedIndex]
-        guard let checkinIdentifier = selectedPoint.identifier else { return }
-        
-        guard let checkin = checkins.filter({ $0.checkinId == checkinIdentifier }).first else { return }
+        guard let activity = activity(forGraphPoint: selectedPoint) else { return }
         
         updateDetailPreview(viewController.headerView)
         
-        
         // Add metric gauage and check location labels
-        guard let weight = checkin.weightLbs else { return }
-        guard let height = checkin.heightInches else { return }
-        guard let BodyMassIndexCategoryString = checkin.bmiClass as? String else { return }
-        guard let BodyMassIndexCategory = BodyMassIndexCategory(rawValue: BodyMassIndexCategoryString) else { return }
+        guard let weight = activity.metadata.weightImperial else { return }
+        guard let height = activity.metadata.heightImperial else { return }
+        guard let bodyMassIndexClass = activity.metadata.bodyMassIndexClass else { return }
         let ranges = self.ranges(heightInInches: height, weightInPounds: weight)
         let unit = NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_WEIGHT_POUNDS", comment: "General purpose abbreviated label for the english units of weight measurement, pounds.")
 
-        viewController.configureGauge(weight, displayValue: "\(Int(weight))", displayUnit: unit, ranges: ranges, valueName: BodyMassIndexCategory.name(), valueColor: BodyMassIndexCategory.color(), checkin: checkin)
-        
-        
+        viewController.configureGauge(weight, displayValue: "\(Int(weight))", displayUnit: unit, ranges: ranges, valueName: bodyMassIndexClass.name(), valueColor: bodyMassIndexClass.color(), activity: activity)
         
         viewController.configureInfoContainer(nil, imageNamed: "metric-info-weight-copy")
     }

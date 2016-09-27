@@ -14,11 +14,6 @@ private let defaultTextColor = UIColor.blackColor()
 private let defaultSelectedTextColor = Theme.Color.primary
 
 final class MetricsCoordinator: NSObject {
-    
-    weak var delegate: MetricsCoordinatorDelegate? = nil
-    
-    /// Supported types of metrics
-    let types: [MetricsType]!
 
     /// Stores index of previously selected metric. **Warning:** Do not write to this property directly as it automatically tracks the `selectedIndex`.
     private(set) var previouslySelectedIndex: Int? = nil
@@ -37,17 +32,7 @@ final class MetricsCoordinator: NSObject {
     }
     
     /// Data set with various metric graph points.
-    lazy private var dataSet: MetricGraphPoints = {
-        let dataFactory = MetricDataFactory()
-        
-//        let data = MetricDataFactory().metricData(nil, activitiesDictionary: nil)
-        
-        let data = dataFactory.metricData(SessionController.Instance.checkins, activitiesDictionary: SessionController.Instance.activities)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MetricsCoordinator.didRefreshData(_:)), name: ApiUtility.ACTIVITIES, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MetricsCoordinator.didRefreshData(_:)), name: ApiUtility.CHECKINS, object: nil)
-        
-        return data
-    }()
+    private lazy var dataSet = MetricGraphPoints()
     
     /// Array of view controllers corresponding with metric types
     private(set) lazy var pageViewControllers: [UIViewController] = {
@@ -74,7 +59,7 @@ final class MetricsCoordinator: NSObject {
             case .BodyMassIndex:
                 delegate = NewBodyMassIndexMetricDelegate(data: self.dataSet.bodyMassIndex)
             case .BodyFat:
-                delegate = NewBodyFatMetricDelegate(data: self.dataSet.bodyFat)
+                delegate = NewBodyFatMetricDelegate(data: self.dataSet.bodyFat, user: self.userController.user)
             }
             child.metricDelegate = delegate
             
@@ -89,8 +74,81 @@ final class MetricsCoordinator: NSObject {
         return cell as! TextCollectionViewCell
     }()
     
-    init(types: [MetricsType]) {
+    // MARK: Configurable Properties
+    
+    /// Supported types of metrics
+    let types: [MetricsType]
+    
+    private var userController: UserController!
+    
+    weak var delegate: MetricsCoordinatorDelegate? = nil
+    
+    // MARK: Init
+    
+    required init(types: [MetricsType]) {
         self.types = types
+    }
+}
+
+extension MetricsCoordinator {
+    
+    func configure(withUserController userController: UserController) {
+        self.userController = userController
+        
+        self.fetchData()
+    }
+}
+
+// MARK: - Data Retreival
+
+extension MetricsCoordinator {
+    
+    func fetchData() {
+        
+        let user = userController.user
+        let startDate = NSDate.distantPast()
+        let endDate = NSDate()
+        let sortDescending = true
+        let pageSize = 0
+        
+        types.forEach({ type in
+            
+            let metricIds = activityMetricIds(forMetricsType: type)
+            let includeWatts = type == .DailySummary
+            
+            ActivityNetworkController.fetch(activitiesForUser: user, withMetrics: metricIds, startDate: startDate, endDate: endDate, includeWatts: includeWatts, sortDescending: sortDescending, pageSize: pageSize, success: { [weak self] (activities, paging) in
+                
+                guard let strongSelf = self else { return }
+                // transform activities to graph points
+                // place graph points within structs
+                MetricDataFactory.updateGraphPoints(fromActivities: activities, forMetricsType: type, metricGraphPoints: &strongSelf.dataSet)
+                strongSelf.refreshData(forMetricsType: type, withActivities: activities)
+                
+                }, failure: { (error) in
+                    // TODO: Handle error
+            })
+        })
+    }
+    
+    private func activityMetricIds(forMetricsType metricsType: MetricsType) -> [Activity.Metric.Identifier] {
+        var metricIds: [Activity.Metric.Identifier] = []
+        switch metricsType {
+        case .DailySummary:
+            break
+        case .BloodPressure:
+            metricIds.append(.systolic)
+            metricIds.append(.diastolic)
+        case .Pulse:
+            metricIds.append(.pulse)
+        case .Weight:
+            metricIds.append(.weight)
+        case .BodyMassIndex: 
+            metricIds.append(.bodyMassIndex)
+        case .BodyFat: 
+            metricIds.append(.fatRatio)
+            metricIds.append(.fatMass)
+        }
+        return metricIds
     }
 }
 
@@ -98,43 +156,42 @@ final class MetricsCoordinator: NSObject {
 
 extension MetricsCoordinator {
     
-    func didRefreshData(notification: NSNotification) {
-        self.dataSet = MetricDataFactory().metricData(SessionController.Instance.checkins, activitiesDictionary: SessionController.Instance.activities)
-        for viewController in pageViewControllers {
-            guard let viewController = viewController as? MetricChildViewController else { break }
-            guard let type = viewController.type else { break }
-            guard let delegate = viewController.metricDelegate else { break }
-            
-            switch type {
-            case .DailySummary:
-                if let delegate = delegate as? NewActivityMetricDelegate {
-                    delegate.updateData(self.dataSet.dailySummary)
-                }
-            case .BloodPressure:
-                if let delegate = delegate as? NewBloodPressureMetricDelegate {
-                    delegate.updateData(self.dataSet.bloodPressure)
-                }
-            case .Pulse:
-                if let delegate = delegate as? NewPulseMetricDelegate {
-                    delegate.updateData(self.dataSet.pulse)
-                }
-            case .Weight:
-                if let delegate = delegate as? NewWeightMetricDelegate {
-                    delegate.updateData(self.dataSet.weight)
-                }
-            case .BodyMassIndex:
-                if let delegate = delegate as? NewBodyMassIndexMetricDelegate {
-                    delegate.updateData(self.dataSet.bodyMassIndex)
-                }
-            case .BodyFat:
-                if let delegate = delegate as? NewBodyFatMetricDelegate {
-                    delegate.updateData(self.dataSet.bodyFat)
-                }
+    private func refreshData(forMetricsType metricsType: MetricsType, withActivities activities: [Activity]) {
+        guard let viewController = pageViewControllers.filter({ ($0 as? MetricChildViewController)?.type == metricsType }).first as? MetricChildViewController else { return }
+        guard let metricDelegate = viewController.metricDelegate else { return }
+        
+        metricDelegate.activities = activities
+        
+        switch metricsType {
+        case .DailySummary:
+            if let dailySummaryDelegate = metricDelegate as? NewActivityMetricDelegate {
+                dailySummaryDelegate.updateData(self.dataSet.dailySummary)
             }
-            dispatch_async(dispatch_get_main_queue(), {
-                viewController.reloadData()
-            })
+        case .BloodPressure:
+            if let bloodPressureDelegate = metricDelegate as? NewBloodPressureMetricDelegate {
+                bloodPressureDelegate.updateData(self.dataSet.bloodPressure)
+            }
+        case .Pulse:
+            if let pulseDelegate = metricDelegate as? NewPulseMetricDelegate {
+                pulseDelegate.updateData(self.dataSet.pulse)
+            }
+        case .Weight:
+            if let weightDelegate = metricDelegate as? NewWeightMetricDelegate {
+                weightDelegate.updateData(self.dataSet.weight)
+            }
+        case .BodyMassIndex:
+            if let bmiDelegate = metricDelegate as? NewBodyMassIndexMetricDelegate {
+                bmiDelegate.updateData(self.dataSet.bodyMassIndex)
+            }
+        case .BodyFat:
+            if let bodyFatDelegate = metricDelegate as? NewBodyFatMetricDelegate {
+                bodyFatDelegate.updateData(self.dataSet.bodyFat)
+            }
         }
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            viewController.reloadData()
+        })
     }
 }
 
