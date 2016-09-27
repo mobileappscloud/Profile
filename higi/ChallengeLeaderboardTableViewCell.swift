@@ -13,7 +13,11 @@ final class ChallengeLeaderboardTableViewCell: UITableViewCell {
     /// MARK: Outlets
     
     @IBOutlet var avatarImageView: UIImageView!
-    @IBOutlet var nameLabel: UILabel!
+    @IBOutlet var nameLabel: UILabel! {
+        didSet {
+            nameLabel.textColor = Theme.Color.Challenge.UserProgress.nameLabel
+        }
+    }
     @IBOutlet var placementLabel: UILabel!
     @IBOutlet var challengeProgressViewContainer: UIView!
     @IBOutlet var challengeProgressView: ChallengeProgressView! {
@@ -39,7 +43,13 @@ final class ChallengeLeaderboardTableViewCell: UITableViewCell {
             dashedLineView.hidden = !hasGoal
         }
     }
-    
+
+    var goalReached: Bool = false {
+        didSet {
+            challengeProgressView.wattsLabelPaddingEnabled = goalReached
+        }
+    }
+
     var minimumProgressViewWidth = ChallengeProgressView.heightForNonCompetitiveBar
 }
 

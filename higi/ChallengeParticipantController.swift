@@ -78,10 +78,14 @@ extension ChallengeParticipantController {
      */
     func isUser(associatedWithChallengeParticipater challengeParticipater: ChallengeParticipating) -> Bool {
         var isUserAssociated = false
-        if let challengeParticipater = challengeParticipater as? Challenge.Team {
+        var actualChallengeParticipater = challengeParticipater
+        if let rankedChallengeParticipater = actualChallengeParticipater as? RankedChallengeParticipating {
+            actualChallengeParticipater = rankedChallengeParticipater.challengeParticipating
+        }
+        if let challengeParticipater = actualChallengeParticipater as? Challenge.Team {
             // There is no unique identifier on `Challenge.Team`, so we'll use the team name as the basis for equality.
             isUserAssociated = userTeam?.name == challengeParticipater.name
-        } else if let challengeParticipater = challengeParticipater as? Challenge.Participant {
+        } else if let challengeParticipater = actualChallengeParticipater as? Challenge.Participant {
             isUserAssociated = user?.identifier == challengeParticipater.identifier
         }
         return isUserAssociated

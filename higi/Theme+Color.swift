@@ -324,6 +324,7 @@ extension Theme.Color.Challenge {
         static let pointsContainerBackground = Utility.colorFromHexString("#6D6D6D")
         static let pointsContainerText = UIColor.whiteColor()
         static let dashedLineColor = Utility.colorFromHexString("#6D6D6D")
+        static let nameLabel = Utility.colorFromHexString("#323330")
     }
 }
 

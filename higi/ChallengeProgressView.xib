@@ -19,6 +19,7 @@
                 <outlet property="userImageWidthConstraint" destination="3i5-YL-FQ7" id="jE3-UL-8Zh"/>
                 <outlet property="view" destination="zEx-NJ-WXD" id="fOn-78-Q7I"/>
                 <outlet property="wattsLabel" destination="DQG-D5-3iQ" id="QF5-sq-3ce"/>
+                <outlet property="wattsLabelTrailingConstraint" destination="pbq-V1-UHQ" id="UbL-oP-2bm"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -49,7 +50,7 @@
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DQG-D5-3iQ" userLabel="Watts Label">
                     <rect key="frame" x="6" y="61" width="356" height="7"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="WaA-zt-lEx" userLabel="User Image View">
@@ -81,6 +82,7 @@
                 <constraint firstItem="DQG-D5-3iQ" firstAttribute="top" secondItem="83h-O7-fvI" secondAttribute="top" id="Rhj-TE-SnB"/>
                 <constraint firstItem="5oZ-ub-TFe" firstAttribute="trailing" secondItem="WaA-zt-lEx" secondAttribute="centerX" id="U19-0S-GLP"/>
                 <constraint firstItem="37U-JM-Sve" firstAttribute="top" secondItem="83h-O7-fvI" secondAttribute="top" id="UDC-Cr-tYl"/>
+                <constraint firstAttribute="trailing" secondItem="DQG-D5-3iQ" secondAttribute="trailing" priority="800" constant="10" id="Wms-IF-jdk"/>
                 <constraint firstItem="DQG-D5-3iQ" firstAttribute="leading" secondItem="zEx-NJ-WXD" secondAttribute="leading" priority="900" constant="6" id="etv-S5-R4y"/>
                 <constraint firstItem="WaA-zt-lEx" firstAttribute="centerY" secondItem="zEx-NJ-WXD" secondAttribute="centerY" id="fOt-Dj-glX"/>
                 <constraint firstItem="37U-JM-Sve" firstAttribute="leading" secondItem="83h-O7-fvI" secondAttribute="leading" id="k1x-XO-XeW"/>

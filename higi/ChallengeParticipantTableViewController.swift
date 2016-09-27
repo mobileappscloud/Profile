@@ -202,9 +202,22 @@ extension ChallengeParticipantTableViewController {
     private func individualCompetitiveGoalCell(for tableView: UITableView, for indexPath: NSIndexPath) -> UITableViewCell {
         let participantCell = individualCompetitiveCell(for: tableView, for: indexPath)
         participantCell.hasGoal = true
+        if goalReached(for: challengeParticipantController.participaters[indexPath.row]) {
+            participantCell.goalReached = true
+            let goalReachedText = NSLocalizedString("CHALLENGE_LEADERBOARD_GOAL_REACHED_TEXT", comment: "Text for telling the user they reached their goal.")
+            participantCell.challengeProgressView.wattsLabel.text = goalReachedText
+            participantCell.challengeProgressView.progressMilestones = [1.0]
+        } else {
+            participantCell.goalReached = false
+            participantCell.challengeProgressView.progressMilestones = []
+        }
         return participantCell
     }
-
+    
+    private func goalReached(for participator: RankedChallengeParticipating) -> Bool {
+        let maxPoints = challengeParticipantController.challenge.maxPoints ?? 0
+        return participator.units >= maxPoints
+    }
 }
 
 extension ChallengeParticipantTableViewController {

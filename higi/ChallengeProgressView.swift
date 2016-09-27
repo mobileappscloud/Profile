@@ -46,6 +46,8 @@ final class ChallengeProgressView: ReusableXibView {
         }
     }
     
+    @IBOutlet var wattsLabelTrailingConstraint: NSLayoutConstraint!
+    
     // MARK: Properties
     
     @IBInspectable var progressColor: UIColor = Theme.Color.Challenge.ProgressView.progressColor {
@@ -92,7 +94,18 @@ final class ChallengeProgressView: ReusableXibView {
     }
     
     var nodeHeight: CGFloat {
-        return heightConstraint.constant * 2
+        return height * 2
+    }
+    
+    var wattsLabelPaddingEnabled = false {
+        didSet {
+            if wattsLabelPaddingEnabled {
+                wattsLabelTrailingConstraint.priority = 950
+                wattsLabelTrailingConstraint.constant = height
+            } else {
+                wattsLabelTrailingConstraint.priority = 800
+            }
+        }
     }
     
     static let heightForCompetitiveBar: CGFloat = 15
@@ -154,9 +167,9 @@ extension ChallengeProgressView {
     }
     
     private func updateCornerRadii() {
-        trackView.cornerRadius = heightConstraint.constant / 2
-        progressView.cornerRadius = heightConstraint.constant / 2
-        goalMilestoneOverlayView.cornerRadius = heightConstraint.constant / 2
+        trackView.cornerRadius = height / 2
+        progressView.cornerRadius = height / 2
+        goalMilestoneOverlayView.cornerRadius = height / 2
     }
     
     private func updateProgressWidth() {

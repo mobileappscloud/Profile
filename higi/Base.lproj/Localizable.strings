@@ -250,6 +250,9 @@
 /* Text to display for a challenge goal where the winner is a team. */
 "CHALLENGE_INVITATION_VIEW_GOAL_TYPE_WINNER_TEAM" = "Team";
 
+/* Text for telling the user they reached their goal. */
+"CHALLENGE_LEADERBOARD_GOAL_REACHED_TEXT" = "Goal Reached";
+
 /* Format for the number of watts a user has, like, '1500 watts'. */
 "CHALLENGE_LEADERBOARD_WATT_COUNT_SINGLE_PLURAL" = "CHALLENGE_LEADERBOARD_WATT_COUNT_SINGLE_PLURAL";
 
