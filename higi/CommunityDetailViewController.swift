@@ -112,7 +112,7 @@ extension CommunityDetailViewController {
         self.title = community.name
         self.navigationItem.rightBarButtonItem = navigationOverflowBarButtonItem()
         
-        configureLeaderboardWidget()
+//        configureLeaderboardWidget() // TODO: Uncomment after community leaderboard backend is implemented
     }
     
     override func viewWillAppear(animated: Bool) {
