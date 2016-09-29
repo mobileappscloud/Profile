@@ -22,6 +22,7 @@ extension UIView {
         }
         set {
             layer.cornerRadius = newValue
+            layer.masksToBounds = true
         }
     }
 }

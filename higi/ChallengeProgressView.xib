@@ -9,14 +9,15 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChallengeProgressView" customModule="higi" customModuleProvider="target">
             <connections>
+                <outlet property="avatarImageUserAspectRatio" destination="DnG-IS-Cey" id="bRX-cJ-ePx"/>
                 <outlet property="goalMilestoneOverlayView" destination="fgk-5t-970" id="ek3-ky-dYM"/>
                 <outlet property="goalMilestonesView" destination="37U-JM-Sve" id="4hn-9q-r08"/>
                 <outlet property="heightConstraint" destination="Aq2-Ps-TEj" id="oAP-0y-sDO"/>
                 <outlet property="progressView" destination="5oZ-ub-TFe" id="X1w-lR-ttK"/>
                 <outlet property="progressWidthConstraint" destination="KEk-cI-4J3" id="sU6-r7-Smn"/>
                 <outlet property="trackView" destination="83h-O7-fvI" id="8aV-Ya-7sg"/>
+                <outlet property="userImageHeightConstraint" destination="3i5-YL-FQ7" id="aDR-WX-IEv"/>
                 <outlet property="userImageView" destination="WaA-zt-lEx" id="91P-Ya-B2i"/>
-                <outlet property="userImageWidthConstraint" destination="3i5-YL-FQ7" id="jE3-UL-8Zh"/>
                 <outlet property="view" destination="zEx-NJ-WXD" id="fOn-78-Q7I"/>
                 <outlet property="wattsLabel" destination="DQG-D5-3iQ" id="QF5-sq-3ce"/>
                 <outlet property="wattsLabelTrailingConstraint" destination="pbq-V1-UHQ" id="UbL-oP-2bm"/>
@@ -53,12 +54,12 @@
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="WaA-zt-lEx" userLabel="User Image View">
-                    <rect key="frame" x="-12" y="52" width="25" height="25"/>
-                    <color key="backgroundColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="profile-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="WaA-zt-lEx" userLabel="User Image View">
+                    <rect key="frame" x="-13" y="52" width="26" height="25"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="25" id="3i5-YL-FQ7"/>
-                        <constraint firstAttribute="width" secondItem="WaA-zt-lEx" secondAttribute="height" multiplier="1:1" id="PUZ-FD-OrD"/>
+                        <constraint firstAttribute="height" constant="25" id="3i5-YL-FQ7" userLabel="User Image Height Constraint"/>
+                        <constraint firstAttribute="width" secondItem="WaA-zt-lEx" secondAttribute="height" multiplier="1:1" priority="950" id="DnG-IS-Cey"/>
+                        <constraint firstAttribute="width" secondItem="WaA-zt-lEx" secondAttribute="height" multiplier="2:1" priority="900" id="PUZ-FD-OrD" userLabel="Avatar Image Team Aspect Ratio"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">

@@ -292,7 +292,7 @@ extension ChallengeDetailTableViewController {
             return
         }
         
-        cell.challengeProgressView.userImageWidthConstraint.constant = 40
+        cell.challengeProgressView.userImageHeightConstraint.constant = 40
         cell.challengeProgressView.progressMilestones = winConditionProportions
         cell.challengeProgressView.userImageView.setImage(withMediaAsset: userController.user.photo)
         cell.challengeProgressView.progress = CGFloat(progressProportion)

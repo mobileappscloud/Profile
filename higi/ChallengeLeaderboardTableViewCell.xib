@@ -13,7 +13,7 @@
             <rect key="frame" x="0.0" y="0.0" width="477" height="64"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JJ4-F8-Z0s" id="nLQ-ON-Lt7">
-                <rect key="frame" x="0.0" y="0.0" width="477" height="63.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="477" height="64"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CNy-YU-iN3" userLabel="Dashed Line View" customClass="ChallengeVerticalDashedLineView" customModule="higi" customModuleProvider="target">
@@ -78,7 +78,7 @@
                                             </mask>
                                         </variation>
                                     </stackView>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QtA-zU-zzU">
+                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QtA-zU-zzU" userLabel="Placement and Progress View">
                                         <rect key="frame" x="0.0" y="25" width="372" height="19"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="260" verticalHuggingPriority="251" horizontalCompressionResistancePriority="760" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HOH-EM-w2c">
@@ -145,6 +145,7 @@
                 <outlet property="contentStackView" destination="REF-YJ-Y9B" id="jmG-Xa-UAf"/>
                 <outlet property="dashedLineView" destination="CNy-YU-iN3" id="zIl-9f-MFa"/>
                 <outlet property="nameLabel" destination="rI1-IH-YyW" id="CiN-Nf-iEk"/>
+                <outlet property="placementAndProgressView" destination="QtA-zU-zzU" id="cvI-ie-jYE"/>
                 <outlet property="placementLabel" destination="HOH-EM-w2c" id="lGK-r3-drN"/>
                 <outlet property="yourTeamLabel" destination="A2P-ut-4KA" id="oST-gd-pW9"/>
             </connections>

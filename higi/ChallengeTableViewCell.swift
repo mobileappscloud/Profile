@@ -31,7 +31,7 @@ final class ChallengeTableViewCell: UITableViewCell {
     func configure(withModel model: ChallengeTableViewCellModel, joinButtonTappedCallback: () -> (), userPhoto: MediaAsset?) {
         setModel(model)
         self.joinButtonTappedCallback = joinButtonTappedCallback
-        challengeProgressView?.userImageView.setImage(withMediaAsset: userPhoto, transition: true)
+        challengeProgressView?.userImageView.setImage(withMediaAsset: userPhoto, transition: false)
     }
     
     func setModel(model: ChallengeTableViewCellModel) {
@@ -39,8 +39,8 @@ final class ChallengeTableViewCell: UITableViewCell {
         challengeStatusIndicatorView.state = model.challenge.userState
         dateLabel.text = model.dateText
         participantCountLabel.text = model.participantCountText
-        mainImageView.setImage(withMediaAsset: model.mainImageAsset, transition: true)
-        communityImageView.setImage(withMediaAsset: model.communityImageAsset, transition: true)
+        mainImageView.setImage(withMediaAsset: model.mainImageAsset, transition: false)
+        communityImageView.setImage(withMediaAsset: model.communityImageAsset, transition: false)
         communityLabel.text = model.communityText
         
         switch model.challenge.userState {

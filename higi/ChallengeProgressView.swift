@@ -17,7 +17,8 @@ final class ChallengeProgressView: ReusableXibView {
     @IBOutlet var progressView: UIView!
     @IBOutlet var progressWidthConstraint: NSLayoutConstraint!
     @IBOutlet var userImageView: UIImageView!
-    @IBOutlet var userImageWidthConstraint: NSLayoutConstraint!
+    @IBOutlet var userImageHeightConstraint: NSLayoutConstraint!
+    @IBOutlet var avatarImageUserAspectRatio: NSLayoutConstraint!
     @IBOutlet var goalMilestoneOverlayView: UIView! {
         didSet {
             goalMilestoneOverlayView.backgroundColor = Theme.Color.Challenge.ProgressView.trackColor
@@ -109,7 +110,19 @@ final class ChallengeProgressView: ReusableXibView {
         }
     }
     
-    private var avatarImageCornerRadius = AvatarImageCornerRadius.circular
+    var avatarImageCornerRadius = AvatarImageCornerRadius.circular
+    var participantType: ParticipantType = .user {
+        didSet {
+            switch participantType {
+            case .user:
+                avatarImageCornerRadius = .circular
+                avatarImageUserAspectRatio.priority = 950
+            case .team:
+                avatarImageCornerRadius = .rounded
+                avatarImageUserAspectRatio.priority = 800
+            }
+        }
+    }
     
     static let heightForCompetitiveBar: CGFloat = 15
     static let heightForNonCompetitiveBar: CGFloat = 7
@@ -174,6 +187,8 @@ extension ChallengeProgressView {
         trackView.cornerRadius = height / 2
         progressView.cornerRadius = height / 2
         goalMilestoneOverlayView.cornerRadius = height / 2
+        userImageView.setNeedsLayout()
+        userImageView.layoutIfNeeded()
         userImageView.cornerRadius = userImageView.bounds.height * avatarImageCornerRadius.dimensionMultiplier
     }
     
@@ -204,15 +219,20 @@ extension ChallengeProgressView {
 // MARK: - Inner Classes
 
 extension ChallengeProgressView {
-    private enum AvatarImageCornerRadius {
+    enum AvatarImageCornerRadius {
         case circular
         case rounded
         
         var dimensionMultiplier: CGFloat {
             switch self {
                 case .circular: return 0.5
-                case .rounded: return 0.15
+                case .rounded: return 0.2
             }
         }
+    }
+    
+    enum ParticipantType {
+        case user
+        case team
     }
 }

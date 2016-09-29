@@ -34,6 +34,7 @@ final class ChallengeLeaderboardTableViewCell: UITableViewCell {
             chevronImageView.tintColor = Theme.Color.Challenge.Detail.Participants.chevron
         }
     }
+    @IBOutlet var placementAndProgressView: UIView!
     @IBOutlet var placementLabel: UILabel!
     @IBOutlet var challengeProgressViewContainer: UIView!
     @IBOutlet var challengeProgressView: ChallengeProgressView! {
@@ -72,10 +73,12 @@ final class ChallengeLeaderboardTableViewCell: UITableViewCell {
                 avatarImageView.cornerRadius = avatarTeamCornerRadius
                 avatarAspectRatioConstraint.active = false
                 avatarWidthConstraint.constant = avatarTeamWidth
+                challengeProgressView.participantType = .team
             } else {
                 avatarImageView.cornerRadius = avatarDefaultCornerRadius
                 avatarAspectRatioConstraint.active = true
                 avatarWidthConstraint.constant = avatarDefaultWidth
+                challengeProgressView.participantType = .user
             }
         }
     }
@@ -94,7 +97,7 @@ final class ChallengeLeaderboardTableViewCell: UITableViewCell {
         return challengeProgressView.height
     }
     
-    private var chevronDirection: ChevronDirection = .right {
+    var chevronDirection: ChevronDirection = .right {
         didSet {
             chevronImageView.image = chevronDirection.image
         }
@@ -127,13 +130,13 @@ extension ChallengeLeaderboardTableViewCell {
     }
     
     func setProgressViewHidden(hidden: Bool) {
-        contentStackView.arrangedSubviews[1].hidden = hidden
+        placementAndProgressView.hidden = hidden
     }
     
     func toggleChevronDirection() {
         self.chevronDirection = self.chevronDirection.toggled
     }
-    
+
 }
 
 // MARK: - Lifecycle
@@ -165,7 +168,7 @@ extension ChallengeLeaderboardTableViewCell {
 // MARK: - Inner classes
 
 extension ChallengeLeaderboardTableViewCell {
-    private enum ChevronDirection {
+    enum ChevronDirection {
         case right
         case down
         
