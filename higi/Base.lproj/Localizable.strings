@@ -256,6 +256,9 @@
 /* Format for the number of watts a user has, like, '1500 watts'. */
 "CHALLENGE_LEADERBOARD_WATT_COUNT_SINGLE_PLURAL" = "CHALLENGE_LEADERBOARD_WATT_COUNT_SINGLE_PLURAL";
 
+/* Text for telling the user that this is their team. */
+"CHALLENGE_LEADERBOARD_YOUR_TEAM_TEXT" = "(Your Team)";
+
 /* Format for pluralization of winners. */
 "CHALLENGE_WIN_CONDITION_WINNER_SINGLE_PLURAL" = "CHALLENGE_WIN_CONDITION_WINNER_SINGLE_PLURAL";
 

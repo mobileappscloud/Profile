@@ -8,6 +8,7 @@
 
 import UIKit
 
+@IBDesignable
 final class ChallengeProgressView: ReusableXibView {
     
     // MARK: Outlets
@@ -108,6 +109,8 @@ final class ChallengeProgressView: ReusableXibView {
         }
     }
     
+    private var avatarImageCornerRadius = AvatarImageCornerRadius.circular
+    
     static let heightForCompetitiveBar: CGFloat = 15
     static let heightForNonCompetitiveBar: CGFloat = 7
     
@@ -125,6 +128,7 @@ final class ChallengeProgressView: ReusableXibView {
     override func layoutSubviews() {
         super.layoutSubviews()
         updateProgressWidth()
+        updateCornerRadii()
         renderMilestones()
         truncateLabel()
     }
@@ -170,6 +174,7 @@ extension ChallengeProgressView {
         trackView.cornerRadius = height / 2
         progressView.cornerRadius = height / 2
         goalMilestoneOverlayView.cornerRadius = height / 2
+        userImageView.cornerRadius = userImageView.bounds.height * avatarImageCornerRadius.dimensionMultiplier
     }
     
     private func updateProgressWidth() {
@@ -180,8 +185,11 @@ extension ChallengeProgressView {
     
     private func truncateLabel() {
         if let text = wattsLabel.text where textIsTruncated(text) {
-            wattsLabel.text = nil
+            wattsLabel.hidden = true
+        } else {
+            wattsLabel.hidden = false
         }
+
     }
     
     private func textIsTruncated(text: String) -> Bool {
@@ -189,5 +197,22 @@ extension ChallengeProgressView {
         return (text as NSString).sizeWithAttributes([
             NSFontAttributeName: wattsLabel.font
         ]).width > wattsLabel.bounds.width
+    }
+    
+}
+
+// MARK: - Inner Classes
+
+extension ChallengeProgressView {
+    private enum AvatarImageCornerRadius {
+        case circular
+        case rounded
+        
+        var dimensionMultiplier: CGFloat {
+            switch self {
+                case .circular: return 0.5
+                case .rounded: return 0.15
+            }
+        }
     }
 }

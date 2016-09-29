@@ -31,6 +31,10 @@ extension Challenge {
         
         /// Team which the current participant is a member of.
         let team: Team?
+        
+        func isAssociatedWithParticipant(participant: Challenge.Participant) -> Bool {
+            return participant.identifier == identifier
+        }
     }
 }
 

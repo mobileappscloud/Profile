@@ -17,7 +17,10 @@ extension Challenge {
         
         /// Name of the team.
         let name: String
-        
+
+        /// Id of the team. Undocumented in Apiary atm. Only unique to other teams.
+        let identifier: String
+
         /// Number of members on the team.
         let memberCount: Int
         
@@ -31,6 +34,10 @@ extension Challenge {
         
         /// Present if current user is allowed to join this team.
         let joinURL: NSURL?
+        
+        func isAssociatedWithParticipant(participant: Challenge.Participant) -> Bool {
+            return participant.team?.identifier == identifier
+        }
     }
 }
 
@@ -40,10 +47,12 @@ extension Challenge.Team: JSONInitializable {
     
     init?(dictionary: NSDictionary) {
         guard let name = dictionary["name"] as? String,
-            let memberCount = dictionary["memberCount"] as? Int,
+            let identifier = dictionary["id"] as? String,
+            let memberCount = dictionary["membersCount"] as? Int,
             let units = dictionary["units"] as? Double else { return nil }
         
         self.name = name
+        self.identifier = identifier
         self.memberCount = memberCount
         self.units = units
         

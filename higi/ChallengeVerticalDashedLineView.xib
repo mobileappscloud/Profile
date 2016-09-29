@@ -10,6 +10,7 @@
         <view contentMode="scaleToFill" id="iN0-l3-epB" userLabel="ChallengeVerticalDashedLineView">
             <rect key="frame" x="0.0" y="0.0" width="23" height="223"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="137.5" y="482.5"/>
         </view>

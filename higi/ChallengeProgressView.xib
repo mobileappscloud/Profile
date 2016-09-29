@@ -55,6 +55,7 @@
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="WaA-zt-lEx" userLabel="User Image View">
                     <rect key="frame" x="-12" y="52" width="25" height="25"/>
+                    <color key="backgroundColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="25" id="3i5-YL-FQ7"/>
                         <constraint firstAttribute="width" secondItem="WaA-zt-lEx" secondAttribute="height" multiplier="1:1" id="PUZ-FD-OrD"/>

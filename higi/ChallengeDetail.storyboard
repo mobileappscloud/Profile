@@ -64,7 +64,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="yEp-yJ-OI4" userLabel="Scroll Content Stack View">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="869"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cX3-dJ-tON">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cX3-dJ-tON">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="cX3-dJ-tON" secondAttribute="height" multiplier="5:2" id="iFE-dA-H3N"/>

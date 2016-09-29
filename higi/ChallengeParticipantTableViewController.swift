@@ -7,11 +7,6 @@
 //
 
 final class ChallengeParticipantTableViewController: UIViewController {
-    
-    // Properties
-    
-    lazy var progressViewHeight: CGFloat = 10
-    lazy var progressViewCornerRadius: CGFloat = self.progressViewHeight / 2
 
     // Outlets
     @IBOutlet private var tableView: UITableView! {
@@ -26,7 +21,6 @@ final class ChallengeParticipantTableViewController: UIViewController {
             tableView.register(nibWithCellClass: ChallengeProgressHeaderTableViewCell.self)
             
             tableView.separatorStyle = .None
-            tableView.allowsSelection = false
         }
     }
     
@@ -40,7 +34,7 @@ final class ChallengeParticipantTableViewController: UIViewController {
 extension ChallengeParticipantTableViewController {
     
     func configure(withChallenge challenge: Challenge, challengeRepository: UserDataRepository<Challenge>) {
-        self.challengeParticipantController = ChallengeParticipantController(challenge: challenge, challengeRepository: challengeRepository)
+        self.challengeParticipantController = ChallengeParticipantController(challenge: challenge, challengeRepository: challengeRepository, delegate: self)
     }
 }
 
@@ -72,12 +66,12 @@ extension ChallengeParticipantTableViewController: UITableViewDataSource {
             case .individualGoalFrequency: break
             case .individualCompetitive: break
             case .individualCompetitiveGoal: numberOfRows = 1
-            case .teamGoalAccumulation: break
+            case .teamGoalAccumulation: numberOfRows = 1
             case .teamCompetitive: break
-            case .teamCompetitiveGoal: break
+            case .teamCompetitiveGoal: numberOfRows = 1
             }
         case TableSection.ChallengeParticipaters.rawValue:
-            return challengeParticipantController.participaters.count
+            return challengeParticipantController.rows.count
         case TableSection._count.rawValue:
             break
         default:
@@ -88,34 +82,37 @@ extension ChallengeParticipantTableViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         guard let sectionType = TableSection(rawValue: indexPath.section) else { fatalError("Invalid table section") }
-
+        
+        let cell: UITableViewCell
         switch sectionType {
         case TableSection.HeaderSection:
             switch challengeParticipantController.challenge.template {
-            case .individualGoalAccumulation: return individualGoalAccumulationHeaderCell(for: tableView, indexPath: indexPath)
+            case .individualGoalAccumulation: cell = goalAccumulationHeaderCell(for: tableView, indexPath: indexPath)
             case .individualGoalFrequency: fatalError("No cell for section")
             case .individualCompetitive: fatalError("No cell for section")
-            case .individualCompetitiveGoal: return individualGoalAccumulationHeaderCell(for: tableView, indexPath: indexPath)
-            case .teamGoalAccumulation: fatalError("No cell for section")
+            case .individualCompetitiveGoal: cell = goalAccumulationHeaderCell(for: tableView, indexPath: indexPath)
+            case .teamGoalAccumulation: cell = goalAccumulationHeaderCell(for: tableView, indexPath: indexPath)
             case .teamCompetitive: fatalError("No cell for section")
-            case .teamCompetitiveGoal: fatalError("No cell for section")
+            case .teamCompetitiveGoal: cell = goalAccumulationHeaderCell(for: tableView, indexPath: indexPath)
             }
             
         case TableSection.ChallengeParticipaters:
             switch challengeParticipantController.challenge.template {
-            case .individualGoalAccumulation: return individualGoalAccumulationCell(for: tableView, indexPath: indexPath)
+            case .individualGoalAccumulation: cell = individualGoalAccumulationCell(for: tableView, indexPath: indexPath)
             case .individualGoalFrequency: fatalError("Not implemented")
-            case .individualCompetitive: return individualCompetitiveCell(for: tableView, for: indexPath)
-            case .individualCompetitiveGoal: return individualCompetitiveGoalCell(for: tableView, for: indexPath)
-            case .teamGoalAccumulation: fatalError("Not implemented")
-            case .teamCompetitive: fatalError("Not implemented")
-            case .teamCompetitiveGoal: fatalError("Not implemented")
+            case .individualCompetitive: cell = individualCompetitiveCell(for: tableView, for: indexPath)
+            case .individualCompetitiveGoal: cell = individualCompetitiveGoalCell(for: tableView, for: indexPath)
+            case .teamGoalAccumulation: cell = teamGoalAccumulationCell(for: tableView, for: indexPath)
+            case .teamCompetitive: cell = teamCompetitiveCell(for: tableView, for: indexPath)
+            case .teamCompetitiveGoal: cell = teamCompetitiveGoalCell(for: tableView, for: indexPath)
             }
             
         case TableSection._count:
             fatalError("Invalid section")
         }
-
+        
+        cell.selectionStyle = .None
+        return cell
     }
     
 }
@@ -126,7 +123,7 @@ extension ChallengeParticipantTableViewController {
     
     // MARK: individualGoalAccumulation
     
-    private func individualGoalAccumulationHeaderCell(for tableView: UITableView, indexPath: NSIndexPath) -> UITableViewCell {
+    private func goalAccumulationHeaderCell(for tableView: UITableView, indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withClass: ChallengeProgressHeaderTableViewCell.self, forIndexPath: indexPath)
         cell.numberOfPointsLabel.text = "\(Int(challengeParticipantController.challenge.maxPoints ?? 0))"
         return cell
@@ -136,22 +133,24 @@ extension ChallengeParticipantTableViewController {
         let cell = tableView.dequeueReusableCell(withClass: ChallengeProgressTableViewCell.self, forIndexPath: indexPath)
         cell.reset()
         
-        let participater = challengeParticipantController.participaters[indexPath.row]
+        let participater = challengeParticipantController.rows[indexPath.row].challengeParticipant
         
         cell.userNameLabel.text = participater.name
-        if let participatorImage = participater.image {
-            cell.challengeProgressView.userImageView.setImage(withMediaAsset: participatorImage)
-        }
         
-        let isCurrentUser = challengeParticipantController.isUser(associatedWithChallengeParticipater: participater)
-        cell.challengeProgressView.progressColor = isCurrentUser ? Theme.Color.Challenge.Detail.Participants.userprogressTint : Theme.Color.Challenge.Detail.Participants.progressTint
-        
-        if let maxUnits = challengeParticipantController.maxUnits {
-            cell.challengeProgressView.progress = CGFloat(participater.units/maxUnits)
-        }
-        
-        if let winConditionProportions = challengeParticipantController.challenge.winConditionProportions {
-            cell.challengeProgressView.progressMilestones = winConditionProportions
+        if shouldShowProgress() {
+            if let participatorImage = participater.image {
+                cell.challengeProgressView.userImageView.setImage(withMediaAsset: participatorImage)
+            }
+            
+            cell.challengeProgressView.progressColor = progressColorForParticipator(participater)
+            
+            if let maxUnits = challengeParticipantController.maxUnits {
+                cell.challengeProgressView.progress = CGFloat(participater.units/maxUnits)
+            }
+            
+            if let winConditionProportions = challengeParticipantController.challenge.winConditionProportions {
+                cell.challengeProgressView.progressMilestones = winConditionProportions
+            }
         }
         
         return cell
@@ -160,63 +159,184 @@ extension ChallengeParticipantTableViewController {
     // MARK: individualCompetitiveCell
 
     private func individualCompetitiveCell(for tableView: UITableView, for indexPath: NSIndexPath) -> ChallengeLeaderboardTableViewCell {
-        let participantCell = tableView.dequeueReusableCell(withClass: ChallengeLeaderboardTableViewCell.self, forIndexPath: indexPath)
-        participantCell.reset()
+        let cell = tableView.dequeueReusableCell(withClass: ChallengeLeaderboardTableViewCell.self, forIndexPath: indexPath)
+        cell.reset()
         
-        let participater = challengeParticipantController.participaters[indexPath.row]
+        let row = challengeParticipantController.rows[indexPath.row]
+        let participater = row.challengeParticipant
         if let participatorImage = participater.image {
-            participantCell.avatarImageView.setImage(withMediaAsset: participatorImage)
+            cell.avatarImageView.setImage(withMediaAsset: participatorImage)
         }
-        participantCell.nameLabel.text = participater.name
+        cell.nameLabel.text = participater.name
         
-        if challengeParticipantController.challenge.status != .registration &&
-            challengeParticipantController.challenge.status != .canceled &&
-            challengeParticipantController.maxUnits > 0 {
-            
-            let isCurrentUser = challengeParticipantController.isUser(associatedWithChallengeParticipater: participater)
-            if let maxUnits = challengeParticipantController.maxUnits {
-                configureProgressView(for: participantCell, participater: participater, maxValue: maxUnits, isCurrentUser: isCurrentUser)
-            }
-        }
-        return participantCell
+        configureCompetitiveProgressView(for: cell, participaterRow: row)
+        return cell
     }
     
-    private func configureProgressView(for cell: ChallengeLeaderboardTableViewCell, participater: RankedChallengeParticipating, maxValue: Double, isCurrentUser: Bool) {
-        cell.challengeProgressView.height = ChallengeProgressView.heightForCompetitiveBar
+    private func configureCompetitiveProgressView(for cell: ChallengeLeaderboardTableViewCell, participaterRow: ChallengeParticipantController.Row) {
+        guard let maxUnits = challengeParticipantController.maxUnits where shouldShowProgress() else { return }
+        
+        cell.challengeProgressView.progressColor = progressColorForParticipator(participaterRow.challengeParticipant)
+        
+        cell.isCompetitive = true
+
         let wattCountFormat = NSLocalizedString("CHALLENGE_LEADERBOARD_WATT_COUNT_SINGLE_PLURAL", comment: "Format for the number of watts a user has, like, '1500 watts'.")
-        let wattsCountText = String(format: wattCountFormat, arguments: [Int(participater.units)])
+        let wattsCountText = String(format: wattCountFormat, arguments: [Int(participaterRow.challengeParticipant.units)])
         cell.challengeProgressView.wattsLabel.text = wattsCountText
-        cell.challengeProgressView.progressColor = isCurrentUser ? Theme.Color.Challenge.Detail.Participants.userprogressTint : Theme.Color.Challenge.Detail.Participants.progressTint
         
-        cell.placementLabel.text = ChallengeUtility.getRankWithSuffix(participater.rank)
-        
-        let progressViewWidthProportion = CGFloat(participater.units/maxValue)
-        cell.minimumProgressViewWidth = ChallengeProgressView.heightForCompetitiveBar
+        if let rank = participaterRow.rank {
+            cell.placementLabel.text = ChallengeUtility.getRankWithSuffix(rank)
+        }
+
+        let progressViewWidthProportion = CGFloat(participaterRow.challengeParticipant.units/maxUnits)
         cell.setProgressViewProportion(progressViewWidthProportion)
         
         cell.challengeProgressView.setNeedsLayout() // need to layout to update bar and watts label truncation
     }
     
+    private func progressColorForParticipator(participator: ChallengeParticipating) -> UIColor {
+        let isCurrentUser = challengeParticipantController.isUser(associatedWithChallengeParticipater: participator)
+        return isCurrentUser ? Theme.Color.Challenge.Detail.Participants.userprogressTint : Theme.Color.Challenge.Detail.Participants.progressTint
+    }
+    
     // MARK: individualGoalCompetitiveCell
 
     private func individualCompetitiveGoalCell(for tableView: UITableView, for indexPath: NSIndexPath) -> UITableViewCell {
-        let participantCell = individualCompetitiveCell(for: tableView, for: indexPath)
-        participantCell.hasGoal = true
-        if goalReached(for: challengeParticipantController.participaters[indexPath.row]) {
-            participantCell.goalReached = true
+        let cell = individualCompetitiveCell(for: tableView, for: indexPath)
+        cell.hasGoal = true
+        if goalReached(for: challengeParticipantController.rows[indexPath.row].challengeParticipant) {
+            cell.goalReached = true
             let goalReachedText = NSLocalizedString("CHALLENGE_LEADERBOARD_GOAL_REACHED_TEXT", comment: "Text for telling the user they reached their goal.")
-            participantCell.challengeProgressView.wattsLabel.text = goalReachedText
-            participantCell.challengeProgressView.progressMilestones = [1.0]
+            cell.challengeProgressView.wattsLabel.text = goalReachedText
+            cell.challengeProgressView.progressMilestones = [1.0]
         } else {
-            participantCell.goalReached = false
-            participantCell.challengeProgressView.progressMilestones = []
+            cell.goalReached = false
+            cell.challengeProgressView.progressMilestones = []
         }
-        return participantCell
+        return cell
     }
     
-    private func goalReached(for participator: RankedChallengeParticipating) -> Bool {
+    private func goalReached(for participator: ChallengeParticipating) -> Bool {
         let maxPoints = challengeParticipantController.challenge.maxPoints ?? 0
         return participator.units >= maxPoints
+    }
+    
+    // MARK: teamCompetitiveCell
+
+    private func teamCompetitiveCell(for tableView: UITableView, for indexPath: NSIndexPath) -> ChallengeLeaderboardTableViewCell {
+        let cell = tableView.dequeueReusableCell(withClass: ChallengeLeaderboardTableViewCell.self, forIndexPath: indexPath)
+        cell.reset()
+        
+        let participater = challengeParticipantController.rows[indexPath.row].challengeParticipant
+        if let participatorImage = participater.image {
+            cell.avatarImageView.setImage(withMediaAsset: participatorImage)
+        }
+        
+        if let teamParticipater = participater as? Challenge.Team {
+            cell.isTeamCell = true
+            let isUserAssociated = challengeParticipantController.isUser(associatedWithChallengeParticipater: teamParticipater)
+            cell.nameLabel.text = teamParticipater.name
+            if isUserAssociated {
+                cell.yourTeamLabel.text = NSLocalizedString("CHALLENGE_LEADERBOARD_YOUR_TEAM_TEXT", comment: "Text for telling the user that this is their team.")
+            }
+            
+            cell.setProgressViewHidden(false)
+            configureCompetitiveProgressView(for: cell, participaterRow: challengeParticipantController.rows[indexPath.row])
+            
+            if teamParticipater.memberCount > 0 {
+                cell.chevronImageView.alpha = 1.0
+            }
+        } else if participater is Challenge.Participant {
+            cell.isTeamCell = false
+            cell.nameLabel.text = participater.name
+            cell.yourTeamLabel.text = nil
+
+            cell.setProgressViewHidden(true)
+            cell.chevronImageView.alpha = 0.0
+        }
+
+        return cell
+    }
+    
+    // MARK: teamCompetitiveGoalCell
+    private func teamCompetitiveGoalCell(for tableView: UITableView, for indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = teamCompetitiveCell(for: tableView, for: indexPath)
+        cell.hasGoal = true
+        return cell
+    }
+
+    // MARK: teamGoalAccumulationCell
+    
+    private func teamGoalAccumulationCell(for tableView: UITableView, for indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = teamCompetitiveCell(for: tableView, for: indexPath)
+        cell.hasGoal = true
+        cell.isCompetitive = false
+        
+        let participater = challengeParticipantController.rows[indexPath.row].challengeParticipant
+        
+        if participater is Challenge.Team {
+            cell.avatarImageView.hidden = true
+        } else {
+            cell.avatarImageView.hidden = false
+        }
+
+        if shouldShowProgress() && participater is Challenge.Team {
+            cell.setProgressViewHidden(false)
+            if let participatorImage = participater.image {
+                cell.challengeProgressView.userImageView.setImage(withMediaAsset: participatorImage)
+            }
+            
+            cell.challengeProgressView.progressColor = progressColorForParticipator(participater)
+            
+            if let maxUnits = challengeParticipantController.maxUnits {
+                cell.challengeProgressView.progress = CGFloat(participater.units/maxUnits)
+            }
+            
+            if let winConditionProportions = challengeParticipantController.challenge.winConditionProportions {
+                cell.challengeProgressView.progressMilestones = winConditionProportions
+            }
+            
+            cell.challengeProgressView.wattsLabel.text = ""
+            cell.setProgressViewProportion(1.0)
+        } else {
+            cell.setProgressViewHidden(true)
+        }
+
+        return cell
+    }
+
+}
+
+// MARK: - UITableViewDelegate
+
+extension ChallengeParticipantTableViewController: UITableViewDelegate {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        (tableView.cellForRowAtIndexPath(indexPath) as? ChallengeLeaderboardTableViewCell)?.toggleChevronDirection()
+        
+        challengeParticipantController.didSelectRowAtIndexPath(indexPath)
+    }
+}
+
+// MARK: - ChallengeParticipantControllerDelegate
+
+extension ChallengeParticipantTableViewController: ChallengeParticipantControllerDelegate {
+    func insertRowsAt(indexPaths indexPaths: [NSIndexPath]) {
+        tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
+    }
+    
+    func removeRowsAt(indexPaths indexPaths: [NSIndexPath]) {
+        tableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
+    }
+}
+
+// MARK: - Helpers
+
+extension ChallengeParticipantTableViewController {
+    private func shouldShowProgress() -> Bool {
+        guard let maxUnits = challengeParticipantController.maxUnits where challengeParticipantController.challenge.status != .registration &&
+            challengeParticipantController.challenge.status != .canceled &&
+            maxUnits > 0 else { return false}
+        return true
     }
 }
 

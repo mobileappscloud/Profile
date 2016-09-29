@@ -1242,6 +1242,7 @@
 			isa = PBXGroup;
 			children = (
 				271BECBB1D92CF1700F78498 /* ChallengeDetailUserProgressTableViewCell.xib */,
+				419448D11D6B95ED00F4FF45 /* ChallengeInfoTableViewCell.xib */,
 			);
 			name = "Details Tab";
 			sourceTree = "<group>";
@@ -2889,7 +2890,6 @@
 			isa = PBXGroup;
 			children = (
 				41F4E52F1D678CCD003FC114 /* ChallengeDetail.storyboard */,
-				419448D11D6B95ED00F4FF45 /* ChallengeInfoTableViewCell.xib */,
 				275C6BD81D95BD3A00F221BB /* ChallengeVerticalDashedLineView.xib */,
 				271BECE21D9466D900F78498 /* Chatter Tab */,
 				271BECE01D9466AF00F78498 /* Details Tab */,

@@ -307,6 +307,7 @@ extension Theme.Color.Challenge.Detail {
     struct Participants {
         static let userprogressTint = Theme.Color.primary
         static let progressTint = Utility.colorFromHexString("#599033")
+        static let chevron = Theme.Color.primary
     }
 }
 
@@ -325,6 +326,7 @@ extension Theme.Color.Challenge {
         static let pointsContainerText = UIColor.whiteColor()
         static let dashedLineColor = Utility.colorFromHexString("#6D6D6D")
         static let nameLabel = Utility.colorFromHexString("#323330")
+        static let yourTeamLabel = Utility.colorFromHexString("#535353")
     }
 }
 
