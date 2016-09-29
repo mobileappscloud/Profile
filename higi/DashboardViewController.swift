@@ -16,11 +16,6 @@ final class DashboardViewController: UIViewController {
             challengesCardTitleLabel.text = NSLocalizedString("DASHBOARD_VIEW_CARD_CHALLENGES_TITLE", comment: "Title for challenges card displayed on Dashboard view.")
         }
     }
-    @IBOutlet weak var metricsCardTitleLabel: UILabel! {
-        didSet {
-            metricsCardTitleLabel.text = NSLocalizedString("DASHBOARD_VIEW_CARD_METRICS_TITLE", comment: "Title for metrics card displayed on Dashboard view.")
-        }
-    }
     
     @IBOutlet weak var errorCardRefreshButton: UIButton! {
         didSet {
@@ -30,7 +25,6 @@ final class DashboardViewController: UIViewController {
     
     @IBOutlet weak var mainScrollView: UIScrollView!
     @IBOutlet var challengesCard: ChallengesCard!
-    @IBOutlet var metricsCard: UIView!
     @IBOutlet var errorCard: UIView!
     @IBOutlet var qrCheckinCard: QrCheckinCard!
     
@@ -44,7 +38,7 @@ final class DashboardViewController: UIViewController {
     
     var displayedChallenge: HigiChallenge!;
     
-    var doneRefreshing = true, activitiesRefreshed = true, checkinsRefreshed = true, devicesRefreshed = true, metricsRefreshed = false, activitiesLoaded = false,  metricsLoaded = false, metricsCardPlaced = false, pulseCardPlaced = false;
+    var doneRefreshing = true, devicesRefreshed = true
     
     var activityCard: MetricsGraphCard!;
     
@@ -63,7 +57,7 @@ final class DashboardViewController: UIViewController {
         self.title = NSLocalizedString("DASHBOARD_VIEW_TITLE", comment: "Title for Dashboard view.");
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DashboardViewController.receiveQrCheckinNotification(_:)), name: ApiUtility.QR_CHECKIN, object: nil);
-        let notificationNames = [ApiUtility.ACTIVITIES, ApiUtility.CHECKINS, ApiUtility.DEVICES]
+        let notificationNames = [ApiUtility.DEVICES]
         for name in notificationNames {
             NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DashboardViewController.receiveApiNotification(_:)), name: name, object: nil)
         }
@@ -163,24 +157,6 @@ final class DashboardViewController: UIViewController {
     
     func receiveApiNotification(notification: NSNotification) {
         switch (notification.name) {
-        case ApiUtility.ACTIVITIES:
-            activitiesLoaded = true;
-            if (activitiesLoaded && metricsLoaded && !metricsRefreshed) {
-                initMetricsCard();
-                metricsRefreshed = true;
-//                Utility.mainTabBarController()?.metricsNavController.tabBarItem.enabled = true
-            }
-            activitiesRefreshed = true;
-        
-        case ApiUtility.CHECKINS:
-            metricsLoaded = true;
-            if (activitiesLoaded && metricsLoaded && !metricsRefreshed) {
-                initMetricsCard();
-                metricsRefreshed = true;
-//                Utility.mainTabBarController()?.metricsNavController.tabBarItem.enabled = true
-            }
-            checkinsRefreshed = true;
-        
         case ApiUtility.DEVICES:
             devicesRefreshed = true;
         default:
@@ -189,14 +165,10 @@ final class DashboardViewController: UIViewController {
     }
     
     func initCards() {
-        dashboardItems = [qrCheckinCard, errorCard, challengesCard, metricsCard];
+        dashboardItems = [qrCheckinCard, errorCard, challengesCard];
         if SessionController.Instance.showQrCheckinCard ?? false {
             addQrCheckinView();
         }
-        if (metricsCard.superview != nil) {
-            metricsCard.removeFromSuperview();
-        }
-        initMetricsCard();
     }
     
     private func showErrorCard() {
@@ -212,215 +184,24 @@ final class DashboardViewController: UIViewController {
         }
     }
     
-    func initMetricsCard() {
-        if SessionController.Instance.earnditError {
-            if SessionController.Instance.activities.count == 0 {
-                showErrorCard()
-            }
-        } else {
-            removeErrorCard()
-        }
-        
-        addMetricsCardWithSpinner()
-        
-        if (SessionController.Instance.checkins != nil) {
-            populateMetricsCardWithCheckins()
-        }
-        
-        layoutDashboardItems(metricsCardPlaced);
-        metricsCardPlaced = true;
-    }
-    
-    func addMetricsCardWithSpinner() {
-        if (metricsSpinner == nil) {
-            metricsSpinner = CustomLoadingSpinner(frame: CGRectMake(UIScreen.mainScreen().bounds.width / 2 - 16, 84, 32, 32));
-            metricsCard.addSubview(metricsSpinner)
-        }
-        if (metricsCard.superview == nil) {
-            mainScrollView.addSubview(metricsCard);
-            metricsSpinner.startAnimating();
-        }
-    }
-    
-    func populateMetricsCardWithCheckins() {
-        var bps: [HigiCheckin] = [], weights: [HigiCheckin] = [], pulses: [HigiCheckin] = [];
-        var lastBpDate = "", lastBmiDate = "", lastPulseDate = "";
-        for checkin in SessionController.Instance.checkins {
-            let checkinDate = NSDateFormatter.checkinDisplayDateFormatter.stringFromDate(checkin.dateTime);
-            if (checkin.systolic != nil && checkin.systolic > 0) {
-                if (checkinDate != lastBpDate) {
-                    bps.append(checkin);
-                    lastBpDate = checkinDate;
-                } else {
-                    bps[bps.count - 1] = checkin;
-                }
-            }
-            if (checkin.weightKG != nil && checkin.weightKG > 0) {
-                if (checkinDate != lastBmiDate) {
-                    weights.append(checkin);
-                    lastBmiDate = checkinDate;
-                } else {
-                    weights[weights.count - 1] = checkin;
-                }
-            }
-            if (checkin.pulseBpm != nil && checkin.pulseBpm > 0) {
-                if (checkinDate != lastPulseDate) {
-                    pulses.append(checkin);
-                    lastPulseDate = checkinDate;
-                } else {
-                    pulses[pulses.count - 1] = checkin;
-                }
-            }
-        }
-        let cardMarginX:CGFloat = 8, cardMarginY:CGFloat = 16;
-        var cardPositionY:CGFloat = 60;
-        
-        activityCard = MetricsGraphCard.instanceFromNib(0, type: MetricsType.DailySummary);
-        activityCard.frame.origin.y = cardPositionY;
-        activityCard.frame.origin.x = cardMarginX;
-        let activityTouched = UITapGestureRecognizer(target: self, action: #selector(DashboardViewController.gotoActivityGraph(_:)));
-        activityCard.addGestureRecognizer(activityTouched);
-        cardPositionY += activityCard.frame.size.height + cardMarginY;
-        
-        let firstDivider = UIView(frame: CGRect(x: 0, y: cardPositionY - cardMarginY / 2, width: self.view.frame.size.width, height: 1));
-        firstDivider.backgroundColor = Utility.colorFromHexString("#EEEEEE");
-        
-        var bloodPressureCard:MetricsGraphCard!
-        if (bps.count > 0) {
-            bloodPressureCard = MetricsGraphCard.instanceFromNib(bps.last!, type: MetricsType.BloodPressure);
-        } else {
-            bloodPressureCard = MetricsGraphCard.instanceFromNib(nil, type: MetricsType.BloodPressure);
-        }
-        bloodPressureCard.frame.origin.y = cardPositionY;
-        bloodPressureCard.frame.origin.x = cardMarginX;
-        let bpTouched = UITapGestureRecognizer(target: self, action: #selector(DashboardViewController.gotoBloodPressureGraph(_:)));
-        bloodPressureCard.addGestureRecognizer(bpTouched);
-        cardPositionY += bloodPressureCard.frame.size.height + cardMarginY;
-        
-        let secondDivider = UIView(frame: CGRect(x: 0, y: cardPositionY - cardMarginY / 2, width: self.view.frame.size.width, height: 1));
-        secondDivider.backgroundColor = Utility.colorFromHexString("#EEEEEE");
-        
-        var pulseCard:MetricsGraphCard!
-        if (pulses.count > 0) {
-            pulseCard = MetricsGraphCard.instanceFromNib(pulses.last!, type: MetricsType.Pulse);
-        } else {
-            pulseCard = MetricsGraphCard.instanceFromNib(nil, type: MetricsType.Pulse);
-        }
-        pulseCard.frame.origin.y = cardPositionY;
-        pulseCard.frame.origin.x = cardMarginX;
-        let pulseTouched = UITapGestureRecognizer(target: self, action: #selector(DashboardViewController.gotoPulseGraph(_:)));
-        pulseCard.addGestureRecognizer(pulseTouched);
-        cardPositionY += pulseCard.frame.size.height + cardMarginY;
-        
-        let thirdDivider = UIView(frame: CGRect(x: 0, y: cardPositionY - cardMarginY / 2, width: self.view.frame.size.width, height: 1));
-        thirdDivider.backgroundColor = Utility.colorFromHexString("#EEEEEE");
-        
-        var weightCard:MetricsGraphCard!;
-        if (weights.count > 0) {
-            weightCard = MetricsGraphCard.instanceFromNib(weights.last!, type: MetricsType.Weight);
-        } else {
-            weightCard = MetricsGraphCard.instanceFromNib(nil, type: MetricsType.Weight);
-        }
-        weightCard.frame.origin.y = cardPositionY;
-        weightCard.frame.origin.x = cardMarginX;
-        let weightTouched = UITapGestureRecognizer(target: self, action: #selector(DashboardViewController.gotoWeightGraph(_:)));
-        weightCard.addGestureRecognizer(weightTouched);
-        cardPositionY += weightCard.frame.size.height + cardMarginY / 2;
-        
-        let checkins = SessionController.Instance.checkins;
-        if (checkins != nil && checkins.count > 0) {
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                var mapPoints:[GraphPoint] = [], bpmPoints:[GraphPoint] = [], weightPoints:[GraphPoint] = [];
-                for checkin in checkins {
-                    if (checkin.map != nil) {
-                        mapPoints.append(GraphPoint(x: Double(checkin.dateTime.timeIntervalSince1970), y: checkin.map!));
-                    }
-                    if (checkin.pulseBpm != nil) {
-                        bpmPoints.append(GraphPoint(x: Double(checkin.dateTime.timeIntervalSince1970), y: Double(checkin.pulseBpm!)));
-                    }
-                    if (checkin.weightLbs != nil) {
-                        weightPoints.append(GraphPoint(x: Double(checkin.dateTime.timeIntervalSince1970), y: checkin.weightLbs!));
-                    }
-                }
-                dispatch_async(dispatch_get_main_queue(), {
-                    if (mapPoints.count > self.maxPointsToShow) {
-                        mapPoints = Array(Array(mapPoints.reverse())[0..<self.maxPointsToShow]);
-                    }
-                    if (bpmPoints.count > self.maxPointsToShow) {
-                        bpmPoints = Array(Array(bpmPoints.reverse())[0..<self.maxPointsToShow]);
-                    }
-                    if (weightPoints.count > self.maxPointsToShow) {
-                        weightPoints = Array(Array(weightPoints.reverse())[0..<self.maxPointsToShow]);
-                    }
-                    bloodPressureCard.graph(mapPoints, type: MetricsType.BloodPressure);
-                    pulseCard.graph(bpmPoints, type: MetricsType.Pulse);
-                    weightCard.graph(weightPoints, type: MetricsType.Weight);
-                });
-            });
-        } else {
-            bloodPressureCard.graph([], type: MetricsType.BloodPressure);
-            pulseCard.graph([], type: MetricsType.Pulse);
-            weightCard.graph([], type: MetricsType.Weight);
-        }
-        if SessionController.Instance.earnditError && SessionController.Instance.activities.count == 0 {
-            self.activityCard.singleValue.text = "--";
-        } else {
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                var activityPoints:[GraphPoint] = [];
-                let dateString = NSDateFormatter.activityDateFormatter.stringFromDate(NSDate());
-                var totalPoints = 0;
-                for (date, activitySummary) in SessionController.Instance.activities {
-                    let total = activitySummary.totalPoints
-                    let activityList = activitySummary.activities
-                    if (date == dateString) {
-                        totalPoints = total;
-                    }
-                    if (activityList.count > 0) {
-                        activityPoints.append(GraphPoint(x: Double(activityList[0].startTime.timeIntervalSince1970), y: Double(total)));
-                    }
-                }
-                activityPoints.sortInPlace({$0.x > $1.x});
-                if (activityPoints.count > self.maxPointsToShow) {
-                    activityPoints = Array(activityPoints[0..<self.maxPointsToShow]);
-                }
-                activityPoints = Array(activityPoints.reverse());
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.activityCard.singleValue.text = "\(totalPoints)";
-                    self.activityCard.graph(activityPoints, type: MetricsType.DailySummary);
-                });
-            });
-        }
-        metricsSpinner.stopAnimating();
-        metricsSpinner.removeFromSuperview();
-        metricsCard.addSubview(activityCard);
-        metricsCard.addSubview(firstDivider);
-        metricsCard.addSubview(bloodPressureCard);
-        metricsCard.addSubview(secondDivider);
-        metricsCard.addSubview(pulseCard);
-        metricsCard.addSubview(thirdDivider);
-        metricsCard.addSubview(weightCard);
-        
-        Utility.growAnimation(metricsCard, startHeight: metricsCard.frame.size.height, endHeight: cardPositionY);
-    }
-    
     func gotoActivityGraph(sender: AnyObject) {
         Flurry.logEvent("ActivityMetric_Pressed");
-        navigateToMetrics(.DailySummary)
+        navigateToMetrics(.watts)
     }
     
     func gotoBloodPressureGraph(sender: AnyObject) {
         Flurry.logEvent("BpMetric_Pressed");
-        navigateToMetrics(.BloodPressure)
+        navigateToMetrics(.bloodPressure)
     }
 
     func gotoPulseGraph(sender: AnyObject) {
         Flurry.logEvent("PulseMetric_Pressed");
-        navigateToMetrics(.Pulse)
+        navigateToMetrics(.pulse)
     }
     
     func gotoWeightGraph(sender: AnyObject) {
         Flurry.logEvent("WeightMetric_Pressed");
-        navigateToMetrics(.Weight)
+        navigateToMetrics(.weight)
     }
     
     func gotoDailySummary(sender: AnyObject) {
@@ -432,19 +213,10 @@ final class DashboardViewController: UIViewController {
         ConnectDeviceViewController.navigateToConnectDevice()
     }
     
-    @IBAction func gotoMetrics(sender: AnyObject) {
-        if (SessionController.Instance.checkins != nil && SessionController.Instance.loadedActivities) {
-            Flurry.logEvent("Metrics_Pressed");
-            navigateToMetrics()
-        }
-    }
-    
-    private func navigateToMetrics(metricsType: MetricsType = .DailySummary) {
-        if (SessionController.Instance.checkins != nil && SessionController.Instance.loadedActivities) {
+    private func navigateToMetrics(metricsType: MetricsType = .watts) {
             guard let mainTabBarController = Utility.mainTabBarController() else { return }
 //            if !mainTabBarController.metricsViewController.tabBarItem.enabled { return }
 //            mainTabBarController.metricsViewController.navigate(metricsType: metricsType)
-        }
     }
     
     @IBAction func gotoChallenges(sender: AnyObject) {
@@ -531,12 +303,7 @@ final class DashboardViewController: UIViewController {
     
     func refresh() {
         SessionController.Instance.earnditError = false;
-        activitiesRefreshed = false;
-        checkinsRefreshed = false;
         devicesRefreshed = false;
-        activitiesLoaded = false;
-        metricsLoaded = false;
-        metricsRefreshed = false;
         pullRefreshView.icon.alpha = 1.0;
         pullRefreshView.circleContainer.alpha = 1.0;
         CATransaction.begin();
@@ -577,7 +344,7 @@ final class DashboardViewController: UIViewController {
         });
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
             
-            while (!self.activitiesRefreshed || !self.checkinsRefreshed || !self.devicesRefreshed) {
+            while (!self.devicesRefreshed) {
                 NSThread.sleepForTimeInterval(0.1);
             }
             
@@ -602,14 +369,10 @@ final class DashboardViewController: UIViewController {
                 let login = HigiLogin(dictionary: responseObject as! NSDictionary);
                 SessionData.Instance.user = login.user;
                 SessionData.Instance.user.retrieveProfileImages();
-                ApiUtility.retrieveActivities(nil);
-                ApiUtility.retrieveCheckins(nil);
                 ApiUtility.retrieveDevices(nil);
             });
             
             }, failure: { operation, error in
-                self.activitiesRefreshed = true;
-                self.checkinsRefreshed = true;
                 self.devicesRefreshed = true;
         });
     }

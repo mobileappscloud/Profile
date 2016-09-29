@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="u7V-Yb-nE8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="u7V-Yb-nE8">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -52,20 +52,19 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J8L-Fg-t6T" userLabel="Info Container View">
                                 <rect key="frame" x="240" y="60" width="240" height="260"/>
                                 <subviews>
-                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" directionalLockEnabled="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Koz-f6-X9b">
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" ambiguous="YES" directionalLockEnabled="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Koz-f6-X9b">
                                         <rect key="frame" x="0.0" y="0.0" width="240" height="260"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y5N-VA-qCV">
+                                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y5N-VA-qCV">
                                                 <rect key="frame" x="8" y="8" width="224" height="244"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             </view>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstItem="y5N-VA-qCV" firstAttribute="width" secondItem="Koz-f6-X9b" secondAttribute="width" constant="-16" id="9Zq-rK-Yf2"/>
+                                            <constraint firstItem="y5N-VA-qCV" firstAttribute="width" secondItem="Koz-f6-X9b" secondAttribute="width" constant="-23" id="9Zq-rK-Yf2"/>
                                             <constraint firstItem="y5N-VA-qCV" firstAttribute="leading" secondItem="Koz-f6-X9b" secondAttribute="leading" constant="8" id="BGq-h7-Scg"/>
-                                            <constraint firstItem="y5N-VA-qCV" firstAttribute="centerY" secondItem="Koz-f6-X9b" secondAttribute="centerY" id="C5A-zR-9Dp"/>
-                                            <constraint firstItem="y5N-VA-qCV" firstAttribute="top" secondItem="Koz-f6-X9b" secondAttribute="top" constant="8" id="QeV-S6-3b3"/>
-                                            <constraint firstAttribute="trailing" secondItem="y5N-VA-qCV" secondAttribute="trailing" constant="8" id="iim-Io-Sld"/>
+                                            <constraint firstItem="y5N-VA-qCV" firstAttribute="top" secondItem="Koz-f6-X9b" secondAttribute="top" constant="15" id="QeV-S6-3b3"/>
+                                            <constraint firstAttribute="trailing" secondItem="y5N-VA-qCV" secondAttribute="trailing" constant="15" id="iim-Io-Sld"/>
                                             <constraint firstAttribute="bottom" secondItem="y5N-VA-qCV" secondAttribute="bottom" constant="8" id="woy-Sd-KTY"/>
                                         </constraints>
                                     </scrollView>

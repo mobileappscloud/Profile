@@ -119,13 +119,13 @@ extension MetricRecentSummaryViewController {
             get {
                 switch self {
                 case .watts:
-                    return MetricsType.DailySummary
+                    return MetricsType.watts
                 case .bloodPressure:
-                    return MetricsType.BloodPressure
+                    return MetricsType.bloodPressure
                 case .pulse:
-                    return MetricsType.Pulse
+                    return MetricsType.pulse
                 case .weight:
-                    return MetricsType.Weight
+                    return MetricsType.weight
                 }
             }
         }

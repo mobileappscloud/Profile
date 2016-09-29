@@ -31,9 +31,6 @@
 /* Title for blood pressure within a high range. */
 "BLOOD_PRESSURE_RANGE_HIGH_TITLE" = "High";
 
-/* Title for blood pressure within a low range. */
-"BLOOD_PRESSURE_RANGE_LOW_TITLE" = "Low";
-
 /* Title for blood pressure within a normal range. */
 "BLOOD_PRESSURE_RANGE_NORMAL_TITLE" = "Normal";
 
@@ -615,9 +612,6 @@
 
 /* Title for refresh action on error card displayed on Dashboard view. */
 "DASHBOARD_VIEW_CARD_ERROR_REFRESH_ACTION_TITLE" = "Refresh";
-
-/* Title for metrics card displayed on Dashboard view. */
-"DASHBOARD_VIEW_CARD_METRICS_TITLE" = "Metrics";
 
 /* Message text to display on QR check-in card when upload fails. */
 "DASHBOARD_VIEW_CARD_QR_CHECKIN_UPLOAD_FAILURE_MESSAGE_TEXT" = "There was a problem uploading your check-in.";

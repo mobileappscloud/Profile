@@ -245,13 +245,13 @@ extension NewMetricsViewController: UniversalLinkHandler {
         let targetMetricsType: MetricsType
         switch pathType {
         case .MetricsBloodPressure:
-            targetMetricsType = .BloodPressure
+            targetMetricsType = .bloodPressure
         case .MetricsPulse:
-            targetMetricsType = .Pulse
+            targetMetricsType = .pulse
         case .MetricsWeight:
-            targetMetricsType = .Weight
+            targetMetricsType = .weight
         default:
-            targetMetricsType = .DailySummary
+            targetMetricsType = .watts
         }
         
         dispatch_async(dispatch_get_main_queue(), {

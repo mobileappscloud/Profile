@@ -58,6 +58,7 @@ final class MetricChildViewController: UIViewController {
             dismissBlankStateView()
             
             if let metricPlotViewController = self.metricPlotViewController {
+                metricPlotViewController.resetGraph()
                 metricPlotViewController.graphHostingView.hostedGraph.reloadData()
             }
             if let metricTableViewController = self.metricTableViewController {
@@ -203,17 +204,17 @@ extension MetricChildViewController {
     private func showBlankStateView() {
         var text: String? = nil
         switch self.type! {
-        case .DailySummary:
+        case .watts:
             text = NSLocalizedString("ACTIVITY_METRICS_VIEW_BLANK_STATE_TEXT", comment: "Text to display if a user does not have any higi points.")
-        case .BloodPressure:
+        case .bloodPressure:
             text = NSLocalizedString("BLOOD_PRESSURE_METRICS_VIEW_BLANK_STATE_TEXT", comment: "Text to display on blood pressure metrics view when there is no blood pressure data to display.")
-        case .Pulse:
+        case .pulse:
             text = NSLocalizedString("PULSE_METRICS_VIEW_BLANK_STATE_TEXT", comment: "Text to display on pulse metrics view if there is no pulse data to display.")
-        case .Weight:
+        case .weight:
             text = NSLocalizedString("WEIGHT_METRICS_VIEW_BLANK_STATE_TEXT", comment: "Text to display on the weight metrics view if there are no weight readings to display.")
-        case .BodyMassIndex:
+        case .bodyMassIndex:
             text = NSLocalizedString("BODY_MASS_INDEX_METRICS_VIEW_BLANK_STATE_TEXT", comment: "Text to display on the body mass index metrics view if there are no BMI readings to display.")
-        case .BodyFat:
+        case .bodyFat:
             text = NSLocalizedString("BODY_FAT_METRICS_VIEW_BLANK_STATE_TEXT", comment: "Text to display on the body fat metrics view if there are no body fat readings to display.")
         }
         
@@ -327,20 +328,20 @@ extension MetricChildViewController: MetricTableScrollDelegate {
             return
         }
     
-        // Get data source -- this is also a dumb implementation
+        // Get data source -- this is not an ideal implementation
         var points: [GraphPoint] = []
         switch self.type! {
-        case .DailySummary:
+        case .watts:
             points = (delegate as! NewActivityMetricDelegate).data.activityPoints
-        case .BloodPressure:
+        case .bloodPressure:
             points = (delegate as! NewBloodPressureMetricDelegate).data.systolicPoints
-        case .Pulse:
+        case .pulse:
             points = (delegate as! NewPulseMetricDelegate).data.pulsePoints
-        case .Weight:
+        case .weight:
             points = (delegate as! NewWeightMetricDelegate).data.weightPoints
-        case .BodyMassIndex:
+        case .bodyMassIndex:
             points = (delegate as! NewBodyMassIndexMetricDelegate).data.bodyMassIndexPoints
-        case .BodyFat:
+        case .bodyFat:
             points = (delegate as! NewBodyFatMetricDelegate).data.bodyFatPoints
         }
         

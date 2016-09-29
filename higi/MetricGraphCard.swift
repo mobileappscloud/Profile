@@ -46,7 +46,7 @@ final class MetricsGraphCard: UIView {
     
     func initBlankState(type: MetricsType) {
         date.text = "";
-        if (type == MetricsType.BloodPressure) {
+        if (type == MetricsType.bloodPressure) {
             firstReadingValue.hidden = true;
             firstReadingLabel.hidden = true;
             firstReadingSubTitle.hidden = true;
@@ -62,14 +62,14 @@ final class MetricsGraphCard: UIView {
             singleSubtitle.text = NSLocalizedString("METRICS_GRAPH_CARD_BLOOD_PRESSURE_SUBTITLE", comment: "Subtitle text for blood pressure data shown on metrics graph card.");
             singleValue.textColor = color;
             
-        } else if (type == MetricsType.Weight) {
+        } else if (type == MetricsType.weight) {
             firstReadingValue.text = "--";
             firstReadingLabel.text = NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_WEIGHT_POUNDS", comment: "General purpose abbreviated label for the english units of weight measurement, pounds.");
             firstReadingSubTitle.text = NSLocalizedString("METRICS_GRAPH_CARD_WEIGHT_SUBTITLE", comment: "Subtitle text for body weight data shown on metrics graph card.");
             secondReadingValue.text = "--%";
             secondReadingLabel.text = "";
             secondReadingSubTitle.text = NSLocalizedString("METRICS_GRAPH_CARD_BODY_FAT_SUBTITLE", comment: "Subtitle text for body fat data shown on metrics graph card.");
-        } else if (type == MetricsType.DailySummary) {
+        } else if (type == MetricsType.watts) {
             firstReadingValue.hidden = true;
             firstReadingLabel.hidden = true;
             firstReadingSubTitle.hidden = true;
@@ -109,7 +109,7 @@ final class MetricsGraphCard: UIView {
         dayFormatter.dateFormat = "d";
         date.text = "\(formatter.stringFromDate(checkin.dateTime)) \(ChallengeUtility.getRankSuffix(dayFormatter.stringFromDate(checkin.dateTime)))";
         
-        if (type == MetricsType.BloodPressure) {
+        if (type == MetricsType.bloodPressure) {
             firstReadingValue.hidden = true;
             firstReadingLabel.hidden = true;
             firstReadingSubTitle.hidden = true;
@@ -126,7 +126,7 @@ final class MetricsGraphCard: UIView {
             singleLabel.text = NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_MILLIMETERS_OF_MERCURY", comment: "General purpose abbreviated label for the units of millimeter of mercury.");
             singleSubtitle.text = NSLocalizedString("METRICS_GRAPH_CARD_BLOOD_PRESSURE_SUBTITLE", comment: "Subtitle text for blood pressure data shown on metrics graph card.");
             singleValue.textColor = color;
-        } else if (type == MetricsType.Weight) {
+        } else if (type == MetricsType.weight) {
             firstReadingValue.text = checkin.weightLbs != nil ? "\(Int(checkin.weightLbs!))" : "--";
             firstReadingLabel.text = NSLocalizedString("GENERAL_PURPOSE_UNIT_LABEL_ABBR_WEIGHT_POUNDS", comment: "General purpose abbreviated label for the english units of weight measurement, pounds.");
             firstReadingSubTitle.text = NSLocalizedString("METRICS_GRAPH_CARD_WEIGHT_SUBTITLE", comment: "Subtitle text for body weight data shown on metrics graph card.");
@@ -139,7 +139,7 @@ final class MetricsGraphCard: UIView {
             }
             secondReadingLabel.text = "";
             secondReadingSubTitle.text = NSLocalizedString("METRICS_GRAPH_CARD_BODY_FAT_SUBTITLE", comment: "Subtitle text for body fat data shown on metrics graph card.");
-        } else if (type == MetricsType.DailySummary) {
+        } else if (type == MetricsType.watts) {
             firstReadingValue.hidden = true;
             firstReadingLabel.hidden = true;
             firstReadingSubTitle.hidden = true;
@@ -217,11 +217,11 @@ extension MetricsGraphCard {
         let checkin = HigiCheckin(dateTime: activity.dateUTC)
         
         switch metricType {
-        case .DailySummary:
+        case .watts:
             guard let points = activity.watts else { break }
             setActivity(points)
             
-        case .BloodPressure:
+        case .bloodPressure:
             guard let diastolic = activity.metadata.diastolic,
                 let systolic = activity.metadata.systolic else { break }
             
@@ -229,12 +229,12 @@ extension MetricsGraphCard {
             checkin.systolic = Int(systolic)
             setCheckinData(checkin, type: metricType)
             
-        case .Pulse:
+        case .pulse:
             guard let pulse = activity.metadata.pulse else { break }
             checkin.pulseBpm = Int(pulse)
             setCheckinData(checkin, type: metricType)
             
-        case .Weight:
+        case .weight:
             guard let weight = activity.metadata.weight,
                 let weightImperial = activity.metadata.weightImperial,
                 let fatRatio = activity.metadata.fatRatio else { break }
@@ -243,7 +243,7 @@ extension MetricsGraphCard {
             checkin.fatRatio = fatRatio
             setCheckinData(checkin, type: metricType)
             
-        case .BodyMassIndex, .BodyFat:
+        case .bodyMassIndex, .bodyFat:
             break
         }
     }

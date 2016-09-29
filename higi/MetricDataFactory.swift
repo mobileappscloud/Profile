@@ -14,24 +14,24 @@ final class MetricDataFactory {
     class func updateGraphPoints(fromActivities activities: [Activity], forMetricsType metricsType: MetricsType, inout metricGraphPoints: MetricGraphPoints) {
         
         switch metricsType {
-        case .DailySummary:
+        case .watts:
             break
-        case .BloodPressure:
+        case .bloodPressure:
             metricGraphPoints.bloodPressure.diastolicPoints = graphPoints(fromActivities: activities, forActivityMetric: .diastolic)
             metricGraphPoints.bloodPressure.systolicPoints = graphPoints(fromActivities: activities, forActivityMetric: .systolic)
-        case .Pulse:
+        case .pulse:
             metricGraphPoints.pulse.pulsePoints = graphPoints(fromActivities: activities, forActivityMetric: .pulse)
-        case .Weight:
+        case .weight:
             metricGraphPoints.weight.weightPoints = graphPoints(fromActivities: activities, forActivityMetric: .weight)
-        case .BodyMassIndex: 
+        case .bodyMassIndex:
             metricGraphPoints.bodyMassIndex.bodyMassIndexPoints = graphPoints(fromActivities: activities, forActivityMetric: .bodyMassIndex)
-        case .BodyFat:
+        case .bodyFat:
             metricGraphPoints.bodyFat.bodyFatPoints = graphPoints(fromActivities: activities, forActivityMetric: .fatRatio)
             metricGraphPoints.bodyFat.fatWeightPoints = graphPoints(fromActivities: activities, forActivityMetric: .fatMass)
         }
     }
     
-    private class func graphPoints(fromActivities activities: [Activity], forActivityMetric activityMetric: Activity.Metric.Identifier) -> [GraphPoint] {
+    class func graphPoints(fromActivities activities: [Activity], forActivityMetric activityMetric: Activity.Metric.Identifier) -> [GraphPoint] {
         return activities.flatMap({ graphPoint(forActivity: $0, activityMetric: activityMetric) })
     }
     
@@ -53,7 +53,11 @@ final class MetricDataFactory {
             metricValue = activity.metadata.fatMass
         case .bodyMassIndex:
             metricValue = activity.metadata.bodyMassIndex
-        case .checkinFitnessLocation, .steps:
+        case .steps:
+            if let steps = activity.metadata.steps {
+                metricValue = Double(steps)
+            }
+        case .checkinFitnessLocation:
             break
         }
         
@@ -62,7 +66,7 @@ final class MetricDataFactory {
         return graphPoint(forActivity: activity, value: value)
     }
     
-    private class func graphPoint(forActivity activity: Activity, value: Double) -> GraphPoint {
+    class func graphPoint(forActivity activity: Activity, value: Double) -> GraphPoint {
         return GraphPoint(identifier: activity.identifier, x: activity.dateUTC.timeIntervalSince1970, y: value)
     }
 }

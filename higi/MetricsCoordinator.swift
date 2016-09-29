@@ -46,19 +46,19 @@ final class MetricsCoordinator: NSObject {
             
             let delegate: NewMetricDelegate!
             switch type {
-            case .DailySummary:
+            case .watts:
                 let activityDelegate = NewActivityMetricDelegate(data: self.dataSet.dailySummary)
                 activityDelegate.dailySummaryPresentationDelegate = child
                 delegate = activityDelegate
-            case .BloodPressure:
+            case .bloodPressure:
                 delegate = NewBloodPressureMetricDelegate(data: self.dataSet.bloodPressure)
-            case .Pulse:
+            case .pulse:
                 delegate = NewPulseMetricDelegate(data: self.dataSet.pulse)
-            case .Weight:
+            case .weight:
                 delegate = NewWeightMetricDelegate(data: self.dataSet.weight)
-            case .BodyMassIndex:
+            case .bodyMassIndex:
                 delegate = NewBodyMassIndexMetricDelegate(data: self.dataSet.bodyMassIndex)
-            case .BodyFat:
+            case .bodyFat:
                 delegate = NewBodyFatMetricDelegate(data: self.dataSet.bodyFat, user: self.userController.user)
             }
             child.metricDelegate = delegate
@@ -114,7 +114,7 @@ extension MetricsCoordinator {
         types.forEach({ type in
             
             let metricIds = activityMetricIds(forMetricsType: type)
-            let includeWatts = type == .DailySummary
+            let includeWatts = type == .watts
             
             ActivityNetworkController.fetch(activitiesForUser: user, withMetrics: metricIds, startDate: startDate, endDate: endDate, includeWatts: includeWatts, sortDescending: sortDescending, pageSize: pageSize, success: { [weak self] (activities, paging) in
                 
@@ -133,18 +133,18 @@ extension MetricsCoordinator {
     private func activityMetricIds(forMetricsType metricsType: MetricsType) -> [Activity.Metric.Identifier] {
         var metricIds: [Activity.Metric.Identifier] = []
         switch metricsType {
-        case .DailySummary:
+        case .watts:
             break
-        case .BloodPressure:
+        case .bloodPressure:
             metricIds.append(.systolic)
             metricIds.append(.diastolic)
-        case .Pulse:
+        case .pulse:
             metricIds.append(.pulse)
-        case .Weight:
+        case .weight:
             metricIds.append(.weight)
-        case .BodyMassIndex: 
+        case .bodyMassIndex:
             metricIds.append(.bodyMassIndex)
-        case .BodyFat: 
+        case .bodyFat:
             metricIds.append(.fatRatio)
             metricIds.append(.fatMass)
         }
@@ -163,27 +163,27 @@ extension MetricsCoordinator {
         metricDelegate.activities = activities
         
         switch metricsType {
-        case .DailySummary:
+        case .watts:
             if let dailySummaryDelegate = metricDelegate as? NewActivityMetricDelegate {
                 dailySummaryDelegate.updateData(self.dataSet.dailySummary)
             }
-        case .BloodPressure:
+        case .bloodPressure:
             if let bloodPressureDelegate = metricDelegate as? NewBloodPressureMetricDelegate {
                 bloodPressureDelegate.updateData(self.dataSet.bloodPressure)
             }
-        case .Pulse:
+        case .pulse:
             if let pulseDelegate = metricDelegate as? NewPulseMetricDelegate {
                 pulseDelegate.updateData(self.dataSet.pulse)
             }
-        case .Weight:
+        case .weight:
             if let weightDelegate = metricDelegate as? NewWeightMetricDelegate {
                 weightDelegate.updateData(self.dataSet.weight)
             }
-        case .BodyMassIndex:
+        case .bodyMassIndex:
             if let bmiDelegate = metricDelegate as? NewBodyMassIndexMetricDelegate {
                 bmiDelegate.updateData(self.dataSet.bodyMassIndex)
             }
-        case .BodyFat:
+        case .bodyFat:
             if let bodyFatDelegate = metricDelegate as? NewBodyFatMetricDelegate {
                 bodyFatDelegate.updateData(self.dataSet.bodyFat)
             }

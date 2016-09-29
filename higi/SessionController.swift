@@ -22,13 +22,12 @@ final class SessionController {
     
     var devices: [String: ActivityDevice] = [:];
     
-    var earnditError = false, askTouchId = true, loadedActivities = false, showQrCheckinCard = false;
+    var earnditError = false, askTouchId = true, showQrCheckinCard = false;
     
     func reset() {
         checkins = nil;
         activities = [:];
         devices = [:];
-        SessionController.Instance.loadedActivities = false;
         showQrCheckinCard = false;
     }
 }

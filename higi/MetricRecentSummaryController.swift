@@ -49,7 +49,7 @@ extension MetricRecentSummaryController {
 
 // MARK: - Metric Type Mapping
 
-extension MetricRecentSummaryController {
+private extension MetricRecentSummaryController {
     
     func activityMetricIds(forMetric metric: MetricRecentSummaryViewController.Metric) -> [Activity.Metric.Identifier] {
         var activityMetricIds: [Activity.Metric.Identifier] = []
@@ -69,9 +69,9 @@ extension MetricRecentSummaryController {
 
 // MARK: Date Helper
 
-extension MetricRecentSummaryController {
+private extension MetricRecentSummaryController {
     
-    private func date(byAddingMonthComponent month: Int, toDate: NSDate) -> NSDate? {
+    func date(byAddingMonthComponent month: Int, toDate: NSDate) -> NSDate? {
         let dateComponents = NSDateComponents()
         dateComponents.month = month
         return NSCalendar.currentCalendar().dateByAddingComponents(dateComponents, toDate: toDate, options: NSCalendarOptions())
@@ -94,12 +94,12 @@ extension MetricRecentSummaryController {
     private func dataSets(forMetric metric: MetricRecentSummaryViewController.Metric) -> [[GraphPoint]] {
         var dataSets: [[GraphPoint]] = []
         if metric == .watts {
-            var graphPoints: [GraphPoint] = []
-            for activity in activities {
-                guard let watts = activity.watts else { continue }
-                
-                graphPoints.append(graphPoint(forActivity: activity, value: Double(watts)))
-            }
+            let graphPoints: [GraphPoint] = activities.flatMap({ activity in
+                if let watts = activity.watts {
+                    return MetricDataFactory.graphPoint(forActivity: activity, value: Double(watts))
+                }
+                return nil
+            })
             dataSets.append(graphPoints)
         } else {
             let graphPointDictionary = graphPoints(forMetric: metric)
@@ -115,45 +115,11 @@ extension MetricRecentSummaryController {
         var graphPoints: [Activity.Metric.Identifier : [GraphPoint]] = [:]
 
         let activityMetrics = activityMetricIds(forMetric: metric)
-        for activity in activities {
-            for activityMetric in activityMetrics {
-                guard let graphPoint = graphPoint(forActivity: activity, activityMetric: activityMetric) else { continue }
-                
-                if graphPoints[activityMetric] == nil {
-                    graphPoints[activityMetric] = []
-                }
-                graphPoints[activityMetric]?.append(graphPoint)
-            }
-        }
+        activityMetrics.forEach({ activityMetric in
+            graphPoints[activityMetric] = MetricDataFactory.graphPoints(fromActivities: activities, forActivityMetric: activityMetric)
+        })
         
         return graphPoints
-    }
-    
-    private func graphPoint(forActivity activity: Activity, activityMetric: Activity.Metric.Identifier) -> GraphPoint? {
-        
-        var metricValue: Double?
-        switch activityMetric {
-        case .diastolic:
-            metricValue = activity.metadata.diastolic
-        case .systolic:
-            metricValue = activity.metadata.systolic
-        case .pulse:
-            metricValue = activity.metadata.pulse
-        case .weight:
-            metricValue = activity.metadata.weight
-        case .fatRatio:
-            metricValue = activity.metadata.fatRatio
-        case .bodyMassIndex, .checkinFitnessLocation, .fatMass, .steps:
-            break
-        }
-        
-        guard let value = metricValue else { return nil }
-
-        return graphPoint(forActivity: activity, value: value)
-    }
-    
-    private func graphPoint(forActivity activity: Activity, value: Double) -> GraphPoint {
-        return GraphPoint(identifier: activity.identifier, x: activity.dateUTC.timeIntervalSince1970, y: value)
     }
 }
 
