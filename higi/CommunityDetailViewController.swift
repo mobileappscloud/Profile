@@ -373,6 +373,8 @@ extension CommunityDetailViewController {
             
             guard let segmentedPage = segue.destinationViewController as? SegmentedPageViewController else { return }
             
+            segmentedPage.segmentedControlHorizontalMargin = 10.0
+            
             let feedTitle = NSLocalizedString("COMMUNITY_DETAIL_SEGMENTED_CONTROL_SEGMENT_TITLE_FEED", comment: "Segment title for Feed on segmented control in community detail.")
             let feedTableViewController = UIStoryboard(name: "Feed", bundle: nil).instantiateInitialViewController() as! FeedTableViewController
             feedTableViewController.configure(userController, entity: .Community, entityId: community.identifier, targetPresentationViewController: self)
