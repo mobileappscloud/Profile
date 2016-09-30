@@ -9,7 +9,7 @@
 /// Responsible for data interaction related to challenge details.
 final class ChallengeDetailController {
     
-    private let challengeRepository: UserDataRepository<Challenge>
+    let challengeRepository: UserDataRepository<Challenge>
     private let communityRepository: UserDataRepository<Community>
     private let challengeId: UniqueId
     private(set) var challenge: Challenge {

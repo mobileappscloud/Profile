@@ -39,10 +39,10 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="REF-YJ-Y9B" userLabel="Content Stack View">
+                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" distribution="fillProportionally" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="REF-YJ-Y9B" userLabel="Content Stack View">
                                 <rect key="frame" x="50" y="0.0" width="372" height="44"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" alignment="center" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="4M7-Uf-jmA">
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="4M7-Uf-jmA">
                                         <rect key="frame" x="0.0" y="0.0" width="372" height="21"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="255" verticalHuggingPriority="251" horizontalCompressionResistancePriority="760" misplaced="YES" text="Label" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rI1-IH-YyW">
@@ -81,16 +81,16 @@
                                     <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QtA-zU-zzU" userLabel="Placement and Progress View">
                                         <rect key="frame" x="0.0" y="25" width="372" height="19"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="260" verticalHuggingPriority="251" horizontalCompressionResistancePriority="760" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HOH-EM-w2c">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="260" verticalHuggingPriority="251" horizontalCompressionResistancePriority="760" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HOH-EM-w2c">
                                                 <rect key="frame" x="0.0" y="0.0" width="42" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xDW-V3-8v6" userLabel="Challenge Progress View Container">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xDW-V3-8v6" userLabel="Challenge Progress View Container">
                                                 <rect key="frame" x="50" y="0.0" width="322" height="0.0"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QGK-rI-oth" userLabel="Challenge Progress View" customClass="ChallengeProgressView" customModule="higi" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QGK-rI-oth" userLabel="Challenge Progress View" customClass="ChallengeProgressView" customModule="higi" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="355" height="0.0"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="355" id="caC-FS-iOg"/>

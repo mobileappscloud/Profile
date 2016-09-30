@@ -133,47 +133,43 @@ final class Challenge: UniquelyIdentifiable {
         self.entryFee = entryFee
         self.prizeDescription = prizeDescription
     }
-}
-
-// MARK: - Computed Properties
-
-extension Challenge {
     
-    var isJoinable: Bool {
-        return isDirectlyJoinable || isJoinableAfterCommunityIsJoined
-    }
+    // MARK: - Lazy Properties
     
-    var isDirectlyJoinable: Bool {
-        return joinableStatus == .joinable
-    }
+    lazy var isJoinable: Bool = {
+        return self.isDirectlyJoinable || self.isJoinableAfterCommunityIsJoined
+    }()
     
-    var needToJoinCommunityFirst: Bool {
-        return isJoinableAfterCommunityIsJoined
-    }
+    lazy var isDirectlyJoinable: Bool = {
+        return self.joinableStatus == .joinable
+    }()
     
-    //TODO: Peter Ryszkiewicz: Validate/audit this logic
-    var isJoinableAfterCommunityIsJoined: Bool {
-        return joinableStatus == .joinCommunity
-    }
+    lazy var needToJoinCommunityFirst: Bool = {
+        return self.isJoinableAfterCommunityIsJoined
+    }()
+    
+    lazy var isJoinableAfterCommunityIsJoined: Bool = {
+        return self.joinableStatus == .joinCommunity
+    }()
     
     /// Returns a value in [0.0, 1.0] that corresponds to how far a user is in completing a challenge.
     /// Useful for progress views.
-    var userProgressProportion: Double? {
-        guard let userPoints = userRelation.participant?.units else { return nil }
-        guard let maxPoints = maxPoints else { return nil }
+    lazy var userProgressProportion: Double? = {
+        guard let userPoints = self.userRelation.participant?.units else { return nil }
+        guard let maxPoints = self.maxPoints else { return nil }
         return userPoints / Double(maxPoints)
-    }
+    }()
     
     /// The maximum number of points for this challenge for winning the highest win condition.
     /// Guaranteed to be finite and > 0, if it exists
-    var maxPoints: Double? {
-        guard let primaryWinCondition = winConditions.first else { fatalError("Challenge (\(name)) with id \(identifier) does not contain any win conditions.") }
+    lazy var maxPoints: Double? = {
+        guard let primaryWinCondition = self.winConditions.first else { fatalError("Challenge (\(self.name)) with id \(self.identifier) does not contain any win conditions.") }
         
         var maxUnits: Double? = nil
         switch primaryWinCondition.goal.type {
         case .mostPoints:
             // Teams and participants are sorted in descending order by  `units`, so the first element should contain the highest value for `units`.
-            let participatingEntity: ChallengeParticipating? = isTeamChallenge ? teams?.first : participants.first
+            let participatingEntity: ChallengeParticipating? = self.isTeamChallenge ? self.teams?.first : self.participants.first
             maxUnits = participatingEntity?.units
         case .thresholdReached:
             if let threshold = primaryWinCondition.goal.minThreshold ?? primaryWinCondition.goal.maxThreshold {
@@ -188,92 +184,109 @@ extension Challenge {
             return maxUnits
         }
         return nil
-    }
+    }()
     
     /// Returns values in [0.0, 1.0] that corresponds to how far the win conditions are relative to the highest win condition.
     /// Useful for progress views.
-    var winConditionProportions: [CGFloat]? {
-        guard let maxPoints = maxPoints else { return nil }
-        var winConditionProportions: [CGFloat] = []
-        for winCondition in winConditions {
+    lazy var winConditionProportions: [CGFloat] = {
+        guard let maxPoints = self.maxPoints else { return [] }
+        let winConditionProportions: [CGFloat] = self.winConditionPoints.map { (winConditionPoint) -> CGFloat in
+            winConditionPoint / CGFloat(maxPoints)
+        }
+        return winConditionProportions
+    }()
+    
+    lazy var winConditionPoints: [CGFloat] = {
+        var winConditionPoints: [CGFloat] = []
+        for winCondition in self.winConditions {
             switch winCondition.goal.type {
             case .mostPoints: break;
             case .thresholdReached:
                 if let threshold = winCondition.goal.minThreshold ?? winCondition.goal.maxThreshold {
-                    winConditionProportions.append(CGFloat(threshold) / CGFloat(maxPoints))
+                    winConditionPoints.append(CGFloat(threshold))
                 }
             case .unitGoalReached:
                 if let unitGoal = winCondition.goal.unitGoal {
-                    winConditionProportions.append(CGFloat(unitGoal) / CGFloat(maxPoints))
+                    winConditionPoints.append(CGFloat(unitGoal))
                 }
             }
         }
-        return winConditionProportions
-    }
-
-}
-
-extension Challenge {
+        return winConditionPoints
+    }()
     
     /// Highest score amongst all team participants.
-    var teamHighScore: Double {
-        guard let teams = teams else { return 0.0 }
+    lazy var teamHighScore: Double = {
+        guard let teams = self.teams else { return 0.0 }
         return teams.map({$0.units}).maxElement() ?? 0.0
-    }
+    }()
     
     /// Highest score amongst all individual participants.
-    var individualHighScore: Double {
-        return participants.map({$0.units}).maxElement() ?? 0.0
-    }
-}
-
-extension Challenge {
+    lazy var individualHighScore: Double = {
+        return self.participants.map({$0.units}).maxElement() ?? 0.0
+    }()
     
     /**
      Whether or not a challenge is competitive.
      
      - note: There may be win conditions for both teams and individuals, but this property informs whether or not the primary experience of the challenge should be competitive.
      */
-    var isCompetitive: Bool {
+    lazy var isCompetitive: Bool = {
         let isCompetitive: Bool
-        switch template {
+        switch self.template {
         case .individualCompetitive, .individualCompetitiveGoal, .teamCompetitive, .teamCompetitiveGoal:
             isCompetitive = true
         case .individualGoalAccumulation, .individualGoalFrequency, .teamGoalAccumulation:
             isCompetitive = false
         }
         return isCompetitive
-    }
-}
-
-extension Challenge {
+    }()
     
     /**
      Whether or not a challenge is primarily intended to be participated by teams. If `false`, it can be assumed that the challenge is primarily intended to be participated by individuals.
      
      - note: There may be win conditions for both teams and individuals, but this property informs whether or not the primary experience of the challenge should emphasize the team.
      */
-    var isTeamChallenge: Bool {
+    lazy var isTeamChallenge: Bool = {
         let isTeamChallenge: Bool
-        switch template {
+        switch self.template {
         case .teamCompetitive, .teamGoalAccumulation, .teamCompetitiveGoal:
             isTeamChallenge = true
         case .individualGoalAccumulation, .individualGoalFrequency, .individualCompetitiveGoal, .individualCompetitive:
             isTeamChallenge = false
         }
         return isTeamChallenge
-    }
-}
-
-extension Challenge {
+    }()
     
     /// Sanitizes `shortDescription` by removing `HTML` entities and select whitespace characters to produce a display-ready string.
-    var sanitizedShortDescription: String {
-        var sanitizedShortDescription = shortDescription.stringByDecodingHTMLEntities()
+    lazy var sanitizedShortDescription: String = {
+        var sanitizedShortDescription = self.shortDescription.stringByDecodingHTMLEntities()
         sanitizedShortDescription = sanitizedShortDescription.stringByReplacingOccurrencesOfString("\r", withString: "", options: .LiteralSearch, range: nil)
         sanitizedShortDescription = sanitizedShortDescription.stringByReplacingOccurrencesOfString("\t", withString: "", options: .LiteralSearch, range: nil)
         return sanitizedShortDescription
-    }
+    }()
+    
+    /// An abstraction for the combination of the user state and the challenge state.
+    lazy var userState: UserState = {
+        if self.status == .canceled {
+            return .cancelled
+        }
+        if self.status == .finished {
+            return .challengeComplete
+        }
+        if self.status == .calculating {
+            return .tabulatingResults
+        }
+        if self.status == .running {
+            if self.userRelation.status.isJoined {
+                return .joinedAndUnderway
+            }
+            return .unjoinedAndUnderway
+        }
+        if self.userRelation.status.isJoined {
+            return .joinedAndNotUnderway
+        }
+        return .unjoinedAndNotUnderway
+    }()
 }
 
 // MARK: - Types
@@ -353,29 +366,6 @@ extension Challenge {
         case notJoinable
         case joinCommunity
     }
-    
-    /// An abstraction for the combination of the user state and the challenge state.
-    var userState: UserState {
-        if status == .canceled {
-            return .cancelled
-        }
-        if status == .finished {
-            return .challengeComplete
-        }
-        if status == .calculating {
-            return .tabulatingResults
-        }
-        if status == .running {
-            if userRelation.status.isJoined {
-                return .joinedAndUnderway
-            }
-            return .unjoinedAndUnderway
-        }
-        if userRelation.status.isJoined {
-            return .joinedAndNotUnderway
-        }
-        return .unjoinedAndNotUnderway
-    }
 }
 
 // MARK: - JSON
@@ -445,5 +435,6 @@ protocol ChallengeParticipating {
     
     var identifier: String { get }
     
+    /// Returns true if the passed participant is this participant or is in this team 
     func isAssociatedWithParticipant(participant: Challenge.Participant) -> Bool
 }

@@ -193,7 +193,15 @@ extension ChallengeDetailTableViewController: UITableViewDataSource {
             guard let row = UserProgressRow(rawValue: indexPath.row) else { break }
             switch row {
             case .content:
-                cell = userProgressCell(forTableView: tableView, atIndexPath: indexPath)
+                let userProgressCell = makeUserProgressCell(forTableView: tableView, atIndexPath: indexPath)
+                userProgressCell.sizeChangedCallback = {
+                    [weak tableView] in
+                    guard let tableView = tableView else { return }
+                    tableView.beginUpdates()
+                    tableView.endUpdates()
+                }
+                userProgressCell.layoutIfNeeded()
+                cell = userProgressCell
             case ._count:
                 break
             }
@@ -243,8 +251,9 @@ extension ChallengeDetailTableViewController {
 
     // MARK: User Progress
     
-    private func userProgressCell(forTableView tableView: UITableView, atIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    private func makeUserProgressCell(forTableView tableView: UITableView, atIndexPath indexPath: NSIndexPath) -> ChallengeDetailUserProgressTableViewCell {
         let cell = tableView.dequeueReusableCell(withClass: ChallengeDetailUserProgressTableViewCell.self, forIndexPath: indexPath)
+        cell.configure(withChallenge: challenge, challengeRepository: challengeDetailController.challengeRepository)
         
         if let endDate = challenge.endDate {
             let daysRemainingFormat = NSLocalizedString("CHALLENGE_DETAIL_VIEW_DAYS_REMAINING_SINGLE_PLURAL", comment: "Format for the number of days remaining for a challenge")
@@ -268,35 +277,18 @@ extension ChallengeDetailTableViewController {
             cell.goalReachedStackView.hidden = true
         }
         
-        configureProgressContainer(for: cell)
-        
         cell.selectionStyle = .None
         return cell
     }
     
     private var pointsForGoalReached: Int? {
         guard let userPoints = challenge.userRelation.participant?.units else { return nil }
-        for winCondition in challenge.winConditions {
-            guard let minThreshold = winCondition.goal.minThreshold else { continue }
-            if userPoints > Double(minThreshold) {
-                return minThreshold
+        for winConditionPoint in challenge.winConditionPoints {
+            if userPoints > Double(winConditionPoint) {
+                return Int(winConditionPoint)
             }
         }
         return nil
-    }
-    
-    
-    private func configureProgressContainer(for cell: ChallengeDetailUserProgressTableViewCell) {
-        guard let maxPoints = challenge.maxPoints, progressProportion = challenge.userProgressProportion, winConditionProportions = challenge.winConditionProportions else {
-            cell.challengeProgressContainerView.hidden = true
-            return
-        }
-        
-        cell.challengeProgressView.userImageHeightConstraint.constant = 40
-        cell.challengeProgressView.progressMilestones = winConditionProportions
-        cell.challengeProgressView.userImageView.setImage(withMediaAsset: userController.user.photo)
-        cell.challengeProgressView.progress = CGFloat(progressProportion)
-        cell.numberOfPointsLabel.text = "\(Int(maxPoints))"
     }
     
     // MARK: Info

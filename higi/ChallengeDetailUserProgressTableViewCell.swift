@@ -12,34 +12,103 @@ class ChallengeDetailUserProgressTableViewCell: UITableViewCell {
     
     // Outlets
     
-    @IBOutlet var challengeProgressContainerView: UIView!
-    @IBOutlet var challengeProgressView: ChallengeProgressView!
+    @IBOutlet var tableView: UITableView! {
+        didSet {
+            tableView.estimatedRowHeight = 70.0
+            tableView.rowHeight = UITableViewAutomaticDimension
+            
+            tableView.tableFooterView = UIView()
+            
+            tableView.register(nibWithCellClass: ChallengeLeaderboardTableViewCell.self)
+            tableView.register(nibWithCellClass: ChallengeProgressTableViewCell.self)
+            tableView.register(nibWithCellClass: ChallengeProgressHeaderTableViewCell.self)
+            
+            tableView.separatorStyle = .None
+
+            tableView.scrollEnabled = false
+            
+            tableView.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.New, context: &self.kvoContext)
+        }
+    }
     
-    @IBOutlet var dashedLineView: UIView!
-    @IBOutlet var maxPointsContainerView: UIView! {
-        didSet {
-            maxPointsContainerView.backgroundColor = Theme.Color.Challenge.UserProgress.pointsContainerBackground
-        }
-    }
-    @IBOutlet var numberOfPointsLabel: UILabel! {
-        didSet {
-            numberOfPointsLabel.textColor = Theme.Color.Challenge.UserProgress.pointsContainerText
-        }
-    }
-    @IBOutlet var pointsTextLabel: UILabel! {
-        didSet {
-            pointsTextLabel.text = NSLocalizedString("CHALLENGE_DETAIL_VIEW_WATTS_TEXT", comment: "Text for watts in the challenge detail view")
-            pointsTextLabel.textColor = Theme.Color.Challenge.UserProgress.pointsContainerText
-        }
-    }
+    @IBOutlet var tableViewHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet var daysRemainingLabel: UILabel!
     
     @IBOutlet var goalReachedStackView: UIStackView!
     @IBOutlet var goalReachedLabel: UILabel!
     
+    // Injected
+    
+    private var challengeParticipantController: ChallengeParticipantController!
+    
+    // Properties
+    
+    private var kvoContext = 1
+    
+    var sizeChangedCallback: (() -> ())?
+
+    // Deinit
+    
+    deinit {
+        tableView?.removeObserver(self, forKeyPath: "contentSize")
+    }
+
+}
+
+// MARK: - Lifecycle
+
+extension ChallengeDetailUserProgressTableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
-        maxPointsContainerView.cornerRadius = maxPointsContainerView.bounds.height / 2
+        if tableViewHeightConstraint.constant != tableView.contentSize.height {
+            tableViewHeightConstraint.constant = tableView.contentSize.height
+            tableView.setNeedsLayout()
+            tableView.layoutIfNeeded()
+            setNeedsLayout()
+            layoutIfNeeded()
+            sizeChangedCallback?()
+        }
+    }
+}
+// MARK: - Dependency Injection
+
+extension ChallengeDetailUserProgressTableViewCell {
+    
+    func configure(withChallenge challenge: Challenge, challengeRepository: UserDataRepository<Challenge>) {
+        if challengeParticipantController?.challenge === challenge { return }
+        self.challengeParticipantController = ChallengeParticipantController(challenge: challenge, challengeRepository: challengeRepository, mode: .widget)
+        challengeParticipantController.refreshCalculatedProperties()
+        tableView.delegate = challengeParticipantController
+        tableView.dataSource = challengeParticipantController
+        tableView.reloadData()
+    }
+}
+
+// MARK: - Helpers
+
+extension ChallengeDetailUserProgressTableViewCell {
+    private func updateTableHeightConstraint() {
+        if tableViewHeightConstraint.constant != tableView.contentSize.height {
+            tableViewHeightConstraint.constant = tableView.contentSize.height
+        }
+    }
+}
+
+// MARK: - KVO
+
+extension ChallengeDetailUserProgressTableViewCell {
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        guard context == &kvoContext else { return }
+        guard let keyPath = keyPath else { return }
+        switch keyPath {
+        case "contentSize":
+            tableView.setNeedsLayout()
+            tableView.layoutIfNeeded()
+            updateTableHeightConstraint()
+            sizeChangedCallback?()
+        default:
+            return
+        }
     }
 }
