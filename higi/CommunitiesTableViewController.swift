@@ -216,6 +216,10 @@ extension CommunitiesTableViewController: UITableViewDataSource {
                 
                 communityCell.reset()
                 
+                if communitiesController.filter == .Joined {
+                    communityCell.listingView.bannerContainer.shouldManageGradientOverlay = false
+                    communityCell.listingView.bannerContainer.gradientOverlayImageView.hidden = true
+                }
                 communityCell.listingView.bannerContainer.imageView.setImage(withMediaAsset: community.header)
                 
                 communityCell.listingView.logoMemberContainer.imageView.setImage(withMediaAsset: community.logo)

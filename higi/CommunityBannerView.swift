@@ -16,6 +16,9 @@ final class CommunityBannerView: ReusableXibView {
     }
     private let imageViewKeyPath = "imageView.image"
     
+    /// Set this property to `false` if the view should not automatically manage the display of a gradient overlay atop the `imageView`. By default, this is set to `true`.
+    var shouldManageGradientOverlay = true
+    
     @IBOutlet var gradientOverlayImageView: UIImageView!
     
     @IBOutlet var accessoryContainer: UIView!
@@ -47,7 +50,7 @@ extension CommunityBannerView {
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         guard let keyPath = keyPath else { return }
         
-        if keyPath == imageViewKeyPath {
+        if keyPath == imageViewKeyPath && shouldManageGradientOverlay {
             var shouldHideOverlay = true
             if let change = change, let value = change["new"] {
                 if !(value is NSNull) {

@@ -11,7 +11,7 @@ final class CommunitiesController {
     // MARK: Properties
     
     typealias Filter = CommunityCollectionRequest.Filter
-    private let filter: Filter
+    let filter: Filter
     private let communityRepository: UserDataRepository<Community>
     private var communityIds: [UniqueId] = []
     private(set) var communities: [Community] {
