@@ -110,8 +110,7 @@ extension CommunityDetailViewController {
         super.viewDidLoad()
         
         self.title = community.name
-        self.navigationItem.rightBarButtonItem = navigationOverflowBarButtonItem()
-        
+
 //        configureLeaderboardWidget() // TODO: Uncomment after community leaderboard backend is implemented
     }
     
@@ -156,6 +155,8 @@ extension CommunityDetailViewController {
 extension CommunityDetailViewController {
     
     private func configureView() {
+        
+        navigationItem.rightBarButtonItem = (overflowActions().isEmpty) ? nil : navigationOverflowBarButtonItem()
         
         bannerContainer.imageView.setImage(withMediaAsset: community.header)
         
@@ -208,25 +209,30 @@ extension CommunityDetailViewController {
         toggleDescriptionContainer()
     }
     
-    @IBAction func didTapOverflowButton(sender: UIBarButtonItem) {
-        Flurry.logEvent("CommMoreButton_Pressed")
-        
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
-        
+    private func overflowActions() -> [UIAlertAction] {
+        var actions: [UIAlertAction] = []
         if community.isMember {
             let unsubscribeTitle = NSLocalizedString("COMMUNITY_DETAIL_OVERFLOW_MENU_ITEM_TITLE_LEAVE_COMMUNITY", comment: "Title for menu item to leave community in the community detail overflow menu.")
             let leaveAction = UIAlertAction(title: unsubscribeTitle, style: .Default, handler: { [weak self] (action) in
                 self?.leaveCommunityConfirmation()
-            })
-            alertController.addAction(leaveAction)
+                })
+            actions.append(leaveAction)
         }
+        if actions.count > 0 {
+            let cancelTitle = NSLocalizedString("COMMUNITY_DETAIL_OVERFLOW_MENU_ITEM_TITLE_CANCEL", comment: "Title for item in the community detail overflow menu to cancel selection.")
+            let cancelAction = UIAlertAction(title: cancelTitle, style: .Cancel, handler: nil)
+            actions.append(cancelAction)
+        }
+        return actions
+    }
+    
+    @IBAction func didTapOverflowButton(sender: UIBarButtonItem) {
+        Flurry.logEvent("CommMoreButton_Pressed")
         
-        if alertController.actions.count == 0 { return }
-        
-        let cancelTitle = NSLocalizedString("COMMUNITY_DETAIL_OVERFLOW_MENU_ITEM_TITLE_CANCEL", comment: "Title for item in the community detail overflow menu to cancel selection.")
-        let cancelAction = UIAlertAction(title: cancelTitle, style: .Cancel, handler: nil)
-        alertController.addAction(cancelAction)
-        
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        overflowActions().forEach({
+            alertController.addAction($0)
+        })
         self.presentViewController(alertController, animated: true, completion: nil)
     }
     
