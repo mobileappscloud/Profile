@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Profile-->
@@ -16,13 +17,59 @@
                     <view key="view" contentMode="scaleToFill" id="FDt-Bq-AtQ">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZxT-7u-ELn">
+                                <rect key="frame" x="0.0" y="245" width="600" height="70"/>
+                                <subviews>
+                                    <segmentedControl opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="top" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="N7Q-DF-zxe">
+                                        <rect key="frame" x="8" y="20" width="584" height="29"/>
+                                        <color key="backgroundColor" red="0.95740950810000003" green="0.95740950810000003" blue="0.95740950810000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <segments>
+                                            <segment title="Watts"/>
+                                            <segment title="Achievements"/>
+                                            <segment title="Communities"/>
+                                            <segment title="Challenges"/>
+                                        </segments>
+                                        <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    </segmentedControl>
+                                </subviews>
+                                <color key="backgroundColor" red="0.95740950810000003" green="0.95740950810000003" blue="0.95740950810000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="N7Q-DF-zxe" firstAttribute="leading" secondItem="ZxT-7u-ELn" secondAttribute="leadingMargin" id="6Pa-Xb-AJo"/>
+                                    <constraint firstItem="N7Q-DF-zxe" firstAttribute="centerY" secondItem="ZxT-7u-ELn" secondAttribute="centerY" constant="-1" id="JSB-94-11b"/>
+                                    <constraint firstItem="N7Q-DF-zxe" firstAttribute="trailing" secondItem="ZxT-7u-ELn" secondAttribute="trailingMargin" id="LD6-zU-ay8"/>
+                                    <constraint firstAttribute="bottom" secondItem="N7Q-DF-zxe" secondAttribute="bottom" constant="22" id="Za6-eN-Eek"/>
+                                    <constraint firstItem="N7Q-DF-zxe" firstAttribute="top" secondItem="ZxT-7u-ELn" secondAttribute="top" constant="20" id="n3A-Ma-Rd7"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ZxT-7u-ELn" firstAttribute="top" secondItem="bDe-Oi-ouU" secondAttribute="bottom" constant="181" id="2GQ-fn-rzT"/>
+                            <constraint firstItem="nfY-Hj-eZL" firstAttribute="top" secondItem="ZxT-7u-ELn" secondAttribute="bottom" constant="285" id="5TR-kZ-Yyv"/>
+                            <constraint firstItem="ZxT-7u-ELn" firstAttribute="top" secondItem="bDe-Oi-ouU" secondAttribute="bottom" constant="178" id="9Rl-yT-xXq"/>
+                            <constraint firstItem="nfY-Hj-eZL" firstAttribute="top" secondItem="ZxT-7u-ELn" secondAttribute="bottom" constant="285" id="COU-y1-xwx"/>
+                            <constraint firstItem="ZxT-7u-ELn" firstAttribute="leading" secondItem="FDt-Bq-AtQ" secondAttribute="leading" id="F40-b9-t1J"/>
+                            <constraint firstAttribute="trailing" secondItem="ZxT-7u-ELn" secondAttribute="trailing" id="K4v-SJ-HHY"/>
+                            <constraint firstItem="ZxT-7u-ELn" firstAttribute="top" secondItem="bDe-Oi-ouU" secondAttribute="bottom" constant="178" id="TmI-q9-UcE"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="9Rl-yT-xXq"/>
+                                <exclude reference="TmI-q9-UcE"/>
+                                <exclude reference="5TR-kZ-Yyv"/>
+                                <exclude reference="COU-y1-xwx"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Profile" id="q84-nf-SlR"/>
+                    <connections>
+                        <outlet property="grayView" destination="ZxT-7u-ELn" id="Hix-ZH-mfu"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UAd-D7-6zG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1668" y="300"/>
+            <point key="canvasLocation" x="1785" y="300"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="uSp-C2-HT6">
