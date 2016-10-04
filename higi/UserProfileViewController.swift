@@ -55,7 +55,7 @@ class UserProfileViewController: UIViewController
     {
         let label = UILabel()
         label.text = "100"
-        label.textColor = UIColor.blueColor()
+        label.textColor = UIColor(red:0.19, green:0.43, blue:0.86, alpha:1.0)
         label.font = UIFont.boldSystemFontOfSize(25.0)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -66,7 +66,7 @@ class UserProfileViewController: UIViewController
         let label = UILabel()
         label.text = "Followers"
         label.textColor = UIColor(red:0.26, green:0.26, blue:0.26, alpha:1.0)
-        label.font = UIFont.boldSystemFontOfSize(7.5)
+        label.font = UIFont.boldSystemFontOfSize(10)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -75,7 +75,7 @@ class UserProfileViewController: UIViewController
     {
         let label = UILabel()
         label.text = "100"
-        label.textColor = UIColor.blueColor()
+        label.textColor = UIColor(red:0.19, green:0.43, blue:0.86, alpha:1.0)
         label.font = UIFont.boldSystemFontOfSize(25.0)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -85,9 +85,11 @@ class UserProfileViewController: UIViewController
     {
         let btn = UIButton(type: .System)
         btn.setTitle("FOLLOW", forState: .Normal)
-        btn.backgroundColor = UIColor.blueColor()
-        btn.titleLabel?.textColor = UIColor.whiteColor()
+        btn.backgroundColor = UIColor(red:0.19, green:0.43, blue:0.86, alpha:1.0)
+        btn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.layer.cornerRadius = 10
+        btn.clipsToBounds = true
         return btn
     }()
     
@@ -120,10 +122,10 @@ class UserProfileViewController: UIViewController
         view.addSubview(nameLabel)
         view.addSubview(locationLabel)
         view.addSubview(followingLabel)
-        /*view.addSubview(followingNumbersLabel)
+        view.addSubview(followingNumbersLabel)
         view.addSubview(followersLabel)
         view.addSubview(followersNumbersLabel)
-        view.addSubview(followButton)*/
+        view.addSubview(followButton)
         
         setUpUI()
         
@@ -142,7 +144,7 @@ class UserProfileViewController: UIViewController
         imageView.heightAnchor.constraintEqualToConstant(100).active = true
         imageView.leftAnchor.constraintEqualToAnchor(view.leftAnchor, constant: 17.5).active = true
         imageView.topAnchor.constraintEqualToAnchor(navigationBar.bottomAnchor, constant: 17.5).active = true
-        imageView.bottomAnchor.constraintEqualToAnchor(grayView.topAnchor, constant: -12.5).active = true
+        imageView.bottomAnchor.constraintEqualToAnchor(grayView.topAnchor, constant: -25).active = true
         
         /*//border
         separatorLine.widthAnchor.constraintEqualToAnchor(view.widthAnchor).active = true
@@ -154,31 +156,32 @@ class UserProfileViewController: UIViewController
         nameLabel.topAnchor.constraintEqualToAnchor(navigationBar.bottomAnchor, constant: 35).active = true
         
         //locationLabel
-        locationLabel.leftAnchor.constraintEqualToAnchor(imageView.rightAnchor, constant: 17.5).active = true
+        locationLabel.leftAnchor.constraintEqualToAnchor(nameLabel.leftAnchor).active = true
         locationLabel.topAnchor.constraintEqualToAnchor(nameLabel.bottomAnchor, constant: 2.0).active = true
         
         //followingLabel
         followingLabel.topAnchor.constraintEqualToAnchor(locationLabel.bottomAnchor, constant: 10).active = true
-        followingLabel.leftAnchor.constraintEqualToAnchor(imageView.rightAnchor, constant: 17.5).active = true
+        followingLabel.centerXAnchor.constraintEqualToAnchor(locationLabel.centerXAnchor).active = true
+        followingLabel.leftAnchor.constraintEqualToAnchor(nameLabel.leftAnchor).active = true
         
-        /*//followingNumbersLabel
-        followingNumbersLabel.topAnchor.constraintEqualToAnchor(followingLabel.bottomAnchor, constant: 8).active  = true
+        //followingNumbersLabel
+        followingNumbersLabel.topAnchor.constraintEqualToAnchor(followingLabel.bottomAnchor, constant: 1).active  = true
         followingNumbersLabel.centerXAnchor.constraintEqualToAnchor(followingLabel.centerXAnchor).active = true
-        followingNumbersLabel.leftAnchor.constraintEqualToAnchor(followingLabel.leftAnchor).active = true
+        followingNumbersLabel.leftAnchor.constraintEqualToAnchor(nameLabel.leftAnchor).active = true
         
         //followersLabel
-        followersLabel.leftAnchor.constraintEqualToAnchor(followingLabel.rightAnchor, constant: 45).active = true
+        followersLabel.leftAnchor.constraintEqualToAnchor(followingLabel.rightAnchor, constant: 1).active = true
         followersLabel.topAnchor.constraintEqualToAnchor(followingLabel.topAnchor).active = true
         
         //followersNumbersLabel
-        followersNumbersLabel.topAnchor.constraintEqualToAnchor(followersLabel.bottomAnchor, constant: 8).active  = true
+        followersNumbersLabel.topAnchor.constraintEqualToAnchor(followersLabel.bottomAnchor, constant: 1).active  = true
         followersNumbersLabel.centerXAnchor.constraintEqualToAnchor(followersLabel.centerXAnchor).active = true
         followersNumbersLabel.leftAnchor.constraintEqualToAnchor(followersLabel.leftAnchor).active = true
         
         //followButton
         followButton.widthAnchor.constraintEqualToConstant(100).active = true
         followButton.heightAnchor.constraintEqualToConstant(40).active = true
-        followButton.rightAnchor.constraintEqualToAnchor(view.rightAnchor, constant: 25).active = true
-        //followButton.leftAnchor.constraintEqualToAnchor(followersLabel.rightAnchor, constant: 45).active = true */
+        followButton.leftAnchor.constraintEqualToAnchor(followersLabel.rightAnchor, constant: 7).active = true
+        followButton.topAnchor.constraintEqualToAnchor(followersLabel.topAnchor).active = true
     }
 }
