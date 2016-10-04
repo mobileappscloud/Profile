@@ -21,6 +21,10 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		1A215E631DA310580065DAA7 /* UserProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A215E621DA310580065DAA7 /* UserProfile.storyboard */; };
+		1A215E651DA311830065DAA7 /* UserProfileView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A215E641DA311830065DAA7 /* UserProfileView.xib */; };
+		1A215E671DA314AC0065DAA7 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A215E661DA314AC0065DAA7 /* UserProfileView.swift */; };
+		1A215E691DA31C880065DAA7 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A215E681DA31C880065DAA7 /* UserProfileViewController.swift */; };
 		270342B01D6663CC00B84E28 /* LeaderboardWidgetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 270342AF1D6663CC00B84E28 /* LeaderboardWidgetView.xib */; };
 		270342B21D66684100B84E28 /* LeaderboardUserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 270342B11D66684100B84E28 /* LeaderboardUserView.xib */; };
 		270342B51D666A9C00B84E28 /* LeaderboardUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270342B41D666A9C00B84E28 /* LeaderboardUserView.swift */; };
@@ -558,6 +562,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1A215E621DA310580065DAA7 /* UserProfile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserProfile.storyboard; sourceTree = "<group>"; };
+		1A215E641DA311830065DAA7 /* UserProfileView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserProfileView.xib; sourceTree = "<group>"; };
+		1A215E661DA314AC0065DAA7 /* UserProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
+		1A215E681DA31C880065DAA7 /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		270342AF1D6663CC00B84E28 /* LeaderboardWidgetView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeaderboardWidgetView.xib; sourceTree = "<group>"; };
 		270342B11D66684100B84E28 /* LeaderboardUserView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeaderboardUserView.xib; sourceTree = "<group>"; };
 		270342B41D666A9C00B84E28 /* LeaderboardUserView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderboardUserView.swift; sourceTree = "<group>"; };
@@ -1155,6 +1163,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1A215E5F1DA310490065DAA7 /* User Profile */ = {
+			isa = PBXGroup;
+			children = (
+				1A215E621DA310580065DAA7 /* UserProfile.storyboard */,
+				1A215E641DA311830065DAA7 /* UserProfileView.xib */,
+				1A215E661DA314AC0065DAA7 /* UserProfileView.swift */,
+				1A215E681DA31C880065DAA7 /* UserProfileViewController.swift */,
+			);
+			name = "User Profile";
+			sourceTree = "<group>";
+		};
 		270342AC1D66639800B84E28 /* Leaderboard */ = {
 			isa = PBXGroup;
 			children = (
@@ -2091,6 +2110,7 @@
 		418D4C191C7A1E55008C86E7 /* Interface Builder */ = {
 			isa = PBXGroup;
 			children = (
+				1A215E5F1DA310490065DAA7 /* User Profile */,
 				418D4C1C1C7A1E8E008C86E7 /* App Update */,
 				41F4E5311D678D82003FC114 /* Challenge Detail */,
 				418D4C1D1C7A1EA7008C86E7 /* Challenge Details (Deprecated) */,
@@ -3436,6 +3456,7 @@
 				270ED5761D480F6E00476E6A /* ChallengeTableViewCell.xib in Resources */,
 				418111C51C97986000EE3E75 /* ActivitySummaryView.xib in Resources */,
 				8F5E7FBD199965C0009067E5 /* PinCodeView.xib in Resources */,
+				1A215E651DA311830065DAA7 /* UserProfileView.xib in Resources */,
 				8FEF6F3E1A6EB437001EF8A6 /* PointsMeterView.xib in Resources */,
 				D149E9451A78221200FBAA15 /* ChallengeDetailsPrizes.xib in Resources */,
 				413E19391C10B50300146B29 /* higi.entitlements in Resources */,
@@ -3496,6 +3517,7 @@
 				41BFC9B81BCC0E0D00FD0F45 /* Localizable.stringsdict in Resources */,
 				2BBDBA531A12AC2C005A6815 /* ChallengeRowCell.xib in Resources */,
 				413C46081D81BE81009B81A7 /* MetricsOverview.storyboard in Resources */,
+				1A215E631DA310580065DAA7 /* UserProfile.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3797,6 +3819,7 @@
 				413E19251C10AB2C00146B29 /* UniversalLink.swift in Sources */,
 				41EBD2B71D6F916600DE7251 /* Device.Identifier.swift in Sources */,
 				411F79791CBC05E2000D0D64 /* CommunitiesTableUtility.swift in Sources */,
+				1A215E691DA31C880065DAA7 /* UserProfileViewController.swift in Sources */,
 				41643AAE1C188D4800258F55 /* MetricDataLabelView.swift in Sources */,
 				41A0BE0C1BBB088500A314D6 /* AFHTTPRequestOperationManager.m in Sources */,
 				D1764C551BB5DD8800577EC9 /* QrCheckinCard.swift in Sources */,
@@ -3885,6 +3908,7 @@
 				D1CFC9831AB360AF00AC54BB /* MetricGraphCard.swift in Sources */,
 				411F7A081CBECCE9000D0D64 /* CommunityBannerView.swift in Sources */,
 				D10D89501A8C11A9000402D4 /* ChallengeDetailsParticipantIcon.swift in Sources */,
+				1A215E671DA314AC0065DAA7 /* UserProfileView.swift in Sources */,
 				410F61E51CB31B8A00614E78 /* MediaAsset.swift in Sources */,
 				41A0BE101BBB088500A314D6 /* AFURLConnectionOperation.m in Sources */,
 				410F10751D77869B0008F68E /* ChallengeWinConditionTableViewController.swift in Sources */,

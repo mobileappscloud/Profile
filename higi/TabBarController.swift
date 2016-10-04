@@ -249,6 +249,9 @@ extension TabBarController {
     
     dynamic func didTapProfileButton(sender: UIBarButtonItem) {
         Flurry.logEvent("ProfileButton_Pressed")
+        
+        let viewController:UIViewController = UIStoryboard(name: "UserProfile", bundle: nil).instantiateViewControllerWithIdentifier("userProfileID") as! UserProfileViewController
+        self.presentViewController(viewController, animated: true, completion: nil)
     }
     
     func modalDoneButtonTapped(sender: UIBarButtonItem) {
