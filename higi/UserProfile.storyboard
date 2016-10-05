@@ -65,6 +65,7 @@
                     <navigationItem key="navigationItem" title="Profile" id="q84-nf-SlR"/>
                     <connections>
                         <outlet property="grayView" destination="ZxT-7u-ELn" id="Hix-ZH-mfu"/>
+                        <outlet property="segmentedControl" destination="N7Q-DF-zxe" id="7d2-cv-aWO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UAd-D7-6zG" userLabel="First Responder" sceneMemberID="firstResponder"/>

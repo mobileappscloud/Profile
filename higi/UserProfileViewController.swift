@@ -8,14 +8,22 @@
 
 import UIKit
 
-class UserProfileViewController: UIViewController
+class UserProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource
 {
 
-    @IBOutlet weak var grayView: UIView!
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
+    
+    @IBOutlet weak var grayView: UIView! {
+        didSet {
+            grayView.backgroundColor = UIColor(red:0.95, green:0.95, blue:0.95, alpha:1.0)
+        }
+    }
     let imageView: UIImageView =
     {
         let view = UIImageView()
-        view.backgroundColor = UIColor.blueColor()
+        //view.backgroundColor = UIColor.blueColor()
+        let image = UIImage(named: "my_avatar")
+        view.image = image
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -105,7 +113,7 @@ class UserProfileViewController: UIViewController
         let navigationItem = UINavigationItem()
         navigationItem.title = "Profile"
         
-        let leftButton = UIBarButtonItem(title: "Back", style: .Plain, target: self, action: nil)
+        let leftButton = UIBarButtonItem(title: "Done", style: .Plain, target: self, action:#selector(UserProfileViewController.dismissViewController))
         navigationItem.leftBarButtonItem = leftButton
         
         navBar.items = [navigationItem]
@@ -113,11 +121,45 @@ class UserProfileViewController: UIViewController
         
     }()
     
+    let temporaryContainerView: UIView =
+    {
+        let view = UIView()
+        view.backgroundColor = UIColor.lightGrayColor()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    let deviceImageView: UIImageView =
+    {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "turn-phone-icon")
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
+    func dismissViewController()
+    {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    lazy var myTableView: UITableView =
+    {
+        let tableView = UITableView()
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
         
+        //nav bar
         self.view.addSubview(navigationBar)
+        
+        //Header
         view.addSubview(imageView)
         view.addSubview(nameLabel)
         view.addSubview(locationLabel)
@@ -127,9 +169,17 @@ class UserProfileViewController: UIViewController
         view.addSubview(followersNumbersLabel)
         view.addSubview(followButton)
         
+        //Middle
+        view.addSubview(temporaryContainerView)
+        view.addSubview(deviceImageView)
+        
+        //tableView
+        view.addSubview(myTableView)
+
         setUpUI()
         
-        
+      //  let sortedViews = segmentedControl.subviews.sort( { $0.frame.origin.x < $1.frame.origin.x } )
+       // sortedViews[0].tintColor = UIColor(red:0.44, green:0.44, blue:0.44, alpha:1.0)
     }
 
     override func didReceiveMemoryWarning()
@@ -183,5 +233,41 @@ class UserProfileViewController: UIViewController
         followButton.heightAnchor.constraintEqualToConstant(40).active = true
         followButton.leftAnchor.constraintEqualToAnchor(followersLabel.rightAnchor, constant: 7).active = true
         followButton.topAnchor.constraintEqualToAnchor(followersLabel.topAnchor).active = true
+        
+        //temporaryContainer
+        temporaryContainerView.widthAnchor.constraintEqualToAnchor(view.widthAnchor).active = true
+        temporaryContainerView.heightAnchor.constraintEqualToConstant(175).active = true
+        temporaryContainerView.topAnchor.constraintEqualToAnchor(grayView.bottomAnchor).active = true
+        
+        //deviceImageView
+        deviceImageView.topAnchor.constraintEqualToAnchor(temporaryContainerView.topAnchor, constant:10).active = true
+        deviceImageView.rightAnchor.constraintEqualToAnchor(view.rightAnchor, constant: -20).active = true
+        
+        //tableView
+        myTableView.widthAnchor.constraintEqualToAnchor(view.widthAnchor).active = true
+        myTableView.topAnchor.constraintEqualToAnchor(temporaryContainerView.bottomAnchor).active = true
+        myTableView.bottomAnchor.constraintEqualToAnchor(view.bottomAnchor).active = true
+        myTableView.centerXAnchor.constraintEqualToAnchor(view.centerXAnchor).active = true
+    }
+    
+    //MARK Table View Delegate and DataSource
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 50
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell:UITableViewCell = tableView.dequeueReusableCellWithIdentifier("cell") as UITableViewCell!
+        cell.textLabel?.text = "Test"
+        
+        return cell
     }
 }

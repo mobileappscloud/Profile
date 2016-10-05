@@ -23,6 +23,10 @@
 /* Begin PBXBuildFile section */
 		1A215E631DA310580065DAA7 /* UserProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A215E621DA310580065DAA7 /* UserProfile.storyboard */; };
 		1A215E691DA31C880065DAA7 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A215E681DA31C880065DAA7 /* UserProfileViewController.swift */; };
+		1AF0D38C1DA4615800DFA34E /* my_avatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AF0D38B1DA4615800DFA34E /* my_avatar.png */; };
+		1AF0D38E1DA47D4D00DFA34E /* turn-phone-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AF0D38D1DA47D4D00DFA34E /* turn-phone-icon.png */; };
+		1AF0D3901DA47D5200DFA34E /* turn-phone-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AF0D38F1DA47D5200DFA34E /* turn-phone-icon@2x.png */; };
+		1AF0D3921DA47D5600DFA34E /* turn-phone-icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AF0D3911DA47D5600DFA34E /* turn-phone-icon@3x.png */; };
 		270342B01D6663CC00B84E28 /* LeaderboardWidgetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 270342AF1D6663CC00B84E28 /* LeaderboardWidgetView.xib */; };
 		270342B21D66684100B84E28 /* LeaderboardUserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 270342B11D66684100B84E28 /* LeaderboardUserView.xib */; };
 		270342B51D666A9C00B84E28 /* LeaderboardUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270342B41D666A9C00B84E28 /* LeaderboardUserView.swift */; };
@@ -562,6 +566,10 @@
 /* Begin PBXFileReference section */
 		1A215E621DA310580065DAA7 /* UserProfile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserProfile.storyboard; sourceTree = "<group>"; };
 		1A215E681DA31C880065DAA7 /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
+		1AF0D38B1DA4615800DFA34E /* my_avatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = my_avatar.png; sourceTree = "<group>"; };
+		1AF0D38D1DA47D4D00DFA34E /* turn-phone-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "turn-phone-icon.png"; sourceTree = "<group>"; };
+		1AF0D38F1DA47D5200DFA34E /* turn-phone-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "turn-phone-icon@2x.png"; sourceTree = "<group>"; };
+		1AF0D3911DA47D5600DFA34E /* turn-phone-icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "turn-phone-icon@3x.png"; sourceTree = "<group>"; };
 		270342AF1D6663CC00B84E28 /* LeaderboardWidgetView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeaderboardWidgetView.xib; sourceTree = "<group>"; };
 		270342B11D66684100B84E28 /* LeaderboardUserView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeaderboardUserView.xib; sourceTree = "<group>"; };
 		270342B41D666A9C00B84E28 /* LeaderboardUserView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderboardUserView.swift; sourceTree = "<group>"; };
@@ -1164,6 +1172,10 @@
 			children = (
 				1A215E621DA310580065DAA7 /* UserProfile.storyboard */,
 				1A215E681DA31C880065DAA7 /* UserProfileViewController.swift */,
+				1AF0D38B1DA4615800DFA34E /* my_avatar.png */,
+				1AF0D38D1DA47D4D00DFA34E /* turn-phone-icon.png */,
+				1AF0D38F1DA47D5200DFA34E /* turn-phone-icon@2x.png */,
+				1AF0D3911DA47D5600DFA34E /* turn-phone-icon@3x.png */,
 			);
 			name = "User Profile";
 			sourceTree = "<group>";
@@ -3405,6 +3417,7 @@
 				410F10711D777D710008F68E /* ChallengeWinConditionTableViewCell.xib in Resources */,
 				273DFFAD1D491C3800AF7032 /* ChallengeStatusIndicatorView.xib in Resources */,
 				27AC77611D6F9E3D0048316B /* PreviousChallengesTableViewCell.xib in Resources */,
+				1AF0D3921DA47D5600DFA34E /* turn-phone-icon@3x.png in Resources */,
 				418111C91C97997E00EE3E75 /* ActivityTableViewCell.xib in Resources */,
 				273191CA1D81BC6700F12C5F /* LeaderboardAAA.storyboard in Resources */,
 				415338161C60614700ED2B82 /* MetricCheckinSummaryView.xib in Resources */,
@@ -3418,6 +3431,7 @@
 				27F9F33F1D6B8F00001FA583 /* LeaderboardStatusWidgetView.xib in Resources */,
 				411F7A021CBECAB3000D0D64 /* CommunityLogoMemberView.xib in Resources */,
 				278D9F751D7F68EE00989334 /* ChallengesEmptyTableViewCell.xib in Resources */,
+				1AF0D3901DA47D5200DFA34E /* turn-phone-icon@2x.png in Resources */,
 				410EED4D1D4BE9BB002FF052 /* ActionBar.xib in Resources */,
 				D1FC72A11B2240020068CF89 /* MetricGaugeView.xib in Resources */,
 				419D86601BBEFF1A00E7D844 /* Settings.storyboard in Resources */,
@@ -3429,6 +3443,7 @@
 				D110BAD61B0E7CD700CD1E58 /* DailySummaryView.xib in Resources */,
 				4114202C1D0C6F660050473E /* Text.storyboard in Resources */,
 				273AC8571D4A60D600828FF1 /* ChallengeInformationView.xib in Resources */,
+				1AF0D38C1DA4615800DFA34E /* my_avatar.png in Resources */,
 				8FE056E7198FDC9800C81208 /* FindStationView.xib in Resources */,
 				2BC5865C1A16C63B005A7983 /* ChallengeInvitation.xib in Resources */,
 				D1BA13451A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib in Resources */,
@@ -3460,6 +3475,7 @@
 				413E19361C10B41400146B29 /* higi-qa.entitlements in Resources */,
 				41A274B21D20F42600D10F8A /* PostTextDescriptionView.xib in Resources */,
 				41A917FF1BBC747600CCF91E /* GoogleMaps.bundle in Resources */,
+				1AF0D38E1DA47D4D00DFA34E /* turn-phone-icon.png in Resources */,
 				8F5E7FC11999674C009067E5 /* KioskListCellView.xib in Resources */,
 				41D8719B1C7D16AA002DCDA0 /* TabBar.storyboard in Resources */,
 				411420261D0BB5F70050473E /* BlurredLoading.storyboard in Resources */,
