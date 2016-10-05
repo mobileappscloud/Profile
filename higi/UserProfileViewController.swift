@@ -170,11 +170,11 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
         view.addSubview(followButton)
         
         //Middle
-        view.addSubview(temporaryContainerView)
-        view.addSubview(deviceImageView)
+        //view.addSubview(temporaryContainerView)
+        //view.addSubview(deviceImageView)
         
         //tableView
-        view.addSubview(myTableView)
+        //view.addSubview(myTableView)
 
         setUpUI()
         
@@ -234,20 +234,20 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
         followButton.leftAnchor.constraintEqualToAnchor(followersLabel.rightAnchor, constant: 7).active = true
         followButton.topAnchor.constraintEqualToAnchor(followersLabel.topAnchor).active = true
         
-        //temporaryContainer
+        /*//temporaryContainer
         temporaryContainerView.widthAnchor.constraintEqualToAnchor(view.widthAnchor).active = true
         temporaryContainerView.heightAnchor.constraintEqualToConstant(175).active = true
-        temporaryContainerView.topAnchor.constraintEqualToAnchor(grayView.bottomAnchor).active = true
+        temporaryContainerView.topAnchor.constraintEqualToAnchor(grayView.bottomAnchor).active = true*/
         
         //deviceImageView
-        deviceImageView.topAnchor.constraintEqualToAnchor(temporaryContainerView.topAnchor, constant:10).active = true
-        deviceImageView.rightAnchor.constraintEqualToAnchor(view.rightAnchor, constant: -20).active = true
+        /*deviceImageView.topAnchor.constraintEqualToAnchor(temporaryContainerView.topAnchor, constant:10).active = true
+        deviceImageView.rightAnchor.constraintEqualToAnchor(view.rightAnchor, constant: -20).active = true*/
         
         //tableView
-        myTableView.widthAnchor.constraintEqualToAnchor(view.widthAnchor).active = true
+       /* myTableView.widthAnchor.constraintEqualToAnchor(view.widthAnchor).active = true
         myTableView.topAnchor.constraintEqualToAnchor(temporaryContainerView.bottomAnchor).active = true
         myTableView.bottomAnchor.constraintEqualToAnchor(view.bottomAnchor).active = true
-        myTableView.centerXAnchor.constraintEqualToAnchor(view.centerXAnchor).active = true
+        myTableView.centerXAnchor.constraintEqualToAnchor(view.centerXAnchor).active = true*/
     }
     
     //MARK Table View Delegate and DataSource
