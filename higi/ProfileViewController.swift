@@ -11,6 +11,7 @@ import Foundation
 
 class ProfileViewController: UIViewController
 {
+    //User Interface Header
     @IBOutlet weak var followersLabel: UILabel! {
         didSet {
             followersLabel.textColor = UIColor(red:0.26, green:0.26, blue:0.26, alpha:1.0)
@@ -49,11 +50,15 @@ class ProfileViewController: UIViewController
             followButton.clipsToBounds = true
         }
     }
+    
     @IBOutlet weak var containerView: UIView!
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
     }
+    
+    //Empty View Controllers for now
     
     let wattsVC:UIViewController = UIStoryboard(name: "UserProfile", bundle: nil).instantiateViewControllerWithIdentifier("wattsID") as! WattsViewController
     

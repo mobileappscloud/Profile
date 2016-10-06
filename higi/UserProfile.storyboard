@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -35,7 +36,7 @@
                                                 <rect key="frame" x="0.0" y="19" width="373" height="81"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="jau-ns-B40">
-                                                        <rect key="frame" x="0.0" y="0.0" width="316" height="81"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="346" height="81"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uC9-0R-ZuX">
                                                                 <rect key="frame" x="0.0" y="0.0" width="55" height="24"/>
@@ -187,15 +188,15 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="CCq-yx-nJ1" firstAttribute="leading" secondItem="r6Z-8R-Pyx" secondAttribute="leadingMargin" id="Cz8-Q3-Xx7"/>
-                            <constraint firstItem="GVX-ZS-tki" firstAttribute="top" secondItem="CCq-yx-nJ1" secondAttribute="bottom" constant="74" id="FFT-eP-fsw"/>
-                            <constraint firstAttribute="trailing" secondItem="CCq-yx-nJ1" secondAttribute="trailing" id="FTu-Oh-Y86"/>
                             <constraint firstAttribute="trailingMargin" secondItem="QUG-rl-cNB" secondAttribute="trailing" constant="1" id="Hem-OU-Bo4"/>
-                            <constraint firstItem="CCq-yx-nJ1" firstAttribute="top" secondItem="QUG-rl-cNB" secondAttribute="bottom" constant="23" id="Lwk-5O-IaJ"/>
+                            <constraint firstItem="CCq-yx-nJ1" firstAttribute="leading" secondItem="r6Z-8R-Pyx" secondAttribute="leading" id="J6q-OX-i3k"/>
                             <constraint firstItem="QUG-rl-cNB" firstAttribute="leading" secondItem="r6Z-8R-Pyx" secondAttribute="leadingMargin" constant="5" id="Tro-Wl-Uzf"/>
                             <constraint firstItem="CCq-yx-nJ1" firstAttribute="trailing" secondItem="QUG-rl-cNB" secondAttribute="trailing" id="dCr-WN-5qG"/>
                             <constraint firstItem="CCq-yx-nJ1" firstAttribute="top" secondItem="QUG-rl-cNB" secondAttribute="bottom" constant="17" id="gii-cs-d43"/>
                             <constraint firstItem="GVX-ZS-tki" firstAttribute="top" secondItem="CCq-yx-nJ1" secondAttribute="bottom" constant="74" id="jae-WS-1ch"/>
-                            <constraint firstItem="CCq-yx-nJ1" firstAttribute="leading" secondItem="r6Z-8R-Pyx" secondAttribute="leading" id="wD2-ZZ-4qc"/>
+                            <constraint firstItem="CCq-yx-nJ1" firstAttribute="bottom" secondItem="GVX-ZS-tki" secondAttribute="top" id="pJx-yW-b61"/>
+                            <constraint firstItem="CCq-yx-nJ1" firstAttribute="top" secondItem="QUG-rl-cNB" secondAttribute="bottom" constant="23" id="tkk-Lk-1ZI"/>
+                            <constraint firstAttribute="trailing" secondItem="CCq-yx-nJ1" secondAttribute="trailing" id="z1D-ZG-aBh"/>
                             <constraint firstItem="QUG-rl-cNB" firstAttribute="top" secondItem="SHu-7y-79T" secondAttribute="bottom" constant="10" id="zd1-FB-S47"/>
                         </constraints>
                         <variation key="default">
@@ -204,12 +205,12 @@
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="Cz8-Q3-Xx7"/>
-                                <exclude reference="FTu-Oh-Y86"/>
-                                <exclude reference="Lwk-5O-IaJ"/>
+                                <exclude reference="J6q-OX-i3k"/>
                                 <exclude reference="dCr-WN-5qG"/>
                                 <exclude reference="gii-cs-d43"/>
-                                <exclude reference="wD2-ZZ-4qc"/>
-                                <exclude reference="FFT-eP-fsw"/>
+                                <exclude reference="pJx-yW-b61"/>
+                                <exclude reference="tkk-Lk-1ZI"/>
+                                <exclude reference="z1D-ZG-aBh"/>
                                 <exclude reference="jae-WS-1ch"/>
                             </mask>
                         </variation>
@@ -219,12 +220,12 @@
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="Cz8-Q3-Xx7"/>
-                                <include reference="FTu-Oh-Y86"/>
-                                <include reference="Lwk-5O-IaJ"/>
+                                <include reference="J6q-OX-i3k"/>
                                 <exclude reference="dCr-WN-5qG"/>
                                 <exclude reference="gii-cs-d43"/>
-                                <include reference="wD2-ZZ-4qc"/>
-                                <include reference="FFT-eP-fsw"/>
+                                <include reference="pJx-yW-b61"/>
+                                <include reference="tkk-Lk-1ZI"/>
+                                <include reference="z1D-ZG-aBh"/>
                                 <exclude reference="jae-WS-1ch"/>
                             </mask>
                         </variation>
@@ -243,7 +244,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5ZR-jl-Il9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1588.5" y="-347.25"/>
+            <point key="canvasLocation" x="1372.5" y="-347.25"/>
         </scene>
         <!--SegmentedPage-->
         <scene sceneID="jkv-II-klr">
@@ -251,7 +252,7 @@
                 <viewControllerPlaceholder storyboardName="SegmentedPage" id="8JW-FE-9oG" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lVL-9z-69N" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2306.25" y="-347.25"/>
+            <point key="canvasLocation" x="1932.75" y="-636.75"/>
         </scene>
         <!--Profile-->
         <scene sceneID="IRn-KL-XZX">
@@ -346,7 +347,7 @@
                         <viewControllerLayoutGuide type="bottom" id="qF9-Gs-Bea"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="PpT-eY-H7L">
-                        <rect key="frame" x="0.0" y="0.0" width="560" height="435"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -431,7 +432,12 @@
         <scene sceneID="wu3-0x-m8B">
             <objects>
                 <viewController id="jle-h5-khz" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="vdX-yn-sHN"/>
+                        <viewControllerLayoutGuide type="bottom" id="Pf5-U3-aTF"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="xIp-7K-vva">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>

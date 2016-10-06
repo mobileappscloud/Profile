@@ -214,7 +214,6 @@ extension MetricsCoordinator: MetricChildViewLifecycleResponder {
             fromIndexPath = NSIndexPath(forItem: fromIndex, inSection: 0)
         }
         self.delegate?.metricChildViewController(viewController, didAppearAnimated: animated, toIndexPath: toIndexPath, fromIndexPath: fromIndexPath)
-        
     }
 }
 
