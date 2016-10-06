@@ -1181,7 +1181,6 @@
 			isa = PBXGroup;
 			children = (
 				1A215E621DA310580065DAA7 /* UserProfile.storyboard */,
-				1A215E681DA31C880065DAA7 /* UserProfileViewController.swift */,
 				1AEF44471DA58ABB00D67869 /* ProfileViewController.swift */,
 				1AF0D38B1DA4615800DFA34E /* my_avatar.png */,
 				1AF0D38D1DA47D4D00DFA34E /* turn-phone-icon.png */,
@@ -1191,6 +1190,7 @@
 				1AEF444D1DA59F5900D67869 /* AchievementsViewController.swift */,
 				1AEF444F1DA59F6F00D67869 /* CommunitiesVC.swift */,
 				1AEF44511DA59F8400D67869 /* ChallengesVC.swift */,
+				1A215E681DA31C880065DAA7 /* UserProfileViewController.swift */,
 			);
 			name = "User Profile";
 			sourceTree = "<group>";
