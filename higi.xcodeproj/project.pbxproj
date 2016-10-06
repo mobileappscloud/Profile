@@ -21,6 +21,17 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		1A215E631DA310580065DAA7 /* UserProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A215E621DA310580065DAA7 /* UserProfile.storyboard */; };
+		1A215E691DA31C880065DAA7 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A215E681DA31C880065DAA7 /* UserProfileViewController.swift */; };
+		1AEF44481DA58ABB00D67869 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEF44471DA58ABB00D67869 /* ProfileViewController.swift */; };
+		1AEF444C1DA59F4900D67869 /* WattsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEF444B1DA59F4900D67869 /* WattsViewController.swift */; };
+		1AEF444E1DA59F5900D67869 /* AchievementsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEF444D1DA59F5900D67869 /* AchievementsViewController.swift */; };
+		1AEF44501DA59F6F00D67869 /* CommunitiesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEF444F1DA59F6F00D67869 /* CommunitiesVC.swift */; };
+		1AEF44521DA59F8400D67869 /* ChallengesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AEF44511DA59F8400D67869 /* ChallengesVC.swift */; };
+		1AF0D38C1DA4615800DFA34E /* my_avatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AF0D38B1DA4615800DFA34E /* my_avatar.png */; };
+		1AF0D38E1DA47D4D00DFA34E /* turn-phone-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AF0D38D1DA47D4D00DFA34E /* turn-phone-icon.png */; };
+		1AF0D3901DA47D5200DFA34E /* turn-phone-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AF0D38F1DA47D5200DFA34E /* turn-phone-icon@2x.png */; };
+		1AF0D3921DA47D5600DFA34E /* turn-phone-icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AF0D3911DA47D5600DFA34E /* turn-phone-icon@3x.png */; };
 		270342B01D6663CC00B84E28 /* LeaderboardWidgetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 270342AF1D6663CC00B84E28 /* LeaderboardWidgetView.xib */; };
 		270342B21D66684100B84E28 /* LeaderboardUserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 270342B11D66684100B84E28 /* LeaderboardUserView.xib */; };
 		270342B51D666A9C00B84E28 /* LeaderboardUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270342B41D666A9C00B84E28 /* LeaderboardUserView.swift */; };
@@ -558,6 +569,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1A215E621DA310580065DAA7 /* UserProfile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserProfile.storyboard; sourceTree = "<group>"; };
+		1A215E681DA31C880065DAA7 /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
+		1AEF44471DA58ABB00D67869 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		1AEF444B1DA59F4900D67869 /* WattsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WattsViewController.swift; sourceTree = "<group>"; };
+		1AEF444D1DA59F5900D67869 /* AchievementsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AchievementsViewController.swift; sourceTree = "<group>"; };
+		1AEF444F1DA59F6F00D67869 /* CommunitiesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunitiesVC.swift; sourceTree = "<group>"; };
+		1AEF44511DA59F8400D67869 /* ChallengesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengesVC.swift; sourceTree = "<group>"; };
+		1AF0D38B1DA4615800DFA34E /* my_avatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = my_avatar.png; sourceTree = "<group>"; };
+		1AF0D38D1DA47D4D00DFA34E /* turn-phone-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "turn-phone-icon.png"; sourceTree = "<group>"; };
+		1AF0D38F1DA47D5200DFA34E /* turn-phone-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "turn-phone-icon@2x.png"; sourceTree = "<group>"; };
+		1AF0D3911DA47D5600DFA34E /* turn-phone-icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "turn-phone-icon@3x.png"; sourceTree = "<group>"; };
 		270342AF1D6663CC00B84E28 /* LeaderboardWidgetView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeaderboardWidgetView.xib; sourceTree = "<group>"; };
 		270342B11D66684100B84E28 /* LeaderboardUserView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeaderboardUserView.xib; sourceTree = "<group>"; };
 		270342B41D666A9C00B84E28 /* LeaderboardUserView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderboardUserView.swift; sourceTree = "<group>"; };
@@ -1155,6 +1177,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1A215E5F1DA310490065DAA7 /* User Profile */ = {
+			isa = PBXGroup;
+			children = (
+				1A215E621DA310580065DAA7 /* UserProfile.storyboard */,
+				1AEF44471DA58ABB00D67869 /* ProfileViewController.swift */,
+				1AF0D38B1DA4615800DFA34E /* my_avatar.png */,
+				1AF0D38D1DA47D4D00DFA34E /* turn-phone-icon.png */,
+				1AF0D38F1DA47D5200DFA34E /* turn-phone-icon@2x.png */,
+				1AF0D3911DA47D5600DFA34E /* turn-phone-icon@3x.png */,
+				1AEF444B1DA59F4900D67869 /* WattsViewController.swift */,
+				1AEF444D1DA59F5900D67869 /* AchievementsViewController.swift */,
+				1AEF444F1DA59F6F00D67869 /* CommunitiesVC.swift */,
+				1AEF44511DA59F8400D67869 /* ChallengesVC.swift */,
+				1A215E681DA31C880065DAA7 /* UserProfileViewController.swift */,
+			);
+			name = "User Profile";
+			sourceTree = "<group>";
+		};
 		270342AC1D66639800B84E28 /* Leaderboard */ = {
 			isa = PBXGroup;
 			children = (
@@ -2091,6 +2131,7 @@
 		418D4C191C7A1E55008C86E7 /* Interface Builder */ = {
 			isa = PBXGroup;
 			children = (
+				1A215E5F1DA310490065DAA7 /* User Profile */,
 				418D4C1C1C7A1E8E008C86E7 /* App Update */,
 				41F4E5311D678D82003FC114 /* Challenge Detail */,
 				418D4C1D1C7A1EA7008C86E7 /* Challenge Details (Deprecated) */,
@@ -3391,6 +3432,7 @@
 				410F10711D777D710008F68E /* ChallengeWinConditionTableViewCell.xib in Resources */,
 				273DFFAD1D491C3800AF7032 /* ChallengeStatusIndicatorView.xib in Resources */,
 				27AC77611D6F9E3D0048316B /* PreviousChallengesTableViewCell.xib in Resources */,
+				1AF0D3921DA47D5600DFA34E /* turn-phone-icon@3x.png in Resources */,
 				418111C91C97997E00EE3E75 /* ActivityTableViewCell.xib in Resources */,
 				273191CA1D81BC6700F12C5F /* LeaderboardAAA.storyboard in Resources */,
 				415338161C60614700ED2B82 /* MetricCheckinSummaryView.xib in Resources */,
@@ -3404,6 +3446,7 @@
 				27F9F33F1D6B8F00001FA583 /* LeaderboardStatusWidgetView.xib in Resources */,
 				411F7A021CBECAB3000D0D64 /* CommunityLogoMemberView.xib in Resources */,
 				278D9F751D7F68EE00989334 /* ChallengesEmptyTableViewCell.xib in Resources */,
+				1AF0D3901DA47D5200DFA34E /* turn-phone-icon@2x.png in Resources */,
 				410EED4D1D4BE9BB002FF052 /* ActionBar.xib in Resources */,
 				D1FC72A11B2240020068CF89 /* MetricGaugeView.xib in Resources */,
 				419D86601BBEFF1A00E7D844 /* Settings.storyboard in Resources */,
@@ -3415,6 +3458,7 @@
 				D110BAD61B0E7CD700CD1E58 /* DailySummaryView.xib in Resources */,
 				4114202C1D0C6F660050473E /* Text.storyboard in Resources */,
 				273AC8571D4A60D600828FF1 /* ChallengeInformationView.xib in Resources */,
+				1AF0D38C1DA4615800DFA34E /* my_avatar.png in Resources */,
 				8FE056E7198FDC9800C81208 /* FindStationView.xib in Resources */,
 				2BC5865C1A16C63B005A7983 /* ChallengeInvitation.xib in Resources */,
 				D1BA13451A8C18A800E1AFE9 /* ChallengeDetailsParticipantIconView.xib in Resources */,
@@ -3446,6 +3490,7 @@
 				413E19361C10B41400146B29 /* higi-qa.entitlements in Resources */,
 				41A274B21D20F42600D10F8A /* PostTextDescriptionView.xib in Resources */,
 				41A917FF1BBC747600CCF91E /* GoogleMaps.bundle in Resources */,
+				1AF0D38E1DA47D4D00DFA34E /* turn-phone-icon.png in Resources */,
 				8F5E7FC11999674C009067E5 /* KioskListCellView.xib in Resources */,
 				41D8719B1C7D16AA002DCDA0 /* TabBar.storyboard in Resources */,
 				411420261D0BB5F70050473E /* BlurredLoading.storyboard in Resources */,
@@ -3496,6 +3541,7 @@
 				41BFC9B81BCC0E0D00FD0F45 /* Localizable.stringsdict in Resources */,
 				2BBDBA531A12AC2C005A6815 /* ChallengeRowCell.xib in Resources */,
 				413C46081D81BE81009B81A7 /* MetricsOverview.storyboard in Resources */,
+				1A215E631DA310580065DAA7 /* UserProfile.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3595,6 +3641,7 @@
 				41027C5A1CD907F1003F3AD5 /* EmailValidator.swift in Sources */,
 				41A0BE0D1BBB088500A314D6 /* AFHTTPSessionManager.m in Sources */,
 				419AC3571D3EC595000DDA5D /* CommentCell.swift in Sources */,
+				1AEF44501DA59F6F00D67869 /* CommunitiesVC.swift in Sources */,
 				41247DC91C5A937300DDC5EC /* SingleRowTextMenuFlowLayout.swift in Sources */,
 				410F61F51CB41AA500614E78 /* NSURLSessionTask+Utility.swift in Sources */,
 				4199D39B1CE51A8C00EF62F8 /* BirthdateViewController.swift in Sources */,
@@ -3644,6 +3691,7 @@
 				27A79E981D7607A100242CF7 /* LeaderboardRequest.swift in Sources */,
 				41667A251CECC1B5007BB0FF /* BirthdateController.swift in Sources */,
 				413E19911C10EB6100146B29 /* MetricPlotViewController.swift in Sources */,
+				1AEF444E1DA59F5900D67869 /* AchievementsViewController.swift in Sources */,
 				279B3B011D49543200058AD6 /* ChallengeTableViewCellModel.swift in Sources */,
 				4155F4AC1D46A0EA0014613D /* FlurryEmpty.m in Sources */,
 				8F9C69D71950C89B00449664 /* HigiUser.swift in Sources */,
@@ -3674,6 +3722,7 @@
 				41FB225B1BE2AE80009139B4 /* FabricInfo.swift in Sources */,
 				41B108B01D5E3FB6001B79AF /* Challenge.Prize.swift in Sources */,
 				41027C581CD902A4003F3AD5 /* SignUpEmailViewController.swift in Sources */,
+				1AEF44521DA59F8400D67869 /* ChallengesVC.swift in Sources */,
 				D110BAD41B0E7C5500CD1E58 /* DailySummaryViewController.swift in Sources */,
 				410F106D1D777D450008F68E /* ChallengeWinConditionTableViewCell.swift in Sources */,
 				413F68B11CB4525B003D9571 /* Theme+Appearance.swift in Sources */,
@@ -3778,6 +3827,7 @@
 				418111CB1C979B0800EE3E75 /* ActivitySummaryView.swift in Sources */,
 				41A0BE0B1BBB088500A314D6 /* AFHTTPRequestOperation.m in Sources */,
 				41A274F41D21BABC00D10F8A /* TTTAttributedLabel.m in Sources */,
+				1AEF44481DA58ABB00D67869 /* ProfileViewController.swift in Sources */,
 				41EF92311D1A06D300266AAB /* PasswordUpdateRequest.swift in Sources */,
 				41667A411CF3D84E007BB0FF /* TokenRevokeRequest.swift in Sources */,
 				41667A3C1CF0FBC6007BB0FF /* LogInRequest.swift in Sources */,
@@ -3797,6 +3847,7 @@
 				413E19251C10AB2C00146B29 /* UniversalLink.swift in Sources */,
 				41EBD2B71D6F916600DE7251 /* Device.Identifier.swift in Sources */,
 				411F79791CBC05E2000D0D64 /* CommunitiesTableUtility.swift in Sources */,
+				1A215E691DA31C880065DAA7 /* UserProfileViewController.swift in Sources */,
 				41643AAE1C188D4800258F55 /* MetricDataLabelView.swift in Sources */,
 				41A0BE0C1BBB088500A314D6 /* AFHTTPRequestOperationManager.m in Sources */,
 				D1764C551BB5DD8800577EC9 /* QrCheckinCard.swift in Sources */,
@@ -3839,6 +3890,7 @@
 				4116E9CF1CD91B40006DB167 /* SignUpEmailController.swift in Sources */,
 				41667A831CFB4499007BB0FF /* ImageCache.swift in Sources */,
 				4116E9D51CD92DD8006DB167 /* UserCreationCoordinator.swift in Sources */,
+				1AEF444C1DA59F4900D67869 /* WattsViewController.swift in Sources */,
 				41A274FB1D21C71700D10F8A /* PostHeaderView.swift in Sources */,
 				41BAD2911C4D492700E3A5AB /* MetricBlankStateViewController.swift in Sources */,
 				411F79771CBB457D000D0D64 /* ActivityIndicatorTableViewCell.swift in Sources */,

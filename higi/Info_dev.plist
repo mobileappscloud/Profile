@@ -2,10 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>ITSAppUsesNonExemptEncryption</key>
-	<false/>
-	<key>OrganizationId</key>
-	<string>higi</string>
+	<key>AppUpdateURL</key>
+	<string>https://itunes.apple.com/us/app/higi/id599485135?mt=8</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -33,10 +31,6 @@
 			</array>
 		</dict>
 	</array>
-	<key>FacebookAppID</key>
-	<string>${FACEBOOK_APP_ID}</string>
-	<key>FacebookDisplayName</key>
-	<string>${FACEBOOK_DISPLAY_NAME}</string>
 	<key>CFBundleVersion</key>
 	<string>${BUILD_NUMBER}</string>
 	<key>EarnditUrl</key>
@@ -55,8 +49,14 @@
 			</dict>
 		</array>
 	</dict>
+	<key>FacebookAppID</key>
+	<string>${FACEBOOK_APP_ID}</string>
+	<key>FacebookDisplayName</key>
+	<string>${FACEBOOK_DISPLAY_NAME}</string>
 	<key>HigiUrl</key>
 	<string>https://api-dev.superbuddytime.com</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -66,6 +66,8 @@
 	</dict>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>We only use your location to let you know when there is a higi Station nearby.</string>
+	<key>OrganizationId</key>
+	<string>higi</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
@@ -83,7 +85,5 @@
 	<true/>
 	<key>WebUrl</key>
 	<string>https://webqa.superbuddytime.com</string>
-	<key>AppUpdateURL</key>
-	<string>https://itunes.apple.com/us/app/higi/id599485135?mt=8</string>
 </dict>
 </plist>

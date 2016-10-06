@@ -249,6 +249,14 @@ extension TabBarController {
     
     dynamic func didTapProfileButton(sender: UIBarButtonItem) {
         Flurry.logEvent("ProfileButton_Pressed")
+        
+        /*let viewController:UIViewController = UIStoryboard(name: "UserProfile", bundle: nil).instantiateViewControllerWithIdentifier("userProfileID") as! UserProfileViewController
+        self.presentViewController(viewController, animated: true, completion: nil)*/
+        
+        let viewController:UIViewController = UIStoryboard(name: "UserProfile", bundle: nil).instantiateViewControllerWithIdentifier("profileID") as! ProfileViewController
+        
+        let navController = UINavigationController(rootViewController: viewController) // Creating a navigation controller with VC1 at the root of the navigation stack.
+        self.presentViewController(navController, animated:true, completion: nil)
     }
     
     func modalDoneButtonTapped(sender: UIBarButtonItem) {
